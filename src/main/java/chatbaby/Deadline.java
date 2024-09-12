@@ -9,6 +9,10 @@ import java.time.format.DateTimeParseException;
  * Extends the Task class to include a specific deadline for the task.
  */
 public class Deadline extends Task {
+    private static final DateTimeFormatter INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
     private LocalDateTime deadline;
 
     /**
@@ -20,8 +24,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String deadline) {
         super(name);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.deadline = LocalDateTime.parse(deadline, formatter);
+        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
     /**
@@ -54,7 +57,7 @@ public class Deadline extends Task {
         assert deadline.toString().matches("\\d{4}-\\d{2}-\\d{2}")
                 : "Date must be in the format yyyy-MM-dd";
         return "D | " + (this.isDone() ? "1" : "0") + " | " + this.getName() + " | "
-                + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
+                + deadline.format(OUTPUT_FORMATTER);
     }
 
     /**
@@ -67,6 +70,6 @@ public class Deadline extends Task {
         assert deadline.toString().matches("\\d{4}-\\d{2}-\\d{2}")
                 : "Date must be in the format yyyy-MM-dd";
         return "[D]" + super.toString() + " (by: "
-                + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
+                + deadline.format(OUTPUT_FORMATTER) + ")";
     }
 }

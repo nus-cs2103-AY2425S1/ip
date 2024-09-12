@@ -43,19 +43,20 @@ public abstract class Task {
         String name = text[2];
 
         Task task;
-        if (taskType.equals("T")) {
-            task = new ToDo(name);
-        } else if (taskType.equals("D")) {
+        switch (taskType) {
+        case "T" -> task = new ToDo(name);
+        case "D" -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
             LocalDateTime deadline = LocalDateTime.parse(text[3], formatter);
             task = new Deadline(name, deadline);
-        } else if (taskType.equals("E")) {
+        }
+        case "E" -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
             LocalDateTime from = LocalDateTime.parse(text[3], formatter);
             LocalDateTime to = LocalDateTime.parse(text[4], formatter);
             task = new Event(name, from, to);
-        } else {
-            throw new Exception("Invalid task type");
+        }
+        default -> throw new Exception("Invalid task type");
         }
 
         if (isDone) {
@@ -91,16 +92,10 @@ public abstract class Task {
      * @return True if the task is on the specified date, otherwise false.
      */
     public boolean isOnDate(LocalDate date) {
-        if (this instanceof Deadline) {
-            Deadline deadlineTask = (Deadline) this;
-            if (deadlineTask.getDeadline().toLocalDate().equals(date)) {
-                return true;
-            }
-        } else if (this instanceof Event) {
-            Event eventTask = (Event) this;
-            if (eventTask.getTo().toLocalDate().equals(date)) {
-                return true;
-            }
+        if (this instanceof Deadline deadlineTask) {
+            return deadlineTask.getDeadline().toLocalDate().equals(date);
+        } else if (this instanceof Event eventTask) {
+            return eventTask.getEventEndTime().toLocalDate().equals(date);
         }
         return false;
     }

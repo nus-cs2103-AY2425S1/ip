@@ -5,6 +5,7 @@ package chatbaby;
  * Extends the Command class to perform the deletion of a specific task.
  */
 public class DeleteCommand extends Command {
+    private static final int BEGIN_INDEX = 7;
 
     /**
      * Constructs a DeleteCommand with the specified command body.
@@ -27,15 +28,13 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
         assert tasks.size() > 0 : "Task list should have at least one task before removing";
         try {
-            int index = Integer.parseInt(commandBody.substring(7).trim()) - 1;
-            if (index >= 0 && index < tasks.size()) {
-                Task removedTask = tasks.deleteTask(index);
-                System.out.println("Noted. I've removed this task:\n"
-                        + removedTask.toString() + "\n"
-                        + "Now you have " + tasks.size() + " tasks in the list.");
-            } else {
+            int index = Integer.parseInt(commandBody.substring(BEGIN_INDEX).trim()) - 1;
+            if (index < 0 || index > tasks.size()) {
                 throw new ChatBabyException("Oh no!!! The task index is invalid.");
             }
+            Task removedTask = tasks.deleteTask(index);
+            System.out.println("Noted. I've removed this task:\n"
+                    + removedTask.toString() + "\n");
         } catch (NumberFormatException e) {
             throw new ChatBabyException("Oh no!!! The task index is invalid.");
         }

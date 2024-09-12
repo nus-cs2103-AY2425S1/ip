@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Extends the Command class to implement the functionality for listing tasks on a specific date.
  */
 public class ListOnDateCommand extends Command {
+    private static final int BEGIN_INDEX = 13;
 
     /**
      * Constructs a ListOnDateCommand with the specified command body.
@@ -30,7 +31,7 @@ public class ListOnDateCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
         try {
             // Parse the input date
-            String time = commandBody.substring(13).trim();
+            String time = commandBody.substring(BEGIN_INDEX).trim();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate givenDate = LocalDate.parse(time, formatter);
             boolean hasTask = tasks.listTasksOn(givenDate);

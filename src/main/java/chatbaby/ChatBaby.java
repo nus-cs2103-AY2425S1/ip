@@ -36,33 +36,6 @@ public class ChatBaby {
     }
 
     /**
-     * Starts the main execution loop of the ChatBaby chatbot.
-     * Continues processing user commands until the exit command is received.
-     */
-    public void run() {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String curCommand = ui.readCommand();
-                ui.printLine();
-                Command c = Parser.parse(curCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (ChatBabyException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.printLine();
-            }
-        }
-        try {
-            storage.save(tasks);
-        } catch (ChatBabyException e) {
-            ui.showError(e.getMessage());
-        }
-    }
-
-    /**
      * Returns greeting message.
      */
     public String greet() {
@@ -82,12 +55,10 @@ public class ChatBaby {
     public String getResponse(String input) {
         boolean isExit = false;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         try {
-            String curCommand = input;
-            Command c = Parser.parse(curCommand);
+            Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
             isExit = c.isExit();
         } catch (ChatBabyException e) {
