@@ -24,7 +24,7 @@ class Parser {
      *
      * @param textInput the String input from the user
      * @return <code>true</code> if the input is bye and the chat is over, otherwise return
-     * <code>false</code> which means the conversation continues
+     *     <code>false</code> which means the conversation continues
      */
 
     public String parse(String textInput) throws TaskDescriptionEmptyException {
@@ -142,9 +142,9 @@ class Parser {
     }
 
     private String replyToInvalidInput() {
-        return "Please enter a valid input and try again! Some examples of valid inputs are:\n" +
-                "todo [description]\ndeadline [description] /by [deadline]\n" +
-                "event [description] /from [start time] /to [end time]";
+        return "Please enter a valid input and try again! Some examples of valid inputs are:\n"
+                + "todo [description]\ndeadline [description] /by [deadline]\n"
+                + "event [description] /from [start time] /to [end time]";
     }
 
     private int getNumTasks() {

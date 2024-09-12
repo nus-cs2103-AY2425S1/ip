@@ -1,14 +1,19 @@
 package pochat.bot;
 
-import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import pochat.tasks.Task;
 import pochat.exceptions.ChatHistoryFileMissingException;
+import pochat.tasks.Task;
 
+/**
+ * This class takes in a <code>filename</code> in its constructor
+ *     and acts as a wrapper class to handle the reading / writing of
+ *     information from this file
+ */
 public class ChatData {
     private final String filename;
 
@@ -16,10 +21,17 @@ public class ChatData {
         this.filename = filename;
     }
 
-    public void save(ArrayList<Task> chatHistory) {
+    /**
+     * Loads the chat history as saved in the TaskList into the current
+     *     active session of the bot
+     * @param chatHistory : <code>TaskList</code> containing the chat history from
+     *                    the previous run of the chatbot.
+     */
+    public void save(TaskList chatHistory) {
+        ArrayList<Task> arrayListOfTasks = chatHistory.toList();
         try {
             FileWriter fileWriter = new FileWriter(this.filename, false);
-            for (Task task : chatHistory) {
+            for (Task task : arrayListOfTasks) {
                 try {
                     fileWriter.write(task.toString() + "\n");
                 } catch (IOException e) {
@@ -33,6 +45,11 @@ public class ChatData {
         }
     }
 
+    /**
+     * Returns the chat history as stored in the text file in the
+     * form of a <code>TaskList</code>
+     * @return TaskList of task items in chat data
+     */
     public TaskList toTaskList() {
         ArrayList<Task> list = new ArrayList<Task>();
         try {

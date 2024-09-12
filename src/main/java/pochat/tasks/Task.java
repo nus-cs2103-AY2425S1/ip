@@ -3,6 +3,10 @@ package pochat.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class is the parent class of the ToDo, Event and Deadline objects
+ *     that encapsulates the common logic across the three
+ */
 public abstract class Task {
     private final String taskDescription;
     private boolean isDone;
@@ -18,6 +22,13 @@ public abstract class Task {
         return LocalDateTime.parse(dateTime, originalFormatter).format(processedFormatter);
     }
 
+
+    /**
+     * Returns a Task object of the right subclass depending on whether it should be a ToDo, Event or
+     *     Deadline object
+     * @param taskObjectString which is the task read from the stored data in a plain text file
+     * @return a <code>Task</code> object of the right subclass type
+     */
     public static Task of(String taskObjectString) {
         if (taskObjectString.startsWith("[T]")) {
             boolean isDone = taskObjectString.charAt(4) == 'X';
@@ -52,9 +63,9 @@ public abstract class Task {
 
     /**
      * Checks whether the Task description contains the keyword
-     * @param keyword: the task should contain this keyword
+     * @param keyword the task should contain this keyword
      * @return <code>true</code> if the Task description contains this keyword,
-     * otherwise <code>false</code>.
+     *     otherwise <code>false</code>.
      */
     public boolean contains(String keyword) {
         return taskDescription.contains(keyword);
