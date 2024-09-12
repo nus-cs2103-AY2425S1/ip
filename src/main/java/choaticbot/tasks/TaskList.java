@@ -74,7 +74,7 @@ public class TaskList {
      * Marks a task in the list of tasks to be uncompleted
      * @param task The task to be marked as completed
      */
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws ChoaticBotException {
         if (index <= 0 || index > tasklist.size()) {
             throw new ChoaticBotException("Index out of bounds, there is only " + tasklist.size() + " tasks");
         } else {
