@@ -2,6 +2,7 @@ package nerf.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import nerf.error.InvalidDataException;
@@ -34,15 +35,18 @@ public class TaskList {
         for (String taskLine: taskList) {
             String[] task = taskLine.split("\\|");
             switch (task[0].trim()) {
-            case "T" -> listings.add(new ToDos(task[2].trim(), task[1].trim().equals("1")));
+            case "T" -> listings.add(new ToDos(task[2].trim(), 
+                    task[1].trim().equals("1"), task[3].trim()));
             case "D" -> {
-                LocalDate dueDate = Parser.parseStringToDate(task[3].trim());
-                listings.add(new Deadlines(task[2].trim(), task[1].trim().equals("1"), dueDate));
+                LocalDate dueDate = Parser.parseStringToDate(task[4].trim());
+                listings.add(new Deadlines(task[2].trim(), task[1].trim().equals("1"), 
+                        dueDate, task[3].trim()));
             }
             case "E" -> {
-                LocalDate fromDate = Parser.parseStringToDate(task[3].trim());
-                LocalDate toDate = Parser.parseStringToDate(task[4].trim());
-                listings.add(new Events(task[2].trim(), task[1].trim().equals("1"), fromDate, toDate));
+                LocalDate fromDate = Parser.parseStringToDate(task[4].trim());
+                LocalDate toDate = Parser.parseStringToDate(task[5].trim());
+                listings.add(new Events(task[2].trim(), task[1].trim().equals("1"), 
+                        fromDate, toDate, task[3].trim()));
             }
             default -> System.out.println("Save file seems to be corrupted.");
             }
@@ -172,7 +176,7 @@ public class TaskList {
         String inputParamString = input.substring(8).trim();
         String[] parts = inputParamString.split("/by", 2);
         if (parts.length != 2) {
-            return "Syntax: deadline <taskname> /by <datetime>";
+            return "Syntax: deadline <taskname> /by <yyyy-MM-dd>";
         }
         String taskDesc = parts[0].trim();
         LocalDate deadline = Parser.parseStringToDate(parts[1].trim());
@@ -193,11 +197,11 @@ public class TaskList {
         String inputParamString = input.substring(5).trim();
         String[] part1 = inputParamString.split("/from", 2);
         if (part1.length != 2) {
-            return "Syntax: event <taskname> /from <datetime> /to <datetime>";
+            return "Syntax: event <taskname> /from <yyyy-MM-dd> /to <yyyy-MM-dd>";
         }
         String[] part2 = part1[1].split("/to", 2);
         if (part2.length != 2) {
-            return "Syntax: event <taskname> /from <datetime> /to <datetime>";
+            return "Syntax: event <taskname> /from <yyyy-MM-dd> /to <yyyy-MM-dd>";
         } 
         String taskDesc = part1[0].trim();
         LocalDate from = Parser.parseStringToDate(part2[0].trim());

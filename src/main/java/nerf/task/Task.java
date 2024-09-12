@@ -12,9 +12,15 @@ public abstract class Task {
         this.description = description;
         assert !description.equals("") : "Description should not be empty.";
     }
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, String priority) {
         this.description = description;
         this.isDone = isDone;
+        try{
+            int priorityLevel = Integer.parseInt(priority);
+            this.priority = TaskPriority.getPriorityLevel(priorityLevel);
+        } catch (NumberFormatException e) {
+            System.out.println("Unknown priority detected");
+        }
     }
 
     public void setPriority(int priorityLevel) {
@@ -56,7 +62,13 @@ public abstract class Task {
      * @return string format of task.
      */
     public String getSaveFormat() {
-        return String.format("%d | %s", this.isDone ? 1 : 0, this.description);
+        String res = String.format("%d | %s | ", this.isDone ? 1 : 0, this.description);
+        if (this.priority != null) {
+            res += this.priority.getPriorityLevel();
+        } else {
+            res += "0";
+        }
+        return res;
     }
 
     /**
