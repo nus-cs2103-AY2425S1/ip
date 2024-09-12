@@ -28,6 +28,19 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o instanceof Event) {
+            return ((Event) o).startTime.equals(this.startTime)
+                        && ((Event) o).endTime.equals(this.endTime)
+                        && ((Event) o).taskDescription.equals(taskDescription);
+        }
+
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + formatYearMonthDay(this.startTime)
                 + " " + "to: " + formatYearMonthDay(this.endTime) + ")";

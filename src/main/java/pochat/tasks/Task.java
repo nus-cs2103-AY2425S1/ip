@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  *     that encapsulates the common logic across the three
  */
 public abstract class Task {
-    private final String taskDescription;
+    protected final String taskDescription;
     private boolean isDone;
 
     protected Task(String taskDescription, boolean isDone) {

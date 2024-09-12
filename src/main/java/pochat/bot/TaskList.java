@@ -33,7 +33,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks stored as an <code>int</code>
-     * @return: size of type int
+     * @return size of type int
      */
     public int size() {
         return this.listTasks.size();
@@ -66,6 +66,16 @@ public class TaskList {
         }
 
         return message.toString();
+    }
+
+    public boolean contains(Task newTask) {
+        for (Task task: this.listTasks) {
+            if (task.equals(newTask)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public ArrayList<Task> toList() {
