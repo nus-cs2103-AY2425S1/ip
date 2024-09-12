@@ -24,22 +24,38 @@ public class AddEventCommand extends Command {
      * @throws SkibidiException If the input string is in an invalid format.
      */
     public AddEventCommand(String input) throws SkibidiException {
-        String[] partsFrom = input.split("/from ");
+        String[] partsFrom = splitInput(input, "/from ");
+        String[] partsTo = splitInput(partsFrom[1], "/to ");
 
-        if (partsFrom.length < 2) {
-            throw new SkibidiException("Invalid event format. "
-                    + "Usage: event [description] /from [start time] /to [end time]");
-        }
-
-        String[] partsTo = partsFrom[1].split("/to ");
-        if (partsTo.length < 2) {
-            throw new SkibidiException("Invalid event format. "
-                    + "Usage: event [description] /from [start time] /to [end time]");
-        }
-
-        this.description = partsFrom[0].substring(6).trim();
+        this.description = extractDescription(partsFrom[0]);
         this.startTime = parseDateTime(partsTo[0].trim());
         this.endTime = parseDateTime(partsTo[1].trim());
+    }
+
+    /**
+     * Splits the input string into parts based on the delimiter.
+     *
+     * @param input The input string to be split.
+     * @param delimiter The delimiter to split the input string.
+     * @return An array containing the split parts.
+     * @throws SkibidiException If the input string is in an invalid format.
+     */
+    private String[] splitInput(String input, String delimiter) throws SkibidiException {
+        String[] parts = input.split(delimiter);
+        if (parts.length < 2) {
+            throw new SkibidiException("Invalid event format. Usage: event [description] " + delimiter + " [time]");
+        }
+        return parts;
+    }
+
+    /**
+     * Extracts the description part from the input string.
+     *
+     * @param part The part of the input string containing the description.
+     * @return The description part.
+     */
+    private String extractDescription(String part) {
+        return part.substring(6).trim();
     }
 
     /**
@@ -53,7 +69,6 @@ public class AddEventCommand extends Command {
         String[] dateTimeParts = dateTimeStr.split(" ", 2);
         String date = dateTimeParts[0];
         String time = dateTimeParts.length > 1 ? dateTimeParts[1] : "00:00"; // Default to "00:00" if time is missing
-
         return date + "T" + time;
     }
 
