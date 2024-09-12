@@ -47,6 +47,10 @@ public class Deadline extends Task {
         return by.format(FORMATTER);
     }
 
+    public LocalDateTime getByUnformatted() {
+        return by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + getBy() + ")";
