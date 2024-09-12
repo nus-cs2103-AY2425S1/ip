@@ -75,6 +75,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < taskList.size() : "IndexOutOfBoundsAssertion";
         return taskList.get(index);
     }
 
@@ -84,6 +85,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void markTask(int index) {
+        assert index >= 0 && index < taskList.size() : "IndexOutOfBoundsAssertion";
         this.taskList.get(index).setIsDone(true);
     }
 
@@ -93,6 +95,7 @@ public class TaskList {
      * @param index The index of the task to be unmarked.
      */
     public void unmarkTask(int index) {
+        assert index >= 0 && index < taskList.size() : "IndexOutOfBoundsAssertion";
         taskList.get(index).setIsDone(false);
     }
 

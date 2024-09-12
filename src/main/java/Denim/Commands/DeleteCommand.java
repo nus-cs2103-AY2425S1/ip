@@ -19,6 +19,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(TaskList taskList, TaskIo taskIo) {
+        assert index > 0 : "IndexOutOfBoundsAssertion";
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
