@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("chatbaby.Launcher")
 }
 
 allprojects {
@@ -59,6 +59,7 @@ tasks.withType(JavaExec) {
 
 shadowJar {
     archiveBaseName = "ChatBaby"
+    archiveFileName = 'ChatBaby.jar'
     archiveClassifier = null
 }
 
