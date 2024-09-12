@@ -1,11 +1,13 @@
-package milo.tasks;
+package milo.lists;
+
+import milo.tasks.Task;
 
 import java.util.ArrayList;
 
 /**
 * Represents task list object
  */
-public class TaskList {
+public class TaskList extends List<Task>{
 
     private final ArrayList<Task> todoList;
 
@@ -40,6 +42,7 @@ public class TaskList {
      *
      * @param item to add to task list
      */
+    @Override
     public void add(Task item) {
         this.todoList.add(item);
         this.numberOfTasks++;

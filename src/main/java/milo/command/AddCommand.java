@@ -1,7 +1,14 @@
 package milo.command;
 
-import milo.tasks.*;
-import milo.ui.Ui;
+import milo.lists.ClientsList;
+import milo.tasks.Task;
+import milo.tasks.Todo;
+import milo.tasks.Deadline;
+import milo.tasks.Event;
+import milo.lists.TaskList;
+import milo.tasks.TaskTypes;
+import milo.ui.ClientUi;
+import milo.ui.TaskUi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -21,7 +28,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, ClientsList clientsList) {
         switch (this.taskType) {
             case TODO:
                 // Check case where todos empty
@@ -82,18 +89,17 @@ public class AddCommand extends Command {
                 }
                 break;
             default:
-                return;
         }
     }
 
     @Override
-    public String commandToString(Ui ui, TaskList taskList) {
+    public String commandToString(TaskUi ui, ClientUi cUi, TaskList taskList, ClientsList clientsList) {
         switch (this.taskType) {
         case TODO:
             if (super.hasError) {
                 return ui.printError(TaskTypes.TaskType.TODO, super.errorDesc);
             }
-            return ui.printTask(curTask, taskList.getNumberOfTasks());
+            return ui.printAddTask(curTask, taskList.getNumberOfTasks());
         case DEADLINE:
             if (this.dateError) {
                 return ui.printError(TaskTypes.TaskType.DATE, "");
@@ -101,7 +107,7 @@ public class AddCommand extends Command {
             if (super.hasError) {
                 return ui.printError(TaskTypes.TaskType.DEADLINE, super.errorDesc);
             }
-            return ui.printTask(this.curTask, taskList.getNumberOfTasks());
+            return ui.printAddTask(this.curTask, taskList.getNumberOfTasks());
         case EVENT:
             if (this.dateError) {
                 return ui.printError(TaskTypes.TaskType.DATE, "");
@@ -109,7 +115,7 @@ public class AddCommand extends Command {
             if (super.hasError) {
                 return ui.printError(TaskTypes.TaskType.EVENT, super.errorDesc);
             }
-            return ui.printTask(this.curTask, taskList.getNumberOfTasks());
+            return ui.printAddTask(this.curTask, taskList.getNumberOfTasks());
         default:
             return "";
 

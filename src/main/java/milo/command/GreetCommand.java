@@ -1,7 +1,9 @@
 package milo.command;
 
-import milo.tasks.TaskList;
-import milo.ui.Ui;
+import milo.lists.ClientsList;
+import milo.lists.TaskList;
+import milo.ui.ClientUi;
+import milo.ui.TaskUi;
 
 import java.util.Objects;
 
@@ -14,12 +16,12 @@ public class GreetCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, ClientsList clientsList) {
         return;
     }
 
     @Override
-    public String commandToString(Ui ui, TaskList taskList) {
+    public String commandToString(TaskUi ui, ClientUi cUi, TaskList taskList, ClientsList clientsList) {
         return Objects.equals(this.greetType, "hi") ? ui.greetUser() : ui.byeUser();
     }
 }
