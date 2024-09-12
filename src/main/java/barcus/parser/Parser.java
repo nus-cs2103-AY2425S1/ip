@@ -33,91 +33,179 @@ public class Parser {
     public static Command parse(String reply) throws BarcusException {
         String[] words = reply.split(" ");
         if (words.length < 1) {
-            return new UnknownCommand();
+            return parseUnknown(words);
         } else if (reply.equals("bye")) {
-            return new ExitCommand();
+            return parseExit(words);
         } else if (reply.equals("list")) {
-            return new ListCommand();
+            return parseList(words);
         } else if (words[0].equals("unmark")) {
-            if (words.length == 1) {
-                throw new BarcusException("please have an integer after 'unmark'");
-            } else {
-                try {
-                    int[] pos = new int[words.length - 1];
-                    for (int i = 1; i < words.length; i++) {
-                        pos[i - 1] = Integer.parseInt(words[i]);
-                    }
-                    return new UnmarkCommand(pos);
-                } catch (NumberFormatException e) {
-                    throw new BarcusException("please have an integer after 'unmark'");
-                }
-            }
+            return parseUnmark(words);
         } else if (words[0].equals("mark")) {
-            if (words.length == 1) {
-                throw new BarcusException("please have an integer after 'mark'");
-            } else {
-                try {
-                    int[] pos = new int[words.length - 1];
-                    for (int i = 1; i < words.length; i++) {
-                        pos[i - 1] = Integer.parseInt(words[i]);
-                    }
-                    //int pos = Integer.parseInt(words[1]);
-                    return new MarkCommand(pos);
-                } catch (NumberFormatException e) {
-                    throw new BarcusException("please have an integer after 'mark'");
-                }
-            }
+            return parseMark(words);
         } else if (words[0].equals("todo")) {
-            if (words.length < 2) {
-                throw new BarcusException("please include a description of the todo");
-            } else {
-                return new AddTodoCommand(String.join(" ", Arrays.copyOfRange(words, 1, words.length)));
-            }
+            return parseTodo(words);
         } else if (words[0].equals("deadline")) {
-            List<String> wordsList = Arrays.asList(words);
-            if (!wordsList.contains("/by")) {
-                throw new BarcusException("please include '/by' and deadline after it");
-            } else {
-                int byI = wordsList.indexOf("/by");
-                return new AddDeadlineCommand(
-                        String.join(" ", Arrays.copyOfRange(words, 1, byI)),
-                        String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length)));
-            }
+            return parseDeadline(words);
         } else if (words[0].equals("event")) {
-            List<String> wordsList = Arrays.asList(words);
-            if (!wordsList.contains("/from") || !wordsList.contains("/to")) {
-                throw new BarcusException("please include '/from' and '/to' "
-                        + "as well as dates after each of those words");
-            } else {
-                int fromI = wordsList.indexOf("/from");
-                int toI = wordsList.indexOf("/to");
-                return new AddEventCommand(
-                        String.join(" ", Arrays.copyOfRange(words, 1, fromI)),
-                        String.join(" ", Arrays.copyOfRange(words, fromI + 1, toI)),
-                        String.join(" ", Arrays.copyOfRange(words, toI + 1, words.length)));
-            }
+            return parseEvent(words);
         } else if (words[0].equals("delete")) {
-            if (words.length == 1) {
-                throw new BarcusException("please have an integer after 'delete'");
-            } else {
-                try {
-                    int[] pos = new int[words.length - 1];
-                    for (int i = 1; i < words.length; i++) {
-                        pos[i - 1] = Integer.parseInt(words[i]);
-                    }
-                    return new DeleteCommand(pos);
-                } catch (NumberFormatException e) {
-                    throw new BarcusException("please have an integer after 'delete'");
-                }
-            }
+            return parseDelete(words);
         } else if (words[0].equals("find")) {
-            if (words.length == 1) {
-                throw new BarcusException("please include what word(s) you want to find after 'find'");
-            } else {
-                return new FindCommand(String.join(" ", Arrays.copyOfRange(words, 1, words.length)));
-            }
+            return parseFind(words);
         }
-
         return new UnknownCommand();
+    }
+
+    /**
+     * Parses words for Unknown command
+     * @param words String array of user input
+     * @return Unknown command
+     */
+    private static Command parseUnknown(String[] words){
+        return new UnknownCommand();
+    }
+
+    /**
+     * Parses words for Exit command
+     * @param words String array of user input
+     * @return Exit command
+     */
+    private static Command parseExit(String[] words) {
+        return new ExitCommand();
+    }
+
+    /**
+     * Parses words for List command
+     * @param words String array of user input
+     * @return List command
+     */
+    private static Command parseList(String[] words) throws BarcusException {
+        return new ListCommand();
+    }
+
+    /**
+     * Parses words for unmark command
+     * @param words String array of user input
+     * @return Unmark command
+     * @throws BarcusException When integer is not used
+     */
+    private static Command parseUnmark(String[] words) throws BarcusException {
+        if (words.length == 1) {
+            throw new BarcusException("please have an integer after 'unmark'");
+        }
+        try {
+            int[] pos = new int[words.length - 1];
+            for (int i = 1; i < words.length; i++) {
+                pos[i - 1] = Integer.parseInt(words[i]);
+            }
+            return new UnmarkCommand(pos);
+        } catch (NumberFormatException e) {
+            throw new BarcusException("please have an integer after 'unmark'");
+        }
+    }
+
+    /**
+     * Parses words for mark command
+     * @param words String array of user input
+     * @return Mark command
+     * @throws BarcusException When integer is not used
+     */
+    private static Command parseMark(String[] words) throws BarcusException {
+        if (words.length == 1) {
+            throw new BarcusException("please have an integer after 'mark'");
+        }
+        try {
+            int[] pos = new int[words.length - 1];
+            for (int i = 1; i < words.length; i++) {
+                pos[i - 1] = Integer.parseInt(words[i]);
+            }
+            return new MarkCommand(pos);
+        } catch (NumberFormatException e) {
+            throw new BarcusException("please have an integer after 'mark'");
+        }
+    }
+
+    /**
+     * Parses words for todo command
+     * @param words String array of user input
+     * @return Todo command
+     * @throws BarcusException When description is not specified
+     */
+    private static Command parseTodo(String[] words) throws BarcusException {
+        if (words.length < 2) {
+            throw new BarcusException("please include a description of the todo");
+        }
+        return new AddTodoCommand(String.join(" ", Arrays.copyOfRange(words, 1, words.length)));
+    }
+
+    /**
+     * Parses words for deadline command
+     * @param words String array of user input
+     * @return Deadline command
+     * @throws BarcusException When details are not specified
+     */
+    private static Command parseDeadline(String[] words) throws BarcusException {
+        List<String> wordsList = Arrays.asList(words);
+        if (!wordsList.contains("/by")) {
+            throw new BarcusException("please include '/by' and deadline after it");
+        }
+        int byI = wordsList.indexOf("/by");
+        return new AddDeadlineCommand(
+                String.join(" ", Arrays.copyOfRange(words, 1, byI)),
+                String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length)));
+    }
+
+    /**
+     * Parses words for event command
+     * @param words String array of user input
+     * @return Event command
+     * @throws BarcusException When details are not specified
+     */
+    private static Command parseEvent(String[] words) throws BarcusException {
+        List<String> wordsList = Arrays.asList(words);
+        if (!wordsList.contains("/from") || !wordsList.contains("/to")) {
+            throw new BarcusException("please include '/from' and '/to' "
+                    + "as well as dates after each of those words");
+        }
+        int fromI = wordsList.indexOf("/from");
+        int toI = wordsList.indexOf("/to");
+        return new AddEventCommand(
+                String.join(" ", Arrays.copyOfRange(words, 1, fromI)),
+                String.join(" ", Arrays.copyOfRange(words, fromI + 1, toI)),
+                String.join(" ", Arrays.copyOfRange(words, toI + 1, words.length)));
+    }
+
+    /**
+     * Parses words for delete command
+     * @param words String array of user input
+     * @return Delete command
+     * @throws BarcusException When integer is not used
+     */
+    private static Command parseDelete(String[] words) throws BarcusException {
+        if (words.length == 1) {
+            throw new BarcusException("please have an integer after 'delete'");
+        }
+        try {
+            int[] pos = new int[words.length - 1];
+            for (int i = 1; i < words.length; i++) {
+                pos[i - 1] = Integer.parseInt(words[i]);
+            }
+            return new DeleteCommand(pos);
+        } catch (NumberFormatException e) {
+            throw new BarcusException("please have an integer after 'delete'");
+        }
+    }
+
+    /**
+     * Parses words for find command
+     * @param words String array of user input
+     * @return Find command
+     * @throws BarcusException When description is not specified
+     */
+    private static Command parseFind(String[] words) throws BarcusException {
+        if (words.length == 1) {
+            throw new BarcusException("please include what word(s) you want to find after 'find'");
+        }
+        return new FindCommand(String.join(" ", Arrays.copyOfRange(words, 1, words.length)));
     }
 }
