@@ -22,15 +22,15 @@ Features:
 - [ ] Managing deadlines (coming soon)
 - [ ] Reminders (coming soon) 
 
-If you are a Java programmer, you can also use it to practice Java. Here's the 'main' method:
+If you are a Java programmer, you can also use it to practice Java. Here's the `main` method:
 
-'''java
+```Java
 public class Main {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
     }
 }
-'''
+```
 
 
 
