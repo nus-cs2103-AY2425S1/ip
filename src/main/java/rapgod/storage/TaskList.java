@@ -1,9 +1,9 @@
 package rapgod.storage;
 
-import rapgod.tasks.Task;
-import rapgod.tasks.ToDo;
 import rapgod.tasks.Deadline;
 import rapgod.tasks.Event;
+import rapgod.tasks.Task;
+import rapgod.tasks.ToDo;
 
 import java.util.List;
 
@@ -35,15 +35,13 @@ public class TaskList {
     /**
      * Displays the list of tasks with their indices.
      */
-    public void showList() {
-        System.out.println("-----------------------------------------------");
-        System.out.println("Displaying ListBot:");
-
+    public String taskString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Displaying ListBot:\n");
         for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, list.get(i));
+            sb.append(String.format("%d. %s\n", i + 1, list.get(i)));
         }
-
-        System.out.println("-----------------------------------------------");
+        return sb.toString();
     }
 
     /**
@@ -58,26 +56,27 @@ public class TaskList {
      *                 The method will display tasks that contain at least one of these keywords.
      *                 This parameter can be an empty array, in which case no tasks will be displayed.
      */
-    public void filterAndShowList(String ... keywords) {
-        System.out.println("-----------------------------------------------");
-        System.out.println("Here are the matching tasks in your list:");
+    public String filteredTask(String ... keywords) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:");
+
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < keywords.length; j++) {
                 if (list.get(i).getDescription().contains(keywords[j])) {
-                    System.out.printf("%d. %s\n", i + 1, list.get(i));
+                    sb.append(String.format("%d. %s\n", i + 1, list.get(i)));
                     break;
                 }
             }
         }
-        System.out.println("-----------------------------------------------");
+        return sb.toString();
     }
 
-    public void markTaskByIndex(int index) {
+    public String markTaskByIndex(int index) {
         list.get(index - 1).setIsDone(true);
-        System.out.println("-----------------------------------------------");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(list.get(index - 1));
-        System.out.println("-----------------------------------------------");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nice! I've marked this task as done:\n");
+        sb.append(list.get(index - 1));
+        return sb.toString();
     }
 
     /**
@@ -85,12 +84,12 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      */
-    public void unmarkTaskByIndex(int index) {
+    public String unmarkTaskByIndex(int index) {
         list.get(index - 1).setIsDone(false);
-        System.out.println("-----------------------------------------------");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(list.get(index - 1));
-        System.out.println("-----------------------------------------------");
+        StringBuilder sb = new StringBuilder();
+        sb.append("OK, I've marked this task as not done yet:\n");
+        sb.append(list.get(index - 1));
+        return sb.toString();
     }
 
     /**
@@ -98,13 +97,13 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void deleteTaskByIndex(int index) {
-        System.out.println("-----------------------------------------------");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(list.get(index - 1));
+    public String deleteTaskByIndex(int index) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Noted. I've removed this task:\n");
+        sb.append(list.get(index - 1));
         list.remove(index - 1);
-        System.out.printf("Now you have %d tasks in the list\n", list.size());
-        System.out.println("-----------------------------------------------");
+        sb.append(String.format("Now you have %d tasks in the list\n", list.size()));
+        return sb.toString();
     }
 
     /**
@@ -113,12 +112,12 @@ public class TaskList {
      * @param deadlineDesc The description of the deadline task.
      * @param due The due date of the deadline task.
      */
-    public void addDeadlineTask(String deadlineDesc, String due) {
+    public String addDeadlineTask(String deadlineDesc, String due) {
         list.add(new Deadline(deadlineDesc, due));
-        System.out.println("-----------------------------------------------");
-        System.out.printf("Got it. I've added this task: \n%s\n", list.get(list.size() - 1));
-        System.out.printf("Now you have %d tasks in the list\n", list.size());
-        System.out.println("-----------------------------------------------");
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Got it. I've added this task: \n%s\n", list.get(list.size() - 1)));
+        sb.append(String.format("Now you have %d tasks in the list\n", list.size()));
+        return sb.toString();
     }
 
     /**
@@ -128,12 +127,12 @@ public class TaskList {
      * @param from The start date and time of the event.
      * @param to The end date and time of the event.
      */
-    public void addEventTask(String eventDesc, String from, String to){
+    public String addEventTask(String eventDesc, String from, String to){
         list.add(new Event(eventDesc, from, to));
-        System.out.println("-----------------------------------------------");
-        System.out.printf("Got it. I've added this event: \n%s\n", list.get(list.size() - 1));
-        System.out.printf("Now you have %d tasks in the list\n", list.size());
-        System.out.println("-----------------------------------------------");
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Got it. I've added this event: \n%s\n", list.get(list.size() - 1)));
+        sb.append(String.format("Now you have %d tasks in the list\n", list.size()));
+        return sb.toString();
     }
 
     /**
@@ -141,12 +140,12 @@ public class TaskList {
      *
      * @param todoDesc The description of the todo task.
      */
-    public void addToDoTask(String todoDesc) {
+    public String addToDoTask(String todoDesc) {
         list.add(new ToDo(todoDesc));
-        System.out.println("-----------------------------------------------");
-        System.out.printf("Got it. I've added this task: \n%s\n", list.get(list.size() - 1));
-        System.out.printf("Now you have %d tasks in the list\n", list.size());
-        System.out.println("-----------------------------------------------");
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Got it. I've added this task: \n%s\n", list.get(list.size() - 1)));
+        sb.append(String.format("Now you have %d tasks in the list\n", list.size()));
+        return sb.toString();
     }
 
 }

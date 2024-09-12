@@ -1,33 +1,25 @@
-package rapgod.ui;
+package rapgod.bot;
 
-import rapgod.RapGod;
-
-import rapgod.exceptions.RudeInputException;
 import rapgod.exceptions.NoInputException;
-
+import rapgod.exceptions.RudeInputException;
 import rapgod.storage.DataManager;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-/**
- * A class that provides a command-line interface for managing tasks with the ListBot Bot.
- * It processes user commands to perform various task management operations, including:
- * - Listing all tasks
- * - Marking tasks as completed or incomplete
- * - Deleting tasks
- * - Adding new deadlines, events, or to-dos
- */
-public class ListBot {
+public class RapGod {
+    public static void main(String[] args) {
+        System.out.println("Hello!");
+    }
+    public static final ArrayList<String> RUDE_WORDS = new ArrayList<>(Arrays.asList(
+            "damn", "hell", "shit", "fuck",
+            "bitch", "asshole", "dickhead",
+            "idiot", "moron", "stupid",
+            "loser", "jerk", "creep"
+    ));
 
-    /**
-     * Starts the ListBot Bot, which provides a command-line interface for managing tasks.
-     * It initializes the bot, displays available commands, and enters a loop to continuously process user input.
-     * The method handles commands for listing tasks, marking tasks as done or undone, deleting tasks,
-     * and adding new deadlines, events, or to-dos. It also processes special commands and handles errors
-     * such as invalid input or rude commands.
-     */
-    public static void run() {
-
+    public static String getInitialMessage() {
         String initialise = """
                 -----------------------------------------------
                 Initialising List Bot...
@@ -42,92 +34,93 @@ public class ListBot {
                 Time format: dd/MM/yyyy OR dd/MM/yyyy HHHH
                 -----------------------------------------------
                 """;
+        return initialise;
+    }
 
-        System.out.print(initialise);
-
-        Scanner scanner = RapGod.scanner;
-        String input;
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
         DataManager dataManager = new DataManager("data/rapgod.txt");
+        String response = "";
 
-        while (true) {
-            System.out.print("Task:\n");
-            input = scanner.nextLine();
+        try {
+            if (input == null || input.trim().isEmpty()) {
+                throw new NoInputException();
+            } else if (RUDE_WORDS.contains(input)) {
+                throw new RudeInputException();
+            }
 
-            try {
-                if (input == null || input.trim().isEmpty()) {
-                    throw new NoInputException();
-                } else if (RapGod.RUDE_WORDS.contains(input)) {
-                    throw new RudeInputException();
-                }
+            CommandType command = CommandType.getCommand(input);
 
-                CommandType command = CommandType.getCommand(input);
-
-                switch (command) {
+            switch (command) {
                 case LIST:
-                    dataManager.getTaskList().showList();
+                    response = dataManager.getTaskList().taskString();
                     break;
 
                 case FIND:
                     String[] keywords = CommandType.extractKeywords(input);
-                    dataManager.getTaskList().filterAndShowList(keywords);
+                    response = dataManager.getTaskList().filteredTask(keywords);
                     break;
 
                 case MARK:
                     int markIndex = CommandType.extractIndex(input, command);
-                    dataManager.getTaskList().markTaskByIndex(markIndex);
+                    response = dataManager.getTaskList().markTaskByIndex(markIndex);
                     break;
 
                 case UNMARK:
                     int unmarkIndex = CommandType.extractIndex(input, command);
-                    dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
+                    response = dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
                     break;
 
                 case DELETE:
                     int deleteIndex = CommandType.extractIndex(input, command);
-                    dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
+                    response = dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
                     break;
 
                 case DEADLINE:
                     String deadlineDesc = input.substring(0, input.toLowerCase().indexOf("/by"));
                     String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
-                    dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
+                    response = dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
                     break;
 
                 case EVENT:
                     String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
                     String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
                     String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
-                    dataManager.getTaskList().addEventTask(eventDesc, from, to);
+                    response = dataManager.getTaskList().addEventTask(eventDesc, from, to);
                     break;
 
                 case TODO:
-                    dataManager.getTaskList().addToDoTask(input);
+                    response = dataManager.getTaskList().addToDoTask(input);
                     break;
 
                 case BYE:
-                    System.out.println("-----------------------------------------------");
-                    System.out.println("Bye! Hope to see you again soon!");
-                    System.out.println("-----------------------------------------------");
-                    return;
+                    response = """
+                            -----------------------------------------------
+                            Bye! Hope to see you again soon!
+                            -----------------------------------------------
+                            """;
+                    break;
 
                 default:
-                    System.out.println("Unknown command. Please try again.");
+                    response = "Unknown command. Please try again.";
                     break;
-                }
-
-                dataManager.updateMemory();
-
-            } catch (NumberFormatException exc) {
-                System.out.println("Enter a valid number after 'Mark ', 'Unmark ', or 'Delete '. Eg. Mark 4");
-            } catch (IndexOutOfBoundsException exc) {
-                System.out.println("No such task exists.");
-            } catch (NoInputException | RudeInputException exc) {
-                System.out.println("-----------------------------------------------");
-                System.out.println("RapGod:\n" + exc.getMessage());
-                System.out.println("-----------------------------------------------");
-            } catch(IllegalArgumentException exc) {
-                System.out.println(exc.getMessage());
             }
+
+            dataManager.updateMemory();
+
+        } catch (NumberFormatException exc) {
+            response = "Enter a valid number after 'Mark ', 'Unmark ', or 'Delete '. Eg. Mark 4";
+        } catch (IndexOutOfBoundsException exc) {
+            response = "No such task exists.";
+        } catch (NoInputException | RudeInputException exc) {
+            response = "-----------------------------------------------\n"
+                    + "RapGod:\n" + exc.getMessage() + "\n-----------------------------------------------";
+        } catch(IllegalArgumentException exc) {
+            response = exc.getMessage();
+        } finally {
+            return response;
         }
     }
 
@@ -179,14 +172,14 @@ public class ListBot {
          */
         public static int extractIndex(String input, CommandType command) throws NumberFormatException {
             switch (command) {
-            case MARK:
-                return Integer.parseInt(input.substring(5).trim());
-            case UNMARK:
-                return Integer.parseInt(input.substring(7).trim());
-            case DELETE:
-                return Integer.parseInt(input.substring(7).trim());
-            default:
-                throw new IllegalArgumentException("Command does not require an index.");
+                case MARK:
+                    return Integer.parseInt(input.substring(5).trim());
+                case UNMARK:
+                    return Integer.parseInt(input.substring(7).trim());
+                case DELETE:
+                    return Integer.parseInt(input.substring(7).trim());
+                default:
+                    throw new IllegalArgumentException("Command does not require an index.");
             }
         }
 
@@ -195,5 +188,4 @@ public class ListBot {
             return substring.split(",\\s*");
         }
     }
-
 }
