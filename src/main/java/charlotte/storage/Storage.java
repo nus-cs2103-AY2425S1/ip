@@ -112,20 +112,13 @@ public class Storage {
             task = new ToDo(description);
             break;
         case "D":
-            if (taskData.length < 4) {
-                throw new CharlotteException("Invalid format for a deadline task");
-            }
-            String by = taskData[3];
+            String by = getTaskDetail(taskData, 3, "Invalid format for a deadline task");
             task = new Deadline(description, by);
             break;
         case "E":
-            if (taskData.length < 4) {
-                throw new CharlotteException("Invalid format for an event task");
-            }
-            String[] eventParts = taskData[3].split(" to ");
-            String from = eventParts[0];
-            String to = eventParts[1];
-            task = new Event(description, from, to);
+            String[] eventParts = getTaskDetail(taskData, 3, "Invalid format for an event task")
+                    .split(" to ");
+            task = new Event(description, eventParts[0], eventParts[1]);
             break;
         default:
             throw new CharlotteException("Unknown task type in file: " + taskType);
@@ -135,5 +128,12 @@ public class Storage {
             task.markAsDone();
         }
         return task;
+    }
+
+    private String getTaskDetail(String[] taskData, int index, String errorMessage) throws CharlotteException {
+        if (taskData.length <= index) {
+            throw new CharlotteException(errorMessage);
+        }
+        return taskData[index];
     }
 }

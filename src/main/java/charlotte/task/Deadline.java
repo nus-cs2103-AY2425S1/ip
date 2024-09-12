@@ -51,8 +51,8 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         assert by != null : "Due date should be initialized before saving";
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String formattedBy = by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + formattedBy;
     }
 
     /**
@@ -64,6 +64,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         assert by != null : "Due date should be initialized before converting to string";
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        String formattedBy = by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return "[D]" + super.toString() + " (by: " + formattedBy + ")";
     }
 }
