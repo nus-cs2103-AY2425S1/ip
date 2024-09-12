@@ -83,6 +83,13 @@ public class TaskList {
     }
 
     /**
+     * Replaces the taskList with a new ArrayList
+     */
+    public void deleteTaskList() {
+        listOfTasks = new ArrayList<>();
+    }
+
+    /**
      * Finds tasks that contain the specified descriptions in their own descriptions.
      *
      * @param s Description to find.
