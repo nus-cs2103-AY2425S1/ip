@@ -12,6 +12,8 @@ import darwin.exception.IllegalTaskArgumentException;
 import darwin.exception.IllegalTaskTypeException;
 import darwin.task.Task;
 
+import javax.print.attribute.HashPrintServiceAttributeSet;
+
 public class InputParser {
     private static final String EMPTY_ARGS = "";
 
@@ -23,9 +25,11 @@ public class InputParser {
      * @throws IllegalTaskArgumentException if task arguments are invalid
      */
     public Command parse(String in) throws IllegalTaskTypeException, IllegalTaskArgumentException {
+        assert in != null : "Input string should not be null";
         in = in.trim();
         String[] parts = in.split("\\s+", 2);
         String cmd = parts[0];
+        System.out.println(cmd);
         String args = parts.length == 2 ? parts[1] : InputParser.EMPTY_ARGS;
 
         switch (cmd) {
