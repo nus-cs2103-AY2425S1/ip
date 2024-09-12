@@ -152,6 +152,15 @@ public class Storage {
         taskList.remove(i - 1);
         this.writeToFile();
     }
+    /**
+     * Checks if the task is a duplicate of an already pre-existing task inside the arraylist
+     *
+     * @param Task the new Task being check against the current arraylist of tasks
+     */
+    private boolean isDuplicate(Task task) {
+        return taskList.stream()
+                .anyMatch(existingTask -> existingTask.getTask().equals(task.getTask()));
+    }
 
     /**
      * Finds tasks in the list that contain the specified keyword in their description.
