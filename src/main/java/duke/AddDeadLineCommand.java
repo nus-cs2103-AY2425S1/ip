@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +43,7 @@ public class AddDeadLineCommand extends Command {
      * @param storage
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
         Task task = this.process(this.input);
         tasks.add(task);
         return ui.showAddTask(task, tasks.size());

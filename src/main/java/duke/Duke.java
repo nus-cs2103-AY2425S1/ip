@@ -14,14 +14,14 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.load(), storage);
         } catch (FileNotFoundException | ParseException e) {
             ui.showError("Error with input file!");
-            tasks = new TaskList(new ArrayList<>());
+            tasks = new TaskList(new ArrayList<>(), storage);
         }
     }
 
-    public void run() {
+    public void run() throws IOException {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -55,7 +55,7 @@ public class Duke {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Duke("data/duke.txt").run();
     }
 

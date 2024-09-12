@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class DeleteCommand extends Command {
      * @param storage
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
         Integer index = process(this.input);
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Invalid index inputted");

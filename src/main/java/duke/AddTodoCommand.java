@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -36,7 +37,7 @@ public class AddTodoCommand extends Command {
      * @param storage
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         Task task = this.process(this.input);
         tasks.add(task);
         return ui.showAddTask(task, tasks.size());

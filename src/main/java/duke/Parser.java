@@ -28,6 +28,8 @@ public class Parser {
             return new DeleteCommand(userInput);
         } else if (userInput.contains("find")) {
             return new FindCommand(userInput);
+        } else if (userInput.contains("sort")) {
+            return new SortCommand(userInput);
         } else {
             System.out.println("Command does not exist!");
         }
