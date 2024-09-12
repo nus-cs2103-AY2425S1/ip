@@ -3,6 +3,7 @@ package joe.ui;
 import java.util.ArrayList;
 
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -47,8 +48,8 @@ public class Ui {
      * Ends the program by closing the window.
      */
     public void stop() {
-        PauseTransition delay = new PauseTransition(Duration.seconds(3));
-        delay.setOnFinished(e -> stage.close());
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(e -> Platform.exit());
         delay.play();
     }
 

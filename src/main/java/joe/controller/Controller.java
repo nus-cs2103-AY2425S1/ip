@@ -38,6 +38,7 @@ public class Controller {
     public void endProgram() {
         storage.saveTasks(store);
         ui.farewell();
+        ui.stop();
     }
 
     /**
