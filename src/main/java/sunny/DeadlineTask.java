@@ -17,10 +17,9 @@ public class DeadlineTask extends Task {
 
     /**
      * Initialises a Deadline task object and set the isDone to false
-     * @param description
+     * @param description description for the task
      */
     public DeadlineTask(String description) {
-
         super(description);
     }
     String m1 = super.description.split("/by ", 2)[0];

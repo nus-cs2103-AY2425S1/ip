@@ -9,12 +9,6 @@ import java.util.Objects;
 public class Ui {
 
     // Stock messages
-    public static final String logo = "       _____   _    _  _   _  _   _  __     __  \n"
-           + "      / ____| | |  | || \\ | || \\ | | \\ \\   / /  \n"
-           + "     | (___   | |  | ||  \\| ||  \\| |  \\ \\_/ /   \n"
-           + "      \\___ \\  | |  | || . ` || . ` |   \\   /    \n"
-           + "      ____) | | |__| || |\\  || |\\  |    | |     \n"
-           + "     |_____/   \\____/ |_| \\_||_| \\_|    |_|     \n";
     public static final String LINE = "     ────────────────────";
     public static final String WELCOME = "     HELLO! I am Sunny:)\n     How can I help you?";
     public static final String GOODBYE = "     You are leaving? Ok bye:( come back soon";
@@ -32,7 +26,7 @@ public class Ui {
      */
     public String welcome() {
         ls = store.read();
-        return "Hello from\n" + logo + "\n" + WELCOME + "\n" + LINE + "\n";
+        return WELCOME + "\n" + LINE + "\n";
     }
 
     /**
@@ -67,17 +61,14 @@ public class Ui {
             return c.runCommand(ls, p.getSecondHalf());
         } else {
             try {
-                Task t = TaskCreator.create(message + "|false");
-                assert t != null : "Task creation failed, task should not be null";
-                ls.add(t);
+                Command c = new AddTaskCommand();
+                String s = c.runCommand(ls, message);
                 store.write(ls);
-                return LINE + "\n     "
-                        + "Got it! added the task: \n     "
-                        + t + "\n     "
-                        + String.format("Now you have %h tasks in the list \n", ls.size()) + LINE;
+                return s;
             } catch (Exception e) {
                 return LINE + "\n      " + e + LINE;
             }
+
         }
     }
 
