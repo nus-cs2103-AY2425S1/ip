@@ -28,9 +28,9 @@ public class Dude {
     private boolean isRunning;
 
     /**
-     * Constructs a Dude with the specified file path.
+     * Constructs a Dude with the specified directory.
      *
-     * @param filePath The file path where task data is stored.
+     * @param filePath The directory where data files is stored.
      */
     public Dude(String filePath) {
         assert !filePath.isEmpty();
@@ -303,6 +303,13 @@ public class Dude {
         return ui.showFind(filteredList);
     }
 
+    /**
+     * Define a new shortcut.
+     *
+     * @param taskDes The task description.
+     * @return A message indicating the shortcut has been added.
+     * @throws DudeException If an error occurs during processing.
+     */
     public String define(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("define");
@@ -318,6 +325,13 @@ public class Dude {
         return ui.showDefine(splitDes[0], result);
     }
 
+    /**
+     * Delete a previously added shortcut.
+     *
+     * @param taskDes The task description.
+     * @return A message indicating the shortcut has been deleted.
+     * @throws DudeException If an error occurs during processing.
+     */
     public String undefine(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("define");

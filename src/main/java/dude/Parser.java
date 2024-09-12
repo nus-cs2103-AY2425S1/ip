@@ -18,6 +18,11 @@ import dude.exception.DudeShortcutDeleteException;
 public class Parser {
     private HashMap<String, CommandType> shortcutMap;
 
+    /**
+     * Constructs a Parser with an existing HashMap of shortcuts-CommandType pairs.
+     *
+     * @param shortcutMap An HashMap of shortcuts-CommandType pairs.
+     */
     public Parser(HashMap<String, CommandType> shortcutMap) {
         this.shortcutMap = shortcutMap;
     }
@@ -91,10 +96,25 @@ public class Parser {
         return dateTime;
     }
 
+    /**
+     * Gets the HashMap of shortcuts-CommandType pairs.
+     *
+     * @return A HashMap of shortcuts-CommandType pairs.
+     */
     public HashMap<String, CommandType> getShortcutMap() {
         return shortcutMap;
     }
 
+    /**
+     * Define a shortcut for specific CommandType.
+     * The shortcut must not conflict with existing command types.
+     *
+     * @param shortcut The shortcut to be added.
+     * @param command The string representing the CommandType to be maps to.
+     * @return The CommandType that the shortcut is mapped to.
+     * @throws DudeInvalidDefineException If the shortcut conflicts with an existing command type or the command is
+     * invalid.
+     */
     public CommandType defineShortcut(String shortcut, String command) throws DudeInvalidDefineException {
         CommandType commandType;
 
@@ -115,6 +135,13 @@ public class Parser {
         return commandType;
     }
 
+    /**
+     * Deletes a user-defined shortcut.
+     * The shortcut must be a valid user-defined shortcut, not a pre-defined command.
+     *
+     * @param shortcut The shortcut to be deleted.
+     * @throws DudeShortcutDeleteException If the shortcut is a pre-defined command or does not exist.
+     */
     public void deleteShortcut(String shortcut) throws DudeException {
         try {
             CommandType.valueOf(shortcut.toUpperCase());
