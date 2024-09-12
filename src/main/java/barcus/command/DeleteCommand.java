@@ -43,6 +43,8 @@ public class DeleteCommand extends Command {
             }
         }
 
+        assert !queue.isEmpty();
+
         ui.talk("Removed task:\n");
         output += "Removed task:\n";
         for (int i: queue) {
@@ -59,8 +61,4 @@ public class DeleteCommand extends Command {
         return false;
     }
 
-    @Override
-    public String getString() {
-        return output;
-    }
 }

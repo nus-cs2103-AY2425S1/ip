@@ -21,8 +21,4 @@ public class ExitCommand extends Command {
         return true;
     }
 
-    @Override
-    public String getString() {
-        return output;
-    }
 }

@@ -38,6 +38,8 @@ public class UnmarkCommand extends Command {
             }
         }
 
+        assert !queue.isEmpty();
+
         ui.talk("No prob, have marked as undone:\n");
         output += "No prob, have marked as undone:\n";
         for (int i: queue) {
@@ -50,10 +52,5 @@ public class UnmarkCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
-    }
-
-    @Override
-    public String getString() {
-        return output;
     }
 }
