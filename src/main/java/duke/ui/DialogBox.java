@@ -1,18 +1,13 @@
 package duke.ui;
 
-import java.io.IOException;
-import java.util.Collections;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+import java.io.IOException;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -37,6 +32,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
     }
+
     public static DialogBox getDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
