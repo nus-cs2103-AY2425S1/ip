@@ -3,6 +3,7 @@ package king.commands;
 import king.KingException;
 import king.Storage;
 import king.TaskList;
+import king.task.Task;
 import king.ui.Ui;
 
 /**
@@ -32,9 +33,10 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task removedTask = tasks.getTask(taskIndex);
             tasks.remove(taskIndex);
             storage.save(tasks.getTaskList());
-            return ui.showTaskList(tasks);
+            return ui.showTaskRemoved(removedTask, tasks.size());
         } else {
             return ui.showErrorAsString(new KingException("Enter a valid task number!"));
         }
