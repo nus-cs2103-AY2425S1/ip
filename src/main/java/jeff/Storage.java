@@ -24,7 +24,8 @@ import jeff.task.ToDo;
  * The Storage class handles reading from and writing to a text file where the user's tasks are stored.
  */
 public class Storage {
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final String DATE_FORMAT = "dd/MM/yyyy HHmm";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private final String dirPath;
     private final String filePath;
 
@@ -37,6 +38,13 @@ public class Storage {
     public Storage(String dirPath, String filePath) {
         this.dirPath = dirPath;
         this.filePath = filePath;
+    }
+
+    public static String getDateFormat() {
+        return DATE_FORMAT;
+    }
+    public static DateTimeFormatter getDateTimeFormatter() {
+        return DATE_TIME_FORMATTER;
     }
 
     /**
