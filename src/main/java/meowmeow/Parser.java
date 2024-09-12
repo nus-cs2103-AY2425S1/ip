@@ -1,15 +1,15 @@
-package MeowMeow;
+package meowmeow;
 
 import java.io.IOException;
 
 public class Parser {
-    private TaskList list;
-    private Saving saver;
+    private TaskList tasks;
+    private Storage saver;
     private Ui ui;
     private String initInput;
 
-    public Parser(TaskList list, Saving saver, Ui ui, String initInput) {
-        this.list = list;
+    public Parser(TaskList list, Storage saver, Ui ui, String initInput) {
+        this.tasks = list;
         this.saver = saver;
         this.ui = ui;
         this.initInput = initInput;
@@ -19,16 +19,16 @@ public class Parser {
         while (!initInput.equals("bye")) {
             if (initInput.equals("list")) {
                 // Print all tasks
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + "." + list.get(i));
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + "." + tasks.get(i));
                 }
             } else if (initInput.startsWith("mark ")) {
                 // Mark a task as done
                 int taskNumber = Integer.parseInt(initInput.substring(5)) - 1;
-                if (taskNumber >= 0 && taskNumber < list.size()) {
-                    list.get(taskNumber).markDone();
+                if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                    tasks.get(taskNumber).markDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + list.get(taskNumber));
+                    System.out.println("  " + tasks.get(taskNumber));
                     saver.saveData();
                 } else {
                     System.out.println("Invalid task number.");
@@ -36,10 +36,10 @@ public class Parser {
             } else if (initInput.startsWith("unmark ")) {
                 // Unmark a task (mark it as not done)
                 int taskNumber = Integer.parseInt(initInput.substring(7)) - 1;
-                if (taskNumber >= 0 && taskNumber < list.size()) {
-                    list.get(taskNumber).unMark();
+                if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                    tasks.get(taskNumber).unMark();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + list.get(taskNumber));
+                    System.out.println("  " + tasks.get(taskNumber));
                     saver.saveData();
                 } else {
                     System.out.println("Invalid task number.");
@@ -48,10 +48,10 @@ public class Parser {
                 // Add a meowmeow.ToDo task
                 String description = initInput.substring(5);
                 ToDo todo = new ToDo(description);
-                list.add(todo);
+                tasks.add(todo);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + todo);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 saver.saveData();
             } else if (initInput.startsWith("deadline ")) {
                 // Add a meowmeow.Deadline task
@@ -62,10 +62,10 @@ public class Parser {
                     String description = parts[0];
                     String by = parts[1];
                     Deadline deadline = new Deadline(description, by);
-                    list.add(deadline);
+                    tasks.add(deadline);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + deadline);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     saver.saveData();
                 }
             } else if (initInput.startsWith("event ")) {
@@ -78,20 +78,20 @@ public class Parser {
                     String from = parts[1];
                     String to = parts[2];
                     Event event = new Event(description, from, to);
-                    list.add(event);
+                    tasks.add(event);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + event);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     saver.saveData();
                 }
             } else if (initInput.startsWith("delete ")) {
                 // Delete a task
                 int taskNumber = Integer.parseInt(initInput.substring(7)) - 1;
-                if (taskNumber >= 0 && taskNumber < list.size()) {
-                    Task removedTask = list.remove(taskNumber);
+                if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                    Task removedTask = tasks.remove(taskNumber);
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + removedTask);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     saver.saveData();
                 } else {
                     System.out.println("Invalid task number.");
@@ -99,7 +99,7 @@ public class Parser {
             } else {
                 System.out.println("Sorry, I don't know what that means.");
             }
-            initInput = Ui.next();
+            initInput = Ui.getNext();
         }
 
         System.out.println("Bye. Hope to see you again soon!");

@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("MeowMeow.MeowMeow")
+    mainClass.set("meowmeow.MeowMeow")
 }
 
 shadowJar {

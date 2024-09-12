@@ -1,12 +1,12 @@
-package MeowMeow;
+package meowmeow;
 
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {
 
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
 }

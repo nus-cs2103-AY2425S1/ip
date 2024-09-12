@@ -1,4 +1,4 @@
-package MeowMeow;
+package meowmeow;
 
 public class Task {
     protected String description;
@@ -25,7 +25,7 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-    public String toFileFormat() {
+    public String convertToFileFormat() {
         return (this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E") + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 }

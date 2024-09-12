@@ -1,4 +1,4 @@
-package MeowMeow;
+package meowmeow;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,51 +8,52 @@ import java.io.File;
 import java.nio.file.Files;
 import java.io.FileWriter;
 
-public class Saving {
+public class Storage {
 
     private Path saveFilePath;
     private String pathName;
     private File file;
 
-    private TaskList taskList;
+    private TaskList tasks;
 
-    public Saving(String pathName) {
+    public Storage(String pathName) {
         this.pathName = pathName;
         this.saveFilePath = Path.of(pathName);
-        this.taskList = new TaskList();
+        this.tasks = new TaskList();
     }
 
     public void load(String filePath) throws FileNotFoundException {
         this.file = new File(filePath);
-        Scanner s = new Scanner(this.file);
-        while (s.hasNextLine()) {
-            String line = s.nextLine();
+        Scanner scanner = new Scanner(this.file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
             String[] parts = line.split(" \\| ");
             switch (parts[0]) {
+                //Help I changed the setting to make the indents go away for case but it's not working.
                 case "T":
                     ToDo todo = new ToDo(parts[2]);
                     if (parts[1].equals("1")) {
                         todo.markDone();
                     }
-                    taskList.add(todo);
+                    tasks.add(todo);
                     break;
                 case "D":
                     Deadline deadline = new Deadline(parts[2], parts[3]);
                     if (parts[1].equals("1")) {
                         deadline.markDone();
                     }
-                    taskList.add(deadline);
+                    tasks.add(deadline);
                     break;
                 case "E":
                     Event event = new Event(parts[2], parts[3], parts[4]);
                     if (parts[1].equals("1")) {
                         event.markDone();
                     }
-                    taskList.add(event);
+                    tasks.add(event);
                     break;
             }
         }
-        s.close();
+        scanner.close();
     }
 
     public void getData() throws IOException {
@@ -71,8 +72,8 @@ public class Saving {
     public void saveData() throws IOException {
         try {
             FileWriter fw = new FileWriter(this.pathName);
-            for (Task task : taskList) {
-                fw.write(task.toFileFormat() + "\n");
+            for (Task task : tasks) {
+                fw.write(task.convertToFileFormat() + "\n");
             }
             fw.close();
             //System.out.println("saved tasks");
@@ -82,6 +83,6 @@ public class Saving {
     }
 
     public TaskList getTaskList() {
-        return this.taskList;
+        return this.tasks;
     }
 }

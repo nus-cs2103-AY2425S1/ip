@@ -1,4 +1,4 @@
-# MeowMeow.MeowMeow User Guide
+# meowmeow.meowmeow User Guide
 
 // Update the title above to match the actual product name
 

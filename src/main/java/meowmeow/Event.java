@@ -1,4 +1,4 @@
-package MeowMeow;
+package meowmeow;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +21,7 @@ class Event extends Task {
     }
 
     @Override
-    public String toFileFormat() {
+    public String convertToFileFormat() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " | " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }
