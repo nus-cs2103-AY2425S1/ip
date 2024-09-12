@@ -1,21 +1,19 @@
 package chatgpt.storage;
 
-import chatgpt.exception.ChatBotException;
-
-import chatgpt.task.TaskList;
-import chatgpt.task.Task;
-import chatgpt.task.ToDos;
-import chatgpt.task.Deadlines;
-import chatgpt.task.Events;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import chatgpt.exception.ChatBotException;
+import chatgpt.task.Deadlines;
+import chatgpt.task.Events;
+import chatgpt.task.Task;
+import chatgpt.task.TaskList;
+import chatgpt.task.ToDos;
 
 /**
  *  The Storage class handles reading of and saving data to a local text file.
@@ -90,6 +88,7 @@ public class Storage {
 
                     data.add(new Events(taskName, startDate, endDate, isCompleted));
                     break;
+                default:
                 }
 
             }
@@ -115,8 +114,8 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            throw new ChatBotException("\tProblem with saving to file" +
-                    "\n\tPlease fix the save file first");
+            throw new ChatBotException("\tProblem with saving to file"
+                    + "\n\tPlease fix the save file first");
         }
     }
 }

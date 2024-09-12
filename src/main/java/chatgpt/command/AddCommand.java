@@ -1,16 +1,14 @@
 package chatgpt.command;
 
 import chatgpt.exception.ChatBotException;
-
-import chatgpt.task.TaskList;
-import chatgpt.task.Task;
-import chatgpt.task.ToDos;
+import chatgpt.storage.Storage;
 import chatgpt.task.Deadlines;
 import chatgpt.task.Events;
-
+import chatgpt.task.Task;
+import chatgpt.task.TaskList;
+import chatgpt.task.ToDos;
 import chatgpt.ui.Ui;
 
-import chatgpt.storage.Storage;
 
 /**
  *  The AddCommand class represents a command to add a Task to the TaskList.
@@ -33,7 +31,7 @@ public class AddCommand extends Command {
      * @param taskType
      * @param input
      */
-    public AddCommand(String taskType, String input){
+    public AddCommand(String taskType, String input) {
         this.taskType = Type.valueOf(taskType);
         this.input = input;
     }
@@ -72,6 +70,7 @@ public class AddCommand extends Command {
             String endDate = date.split("/to")[1];
             newTask = new Events(task, startDate, endDate);
             break;
+        default:
         }
 
         tasks.add(newTask);

@@ -1,11 +1,9 @@
 package chatgpt.command;
 
-import chatgpt.exception.ChatBotException;
+import chatgpt.storage.Storage;
 import chatgpt.task.TaskList;
-
 import chatgpt.ui.Ui;
 
-import chatgpt.storage.Storage;
 
 /**
  *  The DeleteCommand class represents a command to exit the program.
