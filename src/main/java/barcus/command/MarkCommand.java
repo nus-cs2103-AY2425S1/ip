@@ -44,7 +44,7 @@ public class MarkCommand extends Command {
         for (int i: queue) {
             tasks.markTask(i);
             ui.talk(tasks.getTaskString(i));
-             output += tasks.getTaskString(i) + "\n";
+            output += tasks.getTaskString(i) + "\n";
         }
 
     }

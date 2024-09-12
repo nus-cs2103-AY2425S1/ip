@@ -61,7 +61,7 @@ public class Parser {
      * @param words String array of user input
      * @return Unknown command
      */
-    private static Command parseUnknown(String[] words){
+    private static Command parseUnknown(String[] words) {
         return new UnknownCommand();
     }
 
