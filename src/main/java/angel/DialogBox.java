@@ -41,6 +41,9 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        assert text != null && !text.isEmpty() : "Dialog text should not be null or empty";
+        assert img != null : "Image should not be null";
+
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -53,6 +56,10 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+
+        // Assert that the flip operation correctly reorders the dialog box components
+        assert getChildren().size() == tmp.size() : "Children size mismatch after flipping";
+        assert getAlignment() == Pos.TOP_LEFT : "Alignment should be TOP_LEFT after flipping";
     }
 
     /**

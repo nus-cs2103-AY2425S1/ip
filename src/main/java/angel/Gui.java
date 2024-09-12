@@ -24,15 +24,27 @@ public class Gui extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage cannot be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/GuiWindow.fxml"));
+            assert fxmlLoader != null : "FXMLLoader could not be initialized";
+
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "Failed to load the FXML file";
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<GuiWindow>getController().setAngel(angel); // inject the Angel instance
+
+            GuiWindow controller = fxmlLoader.getController();
+            assert controller != null : "Controller for GuiWindow could not be found";
+            controller.setAngel(angel); // Injects the Angel instance
+
             stage.show();
+            assert stage.isShowing() : "Stage should be showing";
         } catch (IOException e) {
             e.printStackTrace();
+            assert false : "IOException occurred while loading FXML";
         }
     }
 }
