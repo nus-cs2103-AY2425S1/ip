@@ -10,7 +10,8 @@ public enum Enumerations {
     UNMARK("unmark"),
     DELETE("delete"),
     FIND("find"),
-    TASK("task");
+    TASK("task"),
+    ARCHIVE("archive");
 
     private final String text;
     private Enumerations(String s) {
