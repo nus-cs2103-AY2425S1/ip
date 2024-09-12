@@ -35,46 +35,79 @@ public class TaskList {
      * Creates task of specified type with given task description.
      *
      * @param input Task description specifying type of task.
-     * @return Task of specified type with given task description
+     * @return Task of specified type with given task description.
      * @throws SerenityException If type of task is not specified.
      */
     public Task createTask(String input) throws SerenityException {
         Task t;
 
         if (input.startsWith("todo")) {
-            String[] description = input.split(" ");
-            if (description.length == 1) {
-                throw new SerenityException("Error: The description of a todo cannot be empty.");
-            } else {
-                //remove the type of task
-                String taskDescription = input.split(" ", 2)[1];
-                t = new Todo(taskDescription);
-            }
+            t = createTodo(input);
         } else if (input.startsWith("deadline")) {
-            String[] description = input.split(" ");
-            if (description.length == 1) {
-                throw new SerenityException("Error: The description of a deadline cannot be empty.");
-            } else {
-                String taskDescription = input.split(" ", 2)[1];
-                String[] parts = taskDescription.split("/by");
-                t = new Deadline(parts[0].strip(), parts[1].strip());
-            }
+            t = createDeadline(input);
         } else if (input.startsWith("event")) {
-            String[] description = input.split(" ");
-            if (description.length == 1) {
-                throw new SerenityException("Error: The description of an event cannot be empty.");
-            } else {
-                String taskDescription = input.split(" ", 2)[1];
-                String[] parts = taskDescription.split("/from");
-                String[] timings = parts[1].split("/to");
-                t = new Event(parts[0].strip(), timings[0].strip(), timings[1].strip());
-            }
+            t = createEvent(input);
         } else {
             throw new SerenityException("Error: Type of task is not specified.");
         }
 
         return t;
+    }
 
+    /**
+     * Creates Event with given task description.
+     *
+     * @param input Task description.
+     * @return Event with given task description.
+     * @throws SerenityException If task description is missing.
+     */
+    private static Task createEvent(String input) throws SerenityException {
+        String[] description = input.split(" ");
+        if (description.length == 1) {
+            throw new SerenityException("Error: The description of an event cannot be empty.");
+        } else {
+            String taskDescription = input.split(" ", 2)[1];
+            String[] parts = taskDescription.split("/from");
+            String[] timings = parts[1].split("/to");
+            return new Event(parts[0].strip(), timings[0].strip(), timings[1].strip());
+        }
+    }
+
+    /**
+     * Creates Deadline with given task description.
+     *
+     * @param input Task description.
+     * @return Deadline with given task description.
+     * @throws SerenityException If task description is missing.
+     */
+
+    private static Task createDeadline(String input) throws SerenityException {
+        String[] description = input.split(" ");
+        if (description.length == 1) {
+            throw new SerenityException("Error: The description of a deadline cannot be empty.");
+        } else {
+            String taskDescription = input.split(" ", 2)[1];
+            String[] parts = taskDescription.split("/by");
+            return new Deadline(parts[0].strip(), parts[1].strip());
+        }
+    }
+
+    /**
+     * Creates Todo with given task description.
+     *
+     * @param input Task description.
+     * @return Deadline with given task description.
+     * @throws SerenityException If task description is missing.
+     */
+    private static Todo createTodo(String input) throws SerenityException {
+        String[] description = input.split(" ");
+        if (description.length == 1) {
+            throw new SerenityException("Error: The description of a todo cannot be empty.");
+        } else {
+            //remove the type of task
+            String taskDescription = input.split(" ", 2)[1];
+            return new Todo(taskDescription);
+        }
     }
 
     /**
@@ -153,6 +186,7 @@ public class TaskList {
      * @return String representation of TaskList of matching tasks
      * @throws SerenityException If keyword is missing.
      */
+    @SuppressWarnings({"StringConcatenationInLoop", "ForLoopReplaceableByForEach"})
     public String findTask(String input) throws SerenityException {
 
         String[] parts = input.split(" ");

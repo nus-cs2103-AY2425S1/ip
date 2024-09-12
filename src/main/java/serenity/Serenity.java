@@ -59,7 +59,7 @@ public class Serenity {
      * @param input User's input
      */
     public String getResponse(String input) {
-        return Parser.parseToString(input, tasks, ui, storage);
+        return Parser.parseToString(input, tasks, storage);
     }
 
 
