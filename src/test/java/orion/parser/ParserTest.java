@@ -2,14 +2,14 @@ package orion.parser;
 
 import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
-import orion.taskList.TaskList;
-import orion.orionExceptions.FileInitializationException;
-import orion.orionExceptions.InvalidDeadlineException;
-import orion.orionExceptions.InvalidDeleteException;
-import orion.orionExceptions.InvalidEventException;
-import orion.orionExceptions.InvalidListException;
-import orion.orionExceptions.InvalidMarkException;
-import orion.orionExceptions.InvalidTodoException;
+import orion.tasklist.TaskList;
+import orion.orionexceptions.FileInitializationException;
+import orion.orionexceptions.InvalidDeadlineException;
+import orion.orionexceptions.InvalidDeleteException;
+import orion.orionexceptions.InvalidEventException;
+import orion.orionexceptions.InvalidListException;
+import orion.orionexceptions.InvalidMarkException;
+import orion.orionexceptions.InvalidTodoException;
 import orion.storage.Storage;
 import org.junit.jupiter.api.Test;
 

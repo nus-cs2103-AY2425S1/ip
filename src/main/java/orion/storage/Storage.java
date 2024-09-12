@@ -1,11 +1,5 @@
 package orion.storage;
 
-import orion.task.Deadline;
-import orion.task.Event;
-import orion.task.Task;
-import orion.task.Todo;
-import orion.orionExceptions.FileInitializationException;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,9 +11,15 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import orion.orionexceptions.FileInitializationException;
+import orion.task.Deadline;
+import orion.task.Event;
+import orion.task.Task;
+import orion.task.Todo;
+
 /**
  * Handles the storage of tasks by reading from and writing to a CSV file.
- * 
+ *
  * <p>
  * This class is responsible for initializing the storage file, reading tasks
  * from
@@ -31,7 +31,7 @@ public class Storage {
 
     /**
      * Constructs a Storage object and initializes the storage file.
-     * 
+     *
      * @throws FileInitializationException if there is an issue with file
      *                                     initialization.
      */
@@ -41,12 +41,12 @@ public class Storage {
 
     /**
      * Initializes the storage file by creating it if it does not exist.
-     * 
+     *
      * <p>
      * This method also ensures that the necessary directories are created if they
      * do not exist.
      * </p>
-     * 
+     *
      * @throws FileInitializationException if there is an issue creating directories
      *                                     or the file.
      */
@@ -74,14 +74,14 @@ public class Storage {
 
     /**
      * Reads tasks from the storage file and loads them into a list.
-     * 
+     *
      * <p>
      * Each line in the file represents a task with details like ID, type,
      * description,
      * completion status, and potentially dates. Tasks are parsed and added to the
      * list.
      * </p>
-     * 
+     *
      * @return a list of tasks read from the file.
      * @throws FileInitializationException if there is an issue reading the file or
      *                                     parsing its contents.
@@ -100,21 +100,21 @@ public class Storage {
 
                 Task task = null;
                 switch (type) {
-                    case "TODO":
-                        task = new Todo(taskId, description);
-                        break;
-                    case "DEADLINE":
-                        LocalDateTime by = LocalDateTime.parse(parts[4]);
-                        task = new Deadline(taskId, description, by);
-                        break;
-                    case "EVENT":
-                        String[] eventTimes = parts[4].split("\\|");
-                        LocalDateTime from = LocalDateTime.parse(eventTimes[0]);
-                        LocalDateTime to = LocalDateTime.parse(eventTimes[1]);
-                        task = new Event(taskId, description, from, to);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown task type: " + type);
+                case "TODO":
+                    task = new Todo(taskId, description);
+                    break;
+                case "DEADLINE":
+                    LocalDateTime by = LocalDateTime.parse(parts[4]);
+                    task = new Deadline(taskId, description, by);
+                    break;
+                case "EVENT":
+                    String[] eventTimes = parts[4].split("\\|");
+                    LocalDateTime from = LocalDateTime.parse(eventTimes[0]);
+                    LocalDateTime to = LocalDateTime.parse(eventTimes[1]);
+                    task = new Event(taskId, description, from, to);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown task type: " + type);
                 }
 
                 task.setCompleted(completed);
@@ -131,13 +131,13 @@ public class Storage {
 
     /**
      * Writes a list of tasks to the storage file.
-     * 
+     *
      * <p>
      * Each task is written as a line in the file with details like ID, type,
      * description,
      * completion status, and dates if applicable.
      * </p>
-     * 
+     *
      * @param tasks the list of tasks to write to the file.
      * @throws FileInitializationException if there is an issue writing to the file.
      */
@@ -167,7 +167,7 @@ public class Storage {
 
     /**
      * Gets the type of a task as a string.
-     * 
+     *
      * @param task the task for which the type is to be determined.
      * @return a string representing the type of the task (e.g., "TODO", "DEADLINE",
      *         "EVENT").

@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a start and end time.
- * 
+ *
  * <p>
  * An Event task has a description and a time range during which the event
  * occurs. It extends the base Task class and provides additional
@@ -18,7 +18,7 @@ public class Event extends Task {
 
     /**
      * Constructs an Event task.
-     * 
+     *
      * @param taskId      the unique identifier for the task.
      * @param description the description of the task.
      * @param from        the start date and time of the event.
@@ -32,7 +32,7 @@ public class Event extends Task {
 
     /**
      * Gets the start date and time of the event.
-     * 
+     *
      * @return the start date and time.
      */
     public LocalDateTime getFrom() {
@@ -41,7 +41,7 @@ public class Event extends Task {
 
     /**
      * Gets the end date and time of the event.
-     * 
+     *
      * @return the end date and time.
      */
     public LocalDateTime getTo() {
@@ -50,7 +50,7 @@ public class Event extends Task {
 
     /**
      * Returns the type icon for this task.
-     * 
+     *
      * @return a string representing the task type icon.
      */
     @Override
@@ -60,12 +60,12 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of this task.
-     * 
+     *
      * <p>
      * The string representation includes the task's description and the
      * formatted start and end times.
      * </p>
-     * 
+     *
      * @return a string representing the task, including the description and
      *         formatted start and end times.
      */
