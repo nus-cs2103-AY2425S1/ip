@@ -1,5 +1,6 @@
 package task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -132,6 +133,31 @@ public class TaskList {
             stringBuilder.insert(0, "1 matching task found!\n");
         } else {
             stringBuilder.insert(0, matchCount + " tasks found!\n");
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Generate the schedule for the task list on a given date.
+     * @param date Date to generate the schedule for.
+     * @return List of tasks in the schedule.
+     */
+    public String generateSchedule(LocalDate date) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int scheduleCount = 0;
+        for (int i = 0; i < getTaskCount(); i++) {
+            if (tasks.get(i).isOnDate(date)) {
+                scheduleCount++;
+                stringBuilder.append(i + 1).append(". ");
+                stringBuilder.append(tasks.get(i).toString()).append("\n");
+            }
+        }
+
+        if (scheduleCount == 1) {
+            stringBuilder.insert(0, "1 task on " + date + "!\n");
+        } else {
+            stringBuilder.insert(0, scheduleCount + " tasks on " + date + "!\n");
         }
 
         return stringBuilder.toString();

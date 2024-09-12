@@ -7,7 +7,6 @@ import enums.StatusMessage;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -97,7 +96,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void closeWindow() {
-        PauseTransition pause = new PauseTransition(Duration.seconds(20));
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(event -> Platform.exit());
         pause.play();
     }

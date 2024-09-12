@@ -15,6 +15,7 @@ public enum Command {
     UNMARK("unmark", "unmark <task index>", "unmark task with corresponding task index as undone"),
     DELETE("delete", "delete <task index>", "delete task with corresponding task index"),
     FIND("find", "find <search string>", "find task with matching search string"),
+    LIST_SCHEDULE("schedule", "schedule <date>", "list the schedule for a particular date"),
     HELP("help", "help", "view all available commands"),
     EXIT("bye", "bye", "exit BotManager");
 

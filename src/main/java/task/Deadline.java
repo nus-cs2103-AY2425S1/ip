@@ -44,5 +44,10 @@ public class Deadline extends Task {
     public String toData() {
         return "D | " + super.toData() + " | " + deadline;
     }
+
+    @Override
+    protected boolean isOnDate(LocalDate date) {
+        return deadline.equals(date);
+    }
 }
 
