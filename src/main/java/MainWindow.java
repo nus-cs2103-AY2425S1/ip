@@ -22,16 +22,22 @@ public class MainWindow extends AnchorPane {
 
     private Killua killua;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/gon.jpg"));
-    private Image killuaImage = new Image(this.getClass().getResourceAsStream("/images/killua.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/gon.jpg"));
+    private final Image killuaImage = new Image(this.getClass().getResourceAsStream("/images/killua.jpg"));
 
+    /** Initialize main window */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane is not initialized!";
+        assert dialogContainer != null : "DialogContainer is not initialized!";
+        assert userInput != null : "UserInput is not initialized!";
+        assert sendButton != null : "SendButton is not initialized!";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /** Injects the Killua instance */
     public void setKillua(Killua k) {
+        assert k != null : "Killua instance cannot be null!";
         killua = k;
         welcomeUser();
     }
@@ -39,6 +45,9 @@ public class MainWindow extends AnchorPane {
     /** Show welcome message */
     @FXML
     public void welcomeUser() {
+        assert killua != null : "Killua instance should be set before welcoming user!";
+        assert killuaImage != null : "Killua image is not loaded!";
+        assert userImage != null : "User image is not loaded!";
         dialogContainer.getChildren().add(
                 DialogBox.getKilluaDialog(killua.welcomeUser(), killuaImage)
         );
@@ -51,7 +60,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert !input.trim().isEmpty() : "User input should not be empty!";
         String response = killua.getResponse(input);
+        assert response != null : "Response from Killua should not be null!";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getKilluaDialog(response, killuaImage)
