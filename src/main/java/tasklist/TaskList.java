@@ -1,6 +1,8 @@
 package tasklist;
 
 import parser.Parser;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.ArrayList;
 import task.Task;
 import todo.ToDo;
@@ -64,6 +66,37 @@ public class TaskList {
         taskList.remove(deletionNumber);
         speakTaskRemoved(deletedDescription, taskList.size());
     }
+
+    /**
+     * Updates a specified task in the task list.
+     *
+     * @param updates The input string containing the task number and updates.
+     * @param taskList The task list which the task will be updated.
+     * @return A message indicating the result of the update operation.
+     */
+    public static String updateTask(int taskNum, String updates, ArrayList<Task> taskList) {
+            if (taskNum >= 0 && taskNum < taskList.size()) {
+                Task task = taskList.get(taskNum);
+                task.setName(updates);
+                speakTaskUpdated(task, taskList.size());
+                return "Task updated successfully:\n" + task;
+            } else {
+                return "Task number is out of range.";
+            }
+    }
+
+    /**
+     * Prints a message to the console to notify a user when a task has been updated successfully.
+     *
+     * @param task The task that was updated.
+     * @param size The size of the task list.
+     */
+    public static void speakTaskUpdated(Task task, int size) {
+        String msg = "Got it. I've updated this task:\n" + task.toString();
+        msg += size == 1 ? "Now you have 1 task in the list.\n" : "Now you have " + size + " tasks in the list.\n";
+        Parser.speak(msg);
+    }
+
 
     /**
      * Prints a message to the console to notify a user when a task has been added successfully.
