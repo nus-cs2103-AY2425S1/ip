@@ -26,12 +26,10 @@ public class JackBean {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        // handle bye
-        if (input.equalsIgnoreCase("bye")) { // I added equalsIgnoreCase() by myself
-            return "Bye homie! Come back if you need anything else. " + "JackBean, signing off!";
-        }
-
+        // guard conditions
         switch (input.toLowerCase()) {
+        case "bye":
+            return "Bye homie! Come back if you need anything else. " + "JackBean, signing off!";
         case "hi":
         case "hey":
         case "yo":
