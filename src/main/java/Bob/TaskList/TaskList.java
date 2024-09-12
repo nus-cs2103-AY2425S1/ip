@@ -1,8 +1,8 @@
-package bob.TaskList;
+package bob.tasklist;
 
 import java.util.ArrayList;
-import bob.Tasks.Task;
-import bob.Exception.BobException;
+import bob.tasks.Task;
+import bob.exception.BobException;
 
 public class TaskList {
     private ArrayList<Task> tasks;

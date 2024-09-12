@@ -1,4 +1,4 @@
-package bob.Tasks;
+package bob.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,10 +7,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
     private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = LocalDateTime.parse(by, INPUT_FORMATTER);
-    }
+
 
     public Deadline(String description, LocalDateTime by) {
         super(description);

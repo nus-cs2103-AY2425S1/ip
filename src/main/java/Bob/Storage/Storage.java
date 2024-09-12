@@ -1,8 +1,9 @@
-package bob.Storage;
+package bob.storage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,11 +11,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import bob.Tasks.Deadline;
-import bob.Tasks.Event;
-import bob.Tasks.Task;
-import bob.Tasks.Todo;
-import bob.Exception.BobException;
+import bob.Bob;
+import bob.tasks.Deadline;
+import bob.tasks.Event;
+import bob.tasks.Task;
+import bob.tasks.Todo;
+import bob.exception.BobException;
 
 
 public class Storage {
@@ -27,64 +29,71 @@ public class Storage {
     }
 
     public ArrayList<Task> load() throws BobException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjusted formatter
-
         try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-
+            File file = initializeFile();
             Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split(" \\| ");
-                String taskType = parts[0];
-                boolean isDone = parts[1].equals("1");
-
-                Task task;
-                switch (taskType) {
-                    case "T":
-                        task = new Todo(parts[2]);
-                        break;
-                    case "D":
-                        String dateString = parts[3];
-                        LocalDateTime deadlineDateTime;
-                        try {
-                            // Try parsing as LocalDateTime first
-                            deadlineDateTime = LocalDateTime.parse(dateString, dateTimeFormatter);
-                        } catch (DateTimeParseException e) {
-                            try {
-                                // If it fails, try parsing as LocalDate and convert to LocalDateTime
-                                LocalDate deadlineDate = LocalDate.parse(dateString, dateFormatter);
-                                deadlineDateTime = deadlineDate.atStartOfDay();
-                            } catch (DateTimeParseException ex) {
-                                throw new BobException("Invalid date format in file!");
-                            }
-                        }
-                        task = new Deadline(parts[2], deadlineDateTime);
-                        break;
-                    case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
-                        break;
-                    default:
-                        throw new BobException("Unknown task type");
-                }
-
-                if (isDone) {
-                    task.mark();
-                }
-                tasks.add(task);
-            }
+            return loadCurrentTasks(scanner);
         } catch (IOException e) {
             throw new BobException("Failed to load tasks from file");
+        }
+    }
+
+    private File initializeFile() throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        return file;
+    }
+
+    private ArrayList<Task> loadCurrentTasks(Scanner scanner) throws BobException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            Task task = parseTask(line);
+            tasks.add(task);
         }
         return tasks;
     }
 
+    private Task parseTask(String line) throws BobException {
+        String[] parts = line.split(" \\| ");
+        String taskType = parts[0];
+        boolean isDone = parts[1].equals("1");
+        Task task = createTaskFromParts(taskType, parts);
+        if (isDone) {
+            task.mark();
+        }
+        return task;
+    }
+
+    private Task createTaskFromParts(String taskType, String[] parts) throws BobException {
+        switch (taskType) {
+        case "T":
+            return new Todo(parts[2]);
+        case "D":
+            LocalDateTime deadlineDateTime = parseDeadline(parts[3]);
+            return new Deadline(parts[2], deadlineDateTime);
+        case "E":
+            return new Event(parts[2], parts[3], parts[4]);
+        default:
+            throw new BobException("Unknown task type");
+        }
+    }
+
+    private LocalDateTime parseDeadline(String dateString) throws BobException {
+        try {
+            return LocalDateTime.parse(dateString, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            try {
+                LocalDate deadlineDate = LocalDate.parse(dateString, DATE_FORMATTER);
+                return deadlineDate.atStartOfDay();
+            } catch (DateTimeParseException ex) {
+                throw new BobException("Invalid date format in file!");
+            }
+        }
+    }
 
     public void save(ArrayList<Task> tasks) throws BobException {
         try {
