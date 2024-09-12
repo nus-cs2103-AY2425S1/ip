@@ -43,7 +43,7 @@ public class TaskList {
     public void markTask(int index) {
         if (index <= getNumOfTasks() && index > 0) {
             listOfTasks.get(index - 1).markAsDone();
-            Ui.print("Okay! I've marked this task as done:\n" + getTask(index - 1));
+            Ui.print("Okay! I've marked this task as done:\n" + "    " + getTask(index - 1));
         } else {
             Ui.print("No task found. Please retry!");
         }

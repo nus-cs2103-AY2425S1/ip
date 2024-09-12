@@ -131,7 +131,7 @@ public abstract class Task {
 
         @Override
         public String toStoringFormat() {
-            return String.format("D | %d | %s| %s", this.isDone() ? 1 : 0, super.taskName, this.deadline);
+            return String.format("D | %d | %s | %s", this.isDone() ? 1 : 0, super.taskName, this.deadline);
         }
     }
 
@@ -157,7 +157,7 @@ public abstract class Task {
 
         @Override
         public String toStoringFormat() {
-            return String.format("E | %d | %s| %s to %s", this.isDone() ? 1 : 0, super.taskName,
+            return String.format("E | %d | %s | %s to %s", this.isDone() ? 1 : 0, super.taskName,
                     this.from, this.to);
         }
     }

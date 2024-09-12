@@ -35,16 +35,18 @@ public class Storage {
                     listOfTasks.get(i).markAsDone();
                 }
             } else if (taskPrompt.startsWith("D ")) {
-                listOfTasks.add(Task.createDeadline(taskPrompt.substring(8, taskPrompt.lastIndexOf('|')),
+                listOfTasks.add(Task.createDeadline(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
                         LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2))));
                 if (taskPrompt.charAt(4) == '1') {
                     listOfTasks.get(i).markAsDone();
                 }
-            } else { // Event
+            } else if (taskPrompt.startsWith("E ")) {
 
-                listOfTasks.add(Task.createEvent(taskPrompt.substring(8, taskPrompt.lastIndexOf('|')),
+                listOfTasks.add(Task.createEvent(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
                         LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2, taskPrompt.lastIndexOf("to") - 1)),
                         LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf("to") + 3))));
+            } else {
+                // do nothing
             }
         }
 
