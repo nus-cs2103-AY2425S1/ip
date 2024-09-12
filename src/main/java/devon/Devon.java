@@ -13,10 +13,10 @@ import java.util.Scanner;
 public class Devon {
 
     protected Scanner scanner = new Scanner(System.in);
-    private TaskList tasks = new TaskList();
-    private Storage storage = new Storage();
-    private Parser parser = new Parser();
-    private Ui ui = new Ui();
+    private final TaskList tasks = new TaskList();
+    private final Storage storage = new Storage();
+    private final Parser parser = new Parser();
+    private final Ui ui = new Ui();
 
     /**
      * Enum to represent the various commands the user can input.
