@@ -45,10 +45,10 @@ public class TaskTest {
     public void testWriteTask() {
         // uncompleted task
         Task task = new Task("test");
-        assertEquals("0,test", task.writeTask());
+        assertEquals("0,3,test", task.writeTask());
 
         // completed task
         task.isDone = true;
-        assertEquals("1,test", task.writeTask());
+        assertEquals("1,3,test", task.writeTask());
     }
 }

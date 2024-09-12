@@ -14,6 +14,6 @@ public class DeadlineTest {
     @Test
     public void testWriteTask() {
         Deadline deadline = new Deadline("test", "2024-08-30");
-        assertEquals("0,test,2024-08-30", deadline.writeTask());
+        assertEquals("0,3,test,2024-08-30", deadline.writeTask());
     }
 }

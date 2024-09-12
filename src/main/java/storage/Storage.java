@@ -5,7 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import tasks.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 /**
  * Responsible for saving the input data into a file after execution.
@@ -85,7 +88,7 @@ public class Storage {
                 : Integer.parseInt(taskParams[2]) == 2
                 ? "medium"
                 : "low";
-        
+
         Task newTask;
         switch (taskType) {
         case "todo":
