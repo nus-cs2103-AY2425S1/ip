@@ -78,7 +78,7 @@ public class Bob {
 
     /**
      * The main entry point of Bob chatbot.
-     * @param args Command-line arguments.
+     * @param args command-line arguments.
      */
     public static void main(String[] args) {
         new Bob("./data/bob.csv").run();

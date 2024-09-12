@@ -28,68 +28,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
-//    public ArrayList<Task> load() throws BobException {
-//        ArrayList<Task> tasks = new ArrayList<>();
-//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-//        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjusted formatter
-//
-//        try {
-//            File file = new File(filePath);
-//            if (!file.exists()) {
-//                file.getParentFile().mkdirs();
-//                file.createNewFile();
-//            }
-//
-//            Scanner scanner = new Scanner(file);
-//            while (scanner.hasNextLine()) {
-//                String line = scanner.nextLine();
-//                String[] parts = line.split(" \\| ");
-//                String taskType = parts[0];
-//                boolean isDone = parts[1].equals("1");
-//
-//                Task task;
-//                switch (taskType) {
-//                    case "T":
-//                        task = new Todo(parts[2]);
-//                        break;
-//                    case "D":
-//                        String dateString = parts[3];
-//                        LocalDateTime deadlineDateTime;
-//                        try {
-//                            deadlineDateTime = LocalDateTime.parse(dateString, dateTimeFormatter);
-//                        } catch (DateTimeParseException e) {
-//                            try {
-//                                LocalDate deadlineDate = LocalDate.parse(dateString, dateFormatter);
-//                                deadlineDateTime = deadlineDate.atStartOfDay();
-//                            } catch (DateTimeParseException ex) {
-//                                throw new BobException("Invalid date format in file!");
-//                            }
-//                        }
-//                        task = new Deadline(parts[2], deadlineDateTime);
-//                        break;
-//                    case "E":
-//                        task = new Event(parts[2], parts[3], parts[4]);
-//                        break;
-//                    default:
-//                        throw new BobException("Unknown task type");
-//                }
-//
-//                if (isDone) {
-//                    task.mark();
-//                }
-//                tasks.add(task);
-//            }
-//        } catch (IOException e) {
-//            throw new BobException("Failed to load tasks from file");
-//        }
-//        return tasks;
-//    }
-
     public ArrayList<Task> load() throws BobException {
         try {
             File file = initializeFile();
             Scanner scanner = new Scanner(file);
-            return loadCurrentTask(scanner);
+            return loadCurrentTasks(scanner);
         } catch (IOException e) {
             throw new BobException("Failed to load tasks from file");
         }
@@ -104,7 +47,7 @@ public class Storage {
         return file;
     }
 
-    private ArrayList<Task> loadCurrentTask(Scanner scanner) throws BobException {
+    private ArrayList<Task> loadCurrentTasks(Scanner scanner) throws BobException {
         ArrayList<Task> tasks = new ArrayList<>();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
