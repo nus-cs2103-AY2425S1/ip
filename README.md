@@ -3,7 +3,7 @@
 > "The mind is a place where you generate ideas" - Unknown
 [BobPro](https://github.com/thenosewizard/ip) unleashes your mind's capability one step further. It's
 1. GUI based 
-2. Easy to learn
+2. Easy to learn 👍
 3. Fast to use 👍
 
 ## Features 
