@@ -33,6 +33,7 @@ public class Juno extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setField(); // inject the Juno instance
             fxmlLoader.<MainWindow>getController().displayWelcomeMessage();
+            fxmlLoader.<MainWindow>getController().checkScheduleTask();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

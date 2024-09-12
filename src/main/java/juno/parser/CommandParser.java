@@ -9,6 +9,7 @@ import juno.command.ExitCommand;
 import juno.command.FindCommand;
 import juno.command.ListCommand;
 import juno.command.MarkCommand;
+import juno.command.RemindCommand;
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
@@ -46,6 +47,7 @@ public class CommandParser {
         String listTaskString = "list";
         String exitString = "bye";
         String findString = "find";
+        String remindString = "remind";
 
         if (userInput.equalsIgnoreCase(exitString)) {
             return new ExitCommand(junoUi);
@@ -68,6 +70,8 @@ public class CommandParser {
             return new AddEventCommand(userInput, taskManager, fileManager);
         } else if (userInput.startsWith(findString)) {
             return new FindCommand(userInput, taskManager);
+        } else if (userInput.equalsIgnoreCase(remindString)) {
+            return new RemindCommand(taskManager);
         } else {
             throw new TaskManagerException(junoUi.invalidFunctionInput(),
                     TaskManagerException.ErrorType.INVALID_FUNCTION);
