@@ -2,20 +2,20 @@ package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class DeadlineTask extends Task {
     private static final String SYMBOL = "D";
-    private String dueTime;
-    private LocalDate date;
+    private LocalDate deadlineDate;
 
-    public DeadlineTask(String description, String dueTime) {
+    public DeadlineTask(String description, String dueTime) throws DateTimeParseException {
         super(description);
-        this.dueTime = dueTime;
+        this.deadlineDate = LocalDate.parse(dueTime);
     }
 
-    public DeadlineTask(String description, LocalDate date) {
-        super(description);
-        this.date = date;
+    public DeadlineTask(String description, String dueTime, String note) throws DateTimeParseException {
+        super(description, note);
+        this.deadlineDate = LocalDate.parse(dueTime);
     }
 
     public String getSymbol() {
@@ -23,15 +23,14 @@ public class DeadlineTask extends Task {
     }
 
     public String getTimings() {
-        return "(by: " + this.date + ")";
+        return "(by: " + this.deadlineDate + ")";
     }
 
     @Override
     public String toString() {
-        return dueTime != null
-                ? String.format("[%s][%s] %s (by: %s)", this.SYMBOL, super.getStatusIcon(),
-                        super.description, this.dueTime)
-                : String.format("[%s][%s] %s (by: %s)", this.SYMBOL, super.getStatusIcon(),
-                        super.description, this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        String taskString = String.format("[%s][%s] %s (by: %s)", this.SYMBOL, super.getStatusIcon(),
+                        super.description, this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        taskString += "\nNote: " + super.note + "\n";
+        return taskString;
     }
 }

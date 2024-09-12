@@ -16,7 +16,7 @@ public class TodoTask extends Task {
     }
 
     public String getTimings() {
-        return " ";
+        return "";
     }
 
     @Override

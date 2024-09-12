@@ -32,11 +32,13 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return from != null
+        String taskString =  from != null
                 ? String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(),
                         super.description, this.from, this.to)
                 : String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(),
                         super.description, this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                                 this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        taskString += "\nNote: " + super.note + "\n";
+        return taskString;
     }
 }

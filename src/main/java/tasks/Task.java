@@ -2,7 +2,7 @@ package tasks;
 
 public abstract class Task {
     protected String description;
-    protected String note = "No notes! :)";
+    protected String note = "-";
     protected boolean isDone;
 
     public Task(String description) {
