@@ -1,6 +1,5 @@
-package mortalreminder.backend;
+package mortalreminder.backend.tasklistmanager;
 
-import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Task;
 import mortalreminder.tasks.ToDoStub;
