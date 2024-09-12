@@ -44,8 +44,8 @@ test {
 }
 
 application {
-//    mainClass.set("sentinel.Sentinel")
-    mainClass.set("sentinel.gui.Launcher")
+    mainClass.set("sentinel.Sentinel")
+//    mainClass.set("sentinel.gui.Launcher")
 }
 
 shadowJar {

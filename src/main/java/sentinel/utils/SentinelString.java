@@ -1,5 +1,7 @@
 package sentinel.utils;
 
+import java.util.stream.Collectors;
+
 import sentinel.Sentinel;
 import sentinel.task.Task;
 
@@ -165,13 +167,14 @@ public class SentinelString {
      * @return A formatted string of tasks in the list.
      */
     public static String stringList(SentinelList lst) {
-        StringBuilder sb = new StringBuilder("Here " + (lst.isSizeOne() ? "is" : "are") + " the "
-                + (lst.isSizeOne() ? "task" : "tasks") + " in your list:\n");
-        for (int i = 0; i < lst.size(); i++) {
-            sb.append("\t").append(i + 1).append(".").append(lst.getListedString(i)).append("\n");
-        }
-        return sb.toString();
+        String header = "Here " + (lst.isSizeOne() ? "is" : "are") + " the "
+                + (lst.isSizeOne() ? "task" : "tasks") + " in your list:\n";
+
+        return lst.stream()
+                .map(t -> "\t" + (lst.indexOf(t) + 1) + "." + lst.getListedString(lst.indexOf(t)))
+                .collect(Collectors.joining("\n", header, "\n"));
     }
+
 
     /**
      * Returns the filtered list of tasks.
@@ -180,16 +183,17 @@ public class SentinelString {
      * @return A formatted string of filtered tasks.
      */
     public static String stringFilteredList(SentinelList lst, String keyword) {
-        lst = lst.filter(keyword);
-        StringBuilder sb = new StringBuilder("Here "
-                + (lst.isSizeOne() ? "is" : "are") + " the "
-                + (lst.isSizeOne() ? "task" : "tasks") + " in your list that "
-                + (lst.isSizeOne() ? "contains" : "contain") + " the keyword \"" + keyword + "\":\n");
-        for (int i = 0; i < lst.size(); i++) {
-            sb.append("\t").append(i + 1).append(".").append(lst.getListedString(i)).append("\n");
-        }
-        return sb.toString();
+        SentinelList filteredList = lst.filter(keyword);
+        String header = "Here " + (filteredList.isSizeOne() ? "is" : "are") + " the "
+                + (filteredList.isSizeOne() ? "task" : "tasks") + " in your list that "
+                + (filteredList.isSizeOne() ? "contains" : "contain") + " the keyword \"" + keyword + "\":\n";
+
+        return filteredList.stream()
+                .map(t -> "\t" + (filteredList.indexOf(t) + 1)
+                        + "." + filteredList.getListedString(filteredList.indexOf(t)))
+                .collect(Collectors.joining("\n", header, "\n"));
     }
+
 
     /**
      * Returns a message when a task is removed and returns the number of remaining tasks.

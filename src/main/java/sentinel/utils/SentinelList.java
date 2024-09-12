@@ -1,6 +1,7 @@
 package sentinel.utils;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import sentinel.task.Task;
 
@@ -97,13 +98,9 @@ public class SentinelList extends ArrayList<Task> {
      *     an empty list is returned.
      * */
     public SentinelList filter(String keyword) {
-        SentinelList result = new SentinelList();
-        for (Task t : this) {
-            if (t.toString().contains(keyword)) {
-                result.add(t);
-            }
-        }
-        return result;
+        return this.stream()
+                .filter(t -> t.toString().contains(keyword))
+                .collect(Collectors.toCollection(SentinelList::new));
     }
 
 }
