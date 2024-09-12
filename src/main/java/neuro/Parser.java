@@ -5,14 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import neuro.command.AddCommand;
-import neuro.command.Command;
-import neuro.command.DeleteCommand;
-import neuro.command.ExitCommand;
-import neuro.command.FindCommand;
-import neuro.command.ListCommand;
-import neuro.command.MarkCommand;
-import neuro.command.UnmarkCommand;
+import neuro.command.*;
 
 /**
  * The {@code Parser} class handles the parsing of user input strings.
@@ -39,6 +32,8 @@ public class Parser {
             return new DeleteCommand(getIndexFromCommand(userCommand));
         } else if (userCommand.startsWith("find")) {
             return new FindCommand(userCommand.substring("find".length()));
+        } else if (userCommand.startsWith("tag")) {
+            return new TagCommand(getIndexFromCommand(userCommand), userCommand.split(" "));
         } else {
             return new AddCommand(userCommand.split(" "));
         }

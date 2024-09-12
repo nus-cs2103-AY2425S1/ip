@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (this.index < 0) {
+        if (this.index < 0 || this.index > tasks.getSize()) {
             return "Missing or invalid index for 'delete' command! Add a valid "
                    + "index for a task to delete, like 'delete 2'.";
         }

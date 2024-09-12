@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import neuro.task.Deadline;
@@ -47,7 +48,13 @@ public class Storage {
             String[] taskComponents = nextLine.split(" \\| ");
             String taskType = taskComponents[0];
             String taskIsDone = taskComponents[1];
-            Task taskToAdd = getTaskToAdd(taskType, taskComponents, taskIsDone);
+
+            // Inspired by https://stackoverflow.com/questions/23079003/how-to-convert-a-java-8-stream-to-an-array
+            String[] taskTags = Arrays.stream(taskComponents[2].split(" #"))
+                    .map(tag -> tag.trim().replace("#", ""))
+                    .toArray(String[]::new);
+
+            Task taskToAdd = getTaskToAdd(taskType, taskComponents, taskIsDone, taskTags);
 
             if (taskToAdd != null) {
                 taskList.add(taskToAdd);
@@ -73,19 +80,19 @@ public class Storage {
         return f;
     }
 
-    private Task getTaskToAdd(String taskType, String[] taskComponents, String taskIsDone) {
+    private Task getTaskToAdd(String taskType, String[] taskComponents, String taskIsDone, String[] taskTags) {
         Task taskToAdd = null;
 
         try {
             switch (taskType) {
             case ("T"):
-                taskToAdd = new Todo(taskComponents[2]);
+                taskToAdd = new Todo(taskComponents[3]);
                 break;
             case ("D"):
-                taskToAdd = new Deadline(taskComponents[2], LocalDateTime.parse(taskComponents[3]));
+                taskToAdd = new Deadline(taskComponents[3], LocalDateTime.parse(taskComponents[4]));
                 break;
             case ("E"):
-                taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                taskToAdd = new Event(taskComponents[3], taskComponents[4], taskComponents[5]);
                 break;
             default:
                 break;
@@ -94,9 +101,18 @@ public class Storage {
             // Corrupted line in save file
         }
 
-        if (taskIsDone.equals("1") && taskToAdd != null) {
+        if (taskToAdd == null) {
+            return null;
+        }
+
+        if (taskIsDone.equals("1")) {
             taskToAdd.markDone();
         }
+
+        for (String tag : taskTags) {
+            taskToAdd.addTag(tag);
+        }
+
         return taskToAdd;
     }
 
