@@ -21,7 +21,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private JackBean jackBean = new JackBean();
+    private JackBean jackBean;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image jackBeanImage = new Image(this.getClass().getResourceAsStream("/images/DaJackBean.png"));
@@ -31,9 +31,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setJackBean(JackBean d) {
-        jackBean = d;
+    /** Injects the JackBean instance */
+    public void setJackBean(JackBean jb) {
+        jackBean = jb;
+        assert jackBean != null : "JackBean should not be null.";
     }
 
     /**
@@ -44,6 +45,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jackBean.getResponse(input);
+        assert response != null : "Response should not be null.";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJackBeanDialog(response, jackBeanImage)
