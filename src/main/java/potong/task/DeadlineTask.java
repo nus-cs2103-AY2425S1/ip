@@ -37,8 +37,9 @@ public class DeadlineTask extends Task {
      * @param isDone Whether the task is done.
      * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public DeadlineTask(String description, String deadline, boolean isDone) throws IllegalInputPotongException {
-        super(description, isDone);
+    public DeadlineTask(String description, String deadline,
+                        boolean isDone, String tag) throws IllegalInputPotongException {
+        super(description, isDone, tag);
         if (deadline.isEmpty()) {
             throw new IllegalInputPotongException();
         }

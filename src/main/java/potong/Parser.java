@@ -2,13 +2,7 @@ package potong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import potong.command.AddCommand;
-import potong.command.Command;
-import potong.command.DeleteCommand;
-import potong.command.ExitCommand;
-import potong.command.FindCommand;
-import potong.command.ListCommand;
-import potong.command.MarkCommand;
+import potong.command.*;
 import potong.exceptions.IllegalInputPotongException;
 import potong.task.DeadlineTask;
 import potong.task.EventTask;
@@ -22,7 +16,7 @@ import potong.task.ToDoTask;
  * Class with static methods to parse the user inputs.
  */
 public class Parser {
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern DEADLINE_FORMAT = Pattern.compile(" (?<desc>.*)");
 
@@ -40,36 +34,37 @@ public class Parser {
         }
         boolean isDone = arr[1].equals("1");
         Task result = null;
-        String description = arr[2];
+        String tag = arr[2];
+        String description = arr[3];
         String time = "";
         switch (arr[0]) {
         case "T":
             try {
-                result = new ToDoTask(description, isDone);
+                result = new ToDoTask(description, isDone, tag);
             } catch (IllegalInputPotongException e) {
                 throw new RuntimeException(e);
             }
             break;
         case "D":
-            time = arr[3];
+            time = arr[4];
             try {
-                result = new DeadlineTask(description, time, isDone);
+                result = new DeadlineTask(description, time, isDone, tag);
             } catch (IllegalInputPotongException e) {
                 throw new RuntimeException(e);
             }
             break;
         case "E":
-            time = arr[3];
+            time = arr[4];
             String[] startAndEnd = time.split("-");
             try {
-                result = new EventTask(description, startAndEnd[0], startAndEnd[1], isDone);
+                result = new EventTask(description, startAndEnd[0], startAndEnd[1], isDone, tag);
             } catch (IllegalInputPotongException e) {
                 throw new RuntimeException(e);
             }
             break;
         default:
             try {
-                result = new Task(description, isDone);
+                result = new Task(description, isDone, tag);
             } catch (IllegalInputPotongException e) {
                 throw new RuntimeException(e);
             }
@@ -85,6 +80,10 @@ public class Parser {
      */
     public static Command parse(String input) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
+        if (!matcher.matches()) {
+
+        }
+
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments").strip();
 
@@ -98,6 +97,8 @@ public class Parser {
         case "deadline" -> new AddCommand(arguments, AddCommand.Type.DEADLINE);
         case "event" -> new AddCommand(arguments, AddCommand.Type.EVENT);
         case "find" -> new FindCommand(arguments);
+        case "tag" -> new TagCommand(arguments);
+        case "untag" -> new UntagCommand(arguments);
         default -> null;
         };
     }

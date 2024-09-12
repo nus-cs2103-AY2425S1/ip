@@ -86,6 +86,35 @@ public class TaskList {
     }
 
     /**
+     * Tag the task in the list
+     *
+     * @param tag String representation of the tag.
+     * @param index Index of task to be tagged.
+     * @return String representation of this action.
+     * @throws PotongException If the index is out of bounds.
+     */
+    public String tag(String tag, int index) throws PotongException {
+        assert index >= 0;
+        if (index - 1 >= this.arr.size()) {
+            throw new PotongException("We cannot tag a task thats not there!");
+        }
+        return this.arr.get(index - 1).tag(tag);
+    }
+
+    /**
+     * Untag the task in the list.
+     * @param index Index of task to untag.
+     * @return String representation of this action.
+     * @throws PotongException If the index is out of bounds.
+     */
+    public String untag(int index) throws PotongException {
+        assert index >= 0;
+        if (index - 1 >= this.arr.size()) {
+            throw new PotongException("We cannot tag a task thats not there!");
+        }
+        return this.arr.get(index - 1).untag();
+    }
+    /**
      * Save the list of tasks.
      *
      * @param storage Storage class to save the list.
@@ -97,11 +126,12 @@ public class TaskList {
             String status = curr.getStatus();
             String description = curr.getDescription();
             String time = curr.getTime();
+            String tag = curr.getTag();
             if (time.isEmpty()) {
-                String task = String.format("%s | %s | %s\n", type, status, description);
+                String task = String.format("%s | %s | %s | %s\n", type, status, tag, description);
                 result.append(task);
             } else {
-                String task = String.format("%s | %s | %s | %s\n", type, status, description, time);
+                String task = String.format("%s | %s | %s | %s | %s\n", type, status, tag, description, time);
                 result.append(task);
             }
         }
