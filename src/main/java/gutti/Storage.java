@@ -52,36 +52,48 @@ public class Storage {
                     continue;
                 }
                 if (line.startsWith("[T]")) { // Todo list
-                    String description = line.substring(6).trim();
-                    boolean isDone = line.charAt(4) == 'X';
-                    taskList.addTask(new Todo(description, isDone));
+                    TodoParse(taskList, line);
                 } else if (line.startsWith("[E]")) {
-                    int fromIndex = line.indexOf("(from: ");
-                    int toIndex = line.indexOf(" to: ");
-                    if (fromIndex != -1 && toIndex != -1) {
-                        String description = line.substring(6, fromIndex).trim();
-                        String from = line.substring(fromIndex + 6, toIndex).trim();
-                        String to = line.substring(toIndex + 4, line.length() - 1).trim();
-                        boolean isDone = line.charAt(4) == 'X';
-                        taskList.addTask(new Event(description, from, to, isDone));
-                    } else {
-                        System.out.println("Corrupted Event line: " + line);
-                    }
+                    EventParse(taskList, line);
                 } else if (line.startsWith("[D]")) {
-                    int byIndex = line.indexOf("(by: ") + 5;
-                    int byEndIndex = line.indexOf(')');
-                    if (byIndex != -1) {
-                        String description = line.substring(6, line.indexOf("(by:")).trim();
-                        String by = line.substring(byIndex, byEndIndex).trim();
-                        boolean isDone = line.charAt(4) == 'X';
-                        taskList.addTask(new Deadline(description, by, isDone));
-                    } else {
-                        System.out.println("Corrupted Deadline line: " + line);
-                    }
+                    DeadLineParse(taskList, line);
                 }
             }
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
+    }
+
+    private static void DeadLineParse(TaskList taskList, String line) {
+        int byIndex = line.indexOf("(by: ") + 5;
+        int byEndIndex = line.indexOf(')');
+        if (byIndex != -1) {
+            String description = line.substring(6, line.indexOf("(by:")).trim();
+            String by = line.substring(byIndex, byEndIndex).trim();
+            boolean isDone = line.charAt(4) == 'X';
+            taskList.addTask(new Deadline(description, by, isDone));
+        } else {
+            System.out.println("Corrupted Deadline line: " + line);
+        }
+    }
+
+    private static void EventParse(TaskList taskList, String line) {
+        int fromIndex = line.indexOf("(from: ");
+        int toIndex = line.indexOf(" to: ");
+        if (fromIndex != -1 && toIndex != -1) {
+            String description = line.substring(6, fromIndex).trim();
+            String from = line.substring(fromIndex + 6, toIndex).trim();
+            String to = line.substring(toIndex + 4, line.length() - 1).trim();
+            boolean isDone = line.charAt(4) == 'X';
+            taskList.addTask(new Event(description, from, to, isDone));
+        } else {
+            System.out.println("Corrupted Event line: " + line);
+        }
+    }
+
+    private static void TodoParse(TaskList taskList, String line) {
+        String description = line.substring(6).trim();
+        boolean isDone = line.charAt(4) == 'X';
+        taskList.addTask(new Todo(description, isDone));
     }
 }
