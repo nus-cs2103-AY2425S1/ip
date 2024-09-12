@@ -31,8 +31,13 @@ public class AddEventCommand extends Command {
      * @throws DateTimeParseException If the startTime or endTime strings cannot be parsed into LocalDateTime.
      */
     public AddEventCommand(String description, String startTime, String endTime) throws DateTimeParseException {
+        assert !description.isEmpty() : "Event task needs a name";
         this.description = description;
+
+        assert !startTime.isEmpty() : "Event startTime not specified";
         this.startTime = LocalDateTime.parse(startTime, INPUT_FORMATTER);
+
+        assert !endTime.isEmpty(): "Event endTime not specified";
         this.endTime = LocalDateTime.parse(endTime, INPUT_FORMATTER);
     }
 
@@ -47,6 +52,10 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        assert tasks != null : "Task list cannot be null";
+        assert ui != null : "UI cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Task newTask = new Event(description, startTime, endTime);
         tasks.add(newTask);
         storage.save(tasks.toArrayList());
