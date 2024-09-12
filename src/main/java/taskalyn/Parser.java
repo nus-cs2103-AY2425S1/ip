@@ -140,6 +140,7 @@ public class Parser {
      */
     private String handleFindCommand(String[] items) throws CommandFormatException {
         checkForEmptyCommandParameters(items[1], "find", TASK_DESCRIPTION);
+        assert !items[1].isEmpty() : "The keyword to be searched cannot be empty.";
         return taskManager.searchTasksByKeyword(items[1]);
     }
 
@@ -152,7 +153,7 @@ public class Parser {
      */
     private String handleTodoCommand(String[] items) throws CommandFormatException {
         checkForEmptyCommandParameters(items[1], "todo", TASK_DESCRIPTION);
-
+        assert !items[1].isEmpty() : "Task description cannot be empty.";
         return taskManager.addTask(new TodoTask(items[1], false));
     }
 
@@ -171,7 +172,12 @@ public class Parser {
 
         checkForEmptyCommandParameters(splitInput[0], "deadline", TASK_DESCRIPTION);
 
+        assert !splitInput[0].isEmpty() : "Task description cannot be empty.";
+
         LocalDateTime deadlineDate = getDateTime(splitInput[1]);
+
+        String deadlineDateAsString = deadlineDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        assert deadlineDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "Date and Time format is incorrect.";
 
         return taskManager.addTask(new DeadlineTask(splitInput[0], deadlineDate, false));
     }
@@ -191,11 +197,19 @@ public class Parser {
 
         checkForEmptyCommandParameters(splitInput[0], "event", TASK_DESCRIPTION);
 
+        assert !splitInput[0].isEmpty() : "Task description cannot be empty.";
+
         // Returns [fromDate, toDate]
         String[] fromAndToDates = splitInputOverKeyword(splitInput[1], "/to", "event");
 
         LocalDateTime fromDate = getDateTime(fromAndToDates[0]);
         LocalDateTime toDate = getDateTime(fromAndToDates[1]);
+
+        String fromDateAsString = fromDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        assert fromDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "Date and Time format is incorrect.";
+
+        String toDateAsString = toDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        assert toDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "Date and Time format is incorrect.";
 
         return taskManager.addTask(new EventTask(splitInput[0], fromDate, toDate, false));
     }
@@ -247,10 +261,12 @@ public class Parser {
     }
 
     private void checkArgumentCount(String[] items, String command) throws CommandFormatException {
+        String commandFormat = getCommandFormat(command);
+        assert commandFormat != null : "Command format cannot be null.";
         if (items.length != 2) {
             throw new CommandFormatException("Aw... " + command
                     + " command is incomplete. The format is: "
-                    + getCommandFormat(command));
+                    + commandFormat);
         }
     }
 
