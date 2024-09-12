@@ -1,8 +1,6 @@
 package ahmad.processor.task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -43,6 +41,12 @@ public class TaskList {
         return getStringList(TaskList.list);
     }
 
+    /**
+     * Returns task list ascendingly based on time.
+     *
+     * @param tasks original list of tasks.
+     * @return Sorted list of tasks.
+     */
     public static List<Task> sortAscendingTime(List<Task> tasks) {
         final List<Task> sortedList = (new ArrayList<>(tasks));
 
@@ -51,6 +55,12 @@ public class TaskList {
         return sortedList;
     }
 
+    /**
+     * Returns predicate for a filter function.
+     *
+     * @param task Task to be filtered.
+     * @return Predicate to filter function.
+     */
     public static Function<List<Task>, List<Task>> filterList(TaskType task) {
         final Predicate<Task> filterPredicate;
 

@@ -26,38 +26,27 @@ public class List {
 
         if (prompts.size() >= 2) {
             try {
+                Function<String, Function<java.util.List<Task>, java.util.List<Task>>> argParser = arg -> {
+                    switch (arg) {
+                    case "sorted":
+                        return TaskList::sortAscendingTime;
+                    case "deadline":
+                        return TaskList.filterList(TaskType.Deadline);
+                    default:
+                        throw new UncheckedIOException(new IOException());
+                    }
+                };
+
                 java.util.ArrayList<Function<java.util.List<Task>, java.util.List<Task>>> processors =
                         new ArrayList<>(prompts.subList(1, prompts.size()).stream()
                                                 .<Function<java.util.List<Task>,
-                                                        java.util.List<Task>>>map(arg -> {
-                                                    switch (arg) {
-                                                    case "sorted":
-                                                        return TaskList::sortAscendingTime;
-                                                    case "deadline":
-                                                        return TaskList.filterList(TaskType.Deadline);
-                                                    default:
-                                                        throw new UncheckedIOException(new IOException());
-                                                    }
-                                                }).toList());
+                                                        java.util.List<Task>>>map(argParser).toList());
 
                 return new Response(ahmad.processor.task.TaskList.getStringList(
                         processors));
             } catch (UncheckedIOException e) {
                 throw new ListInvalidArgsException();
             }
-//            prompts.subList(1, prompts.size()).stream().reduce(new ArrayList<Function<java.util.List<Task>,
-//                    java.util.List<Task>>>(), (acc, arg) -> {
-//                switch (prompts.get(1)) {
-//                case "sorted":
-//                    return new ahmad.processor.task.TaskList.getStringList(TaskList::sortAscendingTime));
-//                case "deadline":
-//                    if (prompts.size() == 3 && prompts.get(2).equals("sorted"))
-//                        return new Response(ahmad.processor.task.TaskList.getStringList(TaskList.filterList(TaskType.Deadline),
-//                                TaskList::sortAscendingTime));
-//                default:
-//                    throw new ListInvalidArgsException();
-//                }
-//            });
         }
 
         return new Response(ahmad.processor.task.TaskList.getStringList());
