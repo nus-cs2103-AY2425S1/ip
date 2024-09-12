@@ -9,18 +9,19 @@ import tasks.Task;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-    /** Returns the size of tasks. */
-    public int getTaskListSize() {
-        return tasks.size();
-    }
-  
     /**
      * Returns an instance of TaskList object.
+     *
      * @param storage Where tasks are stored.
      * @throws IOException When retrieving tasks fails.
      */
     public TaskList(Storage storage) throws IOException {
         this.tasks = storage.load();
+    }
+
+    /** Returns the size of tasks. */
+    public int getTaskListSize() {
+        return tasks.size();
     }
 
     /** Returns the size of tasks. */

@@ -5,7 +5,9 @@ import java.time.format.DateTimeParseException;
 
 import exceptions.LukeException;
 
-/** A class used for parsing command */
+/**
+ * A class used for parsing command
+ */
 public class Parser {
     private Command command;
     private String description;
@@ -52,14 +54,15 @@ public class Parser {
      */
     public void parse(String line) throws LukeException {
         String[] tokens = line.split(" ");
-        getCommand(tokens);
+        parseCommand(tokens);
         switch (command) {
         case list, bye -> { }
         case mark, unmark, delete -> parseIndex(tokens);
         case todo -> description = line.substring(4).trim();
         case event -> parseEvent(line.substring(5));
         case deadline -> parseDeadLine(line.substring(8));
-        default -> { }
+        default -> {
+        }
         }
     }
 
@@ -86,10 +89,10 @@ public class Parser {
         int toIndex = getIndexOfToken(input, " /to ");
         description = parseDescription(input, fromIndex);
         from = parseDate(input, fromIndex + 6, toIndex);
-        to = parseDate(input,toIndex + 4);
+        to = parseDate(input, toIndex + 4);
     }
 
-    private void getCommand(String[] tokens) throws LukeException {
+    private void parseCommand(String[] tokens) throws LukeException {
         try {
             this.command = Command.valueOf(tokens[0].trim());
         } catch (IllegalArgumentException e) {
@@ -134,9 +137,11 @@ public class Parser {
         if (index == -1) {
             String trimmedToken = token.trim();
             if (input.contains(trimmedToken)) {
-                throw new LukeException(String.format("There needs to be spacing between %s and other words.", trimmedToken));
+                throw new LukeException(
+                        String.format("There needs to be spacing between %s and other words.", trimmedToken));
             } else {
-                throw new LukeException(String.format("Yo! A necessary %s is missing from your input.", trimmedToken));
+                throw new LukeException(
+                        String.format("Yo! A necessary %s is missing from your input.", trimmedToken));
             }
         }
         return index;

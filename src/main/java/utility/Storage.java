@@ -4,23 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import tasks.DeadLine;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import tasks.DeadLine;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 /** A class to store the Task data */
 public class Storage {
@@ -31,7 +24,7 @@ public class Storage {
      * @param storagePath Where data is stored.
      */
     public Storage(String storagePath) {
-        assert storagePath != null && !storagePath.isEmpty() ;
+        assert storagePath != null && !storagePath.isEmpty();
         this.storagePath = storagePath;
     }
 
