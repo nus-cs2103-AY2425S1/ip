@@ -19,11 +19,11 @@ public class Event extends Task {
      * @param start       a String describing the start date/time
      * @param end         a String describing the end date/time
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description.strip());
         assert(!description.isEmpty());
-        this.start = Parser.parseDateTimeString(start.strip().substring(5));
-        this.end = Parser.parseDateTimeString(end.strip().substring(3));
+        this.start = start;
+        this.end = end;
     }
 
     /**

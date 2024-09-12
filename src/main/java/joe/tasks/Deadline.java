@@ -1,6 +1,7 @@
 package joe.tasks;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 import joe.utils.Parser;
@@ -17,10 +18,10 @@ public class Deadline extends Task {
      * @param description a String describing the Deadline
      * @param due         a String describing the due date/time
      */
-    public Deadline(String description, String due) {
+    public Deadline(String description, LocalDateTime due) {
         super(description.strip());
         assert(!description.isEmpty());
-        this.due = Parser.parseDateTimeString(due.strip().substring(3));
+        this.due = due;
     }
 
     /**

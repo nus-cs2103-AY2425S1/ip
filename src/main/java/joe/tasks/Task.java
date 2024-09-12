@@ -87,7 +87,7 @@ public abstract class Task {
     public boolean equals(Object obj) {
         if (obj instanceof Task) {
             Task other = (Task) obj;
-            return this.description.equals(other.description) && this.isDone == other.isDone;
+            return this.description.equals(other.description);
         }
         return false;
     }

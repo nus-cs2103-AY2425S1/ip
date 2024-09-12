@@ -18,6 +18,8 @@ import joe.tasks.ToDo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 /**
  * Represents a parser to parse user input and file input.
@@ -41,7 +43,8 @@ public class Parser {
      * @param dateTime the LocalDateTime object to be formatted
      * @return a String representing the formatted LocalDateTime object
      */
-    public static String formatDateTime(LocalDateTime dateTime) {
+    public static String formatDateTime(LocalDateTime dateTime)
+            throws DateTimeParseException {
         return dateTime.format(PARSE_FORMATTER);
     }
     /**
@@ -50,7 +53,8 @@ public class Parser {
      * @param date the date to be formatted
      * @return a LocalDateTime object with an arbitrary time
      */
-    public static LocalDateTime createLocalDateTimeWithArbitraryTime(String date) {
+    public static LocalDateTime createLocalDateTimeWithArbitraryTime(String date)
+            throws DateTimeParseException {
         return LocalDateTime.parse(date.strip() + " 1200", PARSE_FORMATTER);
     }
 
@@ -59,7 +63,8 @@ public class Parser {
      * @param dateTime the date and time string to be parsed
      * @return a LocalDateTime object representing the date and time string
      */
-    public static LocalDateTime parseDateTimeString(String dateTime) {
+    public static LocalDateTime parseDateTimeString(String dateTime)
+            throws DateTimeParseException {
         return LocalDateTime.parse(dateTime, PARSE_FORMATTER);
     }
 
@@ -77,8 +82,12 @@ public class Parser {
      *
      * @param userCmd the String representation of the user input
      * @return a Command object representing the user input
+     * @throws IllegalArgumentException if the user input is invalid
+     * @throws InvalidCommandException if the user input is not recognised
+     * @throws DateTimeParseException if the date and time string is not in the correct format
      */
-    public Command parseCommand(String userCmd) throws IllegalArgumentException, InvalidCommandException {
+    public Command parseCommand(String userCmd)
+            throws IllegalArgumentException, InvalidCommandException, DateTimeParseException {
         Command c;
         if (userCmd.startsWith("mark")) {
             c = new MarkCommand(tasks, getTaskIndex(userCmd));
@@ -107,7 +116,15 @@ public class Parser {
         return new AddTaskCommand(tasks, new ToDo(userCmd.substring(4)));
     }
 
-    private Command parseEvent(String userCmd) {
+    /**
+     * Parses the user input and returns the respective Command object for an Event task.
+     * @param userCmd the String representation of the user input
+     * @return a Command object representing the user input
+     * @throws IllegalArgumentException if the user input is invalid
+     * @throws DateTimeParseException if the date and time string is not in the correct format
+     */
+    private Command parseEvent(String userCmd)
+            throws IllegalArgumentException, DateTimeParseException {
         Command c;
         String[] params = userCmd.substring(5).split(DELIMITER);
 
@@ -125,11 +142,26 @@ public class Parser {
             throw new InvalidCommandException(userCmd);
         }
 
-        c = new AddTaskCommand(tasks, new Event(params[0], params[1], params[2]));
+        LocalDateTime start = parseDateTimeString(
+                params[1].substring(5).strip()
+        );
+        LocalDateTime end = parseDateTimeString(
+                params[2].substring(3).strip()
+        );
+
+        c = new AddTaskCommand(tasks, new Event(params[0], start, end));
         return c;
     }
 
-    private Command parseDeadline(String userCmd) {
+    /**
+     * Parses the user input and returns the respective Command object for a Deadline task.
+     * @param userCmd the String representation of the user input
+     * @return a Command object representing the user input
+     * @throws IllegalArgumentException if the user input is invalid
+     * @throws DateTimeParseException if the date and time string is not in the correct format
+     */
+    private Command parseDeadline(String userCmd)
+            throws DateTimeParseException, IllegalArgumentException {
         Command c;
         String[] params = userCmd.substring(8).split(DELIMITER);
 
@@ -141,7 +173,9 @@ public class Parser {
             throw new InvalidCommandException(userCmd);
         }
 
-        c = new AddTaskCommand(tasks, new Deadline(params[0], params[1]));
+        LocalDateTime due = parseDateTimeString(params[1].substring(3).strip());
+
+        c = new AddTaskCommand(tasks, new Deadline(params[0], due));
         return c;
     }
 
@@ -200,10 +234,13 @@ public class Parser {
             t = new ToDo(params[2]);
             break;
         case "D":
-            t = new Deadline(params[2], params[3]);
+            LocalDateTime due = parseDateTimeString(params[3].substring(3).strip());
+            t = new Deadline(params[2], due);
             break;
         case "E":
-            t = new Event(params[2], params[3], params[4]);
+            LocalDateTime start = parseDateTimeString(params[3].substring(5).strip());
+            LocalDateTime end = parseDateTimeString(params[4].substring(3).strip());
+            t = new Event(params[2], start, end);
             break;
         default:
             throw new CorruptedFileException();
