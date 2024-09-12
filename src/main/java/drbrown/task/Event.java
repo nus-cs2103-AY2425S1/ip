@@ -16,12 +16,16 @@ public class Event extends Task {
     private final LocalDateTime endDateTime;
 
     /**
-     * Constructs a new Event task with the specified completion status, description, start date/time, end date/time, and priority level.
+     * Constructs a new Event task with the specified completion status, description,
+     * start date/time, end date/time, and priority level.
      *
-     * @param isCompleted  A boolean indicating whether the task is completed (true if completed, false otherwise).
+     * @param isCompleted  A boolean indicating whether the task is completed
+     *                     (true if completed, false otherwise).
      * @param description  A string that describes the event.
-     * @param startDateTime  A {@link LocalDateTime} object representing the start date and time of the event; must not be null.
-     * @param endDateTime  A {@link LocalDateTime} object representing the end date and time of the event; must not be null.
+     * @param startDateTime  A {@link LocalDateTime} object representing the start date and time of the event;
+     *                      must not be null.
+     * @param endDateTime  A {@link LocalDateTime} object representing the end date and time of the event;
+     *                    must not be null.
      * @param priority  A {@link Priority} enum value representing the priority level of the task.
      * @throws IllegalArgumentException if the start or end date/time is null.
      */

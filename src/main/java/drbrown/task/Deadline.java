@@ -14,11 +14,14 @@ public class Deadline extends Task {
     private final LocalDateTime endDateTime;
 
     /**
-     * Constructs a new Deadline task with the specified completion status, description, end date/time, and priority level.
+     * Constructs a new Deadline task with the specified completion status, description, end date/time,
+     * and priority level.
      *
-     * @param isCompleted  A boolean indicating whether the task is completed (true if completed, false otherwise).
+     * @param isCompleted  A boolean indicating whether the task is completed (true if completed,
+     *                    false otherwise).
      * @param description  A string that describes the task.
-     * @param endDateTime  A {@link LocalDateTime} object representing the end date and time of the deadline; must not be null.
+     * @param endDateTime  A {@link LocalDateTime} object representing the end date and time of the deadline;
+     *                    must not be null.
      * @param priority     A {@link Priority} enum value representing the priority level of the task.
      * @throws IllegalArgumentException if the end date and time is null.
      */
@@ -52,7 +55,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the string representation of the deadline task, including its type, status, description, and formatted end date/time.
+     * Returns the string representation of the deadline task, including its type, status, description,
+     * and formatted end date/time.
      * The format is used primarily for logging or debugging purposes.
      *
      * @return A string representation of the deadline task, including its type, status, description, and end date/time.
