@@ -1,1 +1,3 @@
-T | 0 | abcd
+T | 1 | abcd
+T | 0 | point system
+T | 1 | aweoigh

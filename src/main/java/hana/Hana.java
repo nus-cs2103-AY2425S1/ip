@@ -40,25 +40,36 @@ public class Hana {
      */
     public String getResponse(String input) {
         try {
+            // Check if previous command needs confirmation (mass command)
             if (awaitingCommand != null) {
-                // Process the confirmation step of massMark
-                awaitingCommand.confirm(input, tasks, ui, storage); // Confirm based on the parsed input
-                awaitingCommand = null; // Reset awaitingCommand once confirmation is done
-            } else {
-                // Parse and execute a new command
-                Command command = Parser.parse(input);
-                command.execute(tasks, ui, storage);
-
-                // Check if the command requires further input (e.g., awaiting confirmation)
-                if (command instanceof MassCommand massCommand && massCommand.isAwaitingConfirmation) {
-                    // Store the command awaiting confirmation
-                    awaitingCommand = massCommand;
-                }
+                processConfirmation(input); // Process the confirmation step
+                return ui.getResponseMessage();
             }
+
+            // Parse and execute a new command
+            Command command = Parser.parse(input);
+            command.execute(tasks, ui, storage);
+
+            // Check if the command requires further input (e.g., awaiting confirmation)
+            if (command instanceof MassCommand massCommand && massCommand.isAwaitingConfirmation) {
+                awaitingCommand = massCommand; // Store the command awaiting confirmation
+            }
+
             return ui.getResponseMessage(); // Return the response message
         } catch (HanaException | IOException e) {
             return e.getMessage();
         }
     }
+
+    /**
+     * Handles the confirmation of mass commands awaiting user input.
+     *
+     * @param input The user's confirmation input.
+     */
+    private void processConfirmation(String input) throws IOException {
+        awaitingCommand.confirm(input, tasks, ui, storage); // Confirm based on the parsed input
+        awaitingCommand = null; // Reset awaitingCommand once confirmation is done
+    }
+
 
 }
