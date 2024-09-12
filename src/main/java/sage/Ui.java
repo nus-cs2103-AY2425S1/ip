@@ -2,23 +2,12 @@ package sage;
 
 import sage.Task.Task;
 
-import java.util.Scanner;
-
 /**
  * Represents the user interface for the Sage application.
  * This class handles user interactions.
  */
 public class Ui {
-    public static final String NAME = "sage";
-    private final Scanner scanner;
-
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    public String readInput() {
-        return scanner.nextLine();
-    }
+    private static final String NAME = "sage";
 
     public String showWelcome() {
         return String.format("Hello! I'm %s\nWhat can i do for you?", NAME);

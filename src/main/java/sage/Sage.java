@@ -1,15 +1,24 @@
 package sage;
 
+import java.io.IOException;
+
 import sage.Command.Command;
 import sage.List.TaskList;
 
-import java.io.IOException;
-
+/**
+ * Sage class for managing the Sage application.
+ * It initialises the user interface, storage, and task list, and handles user input.
+ */
 public class Sage {
     private static TaskList tasks;
     private static Ui ui;
     private static Storage storage;
 
+    /**
+     * Constructs a Sage object and initializes the user interface, storage, and task list.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Sage(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

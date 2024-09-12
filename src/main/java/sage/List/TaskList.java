@@ -1,12 +1,15 @@
 package sage.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sage.SageException;
 import sage.Task.Task;
 import sage.Ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Represents a list of tasks and actions to modify it.
+ */
 public class TaskList {
     private final List<Task> tasks;
     private Ui ui;

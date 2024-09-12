@@ -50,7 +50,7 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("sage.Gui.Launcher")
 }
 
 shadowJar {
