@@ -18,6 +18,7 @@ public class Parser {
      *              any of the right commands available
      */
     public static Command parse(String fullCommand) throws AExceptions {
+        assert fullCommand.length() > 1 : "fullCommand length is not more than 1";
         // Breaking down command input
         String[] splitWords = fullCommand.split(" ");
         String com = splitWords[0].toUpperCase();
