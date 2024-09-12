@@ -76,22 +76,11 @@ public class Storage {
                 Task t = null;
 
                 if (identifier.equals("[T]")) {
-                    t = new ToDo(description);
-                    if (done.equals("[D]")) {
-                        t.done();
-                    }
+                    t = createToDo(done, description);
                 } else if (identifier.equals("[D]")) {
-                    String[] split = description.split(" / ", 2);
-                    t = new Deadline(split[0], split[1]);
-                    if (done.equals("[D]")) {
-                        t.done();
-                    }
+                    t = createDeadline(done, description);
                 } else if (identifier.equals("[E]")) {
-                    String[] split = description.split(" / ", 3);
-                    t = new Events(split[0], split[1], split[2]);
-                    if (done.equals("[D]")) {
-                        t.done();
-                    }
+                    t = createEvent(done, description);
                 } else {
                     break;
                 }
@@ -101,6 +90,32 @@ public class Storage {
             System.out.println("Memory file does not exist");
         }
         return taskList;
+    }
+
+    private Task createToDo(String done, String description) {
+        Task t = new ToDo(description);
+        if (done.equals("[D]")) {
+            t.done();
+        }
+        return t;
+    }
+
+    private Task createDeadline(String done, String description) {
+        String[] split = description.split(" / ", 2);
+        Task t = new Deadline(split[0], split[1]);
+        if (done.equals("[D]")) {
+            t.done();
+        }
+        return t;
+    }
+
+    private Task createEvent(String done, String description) {
+        String[] split = description.split(" / ", 3);
+        Task t = new Events(split[0], split[1], split[2]);
+        if (done.equals("[D]")) {
+            t.done();
+        }
+        return t;
     }
 
 }
