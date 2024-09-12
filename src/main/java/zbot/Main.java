@@ -13,7 +13,6 @@ import zbot.ui.MainWindow;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
     private ZBot zbot = new ZBot();
 
     @Override
@@ -29,4 +28,5 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
 }

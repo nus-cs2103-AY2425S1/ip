@@ -15,13 +15,13 @@ public class Event extends Task {
      * Constructor for Event.
      *
      * @param description Description of the event.
-     * @param from        Start datetime of the event.
-     * @param to          End datetime of the event.
+     * @param startDate   Start datetime of the event.
+     * @param endDate     End datetime of the event.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
-        this.startDate = from;
-        this.endDate = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -47,4 +47,5 @@ public class Event extends Task {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
                 Parser.formatDateTimeToOutput(startDate), Parser.formatDateTimeToOutput(endDate));
     }
+
 }

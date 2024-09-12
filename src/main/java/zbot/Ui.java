@@ -32,7 +32,7 @@ public class Ui {
      * @param task
      * @param size
      */
-    public String printAddTaskMsg(Task task, int size) {
+    public String generateAddTaskMsg(Task task, int size) {
         StringBuilder response = new StringBuilder();
         response.append("Got it. I've added this task:\n");
         response.append("  " + task + "\n");
@@ -46,7 +46,7 @@ public class Ui {
      * @param task
      * @param size
      */
-    public String printDeleteTaskMsg(Task task, int size) {
+    public String generateDeleteTaskMsg(Task task, int size) {
         StringBuilder response = new StringBuilder();
         response.append("Noted. I've removed this task:\n");
         response.append("  " + task + "\n");
@@ -59,7 +59,7 @@ public class Ui {
      *
      * @param task
      */
-    public String printMarkTaskMsg(Task task) {
+    public String generateMarkTaskMsg(Task task) {
         StringBuilder response = new StringBuilder();
         response.append("Nice! I've marked this task as done:\n");
         response.append("  " + task + "\n");
@@ -71,7 +71,7 @@ public class Ui {
      *
      * @param task
      */
-    public String printUnmarkTaskMsg(Task task) {
+    public String generateUnmarkTaskMsg(Task task) {
         StringBuilder response = new StringBuilder();
         response.append("OK, I've marked this task as not done yet:\n");
         response.append("  " + task + "\n");
@@ -88,7 +88,8 @@ public class Ui {
     /**
      * Reads the input from the user.
      */
-    public String readCommand() {
+    public String readUserInput() {
         return sc.nextLine();
     }
+
 }

@@ -14,7 +14,7 @@ public class Deadline extends Task {
      * Constructor for Deadline.
      *
      * @param description Description of the deadline.
-     * @param by          Due date of the deadline.
+     * @param dueDate     Due date of the deadline.
      */
     public Deadline(String description, LocalDateTime dueDate) {
         super(description);
@@ -35,4 +35,5 @@ public class Deadline extends Task {
         return String.format("[D]%s (by: %s)", super.toString(),
                 Parser.formatDateTimeToOutput(dueDate));
     }
+
 }
