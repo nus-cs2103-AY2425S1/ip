@@ -48,8 +48,8 @@ test {
 }
 
 application {
-    //mainClass.set("cook.Cook")
-    mainClass.set("javafx.Launcher")
+    mainClass.set("cook.Cook")
+    //mainClass.set("javafx.Launcher")
 }
 
 shadowJar {

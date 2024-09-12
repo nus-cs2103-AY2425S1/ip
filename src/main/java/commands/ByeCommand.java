@@ -20,7 +20,7 @@ public class ByeCommand extends Command {
      * Returns bye to exit program.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.say("Bye.");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "Bye.";
     }
 }

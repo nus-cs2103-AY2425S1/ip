@@ -29,16 +29,22 @@ public class MarkCommand extends Command {
      * Marks task and saves file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder content = new StringBuilder();
         try {
             tasks.markTask(this.taskNumber);
+            content.append("Task marked.");
+        } catch (IndexOutOfBoundsException e) {
+            return "The task is not in the list.";
+        }
+        try {
             storage.createFile();
             storage.writeFile(tasks.toString());
-            ui.say("File saved.");
-        } catch (IndexOutOfBoundsException e) {
-            ui.say("The task is not in the list.");
+            content.append("File saved.");
+            return content.toString();
         } catch (IOException e) {
-            ui.say("File cannot be saved.");
+            content.append("File cannot be saved.");
+            return content.toString();
         }
     }
 }

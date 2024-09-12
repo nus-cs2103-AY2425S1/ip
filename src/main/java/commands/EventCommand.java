@@ -45,15 +45,18 @@ public class EventCommand extends Command {
      * Adds Event task and saves file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder content = new StringBuilder();
         tasks.addTask(new Event(this.description, this.from, this.to));
-        ui.say("Event task has been added.");
+        content.append("Event task has been added.\n");
         try {
             storage.createFile();
             storage.writeFile(tasks.toString());
-            ui.say("File saved.");
+            content.append("File saved.");
+            return content.toString();
         } catch (IOException e) {
-            ui.say("File cannot be saved.");
+            content.append("File cannot be saved.");
+            return content.toString();
         }
     }
 }

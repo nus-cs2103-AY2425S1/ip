@@ -29,16 +29,22 @@ public class DeleteCommand extends Command {
      * Deletes task and saves file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder content = new StringBuilder();
         try {
             tasks.deleteTask(taskNumber);
+            content.append("Task deleted.\n");
+        } catch (IndexOutOfBoundsException e) {
+            return "The task is not in the list.\n";
+        }
+        try {
             storage.createFile();
             storage.writeFile(tasks.toString());
-            ui.say("File saved.");
-        } catch (IndexOutOfBoundsException e) {
-            ui.say("The task is not in the list.");
+            content.append("File saved.");
+            return content.toString();
         } catch (IOException e) {
-            ui.say("File cannot be saved.");
+            content.append("File cannot be saved.");
+            return content.toString();
         }
     }
 }
