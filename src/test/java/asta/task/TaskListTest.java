@@ -1,19 +1,26 @@
 package asta.task;
 
-import asta.AstaException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import asta.AstaException;
 
 public class TaskListTest {
     private TaskList taskList;
 
-    @BeforeEach public void setUp() {
+    @BeforeEach
+    public void setUp() {
         taskList = new TaskList();
     }
 
-    @Test public void testMarkTaskAsDone() {
+    @Test
+    public void testMarkTaskAsDone() {
         try {
             taskList.addTodoTask("Read a book");
             taskList.markTask(0, true);
@@ -27,7 +34,8 @@ public class TaskListTest {
         }
     }
 
-    @Test public void testUnmarkTaskAsNotDone() {
+    @Test
+    public void testUnmarkTaskAsNotDone() {
         try {
             taskList.addTodoTask("Read a book");
             taskList.markTask(0, true);
@@ -42,7 +50,8 @@ public class TaskListTest {
         }
     }
 
-    @Test public void testAddDeadlineTask() {
+    @Test
+    public void testAddDeadlineTask() {
         try {
             taskList.addDeadlineTask("Finish assignment", "28/08/2024 1800");
 
@@ -55,13 +64,15 @@ public class TaskListTest {
         }
     }
 
-    @Test public void testAddDeadlineTaskInvalidDate() {
+    @Test
+    public void testAddDeadlineTaskInvalidDate() {
         assertThrows(AstaException.class, () -> {
             taskList.addDeadlineTask("Finish assignment", "invalid date");
         }, "Should throw an exception for invalid date format.");
     }
 
-    @Test public void testDeleteTask() {
+    @Test
+    public void testDeleteTask() {
         try {
             taskList.addTodoTask("Complete homework");
             taskList.addTodoTask("Read a book");
@@ -76,7 +87,8 @@ public class TaskListTest {
         }
     }
 
-    @Test public void testDeleteTaskInvalidIndex() {
+    @Test
+    public void testDeleteTaskInvalidIndex() {
         assertThrows(AstaException.class, () -> {
             taskList.deleteTask(-1);
         }, "Should throw an exception for invalid task index.");
