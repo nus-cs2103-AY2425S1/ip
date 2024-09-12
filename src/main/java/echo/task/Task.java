@@ -60,6 +60,9 @@ public class Task {
                 (isComplete ? 1 : 0) + " | " +
                 description;
     }
+    public String[] getTempStrings() {
+        return new String[] {this.description, "", "", ""};
+    }
     public TaskType getTaskType() {
         return this.type;
     }

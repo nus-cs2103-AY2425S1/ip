@@ -40,4 +40,10 @@ public class Deadline extends Task {
     public String getData() {
         return super.getData() + " | " + this.deadline;
     }
+    @Override
+    public String[] getTempStrings() {
+        String[] tempStrings = super.getTempStrings();
+        tempStrings[3] = this.deadline.format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+        return tempStrings;
+    }
 }

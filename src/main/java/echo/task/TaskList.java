@@ -160,4 +160,8 @@ public class TaskList {
     public void updateTask(int index, Task task) {
         tasks.set(index - 1, task);
     }
+
+    public String[] getTempTaskStrings(int index) {
+        return tasks.get(index - 1).getTempStrings();
+    }
 }

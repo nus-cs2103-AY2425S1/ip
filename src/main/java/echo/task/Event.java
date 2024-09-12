@@ -46,4 +46,10 @@ public class Event extends Task {
     public String getData() {
         return super.getData() + " | " + this.start + "->" + this.end;
     }
+    public String[] getTempStrings() {
+        String[] tempStrings = super.getTempStrings();
+        tempStrings[1] = this.start;
+        tempStrings[2] = this.end;
+        return tempStrings;
+    }
 }

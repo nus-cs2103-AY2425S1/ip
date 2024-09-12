@@ -105,22 +105,41 @@ public class Parser {
         switch (statetype) {
         case TODO_DESCRIPTION:
             changeState(StateType.NO_STATE);
-            return ui.handleTodo(userInput, status);
+            return ui.handleTodo(
+                    tempStrings[0].isEmpty() ? userInput.trim() : tempStrings[0],
+                    status);
         case DEADLINE_DESCRIPTION:
             changeState(StateType.NO_STATE);
-            return ui.handleDeadline(userInput, tempStrings[3], status);
+            return ui.handleDeadline(
+                    tempStrings[0].isEmpty() ? userInput.trim() : tempStrings[0],
+                    tempStrings[3],
+                    status);
         case DEADLINE_DEADLINE:
             changeState(StateType.NO_STATE);
-            return ui.handleDeadline(tempStrings[0], userInput.trim(), status);
+            return ui.handleDeadline(
+                    tempStrings[0],
+                    tempStrings[3].isEmpty() ? userInput.trim() : tempStrings[3],
+                    status);
         case EVENT_DESCRIPTION:
             changeState(StateType.NO_STATE);
-            return ui.handleEvent(userInput, tempStrings[1], status);
+            return ui.handleEvent(
+                    tempStrings[0].isEmpty() ? userInput.trim() : tempStrings[0],
+                    tempStrings[1],
+                    status);
         case EVENT_START:
             changeState(StateType.NO_STATE);
-            return ui.handleEvent(tempStrings[0], userInput, status);
+            return ui.handleEvent(
+                    tempStrings[0],
+                    tempStrings[1].isEmpty() ? userInput.trim() : tempStrings[1],
+                    status);
         case EVENT_END:
             changeState(StateType.NO_STATE);
-            return ui.handleEvent(tempStrings[0], tempStrings[1]+ " /to " + userInput, status);
+            System.out.println(tempStrings[2]);
+            return ui.handleEvent(
+                    tempStrings[0],
+            tempStrings[1] + " /to " +
+                    (tempStrings[2].isEmpty() ? userInput.trim() : tempStrings[2]),
+                    status);
         default:
             return ui.handleUnknown();
         }
@@ -130,6 +149,9 @@ public class Parser {
     }
     public void keepTemp(String s, int index) {
         tempStrings[index] = s;
+    }
+    public void keepTempStrings(String[] tempStrings) {
+        this.tempStrings = tempStrings;
     }
     public void resetTempStrings() {
         this.tempStrings = new String[]{"", "", "", ""};

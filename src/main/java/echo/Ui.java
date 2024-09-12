@@ -168,8 +168,12 @@ public class Ui {
         }
 
         if (startDate.isEmpty()) { // No start date provided
-            parser.keepTemp(description, 0);
-            parser.keepTemp(endDate, 2);
+            if (!description.isEmpty()) {
+                parser.keepTemp(description, 0);
+            }
+            if (!endDate.isEmpty()) {
+                parser.keepTemp(endDate, 2);
+            }
             parser.changeState(StateType.EVENT_START);
             return "Start: ";
         }
@@ -250,9 +254,6 @@ public class Ui {
         assert taskList.getNumTasks() > 0: "Task list should have at least one task";
         return addedTaskMessage(taskList.getTaskString(taskList.getNumTasks()), taskList.getNumTasks());
     }
-    public TaskType getTaskType(int index) {
-        return taskList.getTaskType(index);
-    }
     public String handleUpdate(String indexString, String info) {
         int index;
         try {
@@ -268,6 +269,7 @@ public class Ui {
         tempIndex = index;
 
         TaskType taskType = taskList.getTaskType(index);
+        parser.keepTempStrings(taskList.getTempTaskStrings(index));
         switch (taskType) {
         case TODO:
             parser.changeStatus(TaskStatus.UPDATE);
