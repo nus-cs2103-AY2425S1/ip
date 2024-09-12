@@ -59,6 +59,20 @@ public class KatChatBotImpl implements ChatBot {
         respond("See you!");
     }
 
+    @Override
+    public String getResponse(String input) {
+        if (input.equalsIgnoreCase("bye")) {
+            return "See you!";
+        }
+
+        try {
+            String response = messageParser.handleMessage(input);
+            return response;
+        } catch (InvalidMessageException e) {
+            return e.getMessage();
+        }
+    }
+
     /**
      * Displays the chatbot's response with formatting.
      *
