@@ -37,6 +37,14 @@ public abstract class Task {
     public abstract String toSaveFormat();
 
     /**
+     * Updates the task details.
+     * Subclasses must implement this method to provide task-specific update logic.
+     *
+     * @param newDetails The new details to update the task with.
+     */
+    public abstract void updateTask(String newDetails);
+
+    /**
      * Retrieves the icon representing the task's completion status.
      *
      * @return The icon for the task.

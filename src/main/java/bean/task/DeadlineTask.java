@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a task with a deadline.
  */
 public class DeadlineTask extends Task {
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected LocalDateTime by;
 
     /**
@@ -18,7 +19,6 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String name, String by) {
         super(name);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.by = LocalDateTime.parse(by, formatter);
     }
 
@@ -42,6 +42,18 @@ public class DeadlineTask extends Task {
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return "D | " + (isDone ? "1" : "0") + " | " + name + " | " + by.format(formatter);
+    }
+
+    /**
+     * Updates the task name and deadline.
+     *
+     * @param newDetails The new details for the task in the format "name /by deadline".
+     */
+    @Override
+    public void updateTask(String newDetails) {
+        String[] parts = newDetails.split(" /by ");
+        this.name = parts[0];
+        this.by = LocalDateTime.parse(parts[1], formatter);
     }
 
     /**

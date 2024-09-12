@@ -33,6 +33,8 @@ public class Parser {
         case "deadline":
         case "event":
         case "find":
+        case "edit":
+
             // For all commands except 'list', ensure the description is not empty
             if (details.trim().isEmpty()) {
                 throw new EmptyDescriptionException(command + " description cannot be empty.");

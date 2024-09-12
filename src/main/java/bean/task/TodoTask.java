@@ -35,6 +35,11 @@ public class TodoTask extends Task {
         return "T | " + (isDone ? "1" : "0") + " | " + name;
     }
 
+    @Override
+    public void updateTask(String newDetails) {
+        this.name = newDetails;
+    }
+
     /**
      * Returns a string representation of the task for display purposes.
      *
