@@ -24,12 +24,25 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Adds a task
+     * @param task task to be added
+     */
     public void addTask(Task task) {
+        int initialSize = tasks.size();
         tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "Task list size should have increased by 1";
     }
 
+    /**
+     * Deletes a task at the index
+     * @param index of task to be deleted
+     */
     public void deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
+        int initialSize = tasks.size();
         tasks.remove(index);
+        assert tasks.size() == initialSize - 1 : "Task list size should have decreased by 1";
     }
 
     public Task get(int index) {
