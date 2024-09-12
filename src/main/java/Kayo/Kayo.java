@@ -73,6 +73,9 @@ public class Kayo {
                     .filter(c -> c.getTask().contains(splitList[1]))
                     .collect(Collectors.toList());
             return ui.find(filteredList);
+        }
+        else if (splitList[0].equals("help")) {
+            return ui.displayHelpPage(listTasks);
         } else {
             new DukeException("OOPS !! Sorry i dont know what that means!");
         }
@@ -107,6 +110,8 @@ public class Kayo {
                 deleteTask(splitList);
             } else if(splitList[0].equals("find")) {
                 findList(splitList);
+            } else if (splitList[0].equals("help")) {
+                System.out.println(ui.displayHelpPage(listTasks));
             } else {
                 new DukeException("OOPS !! Sorry i dont know what that means!");
             }
@@ -214,7 +219,35 @@ public class Kayo {
             }
             return returnedString;
         }
-        public String greet() {
+        public String displayHelpPage(List<Task> listTasks) {
+            return """
+                    Welcome to the CLI App! Below are the available commands and their usage instructions.
+                    
+                    1. todo
+                      Description: Add a new task to your to-do list.
+                      Usage: 
+                        todo *task
+                        *task: Description of the task you want to add.
+                    
+                    2. event
+                      Description: Schedule an event with a specified start and end time.
+                      Usage: 
+                        event /from *startTime /to *endTime
+                        /from: The start time of the event.
+                        /to: The end time of the event.
+                        *startTime and *endTime should follow a valid date and time format.
+                    
+                    3. deadline
+                      Description: Set a deadline for a task.
+                      Usage: 
+                        deadline /by *dateTime
+                        /by: The date and time of the deadline.
+                        *dateTime must be in a valid date and time format.
+                    
+                    For more details or examples, please refer to the user documentation.
+                    """;
+        }
+            public String greet() {
             return "Hello! I'm Kayo! " + "\n" + "What can I do for you?";
         }
         public String exit(){
