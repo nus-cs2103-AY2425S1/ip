@@ -32,15 +32,13 @@ public class FRIDAY {
      */
     public String getResponse(String userInput) {
         try {
-            //collect user input
             String keyword = Parser.parseCmd(userInput);
-            //taskDetails is the user input without the keyword
             String taskDetails = Parser.parseTaskDetails(userInput);
             return this.performAction(keyword, taskDetails);
         } catch (FRIDAYException e) {
             System.out.println(e.getMessage());
         }
-        return "FUCK:";
+        return "";
     }
 
     /**
@@ -69,7 +67,6 @@ public class FRIDAY {
      * @throws FRIDAYException exception is thrown when the type of action to be performed is not recognized
      */
     public String performAction(String keyword, String taskDetails) throws FRIDAYException {
-        //keywords trigger respective actions
         switch (keyword) {
         //keywords
         case ("mark"):
@@ -82,7 +79,6 @@ public class FRIDAY {
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
-            //create new to do task
             Task newToDo = new ToDo(taskDetails.strip(), 0);
             taskList.addTask(newToDo);
             return ui.printAdd(newToDo, taskList.numTasks());
@@ -90,7 +86,6 @@ public class FRIDAY {
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
-            //create new deadline task
             Task newDeadline = Parser.parseDeadline(taskDetails);
             taskList.addTask(newDeadline);
             return ui.printAdd(newDeadline, taskList.numTasks());
@@ -116,10 +111,8 @@ public class FRIDAY {
             String word = Parser.parseTaskDetails(taskDetails);
             ArrayList<Task> searchResults = taskList.search(word);
             return ui.displaySearchResults(searchResults);
-            //if there is no input then nothing added to list
         case (""):
             return "Please input a command";
-        //to handle all normal inputs less empty strings
         default:
             throw new FRIDAYException("It appears that you have attempted to log an unrecognized class type. Please try again");
         }
