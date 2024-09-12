@@ -53,27 +53,42 @@ public class Storage {
         List<String> lines = Files.readAllLines(Paths.get(filePath));
 
         for (String line : lines) {
-            String[] parts = line.split(" \\| ");
-            String type = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
+            Task task = parseTaskFromLine(line);
+            if (task != null) {
+                tasks.add(task);
+            }
+        }
 
-            switch (type) {
+        return tasks;
+    }
+
+    /**
+     * Parses a line of text from the task file and converts it into a <code> Task </code> object.
+     *
+     * @param line The line from the file representing the task.
+     * @return The corresponding <code> Task </code> object or <code> null </code> if the data is invalid.
+     * @throws SamException If the line contains invalid data.
+     */
+    private Task parseTaskFromLine(String line) throws SamException {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (type) {
             case "T":
                 Task todo = new ToDo(description);
                 if (isDone) {
                     todo.complete();
                 }
-                tasks.add(todo);
-                break;
+                return todo;
             case "D":
                 String by = parts[3];
                 Task deadline = new Deadline(description, by);
                 if (isDone) {
                     deadline.complete();
                 }
-                tasks.add(deadline);
-                break;
+                return deadline;
             case "E":
                 String from = parts[3];
                 String to = parts[4];
@@ -81,15 +96,13 @@ public class Storage {
                 if (isDone) {
                     event.complete();
                 }
-                tasks.add(event);
-                break;
+                return event;
             default:
                 System.out.println("Invalid data detected: " + line);
-                break;
-            }
+                return null;
         }
-        return tasks;
     }
+
 
     /**
      * Appends a new task to the file.
