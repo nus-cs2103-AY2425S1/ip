@@ -21,7 +21,6 @@ public class RapGod {
 
     public static String getInitialMessage() {
         String initialise = """
-                -----------------------------------------------
                 Initialising List Bot...
                 Special commands:
                 'LIST' -> Show full list
@@ -32,7 +31,6 @@ public class RapGod {
                 '/BY z' -> Used to specify a deadline z
                 '/FROM x /TO y' -> Used to specify bounds of an event from x to y
                 Time format: dd/MM/yyyy OR dd/MM/yyyy HHHH
-                -----------------------------------------------
                 """;
         return initialise;
     }
@@ -96,11 +94,7 @@ public class RapGod {
                     break;
 
                 case BYE:
-                    response = """
-                            -----------------------------------------------
-                            Bye! Hope to see you again soon!
-                            -----------------------------------------------
-                            """;
+                    response = "Bye! Hope to see you again soon!";
                     break;
 
                 default:
@@ -115,8 +109,7 @@ public class RapGod {
         } catch (IndexOutOfBoundsException exc) {
             response = "No such task exists.";
         } catch (NoInputException | RudeInputException exc) {
-            response = "-----------------------------------------------\n"
-                    + "RapGod:\n" + exc.getMessage() + "\n-----------------------------------------------";
+            response = "RapGod:\n" + exc.getMessage();
         } catch(IllegalArgumentException exc) {
             response = exc.getMessage();
         } finally {

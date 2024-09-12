@@ -1,13 +1,19 @@
 package rapgod.ui;
 
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 import rapgod.bot.RapGod;
+import rapgod.Main;
+
 
 /**
  * Controller for the main GUI.
@@ -53,5 +59,19 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (response.equals("Bye! Hope to see you again soon!")) {
+
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(event -> closeCurrentStage());
+            pause.play();
+        }
+    }
+
+    private void closeCurrentStage() {
+        Stage stage = (Stage) sendButton.getScene().getWindow();
+        if (stage != null) {
+            stage.close();
+        }
     }
 }
