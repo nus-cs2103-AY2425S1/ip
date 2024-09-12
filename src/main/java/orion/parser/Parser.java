@@ -156,6 +156,36 @@ public class Parser {
     }
 
     /**
+     * Validates that the given command parts form a valid mark or unmark command.
+     *
+     * <p>
+     * A valid mark or unmark command consists of the command name followed by a
+     * single integer index. The index is validated to ensure it is a valid task
+     * index.
+     * </p>
+     *
+     * @param manager the task list manager
+     * @param parts   the command parts
+     * @return the task index
+     * @throws InvalidMarkException        if the command format is invalid
+     * @throws InvalidIndexException       if the index is invalid
+     * @throws FileInitializationException if there is an issue with file reading
+     */
+    public int validateMarkAndUnMarkCommand(TaskList manager, String... parts)
+            throws InvalidMarkException, InvalidIndexException, FileInitializationException {
+        // Validate that the command is either "mark" or "unmark"
+        validateCommandParts(parts, "mark", "unmark");
+
+        // Extract the task index from the command
+        int index = extractTaskIndex(parts);
+
+        // Validate the task index using the task manager
+        validateTaskIndex(index);
+
+        return index;
+    }
+
+    /**
      * Validates that the given command parts form a valid todo command.
      *
      * <p>
@@ -293,6 +323,42 @@ public class Parser {
     }
 
     /**
+     * Validates that the given command parts form a valid delete command.
+     *
+     * <p>
+     * A valid delete command consists of the command name followed by a
+     * single integer index. The index is validated to ensure it is a valid
+     * task index.
+     * </p>
+     *
+     * @param manager the task list manager
+     * @param parts   the command parts
+     * @return the task index
+     * @throws InvalidDeleteException      if the command format is invalid
+     * @throws InvalidIndexException       if the index is invalid
+     * @throws FileInitializationException if there is an issue with file reading
+     */
+    public int validateDeleteCommand(TaskList manager, String... parts)
+            throws InvalidDeleteException, InvalidIndexException, FileInitializationException {
+        if (parts == null || parts.length < 2 || !parts[0].equals("delete")) {
+            throw new InvalidDeleteException(parts == null ? "null" : String.join(" ", parts));
+        }
+        String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+
+        String[] splitParts = joinedString.split(" ");
+        if (splitParts.length != 1 || !isInteger(splitParts[0])) {
+            throw new InvalidDeleteException(joinedString);
+        }
+        int index = Integer.parseInt(splitParts[0]);
+
+        if (!manager.isValidIndex(index)) {
+            throw new InvalidIndexException(index, manager.getSize());
+        }
+
+        return index;
+    }
+
+    /**
      * Parses a string representation of a date and time into a
      * <code>LocalDateTime</code> object.
      *
@@ -342,72 +408,6 @@ public class Parser {
         }
 
         return parts[1].trim();
-    }
-
-    /**
-     * Validates that the given command parts form a valid mark or unmark command.
-     *
-     * <p>
-     * A valid mark or unmark command consists of the command name followed by a
-     * single integer index. The index is validated to ensure it is a valid task
-     * index.
-     * </p>
-     *
-     * @param manager the task list manager
-     * @param parts   the command parts
-     * @return the task index
-     * @throws InvalidMarkException        if the command format is invalid
-     * @throws InvalidIndexException       if the index is invalid
-     * @throws FileInitializationException if there is an issue with file reading
-     */
-    public int validateMarkAndUnMarkCommand(TaskList manager, String... parts)
-            throws InvalidMarkException, InvalidIndexException, FileInitializationException {
-        // Validate that the command is either "mark" or "unmark"
-        validateCommandParts(parts, "mark", "unmark");
-
-        // Extract the task index from the command
-        int index = extractTaskIndex(parts);
-
-        // Validate the task index using the task manager
-        validateTaskIndex(index);
-
-        return index;
-    }
-
-    /**
-     * Validates that the given command parts form a valid delete command.
-     *
-     * <p>
-     * A valid delete command consists of the command name followed by a
-     * single integer index. The index is validated to ensure it is a valid
-     * task index.
-     * </p>
-     *
-     * @param manager the task list manager
-     * @param parts   the command parts
-     * @return the task index
-     * @throws InvalidDeleteException      if the command format is invalid
-     * @throws InvalidIndexException       if the index is invalid
-     * @throws FileInitializationException if there is an issue with file reading
-     */
-    public int validateDeleteCommand(TaskList manager, String... parts)
-            throws InvalidDeleteException, InvalidIndexException, FileInitializationException {
-        if (parts == null || parts.length < 2 || !parts[0].equals("delete")) {
-            throw new InvalidDeleteException(parts == null ? "null" : String.join(" ", parts));
-        }
-        String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-
-        String[] splitParts = joinedString.split(" ");
-        if (splitParts.length != 1 || !isInteger(splitParts[0])) {
-            throw new InvalidDeleteException(joinedString);
-        }
-        int index = Integer.parseInt(splitParts[0]);
-
-        if (!manager.isValidIndex(index)) {
-            throw new InvalidIndexException(index, manager.getSize());
-        }
-
-        return index;
     }
 
 }
