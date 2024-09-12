@@ -21,6 +21,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 
@@ -30,6 +31,7 @@ public class TaskList {
      * @param index The index of the task to delete.
      */
     public void deleteTask(int index) {
+        
         if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
         }
