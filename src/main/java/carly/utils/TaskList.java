@@ -140,7 +140,7 @@ public class TaskList {
             }
         }
         TaskPrinter taskPrinter = new TaskPrinter(filteredList);
-        return taskPrinter.printFindResults();
+        return taskPrinter.printFindResults(word);
     }
 
     /**

@@ -8,6 +8,7 @@ import carly.utils.Parser;
 import carly.utils.Storage;
 import carly.utils.TaskList;
 import carly.utils.TaskPrinter;
+import carly.utils.Command;
 
 /**
  *  Represents a chatbot named Carly that manages a list of tasks.
@@ -28,7 +29,7 @@ public class Carly {
             Ui ui = new Ui();
             ui.welcomeMsg();
             String taskDescription;
-            Parser.Command command;
+            Command command;
             TaskPrinter taskPrinter = new TaskPrinter(this.taskList);
             Storage listStorage = new Storage("./data/CarlyList.txt");
 

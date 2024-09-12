@@ -32,8 +32,8 @@ public class TaskPrinter {
     }
 
     /** Prints the list of tasks found with a custom message. */
-    public String printFindResults() {
-        return printTaskList(taskList, "Here's what we found: ");
+    public String printFindResults(String keyword) {
+        return printTaskList(taskList, "Here's the tasks that matches " + keyword + ": ");
     }
 
     /** Prints all tasks in the list. */

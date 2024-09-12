@@ -10,6 +10,6 @@ public class CarlyIncorrectIndexFormat extends CarlyException {
      * The message indicates that the index should be a number and prompts the user to reenter their input.
      */
     public CarlyIncorrectIndexFormat() {
-        super("Oh no!, index should be a number. Please reenter your message.");
+        super("Oh no! index should be a number. Please reenter your message.");
     }
 }

@@ -7,3 +7,4 @@ The chatbot allows users to interact through text-based commands to add, mark, u
 ## Citation
 - Javadoc comments in this project were created with the assistance of ChatGPT.
 - Images used from : https://www.behance.net/gallery/14439933/Square-Animals
+- FuzzyMatch class method getBestMatch() was created with the assistance of ChatGPT.

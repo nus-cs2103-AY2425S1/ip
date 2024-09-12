@@ -3,7 +3,7 @@ package carly.utils;
 import java.util.Arrays;
 
 import carly.exception.CarlyNoTaskDescription;
-import carly.exception.CarlyUnknownIInputException;
+import carly.exception.CarlyUnknownInputException;
 
 
 /**
@@ -15,11 +15,6 @@ public class Parser {
     private final Integer firstSpaceIndex;
     private final String[] parts;
     private final String action;
-
-    /** represents commands that are allowed to be input by users */
-    public enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, SORT
-    }
 
     /**
      * Constructs a Parser object with the given user input.
@@ -35,16 +30,23 @@ public class Parser {
     }
 
     /**
-     * Converts the user's input action string to a corresponding enum value.
+     * Converts the user's input action string to its corresponding {@link Command} enum value.
+     * If the exact match is not found, attempts to find the closest matching command using
+     * fuzzy matching and suggests the best match.
      *
-     * @return the corresponding enum value.
-     * @throws CarlyUnknownIInputException if the input action does not match any known command.
+     * @return the corresponding {@link Command} enum value for the user's action.
+     * @throws CarlyUnknownInputException if the user input doesn't match any valid command and
+     * suggests the closest match.
      */
-    public Command getCommand() throws CarlyUnknownIInputException {
+    public Command getCommand() throws CarlyUnknownInputException {
         try {
             return Command.valueOf(this.action.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new CarlyUnknownIInputException(this.action);
+            // Try to find the closest match
+            Command bestMatch = FuzzyMatch.getBestMatch(this.action);
+
+            throw new CarlyUnknownInputException(
+                    String.format("Did you mean '%s'?", bestMatch));
         }
     }
 

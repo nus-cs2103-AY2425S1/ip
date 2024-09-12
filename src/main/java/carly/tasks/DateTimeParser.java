@@ -37,7 +37,7 @@ public class DateTimeParser {
             return LocalDate.parse(formattedDate, OUTPUT_FORMATTER);
         } catch (Exception e) {
             throw new CarlyException("Error parsing the formatted date. Please ensure input is in \"yyyy-MM-dd\" "
-                    + "format. and represents a valid date");
+                    + "format and represents a valid date");
         }
 
     }
