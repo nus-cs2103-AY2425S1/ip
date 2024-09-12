@@ -1,5 +1,6 @@
 package ollie.command;
 
+import ollie.History;
 import ollie.Response;
 import ollie.exception.OllieException;
 import ollie.Storage;
@@ -14,5 +15,5 @@ public abstract class Command {
     /**
      * Returns a response object to be processed by Main Window
      */
-    public abstract Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException;
+    public abstract Response execute(TaskList tasks, Ui ui, Storage storage, History history) throws OllieException;
 }

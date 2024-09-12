@@ -1,6 +1,5 @@
 package ollie;
 
-import ollie.exception.OllieException;
 import ollie.task.Task;
 
 /**
@@ -66,10 +65,9 @@ public class Ui {
     }
 
     /**
-     * Returns the error message for any error during the loading of data from the file (database).
+     * Returns a message to notify users that no changes have been made
      */
-    public String getLoadingErrorMessage(OllieException e) {
-        return ("Loading Error:\n" + e.getMessage());
+    public String getEmptyMessage() {
+        return ("No changes made.");
     }
-
 }

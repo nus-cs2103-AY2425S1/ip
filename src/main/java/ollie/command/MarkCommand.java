@@ -23,8 +23,9 @@ public class MarkCommand extends Command {
      */
     @Override
 
-    public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
+    public Response execute(TaskList tasks, Ui ui, Storage storage, History history) throws OllieException {
         Task task = tasks.markAsDone(index);
+        history.add(new UnmarkCommand(index));
         return new Response(ui.getMarkAsDoneMessage(task), false);
     }
 }

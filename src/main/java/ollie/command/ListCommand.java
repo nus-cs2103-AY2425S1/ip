@@ -1,5 +1,6 @@
 package ollie.command;
 
+import ollie.History;
 import ollie.Response;
 import ollie.Storage;
 import ollie.TaskList;
@@ -18,7 +19,8 @@ public class ListCommand extends Command {
      * @param storage Storage controller for file manipulation.
      */
     @Override
-    public Response execute(TaskList tasks, Ui ui, Storage storage) {
+    public Response execute(TaskList tasks, Ui ui, Storage storage, History history) {
+        history.add(new EmptyCommand());
         return new Response(ui.getTaskListMessage(tasks), false);
     }
 }

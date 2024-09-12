@@ -8,10 +8,16 @@ import ollie.task.Task;
  * Represents a command for removing a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private int index;
+    private int Index;
+    private Task taskToDelete;
 
-    public DeleteCommand(int index) {
-        this.index = index;
+    public DeleteCommand(int Index) {
+        this.Index = Index;
+    }
+
+    public DeleteCommand(Task taskToDelete) {
+        assert(taskToDelete != null);
+        this.taskToDelete = taskToDelete;
     }
 
     /**
@@ -22,9 +28,15 @@ public class DeleteCommand extends Command {
      * @param storage Storage controller for file manipulation.
      */
     @Override
-    public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
-        assert(index > -1 & index < tasks.getSize());
-        Task task = tasks.delete(index);
+    public Response execute(TaskList tasks, Ui ui, Storage storage, History history) throws OllieException {
+        Task task;
+        if (taskToDelete != null) {
+            task = tasks.delete(taskToDelete);
+        } else {
+            task = tasks.delete(Index);
+        }
+        assert(task != null);
+        history.add(new AddCommand(task));
         return new Response(ui.getRemoveTaskMessage(task, tasks.getSize()), false);
     }
 }
