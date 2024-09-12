@@ -113,7 +113,7 @@ public class Parser {
      * @param command The string representing the CommandType to be maps to.
      * @return The CommandType that the shortcut is mapped to.
      * @throws DudeInvalidDefineException If the shortcut conflicts with an existing command type or the command is
-     * invalid.
+     *     invalid.
      */
     public CommandType defineShortcut(String shortcut, String command) throws DudeInvalidDefineException {
         CommandType commandType;
