@@ -38,14 +38,16 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        displayPicture.setFitWidth(50); // Resize image width
-        displayPicture.setFitHeight(50); // Resize image height
-        displayPicture.setClip(new Circle(25, 25, 25)); // Rounded profile picture
+        displayPicture.setFitWidth(70); // Resize image width
+        displayPicture.setFitHeight(70); // Resize image height
+        displayPicture.setClip(new Circle(35, 35, 35)); // Rounded profile picture
 
         if (isError) {
-            dialog.setStyle("-fx-background-color: #ffcccc; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10;");
+            dialog.setStyle("-fx-background-color: #1f515a; -fx-padding: 10; -fx-border-radius: 10; "
+                    + "-fx-background-radius: 10; -fx-text-fill: red;");
         } else {
-            dialog.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10;");
+            dialog.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-radius: 10;"
+                    + " -fx-background-radius: 10;");
         }
     }
 

@@ -76,12 +76,17 @@ public class MainWindow extends AnchorPane {
         } catch (Exception e) {
             response = "Error: " + e.getMessage();
             isError = true;
+            e.printStackTrace(); // Print stack trace for debugging
         }
         System.out.println("Wolfie response: " + response); // Debugging statement
+        DialogBox dialogBox = isError ? DialogBox.getErrorDialog(response, wolfieImage)
+                : DialogBox.getWolfieDialog(response, wolfieImage);
+        if (isError) {
+            dialogBox.getStyleClass().add("error-text");
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                isError ? DialogBox.getErrorDialog(response, wolfieImage)
-                        : DialogBox.getWolfieDialog(response, wolfieImage)
+                dialogBox
         );
         userInput.clear();
         if (input.trim().equalsIgnoreCase("bye")) {

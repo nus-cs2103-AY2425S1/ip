@@ -1,0 +1,31 @@
+.error-text {
+    -fx-text-fill: red;
+}
+
+.dialog-box {
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+.dialog-box .label {
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-wrap-text: true;
+}
+
+.dialog-box.user {
+    -fx-background-color: #d1e7dd;
+    -fx-alignment: top-right;
+}
+
+.dialog-box.bot {
+    -fx-background-color: #f8f9fa;
+    -fx-alignment: top-left;
+}
+
+.dialog-box.error {
+    -fx-background-color: #ffcccc;
+    -fx-text-fill: red;
+    -fx-alignment: top-left;
+}
