@@ -218,6 +218,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Sets priority of task in list
+     *
+     * @param parsed string representing task number and priority to be set
+     * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if no corresponding task found or incorrect format found
+     */
     public String setPriorityOfTask(String[] parsed, Ui ui) throws TalkerException {
         if (parsed.length != 3) {
             throw new TalkerException("SetPriority format wrong. Try again with: setPriority <task number> <h/m/l>");
