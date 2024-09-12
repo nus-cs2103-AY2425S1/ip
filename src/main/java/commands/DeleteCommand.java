@@ -21,9 +21,20 @@ public class DeleteCommand extends Command {
      * @throws SkibidiException If the input string is in an invalid format.
      */
     public DeleteCommand(String input) throws SkibidiException {
+        this.index = parseIndex(input);
+    }
+
+    /**
+     * Parses the index from the input string.
+     *
+     * @param input The input string containing the index.
+     * @return The parsed index.
+     * @throws SkibidiException If the input string is in an invalid format.
+     */
+    private int parseIndex(String input) throws SkibidiException {
         try {
-            input = input.substring(7).trim();
-            this.index = Integer.parseInt(input) - 1; // Convert 1-based to 0-based index
+            String trimmedInput = input.substring(7).trim();
+            return Integer.parseInt(trimmedInput) - 1; // Convert 1-based to 0-based index
         } catch (NumberFormatException e) {
             throw new SkibidiException("OOPS!!! The index provided for deletion is invalid.");
         }

@@ -21,13 +21,25 @@ public class AddTodoCommand extends Command {
      * @throws SkibidiException If the input string is in an invalid format.
      */
     public AddTodoCommand(String input) throws SkibidiException {
+        this.description = extractDescription(input);
+    }
+
+    /**
+     * Extracts the description part from the input string.
+     *
+     * @param input The input string containing the todo description.
+     * @return The extracted description.
+     * @throws SkibidiException If the description is empty.
+     */
+    private String extractDescription(String input) throws SkibidiException {
         if (input.length() < 5) {
             throw new SkibidiException("OOPS!!! The description of a todo cannot be empty.");
         }
-        this.description = input.substring(5).trim();
+        String description = input.substring(5).trim();
         if (description.isEmpty()) {
             throw new SkibidiException("OOPS!!! The description of a todo cannot be empty.");
         }
+        return description;
     }
 
     /**

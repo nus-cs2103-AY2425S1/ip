@@ -22,9 +22,12 @@ public class MainWindow extends AnchorPane {
 
     private Skibidi skibidi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image skibidiImage = new Image(this.getClass().getResourceAsStream("/images/DaSkibidi.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image skibidiImage = new Image(this.getClass().getResourceAsStream("/images/DaSkibidi.png"));
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -40,7 +43,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
         String response = skibidi.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -48,5 +51,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSkibidiDialog(response, skibidiImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            Thread.sleep(1000);
+            System.exit(0);
+        }
     }
 }
