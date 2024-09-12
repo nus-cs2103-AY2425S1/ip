@@ -18,15 +18,15 @@ public class TaskListTest {
     public void addTask_validTask_success() {
         // task type TODO
         Assertions.assertEquals(new Todo("test").toString(),
-                new TaskList().addTask(Command.TODO, new String[]{"todo", "test"}).toString());
+                new TaskList().addTask(Command.TODO, "test").toString());
 
         // task type DEADLINE
         Assertions.assertEquals(new Deadline("test", "2024-08-30").toString(),
-                new TaskList().addTask(Command.DEADLINE, new String[]{"test", "2024-08-30"}).toString());
+                new TaskList().addTask(Command.DEADLINE, "test", "2024-08-30").toString());
 
         // task type EVENT
         Assertions.assertEquals(new Event("test", "2024-08-29", "2024-08-30").toString(),
-                new TaskList().addTask(Command.EVENT, new String[]{"test", "2024-08-29 /to 2024-08-30"}).toString());
+                new TaskList().addTask(Command.EVENT, "test", "2024-08-29", "2024-08-30").toString());
     }
 
     @Test
