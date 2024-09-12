@@ -2,21 +2,9 @@ package noisy;
 
 import java.util.Scanner;
 
-/**
- * The main entry point for the Noisy task management application.
- * This class handles the user input loop, processes commands, and interacts with the
- * {@code Parser}, {@code Storage}, {@code TaskList}, and {@code Ui} classes to manage tasks.
- */
 public class Noisy {
 
 
-    /**
-     * The main method of the Noisy application.
-     * It initializes the necessary components and processes user input to manage tasks.
-     * Users can add tasks, mark them as done, delete tasks, or view the task list.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
     public static void main(String[] args) {
         Parser parser = new Parser();
         Storage storage = new Storage();

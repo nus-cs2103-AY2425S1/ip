@@ -7,21 +7,9 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 
-/**
- * The Storage class is responsible for loading and saving tasks from and to a file.
- * It ensures that tasks are persisted on the hard disk and can be retrieved when needed.
- */
 public class Storage {
     Parser parser = new Parser();
     File file = new File("./data/duke.txt");
-
-    /**
-     * Loads tasks from the storage file.
-     * If the file does not exist, it will be created.
-     * Tasks are read from the file and parsed into {@code Task} objects, which are added to an {@code ArrayList}.
-     *
-     * @return An {@code ArrayList} of tasks loaded from the file. If the file is empty or does not exist, an empty list is returned.
-     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -57,12 +45,6 @@ public class Storage {
         return tasks;
     }
 
-    /**
-     * Saves the given list of tasks to the storage file.
-     * The file will be created if it does not exist. Each task is written to the file in the desired format.
-     *
-     * @param taskList The {@code ArrayList} of tasks to be saved to the file.
-     */
     public void saveTasks(ArrayList<Task> taskList) {
         try {
             if (!file.exists()) {
