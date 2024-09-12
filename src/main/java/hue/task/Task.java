@@ -1,4 +1,7 @@
 package hue.task;
+
+import hue.HueException;
+
 /**
  * Represents a generic task with a description and a completion status.
  */
@@ -59,5 +62,9 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public void reschedule(String newDate) throws HueException {
+        throw new HueException("Cannot rescheudle a task without a date!");
     }
 }
