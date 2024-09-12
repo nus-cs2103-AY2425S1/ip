@@ -290,14 +290,7 @@ public class TaskList {
         } catch (IllegalArgumentException e) {
             return "You seme to have reached too high. Try reaching for something else!";
         }
-        //Task task = items.get(Integer.valueOf(result[1].trim()) - 1);
         return printsOutputStringWhenChangingPriorityForTasks(task, severity);
-        /*String previousPriority = Task.getPriority(task).toString();
-        Task.changePriority(task, severity);
-        String newPriority = Task.getPriority(task).toString();
-        return "Got it. I've changed the priority of this task:\n"
-                + task + "\n"
-                + "from " + previousPriority + " to " + newPriority + "\n";*/
     }
 
     /**
