@@ -1,9 +1,13 @@
 package garfield.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import garfield.exceptions.GarfieldException;
 import garfield.storage.Storage;
 import garfield.tasks.TaskList;
 import garfield.ui.Ui;
+
 
 /**
  * The DeleteCommand class represents a command to delete a task from the task list
@@ -11,7 +15,7 @@ import garfield.ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-    private int taskId;
+    private List<Integer> taskIds;
 
     /**
      * Constructs a new DeleteCommand with the specified task ID.
@@ -19,7 +23,19 @@ public class DeleteCommand extends Command {
      * @param taskId The ID of the task to be deleted from the task list.
      */
     public DeleteCommand(int taskId) {
-        this.taskId = taskId;
+        this.taskIds = new ArrayList<>();
+        this.taskIds.add(taskId);
+    }
+
+    /**
+     * Constructs a new DeleteCommand with a list of specified task IDs
+     *
+     * @param taskIds The list of IDs of the tasks to be deleted from the task list.
+     */
+    public DeleteCommand(List<Integer> taskIds) {
+        this.taskIds = new ArrayList<>();
+        this.taskIds.addAll(taskIds);
+        this.taskIds.sort((t1, t2) -> t2 - t1);
     }
 
     /**
@@ -33,8 +49,12 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws GarfieldException {
-        ui.showMessage("Alright you've got 1 less garfield.task.\n\n\t"
-                + tasks.delete(taskId) + "\n\nEnjoy the extra ‘fun’ —or whatever you call it.");
+        StringBuilder deletedTaskStrings = new StringBuilder();
+        for (Integer taskId : this.taskIds) {
+            deletedTaskStrings.append("\t").append(tasks.delete(taskId)).append("\n");
+        }
+        ui.showMessage("Alright you've got " + this.taskIds.size() + " less task.\n\n"
+                + deletedTaskStrings + "\n\nEnjoy the extra 'fun' --or whatever you call it.");
         storage.save(tasks);
 
     }
@@ -51,9 +71,12 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws GarfieldException {
-        String result = tasks.delete(taskId);
+        StringBuilder deletedTaskStrings = new StringBuilder();
+        for (Integer taskId : this.taskIds) {
+            deletedTaskStrings.append("\t").append(tasks.delete(taskId)).append("\n");
+        }
         storage.save(tasks);
-        return "Alright you've got 1 less garfield.task.\n\n\t"
-                + result + "\n\nEnjoy the extra ‘fun’ —or whatever you call it.";
+        return "Alright you've got " + this.taskIds.size() + " less task.\n\n"
+                + deletedTaskStrings + "\n\nEnjoy the extra 'fun' --or whatever you call it.";
     }
 }
