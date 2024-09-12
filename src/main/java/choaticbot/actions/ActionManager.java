@@ -27,6 +27,9 @@ public class ActionManager {
      * @throws UnknownActionException If the action string in the processed input does not match a known action.
      */
     public Action createAction(ProcessedInput processedInput, TaskList taskList) throws UnknownActionException {
+        assert processedInput != null : "ProcessedInput should not be null";
+        assert taskList != null : "TaskList should not be null";
+
         return switch (processedInput.getAction()) {
         case "bye" -> new Bye(taskList);
         case "list" -> new List(taskList);

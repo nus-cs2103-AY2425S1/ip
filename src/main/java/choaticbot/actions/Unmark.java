@@ -1,5 +1,6 @@
 package choaticbot.actions;
 
+import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.tasks.TaskList;
 
 /**
@@ -30,7 +31,7 @@ public class Unmark extends Action {
      * field and unmarks the task at that index as incomplete in the task list.
      */
     @Override
-    public void execute() {
+    public void execute() throws ChoaticBotException {
         int index = Integer.parseInt(this.details);
         this.taskList.unmarkTask(index);
     }

@@ -1,5 +1,6 @@
 package choaticbot.actions;
 
+import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.tasks.TaskList;
 
 /**
@@ -30,7 +31,7 @@ public class Find extends Action {
      * the specified keyword.
      */
     @Override
-    public void execute() {
+    public void execute() throws ChoaticBotException {
         this.taskList.filterByWord(word);
     }
 }

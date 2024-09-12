@@ -1,5 +1,6 @@
 package choaticbot.actions;
 
+import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.tasks.TaskList;
 
 /**
@@ -23,7 +24,7 @@ public class List extends Action {
      * to display all tasks.
      */
     @Override
-    public void execute() {
+    public void execute() throws ChoaticBotException {
         this.taskList.listTask();
     }
 }

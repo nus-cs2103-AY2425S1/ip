@@ -4,6 +4,8 @@ import static choaticbot.ui.Ui.printLine;
 
 import java.util.ArrayList;
 
+import choaticbot.exceptions.ChoaticBotException;
+
 /**
  * Represents a list of tasks. Provides methods to manage and manipulate tasks, including adding, deleting,
  * listing, marking, unmarking, and filtering tasks.
@@ -36,12 +38,16 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted (1-based index).
      */
-    public void deleteTask(int index) {
-        printLine();
-        System.out.println("Deleted: " + this.tasklist.get(index - 1) + "\n");
-        this.tasklist.remove(index - 1);
-        System.out.println("You have " + this.tasklist.size() + " tasks in the list");
-        printLine();
+    public void deleteTask(int index) throws ChoaticBotException {
+        if (index <= 0 || index > tasklist.size()) {
+            throw new ChoaticBotException("Index out of bounds, there is only " + tasklist.size() + " tasks");
+        } else {
+            printLine();
+            System.out.println("deleted: " + this.tasklist.get(index - 1) + "\n");
+            this.tasklist.remove(index - 1);
+            System.out.println("You have " + this.tasklist.size() + " tasks in the list");
+            printLine();
+        }
     }
 
     /**
@@ -60,11 +66,15 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as completed (1-based index).
      */
-    public void markTask(int index) {
-        printLine();
-        this.tasklist.get(index - 1).complete();
-        System.out.println("Marked as done:\n" + this.tasklist.get(index - 1));
-        printLine();
+    public void markTask(int index) throws ChoaticBotException{
+        if (index <= 0 || index > tasklist.size()) {
+            throw new ChoaticBotException("Index out of bounds, there is only " + tasklist.size() + " tasks");
+        } else {
+            printLine();
+            this.tasklist.get(index - 1).complete();
+            System.out.println("Marked as done:\n" + this.tasklist.get(index - 1));
+            printLine();
+        }
     }
 
     /**
@@ -72,11 +82,15 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as incomplete (1-based index).
      */
-    public void unmarkTask(int index) {
-        printLine();
-        this.tasklist.get(index - 1).uncomplete();
-        System.out.println("Marked as undone:\n" + this.tasklist.get(index - 1));
-        printLine();
+    public void unmarkTask(int index) throws ChoaticBotException {
+        if (index <= 0 || index > tasklist.size()) {
+            throw new ChoaticBotException("Index out of bounds, there is only " + tasklist.size() + " tasks");
+        } else {
+            printLine();
+            this.tasklist.get(index - 1).uncomplete();
+            System.out.println("Marked as undone:\n" + this.tasklist.get(index - 1));
+            printLine();
+        }
     }
 
     /**

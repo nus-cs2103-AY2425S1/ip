@@ -1,5 +1,6 @@
 package choaticbot.actions;
 
+import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.tasks.TaskList;
 
 /**
@@ -24,7 +25,7 @@ public class Bye extends Action {
      */
     @Override
     //Do nothing
-    public void execute() {
+    public void execute() throws ChoaticBotException {
     }
 
     /**

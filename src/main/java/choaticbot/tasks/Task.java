@@ -98,6 +98,7 @@ public abstract class Task {
      * @return {@code true} if the name contains the specified word, otherwise {@code false}.
      */
     public boolean containWord(String name) {
+        assert name != null : "Search word should not be null";
         return this.name.contains(name);
     }
 

@@ -1,5 +1,6 @@
 package choaticbot.actions;
 
+import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.tasks.TaskList;
 
 /**
@@ -30,7 +31,7 @@ public class Delete extends Action {
      * field and deletes the task at that index from the task list.
      */
     @Override
-    public void execute() {
+    public void execute() throws ChoaticBotException {
         int index = Integer.parseInt(this.details);
         this.taskList.deleteTask(index);
     }

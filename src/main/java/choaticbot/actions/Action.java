@@ -1,5 +1,6 @@
 package choaticbot.actions;
 
+import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.tasks.TaskList;
 
 /**
@@ -27,7 +28,7 @@ public abstract class Action {
      * Executes the specific action. Each subclass must provide an
      * implementation of this method.
      */
-    public abstract void execute();
+    public abstract void execute() throws ChoaticBotException;
 
     /**
      * Indicates whether this action signifies the end of the program. By
