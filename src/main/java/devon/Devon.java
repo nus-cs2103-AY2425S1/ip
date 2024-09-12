@@ -76,7 +76,6 @@ public class Devon {
      */
     protected String getResponse(String input) {
         Command command = Command.fromStringToEnum(parser.extractCommand(input));
-        String response;
 
         try {
             switch (command) {
@@ -213,7 +212,7 @@ public class Devon {
         } catch (NumberFormatException e) {
             throw new DevonInvalidTaskNumberException();
         }
-        
+
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
