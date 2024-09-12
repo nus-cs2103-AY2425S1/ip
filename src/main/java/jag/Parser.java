@@ -64,6 +64,10 @@ public class Parser {
                 cmd = new FindCommand();
                 break;
 
+            case UPDATE:
+                cmd = new UpdateCommand();
+                break;
+
             default:
                 throw new AExceptions("I'm sorry, but I don't know what that means :-(");
             }

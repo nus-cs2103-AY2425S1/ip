@@ -11,6 +11,12 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    public void update(String description, LocalDateTime ... dateTime) {
+        this.description = description;
+        this.from = dateTime[0];
+        this.to = dateTime[1];
+    }
+
     /**
      * A custom constructor for the Event Class
      *

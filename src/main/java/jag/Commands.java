@@ -5,5 +5,5 @@ package jag;
  * to find the right command entered by the user in a Switch statement
  */
 public enum Commands {
-    LIST, BYE, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, FIND
+    LIST, BYE, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, FIND, UPDATE
 }

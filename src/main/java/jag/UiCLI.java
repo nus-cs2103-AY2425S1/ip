@@ -1,6 +1,9 @@
 package jag;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Represents an instance of User Interface interactions
@@ -78,14 +81,20 @@ public class UiCLI extends Ui {
         return this.command;
     }
 
+    @Override
+    public int getUpdateIndex() {
+        String[] parts = this.command.split(" ");
+        return Integer.parseInt(parts[1]);
+    }
+
 
     /**
      * Returns the description of the task from user input
      *
-     * @param type Type represents T, D, E, F, which helps to indicate
+     * @param type Type represents T, D, E, F, U, which helps to indicate
      *             the type of Task to be processed.
      * @return description of the task from the user input on a case
-     *          by case basis, of T, D, E, F
+     *          by case basis, of T, D, E, F, U
      */
     @Override
     public String getDescription(char type) {
@@ -100,9 +109,16 @@ public class UiCLI extends Ui {
         } else if (type == 'E') {
             String[] split = command.split("/from | /to");
             description = split[0].replaceFirst("event", "").trim();
-        } else {
+        } else if (type == 'F') {
             String[] split = command.split("find");
             description = split[1].trim();
+        } else if (type == 'U') {
+            description = Arrays.stream(command.split(" "))
+                    .skip(2)
+                    .takeWhile(part -> !part.startsWith("/"))
+                    .collect(Collectors.joining(" "));
+        } else {
+            return "description not found";
         }
         return description;
     }
@@ -315,6 +331,20 @@ public class UiCLI extends Ui {
             readNextCommand();
             response = "Sorry we could not find any matching tasks in your list";
         }
+        setResponse(response);
+        readNextCommand();
+    }
+
+    /**
+     * Displays the updated task
+     * @param task Task instance that has been updated
+     */
+    @Override
+    public void updateResponse(Task task) {
+        String response = "The following task has been updated: \n" + task.toString();
+        showLine();
+        System.out.println(response);
+        showLine();
         setResponse(response);
         readNextCommand();
     }
