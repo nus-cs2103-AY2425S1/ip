@@ -58,6 +58,7 @@ run {
             '--module-path', '/path/to/javafx-sdk/lib',
             '--add-modules', 'javafx.controls,javafx.fxml'
     ]
+    enableAssertions = true
 }
 
 checkstyle {
