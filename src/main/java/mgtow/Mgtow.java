@@ -27,7 +27,7 @@ public class Mgtow {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTasks());
         } catch (InvalidTaskException e) {
             ui.showLoadingError();
             tasks = new TaskList();

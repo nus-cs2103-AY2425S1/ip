@@ -4,7 +4,11 @@ import mgtow.task.Task;
 import mgtow.util.InvalidTaskException;
 import mgtow.util.Parser;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,7 +32,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> load() throws InvalidTaskException {
+    public ArrayList<Task> loadTasks() throws InvalidTaskException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
