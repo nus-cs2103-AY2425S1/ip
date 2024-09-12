@@ -13,6 +13,7 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null && !description.trim().isEmpty() : "Task description should not be null or empty";
         this.description = description;
         this.isDone = false;
     }
@@ -39,6 +40,7 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
+        assert !isDone : "Task should not be marked as done before calling markAsDone";
         isDone = true;
     }
 
@@ -46,6 +48,7 @@ public abstract class Task {
      * Marks the task as not done.
      */
     public void markAsNotDone() {
+        assert isDone : "Task should be marked as done before calling markAsNotDone";
         isDone = false;
     }
 
