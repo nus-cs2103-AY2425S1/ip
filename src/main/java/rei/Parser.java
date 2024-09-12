@@ -7,6 +7,12 @@ import java.util.List;
 
 public class Parser {
 
+    private static final int MARK_COMMAND_LENGTH = 4;
+    private static final int UNMARK_COMMAND_LENGTH = 6;
+    private static final int TODO_COMMAND_LENGTH = 4;
+    private static final int DEADLINE_COMMAND_LENGTH = 8;
+    private static final int EVENT_COMMAND_LENGTH = 5;
+    private static final int DELETE_COMMAND_LENGTH = 6;
 
     public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ANNYEONG, UNKNOWN};
     public static boolean isAllWhitespace(String input) {
@@ -21,7 +27,7 @@ public class Parser {
                 return Prompt.LIST;
             case "mark":
                 // Read the rest of the line after "mark"
-                prompt = prompt.substring(4).trim();
+                prompt = prompt.substring(MARK_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
                 if (prompt.isEmpty() || !prompt.matches("\\d+")) {
@@ -32,7 +38,7 @@ public class Parser {
                 return Prompt.MARK;
             case "unmark":
                 // Read the rest of the line after "unmark"
-                prompt = prompt.substring(6).trim();
+                prompt = prompt.substring(UNMARK_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
                 if (prompt.isEmpty() || !prompt.matches("\\d+")) {
@@ -42,14 +48,14 @@ public class Parser {
 
                 return Prompt.UNMARK;
             case "todo":
-                if (isAllWhitespace(prompt.substring(4))) {
+                if (isAllWhitespace(prompt.substring(TODO_COMMAND_LENGTH))) {
                     Ui.print("Task is empty. Please state the task name.");
                     return Prompt.UNKNOWN;
                 }
 
                 return Prompt.TODO;
             case "deadline":
-                if (isAllWhitespace(prompt.substring(8))) {
+                if (isAllWhitespace(prompt.substring(DEADLINE_COMMAND_LENGTH))) {
                     Ui.print("Task is empty. Please state the task and deadline.");
                     return Prompt.UNKNOWN;
                 } else if (prompt.indexOf("/by") == -1) {
@@ -68,7 +74,7 @@ public class Parser {
                 }
                 return Prompt.DEADLINE;
             case "event":
-                if (isAllWhitespace(prompt.substring(5))) {
+                if (isAllWhitespace(prompt.substring(EVENT_COMMAND_LENGTH))) {
                     Ui.print("Event is empty. Please state the event and time range.");
                     return Prompt.UNKNOWN;
                 } else if (prompt.indexOf("/from") == -1 || prompt.indexOf("/to") == -1) {
@@ -89,7 +95,7 @@ public class Parser {
                 return Prompt.EVENT;
             case "delete":
                 // Read the rest of the line after "delete"
-                prompt = prompt.substring(6).trim();
+                prompt = prompt.substring(DELETE_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
                 if (prompt.isEmpty() || !prompt.matches("\\d+")) {

@@ -19,7 +19,7 @@ public class Rei {
     }
 
     public void run() {
-        Ui.welcome();
+        Ui.printWelcomeMessage();
         tasks.printTasks();
 
         Scanner scanner = new Scanner(System.in);

@@ -7,13 +7,16 @@ public class Ui {
             + " |  _ <| |___ | | \n"
             + " |_| \\_\\_____|___|\n";
 
-    public static void welcome() {
+    private static final String HEADER = "-----------REI♥-----------";
+    private static final String FOOTER = "-----------YOU------------";
+
+    public static void printWelcomeMessage() {
         System.out.println("Annyeong! I'm\n" + LOGO);
     }
 
     public static void print(String message) {
-        System.out.println("-----------REI♥-----------");
+        System.out.println(HEADER);
         System.out.println(message);
-        System.out.println("-----------YOU------------");
+        System.out.println(FOOTER);
     }
 }

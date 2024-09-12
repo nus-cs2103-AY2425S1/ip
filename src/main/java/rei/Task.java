@@ -92,17 +92,20 @@ public abstract class Task {
     public abstract String toStoringFormat();
 
 
+
+
+
     /**
      * ToDo class that inherits from Task.
      */
-    private static class ToDo extends Task {
+    protected static class ToDo extends Task {
+        private static final String TODO_PREFIX = "[T]";
         private ToDo(String task) {
             super(task);
         }
-
         @Override
         public String toString() {
-            return String.format("[T]%s", this.printTask());
+            return String.format("%s%s",TODO_PREFIX, this.printTask());
         }
 
         @Override
@@ -114,7 +117,8 @@ public abstract class Task {
     /**
      * Deadline class that inherits from Task.
      */
-    private static class Deadline extends Task {
+    protected static class Deadline extends Task {
+        private static final String DEADLINE_PREFIX = "[D]";
         private LocalDateTime deadline;
         private DateTimeFormatter outputFormat
                 = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm:ss");
@@ -126,7 +130,7 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[D]%s (by: %s)", this.printTask(), this.deadline.format(outputFormat));
+            return String.format("%s%s (by: %s)", DEADLINE_PREFIX, this.printTask(), this.deadline.format(outputFormat));
         }
 
         @Override
@@ -138,7 +142,8 @@ public abstract class Task {
     /**
      * Event class that inherits from Task.
      */
-    private static class Event extends Task {
+    protected static class Event extends Task {
+        private static final String EVENT_PREFIX = "[E]";
         private LocalDateTime from;
         private LocalDateTime to;
         private DateTimeFormatter outputFormat
@@ -151,7 +156,7 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[E]%s (from: %s to: %s)", this.printTask(),
+            return String.format("%s%s (from: %s to: %s)", EVENT_PREFIX, this.printTask(),
                     this.from.format(outputFormat), this.to.format(outputFormat));
         }
 
