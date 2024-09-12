@@ -39,6 +39,7 @@ public abstract class Task {
 
     public void mark() {
         isDone = true;
+        assert isDone : "Failed to mark the task as done";
     }
 
     /**
@@ -46,6 +47,7 @@ public abstract class Task {
      */
     public void unMark() {
         isDone = false;
+        assert !isDone : "Failed to unmark the task";
     }
 
     /**
@@ -73,6 +75,7 @@ public abstract class Task {
      * @return a boolean value
      */
     public boolean isMatch(String word) {
+        assert word != null && !word.trim().isEmpty() : "Word cannot be null or empty";
         if (isReferToTask(word)) {
             return true;
         }
@@ -97,6 +100,7 @@ public abstract class Task {
      * @return a boolean value
      */
     public boolean isOneMatch(String words) {
+        assert words != null : "Words cannot be null";
         if (words.trim().isEmpty()) {
             return true;
         }
@@ -143,7 +147,7 @@ public abstract class Task {
      * @param s the String that need to be checked
      * @return a boolean value
      */
-    public abstract boolean isReferToTask(String s);
+    public abstract boolean isReferingToTask(String s);
 
     /**
      * Returns String representation of the task
@@ -171,6 +175,7 @@ public abstract class Task {
          */
         public Deadlines(String content, LocalDateTime by) {
             super(content);
+            assert by != null : "deadline time cannot be null";
             this.time = by;
         }
 
@@ -202,7 +207,8 @@ public abstract class Task {
          * @return a boolean value
          */
         @Override
-        public boolean isReferToTask(String s) {
+        public boolean isReferingToTask(String s) {
+            assert s != null : "Task reference cannot be null";
             return s.trim().toLowerCase().equals("deadline");
         }
 
@@ -242,6 +248,8 @@ public abstract class Task {
          */
         public Events(String content, LocalDateTime start, LocalDateTime end) {
             super(content);
+            assert start != null && end != null : "Start and End times cannot be null";
+            assert start.isBefore(end) : "Start time must be before End time";
             this.start = start;
             this.end = end;
         }
@@ -276,7 +284,8 @@ public abstract class Task {
          * @return a boolean value
          */
         @Override
-        public boolean isReferToTask(String s) {
+        public boolean isReferingToTask(String s) {
+            assert s != null : "Task reference cannot be null";
             return s.trim().toLowerCase().equals("event");
         }
 
@@ -328,7 +337,8 @@ public abstract class Task {
          * @return a boolean value
          */
         @Override
-        public boolean isReferToTask(String s) {
+        public boolean isReferingToTask(String s) {
+            assert s != null : "Task reference cannot be null";
             return s.trim().toLowerCase().equals("todo");
         }
 

@@ -48,6 +48,7 @@ public class TaskList {
     public String add(Task newTask) {
         tasks.add(newTask);
         taskCount++;
+        assert taskCount == tasks.size() : "taskCount is wrong";
         return " Got it. I've added this task:\n"
                 + "   " + newTask.toString() + "\n"
                 + " Now you have " + taskCount + " tasks in the list.\n";
@@ -67,6 +68,7 @@ public class TaskList {
         if (i <= 0 || i > taskCount) {
             throw new NahException.InvalidTaskNumberException(i, taskCount);
         }
+        assert tasks.get((i - 1)) != null : "task at position " + i + "should not be null";
         tasks.get(i - 1).mark();
         return " Nice! I've marked this task as done:\n"
                 + "   " + tasks.get(i - 1).toString();
@@ -87,6 +89,7 @@ public class TaskList {
         if (i <= 0 || i > taskCount) {
             throw new NahException.InvalidTaskNumberException(i, taskCount);
         }
+        assert tasks.get((i - 1)) != null : "task at position " + i + "should not be null";
         tasks.get(i - 1).unMark();
         return " OK, I've marked this task as not done yet:\n"
                 + "   " + tasks.get(i - 1).toString();
@@ -108,6 +111,7 @@ public class TaskList {
             throw new NahException.InvalidTaskNumberException(i, taskCount);
         }
         taskCount--;
+        assert tasks.get((i - 1)) != null : "task at position " + i + "should not be null";
         String s = " Noted. I've removed this task:\n"
                 + "   " + tasks.get(i - 1).toString() + "\n"
                 + " Now you have " + taskCount + " tasks in the list.\n";
@@ -126,6 +130,7 @@ public class TaskList {
         }
         String s = " Here are the tasks in your list:\n";
         for (int i = 1; i <= taskCount; i++) {
+            assert tasks.get((i - 1)) != null : "task at position " + i + "should not be null";
             s += " " + i + ". " + tasks.get(i - 1).toString() + "\n";
         }
         return s;
@@ -143,8 +148,9 @@ public class TaskList {
         int i = 1;
         for (Task t : tasks) {
             if (t instanceof Task.Deadlines || t instanceof Task.Events) {
+                assert t != null : "task at position " + i + "should not be null";
                 if (t.endTime().isBefore(due) && !t.isDone()) {
-                    s += " " + i + ". " + t.toString() + "\n";
+                    s += " " + i + ". " + t + "\n";
                 }
 
             }
@@ -161,6 +167,7 @@ public class TaskList {
     public String brief() {
         String s = "";
         for (int i = 1; i <= taskCount; i++) {
+            assert tasks.get((i - 1)) != null : "task at position " + i + "should not be null";
             s += tasks.get(i - 1).brief() + "\n";
         }
         return s;
@@ -185,6 +192,7 @@ public class TaskList {
      * @return a description of the action, that will be delivered to a UI
      */
     public String find(String s) {
+        assert s != null : "string for finding should not be null";
         String ret = "";
         if (s.trim().isEmpty()) {
             ret += " Please specify keywords. I show you all the tasks\n";
@@ -192,6 +200,7 @@ public class TaskList {
             ret += " Oke. Here are the task that match keywords:\n";
         }
         for (int i = 1; i <= taskCount; i++) {
+            assert tasks.get((i - 1)) != null : "task at position " + i + "should not be null";
             Task t = tasks.get(i - 1);
             if (t.isOneMatch(s)) {
                 ret += " " + i + ". " + t.toString() + "\n";

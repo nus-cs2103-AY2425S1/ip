@@ -21,7 +21,9 @@ public class Parser {
      * @throws NahException if something wrong happen while processing the String command
      */
     public static Command parse(String fullCommand) throws NahException {
+        assert fullCommand != null : "fullCommand cannot be null";
         String[] cmd = fullCommand.split(" ", 2);
+        assert cmd[0] != null : "unexpected null value for command";
 
         switch (cmd[0].toLowerCase()) {
         case "bye": {
@@ -29,7 +31,7 @@ public class Parser {
         }
         case "clean": {
             if (cmd.length >= 2 && !cmd[1].trim().isEmpty()) {
-                throw new NahException(" Nahh!!! Do not type nonsense after 'list' command\n");
+                throw new NahException(" Nahh!!! Do not type nonsense after 'clean' command\n");
             }
             return new Command.CleanCommand();
         }
@@ -46,6 +48,10 @@ public class Parser {
             return new Command.FindCommand(cmd[1]);
         }
         case "mark": {
+            if (cmd.length < 2) {
+                throw new NahException(
+                        " Nah!!! Mark command needs a number\n");
+            }
             int i;
             try {
                 i = parseInt(cmd[1]);
@@ -56,6 +62,10 @@ public class Parser {
             return new Command.MarkCommand(i);
         }
         case "unmark": {
+            if (cmd.length < 2) {
+                throw new NahException(
+                        " Nah!!! Unmark command needs a number\n");
+            }
             int i;
             try {
                 i = parseInt(cmd[1]);
@@ -66,6 +76,10 @@ public class Parser {
             return new Command.UnmarkCommand(i);
         }
         case "delete": {
+            if (cmd.length < 2) {
+                throw new NahException(
+                        " Nah!!! Delete command needs a number\n");
+            }
             int i;
             try {
                 i = parseInt(cmd[1]);
@@ -76,6 +90,10 @@ public class Parser {
             return new Command.DeleteCommand(i);
         }
         case "dueon": {
+            if (cmd.length < 2) {
+                throw new NahException(
+                        " Nah!!! DueOn command needs a number\n");
+            }
             return new Command.DueOnCommand(cmd[1]);
         }
         case "todo": {

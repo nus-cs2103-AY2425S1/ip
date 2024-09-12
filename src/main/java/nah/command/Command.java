@@ -54,6 +54,8 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) throws NahException {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
             storage.clean();
             return tasks.clean();
 
@@ -61,7 +63,7 @@ public abstract class Command {
 
     }
     /**
-     * The CleanCommand class is for finding matching data.
+     * The FindCommand class is for finding matching data.
      */
     public static class FindCommand extends Command {
         private String keyWord;
@@ -79,12 +81,15 @@ public abstract class Command {
 
         @Override
         public String execute(TaskList tasks, Storage storage) throws NahException {
+            assert keyWord != null : "FindCommand can not have null keyWord";
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
             return tasks.find(this.keyWord);
         }
 
     }
     /**
-     * The CleanCommand class is for adding new task.
+     * The AddCommand class is for adding new task.
      */
     public static class AddCommand extends Command {
         private Task newTask;
@@ -103,6 +108,9 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) throws NahException {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
+            assert this.newTask != null : "New task cannot be null";
             tasks.add(this.newTask);
             String response = " Got it. I've added this task:\n"
                     + "   " + this.newTask.toString() + "\n"
@@ -114,7 +122,7 @@ public abstract class Command {
     }
 
     /**
-     * The CleanCommand class is deleting a task.
+     * The DeleteCommand class is deleting a task.
      */
     public static class DeleteCommand extends Command {
         private int idx;
@@ -132,6 +140,8 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) throws NahException {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
             String response = tasks.delete(this.idx);
             storage.rewrite(tasks.brief());
             return response;
@@ -139,7 +149,7 @@ public abstract class Command {
     }
 
     /**
-     * The CleanCommand class is for finding tasks before due.
+     * The DueOnCommand class is for finding tasks before due.
      */
     public static class DueOnCommand extends Command {
         private String due;
@@ -157,12 +167,15 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
+            assert due != null : "Due time cannot be null";
             return tasks.dueOn(this.due);
         }
     }
 
     /**
-     * The CleanCommand class is for stopping the program.
+     * The ExitCommand class is for stopping the program.
      */
     public static class ExitCommand extends Command {
         @Override
@@ -179,13 +192,15 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
             return " Bye. Hope to see you again soon!\n";
         }
 
     }
 
     /**
-     * The CleanCommand class is for listing all tasks.
+     * The ListCommand class is for listing all tasks.
      */
     public static class ListCommand extends Command {
         /**
@@ -197,12 +212,14 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
             return tasks.readTask();
         }
     }
 
     /**
-     * The CleanCommand class is for marking a task as done.
+     * The MarkCommand class is for marking a task as done.
      */
     public static class MarkCommand extends Command {
         private int idx;
@@ -220,6 +237,8 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) throws NahException {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
             String response = tasks.mark(this.idx);
             storage.rewrite(tasks.brief());
             return response;
@@ -227,7 +246,7 @@ public abstract class Command {
     }
 
     /**
-     * The CleanCommand class is for a command line that chatBot doesn't understand.
+     * The UnknownCommand class is for a command line that chatBot doesn't understand.
      */
     public static class UnknownCommand extends Command {
         /**
@@ -238,12 +257,14 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
             return " Nahhhhh!!! Please give me a valid command, such as list, mark, todo,...\n";
         }
     }
 
     /**
-     * The CleanCommand class is for marking a class as not done.
+     * The UnmarkCommand class is for marking a class as not done.
      */
     public static class UnmarkCommand extends Command {
         private int idx;
@@ -261,6 +282,8 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) throws NahException {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
             String response = tasks.unMark(this.idx);
             storage.rewrite(tasks.brief());
             return response;
