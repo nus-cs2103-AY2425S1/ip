@@ -1,11 +1,14 @@
 package neuro.task;
 
+import java.util.ArrayList;
+
 /**
  * The {@code Task} class represents a task with a description and a completion status.
  */
 public abstract class Task {
     private final String description;
     private boolean isDone;
+    private ArrayList<String> tags;
 
     /**
      * Constructs a Task object with the specified description
@@ -16,6 +19,7 @@ public abstract class Task {
         assert !description.isEmpty() : "Description should not be empty!";
         this.description = description;
         this.isDone = false;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -30,6 +34,10 @@ public abstract class Task {
      */
     public void markUndone() {
         this.isDone = false;
+    }
+
+    public void addTag(String newTag) {
+        this.tags.add(newTag);
     }
 
     /**
@@ -56,9 +64,22 @@ public abstract class Task {
      */
     public String toSaveData() {
         if (this.isDone) {
-            return "1 | " + this.description;
+            return "1 | " + tagsToString() + "| " + description;
         } else {
-            return "0 | " + this.description;
+            return "0 | " + tagsToString() + "| " + description;
         }
+    }
+
+    public String tagsToString() {
+        if (tags.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder tagsString = new StringBuilder();
+        for (String tag : tags) {
+            tagsString.append("#").append(tag).append(" ");
+        }
+
+        return tagsString.toString();
     }
 }

@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (this.index < 0) {
+        if (this.index < 0 || this.index > tasks.getSize()) {
             return "Missing or invalid index for 'mark' command! Add a valid "
                    + "index for a task to mark, like 'mark 2'.";
         }
