@@ -14,7 +14,10 @@ public class WheelyBigCheese {
     private final Ui ui;
     private boolean isExitChat;
 
-    WheelyBigCheese() {
+    /**
+     * Creates new instance of chat bot.
+     */
+    public WheelyBigCheese() {
         ui = new Ui();
         assert !LIST_FILE_PATH.isBlank();
         storage = new Storage(LIST_FILE_PATH);
@@ -28,17 +31,19 @@ public class WheelyBigCheese {
     }
 
     /**
-     * Returns to start bot
-     * @return String greeting
+     * Returns to start bot.
+     *
+     * @return String greeting.
      */
     public String start() {
         return ui.greet();
     }
 
     /**
-     * Return bot response to input
-     * @param input String from user
-     * @return String response from bot
+     * Returns bot response to input.
+     *
+     * @param input String from user.
+     * @return String response from bot.
      */
     public String getResponse(String input) {
         String response;
@@ -55,7 +60,7 @@ public class WheelyBigCheese {
     }
 
     /**
-     * Run bot in command line
+     * Runs bot in command line.
      */
     public void run() {
         ui.greet();
@@ -76,8 +81,9 @@ public class WheelyBigCheese {
     }
 
     /**
-     * Getter for exitChat
-     * @return boolean
+     * Getter for exitChat.
+     *
+     * @return boolean if bot should exit.
      */
     public boolean isExit() {
         return isExitChat;

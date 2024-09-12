@@ -5,16 +5,17 @@ import java.util.Objects;
 import cheese.exception.CheeseException;
 
 /**
- * Parent class for all tasks
+ * Parent class for all tasks.
  */
 public class Task {
     private final String name;
     private boolean done;
 
     /**
-     * Simple constructor
-     * @param name name for task
-     * @throws CheeseException if no name
+     * Simple constructor.
+     *
+     * @param name name for task.
+     * @throws CheeseException if no name.
      */
     public Task(String name) throws CheeseException {
         if (name.isBlank()) {
@@ -25,9 +26,10 @@ public class Task {
     }
 
     /**
-     * Takes in csv data (from Storage) that is split
-     * @param data arr of String
-     * @throws CheeseException if incorrect date
+     * Takes in csv data (from Storage) that is split.
+     *
+     * @param data arr of String.
+     * @throws CheeseException if incorrect date.
      */
     public Task(String[] data) throws CheeseException {
         if (data.length < 3) {
@@ -38,24 +40,27 @@ public class Task {
     }
 
     /**
-     * Setter to set task as done
-     * @param done boolean
+     * Setter to set task as done.
+     *
+     * @param done boolean.
      */
     public void setDone(boolean done) {
         this.done = done;
     }
 
     /**
-     * Getter for name. For searching tasks by name
-     * @return name of task
+     * Getter for name. For searching tasks by name.
+     *
+     * @return name of task.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * To display task in bot
-     * @return String
+     * To display task in bot.
+     *
+     * @return String.
      */
     @Override
     public String toString() {
@@ -70,8 +75,9 @@ public class Task {
     }
 
     /**
-     * To display task as csv to be saved be Storage
-     * @return String
+     * To display task as csv to be saved be Storage.
+     *
+     * @return String.
      */
     public String dataString() {
         String s = "T,";

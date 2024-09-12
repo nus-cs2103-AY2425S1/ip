@@ -6,7 +6,7 @@ import cheese.exception.CheeseException;
 import cheese.task.Task;
 
 /**
- * Takes in user input and formats the response
+ * Takes in user input and formats the response.
  */
 public class Ui {
     private static final String GREETING = "Hello! I'm Wheely Big Cheese\nWhat can I do for you?";
@@ -19,16 +19,18 @@ public class Ui {
     }
 
     /**
-     * Reads and returns user commands from standard input
-     * @return user input as String
+     * Reads and returns user commands from standard input.
+     *
+     * @return user input as String.
      */
     public String readCommand() {
         return sc.nextLine();
     }
 
     /**
-     * Returns the output of the bot
-     * @param s String to say
+     * Returns the output of the bot.
+     *
+     * @param s String to say.
      */
     public String say(String s) {
         System.out.println("____________________________________________________________");
@@ -38,7 +40,7 @@ public class Ui {
     }
 
     /**
-     * Say all items in the task list
+     * Say all items in the task list.
      */
     public String say(TaskList tasks) {
         StringBuilder allItems = new StringBuilder("Got your cheese:");
@@ -49,9 +51,10 @@ public class Ui {
     }
 
     /**
-     * Say a newly added task
-     * @param t Cheese.Task
-     * @param tasks TaskList
+     * Say a newly added task.
+     *
+     * @param t Task to say.
+     * @param tasks TaskList.
      */
     public String say(Task t, TaskList tasks) {
         String s = "Added new cheese ;)\n" + t.toString() + "\n" + tasks.size() + " cheese in the shelf";
@@ -59,9 +62,10 @@ public class Ui {
     }
 
     /**
-     * Say updated task
-     * @param t updated task
-     * @param tasks task list
+     * Say updated Task.
+     *
+     * @param t updated Task.
+     * @param tasks TaskList.
      */
     public String say(Task t, TaskList tasks, boolean isDelete) {
         String del = isDelete ? "Removed" : "Updated";
@@ -70,22 +74,23 @@ public class Ui {
     }
 
     /**
-     * Say error
-     * @param e custom exception
+     * Say error.
+     *
+     * @param e custom exception.
      */
     public String say(CheeseException e) {
         return say(ERROR + "\n" + e.getMessage());
     }
 
     /**
-     * Say greeting when bot starts
+     * Say greeting when bot starts.
      */
     public String greet() {
         return say(GREETING);
     }
 
     /**
-     * Say ending when bot closes
+     * Say ending when bot closes.
      */
     public String bye() {
         return say(ENDING);

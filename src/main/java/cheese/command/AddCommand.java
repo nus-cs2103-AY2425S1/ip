@@ -7,13 +7,14 @@ import cheese.exception.CheeseException;
 import cheese.task.Task;
 
 /**
- * Command to add tasks to list
+ * Command to add tasks to list.
  */
 public class AddCommand extends Command {
     private final Task task;
 
     /**
-     * Creates AddCommand and saves Task to add
+     * Creates AddCommand and saves Task to add.
+     *
      * @param task task to add
      */
     public AddCommand(Task task) {
@@ -22,11 +23,12 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds task to Storage, TaskList and returns Ui response
-     * @param tasks list of tasks
-     * @param ui format response
-     * @param storage store data
-     * @throws CheeseException if Storage fails
+     * Adds task to Storage, TaskList and returns Ui response.
+     *
+     * @param tasks list of tasks.
+     * @param ui format response.
+     * @param storage store data.
+     * @throws CheeseException if Storage fails.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {

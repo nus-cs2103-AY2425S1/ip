@@ -17,9 +17,10 @@ public class SnoozeCommand extends UpdateCommand {
     private long daysDelayed;
 
     /**
-     * Creates SnoozeCommand by taking in idx and date to delay to
-     * @param idx index of task in TaskList
-     * @param date date to reschedule to
+     * Creates SnoozeCommand by taking in idx and date to delay to.
+     *
+     * @param idx index of task in TaskList.
+     * @param date date to reschedule to.
      */
     public SnoozeCommand(int idx, LocalDate date) {
         super(idx, false);
@@ -29,9 +30,10 @@ public class SnoozeCommand extends UpdateCommand {
     }
 
     /**
-     * Creates SnoozeCommand by taking in idx and days to delay task
-     * @param idx index of tasks in TaskList
-     * @param daysDelayed no. of days to delay
+     * Creates SnoozeCommand by taking in idx and days to delay task.
+     *
+     * @param idx index of tasks in TaskList.
+     * @param daysDelayed no. of days to delay.
      */
     public SnoozeCommand(int idx, long daysDelayed) {
         super(idx, false);
@@ -40,12 +42,13 @@ public class SnoozeCommand extends UpdateCommand {
     }
 
     /**
-     * Reschedule date for tasks from given index, returns response from Ui after task updated
-     * @param tasks list of tasks
-     * @param ui format response
-     * @param storage store data
-     * @return String response from Ui
-     * @throws CheeseException if update Storage goes wrong
+     * Reschedule date for tasks from given index, returns response from Ui after task updated.
+     *
+     * @param tasks list of tasks.
+     * @param ui format response.
+     * @param storage store data.
+     * @return String response from Ui.
+     * @throws CheeseException if update Storage goes wrong.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {

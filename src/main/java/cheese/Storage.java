@@ -13,20 +13,26 @@ import cheese.task.Task;
 import cheese.task.ToDo;
 
 /**
- * Manipulate file that store tasks information
+ * Manipulate file that store Task information.
  */
 public class Storage {
     private final String filePath;
 
-    Storage(String filePath) {
+    /**
+     * Creates a Storage from filepath.
+     *
+     * @param filePath String.
+     */
+    public Storage(String filePath) {
         this.filePath = filePath;
         assert !this.filePath.isEmpty();
     }
 
     /**
-     * Return file that stores task list. Create one if does not exist
-     * @return File
-     * @throws IOException In case of IOException
+     * Return file that stores task list. Create one if does not exist.
+     *
+     * @return File.
+     * @throws IOException In case of IOException.
      */
     private File getListFile() throws IOException {
         File f = new File(filePath);
@@ -37,9 +43,10 @@ public class Storage {
     }
 
     /**
-     * Load tasks from file into an ArrayList
-     * @return tasks from file
-     * @throws CheeseException I/O exception or Incorrect data format
+     * Load Tasks from file into an ArrayList.
+     *
+     * @return tasks from file.
+     * @throws CheeseException I/O exception or Incorrect data format.
      */
     public ArrayList<Task> loadTasks() throws CheeseException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -66,8 +73,9 @@ public class Storage {
     }
 
     /**
-     * Add and save new task
-     * @param t task to be added
+     * Add and save new Task.
+     *
+     * @param t Task to be added.
      */
     public void addTask(Task t) throws CheeseException {
         try (FileWriter fw = new FileWriter(getListFile(), true)) {
@@ -78,11 +86,12 @@ public class Storage {
     }
 
     /**
-     * Update task and save to file
-     * @param idx idx of task
-     * @param tasks TaskList
-     * @param delete if delete task
-     * @throws CheeseException Missing/Incorrect input
+     * Update Task and save to file.
+     *
+     * @param idx idx of task.
+     * @param tasks TaskList.
+     * @param delete if delete task.
+     * @throws CheeseException Missing/Incorrect input.
      */
     public void updateTask(int idx, TaskList tasks, boolean delete) throws CheeseException {
         File original;
