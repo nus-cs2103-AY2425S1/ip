@@ -85,7 +85,7 @@ public class Storage {
 
                 break;
             default:
-                System.out.println("Program should not run this branch");
+                assert false : "Program should not run this branch (storage::restoreTasks)";
             }
         }
     }
@@ -110,8 +110,8 @@ public class Storage {
      * Creates a new directory to store the save file if it doesn't exist already.
      */
     public void initializeDataDirectory() {
-        if (!Files.exists(Path.of("src/main/resources/data"))) {
-            new File("src/main/resources/data").mkdirs();
+        if (!Files.exists(Path.of(filePath).getParent())) {
+            new File("data").mkdirs();
         }
 
         // Check if previous list exists

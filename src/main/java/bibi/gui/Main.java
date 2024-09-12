@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  * The bibi.gui.Main class for JavaFx
  */
 public class Main extends Application {
-    public static final String DEFAULT_FILE_PATH = "src/main/resources/data/list.txt";
+    public static final String DEFAULT_FILE_PATH = "./data/list.txt";
 
     private Bibi bibi;
     private VBox dialogContainer;
