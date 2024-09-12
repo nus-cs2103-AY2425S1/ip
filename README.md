@@ -18,18 +18,18 @@ All you need to do is,
 5. And it is FREE!
 
 Features:
-[ ] Managing tasks
-[ ] Managing deadlines (coming soon)
-[ ] Reminders (coming soon) 
+- [ ] Managing tasks
+- [ ] Managing deadlines (coming soon)
+- [ ] Reminders (coming soon) 
 
 
 If you are a Java programmer, you can use it to practice Java too. Here's the main method:
 
-public class Main {
+'public class Main {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
     }
-}
+}'
 
 
 
