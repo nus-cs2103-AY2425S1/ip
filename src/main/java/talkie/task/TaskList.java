@@ -87,7 +87,7 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
-    public void sortByDesciption() {
+    public void sortByDescription() {
         Collections.sort(this.tasks, (t1, t2) -> t1.getDesc().compareToIgnoreCase(t2.getDesc()));
     }
 }
