@@ -9,6 +9,10 @@ import screwllum.utils.Parser;
 import screwllum.utils.Storage;
 import screwllum.utils.Ui;
 
+/**
+ * Represents the Chatbot object, which contains instances of other classes and utilizes their provided functionalities
+ * to drive the chatbot experience.
+ */
 public class Screwllum {
     
     private Storage storage;
@@ -28,7 +32,12 @@ public class Screwllum {
             System.exit(1);
         }
     }
-    
+
+    /**
+     * Starts the application by displaying a welcome message and entering the main loop.
+     * Using other classes, the loop parses user inputs, executes them, and updates the save file.
+     * Exceptions caught results in the respective error message being displayed.
+     */
     public void run() {
         ui.showWelcome();
         

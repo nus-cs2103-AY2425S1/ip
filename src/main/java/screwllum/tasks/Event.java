@@ -22,6 +22,11 @@ public class Event extends Task {
                 
     }
 
+    /**
+     * Convert the task to a format suitable for saving to a file.
+     *
+     * @return A String in the format E_status_desc_startDate_endDate.
+     */
     public String toSaveFormat() {
         return String.format("E_%s_%s_%s_%s", isDone ? "1" : "0", getDesc(),
                 Parser.parseDateToString(startDate), Parser.parseDateToString(endDate));
