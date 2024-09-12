@@ -7,6 +7,7 @@ import stobberi.command.DeleteCommand;
 import stobberi.command.EventCommand;
 import stobberi.command.ExitCommand;
 import stobberi.command.FindCommand;
+import stobberi.command.HelpCommand;
 import stobberi.command.ListCommand;
 import stobberi.command.MarkCommand;
 import stobberi.command.TodoCommand;
@@ -77,6 +78,8 @@ public class Parser {
             return new EventCommand(taskList, restOfCommand);
         case "find":
             return new FindCommand(taskList, restOfCommand);
+        case "?":
+            return new HelpCommand();
         default:
             throw new NoSuchTaskStobberiException("I'm sorry! That is NOT an executable command");
         }
