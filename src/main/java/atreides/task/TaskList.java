@@ -17,10 +17,9 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<String[]> tasks) {
+    public TaskList(ArrayList<String[]> tasks) throws AtreidesException {
         this.list = new ArrayList<>();
         for (String[] words : tasks) {
-
             assert words.length > 2;
 
             Task newTask = new Task();
@@ -30,7 +29,11 @@ public class TaskList {
             } else if (words[0].equals("D")) {
                 String description = words[2];
                 String by = words[3];
-                newTask = new Deadline(description, by);
+                try {
+                    newTask = new Deadline(description, by);
+                } catch (AtreidesException e) {
+                    continue;
+                }
             } else if (words[0].equals("E")) {
                 String description = words[2];
                 String[] startEnd = words[3].split("-");

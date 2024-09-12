@@ -3,6 +3,8 @@ package atreides.ui;
 import atreides.command.Command;
 import atreides.task.TaskList;
 
+import java.util.ArrayList;
+
 /**
  * Represents the logic for the entire chatbot
  */
@@ -21,10 +23,15 @@ public class Atreides {
         this.ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            ArrayList<String[]> list = storage.load();
+            tasks = new TaskList(list);
         } catch (AtreidesException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            if (e.getMessage().contains("deadline")) {
+
+            } else {
+                ui.showLoadingError();
+                tasks = new TaskList();
+            }
         }
     }
 

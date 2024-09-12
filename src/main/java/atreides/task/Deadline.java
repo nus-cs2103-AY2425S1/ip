@@ -1,5 +1,7 @@
 package atreides.task;
 
+import atreides.ui.AtreidesException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +11,7 @@ public class Deadline extends Task {
     protected String by;
     protected LocalDateTime deadline;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws AtreidesException {
         super(description);
         this.by = by;
         assert !by.isEmpty();
@@ -19,6 +21,8 @@ public class Deadline extends Task {
                     Integer.parseInt(parseDT[1]), Integer.parseInt(parseDT[2]), 23, 59);
         } else if (validateDate(by)) {
             this.deadline = LocalDateTime.parse(by, FORMAT);
+        } else {
+            throw new AtreidesException("Invalid deadline format");
         }
     }
 
