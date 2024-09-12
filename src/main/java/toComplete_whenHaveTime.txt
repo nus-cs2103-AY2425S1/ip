@@ -20,7 +20,6 @@ gradle tools:
 ./gradlew test
 ./gradlew clean shadowJar
 ./gradlew clean build
-./gradlew checkstyleMain checkstyleTest
 
 shortcut:
 - double click on code -> softwrap

@@ -1,9 +1,7 @@
-T | 0 | read
+T | 0 | nqelg
 
-T | 0 | play
+D | 0 | sge | Sep 09 1990
 
-D | 1 | gqrg | Sep 09 1990
+E | 0 | adgnsg | 214 to bfnl
 
-D | 1 | gqrg | Sep 09 1990
-
-E | 0 | sdgnsg | g to g
+T | 1 | 24
