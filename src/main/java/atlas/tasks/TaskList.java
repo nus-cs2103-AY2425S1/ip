@@ -88,7 +88,7 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks from the list which match the pattern.
+     * Finds tasks from the list which match the pattern using streams.
      *
      * @param pattern The pattern which the task name/description needs to match.
      * @return String The output of matched tasks shown to the user through the chatbot ui.
