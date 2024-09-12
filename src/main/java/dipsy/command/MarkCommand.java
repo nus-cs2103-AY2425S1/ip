@@ -47,17 +47,27 @@ public class MarkCommand extends Command {
         String action = markMatcher.group(1);
 
         int userGivenIndex = Integer.parseInt(markMatcher.group(2));
+        int taskIndex = calculateTaskIndex(userGivenIndex);
+
+        return action.equals("mark")
+                ? markTaskAsDone(taskIndex)
+                : markTaskAsUndone(taskIndex);
+    }
+
+    /**
+     * Converts the 1-based user input task index into a 0-based task index for internal task list operations.
+     *
+     * @param userGivenIndex The 1-based index provided by the user in the input.
+     * @return The 0-based index used internally for the task list.
+     * @throws InvalidCommandException If the user-given index is out of bounds (i.e., less than 1 or greater than the task list size).
+     */
+    private int calculateTaskIndex(int userGivenIndex) throws InvalidCommandException {
         int taskIndex = userGivenIndex - 1; // Since tasks are 0-indexed.
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_INDEX);
         }
 
-        if (action.equals("mark")) {
-            return markTaskAsDone(taskIndex);
-        } else {
-            return markTaskAsUndone(taskIndex);
-        }
-
+        return taskIndex;
     }
 
     /**
