@@ -1,9 +1,15 @@
 package yappingbot.commands.commands;
 
-public class LauncherCommand extends CommandBase {
-    private enum
+import yappingbot.commands.CommandBase;
+
+public class LauncherCommand extends CommandBase<> {
+
     @Override
-    public boolean run() {
-        return false;
+    public void run() {
+    }
+
+    @Override
+    public String getHelpText() {
+        return "";
     }
 }
