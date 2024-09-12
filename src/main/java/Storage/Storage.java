@@ -48,6 +48,8 @@ public class Storage {
      * Writes taskList into memory file.
      */
     public void save() {
+        assert memory != null : "The memory file was not loaded. Something went wrong.";
+
         try {
             FileWriter fw = new FileWriter(memory);
             fw.write(taskList.fileTaskInfo());
@@ -63,6 +65,7 @@ public class Storage {
      * @return taskList created from memory file.
      */
     public TaskList load() {
+        assert memory != null : "The memory file was not loaded. Something went wrong.";
         taskList = new TaskList();
         try {
             Scanner s = new Scanner(memory);
