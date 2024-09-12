@@ -45,6 +45,8 @@ public class Parser {
                 output = parseDelete(command);
             } else if (command.toLowerCase().startsWith("find")) {
                 output = parseFind(command);
+            } else if (command.toLowerCase().startsWith("priority")) {
+                output = parsePriority(command);
             } else {
                 throw new TakoException("Tako does not understand this command!");
             }
@@ -55,6 +57,30 @@ public class Parser {
     }
 
 
+    public static String parsePriority(String command) {
+        try {
+            if (command.length() > 8 && command.charAt(8) == ' ') {
+                if (command.length() > 13 && command.substring(9, 13).toLowerCase().equals("low ") ||
+                        command.length() > 16 && command.substring(9, 16).toLowerCase().equals("medium ") ||
+                        command.length() > 14 && command.substring(9, 14).toLowerCase().equals("high ")) {
+                    String commandDetails = command.substring(9);
+                    int spaceBetweenPriorityTask = commandDetails.indexOf(' ');
+                    String priority = command.substring(9, 9 + spaceBetweenPriorityTask);
+                    try {
+                        int taskNumber = Integer.parseInt(command.substring(spaceBetweenPriorityTask + 10));
+                        return TaskList.changePriority(priority, taskNumber - 1);
+                    } catch (NumberFormatException e) {
+                        throw new TakoException("Wrong format! priority command should have the form 'priority x y',"
+                                + " where x is 'low' or 'medium' or 'high' and y is an integer");
+                    }
+                }
+            }
+            throw new TakoException("Wrong format! priority command should have the form 'priority x y',"
+                    + " where x is 'low' or 'medium' or 'high' and y is an integer");
+        } catch (TakoException e) {
+            return e.message();
+        }
+    }
     /**
      * Finds the task which consists of the 'command' input
      *

@@ -1,10 +1,7 @@
 package storage;
 
 import parser.Parser;
-import task.Deadline;
-import task.Event;
-import task.TaskList;
-import task.ToDo;
+import task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,14 +54,16 @@ public class Storage {
                 String task = scanner.nextLine();
                 char typeOfTask = task.charAt(1);
                 char isTaskDone = task.charAt(4);
+                char priorityOfTask = task.charAt(7);
+                System.out.println(priorityOfTask);
                 if (typeOfTask == 'T') {
-                    loadTodoTask(task, isTaskDone);
+                    loadTodoTask(task, isTaskDone, priorityOfTask);
                 }
                 if (typeOfTask == 'D') {
-                    loadDeadlineTask(task, isTaskDone);
+                    loadDeadlineTask(task, isTaskDone, priorityOfTask);
                 }
                 if (typeOfTask == 'E') {
-                    loadEventTask(task, isTaskDone);
+                    loadEventTask(task, isTaskDone, priorityOfTask);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -94,11 +93,17 @@ public class Storage {
      * @param task ToDo Task to be loaded.
      * @param isTaskDone Whether the ToDo task has already been completed.
      */
-    public void loadTodoTask(String task, char isTaskDone) {
-        String description = task.substring(7);
+    public void loadTodoTask(String task, char isTaskDone, char priorityOfTask) {
+        String description = task.substring(10);
         TaskList.addTaskLoad(new ToDo(description));
         if (isTaskDone == 'X') {
             TaskList.markTaskLoad(TaskList.length() - 1);
+        }
+        if (priorityOfTask == 'M') {
+            TaskList.priorityMediumTaskLoad(TaskList.length() - 1);
+        }
+        if (priorityOfTask == 'H') {
+            TaskList.priorityHighTaskLoad(TaskList.length() - 1);
         }
     }
 
@@ -108,13 +113,19 @@ public class Storage {
      * @param task Deadline Task to be loaded.
      * @param isTaskDone Whether the Deadline task has already been completed.
      */
-    public void loadDeadlineTask(String task, char isTaskDone) {
+    public void loadDeadlineTask(String task, char isTaskDone, char priorityOfTask) {
         int byPosition = task.indexOf("(by:");
         String description = task.substring(7, byPosition);
         String by = task.substring(byPosition + 5, task.length() - 1);
         TaskList.addTaskLoad(new Deadline(description, Parser.changeDateToLocalDate(by)));
         if (isTaskDone == 'X') {
             TaskList.markTaskLoad(TaskList.length() - 1);
+        }
+        if (priorityOfTask == 'H') {
+            TaskList.priorityMediumTaskLoad(TaskList.length() - 1);
+        }
+        if (priorityOfTask == 'M') {
+            TaskList.priorityHighTaskLoad(TaskList.length() - 1);
         }
     }
 
@@ -124,7 +135,7 @@ public class Storage {
      * @param task Event Task to be loaded
      * @param isTaskDone Whether the Event task has already been completed
      */
-    public void loadEventTask(String task, char isTaskDone) {
+    public void loadEventTask(String task, char isTaskDone, char priorityOfTask) {
         int fromPosition = task.indexOf("(from:");
         int toPosition = task.indexOf("to:");
         String description = task.substring(7, fromPosition);
@@ -134,6 +145,12 @@ public class Storage {
                                        Parser.changeDateToLocalDate(to)));
         if (isTaskDone == 'X') {
             TaskList.markTaskLoad(TaskList.length() - 1);
+        }
+        if (priorityOfTask == 'H') {
+            TaskList.priorityMediumTaskLoad(TaskList.length() - 1);
+        }
+        if (priorityOfTask == 'M') {
+            TaskList.priorityHighTaskLoad(TaskList.length() - 1);
         }
     }
 }

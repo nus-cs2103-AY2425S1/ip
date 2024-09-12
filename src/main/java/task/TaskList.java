@@ -34,10 +34,10 @@ public class TaskList {
     }
 
     /**
-     * Lists out the string representation of the specified task.
+     * Lists out the string representation of the all task.
      *
-     * @param i the position of the task in the list to be listed.
-     * @return String the string representation of the task.
+     * @param i the task number to be output.
+     * @return String the string representation of all the task.
      */
     public static String listTask(int i) {
         return (i + 1) + "." + taskLists.get(i).toString();
@@ -97,5 +97,48 @@ public class TaskList {
      */
     public static void markTaskLoad(int i) {
         taskLists.get(i).markAsDone();
+    }
+
+    public static void priorityMediumTaskLoad(int i) {
+        taskLists.get(i).setPriority(Task.Priority.MEDIUM);
+    }
+
+    public static void priorityHighTaskLoad(int i) {
+        taskLists.get(i).setPriority(Task.Priority.HIGH);
+    }
+
+    public static String changePriority(String priority, int i) {
+        if (priority.equals("low")) {
+            taskLists.get(i).setPriority(Task.Priority.LOW);
+        }
+        if (priority.equals("medium")) {
+            taskLists.get(i).setPriority(Task.Priority.MEDIUM);
+        }
+        if (priority.equals("high")) {
+            taskLists.get(i).setPriority(Task.Priority.HIGH);
+        }
+        TaskList.rearrangeTaskList();
+        return Ui.changePriorityMessage(priority, i);
+    }
+
+    public static void rearrangeTaskList() {
+        ArrayList<Task> highTask = new ArrayList<>();
+        ArrayList<Task> mediumTask = new ArrayList<>();
+        ArrayList<Task> lowTask = new ArrayList<>();
+        for (int i = 0; i < TaskList.length(); i++) {
+            if (taskLists.get(i).getPriority() == Task.Priority.HIGH) {
+                highTask.add(taskLists.get(i));
+            }
+            if (taskLists.get(i).getPriority() == Task.Priority.MEDIUM) {
+                mediumTask.add(taskLists.get(i));
+            }
+            if (taskLists.get(i).getPriority() == Task.Priority.LOW) {
+                lowTask.add(taskLists.get(i));
+            }
+        }
+        taskLists.clear();
+        taskLists.addAll(highTask);
+        taskLists.addAll(mediumTask);
+        taskLists.addAll(lowTask);
     }
 }
