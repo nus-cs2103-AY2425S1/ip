@@ -58,29 +58,19 @@ public class Orion extends Application {
             String[] parts = input.split(" ", 2);
             Command command = Command.fromString(parts[0]);
 
-            switch (command) {
-                case LIST:
-                    return handleList(parts);
-                case MARK:
-                    return handleMark(parts);
-                case UNMARK:
-                    return handleUnmark(parts);
-                case TODO:
-                    return handleTodo(parts);
-                case EVENT:
-                    return handleEvent(parts);
-                case DEADLINE:
-                    return handleDeadline(parts);
-                case DELETE:
-                    return handleDelete(parts);
-                case FIND:
-                    return handleFind(parts);
-                case BYE:
-                    return "Goodbye!";
-                case UNKNOWN:
-                default:
-                    return "Unknown command: " + parts[0];
-            }
+            // prettier-ignore
+            return switch (command) {
+                case LIST -> handleList(parts);
+                case MARK -> handleMark(parts);
+                case UNMARK -> handleUnmark(parts);
+                case TODO -> handleTodo(parts);
+                case EVENT -> handleEvent(parts);
+                case DEADLINE -> handleDeadline(parts);
+                case DELETE -> handleDelete(parts);
+                case FIND -> handleFind(parts);
+                case BYE -> "Goodbye!";
+                default -> "Unknown command: " + parts[0];
+            };
         } catch (OrionException e) {
             return "Error: " + e.getMessage();
         }
