@@ -1,8 +1,10 @@
 package bopes.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 import bopes.exception.BopesException;
 
 /**
@@ -29,6 +31,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
+        sortTasksChrnologically();
     }
 
     /**
@@ -139,5 +142,16 @@ public class TaskList {
         return matchingTasks.stream()
             .map(Task::toString)
             .collect(Collectors.joining("\n"));
+    }
+
+    public void sortTasksChrnologically() {
+        tasks.sort(Comparator.comparing(task -> {
+            if (task instanceof Deadline) {
+                return ((Deadline) task).getDateTime();
+            } else if (task instanceof Event) {
+                return ((Event) task).getDateTime();
+            }
+            return LocalDateTime.MAX;  // ToDo tasks (or other tasks without a date) are pushed to the end
+        }));
     }
 }

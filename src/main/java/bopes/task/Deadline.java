@@ -59,4 +59,13 @@ public class Deadline extends Task {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return "D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.by.format(fileFormat);
     }
+
+    /**
+     * Returns the deadline date and time of the task.
+     *
+     * @return the deadline date and time
+     */
+    public LocalDateTime getDateTime() {
+        return this.by;
+    }
 }
