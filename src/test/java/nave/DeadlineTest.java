@@ -1,11 +1,11 @@
-package Nave;
-
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
+package nave;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
@@ -19,7 +19,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_noName_1() {
+    public void failedCreation_noName1() {
         try {
             Deadline.handleInput("");
             fail();
@@ -29,7 +29,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_noName_2() {
+    public void failedCreation_noName2() {
         try {
             Deadline.handleInput(" /by");
             fail();
@@ -39,7 +39,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_noName_3() {
+    public void failedCreation_noName3() {
         try {
             Deadline.handleInput(" /by ");
             fail();
@@ -49,7 +49,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_noName_4() {
+    public void failedCreation_noName4() {
         try {
             Deadline.handleInput("/by 2024-01-01");
             fail();
@@ -59,7 +59,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_noName_5() {
+    public void failedCreation_noName5() {
         try {
             Deadline.handleInput("/by abc");
             fail();
@@ -69,7 +69,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_noDate_1() {
+    public void failedCreation_noDate1() {
         try {
             Deadline.handleInput("no date test 1 ");
             fail();
@@ -79,7 +79,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_noDate_2() {
+    public void failedCreation_noDate2() {
         try {
             Deadline.handleInput("no date test 2 /by");
             fail();
@@ -89,7 +89,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_wrongDate_1(){
+    public void failedCreation_wrongDate1() {
         try {
             Deadline.handleInput("wrong date test 1 /by 2024-1-1");
         } catch (WrongInputException e) {
@@ -98,7 +98,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_wrongDate_2(){
+    public void failedCreation_wrongDate2() {
         try {
             Deadline.handleInput("wrong date test 2 /by today");
         } catch (WrongInputException e) {
@@ -107,7 +107,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_wrongDate_3(){
+    public void failedCreation_wrongDate3() {
         try {
             Deadline.handleInput("wrong date test 3 /by 01-01-2024");
         } catch (WrongInputException e) {
@@ -116,7 +116,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_others_1(){
+    public void failedCreation_others1() {
         try {
             Deadline.handleInput(" others   test 1 /by 2024-01-01");
         } catch (WrongInputException e) {
@@ -125,7 +125,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void failedCreation_others_2(){
+    public void failedCreation_others2() {
         try {
             Deadline.handleInput("deadlinetest3/by 2024-01-01");
         } catch (WrongInputException e) {

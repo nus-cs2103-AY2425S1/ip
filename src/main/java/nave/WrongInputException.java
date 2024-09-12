@@ -1,4 +1,4 @@
-package Nave;
+package nave;
 
 /**
  * {@code WrongInputException} is a custom exception class used to signal that

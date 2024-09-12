@@ -1,12 +1,17 @@
-package Nave;
+package nave;
 
-import java.io.*;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Scanner;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * The {@code TaskStorage} class handles the storage and retrieval of tasks
@@ -14,8 +19,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
  * tasks to the file, and deleting tasks from the file.
  */
 public class TaskStorage {
-    String filePathString;
-    Path filePath;
+    private final String filePathString;
+    private final Path filePath;
 
     /**
      * Constructs a {@code TaskStorage} object with the specified file path.
@@ -46,15 +51,17 @@ public class TaskStorage {
                 String currLine = scanner.nextLine();
                 String[] split = currLine.split(",");
                 switch (split.length) {
-                    case 1:
-                        list.addTask(new Todo(split[0]));
-                        break;
-                    case 2:
-                        list.addTask(new Deadline(split[0], LocalDate.parse(split[1])));
-                        break;
-                    case 3:
-                        list.addTask(new Event(split[0], split[1], split[2]));
-                        break;
+                case 1:
+                    list.addTask(new Todo(split[0]));
+                    break;
+                case 2:
+                    list.addTask(new Deadline(split[0], LocalDate.parse(split[1])));
+                    break;
+                case 3:
+                    list.addTask(new Event(split[0], split[1], split[2]));
+                    break;
+                default:
+                    return;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -107,7 +114,7 @@ public class TaskStorage {
             //Counts the lines to find task to delete
             int counter = 1;
             String currLine;
-            while((currLine = reader.readLine() ) != null) {
+            while ((currLine = reader.readLine()) != null) {
                 if (counter == place) {
                     //If is line to be deleted, it is not copied over
                     counter++;

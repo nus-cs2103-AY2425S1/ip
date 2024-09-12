@@ -1,4 +1,4 @@
-package Nave;
+package nave;
 
 /**
  * The {@code Task} class represents a generic task with a name and a status indicating whether it is done.
@@ -8,7 +8,7 @@ package Nave;
  * displaying tasks.
  * </p>
  */
-abstract public class Task {
+public abstract class Task {
     private final String name;
     private boolean done;
 

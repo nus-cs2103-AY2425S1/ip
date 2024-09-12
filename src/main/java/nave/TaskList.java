@@ -1,4 +1,4 @@
-package Nave;
+package nave;
 
 import java.util.ArrayList;
 
@@ -103,16 +103,30 @@ public class TaskList {
     public String deleteItem(int place) {
         try {
             Task deleted = tasks.remove(place - 1);
-            return "I have taken this item off the list:\n" + deleted +
-                    "\n" + countTasks();
+            return "I have taken this item off the list:\n" + deleted
+                    + "\n" + countTasks();
         } catch (IndexOutOfBoundsException e) {
             return "This task does not exist!";
         }
     }
 
+    /**
+     * Searches for tasks in the list that contain the specified keyword.
+     * <p>
+     * This method iterates through the list of tasks and checks if each task's string representation
+     * contains the provided keyword. If matching tasks are found, they are listed in a formatted string.
+     * If no tasks match the keyword, a message indicating this is returned.
+     * </p>
+     *
+     * @param keyword The keyword to search for within the tasks. This parameter is case-sensitive.
+     * @return A string that either contains the list of matching tasks, each prefixed with its index,
+     *         or a message indicating that no tasks were found containing the specified keyword.
+     *         The result string will include the header "Here are the matching tasks in your list:"
+     *         followed by the list of tasks, or a message stating that no tasks were found.
+     */
     public String findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : list) {
+        for (Task task : tasks) {
             if (task.toString().contains(keyword)) {
                 matchingTasks.add(task);
             }

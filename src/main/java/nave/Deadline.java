@@ -1,4 +1,4 @@
-package Nave;
+package nave;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * converting it to a file-compatible format.
  * </p>
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final LocalDate endDate;
 
     /**
@@ -61,7 +61,7 @@ public class Deadline extends Task{
             throw new WrongInputException("Hmmm... This deadline doesn't have a name!");
         } else if (wrongMatcher2.matches()) {
             throw new WrongInputException("You forgot to specify a due date!");
-        }  else {
+        } else {
             //Shouldn't reach if all error cases handled
             throw new WrongInputException("Something's wrong!");
         }
@@ -77,8 +77,8 @@ public class Deadline extends Task{
      * @return a string message indicating the addition of a new deadline task
      */
     public String creationResponse() {
-        return "Ok! I've added a new task with a deadline:\n" + this +
-                "\n";
+        return "Ok! I've added a new task with a deadline:\n" + this
+                + "\n";
     }
 
     /**

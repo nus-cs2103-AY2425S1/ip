@@ -1,4 +1,4 @@
-package Nave;
+package nave;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -115,13 +115,27 @@ public class Parser {
         }
 
         return switch (taskMatcher.group(1)) {
-            case "todo" -> Todo.handleInput(taskMatcher.group(2));
-            case "deadline" -> Deadline.handleInput(taskMatcher.group(2));
-            case "event" -> Event.handleInput(taskMatcher.group(2));
-            default -> throw new WrongInputException("Unknown task type");
+        case "todo" -> Todo.handleInput(taskMatcher.group(2));
+        case "deadline" -> Deadline.handleInput(taskMatcher.group(2));
+        case "event" -> Event.handleInput(taskMatcher.group(2));
+        default -> throw new WrongInputException("Unknown task type");
         };
     }
 
+    /**
+     * Extracts the keyword from a "find" command string.
+     * <p>
+     * This method uses a regular expression to match and extract the keyword from the input string.
+     * The input string is expected to start with the word "find" followed by a space and then the keyword.
+     * If the input matches this pattern, the keyword is returned. If the input does not match the pattern,
+     * an empty string is returned.
+     * </p>
+     *
+     * @param input The input string that may contain a "find" command followed by a keyword.
+     *              The expected format is "find [keyword]", where [keyword] is any non-empty string.
+     * @return The keyword extracted from the input string if it matches the pattern; otherwise, an empty string.
+     *         The returned keyword is everything after the initial "find " in the input string.
+     */
     public String parseFind(String input) {
         Pattern findPattern = Pattern.compile("^find (.+)$");
         Matcher findMatcher = findPattern.matcher(input);

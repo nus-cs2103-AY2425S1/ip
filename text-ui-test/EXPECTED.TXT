@@ -1,5 +1,5 @@
 -----------------------------------------------------------------
-Hello! :) I'm Nave.Nave, your personal task management assistant.
+Hello! :) I'm nave.nave, your personal task management assistant.
 What can I do for you today?
 -----------------------------------------------------------------
 -----------------------------------------------------------------
@@ -9,7 +9,7 @@ todo [name]: adds a todo with associated name
 deadline [name] /by [date]: adds a deadline with associated name and date
 event [name] /from [date] /to [date]: adds an event with associated name,
     start date and end date
-bye: ends the Nave.Nave chatbot
+bye: ends the nave.nave chatbot
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Ok! I've added a new todo task:
