@@ -63,9 +63,4 @@ public class AddEventCommand extends Command {
 
         return ui.showTaskAddedAsString(newTask, tasks.size());
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

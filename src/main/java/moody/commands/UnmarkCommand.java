@@ -48,9 +48,4 @@ public class UnmarkCommand extends Command {
             throw new TaskInputException("Error: Cannot mark a task that does not exist");
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

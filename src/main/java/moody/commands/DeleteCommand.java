@@ -50,9 +50,4 @@ public class DeleteCommand extends Command {
             return ui.showErrorAsString("Error: Cannot delete a task that does not exist");
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
