@@ -19,6 +19,7 @@ public class Storage {
 
     private File memory;
     private File parent;
+    private File archive;
     private TaskList taskList;
 
     /**
@@ -28,7 +29,9 @@ public class Storage {
      * @param s FilePath for memory file.
      */
     public Storage(String s) {
+        final String ARCHIVE_PATH = "memory/Archive.txt";
         memory = new File(s);
+        archive = new File(ARCHIVE_PATH);
         parent = memory.getParentFile();
         try {
             if (!parent.exists()) {
@@ -37,6 +40,9 @@ public class Storage {
             }
             if (memory.createNewFile()) {
                 //create memory txt file
+            }
+            if (archive.createNewFile()) {
+                //create archive txt file
             }
         } catch (IOException e) {
             System.out.println("error creating memory files");
@@ -49,26 +55,46 @@ public class Storage {
      */
     public void save() {
         assert memory != null : "The memory file was not loaded. Something went wrong.";
+        write(memory);
+    }
 
+    /**
+     * Writes current taskList to specified file
+     *
+     * @param file File to write to
+     */
+    public void write(File file) {
         try {
-            FileWriter fw = new FileWriter(memory);
+            FileWriter fw = new FileWriter(file);
             fw.write(taskList.fileTaskInfo());
             fw.close();
         } catch (IOException e) {
-            System.out.println("Memory file does not exist");
+            System.out.println("Unable to write to file");
         }
     }
 
     /**
-     * Loads taskList from memory file, before returning the created taskList.
+     * Loads taskList from memory, before returning the created taskList.
      *
-     * @return taskList created from memory file.
+     * @return taskList created from a file.
      */
     public TaskList load() {
         assert memory != null : "The memory file was not loaded. Something went wrong.";
         taskList = new TaskList();
+        processFile(memory, taskList);
+        return taskList;
+    }
+
+    /**
+     * Processes a txt file and adds the created task to a specified TaskList.
+     *
+     * @param file Txt file to process.
+     * @param listToAdd TaskList to add tasks to.
+     * @return
+     */
+    private void processFile(File file, TaskList listToAdd) {
         try {
-            Scanner s = new Scanner(memory);
+            Scanner s = new Scanner(file);
 
             while (s.hasNext()) {
                 String str = s.nextLine();
@@ -87,12 +113,11 @@ public class Storage {
                 } else {
                     break;
                 }
-                taskList.add(t);
+                listToAdd.add(t);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Memory file does not exist");
         }
-        return taskList;
     }
 
     private Task createToDo(String done, String description) {
@@ -119,6 +144,20 @@ public class Storage {
             t.done();
         }
         return t;
+    }
+
+    /**
+     * Loads tasks from archive into current TaskList.
+     */
+    public void loadArchive() {
+        processFile(archive, taskList);
+    }
+
+    /**
+     * Writes tasks from current TaskList into archive
+     */
+    public void writeArchive() {
+        write(archive);
     }
 
 }
