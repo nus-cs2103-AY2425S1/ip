@@ -1,0 +1,6 @@
+1. [D][X] sleep  (by: 2023-12-12 12:12 pm)
+2. [E][_] study  (from: 2023-12-12 12:12 pm to: 2024-12-12 12:12 pm)
+3. [D][X] sleep  (by: 2023-12-12 11:11 am)
+4. [E][X] game  (from: 2023-11-11 11:11 am to: 2024-11-11 12:12 pm)
+5. [T][_] hi
+6. [T][_] omgomgomg gradle
