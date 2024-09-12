@@ -3,37 +3,37 @@ package Tasks;
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidInputException;
-import Parser.DateParser;
+import Parser.Parser;
 
 /**
  * Represents a Tasks.Deadline task with a specific deadline.
  */
 public class Deadline extends Task {
-    private final String deadline;
+    private String deadline;
 
     /**
-     * Constructs a Tasks.Deadline task with a given description.
+     * constructor for a new deadline object
      *
-     * @param description The description of the Tasks.Deadline task.
-     * @throws EmptyInputException if the description is empty.
+     * @param description the task description
+     * @param p a parser object to help reformat the deadline
+     * @throws DelphiException if input is not correctly formatted
      */
-    public Deadline(String description, DateParser d) throws DelphiException {
+    public Deadline(String description, Parser p) throws DelphiException {
         super(description);
-        int slashIndex = description.indexOf("/by");
-        if (slashIndex == -1) {
-            throw new InvalidInputException();
-        }
-        //remove whitespace to ensure correct formatting
-        this.name = description.substring(0, slashIndex).trim();
+        String[] formattedDeadline = p.parseDeadline(description);
+        this.name = formattedDeadline[0];
+        this.deadline = formattedDeadline[1];
+    }
 
-        // Extract the substring after the slash and trim it
-        String temp = description.substring(slashIndex + 3).trim();
-        String date = d.parseAndFormatDateTime(temp.substring(0).trim());
-        if (date != null) {
-            deadline = "(by: " + date + ")";
-        } else {
-            deadline = "(by: " + temp.substring(3).trim() + ")";
-        }
+    /**
+     * provides a way for the user to edit the deadlines of existing tasks by passing in a new deadline
+     *
+     * @param newDeadline string representation of the deadline
+     * @param p the parser used to help parse the new deadline
+     */
+    public void editTask(String newDeadline, Parser p) throws DelphiException {
+        String[] formattedDeadline = p.parseDeadline(newDeadline);
+        deadline = formattedDeadline[1];
     }
 
     /**

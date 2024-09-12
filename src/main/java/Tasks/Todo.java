@@ -2,6 +2,7 @@ package Tasks;
 
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
+import Parser.Parser;
 
 /**
  * Represents a Tasks.Todo task.
@@ -17,6 +18,10 @@ public class Todo extends Task {
      */
     public Todo(String description) throws DelphiException {
         super(description);
+    }
+
+    public void editTask(String newInfo, Parser p) {
+        //do nothing becauase todo tasks have no time frame associated with them
     }
 
     /**

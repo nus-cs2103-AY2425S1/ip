@@ -6,21 +6,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import Exceptions.DelphiException;
-import Parser.DateParser;
+import Parser.Parser;
 
 public class EventTest {
 
-    class DateParserStub extends DateParser {
+    class ParserStub extends Parser {
         @Override
-        public String parseAndFormatDateTime(String dateTimeString) {
-            if (dateTimeString.equals("01/01/2024")) {
-                return "1st january 2023";
-            } else {
-                return "11th january 2023";
-            }
+        public String[] parseEvent(String dateTimeString) {
+            String[] res = new String[3];
+            res[0] = "zoom meeting";
+            res[1] = "from: 1st january 2023";
+            res[2] = "to: 11th january 2023";
+            return res;
         }
     }
-    private DateParserStub d = new DateParserStub();
+    private ParserStub d = new ParserStub();
     @Test
     public void eventDescription_formatting_exceptionThrown() {
         try {

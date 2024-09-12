@@ -45,7 +45,6 @@ public class TaskList {
      */
     public void loadStorageToTasks(Storage s) {
         Parser helperParser = new Parser();
-        DateParser helperDateParser = new DateParser();
         try {
             List<String> readTasks = s.readFromHardDisk();
             int counter = 0;
@@ -77,26 +76,26 @@ public class TaskList {
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][ ]")) {
                     try {
-                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperDateParser));
+                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperParser));
                     } catch (DelphiException e) {
                         //empty because the assertions should make sure that the task is of the correct format
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][X]")) {
                     try {
-                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperDateParser));
+                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperParser));
                         markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                     } catch (DelphiException e) {
                         //empty because the assertions should make sure that the task is of the correct format
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][ ]")) {
                     try {
-                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperDateParser));
+                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperParser));
                     } catch (DelphiException e) {
                         //empty because the assertions should make sure that the task is of the correct format
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][X]")) {
                     try {
-                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperDateParser));
+                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperParser));
                         markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                     } catch (DelphiException e) {
                         //empty because the assertions should make sure that the task is of the correct format
@@ -180,6 +179,19 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return this.tasks;
+    }
+
+
+    public List<Task> findTask(String keyword) {
+        List<Task> resTaskList = this.getTasks();
+        TaskList res = new TaskList();
+        String taskToFind = keyword;
+        for (int i = 0; i < resTaskList.size(); i++) {
+            if (resTaskList.get(i).toString().contains(taskToFind)) {
+                res.addTask(resTaskList.get(i));
+            }
+        }
+        return res.getTasks();
     }
 
     /**

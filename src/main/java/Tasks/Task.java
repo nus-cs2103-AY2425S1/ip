@@ -2,12 +2,13 @@ package Tasks;
 
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
+import Parser.Parser;
 
 /**
  * Abstract class representing a generic task. Specific tasks like
  * Tasks.Todo, Tasks.Deadline, and Tasks.Event inherit from this class.
  */
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean isDone;
 
@@ -25,6 +26,8 @@ public class Task {
             throw new EmptyInputException();
         }
     }
+
+    public abstract void editTask(String newInfo, Parser d) throws DelphiException;
 
     /**
      * Returns the status icon of the task.

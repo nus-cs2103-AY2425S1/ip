@@ -1,7 +1,7 @@
 package Commands;
 
 import Exceptions.DelphiException;
-import Parser.DateParser;
+import Parser.Parser;
 import Storage.Storage;
 import TaskList.TaskList;
 import Tasks.Event;
@@ -35,7 +35,7 @@ public class AddEventCommand extends Command {
     @Override
     public String execute(TaskList t, Storage s, Ui ui) throws DelphiException {
         // Create a new Event task from the input string, starting from the 9th character
-        Event newEvent = new Event(getInput().trim().substring(5), new DateParser());
+        Event newEvent = new Event(getInput().trim().substring(5), new Parser());
 
         // Add the new Event task to the task list
         t.addTask(newEvent);

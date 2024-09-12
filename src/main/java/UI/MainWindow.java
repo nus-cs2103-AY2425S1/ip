@@ -52,25 +52,26 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = delphi.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDelphiDialog(response, delphiImage)
+        );
         if (response.equals("Bye. Hope to see you again soon!")) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDelphiDialog(response, delphiImage)
-            );
-            // Create a PauseTransition to wait for 1 second before closing
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(event -> {
-                Stage stage = (Stage) dialogContainer.getScene().getWindow();
-                stage.close();  // Close the JavaFX application
-            });
-            pause.play();  // Start the pause transition
-        } else {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDelphiDialog(response, delphiImage)
-            );
+            closeApp();
         }
         userInput.clear();
+    }
+
+    /**
+     * helper function close the app upon receive the bye command
+     */
+    private void closeApp() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> {
+            Stage stage = (Stage) dialogContainer.getScene().getWindow();
+            stage.close();  // Close the JavaFX application
+        });
+        pause.play();  // Start the pause transition
     }
 }
 
