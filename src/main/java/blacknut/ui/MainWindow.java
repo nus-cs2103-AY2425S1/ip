@@ -38,6 +38,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setDuke(Blacknut d) {
         blacknut = d;
+        showWelcomeMessage();
     }
 
     /**

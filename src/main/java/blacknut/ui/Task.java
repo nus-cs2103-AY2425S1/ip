@@ -70,21 +70,21 @@ public class Task {
 
         Task task;
         switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length != 4) throw new IncorrectFormatException("File format incorrect: " + line);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
-                task = new Deadline(description, by.format(formatter));
-                break;
-            case "E":
-                if (parts.length != 5) throw new IncorrectFormatException("File format incorrect: " + line);
-                task = new Event(description, parts[3], parts[4]);
-                break;
-            default:
-                throw new IncorrectFormatException("Unknown task type: " + type);
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            if (parts.length != 4) throw new IncorrectFormatException("File format incorrect: " + line);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
+            task = new Deadline(description, by.format(formatter));
+            break;
+        case "E":
+            if (parts.length != 5) throw new IncorrectFormatException("File format incorrect: " + line);
+            task = new Event(description, parts[3], parts[4]);
+            break;
+        default:
+            throw new IncorrectFormatException("Unknown task type: " + type);
         }
 
         if (isDone) {
