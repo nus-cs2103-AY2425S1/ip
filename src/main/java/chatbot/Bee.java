@@ -46,132 +46,48 @@ public class Bee {
     public String getBeeResponse(String input) {
         try {
             if (input.matches("bye.*")) {
-                boolean isSaved = this.storage.writeToTaskListFile(this.taskList.parseTaskListToTxt());
-                if (isSaved) {
-                    return "Bye~ Hope to see you again soon!";
-                }
-                return "Tasks not saved, please try again.";
+                return userLeavesResponse();
             } else if (input.equalsIgnoreCase("list")) {
-                return "Here are the tasks in your list:\n".concat(this.taskList.toString());
+                return listAllTasks();
 
             } else if (input.matches("mark (.+)")) {
-                // Uses regular expression to capture task index for completion
-                Pattern pattern = Pattern.compile("mark (\\d+)");
-                Matcher matcher = pattern.matcher(input);
-
-                // Obtains task index if match succeeds
+                Matcher matcher = Parser.getMatcher(input, "mark (\\d+)");
                 if (matcher.matches()) {
-                    String num = matcher.group(1);
-                    int index = Integer.parseInt(num);
-
-                    // Marks task as done
-                    if (this.taskList.isTaskExist(index)) {
-                        this.taskList.markTaskAsDone(index);
-                        return String.format(
-                                        "Nice! I've marked this task as done:\n    %s",
-                                        this.taskList.getTask(index));
-                    } else {
-                        // Warns user of invalid task specified
-                        throw new TaskIndexException();
-                    }
+                    return markTaskAsDoneResponse(matcher);
                 }
 
             } else if (input.matches("unmark (.+)")) {
-                // Uses regular expression to capture task index for incompletion
-                Pattern pattern = Pattern.compile("unmark (\\d+)");
-                Matcher matcher = pattern.matcher(input);
-
-                // Obtains task index if match succeeds
+                Matcher matcher = Parser.getMatcher(input, "unmark (\\d+)");
                 if (matcher.matches()) {
-                    String num = matcher.group(1);
-                    int index = Integer.parseInt(num);
-
-                    // Marks task as incomplete
-                    if (this.taskList.isTaskExist(index)) {
-                        this.taskList.markTaskAsIncomplete(index);
-                        return String.format("OK, I've marked this task as not done yet:\n    %s",
-                                this.taskList.getTask(index));
-                    } else {
-                        // Warns user of invalid task specified
-                        throw new TaskIndexException();
-                    }
+                    return markTaskAsIncompleteResponse(matcher);
                 }
 
             } else if (input.matches("delete (.+)")) {
-                // Uses regular expression to capture task index for deletion
-                Pattern pattern = Pattern.compile("delete (\\d+)");
-                Matcher matcher = pattern.matcher(input);
-
-                // Obtains task index if match succeeds
+                Matcher matcher = Parser.getMatcher(input, "delete (\\d+)");
                 if (matcher.matches()) {
-                    String num = matcher.group(1);
-                    int index = Integer.parseInt(num);
-
-                    // Deletes task
-                    if (this.taskList.isTaskExist(index)) {
-                        Task deletedTask = this.taskList.removeTask(index);
-
-                        return Ui.deleteTaskResponse(
-                                deletedTask.toString(), this.taskList.getTotalNumOfTasks());
-                    }
-                } else {
-                    throw new TaskIndexException();
+                    return deleteTaskResponse(matcher);
                 }
 
             } else if (input.matches("todo (.*)")) {
-                // Uses regular expression to capture todo name
-                Pattern pattern = Pattern.compile("todo (\\S.*)");
-                Matcher matcher = pattern.matcher(input);
-
-                // Obtains parameters if match succeeds
+                Matcher matcher = Parser.getMatcher(input, "todo (\\S.*)");
                 if (matcher.matches()) {
-                    String name = matcher.group(1);
-                    Todo todo = new Todo(name);
-                    this.taskList.addTask(todo);
-                    return Ui.addTaskResponse(
-                            todo.toString(), this.taskList.getTotalNumOfTasks());
-
+                    return addTodoResponse(matcher);
                 } else {
                     throw new InvalidInputException("name", "task");
                 }
 
             } else if (input.matches("deadline (.*)")) {
-                // Uses regular expression to capture deadline name and /by parameter
-                Pattern pattern = Pattern.compile("deadline (\\S.*) /by (\\S.*)");
-                Matcher matcher = pattern.matcher(input);
-
-                // Obtains parameters if match succeeds
+                Matcher matcher = Parser.getMatcher(input, "deadline (\\S.*) /by (\\S.*)");
                 if (matcher.matches()) {
-                    String name = matcher.group(1);
-                    String byParam = matcher.group(2);
-
-                    // Instantiates a Task object and add it to todolist
-                    Deadline deadline = new Deadline(name, byParam);
-                    this.taskList.addTask(deadline);
-                    return Ui.addTaskResponse(deadline.toString(), this.taskList.getTotalNumOfTasks());
-
+                    return addDeadLineResponse(matcher);
                 } else {
                     throw new InvalidInputException("name, and due date", "deadline");
                 }
 
             } else if (input.matches("event (.*)")) {
-                // Uses regular expression to capture event name, /from and /to parameters
-                Pattern pattern = Pattern.compile("event (\\S.*) /from (\\S.*) /to (\\S.*)");
-                Matcher matcher = pattern.matcher(input);
-
-                // Obtains parameters if match succeeds
+                Matcher matcher = Parser.getMatcher(input, "event (\\S.*) /from (\\S.*) /to (\\S.*)");
                 if (matcher.matches()) {
-                    String name = matcher.group(1);
-                    String fromParam = matcher.group(2);
-                    String toParam = matcher.group(3);
-
-                    // Instantiates a Task object and add it to todolist
-                    Event event = new Event(name, fromParam, toParam);
-                    this.taskList.addTask(event);
-                    return Ui.addTaskResponse(event.toString(), this.taskList.getTotalNumOfTasks());
-
-                } else {
-                    throw new InvalidInputException("name, start, and end time", "event");
+                    return addEventResponse(matcher);
                 }
 
             } else if (input.matches("help")) {
@@ -191,5 +107,86 @@ public class Bee {
                     + "You can replace - with \\ as well";
         }
         return "I don't understand what do you mean by: " + input;
+    }
+
+    private String addEventResponse(Matcher matcher) {
+        String name = matcher.group(1);
+        String fromParam = matcher.group(2);
+        String toParam = matcher.group(3);
+
+        Event event = new Event(name, fromParam, toParam);
+        this.taskList.addTask(event);
+        return Ui.addTaskResponse(event.toString(), this.taskList.getTotalNumOfTasks());
+    }
+
+    private String addDeadLineResponse(Matcher matcher) {
+        String name = matcher.group(1);
+        String byParam = matcher.group(2);
+
+        Deadline deadline = new Deadline(name, byParam);
+        this.taskList.addTask(deadline);
+        return Ui.addTaskResponse(deadline.toString(), this.taskList.getTotalNumOfTasks());
+    }
+
+    private String addTodoResponse(Matcher matcher) {
+        String name = matcher.group(1);
+        Todo todo = new Todo(name);
+        this.taskList.addTask(todo);
+        return Ui.addTaskResponse(
+                todo.toString(), this.taskList.getTotalNumOfTasks());
+    }
+
+    private String deleteTaskResponse(Matcher matcher) throws TaskIndexException {
+        String num = matcher.group(1);
+        int index = Integer.parseInt(num);
+
+        if (this.taskList.isTaskExist(index)) {
+            Task deletedTask = this.taskList.removeTask(index);
+
+            return Ui.deleteTaskResponse(
+                    deletedTask.toString(), this.taskList.getTotalNumOfTasks());
+
+        } else {
+            throw new TaskIndexException();
+        }
+    }
+
+    private String markTaskAsIncompleteResponse(Matcher matcher) throws TaskIndexException {
+        String num = matcher.group(1);
+        int index = Integer.parseInt(num);
+
+        if (this.taskList.isTaskExist(index)) {
+            this.taskList.markTaskAsIncomplete(index);
+            return String.format("OK, I've marked this task as not done yet:\n    %s",
+                    this.taskList.getTask(index));
+        } else {
+            throw new TaskIndexException();
+        }
+    }
+
+    private String markTaskAsDoneResponse(Matcher matcher) throws TaskIndexException {
+        String num = matcher.group(1);
+        int index = Integer.parseInt(num);
+
+        if (this.taskList.isTaskExist(index)) {
+            this.taskList.markTaskAsDone(index);
+            return String.format(
+                    "Nice! I've marked this task as done:\n    %s",
+                    this.taskList.getTask(index));
+        } else {
+             throw new TaskIndexException();
+        }
+    }
+
+    private String listAllTasks() {
+        return "Here are the tasks in your list:\n".concat(this.taskList.toString());
+    }
+
+    private String userLeavesResponse() {
+        boolean isSaved = this.storage.writeToTaskListFile(this.taskList.parseTaskListToTxt());
+        if (isSaved) {
+            return "Bye~ Hope to see you again soon!";
+        }
+        return "Tasks not saved, please try again.";
     }
 }

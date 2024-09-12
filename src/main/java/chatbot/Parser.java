@@ -66,56 +66,63 @@ public class Parser {
     public static void parseFromTxtTaskList(Scanner sc, TaskList taskList) {
         while (sc.hasNextLine()) {
             String next = sc.nextLine();
-
-            // Regular expression to capture different parts of the string
-            Pattern pattern = Pattern.compile("\\[(\\S)]\\[(.)] (\\S.*)");
-            Matcher matcher = pattern.matcher(next);
+            Matcher matcher = getMatcher(next, "\\[(\\S)]\\[(.)] (\\S.*)");
 
             if (matcher.matches()) {
                 String taskType = matcher.group(1);
                 boolean taskMarkedDone = matcher.group(2).equals("X");
                 String taskDetails = matcher.group(3);
-
                 if (taskType.equals("T")) {
-                    // Handles todo tasks
-                    Todo todo = new Todo(taskDetails);
-                    if (taskMarkedDone) {
-                        todo.markAsDone();
-                    }
-                    taskList.addTask(todo);
+                    handleTodo(taskList, taskDetails, taskMarkedDone);
                     continue;
                 } else if (taskType.equals("D")) {
-                    // Handles deadline tasks
-                    Pattern patternD = Pattern.compile("(\\S.*) \\(by: (\\S.*)\\)");
-                    Matcher matcherD = patternD.matcher(taskDetails);
+                    Matcher matcherD = getMatcher(next, "(\\S.*) \\(by: (\\S.*)\\)");
 
                     if (matcherD.matches()) {
-                        Deadline deadline = new Deadline(matcherD.group(1), matcherD.group(2));
-                        if (taskMarkedDone) {
-                            deadline.markAsDone();
-                        }
-                        taskList.addTask(deadline);
+                        handleDeadline(taskList, matcherD, taskMarkedDone);
                         continue;
                     }
                 } else if (taskType.equals("E")) {
-                    // Handles event tasks
-                    Pattern patternE = Pattern.compile("(\\S.*) \\(from: (\\S.*) to: (\\S.*)\\)");
-                    Matcher matcherE = patternE.matcher(taskDetails);
+                    Matcher matcherE = getMatcher(next, "(\\S.*) \\(from: (\\S.*) to: (\\S.*)\\)");
 
                     if (matcherE.matches()) {
-                        Event event = new Event(matcherE.group(1), matcherE.group(2), matcherE.group(3));
-                        if (taskMarkedDone) {
-                            event.markAsDone();
-                        }
-                        taskList.addTask(event);
+                        handleEvent(taskList, matcherE, taskMarkedDone);
                         continue;
                     }
                 }
             }
-            // Handles invalid formatted string
-            // Unlikely to happen as text file is not user generated
             System.out.println("this line is in an invalid format");
         }
         sc.close();
+    }
+
+    private static void handleDeadline(TaskList taskList, Matcher matcherD, boolean taskMarkedDone) {
+        Deadline deadline = new Deadline(matcherD.group(1), matcherD.group(2));
+        if (taskMarkedDone) {
+            deadline.markAsDone();
+        }
+        taskList.addTask(deadline);
+    }
+
+    private static void handleEvent(TaskList taskList, Matcher matcherE, boolean taskMarkedDone) {
+        Event event = new Event(matcherE.group(1), matcherE.group(2), matcherE.group(3));
+        if (taskMarkedDone) {
+            event.markAsDone();
+        }
+        taskList.addTask(event);
+    }
+
+    private static void handleTodo(TaskList taskList, String taskDetails, boolean taskMarkedDone) {
+        Todo todo = new Todo(taskDetails);
+        if (taskMarkedDone) {
+            todo.markAsDone();
+        }
+        taskList.addTask(todo);
+    }
+
+    public static Matcher getMatcher(String input, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(input);
+
     }
 }
