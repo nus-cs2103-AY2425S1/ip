@@ -54,19 +54,16 @@ public class MortalReminderWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response;
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
         try {
             Command command = Parser.parseInputFromUser(input);
             response = mortalReminder.executeCommand(command);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getMortalReminderDialog(response, mortalReminderImage, command.commandType())
-            );
+            dialogContainer.getChildren()
+                    .add(DialogBox.getMortalReminderDialog(response, mortalReminderImage, command.commandType()));
         } catch (MortalReminderException e) {
             response = e.getMessage();
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getMortalReminderDialog(response, mortalReminderImage, CommandType.UNKNOWN)
-            );
+            dialogContainer.getChildren()
+                    .add(DialogBox.getMortalReminderDialog(response, mortalReminderImage, CommandType.UNKNOWN));
         }
         userInput.clear();
     }
