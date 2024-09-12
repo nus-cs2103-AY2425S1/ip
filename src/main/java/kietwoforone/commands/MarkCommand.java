@@ -62,4 +62,5 @@ public class MarkCommand extends Command {
     public String toString() {
         return "Task marked";
     }
+
 }

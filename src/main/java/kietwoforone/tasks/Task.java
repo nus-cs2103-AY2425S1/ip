@@ -8,6 +8,7 @@ import java.io.Serializable;
  * Implements Serializable so that to allow saving and loading from txt file.
  */
 public class Task implements Serializable {
+
     protected String description;
     protected boolean isDone;
 
@@ -97,4 +98,5 @@ public class Task implements Serializable {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
+
 }

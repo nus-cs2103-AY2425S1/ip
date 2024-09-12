@@ -41,4 +41,5 @@ public class ByeCommand extends Command {
     public String toString() {
         return "Bye";
     }
+
 }

@@ -45,7 +45,8 @@ public class Deadline extends Task {
      */
     @Override
     public String markTask() {
-        return String.format("[D] %s (by: %s %s)", this.task.markTask(), this.getDate(), this.deadlineTime);
+        return String.format("[D] %s (by: %s %s)", this.task.markTask(),
+                this.getDate(), this.deadlineTime);
     }
 
     /**
@@ -55,7 +56,8 @@ public class Deadline extends Task {
      */
     @Override
     public String unmarkTask() {
-        return String.format("[D] %s (by: %s %s)", this.task.unmarkTask(), this.getDate(), this.deadlineTime);
+        return String.format("[D] %s (by: %s %s)", this.task.unmarkTask(),
+                this.getDate(), this.deadlineTime);
     }
 
     /**
@@ -87,7 +89,6 @@ public class Deadline extends Task {
     public boolean compareString(String keyword) {
         return this.task.compareString(keyword);
     }
-
 
     /**
      * Returns the string representation of the Deadline object.
