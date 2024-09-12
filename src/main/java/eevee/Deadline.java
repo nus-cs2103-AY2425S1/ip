@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a type of task that has a deadline.
  */
 public class Deadline extends Task {
+    private static final String DATE_FORMAT = "MMM d yyyy";
     protected String by;
 
     /**
@@ -31,7 +32,7 @@ public class Deadline extends Task {
     private String formatDueDate(String dueDate) {
         try {
             LocalDate date = LocalDate.parse(dueDate);
-            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
         } catch (DateTimeException ignored) {
             return dueDate;  // Return the original string if the date is invalid
         }
