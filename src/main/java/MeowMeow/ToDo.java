@@ -1,4 +1,4 @@
-package MeowMeow;
+package meowmeow;
 
 /**
  * Represents a task without any date associated with it
@@ -14,7 +14,7 @@ class ToDo extends Task {
     }
 
     @Override
-    public String toFileFormat() {
+    public String convertToFileFormat() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }

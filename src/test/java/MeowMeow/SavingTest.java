@@ -1,4 +1,4 @@
-package MeowMeow;
+package meowmeow;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ public class SavingTest {
     }
     @Test
     public void load_success() throws IOException {
-        Saving s = new Saving("./data/test.txt");
+        Storage s = new Storage("./data/test.txt");
         s.load("./data/test.txt");
         assertEquals("[T][ ] borrow book", printFirstTask(s.getTaskList()));
     }
@@ -22,7 +22,7 @@ public class SavingTest {
     @Test
     public void load_fail_FileNotFoundExceptionThrown() {
         try {
-            Saving s = new Saving("./data/fake.txt");
+            Storage s = new Storage("./data/fake.txt");
             s.load("./data/fake.txt");
             assertEquals("", printFirstTask(s.getTaskList()));
             fail();

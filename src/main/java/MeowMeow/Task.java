@@ -1,4 +1,4 @@
-package MeowMeow;
+package meowmeow;
 
 /**
  * Represents a task which can be marked as done or undone
@@ -34,6 +34,7 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+<<<<<<< HEAD:src/main/java/MeowMeow/Task.java
 
     /**
      * Returns the String representation of a task for storing in the save file.
@@ -41,6 +42,9 @@ public class Task {
      * @return String representation of task for storing in save file.
      */
     public String toFileFormat() {
+=======
+    public String convertToFileFormat() {
+>>>>>>> branch-A-CodingStandard:src/main/java/meowmeow/Task.java
         return (this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E") + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
