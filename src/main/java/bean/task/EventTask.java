@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task with a start time and end time.
  */
 public class EventTask extends Task {
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -20,7 +21,6 @@ public class EventTask extends Task {
      */
     public EventTask(String name, String from, String to) {
         super(name);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
     }
@@ -44,7 +44,21 @@ public class EventTask extends Task {
     @Override
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + name + " | " + from.format(formatter) + " | " + to.format(formatter);
+        return "E | " + (isDone ? "1" : "0") + " | " + name + " | " + from.format(formatter) + " | "
+                + to.format(formatter);
+    }
+
+    /**
+     * Updates the task name, start time, and end time.
+     *
+     * @param newDetails The new details for the task in the format "name /from start /to end".
+     */
+    @Override
+    public void updateTask(String newDetails) {
+        String[] parts = newDetails.split(" /from | /to ");
+        this.name = parts[0];
+        this.from = LocalDateTime.parse(parts[1], formatter);
+        this.to = LocalDateTime.parse(parts[2], formatter);
     }
 
     /**

@@ -123,4 +123,15 @@ public class Ui {
     public String getLoadingError() {
         return getError("Error loading tasks.");
     }
+
+    /**
+     * Returns a message indicating that a task has been updated.
+     *
+     * @param task The task that was updated.
+     * @return The formatted message.
+     */
+    public String getTaskUpdated(Task task) {
+        return "Got it. I've updated this task:\n" + task;
+    }
+
 }

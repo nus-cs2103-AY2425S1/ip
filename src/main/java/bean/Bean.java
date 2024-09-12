@@ -84,7 +84,10 @@ public class Bean {
             case "find":
                 List<Task> foundTasks = tasks.findTasks(command.getDetails());
                 return ui.getMatchingTasks(foundTasks);
-
+            case "edit":
+                int editIndex = Integer.parseInt(command.getDetails().split(" ")[0]) - 1;
+                String newDetails = command.getDetails().substring(command.getDetails().indexOf(' ') + 1);
+                return handleEditTask(editIndex, newDetails);
             default:
                 return ui.getError("Unknown command");
             }
@@ -114,6 +117,17 @@ public class Bean {
         tasks.addTask(todo);
         storage.save(tasks.getTasks());
         return ui.getTaskAdded(todo, tasks.size());
+    }
+
+    private String handleEditTask(int index, String newDetails) {
+        if (!isValidIndex(index)) {
+            return ui.getError("Task index is out of bounds.");
+        }
+
+        Task task = tasks.getTask(index);
+        task.updateTask(newDetails);
+        storage.save(tasks.getTasks());
+        return ui.getTaskUpdated(task);
     }
 
     /**
