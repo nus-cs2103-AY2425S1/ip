@@ -14,6 +14,7 @@ public class FindCommand implements Command {
 
     @Override
     public String executeString(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
+        assert !description.isEmpty();
         return tasks.find(description);
     }
 

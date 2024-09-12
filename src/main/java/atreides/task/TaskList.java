@@ -17,6 +17,9 @@ public class TaskList {
     public TaskList(ArrayList<String[]> tasks) {
         this.list = new ArrayList<>();
         for (String[] words : tasks) {
+
+            assert words.length > 2;
+
             Task newTask = new Task();
             Boolean isDone = words[1].equals("1");
             if (words[0].equals("T")) {
@@ -112,6 +115,8 @@ public class TaskList {
     }
 
     public void checkIndexPresent(int index) throws AtreidesException {
+        assert index >= 0;
+
         if (index >= list.size()) {
             throw new AtreidesException("list does not have the index present");
         }
