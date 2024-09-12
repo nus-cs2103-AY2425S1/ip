@@ -1,3 +1,7 @@
+package elsa.task;
+
+import elsa.ui.Ui;
+
 import java.util.List;
 
 /**
@@ -5,10 +9,10 @@ import java.util.List;
  * @author Aaron
  */
 public class TaskList {
-    private static List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
-     * Constructs a TaskList with the specified list of tasks.
+     * Constructs an elsa.task.TaskList with the specified list of tasks.
      *
      * @param tasks the initial list of tasks
      */
@@ -17,9 +21,18 @@ public class TaskList {
     }
 
     /**
-     * Adds a Todo task to the list.
+     * Returns the list of tasks.
      *
-     * @param description the description of the Todo task
+     * @return The list of tasks.
+     */
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
+     * Adds a elsa.task.Todo task to the list.
+     *
+     * @param description the description of the elsa.task.Todo task
      */
     public void addTodo(String description) {
         Todo newTodo = new Todo(description, false);
@@ -31,10 +44,10 @@ public class TaskList {
     }
 
     /**
-     * Adds a Deadline task to the list.
+     * Adds a elsa.task.Deadline task to the list.
      *
-     * @param description the description of the Deadline task
-     * @param dueBy the due date and time of the Deadline task
+     * @param description the description of the elsa.task.Deadline task
+     * @param dueBy the due date and time of the elsa.task.Deadline task
      */
     public void addDeadline(String description, String dueBy) {
         Deadline newDeadline = new Deadline(description, false, dueBy);
@@ -46,11 +59,11 @@ public class TaskList {
     }
 
     /**
-     * Adds an Event task to the list.
+     * Adds an elsa.task.Event task to the list.
      *
-     * @param description the description of the Event task
-     * @param start the start date and time of the Event task
-     * @param end the end date and time of the Event task
+     * @param description the description of the elsa.task.Event task
+     * @param start the start date and time of the elsa.task.Event task
+     * @param end the end date and time of the elsa.task.Event task
      */
     public void addEvent(String description, String start, String end) {
         Event newEvent = new Event(description, false, start, end);

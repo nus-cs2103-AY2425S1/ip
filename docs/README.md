@@ -1,4 +1,4 @@
-# Elsa User Guide
+# elsa.ui.Elsa User Guide
 
 // Product screenshot goes here
 

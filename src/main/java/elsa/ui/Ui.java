@@ -1,3 +1,5 @@
+package elsa.ui;
+
 import java.util.Scanner;
 
 /**
@@ -14,7 +16,7 @@ public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Constructs a new Ui object.
+     * Constructs a new elsa.ui.Ui object.
      */
     public Ui() {
     }
@@ -31,7 +33,7 @@ public class Ui {
      * Greets the user and begins the conversation.
      */
     public void greetUser() {
-        System.out.println("Hi! I'm Elsa");
+        System.out.println("Hi! I'm elsa.ui.Elsa");
         System.out.println("It's nice to meet you.\nHow can I help you?");
         addLine();
     }

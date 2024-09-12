@@ -1,3 +1,5 @@
+package elsa.task;
+
 /**
  * Represents a task that is an event.
  * @author Aaron

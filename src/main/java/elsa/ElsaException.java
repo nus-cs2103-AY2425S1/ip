@@ -1,6 +1,8 @@
+package elsa;
+
 /**
- * Represents exceptions specific to Elsa.
- * This custom exception is thrown when an error related to Elsa's operations occur.
+ * Represents exceptions specific to elsa.ui.Elsa.
+ * This custom exception is thrown when an error related to elsa.ui.Elsa's operations occur.
  *
  * @author Aaron
  */

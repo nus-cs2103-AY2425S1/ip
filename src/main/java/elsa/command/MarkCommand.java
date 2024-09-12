@@ -1,3 +1,8 @@
+package elsa.command;
+
+import elsa.task.TaskList;
+import elsa.ui.Ui;
+
 /**
  * Represents the command that marks tasks in the taskList.
  *
@@ -10,7 +15,7 @@ public class MarkCommand extends Command {
     private int taskIndex;
 
     /**
-     * Constructs a MarkCommand with the specified task index.
+     * Constructs a elsa.command.MarkCommand with the specified task index.
      *
      * @param taskIndex The index of the task to mark as completed.
      */
@@ -22,7 +27,7 @@ public class MarkCommand extends Command {
      * Executes the command to mark the task at the specified index as completed.
      *
      * @param tasks The task list to update.
-     * @param ui The Ui instance, which is not used in this command.
+     * @param ui The elsa.ui.Ui instance, which is not used in this command.
      */
     @Override
     public void execute(TaskList tasks, Ui ui) {

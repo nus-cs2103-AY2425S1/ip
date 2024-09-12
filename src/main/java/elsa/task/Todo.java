@@ -1,3 +1,5 @@
+package elsa.task;
+
 /**
  * Represents a task that needs to be done.
  * @author Aaron

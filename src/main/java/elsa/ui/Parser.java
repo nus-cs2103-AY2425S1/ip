@@ -1,3 +1,8 @@
+package elsa.ui;
+
+import elsa.command.*;
+import elsa.ElsaException;
+
 /**
  * Interprets and processes user commands.
  * Converts user input into actionable commands for the application to execute.
@@ -33,7 +38,7 @@ public class Parser {
                 // Check if there are two parts and if 'by' is in the correct format
                 if (parts.length < 2 || parts[1].trim().length() != 16 ||
                         !parts[1].trim().matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}")) {
-                    String message = ElsaException.addSeparatorLines("Oops, the format for the Deadline task is " +
+                    String message = ElsaException.addSeparatorLines("Oops, the format for the elsa.task.Deadline task is " +
                             "a bit off.\nPlease follow this format: deadline [activity] /by yyyy-mm-dd hh:mm");
                     throw new ElsaException(message);
                 }
@@ -42,7 +47,7 @@ public class Parser {
                 // Check if the description is empty
                 if (description.isEmpty()) {
                     String message = ElsaException.addSeparatorLines("Oh, it appears that the description of your " +
-                            "Deadline task is empty...");
+                            "elsa.task.Deadline task is empty...");
                     throw new ElsaException(message);
                 }
                 return new DeadlineCommand(description, dueBy);
@@ -53,7 +58,7 @@ public class Parser {
                 int index = Integer.parseInt(userInput.substring(7)) - 1;
                 return new DeleteCommand(index);
             } else {
-                // Elsa will ask for clarification upon encountering any unrecognised input
+                // elsa.ui.Elsa will ask for clarification upon encountering any unrecognised input
                 String message = ElsaException.addSeparatorLines("Sorry, I'm unable to perform this action: " +
                         userInput);
                 throw new ElsaException(message);

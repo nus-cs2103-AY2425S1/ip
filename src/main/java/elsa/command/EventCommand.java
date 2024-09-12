@@ -1,3 +1,8 @@
+package elsa.command;
+
+import elsa.task.TaskList;
+import elsa.ui.Ui;
+
 /**
  * Represents the command that creates a new eventTask in the taskList.
  *
@@ -20,7 +25,7 @@ public class EventCommand extends Command {
     private String end;
 
     /**
-     * Constructs a EventCommand with the specified task description.
+     * Constructs a elsa.command.EventCommand with the specified task description.
      *
      * @param description The description of the eventTask to be added.
      * @param start The start date and time of the eventTask to be added.
@@ -36,7 +41,7 @@ public class EventCommand extends Command {
      * Executes the command to add a new eventTask to the task list.
      *
      * @param tasks The task list where the new eventTask will be added.
-     * @param ui The Ui instance, which is not used in this command but is included for method signature consistency.
+     * @param ui The elsa.ui.Ui instance, which is not used in this command but is included for method signature consistency.
      */
     @Override
     public void execute(TaskList tasks, Ui ui) {

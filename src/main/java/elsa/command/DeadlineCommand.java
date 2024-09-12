@@ -1,3 +1,8 @@
+package elsa.command;
+
+import elsa.task.TaskList;
+import elsa.ui.Ui;
+
 /**
  * Represents the command that creates a new deadlineTask in the taskList.
  *
@@ -15,7 +20,7 @@ public class DeadlineCommand extends Command {
     private String dueBy;
 
     /**
-     * Constructs a DeadlineCommand with the specified task description.
+     * Constructs a elsa.command.DeadlineCommand with the specified task description.
      *
      * @param description The description of the deadlineTask to be added.
      * @param dueBy The due date and time of the deadlineTask to be added.
@@ -29,7 +34,7 @@ public class DeadlineCommand extends Command {
      * Executes the command to add a new deadlineTask to the task list.
      *
      * @param tasks The task list where the new deadlineTask will be added.
-     * @param ui The Ui instance, which is not used in this command but is included for method signature consistency.
+     * @param ui The elsa.ui.Ui instance, which is not used in this command but is included for method signature consistency.
      */
     @Override
     public void execute(TaskList tasks, Ui ui) {
