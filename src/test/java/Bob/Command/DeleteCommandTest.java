@@ -42,11 +42,11 @@ class DeleteCommandTest {
 
         deleteCommand.execute(taskList.getTasks(), storage, ui);
 
-        assertEquals(1, tasks.size(), "TaskList size should be 1 after deletion");
+        assertEquals(1, tasks.size(), "tasklist size should be 1 after deletion");
         assertEquals(task2.getDescription(), tasks.get(0).getDescription(), "Remaining task: 'Task 2'");
 
         ArrayList<Task> reloadedTasks = storage.load();
-        assertEquals(1, reloadedTasks.size(), "Reloaded TaskList size should be 1");
+        assertEquals(1, reloadedTasks.size(), "Reloaded tasklist size should be 1");
         assertEquals(task2.getDescription(), reloadedTasks.get(0).getDescription(), "Reloaded task: 'Task 2'");
     }
 
@@ -60,7 +60,7 @@ class DeleteCommandTest {
             deleteCommand.execute(taskList.getTasks(), storage, ui);
         });
 
-        assertEquals("Invalid index", exception.getMessage(), "Exception message should match");
-        assertEquals(1, tasks.size(), "TaskList size should remain 1 after failed deletion");
+        assertEquals("Invalid index", exception.getMessage(), "exception message should match");
+        assertEquals(1, tasks.size(), "tasklist size should remain 1 after failed deletion");
     }
 }

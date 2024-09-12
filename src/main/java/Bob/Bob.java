@@ -47,6 +47,7 @@ public class Bob {
         StringBuilder response = new StringBuilder();
         try {
             Command command = parser.parse(input);
+            assert command != null : "Command should not be null after parsing input";
             response.append(command.execute(tasks.getTasks(), storage, ui));
             return response.toString();
         } catch (BobException e) {
@@ -67,10 +68,14 @@ public class Bob {
             input = scanner.nextLine().trim();
             try {
                 Command command = parser.parse(input);
+                assert command != null : "Command should be valid after parsing input";
                 command.execute(tasks.getTasks(), storage, ui);
             } catch (BobException e) {
                 ui.showError(e.getMessage());
             }
+            assert tasks != null : "Tasks should not be null";
+            assert storage != null : "Storage should not be null";
+
         } while (!input.equals("bye"));
         ui.showGoodbye();
         scanner.close();
