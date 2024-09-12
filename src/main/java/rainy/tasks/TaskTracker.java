@@ -197,7 +197,6 @@ public class TaskTracker {
                 .map(x -> ((x.getIsDone()) ? "\n" + (numMatch.getAndIncrement()) + ". [X] " + x
                         : "\n" + (numMatch.getAndIncrement()) + ". [ ] " + x))
                 .reduce("Here are some tasks matching your description: ", (a, b) -> a + b);
-
         if (numMatch.get() > 1) {
             System.out.println(output);
         } else {
