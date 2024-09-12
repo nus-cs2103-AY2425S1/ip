@@ -15,12 +15,20 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage, ExecutionStack execStack) {
         ToDo todo = tasks.todo(name);
+        execStack.push(this);
         String tasksRemaining = String.format("Now you have %d tasks in the list.", tasks.getSize());
         return Printer.format(new String[] { "Got it. I've added this task:",
             " " + todo.toString(),
             tasksRemaining });
+    }
+
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) {
+        Task removedTask = tasks.pop();
+        String response = "Removed task [" + removedTask.toString() + "].";
+        return response;
     }
 
     @Override

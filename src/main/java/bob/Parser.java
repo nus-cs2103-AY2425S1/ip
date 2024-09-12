@@ -33,6 +33,11 @@ public class Parser {
                 throw new ExtraParamException(command.substring(5));
             }
             return new ListCommand();
+        case ("undo"):
+            if (words.length > 1) {
+                throw new ExtraParamException(command.substring(5));
+            }
+            return new UndoCommand();
         case ("mark"): {
             String[] arguments = Parser.splitInput(words, MarkCommand.params, MarkCommand.paramCount);
             assert arguments.length == MarkCommand.paramCount: "arguments should have correct number of elements";

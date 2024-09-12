@@ -10,6 +10,7 @@ public class Bob {
     private TaskList tasks;
     private Ui ui;
     private ExitFlag guiExitFlag;
+    private ExecutionStack executionStack;
 
     /**
      * Constructs a {@code Bob} object by initializing its {@code Storage}, {@code TaskList}, and {@code Ui} components.
@@ -21,6 +22,7 @@ public class Bob {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.guiExitFlag = new ExitFlag();
+        this.executionStack = new ExecutionStack();
         try {
             this.tasks = this.storage.loadFile();
         } catch (IllegalInputException e) {
@@ -40,7 +42,7 @@ public class Bob {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                String response = c.execute(tasks, ui, storage);
+                String response = c.execute(tasks, ui, storage, executionStack);
                 System.out.println(response);
                 isExit = c.isExit();
             } catch (IllegalInputException e) {
@@ -66,7 +68,7 @@ public class Bob {
         boolean isExit = false;
         try {
             Command c = Parser.parse(input);
-            String response = c.execute(tasks, ui, storage);
+            String response = c.execute(tasks, ui, storage, executionStack);
             isExit = c.isExit();
             this.setGuiExitFlag(isExit);
             return response;

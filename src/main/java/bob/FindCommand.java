@@ -29,7 +29,7 @@ public class FindCommand extends Command {
      * @param storage the {@code Storage} where tasks are saved.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage, ExecutionStack execStack) {
         String[] tasksFound = tasks.findTasksWith(this.text);
         String[] toPrint = new String[tasksFound.length + 2];
 
@@ -38,6 +38,12 @@ public class FindCommand extends Command {
         System.arraycopy(tasksFound, 0, toPrint, 1, tasksFound.length);
 
         return Printer.format(toPrint);
+    }
+
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) {
+        // Do nothing
+        return "";
     }
 
     /**
