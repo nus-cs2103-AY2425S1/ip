@@ -80,26 +80,26 @@ public class Devon {
 
         try {
             switch (command) {
-                case BYE:
-                    return goodbye();
-                case LIST:
-                    return getListAsString();
-                case MARK:
-                    return markAction(input);
-                case UNMARK:
-                    return unmarkAction(input);
-                case TODO:
-                    return todoAction(input);
-                case DEADLINE:
-                    return deadlineAction(input);
-                case EVENT:
-                    return eventAction(input);
-                case DELETE:
-                    return deleteAction(input);
-                case FIND:
-                    return findAction(input);
-                default:
-                    unknownAction();
+            case BYE:
+                return goodbye();
+            case LIST:
+                return getListAsString();
+            case MARK:
+                return markAction(input);
+            case UNMARK:
+                return unmarkAction(input);
+            case TODO:
+                return todoAction(input);
+            case DEADLINE:
+                return deadlineAction(input);
+            case EVENT:
+                return eventAction(input);
+            case DELETE:
+                return deleteAction(input);
+            case FIND:
+                return findAction(input);
+            default:
+                unknownAction();
             }
         } catch (DevonException e) {
             return e.toString();
