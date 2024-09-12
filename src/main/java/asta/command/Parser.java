@@ -14,26 +14,22 @@ public class Parser {
      * @return A Command enum representing the type of command parsed from the input.
      */
     public static Command parse(String input) {
-        if (input.equalsIgnoreCase("bye")) {
-            return Command.BYE;
-        } else if (input.equalsIgnoreCase("list")) {
-            return Command.LIST;
-        } else if (input.startsWith("mark ")) {
-            return Command.MARK;
-        } else if (input.startsWith("unmark ")) {
-            return Command.UNMARK;
-        } else if (input.startsWith("todo ")) {
-            return Command.TODO;
-        } else if (input.startsWith("deadline ")) {
-            return Command.DEADLINE;
-        } else if (input.startsWith("event ")) {
-            return Command.EVENT;
-        } else if (input.startsWith("delete ")) {
-            return Command.DELETE;
-        } else if (input.startsWith("find ")) {
-            return Command.FIND;
-        } else {
-            return Command.UNKNOWN;
-        }
+        String lowerCaseInput = input.toLowerCase();
+        String[] words = lowerCaseInput.split(" ", 2); //Split by the first space
+
+        // CHECKSTYLE.OFF: Indentation
+        return switch (words[0]) {
+            case "bye" -> Command.BYE;
+            case "list" -> Command.LIST;
+            case "mark" -> Command.MARK;
+            case "unmark" -> Command.UNMARK;
+            case "todo" -> Command.TODO;
+            case "deadline" -> Command.DEADLINE;
+            case "event" -> Command.EVENT;
+            case "delete" -> Command.DELETE;
+            case "find" -> Command.FIND;
+            default -> Command.UNKNOWN;
+        };
+        // CHECKSTYLE.ON: Indentation
     }
 }

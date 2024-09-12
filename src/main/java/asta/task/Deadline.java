@@ -39,7 +39,8 @@ public class Deadline extends Task {
      *
      * @return A string representing the Deadline task for file storage.
      */
-    @Override public String toFileFormat() {
+    @Override
+    public String toFileFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(formatter);
     }
@@ -50,7 +51,8 @@ public class Deadline extends Task {
      *
      * @return A string representing the Deadline task.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
         return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }

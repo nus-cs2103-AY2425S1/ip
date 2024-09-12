@@ -1,8 +1,8 @@
 package asta.ui;
 
 /**
- * The Ui class handles interactions with the user.
- * It provides methods to read user input, display messages, show errors, and handle other user interface elements.
+ * The Ui class handles interactions with the user. It provides methods to read user input, display messages, show
+ * errors, and handle other user interface elements.
  */
 public class Ui {
 

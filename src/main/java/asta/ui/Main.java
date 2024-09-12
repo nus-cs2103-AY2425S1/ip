@@ -16,7 +16,8 @@ public class Main extends Application {
 
     private final Asta asta = new Asta();
 
-    @Override public void start(Stage stage) {
+    @Override
+    public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

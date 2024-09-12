@@ -1,8 +1,8 @@
 package asta.task;
 
 /**
- * Represents a task with a description and a completion status.
- * This is an abstract class and serves as a base class for specific types of tasks like ToDo, Deadline, and Event.
+ * Represents a task with a description and a completion status. This is an abstract class and serves as a base class
+ * for specific types of tasks like ToDo, Deadline, and Event.
  */
 public abstract class Task {
     protected String description;
@@ -53,8 +53,8 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task in a format suitable for saving to a file.
-     * This method must be implemented by subclasses to provide specific file formats.
+     * Returns a string representation of the task in a format suitable for saving to a file. This method must be
+     * implemented by subclasses to provide specific file formats.
      *
      * @return A string representing the task for file storage.
      */
@@ -65,7 +65,8 @@ public abstract class Task {
      *
      * @return A string representing the task.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return getStatusIcon() + description;
     }
 }
