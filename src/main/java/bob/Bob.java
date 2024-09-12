@@ -19,12 +19,19 @@ public class Bob {
     private static Storage storage;
     private static Ui ui;
     private static String loadStatusMessage;
-    private Command commandType;
+    private static Command commandType;
 
     /**
      * Constructs a new instance of the Bob application.
      */
     public Bob() {
+        initialiseApplication();
+    }
+
+    /**
+     * Initialises the Bob application and load saved tasks if available.
+     */
+    private void initialiseApplication() {
         storage = new Storage(FILE_PATH);
         ui = new Ui();
         try {
@@ -34,15 +41,6 @@ public class Bob {
             tasks = new TaskList();
             loadStatusMessage = ui.showError(e);
         }
-    }
-
-    /**
-     * Returns the startup message, which includes a welcome message and the status of task loading.
-     *
-     * @return A string representing the startup message.
-     */
-    public static String startUp() {
-        return ui.showMessage(ui.showWelcome(), "\n", loadStatusMessage);
     }
 
     /**
@@ -63,6 +61,14 @@ public class Bob {
     }
 
     /**
+     * Returns the startup message, which includes a welcome message and the status of task loading.
+     *
+     * @return A string representing the startup message.
+     */
+    public static String startUp() {
+        return ui.showMessage(ui.showWelcome(), "\n", loadStatusMessage);
+    }
+    /**
      * Returns a response from Bob based on the user's input.
      *
      * @param userInput The user's input message.
@@ -73,82 +79,78 @@ public class Bob {
             Command command = Parser.parseCommand(userInput);
             String taskDetails = Parser.getTaskDetails(userInput);
             commandType = command;
-
-            switch (command) {
-            case BYE:
-                return commandBye();
-
-            case LIST:
-                return commandList();
-
-            case RELEVANT:
-                return commandRelevant(taskDetails);
-
-            case MARK:
-                return commandMark(taskDetails);
-
-            case UNMARK:
-                return commandUnmark(taskDetails);
-
-            case TODO:
-                return commandTodo(taskDetails);
-
-            case DEADLINE:
-                return commandDeadline(taskDetails);
-
-            case EVENT:
-                return commandEvent(taskDetails);
-
-            case DELETE:
-                return commandDelete(taskDetails);
-
-            case FIND:
-                return commandFind(taskDetails);
-
-            case UNKNOWN:
-                // Fallthrough
-
-            default:
-                throw new BobException("Sorry, I do not understand. Please try something else.");
-            }
+            return executeCommand(command, taskDetails);
         } catch (BobException e) {
             return ui.showError(e);
         }
     }
 
     /**
-     * Returns the command type of the last user input processed.
+     * Executes the appropriate command based on the parsed command type.
      *
-     * @return The command type.
+     * @param command The command parsed from user input.
+     * @param taskDetails The task details or parameters provided in the user input.
+     * @return A string representing Bob's response after executing the command.
+     * @throws BobException If any error occurs during command execution.
      */
-    public Command getCommandType() {
-        return commandType;
+    private String executeCommand(Command command, String taskDetails) throws BobException {
+        switch (command) {
+        case BYE:
+            return commandBye();
+        case LIST:
+            return commandList();
+        case RELEVANT:
+            return commandRelevant(taskDetails);
+        case MARK:
+            return commandMark(taskDetails);
+        case UNMARK:
+            return commandUnmark(taskDetails);
+        case TODO:
+            return commandTodo(taskDetails);
+        case DEADLINE:
+            return commandDeadline(taskDetails);
+        case EVENT:
+            return commandEvent(taskDetails);
+        case DELETE:
+            return commandDelete(taskDetails);
+        case FIND:
+            return commandFind(taskDetails);
+        case UNKNOWN:
+            // Fallthrough
+        default:
+            throw new BobException("Sorry, I do not understand. Please try something else.");
+        }
     }
 
     /**
      * Handles the "BYE" command to exit the application.
+     *
+     * @return A string containing Bob's goodbye message.
      */
-    static String commandBye() {
+    private static String commandBye() {
         return ui.showGoodbye();
     }
 
     /**
      * Handles the "LIST" command to print the list of tasks.
+     *
+     * @return A string containing the current list of tasks.
      */
-    static String commandList() {
+    private static String commandList() {
         if (tasks.isEmpty()) {
             return ui.showNoTasks();
         }
-        return ui.showMessage("Your list of tasks:\n" + tasks.printTasks());
+        return ui.showMessage("Your list of tasks:\n", tasks.printTasks());
     }
 
     /**
      * Handles the "RELEVANT" command to print tasks occurring on a specific given date.
      *
      * @param dateStr The date for which relevant tasks should be printed using the format "yyyy-MM-dd".
+     * @return A string containing relevant tasks for the given date.
      * @throws BobException If date format is invalid.
      */
-    static String commandRelevant(String dateStr) throws BobException {
+    private static String commandRelevant(String dateStr) throws BobException {
         return ui.showMessage(tasks.printRelevantTasksByDate(dateStr));
     }
 
@@ -156,9 +158,11 @@ public class Bob {
      * Handles the "FIND" command to find tasks that have description containing a keyword or a phrase.
      *
      * @param keyword The keyword or phrase to find within the task description.
-     * @throws BobException If keyword is empty.
+     * @return A string containing tasks that match the search keyword.
+     * @throws BobException If the keyword is empty.
      */
-    static String commandFind(String keyword) throws BobException {
+    private static String commandFind(String keyword) throws BobException {
+        validateKeyword(keyword);
         return ui.showMessage(tasks.printTasksByKeyword(keyword));
     }
 
@@ -166,67 +170,44 @@ public class Bob {
      * Handles the "MARK" command to mark a task as done.
      *
      * @param taskDetails The task number to mark as done.
+     * @return A string confirming that the task is marked as done.
      * @throws BobException If the task number is invalid.
      */
-    static String commandMark(String taskDetails) throws BobException {
-        if (taskDetails.isEmpty()) {
-            throw new BobException("Please provide a task number.");
-        }
-        try {
-            // Get task
-            int taskNum = Integer.parseInt(taskDetails);
-            bob.task.Task currTask = tasks.getTask(taskNum);
-
-            // Mark task as done and update tasks
-            currTask.markAsDone();
-            storage.saveTasks(tasks);
-            return ui.showMessage("Good Job! Marking this task as done:\n " + currTask);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new BobException("The task number provided is invalid.");
-        }
+    private static String commandMark(String taskDetails) throws BobException {
+        int taskNum = Parser.parseTaskNumber(taskDetails);
+        Task currTask = tasks.getTask(taskNum);
+        currTask.markAsDone();
+        saveTasks();
+        return ui.showMessage("Good Job! Marking this task as done:\n " + currTask);
     }
 
     /**
      * Handles the "UNMARK" command to mark a task as not done.
      *
      * @param taskDetails The task number to mark as not done.
+     * @return A string confirming that the task is marked as not done.
      * @throws BobException If the task number is invalid.
      */
-    static String commandUnmark(String taskDetails) throws BobException {
-        if (taskDetails.isEmpty()) {
-            throw new BobException("Please provide a task number.");
-        }
-        try {
-            // Get Task
-            int taskNum = Integer.parseInt(taskDetails);
-            Task currTask = tasks.getTask(taskNum);
-
-            // Mark task as not done and update tasks
-            currTask.markAsUndone();
-            storage.saveTasks(tasks);
-            return ui.showMessage("Okay, marking this task as not done yet:\n " + currTask);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new BobException("The task number provided is invalid.");
-        }
+    private static String commandUnmark(String taskDetails) throws BobException {
+        int taskNum = Parser.parseTaskNumber(taskDetails);
+        Task currTask = tasks.getTask(taskNum);
+        currTask.markAsUndone();
+        saveTasks();
+        return ui.showMessage("Okay, marking this task as not done yet:\n " + currTask);
     }
 
     /**
      * Handles the "TODO" command to add a ToDo task.
      *
      * @param taskDetails The description of the ToDo task.
+     * @return A string confirming that the ToDo task is added.
      * @throws BobException If there are missing details.
      */
-    static String commandTodo(String taskDetails) throws BobException {
+    private static String commandTodo(String taskDetails) throws BobException {
         String format = "Add ToDo task in the following format:\ntodo <description>";
-        if (taskDetails.isEmpty()) {
-            throw new BobException("Missing details!\n" + format);
-        }
-        // Create a new task
+        validateTaskDetails(taskDetails, format);
         ToDo task = new ToDo(taskDetails);
-
-        // Add task and update tasks
-        tasks.addTask(task);
-        storage.saveTasks(tasks);
+        addTaskAndSave(task);
         return ui.showMessage("Adding ToDo task:\n " + task
                 + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
     }
@@ -235,107 +216,150 @@ public class Bob {
      * Handles the "DEADLINE" command to add a Deadline task.
      *
      * @param taskDetails The description and due date of the Deadline task.
+     * @return A string confirming that the Deadline task is added.
      * @throws BobException If there are missing details, wrong format or the due date is invalid.
      */
-    static String commandDeadline(String taskDetails) throws BobException {
-        String format = "Add Deadline task in the following format:\n"
-                + "deadline <description> /by <due date>";
-        if (taskDetails.isEmpty()) {
-            throw new BobException("Missing details!\n" + format);
-        }
+    private static String commandDeadline(String taskDetails) throws BobException {
+        String format = "Add Deadline task in the following format:\ndeadline <description> /by <due date>";
+        validateTaskDetails(taskDetails, format);
 
-        try {
-            // Process task details
-            String[] params = taskDetails.split(" /");
-            String description = params[0];
-            String byStr = params[1].split(" ", 2)[1];
+        int numParams = 2;
+        String[] params = splitTaskDetails(taskDetails, numParams);
+        String description = params[0];
+        LocalDateTime by = Parser.parseDateTime(params[1]);
 
-            LocalDateTime by = Parser.parseDateTime(byStr);
-            if (by.isBefore(LocalDateTime.now())) {
-                throw new BobException("Oops! The date you provided is in the past. "
-                        + "Kindly provide a future date.");
-            }
-
-            // Create a new task
-            Deadline task = new Deadline(description, by);
-
-            // Add task and update tasks
-            tasks.addTask(task);
-            storage.saveTasks(tasks);
-            return ui.showMessage("Adding Deadline task:\n " + task
-                    + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
-        } catch (IndexOutOfBoundsException e) {
-            throw new BobException("You may have missing details or wrong format!\n" + format);
-        }
+        Deadline task = new Deadline(description, by);
+        addTaskAndSave(task);
+        return ui.showMessage("Adding Deadline task:\n " + task
+                + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
     }
 
     /**
      * Handles the "EVENT" command to add an Event task.
      *
      * @param taskDetails The description, start date, and end date of the Event task.
+     * @return A string confirming that the Event task is added.
      * @throws BobException If there are missing details, wrong format, or invalid dates.
      */
-    static String commandEvent(String taskDetails) throws BobException {
+    private static String commandEvent(String taskDetails) throws BobException {
         String format = "Add Event task in the following format:\n"
                 + "deadline <description> /from <start date> /to <due date>";
-        if (taskDetails.isEmpty()) {
-            throw new BobException("Missing details!\n" + format);
-        }
+        validateTaskDetails(taskDetails, format);
+        int numParams = 3;
+        String[] params = splitTaskDetails(taskDetails, numParams);
+        String description = params[0];
+        LocalDateTime from = Parser.parseDateTime(params[1]);
+        LocalDateTime to = Parser.parseDateTime(params[2]);
 
-        try {
-            // Process task details
-            String[] params = taskDetails.split(" /");
-            String description = params[0];
-            String fromStr = params[1].split(" ", 2)[1];
-            String toStr = params[2].split(" ", 2)[1];
+        validateEventDates(from, to);
 
-            LocalDateTime from = Parser.parseDateTime(fromStr);
-            LocalDateTime to = Parser.parseDateTime(toStr);
-            if (from.isBefore(LocalDateTime.now()) || to.isBefore(LocalDateTime.now())) {
-                throw new BobException(
-                        "Oops! The date you provided is in the past. "
-                                + "Kindly provide a future date.");
-            }
-            if (to.isBefore(from)) {
-                throw new BobException(
-                        "The end date cannot be before the start date. Please try again.");
-            }
-
-            // Create a new task
-            Event task = new Event(description, from, to);
-
-            // Add task and update tasks
-            tasks.addTask(task);
-            storage.saveTasks(tasks);
-            return ui.showMessage("Adding Event task:\n " + task
-                    + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
-        } catch (IndexOutOfBoundsException e) {
-            throw new BobException("You may have missing details or wrong format!\n" + format);
-        }
+        Event task = new Event(description, from, to);
+        addTaskAndSave(task);
+        return ui.showMessage("Adding Event task:\n " + task
+                + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
     }
 
     /**
      * Handles the "DELETE" command to delete a task.
      *
      * @param taskDetails TThe task number to delete.
+     * @return A string confirming that the task is deleted.
      * @throws BobException If the task number is invalid.
      */
-    static String commandDelete(String taskDetails) throws BobException {
-        if (taskDetails.isEmpty()) {
-            throw new BobException("Please provide a task number.");
-        }
-        try {
-            // Get task
-            int taskNum = Integer.parseInt(taskDetails);
-            Task currTask = tasks.getTask(taskNum);
+    private static String commandDelete(String taskDetails) throws BobException {
+        int taskNum = Parser.parseTaskNumber(taskDetails);
+        Task currTask = tasks.getTask(taskNum);
+        tasks.delTask(taskNum);
+        saveTasks();
+        return ui.showMessage("Noted, removing this task:\n " + currTask
+                + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
+    }
 
-            // Delete task and update tasks
-            tasks.delTask(taskNum);
-            storage.saveTasks(tasks);
-            return ui.showMessage("Noted, removing this task:\n " + currTask
-                    + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new BobException("The task number provided is invalid.");
+    /**
+     * Returns the command type of the last user input processed.
+     *
+     * @return The command type.
+     */
+    public static Command getCommandType() {
+        return commandType;
+    }
+
+    /**
+     * Splits the task details into different parts based on the provided split parameters.
+     *
+     * @param taskDetails The string containing task details.
+     * @param numParams The number of parameters
+     * @return A string array containing the separated task details.
+     * @throws BobException If there are missing details or the format is incorrect.
+     */
+    private static String[] splitTaskDetails(String taskDetails, int numParams) throws BobException {
+        try {
+            String[] params = taskDetails.split(" /");
+            for (int i = 1; i < numParams; i++) {
+                params[i] = params[i].split(" ", 2)[1];
+            }
+            return params;
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("You may have missing details or wrong format!");
+        }
+    }
+
+    /**
+     * Saves the tasks to the storage.
+     *
+     * @throws BobException If an error occurs while saving tasks.
+     */
+    private static void saveTasks() throws BobException {
+        storage.saveTasks(tasks);
+    }
+
+    /**
+     * Adds a task to the task list and saves it to storage.
+     *
+     * @param task The task to be added.
+     * @throws BobException If an error occurs while saving tasks.
+     */
+    private static void addTaskAndSave(Task task) throws BobException {
+        tasks.addTask(task);
+        saveTasks();
+    }
+
+    /**
+     * Validates the task details and ensures they are not missing.
+     *
+     * @param taskDetails The task details to validate.
+     * @param format The format in which the task should be provided.
+     * @throws BobException If task details are missing.
+     */
+    private static void validateTaskDetails(String taskDetails, String format) throws BobException {
+        if (taskDetails.isEmpty()) {
+            throw new BobException("Missing details!\n" + format);
+        }
+    }
+
+    /**
+     * Validates the keyword provided for the "FIND" command.
+     *
+     * @param keyword The keyword to search for.
+     * @throws BobException If the keyword is empty.
+     */
+    private static void validateKeyword(String keyword) throws BobException {
+        if (keyword.isEmpty()) {
+            throw new BobException("Please provide a keyword or a phrase.");
+        }
+    }
+
+    /**
+     * Validates the provided dates to ensure valid dates.
+     * The end date should be before the start date and both dates should be in the future.
+     *
+     * @param from The start date.
+     * @param to The end date.
+     * @throws BobException If the end date is before the start date or either date is in the past.
+     */
+    private static void validateEventDates(LocalDateTime from, LocalDateTime to) throws BobException {
+        if (to.isBefore(from)) {
+            throw new BobException("The end date cannot be before the start date. Please try again.");
         }
     }
 }

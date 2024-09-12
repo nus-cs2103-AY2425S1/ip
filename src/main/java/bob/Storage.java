@@ -34,10 +34,10 @@ public class Storage {
      * @throws BobException If the directory cannot be created.
      */
     private static void ensureDataDirectoryExists() throws BobException {
-        File dataDir = new File(filePath).getParentFile();
-        if (dataDir != null && !dataDir.exists()) {
-            if (!dataDir.mkdir()) {
-                throw new BobException("Failed to create directory: " + dataDir.getAbsolutePath());
+        File dataDirectory = new File(filePath).getParentFile();
+        if (dataDirectory != null && !dataDirectory.exists()) {
+            if (!dataDirectory.mkdir()) {
+                throw new BobException("Failed to create directory: " + dataDirectory.getAbsolutePath());
             }
         }
     }
@@ -49,9 +49,9 @@ public class Storage {
      * @throws BobException If file is not found.
      */
     public List<Task> load() throws BobException {
+        File file = new File(filePath);
+        List<Task> taskList = new ArrayList<>();
         try {
-            List<Task> taskList = new ArrayList<>();
-            File file = new File(filePath);
             Scanner s = new Scanner(file);
 
             // Load each task
@@ -60,10 +60,14 @@ public class Storage {
                 Task task = Parser.parseTask(taskLine);
                 taskList.add(task);
             }
-            return taskList;
         } catch (FileNotFoundException e) {
             throw new BobException("No saved tasks found.");
         }
+
+        if (taskList.isEmpty()) {
+            throw new BobException("No saved tasks found.");
+        }
+        return taskList;
     }
 
     /**
@@ -73,8 +77,8 @@ public class Storage {
      * @throws BobException If an error occurs while saving the tasks.
      */
     public void saveTasks(TaskList taskList) throws BobException {
+        ensureDataDirectoryExists();
         try {
-            ensureDataDirectoryExists();
             FileWriter fw = new FileWriter(filePath);
 
             // Save each task

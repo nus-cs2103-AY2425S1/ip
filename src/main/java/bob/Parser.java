@@ -1,5 +1,6 @@
 package bob;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,6 +15,24 @@ import bob.task.ToDo;
  * The Parser class provides methods to parse commands and tasks, and to format date and time.
  */
 public class Parser {
+    /** The date-time format used for parsing and formatting. */
+    // private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    /**
+     * Extracts and returns the task details from the user input string.
+     *
+     * @param userInput The input string from the user.
+     * @return The task details as a string.
+     */
+    public static String getTaskDetails(String userInput) {
+        String[] args = userInput.split(" ", 2);
+        if (args.length < 2) {
+            return "";
+        }
+        return args[1].trim();
+    }
 
     /**
      * Parses the user input to obtain the corresponding command.
@@ -37,10 +56,10 @@ public class Parser {
     /**
      * Parses a string representation of a task to create and return a {@link Task} object.
      * The string should be in a specific format, with task details separated by commas. The task type
-     * determines the type of {@link Task} to be created (ToDo, Deadline, or Event).
+     * determines the type of Task to be created (ToDo, Deadline, or Event).
      *
      * @param line The string representation of the task.
-     * @return A {@link Task} object corresponding to the parsed details.
+     * @return A Task object corresponding to the parsed details.
      * @throws BobException If task type is unknown or incorrect format.
      */
     public static Task parseTask(String line) throws BobException {
@@ -68,17 +87,36 @@ public class Parser {
     }
 
     /**
-     * Extracts and returns the task details from the user input string.
+     * Parses the task number from the user input.
      *
-     * @param userInput The input string from the user.
-     * @return The task details as a string.
+     * @param taskDetails The string containing the task number.
+     * @return The parsed task number as an integer.
+     * @throws BobException If the task number is invalid or missing.
      */
-    public static String getTaskDetails(String userInput) {
-        String[] args = userInput.split(" ", 2);
-        if (args.length < 2) {
-            return "";
+    public static int parseTaskNumber(String taskDetails) throws BobException {
+        if (taskDetails.isEmpty()) {
+            throw new BobException("Please provide a task number.");
         }
-        return args[1].trim();
+        try {
+            return Integer.parseInt(taskDetails);
+        } catch (NumberFormatException e) {
+            throw new BobException("The task number provided is invalid.");
+        }
+    }
+
+    /**
+     * Parses a date string into a LocalDate object.
+     *
+     * @param dateStr The date string to be parsed.
+     * @return The parsed LocalDate object.
+     * @throws BobException If the date format is invalid.
+     */
+    public static LocalDate parseDate(String dateStr) throws BobException {
+        try {
+            return LocalDate.parse(dateStr, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new BobException("Invalid date format. Required format: relevant yyyy-MM-dd\"");
+        }
     }
 
     /**
@@ -91,8 +129,12 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws BobException {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            return LocalDateTime.parse(dateTimeStr, formatter);
+
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
+            if (dateTime.isBefore(LocalDateTime.now())) {
+                throw new BobException("Oops! The date you provided is in the past. Kindly provide a future date.");
+            }
+            return dateTime;
         } catch (DateTimeParseException e) {
             throw new BobException(
                     "Please provide the correct date and 24-hour time format: yyyy-mm-dd HHmm\n"
@@ -101,13 +143,12 @@ public class Parser {
     }
 
     /**
-     * Converts a {@link LocalDateTime} object to its string representation.
+     * Converts a LocalDateTime object to its string representation.
      *
-     * @param dateTimeStr The {@link LocalDateTime} object to be formatted.
+     * @param dateTimeStr The LocalDateTime object to be formatted.
      * @return The string representation of the date and time.
      */
     public static String getDateTimeStr(LocalDateTime dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return dateTimeStr.format(formatter);
+        return dateTimeStr.format(DATE_TIME_FORMATTER);
     }
 }

@@ -8,7 +8,7 @@ import bob.Parser;
 
 /**
  * Represents a Deadline task.
- * <p>
+ * </p>
  * A Deadline task is a type of task that has a description, a completion status, and a due date.
  */
 public class Deadline extends Task {
@@ -52,7 +52,6 @@ public class Deadline extends Task {
      *
      * @return A string representation of the Deadline task to be saved.
      */
-    @SuppressWarnings("checkstyle:SingleSpaceSeparator")
     public String getTaskLine() {
         return getSymbol() +  "," + isDoneBinary() + "," + description + "," + Parser.getDateTimeStr(by);
     }
