@@ -1,6 +1,7 @@
 package juno.command;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
@@ -50,13 +51,10 @@ public class FindCommand extends Command {
         return outString.toString();
     }
     private ArrayList<Task> findTask(String taskString) {
-        ArrayList<Task> tasksFound = new ArrayList<>();
-        for (Task task : this.tasks) {
-            if (task.getDescription().toLowerCase().contains(taskString.toLowerCase())
-                    || task.getTaskType().toLowerCase().contains(taskString.toLowerCase())) {
-                tasksFound.add(task);
-            }
-        }
+        ArrayList<Task> tasksFound = this.tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(taskString.toLowerCase())
+                        || task.getTaskType().toLowerCase().contains(taskString.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
         return tasksFound;
     }
 }

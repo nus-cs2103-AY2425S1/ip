@@ -1,6 +1,8 @@
 package juno.command;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
@@ -39,19 +41,18 @@ public class ListCommand extends Command {
             throw new TaskManagerException("\uD83C\uDF31 No tasks added yet! "
                     + "Why not plant the first seed? \uD83C\uDF31", TaskManagerException.ErrorType.EMPTY_LIST);
         }
-
         StringBuilder outString = new StringBuilder("Here's a rundown of all your tasks! \uD83D\uDE0A");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            String formmattedString = String.format(
-                    "%d. %s", (i + 1),
-                    this.tasks.get(i).toString()
-            );
-            outString.append("\n").append(formmattedString);
-        }
+
+        String taskList = IntStream.range(0, this.tasks.size())
+                .mapToObj(i -> String.format("%d. %s", (i + 1), this.tasks.get(i).toString()))
+                .collect(Collectors.joining("\n"));
+
         outString.append("\n")
-                 .append("\uD83C\uDFAF You have ")
-                 .append(this.tasks.size())
-                 .append(" tasks in the list. Keep going!");
+                .append(taskList)
+                .append("\n")
+                .append("\uD83C\uDFAF You have ")
+                .append(this.tasks.size())
+                .append(" tasks in the list. Keep going!");
         return outString.toString();
     }
 }
