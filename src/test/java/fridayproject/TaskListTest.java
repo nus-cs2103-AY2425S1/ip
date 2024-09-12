@@ -1,13 +1,13 @@
 package fridayproject;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     private TaskList taskList;
 
-    @Before
+    @BeforeEach  
     public void setUp() {
         taskList = new TaskList();
     }
@@ -16,8 +16,8 @@ public class TaskListTest {
     public void testAddTask() {
         Tasks todo = new Todo("Read book");
         taskList.addTask(todo);
-        assertEquals(1, taskList.size());
-        assertEquals("Read book", taskList.getTask(0).getDescription());
+        assertEquals(1, taskList.size(), "The size of task list should be 1 after adding a task.");
+        assertEquals("Read book", taskList.getTask(0).description, "The task description should match.");
     }
 
     @Test
@@ -25,7 +25,7 @@ public class TaskListTest {
         Tasks todo = new Todo("Read book");
         taskList.addTask(todo);
         Tasks deletedTask = taskList.deleteTask(0);
-        assertEquals("Read book", deletedTask.getDescription());
-        assertEquals(0, taskList.size());
+        assertEquals("Read book", deletedTask.description, "The description of the deleted task should match.");
+        assertEquals(0, taskList.size(), "The size of task list should be 0 after deleting a task.");
     }
 }
