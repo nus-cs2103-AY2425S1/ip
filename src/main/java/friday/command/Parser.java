@@ -46,19 +46,20 @@ public class Parser {
      * @return The corresponding Command object.
      * @throws FridayException If there is an issue with the command's arguments.
      */
-    private static Command createCommand(CommandType commandType, String[] inputs, String fullCommand) throws FridayException {
+    private static Command createCommand(CommandType commandType, String[] inputs, String fullCommand)
+            throws FridayException {
         return switch (commandType) {
-            case BYE -> new ByeCommand();
-            case HELP -> createHelpCommand(inputs);
-            case LIST -> createListCommand(inputs);
-            case MARK, UNMARK -> createMarkUnmarkCommand(inputs);
-            case TODO -> createTodoCommand(fullCommand);
-            case DEADLINE -> createDeadlineCommand(fullCommand);
-            case EVENT -> createEventCommand(fullCommand);
-            case DELETE -> createDeleteCommand(inputs);
-            case FIND -> new FindCommand(inputs);
-            default -> throw new FridayException("Invalid input. Please ensure that this command is supported by me"
-                    + " and you have utilized the right syntax.\nCheck 'help' for more information.");
+        case BYE -> new ByeCommand();
+        case HELP -> createHelpCommand(inputs);
+        case LIST -> createListCommand(inputs);
+        case MARK, UNMARK -> createMarkUnmarkCommand(inputs);
+        case TODO -> createTodoCommand(fullCommand);
+        case DEADLINE -> createDeadlineCommand(fullCommand);
+        case EVENT -> createEventCommand(fullCommand);
+        case DELETE -> createDeleteCommand(inputs);
+        case FIND -> new FindCommand(inputs);
+        default -> throw new FridayException("Invalid input. Please ensure that this command is supported by me"
+                + " and you have utilized the right syntax.\nCheck 'help' for more information.");
         };
     }
 

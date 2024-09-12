@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import friday.task.Deadline;
 import friday.task.TaskList;
 import friday.task.Todo;
 import friday.util.FridayException;

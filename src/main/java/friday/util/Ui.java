@@ -27,16 +27,16 @@ public class Ui {
      * @return {@code true} to indicate that the help message was shown.
      */
     public String showHelp() {
-        return "Here are the list of commands that I support:" + getHelpCommand() +
-                getListCommand() +
-                getMarkCommand() +
-                getUnmarkCommand() +
-                getTodoCommand() +
-                getDeadlineCommand() +
-                getEventCommand() +
-                getDeleteCommand() +
-                getFindCommand() +
-                getByeCommand();
+        return "Here are the list of commands that I support:" + getHelpCommand()
+                + getListCommand()
+                + getMarkCommand()
+                + getUnmarkCommand()
+                + getTodoCommand()
+                + getDeadlineCommand()
+                + getEventCommand()
+                + getDeleteCommand()
+                + getFindCommand()
+                + getByeCommand();
     }
 
     private String getHelpCommand() {
