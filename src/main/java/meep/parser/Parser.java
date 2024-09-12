@@ -49,6 +49,7 @@ public class Parser {
      * @return The suffix for the day.
      */
     private String getDayOfMonthSuffix(int day) {
+        assert day >= 1 && day <= 31 : "Day should be between 1 and 31";
         if (day >= 11 && day <= 13) {
             return "th";
         }
