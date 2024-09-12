@@ -47,7 +47,16 @@ public class StoredList {
      * @return The message if successful in removing a Task.
      */
     public String removeItem(int index) {
+<<<<<<< HEAD
         String message = LINE_BREAK
+=======
+<<<<<<< HEAD
+        assert index < this.getSize() : "Accessing item not in list";
+        String message = "____________________________________________________________\n"
+=======
+        String message = LINE_BREAK
+>>>>>>> 749b9d28a174100c7e78501f3051de16f0eae133
+>>>>>>> master
                 + "Noted. I've removed this task:\n"
                 + this.getItem(index) + "\n"
                 + "Now you have " + this.getSize() + " task in the list.\n"
