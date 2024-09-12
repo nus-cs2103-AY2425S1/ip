@@ -205,4 +205,11 @@ public class CancelGpt {
     public List<Task> getTasks() {
         return this.tasksList.getTasksList();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Cancelgpt heard: " + input;
+    }
 }

@@ -12,6 +12,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.nio.file.Paths;
+
 /**
  * Test GUI.
  */
@@ -26,6 +28,8 @@ public class Gui extends Application {
             .getResourceAsStream("/images/User.png"));
     private Image cancelGptImage = new Image(this.getClass()
             .getResourceAsStream("/images/CancelGpt.jpg"));
+    private CancelGpt cancelGpt = new CancelGpt(Paths.get(System
+        .getProperty("user.home"), "accountexeregister-ip", "data"));
 
     @Override
     public void start(Stage stage) {
@@ -94,7 +98,12 @@ public class Gui extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String dukeText = cancelGpt.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(dukeText, cancelGptImage)
+        );
         userInput.clear();
     }
 }
