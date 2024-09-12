@@ -11,6 +11,8 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 /**
@@ -99,16 +101,14 @@ public class Cloudy {
      * @param tasks The TaskList containing all the tasks to be displayed.
      */
     public String showList(TaskList tasks) {
-        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
+
         assert tasks != null : "TaskList should not be null";
 
-        for (int i = 0; i < tasks.size(); i++) {
-            output.append(i + 1)
-                    .append(". ")
-                    .append(tasks.getTask(i).printTaskOnList())
-                    .append("\n");
-        }
-        return output.toString();
+        return "Here are the tasks in your list:\n"
+                + IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.getTask(i).printTaskOnList())
+                .collect(Collectors.joining("\n"));
+
     }
 
     private String handleFindCommand(Command command) {
@@ -119,21 +119,15 @@ public class Cloudy {
                 return showInvalidCommand();
             }
             ArrayList<Task> matchingTasks = tasks.findTasks(searchDescription);
+          
+            return "Here are the matching tasks in your list:\n" +
+                    IntStream.range(0, matchingTasks.size())
+                            .mapToObj(i -> (i + 1) + ". " + matchingTasks.get(i).printTaskOnList())
+                            .collect(Collectors.joining("\n"));
 
-            StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
-
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                output.append(i + 1)
-                        .append(". ")
-                        .append(matchingTasks.get(i).printTaskOnList())
-                        .append("\n");
-            }
-            return output.toString();
         } catch (Exception e) {
             return "An error occurred while processing the find command.";
         }
-
-
     }
 
     private String handleMarkCommand(Command command) {
