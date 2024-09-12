@@ -20,7 +20,7 @@ public class Decoder {
     public static Task decode(String s) throws NahException {
         String[] command = s.split("\\|", 3);
         if (command[0].trim().equals("T")) {
-
+            assert command[0].trim().equals("T") : "the command symbol should be T";
             if (command.length < 3
                     || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
                     || command[2].trim().isEmpty()) {
@@ -33,6 +33,7 @@ public class Decoder {
             return t;
         }
         if (command[0].trim().equals("D")) {
+            assert command[0].trim().equals("D") : "the command symbol should be D";
             if (command.length < 3
                     || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
                     || command[2].trim().isEmpty()) {
@@ -57,6 +58,7 @@ public class Decoder {
         }
 
         if (command[0].trim().equals("E")) {
+            assert command[0].trim().equals("E") : "the command symbol should be E";
             if (command.length < 3
                     || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
                     || command[2].trim().isEmpty()) {
@@ -76,6 +78,7 @@ public class Decoder {
                         .parse(time[0].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
                 LocalDateTime end = LocalDateTime
                         .parse(time[1].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
+                assert start.isBefore(end) : "Start time must be before End time";
                 Task t = new Task.Events(des[0].trim(), start, end);
                 if (command[1].trim().equals("1")) {
                     t.mark();
