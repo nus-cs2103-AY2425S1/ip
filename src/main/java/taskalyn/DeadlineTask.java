@@ -40,7 +40,8 @@ public class DeadlineTask extends Task {
     @Override
     public String toDatabaseFormat() {
         DateTimeFormatter databaseFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        return "D | " + (this.isCompleted() ? "1" : "0") + " | " + this.getTaskDescription() + " | "
-                + this.deadline.format(databaseFormatter);
+        return "D | " + (this.isCompleted() ? "1" : "0")
+                + " | " + this.getTaskDescription()
+                + " | " + this.deadline.format(databaseFormatter);
     }
 }

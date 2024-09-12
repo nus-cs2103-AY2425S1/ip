@@ -66,15 +66,4 @@ public class Database {
     public List<String> readFromDatabase() throws IOException {
         return Files.readAllLines(FILE_PATH);
     }
-
-    /**
-     * Returns the total number of tasks in the database.
-     *
-     * @return Number of tasks in database.
-     * @throws IOException If an error happens while reading.
-     */
-    public int getDatabaseSize() throws IOException {
-        List<String> textLines = readFromDatabase();
-        return textLines.size();
-    }
 }
