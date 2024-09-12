@@ -11,9 +11,8 @@ public class Ui {
      * @return A hi statement.
      */
     public String greetings() {
-        String greetings = "Hello! I'm Henry\n"
+        return "Hello! I'm Henry\n"
                 + "What can I do for you?\n";
-        return greetings;
     }
 
     /**
@@ -22,8 +21,7 @@ public class Ui {
      * @return An exit statement.
      */
     public String bye() {
-        String bye = "Bye. Hope to see you again soon!";
-        return bye;
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
