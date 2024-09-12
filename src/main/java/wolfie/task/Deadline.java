@@ -1,7 +1,9 @@
 package wolfie.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
@@ -18,7 +20,19 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, TaskType.DEADLINE, isDone);
-        this.by = by; // store the deadline
+        if (by == null || !isValidDate(by.toLocalDate())) {
+            throw new IllegalArgumentException("Invalid date provided.");
+        }
+        this.by = by; // Set the deadline of the task
+    }
+
+    private boolean isValidDate(LocalDate date) {
+        try {
+            date.toString();
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     public LocalDateTime getBy() {

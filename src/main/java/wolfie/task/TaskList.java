@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * Represents a list of tasks using ArrayList.
  */
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>(); // Initialize an empty list
@@ -28,7 +28,7 @@ public class TaskList {
             tasks.add(task);
             return true;
         } else {
-            System.out.println("Task already exists in the list." + task.getDescription());
+            System.out.println("Task already exists in the list.\n" + task.getDescription());
             return false;
         }
     }

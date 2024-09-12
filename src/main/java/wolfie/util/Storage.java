@@ -3,6 +3,7 @@ package wolfie.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,7 +23,8 @@ import wolfie.task.Todo;
  */
 public class Storage {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-    private String filePath;
+    private final String filePath;
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -40,31 +42,35 @@ public class Storage {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } else {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-                switch (type) {
-                case "T":
-                    tasks.add(new Todo(description, isDone));
-                    break;
-                case "D":
-                    LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
-                    tasks.add(new Deadline(description, by, isDone));
-                    break;
-                case "E":
-                    LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
-                    LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
-                    tasks.add(new Event(description, from, to, isDone));
-                    break;
-                default:
-                    throw new IOException("Unknown task type in file");
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(" \\| ");
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+                    switch (type) {
+                    case "T":
+                        tasks.add(new Todo(description, isDone));
+                        break;
+                    case "D":
+                        LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                        tasks.add(new Deadline(description, by, isDone));
+                        break;
+                    case "E":
+                        LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                        LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
+                        tasks.add(new Event(description, from, to, isDone));
+                        break;
+                    default:
+                        throw new IOException("Unknown task type in file");
+                    }
                 }
+            } catch (FileNotFoundException e) {
+                System.err.println("Error: File not found - " + filePath);
+            } catch (IOException e) {
+                System.err.println("Error: Unable to access file - " + filePath);
             }
-            reader.close();
         }
         return tasks;
     }
@@ -76,11 +82,14 @@ public class Storage {
      * @throws IOException If an error occurs while writing to the file.
      */
     public void save(TaskList taskList) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-        for (Task task : taskList.getTasks()) {
-            writer.write(task.toFileFormat());
-            writer.newLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Task task : taskList.getTasks()) {
+                writer.write(task.toFileFormat());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error: Unable to write to file - " + filePath);
+            throw e;
         }
-        writer.close();
     }
 }

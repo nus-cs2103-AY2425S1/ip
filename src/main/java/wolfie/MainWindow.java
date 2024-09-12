@@ -34,8 +34,12 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        showWelcome();
+        try {
+            scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+            showWelcome();
+        } catch (Exception e) {
+            System.err.println("Initialisation Error: " + e.getMessage());
+        }
     }
 
     public void setWolfie(Wolfie w) {
@@ -46,39 +50,38 @@ public class MainWindow extends AnchorPane {
      * Displays the welcome message from Wolfie.
      */
     public void showWelcome() {
-        String wolfieArt =
-                """
-                         __        __   _ _  __ _\s
-                         \\ \\      / /__| | |/ _| |
-                          \\ \\ /\\ / / _ \\ | | |_| |
-                           \\ V  V /  __/ | |  _|_|
-                            \\_/\\_/ \\___|_|_|_| (_)
-                        """;
-        String welcomeMessage = "____________________________________________________________\n"
-                + wolfieArt
-                + "\n"
-                + " Hello Dean's Lister! I'm Wolfie\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________";
-        dialogContainer.getChildren().add(DialogBox.getWolfieDialog(welcomeMessage, wolfieImage));
+        try {
+            String wolfieArt =
+                    """
+                             __        __   _ _  __ _\s
+                             \\ \\      / /__| | |/ _| |
+                              \\ \\ /\\ / / _ \\ | | |_| |
+                               \\ V  V /  __/ | |  _|_|
+                                \\_/\\_/ \\___|_|_|_| (_)
+                            """;
+            String welcomeMessage = "____________________________________________________________\n"
+                    + wolfieArt
+                    + "\n"
+                    + " Hello Dean's Lister! I'm Wolfie\n"
+                    + " What can I do for you?\n"
+                    + "____________________________________________________________";
+            dialogContainer.getChildren().add(DialogBox.getWolfieDialog(welcomeMessage, wolfieImage));
+        } catch (Exception e) {
+            System.err.println("Welcome Message Error: " + e.getMessage());
+        }
     }
-
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         System.out.println("User input: " + input); // Debugging statement
         String response;
-        boolean isError = false;
+        boolean isError = !isValidCommand(input);
 
-        if (!isValidCommand(input)) {
-            isError = true;
-        }
         try {
             response = wolfie.getResponse(input);
         } catch (Exception e) {
             isError = true;
             response = "Error: " + e.getMessage();
-            e.printStackTrace(); // Print stack trace for debugging
         }
         System.out.println("Wolfie response: " + response); // Debugging statement
         DialogBox dialogBox = isError ? DialogBox.getErrorDialog(response, wolfieImage)
@@ -96,13 +99,12 @@ public class MainWindow extends AnchorPane {
                 try {
                     Thread.sleep(5000); // Wait for 5 seconds before exiting
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.err.println("Error: " + e.getMessage());
                 }
                 Platform.exit();
             }).start();
         }
     }
-
     private boolean isValidCommand(String input) {
         return input.trim().equalsIgnoreCase("bye")
                 || input.trim().equalsIgnoreCase("list")
@@ -116,3 +118,4 @@ public class MainWindow extends AnchorPane {
                 || input.trim().equalsIgnoreCase("on");
     }
 }
+
