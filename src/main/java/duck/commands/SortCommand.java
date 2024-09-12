@@ -31,6 +31,11 @@ public class SortCommand extends Command {
     private static final String INVALID_MISSING_PARAMETER_BY = "Missing /by parameter.";
     private static final String INVALID_UNKNOWN_TARGET = "Unknown target '";
 
+    /**
+     * Constructs a SortCommand object with the specified message.
+     *
+     * @param message The message containing the target and criterion for sorting tasks.
+     */
     public SortCommand(String message) {
         super(message);
     }

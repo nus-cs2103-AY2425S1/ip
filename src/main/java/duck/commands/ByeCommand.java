@@ -1,12 +1,17 @@
 package duck.commands;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import javafx.util.Duration;
+
+
+
+
 
 /**
  * Represents a command to exit the application.
