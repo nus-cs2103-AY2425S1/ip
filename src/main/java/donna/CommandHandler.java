@@ -55,11 +55,30 @@ public class CommandHandler {
         case "add":
             return handleAdd(result.getArgument1(), result.getArgument2());
         case "find":
-            List<Task> foundTasks = tasks.searchTasks(result.getArgument1());
-            return ui.findResults(foundTasks);
+            return handleFind(result.getArgument1());
+        case "tag":
+            return handleTag(result.getArgument1());
         default:
             throw DonnaException.invalidTaskType(commandType);
         }
+    }
+
+    /**
+     * Handles searching of tasks.
+     * Works for both tags and description.
+     *
+     * @param searchQuery The keyword to be searched.
+     * @return The result of the search.
+     */
+    private String handleFind(String searchQuery) {
+        List<Task> foundTasks;
+        if (searchQuery.trim().startsWith("#")) {
+            String tagToSearch = searchQuery.substring(1);
+            foundTasks = tasks.searchTasks(tagToSearch, true);
+        } else {
+            foundTasks = tasks.searchTasks(searchQuery, false);
+        }
+        return ui.findResults(foundTasks);
     }
 
     /**
@@ -122,6 +141,28 @@ public class CommandHandler {
             Task task = tasks.deleteTask(taskIndex);
             storage.saveTasks(tasks);
             return ui.getTaskDeletedMessage(task, tasks.getTaskCount());
+        } catch (NumberFormatException e) {
+            return ui.getErrorMessage(DonnaException.invalidTaskNumber().getMessage());
+        }
+    }
+
+    private String handleTag(String tagDescription) throws DonnaException {
+        try {
+            String[]descriptionParts = tagDescription.split(" #");
+            if (descriptionParts.length != 2) {
+                throw DonnaException.invalidTag();
+            }
+            int taskIdx = Integer.parseInt(descriptionParts[0]) - 1;
+            if (taskIdx >= tasks.size()) {
+                throw DonnaException.invalidTaskNumber();
+            }
+            String tag = descriptionParts[1];
+            if (tag.trim().isEmpty()) {
+                throw DonnaException.invalidTag();
+            }
+            Task task = tasks.get(taskIdx).setTag(tag);
+            storage.saveTasks(tasks);
+            return ui.getTaskTaggedMessage(task, tag);
         } catch (NumberFormatException e) {
             return ui.getErrorMessage(DonnaException.invalidTaskNumber().getMessage());
         }

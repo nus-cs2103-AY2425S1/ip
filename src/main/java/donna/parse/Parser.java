@@ -18,8 +18,8 @@ public class Parser {
      * @throws DonnaException If the command is invalid or not recognized.
      */
     public ParsedCommand parse(String input) throws DonnaException {
-        assert input != null && !input.trim().isEmpty() :
-                "Input should not be null or empty";
+        assert input != null && !input.trim().isEmpty()
+                : "Input should not be null or empty";
 
         String[] inputWords = input.split(" ", 2);
         String command = inputWords[0];
@@ -42,6 +42,8 @@ public class Parser {
             return new ParsedCommand("add", command, arguments);
         case "find":
             return new ParsedCommand("find", arguments);
+        case "tag":
+            return new ParsedCommand("tag", arguments);
         default:
             throw DonnaException.invalidTaskType(command);
         }

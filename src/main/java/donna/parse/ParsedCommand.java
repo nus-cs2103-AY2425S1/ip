@@ -12,13 +12,13 @@ public class ParsedCommand {
     /**
      * Constructs a ParsedCommand with the specified command type and arguments.
      *
-     * @param commandType The type of command (ex: "add").
-     * @param argument1 The first argument associated with the command. Can be null.
-     * @param argument2 The second argument associated with the command. Can be null.
+     * @param commandType The type of command (ex: "add", "tag").
+     * @param argument1 The first argument associated with the command. ex: the task type (ex: "todo").
+     * @param argument2 The second argument associated with the command. ex: the description and timings.
      */
     public ParsedCommand(String commandType, String argument1, String argument2) {
-        assert commandType != null && !commandType.trim().isEmpty() :
-                "Command type should not be null or empty";
+        assert commandType != null && !commandType.trim().isEmpty()
+                : "Command type should not be null or empty";
 
         this.commandType = commandType;
         this.argument1 = argument1;
@@ -29,7 +29,7 @@ public class ParsedCommand {
      * Constructs a ParsedCommand with the specified command type and one argument.
      *
      * @param commandType The type of command (ex: "find", "add", "delete").
-     * @param argument1 The first argument associated with the command. Can be null.
+     * @param argument1 The first argument associated with the command. Typically, the task number.
      */
     public ParsedCommand(String commandType, String argument1) {
         this(commandType, argument1, null);
