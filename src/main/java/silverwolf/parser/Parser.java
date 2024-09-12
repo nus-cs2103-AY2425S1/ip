@@ -1,6 +1,8 @@
 package silverwolf.parser;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import silverwolf.command.AddCommand;
 import silverwolf.command.Command;
@@ -34,6 +36,24 @@ public class Parser {
         String commandWord = parts[0];
         assert commandWord != null && !commandWord.isEmpty() : "Command word cannot be null or empty";
         String arguments = parts.length > 1 ? parts[1] : "";
+
+        // Define friendly aliases for commands
+        Map<String, String> aliasMap = new HashMap<>();
+        aliasMap.put("t", "todo");
+        aliasMap.put("d", "deadline");
+        aliasMap.put("e", "event");
+        aliasMap.put("x", "mark");
+        aliasMap.put("u", "unmark");
+        aliasMap.put("l","list");
+        aliasMap.put("b","bye");
+        
+        // Use aliases if present
+        commandWord = aliasMap.getOrDefault(commandWord, commandWord);
+
+        // Validate the command word
+        if (commandWord.isEmpty()) {
+            throw new SilverWolfException("Command word cannot be null or empty.");
+        }
 
         switch (commandWord) {
         case "bye":
