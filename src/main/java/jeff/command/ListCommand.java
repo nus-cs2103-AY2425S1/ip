@@ -1,5 +1,8 @@
 package jeff.command;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import jeff.Storage;
 import jeff.TaskList;
 import jeff.Ui;
@@ -13,11 +16,11 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         sb = new StringBuilder();
-        ui.showLine();
         ui.showMessage("Here are your current tasks: ");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append((i + 1) + ". " + tasks.getTask(i) + "\n");
-        }
-        ui.showMessage(sb.toString());
+        String taskListString = IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.getTask(i))
+                .collect(Collectors.joining("\n"));
+
+        ui.showMessage(taskListString);
     }
 }

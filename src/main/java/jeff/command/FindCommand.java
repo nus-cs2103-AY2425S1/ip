@@ -1,6 +1,8 @@
 package jeff.command;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import jeff.Storage;
 import jeff.TaskList;
@@ -30,24 +32,26 @@ public class FindCommand extends Command {
         if (args.isEmpty()) {
             throw new JeffException("You must provide a search term!");
         }
-        this.args = args;
+        this.args = args.trim();
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         ArrayList<Task> list = tasks.getTasks();
-        int counter = 1;
-        ui.showMessage("There are the following results that match: ");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.getTask(i).getDescription().contains(args)) {
-                ui.showMessage("" + counter + ". " + tasks.getTask(i));
-                counter++;
-            }
-        }
 
-        if (counter == 1) {
-            ui.showMessage("I guess nothing matched...");
+        // filter the tasks that match the search
+        List<Task> matchedList = list.stream()
+                .filter(task -> task.getDescription()
+                        .toLowerCase()
+                        .contains(args.toLowerCase()))
+                .toList();
+        if (matchedList.isEmpty()) {
+            ui.showMessage("There are no matching tasks...");
+            return;
         }
-
+        // print out the tasks in the list
+        ui.showMessage("The following results match: ");
+        IntStream.range(0, matchedList.size())
+                .forEach(i -> ui.showMessage((i + 1) + ". " + matchedList.get(i)));
     }
 }
