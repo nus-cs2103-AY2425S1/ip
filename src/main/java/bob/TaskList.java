@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import bob.task.Task;
 
@@ -126,26 +127,19 @@ public class TaskList {
      */
     String printRelevantTasksByDate(String dateStr) throws BobException {
         try {
-            // Process the date string
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);
 
-            // Obtain relevant tasks to be printed
-            StringBuilder sb = new StringBuilder();
-            int numRelevantTasks = 0;
+            List<Task> relevantTasks = tasks.stream()
+                    .filter(task -> task.isRelevant(date))
+                    .collect(Collectors.toList());
 
-            for (Task currTask : tasks) {
-                if (currTask.isRelevant(date)) {
-                    numRelevantTasks++;
-                    sb.append(numRelevantTasks).append(". ").append(currTask).append("\n");
-                }
-            }
-
+            String taskListStr = buildTaskListString(relevantTasks);
             DateTimeFormatter formatterWords = DateTimeFormatter.ofPattern("MMM dd yyyy");
-            sb.append("Total number of relevant tasks for ")
-                    .append(date.format(formatterWords)).append(": ").append(numRelevantTasks);
-            return sb.toString();
+            String summary = "Total number of relevant tasks for " + date.format(formatterWords) + ": "
+                    + relevantTasks.size();
 
+            return taskListStr + summary;
         } catch (DateTimeParseException e) {
             throw new BobException("Invalid date format. Required format: relevant yyyy-MM-dd");
         }
@@ -163,19 +157,28 @@ public class TaskList {
             throw new BobException("Please provide a keyword or a phrase.");
         }
 
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+
+        String taskListStr = buildTaskListString(matchingTasks);
+        String summary = "Total number of tasks containing \"" + keyword.toLowerCase() + "\": "
+                + matchingTasks.size();
+
+        return taskListStr + summary;
+    }
+
+    /**
+     * Builds a formatted string of tasks from a given list of Task objects.
+     *
+     * @param tasks The list of Task objects to format.
+     * @return A formatted string representation of the tasks.
+     */
+    private String buildTaskListString(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
-        int numMatchingTasks = 0;
-
-        for (Task currTask : tasks) {
-            String description = currTask.getDescription();
-            if (description.contains(keyword.toLowerCase())) {
-                numMatchingTasks++;
-                sb.append(numMatchingTasks).append(". ").append(currTask).append("\n");
-            }
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
-
-        sb.append("Total number of tasks containing \"").append(keyword.toLowerCase())
-                .append("\": ").append(numMatchingTasks);
         return sb.toString();
     }
 }
