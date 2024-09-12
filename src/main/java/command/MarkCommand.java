@@ -57,8 +57,10 @@ public class MarkCommand extends Command {
             Ui.say("which number task would you like me to mark as done?\n");
             return taskList;
         }
+        assert(!listToMark.isEmpty());
         for (int i : listToMark) {
             if (taskList.isValidIndex(i - 1)) {
+                assert(i < taskList.size() && i >= 0);
                 taskList = taskList.markTaskAsDone(i - 1);
                 Ui.say("Nice! I've marked this task as done:\n"
                         + taskList.get(i - 1) + "\n");

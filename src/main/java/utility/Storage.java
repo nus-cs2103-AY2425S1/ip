@@ -44,6 +44,7 @@ public class Storage {
      */
     public TaskList loadTaskList() {
         try {
+            assert(saveFile.exists());
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile));
             return (TaskList) ois.readObject();
         } catch (Exception e) {
@@ -58,6 +59,7 @@ public class Storage {
      */
     public void saveTaskList(TaskList taskList) {
         try {
+            assert(saveFile.exists());
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
             oos.writeObject(taskList);
         } catch (Exception e) {

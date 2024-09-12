@@ -58,8 +58,10 @@ public class DeleteCommand extends Command {
             Ui.say("which number task would you like me to delete?\n");
             return taskList;
         }
+        assert(!listToDelete.isEmpty());
         for (int i : listToDelete) {
             if (taskList.isValidIndex(i - 1)) {
+                assert(i < taskList.size() && i >= 0);
                 Ui.say("Noted. I've removed this task:\n"
                         + taskList.get(i - 1) + "\n");
                 taskList = taskList.deleteTask(i - 1);
