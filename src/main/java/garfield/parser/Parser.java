@@ -161,7 +161,8 @@ public class Parser {
             Deadline newDeadline = parseDeadline(inputLine);
             return new AddCommand(newDeadline);
         } catch (GarfieldException e) {
-            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: deadline <task description> /by yyyy-MM-dd HH:mm");
+            throw new GarfieldException(e.getMessage() + "\n\n"
+                    + "Correct Usage: deadline <task description> /by yyyy-MM-dd HH:mm");
         }
     }
 
@@ -177,7 +178,8 @@ public class Parser {
             Event newEvent = parseEvent(inputLine);
             return new AddCommand(newEvent);
         } catch (GarfieldException e) {
-            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: event <task description> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
+            throw new GarfieldException(e.getMessage() + "\n\n"
+                    + "Correct Usage: event <task description> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
         }
     }
 

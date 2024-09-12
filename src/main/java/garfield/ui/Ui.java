@@ -21,7 +21,7 @@ public class Ui {
      * Displays an initial greeting message on the chatbot UI.
      */
     public void showGreeting() {
-        String logo = """          
+        String logo = """
                    _____             __ _      _     _
                   / ____|           / _(_)    | |   | |
                  | |  __  __ _ _ __| |_ _  ___| | __| |

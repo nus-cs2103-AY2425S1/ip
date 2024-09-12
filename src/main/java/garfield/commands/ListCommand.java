@@ -1,6 +1,5 @@
 package garfield.commands;
 
-import garfield.exceptions.GarfieldException;
 import garfield.storage.Storage;
 import garfield.tasks.TaskList;
 import garfield.ui.Ui;

@@ -1,8 +1,8 @@
 package garfield.tasks;
 
-import garfield.exceptions.GarfieldException;
-
 import java.util.ArrayList;
+
+import garfield.exceptions.GarfieldException;
 
 /**
  * The TaskList class represents a list of Tasks.
@@ -11,13 +11,13 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a new empty TaskList.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -27,7 +27,7 @@ public class TaskList {
      * @param taskList ArrayList of task.Task objects.
      */
     public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+        this.tasks = taskList;
     }
 
     /**
@@ -38,9 +38,9 @@ public class TaskList {
      */
     public String list() {
         StringBuilder listSummary = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             listSummary.append((i + 1)).append(". ")
-                    .append(taskList.get(i).toString()).append("\n");
+                    .append(tasks.get(i).toString()).append("\n");
 
         }
         return listSummary.toString();
@@ -55,7 +55,7 @@ public class TaskList {
     public String listKeywordTasks(String keyword) {
         int count = 0;
         StringBuilder result = new StringBuilder();
-        for (Task task: this.taskList) {
+        for (Task task: this.tasks) {
             if (task.hasKeyword(keyword)) {
                 count++;
                 result.append(count).append(". ")
@@ -71,7 +71,7 @@ public class TaskList {
      * @return {@code true} if the TaskList is empty; {@code false} otherwise.
      */
     public boolean isEmpty() {
-        return taskList.isEmpty();
+        return tasks.isEmpty();
     }
 
     /**
@@ -80,7 +80,7 @@ public class TaskList {
      * @return The number of tasks in the TaskList.
      */
     public int size() {
-        return taskList.size();
+        return tasks.size();
     }
 
     /**
@@ -89,7 +89,7 @@ public class TaskList {
      * @return The {@link ArrayList} of tasks.
      */
     public ArrayList<Task> getArrayList() {
-        return this.taskList;
+        return this.tasks;
     }
 
     /**
@@ -98,7 +98,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
-        this.taskList.add(task);
+        this.tasks.add(task);
     }
 
     /**
@@ -110,7 +110,7 @@ public class TaskList {
      */
     public String delete(int taskId) throws GarfieldException {
         Task task = this.get(taskId);
-        taskList.remove(task);
+        tasks.remove(task);
         return task.toString();
     }
 
@@ -148,10 +148,10 @@ public class TaskList {
      * @throws GarfieldException If the task at the specified index does not exist.
      */
     private Task get(int taskId) throws GarfieldException {
-        if (taskId > taskList.size()) {
+        if (taskId > tasks.size()) {
             throw new GarfieldException("The task doesn't exist!");
         }
 
-        return taskList.get(taskId - 1);
+        return tasks.get(taskId - 1);
     }
 }

@@ -73,7 +73,8 @@ public class Storage {
                     }
                     break;
                 case "E":
-                    Event newEvent = new Event(taskDetails[2], this.parseDateTime(taskDetails[3]), this.parseDateTime(taskDetails[4]));
+                    Event newEvent = new Event(taskDetails[2], this.parseDateTime(taskDetails[3]),
+                            this.parseDateTime(taskDetails[4]));
                     taskList.add(newEvent);
                     if (taskDetails[1].equals("1")) {
                         newEvent.markAsDone();

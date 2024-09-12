@@ -30,11 +30,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(uiFormatter) + " to: " + this.to.format(uiFormatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(uiFormatter) + " to: "
+                + this.to.format(uiFormatter) + ")";
     }
 
     @Override
     public String toSaveRepresentation() {
-        return "E | " + super.toSaveRepresentation() + " | " + this.from.format(saveFormatter) + " | " + this.to.format(saveFormatter);
+        return "E | " + super.toSaveRepresentation() + " | " + this.from.format(saveFormatter) + " | "
+                + this.to.format(saveFormatter);
     }
 }
