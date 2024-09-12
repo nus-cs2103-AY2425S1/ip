@@ -36,19 +36,22 @@ public class Storage {
             fileScanner.close();
         } catch (FileNotFoundException e) {
             this.createDatabase();
-        } finally {
-            return tasks;
         }
+        return tasks;
     }
 
     private void createDatabase() throws FRIDAYException {
         File db = new File(this.filePath);
         File dir = new File(db.getParent());
-        dir.mkdir();
+        if (!dir.mkdir()) {
+            throw new FRIDAYException("Failed to create database");
+        }
         try {
-            db.createNewFile();
+            if (!db.createNewFile()) {
+                throw new FRIDAYException("Failed to create database file");
+            }
         } catch (IOException e) {
-            throw new FRIDAYException("Error creating database");
+            System.out.println("Error occured creating database");
         }
     }
 
