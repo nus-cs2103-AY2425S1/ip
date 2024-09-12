@@ -1,6 +1,7 @@
 package ahmad.processor.task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -11,12 +12,20 @@ import java.util.stream.Stream;
 public class TaskList {
     private static final List<Task> list = new ArrayList<Task>();
 
+
     private static List<String> getStringList(List<Task> list) {
         if (list.isEmpty()) {
             return List.of("No items!");
         }
         return List.of(IntStream.range(0, list.size()).mapToObj(i -> (i + 1) + ". " + list.get(i))
                 .reduce("", (acc, cur) -> acc + '\n' + cur));
+    }
+
+
+    public static List<String> getStringList(Comparator<Task> comparator) {
+        final List<Task> sortedList = new ArrayList<Task>(TaskList.list);
+        sortedList.sort(comparator);
+        return getStringList(sortedList);
     }
 
     /**

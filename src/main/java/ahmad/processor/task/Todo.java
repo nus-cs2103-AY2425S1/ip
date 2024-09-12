@@ -18,6 +18,11 @@ public class Todo extends Task {
     }
 
     @Override
+    protected long getTime() {
+        return -1;
+    }
+
+    @Override
     public Todo mark() {
         return new Todo(this, true);
     }

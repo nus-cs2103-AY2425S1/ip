@@ -1,5 +1,7 @@
 package ahmad.processor.task;
 
+import java.util.Arrays;
+
 import ahmad.exceptions.list.ListInvalidArgsException;
 import ahmad.response.Response;
 
@@ -15,9 +17,16 @@ public class List {
      * @throws ListInvalidArgsException If the prompt is invalid.
      */
     public static Response process(String prompt) throws ListInvalidArgsException {
-        if (prompt.length() != 4) {
+        java.util.List<String> prompts = Arrays.asList(prompt.split(" "));
+
+        if (prompts.size() > 2 || (prompts.size() == 2 && !prompts.get(1).equals("sorted"))) {
             throw new ListInvalidArgsException();
         }
+
+        if (prompts.size() > 1 && prompts.get(1).equals("sorted")) {
+            return new Response(ahmad.processor.task.TaskList.getStringList(Task::compareTimeAscending));
+        }
+
         return new Response(ahmad.processor.task.TaskList.getStringList());
     }
 }

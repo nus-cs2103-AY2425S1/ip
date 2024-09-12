@@ -1,6 +1,8 @@
 package ahmad.processor.task;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 /**
  * Event class that extends from Task.
@@ -26,6 +28,11 @@ public class Event extends Task {
         super(a, state);
         this.from = a.from;
         this.to = a.to;
+    }
+
+    @Override
+    protected long getTime() {
+        return this.from.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     @Override

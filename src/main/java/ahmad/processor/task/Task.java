@@ -137,6 +137,22 @@ public abstract class Task {
     }
 
     /**
+     * Compares two different task based on time ascendingly
+     *
+     * @param a First task to be compared
+     * @param b Second task to be compared
+     * @return Based on comparator function
+     */
+    public static int compareTimeAscending(Task a, Task b) {
+        long aTime = a.getTime();
+        long bTime = b.getTime();
+
+        return aTime - bTime < 0 ? -1 : 1;
+    }
+
+    protected abstract long getTime();
+
+    /**
      * Marks current task as done.
      *
      * @return new, immutable task.

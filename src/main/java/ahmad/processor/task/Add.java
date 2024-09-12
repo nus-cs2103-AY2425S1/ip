@@ -1,8 +1,5 @@
 package ahmad.processor.task;
 
-import java.util.Arrays;
-import java.util.List;
-
 import ahmad.exceptions.deadline.DeadlineEmptyNameException;
 import ahmad.exceptions.deadline.DeadlineInvalidArgsException;
 import ahmad.exceptions.deadline.DeadlineInvalidTimeException;
