@@ -20,6 +20,7 @@ public class Eevee {
      * @param filePath The storage file path.
      */
     public Eevee(String filePath) {
+        assert filePath != null;
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
@@ -46,9 +47,10 @@ public class Eevee {
     }
 
     public String getResponse(String input) {
+        assert !input.isEmpty();
         try {
             Parser.Command command = parser.parseCommand(input);
-
+            assert command != null;
             switch (command) {
             case BYE:
                 return ui.getExit();
@@ -56,6 +58,7 @@ public class Eevee {
                 return tasks.listTasks();
             case MARK: {
                 int taskNumber = parser.parseTaskNumber(input);
+                assert taskNumber > 0 && taskNumber < tasks.getSize();
                 Task t = tasks.getTask(taskNumber);
                 if (t.isDone) {
                     throw new EeveeException("Task has already been marked as done.");
@@ -66,6 +69,7 @@ public class Eevee {
             }
             case UNMARK: {
                 int taskNumber = parser.parseTaskNumber(input);
+                assert taskNumber > 0 && taskNumber < tasks.getSize();
                 Task t = tasks.getTask(taskNumber);
                 if (!t.isDone) {
                     throw new EeveeException("Task is not marked as done. "
@@ -77,6 +81,7 @@ public class Eevee {
             }
             case DELETE: {
                 int taskNumber = parser.parseTaskNumber(input);
+                assert taskNumber > 0 && taskNumber < tasks.getSize();
                 Task t = tasks.getTask(taskNumber);
                 tasks.removeTask(taskNumber);
                 storage.saveTasks(tasks);
