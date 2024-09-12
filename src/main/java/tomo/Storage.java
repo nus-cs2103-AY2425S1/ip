@@ -12,12 +12,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles loading tasks from and storing tasks to from file 
+*/
+
 public class Storage {
     private File file;
     public Storage(String fileName) {
         this.file = new File(fileName);
     }
 
+    /**
+     * Loads the task list from file
+     * 
+     * @return The task list loaded from the file 
+     * @throws StorageException If the storage file is not found
+     */
     public TaskList load() throws StorageException {
         TaskList tasks = new TaskList();
         Scanner scanner;
@@ -57,6 +67,12 @@ public class Storage {
         return tasks;
     }
     
+    /**
+     * Stores the task into file
+     * 
+     * @param tasks The task list to be stored 
+     * @throws StorageException When encounters problem when trying writing to file
+     */
     public void store(TaskList tasks) throws StorageException {
         FileWriter writer; 
         try {
