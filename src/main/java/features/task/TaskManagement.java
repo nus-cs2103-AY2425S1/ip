@@ -1,6 +1,8 @@
 package features.task;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import config.Config;
 import data.TaskDAO;
 
@@ -60,29 +62,31 @@ public class TaskManagement {
 	 * @return a string representing all tasks
 	 */
 	public String getPrintTasks() {
-		StringBuilder res = new StringBuilder();
 		List<Task> tasks = taskDAO.getAllTasks();
 
-		for (int i = 0; i < tasks.size(); i++ ) {
-			Task t = tasks.get(i);
-			res.append(Config.INDENTATION).append(i + 1).append(". ").append(t);
-			if (i != tasks.size() - 1) {
-				res.append("\n");
-			}
-		}
-		return res.toString();
+		return getPrintTasks(tasks);
 	}
 
+	/**
+	 * Returns a formatted string of all tasks, suitable for printing.
+	 *
+	 * @param tasks the tasks to be printed
+	 * @return a string representing all tasks
+	 */
 	public String getPrintTasks(List<Task> tasks) {
 		StringBuilder res = new StringBuilder();
 
-		for (int i = 0; i < tasks.size(); i++ ) {
-			Task t = tasks.get(i);
-			res.append(Config.INDENTATION).append(i + 1).append(". ").append(t);
-			if (i != tasks.size() - 1) {
-				res.append("\n");
-			}
-		}
+		AtomicInteger sizeTracker = new AtomicInteger();
+		tasks.stream()
+				.map(t -> Config.INDENTATION + (tasks.indexOf(t) + 1) + ". " + t)
+				.forEach(t -> {
+					res.append(t);
+					if (sizeTracker.get() != length - 1) {
+						res.append("\n");
+					}
+					sizeTracker.getAndIncrement();
+				});
+
 		return res.toString();
 	}
 
