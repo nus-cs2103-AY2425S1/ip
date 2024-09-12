@@ -16,9 +16,7 @@ public class FindCommand extends Command {
      *              on the Ui instance that is passed
      * @param ui Ui instance to break down the command sent so that the
      *           users searched description can be looked for in the for loop
-     *           for the TaskList instance. Ui instance is also called upon to
-     *           display the appropriate response by passing it an instance of the
-     *           TaskList named foundTasks, which are the tasks found.
+     *           for the TaskList instance.
      * @param storage Storage instance that is not needed but still included
      *                as this is an abstract method that is overriden
      */

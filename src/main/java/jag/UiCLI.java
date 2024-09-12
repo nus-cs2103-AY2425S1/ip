@@ -17,6 +17,11 @@ public class UiCLI extends Ui {
 
     private String command;
 
+    private void readNextCommand() {
+        command = scanner.nextLine();
+        setCommand(command);
+    }
+
     @Override
     public void showLoadingError() {
         System.out.println(this.loadingError);;
@@ -48,10 +53,10 @@ public class UiCLI extends Ui {
      */
     @Override
     public void showError(String e) {
-        System.out.println(this.dashed);
+        showLine();
         System.out.println(e);
-        System.out.println(this.dashed);
-        command = scanner.nextLine();
+        showLine();
+        readNextCommand();
     }
 
     @Override
@@ -65,7 +70,7 @@ public class UiCLI extends Ui {
     @Override
     public void showWelcome() {
         System.out.println(greetings);
-        this.command = scanner.nextLine();
+        readNextCommand();
     }
 
     @Override
@@ -184,11 +189,11 @@ public class UiCLI extends Ui {
      */
     @Override
     public void list(String response) {
-        System.out.println(this.dashed);
+        showLine();
         System.out.println(response);
-        System.out.println(this.dashed);
+        showLine();
         setResponse(response);
-        command = scanner.nextLine();
+        readNextCommand();
     }
 
 
@@ -210,22 +215,22 @@ public class UiCLI extends Ui {
         setResponse(response);
         if (type == 'T') {
             // Response for ToDos
-            System.out.println(this.dashed);
+            showLine();
             System.out.println(response);
-            System.out.println(this.dashed);
-            command = scanner.nextLine();
+            showLine();
+            readNextCommand();
         } else if (type == 'D') {
             // Response for jag.Deadline
-            System.out.println(this.dashed);
+            showLine();
             System.out.println(response);
-            System.out.println(this.dashed);
-            command = scanner.nextLine();
+            showLine();
+            readNextCommand();
         } else {
             // Response for event
-            System.out.println(this.dashed);
+            showLine();
             System.out.println(response);
-            System.out.println(this.dashed);
-            command = scanner.nextLine();
+            showLine();
+            readNextCommand();
         }
 
     }
@@ -243,10 +248,10 @@ public class UiCLI extends Ui {
                 + "\n" + task.toString()
                 + "\n" + "Now you have " + size + " tasks in the list.";
         setResponse(response);
-        System.out.println(this.dashed);
+        showLine();
         System.out.println(response);
-        System.out.println(this.dashed);
-        command = scanner.nextLine();
+        showLine();
+        readNextCommand();
     }
 
     /**
@@ -260,10 +265,10 @@ public class UiCLI extends Ui {
         String response = "OK, I've marked this task as not done yet:"
                 + "\n" + task.toString();
         setResponse(response);
-        System.out.println(this.dashed);
+        showLine();
         System.out.println(response);
-        System.out.println(this.dashed);
-        command = scanner.nextLine();
+        showLine();
+        readNextCommand();
     }
     /**
      * Displays the right response to the user that a task has been marked
@@ -276,10 +281,10 @@ public class UiCLI extends Ui {
         String response = "Nice! I've marked this task as done:"
                 + "\n" + task.toString();
         setResponse(response);
-        System.out.println(this.dashed);
+        showLine();
         System.out.println(response);
-        System.out.println(this.dashed);
-        command = scanner.nextLine();
+        showLine();
+        readNextCommand();
     }
 
 
@@ -296,22 +301,22 @@ public class UiCLI extends Ui {
     public void findResponse(TaskList foundTasks) {
         String response;
         if (foundTasks.size() != 0) {
-            System.out.println(this.dashed);
+            showLine();
             System.out.println("Here are the matching tasks in your list: ");
             response = "Here are the matching tasks in your list: ";
             for (int i = 0; i < foundTasks.size(); i++) {
                 System.out.println((i + 1) + ". " + foundTasks.getTask(i).toString());
                 response += (i + 1) + ". " + foundTasks.getTask(i).toString();
             }
-            System.out.println(this.dashed);
+            readNextCommand();
         } else {
-            System.out.println(this.dashed);
+            readNextCommand();
             System.out.println("Sorry we could not find any matching tasks in your list");
-            System.out.println(this.dashed);
+            readNextCommand();
             response = "Sorry we could not find any matching tasks in your list";
         }
         setResponse(response);
-        command = scanner.nextLine();
+        readNextCommand();
     }
 
 
