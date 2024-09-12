@@ -85,9 +85,11 @@ public class TaskList {
      */
     public String addTask(Task t) {
         tasks.add(t);
+        assert tasks.contains(t) : "Task failed to be added to task list";
         String numOfTasks = tasks.size() == 1 ? "task" : "tasks";
         return ("Got it. I've added this task:\n" + t
                 + "\nNow you have " + tasks.size() + " " + numOfTasks + " in the list.");
+
     }
 
     /**

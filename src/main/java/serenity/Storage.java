@@ -51,6 +51,8 @@ public class Storage {
             Files.createFile(Paths.get(filePath));
         }
 
+        assert f.exists() : "File should exist.";
+
         Scanner sc = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (sc.hasNext()) {
