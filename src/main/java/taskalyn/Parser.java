@@ -13,6 +13,7 @@ import java.util.function.Function;
 public class Parser {
     private static final String TASK_DESCRIPTION = "task description";
     private static final String COMMAND_FORMAT = "command format";
+    private static final String EXPECTED_DATE_FORMAT = "dd-MM-yyyy HHmm";
     private final TaskManager taskManager;
     private final Ui ui;
 
@@ -28,39 +29,44 @@ public class Parser {
     }
 
     /**
-     * Parses user input commands and handles task management.
+     * Parses user input commands and handles command management.
      *
      * @return String stating the reply from Taskalyn.
      */
     public String parse(String input) {
         String[] items = input.trim().split(" ", 2);
-        String command = items[0];
+        String commandString = items[0];
 
         try {
+            CommandType command = CommandType.fromString(commandString);
+            if (command == null) {
+                return "Sorry bro, no clue what you're saying!";
+            }
+
             switch (command) {
-            case "bye":
+            case BYE:
                 return handleByeCommand();
-            case "list":
+            case LIST:
                 return handleListCommand();
-            case "find":
+            case FIND:
                 checkArgumentCount(items, command);
                 return handleFindCommand(items);
-            case "delete":
+            case DELETE:
                 checkArgumentCount(items, command);
                 return handleDeleteCommand(items);
-            case "mark":
+            case MARK:
                 checkArgumentCount(items, command);
                 return handleMarkCommand(items);
-            case "unmark":
+            case UNMARK:
                 checkArgumentCount(items, command);
                 return handleUnmarkCommand(items);
-            case "todo":
+            case TODO:
                 checkArgumentCount(items, command);
                 return handleTodoCommand(items);
-            case "deadline":
+            case DEADLINE:
                 checkArgumentCount(items, command);
                 return handleDeadlineCommand(items);
-            case "event":
+            case EVENT:
                 checkArgumentCount(items, command);
                 return handleEventCommand(items);
             default:
@@ -81,7 +87,7 @@ public class Parser {
     }
 
     /**
-     * Returns the list of Tasks as a String.
+     * Returns the list of tasks as a String.
      *
      * @return String containing list of tasks.
      */
@@ -100,7 +106,7 @@ public class Parser {
      */
     private String handleDeleteCommand(String[] items) throws CommandFormatException, NoSuchTaskException,
             IndexOutOfBoundsException {
-        return handleTaskOperation(items, taskManager::deleteTask, "delete");
+        return handleTaskOperation(items, taskManager::deleteTask, CommandType.DELETE);
     }
 
     /**
@@ -114,7 +120,7 @@ public class Parser {
      */
     private String handleMarkCommand(String[] items) throws CommandFormatException, NoSuchTaskException,
             IndexOutOfBoundsException {
-        return handleTaskOperation(items, taskManager::markTaskAsComplete, "mark");
+        return handleTaskOperation(items, taskManager::markTaskAsComplete, CommandType.MARK);
     }
 
     /**
@@ -128,7 +134,7 @@ public class Parser {
      */
     private String handleUnmarkCommand(String[] items) throws CommandFormatException, NoSuchTaskException,
             IndexOutOfBoundsException {
-        return handleTaskOperation(items, taskManager::markTaskAsIncomplete, "unmark");
+        return handleTaskOperation(items, taskManager::markTaskAsIncomplete, CommandType.UNMARK);
     }
 
     /**
@@ -139,77 +145,79 @@ public class Parser {
      * @throws CommandFormatException If the command format was written incorrectly.
      */
     private String handleFindCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandParameters(items[1], "find", TASK_DESCRIPTION);
+        checkForEmptyCommandParameters(items[1], CommandType.FIND, TASK_DESCRIPTION);
         assert !items[1].isEmpty() : "The keyword to be searched cannot be empty.";
         return taskManager.searchTasksByKeyword(items[1]);
     }
 
     /**
-     * Returns a message String saying that the TodoTask has been added.
+     * Adds a TodoTask and returns a message String saying that the TodoTask has been added.
      *
      * @param items The user input split by whitespace.
      * @return String saying TodoTask has been added.
      * @throws CommandFormatException Command format is incorrect.
      */
     private String handleTodoCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandParameters(items[1], "todo", TASK_DESCRIPTION);
+        checkForEmptyCommandParameters(items[1], CommandType.TODO, TASK_DESCRIPTION);
         assert !items[1].isEmpty() : "Task description cannot be empty.";
         return taskManager.addTask(new TodoTask(items[1], false));
     }
 
     /**
-     * Returns a message String saying that the DeadlineTask has been added.
+     * Adds a DeadlineTask and returns a message String saying that the DeadlineTask has been added.
      *
      * @param items The user input split by whitespace.
      * @return String saying that DeadlineTask has been added.
      * @throws CommandFormatException Command format is incorrect.
      */
     private String handleDeadlineCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandParameters(items[1], "deadline", COMMAND_FORMAT);
+        checkForEmptyCommandParameters(items[1], CommandType.DEADLINE, COMMAND_FORMAT);
 
         // Returns [taskDescription, deadlineDate]
-        String[] splitInput = splitInputOverKeyword(items[1], "/by", "deadline");
+        String[] splitInput = splitInputOverKeyword(items[1], "/by", CommandType.DEADLINE);
 
-        checkForEmptyCommandParameters(splitInput[0], "deadline", TASK_DESCRIPTION);
+        checkForEmptyCommandParameters(splitInput[0], CommandType.DEADLINE, TASK_DESCRIPTION);
 
+        // Ensures that task description is not empty
         assert !splitInput[0].isEmpty() : "Task description cannot be empty.";
 
         LocalDateTime deadlineDate = getDateTime(splitInput[1]);
 
-        String deadlineDateAsString = deadlineDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        // Ensures date and time inputs are valid
+        String deadlineDateAsString = deadlineDate.format(DateTimeFormatter.ofPattern(EXPECTED_DATE_FORMAT));
         assert deadlineDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "Date and Time format is incorrect.";
 
         return taskManager.addTask(new DeadlineTask(splitInput[0], deadlineDate, false));
     }
 
     /**
-     * Returns a message String saying that EventTask has been added.
+     * Adds an EventTask and returns a message String saying that EventTask has been added.
      *
      * @param items The user input split by whitespace.
      * @return String saying that EventTask has been added.
      * @throws CommandFormatException Command format is incorrect.
      */
     private String handleEventCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandParameters(items[1], "event", COMMAND_FORMAT);
+        checkForEmptyCommandParameters(items[1], CommandType.EVENT, COMMAND_FORMAT);
 
         // Returns [taskDescription, fromDate + /to + toDate]
-        String[] splitInput = splitInputOverKeyword(items[1], "/from", "event");
+        String[] splitInput = splitInputOverKeyword(items[1], "/from", CommandType.EVENT);
 
-        checkForEmptyCommandParameters(splitInput[0], "event", TASK_DESCRIPTION);
+        checkForEmptyCommandParameters(splitInput[0], CommandType.EVENT, TASK_DESCRIPTION);
 
+        // Ensures that task description is not empty
         assert !splitInput[0].isEmpty() : "Task description cannot be empty.";
 
         // Returns [fromDate, toDate]
-        String[] fromAndToDates = splitInputOverKeyword(splitInput[1], "/to", "event");
-
+        String[] fromAndToDates = splitInputOverKeyword(splitInput[1], "/to", CommandType.EVENT);
         LocalDateTime fromDate = getDateTime(fromAndToDates[0]);
         LocalDateTime toDate = getDateTime(fromAndToDates[1]);
 
-        String fromDateAsString = fromDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
-        assert fromDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "Date and Time format is incorrect.";
-
-        String toDateAsString = toDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
-        assert toDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "Date and Time format is incorrect.";
+        // Ensures date and time inputs are valid
+        String fromDateAsString = fromDate.format(DateTimeFormatter.ofPattern(EXPECTED_DATE_FORMAT));
+        assert fromDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "fromDate format is incorrect.";
+        String toDateAsString = toDate.format(DateTimeFormatter.ofPattern(EXPECTED_DATE_FORMAT));
+        assert toDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "toDate format is incorrect.";
 
         return taskManager.addTask(new EventTask(splitInput[0], fromDate, toDate, false));
     }
@@ -224,7 +232,7 @@ public class Parser {
      * @throws CommandFormatException If the command format was written incorrectly.
      * @throws NoSuchTaskException If no such task index exists.
      */
-    private String handleTaskOperation(String[] items, Function<Integer, String> taskOperation, String commandType)
+    private String handleTaskOperation(String[] items, Function<Integer, String> taskOperation, CommandType commandType)
             throws CommandFormatException, NoSuchTaskException {
         if (items.length != 2) {
             throw new CommandFormatException("Aw... " + commandType
@@ -233,8 +241,8 @@ public class Parser {
         }
 
         try {
-            int i = getTaskNumber(items);
-            return taskOperation.apply(i);
+            int taskIndex = getTaskIndex(items);
+            return taskOperation.apply(taskIndex);
         } catch (NumberFormatException e) {
             throw new CommandFormatException("Aw... " + commandType
                     + " command must be followed by a number (e.g. "
@@ -243,24 +251,38 @@ public class Parser {
         }
     }
 
-    private int getTaskNumber(String[] items) throws NoSuchTaskException {
-        int i = Integer.parseInt(items[1]);
+    /**
+     * Gets the task index of a task and returns the index.
+     *
+     * @param items The user input split by whitespace.
+     * @return Task index in list of tasks.
+     * @throws NoSuchTaskException If given task index is not within the list of tasks.
+     */
+    private int getTaskIndex(String[] items) throws NoSuchTaskException {
+        int taskIndex = Integer.parseInt(items[1]);
         int taskCount = taskManager.getTaskSize();
         if (taskCount == 0) {
             throw new NoSuchTaskException("You have no tasks at the moment!");
         }
 
-        if (i <= 0) {
+        if (taskIndex <= 0) {
             throw new NoSuchTaskException("Aw... task number cannot be zero or negative.");
         }
 
-        if (i > taskCount) {
+        if (taskIndex > taskCount) {
             throw new NoSuchTaskException("Aw... that task doesn't exist. Try again!");
         }
-        return i;
+        return taskIndex;
     }
 
-    private void checkArgumentCount(String[] items, String command) throws CommandFormatException {
+    /**
+     * Checks if the user command is complete or incomplete.
+     *
+     * @param items The user input split by whitespace.
+     * @param command The command given by the user.
+     * @throws CommandFormatException If the command format was written incorrectly.
+     */
+    private void checkArgumentCount(String[] items, CommandType command) throws CommandFormatException {
         String commandFormat = getCommandFormat(command);
         assert commandFormat != null : "Command format cannot be null.";
         if (items.length != 2) {
@@ -270,7 +292,15 @@ public class Parser {
         }
     }
 
-    private void checkForEmptyCommandParameters(String argument, String command, String parameter)
+    /**
+     * Checks if a command is following its command format.
+     *
+     * @param argument An input parameter in the user command.
+     * @param command The main user command.
+     * @param parameter The parameter that is looked for by this method.
+     * @throws CommandFormatException If the command format is written incorrectly.
+     */
+    private void checkForEmptyCommandParameters(String argument, CommandType command, String parameter)
             throws CommandFormatException {
         if (argument.isEmpty() || argument.equals(" ")) {
             String exceptionMessage = "Aw... " + command + " command must ";
@@ -284,22 +314,38 @@ public class Parser {
         }
     }
 
-    private String getCommandFormat(String command) {
+    /**
+     * Returns the expected format for a given command.
+     *
+     * @param command The user command.
+     * @return Expected format for the command as a String.
+     */
+    private String getCommandFormat(CommandType command) {
         switch (command) {
-        case "find":
+        case FIND:
             return "find {keyword}";
-        case "todo":
+        case TODO:
             return "todo {task}";
-        case "deadline":
+        case DEADLINE:
             return "deadline {task} /by {date in dd-MM-yyyy HHmm}";
-        case "event":
+        case EVENT:
             return "event {task} /from {date in dd-MM-yyyy HHmm} /to {date in dd-MM-yyyy HHmm}";
         default:
             return null;
         }
     }
 
-    private String[] splitInputOverKeyword(String input, String keyword, String command) throws CommandFormatException {
+    /**
+     * Returns an array of String containing the parameters of the user input when split over a keyword.
+     *
+     * @param input The user input.
+     * @param keyword The keyword that this method splits over.
+     * @param command The command given by the user.
+     * @return array of String containing parameters of the user input.
+     * @throws CommandFormatException If the command was written incorrectly.
+     */
+    private String[] splitInputOverKeyword(String input, String keyword, CommandType command)
+            throws CommandFormatException {
         if (!input.contains(keyword)) {
             throw new CommandFormatException("Aw... " + command + " command should contain " + keyword + ".");
         }
@@ -312,7 +358,7 @@ public class Parser {
     }
 
     /**
-     * Returns a LocalDateTime object.
+     * Returns a LocalDateTime object for a given String containing a date.
      *
      * @param date String object that says the date in dd-MM-yyyy HHmm.
      * @return LocalDateTime object.
@@ -322,11 +368,12 @@ public class Parser {
         if (date.isEmpty() || date.equals(" ")) {
             throw new CommandFormatException("Aw... you are missing the date.");
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(EXPECTED_DATE_FORMAT);
         try {
             return LocalDateTime.parse(date, formatter);
         } catch (DateTimeParseException e) {
-            throw new CommandFormatException("Aw... the date and time should be in this format: dd-MM-yyyy HHmm");
+            throw new CommandFormatException("Aw... the date and time should be in this format: "
+                    + EXPECTED_DATE_FORMAT);
         }
     }
 }
