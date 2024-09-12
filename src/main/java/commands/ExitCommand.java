@@ -17,6 +17,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskStorage storage) {
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "TaskStorage should not be null";
         return ui.goodbyeText();
     }
 }

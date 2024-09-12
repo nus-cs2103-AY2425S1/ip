@@ -20,9 +20,12 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskStorage storage) {
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "TaskStorage should not be null";
         List<Task> tasks = storage.getTasks();
         return ui.outputMessage(formatTaskList(tasks));
     }
+
 
     /**
      * Formats the list of tasks into a string.

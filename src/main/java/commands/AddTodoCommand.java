@@ -51,6 +51,8 @@ public class AddTodoCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskStorage storage) {
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "TaskStorage should not be null";
         try {
             Todo todo = new Todo(description, false);
             storage.addTask(todo);

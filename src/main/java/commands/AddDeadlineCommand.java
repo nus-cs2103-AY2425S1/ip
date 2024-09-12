@@ -26,6 +26,8 @@ public class AddDeadlineCommand extends Command {
         String[] parts = splitInput(input);
         this.description = extractDescription(parts[0]);
         this.deadline = parseDeadline(parts[1]);
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
+        assert deadline != null && !deadline.isEmpty() : "Deadline should not be null or empty";
     }
 
     /**

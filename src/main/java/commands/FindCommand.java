@@ -64,6 +64,8 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskStorage storage) {
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "TaskStorage should not be null";
         List<Task> matchingTasks = storage.findTasksByKeyword(keyword);
         return ui.outputMessage(formatTasks(matchingTasks));
     }

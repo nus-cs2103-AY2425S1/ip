@@ -30,6 +30,11 @@ public class AddEventCommand extends Command {
         this.description = extractDescription(partsFrom[0]);
         this.startTime = parseDateTime(partsTo[0].trim());
         this.endTime = parseDateTime(partsTo[1].trim());
+
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
+        assert startTime != null && !startTime.isEmpty() : "Start time should not be null or empty";
+        assert endTime != null && !endTime.isEmpty() : "End time should not be null or empty";
+
     }
 
     /**
@@ -81,6 +86,8 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskStorage storage) {
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "TaskStorage should not be null";
         try {
             Event event = new Event(description, startTime, endTime, false);
             storage.addTask(event);
