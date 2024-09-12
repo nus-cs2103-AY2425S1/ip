@@ -8,11 +8,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import exceptions.DeadlineException;
+import exceptions.DeleteException;
 import exceptions.EventException;
 import exceptions.FindException;
 import exceptions.InvalidDateException;
 import exceptions.MizzException;
 import exceptions.ToDoException;
+import exceptions.UpdateMarkedException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -130,14 +132,14 @@ public class Parser {
         parsedParts[CMD_IDX] = parts[CMD_IDX].toLowerCase();
 
         if (parsedParts[CMD_IDX].equals("mark") || parsedParts[CMD_IDX].equals("unmark")) {
-            Validator.verifyMarkUnmark(parts);
-            parsedParts[DESCRIPTION_IDX] = parts[DESCRIPTION_IDX];
+            // Validator.verifyMarkUnmark(parts);
+            // parsedParts[DESCRIPTION_IDX] = parts[DESCRIPTION_IDX];
+            Parser.parseMark(parts, parsedParts);
             return parsedParts;
         }
 
         if (parsedParts[CMD_IDX].equals("delete")) {
-            Validator.verifyDelete(parts);
-            parsedParts[DESCRIPTION_IDX] = parts[DESCRIPTION_IDX];
+            Parser.parseDelete(parts, parsedParts);
             return parsedParts;
         }
 
@@ -153,13 +155,13 @@ public class Parser {
         switch (parsedParts[CMD_IDX]) {
         case "todo":
             Parser.parseTodo(parts, parsedParts);
-            return parsedParts;
+            break;
         case "deadline":
             Parser.parseDeadline(parts, parsedParts);
-            return parsedParts;
+            break;
         case "event":
             Parser.parseEvent(parts, parsedParts);
-            return parsedParts;
+            break;
         default:
             break;
         }
@@ -177,6 +179,38 @@ public class Parser {
      */
     private static String[] parseTodo(String[] parts, String[] parsedParts) throws ToDoException {
         Validator.verifyTodo(parts);
+        parsedParts[DESCRIPTION_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, DESCRIPTION_IDX, parts.length));
+        return parsedParts;
+    }
+
+    /**
+     * Helper method to parse a delete command.
+     *
+     * @param parts Split input string.
+     * @param parsedParts Extra details inside the input string.
+     * @return An array of strings containing the broken up and cleaned command.
+     * @throws ToDoException if verification of the command fails.
+     */
+    private static String[] parseDelete(String[] parts, String[] parsedParts)
+            throws DeleteException {
+        Validator.verifyDelete(parts);
+        parsedParts[DESCRIPTION_IDX] =
+                String.join(" ", Arrays.copyOfRange(parts, DESCRIPTION_IDX, parts.length));
+        return parsedParts;
+    }
+
+    /**
+     * Helper method to parse a mark command.
+     *
+     * @param parts Split input string.
+     * @param parsedParts Extra details inside the input string.
+     * @return An array of strings containing the broken up and cleaned command.
+     * @throws ToDoException if verification of the command fails.
+     */
+    private static String[] parseMark(String[] parts, String[] parsedParts)
+            throws UpdateMarkedException {
+        Validator.verifyMarkUnmark(parts);
         parsedParts[DESCRIPTION_IDX] =
                 String.join(" ", Arrays.copyOfRange(parts, DESCRIPTION_IDX, parts.length));
         return parsedParts;

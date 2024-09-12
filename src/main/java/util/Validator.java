@@ -89,15 +89,17 @@ public class Validator {
     public static void verifyMarkUnmark(String[] details) throws UpdateMarkedException {
         assert details != null : "Details must not be null";
 
-        if (details.length == 1) {
+        if (details.length <= 1) {
             throw new UpdateMarkedException("Too few arguments missing idx to mark/ unmark",
                     details[0]);
         }
-        try {
-            Integer.parseInt(details[1]);
-        } catch (NumberFormatException e) {
-            throw new UpdateMarkedException(
-                    String.format("Last I checked (%s)'s no int :/", details[1]), details[0]);
+        for (int i = 1; i < details.length; i++) {
+            try {
+                Integer.parseInt(details[i]);
+            } catch (NumberFormatException e) {
+                throw new UpdateMarkedException(
+                        String.format("Last I checked (%s)'s no int :/", details[i]), details[0]);
+            }
         }
     }
 
@@ -110,13 +112,17 @@ public class Validator {
     public static void verifyDelete(String[] details) throws DeleteException {
         assert details != null : "Details must not be null";
 
-        if (details.length == 1) {
+        if (details.length <= 1) {
             throw new DeleteException("Too few arguments! Missing idx.");
         }
-        try {
-            Integer.parseInt(details[1]);
-        } catch (NumberFormatException e) {
-            throw new DeleteException(String.format("Last I checked (%s)'s no int :/", details[1]));
+
+        for (int i = 1; i < details.length; i++) {
+            try {
+                Integer.parseInt(details[i]);
+            } catch (NumberFormatException e) {
+                throw new DeleteException(
+                        String.format("Last I checked (%s)'s no int :/", details[i]));
+            }
         }
     }
 
