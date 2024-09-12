@@ -2,9 +2,9 @@ package task;
 
 import exception.DukeException;
 import exception.ParseException;
-import storage.KorolevStorage;
-import parser.EventParser;
 import parser.DateParser;
+import parser.EventParser;
+import storage.KorolevStorage;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -48,56 +48,56 @@ public class KorolevList {
         String name, date, from, to;
         String target = event.split("\\s")[0];
         switch (target) {
-            case "event" -> {
-                try {
-                    name = EventParser.parseName("event", "/from", event);
-                    from = DateParser.parseFrom(event);
-                    to = DateParser.parseTo(event);
-                    e = new KorolevEvent(name, from, to);
-                    this.events.add(e);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(e);
+        case "event" -> {
+            try {
+                name = EventParser.parseName("event", "/from", event);
+                from = DateParser.parseFrom(event);
+                to = DateParser.parseTo(event);
+                e = new KorolevEvent(name, from, to);
+                this.events.add(e);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e);
 
-                    return "Got it. I've added this task:\n" + e
-                            + "\nNow you have " + events.size() + " tasks in the list\n";
-                } catch (ParseException | DateTimeParseException exp) {
-                    System.out.println(exp.getMessage());
-                    return exp.getMessage();
-                }
+                return "Got it. I've added this task:\n" + e
+                        + "\nNow you have " + events.size() + " tasks in the list\n";
+            } catch (ParseException | DateTimeParseException exp) {
+                System.out.println(exp.getMessage());
+                return exp.getMessage();
             }
-            case "todo" -> {
-                try {
-                    name = EventParser.parseName("todo", "", event);
-                    e = new KorolevTodo(name);
-                    this.events.add(e);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(e);
+        }
+        case "todo" -> {
+            try {
+                name = EventParser.parseName("todo", "", event);
+                e = new KorolevTodo(name);
+                this.events.add(e);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e);
 
-                    return "Got it. I've added this task:\n" + e
-                            + "\nNow you have " + events.size() + " tasks in the list\n";
-                } catch (ParseException exp) {
-                    System.out.println(exp.getMessage());
-                    return exp.getMessage();
-                }
+                return "Got it. I've added this task:\n" + e
+                        + "\nNow you have " + events.size() + " tasks in the list\n";
+            } catch (ParseException exp) {
+                System.out.println(exp.getMessage());
+                return exp.getMessage();
             }
-            case "deadline" -> {
-                try {
-                    name = EventParser.parseName("deadline", "/by", event);
-                    date = DateParser.parseBy(event);
-                    e = new KorolevDeadline(name, date);
-                    this.events.add(e);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(e);
+        }
+        case "deadline" -> {
+            try {
+                name = EventParser.parseName("deadline", "/by", event);
+                date = DateParser.parseBy(event);
+                e = new KorolevDeadline(name, date);
+                this.events.add(e);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e);
 
-                    return "Got it. I've added this task:\n" + e
-                            + "\nNow you have " + events.size() + " tasks in the list\n";
-                } catch (ParseException exp) {
-                    System.out.println(exp.getMessage());
+                return "Got it. I've added this task:\n" + e
+                        + "\nNow you have " + events.size() + " tasks in the list\n";
+            } catch (ParseException exp) {
+                System.out.println(exp.getMessage());
 
-                    return exp.getMessage();
-                }
+                return exp.getMessage();
             }
-            default -> throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+        default -> throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

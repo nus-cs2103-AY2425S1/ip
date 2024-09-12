@@ -4,9 +4,7 @@ import exception.ParseException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +44,8 @@ public class DateParser {
     }
 
     public static String parseRecordedDate(String dateString) throws ParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM d yyyy")
+                .withLocale(Locale.ENGLISH);
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         return dateTime.toString();
     }

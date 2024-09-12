@@ -23,6 +23,7 @@ public class EventParser {
     public static String parseName(String start, String stop, String input)  throws ParseException {
         Pattern pattern = Pattern.compile(start + "\\s+(.+)\\s*" + stop);
         Matcher matcher = pattern.matcher(input);
+
         if (matcher.find()) {
             return matcher.group(1);
         } else {
@@ -39,6 +40,7 @@ public class EventParser {
      */
     public static KorolevTask parseLoadedRecord(String record) throws ParseException {
         char type = record.charAt(1);
+
         switch (type) {
         case 'T' -> {
             return parseTodoRecord(record);
@@ -57,6 +59,7 @@ public class EventParser {
         Pattern p = Pattern.compile("\\]\\s(.+)");
         Matcher m = p.matcher(record);
         String taskDescription;
+
         if (m.find()) {
             taskDescription = m.group(1);
             return new KorolevTodo(taskDescription);
@@ -72,6 +75,7 @@ public class EventParser {
         Pattern p2 = Pattern.compile("by\\s(.+)\\)");
         Matcher m2 = p2.matcher(record);
         String taskDescription, date;
+
         if (m1.find() && m2.find()) {
             taskDescription = m1.group(1);
             date = DateParser.parseRecordedDate(m2.group(1));
@@ -82,15 +86,16 @@ public class EventParser {
     }
 
     private static KorolevEvent parseEventRecord(String record) throws ParseException {
-        Pattern name_pattern = Pattern.compile("\\]\\s(.+)\\s\\(");
-        Matcher m1 = name_pattern.matcher(record);
+        Pattern namePattern = Pattern.compile("\\]\\s(.+)\\s\\(");
+        Matcher m1 = namePattern.matcher(record);
 
-        Pattern from_pattern = Pattern.compile("from:\\s(.+)\\s*to");
-        Matcher m2 = from_pattern.matcher(record);
+        Pattern fromPattern = Pattern.compile("from:\\s(.+)\\s*to");
+        Matcher m2 = fromPattern.matcher(record);
 
-        Pattern to_pattern = Pattern.compile("to:\\s(.+)\\s*\\)");
-        Matcher m3 = to_pattern.matcher(record);
+        Pattern toPattern = Pattern.compile("to:\\s(.+)\\s*\\)");
+        Matcher m3 = toPattern.matcher(record);
         String taskDescription, from, to;
+
         if (m1.find() && m2.find() && m3.find()) {
             taskDescription = m1.group(1);
             from = DateParser.parseRecordedDate(m2.group(1).strip());
