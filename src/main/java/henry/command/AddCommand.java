@@ -35,20 +35,29 @@ public class AddCommand extends Command {
         String[] words = this.input.split(" ");
         String taskCommand = words[0].toLowerCase();
 
-        String activityAndTime = this.input.replaceFirst(words[0] + " ", "");
-        String[] activityAndTimeList = activityAndTime.split(" /");
-        String activity = activityAndTimeList[0];
+        String[] activityAndTimeList = getActivityAndTimeList(words);
 
         switch (taskCommand) {
-        case "todo" -> addToDo(taskList, words, activity);
+        case "todo" -> addToDo(taskList, words, activityAndTimeList[0]);
 
-        case "deadline" -> addDeadline(taskList, activityAndTimeList, activity);
+        case "deadline" -> addDeadline(taskList, activityAndTimeList);
 
-        case "event" -> addEvent(taskList, activityAndTimeList, activity);
+        case "event" -> addEvent(taskList, activityAndTimeList);
 
         default -> addInvalidTask();
         }
         return getTaskAddedConfirmation(taskList, numOfTasks);
+    }
+
+    /**
+     * Returns an array containing the activity and time of activity
+     *
+     * @param words a list containing words of the user's input
+     * @return an array containing the activity and time of activity
+     */
+    private String[] getActivityAndTimeList(String[] words) {
+        String activityAndTime = this.input.replaceFirst(words[0] + " ", "");
+        return activityAndTime.split(" /");
     }
 
     /**
@@ -85,11 +94,9 @@ public class AddCommand extends Command {
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
-     * @param activityAndTimeList a list containing the activity and time of activity
-     * @param activity name of the activity
+     * @param activityAndTimeList an array containing the activity and time of activity
      */
-    private static void addEvent(TaskList taskList, String[] activityAndTimeList,
-                                 String activity) throws HenryException {
+    private static void addEvent(TaskList taskList, String[] activityAndTimeList) throws HenryException {
         //check if event description is valid
         if (activityAndTimeList.length != 3) {
             throw new HenryException("The event description is wrong!! "
@@ -97,6 +104,7 @@ public class AddCommand extends Command {
                     + "followed by the start time and end time. "
                     + "Example: event project meeting /from Mon 2pm /to 4pm");
         }
+        String activity = activityAndTimeList[0];
         String startTime = activityAndTimeList[1]
                 .replaceFirst("from ", "");
         String endTime = activityAndTimeList[2]
@@ -109,11 +117,9 @@ public class AddCommand extends Command {
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
-     * @param activityAndTimeList a list containing the activity and time of activity
-     * @param activity name of the activity
+     * @param activityAndTimeList an array containing the activity and time of activity
      */
-    private static void addDeadline(TaskList taskList, String[] activityAndTimeList,
-                                    String activity) throws HenryException {
+    private static void addDeadline(TaskList taskList, String[] activityAndTimeList) throws HenryException {
         //check if deadline description is valid
         if (activityAndTimeList.length != 2) {
             throw new HenryException("The deadline description is wrong!! "
@@ -121,6 +127,7 @@ public class AddCommand extends Command {
                     + "followed by the deadline. "
                     + "Example: deadline return book /by 2019-12-01 1900");
         }
+        String activity = activityAndTimeList[0];
         String dateTime = activityAndTimeList[1]
                 .replaceFirst("by ", "");
         String convertedDateTime = convertDateTime(dateTime);
