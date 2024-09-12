@@ -85,9 +85,6 @@ public class Parser {
      */
     public static Command parse(String input) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
-        if (!matcher.matches()) {
-
-        }
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments").strip();
 

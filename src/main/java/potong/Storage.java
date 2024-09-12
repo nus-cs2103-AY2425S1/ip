@@ -59,18 +59,19 @@ public class Storage {
     public void loadFile() throws IllegalInputPotongException {
         ArrayList<Task> result = new ArrayList<>(100);
         File f = new File(this.FILE_PATH);
+        Scanner s;
         try {
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String curr = s.nextLine();
-                if (curr.isEmpty()) {
-                    break;
-                }
-                Task nextTask = Parser.createTask(curr);
-                result.add(nextTask);
-            }
+            s = new Scanner(f);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+        while (s.hasNext()) {
+            String curr = s.nextLine();
+            if (curr.isEmpty()) {
+                break;
+            }
+            Task nextTask = Parser.createTask(curr);
+            result.add(nextTask);
         }
         this.tasklist.initialise(result);
     }
