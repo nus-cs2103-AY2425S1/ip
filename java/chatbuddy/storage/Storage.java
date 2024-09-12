@@ -17,7 +17,13 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String filePath;
+    private static final String TODO_TYPE = "T";
+    private static final String DEADLINE_TYPE = "D";
+    private static final String EVENT_TYPE = "E";
+    private static final String TASK_DONE = "1";
+    private static final String TASK_NOT_DONE = "0";
+
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -36,56 +42,77 @@ public class Storage {
      */
     public ArrayList<Task> load() throws ChatBuddyException {
         ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File file = new File(filePath);
-            if (file.exists()) {
-                Scanner scanner = new Scanner(file);
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            try (Scanner scanner = new Scanner(file)) {
                 while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split(" \\| ");
-                    String type = parts[0];
-                    boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
-                    Task task;
-
-                    switch (type) {
-                        case "T":
-                            task = new ToDo(description);
-                            break;
-
-                        case "D":
-                            task = new Deadline(description, parts[3]);
-                            break;
-
-                        case "E":
-                            task = new Event(description, parts[3], parts[4]);
-                            break;
-
-                        default:
-                            throw new ChatBuddyException("Invalid task type in file.");
-                    }
-
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-
-                    tasks.add(task);
+                    tasks.add(parseTask(scanner.nextLine()));
                 }
-                scanner.close();
-
-            } else {
-                File directory = new File(file.getParent());
-                if (!directory.exists()) {
-                    directory.mkdirs();
-                }
-                file.createNewFile();
+            } catch (IOException | ChatBuddyException e) {
+                throw new ChatBuddyException("An error occurred while loading tasks: " + e.getMessage());
             }
-
-        } catch (IOException e) {
-            throw new ChatBuddyException("An error occurred while loading tasks: " + e.getMessage());
+        } else {
+            createStorageFile(file);
         }
 
         return tasks;
+    }
+
+    /**
+     * Parses a line from the file into a Task object.
+     *
+     * @param line The line representing the task.
+     * @return A Task object corresponding to the line.
+     * @throws ChatBuddyException If the task type is invalid.
+     */
+    private Task parseTask(String line) throws ChatBuddyException {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals(TASK_DONE);
+        String description = parts[2];
+
+        Task task;
+        switch (type) {
+        case TODO_TYPE:
+            task = new ToDo(description);
+            break;
+
+        case DEADLINE_TYPE:
+            task = new Deadline(description, parts[3]);
+            break;
+
+        case EVENT_TYPE:
+            task = new Event(description, parts[3], parts[4]);
+            break;
+
+        default:
+            throw new ChatBuddyException("Invalid task type in file: " + type);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    /**
+     * Creates the storage file and necessary directories if they do not exist.
+     *
+     * @param file The file to create.
+     * @throws ChatBuddyException If an error occurs during file creation.
+     */
+    private void createStorageFile(File file) throws ChatBuddyException {
+        try {
+            File directory = new File(file.getParent());
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new ChatBuddyException("An error occurred while creating storage file: " + e.getMessage());
+        }
     }
 
     /**
@@ -95,12 +122,10 @@ public class Storage {
      * @throws ChatBuddyException If there is an error while saving the tasks.
      */
     public void saveTasks(ArrayList<Task> tasks) throws ChatBuddyException {
-        try {
-            FileWriter writer = new FileWriter(filePath);
+        try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 writer.write(task.toFileFormat() + "\n");
             }
-            writer.close();
         } catch (IOException e) {
             throw new ChatBuddyException("An error occurred while saving tasks: " + e.getMessage());
         }
