@@ -14,6 +14,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * A {@code DialogBox} is a horizontal box that contains a dialog bubble and
+ * an optional image. The dialog bubble is a label that displays some text.
+ * The image is an image view that displays the image. The dialog bubble and
+ * the image are positioned horizontally next to each other. The dialog bubble
+ * can be either on the left or right side of the box, depending on the value
+ * of the {@code flip} property.
+ * 
+ * @author Pradyumna
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;

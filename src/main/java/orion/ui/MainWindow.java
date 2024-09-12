@@ -11,6 +11,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import orion.Orion;
 
+/**
+ * The main window of the application.
+ *
+ * <p>
+ * This class represents the main window of the application, which contains
+ * the UI components for the user to interact with the application.
+ * </p>
+ *
+ * @author Pradyumna
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -26,6 +36,14 @@ public class MainWindow extends AnchorPane {
     private Image userImage;
     private Image orionImage;
 
+    /**
+     * Creates a new instance of the main window.
+     *
+     * <p>
+     * This constructor creates a new instance of the main window with the
+     * default settings.
+     * </p>
+     */
     public MainWindow() {
         try {
             System.out.println("Loading user image...");

@@ -155,6 +155,19 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Validates that the given command parts form a valid todo command.
+     *
+     * <p>
+     * A valid todo command consists of the command name followed by a single
+     * string describing the task. The command name is validated to ensure it
+     * matches the expected value.
+     * </p>
+     *
+     * @param parts the command parts
+     * @return the task description
+     * @throws InvalidTodoException if the command format is invalid
+     */
     public String validateTodoCommand(String... parts) throws InvalidTodoException {
         if (parts == null || parts.length < 2 || !parts[0].equals("todo")) {
             throw new InvalidTodoException(parts == null ? "null" : String.join(" ", parts));
