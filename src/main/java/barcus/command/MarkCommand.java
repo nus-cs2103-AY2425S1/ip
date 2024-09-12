@@ -37,6 +37,7 @@ public class MarkCommand extends Command {
                 throw new BarcusException("please choose a number between 1 and " + tasks.getLength());
             }
         }
+        assert !queue.isEmpty();
 
         ui.talk("Good job! Have marked as done:\n");
         output += "Good job! Have marked as done:\n";
@@ -53,8 +54,4 @@ public class MarkCommand extends Command {
         return false;
     }
 
-    @Override
-    public String getString() {
-        return output;
-    }
 }

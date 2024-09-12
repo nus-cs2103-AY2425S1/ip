@@ -13,5 +13,8 @@ public abstract class Command {
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException;
     public abstract boolean isExit();
-    public abstract String getString();
+    public String getString() {
+        assert !output.isEmpty();
+        return output;
+    };
 }
