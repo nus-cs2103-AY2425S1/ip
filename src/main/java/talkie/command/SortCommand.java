@@ -17,7 +17,7 @@ public class SortCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieException {
 
         // Sort list of tasks
-        tasks.sortByDesciption();
+        tasks.sortByDescription();
         return ui.listSortedTasks(tasks);
     }
 
