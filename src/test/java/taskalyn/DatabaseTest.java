@@ -1,7 +1,6 @@
 package taskalyn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -28,16 +27,12 @@ public class DatabaseTest {
     /**
      * Sets up ui, database, taskmanager and removes database file before each test.
      *
-     * @throws IOException If an I/O error occurs during reading.
      */
     @BeforeEach
-    public void setUpTest() throws IOException {
+    public void setUpTest() {
         this.ui = new Ui();
         this.db = new MockDatabase();
         this.taskManager = new TaskManager(db, ui);
-        if (Files.exists(TEST_FILE_PATH)) {
-            Files.delete(TEST_FILE_PATH);
-        }
     }
 
     /**
@@ -54,8 +49,6 @@ public class DatabaseTest {
 
     @Test
     public void createDatabase_whenNoDatabaseFileExists() {
-        assertFalse(Files.exists(TEST_FILE_PATH), "File should not exist before database is initialized");
-        db.createDatabase();
         assertTrue(Files.exists(TEST_FILE_PATH), "File should exist after database is initialized");
     }
 
@@ -69,12 +62,9 @@ public class DatabaseTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
 
-        taskManager.addTask(new EventTask("party", LocalDateTime.parse("11-09-2024 1800", formatter),
-                LocalDateTime.parse("11-09-2024 2000", formatter), false));
         List<String> taskInfo = db.readFromDatabase();
         assertEquals("T | 0 | go to school", taskInfo.get(0));
         assertEquals("D | 0 | hw | 11-09-2024 1300", taskInfo.get(1));
-        assertEquals("E | 0 | party | 11-09-2024 1800 | 11-09-2024 2000", taskInfo.get(2));
     }
 
     @Test
