@@ -16,12 +16,13 @@ import duck.components.MainWindow;
  */
 public class Main extends Application {
 
+    private static final String PATH_MAIN_WINDOW = "/view/MainWindow.fxml";
     private final Duck duck = new Duck();
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(PATH_MAIN_WINDOW));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

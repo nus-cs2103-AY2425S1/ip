@@ -14,6 +14,8 @@ import duck.Duck;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    public static final String PATH_DA_USER = "/images/DaUser.png";
+    public static final String PATH_DA_DUCK = "/images/DaDuck.png";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -25,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Duck duck;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image duckImage = new Image(this.getClass().getResourceAsStream("/images/DaDuck.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream(PATH_DA_USER));
+    private final Image duckImage = new Image(this.getClass().getResourceAsStream(PATH_DA_DUCK));
 
     @FXML
     public void initialize() {
