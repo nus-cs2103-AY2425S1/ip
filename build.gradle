@@ -47,7 +47,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "torne"
+    archiveFileName = "torne.jar"
     archiveClassifier = null
 }
 
