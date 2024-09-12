@@ -33,7 +33,8 @@ public class DeadlineParser {
         try {
             if (inputSplit.length == 1) {
                 throw new DrBrownException("Great Scott! You can't add a deadline without a "
-                        + "description and date!\nUse the format: deadline {description} /by {date} /priority {priority}");
+                        + "description and date!\nUse the format: deadline {description} /by "
+                        + "{date} /priority {priority}");
             }
 
             String[] deadlineSplit = inputSplit[1].split("/by | /priority");

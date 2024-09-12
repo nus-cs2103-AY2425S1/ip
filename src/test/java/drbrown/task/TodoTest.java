@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
 /**
  * Unit tests for the {@link Todo} class.
  * This class contains unit tests for various functionalities of the {@code Todo} class,

@@ -38,7 +38,8 @@ public class EventParser {
                         + "event {description} /from {date} /to {date} /priority {priority}");
             }
 
-            boolean containsValidString = userInput.contains("/from") || userInput.contains("/to") || userInput.contains("/priority");
+            boolean containsValidString = userInput.contains("/from") || userInput.contains("/to")
+                    || userInput.contains("/priority");
             boolean correctOrderString = userInput.indexOf("/from") > userInput.indexOf("/to");
 
             if (!containsValidString || correctOrderString) {
