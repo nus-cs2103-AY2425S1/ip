@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import yap.storage.Storage;
 import yap.storage.BadDataFormatException;
 
-public class cd nusTaskList {
+public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
