@@ -14,7 +14,8 @@ public enum CommandEnum {
     MARK,
     UNMARK,
     BYE,
-    FIND;
+    FIND,
+    NOTE;
 
     /**
      * Converts the given string into one of the CommandEnums.

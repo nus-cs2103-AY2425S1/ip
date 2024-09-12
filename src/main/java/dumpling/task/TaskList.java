@@ -93,11 +93,19 @@ public class TaskList {
             throw new IndexOutOfBoundsException();
         }
         Task deletedTask = this.items.remove(itemIdx - 1);
-        String message = "     Noted. I've removed this task:\n"
+        return "     Noted. I've removed this task:\n"
                 + String.format("       %s\n", deletedTask.toString())
                 + String.format("     Now you have %d %s in the list.",
                     this.items.size(), (this.items.size() == 1 ? "task" : "tasks"));
-        return message;
+    }
+
+    public String updateTaskNotes(int itemIdx, String notes) throws IndexOutOfBoundsException {
+        if (itemIdx > this.items.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        this.items.get(itemIdx - 1).updateNotes(notes);
+        return "     Noted. I've updated the notes for this task:\n"
+                + String.format("       %s\n", this.items.get(itemIdx - 1).toString());
     }
 
     /**

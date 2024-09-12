@@ -1,18 +1,23 @@
 package dumpling.task;
 
+import dumpling.DumplingException;
+
 /**
  * Abstract Task class, which Event, Deadline and ToDo inherit from
  */
 public abstract class Task {
     protected String description;
+    protected String notes;
     protected boolean isDone;
 
     /**
-     * Constructor of task
-     * @param description task description
+     * General constructor of tasks objects
+     * @param description task descriptions
+     * @param notes supporting notes for task
      */
-    public Task(String description) {
+    public Task(String description, String notes) {
         this.description = description;
+        this.notes = notes;
         this.isDone = false;
     }
 
@@ -26,13 +31,15 @@ public abstract class Task {
     }
 
     /**
-     * Checks if the description of this task has the given substring
+     * Checks if the description of this task has the given substring.
+     * This method does not check the notes of the task.
+     *
      * @param substring Target substring to search for
      * @return True if substring is part of description, false otherwise
      */
     public boolean hasSubstring(String substring) {
         for (int i = 0; i <= description.length() - substring.length(); i++) {
-            if (this.description.substring(i, i + substring.length()).equals(substring)) {
+            if (this.description.startsWith(substring, i)) {
                 return true;
             }
         }
@@ -50,6 +57,14 @@ public abstract class Task {
      */
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    public void updateNotes(String updatedNotes) throws DumplingException {
+        // do not allow new line characters in notes as it will interfere with saving format
+        if (updatedNotes.contains("\n")) {
+            throw new DumplingException("New line characters are not allowed in notes!");
+        }
+        this.notes = updatedNotes;
     }
 
     /**
