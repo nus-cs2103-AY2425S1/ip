@@ -59,7 +59,7 @@ public class Parser {
 
     /**
      * Throws janet.JanetException when,
-     * 1. command is empty (eg. ' ') OR command is an enum CommandType value.
+     * 1. command is empty (.eg. ' ') OR command is an enum CommandType value.
      * 2. task description is not provided.
      * 3. task number is not in proper format, not provided, is negative or equal to 0.
      * 4. task number is larger than the number of tasks in the list.
@@ -181,7 +181,7 @@ public class Parser {
 
 
     /**
-     * Returns true if the command is empty, just whitespaces (eg. '    ').
+     * Returns true if the command is empty, just whitespaces (.eg. '    ').
      *
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
      * @return A boolean value
@@ -207,9 +207,9 @@ public class Parser {
 
     /**
      * Returns true if command is,
-     * 1. gibberish and not an enum CommandType value (eg. marker, blah blah, events).
-     * 2. 'bye ...' where '...' represents additional texts behind the word bye (eg. bye bye).
-     * 3. 'list ...' where '...' represents additional texts behind the word list (eg. list something).
+     * 1. gibberish and not an enum CommandType value (.eg. marker, blah blah, events).
+     * 2. 'bye ...' where '...' represents additional texts behind the word bye (.eg. bye bye).
+     * 3. 'list ...' where '...' represents additional texts behind the word list (.eg. list something).
      * false otherwise.
      *
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
@@ -225,9 +225,9 @@ public class Parser {
 
     /**
      * Returns true if,
-     * 1. task number is not provided (eg. mark).
-     * 2. task number is invalid, unable to parse into Integer (eg. unmark three).
-     * 3. more than 1 task number is provided, separated by whitespace(s) (eg. delete 3 2).
+     * 1. task number is not provided (.eg. mark).
+     * 2. task number is invalid, unable to parse into Integer (.eg. unmark three).
+     * 3. more than 1 task number is provided, separated by whitespace(s) (.eg. delete 3 2).
      *
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
      * @return A boolean value.
