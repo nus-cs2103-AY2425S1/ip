@@ -30,41 +30,49 @@ public class Parser {
      * Parses the user input and executes the corresponding command.
      * @param input The user input.
      */
-    public void parseCommand(String inputString) {
+    public String parseCommand(String inputString) {
         try {
-            if (inputString.equals("bye")) {
-                ui.displayFarewell();
-                System.exit(0);
+            if (inputString.equals("hello")) {
+                return ui.displayWelcome(); // Display the welcome message
+            } else if (inputString.equals("bye")) {
+                return ui.displayFarewell(); // Exit the program
             } else if (inputString.equals("list")) {
-                listTasks();
+                return listTasks();  // Show the list of tasks
             } else if (inputString.startsWith("mark ")) {
-                markTask(inputString);
+                return markTask(inputString); // Mark a task as done
             } else if (inputString.startsWith("unmark ")) {
-                unmarkTask(inputString);
+                return unmarkTask(inputString); // Mark a task as not done
             } else if (inputString.startsWith("delete ")) {
-                deleteTask(inputString);
+                return deleteTask(inputString); // Delete a task
             } else if (inputString.startsWith("todo ")) {
-                addTodo(inputString);
+                return addTodo(inputString); // Add a todo task
             } else if (inputString.startsWith("deadline ")) {
-                addDeadline(inputString);
+                return addDeadline(inputString); // Add a deadline task
             } else if (inputString.startsWith("event ")) {
-                addEvent(inputString);
+                return addEvent(inputString); // Add an event task
             } else if (inputString.startsWith("find ")) {
-                findWord(inputString);
+                return findWord(inputString); // Find tasks with a keyword in the description
             } else {
-                ui.displayUnknownCommandError();
+                return ui.displayUnknownCommandError(); // Display an error message for unknown commands
             }
         } catch (FridayException | IOException e) {
-            ui.displayError(e.getMessage());
+            return ui.displayError(e.getMessage());
         }
     }
 
 
-    private void listTasks() {
-        ui.displayTasks(taskList.getTasks());
+    private String listTasks() {
+        if (taskList.size() == 0) {
+            return "Your task list is empty.";
+        }
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            sb.append((i + 1) + ". " + taskList.getTask(i).getTypeIcon() + taskList.getTask(i) + "\n");
+        }
+        return sb.toString().trim();
     }
 
-    private void markTask(String input) throws FridayException, IOException {
+    private String markTask(String input) throws FridayException, IOException {
         if (input.length() < 6) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task number.");
@@ -72,11 +80,11 @@ public class Parser {
         int taskNumber = Integer.parseInt(input.substring(5)) - 1;
         taskList.markTaskAsDone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
-        ui.displayMessage("Nice! I've marked this task as done:\n  " + taskList.getTask(taskNumber).getTypeIcon() 
-        + taskList.getTask(taskNumber).toString());
+        return "Nice! I've marked this task as done:\n  " + taskList.getTask(taskNumber).getTypeIcon() 
+        + taskList.getTask(taskNumber).toString();
     }
 
-    private void unmarkTask(String input) throws FridayException, IOException {
+    private String unmarkTask(String input) throws FridayException, IOException {
         if (input.length() < 8) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task number.");
@@ -84,12 +92,12 @@ public class Parser {
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
         taskList.markTaskAsUndone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
-        ui.displayMessage("OK, I've marked this task as not done yet:\n  " 
+        return "OK, I've marked this task as not done yet:\n  " 
         + taskList.getTask(taskNumber).getTypeIcon() 
-        + taskList.getTask(taskNumber).toString());
+        + taskList.getTask(taskNumber).toString();
     }
 
-    private void deleteTask(String input) throws FridayException, IOException {
+    private String deleteTask(String input) throws FridayException, IOException {
         if (input.length() < 8) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task number.");
@@ -97,13 +105,14 @@ public class Parser {
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
         if (taskNumber >= 0 && taskNumber < taskList.size() && taskList.getTask(taskNumber) != null) {
             Tasks deletedTask = taskList.deleteTask(taskNumber);
-            ui.displayMessage("Noted. I've removed this task:\n  " + deletedTask.getTypeIcon() + deletedTask.toString() 
-            + "\nNow you have " + taskList.size() + " tasks in the list.");
             storage.saveTasksToFile(taskList.getTasks());
+            return "Noted. I've removed this task:\n  " + deletedTask.getTypeIcon() + deletedTask.toString() 
+            + "\nNow you have " + taskList.size() + " tasks in the list.";
         }
+        return "false";
     }
 
-    private void addTodo(String input) throws FridayException, IOException {
+    private String addTodo(String input) throws FridayException, IOException {
         if (input.length() < 6) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task description.");
@@ -111,11 +120,11 @@ public class Parser {
         Tasks todo = new Todo(input.substring(5).trim());
         taskList.addTask(todo);
         storage.saveTasksToFile(taskList.getTasks());
-        ui.displayMessage("Got it. I've added this task:\n  " + todo.getTypeIcon() 
-        + todo.toString() + "\nNow you have " + taskList.size() + " tasks in the list.");
+        return "Got it. I've added this task:\n  " + todo.getTypeIcon() 
+        + todo.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
-    private void addDeadline(String input) throws FridayException, IOException {
+    private String addDeadline(String input) throws FridayException, IOException {
         if (input.length() < 10) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task description.");
@@ -129,14 +138,14 @@ public class Parser {
             Tasks deadline = new Deadline(deadlineParts[0] , date.toString());
             taskList.addTask(deadline);
             storage.saveTasksToFile(taskList.getTasks());
-            ui.displayMessage("Got it. I've added this task:\n  " + deadline.getTypeIcon() 
-            + deadline.toString() + "\nNow you have " + taskList.size() + " tasks in the list.");
+            return "Got it. I've added this task:\n  " + deadline.getTypeIcon() 
+            + deadline.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
         } catch (Exception e) {
             throw new FridayException("Invalid date format! Please enter in yyyy-MM-dd.");
         }
     }
 
-    private void addEvent(String input) throws FridayException, IOException {
+    private String addEvent(String input) throws FridayException, IOException {
         if (input.length() < 7) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task description.");
@@ -147,16 +156,16 @@ public class Parser {
         Tasks event = new Event(eventParts[0], startEnd[0], startEnd[1]);
         taskList.addTask(event);
         storage.saveTasksToFile(taskList.getTasks());
-        ui.displayMessage("Got it. I've added this task:\n  " + event.getTypeIcon() 
-        + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.");
+        return "Got it. I've added this task:\n  " + event.getTypeIcon() 
+        + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
-    private void findWord(String input) throws FridayException, IOException {
+    private String findWord(String input) throws FridayException, IOException {
         String keyword = input.substring(5).trim();
         if (keyword.isEmpty()) {
             throw new FridayException("The keyword for the find command cannot be empty.\n" 
             + "Please enter a valid keyword.");
         }
-        taskList.findTasks(keyword);
+        return taskList.findTasks(keyword);
     }
 }

@@ -1,7 +1,6 @@
 package fridayproject;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Represents the main class of the program.
@@ -30,24 +29,10 @@ public class Friday {
     }
 
     /*
-     * Runs the main program loop.
+     * Processes a single user input and returns the response as a string.
      */
-    public void run() {
-        ui.displayWelcome();
-        @SuppressWarnings("resource")
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            parser.parseCommand(input);
-        }
-    }
-
-    /*
-     * Main method to run the program.
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        new Friday("data/tasks.txt").run();
+    public String getResponse(String input) {
+        return parser.parseCommand(input);
     }
 }
 

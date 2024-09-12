@@ -82,7 +82,7 @@ public class TaskList {
      * @param keyword The keyword to search for.
      * @return The list of tasks that contain the keyword.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         ArrayList<Tasks> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).description.contains(keyword)) {
@@ -91,14 +91,14 @@ public class TaskList {
         }
         Ui ui = new Ui();
         if (matchingTasks.isEmpty()) {
-            ui.displayMessage("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
             StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 message.append((i + 1)).append(". ").append(matchingTasks.get(i)
                 .getTypeIcon()).append(matchingTasks.get(i).toString()).append("\n");
             }
-            ui.displayMessage(message.toString().trim());
+            return message.toString().trim();
         }
     }
 }
