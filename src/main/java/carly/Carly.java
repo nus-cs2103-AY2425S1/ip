@@ -102,7 +102,7 @@ public class Carly {
         } catch (IOException | CarlyException e) {
             response = e.getMessage();
         }
-
+        assert !response.isEmpty(): "Response should not be empty.";
         return response;
     }
 

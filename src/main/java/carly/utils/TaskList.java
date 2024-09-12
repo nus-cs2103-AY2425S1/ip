@@ -1,6 +1,5 @@
 package carly.utils;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
@@ -12,7 +11,6 @@ import carly.tasks.Deadline;
 import carly.tasks.Event;
 import carly.tasks.Task;
 import carly.tasks.Todo;
-import carly.ui.Ui;
 
 /** Represents a list of tasks. Handle a collection of {@link Task} objects. */
 public class TaskList {
@@ -20,7 +18,7 @@ public class TaskList {
     /** List of Task objects. */
     private final ArrayList<Task> taskList;
 
-    /** TWO_INDENT used in displaying tasklist size. */
+    /** ONE_INDENT used in displaying tasklist size. */
     private final String ONE_INDENT = "    ";
 
     /** TWO_INDENT used in displaying output messages. */
@@ -43,9 +41,7 @@ public class TaskList {
             Task t = this.get(taskNum - 1);
             Task updatedT = t.markAsDone();
             this.taskList.set(taskNum - 1, updatedT);
-            String msg = "Okiee! I've marked this task as done:\n" + TWO_INDENT + t;
-            //Ui.printOutput(msg);
-            return msg;
+            return "Okiee! I've marked this task as done:\n" + TWO_INDENT + t;
         } catch (NumberFormatException e) {
             throw new CarlyIncorrectIndexFormat();
         } catch (IndexOutOfBoundsException e) {
@@ -66,9 +62,7 @@ public class TaskList {
             Task t = this.get(taskNum - 1);
             Task updatedT = t.unmarkAsDone();
             this.taskList.set(taskNum - 1, updatedT);
-            String msg = "Okiee! I've marked this task as not done yet:\n" + TWO_INDENT + t;
-            //Ui.printOutput(msg);
-            return msg;
+            return "Okiee! I've marked this task as not done yet:\n" + TWO_INDENT + t;
         } catch (IndexOutOfBoundsException e) {
             throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
         }
@@ -121,9 +115,8 @@ public class TaskList {
     public String addToDo(String taskDescription) throws CarlyException {
         Todo t = new Todo(taskDescription);
         this.taskList.add(t);
-        String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
-        //Ui.printOutput(msg + "\n" + taskListSize());
-        return msg;
+        assert this.getSize() >= 1: "Size of tasklist should be at least 1.";
+        return "Got it. I've added this task:\n" + TWO_INDENT + t;
     }
 
     /**
@@ -140,9 +133,8 @@ public class TaskList {
 
             Deadline t = new Deadline(task, dueDate);
             this.taskList.add(t);
-
+            assert this.getSize() >= 1: "Size of tasklist should be at least 1.";
             return "Got it. I've added this task:\n" + TWO_INDENT + t;
-            //Ui.printOutput(msg + "\n" + taskListSize());
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("task description or \"/by\" command");
         }
@@ -165,6 +157,7 @@ public class TaskList {
 
             Event t = new Event(task, startTime, endTime);
             this.taskList.add(t);
+            assert this.getSize() >= 1: "Size of tasklist should be at least 1.";
             String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
             return msg + "\n" + taskListSize();
         } catch (ArrayIndexOutOfBoundsException e) {
