@@ -1,6 +1,8 @@
 package duke.ui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 /**
  * A JavaFX application that simulates a simple chatbot interface.
  *
@@ -45,6 +49,7 @@ public class NotgptJavaFX extends Application {
     private VBox chatBox;
     private TextField inputField;
     private Button sendButton;
+    private ScrollPane scrollPane;
     private Image userAvatar;
     private Image botAvatar;
 
@@ -61,7 +66,6 @@ public class NotgptJavaFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Notgpt");
-
         // Load avatar images
         userAvatar = new Image(getClass().getResourceAsStream("/user_avatar.png"));
         botAvatar = new Image(getClass().getResourceAsStream("/bot_avatar2.jpg"));
@@ -73,7 +77,7 @@ public class NotgptJavaFX extends Application {
         chatBox.setPadding(new Insets(10));
         chatBox.setStyle("-fx-background-color: #ECE5DD;");
 
-        ScrollPane scrollPane = new ScrollPane(chatBox);
+        scrollPane = new ScrollPane(chatBox);
         scrollPane.setFitToWidth(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -114,18 +118,26 @@ public class NotgptJavaFX extends Application {
                 + "                       |___/|_|\n";
         // Initial message
         displayMessage(logo + "\n" + "hi, I'm Not-gpt,\ndo you really need me to do sth for you?", false);
-
-
         primaryStage.show();
     }
 
     private void sendMessage() {
         String userInput = inputField.getText().trim();
         if (!userInput.isEmpty()) {
+            String command;
+            String text = "";
+            String[] parts = userInput.split("\\s+", 2);
+            command = parts[0].toLowerCase();
+            if (parts.length > 1 && !parts[1].trim().isEmpty()) {
+                text = parts[1];
+            }
             displayMessage(userInput, true);
             inputField.clear();
-            String response = processInput(userInput);
+            String response = processInput(command, text);
             displayMessage(response, false);
+            if (command.equals("bye")) {
+                this.exit();
+            }
         }
     }
 
@@ -150,15 +162,25 @@ public class NotgptJavaFX extends Application {
             messageLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
             messageBox.getChildren().addAll(avatarView, messageLabel);
         }
-
         chatBox.getChildren().add(messageBox);
+        Platform.runLater(() -> {
+            scrollPane.layout(); // Force scrollPane to refresh layout
+            scrollPane.setVvalue(1.0); // Scroll to the bottom
+        });
     }
 
-    private String processInput(String input) {
-        return parser.parse(input); //
+    private void exit() {
+        // Pause for a few seconds to allow the user to see the message
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+    }
+  
+    private String processInput(String command, String text) {
+        return parser.parse(command, text);
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch(args); //
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
  * them to {@link LocalDate} and then reformatting them back to a new {@link String} with corrected formatting.
  */
 public class DateParser {
+
     private List<DateTimeFormatter> formatters = Arrays.asList(
             DateTimeFormatter.ofPattern("yyyy-MM-dd"),
             DateTimeFormatter.ofPattern("yyyy.MM.dd"),
@@ -31,7 +32,7 @@ public class DateParser {
                 date = LocalDate.parse(s, formatter);
                 return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
             } catch (DateTimeParseException e) {
-                continue;
+                continue; // will be caught as a null return.
             }
         }
         return null;

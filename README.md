@@ -14,7 +14,7 @@ Head to [releases](https://github.com/flyingsalsa/ip/releases/tag/v0.1.1) on how
 1. **unmark** - unmarks a task given in the follow up text as completed reverting the [X] to a [  ].  Follow up text must be a valid integer.   
 1. **delete** - deletes task given in the follow up text.  Follow up text must be a valid integer.
 2. **find** - searches through all tasks and returns a list of tasks that contain the followup text.
-## duke.Tasks.Task addition commands
+## Additional commands
 5. **todo** -
 6. **event** -
 7. **deadline** -
