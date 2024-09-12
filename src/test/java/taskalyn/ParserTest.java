@@ -31,7 +31,8 @@ public class ParserTest {
     @Test
     public void parse_byeCommand_returnByeMessage() {
         String actualResult = parser.parse("bye");
-        String expectedResult = "Bye! Hope to see you again soon!";
+        String expectedResult = "Bye! Hope to see you again soon!\n\n"
+                + "Shutting down in 5 seconds...";
         assertEquals(expectedResult, actualResult);
     }
 
@@ -45,7 +46,7 @@ public class ParserTest {
     @Test
     public void parse_emptyTodoCommand_getEmptyTaskDescriptionMessage() {
         String actualResult = parser.parse("todo ");
-        String expectedResult = "Aw... todo command is incomplete. The format is: todo {task}";
+        String expectedResult = "Aw... TODO command is incomplete. The format is: todo {task}";
         assertEquals(expectedResult, actualResult,
                 "The chatbot should prompt user to enter the task description.");
     }
@@ -61,7 +62,7 @@ public class ParserTest {
     @Test
     public void parse_invalidDeadlineCommand_getShouldContainKeywordMessage() {
         String actualResult = parser.parse("deadline finish hw 11-09-2024 1300");
-        String expectedResult = "Aw... deadline command should contain /by.";
+        String expectedResult = "Aw... DEADLINE command should contain /by.";
         assertEquals(expectedResult, actualResult,
                 "The chatbot should prompt user to include /by in deadline command.");
     }
@@ -69,7 +70,7 @@ public class ParserTest {
     @Test
     public void parse_emptyDeadlineCommand_getEmptyTaskDescriptionMessage() {
         String actualResult = parser.parse("deadline /by 11-09-2024 1300");
-        String expectedResult = "Aw... deadline command must contain a non-empty task description.";
+        String expectedResult = "Aw... DEADLINE command must contain a non-empty task description.";
         assertEquals(expectedResult, actualResult,
                 "The chatbot should prompt user to enter the task description.");
     }
