@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import monique.exception.IllegalDateFormatException;
 //probably need to fix some errors related to parsing of dates of this format "deadline description /by 11/9/2024 6pm"
@@ -16,14 +18,24 @@ import monique.exception.IllegalDateFormatException;
  * specific cases such as "tomorrow" with optional times.
  */
 public class DateParser {
-    public static final String DATE_PATTERN = "\\d{1,2}[/\\-]\\d{1,2}[/\\-]\\d{4}( \\d{4})?";
-    public static final String DAY_PATTERN = "(?i)(mon|tue|wed|thu|fri|sat|sun|monday|tuesday|wednesday|"
-                                             + "thursday|friday|saturday|sunday)( \\d{4})?( \\d{1,2}(am|pm))?";
-    public static final String TIME_PATTERN = "(\\b\\d{1,2}:\\d{2}(am|pm)?\\b|\\b\\d{1,2}(am|pm)\\b|\\b\\d{3,4}"
-                                              + "(am|pm)?\\b)\\b";
-
-
+    public static final String DATE_PATTERN =
+            "\\b(\\d{1,2}[-/]\\d{1,2}[-/]\\d{4})\\b|\\b([Mm]on(?:day)?|[Tt]ue(?:sday)?|[Ww]ed(?:nesday)?|[Tt]hu(?:rsday"
+            + ")?|[Ff]ri(?:day)?|[Ss]at(?:urday)?|[Ss]un(?:day)?|[Tt]omorrow)\\b";
+    public static final String TIME_PATTERN =
+            "(?:(?:\\d{1,2}[-/]\\d{1,2}[-/]\\d{4})|(?:[Mm]on(?:day)?|[Tt]ue(?:sday)?|[Ww]ed(?:nesday)?|[Tt]hu(?:rsday)?"
+            + "|[Ff]ri(?:day)?|[Ss]at(?:urday)?|[Ss]un(?:day)?|[Tt]omorrow))\\s+((\\d{1,2}:?\\d{0,2}\\s?(?:am|pm)?)"
+            + "|(\\b\\d{4}\\b))";
     public static final int WEEK_OFFSET = 7;
+    public static final DateTimeFormatter DATE_FORMATTER_SLASH = DateTimeFormatter.ofPattern("M/d/yyyy");
+    public static final DateTimeFormatter DATE_FORMATTER_DASH = DateTimeFormatter.ofPattern("M-d-yyyy");
+    public static final DateTimeFormatter FORMAT_24_HOUR = DateTimeFormatter.ofPattern("HHmm");
+    public static final DateTimeFormatter FORMAT_24_HOUR_COLON = DateTimeFormatter.ofPattern("HH:mm");
+    public static final DateTimeFormatter FORMAT_24_HOUR_3_DIGIT_COLON = DateTimeFormatter.ofPattern("HH:mm");
+    public static final DateTimeFormatter FORMAT_12_HOUR = DateTimeFormatter.ofPattern("h:ma");
+    public static final DateTimeFormatter FORMAT_12_HOUR_3_DIGIT_NO_COLON = DateTimeFormatter.ofPattern("hma");
+    public static final DateTimeFormatter FORMAT_12_HOUR_NO_MINUTES = DateTimeFormatter.ofPattern("ha");
+
+
 
     /**
      * Enum for supported date formats.
@@ -112,68 +124,6 @@ public class DateParser {
         }
     }
 
-    /**
-     * Parses the given date string into a {@link LocalDateTime} object.
-     * Supports specific cases such as "tomorrow" and various date formats.
-     *
-     * @param originalString The date string to parse.
-     * @return The parsed {@link LocalDateTime} object.
-     * @throws IllegalDateFormatException If the date string does not match any known format.
-     */
-    public static LocalDateTime getDateTimeString(String originalString) throws IllegalDateFormatException {
-        try {
-            // Check for the special "tomorrow" case with optional time
-            if (originalString.toLowerCase().startsWith("tomorrow")) {
-                String timePart = originalString.substring("tomorrow".length()).trim();
-                LocalDate tomorrowDate = LocalDate.now().plusDays(1);
-                if (!timePart.isEmpty()) {
-                    return parseTime(tomorrowDate, timePart);
-                }
-                return tomorrowDate.atStartOfDay();
-            }
-
-            if (originalString.matches(DATE_PATTERN)) {
-                return parseType1(originalString);
-            } else if (originalString.matches(DAY_PATTERN)) {
-                return parseType2(originalString);
-            } else {
-                throw new IllegalDateFormatException();
-            }
-        } catch (DateTimeParseException e) {
-            throw new IllegalDateFormatException();
-        }
-    }
-
-    private static LocalDateTime parseType1(String originalString) throws IllegalDateFormatException {
-        DateFormatType dateFormatType = DateFormatType.getType(originalString);
-
-        // If the input string contains time, include time format in the pattern
-        if (hasTime(originalString)) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatType.getPattern() + " HHmm");
-            return LocalDateTime.parse(originalString, formatter);
-        }
-
-        // Otherwise just parse the date and default to start of day
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatType.getPattern());
-        return LocalDate.parse(originalString, formatter).atStartOfDay();
-    }
-
-    private static LocalDateTime parseType2(String originalString) throws IllegalDateFormatException {
-        String[] parts = originalString.toLowerCase().split(" ");
-        DayOfWeekEnum dayEnum = DayOfWeekEnum.fromString(parts[0]);
-
-        LocalDate nearestDate = getNextDayOfWeek(dayEnum.getDayOfWeek());
-
-        if (parts.length > 1) {
-            String timePart = parts[1];
-            if (parts.length > 2) {
-                timePart += " " + parts[2]; // Handle time in AM/PM format
-            }
-            return parseTime(nearestDate, timePart);
-        }
-
-        return nearestDate.atStartOfDay();
-    }
 
     private static LocalDate getNextDayOfWeek(DayOfWeek dayOfWeek) {
         LocalDate today = LocalDate.now();
@@ -184,57 +134,36 @@ public class DateParser {
         return today.plusDays(daysUntilNext);
     }
 
-    private static LocalDateTime parseTime(LocalDate date, String timeString) throws IllegalDateFormatException {
-        LocalDateTime dateTime;
-        LocalTime localTime;
 
-        try {
-            // 12-hour format with "am" or "pm"
-            if (timeString.toLowerCase().contains("am") || timeString.toLowerCase().contains("pm")) {
-                if (timeString.matches("\\d{1,2}[ap]m")) {
-                    // Handle times like "5pm", "12pm"
-                    DateTimeFormatter formatter12Hour = DateTimeFormatter.ofPattern("ha");
-                    localTime = LocalTime.parse(timeString.toLowerCase(), formatter12Hour);
+    public static String getDateString(String input) throws IllegalDateFormatException {
+        Pattern datePattern = Pattern.compile(DATE_PATTERN, Pattern.CASE_INSENSITIVE);
+        Matcher dateMatcher = datePattern.matcher(input);
 
-                } else if (timeString.matches("\\d{3}[ap]m")) {
-                    // Handle 3-digit times like "515pm" (pad the hour to 2 digits)
-                    String paddedTimeString = "0" + timeString;
-                    DateTimeFormatter formatter12HourWithMinutes = DateTimeFormatter.ofPattern("hhmma");
-                    localTime = LocalTime.parse(paddedTimeString.toLowerCase(), formatter12HourWithMinutes);
-
-                } else if (timeString.matches("\\d{4}[ap]m")) {
-                    // Handle 4-digit times like "1215pm"
-                    DateTimeFormatter formatter12HourWithFullMinutes = DateTimeFormatter.ofPattern("hhmma");
-                    localTime = LocalTime.parse(timeString.toLowerCase(), formatter12HourWithFullMinutes);
-
-                } else {
-                    throw new IllegalDateFormatException(); // Invalid time format
-                }
-
-            } else if (timeString.matches("\\d{1,4}")) {
-                // Handle 24-hour format (e.g., 1700, 520)
-                if (timeString.length() <= 2) {
-                    // If it's just an hour (e.g., "5" -> "0500"), assume it's HH00
-                    timeString = String.format("%02d00", Integer.parseInt(timeString));
-                } else if (timeString.length() == 3) {
-                    // If it's 3 digits (e.g., 520 -> 0520)
-                    timeString = String.format("%04d", Integer.parseInt(timeString));
-                }
-                DateTimeFormatter formatter24Hour = DateTimeFormatter.ofPattern("HHmm");
-                localTime = LocalTime.parse(timeString, formatter24Hour);
-            } else {
-                throw new IllegalDateFormatException(); // Invalid time format
+        if (dateMatcher.find()) {
+            // Check which group matched: either the date or the day name
+            if (dateMatcher.group(1) != null) {
+                return dateMatcher.group(1); // Return the matched date (MM/DD/YYYY)
+            } else if (dateMatcher.group(2) != null) {
+                return dateMatcher.group(2); // Return the matched day or "tomorrow"
             }
-
-            // Attach time to the date and return LocalDateTime
-            dateTime = date.atTime(localTime);
-
-        } catch (DateTimeParseException e) {
+        } else {
             throw new IllegalDateFormatException();
-        }
-
-        return dateTime;
+        }; // No date or day string found
+        return null;
     }
+
+
+    //get time string
+    public static String getTimeString(String input) {
+        Pattern timePattern = Pattern.compile(TIME_PATTERN, Pattern.CASE_INSENSITIVE);
+        Matcher timeMatcher = timePattern.matcher(input);
+
+        if (timeMatcher.find()) {
+            return timeMatcher.group(1); // Return the first capturing group (time part)
+        }
+        return null; // No time string found
+    }
+
     /**
      * Checks if the given string contains a time component.
      * <p>
@@ -247,14 +176,183 @@ public class DateParser {
      * <p>
      * The method uses regular expressions to detect the presence of these time patterns in the input string.
      *
-     * @param originalString the input string to check for a time component
+     * @param input the input string to check for a time component
      * @return {@code true} if the string contains a valid time component, otherwise {@code false}
      */
-    public static boolean hasTime(String originalString) {
-        // Regular expression to match various time patterns
-        // Matches "5pm", "520pm", "12:15pm", "1700", "0500", "515pm", "12pm", etc.
+    public static boolean hasTime(String input) {
+        Pattern timePattern = Pattern.compile(TIME_PATTERN, Pattern.CASE_INSENSITIVE);
+        Matcher timeMatcher = timePattern.matcher(input);
+        return timeMatcher.find(); // Returns true if a time component is found
+    }
 
-        // Use regular expression to check if the string contains the time part
-        return originalString.toLowerCase().matches(".*" + TIME_PATTERN + ".*");
+    public static LocalDateTime getDateTimeString(String string) throws IllegalDateFormatException {
+        string = string.trim().toLowerCase();
+
+        // Extract date part and time part
+        String dateString = getDateString(string);
+        LocalDate datePart = parseDateOrDay(dateString);
+        LocalTime timePart = null;
+
+        if (hasTime(string)) {
+            try {
+                // Extract time substring from input
+                String timeString = getTimeString(string); // You need to implement this method
+                timePart = parseTime(timeString); // Assuming this method is implemented correctly
+            } catch (IllegalDateFormatException e) {
+                throw new IllegalDateFormatException();
+            }
+        } else {
+            // Default to start of the day if no time is specified
+            timePart = LocalTime.MIDNIGHT;
+        }
+
+        return LocalDateTime.of(datePart, timePart);
+    }
+
+
+    /**
+     * Parses a given date string into a {@link LocalDate} object.
+     * This method supports two date formats: one with slash ("/") separators and one with dash ("-") separators.
+     * If the date string cannot be parsed using either format, an {@link IllegalDateFormatException} is thrown.
+     *
+     * @param dateString The string representing the date to be parsed.
+     *                   The expected formats are "MM/dd/yyyy" or "MM-dd-yyyy".
+     * @return The parsed {@link LocalDate} object.
+     * @throws IllegalDateFormatException If the date string does not match either the slash or dash format.
+     */
+    public static LocalDate parseDate(String dateString) throws IllegalDateFormatException {
+        try {
+            // Try to parse date with slash separators
+            return LocalDate.parse(dateString, DATE_FORMATTER_SLASH);
+        } catch (DateTimeParseException e) {
+            try {
+                // Try to parse date with dash separators
+                return LocalDate.parse(dateString, DATE_FORMATTER_DASH);
+            } catch (DateTimeParseException ex) {
+                throw new IllegalDateFormatException();
+            }
+        }
+    }
+
+    /**
+     * Returns the next occurrence of the specified {@link DayOfWeek} from the current date.
+     * If the given day of the week is today, it returns the occurrence of that day in the following week.
+     *
+     * @param dayOfWeek The {@link DayOfWeek} to find the next occurrence of.
+     * @return The {@link LocalDate} representing the next occurrence of the specified day.
+     */
+    public static LocalDate getNextDateOfWeek(DayOfWeek dayOfWeek) {
+        LocalDate today = LocalDate.now();
+        int daysUntilNext = (dayOfWeek.getValue() - today.getDayOfWeek().getValue() + WEEK_OFFSET) % WEEK_OFFSET;
+        if (daysUntilNext == 0) {
+            daysUntilNext = WEEK_OFFSET; // If it's today, get the next occurrence
+        }
+        return today.plusDays(daysUntilNext);
+    }
+
+    /**
+     * Parses a string to return a {@link LocalDate}, interpreting it as either a specific date or a day of the week.
+     * If the input is "tomorrow", it returns the date for the next day.
+     * If the input is a day of the week (e.g., "Monday", "Mon"), it returns the next occurrence of that day.
+     * If the input is a date string (e.g., "12/31/2024" or "12-31-2024"), it parses it as a date.
+     *
+     * @param dateString The string to be parsed, which can be a day of the week, "tomorrow", or a date.
+     * @return A {@link LocalDate} representing the parsed date or the next occurrence of the day of the week.
+     * @throws IllegalDateFormatException If the input cannot be parsed as a valid day or date.
+     */
+    public static LocalDate parseDateOrDay(String dateString) throws IllegalDateFormatException {
+        dateString = dateString.trim().toLowerCase();
+
+        if ("tomorrow".equals(dateString)) {
+            return LocalDate.now().plusDays(1);
+        }
+
+        try {
+            // Check if the dateString represents a day of the week
+            DayOfWeekEnum dayOfWeekEnum = DayOfWeekEnum.fromString(dateString);
+            return getNextDateOfWeek(dayOfWeekEnum.getDayOfWeek());
+        } catch (IllegalDateFormatException e) {
+            // Otherwise, treat it as a date
+            return parseDate(dateString);
+        }
+    }
+
+    /**
+     * Parses a time string and returns a {@link LocalTime} object.
+     * The method handles several formats including:
+     * <ul>
+     *   <li>12-hour format with AM/PM and without minutes (e.g., "6am", "10am")</li>
+     *   <li>12-hour format with AM/PM and colon (e.g., "7:45am", "10:30pm")</li>
+     *   <li>12-hour format with AM/PM and no colon (e.g., "745am", "1045pm")</li>
+     *   <li>24-hour format with and without a colon (e.g., "1700", "17:00")</li>
+     * </ul>
+     *
+     * @param timeString The string to be parsed, representing a time in various formats.
+     * @return A {@link LocalTime} object representing the parsed time.
+     * @throws IllegalDateFormatException If the time string does not match any supported format or cannot be parsed.
+     */
+    public static LocalTime parseTime(String timeString) throws IllegalDateFormatException {
+        try {
+            // Remove spaces and make it lower case for consistent parsing
+            timeString = timeString.trim().toLowerCase();
+
+            if (timeString.matches("\\d{4}\\s?(am|pm)")) {
+                //strip spaces
+                timeString = timeString.replaceAll("\\s+", "");
+                String formattedTime = timeString.substring(0, 2) + ":" + timeString.substring(2, 4) + " "
+                                       + timeString.substring(4);
+                // Define formatter for 12-hour format with AM/PM
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:m a");
+                return LocalTime.parse(formattedTime, formatter);
+            }
+
+            // Handle 12-hour format without minutes (e.g., 6am, 10am)
+            if (timeString.matches("\\d{1,2}\\s?(am|pm)")) {
+                timeString = timeString.trim().toLowerCase().replaceAll("\\s+", "");
+                return LocalTime.parse(timeString, FORMAT_12_HOUR_NO_MINUTES);
+            }
+
+            // Handle 12-hour format with AM/PM with colon
+            if (timeString.matches("\\d{1,2}:\\d{2}\\s?(am|pm)")) {
+                timeString = timeString.trim().toLowerCase().replaceAll("\\s+", "");
+                return LocalTime.parse(timeString, FORMAT_12_HOUR);
+            }
+
+            // Handle 12-hour format with AM/PM without colon
+            if (timeString.matches("\\d{3}(am|pm)")) {
+                // Add colon after the first digit (e.g., 745am -> 7:45am)
+                String formattedTime = timeString.substring(0, 1) + ":" + timeString.substring(1, 3)
+                                       + timeString.substring(3);
+                return LocalTime.parse(formattedTime, FORMAT_12_HOUR);
+            }
+
+
+            // Handle 12-hour format with AM/PM
+            if (timeString.matches("\\d{1}:?\\d{2}\\s?(am|pm)")) {
+                timeString = timeString.trim().toLowerCase().replaceAll("\\s+", "");
+                return LocalTime.parse(timeString, FORMAT_12_HOUR_3_DIGIT_NO_COLON);
+            }
+
+            // Handle 24-hour format without colon
+            if (timeString.matches("\\d{4}")) {
+                return LocalTime.parse(timeString, FORMAT_24_HOUR);
+            }
+
+            // Handle 24-hour format with colon
+            if (timeString.matches("\\d{1}:\\d{2}")) {
+                timeString = "0" + timeString;
+                return LocalTime.parse(timeString, FORMAT_24_HOUR_COLON);
+            }
+
+            // Handle 24-hour format with colon
+            if (timeString.matches("\\d{2}:\\d{2}")) {
+                return LocalTime.parse(timeString, FORMAT_24_HOUR_COLON);
+            }
+
+            // If none of the formats match, throw an exception
+            throw new IllegalDateFormatException();
+        } catch (DateTimeParseException e) {
+            throw new IllegalDateFormatException();
+        }
     }
 }

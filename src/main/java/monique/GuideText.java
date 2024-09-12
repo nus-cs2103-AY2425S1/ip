@@ -3,41 +3,72 @@ package monique;
 /**
  * The <code>GuideText</code> class stores a guide text message that informs users how to use the commands
  * in the Monique application.
+ *
+ * This class provides a clear explanation of how to use different commands such as listing tasks,
+ * marking/unmarking tasks, adding todos, deadlines, and events, and managing them with delete and exit commands.
  */
 public class GuideText {
-    //this file is created to store the long string message to inform users how to use the commands
-
     /**
      * A constant string that provides detailed instructions on how to use various commands in the Monique application.
-     * It covers commands such as listing tasks, marking/unmarking tasks, adding tasks with deadlines or events,
-     * and deleting tasks.
+     *
+     * It covers the following commands:
+     * <ul>
+     *  <li>Listing tasks</li>
+     *  <li>Marking and unmarking tasks</li>
+     *  <li>Adding todos, deadlines, and events</li>
+     *  <li>Deleting tasks</li>
+     *  <li>Exiting the application</li>
+     * </ul>
      */
     public static final String GUIDE = """
-    Here are the following commands:
+            Here are the following commands:
+            1. **List Tasks**:
+               To list all current tasks, type:
+               "list"
+               This will display all tasks with their statuses.
 
-            1. To list out current things on your todo list, type "list"
+            2. **Mark/Unmark a Task**:
+               To mark a task as complete, type:
+               "mark {task_number}"
+               Example: "mark 1" marks task 1 as complete.
 
-            2. To mark or unmark out an item as complete/incomplete, type "mark"/"unmark" followed by the item
-            number. Note that this is done on 1-based indexing
+               To unmark a task as incomplete, type:
+               "unmark {task_number}"
+               Example: "unmark 2" marks task 2 as incomplete.
 
-            For example, "mark 1" will mark item 1 as complete.
-            Similarly, "unmark 2" will mark item 2 as incomplete.
+               Note: Tasks are indexed from 1.
 
-            3. To exit, type "bye"
+            3. **Add a Todo Task**:
+               To add a todo item, type:
+               "todo {description}"
+               Example: "todo read a book" adds "read a book" to your tasks.
 
-            4. To create a "todo" item, type "todo" followed by the item description
-            e.g: "todo do homework" adds "do homework" as an todo task.
+            4. **Add a Deadline Task**:
+               To add a deadline item, type:
+               "deadline {description} /by {date} {optional_time}"
+               Example: "deadline submit report /by 12-12-2024 1700" adds a task with a deadline of 12th 
+               December 2024, 5:00 PM.
 
-            5. To create a "deadline" item, type "deadline" followed by the item description, and finally
-            followed by a deadline "/by deadline"
+               Valid date formats:
+               - Days of the week: "Monday" to "Sunday" or abbreviations "mon" to "sun"
+               - Date formats: "DD/MM/YYYY", "DD-MM-YYYY", or "tomorrow"
 
+               Valid time formats:
+               - "HHmm" (24-hour format)
+               - "h:mmam" or "h:mmpm" (12-hour format with am/pm)
 
-            6. To create an "event" item, type "event" followed by the item description, and followed by a start time
-            "/from start time", and finally followed by an end time "/to end time".
-            e.g: "event CS2103 lecture /from <from date> /to <to date>" adds an event for CS2103 lecture, from some
-            <from date> to some <to date>. Note that the acceptable date format is
-            either: M/d/yyyy HHmm, M/d/yyyy, M-d-yyyy HHmm or M-d-yyyy.
+            5. **Add an Event Task**:
+               To add an event item, type:
+               "event {description} /from {start_date} {start_time} /to {end_date} {end_time}"
+               Example: "event meeting /from tomorrow 1400 /to 12-12-2024 1700" schedules an event from tomorrow at 2:00 PM until 12th December 2024, 5:00 PM.
 
-                7. To delete an item, type "delete" followed by the item number.""";
+            6. **Delete a Task**:
+               To delete a task, type:
+               "delete {task_number}"
+               Example: "delete 3" deletes task number 3.
+
+            7. **Exit the Application**:
+               To exit the application, type:
+               "bye"
+               This will save your progress and close the application.""";
 }
-
