@@ -26,8 +26,13 @@ public class Storage {
         // set directory for output, and output file,
         // in this case <>\Desktop\CS2103T_IP\data, where <> is the autodetected home directory
         String home = System.getProperty("user.home");
-        pathStorageDirectory = Paths.get(home, "Desktop", "CS2103T_IP", "data");
-        pathStorageFile = Paths.get(home, "Desktop", "CS2103T_IP", "data", "bill.txt");
+        //pathStorageDirectory = Paths.get(home, "Desktop", "CS2103T_IP", "data");
+        pathStorageDirectory = Paths.get("./data");
+
+        //pathStorageFile = Paths.get(home, "Desktop", "CS2103T_IP", "data", "bill.txt");
+        pathStorageFile = Paths.get("./data", "bill.txt");
+
+
     }
 
     /**
