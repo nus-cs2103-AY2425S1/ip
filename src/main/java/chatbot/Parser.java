@@ -76,14 +76,14 @@ public class Parser {
                     handleTodo(taskList, taskDetails, taskMarkedDone);
                     continue;
                 } else if (taskType.equals("D")) {
-                    Matcher matcherD = getMatcher(next, "(\\S.*) \\(by: (\\S.*)\\)");
+                    Matcher matcherD = getMatcher(taskDetails, "(\\S.*) \\(by: (\\S.*)\\)");
 
                     if (matcherD.matches()) {
                         handleDeadline(taskList, matcherD, taskMarkedDone);
                         continue;
                     }
                 } else if (taskType.equals("E")) {
-                    Matcher matcherE = getMatcher(next, "(\\S.*) \\(from: (\\S.*) to: (\\S.*)\\)");
+                    Matcher matcherE = getMatcher(taskDetails, "(\\S.*) \\(from: (\\S.*) to: (\\S.*)\\)");
 
                     if (matcherE.matches()) {
                         handleEvent(taskList, matcherE, taskMarkedDone);

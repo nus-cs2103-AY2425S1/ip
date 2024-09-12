@@ -1,10 +1,7 @@
 package chatbot;
 
 import org.junit.jupiter.api.Test;
-import task.Deadline;
-import task.Event;
-import task.TaskList;
-import task.Todo;
+import task.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -83,9 +80,9 @@ public class ParserTest {
 
         Scanner sc2 = new Scanner("[D][ ] task 2 (by: 2024-06-22 1600)");
         Parser.parseFromTxtTaskList(sc2, taskList);
+        Task removed = taskList.removeTask(1);
         assertEquals(
-                new Deadline("task 2", "2024-06-22 1600"),
-                taskList.removeTask(1));
+                new Deadline("task 2", "2024-06-22 1600"), removed);
         sc2.close();
 
         Scanner sc3 = new Scanner("[E][ ] task 3 (from: 2024-06-22 1600 to: 2024-06-22 1800)");
