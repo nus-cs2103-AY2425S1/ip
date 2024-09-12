@@ -59,6 +59,12 @@ public class Parser {
         case "find":
             return parseFindCommand(arguments);
 
+        case "tag":
+            return parseTagCommand(arguments);
+
+        case "untag":
+            return parseUntagCommand(arguments);
+
         default:
             throw new InvalidCommandException("""
             Error: Command not found
@@ -198,5 +204,27 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new TaskInputException("Error: Invalid task number.");
         }
+    }
+
+    private static Command parseTagCommand(String arguments) throws TaskInputException {
+        String[] parts = arguments.split(" ", 2);
+        if (parts.length != 2 || parts[1].trim().isEmpty()) {
+            throw new TaskInputException("Error: The task index and tag cannot be empty.\n");
+        }
+
+        int taskIndex = parseTaskIndex(parts[0]);
+        String tag = parts[1].trim();
+        return new AddTagCommand(taskIndex, tag);
+    }
+
+    private static Command parseUntagCommand(String arguments) throws TaskInputException {
+        String[] parts = arguments.split(" ", 2);
+        if (parts.length != 2 || parts[1].trim().isEmpty()) {
+            throw new TaskInputException("Error: The task index and tag cannot be empty.\n");
+        }
+
+        int taskIndex = parseTaskIndex(parts[0]);
+        String tag = parts[1].trim();
+        return new RemoveTagCommand(taskIndex, tag);
     }
 }
