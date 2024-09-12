@@ -14,7 +14,8 @@ public class Ui {
      * @return string representation of the welcome message
      */
     public String showWelcome() {
-        return "Hello! I'm Oliver.\nWhat can I do for you?";
+        return "Meow! I'm Oliver, your purr-sonal task tracker!\nWhat can I do for you today?\n" +
+                "Need help with your list, or maybe a reminder to chase your dreams... or a mouse?";
     }
 
     /**
@@ -23,7 +24,7 @@ public class Ui {
      * @return string representation of the farewell message
      */
     public String showBye() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye for now! Hope to see you again soon for more tasks and chats!";
     }
 
     /**
@@ -51,7 +52,7 @@ public class Ui {
      */
     public String showAdded(Task addedTask, int numTasks) {
         return String.format("Got it. I've added this task:\n%s\n" +
-                "Now you have %d tasks in the list.", addedTask, numTasks);
+                "Now you have %d tasks to keep you busy.", addedTask, numTasks);
     }
 
     /**
@@ -62,8 +63,8 @@ public class Ui {
      * @return string representation of the confirmation message
      */
     public String showDeleted(Task removedTask, int numTasks) {
-        return String.format("Ok. I've removed this task:\n%s\n" +
-                "Now you have %d tasks in the list.", removedTask, numTasks);
+        return String.format("All done. I've removed this task:\n%s\n" +
+                "You are down to %d tasks now.", removedTask, numTasks);
     }
 
     /**
@@ -74,7 +75,7 @@ public class Ui {
      */
     public String showList(TaskList list) {
         if (list.isEmpty()) {
-            return "There are no tasks in your list.";
+            return "Meow? I could not find any tasks in your list.";
         }
 
         StringBuilder builder = new StringBuilder();
@@ -84,7 +85,7 @@ public class Ui {
         assert builder.charAt(builder.length() - 1) == '\n' : "Last char should be a newline char";
         // Remove the last newline char
         builder.deleteCharAt(builder.length() - 1);
-        return "Here are the tasks in your list:\n" + builder;
+        return "Here's your list of tasks to tackle:\n" + builder;
     }
 
     /**
@@ -96,7 +97,7 @@ public class Ui {
      */
     public String showMarked(TaskList list, int index) {
         list.get(index).markAsDone();
-        return "Nice! I've marked this task as done:\n" + list.get(index);
+        return "Pawsome work! I've marked this task as done:\n" + list.get(index);
     }
 
     /**
@@ -108,7 +109,7 @@ public class Ui {
      */
     public String showUnmarked(TaskList list, int index) {
         list.get(index).markAsUndone();
-        return "Ok, I've marked this task as not done yet:\n" + list.get(index);
+        return "Alright, I've marked this task as still pending:\n" + list.get(index);
     }
 
     /**
@@ -120,12 +121,12 @@ public class Ui {
      */
     public String showSearch(TaskList list, String keyword) {
         if (list.isEmpty()) {
-            return "There are no tasks in your list.";
+            return "Meow? I could not find any tasks in your list.";
         }
 
         TaskList filteredList = list.filter(keyword);
         if (filteredList.isEmpty()) {
-            return "There are no matching tasks in your list.";
+            return "Meow? I could not find any matching tasks in your list.";
         }
         StringBuilder builder = new StringBuilder();
         for (int i = 1; i <= filteredList.getSize(); i++) {
@@ -134,7 +135,7 @@ public class Ui {
         assert builder.charAt(builder.length() - 1) == '\n' : "Last char should be a newline char";
         // Remove the last newline char
         builder.deleteCharAt(builder.length() - 1);
-        return "Here are the matching tasks in your list:\n" + builder;
+        return "Here are the matching tasks in your list I managed to dig up:\n" + builder;
     }
 
     /**
@@ -145,12 +146,12 @@ public class Ui {
      */
     public String showReminders(TaskList list) {
         if (list.isEmpty()) {
-            return "There are no tasks in your list.";
+            return "Meow? I could not find any tasks in your list.";
         }
 
         TaskList reminderList = list.getUpcomingTasks();
         if (reminderList.isEmpty()) {
-            return "There are no tasks due soon.";
+            return "Don't worry, there are no tasks due soon.";
         }
         StringBuilder builder = new StringBuilder();
         for (int i = 1; i <= reminderList.getSize(); i++) {
@@ -168,7 +169,7 @@ public class Ui {
      * @return string representation of the error message
      */
     public String showMissingArgsError() {
-        return "Missing arguments for this command.";
+        return "Meow??? Missing arguments for this command.";
     }
 
     /**
@@ -177,7 +178,7 @@ public class Ui {
      * @return string representation of the error message
      */
     public String showInvalidArgsError() {
-        return "Invalid arguments provided for this command.";
+        return "Meow??? Invalid arguments provided for this command.";
     }
 
     /**
@@ -186,7 +187,7 @@ public class Ui {
      * @return string representation of the error message
      */
     public String showOutOfRangeError() {
-        return "No such task exists. Task number out of range.";
+        return "Meow??? I could not find such a task. Task number out of range.";
     }
 
     /**
