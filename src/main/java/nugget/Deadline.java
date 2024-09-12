@@ -1,5 +1,7 @@
 package nugget;
 
+//import jdk.internal.icu.util.VersionInfo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -43,5 +45,9 @@ public class Deadline extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
         return this.getTaskType() + super.toString() + " (by: " + this.dateTime.format(formatter) + ")";
+    }
+
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
     }
 }
