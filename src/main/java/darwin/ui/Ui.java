@@ -21,6 +21,7 @@ public class Ui {
      * @param txt message to send
      */
     public void send(String txt) {
+        assert txt != null : "Message should not be null";
         Ui.reply(txt);
         this.lastResponse = txt;
     }
