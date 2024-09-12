@@ -34,6 +34,7 @@ public class CommandEvent extends Command {
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         int size = taskList.addTask(task);
+        assert size > 0 : "Task not added to task list";
         storage.rewriteFile(taskList);
         return ui.addTask(task, size);
     }
