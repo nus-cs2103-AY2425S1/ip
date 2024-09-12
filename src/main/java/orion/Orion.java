@@ -1,5 +1,7 @@
 package orion;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,8 +16,6 @@ import orion.task.EventDetails;
 import orion.task.Task;
 import orion.taskList.TaskList;
 import orion.ui.MainWindow;
-
-import java.io.IOException;
 
 public class Orion extends Application {
     private TaskList taskList;
