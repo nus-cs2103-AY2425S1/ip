@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(ZBot zbot) {
+    public void setZbot(ZBot zbot) {
         this.zbot = zbot;
     }
 

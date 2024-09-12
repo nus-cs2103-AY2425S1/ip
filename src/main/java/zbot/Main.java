@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import zbot.ui.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for ZBot using FXML.
  */
 public class Main extends Application {
     private ZBot zbot = new ZBot();
@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(zbot); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setZbot(zbot); // inject the ZBot instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
