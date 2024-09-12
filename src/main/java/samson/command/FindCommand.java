@@ -21,7 +21,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in the task descriptions.
      */
     public FindCommand(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.trim().toLowerCase();  // Trim and convert to lowercase for better matching
     }
 
     /**
@@ -34,7 +34,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> matchingTasks = taskList.getTasks().stream()
-                .filter(task -> task.getDescription().contains(keyword))
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword))  // Case-insensitive matching
                 .collect(Collectors.toList());
 
         return ui.showFindResults(matchingTasks);
@@ -50,4 +50,3 @@ public class FindCommand extends Command {
         return false;
     }
 }
-
