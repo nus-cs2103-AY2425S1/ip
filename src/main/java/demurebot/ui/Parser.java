@@ -31,6 +31,8 @@ public abstract class Parser {
      * @throws DemureBotException If the user command is invalid.
      */
     public static Command parse(String command) throws DemureBotException {
+        assert !command.trim().isEmpty() : "Command is empty!";
+
         if (command.trim().equals("bye")) {
             return new EndCommand();
         } else if (command.trim().equals("list")) {
