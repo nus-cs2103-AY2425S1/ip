@@ -32,102 +32,267 @@ public class Parser {
     /**
      * Parses a user command and returns the corresponding Command instance
      *
-     * @param command The user input
-     * @return The respective Command instance
+     * @param command User input
+     * @return Respective Command instance
+     * @throws MissingDescriptionException If description is missing
+     * @throws InvalidFormatException If command format is invalid
+     * @throws DateTimeParseException If date is invalid
+     * @throws MissingDateTimeException If date is missing
      */
-    public static Command parse(String command) {
-        String[] input = command.split(" ", 2);
-        try {
-            CommandType commandType = CommandType.valueOf(input[0].trim().toUpperCase());
-            switch (commandType) {
-            case BYE:
-                return new CommandBye();
-            case LIST:
-                return new CommandList();
-            case HELP:
-                return new CommandHelp();
-            case TODO:
-                return new CommandTodo(new ToDo(getContent(input)));
-            case DEADLINE: {
-                String content = getContent(input);
-                if (!content.matches(".*/by.*")) {
-                    throw new InvalidFormatException("WHAT Please use deadline [description] /by [time]");
-                }
-                String[] details = content.split("/by", 2);
-                if (details[0].trim().isEmpty()) {
-                    throw new MissingDescriptionException("Missing description after deadline");
-                }
-                if (details.length == 1 || details[1].trim().isEmpty()) {
-                    throw new MissingDateTimeException("Missing by time");
-                }
-                LocalDate by = LocalDate.parse(details[1].trim());
-                Deadline task = new Deadline(details[0].trim(), by);
-                return new CommandDeadline(task);
-            }
-            case EVENT: {
-                String content = getContent(input);
-                if (!content.matches(".*/from.*/to.*")) {
-                    throw new InvalidFormatException("Please use event [description] /from [time] /to [time]");
-                }
-                String[] details = content.split("/from", 2);
-                if (details[0].trim().isEmpty()) {
-                    throw new MissingDescriptionException("Missing description after event");
-                }
-                String description = details[0].trim();
-                if (details.length == 1 || details[1].trim().isEmpty()) {
-                    throw new MissingDateTimeException("Missing from/to time");
-                }
-                String[] date = details[1].split("/to", 2);
-                if (date.length <= 1 || date[0].trim().isEmpty() || date[1].trim().isEmpty()) {
-                    throw new MissingDateTimeException("Missing from/to time");
-                }
-                LocalDate from = LocalDate.parse(date[0].trim());
-                LocalDate to = LocalDate.parse(date[1].trim());
-                Event task = new Event(description, from, to);
-                return new CommandEvent(task);
-            }
-            case MARK:
-                return new CommandMark(getIndex(input));
-            case UNMARK:
-                return new CommandUnmark(getIndex(input));
-            case DELETE:
-                return new CommandDelete(getIndex(input));
-            case FIND:
-                return new CommandFind(getContent(input));
-            default:
-                System.out.println("help");
-                return new CommandHelp();
-            }
-        } catch (MissingDescriptionException e) {
-            // TO BE REPLACED WITH dudu.utils.UI
-            System.out.println(e);
-        } catch (InvalidFormatException e) {
-            System.out.println(e);
-        } catch (DateTimeParseException e) {
-            System.out.println(e);
-        } catch (MissingDateTimeException e) {
-            System.out.println(e);
-        } catch (IllegalArgumentException e) {
+    public static Command parse(String command) throws MissingDescriptionException,
+            InvalidFormatException, DateTimeParseException, MissingDateTimeException {
+        CommandType commandType = getCommandTypeFromInput(command);
+        switch (commandType) {
+        case BYE:
+            return new CommandBye();
+        case LIST:
+            return new CommandList();
+        case HELP:
+            return new CommandHelp();
+        case TODO:
+            return new CommandTodo(createTodo(command));
+        case DEADLINE:
+            return new CommandDeadline(createDeadline(command));
+        case EVENT:
+            return new CommandEvent(createEvent(command));
+        case MARK:
+            return new CommandMark(parseIndex(command));
+        case UNMARK:
+            return new CommandUnmark(parseIndex(command));
+        case DELETE:
+            return new CommandDelete(parseIndex(command));
+        case FIND:
+            return new CommandFind(parseContent(command));
+        default:
             return new CommandHelp();
         }
-        System.out.println("Why am i here");
-        return new CommandHelp();
     }
 
-    public static String getContent(String[] input) throws MissingDescriptionException {
-        if (input.length <= 1 || input[1].trim().isEmpty()) {
+    /**
+     * Get command type from user input
+     *
+     * @param command User input
+     * @return Command type
+     */
+    public static CommandType getCommandTypeFromInput(String command) {
+        String[] splitCommand = command.split(" ", 2);
+        try {
+            return CommandType.valueOf(splitCommand[0].trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return CommandType.HELP;
+        }
+    }
+
+    /**
+     * Removes command from user input
+     *
+     * @param command User input
+     * @return Content after commandType
+     * @throws MissingDescriptionException If content is missing
+     */
+    public static String parseContent(String command) throws MissingDescriptionException {
+        String[] splitCommand = command.split(" ", 2);
+        if (splitCommand.length <= 1) {
             throw new MissingDescriptionException("Please include a description");
         }
-        return input[1].trim();
+        String content = splitCommand[1].trim();
+        if (content.isEmpty()) {
+            throw new MissingDescriptionException("Please include a description");
+        }
+        return content;
     }
 
-    public static int getIndex(String[] input) throws MissingDescriptionException {
-        if (input.length <= 1 || input[1].replaceAll("\\D+", "").isEmpty()) {
-            throw new MissingDescriptionException("Please input a number");
+    /**
+     * Create a To-do task
+     *
+     * @param command User input without command at the front
+     * @return Created to-do task
+     * @throws MissingDescriptionException If description is missing
+     */
+    public static ToDo createTodo(String command) throws MissingDescriptionException {
+        return new ToDo(parseContent(command));
+    }
+
+    /**
+     * Create a Deadline task
+     *
+     * @param command User input without command at the front
+     * @return Created deadline event
+     * @throws MissingDescriptionException If description is missing
+     * @throws InvalidFormatException If command format is invalid
+     * @throws MissingDateTimeException If deadline is missing
+     */
+    public static Deadline createDeadline(String command) throws MissingDescriptionException,
+            InvalidFormatException, MissingDateTimeException {
+        String content = parseDeadlineContent(command);
+        String description = parseDeadlineDescription(content);
+        LocalDate by = parseDeadlineDate(content);
+        return new Deadline(description, by);
+    }
+
+    /**
+     * Removes command from user input and check for valid deadline task format
+     *
+     * @param command User input
+     * @return Content after commandType
+     * @throws MissingDescriptionException If description is missing
+     * @throws InvalidFormatException If deadline command format is invalid
+     */
+    public static String parseDeadlineContent(String command) throws MissingDescriptionException, InvalidFormatException {
+        String content = parseContent(command);
+        if (!content.matches(".*/by.*")) {
+            throw new InvalidFormatException("Please use deadline [description] /by [time]");
         }
-        int index = Integer.parseInt(input[1].replaceAll("\\D+", "")) - 1;
-        if (index < 0) {
-            throw new IllegalArgumentException("Please input a valid count");
+        return content;
+    }
+
+    /**
+     * Retrieves description from deadline commands
+     *
+     * @param content User input stripped of command
+     * @return Description for deadline task
+     * @throws MissingDescriptionException If no description is available
+     */
+    public static String parseDeadlineDescription(String content) throws MissingDescriptionException {
+        String[] splitContent = content.split("/by", 2);
+        String description = splitContent[0].trim();
+
+        if (description.isEmpty()) {
+            throw new MissingDescriptionException("Missing description after deadline");
+        }
+        return description;
+    }
+
+    /**
+     * Retrieves deadline from deadline commands
+     *
+     * @param content User input stripped of command
+     * @return Description for deadline task
+     * @throws MissingDateTimeException If no deadline is available
+     */
+    public static LocalDate parseDeadlineDate(String content) throws MissingDateTimeException {
+        String[] splitContent = content.split("/by", 2);
+        String deadlineDate = splitContent[1].trim();
+        if (deadlineDate.isEmpty()) {
+            throw new MissingDateTimeException("Missing by time");
+        }
+        return LocalDate.parse(deadlineDate);
+    }
+
+    /**
+     * Create an event task
+     *
+     * @param command User input
+     * @return Created event task
+     * @throws MissingDescriptionException If description is missing
+     * @throws InvalidFormatException If event command format is invalid
+     * @throws MissingDateTimeException If from date or to date is missing
+     */
+    public static Event createEvent(String command) throws MissingDescriptionException, InvalidFormatException, MissingDateTimeException {
+        String content = parseEventContent(command);
+        String description = parseEventDescription(content);
+        String dates = parseEventDates(content);
+        LocalDate from = parseEventFromDate(dates);
+        LocalDate to = parseEventToDate(dates);
+        return new Event(description, from, to);
+    }
+
+    /**
+     * Removes command from event command and check for valid event task format
+     *
+     * @param command User input
+     * @return Content after commandType
+     * @throws MissingDescriptionException If description is missing
+     * @throws InvalidFormatException If event command format is invalid
+     */
+    public static String parseEventContent(String command) throws MissingDescriptionException, InvalidFormatException {
+        String content = parseContent(command);
+        if (!content.matches(".*/from.*/to.*")) {
+            throw new InvalidFormatException("Please use event [description] /from [time] /to [time]");
+        }
+        return content;
+    }
+
+    /**
+     * Retrieves description from event command
+     *
+     * @param content User input stripped of command
+     * @return Description for event task
+     * @throws MissingDescriptionException If description is missing
+     */
+    public static String parseEventDescription(String content) throws MissingDescriptionException {
+        String[] splitContent = content.split("/from", 2);
+        String description = splitContent[0].trim();
+        if (description.isEmpty()) {
+            throw new MissingDescriptionException("Missing description after event");
+        }
+        return description;
+    }
+
+    /**
+     * Retrieves from date and to date from event command
+     *
+     * @param content User input stripped of command
+     * @return Dates from event command
+     */
+    public static String parseEventDates(String content) {
+        String[] splitContent = content.split("/from", 2);
+        return splitContent[1].trim();
+    }
+
+    /**
+     * Retrieves from date from event command dates
+     *
+     * @param dates Event command dates
+     * @return From date as LocalDate instance
+     * @throws MissingDateTimeException If from date is missing
+     * @throws DateTimeParseException If from date is invalid
+     */
+    public static LocalDate parseEventFromDate(String dates) throws MissingDateTimeException, DateTimeParseException {
+        String[] splitDates = dates.split("/to", 2);
+        String fromDate = splitDates[0].trim();
+        if (fromDate.isEmpty()) {
+            throw new MissingDateTimeException("Missing from/to time");
+        }
+        return LocalDate.parse(fromDate);
+    }
+
+    /**
+     * Retrieves to date from event command dates
+     *
+     * @param dates Event command dates
+     * @return To date as LocalDate instance
+     * @throws MissingDateTimeException If to date is missing
+     * @throws DateTimeParseException If to date is invalid
+     */
+    public static LocalDate parseEventToDate(String dates) throws MissingDateTimeException, DateTimeParseException {
+        String[] splitDates = dates.split("/to", 2);
+        String toDate = splitDates[1].trim();
+        if (toDate.isEmpty()) {
+            throw new MissingDateTimeException("Missing from/to time");
+        }
+        return LocalDate.parse(toDate);
+    }
+
+    /**
+     * Retrieves index from mark, unmark and delete commands
+     *
+     * @param command User input
+     * @return Index from command
+     * @throws MissingDescriptionException If no index is available
+     * @throws IllegalArgumentException If index is not a number or number is zero or negative
+     */
+    public static int parseIndex(String command) throws MissingDescriptionException, IllegalArgumentException {
+        String invalidNumberMessage = "Please input a valid number";
+        String content = parseContent(command);
+        int index;
+        try {
+            index = Integer.parseInt(content) - 1;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(invalidNumberMessage);
+        }
+        if (index <= 0) {
+            throw new IllegalArgumentException(invalidNumberMessage);
         }
         return index;
     }

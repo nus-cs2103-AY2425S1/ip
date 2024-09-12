@@ -25,9 +25,4 @@ public class CommandFind extends Command {
         ArrayList<Task> filteredTasks = taskList.findTasks(this.query.split(" "));
         return ui.findTasks(filteredTasks);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

@@ -21,16 +21,6 @@ public class CommandList extends Command {
     }
 
     /**
-     * Indicates that this command will not cause the application to exit.
-     *
-     * @return false, as this command always does not cause the application to exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Compares this CommandList to another object for equality. Two CommandList
      * objects are considered equal if they are of the same class.
      *

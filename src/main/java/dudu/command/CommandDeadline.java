@@ -39,25 +39,15 @@ public class CommandDeadline extends Command {
         return ui.addTask(task, size);
     }
 
-    /**
-     * Indicates that this command will not cause the application to exit.
-     *
-     * @return false, as this command always does not cause the application to exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
         }
-        if (o == null || !(o instanceof CommandDeadline)) {
+        if (!(o instanceof CommandDeadline)) {
             return false;
         }
-        CommandDeadline other = (CommandDeadline) o;
-        return this.task.equals(other.task);
+        CommandDeadline otherTask = (CommandDeadline) o;
+        return this.task.equals(otherTask.task);
     }
 }
