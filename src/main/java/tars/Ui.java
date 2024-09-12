@@ -100,7 +100,7 @@ public class Ui {
      */
     public String getTaskRemovedResponse(String taskDescription, int size) {
         return "I've removed this task:\n" + taskDescription + "\nNow you have " + size
-                + " tasks in the list."
+                + " tasks in the list. \n"
                 + "Newton’s third law - the only way"
                 + "humans have ever figured out of"
                 + "getting somewhere is to leave"

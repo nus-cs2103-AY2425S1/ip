@@ -7,13 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 /**
  * Controller for the main GUI.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -25,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Tars tars;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image tarsImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image tarsImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initializes the main window by setting up the scroll pane and displaying a welcome message.
@@ -45,7 +44,7 @@ public class MainWindow extends AnchorPane {
      * @param t the TARS instance to be used by this controller.
      */
     public void setTars(Tars t) {
-        tars = t;
+        this.tars = t;
     }
 
     /**
@@ -57,15 +56,17 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().trim();
+        if (input.isEmpty()) {
+            return;
+        }
         String response = tars.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getTarsDialog(response, tarsImage)
         );
         userInput.clear();
-
-        if (input.equals("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();
