@@ -14,6 +14,7 @@ import main.ChattyBuddy;
 public class MainWindow extends AnchorPane {
     @FXML
     private static final int DELAY_IN_MILLISECONDS = 1500;
+    @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
