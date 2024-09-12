@@ -134,14 +134,6 @@ public class Ui extends Application {
     }
 
     /**
-     * Outputs and formats the string specified.
-     * @param s The string specified.
-     */
-    public void printString(String s) {
-        System.out.println(formatResponse(s));
-    }
-
-    /**
      * Creates a dialog box containing user input, and appends it to
      * the dialog container. Clears the user input after processing.
      */

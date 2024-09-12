@@ -49,34 +49,10 @@ public class Asura {
     }
 
     /**
-     * The main program loop
-     */
-    public void run() {
-        boolean isExit = false;
-        ui.showIntroduction();
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (AsuraException e) {
-                ui.showError(e.getMessage());
-            }
-
-        }
-
-        ui.showGoodbye();
-    }
-
-
-    /**
      * Executes the main loop
      * @param args Optional arguments passed to the program
      */
     public static void main(String[] args) {
-        new Asura(DEFAULT_FILE_PATH).run();
     }
 
     public Asura() {
