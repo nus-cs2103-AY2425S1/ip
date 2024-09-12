@@ -24,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Creates a new DialogBox.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -48,10 +54,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gets a dialog box for the user.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     * @return The dialog box for the user.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Gets a dialog box for Skibidi.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     * @return The dialog box for Skibidi.
+     */
     public static DialogBox getSkibidiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

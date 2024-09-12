@@ -15,6 +15,11 @@ public class Main extends Application {
 
     private Skibidi skibidi = new Skibidi();
 
+    /**
+     * Starts the application.
+     *
+     * @param stage The stage to display the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

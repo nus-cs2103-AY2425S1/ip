@@ -25,25 +25,26 @@ public class Parser {
 
         String normalizedInput = input.trim().toLowerCase();
 
-        if (normalizedInput.equals("bye")) {
+        switch (normalizedInput.split(" ")[0]) {
+        case "bye":
             return new ExitCommand();
-        } else if (normalizedInput.equals("list")) {
+        case "list":
             return new ListCommand();
-        } else if (normalizedInput.startsWith("todo ")) {
+        case "todo":
             return new AddTodoCommand(input);
-        } else if (normalizedInput.startsWith("deadline ")) {
+        case "deadline":
             return new AddDeadlineCommand(input);
-        } else if (normalizedInput.startsWith("event ")) {
+        case "event":
             return new AddEventCommand(input);
-        } else if (normalizedInput.startsWith("mark ")) {
+        case "mark":
             return new MarkCommand(input);
-        } else if (normalizedInput.startsWith("unmark ")) {
+        case "unmark":
             return new UnmarkCommand(input);
-        } else if (normalizedInput.startsWith("delete ")) {
+        case "delete":
             return new DeleteCommand(input);
-        } else if (normalizedInput.startsWith("find ")) {
+        case "find":
             return new FindCommand(input);
-        } else {
+        default:
             throw new SkibidiException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
