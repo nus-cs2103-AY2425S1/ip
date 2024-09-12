@@ -188,9 +188,6 @@ public class Velma {
                         .append(ui.showFoundTasks(foundTasks));
                 break;
 
-            case BYE:
-                response.append(ui.showGoodbye());
-                break;
 
             case UNKNOWN:
             default:
@@ -227,8 +224,6 @@ public class Velma {
             return Command.DELETE;
         } else if (input.startsWith("find")) {
             return Command.FIND;
-        } else if (input.equals("bye")) {
-            return Command.BYE;
         } else {
             return Command.UNKNOWN;
         }

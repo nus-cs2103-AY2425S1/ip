@@ -1,4 +1,5 @@
 package velma;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
+import javafx.util.Duration;
 
 public class MainWindow extends AnchorPane{
     @FXML
@@ -40,19 +42,37 @@ public class MainWindow extends AnchorPane{
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = velma.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getVelmaDialog(response, velmaImage)
-        );
-        playSendMessageSound();
-        userInput.clear();
+        if (input.equals("bye")) {
+            userInput.clear();
+            playSendMessageSound();
+            exit(input);
+        } else {
+            String response = velma.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getVelmaDialog(response, velmaImage)
+            );
+            playSendMessageSound();
+            userInput.clear();
+        }
     }
 
     private void playSendMessageSound() {
         String soundPath = this.getClass().getResource("/sounds/fart-01.wav").toString();
         AudioClip sendSound = new AudioClip(soundPath);
         sendSound.play();
+    }
+
+    /**
+     * Displays a goodbye message and exits the application
+     */
+    private void exit(String input) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getVelmaDialog("Goodbye! Hope to see you again soon!", velmaImage));
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> System.exit(0));
+        delay.play();
     }
 
 }
