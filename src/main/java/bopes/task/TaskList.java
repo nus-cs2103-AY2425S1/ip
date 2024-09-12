@@ -1,6 +1,8 @@
 package bopes.task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import bopes.exception.BopesException;
 
 /**
@@ -125,13 +127,17 @@ public class TaskList {
      * @param keyword the keyword to search for
      * @return a TaskList containing tasks that match the keyword
      */
-    public TaskList findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.description.contains(keyword)) {
-                matchingTasks.add(task);
-            }
+    public String findTasks(String keyword) {
+        List<Task> matchingTasks = tasks.stream()
+            .filter(task -> task.description.contains(keyword))
+            .collect(Collectors.toList());
+    
+        if (matchingTasks.isEmpty()) {
+            return "No such tasks found.";
         }
-        return new TaskList(matchingTasks);
+    
+        return matchingTasks.stream()
+            .map(Task::toString)
+            .collect(Collectors.joining("\n"));
     }
 }

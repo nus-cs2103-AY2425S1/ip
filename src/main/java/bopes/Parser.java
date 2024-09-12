@@ -183,8 +183,7 @@ public class Parser {
     }
 
     private static String handleFindCommand(String keyword, TaskList tasks) {
-        TaskList matchingTasks = tasks.findTasks(keyword);
-        return matchingTasks.toString();
+        return tasks.findTasks(keyword);
     }
 
     /**
