@@ -18,6 +18,7 @@ public class TaskManagement {
 	 * @param taskDAO the TaskDAO to be used for task operations
 	 */
 	public TaskManagement(TaskDAO taskDAO) {
+		assert taskDAO != null : "TaskDAO must not be null.";
 		this.taskDAO = taskDAO;
 		this.length = taskDAO.getAllTasks().size();
 	}
@@ -37,6 +38,7 @@ public class TaskManagement {
 	 * @param task the task to be added
 	 */
 	public void add(Task task) {
+		assert task != null : "Task must not be null.";
 		length++;
 		taskDAO.addTask(task);
 	}

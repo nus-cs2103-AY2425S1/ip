@@ -13,6 +13,7 @@ public class Task {
 	 * @param name the name of the task
 	 */
 	public Task(String name) {
+		assert name != null : "Task name must not be null.";
 		this.name = name;
 		this.id = -1;
 		this.isMarked = false;

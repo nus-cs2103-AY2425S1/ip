@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -23,16 +26,16 @@ public class MainWindow extends AnchorPane {
 
     private Susan susan;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    private Image susanImage = new Image(this.getClass().getResourceAsStream("/images/susan.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.jpg")));
+    private final Image susanImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/susan.png")));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Susan d) {
+    /** Injects the Susan instance */
+    public void setBot(Susan d) {
         susan = d;
     }
 
