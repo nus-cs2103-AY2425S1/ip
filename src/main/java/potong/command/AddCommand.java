@@ -52,6 +52,7 @@ public class AddCommand extends Command {
             this.eventStart = arr[1].substring(5).strip();
             this.eventEnd = arr[2].substring(3).strip();
         }
+        default -> throw new IllegalStateException("Unexpected value: " + type);
         }
     }
 
