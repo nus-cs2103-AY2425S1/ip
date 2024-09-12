@@ -7,12 +7,31 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import nah.command.Command;
+import nah.command.EnumCommand;
 import nah.data.Task;
 import nah.exceptions.NahException;
 /**
  * Handles the parsing of user input into Command object for execution.
  */
 public class Parser {
+    public static EnumCommand convertToEnumCommand(String s) {
+        String cmd = s.trim().toLowerCase();
+        switch (cmd) {
+        case "" : return EnumCommand.UNKNOWN;
+        case "bye" : return EnumCommand.BYE;
+        case "list" : return EnumCommand.LIST;
+        case "clean" : return EnumCommand.CLEAN;
+        case "find" : return EnumCommand.FIND;
+        case "dueon" : return EnumCommand.DUEON;
+        case "mark" : return EnumCommand.MARK;
+        case "unmark" : return EnumCommand.UNMARK;
+        case "delete" : return EnumCommand.DELETE;
+        case "todo" : return EnumCommand.TODO;
+        case "deadline" : return EnumCommand.DEADLINE;
+        case "event" : return EnumCommand.EVENT;
+        default : return EnumCommand.UNKNOWN;
+        }
+    }
     /**
      * Converts a String command into an object of Command class.
      *
@@ -88,6 +107,11 @@ public class Parser {
                         " Nah.Nah!!! Please give me a valid ordinal number for the task\n");
             }
             return new Command.DeleteCommand(i);
+        }
+        case "help" : {
+            if (cmd.length < 2 || cmd[1].trim().isEmpty()) {
+                return new Command.HelpCommand(EnumCommand.UNKNOWN);
+            } return new Command.HelpCommand(convertToEnumCommand(cmd[1]));
         }
         case "dueon": {
             if (cmd.length < 2) {
