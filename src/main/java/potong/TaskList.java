@@ -1,12 +1,10 @@
 package potong;
 
-import potong.exceptions.PotongException;
-
-import potong.task.Task;
-
-import java.io.IOException;
-
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import potong.exceptions.PotongException;
+import potong.task.Task;
 
 /**
  * Represent the list of tasks present.
@@ -117,17 +115,10 @@ public class TaskList {
      * @return String representation of the list of tasks with the keyword.
      */
     public String find(String keyword) {
-        ArrayList<Task> result = new ArrayList<>();
-        for (Task curr : this.arr) {
-            if (curr.findKeyword(keyword)) {
-                result.add(curr);
-            }
-        }
-        StringBuilder stringResult = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < result.size(); i++) {
-            stringResult.append(String.format("%d. %s\n", i + 1, result.get(i)));
-        }
-        return stringResult.toString();
+        AtomicInteger i = new AtomicInteger();
+        return this.arr.stream().filter(task -> task.findKeyword(keyword))
+                .map(task -> String.format("%d. %s\n", i.incrementAndGet(), task))
+                .reduce("Here are the matching tasks in your list:\n", (a, b) -> a + b);
     }
 
     /**
@@ -137,10 +128,8 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < this.arr.size(); i++) {
-            result.append(String.format("%d. %s\n", i + 1, this.arr.get(i)));
-        }
-        return result.toString();
+        AtomicInteger i = new AtomicInteger();
+        return this.arr.stream().map(task -> String.format("%d. %s\n", i.incrementAndGet(), task))
+                .reduce("Here are the tasks in your list:\n", (a, b) -> a + b);
     }
 }
