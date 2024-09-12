@@ -37,18 +37,18 @@ public class Bob {
             return "I don't recognise that command :( Try again.";
         } catch (NumberFormatException e) {
             return "Seems like at least one of the arguments to this command was\n"
-                    + "not a number when it should have been."
+                    + "not a number when it should have been.\n"
                     + Bob.HELP_MESSAGE;
         } catch (StringIndexOutOfBoundsException e) {
             return "Seems like the command keyed wasn't appropriately used. You may have\n" +
                     "given insufficient information. Also check that the order in which\n" +
-                    "the information was given is correct."
+                    "the information was given is correct.\n"
                     + Bob.HELP_MESSAGE;
         } catch (EmptyFieldException e) {
-            return "Field(s) may not be blank."
+            return "Field(s) may not be blank.\n"
                     + Bob.HELP_MESSAGE;
         } catch (DateTimeParseException e) {
-            return "Sorry, I only accept datetime inputs of yyyy-MM-dd HHmm"
+            return "Sorry, I only accept datetime inputs of yyyy-MM-dd HHmm\n"
                     + Bob.HELP_MESSAGE;
         }
     }
