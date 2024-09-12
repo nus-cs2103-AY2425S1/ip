@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'com.github.johnrengelman.shadow' version '7.1.2'  // Shadow plugin for FAT JAR
+    id 'checkstyle'  // Add the Checkstyle plugin
 }
 
 group 'orion'
@@ -46,4 +47,17 @@ shadowJar {
 
 run {
     standardInput = System.in  
+}
+
+// Add Checkstyle configuration
+checkstyle {
+    toolVersion = '8.45'
+    configFile = file("${project.rootDir}/checkstyle.xml")
+    configDirectory = file("${project.rootDir}")
+}
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = false  // Disable XML report
+        html.required = true  // Enable HTML report
+    }
 }
