@@ -202,7 +202,7 @@ public class TaskList {
         return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
     }
 
-    /** Prints list for Command FIND. */
+    /** Prints list for Command FIND using java streams. */
     public String printTaskList(String msg) {
         StringBuilder sb = new StringBuilder();
 
@@ -214,8 +214,7 @@ public class TaskList {
                     .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, this.get(i).toString())));
         }
 
-        sb.append(this.taskListSize());
-        return sb.toString();
+        return sb.append(this.taskListSize()).toString();
     }
 
     /** Prints list for Command LIST. */
