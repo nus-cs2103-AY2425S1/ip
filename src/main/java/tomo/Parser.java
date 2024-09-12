@@ -17,7 +17,9 @@ public class Parser {
      * @throws ParserException If the command has invalid format
      */
     public String[] parse(String cmd) throws ParserException {
-        if (cmd.split(" ").length == 0) return new String[]{};
+        if (cmd.split(" ").length == 0) {
+            return new String[]{};
+        }
         String type = cmd.split(" ")[0];
         if (type.equals("bye")) {
             if (!cmd.equals("bye")) {
