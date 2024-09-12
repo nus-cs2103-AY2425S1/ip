@@ -68,7 +68,15 @@ public class Dude {
      * @return The response of the chatbot to the user input.
      */
     public String getResponse(String input) {
-        return "Dude: " + input;
+        String output;
+        try {
+            Command c = Parser.parse(input);
+            c.execute(this.tasks, this.ui, this.storage);
+            output = this.ui.getResponse();
+        } catch (DudeException e) {
+            output = e.getMessage();
+        }
+        return "Dude: " + output;
     }
 
     public static void main(String[] args) {
