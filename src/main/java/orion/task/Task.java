@@ -2,7 +2,7 @@ package orion.task;
 
 /**
  * Represents a task with a unique ID, description, and completion status.
- * 
+ *
  * <p>
  * This is an abstract class that provides the common properties and methods
  * for all types of tasks, such as TODOs, DEADLINEs, and EVENTs. Specific task
@@ -17,7 +17,7 @@ public abstract class Task {
 
     /**
      * Constructs a Task with the specified ID and description.
-     * 
+     *
      * @param taskID      the unique identifier for the task.
      * @param description the description of the task.
      */
@@ -29,7 +29,7 @@ public abstract class Task {
 
     /**
      * Gets the unique identifier of the task.
-     * 
+     *
      * @return the task ID.
      */
     public int getTaskID() {
@@ -38,7 +38,7 @@ public abstract class Task {
 
     /**
      * Gets the description of the task.
-     * 
+     *
      * @return the task description.
      */
     public String getDescription() {
@@ -47,7 +47,7 @@ public abstract class Task {
 
     /**
      * Checks if the task is completed.
-     * 
+     *
      * @return {@code true} if the task is completed, {@code false} otherwise.
      */
     public boolean isCompleted() {
@@ -56,7 +56,7 @@ public abstract class Task {
 
     /**
      * Sets the completion status of the task.
-     * 
+     *
      * @param newValue the new completion status of the task.
      */
     public void setCompleted(boolean newValue) {
@@ -65,13 +65,13 @@ public abstract class Task {
 
     /**
      * Returns the type icon for this task.
-     * 
+     *
      * <p>
      * This is an abstract method that must be implemented by subclasses to
      * provide their specific type icons (e.g., "[T]" for TODOs, "[D]" for
      * DEADLINEs, "[E]" for EVENTs).
      * </p>
-     * 
+     *
      * @return the type icon of the task.
      */
     public abstract String getTypeIcon();
@@ -80,12 +80,12 @@ public abstract class Task {
 
     /**
      * Returns a string representation of this task.
-     * 
+     *
      * <p>
      * The string representation includes the task's type icon, completion status,
      * and description.
      * </p>
-     * 
+     *
      * @return a string representing the task.
      */
     @Override
