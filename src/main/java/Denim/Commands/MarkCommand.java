@@ -18,8 +18,10 @@ public class MarkCommand extends Command {
     public MarkCommand(int index) {
         this.index = index;
     }
+    
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
+        assert index > 0 : "IndexOutOfBoundsAssertion";
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
