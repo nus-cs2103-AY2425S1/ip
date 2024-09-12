@@ -77,12 +77,15 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "User input should not be null";
         String input = userInput.getText().trim();
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
 
         try {
             Command command = this.commandParser.parse(input, this.junoUi, this.fileManager, this.taskManager);
+            assert command != null : "The command returned should not be null";
             String outputString = command.runCommand();
+            assert outputString != null : "The output string returned should not be null";
             dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(outputString, junoImage));
             if (!command.isInWhileLoop()) {
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));

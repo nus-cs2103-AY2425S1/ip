@@ -45,7 +45,8 @@ public class DeleteCommand extends Command {
     @Override
     public String runCommand() throws TaskManagerException {
         try {
-            int taskNumber = Integer.parseInt(userInput.split("\\s+", 2)[1]) - 1;
+            assert this.userInput != null : "User input in DeleteCommand() cannot be null";
+            int taskNumber = Integer.parseInt(this.userInput.split("\\s+", 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
                 Task taskToDelete = this.tasks.remove(taskNumber);
                 StringBuilder outString = new StringBuilder("Got it! 🗑️ I've waved goodbye to this task:");
