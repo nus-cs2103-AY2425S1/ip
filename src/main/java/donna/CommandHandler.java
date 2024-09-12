@@ -55,13 +55,30 @@ public class CommandHandler {
         case "add":
             return handleAdd(result.getArgument1(), result.getArgument2());
         case "find":
-            List<Task> foundTasks = tasks.searchTasks(result.getArgument1());
-            return ui.findResults(foundTasks);
+            return handleFind(result.getArgument1());
         case "tag":
             return handleTag(result.getArgument1());
         default:
             throw DonnaException.invalidTaskType(commandType);
         }
+    }
+
+    /**
+     * Handles searching of tasks.
+     * Works for both tags and description.
+     *
+     * @param searchQuery The keyword to be searched.
+     * @return The result of the search.
+     */
+    private String handleFind(String searchQuery) {
+        List<Task> foundTasks;
+        if (searchQuery.trim().startsWith("#")) {
+            String tagToSearch = searchQuery.substring(1);
+            foundTasks = tasks.searchTasks(tagToSearch, true);
+        } else {
+            foundTasks = tasks.searchTasks(searchQuery, false);
+        }
+        return ui.findResults(foundTasks);
     }
 
     /**

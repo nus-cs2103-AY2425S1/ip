@@ -83,9 +83,15 @@ public class TaskList {
      * Searches for tasks that contain the specified keyword.
      *
      * @param keyword The keyword to search for.
+     * @param isTagSearch Specifies whether searching for a tag.
      * @return A List of tasks that contain the keyword.
      */
-    public List<Task> searchTasks(String keyword) {
+    public List<Task> searchTasks(String keyword, boolean isTagSearch) {
+        if (isTagSearch) {
+            return tasks.stream()
+                    .filter(task -> task.getTag().equals(keyword))
+                    .collect(Collectors.toList());
+        }
         return tasks.stream()
                 .filter(task -> task.containsKeyword(keyword))
                 .collect(Collectors.toList());
