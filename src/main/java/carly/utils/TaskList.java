@@ -115,6 +115,7 @@ public class TaskList {
     public String addToDo(String taskDescription) throws CarlyException {
         Todo t = new Todo(taskDescription);
         this.taskList.add(t);
+        assert this.getSize() > 0 : "Task list should have at least one task after adding";
         return "Got it. I've added this task:\n" + TWO_INDENT + t;
     }
 
@@ -132,6 +133,7 @@ public class TaskList {
 
             Deadline t = new Deadline(task, dueDate);
             this.taskList.add(t);
+            assert this.getSize() > 0 : "Task list should have at least one task after adding";
             return "Got it. I've added this task:\n" + TWO_INDENT + t;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("task description or \"/by\" command");
@@ -155,6 +157,7 @@ public class TaskList {
 
             Event t = new Event(task, startTime, endTime);
             this.taskList.add(t);
+            assert this.getSize() > 0 : "Task list should have at least one task after adding";
             String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
             return msg + "\n" + taskListSize();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -177,7 +180,7 @@ public class TaskList {
         return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
     }
 
-    /** Prints list for Command FIND*/
+    /** Prints list for Command FIND. */
     public String printTaskList(String msg) {
         StringBuilder sb = new StringBuilder();
 
@@ -192,8 +195,7 @@ public class TaskList {
         return sb.toString();
     }
 
-
-    /** Prints list for Command LIST*/
+    /** Prints list for Command LIST. */
     public String printTaskList() {
         if (this.taskList.isEmpty()) {
             return "There's nothing in your list yet.";

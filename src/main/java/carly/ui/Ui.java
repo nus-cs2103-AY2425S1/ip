@@ -37,15 +37,6 @@ public class Ui {
         return ("Bye " + username + ". I'll see you next time!");
     }
 
-    /** Reads input when user types into the chatbot. */
-    public String readInput(Scanner scan) throws CarlyException {
-        if (scan.hasNextLine()) {
-            return scan.nextLine();
-        } else {
-            throw new CarlyException("");
-        }
-    }
-
     public static void printOutput(String message) {
         System.out.println(INDENTATION + message);
     }

@@ -1,3 +1,1 @@
-T | 0 | t
-T | 0 | a
-T | 0 | tgg
+Nothing in your list
