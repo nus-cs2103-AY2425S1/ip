@@ -1,5 +1,7 @@
 package ai.task;
 
+import java.util.Objects;
+
 /**
  * A subtype of Task that has a from and to date.
  */
@@ -41,5 +43,17 @@ public class Event extends Task {
     @Override
     public String stringData() {
         return String.format("%s | %s | %s - %s", TASK_TYPE, super.stringData(), from, to);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event castedEvent = (Event) obj;
+
+            return super.equals(obj)
+                    && Objects.equals(this.from, castedEvent.from)
+                    && Objects.equals(this.to, castedEvent.to);
+        }
+        return false;
     }
 }
