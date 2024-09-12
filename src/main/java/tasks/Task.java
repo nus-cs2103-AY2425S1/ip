@@ -8,7 +8,7 @@ public abstract class Task {
     protected boolean isMarked;
 
     /**
-     * Constructor for Deadline class.
+     * Constructor for Task class.
      */
     public Task(String description) {
         this.description = description;
@@ -18,15 +18,29 @@ public abstract class Task {
     /**
      * Marks or unmarks task.
      *
-     * @param isMarking Mark or unmark task.
      * @return Success of marking or unmarking task.
      */
-    public boolean mark(boolean isMarking) {
+    public boolean mark() {
         // Tasks.Task is already marked correctly
-        if (this.isMarked == isMarking) {
+        if (this.isMarked) {
             return false;
         } else {
-            this.isMarked = isMarking;
+            this.isMarked = true;
+            return true;
+        }
+    }
+
+    /**
+     * Unmarks task.
+     *
+     * @return Success of marking or unmarking task.
+     */
+    public boolean unmark() {
+        // Tasks.Task is already marked correctly
+        if (!this.isMarked) {
+            return false;
+        } else {
+            this.isMarked = false;
             return true;
         }
     }
