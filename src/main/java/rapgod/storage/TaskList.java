@@ -147,7 +147,7 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public String snoozeEvent(int index, String snoozeToField, String snoozeFromField) {
+    public String snoozeEvent(int index, String snoozeFromField, String snoozeToField) {
         StringBuilder sb = new StringBuilder();
         Task task = list.get(index - 1);
         try {

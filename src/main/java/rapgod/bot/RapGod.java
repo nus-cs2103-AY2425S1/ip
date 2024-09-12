@@ -26,11 +26,16 @@ public class RapGod {
                 Special commands:
                 'LIST' -> Show full list
                 'FIND abc, def' -> Filters tasks with abc or def
+                
                 'MARK n' -> Marks nth task as complete
                 'UNMARK n' -> Marks nth task as incomplete
                 'DELETE n' -> Deletes the nth task
+                
                 '/BY z' -> Used to specify a deadline z
                 '/FROM x /TO y' -> Used to specify bounds of an event from x to y
+                'SNOOZE n /by x' -> Changes deadline of Deadline Task
+                'SNOOZE n /from x /to y' -> Changes deadline of Event Task
+                
                 Time format: dd/MM/yyyy OR dd/MM/yyyy HHHH
                 """;
         return initialise;
