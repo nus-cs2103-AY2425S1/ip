@@ -59,7 +59,7 @@ public class Ui {
      */
     public void showMessage(String msg) {
         // Assert that the string being shown is not empty
-        assert !msg.isEmpty() : "There should not be an empty message!";
+        assert !msg.isEmpty() : "There is an empty message!";
         System.out.println(msg);
         dialogContainer.getChildren().add(
                 DialogBox.getJeffDialog(msg, jeffImage)
