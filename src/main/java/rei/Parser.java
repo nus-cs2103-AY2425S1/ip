@@ -5,13 +5,30 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class encapsulates the parse method that takes the user prompt as its input
+ */
 public class Parser {
-
-
+    /**
+     * Different prompt types REI understands
+     */
     public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ANNYEONG, UNKNOWN};
+
+    /**
+     * Checks if a string only contains whitespace
+     * @param input the string to be checked
+     * @return true if the string only contains whitespace, false otherwise
+     */
     public static boolean isAllWhitespace(String input) {
         return input.replaceAll("\\s+","").isEmpty();
     }
+
+    /**
+     * Parses a given user input
+     * @param tasks current list of tasks
+     * @param prompt the user input
+     * @return a Prompt type
+     */
     public static Prompt parse(TaskList tasks, String prompt) {
 
         List<String> prompts = Arrays.asList(prompt.split(" "));

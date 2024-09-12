@@ -8,10 +8,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles load data from a file or save data to a file
+ */
 public class Storage {
 
     private List<String> fileContent;
     private Path filePath;
+
+    /**
+     * Constructs a Storage instance
+     * @param filePath where to load the stored data
+     */
     public Storage(String filePath) {
         try {
             this.filePath = Path.of(filePath);
@@ -23,6 +31,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data stored in the instantiated filePath
+     * @return list of stored tasks
+     */
     public List<Task> load() {
         List<Task> listOfTasks = new ArrayList<>();
         String taskPrompt;
@@ -53,6 +65,10 @@ public class Storage {
         return listOfTasks;
     }
 
+    /**
+     * Stores new updates on the list of tasks to the data storage file
+     * @param tasks updated list of tasks
+     */
     public void save(TaskList tasks) {
         String dataStorage = tasks.toStoringFormat();
 

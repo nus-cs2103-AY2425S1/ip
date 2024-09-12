@@ -5,19 +5,26 @@ import java.util.Scanner;
 
 
 /**
- * Main class for Rei bot.
+ * Main class for REI bot.
  */
 public class Rei {
 
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a REI instance
+     * @param filePath where to load the stored data
+     */
     public Rei(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.load());
 
     }
 
+    /**
+     * Runs the bot
+     */
     public void run() {
         Ui.welcome();
         tasks.printTasks();
