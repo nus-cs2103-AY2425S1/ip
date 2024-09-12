@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
      *                 an array of tasks.
      * @param ui Instance of an Ui class that interacts with the user.
      * @return A string mentioning that task is deleted.
+     * @throws HenryException If user input is not a number.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
@@ -52,6 +53,7 @@ public class DeleteCommand extends Command {
      *
      * @param numOfTasks Number of tasks recorded in taskList object.
      * @return The task number that user is asking for.
+     * @throws HenryException If number is below 1 or higher than the number of tasks in taskList.
      */
     private int getNumber(int numOfTasks) throws HenryException {
         int number = Integer.parseInt(this.input);

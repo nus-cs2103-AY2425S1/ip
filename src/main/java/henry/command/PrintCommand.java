@@ -15,6 +15,7 @@ public class PrintCommand extends Command {
      * @param taskList Instance of a TaskList class that contains
      *                 an array of tasks.
      * @param ui Instance of an Ui class that interacts with the user.
+     * @throws HenryException If there is no task.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         //check if there is any task to print

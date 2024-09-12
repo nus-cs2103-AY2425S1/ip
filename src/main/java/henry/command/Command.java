@@ -27,6 +27,7 @@ public abstract class Command {
      * @param filePath Path of the file where it is saved.
      * @param textToAdd Text to be added in the file.
      * @param index Number of tasks recorded.
+     * @throws IOException If an I/O error occurs while writing to the file.
      */
     private static void writeToFile(String filePath, String textToAdd, int index)
             throws IOException {
@@ -42,6 +43,7 @@ public abstract class Command {
      *                 an array of tasks.
      * @param storage Instance of a storage that contains tasks
      *                recorded previously.
+     * @throws HenryException If unable to save tasks to file.
      */
     public void save(TaskList taskList, Storage storage) throws HenryException {
         ArrayList<Task> tasks = taskList.getTasks();

@@ -23,6 +23,7 @@ public class ChangeStatusCommand extends Command {
      * @param ui Instance of an Ui class that interacts with the user.
      * @return A string telling user that task is marked or unmarked
      *                 depending on user input.
+     * @throws HenryException If user input is not a number.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
@@ -50,6 +51,7 @@ public class ChangeStatusCommand extends Command {
      * Unmarks task based on user input.
      *
      * @param task A Task object that is stored in taskList.
+     * @throws HenryException If task is already unmarked.
      */
     private static void unmarkTask(Task task) throws HenryException {
         //check if task is already unmarked
@@ -63,6 +65,7 @@ public class ChangeStatusCommand extends Command {
      * Marks task based on user input.
      *
      * @param task A Task object that is stored in taskList.
+     * @throws HenryException If task is already marked.
      */
     private static void markTask(Task task) throws HenryException {
         //check if task is already marked
@@ -79,6 +82,7 @@ public class ChangeStatusCommand extends Command {
      *                 an array of tasks.
      * @param numOfTasks Number of tasks recorded in taskList object.
      * @return The task that user is asking for.
+     * @throws HenryException If number is below 1 or higher than the number of tasks in taskList.
      */
     private Task getTask(TaskList taskList, int numOfTasks) throws HenryException {
         int number = Integer.parseInt((this.inputList)[1]);

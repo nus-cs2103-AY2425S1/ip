@@ -28,6 +28,7 @@ public class AddCommand extends Command {
      *                 an array of tasks.
      * @param ui Instance of an Ui class that interacts with the user.
      * @return Statement telling user that task is added.
+     * @throws HenryException If user input is invalid.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
@@ -79,6 +80,8 @@ public class AddCommand extends Command {
 
     /**
      * Informs user that input added is not a task.
+     *
+     * @throws HenryException If user input is not a task.
      */
     private static void addInvalidTask() throws HenryException {
         //check for invalid input
@@ -95,6 +98,7 @@ public class AddCommand extends Command {
      * @param taskList Instance of a TaskList class that contains
      *                 an array of tasks.
      * @param activityAndTimeList An array containing the activity and time of activity.
+     * @throws HenryException If event description is wrong.
      */
     private static void addEvent(TaskList taskList, String[] activityAndTimeList) throws HenryException {
         //check if event description is valid
@@ -118,6 +122,7 @@ public class AddCommand extends Command {
      * @param taskList Instance of a TaskList class that contains
      *                 an array of tasks.
      * @param activityAndTimeList An array containing the activity and time of activity.
+     * @throws HenryException If deadline description is wrong.
      */
     private static void addDeadline(TaskList taskList, String[] activityAndTimeList) throws HenryException {
         //check if deadline description is valid
@@ -141,6 +146,7 @@ public class AddCommand extends Command {
      *                 an array of tasks.
      * @param words A list containing words of the user's input.
      * @param activity Name of the activity.
+     * @throws HenryException If todo description is wrong.
      */
     private static void addToDo(TaskList taskList, String[] words, String activity) throws HenryException {
         //check if todo description is valid
@@ -157,6 +163,7 @@ public class AddCommand extends Command {
      *
      * @param dateTime Date in the form of YYYY-MM-DD.
      * @return Date in the form of MMM dd yyyy.
+     * @throws HenryException If date and time format is wrong.
      */
     public static String convertDateTime(String dateTime) throws HenryException {
         try {

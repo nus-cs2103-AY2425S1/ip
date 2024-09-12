@@ -1,6 +1,5 @@
 package henry.command;
 
-import henry.HenryException;
 import henry.util.TaskList;
 import henry.util.Ui;
 
@@ -22,7 +21,7 @@ public class ExitCommand extends Command {
      * @param ui Instance of an Ui class that interacts with the user.
      * @return A string that signifies the end of chat.
      */
-    public String execute(TaskList taskList, Ui ui) throws HenryException {
+    public String execute(TaskList taskList, Ui ui) {
         return ui.bye();
     }
 }

@@ -1,6 +1,5 @@
 package henry.util;
 
-import henry.HenryException;
 import henry.command.AddCommand;
 import henry.command.ChangeStatusCommand;
 import henry.command.Command;
@@ -22,7 +21,7 @@ public class Parser {
      * @param input String given by user.
      * @return Boolean to see if user input is "bye".
      */
-    public static Command parse(String input) throws HenryException {
+    public static Command parse(String input) {
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
