@@ -23,12 +23,14 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, boolean isDone) throws BopesException {
         super(description, isDone);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty.";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
         try {
             if (by.trim().length() == 10) {  // Length of "dd/MM/yyyy" is 10
                 by = by + " 12:00 am";  // Default to midnight if time is not provided
             }
             this.by = LocalDateTime.parse(by.toLowerCase(), formatter);
+            assert this.by != null : "Parsed Deadline date cannot be null.";
         } catch (DateTimeParseException e) {
             throw new BopesException("Error: Invalid date/time format. Please use the format 'dd/MM/yyyy hh:mm a'.");
         }

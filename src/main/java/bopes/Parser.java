@@ -26,6 +26,7 @@ public class Parser {
      */
     public static String parse(String fullCommand, TaskList tasks, Storage storage) throws BopesException {
         String[] commandWords = fullCommand.split(" ", 2);
+        assert commandWords.length > 0 : "Command should not be empty.";
         String commandType = commandWords[0];
 
         switch (commandType) {

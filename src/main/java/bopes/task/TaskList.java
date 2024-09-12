@@ -57,6 +57,7 @@ public class TaskList {
         }
         Task task = tasks.get(index);
         task.markAsDone();
+        assert task.isDone : "Task should be marked as done.";
         return task;
     }
 
@@ -73,6 +74,7 @@ public class TaskList {
         }
         Task task = tasks.get(index);
         task.markAsUndone();
+        assert !task.isDone : "Task should be marked as not done.";
         return task;
     }
 
