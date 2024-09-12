@@ -1,5 +1,6 @@
 T | 0 | add book
 T | 1 | read book
 E | 1 | book concert | 2024-01-01 | 2024-03-03
-T | 0 | go class
+T | 1 | go class
 D | 1 | finish hw | 2024-09-08
+T | 0 | afsa

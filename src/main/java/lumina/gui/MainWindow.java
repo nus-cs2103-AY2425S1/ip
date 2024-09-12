@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import lumina.main.Lumina;
 
 /**
- * Controller for the main GUI.
+ * Main window configuring the AnchorPane
  */
 public class MainWindow extends AnchorPane {
     @FXML
