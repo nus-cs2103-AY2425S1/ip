@@ -40,6 +40,16 @@ public class Parser {
         return parseInput(userInput);
     }
 
+    /**
+     * Overloaded method <code>processInput</code> that takes in input as a <code>String</code> rather than
+     * reading it from the default input stream.
+     * @param userInput <code>String</code> entered by the user.
+     * @return Command of varying types depending on user input.
+     */
+    public Command processInput(String userInput) {
+        return parseInput(userInput);
+    }
+
     private String readInput() {
         String userInput = scanner.nextLine();
         return userInput;

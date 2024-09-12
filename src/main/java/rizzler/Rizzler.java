@@ -12,23 +12,39 @@ import rizzler.ui.parser.Parser;
  * Rizzler helps you to manage your tasks, and is definitely not interested in you.
  */
 public class Rizzler {
+    private boolean userIsDone = false;
+    private Parser parser;
+    private RizzlerSpeech rizzlerSpeech;
+    private Storage storage;
+    private TaskLog taskLog;
+
+    /**
+     * Constructor for a Rizzler instance.
+     */
+    public Rizzler() {
+        parser = new Parser();
+        storage = new Storage();
+        taskLog = new TaskLog();
+        rizzlerSpeech = new RizzlerSpeech();
+    }
+
+    /**
+     * Main method for the class to be executed upon startup.
+     * @param args Not used.
+     */
+    public static void main(String[] args) {
+        new Rizzler().run();
+    }
 
     /**
      * Executes continuously once run, as long as the user does not say "bye".
      * Wrapper for all the logic within the chatbot at the highest level.
-     * @param args Irrelevant to the functioning of this chatbot.
      */
-    public static void main(String[] args) {
-        Parser parser = new Parser();
-        RizzlerSpeech rizzlerSpeech = new RizzlerSpeech();
-        Storage storage = new Storage();
-        TaskLog taskLog = storage.getTasks();
-
+    public void run() {
         // greet user
         rizzlerSpeech.say(new GreetCommand().execute(storage, taskLog));
 
         // interact with user
-        boolean userIsDone = false;
         while (!userIsDone) {
             Command userCommand = parser.processInput();
             rizzlerSpeech.say(userCommand.execute(storage, taskLog));
@@ -38,5 +54,16 @@ public class Rizzler {
         // say bye to the user
         rizzlerSpeech.say(new ByeCommand().execute(storage, taskLog));
         parser.close();
+    }
+
+    public String getResponse(String userInput) {
+        StringBuilder response = new StringBuilder();
+        Command userCommand = parser.processInput(userInput);
+        String[] responseLines = userCommand.execute(storage, taskLog);
+        for (String responseLine : responseLines) {
+            response.append(responseLine);
+            response.append("\n");
+        }
+        return response.toString();
     }
 }
