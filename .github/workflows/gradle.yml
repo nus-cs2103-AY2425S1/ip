@@ -13,7 +13,7 @@ jobs:
       - name: Set up repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17 (Zulu with JavaFX)
+      - name: Set up Zulu JDK 17 (with JavaFX)
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
@@ -28,5 +28,10 @@ jobs:
           export DISPLAY=:99
           Xvfb :99 -ac &
 
-      - name: Build and test with Gradle
+      - name: Build and test with Gradle on Linux
+        if: runner.os == 'Linux'
         run: xvfb-run -a ./gradlew check --info
+
+      - name: Build and test with Gradle on macOS and Windows
+        if: runner.os != 'Linux'
+        run: ./gradlew check --info
