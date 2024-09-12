@@ -80,11 +80,17 @@ public abstract class Task {
         assert this.isDone;
     }
 
+    /**
+     * Marks the task as done
+     */
     public void markAsDone() {
         this.setDone(true);
         assert !this.isDone;
     }
 
+    /**
+     * Marks the task as not done
+     */
     public void unmarkAsDone() {
         this.setDone(false);
     }
