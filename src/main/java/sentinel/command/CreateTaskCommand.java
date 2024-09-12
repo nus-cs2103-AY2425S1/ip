@@ -39,11 +39,11 @@ public class CreateTaskCommand extends Command {
     @Override
     public String execute(String input) throws SentinelException {
         Task newTask = Parser.parseTask(commandType, input, ui);
-        if (newTask != null) {
-            list.add(newTask);
-            ui.showAddedTask(newTask);
-            return SentinelString.stringAddedTask(newTask);
+        if (newTask == null) {
+            throw new ExecutionException("Unable to execute CreateTask");
         }
-        throw new ExecutionException("Unable to execute CreateTask");
+        list.add(newTask);
+        ui.showAddedTask(newTask);
+        return SentinelString.stringAddedTask(newTask);
     }
 }
