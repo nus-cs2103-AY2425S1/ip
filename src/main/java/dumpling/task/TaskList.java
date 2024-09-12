@@ -88,6 +88,9 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If given index is out of range
      */
     public String delete(int itemIdx) throws IndexOutOfBoundsException {
+        if (itemIdx > this.items.size()) {
+            throw new IndexOutOfBoundsException();
+        }
         Task deletedTask = this.items.remove(itemIdx - 1);
         String message = "     Noted. I've removed this task:\n"
                 + String.format("       %s\n", deletedTask.toString())
