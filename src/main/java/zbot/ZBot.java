@@ -48,10 +48,11 @@ public class ZBot {
     public void run() {
         ui.intro();
         storage.createFileIfNotExists();
-        String input = ui.readCommand();
+        String input = ui.readUserInput();
+
         while (!input.equals("bye")) {
             executeInput(input);
-            input = ui.readCommand();
+            input = ui.readUserInput();
         }
 
         ui.outro();
@@ -98,26 +99,27 @@ public class ZBot {
      * @param ui    User interface of the chatbot.
      */
     public String addTask(String input, Ui ui) {
-        Task task;
-        String response;
-        String[] inputParts = input.split(" ", 2);
+        Task task = null;
+        String response = "";
+        String[] taskComponents = input.split(" ", 2);
 
         try {
-            if (inputParts[0].equals("deadline")) {
-                String[] deadlineParts = inputParts[1].split(" /by ", 2);
-                task = new Deadline(deadlineParts[0], Parser.parseDateTime(deadlineParts[1]));
-            } else if (inputParts[0].equals("event")) {
-                String[] eventParts = inputParts[1].split(" /from ", 2);
-                String[] period = eventParts[1].split(" /to ", 2);
-                task = new Event(eventParts[0],
-                        Parser.parseDateTime(period[0]),
-                        Parser.parseDateTime(period[1]));
-            } else {
-                task = new ToDo(inputParts[1]);
+            if (taskComponents[0].equals("deadline")) {
+                String[] descriptionDateSplit = taskComponents[1].split(" /by ", 2);
+                task = new Deadline(descriptionDateSplit[0], Parser.parseDateTime(descriptionDateSplit[1]));
+            } else if (taskComponents[0].equals("event")) {
+                String[] descriptionDateSplit = taskComponents[1].split(" /from ", 2);
+                String[] fromToSplit = descriptionDateSplit[1].split(" /to ", 2);
+                task = new Event(descriptionDateSplit[0],
+                        Parser.parseDateTime(fromToSplit[0]),
+                        Parser.parseDateTime(fromToSplit[1]));
+            } else if (taskComponents[0].equals("todo")) {
+                task = new ToDo(taskComponents[1]);
             }
 
+            assert task != null;
             tasks.add(task);
-            response = ui.printAddTaskMsg(task, tasks.size());
+            response = ui.generateAddTaskMsg(task, tasks.size());
         } catch (ArrayIndexOutOfBoundsException e) {
             response = "Please enter a valid task format!\n";
         } catch (DateTimeParseException e) {
@@ -132,11 +134,50 @@ public class ZBot {
      */
     public String listTasks() {
         StringBuilder response = new StringBuilder();
+
         response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             response.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
+
         return response.toString();
+    }
+
+    /**
+     * Modifies a task in the task list.
+     *
+     * @param input User input.
+     * @param ui    User interface of the chatbot.
+     * @return Response to the user input.
+     */
+    private String modifyTask(String input, Ui ui) {
+        String response = "";
+        Task task = null;
+
+        String[] taskActionIndexSplit = input.split(" ");
+        int taskIndex = Integer.parseInt(taskActionIndexSplit[1]);
+
+        try {
+            if (taskActionIndexSplit[0].equals("mark")) {
+                task = tasks.get(taskIndex - 1);
+                task.markAsDone();
+                response = ui.generateMarkTaskMsg(task);
+            } else if (taskActionIndexSplit[0].equals("unmark")) {
+                task = tasks.get(taskIndex - 1);
+                task.markAsUndone();
+                response = ui.generateUnmarkTaskMsg(task);
+            } else if (taskActionIndexSplit[0].equals("delete")) {
+                task = tasks.remove(taskIndex - 1);
+                response = ui.generateDeleteTaskMsg(task, tasks.size());
+            } else {
+                assert false;
+            }
+
+        } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            response = "Please enter a valid task number!\n";
+        }
+
+        return response;
     }
 
     /**
@@ -146,17 +187,7 @@ public class ZBot {
      * @param ui    User interface of the chatbot.
      */
     public String markTask(String input, Ui ui) {
-        String response;
-
-        try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]);
-            tasks.get(taskNumber - 1).markAsDone();
-            response = ui.printMarkTaskMsg(tasks.get(taskNumber - 1));
-        } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            response = "Please enter a valid task number!\n";
-        }
-
-        return response;
+        return modifyTask(input, ui);
     }
 
     /**
@@ -166,17 +197,7 @@ public class ZBot {
      * @param ui    User interface of the chatbot.
      */
     public String unmarkTask(String input, Ui ui) {
-        String response;
-
-        try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]);
-            tasks.get(taskNumber - 1).markAsUndone();
-            response = ui.printUnmarkTaskMsg(tasks.get(taskNumber - 1));
-        } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            response = "Please enter a valid task number!\n";
-        }
-
-        return response;
+        return modifyTask(input, ui);
     }
 
     /**
@@ -186,17 +207,7 @@ public class ZBot {
      * @param ui    User interface of the chatbot.
      */
     public String deleteTask(String input, Ui ui) {
-        String response;
-
-        try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]);
-            Task task = tasks.remove(taskNumber - 1);
-            response = ui.printDeleteTaskMsg(task, tasks.size());
-        } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            response = "Please enter a valid task number!\n";
-        }
-
-        return response;
+        return modifyTask(input, ui);
     }
 
     /**
@@ -207,13 +218,16 @@ public class ZBot {
      */
     public String findTask(String input, Ui ui) {
         StringBuilder response = new StringBuilder();
+
         String keyword = input.split(" ", 2)[1];
         int tasksFound = 0;
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDescription().contains(keyword)) {
-                response.append(String.format("%d. %s\n", i, tasks.get(i)));
-                tasksFound++;
+            if (!tasks.get(i).getDescription().contains(keyword)) {
+                continue;
             }
+
+            response.append(String.format("%d. %s\n", i, tasks.get(i)));
+            tasksFound++;
         }
 
         if (tasksFound == 0) {
