@@ -93,10 +93,10 @@ public class Parser {
      * @return response from Ui class based on the user's input
      */
     public String checkCommand(String input, TaskList taskList) {
-        if (CommandParser.checkEqualCommand(input, Command.BYE.toString())) {
+        if (CommandParser.checkCommandWithoutArgument(input, Command.BYE.toString())) {
             return ui.bye();
 
-        } else if (CommandParser.checkCommand(input, Command.MARK.toString())) {
+        } else if (CommandParser.checkCommandWithArgument(input, Command.MARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsDone(index);
@@ -105,7 +105,7 @@ public class Parser {
                 return ui.invalidMarkCommand();
             }
 
-        } else if (CommandParser.checkCommand(input, Command.UNMARK.toString())) {
+        } else if (CommandParser.checkCommandWithArgument(input, Command.UNMARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsUndone(index);
@@ -114,7 +114,7 @@ public class Parser {
                 return ui.invalidUnmarkCommand();
             }
 
-        } else if (CommandParser.checkCommand(input, Command.DELETE.toString())) {
+        } else if (CommandParser.checkCommandWithArgument(input, Command.DELETE.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 String output = ui.deleteTask(taskList.getTask(index), taskList.getSize());
@@ -124,7 +124,7 @@ public class Parser {
                 return ui.invalidDeleteCommand();
             }
 
-        } else if (CommandParser.checkCommand(input, Command.DEADLINE.toString())) {
+        } else if (CommandParser.checkCommandWithArgument(input, Command.DEADLINE.toString())) {
             try {
                 // GitHub Copilot suggested the following code snippet
                 String description = input.split(" ", 2)[1].split(" /by ")[0];
@@ -137,7 +137,7 @@ public class Parser {
                 return ui.invalidDateFormat();
             }
 
-        } else if (CommandParser.checkCommand(input, Command.EVENT.toString())) {
+        } else if (CommandParser.checkCommandWithArgument(input, Command.EVENT.toString())) {
             try {
                 // GitHub Copilot suggested the following code snippet
                 String description = input.split(" ", 2)[1].split(" /from ")[0];
@@ -151,7 +151,7 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 return ui.invalidDateFormat();
             }
-        } else if (CommandParser.checkCommand(input, Command.TODO.toString())) {
+        } else if (CommandParser.checkCommandWithArgument(input, Command.TODO.toString())) {
             try {
                 String description = input.split(" ", 2)[1];
                 taskList.addItem(new Todo(description));
@@ -160,9 +160,9 @@ public class Parser {
                 return ui.invalidTodoCommand();
             }
 
-        } else if (CommandParser.checkEqualCommand(input, Command.LIST.toString())) {
+        } else if (CommandParser.checkCommandWithoutArgument(input, Command.LIST.toString())) {
             return ui.listTasks(taskList.getList());
-        } else if (CommandParser.checkCommand(input, Command.FIND.toString())) {
+        } else if (CommandParser.checkCommandWithArgument(input, Command.FIND.toString())) {
             try {
                 String keyword = input.split(" ", 2)[1];
                 return ui.findTasks(taskList.findTasks(keyword));
