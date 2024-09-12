@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 public class TodoTest {
     @Test
     public void testStringConversion() {
-        assertEquals("[T][ ] CS coding assignment",
-                new Todo("CS coding assignment", false).toString());
+        assertEquals("[T][LOW][ ] CS coding assignment",
+                new Todo("CS coding assignment", false, Priority.LOW).toString());
     }
-
-
 }

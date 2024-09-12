@@ -1,14 +1,5 @@
-[T][X] sing a song
-[D][X] water the plants /by 2024-10-07 1400
-[D][X] wash clothes /by 2024-10-19 1604
-[T][ ] the gym activities with the broskis
-[T][ ] water
-[T][X] watch lecture
-[T][ ] waves
-[E][ ] teach students /from 2024-02-29 1019 /to 2024-01-10 1744
-[D][ ] ride the bike /by 2030-10-12 1700
-[T][ ] tasks
-[D][ ] stuff /by 2030-07-10 1744
-[T][ ] stuff
-[T][ ] other things
-[E][ ] things to do /from 2024-09-18 1600 /to 2025-10-09 1855
+[T][ ] goat //high
+[T][ ] things //medium
+[E][ ] go hikinig //medium /from 2025-10-08 1800 /to 2024-09-10 1900
+[D][ ] things //low /by 2024-10-09 1500
+[T][ ] things 

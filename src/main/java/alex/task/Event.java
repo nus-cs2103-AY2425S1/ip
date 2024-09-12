@@ -18,8 +18,8 @@ public class Event extends Task {
      * @param startTime The start date and time of the event as a LocalDateTime object.
      * @param endTime The end date and time of the event as a LocalDateTime object.
      */
-    public Event(String taskName, boolean isCompleted, LocalDateTime startTime, LocalDateTime endTime) {
-        super(taskName, isCompleted);
+    public Event(String taskName, boolean isCompleted, Priority priority, LocalDateTime startTime, LocalDateTime endTime) {
+        super(taskName, isCompleted, priority);
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -47,7 +47,7 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        return "[E]" + super.toString() + " /from "
+        return "[E]" + super.toStorageString() + " /from "
                 + this.startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
                 + " /to " + this.endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }

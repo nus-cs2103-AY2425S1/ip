@@ -40,6 +40,7 @@ public class TaskList {
      */
     public void add(Task task, Storage storage) throws IOException {
         this.list.add(task);
+        this.list.sort(Task::compareTo);
         storage.save(list);
     }
 
