@@ -21,11 +21,6 @@ import javafx.stage.Stage;
 public class Ui extends Application {
 
     private Scanner scanner;
-    private String introduction = """
-            Hello! I'm Asura!
-            What can I do for you?""";
-    private String goodbye = """
-            Bye. Hope to see you again soon!""";
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -62,7 +57,6 @@ public class Ui extends Application {
         stage.show();
 
         //Formatting the window to look as expected
-
         stage.setTitle("Asura");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -73,7 +67,6 @@ public class Ui extends Application {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
@@ -84,10 +77,8 @@ public class Ui extends Application {
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
@@ -104,33 +95,11 @@ public class Ui extends Application {
     }
 
     /**
-     * Outputs the introduction.
-     */
-    public void showIntroduction() {
-        System.out.println(formatResponse(introduction));
-    }
-
-    /**
-     * Outputs the goodbye.
-     */
-    public void showGoodbye() {
-        System.out.println(formatResponse(goodbye));
-    }
-
-    /**
      * Outputs the error that is specified.
      * @param error The error specified.
      */
     public void showError(String error) {
         System.out.println(formatResponse(error));
-    }
-
-    /**
-     * Reads the next input of the user.
-     * @return The input of the user.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
     }
 
     /**
