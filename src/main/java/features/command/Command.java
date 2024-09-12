@@ -12,6 +12,7 @@ public class Command {
      * @param name the name of the command
      */
     public Command(String name) {
+        assert name != null : "Command name must not be null.";
         this.name = name;
     }
 
@@ -30,6 +31,7 @@ public class Command {
      * @param name the new name for the command
      */
     public void setName(String name) {
+        assert name != null : "Command name must not be null.";
         this.name = name;
     }
 

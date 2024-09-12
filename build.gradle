@@ -40,7 +40,7 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("features.gui.Launcher")
 }
 
 shadowJar {
