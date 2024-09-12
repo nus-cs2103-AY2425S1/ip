@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import gale.exception.GaleException;
+import gale.gui.MainWindow;
 import gale.parser.Parser;
 import gale.storage.Storage;
 import gale.task.Task;
@@ -21,6 +22,7 @@ public class Gale {
     private TaskList taskList;
     private Ui ui;
     private boolean isRunning;
+    private MainWindow mainWindow;
 
     /**
      * Creates a new Gale instance with the default file path to store the output.
@@ -32,7 +34,7 @@ public class Gale {
         try {
             this.taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
-            ui.showLoadingError();
+            mainWindow.displayError(ui.showLoadingError());
             this.taskList = new TaskList();
         }
         this.isRunning = true;
@@ -51,7 +53,7 @@ public class Gale {
         try {
             this.taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
-            ui.showLoadingError();
+            mainWindow.displayError(ui.showLoadingError());
             this.taskList = new TaskList();
         }
         this.isRunning = true;
@@ -70,11 +72,11 @@ public class Gale {
      * Saves the current list of tasks to storage.
      * <p>This method is called after each operation that modifies a task in the tasklist.</p>
      */
-    public void saveTasks() {
+    public void saveTasks() throws GaleException {
         try {
             storage.saveTasks(taskList.getTaskList());
         } catch (IOException e) {
-            ui.showException("Oops! The wind interfered with saving your tasks. Please try again.");
+            throw new GaleException("Oops! The wind interfered with saving your tasks. Please try again.");
         }
     }
 
@@ -83,7 +85,6 @@ public class Gale {
      * <p>This method reads user input and processes it accordingly until the user inputs 'bye'.</p>
      */
     public void run() {
-        ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (isRunning) {
             String input;
@@ -93,7 +94,11 @@ public class Gale {
             if (!isRunning) {
                 break;
             }
-            saveTasks();
+            try {
+                saveTasks();
+            } catch (GaleException e) {
+                mainWindow.displayError(e.getMessage());
+            }
         }
         scanner.close();
     }
@@ -188,5 +193,13 @@ public class Gale {
      */
     public TaskList getTaskList() {
         return this.taskList;
+    }
+
+    /**
+     * Returns the Ui field of Gale.
+     * @return the Ui field of Gale
+     */
+    public Ui getUi() {
+        return this.ui;
     }
 }

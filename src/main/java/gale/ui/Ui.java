@@ -12,17 +12,17 @@ import gale.task.TaskList;
  * @author kaikquah
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
-
     /**
      * Displays the greeting message to the user when the application starts.
      *
      */
-    public void greet() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello BladeRunner! I'm Gale, your friendly windy assistant.");
-        System.out.println("I'll keep your deadlines, to-do's and events in my memory. What do you have to do?");
-        System.out.println(HORIZONTAL_LINE);
+    public String greet() {
+        return "Hello BladeRunner! I'm Gale, your friendly windy assistant.\n"
+            + "I'll keep your deadlines, to-do's and events in my memory.\n"
+            + "Please enter your command as follows: task(todo/deadline/event), followed by"
+            + " the priority(low/medium/high/you may ignore it), the task description, "
+            + "and the date and time if applicable.\n"
+            + "Please keep your commands in lowercase!\n";
     }
 
     /**
@@ -30,10 +30,8 @@ public class Ui {
      * @return the goodbye message as a String
      */
     public String exit() {
-        return HORIZONTAL_LINE + "\n"
-            + "Aw, it's time for you to go huh?\n"
-            + "Catch you on the next gust!\n"
-            + HORIZONTAL_LINE;
+        return "Aw, it's time for you to go huh?\n"
+            + "Catch you on the next gust!\n";
     }
 
     /**
@@ -43,12 +41,10 @@ public class Ui {
      * @return the message to the user as a String
      */
     public String showAddedTask(Task task, int taskCount) {
-        return HORIZONTAL_LINE + "\n"
-            + "Whoosh! Task \"" + task + "\" added to my windy memory. \n"
+        return "Whoosh! Task \"" + task + "\" added to my windy memory. \n"
             + "Now you have " + taskCount + " task" + (taskCount == 1 ? "" : "s")
             + " in the air.\n"
-            + "Anything else?\n"
-            + HORIZONTAL_LINE;
+            + "Anything else?\n";
     }
 
     /**
@@ -58,12 +54,10 @@ public class Ui {
      * @return the message to the user as a String
      */
     public String showDeletedTask(Task task, int taskCount) {
-        return HORIZONTAL_LINE + "\n"
-            + "Poof! The wind has blown away this task:\n"
+        return "Poof! The wind has blown away this task:\n"
             + " " + task + "\n"
             + "Now you have " + taskCount + " task" + (taskCount == 1 ? "" : "s")
-            + " in your windy list.\n"
-            + HORIZONTAL_LINE;
+            + " in your windy list.\n";
     }
 
     /**
@@ -72,7 +66,7 @@ public class Ui {
      * @return the message to the user as a String
      */
     public String displayTaskList(TaskList taskList) {
-        StringBuilder sb = new StringBuilder(HORIZONTAL_LINE + "\n");
+        StringBuilder sb = new StringBuilder();
         if (taskList.isEmpty()) {
             sb.append("No tasks breezing around now!\n");
         } else {
@@ -81,7 +75,6 @@ public class Ui {
                 sb.append(" ").append(i + 1).append(". ").append(taskList.getTask(i)).append("\n");
             }
         }
-        sb.append(HORIZONTAL_LINE);
         return sb.toString();
     }
 
@@ -92,13 +85,13 @@ public class Ui {
      * @return the message to the user as a String
      */
     public String showMarkedTask(Task task, boolean isDone) {
-        StringBuilder sb = new StringBuilder(HORIZONTAL_LINE + "\n");
+        StringBuilder sb = new StringBuilder();
         if (isDone) {
             sb.append("Good work! You breezed through this task!\n");
         } else {
             sb.append("Tough, this task is back in the windy realm.\n");
         }
-        sb.append(" ").append(task).append("\n").append(HORIZONTAL_LINE);
+        sb.append(" ").append(task).append("\n");
         return sb.toString();
     }
 
@@ -108,16 +101,14 @@ public class Ui {
      * @return the String containing the exception message
      */
     public String showException(String message) {
-        return HORIZONTAL_LINE + "\n" + message + "\n" + HORIZONTAL_LINE;
+        return message + "\n";
     }
 
     /**
      * Returns a String that contains a message to the user when an error occurs while loading tasks from the file.
      */
     public String showLoadingError() {
-        return HORIZONTAL_LINE + "\n"
-            + "Oops! The wind blew away your tasks. Starting with a clean slate.\n"
-            + HORIZONTAL_LINE;
+        return "Oops! The wind blew away your tasks. Starting with a clean slate.\n";
     }
 
     /**
@@ -127,7 +118,7 @@ public class Ui {
      * @return the message to the user as a String
      */
     public String showFoundTasks(ArrayList<Task> foundTasks, String keyword) {
-        StringBuilder sb = new StringBuilder(HORIZONTAL_LINE + "\n");
+        StringBuilder sb = new StringBuilder();
         if (foundTasks.isEmpty()) {
             sb.append("Oops. I combed through the clouds, but there were no tasks found with that keyword.\n");
         } else {
@@ -136,7 +127,6 @@ public class Ui {
                 sb.append(" ").append(i + 1).append(". ").append(foundTasks.get(i)).append("\n");
             }
         }
-        sb.append(HORIZONTAL_LINE);
         return sb.toString();
     }
 }
