@@ -11,10 +11,8 @@ public class Rei {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     public Rei(String filePath) {
-        ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.load());
 
