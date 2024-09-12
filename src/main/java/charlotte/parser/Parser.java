@@ -11,6 +11,7 @@ import charlotte.command.UnmarkCommand;
 import charlotte.exception.CharlotteException;
 import charlotte.task.Deadline;
 import charlotte.task.Event;
+import charlotte.task.Task;
 import charlotte.task.ToDo;
 
 /**
@@ -34,46 +35,108 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            if (inputParts.length < 2) {
-                throw new CharlotteException("Oops! You need to specify the task number!");
-            }
-            return new MarkCommand(Integer.parseInt(inputParts[1]));
         case "unmark":
-            if (inputParts.length < 2) {
-                throw new CharlotteException("Oops! You need to specify the task number!");
-            }
-            return new UnmarkCommand(Integer.parseInt(inputParts[1]));
         case "delete":
-            if (inputParts.length < 2) {
-                throw new CharlotteException("Oops! You need to specify the task number!");
-            }
-            return new DeleteCommand(Integer.parseInt(inputParts[1]));
+            return handleSimpleCommand(command, inputParts);
         case "todo":
-            if (inputParts.length < 2) {
-                throw new CharlotteException("Oops! The description of a todo cannot be empty!");
-            }
-            return new AddCommand(new ToDo(inputParts[1]));
+            return handleToDoCommand(inputParts);
         case "deadline":
-            if (inputParts.length < 2 || !inputParts[1].contains(" /by ")) {
-                throw new CharlotteException("Oops! The correct format for deadline is: deadline task /by date");
-            }
-            String[] deadlineParts = inputParts[1].split(" /by ");
-            return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
+            return handleDeadlineCommand(inputParts);
         case "event":
-            if (inputParts.length < 2 || !inputParts[1].contains(" /from ") || !inputParts[1].contains(" /to ")) {
-                throw new CharlotteException("Oops! The correct format for event is: event task /from start /to end");
-            }
-            String[] eventParts = inputParts[1].split(" /from | /to ");
-            return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+            return handleEventCommand(inputParts);
         case "find":
-            if (inputParts.length < 2) {
-                throw new CharlotteException("Oops! You need to specify a keyword to find!");
-            }
-            return new FindCommand(inputParts[1]);
+            return handleFindCommand(inputParts);
         case "bye":
             return new ExitCommand();
         default:
             throw new CharlotteException("Sorry I don't know what that means :( Please try again!");
         }
+    }
+
+    /**
+     * Handles the parsing of simple commands that require a task number, such as "mark", "unmark", and "delete".
+     *
+     * @param command The specific command (mark, unmark, or delete).
+     * @param inputParts The split parts of the user input.
+     * @return The corresponding Command object for the given command.
+     * @throws CharlotteException If the task number is not provided or invalid.
+     */
+    private static Command handleSimpleCommand(String command, String[] inputParts) throws CharlotteException {
+        if (inputParts.length < 2) {
+            throw new CharlotteException("Oops! You need to specify the task number!");
+        }
+        int taskNumber = Integer.parseInt(inputParts[1]);
+        switch (command) {
+        case "mark":
+            return new MarkCommand(taskNumber);
+        case "unmark":
+            return new UnmarkCommand(taskNumber);
+        case "delete":
+            return new DeleteCommand(taskNumber);
+        default:
+            throw new CharlotteException("Unknown command: " + command);
+        }
+    }
+
+    /**
+     * Handles the parsing of the "todo" command to create a new ToDo task.
+     *
+     * @param inputParts The split parts of the user input.
+     * @return An AddCommand object that adds a new ToDo task.
+     * @throws CharlotteException If the description for the todo task is empty.
+     */
+    private static Command handleToDoCommand(String[] inputParts) throws CharlotteException {
+        if (inputParts.length < 2) {
+            throw new CharlotteException("Oops! The description of a todo cannot be empty!");
+        }
+        Task todoTask = new ToDo(inputParts[1]);
+        return new AddCommand(todoTask);
+    }
+
+
+    /**
+     * Handles the parsing of the "deadline" command to create a new Deadline task.
+     *
+     * @param inputParts The split parts of the user input.
+     * @return An AddCommand object that adds a new Deadline task.
+     * @throws CharlotteException If the deadline format is incorrect.
+     */
+    private static Command handleDeadlineCommand(String[] inputParts) throws CharlotteException {
+        if (inputParts.length < 2 || !inputParts[1].contains(" /by ")) {
+            throw new CharlotteException("Oops! The correct format for deadline is: deadline task /by date");
+        }
+        String[] deadlineParts = inputParts[1].split(" /by ");
+        Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+        return new AddCommand(deadlineTask);
+    }
+
+    /**
+     * Handles the parsing of the "event" command to create a new Event task.
+     *
+     * @param inputParts The split parts of the user input.
+     * @return An AddCommand object that adds a new Event task.
+     * @throws CharlotteException If the event format is incorrect.
+     */
+    private static Command handleEventCommand(String[] inputParts) throws CharlotteException {
+        if (inputParts.length < 2 || !inputParts[1].contains(" /from ") || !inputParts[1].contains(" /to ")) {
+            throw new CharlotteException("Oops! The correct format for event is: event task /from start /to end");
+        }
+        String[] eventParts = inputParts[1].split(" /from | /to ");
+        Task eventTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
+        return new AddCommand(eventTask);
+    }
+
+    /**
+     * Handles the parsing of the "find" command to search for tasks based on a keyword.
+     *
+     * @param inputParts The split parts of the user input.
+     * @return A FindCommand object that finds tasks matching the specified keyword.
+     * @throws CharlotteException If the keyword for finding tasks is not provided.
+     */
+    private static Command handleFindCommand(String[] inputParts) throws CharlotteException {
+        if (inputParts.length < 2) {
+            throw new CharlotteException("Oops! You need to specify a keyword to find!");
+        }
+        return new FindCommand(inputParts[1]);
     }
 }
