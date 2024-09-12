@@ -34,80 +34,151 @@ public class Parser {
      * @throws GarfieldException An exception for Garfield chatbot
      */
     public static Command parse(String inputLine) throws GarfieldException {
-        inputLine = inputLine.strip();
+        assert inputLine != null : "Input line cannot be null";
 
-        if (inputLine.equalsIgnoreCase("bye")) {
+        inputLine = inputLine.strip().toLowerCase();
+
+        switch (getCommandKeyword(inputLine)) {
+        case "bye":
             return new ExitCommand();
-        }
-
-        if (inputLine.equalsIgnoreCase("list")) {
+        case "list":
             return new ListCommand();
+        case "delete":
+            return handleDelete(inputLine);
+        case "mark":
+            return handleMark(inputLine);
+        case "unmark":
+            return handleUnmark(inputLine);
+        case "find":
+            return handleFind(inputLine);
+        case "todo":
+            return handleTodo(inputLine);
+        case "deadline":
+            return handleDeadline(inputLine);
+        case "event":
+            return handleEvent(inputLine);
+        default:
+            throw new GarfieldException(inputLine + "? I'm not sure what that means.");
         }
+    }
 
-        if (inputLine.toLowerCase().startsWith("delete")) {
-            try {
-                return new DeleteCommand(getIntegerArg(inputLine));
-            } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: delete <task id>");
-            }
+    /**
+     * Extracts and returns the command keyword from the input line.
+     * The keyword is the first word in the input string, which determines the type of command.
+     *
+     * @param inputLine The user input string.
+     * @return The command keyword.
+     */
+    private static String getCommandKeyword(String inputLine) {
+        return inputLine.split("\\s+")[0]; // Split and return the first word as the command
+    }
+
+    /**
+     * Handles the parsing of the "delete" command and returns a DeleteCommand object.
+     *
+     * @param inputLine The user input string for the delete command.
+     * @return A DeleteCommand object corresponding to the input.
+     * @throws GarfieldException If the input string contains invalid arguments.
+     */
+    private static Command handleDelete(String inputLine) throws GarfieldException {
+        try {
+            return new DeleteCommand(getIntegerArg(inputLine));
+        } catch (GarfieldException e) {
+            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: delete <task id>");
         }
+    }
 
-        if (inputLine.toLowerCase().startsWith("mark")) {
-            try {
-                return new MarkCommand(getIntegerArg(inputLine));
-            } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: mark <task id>");
-            }
+    /**
+     * Handles the parsing of the "mark" command and returns a MarkCommand object.
+     *
+     * @param inputLine The user input string for the mark command.
+     * @return A MarkCommand object corresponding to the input.
+     * @throws GarfieldException If the input string contains invalid arguments.
+     */
+    private static Command handleMark(String inputLine) throws GarfieldException {
+        try {
+            return new MarkCommand(getIntegerArg(inputLine));
+        } catch (GarfieldException e) {
+            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: mark <task id>");
         }
+    }
 
-        if (inputLine.toLowerCase().startsWith("unmark")) {
-            try {
-                return new UnmarkCommand(getIntegerArg(inputLine));
-            } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: unmark <task id>");
-            }
+    /**
+     * Handles the parsing of the "unmark" command and returns an UnmarkCommand object.
+     *
+     * @param inputLine The user input string for the unmark command.
+     * @return An UnmarkCommand object corresponding to the input.
+     * @throws GarfieldException If the input string contains invalid arguments.
+     */
+    private static Command handleUnmark(String inputLine) throws GarfieldException {
+        try {
+            return new UnmarkCommand(getIntegerArg(inputLine));
+        } catch (GarfieldException e) {
+            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: unmark <task id>");
         }
+    }
 
-        if (inputLine.toLowerCase().startsWith("find")) {
-            try {
-                return new FindCommand(parseFind(inputLine));
-            } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: find <keyword>");
-            }
+    /**
+     * Handles the parsing of the "find" command and returns a FindCommand object.
+     *
+     * @param inputLine The user input string for the find command.
+     * @return A FindCommand object corresponding to the input.
+     * @throws GarfieldException If the input string contains invalid arguments.
+     */
+    private static Command handleFind(String inputLine) throws GarfieldException {
+        try {
+            return new FindCommand(parseFind(inputLine));
+        } catch (GarfieldException e) {
+            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: find <keyword>");
         }
+    }
 
-        if (inputLine.toLowerCase().startsWith("todo")) {
-            try {
-                Todo newTodo = parseTodo(inputLine);
-                return new AddCommand(newTodo);
-            } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: todo <task description>");
-            }
+    /**
+     * Handles the parsing of the "todo" command and returns an AddCommand object with a Todo task.
+     *
+     * @param inputLine The user input string for the todo command.
+     * @return An AddCommand object containing the Todo task.
+     * @throws GarfieldException If the input string contains invalid arguments.
+     */
+    private static Command handleTodo(String inputLine) throws GarfieldException {
+        try {
+            Todo newTodo = parseTodo(inputLine);
+            return new AddCommand(newTodo);
+        } catch (GarfieldException e) {
+            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: todo <task description>");
         }
+    }
 
-        if (inputLine.toLowerCase().startsWith("deadline")) {
-            try {
-                Deadline newDeadline = parseDeadline(inputLine);
-                return new AddCommand(newDeadline);
-            } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n"
-                        + "Correct Usage: deadline <task description> /by yyyy-MM-dd HH:mm (24h time)");
-            }
+    /**
+     * Handles the parsing of the "deadline" command and returns an AddCommand object with a Deadline task.
+     *
+     * @param inputLine The user input string for the deadline command.
+     * @return An AddCommand object containing the Deadline task.
+     * @throws GarfieldException If the input string contains invalid arguments.
+     */
+    private static Command handleDeadline(String inputLine) throws GarfieldException {
+        try {
+            Deadline newDeadline = parseDeadline(inputLine);
+            return new AddCommand(newDeadline);
+        } catch (GarfieldException e) {
+            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: deadline <task description> /by yyyy-MM-dd HH:mm");
         }
+    }
 
-        if (inputLine.toLowerCase().startsWith("event")) {
-            try {
-                Event newEvent = parseEvent(inputLine);
-                return new AddCommand(newEvent);
-            } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n"
-                        + "Correct Usage: event <task description> /from yyyy-MM-dd HH:mm (24h time)"
-                        + " /to yyyy-MM-dd HH:mm (24h time)");
-            }
+    /**
+     * Handles the parsing of the "event" command and returns an AddCommand object with an Event task.
+     *
+     * @param inputLine The user input string for the event command.
+     * @return An AddCommand object containing the Event task.
+     * @throws GarfieldException If the input string contains invalid arguments.
+     */
+    private static Command handleEvent(String inputLine) throws GarfieldException {
+        try {
+            Event newEvent = parseEvent(inputLine);
+            return new AddCommand(newEvent);
+        } catch (GarfieldException e) {
+            throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: event <task description> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
         }
-
-        throw new GarfieldException(inputLine
-                + "? I'm not sure what that means. Can you give me a bit more to work with?");
     }
 
     /**
