@@ -1,6 +1,6 @@
-package duck;
+package duck.commands;
 
-public enum Command {
+public enum CommandType {
     LIST("list"),
     FIND("find"),
     MARK("mark"),
@@ -13,7 +13,7 @@ public enum Command {
 
     private final String name;
 
-    private Command(String name) {
+    private CommandType(String name) {
         this.name = name;
     }
 
