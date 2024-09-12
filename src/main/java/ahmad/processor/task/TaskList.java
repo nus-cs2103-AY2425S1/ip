@@ -1,8 +1,11 @@
 package ahmad.processor.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -10,7 +13,7 @@ import java.util.stream.Stream;
  * Class to store list of tasks.
  */
 public class TaskList {
-    private static final List<Task> list = new ArrayList<Task>();
+    private static final List<Task> list = new ArrayList<>();
 
 
     private static List<String> getStringList(List<Task> list) {
@@ -18,14 +21,17 @@ public class TaskList {
             return List.of("No items!");
         }
         return List.of(IntStream.range(0, list.size()).mapToObj(i -> (i + 1) + ". " + list.get(i))
-                .reduce("", (acc, cur) -> acc + '\n' + cur));
+                               .reduce("", (acc, cur) -> acc + '\n' + cur));
     }
 
 
-    public static List<String> getStringList(Comparator<Task> comparator) {
-        final List<Task> sortedList = new ArrayList<Task>(TaskList.list);
-        sortedList.sort(comparator);
-        return getStringList(sortedList);
+    public static List<String> getStringList(ArrayList<Function<List<Task>, List<Task>>> mutators) {
+        List<Task> newList = mutators.stream().reduce(TaskList.list, (acc, mutator) -> mutator.apply(acc), (
+                a, b) -> {
+            throw new UnsupportedOperationException();
+        });
+
+        return getStringList(newList);
     }
 
     /**
@@ -35,6 +41,35 @@ public class TaskList {
      */
     public static List<String> getStringList() {
         return getStringList(TaskList.list);
+    }
+
+    public static List<Task> sortAscendingTime(List<Task> tasks) {
+        final List<Task> sortedList = (new ArrayList<>(tasks));
+
+        sortedList.sort(Task::compareTimeAscending);
+
+        return sortedList;
+    }
+
+    public static Function<List<Task>, List<Task>> filterList(TaskType task) {
+        final Predicate<Task> filterPredicate;
+
+        switch (task) {
+        case Todo:
+            filterPredicate = currentTask -> currentTask instanceof Todo;
+            break;
+        case Deadline:
+            filterPredicate = currentTask -> currentTask instanceof Deadline;
+            break;
+        case Event:
+            filterPredicate = currentTask -> currentTask instanceof Event;
+            break;
+        default:
+            assert false : "Illegal task state";
+            throw new IllegalStateException();
+        }
+
+        return list -> new ArrayList<>((new ArrayList<>(list)).stream().filter(filterPredicate).toList());
     }
 
     /**
