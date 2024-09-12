@@ -13,9 +13,10 @@ import king.task.Task;
  * It handles the storage of tasks by saving them to a file and loading them back when needed.
  */
 public class Storage {
-    private String filePath;
+    private static final String ERROR_SAVING_TASKS = "An error occurred while saving tasks.";
+    private static final String ERROR_LOADING_TASKS = "An error occurred while loading tasks.";
 
-    private TaskList taskList = new TaskList(); // Store task list
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -24,6 +25,7 @@ public class Storage {
      * @param filePath the path to the file where tasks will be stored
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
         ensureDirectoryExists();
     }
@@ -34,9 +36,7 @@ public class Storage {
      */
     private void ensureDirectoryExists() {
         File directory = new File(new File(filePath).getParent());
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        assert directory != null : "Directory object creation failed";
     }
 
     /**
@@ -52,7 +52,7 @@ public class Storage {
                 writer.write(System.lineSeparator());
             }
         } catch (IOException e) {
-            throw new KingException("An error occurred while saving tasks.");
+            throw new KingException(ERROR_SAVING_TASKS);
         }
     }
 
@@ -78,7 +78,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new KingException("An error occurred while loading tasks.");
+            throw new KingException(ERROR_LOADING_TASKS);
         }
         return tasks;
     }

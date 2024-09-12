@@ -42,6 +42,9 @@ public class TaskList {
      * @param index the index of the task to be removed
      */
     public void remove(int index) {
+        // Assert that the index is within valid range
+        assert index >= 0 && index < tasks.size() : "Index out of bounds: " + index;
+
         if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
         }
@@ -54,6 +57,9 @@ public class TaskList {
      * @return the task at the specified index, or null if the index is out of bounds
      */
     public Task getTask(int index) {
+        // Assert that the index is within valid range
+        assert index >= 0 && index < tasks.size() : "Index out of bounds: " + index;
+
         if (index >= 0 && index < tasks.size()) {
             return tasks.get(index);
         }
@@ -85,9 +91,11 @@ public class TaskList {
      * @throws KingException if the task number is invalid
      */
     public void markTaskAsDone(int taskNumber) throws KingException {
+        // Assert that the taskNumber is within valid range
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Index out of bounds: " + taskNumber;
+
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             tasks.get(taskNumber).markAsDone();
-            //storage.save(tasks);
         } else {
             throw new KingException("Enter a valid task number within the list you buffoon!");
         }
@@ -100,6 +108,9 @@ public class TaskList {
      * @throws KingException if the task number is invalid
      */
     public void markTaskAsUndone(int taskNumber) throws KingException {
+        // Assert that the taskNumber is within valid range
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Index out of bounds: " + taskNumber;
+
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             tasks.get(taskNumber).markAsUndone();
         } else {

@@ -101,6 +101,17 @@ public class Ui {
     }
 
     /**
+     * Displays a message indicating that a task has been removed from the list.
+     *
+     * @param task the task that was added
+     * @param size the current number of tasks in the list
+     */
+    public String showTaskRemoved(Task task, int size) {
+        return "Approved. I've removed this from your list of duties:\n"
+                + task.toString() + "\nNow you have " + size + " tasks in the list.";
+    }
+
+    /**
      * Displays a message indicating that no tasks were found containing the given keyword.
      *
      * @param keyword The keyword used to search for tasks.
