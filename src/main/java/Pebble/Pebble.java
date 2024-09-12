@@ -36,6 +36,7 @@ public class Pebble {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        assert input != null : "Input should not be null";
         // Parse the command
         Command command = Parser.parseCommand(input);
         // Execute the command and get the response for GUI
