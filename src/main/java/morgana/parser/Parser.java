@@ -73,31 +73,35 @@ public class Parser {
     }
 
     /**
-     * Parses a task string from a file and converts it into a {@link Task} object.
+     * Parses a string representation of a task from a file and converts it into a {@link Task} object.
      *
      * @param line The input string representing a task, as stored in a file.
      * @return The {@code Task} object created from the input string.
      */
-    public static Task parseTask(String line) {
-        String[] parts = line.split(" \\| ");
-        String type = parts[0];
-        boolean isDone = parts[1].equals("X");
-        String description = parts[2];
+    public static Task parseTaskFromString(String line) throws MorganaException {
+        String[] fields = line.split(" \\| ");
+        assert fields.length >= 3 : "Expected at least 3 fields for a task, got: " + fields.length;
+
+        String type = fields[0];
+        boolean isDone = fields[1].equals("X");
+        String description = fields[2];
 
         Task task = switch (type) {
             case "T" -> new Todo(description);
-            case "D" -> new Deadline(description, LocalDateTime.parse(parts[3], COMPACT_FORMATTER));
+            case "D" -> {
+                assert fields.length == 4 : "Expected 4 fields for a Deadline task, got: " + fields.length;
+                yield new Deadline(description, LocalDateTime.parse(fields[3], COMPACT_FORMATTER));
+            }
             case "E" -> {
-                LocalDateTime start = LocalDateTime.parse(parts[3], COMPACT_FORMATTER);
-                LocalDateTime end = LocalDateTime.parse(parts[4], COMPACT_FORMATTER);
+                assert fields.length == 5 : "Expected 5 fields for an Event task, got: " + fields.length;
+                LocalDateTime start = LocalDateTime.parse(fields[3], COMPACT_FORMATTER);
+                LocalDateTime end = LocalDateTime.parse(fields[4], COMPACT_FORMATTER);
                 yield new Event(description, start, end);
             }
-            default -> null;
+            default -> throw new MorganaException("Invalid task type: " + type);
         };
 
-        if (task != null) {
-            task.markAsDone(isDone);
-        }
+        task.markAsDone(isDone);
         return task;
     }
 }
