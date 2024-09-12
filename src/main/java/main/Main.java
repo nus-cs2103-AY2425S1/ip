@@ -20,8 +20,8 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            AnchorPane apn = fxmlLoader.load();
+            Scene scene = new Scene(apn);
             stage.setScene(scene);
             MainWindow mainWindow = fxmlLoader.getController();
             mainWindow.setChattyBuddy(chattyBuddy);
