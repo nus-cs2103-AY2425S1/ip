@@ -8,6 +8,7 @@ import potong.exceptions.IllegalInputPotongException;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String tag = "";
 
     /**
      * Initialise a task with a task description.
@@ -30,12 +31,13 @@ public class Task {
      * @param isDone Whether the task is done or not.
      * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public Task(String description, boolean isDone) throws IllegalInputPotongException {
+    public Task(String description, boolean isDone, String tag) throws IllegalInputPotongException {
         if (description.isEmpty()) {
             throw new IllegalInputPotongException();
         }
         this.description = description;
         this.isDone = isDone;
+        this.tag = tag;
     }
 
     private String getStatusIcon() {
@@ -60,6 +62,25 @@ public class Task {
     public String unmark() {
         this.isDone = false;
         return String.format("OK, I've marked this task as not done yet:\n %s", this);
+    }
+
+    /**
+     * Tag the task.
+     * @param tag String representation of the tag.
+     * @return String representation of this action.
+     */
+    public String tag(String tag) {
+        this.tag = "#" + tag;
+        return String.format("OK, I've tagged this task as %s\n %s", tag, this);
+    }
+
+    /**
+     * Remove the tag from the task.
+     * @return String representation of this action.
+     */
+    public String untag() {
+        this.tag = "";
+        return String.format("OK, I've untagged this task\n %s", this);
     }
 
     /**
@@ -103,6 +124,18 @@ public class Task {
     }
 
     /**
+     * Get the tag for the task.
+     * @return String representation of the tag.
+     */
+    public String getTag() {
+        if (this.tag.isEmpty()) {
+            return " ";
+        } else {
+            return this.tag;
+        }
+    }
+
+    /**
      * Check if the task contains the keyword.
      *
      * @param keyword Keyword.
@@ -119,6 +152,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.description);
+        return String.format("[%s][%s] %s", this.getStatusIcon(), this.getTag(), this.description);
     }
 }

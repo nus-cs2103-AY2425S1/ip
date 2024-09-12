@@ -24,8 +24,8 @@ public class ToDoTask extends Task {
      * @param isDone Whether the task is done.
      * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public ToDoTask(String description, boolean isDone) throws IllegalInputPotongException {
-        super(description, isDone);
+    public ToDoTask(String description, boolean isDone, String tag) throws IllegalInputPotongException {
+        super(description, isDone, tag);
     }
 
     /**
