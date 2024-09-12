@@ -147,8 +147,8 @@ public class Parser {
         }
         String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
 
-        String[] split_parts = joinedString.split(" ");
-        if (split_parts.length != 1 || !isInteger(split_parts[0])) {
+        String[] splitParts = joinedString.split(" ");
+        if (splitParts.length != 1 || !isInteger(splitParts[0])) {
             throw new InvalidMarkException(joinedString);
         }
         int index = extractTaskIndex(parts);
@@ -265,11 +265,11 @@ public class Parser {
         }
         String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
 
-        String[] split_parts = joinedString.split(" ");
-        if (split_parts.length != 1 || !isInteger(split_parts[0])) {
+        String[] splitParts = joinedString.split(" ");
+        if (splitParts.length != 1 || !isInteger(splitParts[0])) {
             throw new InvalidDeleteException(joinedString);
         }
-        int index = Integer.parseInt(split_parts[0]);
+        int index = Integer.parseInt(splitParts[0]);
 
         TaskList manager = new TaskList(new Storage());
         if (!manager.isValidIndex(index)) {
@@ -384,11 +384,11 @@ public class Parser {
         }
         String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
 
-        String[] split_parts = joinedString.split(" ");
-        if (split_parts.length != 1 || !isInteger(split_parts[0])) {
+        String[] splitParts = joinedString.split(" ");
+        if (splitParts.length != 1 || !isInteger(splitParts[0])) {
             throw new InvalidDeleteException(joinedString);
         }
-        int index = Integer.parseInt(split_parts[0]);
+        int index = Integer.parseInt(splitParts[0]);
 
         if (!manager.isValidIndex(index)) {
             throw new InvalidIndexException(index, manager.getSize());
