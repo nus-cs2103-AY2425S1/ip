@@ -1,9 +1,7 @@
 package rei;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * Abstract class for tasks.
@@ -128,7 +126,7 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[D]%s(by: %s)", this.printTask(), this.deadline.format(outputFormat));
+            return String.format("[D]%s (by: %s)", this.printTask(), this.deadline.format(outputFormat));
         }
 
         @Override
@@ -154,7 +152,7 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[E]%s(from: %s to: %s)", this.printTask(),
+            return String.format("[E]%s (from: %s to: %s)", this.printTask(),
                     this.from.format(outputFormat), this.to.format(outputFormat));
         }
 
