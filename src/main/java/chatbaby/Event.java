@@ -57,14 +57,10 @@ public class Event extends Task {
      */
     @Override
     public String toFileText() {
-<<<<<<< branch-A-CodeQuality
-=======
-        assert from.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+        assert eventStartTime.toString().matches("\\d{4}-\\d{2}-\\d{2}")
                 : "Date must be in the format yyyy-MM-dd";
-        assert to.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+        assert eventEndTime.toString().matches("\\d{4}-\\d{2}-\\d{2}")
                 : "Date must be in the format yyyy-MM-dd";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
->>>>>>> master
         return "E | " + (this.isDone() ? "1" : "0") + " | " + this.getName() + " | "
                 + eventStartTime.format(OUTPUT_FORMATTER) + " | " + eventEndTime.format(OUTPUT_FORMATTER);
     }
@@ -76,17 +72,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-<<<<<<< branch-A-CodeQuality
+        assert eventStartTime.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+                : "Date must be in the format yyyy-MM-dd";
+        assert eventEndTime.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+                : "Date must be in the format yyyy-MM-dd";
         return "[E]" + super.toString() + " (from: " + eventStartTime.format(OUTPUT_FORMATTER)
                 + " to: " + eventEndTime.format(OUTPUT_FORMATTER) + ")";
-=======
-        assert from.toString().matches("\\d{4}-\\d{2}-\\d{2}")
-                : "Date must be in the format yyyy-MM-dd";
-        assert to.toString().matches("\\d{4}-\\d{2}-\\d{2}")
-                : "Date must be in the format yyyy-MM-dd";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "[E]" + super.toString() + " (from: " + from.format(formatter)
-                + " to: " + to.format(formatter) + ")";
->>>>>>> master
     }
 }
