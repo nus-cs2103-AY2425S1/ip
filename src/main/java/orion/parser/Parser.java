@@ -1,5 +1,12 @@
 package orion.parser;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+
 import orion.orionExceptions.FileInitializationException;
 import orion.orionExceptions.InvalidDateFormatException;
 import orion.orionExceptions.InvalidDeadlineException;
@@ -13,13 +20,6 @@ import orion.storage.Storage;
 import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
 import orion.tasklist.TaskList;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 
 public class Parser {
 
