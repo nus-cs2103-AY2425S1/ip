@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import orion.orionexceptions.FileInitializationException;
 import orion.storage.Storage;
@@ -27,6 +28,7 @@ import orion.task.Todo;
  * </p>
  */
 public class TaskList {
+    private static final int FUZZY_SEARCH_THRESHOLD = 3;
     private static final String DATA_FILE_PATH = "./data/tasks.csv";
     private Storage storage;
 
@@ -283,22 +285,51 @@ public class TaskList {
     }
 
     /**
-     * Finds all tasks in the list that contain the given keyword in their
-     * description.
+     * Finds all tasks in the list that contain the given keyword or are within a
+     * certain Levenshtein distance threshold (fuzzy search).
      *
      * @param keyword the keyword to search for.
-     * @return a list of tasks that match the keyword.
+     * @return a list of tasks that match the keyword based on fuzzy search.
      * @throws FileInitializationException if there is an issue with file reading.
      */
     public List<Task> findTasks(String keyword) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
 
-        // Use stream to filter tasks
-        List<Task> matchingTasks = tasks.stream()
-                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
-                .toList();
+        // Use stream to filter tasks with fuzzy matching
+        return tasks.stream()
+                .filter(task -> {
+                    String description = task.getDescription().toLowerCase();
+                    String lowerKeyword = keyword.toLowerCase();
+                    int distance = levenshteinDistance(description, lowerKeyword);
+                    return distance <= FUZZY_SEARCH_THRESHOLD; // Fuzzy match with a threshold
+                })
+                .collect(Collectors.toList());
+    }
 
-        return matchingTasks;
+    /**
+     * Computes the Levenshtein distance between two strings.
+     *
+     * @param str1 the first string.
+     * @param str2 the second string.
+     * @return the Levenshtein distance between the two strings.
+     */
+    private int levenshteinDistance(String str1, String str2) {
+        int[][] dp = new int[str1.length() + 1][str2.length() + 1];
+
+        for (int i = 0; i <= str1.length(); i++) {
+            for (int j = 0; j <= str2.length(); j++) {
+                if (i == 0) {
+                    dp[i][j] = j;
+                } else if (j == 0) {
+                    dp[i][j] = i;
+                } else {
+                    dp[i][j] = Math.min(dp[i - 1][j - 1] + (str1.charAt(i - 1) == str2.charAt(j - 1) ? 0 : 1),
+                            Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1));
+                }
+            }
+        }
+
+        return dp[str1.length()][str2.length()];
     }
 
 }
