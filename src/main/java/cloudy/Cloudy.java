@@ -11,6 +11,9 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 
 /**
  * Represents the main class for the Cloudy program.
@@ -22,6 +25,8 @@ public class Cloudy {
     private TaskList tasks;
     private Parser parser;
 
+
+
     /**
      * Initializes a new instance of the Cloudy program.
      *
@@ -29,13 +34,19 @@ public class Cloudy {
      */
     public Cloudy(String filePath) {
 
+        // Ensure assertions are being used.
+        // assert false : "Assertions are being verified";
+
+        assert filePath != null : "File path should not be null";
         storage = new Storage(filePath);
         parser = new Parser();
         try {
             tasks = new TaskList(Storage.loadTasksFromFile());
+            assert tasks != null : "Loaded tasks should not be null";
         } catch (Exception e) {
             tasks = new TaskList();
         }
+
     }
 
     public String showGreeting() {
@@ -50,25 +61,33 @@ public class Cloudy {
     public String getResponse(String userInput) {
         Command command = parser.parseCommand(userInput);
 
+        assert command != null : "Command should not be null";
+        assert command.getType() != null : "Command type should not be null";
+
         switch (command.getType()) {
             case "bye":
                 return "Bye. Hope to see you again soon!";
+
             case "list":
                 return showList(tasks);
             case "find":
                 return handleFindCommand(command);
+
             case "mark":
                 return handleMarkCommand(command);
             case "unmark":
                 return handleUnmarkCommand(command);
+
             case "todo":
                 return handleTodoCommand(command);
             case "deadline":
                 return handleDeadlineCommand(command);
             case "event":
                 return handleEventCommand(command);
+
             case "delete":
                 return handleDeleteCommand(command);
+
             default:
                 return showInvalidCommand();
         }
@@ -82,63 +101,66 @@ public class Cloudy {
      * @param tasks The TaskList containing all the tasks to be displayed.
      */
     public String showList(TaskList tasks) {
-        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
 
-        for (int i = 0; i < tasks.size(); i++) {
-            output.append(i + 1)
-                    .append(". ")
-                    .append(tasks.getTask(i).printTaskOnList())
-                    .append("\n");
-        }
-        return output.toString();
+        assert tasks != null : "TaskList should not be null";
+
+        return "Here are the tasks in your list:\n"
+                + IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.getTask(i).printTaskOnList())
+                .collect(Collectors.joining("\n"));
+
     }
 
     private String handleFindCommand(Command command) {
-        ArrayList<Task> matchingTasks = tasks.findTasks(command.getTaskDescription());
+        assert command!= null : "Command should not be null";
+        try {
+            String searchDescription = command.getTaskDescription();
+            if (searchDescription == null) {
+                return showInvalidCommand();
+            }
+            ArrayList<Task> matchingTasks = tasks.findTasks(searchDescription);
+          
+            return "Here are the matching tasks in your list:\n" +
+                    IntStream.range(0, matchingTasks.size())
+                            .mapToObj(i -> (i + 1) + ". " + matchingTasks.get(i).printTaskOnList())
+                            .collect(Collectors.joining("\n"));
 
-        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
-
-        for (int i = 0; i < tasks.size(); i++) {
-            output.append(i + 1)
-                    .append(". ")
-                    .append(tasks.getTask(i).printTaskOnList())
-                    .append("\n");
+        } catch (Exception e) {
+            return "An error occurred while processing the find command.";
         }
-        return output.toString();
     }
 
     private String handleMarkCommand(Command command) {
-        try {
-            int taskNumber = command.getTaskNumber();
-            if (taskNumber > 0 && taskNumber <= tasks.size()) {
-                Task taskToMark = tasks.getTask(taskNumber - 1);
-                taskToMark.markTask();
-                storage.saveTasksToFile(tasks.getAllTasks());
-                return "Nice! I've marked this task as done:\n" + taskToMark.printTaskOnList();
-            } else {
-                return "Invalid task format. Please enter a valid task.";
-            }
-        } catch (NumberFormatException e) {
-            return "Invalid task format. Please enter a valid task.";
+        assert command!= null : "Command should not be null";
+      
+        int taskNumber = command.getTaskNumber();
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            return "Please enter a valid task number.";
         }
+        
+        Task taskToMark = tasks.getTask(taskNumber - 1);
+        taskToMark.markTask();
+        storage.saveTasksToFile(tasks.getAllTasks());
+        return "Nice! I've marked this task as done:\n" + taskToMark.printTaskOnList();
+
     }
 
     private String handleUnmarkCommand(Command command) {
-        try {
-            int taskNumber = command.getTaskNumber();
-            if (taskNumber > 0 && taskNumber <= tasks.size()) {
-                Task taskToUnmark = tasks.getTask(taskNumber - 1);
-                taskToUnmark.unmarkTask();
-                return "OK, I've marked this task as not done yet:\n" + taskToUnmark.printTaskOnList();
-            } else {
-                return "Please enter a valid task number.";
-            }
-        } catch (NumberFormatException e) {
+        assert command!= null : "Command should not be null";
+
+        int taskNumber = command.getTaskNumber();
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
             return "Please enter a valid task number.";
         }
+      
+        Task taskToUnmark = tasks.getTask(taskNumber - 1);
+        taskToUnmark.unmarkTask();
+        return "OK, I've marked this task as not done yet:\n" + taskToUnmark.printTaskOnList();
+
     }
 
     private String handleTodoCommand(Command command) {
+        assert command!= null : "Command should not be null";
         String taskDescription = command.getTaskDescription();
         Task newTask = new Todo(taskDescription, false);
         tasks.addTask(newTask);
@@ -149,6 +171,7 @@ public class Cloudy {
     }
 
     private String handleDeadlineCommand(Command command) {
+        assert command!= null : "Command should not be null";
         String taskDescription = command.getTaskDescription();
         LocalDate deadline = command.getDeadline();
         Task newTask = new Deadline(taskDescription, deadline, false);
@@ -160,6 +183,7 @@ public class Cloudy {
     }
 
     private String handleEventCommand(Command command) {
+        assert command!= null : "Command should not be null";
         String taskDescription = command.getTaskDescription();
         LocalDate startTime = command.getStartTime();
         LocalDate endTime = command.getEndTime();
@@ -172,20 +196,17 @@ public class Cloudy {
     }
 
     private String handleDeleteCommand(Command command) {
-        try {
-            int taskNumber = command.getTaskNumber();
-            if (taskNumber > 0 && taskNumber <= tasks.size()) {
-                Task taskToDelete = tasks.getTask(taskNumber - 1);
-                tasks.removeTask(taskNumber - 1);
-                storage.saveTasksToFile(tasks.getAllTasks());
-                return "Noted. I've removed this task:\n"
-                        + "Now you have " + tasks.size() + " tasks in the list.";
-            } else {
-                return "Please enter a valid task number.";
-            }
-        } catch (NumberFormatException e) {
+        assert command!= null : "Command should not be null";
+
+        int taskNumber = command.getTaskNumber();
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
             return "Please enter a valid task number.";
         }
+      
+        tasks.removeTask(taskNumber - 1);
+        storage.saveTasksToFile(tasks.getAllTasks());
+        return "Noted. I've removed this task:\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
 
