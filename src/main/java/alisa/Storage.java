@@ -84,7 +84,7 @@ public class Storage {
     public void syncFile(TaskList taskList) throws AlisaException {
         try {
             FileWriter fw = new FileWriter(this.filePath);
-            fw.write(taskList.toFileString());
+            fw.write(taskList.convertToFileString());
             fw.close();
         } catch (IOException e) {
             throw new AlisaException("Couldn't update file!!");

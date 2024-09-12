@@ -32,7 +32,7 @@ public class Todo extends Task {
      * @return String of task type, task status, and task description.
      */
     @Override
-    public String toFileString() {
+    public String convertToFileString() {
         return "T | " + this.getFileStatus()
                 + " | " + this.getTask() + "\n";
     }

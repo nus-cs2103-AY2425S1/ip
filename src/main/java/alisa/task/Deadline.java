@@ -46,7 +46,7 @@ public class Deadline extends Task{
      * @return String of task type, task status, task description, and due date.
      */
     @Override
-    public String toFileString() {
+    public String convertToFileString() {
         return "D | " + this.getFileStatus() + " | "
                 + this.getTask() + " | " + dueDate + "\n";
     }
