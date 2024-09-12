@@ -30,7 +30,6 @@ public class TaskList {
     /**
      * Adds the given task to the task list.
      * Triggers the TaskManager to update the local saved tasks.
-     * Prints the add message on the UI.
      *
      * @param task task to be added
      */
@@ -42,15 +41,20 @@ public class TaskList {
     /**
      * Deletes the task with the given task number from the task list.
      * Triggers the TaskManager to update the local saved tasks.
-     * Prints the delete message on the UI.
      *
      * @param taskNumbers numbers of the tasks to be deleted
      */
     public void delete(int... taskNumbers) {
+        // Map task number to actual task in the taskList
         Task[] deleteTaskList = Arrays
                 .stream(taskNumbers)
                 .mapToObj(this::getTask)
                 .toArray(Task[]::new);
+
+        // Delete tasks by reference
+        // Do not use task number for deletion directly because
+        // items in ArrayList will shift left after deletion
+        // causing the indexes of the items to be messed up
         for (Task task: deleteTaskList) {
             tasks.remove(task);
         }
@@ -64,10 +68,12 @@ public class TaskList {
      * @return TaskList object containing all the matching tasks
      */
     public TaskList find(String keyword) {
+        // Define regex pattern based on the given keyword
         ArrayList<Task> matchedTasks = new ArrayList<>();
         Pattern keywordPattern = Pattern.compile(keyword,
                 Pattern.CASE_INSENSITIVE);
 
+        // Search task whose String representation matches regex pattern
         for (Task task : tasks) {
             Matcher keywordMatcher = keywordPattern.matcher(task.toString());
             if (keywordMatcher.find()) {
@@ -81,7 +87,6 @@ public class TaskList {
     /**
      * Marks the task with the given task number as done.
      * Triggers the TaskManager to update the local saved tasks.
-     * Prints the mark as done message on the UI.
      *
      * @param taskNumbers numbers of the tasks to be marked as done
      */
@@ -96,7 +101,6 @@ public class TaskList {
     /**
      * Marks the task with the given task number as not done.
      * Triggers the TaskManager to update the local saved tasks.
-     * Prints the mark as not done message on the UI.
      *
      * @param taskNumbers numbers of the tasks to be marked as not done
      */
