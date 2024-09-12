@@ -15,7 +15,7 @@ import dude.exception.DudeInvalidCommandException;
 import dude.exception.DudeNullCommandException;
 
 public class ParserTest {
-    Parser parser;
+    private Parser parser;
 
     @BeforeEach
     public void setup() {
