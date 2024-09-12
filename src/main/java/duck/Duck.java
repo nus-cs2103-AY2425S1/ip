@@ -58,7 +58,7 @@ public class Duck {
             return formatAsResponse(GOODBYE);
         } else if (Command.LIST.equalsName(input)) {
             String response = "Here are the tasks in your list:\n"
-                    + TASKS.toString();
+                    + indentText(TASKS.toString(), 4);
             return formatAsResponse(response);
         } else {
             String command = lineBuffer.getWord();
