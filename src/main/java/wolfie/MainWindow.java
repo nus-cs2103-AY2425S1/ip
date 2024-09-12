@@ -22,6 +22,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
 
     private Wolfie wolfie;
 
@@ -65,17 +66,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        assert input != null : "User input should not be null.";
-        assert !input.trim().isEmpty() : "User input should not be empty.";
-
         System.out.println("User input: " + input); // Debugging statement
         String response;
         boolean isError = false;
+
+        if (!isValidCommand(input)) {
+            isError = true;
+        }
         try {
             response = wolfie.getResponse(input);
         } catch (Exception e) {
-            response = "Error: " + e.getMessage();
             isError = true;
+            response = "Error: " + e.getMessage();
             e.printStackTrace(); // Print stack trace for debugging
         }
         System.out.println("Wolfie response: " + response); // Debugging statement
@@ -99,5 +101,18 @@ public class MainWindow extends AnchorPane {
                 Platform.exit();
             }).start();
         }
+    }
+
+    private boolean isValidCommand(String input) {
+        return input.trim().equalsIgnoreCase("bye")
+                || input.trim().equalsIgnoreCase("list")
+                || input.trim().equalsIgnoreCase("todo")
+                || input.trim().equalsIgnoreCase("deadline")
+                || input.trim().equalsIgnoreCase("event")
+                || input.trim().equalsIgnoreCase("delete")
+                || input.trim().equalsIgnoreCase("find")
+                || input.trim().equalsIgnoreCase("mark")
+                || input.trim().equalsIgnoreCase("unmark")
+                || input.trim().equalsIgnoreCase("on");
     }
 }

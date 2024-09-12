@@ -43,8 +43,8 @@ public class DialogBox extends HBox {
         displayPicture.setClip(new Circle(35, 35, 35)); // Rounded profile picture
 
         if (isError) {
-            dialog.setStyle("-fx-background-color: #1f515a; -fx-padding: 10; -fx-border-radius: 10; "
-                    + "-fx-background-radius: 10; -fx-text-fill: red;");
+            dialog.setStyle("-fx-background-color: red; -fx-padding: 10; -fx-border-radius: 10; "
+                    + "-fx-background-radius: 10; -fx-text-fill: black;");
         } else {
             dialog.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-radius: 10;"
                     + " -fx-background-radius: 10;");
@@ -63,13 +63,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getWolfieDialog(String text, Image img) {
-        var db = new DialogBox(text, img, false);
+        DialogBox db = new DialogBox(text, img, false);
         db.flip();
         return db;
     }
 
     public static DialogBox getErrorDialog(String text, Image img) {
-        var db = new DialogBox(text, img, true);
+        DialogBox db = new DialogBox(text, img, true);
         db.flip();
         return db;
     }
