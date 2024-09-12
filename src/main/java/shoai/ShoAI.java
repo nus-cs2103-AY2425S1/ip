@@ -10,8 +10,6 @@ public class ShoAI {
     private TaskList tasks;
     private Storage storage;
     private Parser parser;
-    private Ui ui; // Add an instance of Ui
-    private boolean welcomed; // Flag to check if welcome message has been shown
 
     public ShoAI(String filePath) {
         this.storage = new Storage(filePath);
@@ -24,35 +22,6 @@ public class ShoAI {
             this.tasks = new TaskList();
         }
         this.parser = new Parser();
-        this.ui = new Ui(); // Initialize Ui
-        this.welcomed = false; // Initialize the welcomed flag
-    }
-
-    /**
-     * Starts the ShoAI application.
-     */
-    public String start() {
-        String response;
-        Scanner scanner = new Scanner(System.in);
-        String userInput;
-
-        while (true) {
-            if (!welcomed) {
-                response = ui.showWelcome();
-                welcomed = true;
-                return response;
-            }
-            userInput = scanner.nextLine();
-            try {
-                response = parser.parse(userInput, tasks, storage);
-                if (response != null) {
-                    return response;
-                }
-            } catch (ShoAIException e) {
-                response = e.getMessage();
-                return response;
-            }
-        }
     }
 
     /**
@@ -60,6 +29,7 @@ public class ShoAI {
      *
      * @param userInput The input provided by the user.
      * @return The response string from the parser.
+     * Definitely must use
      */
     public String getResponse(String userInput) {
         try {

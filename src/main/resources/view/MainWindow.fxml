@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
@@ -18,7 +19,9 @@
                    onAction="#handleUserInput"
                    prefHeight="41.0"
                    prefWidth="324.0"
-                   AnchorPane.bottomAnchor="1.0" />
+                   AnchorPane.bottomAnchor="1.0"
+                   promptText="Type your message here..."
+                   style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-padding: 5;"/>
         <Button fx:id="sendButton"
                 layoutX="324.0"
                 layoutY="558.0"
@@ -26,16 +29,20 @@
                 onAction="#handleUserInput"
                 prefHeight="41.0"
                 prefWidth="76.0"
-                text="Send" />
+                text="Send"
+                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-border-radius: 5;"/>
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER"
                     vbarPolicy="ALWAYS"
                     prefHeight="557.0"
-                    prefWidth="400.0">
+                    prefWidth="400.0"
+                    style="-fx-background-color: #ffffff;">
             <content>
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
-                      prefWidth="388.0" />
+                      prefWidth="388.0"
+                      spacing="10"
+                      style="-fx-background-color: #ffffff;"/>
             </content>
         </ScrollPane>
     </children>

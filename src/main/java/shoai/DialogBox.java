@@ -10,7 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -33,6 +34,14 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        // Apply DropShadow effect to the ImageView
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(Color.GRAY);
+        shadow.setRadius(5);
+        shadow.setOffsetX(3);
+        shadow.setOffsetY(3);
+        displayPicture.setEffect(shadow);
     }
 
     private void flip() {

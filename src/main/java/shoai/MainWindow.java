@@ -1,5 +1,3 @@
-// Extra commit because I tagged wrongly 
-
 package shoai;
 
 import javafx.fxml.FXML;
@@ -22,6 +20,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private ShoAI chatbot;
+    private boolean welcomed;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Profile Pic.jpeg"));
     private Image chatbotImage = new Image(this.getClass().getResourceAsStream("/images/shoai.jpeg"));
@@ -29,7 +28,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Show the welcome message immediately
+        showWelcomeMessage();
     }
+
 
     public void setChatbot(ShoAI c) {
         chatbot = c;
@@ -37,6 +39,13 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleUserInput() {
+        if (!welcomed) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getChatbotDialog("Welcome to ShoAI, how may I help you today?",
+                            chatbotImage)
+            );
+            welcomed = true;
+        }
         String input = userInput.getText();
         String response = chatbot.getResponse(input); // uses parser to get response
         dialogContainer.getChildren().addAll(
@@ -45,4 +54,15 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    private void showWelcomeMessage() {
+        if (!welcomed) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getChatbotDialog("Welcome to ShoAI, how may I help you today?",
+                            chatbotImage)
+            );
+            welcomed = true;
+        }
+    }
+
 }

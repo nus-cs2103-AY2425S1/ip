@@ -28,13 +28,15 @@ public class Parser {
      * @throws ShoAIException If there is an error processing the command.
      */
     public String parse(String fullCommand, TaskList tasks, Storage storage) throws ShoAIException {
+        // Split the full command into 2 parts, first part being the command keyword ie. bye, list, mark
+        // Second part being the arguments related to the command
         String[] words = fullCommand.split(" ", 2);
         String command = words[0];
         StringBuilder response = new StringBuilder();
 
         switch (command) {
             case "bye":
-                response.append("Bye. Hope to see you again soon!");
+                response.append("Bye bye! Don't forget about me!");
                 return response.toString(); // Indicate that the application should exit
             case "list":
                 response.append("Here are the tasks in your list:\n");
