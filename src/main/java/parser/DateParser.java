@@ -41,7 +41,8 @@ public class DateParser {
     }
 
     public static String parseRecordedDate(String dateString) throws ParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM d yyyy")
+                .withLocale(Locale.ENGLISH);
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         return dateTime.toString();
     }
