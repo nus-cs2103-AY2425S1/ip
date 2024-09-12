@@ -2,6 +2,9 @@ package nah.tasklist;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import nah.data.Task;
 import nah.exceptions.NahException;
@@ -124,11 +127,12 @@ public class TaskList {
         if (this.taskCount == 0) {
             return " There is no task in your list!\n";
         }
-        String s = " Here are the tasks in your list:\n";
-        for (int i = 1; i <= taskCount; i++) {
-            s += " " + i + ". " + tasks.get(i - 1).toString() + "\n";
-        }
-        return s;
+
+        String ret = " Here are the tasks in your list:\n" +
+                IntStream.range(0, taskCount)
+                        .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
+                        .collect(Collectors.joining("\n ", " ", "\n"));
+        return ret;
     }
 
     /**
@@ -139,18 +143,16 @@ public class TaskList {
      */
     public String dueOn(String time) {
         LocalDateTime due = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        String s = " Here are the tasks in your list that ends before the due:\n";
-        int i = 1;
-        for (Task t : tasks) {
-            if (t instanceof Task.Deadlines || t instanceof Task.Events) {
-                if (t.endTime().isBefore(due) && !t.isDone()) {
-                    s += " " + i + ". " + t.toString() + "\n";
-                }
-
-            }
-            i++;
-        }
-        return s;
+        String ret = " Here are the tasks in your list that end before the due date:\n" +
+                IntStream.range(0, taskCount)
+                        .mapToObj(i -> Map.entry(i, tasks.get(i))) // Create pairs of (index, task)
+                        .filter(entry -> entry.getValue()
+                                instanceof Task.Deadlines || entry.getValue()
+                                instanceof Task.Events)
+                        .filter(entry -> entry.getValue().isBefore(due) && !entry.getValue().isDone())
+                        .map(entry -> (entry.getKey() + 1) + ". " + entry.getValue().toString())
+                        .collect(Collectors.joining("\n ", " ", "\n"));
+        return ret;
     }
 
     /**
@@ -191,13 +193,12 @@ public class TaskList {
         } else {
             ret += " Oke. Here are the task that match keywords:\n";
         }
-        for (int i = 1; i <= taskCount; i++) {
-            Task t = tasks.get(i - 1);
-            if (t.isOneMatch(s)) {
-                ret += " " + i + ". " + t.toString() + "\n";
-            }
+        ret += IntStream.range(0, taskCount)
+                .mapToObj(i -> Map.entry(i, tasks.get(i))) // Create pairs of (index, task)
 
-        }
+                .filter(entry -> entry.getValue().isOneMatch(s))
+                .map(entry -> (entry.getKey() + 1) + ". " + entry.getValue().toString())
+                .collect(Collectors.joining("\n ", " ", "\n"));
         return ret;
 
     }
