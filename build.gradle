@@ -47,8 +47,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "Bottle"
-    mainClassName = 'bottle.Bottle'
+    archiveBaseName = "Yapper"
+    mainClassName = 'yapper.Yapper'
     archiveClassifier = null
 }
 

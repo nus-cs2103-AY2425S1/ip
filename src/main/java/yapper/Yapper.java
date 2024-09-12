@@ -82,6 +82,7 @@ public class Yapper {
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
         ui.printTaskMarked(task);
+        assert task.isDone() : "Task should be marked as done";
         return "Awesome job, Boss! I've marked this task as complete:\n  "
                + task;
     }
@@ -104,6 +105,7 @@ public class Yapper {
         }
         Task task = tasks.getTask(taskIndex);
         task.markAsNotDone();
+        assert !task.isDone() : "Task should be marked as not done";
         return "Understood, Boss! I've marked this task as not done yet:\n  "
                + task;
     }
@@ -119,6 +121,7 @@ public class Yapper {
         String[] parts = splitAndValidateCommand(fullCommand, "todo", 2);  
         Task task = new Todo(parts[1]);
         tasks.addTask(task);
+        assert tasks.getSize() > 0 : "Task should be added to the list";
         return "Got it, Boss! I've added this task to your list:\n  "
                + task + "\nNow you have " + tasks.getSize() + " tasks to crush!";
     }
@@ -135,6 +138,7 @@ public class Yapper {
         String description = parts[0].substring(9).trim();
         Task task = new Deadline(description, parts[1]);
         tasks.addTask(task);
+        assert tasks.getSize() > 0 : "Task should be added to the list";
         return "Roger that, Boss! Deadline task added:\n  "
                + task + "\nNow you have " + tasks.getSize() + " tasks on the clock.";
     }
@@ -155,6 +159,7 @@ public class Yapper {
         String description = parts[0].substring(6).trim();
         Task task = new Event(description, times[0], times[1]);
         tasks.addTask(task);
+        assert tasks.getSize() > 0 : "Task should be added to the list";
         return "Got it, Boss! Event added to your schedule:\n  "
                + task + "\nNow you have " + tasks.getSize() + " tasks to manage!";
     }
@@ -169,7 +174,8 @@ public class Yapper {
     private String handleDelete(String fullCommand) throws YapperException {
         String[] parts = splitAndValidateCommand(fullCommand, "delete", 2);  
         int taskIndex = Integer.parseInt(parts[1]) - 1;
-        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
+        assert taskIndex >= 0 : "Task index should be positive";
+        if (taskIndex >= tasks.getSize()) {
             throw new InvalidTaskNumberException(taskIndex);
         }
         Task task = tasks.getTask(taskIndex);
@@ -208,6 +214,7 @@ public class Yapper {
      * @return The response from Bopes.
      */
     public String getResponse(String input) {
+        assert input != null : "Input should not be null";
         try {
             return parse(input, tasks, storage);
         } catch (YapperException e) {
@@ -226,6 +233,7 @@ public class Yapper {
      */
     private String parse(String fullCommand, TaskList tasks, Storage storage) throws YapperException {
         String[] parts = fullCommand.split(" ", 2);
+        assert parts.length > 0 : "Command should not be empty";
         String command = parts[0].toLowerCase();
 
         try {
