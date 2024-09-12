@@ -33,6 +33,10 @@ public class Ui {
         System.out.println("  Here are the tasks in your list:");
     }
 
+    public void find() {
+        System.out.println("  Here you go, these are the matching tasks in your list:");
+    }
+
     public void mark(Task t) {
         String message = "  Good work on this task. Want a prize?:\n"
                 + "    " + t;

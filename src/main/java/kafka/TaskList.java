@@ -88,4 +88,18 @@ public class TaskList {
     public int getSize() {
         return this.tasks.size();
     }
+
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
+    public TaskList find(String keyword) {
+        TaskList temp = new TaskList();
+        for (Task t : tasks) {
+            if (t.description.toLowerCase().contains(keyword)) {
+                temp.addTask(t);
+            }
+        }
+        return temp;
+    }
 }
