@@ -2,6 +2,8 @@ package carly.utils;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
+import java.util.Collections;
+import java.util.List;
 
 import carly.exception.CarlyException;
 import carly.exception.CarlyIncorrectIndexFormat;
@@ -202,6 +204,21 @@ public class TaskList {
         return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
     }
 
+    /** Prints list for Command SORT using java streams. */
+    public String printTaskList(List<Task> taskList) {
+        StringBuilder sb = new StringBuilder();
+
+        if (taskList.isEmpty()) {
+            sb.append("Oh no. There's no deadlines in your list. Hence, there's no date to be sorted");
+        } else {
+            sb.append("Here's your sorted list").append("\n");
+            IntStream.range(0, taskList.size())
+                    .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, taskList.get(i).toString())));
+        }
+
+        return sb.append(this.taskListSize()).toString();
+    }
+
     /** Prints list for Command FIND using java streams. */
     public String printTaskList(String msg) {
         StringBuilder sb = new StringBuilder();
@@ -250,7 +267,7 @@ public class TaskList {
         String taskDescription = task.getDescription();
         String taskDetails = getTaskDetails(task);
 
-        return String.format("%s | %s | %s%s\n", taskType, isDone, taskDescription, taskDetails);
+        return String.format("%s | %s | %s%s", taskType, isDone, taskDescription, taskDetails);
     }
 
     /** Determines the task type (T for Todo, D for Deadline, E for Event). */
@@ -272,13 +289,32 @@ public class TaskList {
     /** Retrieves the additional details for Deadline and Event tasks. */
     private String getTaskDetails(Task task) {
         if (task instanceof Deadline) {
-            return " | " + ((Deadline) task).getDueDate();
+            return " | " + ((Deadline) task).getDueDateAsString();
         } else if (task instanceof Event) {
             Event event = (Event) task;
             return " | " + event.getStartTime() + " to " + event.getEndTime();
         } else {
             return "";
         }
+    }
+
+    public String sort() {
+        List<Deadline> deadlines = new ArrayList<>();
+        List<Task> remainingTasks = new ArrayList<>();
+        for (Task t : this.taskList) {
+            if (t instanceof Deadline) {
+                deadlines.add((Deadline) t);
+            } else {
+                remainingTasks.add(t);
+            }
+        }
+        Collections.sort(deadlines);
+
+        List<Task> combinedTasks = new ArrayList<>();
+        combinedTasks.addAll(deadlines);
+        combinedTasks.addAll(remainingTasks);
+
+        return this.printTaskList(combinedTasks);
     }
 
 }
