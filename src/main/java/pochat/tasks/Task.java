@@ -77,10 +77,12 @@ public abstract class Task {
 
     private void setDone(boolean isDone) {
         this.isDone = isDone;
+        assert this.isDone;
     }
 
     public void markAsDone() {
         this.setDone(true);
+        assert !this.isDone;
     }
 
     public void unmarkAsDone() {
