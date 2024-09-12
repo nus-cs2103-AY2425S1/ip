@@ -12,8 +12,7 @@ import dipsy.ui.Ui;
 
 /**
  * The {@code Dipsy} class is the main entry point for the program.
- * It initializes the user interface, task list, and runs the command loop to process user input.
- * This class manages the overall flow of the application, from startup to termination.
+ * It initializes the user interface, task list, and manages user commands.
  */
 public class Dipsy {
 
@@ -32,7 +31,6 @@ public class Dipsy {
     public Dipsy() {
         this.ui = new Ui();
         this.taskList = Storage.load(); // Load tasks from local disk when the application starts
-
         assert this.taskList != null : "TaskList should not be null after loading from storage";
     }
 
@@ -46,18 +44,16 @@ public class Dipsy {
     }
 
     /**
-     *  Returns the welcome message to be displayed when the application starts.
-     * <p>This method retrieves the welcome message from the {@code Ui} class, which is displayed to
-     * the user upon starting the application.</p>
-     *  @return The welcome message to be shown when the application starts.
+     * Returns the welcome message to be displayed when the application starts.
+     *
+     * @return The welcome message.
      */
     public String getWelcomeMessage() {
         return ui.getWelcomeMessage();
     }
 
     /**
-     * Exits the application by calling a method in the {@link MainWindow} to gracefully close the
-     * JavaFX application.
+     * Closes the application by invoking {@link MainWindow#closeApplicationWithDelay}.
      */
     public void exit() {
         if (mainWindow != null) {
@@ -68,10 +64,7 @@ public class Dipsy {
     /**
      * Generates a response based on the user's input in the chat.
      *
-     * <p>This method processes the user's input by first attempting to parse it into a command.
-     * If the input is invalid or unrecognized, appropriate error messages are returned.
-     * If the input is valid, the command is executed, and the result is returned as the response.
-     * If the command is an exit command, the application will close after processing the response.</p>
+     * <p>This method processes the user's input by parsing it into a command, executing the command, and returning the result.</p>
      *
      * @param input The user's input message to be processed.
      * @return A response message based on the executed command, or an error message if the input is invalid.
@@ -81,31 +74,46 @@ public class Dipsy {
 
         Command command;
         String response;
-
-        // Attempt to parse the input to obtain command
         try {
-            command = Parser.parseCommand(input, taskList, ui);
-            assert command != null : "Parsed command should not be null";
-        } catch (UnknownCommandException e) {
-            return ui.getErrorMessage(e.getMessage());
+            command = parseUserCommand(input); // Refactored parsing logic
+            response = executeCommand(command); // Refactored command execution
+        } catch (InvalidCommandException | InvalidDateException | UnknownCommandException e) {
+            return ui.getErrorMessage(e.getMessage()); // Handle errors consistently
         } catch (Exception e) {
-            return ui.getErrorMessage("An unexpected error occured: " + e.getMessage());
-        }
-
-        // Attempt to execute command
-        try {
-            response = command.execute();
-            assert response != null : "Response from command execution should not be null";
-        } catch (InvalidCommandException e) {
-            return ui.getErrorMessage(e.getMessage());
-        } catch (InvalidDateException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return ui.getErrorMessage("An unexpected error occurred: " + e.getMessage());
         }
 
         if (command.isExit()) {
             exit();
         }
+        return response;
+    }
 
+
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input.
+     * @return The parsed {@link Command}.
+     * @throws UnknownCommandException If the command cannot be recognized.
+     */
+    private Command parseUserCommand(String input) throws UnknownCommandException {
+        Command command = Parser.parseCommand(input, taskList, ui);
+        assert command != null : "Parsed command should not be null";
+        return command;
+    }
+
+    /**
+     * Executes the given command and returns the result as a string.
+     *
+     * @param command The command to execute.
+     * @return The result of the command execution.
+     * @throws InvalidCommandException If the command is invalid.
+     * @throws InvalidDateException If a date-related error occurs.
+     */
+    private String executeCommand(Command command) throws InvalidCommandException, InvalidDateException {
+        String response = command.execute();
+        assert response != null : "Response from command execution should not be null";
         return response;
     }
 }
