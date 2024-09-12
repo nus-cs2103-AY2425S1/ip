@@ -47,13 +47,13 @@ public class EventCommand extends Command {
         try {
             tasks.addTask(new Event(
                     parts[0].trim(),
-                    LocalDateTime.parse(parts[1].trim(), Storage.DATE_TIME_FORMATTER),
-                    LocalDateTime.parse(parts[2].trim(), Storage.DATE_TIME_FORMATTER)
+                    LocalDateTime.parse(parts[1].trim(), Storage.getDateTimeFormatter()),
+                    LocalDateTime.parse(parts[2].trim(), Storage.getDateTimeFormatter())
             ));
             storage.saveTask(tasks.getTasks());
             ui.showMessage("added: " + tasks.getTask(tasks.size() - 1));
         } catch (DateTimeParseException e) {
-            throw new JeffException("You need to format your dates as follows: DD/MM/YYYY HHMM");
+            throw new JeffException("You need to format your dates as follows: " + Storage.getDateFormat());
         }
     }
 }

@@ -9,7 +9,6 @@ import jeff.exceptions.JeffException;
  *
  * JEFF is a task management application that allows users to create and manage tasks.
  */
-@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class Jeff {
     private static final String DIR_PATH = "./data";
     private static final String FILE_PATH = DIR_PATH + "/JEFF.txt";
@@ -24,25 +23,6 @@ public class Jeff {
     public Jeff() {
         this.ui = new Ui();
         this.storage = new Storage(DIR_PATH, FILE_PATH);
-    }
-
-    /**
-     * Runs the JEFF application, handling user input and executing commands.
-     */
-    public void run() {
-        boolean exitChat = false;
-        while (!exitChat) {
-            try {
-                String input = ui.readCommand();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                exitChat = c.isExit();
-            } catch (JeffException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
     }
 
     /**
