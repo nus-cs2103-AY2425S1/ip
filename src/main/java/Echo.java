@@ -38,8 +38,7 @@ public class Echo {
      */
     public String echoOut() {
 
-        String description = word;
-        String[] parts = description.split(" ", 2);
+        String[] parts = word.split(" ", 2);
         String command = parts[0];
 
         switch (command) {
@@ -110,6 +109,21 @@ public class Echo {
             } catch (DateTimeParseException e) {
                 return ui.EventDateTimeParseExceptionMessage();
             }
+
+            case "update":
+                if (parts.length < 2) {
+                    return "Please input a task to update!!";
+                } else {
+                    try {
+                        int index = Integer.parseInt(parts[1].substring(0, 1)) - 1;
+                        Task taskToUpdate = list.getTask(index);
+                        taskToUpdate =  parser.parseUpdateTask(parts[1], taskToUpdate);
+                        this.list.update(index, taskToUpdate);
+                        return ui.updateSuccess(index + 1);
+                    } catch (IllegalArgumentException e) {
+                        return e.getMessage();
+                    }
+                }
 
         case "delete":
             try {

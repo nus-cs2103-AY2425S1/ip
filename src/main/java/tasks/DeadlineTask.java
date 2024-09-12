@@ -9,7 +9,7 @@ public class DeadlineTask extends Task {
 
     public DeadlineTask(String description, boolean isDone, String deadline) {
         super(description, isDone);
-        this.deadline = parseDeadline(deadline);
+        this.deadline = parseTime(deadline);
     }
     /**
      * Changes the time format and then converts into a string to initialise the DeadlineTask variables.
@@ -17,7 +17,8 @@ public class DeadlineTask extends Task {
      * @return A converted date and time to initialise the DeadlineTask variables.
      * @throws DateTimeParseException for when there is a parsing error.
      */
-    private LocalDateTime parseDeadline(String deadline) throws DateTimeParseException {
+    @Override
+    protected LocalDateTime parseTime(String deadline) throws DateTimeParseException {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(deadline, inputFormatter);
     }
@@ -50,6 +51,21 @@ public class DeadlineTask extends Task {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a");
         return String.format("%s | %s | %s | %s",
                 this.getTaskType(), getStatusIcon(), super.description, this.deadline.format(outputFormatter));
+    }
+    @Override
+    public void updateTask(String field, String newValue) throws IllegalArgumentException {
+        switch(field.toLowerCase()) {
+        case "description":
+            this.setDescription(newValue + " ");
+            break;
+        case "by":
+            this.deadline = parseTime(newValue);
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid fields to update for Deadline Tasks!" +
+                    "Correct way to update task: update <task number> <field> <new value>");
+        }
+
     }
 
 }

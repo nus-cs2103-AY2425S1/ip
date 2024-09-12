@@ -6,6 +6,7 @@ import tasks.ToDoTask;
 import tasks.Task;
 
 public class Parser {
+
     /**
      * Returns a DeadlineTask object that can be used to get the details of the Task.
      *
@@ -13,8 +14,7 @@ public class Parser {
      * @return A new Deadline task.
      * @throws StringIndexOutOfBoundsException When parsing goes wrong.
      */
-
-    public DeadlineTask parseDeadlineTask(String deadlineCommand) throws StringIndexOutOfBoundsException {
+    public Task parseDeadlineTask(String deadlineCommand) throws StringIndexOutOfBoundsException {
         int byIndex = deadlineCommand.indexOf("/by");
         assert byIndex >= 0 : "Index error while parsing deadline task!";
         String desc = deadlineCommand.substring(0, byIndex);
@@ -46,6 +46,14 @@ public class Parser {
      */
     public Task parseToDoTask(String toDoCommand) {
         return new ToDoTask(toDoCommand, false);
+    }
+
+    public Task parseUpdateTask(String updateCommand, Task taskToUpdate) {
+        String[] parts = updateCommand.split(" ", 3);
+        String field = parts[1];
+        String newValue = parts[2];
+        taskToUpdate.updateTask(field, newValue);
+        return taskToUpdate;
     }
 
 }
