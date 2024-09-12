@@ -48,8 +48,7 @@ public class Storage {
             List<String> lines = Files.readAllLines(filePath);
             for (String s : lines) {
                 String[] words = s.split(" ");
-                boolean isDone;
-                switch (words[0].charAt(2)) {
+                switch (words[0].charAt(0)) {
                 case 'T':
                     parseTodoTaskData(s, taskList);
                     break;
@@ -81,7 +80,7 @@ public class Storage {
         String eventFromTime = s.substring(eventFromIndex + 7, eventToIndex).trim();
         String eventToTime = s.substring(eventToIndex + 4, s.indexOf(')')).trim();
 
-        boolean isDone = s.charAt(3) == 'X';
+        boolean isDone = s.charAt(1) == 'X';
         Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime, eventNote);
         if (isDone) {
             newEventTask.markAsDone();
@@ -99,7 +98,7 @@ public class Storage {
         String deadlineNote = s.substring(deadlineNoteIndex + 6).trim();
         String deadlineTime = s.substring(deadlineByIndex + 5, s.indexOf(')')).trim();
 
-        boolean isDone = s.charAt(3) == 'X';
+        boolean isDone = s.charAt(1) == 'X';
         Task newDeadlineTask = new DeadlineTask(deadlineDescription, deadlineTime, deadlineNote);
         if (isDone) {
             newDeadlineTask.markAsDone();
@@ -115,7 +114,7 @@ public class Storage {
         String todoDescription = s.substring(todoDescriptionIndex + 13, todoTimingsIndex).trim();
         String todoNote = s.substring(todoNoteIndex + 6).trim();
 
-        boolean isDone = s.charAt(3) == 'X';
+        boolean isDone = s.charAt(1) == 'X';
         Task newToDoTask = new TodoTask(todoDescription, todoNote);
         if (isDone) {
             newToDoTask.markAsDone();
@@ -134,8 +133,7 @@ public class Storage {
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < len; i++) {
             Task task = list.get(i);
-            String output = i + 1 + "."
-                    + task.getSymbol() + task.getStatusIcon()
+            String output = task.getSymbol() + task.getStatusIcon()
                     + " description: " + task.getDescription()
                     + " timings: " + task.getTimings()
                     + " note: " + task.getNote();
