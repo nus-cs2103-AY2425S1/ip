@@ -82,6 +82,34 @@ public abstract class CommandHandler {
     }
 
     /**
+     * Handles the tag command, tagging a task.
+     *
+     * @param input The user input containing the command and task number.
+     * @param taskList The list of tasks.
+     * @return A message indicating the result of the mark command.
+     */
+    public static String handleTagCommand(String input, TaskList taskList) {
+        // Logic implemented by me; syntax and formatting recommended by Copilot.
+        assert input.startsWith(CommandType.TAG.getCommand()) : "Input should start with the command";
+
+        try {
+            String[] parts = input.substring(CommandType.TAG.getCommand().length()).trim().split(" ");
+            int index = Integer.parseInt(parts[0]);
+            String tag = parts[1];
+
+            if (index < 0 || index >= taskList.listLength()) {
+                return "Invalid task number. To see the list of tasks, use: list\n";
+            }
+
+            taskList.tagTask(index, tag);
+
+            return "Task " + index + " tagged with " + tag + "\n";
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Invalid task number. To see the list of tasks, use: list\n";
+        }
+    }
+
+    /**
      * Handles the delete command by removing a task from the task list.
      *
      * @param input The user input containing the command and task number.
