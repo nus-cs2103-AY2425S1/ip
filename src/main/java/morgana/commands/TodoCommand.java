@@ -2,6 +2,7 @@ package morgana.commands;
 
 import morgana.exceptions.MorganaException;
 import morgana.task.Task;
+import morgana.task.TaskList;
 import morgana.task.Todo;
 
 /**
@@ -23,7 +24,7 @@ public class TodoCommand extends AddCommand {
     }
 
     @Override
-    Task createTask(String description) throws MorganaException {
+    Task createTask(String description, TaskList tasks) throws MorganaException {
         if (description.isEmpty()) {
             throw new MorganaException(MESSAGE_EMPTY_DESCRIPTION);
         }

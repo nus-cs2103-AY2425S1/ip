@@ -6,6 +6,7 @@ import static morgana.util.DateTimeUtil.parseDateTime;
 import morgana.exceptions.MorganaException;
 import morgana.task.Deadline;
 import morgana.task.Task;
+import morgana.task.TaskList;
 
 /**
  * Represents a command to add a {@link Deadline} to the task list.
@@ -29,7 +30,7 @@ public class DeadlineCommand extends AddCommand {
     }
 
     @Override
-    Task createTask(String args) throws MorganaException {
+    Task createTask(String args, TaskList tasks) throws MorganaException {
         String[] fields = args.split(" /by ");
         if (fields.length != 2) {
             throw new MorganaException(MESSAGE_INVALID_COMMAND_FORMAT);

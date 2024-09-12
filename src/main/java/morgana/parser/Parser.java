@@ -25,7 +25,7 @@ import morgana.task.Todo;
 /**
  * The {@code Parser} class is responsible for interpreting user input and
  * creating the corresponding {@link Command} objects. It also provides utility
- * methods for parsing task indices and date/time strings.
+ * methods for parsing task indices and task strings into {@link Task} objects.
  */
 public class Parser {
     /**
@@ -73,12 +73,12 @@ public class Parser {
     }
 
     /**
-     * Parses a string representation of a task from a file and converts it into a {@link Task} object.
+     * Parses a task string from a file and converts it into a {@link Task} object.
      *
      * @param line The input string representing a task, as stored in a file.
      * @return The {@code Task} object created from the input string.
      */
-    public static Task parseTaskFromString(String line) throws MorganaException {
+    public static Task parseTask(String line) throws MorganaException {
         String[] fields = line.split(" \\| ");
         assert fields.length >= 3 : "Expected at least 3 fields for a task, got: " + fields.length;
 

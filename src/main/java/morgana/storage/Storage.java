@@ -49,7 +49,7 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
-                tasks.add(Parser.parseTaskFromString(sc.nextLine()));
+                tasks.add(Parser.parseTask(sc.nextLine()));
             }
         } catch (FileNotFoundException e) {
             throw new MorganaException("Failed to load tasks from file: " + e.getMessage());

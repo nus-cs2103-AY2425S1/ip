@@ -34,9 +34,7 @@ public abstract class Task {
     }
 
     /**
-     * Converts the task to a format suitable for saving to a file.
-     *
-     * @return A string representing the task in a format suitable for file storage.
+     * Returns a string representing the task in a format suitable for file storage.
      */
     public String toFileFormat() {
         return "%s | %s | %s".formatted(type, getStatusIcon(), description);

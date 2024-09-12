@@ -7,7 +7,7 @@ import morgana.task.TaskList;
 
 /**
  * Represents an abstract command to add a task to the task list.
- * Concrete subclasses should implement the {@link #createTask(String)} method
+ * Concrete subclasses should implement the {@link #createTask(String, TaskList)} method
  * to define how the task is created based on the user's input.
  */
 public abstract class AddCommand extends Command {
@@ -30,7 +30,7 @@ public abstract class AddCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws MorganaException {
-        Task task = createTask(args);
+        Task task = createTask(args, tasks);
         tasks.add(task);
         storage.save(tasks);
         return MESSAGE_SUCCESS.formatted(task, tasks.size(), tasks.size() > 1 ? "s" : "");
@@ -40,10 +40,11 @@ public abstract class AddCommand extends Command {
      * Creates a task based on the provided arguments.
      *
      * @param args The string containing the task details.
+     * @param tasks TODO
      * @return The created {@code Task}.
      * @throws MorganaException If an error occurs while creating the task.
      */
-    abstract Task createTask(String args) throws MorganaException;
+    abstract Task createTask(String args, TaskList tasks) throws MorganaException;
 
     @Override
     public String getStyleClass() {
