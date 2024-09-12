@@ -51,11 +51,11 @@ test {
 }
 
 application {
-    mainClass.set("java.yapmeister.Launcher")
+    mainClass.set("yapmeister.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "yapmeister"
     archiveClassifier = null
 }
 
