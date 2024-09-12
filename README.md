@@ -1,24 +1,64 @@
-# Duke project template
+# CS2103T IP:
+# RapGod / RapBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "You don't get another chance, life is no Nintendo game."  
+> — Eminem
 
-## Setting up in Intellij
+RapGod helps you manage both life and work seamlessly, ensuring you never miss a beat. It's:
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- **Text-based**: Easy to use with a simple interface.
+- **Easy to learn**: Get started quickly without a steep learning curve.
+- **FAST**: Extremely efficient for managing tasks.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Getting started is simple:
+
+1. Run the application.
+2. Add your tasks.
+3. Let RapGod handle the rest for you! 😉
+
+### Features
+
+- **Echo Bot**: A bot that repeats your input. Perfect for when you need a break and want to de-stress.
+- **List Bot**: Manages and displays your tasks with various commands.
+
+#### List Bot Special Commands
+
+- **'LIST'**: Show the full list of tasks.
+- **'FIND abc, def'**: Filters tasks with `abc` or `def`.
+- **'MARK n'**: Marks the nth task as complete.
+- **'UNMARK n'**: Marks the nth task as incomplete.
+- **'DELETE n'**: Deletes the nth task.
+- **'/BY z'**: Specifies a deadline `z`.
+- **'/FROM x /TO y'**: Specifies the start and end of an event from `x` to `y`.
+- **'SNOOZE n /by x'**: Changes the deadline of a Deadline Task to `x`.
+- **'SNOOZE n /from x /to y'**: Changes the bounds of an Event Task from `x` to `y`.
+
+**Time formats accepted**:
+- `dd/MM/yyyy`
+- `dd/MM/yyyy HHmm`
+- `MMM dd yyyy h:mma`
+- `MMM dd yyyy hh:mma`
+
+### Example Task List
+
+Here's an example of what your task list might look like after using the commands:
+```
+Displaying ListBot:
+
+1. [T] [X] Complete project report
+2. [D] [ ] Submit tax forms (by: Sep 30 2024 05:00pm)
+3. [E] [X] Team meeting (from: Jul 23 2024 10:00am to: Jul 23 2024 12:00pm)
+4. [T] [ ] Buy groceries
+5. [D] [ ] Finish reading book (by: Aug 15 2024)
+6. [E] [ ] Conference (from: Nov 01 2024 to: Nov 03 2024)
+7. [T] [ ] Schedule dentist appointment
+```
+### To Do
+
+- [x] JavaDoc
+- [x] Update **List Bot** with new commands eg 'find'
+- [ ] Add unit tests for new features
+
+Any feeback is welcome :)
+
+Looking forward to your review!
