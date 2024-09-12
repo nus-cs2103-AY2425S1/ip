@@ -133,12 +133,19 @@ public class TaskList {
         }
         return newList;
     }
+    public Task getTask(int index) {
+        return taskList.get(index);
+    }
+
+    public void update(int index, Task updatedTask) {
+        this.taskList.remove(index);
+        this.taskList.add(index, updatedTask);
+    }
 
     /**
      * A line to separate messages.
      * @return a string message of the segmentation between messages.
      */
-
     public String line() {
         return "_______________________________________________________\n";
 

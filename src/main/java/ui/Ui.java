@@ -91,4 +91,8 @@ public class Ui {
     public String affirm() {
         return "Got it. I've added this task: \n";
     }
+
+    public String updateSuccess(int index) {
+        return String.format("Successfully updated task %d", index);
+    }
 }

@@ -3,7 +3,6 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 
 public class EventTask extends Task {
     LocalDateTime start;
@@ -21,7 +20,8 @@ public class EventTask extends Task {
      * @return A converted date and time to initialise the EventTask variables.
      * @throws DateTimeParseException for when there is a parsing error.
      */
-    private LocalDateTime parseTime(String time) throws DateTimeParseException {
+    @Override
+    protected LocalDateTime parseTime(String time) throws DateTimeParseException {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(time, inputFormatter);
     }
@@ -50,5 +50,22 @@ public class EventTask extends Task {
         return String.format("%s | %s | %s | %s | %s",
                 this.getTaskType(), getStatusIcon(), super.description,
                 this.start.format(outputFormatter), this.end.format(outputFormatter));
+    }
+    @Override
+    public void updateTask(String field, String newValue) throws IllegalArgumentException {
+        switch (field.toLowerCase()) {
+        case "description":
+            this.setDescription(newValue);
+            break;
+        case "from":
+            this.start = parseTime(newValue);
+            break;
+        case "to":
+            this.end = parseTime(newValue);
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid fields to update for Event Tasks!" +
+                    "Correct way to update task: update <task number> <field> <new value>");
+        }
     }
 }
