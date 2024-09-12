@@ -8,8 +8,8 @@ import tasks.Task;
  * A representation of a task list for Chatterbox.
  */
 public class StoredList {
+    private static final String LINE_BREAK = "____________________________________________________________\n";
     private final ArrayList<Task> data;
-
     /**
      * Initialisation of a list for storing task in Chatterbox.
      */
@@ -25,11 +25,11 @@ public class StoredList {
     public String addItem(Task item) {
         StringBuilder message = new StringBuilder();
         this.data.add(item);
-        message.append("____________________________________________________________\n");
+        message.append(LINE_BREAK);
         message.append("Got it, I've added this task: \n");
         message.append(item).append("\n");
         message.append("Now you have ").append(this.getSize()).append(" task in the list.\n");
-        message.append("____________________________________________________________");
+        message.append(LINE_BREAK);
         return message.toString();
     }
 
@@ -47,12 +47,16 @@ public class StoredList {
      * @return The message if successful in removing a Task.
      */
     public String removeItem(int index) {
+<<<<<<< HEAD
         assert index < this.getSize() : "Accessing item not in list";
         String message = "____________________________________________________________\n"
+=======
+        String message = LINE_BREAK
+>>>>>>> 749b9d28a174100c7e78501f3051de16f0eae133
                 + "Noted. I've removed this task:\n"
                 + this.getItem(index) + "\n"
                 + "Now you have " + this.getSize() + " task in the list.\n"
-                + "____________________________________________________________\n";
+                + LINE_BREAK;
         this.data.remove(index);
         return message;
     }
@@ -65,13 +69,13 @@ public class StoredList {
     public String findItem(String name) {
         StringBuilder message = new StringBuilder();
         int count = 1;
-        message.append("____________________________________________________________\n");
+        message.append(LINE_BREAK);
         for (Task item : data) {
             if (item.getName().contains(name)) {
                 message.append(count).append(". ").append(item).append("\n");
             }
         }
-        message.append("____________________________________________________________\n");
+        message.append(LINE_BREAK);
         return message.toString();
     }
 
@@ -81,11 +85,11 @@ public class StoredList {
      */
     @Override
     public String toString() {
-        StringBuilder message = new StringBuilder("____________________________________________________________\n");
+        StringBuilder message = new StringBuilder(LINE_BREAK);
         for (int i = 0; i < this.getSize(); i++) {
             message.append(i + 1).append(". ").append(this.getItem(i).toString()).append("\n");
         }
-        message.append("____________________________________________________________\n");
+        message.append(LINE_BREAK);
         return message.toString();
     }
 }

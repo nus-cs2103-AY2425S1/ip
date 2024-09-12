@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents an Event task.
  */
 public class Event extends Task {
+    private static final String DATE_TIME_FORMATTER_PATTERN = "dd/MM/yyyy HHmm";
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 
@@ -29,7 +30,7 @@ public class Event extends Task {
     @Override
     public String storeTask() {
         StringBuilder saveTaskInfo = new StringBuilder();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN);
         String startDate = this.startTime.format(formatter);
         String endDate = this.endTime.format(formatter);
         if (this.getCompleted()) {
@@ -53,7 +54,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN);
         String startDate = this.startTime.format(formatter);
         String endDate = this.endTime.format(formatter);
         return "[E] " + super.toString() + " (from: " + startDate + " to: " + endDate + ")";

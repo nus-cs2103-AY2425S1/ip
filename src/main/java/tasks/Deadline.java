@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task.
  */
 public class Deadline extends Task {
+    private static final String DATE_TIME_FORMATTER_PATTERN = "dd/MM/yyyy HHmm";
     private final LocalDateTime endTime; // The end time of a deadline task
-
     /**
      * Initialisation of a Deadline task with the required attributes.
      * @param name Name of the task.
@@ -27,7 +27,7 @@ public class Deadline extends Task {
     @Override
     public String storeTask() {
         StringBuilder saveTaskInfo = new StringBuilder();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN);
         if (this.getCompleted()) {
             saveTaskInfo.append("done, ");
         } else {
@@ -47,7 +47,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN);
         String date = this.endTime.format(formatter);
         return "[D] " + super.toString() + " (by: " + date + ")";
     }

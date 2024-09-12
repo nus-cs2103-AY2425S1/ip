@@ -18,22 +18,6 @@ public class TextUi {
         this.out = System.out;
     }
 
-    public String getUserInput() {
-        out.print("Enter your command: ");
-        return in.nextLine();
-    }
-
-    /**
-     * Simple UI message for end of ChatterBox.
-     */
-    public void printBye() {
-        out.print("""
-                ____________________________________________________________
-                Bye. Hope to see you again soon!
-                ____________________________________________________________
-                """);
-    }
-
     /**
      * Simple UI message for start of ChatterBox.
      */
