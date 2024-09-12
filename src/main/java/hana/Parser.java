@@ -112,6 +112,24 @@ public class Parser {
             }
             assert parts.length == 2 : "Find command should have a keyword";
             return new FindCommand(parts[1]);
+        case "massMark":
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new HanaException("OOPS!!! You must provide a keyword for massMark.");
+            }
+            assert parts.length == 2 : "Find command should have a keyword";
+            return new MassMarkCommand(parts[1]);
+        case "massUnmark":
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new HanaException("OOPS!!! You must provide a keyword for massUnmark.");
+            }
+            assert parts.length == 2 : "Find command should have a keyword";
+            return new MassUnmarkCommand(parts[1]);
+        case "massDelete":
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new HanaException("OOPS!!! You must provide a keyword for massDelete.");
+            }
+            assert parts.length == 2 : "Find command should have a keyword";
+            return new MassDeleteCommand(parts[1]);
         case "bye":
             return new ExitCommand();
         default:

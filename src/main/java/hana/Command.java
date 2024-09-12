@@ -22,16 +22,62 @@ public abstract class Command {
      * @throws IOException If an I/O error occurs during command execution (e.g., saving or loading tasks).
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws HanaException, IOException;
+}
+
+abstract class MassCommand extends Command {
+    protected final String keyword;
+    protected List<Task> tasksToOperate;
+    protected boolean isAwaitingConfirmation = false;
+
+    public MassCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        // Search for tasks containing the keyword
+        tasksToOperate = tasks.findTasks(keyword);
+        ui.showFindResults(tasksToOperate);
+        // Display found tasks and ask for confirmation
+        if (!tasksToOperate.isEmpty()) {
+            ui.askConfirmMassOps(getOperationName());
+            isAwaitingConfirmation = true;
+        }
+    }
 
     /**
-     * Determines if the command is an exit command.
-     * Subclasses can override this method to indicate that they are exit commands.
-     *
-     * @return {@code true} if the command is an exit command; {@code false} otherwise.
+     * Confirms the operation (mark, unmark, delete) and processes user input.
+     * @param userInput The confirmation input (e.g., "y" to proceed).
+     * @param tasks The task list to process.
+     * @param ui The UI for feedback.
+     * @param storage The storage for saving changes.
+     * @throws IOException If saving fails.
      */
-    public boolean isExit() {
-        return false;
+    public void confirm(String userInput, TaskList tasks, Ui ui, Storage storage) throws IOException {
+        if (userInput.equalsIgnoreCase("y")) {
+            // Perform the operation on all tasks and show success message
+            for (Task task : tasksToOperate) {
+                operateOnTask(task); // Delegate task operation to the subclass
+            }
+            storage.save(tasks.getTasks()); // Save the changes
+            ui.showMassOperationSuccess(getOperationName());
+        } else {
+            ui.showOperationCancelled();
+        }
     }
+
+    /**
+     * Get the operation name (e.g., "marked", "unmarked", "deleted").
+     * Subclasses must define this.
+     */
+    protected abstract String getOperationName();
+
+    /**
+     * Performs the specific operation (mark, unmark, delete) on a task.
+     * Subclasses must define this.
+     * @param task The task to operate on.
+     */
+    protected abstract void operateOnTask(Task task);
 }
 
 class AddCommand extends Command {
@@ -127,15 +173,91 @@ class ListCommand extends Command {
     }
 }
 
+/**
+ * Command to mass mark tasks based on a keyword.
+ */
+class MassMarkCommand extends MassCommand {
+
+    public MassMarkCommand(String keyword) {
+        super(keyword); // Call the parent constructor
+    }
+
+    @Override
+    protected String getOperationName() {
+        return "mark";
+    }
+
+    @Override
+    protected void operateOnTask(Task task) {
+        task.markAsDone(); // Define the specific operation to mark as done
+    }
+}
+
+/**
+ * Command to mass mark tasks based on a keyword.
+ */
+class MassUnmarkCommand extends MassCommand {
+
+    public MassUnmarkCommand(String keyword) {
+        super(keyword); // Call the parent constructor
+    }
+
+    @Override
+    protected String getOperationName() {
+        return "unmark";
+    }
+
+    @Override
+    protected void operateOnTask(Task task) {
+        task.markAsUndone(); // Define the specific operation to mark as done
+    }
+}
+
+/**
+ * Command to mass mark tasks based on a keyword.
+ */
+class MassDeleteCommand extends MassCommand {
+
+    public MassDeleteCommand(String keyword) {
+        super(keyword); // Call the parent constructor
+    }
+
+    @Override
+    protected String getOperationName() {
+        return "delete";
+    }
+
+    @Override
+    public void confirm(String userInput, TaskList tasks, Ui ui, Storage storage) throws IOException {
+        if (userInput.equalsIgnoreCase("y")) {
+            // Collect tasks to be deleted
+            List<Task> tasksToDelete = tasksToOperate;
+
+            // Remove them from the task list
+            for (Task task : tasksToDelete) {
+                tasks.remove(task); // Remove the task directly from TaskList
+            }
+
+            // Save the changes
+            storage.save(tasks.getTasks());
+
+            // Display success message
+            ui.showMassOperationSuccess(getOperationName());
+        } else {
+            ui.showOperationCancelled();
+        }
+    }
+
+    @Override
+    protected void operateOnTask(Task task) {
+        // No specific operation on individual tasks needed here
+    }
+}
+
 class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
-    }
-
-    @Override
-    public boolean isExit() {
-        return true;
     }
 }
 

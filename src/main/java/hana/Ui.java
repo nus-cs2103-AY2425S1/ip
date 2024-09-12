@@ -42,28 +42,10 @@ public class Ui {
     }
 
     /**
-     * Reads the command input from the user.
-     *
-     * @return The command input as a string.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
      * Displays an error message indicating that loading the task list failed.
      */
     public void showLoadingError() {
         responseMessage.append("OOPS!!! Error loading the task list.");
-    }
-
-    /**
-     * Displays the specified error message.
-     *
-     * @param message The error message to display.
-     */
-    public void showError(String message) {
-        responseMessage.append(message);
     }
 
     /**
@@ -130,6 +112,33 @@ public class Ui {
                 responseMessage.append("    ").append(i + 1).append(".").append(foundTasks.get(i)).append("\n");
             }
         }
+    }
+
+    /**
+     * Displays the question to confirm mass marking to the user.
+     */
+    public void askConfirmMassOps(String operationName) {
+        responseMessage.append("Are you sure you want to ")
+                .append(operationName)
+                .append(" the following tasks? Enter 'y' for yes.\n");
+    }
+
+    /**
+     * Displays the success message for mass marking to the user.
+     */
+    public void showMassOperationSuccess(String operationName) {
+        responseMessage.append("The tasks have been successfully ")
+                .append(operationName);
+        if (operationName.endsWith("e")) {
+            responseMessage.append("d.\n");
+        } else {
+            responseMessage.append("ed.\n");
+        }
+    }
+
+
+    public void showOperationCancelled() {
+        responseMessage.append("Operation cancelled.\n");
     }
 }
 

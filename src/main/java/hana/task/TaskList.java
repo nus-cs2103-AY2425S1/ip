@@ -7,7 +7,7 @@ import java.util.List;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -42,6 +42,16 @@ public class TaskList {
     public void remove(int index) {
         tasks.remove(index);
     }
+
+    /**
+     * Removes the task from the list.
+     *
+     * @param task The task to be removed.
+     */
+    public void remove(Task task) {
+        tasks.remove(task);
+    }
+
 
     /**
      * Retrieves the task at the specified index.
