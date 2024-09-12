@@ -29,7 +29,7 @@ public class ToDoCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder content = new StringBuilder();
         tasks.addTask(new ToDo(this.description));
-        content.append("ToDo task has been added.");
+        content.append("ToDo task has been added.\n");
         try {
             storage.createFile();
             storage.writeFile(tasks.toString());
