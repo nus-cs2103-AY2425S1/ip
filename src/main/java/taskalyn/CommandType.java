@@ -6,6 +6,7 @@ package taskalyn;
 public enum CommandType {
     BYE("bye"),
     LIST("list"),
+    SORT("sort"),
     FIND("find"),
     DELETE("delete"),
     MARK("mark"),
