@@ -54,6 +54,7 @@ public class Storage {
      * @param taskList The TaskList containing tasks to be saved.
      */
     public void saveTask(TaskList taskList) {
+        assert taskList != null : "Task list should not be null";
         try (FileWriter writer = new FileWriter(DATA_PATH.toFile())) {
             for (Task task : taskList.getAllTask()) {
                 writer.write(Parser.taskToFileString(task) + System.lineSeparator());
