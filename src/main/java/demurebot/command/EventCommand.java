@@ -16,7 +16,6 @@ public class EventCommand extends Command {
      * @param event Event task to be added to the task list.
      */
     public EventCommand(Event event) {
-        super(false);
         this.event = event;
     }
 

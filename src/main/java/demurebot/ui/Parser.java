@@ -96,7 +96,7 @@ public abstract class Parser {
     }
 
     /**
-     * Returns a demure.Event created from the user command.
+     * Returns an Event created from the user command.
      *
      * @param command User command.
      * @return demure.Event created from the user command.

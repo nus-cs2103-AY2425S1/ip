@@ -91,13 +91,13 @@ public class Storage {
      */
     private Task getTask(String line) throws DemureBotException {
         String[] split = line.split(" \\| ");
-        validateTaskFormat(split, 3);
         String type = split[0];
         boolean isDone = split[1].equals("1");
         String description = split[2];
         Task task = null;
         switch (type) {
         case "T":
+            validateTaskFormat(split, 3);
             task = new Todo(description, isDone);
             break;
         case "D":

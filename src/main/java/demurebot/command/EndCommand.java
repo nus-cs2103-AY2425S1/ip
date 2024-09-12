@@ -11,7 +11,6 @@ public class EndCommand extends Command {
      * Constructor for EndCommand.
      */
     public EndCommand() {
-        super(true);
     }
 
     /**

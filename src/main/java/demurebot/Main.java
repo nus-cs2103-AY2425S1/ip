@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * A GUI for DemureBot using FXML.
  */
 public class Main extends Application {
-    private DemureBot demureBot = new DemureBot();
+    private final DemureBot demureBot = new DemureBot();
 
     @Override
     public void start(Stage stage) {

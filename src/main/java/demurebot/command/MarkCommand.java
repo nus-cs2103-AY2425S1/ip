@@ -8,16 +8,15 @@ import demurebot.ui.Ui;
  * Represents a command to mark a task as done in the task list.
  */
 public class MarkCommand extends Command {
-    private final String remainder;
+    private final String index;
 
     /**
      * Constructs a MarkCommand object.
      *
-     * @param remainder Index of task to mark.
+     * @param index Index of task to mark.
      */
-    public MarkCommand(String remainder) {
-        super(false);
-        this.remainder = remainder;
+    public MarkCommand(String index) {
+        this.index = index;
     }
 
     /**
@@ -30,15 +29,15 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui) {
         try {
-            int index = Integer.parseInt(remainder) - 1;
-            Task task = list.getTask(index);
+            int i = Integer.parseInt(index) - 1;
+            Task task = list.getTask(i);
             task.markAsDone();
             return ui.displayMarkTask(task);
         } catch (NumberFormatException e) {
             return "Please enter a positive integer after mark.\n";
         } catch (IndexOutOfBoundsException e) {
             return ("Invalid index: "
-                    + remainder + "\n"
+                    + index + "\n"
                     + "Please enter a number within 1 to number of current tasks.\n"
             );
         }
