@@ -24,6 +24,9 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setWolfie(wolfie); // inject the Wolfie instance
             stage.setTitle("Wolfie");
+            stage.setHeight(900);
+            stage.setWidth(900);
+            stage.setResizable(true); // Allow window resizing
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

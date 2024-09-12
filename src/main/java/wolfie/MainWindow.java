@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import wolfie.control.DialogBox;
 
 /**
- * Controller for the main GUI.
+ * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -22,13 +22,15 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
 
     private Wolfie wolfie;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image wolfieImage = new Image(this.getClass().getResourceAsStream("/images/Wolfie.png"));
+
     /**
-     * Initializes the main window.
+     * Initializes the MainWindow.
      */
     @FXML
     public void initialize() {
@@ -36,12 +38,12 @@ public class MainWindow extends AnchorPane {
         showWelcome();
     }
 
-    /** Injects the Wolfie instance */
     public void setWolfie(Wolfie w) {
         wolfie = w;
     }
+
     /**
-     * Displays the welcome message when the application starts.
+     * Displays the welcome message from Wolfie.
      */
     public void showWelcome() {
         String wolfieArt =
@@ -61,27 +63,56 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getWolfieDialog(welcomeMessage, wolfieImage));
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Wolfie's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        assert input != null : "User input should not be null.";
-        assert !input.trim().isEmpty() : "User input should not be empty.";
-
         System.out.println("User input: " + input); // Debugging statement
-        String response = wolfie.getResponse(input);
+        String response;
+        boolean isError = false;
+
+        if (!isValidCommand(input)) {
+            isError = true;
+        }
+        try {
+            response = wolfie.getResponse(input);
+        } catch (Exception e) {
+            isError = true;
+            response = "Error: " + e.getMessage();
+            e.printStackTrace(); // Print stack trace for debugging
+        }
         System.out.println("Wolfie response: " + response); // Debugging statement
+        DialogBox dialogBox = isError ? DialogBox.getErrorDialog(response, wolfieImage)
+                : DialogBox.getWolfieDialog(response, wolfieImage);
+        if (isError) {
+            dialogBox.getStyleClass().add("error-text");
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getWolfieDialog(response, wolfieImage)
+                dialogBox
         );
         userInput.clear();
-        // Exit the application if the user input is bye
         if (input.trim().equalsIgnoreCase("bye")) {
-            Platform.exit();
+            new Thread(() -> {
+                try {
+                    Thread.sleep(5000); // Wait for 5 seconds before exiting
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.exit();
+            }).start();
         }
+    }
+
+    private boolean isValidCommand(String input) {
+        return input.trim().equalsIgnoreCase("bye")
+                || input.trim().equalsIgnoreCase("list")
+                || input.trim().equalsIgnoreCase("todo")
+                || input.trim().equalsIgnoreCase("deadline")
+                || input.trim().equalsIgnoreCase("event")
+                || input.trim().equalsIgnoreCase("delete")
+                || input.trim().equalsIgnoreCase("find")
+                || input.trim().equalsIgnoreCase("mark")
+                || input.trim().equalsIgnoreCase("unmark")
+                || input.trim().equalsIgnoreCase("on");
     }
 }
