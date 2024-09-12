@@ -17,12 +17,10 @@ import javafx.stage.Stage;
  */
 public class Gui extends Application {
 
-    private CancelGpt cancelGpt;
-
     @Override
     public void start(Stage stage) {
         try {
-            cancelGpt = new CancelGpt(Paths.get(System
+            CancelGpt cancelGpt = new CancelGpt(Paths.get(System
                     .getProperty("user.home"), "accountexeregister-ip", "data"));
             FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/GuiWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

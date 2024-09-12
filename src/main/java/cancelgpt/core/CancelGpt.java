@@ -2,11 +2,8 @@ package cancelgpt.core;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
 
-import cancelgpt.command.Command;
 import cancelgpt.exception.command.UnknownInput;
 import cancelgpt.exception.task.DeleteTaskInputException;
 import cancelgpt.exception.task.FindTaskInputException;
@@ -24,7 +21,7 @@ public class CancelGpt {
     private final String chatbotName;
     private final TasksList tasksList;
     private final CommandParser commandParser;
-    private TasksStorage tasksStorage;
+    private final TasksStorage tasksStorage;
 
     /**
      * Initialises the chatbot with given storage directory path.
@@ -37,17 +34,12 @@ public class CancelGpt {
         try {
             this.tasksStorage = new TasksStorage(this, storageDirPath);
         } catch (IOException e) {
-//            UI.printMessageToConsole("Unable to use TASKS STORAGE. Exiting program");
-//            System.exit(1);
             throw new IOException("Unable to use TASKS STORAGE. Exiting program");
         }
         this.commandParser = new CommandParser(this);
     }
 
     public static void main(String[] args) {
-//        CancelGpt cancelGpt = new CancelGpt(Paths.get(System
-//                .getProperty("user.home"), "accountexeregister-ip", "data"));
-//        cancelGpt.run();
         Application.launch(Gui.class, args);
     }
 
@@ -61,51 +53,11 @@ public class CancelGpt {
     }
 
     /**
-     * The entrypoint for the chatbot.
-     * Reads commands from the user and perform operations based on command given.
-     */
-//    public void run() {
-//        Scanner sc = new Scanner(System.in);
-//
-//        UI.printHorizontalLineToConsole();
-//        greet();
-//        UI.printHorizontalLineToConsole();
-//
-//        String command = sc.nextLine();
-//        while (!command.equals(Command.BYE.toString())) {
-//            UI.printHorizontalLineToConsole();
-//            handleCommand(command);
-//            UI.printHorizontalLineToConsole();
-//
-//            try {
-//                saveTasks();
-//            } catch (IOException e) {
-//                UI.printMessageToConsole("Unable to save tasks to TASKS STORAGE. Exiting program");
-//                System.exit(1);
-//            }
-//
-//            command = sc.nextLine();
-//        }
-//
-//        sc.close();
-//        UI.printHorizontalLineToConsole();
-//        exit();
-//        UI.printHorizontalLineToConsole();
-//    }
-
-    /**
      * Prints greeting message to the .
      */
     public String greet() {
         return "Hello! I am " + chatbotName + "\n"
-            + "What can I do for you?";
-    }
-
-    /**
-     * Terminates the chatbot and prints a goodbye message.
-     */
-    public void exit() {
-        UI.printMessageToConsole("Good bye. Hope to see you again soon!");
+                + "What can I do for you?";
     }
 
     /**
@@ -136,13 +88,9 @@ public class CancelGpt {
      * @param task a Task object to be added
      */
     public String handleAddingTask(Task task) {
-        String addTaskResponse = "Got it. I've added this task: "
+        return "Got it. I've added this task: "
                 + " " + this.addToTaskList(task)
                 + "Now you have " + this.tasksList.getSize() + " tasks in the list.";
-        return addTaskResponse;
-//        UI.printMessageToConsole("Got it. I've added this task:");
-//        UI.printMessageToConsole(" " + this.addToTaskList(task));
-//        UI.printMessageToConsole("Now you have " + this.tasksList.getSize() + " tasks in the list.");
     }
 
     /**
@@ -192,7 +140,11 @@ public class CancelGpt {
      * @throws IOException if the tasks cannot be saved
      */
     public void saveTasks() throws IOException {
-        this.tasksStorage.saveTasks();
+        try {
+            this.tasksStorage.saveTasks();
+        } catch (IOException e) {
+            throw new IOException("Unable to save tasks");
+        }
     }
 
     /**
@@ -203,12 +155,9 @@ public class CancelGpt {
     public String findTasks(String keyword) {
         StringBuilder findTasksResponse = new StringBuilder();
         findTasksResponse.append("Here are the matching tasks in your list:\n");
-//        UI.printMessageToConsole("Here are the matching tasks in your list:");
 
         List<Task> tasksFound = this.tasksList.findTasksByDescriptionKeyword(keyword);
         for (int i = 0; i < tasksFound.size(); i++) {
-            UI.printMessageToConsole((i + 1) + "."
-                    + tasksFound.get(i));
             findTasksResponse.append(i + 1).append(".").append(tasksFound.get(i)).append("\n");
         }
         return findTasksResponse.toString();
@@ -221,12 +170,5 @@ public class CancelGpt {
      */
     public List<Task> getTasks() {
         return this.tasksList.getTasksList();
-    }
-
-    /**
-     * Generates a response for the user's chat message.
-     */
-    public String getResponse(String input) {
-        return "Cancelgpt heard: " + input;
     }
 }

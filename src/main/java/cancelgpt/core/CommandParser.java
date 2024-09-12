@@ -43,37 +43,31 @@ public class CommandParser {
     public String parseAndHandle(String command) throws MarkTaskInputException, UnmarkTaskInputException,
             InvalidTaskException, TaskDoesNotExist, UnknownInput, DeleteTaskInputException,
             FindTaskInputException {
-        try {
-            if (command.equals(Command.LIST.toString())) {
-                return this.chatbot.displayTasksList();
-            } else if (command.startsWith(Command.DELETE.toString())) {
-                int taskNumber = parseDeleteTaskCommand(command);
-                return this.chatbot.deleteTask(taskNumber);
-            } else if (command.startsWith(Command.MARK.toString())) {
-                int taskNumber = parseMarkTaskCommand(command);
-                return this.chatbot.markTask(taskNumber);
-            } else if (command.startsWith(Command.UNMARK.toString())) {
-                int taskNumber = parseUnmarkTaskCommand(command);
-                return this.chatbot.unmarkTask(taskNumber);
-            } else if (command.startsWith(Command.TODO.toString())) {
-                Task toDoTask = parseToDoTaskCreationCommand(command);
-                return this.chatbot.handleAddingTask(toDoTask);
-            } else if (command.startsWith(Command.DEADLINE.toString())) {
-                Task deadlineTask = parseDeadlineTaskCreationCommand(command);
-                return this.chatbot.handleAddingTask(deadlineTask);
-            } else if (command.startsWith(Command.EVENT.toString())) {
-                Task eventTask = parseEventTaskCreationCommand(command);
-                return this.chatbot.handleAddingTask(eventTask);
-            } else if (command.startsWith(Command.FIND.toString())) {
-                String keyword = parseFindTaskCommand(command);
-                return this.chatbot.findTasks(keyword);
-            } else {
-                throw new UnknownInput();
-            }
-        } catch (MarkTaskInputException | UnmarkTaskInputException | InvalidTaskException
-                 | TaskDoesNotExist | UnknownInput | DeleteTaskInputException
-                 | FindTaskInputException e) {
-            throw e;
+        if (command.equals(Command.LIST.toString())) {
+            return this.chatbot.displayTasksList();
+        } else if (command.startsWith(Command.DELETE.toString())) {
+            int taskNumber = parseDeleteTaskCommand(command);
+            return this.chatbot.deleteTask(taskNumber);
+        } else if (command.startsWith(Command.MARK.toString())) {
+            int taskNumber = parseMarkTaskCommand(command);
+            return this.chatbot.markTask(taskNumber);
+        } else if (command.startsWith(Command.UNMARK.toString())) {
+            int taskNumber = parseUnmarkTaskCommand(command);
+            return this.chatbot.unmarkTask(taskNumber);
+        } else if (command.startsWith(Command.TODO.toString())) {
+            Task toDoTask = parseToDoTaskCreationCommand(command);
+            return this.chatbot.handleAddingTask(toDoTask);
+        } else if (command.startsWith(Command.DEADLINE.toString())) {
+            Task deadlineTask = parseDeadlineTaskCreationCommand(command);
+            return this.chatbot.handleAddingTask(deadlineTask);
+        } else if (command.startsWith(Command.EVENT.toString())) {
+            Task eventTask = parseEventTaskCreationCommand(command);
+            return this.chatbot.handleAddingTask(eventTask);
+        } else if (command.startsWith(Command.FIND.toString())) {
+            String keyword = parseFindTaskCommand(command);
+            return this.chatbot.findTasks(keyword);
+        } else {
+            throw new UnknownInput();
         }
     }
 

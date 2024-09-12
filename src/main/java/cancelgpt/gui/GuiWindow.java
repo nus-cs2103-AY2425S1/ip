@@ -1,6 +1,7 @@
 package cancelgpt.gui;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import cancelgpt.command.Command;
 import cancelgpt.core.CancelGpt;
@@ -14,7 +15,6 @@ import cancelgpt.exception.task.UnmarkTaskInputException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -31,13 +31,13 @@ public class GuiWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private CancelGpt cancelGpt;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image cancelGptImage = new Image(this.getClass().getResourceAsStream("/images/CancelGpt.jpg"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/User.png")));
+    private final Image cancelGptImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/CancelGpt.jpg")));
 
     @FXML
     public void initialize() {

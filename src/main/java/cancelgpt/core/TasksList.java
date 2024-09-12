@@ -75,9 +75,6 @@ public class TasksList {
 
         return "Noted. I've removed this task: " + taskDeleted.toString()
                 + "Now you have " + this.tasksList.size() + " tasks in the list.";
-//        UI.printMessageToConsole("Noted. I've removed this task:");
-//        UI.printMessageToConsole(" " + taskDeleted);
-//        UI.printMessageToConsole("Now you have " + this.tasksList.size() + " tasks in the list.");
     }
 
     /**
@@ -96,8 +93,6 @@ public class TasksList {
 
         return "Nice! I've marked this task as done: "
                 + this.tasksList.get(taskNumber - 1);
-//        UI.printMessageToConsole("Nice! I've marked this task as done:");
-//        UI.printMessageToConsole(" " + this.tasksList.get(taskNumber - 1));
     }
 
     /**
@@ -116,8 +111,6 @@ public class TasksList {
 
         return "OK, I've marked this task as not done yet: "
                 + this.tasksList.get(taskNumber - 1);
-//        UI.printMessageToConsole("OK, I've marked this task as not done yet:");
-//        UI.printMessageToConsole(" " + this.tasksList.get(taskNumber - 1));
     }
 
     /**
