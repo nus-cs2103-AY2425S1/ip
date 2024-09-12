@@ -18,34 +18,8 @@ public class DayToDateParser {
      * @return the next {@code LocalDate} for the specified day, or {@code null} if the day abbreviation is invalid
      */
     public static LocalDate getNextDateForDay(String s) {
-        switch (s.toLowerCase()) {
-        case "mon":
-            s = "monday";
-            break;
-        case "tue":
-            s = "tuesday";
-            break;
-        case "wed":
-            s = "wednesday";
-            break;
-        case "thurs":
-            s = "thursday";
-            break;
-        case "fri":
-            s = "friday";
-            break;
-        case "sat":
-            s = "saturday";
-            break;
-        case "sun":
-            s = "sunday";
-            break;
-        default:
-            break;
-        }
-        System.out.println(s);
         try {
-            DayOfWeek dayOfWeek = DayOfWeek.valueOf(s.toUpperCase());
+            DayOfWeek dayOfWeek = DayOfWeek.valueOf(convert(s).toUpperCase());
             LocalDate today = LocalDate.now();
             DayOfWeek todayDayOfWeek = today.getDayOfWeek();
             System.out.println(today);
@@ -60,9 +34,23 @@ public class DayToDateParser {
         }
     }
 
+    private static String convert(String s) {
+        switch (s.toLowerCase()) {
+        case "mon" -> s = "monday";
+        case "tues" -> s = "tuesday";
+        case "tue" -> s = "tuesday";
+        case "wed" -> s = "wednesday";
+        case "thurs" -> s = "thursday";
+        case "fri" -> s = "friday";
+        case "sat" -> s = "saturday";
+        case "sun" -> s = "sunday";
+        }
+        return s;
+    }
+
     public static void main(String[] args) {
-        String day = "monff";
+        String day = "tuesss";
         LocalDate nextDate = getNextDateForDay(day);
-        System.out.println("Next " + day + " is on: " + nextDate);
+        System.out.println("Next " + day + " is on : " + nextDate);
     }
 }
