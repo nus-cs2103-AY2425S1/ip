@@ -1,0 +1,26 @@
+.label {
+    -fx-background-color: #AAE7F7;
+    -fx-padding: 18px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-font: 14px "Arial";
+
+    /* To simulate margin */
+    -fx-background-insets: 2px 10px 2px 8px;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+
+    /* To simulate margin */
+    -fx-background-insets: 2px 8px 2px 10px;
+}
+
+#displayPicture {
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
