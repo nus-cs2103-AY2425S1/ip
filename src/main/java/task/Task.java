@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDate;
+
 /**
  * A generic task stored by BotManager.
  *
@@ -75,4 +77,12 @@ public abstract class Task {
     protected boolean isMatch(String searchString) {
         return description.toLowerCase().contains(searchString.toLowerCase());
     }
+
+    /**
+     * Checks if the task falls on a date.
+     *
+     * @param date Date to check
+     * @return True if the task falls on the date, false otherwise.
+     */
+    protected abstract boolean isOnDate(LocalDate date);
 }

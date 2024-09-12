@@ -9,6 +9,7 @@ import action.ByeAction;
 import action.DeleteTaskAction;
 import action.FindTasksAction;
 import action.HelpAction;
+import action.ListScheduleAction;
 import action.ListTasksAction;
 import action.MarkTaskAction;
 import action.UnmarkTaskAction;
@@ -56,6 +57,7 @@ public class Parser {
         case FIND -> new FindTasksAction(parseSearchString(input));
         case DELETE -> new DeleteTaskAction(parseTaskIndex(input));
         case HELP -> new HelpAction();
+        case LIST_SCHEDULE -> new ListScheduleAction(parseScheduleDate(input));
         case EXIT -> new ByeAction();
         default -> throw new InvalidCommandException(input);
         };
@@ -120,5 +122,18 @@ public class Parser {
         }
 
         return args[1].strip();
+    }
+
+    private LocalDate parseScheduleDate(String input) throws InvalidCommandFormatException, InvalidDateFormatException {
+        String[] args = input.split(" ");
+        if (args.length != 2) {
+            throw new InvalidCommandFormatException(Command.LIST_SCHEDULE);
+        }
+
+        try {
+            return LocalDate.parse(args[1].strip());
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException(e.getParsedString());
+        }
     }
 }

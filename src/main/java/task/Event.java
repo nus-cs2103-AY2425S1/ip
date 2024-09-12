@@ -49,5 +49,10 @@ public class Event extends Task {
     public String toData() {
         return "E | " + super.toData() + " | " + start + " | " + end;
     }
+
+    @Override
+    protected boolean isOnDate(LocalDate date) {
+        return !date.isBefore(start) && !date.isAfter(end);
+    }
 }
 
