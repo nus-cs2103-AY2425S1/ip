@@ -1,7 +1,7 @@
-package bob.Parser;
+package bob.parser;
 
-import bob.Command.*;
-import bob.Exception.BobException;
+import bob.command.*;
+import bob.exception.BobException;
 
 public class Parser {
     public Command parse(String input) throws BobException {

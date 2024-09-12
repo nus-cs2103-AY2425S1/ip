@@ -1,7 +1,7 @@
 package bob.Parser;
 
-import bob.Command.Command;
-import bob.Command.TodoCommand;
+import bob.command.Command;
+import bob.command.TodoCommand;
 import bob.Exception.BobException;
 import org.junit.jupiter.api.Test;
 

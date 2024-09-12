@@ -1,4 +1,4 @@
-package bob.Tasks;
+package bob.tasks;
 
 public class Event extends Task {
     protected String from;
