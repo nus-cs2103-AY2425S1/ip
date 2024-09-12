@@ -1,11 +1,15 @@
 package storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a task.
  */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    private final List<Tag> tags;
 
     /**
      * Creates a new Task.
@@ -16,6 +20,7 @@ public abstract class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -51,8 +56,27 @@ public abstract class Task {
     }
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getStatusIcon() + "] " + description + tags;
     }
+
+    /**
+     * Adds a tag to the task.
+     *
+     * @param tag The tag to add.
+     */
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    /**
+     * Removes a tag from the task.
+     *
+     * @param tag The tag to remove.
+     */
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+    }
+
     /**
      * Returns the task in the file format.
      *

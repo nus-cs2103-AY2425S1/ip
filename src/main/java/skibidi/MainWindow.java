@@ -1,5 +1,6 @@
 package skibidi;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -39,8 +40,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Skibidi's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Skibidi's reply and then appends them
+     * to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() throws InterruptedException {
@@ -50,10 +51,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSkibidiDialog(response, skibidiImage)
         );
-        userInput.clear();
+
         if (input.equals("bye")) {
-            Thread.sleep(1000);
-            System.exit(0);
+            PauseTransition delay = new PauseTransition(javafx.util.Duration.seconds(1));
+            delay.setOnFinished(event -> System.exit(0));
+            delay.play();
         }
+
+        userInput.clear();
     }
 }
