@@ -173,7 +173,8 @@ public class Yapper {
             throw new EmptyDescriptionException("delete");
         }
         int taskIndex = Integer.parseInt(parts[1]) - 1;
-        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
+        assert taskIndex >= 0 : "Task index should be positive";
+        if (taskIndex >= tasks.getSize()) {
             throw new InvalidTaskNumberException(taskIndex);
         }
         Task task = tasks.getTask(taskIndex);
