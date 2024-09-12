@@ -39,6 +39,7 @@ public class Parser {
     public static String[] splitTaskInfo(String message) {
         String trimmedMessage = message.trim();
         String[] taskDescription = trimmedMessage.split("\\s+", 2);
+        assert taskDescription.length == 2 : "The task message should be divided to 2 parts";
         return taskDescription;
     }
 

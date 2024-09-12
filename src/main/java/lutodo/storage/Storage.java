@@ -46,6 +46,7 @@ public class Storage {
                 if (taskMessage.isEmpty()) {
                     continue;
                 }
+                assert taskMessage.charAt(0) == '[' : "the first char of a line in the text should be [";
                 Task task = TaskList.EMPTY_TASK;
                 switch (taskMessage.charAt(1)) {
                 case 'T':
