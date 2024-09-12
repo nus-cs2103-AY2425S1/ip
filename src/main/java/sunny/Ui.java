@@ -35,6 +35,7 @@ public class Ui {
      * @return String to be printed out in Sunny class
      */
     public String getResponse(String message) {
+        assert message != null : "Message should not be null";
         Parser p = new Parser(message);
         String command = p.getFirstHalf();
 
