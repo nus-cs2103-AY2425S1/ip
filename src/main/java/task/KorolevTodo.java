@@ -15,6 +15,8 @@ public class KorolevTodo extends KorolevTask {
      */
     public KorolevTodo(String name) {
         super(name);
+
+        assert !name.isEmpty();
         this.tag = "T";
     }
 
