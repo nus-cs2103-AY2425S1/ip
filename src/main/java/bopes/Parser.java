@@ -141,32 +141,43 @@ public class Parser {
     }
 
     private static String handleAddTaskCommand(String input, TaskList tasks, Storage storage) throws BopesException {
-        Task newTask = null;
-        try {
-            if (input.startsWith("todo ")) {
-                newTask = new ToDo(input.substring(5), false);
-            } else if (input.startsWith("deadline ")) {
-                String[] temp = input.substring(9).split(" /by ");
-                if (temp.length == 2) {
-                    newTask = new Deadline(temp[0], temp[1], false);
-                } else {
-                    throw BopesException.invalidDeadlineFormat();
-                }
-            } else if (input.startsWith("event ")) {
-                String[] temp = input.substring(6).split(" /from | /to ");
-                if (temp.length == 3) {
-                    newTask = new Event(temp[0], temp[1], temp[2], false);
-                } else {
-                    throw BopesException.invalidEventFormat();
-                }
-            } else {
-                throw BopesException.unknownCommand();
-            }
-            tasks.addTask(newTask);
-            storage.saveTasks(tasks);
-            return "Added task: " + newTask.toString();
-        } catch (IllegalArgumentException e) {
-            throw new BopesException(e.getMessage());
+        Task newTask = createTask(input);
+        tasks.addTask(newTask);
+        storage.saveTasks(tasks);
+        return "Added task: " + newTask.toString();
+    }
+    
+    private static Task createTask(String input) throws BopesException {
+        if (input.startsWith("todo ")) {
+            return createTodoTask(input);
+        } else if (input.startsWith("deadline ")) {
+            return createDeadlineTask(input);
+        } else if (input.startsWith("event ")) {
+            return createEventTask(input);
+        } else {
+            throw BopesException.unknownCommand();
+        }
+    }
+    
+    private static Task createTodoTask(String input) {
+        return new ToDo(input.substring(5).trim(), false);  // Remove "todo " prefix
+    }
+    
+    private static Task createDeadlineTask(String input) throws BopesException {
+        String[] temp = input.substring(9).split(" /by ");
+        if (temp.length == 2) {
+            return new Deadline(temp[0].trim(), temp[1].trim(), false);  // Remove "deadline " prefix
+        } else {
+            throw BopesException.invalidDeadlineFormat();
+        }
+    }
+    
+    private static Task createEventTask(String input) throws BopesException {
+        String[] temp = input.substring(6).split(" /from | /to ");
+        if (temp.length == 3) {
+            return new Event(temp[0].trim(), temp[1].trim(), temp[2].trim(), false);  // Remove "event " prefix
+        } else {
+            throw BopesException.invalidEventFormat();
         }
     }
 
