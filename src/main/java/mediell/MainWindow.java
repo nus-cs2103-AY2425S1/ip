@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws IOException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = mediell.getResponse(input);
         dialogContainer.getChildren().addAll(
