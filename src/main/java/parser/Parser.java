@@ -57,22 +57,27 @@ public class Parser {
             Task task = list.deleteTask(deleteTaskNumber);
             return ui.getHandleTaskMessage(task, "delete", list.getSize());
         case TODO:
-            // result[1] contains description
+            // result[1] contains description /p priority
             checkValidTaskInput(Command.TODO, result);
-            addedTask = list.addTask(Command.TODO, result[1]);
+
+            String[] todoParams = result[1].split("/p");
+            addedTask = list.addTask(Command.TODO, todoParams);
             break;
         case DEADLINE:
-            // result[1] contains description /by deadline
+            // result[1] contains description /by deadline /p priority
             checkValidTaskInput(Command.DEADLINE, result);
 
             String[] deadlineInfo = result[1].split("/by ");
             checkValidTaskInput(Command.DEADLINE, deadlineInfo);
 
-            addedTask = list.addTask(Command.DEADLINE,
-                    deadlineInfo[0], deadlineInfo[1].strip());
+            String[] deadlineParams = deadlineInfo[1].split("/p");
+
+            addedTask = deadlineParams.length == 1
+                    ? list.addTask(Command.DEADLINE, deadlineInfo[0], deadlineParams[0].strip())
+                    : list.addTask(Command.DEADLINE, deadlineInfo[0], deadlineParams[0].strip(), deadlineParams[1].strip());
             break;
         case EVENT:
-            // result[1] contains description /from from /to to
+            // result[1] contains description /from from /to to /p priority
             checkValidTaskInput(Command.EVENT, result);
 
             String[] eventInfo = result[1].split("/from ");
@@ -81,8 +86,11 @@ public class Parser {
             String[] times = eventInfo[1].split("/to ");
             checkValidTaskInput(Command.EVENT, times);
 
-            addedTask = list.addTask(Command.EVENT,
-                    eventInfo[0], times[0].strip(), times[1].strip());
+            String[] eventParams = times[1].split("/p");
+
+            addedTask = eventParams.length == 1
+                    ? list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), times[1].strip())
+                    : list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), times[1].strip(), eventParams[1].strip());
             break;
         case FIND:
             return ui.getFilteredTasks(list.findTasks(result[1]));

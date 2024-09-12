@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import commands.Command;
 import exceptions.InvalidTaskException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import tasks.*;
 
 /**
  * Stores the list of tasks.
@@ -30,6 +27,7 @@ public class TaskList {
      */
     public Task addTask(Command type, String ... params) {
         Task task = new Task(params[0]);
+        int numOfParams = params.length;
 
         assert type == Command.TODO
                 || type == Command.DEADLINE
@@ -38,13 +36,17 @@ public class TaskList {
 
         switch (type) {
         case TODO:
-            task = new Todo(params[0]);
+            task = numOfParams == 1 ? new Todo(params[0]) : new Todo(params[0], params[1]);
             break;
         case DEADLINE:
-            task = new Deadline(params[0], params[1]);
+            task = numOfParams == 2
+                    ? new Deadline(params[0], params[1])
+                    : new Deadline(params[0], params[1], params[2]);
             break;
         case EVENT:
-            task = new Event(params[0], params[1], params[2]);
+            task = numOfParams == 3
+                    ? new Event(params[0], params[1], params[2])
+                    : new Event(params[0], params[1], params[2], params[3]);
             break;
         default:
             break;
@@ -165,5 +167,17 @@ public class TaskList {
         if (taskNumber > tasks.size() || taskNumber <= 0) {
             throw new InvalidTaskException("", taskNumber);
         }
+    }
+
+    /**
+     * Returns string of tasks of the given priority.
+     *
+     * @param priority the priority of tasks required.
+     * @return string of tasks with that priority.
+     */
+    public String findTaskOfPriority(Priority priority) {
+        TaskList filtered = new TaskList();
+        tasks.stream().filter(task -> task.getPriority() == priority).forEach(filtered::addTask);
+        return filtered.listTasks();
     }
 }
