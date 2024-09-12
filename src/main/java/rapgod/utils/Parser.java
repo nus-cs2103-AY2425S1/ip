@@ -33,24 +33,32 @@ public class Parser {
         try {
             return LocalDateTime.parse(input, dateTimeFormatter1);
         } catch (DateTimeParseException e1) {
-            try {
-                return LocalDateTime.parse(input + " 0000", dateTimeFormatter1);
-            } catch (DateTimeParseException e2) {
-                try {
-                    LocalDate date = LocalDate.parse(input, dateTimeFormatter2);
-                    return date.atStartOfDay();
-                } catch (DateTimeParseException e3) {
-                    try {
-                        return LocalDateTime.parse(input, dateTimeFormatter3);
-                    } catch (DateTimeParseException e4) {
-                        try {
-                            return LocalDateTime.parse(input, dateTimeFormatter4);
-                        } catch (DateTimeParseException e5) {
-                            throw new IllegalArgumentException("Invalid date or time format. Please use formats like 'dd/MM/yyyy HHmm' or 'MMM dd yyyy'.");
-                        }
-                    }
-                }
-            }
+            System.out.println("Failed to parse with format dd/MM/yyyy HHmm: " + e1.getMessage());
+        }
+
+        try {
+            return LocalDateTime.parse(input + " 0000", dateTimeFormatter1);
+        } catch (DateTimeParseException e2) {
+            System.out.println("Failed to parse with format dd/MM/yyyy HHmm (default time 0000): " + e2.getMessage());
+        }
+
+        try {
+            LocalDate date = LocalDate.parse(input, dateTimeFormatter2);
+            return date.atStartOfDay();
+        } catch (DateTimeParseException e3) {
+            System.out.println("Failed to parse with format MMM dd yyyy: " + e3.getMessage());
+        }
+
+        try {
+            return LocalDateTime.parse(input, dateTimeFormatter3);
+        } catch (DateTimeParseException e4) {
+            System.out.println("Failed to parse with format MMM dd yyyy h:mma: " + e4.getMessage());
+        }
+
+        try {
+            return LocalDateTime.parse(input, dateTimeFormatter4);
+        } catch (DateTimeParseException e5) {
+            throw new IllegalArgumentException("Invalid date or time format. Please use formats like 'dd/MM/yyyy HHmm' or 'MMM dd yyyy'.");
         }
     }
 
