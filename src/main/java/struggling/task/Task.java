@@ -6,6 +6,7 @@ package struggling.task;
 public class Task {
     private final String description;
     private boolean isDone;
+    private Priority priority;
 
     /**
      * Creates a Task object with description.
@@ -15,6 +16,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.LOW;
     }
 
     /**
@@ -22,8 +24,9 @@ public class Task {
      */
     @Override
     public String toString() {
-        char label = this.isDone ? 'X' : ' ';
-        return String.format("[%s] %s", label, this.description);
+        char priorityLabel = this.priority == Priority.HIGH ? '!' : ' ';
+        char isDoneLabel = this.isDone ? 'X' : ' ';
+        return String.format("[%s][%s] %s", priorityLabel, isDoneLabel, this.description);
     }
 
     /**
@@ -44,10 +47,30 @@ public class Task {
      * Returns a formatted string of Task for Storage.
      */
     public String getState() {
-        return String.format("%d | %s", this.isDone ? 1 : 0, this.description);
+        int priorityState = this.priority == Priority.HIGH ? 1 : 0;
+        int isDoneState = this.isDone ? 1 : 0;
+        return String.format("%d | %d | %s", priorityState, isDoneState, this.description);
     }
 
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Set the priority of this task to HIGH.
+     */
+    public void setPriorityHigh() {
+        this.priority = Priority.HIGH;
+    }
+
+    /**
+     * Set the priority of this task to LOW.
+     */
+    public void setPriorityLow() {
+        this.priority = Priority.LOW;
+    }
+
+    private enum Priority {
+        HIGH, LOW
     }
 }

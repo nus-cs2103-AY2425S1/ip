@@ -24,7 +24,10 @@ public class Ui {
         String divider = "____________________________________________________________";
         StringBuilder indent = new StringBuilder();
         for (String s : str.split("\\R")) {
-            indent.append(" ").append(s).append("\n");
+            indent
+                    .append(" ")
+                    .append(s)
+                    .append("\n");
         }
         String box = String.format("%s\n%s%s", divider, indent, divider);
         for (String s : box.split("\\R")) {
@@ -130,6 +133,20 @@ public class Ui {
      */
     public void showUnmarkTask(Task task) {
         show(String.format("OK, I've marked this task as not done yet:\n\t%s", task));
+    }
+
+    /**
+     * Displays message after a Task has been unmarked.
+     */
+    public void showSetTaskPriorityHigh(Task task) {
+        show(String.format("OK, I've set this task as high priority:\n\t%s", task));
+    }
+
+    /**
+     * Displays message after a Task has been unmarked.
+     */
+    public void showSetTaskPriorityLow(Task task) {
+        show(String.format("OK, I've set this task as low priority:\n\t%s", task));
     }
 
     public String getMessage() {

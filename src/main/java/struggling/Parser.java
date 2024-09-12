@@ -7,8 +7,10 @@ import struggling.command.Command;
 import struggling.command.DeleteCommand;
 import struggling.command.ExitCommand;
 import struggling.command.FindCommand;
+import struggling.command.HighPriorityCommand;
 import struggling.command.InvalidCommand;
 import struggling.command.ListCommand;
+import struggling.command.LowPriorityCommand;
 import struggling.command.MarkCommand;
 import struggling.command.UnmarkCommand;
 import struggling.task.Deadline;
@@ -61,6 +63,14 @@ public class Parser {
             return new DeleteCommand(deleteIndex);
         case find:
             return new FindCommand(args[1]);
+        case highPriority:
+            int highPriorityIndex = Integer.parseInt(args[1]) - 1;
+            assert highPriorityIndex >= 0 : "index should be >= 0";
+            return new HighPriorityCommand(highPriorityIndex);
+        case lowPriority:
+            int lowPriorityIndex = Integer.parseInt(args[1]) - 1;
+            assert lowPriorityIndex >= 0 : "index should be >= 0";
+            return new LowPriorityCommand(lowPriorityIndex);
         default:
             return new InvalidCommand();
         }
@@ -111,7 +121,7 @@ public class Parser {
      * Commands accepted by the Parser class.
      */
     private enum Commands {
-        bye, list, mark, unmark, todo, deadline, event, delete, find
+        bye, list, mark, unmark, todo, deadline, event, delete, find, highPriority, lowPriority
     }
 
 
