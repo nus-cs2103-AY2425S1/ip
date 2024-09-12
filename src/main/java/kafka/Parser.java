@@ -48,6 +48,17 @@ public class Parser {
                 storage.writeToFile(taskList.tasks);
                 ui.delete(taskToDelete, taskList);
                 break;
+            case "find":
+                if (arguments.isEmpty()) {
+                    throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
+                }
+                TaskList temp = taskList.find(arguments.toLowerCase());
+                if (temp.isEmpty()) {
+                    throw new KafkaException("Hmm, it seems that no task aligns with that word... mind trying again?");
+                }
+                ui.find();
+                temp.printList();
+                break;
             case "todo":
                 if (arguments.isEmpty()) {
                     throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
