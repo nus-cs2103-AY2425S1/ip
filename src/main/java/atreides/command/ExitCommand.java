@@ -11,7 +11,9 @@ public class ExitCommand implements Command {
         return "";
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {}
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        return;
+    }
 
     /**
      * {@inheritDoc}

@@ -4,3 +4,4 @@ E | 1 | project meeting | Aug 6th 2-4pm
 T | 0 | join sports club
 T | 0 | event
 T | 0 | read hello
+T | 1 | watch movie
