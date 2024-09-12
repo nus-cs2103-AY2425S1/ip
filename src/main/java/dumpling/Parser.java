@@ -183,6 +183,7 @@ public class Parser {
             task = new Event(taskDescription, from, to);
             break;
         default:
+            assert command == CommandEnum.TODO : "Command must be Todo.";
             taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, "");
             taskDescription = taskDescriptionIdxPair.getFirst();
             task = new ToDo(taskDescription);
