@@ -1,0 +1,9 @@
+todo testing program
+event games night /from 2020-12-30 /to 2021-01-23
+deadline return book /by 2021-04-05
+event ballet recital/from 2024-10-03 /to 2025-01-23
+todo stuff
+deadline finish project /by 2015-04-05
+list
+bye
+
