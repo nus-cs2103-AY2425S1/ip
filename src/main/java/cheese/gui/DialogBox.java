@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -38,6 +39,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(displayString);
         displayPicture.setImage(img);
+
+        //Create a circle to clip the profile picture
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -48,6 +53,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.setStyle("-fx-background-color: lightblue; -fx-padding: 5; -fx-background-radius: 5");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
