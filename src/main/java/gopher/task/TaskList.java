@@ -2,7 +2,7 @@ package gopher.task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.regex.Matcher;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import gopher.storage.TaskManager;
@@ -70,19 +70,15 @@ public class TaskList {
      */
     public TaskList find(String keyword) {
         // Define regex pattern based on the given keyword
-        ArrayList<Task> matchedTasks = new ArrayList<>();
         Pattern keywordPattern = Pattern.compile(keyword,
                 Pattern.CASE_INSENSITIVE);
 
         // Search task whose String representation matches regex pattern
-        for (Task task : tasks) {
-            Matcher keywordMatcher = keywordPattern.matcher(task.toString());
-            if (keywordMatcher.find()) {
-                matchedTasks.add(task);
-            }
-        }
-
-        return new TaskList(matchedTasks);
+        List<Task> matchedTasks = tasks.stream()
+                .filter(task -> keywordPattern.matcher(task.toString()).find())
+                .toList();
+        ArrayList<Task> result = new ArrayList<>(matchedTasks);
+        return new TaskList(result);
     }
 
     /**
