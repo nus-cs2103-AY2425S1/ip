@@ -26,11 +26,11 @@ public class ExitCommand extends CommandBase {
 
         // After the delay, exit the application
         delay.setOnFinished(event -> {
-            Platform.exit();  // Gracefully close the JavaFX application
-            System.exit(0);   // Exit the program
+            Platform.exit(); // Gracefully close the JavaFX application
+            System.exit(0); // Exit the program
         });
 
-        delay.play();  // Start the delay
+        delay.play(); // Start the delay
     }
 }
 

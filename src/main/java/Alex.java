@@ -10,7 +10,6 @@ import Alex.Ui.Ui;
  * Handles initialization, user interactions, and command processing.
  */
 public class Alex {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
