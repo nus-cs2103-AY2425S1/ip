@@ -1,5 +1,6 @@
 package rainy.commands;
 
+import rainy.tasks.Task;
 import rainy.tasks.TaskTracker;
 
 public class List extends Command {
@@ -9,8 +10,9 @@ public class List extends Command {
         this.taskTracker = taskTracker;
     }
 
-    public void getResponse() {
+    public TaskTracker getResponse() {
         System.out.println(this.taskTracker.getList());
+        return new TaskTracker();
     }
 
 
