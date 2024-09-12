@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import dgpt.exception.DgptFileNotFoundException;
+import dgpt.exception.TaskNotFoundException;
 import dgpt.task.Deadline;
 import dgpt.task.Event;
+import dgpt.task.Recurring;
 import dgpt.task.Task;
 import dgpt.task.TaskList;
 import dgpt.task.ToDo;
-
-
 
 /**
  * The Storage class is responsible for handling reading from and writing to
@@ -77,6 +77,9 @@ public class Storage {
         case "E" -> {
             i = new Event(parts[2], parts[3], parts[4]);
         }
+        case "R" -> {
+            i = new Recurring(parts[2], parts[3]);
+        }
         default -> {
             throw new IOException("File format is invalid");
         }
@@ -135,8 +138,15 @@ public class Storage {
                             .append(" | ")
                             .append(((Event) t).getToTimeString())
                             .append("\n");
+                } else if (t instanceof Recurring) {
+                    s.append("R | ")
+                            .append(t.getIsDone() ? "1 | " : "0 | ")
+                            .append(t.getDescription())
+                            .append(" | ")
+                            .append(((Recurring) t).getFrequency())
+                            .append("\n");
                 } else {
-                    throw new RuntimeException("Unfamiliar Task Type found");
+                    throw new IOException("Unfamiliar Task Type found");
                 }
             }
 

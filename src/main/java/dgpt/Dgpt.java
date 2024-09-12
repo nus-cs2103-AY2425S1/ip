@@ -43,7 +43,7 @@ public class Dgpt {
         try {
             return Parser.parse(s, tasks, storage);
         } catch (TaskNotFoundException | IncorrectInputException e) {
-            return e.getMessage();
+            return Ui.errorUi(e);
         }
     }
 }
