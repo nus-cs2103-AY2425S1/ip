@@ -80,7 +80,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            throw new BobException("Failed to load tasks from file");
+            throw new BobException("Failed to load Tasks from file");
         }
         return tasks;
     }
@@ -94,7 +94,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new BobException("Failed to save tasks to file");
+            throw new BobException("Failed to save Tasks to file");
         }
     }
 }

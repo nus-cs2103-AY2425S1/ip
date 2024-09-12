@@ -14,37 +14,37 @@
 // * Handles the initialization and the loop of the main program.
 // */
 //public class Bob {
-//    private Storage storage;
-//    private TaskList tasks;
-//    private Ui ui;
-//    private Parser parser;
+//    private Storage Storage;
+//    private TaskList Tasks;
+//    private Ui Ui;
+//    private Parser Parser;
 //
 //    /**
-//     * Constructs a Bob instance with a specified file path for storage.
-//     * @param filePath The file path where tasks are stored.
+//     * Constructs a Bob instance with a specified file path for Storage.
+//     * @param filePath The file path where Tasks are stored.
 //     */
 //    public Bob(String filePath) {
-//        ui = new Ui();
-//        storage = new Storage(filePath);
-//        parser = new Parser();
+//        Ui = new Ui();
+//        Storage = new Storage(filePath);
+//        Parser = new Parser();
 //        try {
-//            tasks = new TaskList(storage.load());
+//            Tasks = new TaskList(Storage.load());
 //        } catch (BobException e) {
-//            ui.showError(e.getMessage());
-//            tasks = new TaskList();
+//            Ui.showError(e.getMessage());
+//            Tasks = new TaskList();
 //        }
 //    }
 //
 //    // Constructor without argument
 //    public Bob() {
-//        ui = new Ui();
-//        storage = new Storage("./data/bob.csv");
-//        parser = new Parser();
+//        Ui = new Ui();
+//        Storage = new Storage("./data/bob.csv");
+//        Parser = new Parser();
 //        try {
-//            tasks = new TaskList(storage.load());
+//            Tasks = new TaskList(Storage.load());
 //        } catch (BobException e) {
-//            ui.showError(e.getMessage());
-//            tasks = new TaskList();
+//            Ui.showError(e.getMessage());
+//            Tasks = new TaskList();
 //        }
 //    }
 //
@@ -52,21 +52,21 @@
 //     * Starts Bob chatbot, handling user input and executing commands.
 //     */
 //    public void run() {
-//        ui.showWelcome();
+//        Ui.showWelcome();
 //        Scanner scanner = new Scanner(System.in);
 //        String input;
 //
 //        do {
 //            input = scanner.nextLine().trim();
 //            try {
-//                Command command = parser.parse(input);
-//                command.execute(tasks.getTasks(), storage, ui);
+//                Command Command = Parser.parse(input);
+//                Command.execute(Tasks.getTasks(), Storage, Ui);
 //            } catch (BobException e) {
-//                ui.showError(e.getMessage());
+//                Ui.showError(e.getMessage());
 //            }
 //        } while (!input.equals("bye"));
 //
-//        ui.showGoodbye();
+//        Ui.showGoodbye();
 //        scanner.close();
 //    }
 //
@@ -101,8 +101,8 @@ public class Bob {
     private Parser parser;
 
     /**
-     * Constructs a Bob instance with a specified file path for storage.
-     * @param filePath The file path where tasks are stored.
+     * Constructs a Bob instance with a specified file path for Storage.
+     * @param filePath The file path where Tasks are stored.
      */
     public Bob(String filePath) {
         ui = new Ui();

@@ -6,7 +6,7 @@ import bob.Tasks.Task;
 
 /**
  * The Ui class of Bob chatbot is responsible for handling all user interactions.
- * This class provides methods to display messages, list of tasks, and handling of user
+ * This class provides methods to display messages, list of Tasks, and handling of user
  * input and output.
  */
 
@@ -40,7 +40,7 @@ public class Ui {
      */
     public String showTaskList(ArrayList<Task> tasks) {
         StringBuilder response = new StringBuilder();
-        response.append("Here are the tasks in your list:\n");
+        response.append("Here are the Tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             response.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
         }
@@ -50,7 +50,7 @@ public class Ui {
     /**
      * Displays the message signaling user that a task has been successfully added into the task list.
      * @param task The Task object that was added.
-     * @param size The total number of tasks in the task list currently.
+     * @param size The total number of Tasks in the task list currently.
      */
     public String showAddedTask(Task task, int size) {
         StringBuilder response = new StringBuilder();
@@ -63,7 +63,7 @@ public class Ui {
     /**
      * Displays the message signaling user that a task has been successfully removed from the task list.
      * @param task The Task object that was removed.
-     * @param size The total number of tasks in the task list currently.
+     * @param size The total number of Tasks in the task list currently.
      */
     public String showRemovedTask(Task task, int size) {
         StringBuilder response = new StringBuilder();
@@ -89,7 +89,7 @@ public class Ui {
 
     public String showMatchingTasks(ArrayList<Task> tasks) {
         StringBuilder response = new StringBuilder();
-        response.append("Here are the matching tasks in your list:");
+        response.append("Here are the matching Tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             response.append((i + 1)).append(". ").append(tasks.get(i).toString());
         }

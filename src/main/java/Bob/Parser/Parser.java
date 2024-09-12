@@ -29,7 +29,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            throw new BobException("Bob does not understand that command, sorry :(");
+            throw new BobException("Bob does not understand that Command, sorry :(");
         }
     }
     private int parseTaskIndex(String taskDescription) throws BobException {
