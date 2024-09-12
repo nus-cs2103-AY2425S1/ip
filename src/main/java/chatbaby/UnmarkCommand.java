@@ -4,6 +4,7 @@ package chatbaby;
  * Represents a command to unmark a task as not done in the task list.
  */
 public class UnmarkCommand extends Command {
+    private static final int BEGIN_INDEX = 7;
 
     /**
      * Constructs an {@code UnmarkCommand} object with the given command body.
@@ -25,14 +26,13 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
         try {
-            int index = Integer.parseInt(commandBody.substring(7).trim()) - 1;
-            if (index >= 0 && index < tasks.size()) {
-                tasks.getTaskAt(index).unMarkAsDone();
-                System.out.println("OK, I've marked this task as not done yet:\n"
-                        + tasks.getTaskAt(index).toString());
-            } else {
+            int index = Integer.parseInt(commandBody.substring(BEGIN_INDEX).trim()) - 1;
+            if (index < 0 && index > tasks.size()) {
                 throw new ChatBabyException("Oh no!!! The task index is invalid.");
             }
+            tasks.getTaskAt(index).unMarkAsDone();
+            System.out.println("OK, I've marked this task as not done yet:\n"
+                    + tasks.getTaskAt(index).toString());
         } catch (NumberFormatException e) {
             throw new ChatBabyException("Oh no!!! The task index is invalid.");
         }

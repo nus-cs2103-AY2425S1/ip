@@ -8,34 +8,37 @@ import java.time.format.DateTimeFormatter;
  * Extends the Task class to include details about the event's duration.
  */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private static final DateTimeFormatter INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private LocalDateTime eventStartTime;
+    private LocalDateTime eventEndTime;
 
     /**
      * Constructs an Event with the specified name, start, and end times.
      *
      * @param name The name of the event.
-     * @param from The start time of the event in "yyyy-MM-dd HH:mm" format.
-     * @param to The end time of the event in "yyyy-MM-dd HH:mm" format.
+     * @param eventStartTime The start time of the event in "yyyy-MM-dd HH:mm" format.
+     * @param eventEndTime The end time of the event in "yyyy-MM-dd HH:mm" format.
      */
-    public Event(String name, String from, String to) {
+    public Event(String name, String eventStartTime, String eventEndTime) {
         super(name);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.from = LocalDateTime.parse(from, formatter);
-        this.to = LocalDateTime.parse(to, formatter);
+        this.eventStartTime = LocalDateTime.parse(eventStartTime, INPUT_FORMATTER);
+        this.eventEndTime = LocalDateTime.parse(eventEndTime, INPUT_FORMATTER);
     }
 
     /**
      * Constructs an Event with the specified name, start, and end times.
      *
      * @param name The name of the event.
-     * @param from The start time of the event as a LocalDateTime object.
-     * @param to The end time of the event as a LocalDateTime object.
+     * @param eventStartTime The start time of the event as a LocalDateTime object.
+     * @param eventEndTime The end time of the event as a LocalDateTime object.
      */
-    public Event(String name, LocalDateTime from, LocalDateTime to) {
+    public Event(String name, LocalDateTime eventStartTime, LocalDateTime eventEndTime) {
         super(name);
-        this.from = from;
-        this.to = to;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
     }
 
     /**
@@ -43,8 +46,8 @@ public class Event extends Task {
      *
      * @return The end time of the event as a LocalDateTime object.
      */
-    public LocalDateTime getTo() {
-        return to;
+    public LocalDateTime getEventEndTime() {
+        return eventEndTime;
     }
 
     /**
@@ -54,9 +57,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileText() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         return "E | " + (this.isDone() ? "1" : "0") + " | " + this.getName() + " | "
-                + from.format(formatter) + " | " + to.format(formatter);
+                + eventStartTime.format(OUTPUT_FORMATTER) + " | " + eventEndTime.format(OUTPUT_FORMATTER);
     }
 
     /**
@@ -66,8 +68,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "[E]" + super.toString() + " (from: " + from.format(formatter)
-                + " to: " + to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + eventStartTime.format(OUTPUT_FORMATTER)
+                + " to: " + eventEndTime.format(OUTPUT_FORMATTER) + ")";
     }
 }
