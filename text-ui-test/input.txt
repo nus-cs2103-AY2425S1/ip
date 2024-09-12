@@ -1,0 +1,9 @@
+todo play valorant
+deadline finish ip /by 2024-08-28 0930
+event meeting /from 28/08/2024 0800 /to 28/08/2024 0815
+list
+mark 1
+list
+unmark 1
+list
+bye
