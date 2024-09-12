@@ -23,7 +23,7 @@ public class DeadlinesTest {
     @Test
     public void testLoadedCreationOfTask(){
         LocalDate due = LocalDate.parse("2024-08-27");
-        Task t = new Deadlines("Work", true, due);
+        Task t = new Deadlines("Work", true, due, "1");
         
         // test 1: the print string is in the right format
         assertEquals("[D][X] Work (by: Aug 27 2024)", t.toString());

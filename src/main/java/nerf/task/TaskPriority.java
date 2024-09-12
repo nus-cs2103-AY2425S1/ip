@@ -24,7 +24,7 @@ public enum TaskPriority {
         case 3:
             return LOW;
         default:
-            throw new IllegalArgumentException("Invalid priority level: " + priorityLevel);
+            return null;
         }
     }
     

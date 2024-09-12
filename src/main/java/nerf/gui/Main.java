@@ -25,6 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Nerf chatbot");
             fxmlLoader.<MainWindow>getController().setNerf(nerf);  // inject the Nerf instance
             stage.show();
         } catch (IOException e) {

@@ -25,7 +25,7 @@ public class EventsTest {
     public void testLoadedCreationOfTask(){
         LocalDate from = LocalDate.parse("2024-08-27");
         LocalDate to = LocalDate.parse("2024-08-28");
-        Task t = new Events("Event", true, from, to);
+        Task t = new Events("Event", true, from, to, "1");
         
         // test 1: the print string is in the right format
         assertEquals("[E][X] Event (from: Aug 27 2024 to: Aug 28 2024)", t.toString());
