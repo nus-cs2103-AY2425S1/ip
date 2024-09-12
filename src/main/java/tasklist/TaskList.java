@@ -23,6 +23,7 @@ public class TaskList {
     }
 
     public int length() {
+        assert tasks != null;
         return tasks.size();
     }
 
@@ -33,6 +34,7 @@ public class TaskList {
      * @return the task at that index.
      */
     public Task getTaskAt(int idx) {
+        assert idx >= 0 && idx < tasks.size();
         return tasks.get(idx);
     }
 
@@ -42,6 +44,7 @@ public class TaskList {
      * @return the task that has just been deleted.
      */
     public Task deleteTaskAt(int idx) {
+        assert idx >= 0 && idx < tasks.size();
         return tasks.remove(idx);
     }
 
