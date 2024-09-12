@@ -84,36 +84,45 @@ public class Storage {
 
             switch (type) {
             case "T":
-                Todo t = new Todo(description);
-                if (isDone) {
-                    t.markAsDone();
-                }
-                tasks.addTask(t);
+                handleTodoTask(description, isDone, tasks);
                 break;
-
             case "D":
-                String deadline = taskData[3];
-                Deadline d = new Deadline(description, deadline);
-                if (isDone) {
-                    d.markAsDone();
-                }
-                tasks.addTask(d);
+                handleDeadlineTask(taskData, description, isDone, tasks);
                 break;
-
             case "E":
-                String from = taskData[3];
-                String to = taskData[4];
-                Event e = new Event(description, from, to);
-                if (isDone) {
-                    e.markAsDone();
-                }
-                tasks.addTask(e);
+                handleEventTask(taskData, description, isDone, tasks);
                 break;
-
             default:
                 System.out.println("Invalid task found!");
                 break;
             }
         }
+    }
+
+    private void handleTodoTask(String description, boolean isDone, TaskList tasks) {
+        Todo t = new Todo(description);
+        if (isDone) {
+            t.markAsDone();
+        }
+        tasks.addTask(t);
+    }
+
+    private void handleDeadlineTask(String[] taskData, String description, boolean isDone, TaskList tasks) {
+        String deadline = taskData[3];
+        Deadline d = new Deadline(description, deadline);
+        if (isDone) {
+            d.markAsDone();
+        }
+        tasks.addTask(d);
+    }
+
+    private void handleEventTask(String[] taskData, String description, boolean isDone, TaskList tasks) {
+        String from = taskData[3];
+        String to = taskData[4];
+        Event e = new Event(description, from, to);
+        if (isDone) {
+            e.markAsDone();
+        }
+        tasks.addTask(e);
     }
 }
