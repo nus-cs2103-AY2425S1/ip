@@ -34,6 +34,7 @@ public class DeleteCommand extends Command {
             if (!tl.isValidIdx(idx)) {
                 ui.setResponse(
                         String.format("Someones tryna be funny, idx: %d is out of range!", idx));
+                ui.printResponse();
                 return;
             }
             toBeRemovedIndexes[i] = idx;
@@ -42,8 +43,8 @@ public class DeleteCommand extends Command {
         StringBuilder tasksRemoved = new StringBuilder();
         int offset = 0;
         Arrays.sort(toBeRemovedIndexes);
-        for (int i = 0; i < toBeRemovedIndexes.length; i++) {
-            Task t = tl.deleteTask(toBeRemovedIndexes[i] + offset, storage);
+        for (int i : toBeRemovedIndexes) {
+            Task t = tl.deleteTask(i + offset, storage);
             tasksRemoved.append(INDENT + t.toString() + NEW_LINE);
             offset--;
         }
@@ -51,20 +52,5 @@ public class DeleteCommand extends Command {
         ui.setResponse("Ok! I've removed this task:", tasksRemoved.toString(),
                 String.format("You now have %d tasks in your list.", tl.size()));
         ui.printResponse();
-        // try {
-        // int idx = Integer.parseInt(details[1]);
-        // if (!tl.isValidIdx(idx)) {
-        // ui.setResponse(
-        // String.format("Someones tryna be funny, idx: %d is out of range!", idx));
-        // return;
-        // }
-        // Task t = tl.deleteTask(idx, storage);
-        // ui.setResponse("Ok! I've removed this task:", INDENT + t.toString(),
-        // String.format("You now have %d tasks in your list.", tl.size()));
-        // } catch (NumberFormatException e) {
-        // ui.setResponse("Invalid index: " + details[1] + " is not a number!");
-        // } finally {
-        // ui.printResponse();
-        // }
     }
 }
