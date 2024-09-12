@@ -1,12 +1,11 @@
 package nayana;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.util.Pair;
 import nayana.task.Task;
 
 /**
@@ -146,7 +145,7 @@ public class Ui {
      */
     public void printFoundTasks(ArrayList<Task> foundTasks) {
         String text = "";
-        if (foundTasks.size() > 0) {
+        if (!foundTasks.isEmpty()) {
             text += "Here are the matching tasks in your list:\n";
             for (int i = 0; i < foundTasks.size(); i++) {
                text +=  (i + 1) + "." + foundTasks.get(i) + "\n";
@@ -165,7 +164,7 @@ public class Ui {
      */
     public void printReminders(ArrayList<Task> upcomingTasks) {
         String text = "";
-        if (upcomingTasks.size() > 0) {
+        if (!upcomingTasks.isEmpty()) {
             text += "Here are your upcoming tasks for the week\n";
             for(int i = 0; i < upcomingTasks.size(); i++ ) {
                 text += (i + 1) + "." + upcomingTasks.get(i) + "\n";
