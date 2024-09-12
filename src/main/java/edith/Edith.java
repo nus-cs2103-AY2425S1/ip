@@ -2,6 +2,7 @@ package edith;
 
 import edith.command.Command;
 import edith.task.TaskList;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -87,7 +88,7 @@ public class Edith {
             Command command = parser.parse(userInput);
             response.append(command.execute(tasks, ui, storage));
             if (command.isExit()) {
-                // add logic to exit the application
+                Platform.exit();
             }
         } catch (DateTimeParseException e) {
             response.append(ui.invalidDateTimeError());
