@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import ponderpika.exception.PonderPikaException;
 import ponderpika.task.Deadline;
 import ponderpika.task.Event;
 import ponderpika.task.Task;
 import ponderpika.task.TaskList;
 import ponderpika.task.Todo;
-import ponderpika.exception.PonderPikaException;
 
 /**
  * This class is responsible for handling file operations.
@@ -33,8 +33,9 @@ public class IoHandler {
      */
     public void create() throws PonderPikaException {
         Path path = Paths.get(FILE.getPath());
+        Path parentPath = path.getParent();
         try {
-            if (Files.notExists(path.getParent())) {
+            if (Files.notExists(parentPath)) {
                 Files.createDirectories(path.getParent());
             }
 
@@ -68,7 +69,7 @@ public class IoHandler {
             }
             fw.close();
         } catch (IOException e) {
-            throw new PonderPikaException(e.getMessage());
+            throw new PonderPikaException("Could not write into file, Encountered formatting issues!");
         }
     }
 
@@ -80,50 +81,69 @@ public class IoHandler {
      */
     public TaskList loadData() throws PonderPikaException {
         TaskList list = new TaskList();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        try {
-            if (!FILE.exists()) {
-                return list;
-            }
+        if (!FILE.exists()) {
+            return list;
+        }
 
-            FileReader fr = new FileReader(FILE);
-            Scanner sc = new Scanner(fr);
+        try (FileReader fr = new FileReader(FILE); Scanner sc = new Scanner(fr)) {
             while (sc.hasNext()) {
                 String line = sc.nextLine();
-                String[] splitlines = line.split("\\|");
-                switch (splitlines[0].trim()) {
-                case "D":
-                    Deadline d = new Deadline(splitlines[2].trim(), LocalDateTime.parse(splitlines[3].trim(),
-                            formatter));
-                    if (splitlines[1].trim().equals("true")) {
-                        d.markDone();
-                    }
-
-                    list.addTask(d);
-                    break;
-                case "E":
-                    Event e = new Event(splitlines[2].trim(), LocalDateTime.parse(splitlines[3].trim(), formatter),
-                            LocalDateTime.parse(splitlines[4].trim(), formatter));
-                    if (splitlines[1].trim().equals("true")) {
-                        e.markDone();
-                    }
-
-                    list.addTask(e);
-                    break;
-                case "T":
-                    Todo t = new Todo(splitlines[2].trim());
-                    if (splitlines[1].trim().equals("true")) {
-                        t.markDone();
-                    }
-                    list.addTask(t);
-                    break;
-                default:
-                    throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
-                }
+                processFileFormat(line, list);
             }
-        } catch (IOException ignored) {
+        } catch (IOException e) {
             throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
         }
+
         return list;
+    }
+
+    private void processFileFormat(String line, TaskList list) throws PonderPikaException {
+        String[] splitlines = line.split("\\|");
+        if (splitlines.length < 3) {
+            throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
+        }
+
+        String taskType = splitlines[0].trim();
+        boolean isDone = "true".equals(splitlines[1].trim());
+        switch (taskType) {
+        case "D":
+            Deadline d = createDeadline(splitlines);
+            if (isDone) {
+                d.markDone();
+            }
+            list.addTask(d);
+            break;
+        case "E":
+            Event e = createEvent(splitlines);
+            if (isDone) {
+                e.markDone();
+            }
+            list.addTask(e);
+            break;
+        case "T":
+            Todo t = createTodo(splitlines);
+            if (isDone) {
+                t.markDone();
+            }
+            list.addTask(t);
+            break;
+        default:
+            throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
+        }
+    }
+
+    private Deadline createDeadline(String[] splitlines) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return new Deadline(splitlines[2].trim(), LocalDateTime.parse(splitlines[3].trim(), formatter));
+    }
+
+    private Event createEvent(String[] splitlines) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return new Event(splitlines[2].trim(), LocalDateTime.parse(splitlines[3].trim(), formatter),
+                LocalDateTime.parse(splitlines[4].trim(), formatter));
+    }
+
+    private Todo createTodo(String[] splitlines) {
+        return new Todo(splitlines[2].trim());
     }
 }
