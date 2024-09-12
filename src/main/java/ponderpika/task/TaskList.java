@@ -52,8 +52,13 @@ public class TaskList {
      * @throws PonderPikaException If the index is invalid (i.e. out of bounds).
      */
     public String markTask(int index) throws PonderPikaException {
+        boolean alreadyMarked = tasks.get(index - 1).isDone();
         if (index < 1 || index > tasks.size()) {
             throw new PonderPikaException("No task available at given index!");
+        } else if (alreadyMarked) {
+            throw new PonderPikaException("Task has already been done!");
+        } else {
+            tasks.get(index - 1).markDone();
         }
         assert index > 0;
         tasks.get(index - 1).markDone();
@@ -68,12 +73,20 @@ public class TaskList {
      *
      * @throws PonderPikaException If the index is invalid (i.e. out of bounds).
      */
-    public void unmarkTask(int index) throws PonderPikaException {
-        if (index < 1 || index > tasks.size()) {
+    public String unmarkTask(int index) throws PonderPikaException {
+        boolean isIndexMoreThanLimit = (index > tasks.size());
+        boolean alreadyUnmarked = tasks.get(index - 1).isDone();
+        if (index < 1 || isIndexMoreThanLimit) {
             throw new PonderPikaException("No task available at given index!");
+        } else if (alreadyUnmarked) {
+            throw new PonderPikaException("Task has not been done yet!");
+        } else {
+            tasks.get(index - 1).markUndone();
         }
+
         assert index > 0;
         tasks.get(index - 1).markUndone();
+        return "Task " + index + " has been unmarked!";
     }
 
     public List<Task> getTasks() {
@@ -88,7 +101,7 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return result.append("Task list is Empty!").toString();
         }
-        result.append("Here is the following tasks:\n");
+        result.append("Here are the following tasks:\n");
         for (int i = 0; i < tasks.size(); i++) {
             result.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
         }

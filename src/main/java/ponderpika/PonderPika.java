@@ -1,8 +1,5 @@
 package ponderpika;
 
-import java.time.format.DateTimeFormatter;
-//import java.util.Scanner;
-
 import ponderpika.exception.PonderPikaException;
 import ponderpika.parser.Parser;
 import ponderpika.storage.IoHandler;
@@ -21,7 +18,6 @@ public class PonderPika {
     private final TaskList taskList;
     private final Ui ui = new Ui();
     private final Parser parser = new Parser();
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
     /**
      * Constructs a new PonderPika instance.
@@ -65,7 +61,6 @@ public class PonderPika {
      *
      * @throws PonderPikaException if the action type in the command is unknown or not handled
      */
-
     public String handleCommand(Command command) throws PonderPikaException {
         switch (command.getAction()) {
         case LIST:
@@ -75,8 +70,7 @@ public class PonderPika {
             return taskList.markTask((Integer) command.getData());
 
         case UNMARK:
-            taskList.unmarkTask((Integer) command.getData());
-            return "Your task has been undone.";
+            return taskList.unmarkTask((Integer) command.getData());
 
         case TODO:
             Task todo = new Todo((String) command.getData());
@@ -110,14 +104,17 @@ public class PonderPika {
                     result.append((i + 1)).append(". ").append(taskList.getTasks().get(i).toString()).append("\n");
                 }
             }
-            //ui.printDivider();
             return result.toString();
-            //break;
 
         case BYE:
-            System.out.println("------------------------------------------------------------");
-            ui.bidBye();
-            System.out.println("\n----------------------------------------------------------");
+            try {
+                io.saveData(taskList);
+                System.out.println("------------------------------------------------------------");
+                ui.bidBye();
+                System.out.println("\n----------------------------------------------------------");
+            } catch (PonderPikaException e) {
+                System.out.println(e.toString());
+            }
             return "Exited!";
         default:
             throw new PonderPikaException("Unknown command: " + command.getAction());

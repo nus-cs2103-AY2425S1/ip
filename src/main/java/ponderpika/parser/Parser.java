@@ -29,6 +29,7 @@ public class Parser {
     public Command parseCommand(String command) throws PonderPikaException {
         String[] commands = command.split(" ", 2);
         String action = commands[0].toLowerCase();
+        boolean isWithinSizeLimit = (commands.length < 2);
 
         switch (action) {
         case "list":
@@ -41,7 +42,7 @@ public class Parser {
             return new Command(Command.Action.UNMARK, Integer.parseInt(commands[1]));
 
         case "todo":
-            if (commands.length < 2) {
+            if (isWithinSizeLimit) {
                 throw new PonderPikaException("Missing Description for Todo task!");
             }
             assert !Objects.equals(commands[1], "");
@@ -57,7 +58,7 @@ public class Parser {
             return new Command(Command.Action.DELETE, Integer.parseInt(commands[1]));
 
         case "find":
-            if (commands.length < 2) {
+            if (isWithinSizeLimit) {
                 throw new PonderPikaException("Missing keyword for find command!");
             }
             return new Command(Command.Action.FIND, commands[1].trim());
