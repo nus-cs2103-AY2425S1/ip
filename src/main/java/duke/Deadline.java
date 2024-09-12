@@ -14,6 +14,10 @@ public class Deadline extends Task implements Serializable {
         this.by = by;
     }
 
+    public LocalDate getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");

@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Manages a list of tasks. This class provides methods to add, delete,
@@ -81,4 +83,42 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    public TaskList sort() {
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                if (t1 instanceof ToDo && t2 instanceof ToDo) {
+                    return 0; // Both are Todos, keep their order as-is
+                } else if (t1 instanceof ToDo) {
+                    return 1; // Todos come after Deadline or Event
+                } else if (t2 instanceof ToDo) {
+                    return -1; // t1 is Deadline or Event, which comes before Todo
+                }
+
+                // If both are Deadlines or Events, compare based on their dates
+                if (t1 instanceof Deadline && t2 instanceof Deadline) {
+                    return ((Deadline) t1).getBy().compareTo(((Deadline) t2).getBy());
+                } else if (t1 instanceof Event && t2 instanceof Event) {
+                    return ((Event) t1).getFrom().compareTo(((Event) t2).getFrom());
+                }
+
+                // If one is a Deadline and the other is an Event, compare their dates
+                if (t1 instanceof Deadline && t2 instanceof Event) {
+                    return ((Deadline) t1).getBy().compareTo(((Event) t2).getFrom());
+                } else if (t1 instanceof Event && t2 instanceof Deadline) {
+                    return ((Event) t1).getFrom().compareTo(((Deadline) t2).getBy());
+                }
+
+                return 0;
+            }
+        });
+        return this;
+    }
+
+
+
+
+
+
 }

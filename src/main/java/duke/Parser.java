@@ -199,6 +199,23 @@ public class Parser {
                 } else {
                     throw new MeowException("Invalid find format. Example: find book");
                 }
+            } else if (input.equals("sort")) {
+                if (taskList.getTaskCount() == 0) {
+                    return ui.getMessage("No outstanding tasks. MEOW!");
+                } else {
+                    TaskList sortedList = taskList.sort();
+                    StringBuilder listMessage = new StringBuilder();
+                    listMessage.append("Done! Your list is now sorted (>^w^<)").append("\n");
+                    taskList = sortedList;
+                    for (int i = 0; i < sortedList.getTaskCount(); i++) {
+                        if (i != sortedList.getTaskCount() - 1) {
+                            listMessage.append(i + 1).append(". ").append(sortedList.getTask(i)).append("\n");
+                        } else {
+                            listMessage.append(i + 1).append(". ").append(sortedList.getTask(i));
+                        }
+                    }
+                    return ui.getMessage(listMessage.toString());
+                }
             } else {
                 return ui.getMessage("Whatchu sayin bruh?");
             }
