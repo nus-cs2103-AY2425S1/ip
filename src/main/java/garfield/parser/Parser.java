@@ -3,6 +3,8 @@ package garfield.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import garfield.commands.AddCommand;
 import garfield.commands.Command;
@@ -82,7 +84,7 @@ public class Parser {
      */
     private static Command handleDelete(String inputLine) throws GarfieldException {
         try {
-            return new DeleteCommand(getIntegerArg(inputLine));
+            return new DeleteCommand(getIntegerArgs(inputLine));
         } catch (GarfieldException e) {
             throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: delete <task id>");
         }
@@ -197,6 +199,37 @@ public class Parser {
             throw new GarfieldException("No integer after the command to select a garfield.task!");
         }
         return Integer.parseInt(output[1]);
+    }
+
+    /**
+     * Extracts all the integers after the command keyword.
+     * For commands of the form: [keyword] [integer] [integer] ... [integer].
+     *
+     * @param fullInput String that user inputted.
+     * @return Arraylist of integers after that keyword.
+     * @throws GarfieldException When there is no integer after the command, or invalid integers.
+     */
+    private static List<Integer> getIntegerArgs(String fullInput) throws GarfieldException {
+        // Split the input by spaces
+        String[] output = fullInput.trim().split("\\s+");
+
+        // Check if there is at least one integer after the command
+        if (output.length < 2) {
+            throw new GarfieldException("No integers after the command to select garfield.task(s)!");
+        }
+
+        List<Integer> integers = new ArrayList<>();
+
+        // Iterate through each element starting from the second (ignoring the command)
+        for (int i = 1; i < output.length; i++) {
+            try {
+                integers.add(Integer.parseInt(output[i]));
+            } catch (NumberFormatException e) {
+                throw new GarfieldException("Invalid integer: " + output[i]);
+            }
+        }
+
+        return integers;
     }
 
     /**
