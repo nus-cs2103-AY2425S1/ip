@@ -97,6 +97,7 @@ public class SentinelList extends ArrayList<Task> {
      *     an empty list is returned.
      * */
     public SentinelList filter(String keyword) {
+        assert(!keyword.isEmpty());
         SentinelList result = new SentinelList();
         for (Task t : this) {
             if (t.toString().contains(keyword)) {

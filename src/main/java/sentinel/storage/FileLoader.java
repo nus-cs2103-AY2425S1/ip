@@ -48,7 +48,6 @@ public class FileLoader {
 
         // Check if the file exists before attempting to read
         if (!Files.exists(FILE_PATH)) {
-            System.out.println("No tasks file found. Starting with an empty list.");
             return tasks; // Return an empty list if the file doesn't exist
         }
 

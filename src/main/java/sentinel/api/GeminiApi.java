@@ -43,9 +43,10 @@ public class GeminiApi {
                 os.write(jsonPayload.getBytes(StandardCharsets.UTF_8));
                 os.flush();
             }
-            //int responseCode = conn.getResponseCode();
+            int responseCode = conn.getResponseCode();
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                assert(responseCode == 200);
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.contains("text")) {
