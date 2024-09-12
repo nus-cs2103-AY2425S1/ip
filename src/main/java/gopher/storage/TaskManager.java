@@ -55,6 +55,8 @@ public class TaskManager {
      */
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
+            assert Files.exists(Paths.get("./task/task.txt"))
+                    : "Task save file should exist when saving task";
             String taskString = convertToTaskString(tasks);
             Files.writeString(TASK_FILE, taskString);
         } catch (IOException e) {
@@ -69,6 +71,8 @@ public class TaskManager {
      */
     public static ArrayList<Task> loadTasks() {
         try {
+            assert Files.exists(Paths.get("./task/task.txt"))
+                    : "Task save file should exist when loading task";
             String taskString = Files.readString(TASK_FILE);
             return Parser.parseSavedTaskData(taskString);
         } catch (IOException e) {
