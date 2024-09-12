@@ -21,7 +21,7 @@ class EventTest {
     @Test
     void toString_returnsCorrectString() {
         Event event = new Event("read book", "2024-08-24 1800", "2024-08-24 2000");
-        Assertions.assertEquals("[E][ ] read book (from: Aug 24 2024, 6:00 pm to: Aug 24 2024, 8:00 pm)",
+        Assertions.assertEquals("[E][ ] read book (from: Aug 24 2024, 6:00 PM to: Aug 24 2024, 8:00 PM)",
                 event.toString());
     }
 }

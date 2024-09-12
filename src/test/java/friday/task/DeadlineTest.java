@@ -21,6 +21,6 @@ class DeadlineTest {
     @Test
     void toString_returnsCorrectString() {
         Deadline deadline = new Deadline("read book", "2024-08-24 1800");
-        Assertions.assertEquals("[D][ ] read book (by: Aug 24 2024, 6:00 pm)", deadline.toString());
+        Assertions.assertEquals("[D][ ] read book (by: Aug 24 2024, 6:00 PM)", deadline.toString());
     }
 }
