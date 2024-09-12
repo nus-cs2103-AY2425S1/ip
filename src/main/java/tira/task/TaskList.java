@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.PrintWriter;
-import java.io.IOException;
 
 
 public class TaskList {
@@ -30,6 +29,7 @@ public class TaskList {
     }
 
     public void markTask(String command, String[] splitCommand) throws TiraException {
+        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
         if (splitCommand.length < 2 && command.equals("mark")){
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
@@ -41,6 +41,7 @@ public class TaskList {
     }
 
     public void unmarkTask(String command, String[] splitCommand) throws TiraException {
+        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
         if (splitCommand.length < 2 && command.equals("unmark")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
@@ -101,6 +102,7 @@ public class TaskList {
     }
 
     public void delete(String[] splitCommand) throws TiraException{
+        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
         if (splitCommand.length < 2) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
