@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Stream;
 
 import exception.CommandFoundButInvalidException;
 import exception.EmptyDescriptionException;
@@ -108,6 +109,9 @@ public class TaskList {
             if (index < 0 || index >= this.allTasks.size()) {
                 throw new InvalidSyntaxException("mark");
             }
+
+            assert index >= 0 : "index for marking should be at least 0";
+            assert index < this.allTasks.size() : "index must be smaller than no. of tasks";
             Task targetTask = this.allTasks.get(index);
             targetTask.markAsDone();
             this.markedTasks.push(targetTask);
@@ -131,6 +135,9 @@ public class TaskList {
             if (index < 0 || index >= this.allTasks.size()) {
                 throw new InvalidSyntaxException("unmark");
             }
+
+            assert index >= 0 : "Index must be at least 0 for unmark instructions";
+            assert index < this.allTasks.size() : "Index cannot must be less than the no. of tasks";
             Task targetTask = this.allTasks.get(index);
             targetTask.markAsNotDone();
             this.unmarkedTasks.push(targetTask);
@@ -140,19 +147,15 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks that contain the specified substring in their description
+     * Returns a string containing all the {@code Task} where its toString()
+     * representation contains the input string
      *
-     * @param str the substring to search for
-     * @return a {@code List} of {@code Task} objects that contain the substring
+     * @param str the input string by the user
+     * @return all {@code Task} whose toString() method contains the input string
      */
-    public List<Task> find(String str) {
-        ArrayList<Task> result = new ArrayList<>();
-        for (Task t : this.allTasks) {
-            if (t.toString().contains(str)) {
-                result.add(t);
-            }
-        }
-        return result;
+    public Stream<Task> find2(String str) {
+        return this.allTasks.stream()
+                .filter(x -> x.toString().contains(str));
     }
 
     /**
@@ -164,6 +167,8 @@ public class TaskList {
         if (!input.isEmpty()) {
             throw new InvalidSyntaxException("list");
         }
+
+        assert input.isEmpty() : "input String has to be empty for a valid list command";
         String s1 = "Here are the tasks in your list:";
         for (int i = 0; i < allTasks.size(); i++) {
             String index = String.format("%d", i + 1);

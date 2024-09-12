@@ -23,15 +23,6 @@ public class Ui {
     }
 
     /**
-     * Displays a message to the user.
-     *
-     * @param message the message to be displayed.
-     */
-    public void display(String message) {
-        System.out.println(message);
-    }
-
-    /**
      * Returns a message upon successful deletion of a {@code Task}
      *
      * @param t the {@code Task} instance that is being deleted
