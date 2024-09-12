@@ -58,7 +58,7 @@ public class Eevee {
                 return tasks.listTasks();
             case MARK: {
                 int taskNumber = parser.parseTaskNumber(input);
-                assert taskNumber > 0 && taskNumber < tasks.getSize();
+                assert taskNumber > 0 && taskNumber <= tasks.getSize();
                 Task t = tasks.getTask(taskNumber);
                 if (t.isDone) {
                     throw new EeveeException("Task has already been marked as done.");
@@ -69,7 +69,7 @@ public class Eevee {
             }
             case UNMARK: {
                 int taskNumber = parser.parseTaskNumber(input);
-                assert taskNumber > 0 && taskNumber < tasks.getSize();
+                assert taskNumber > 0 && taskNumber <= tasks.getSize();
                 Task t = tasks.getTask(taskNumber);
                 if (!t.isDone) {
                     throw new EeveeException("Task is not marked as done. "
@@ -81,7 +81,7 @@ public class Eevee {
             }
             case DELETE: {
                 int taskNumber = parser.parseTaskNumber(input);
-                assert taskNumber > 0 && taskNumber < tasks.getSize();
+                assert taskNumber > 0 && taskNumber <= tasks.getSize();
                 Task t = tasks.getTask(taskNumber);
                 tasks.removeTask(taskNumber);
                 storage.saveTasks(tasks);
@@ -94,6 +94,7 @@ public class Eevee {
                             + "Please input the task details and description correctly");
                 }
                 Todo t = new Todo(s);
+                assert !t.isDone;
                 tasks.addTask(t);
                 storage.saveTasks(tasks);
                 return "Added the following task to your list:\n" + t;
@@ -107,6 +108,7 @@ public class Eevee {
 
                 // Create and store task
                 Deadline d = new Deadline(info[0], info[1]);
+                assert !d.isDone;
                 tasks.addTask(d);
                 storage.saveTasks(tasks);
                 return "Added the following task to your list:\n" + d;
@@ -121,6 +123,7 @@ public class Eevee {
 
                 // Create and store task
                 Event e = new Event(info[0], info[1], info[2]);
+                assert !e.isDone;
                 tasks.addTask(e);
                 storage.saveTasks(tasks);
                 return "Added the following task to your list:\n" + e;
