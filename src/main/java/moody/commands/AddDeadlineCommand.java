@@ -29,7 +29,10 @@ public class AddDeadlineCommand extends Command {
      * @throws DateTimeParseException If the deadline string cannot be parsed into a LocalDateTime.
      */
     public AddDeadlineCommand(String description, String deadline) throws DateTimeParseException {
+        assert !description.isEmpty() : "Deadline task needs a name";
         this.description = description;
+
+        assert !deadline.isEmpty() : "Deadline task needs a deadline specified";
         this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
@@ -52,6 +55,10 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        assert tasks != null : "Task list cannot be null";
+        assert ui != null : "UI cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Task newTask = new Deadline(this.description, this.deadline);
         tasks.add(newTask);
         storage.save(tasks.toArrayList());

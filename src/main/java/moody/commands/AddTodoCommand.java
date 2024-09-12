@@ -24,6 +24,7 @@ public class AddTodoCommand extends Command {
      * @param userInput The user input containing the command keyword and task description.
      */
     public AddTodoCommand(String userInput) {
+        assert !userInput.isEmpty() : "Todo task has no name";
         this.description = userInput.trim();
     }
 
@@ -39,6 +40,10 @@ public class AddTodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+        assert tasks != null : "Task list cannot be null";
+        assert ui != null : "UI cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         if (description.isEmpty()) {
             throw new InvalidCommandException("Error: Missing task description\n\nPlease use the following format: todo <description>");
         }
