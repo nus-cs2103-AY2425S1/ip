@@ -39,10 +39,21 @@ public class Storage {
             newTask = new TaskTracker();
             TaskTracker[] taskHolder = new TaskTracker[]{newTask};
             AtomicInteger trace = new AtomicInteger(0);
+            AtomicInteger nextCounter = new AtomicInteger(8);
+            AtomicInteger markedCounter = new AtomicInteger(4);
             Files.lines(newFile.toPath()).skip(1).forEach(x -> {
-                if (x.charAt(8) == 'T') {
+                int charLabel = 0;
+                int markedLabel = 0;
+                if ((trace.get() + 1) % 10 == 0) {
+                    charLabel = nextCounter.incrementAndGet();
+                    markedLabel = markedCounter.incrementAndGet();
+                } else {
+                    charLabel = nextCounter.get();
+                    markedLabel = markedCounter.get();
+                }
+                if (x.charAt(charLabel) == 'T') {
                     taskHolder[0].updateListToDo(x.substring(11));
-                } else if (x.charAt(8) == 'D') {
+                } else if (x.charAt(charLabel) == 'D') {
                     String updatedOldData = x.substring(11, x.length() - 1);
                     String[] deadlineSplit = updatedOldData.split(" \\(");
                     taskHolder[0].updateListDeadline(deadlineSplit[0] + " ", deadlineSplit[1]);
@@ -54,7 +65,7 @@ public class Storage {
                     taskHolder[0].updateListEvent(eventSplit[0] + " ", newDate, newTime);
                 }
                 int newCount = trace.getAndIncrement();
-                if (x.charAt(4) == 'X') {
+                if (x.charAt(markedLabel) == 'X') {
                     try {
                         taskHolder[0].markDone(newCount);
                     } catch (Exception e) {
