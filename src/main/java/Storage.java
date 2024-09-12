@@ -2,12 +2,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
     private File file;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuuHHmm");
 
     public Storage(String filepath) {
         file = new File(filepath);
@@ -32,7 +35,9 @@ public class Storage {
             // D<isDone><len(desc)#4><desc><by>
             n = Integer.parseInt(encodedString.substring(2, 6));
             desc = encodedString.substring(6, 6 + n);
-            task = new Deadline(desc, encodedString.substring(6 + n));
+            String by = encodedString.substring(6 + n);
+            LocalDateTime parsedBy = LocalDateTime.from(DATE_TIME_FORMATTER.parse(by));
+            task = new Deadline(desc, parsedBy);
             break;
         case 'E':
             // E<isDone><len(desc)#4><desc><len(from)#4><from><to>
@@ -40,9 +45,15 @@ public class Storage {
             int curr = 6 + n;
             desc = encodedString.substring(6, curr);
             n = Integer.parseInt(encodedString.substring(curr, curr + 4));
+
             curr += 4;
             String from = encodedString.substring(curr, curr + n);
-            task = new Event(desc, from, encodedString.substring(curr + n));
+            String to = encodedString.substring(curr + n);
+
+            LocalDateTime parsedFrom = LocalDateTime.from(DATE_TIME_FORMATTER.parse(from));
+            LocalDateTime parsedTo = LocalDateTime.from(DATE_TIME_FORMATTER.parse(to));
+
+            task = new Event(desc, parsedFrom, parsedTo);
             break;
         default:
             // TODO: throw error
@@ -70,16 +81,22 @@ public class Storage {
             str.append(task.isDone ? 1 : 0);
             str.append(String.format("%04d", deadline.description.length()));
             str.append(deadline.description);
-            str.append(deadline.by);
+
+            String formattedBy = deadline.by.format(DATE_TIME_FORMATTER);
+            str.append(formattedBy);
         } else if (task instanceof Event event) {
             // Event: E<isDone><len(desc)#4><desc><len(from)#4><from><to>
             str.append("E");
             str.append(task.isDone ? 1 : 0);
             str.append(String.format("%04d", event.description.length()));
             str.append(event.description);
-            str.append(String.format("%04d", event.from.length()));
+
+            String formattedFrom = event.from.format(DATE_TIME_FORMATTER);
+            str.append(String.format("%04d", formattedFrom.length()));
             str.append(event.from);
-            str.append(event.to);
+
+            String formattedTo = event.to.format(DATE_TIME_FORMATTER);
+            str.append(formattedTo);
         }
 
         str.append('\n');

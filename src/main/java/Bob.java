@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,6 +10,8 @@ public class Bob {
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String LINE_PREFIX = "    ";
     private static final Storage STORAGE = new Storage("data/Bob.txt");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("'{'dd-MMM-uuuu HHmm'}'");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d[d]/M[M]/uuuu[ HHmm]");
 
     private static String argument = "";
     private static List<Task> list;
@@ -61,9 +66,11 @@ public class Bob {
                 if (desc.isBlank()) {
                     throw new MissingArgumentException("description of the deadline");
                 }
+
+                String by = argument.substring(byIndex + 4).strip();
                 Task task = new Deadline(
                         desc,
-                        argument.substring(byIndex + 4).strip()
+                        parseDateTime(by)
                 );
                 list.add(task);
                 say("added: " + task);
@@ -99,7 +106,7 @@ public class Bob {
                 if (desc.isBlank()) {
                     throw new MissingArgumentException("description of the event");
                 }
-                return new Event(desc, from, to);
+                return new Event(desc, parseDateTime(from), parseDateTime(to));
             }
         },
         MARK("mark") {
@@ -191,6 +198,14 @@ public class Bob {
     private static void exit() {
         say("I'll be here if you need me. Catch you later!");
         System.exit(0);
+    }
+
+    public static LocalDateTime parseDateTime(String string) {
+        return LocalDateTime.from(INPUT_FORMATTER.parse(string));
+    }
+
+    public static String formatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(OUTPUT_FORMATTER);
     }
 
     public static void main(String[] args) {
