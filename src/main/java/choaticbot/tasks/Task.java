@@ -39,6 +39,7 @@ abstract public class Task {
     }
 
     public boolean containWord(String name) {
+        assert name != null : "Search word should not be null";
         return this.name.contains(name);
     }
 
@@ -47,5 +48,4 @@ abstract public class Task {
         String marker = isCompleted ? "[X]" : "[ ]";
         return marker + " " + this.name;
     }
-
 }
