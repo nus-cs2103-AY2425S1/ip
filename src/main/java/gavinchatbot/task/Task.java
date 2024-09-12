@@ -1,11 +1,15 @@
 package gavinchatbot.task;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Represents a task with a description and completion status.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Set<String> tags;
 
     /**
      * Constructs a Task with the specified description.
@@ -16,6 +20,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new HashSet<>();
     }
 
     /**
@@ -58,13 +63,25 @@ public class Task {
     }
 
     /**
-     * Returns the string representation of the task, including its status and description.
+     * Adds a tag to the task.
+     *
+     * @param tag The tag to be added.
+     */
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    /**
+     * Returns the string representation of the task, including its status, description, and tags.
      *
      * @return The string representation of the task.
      */
+    @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        String tagString = tags.isEmpty() ? "" : " Tags: " + tags;
+        return "[" + getStatusIcon() + "] " + description + tagString;
     }
+
 
     /**
      * Returns whether the task is marked as done.
