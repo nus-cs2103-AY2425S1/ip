@@ -22,8 +22,8 @@ public class DeleteCommandTest {
         tasks = new TaskList();
         ui = new Ui();
         storage = new Storage("test.txt");
-        tasks.addTask(new ToDoTask("Task 1"));
-        tasks.addTask(new ToDoTask("Task 2"));
+        tasks.addTask(new ToDoTask("Task 1", "Tag 1"));
+        tasks.addTask(new ToDoTask("Task 2", "Tag 2"));
     }
 
     @Test

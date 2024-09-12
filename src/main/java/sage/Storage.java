@@ -55,21 +55,22 @@ public class Storage {
     private static Task getTask(String[] entryDetails) throws SageException {
         String type = entryDetails[0];
         boolean isDone = entryDetails[1].equals("1");
-        String description = entryDetails[2];
+        String tag = entryDetails[2];
+        String description = entryDetails[3];
 
         Task task;
         switch (type) {
         case "T":
-            task = new ToDoTask(description);
+            task = new ToDoTask(description, tag);
             break;
         case "D":
-            String by = entryDetails[3];
-            task = new DeadlineTask(description, by);
+            String by = entryDetails[4];
+            task = new DeadlineTask(description, tag, by);
             break;
         case "E":
-            String from = entryDetails[3];
-            String to = entryDetails[4];
-            task = new EventTask(description, from, to);
+            String from = entryDetails[4];
+            String to = entryDetails[5];
+            task = new EventTask(description, tag, from, to);
             break;
         default:
             throw new SageException("Corrupted file.");

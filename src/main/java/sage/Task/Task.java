@@ -3,9 +3,11 @@ package sage.Task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String tag;
 
-    public Task(String description) {
+    public Task(String description, String tag) {
         this.description = description;
+        this.tag = tag;
         this.isDone = false;
     }
 
@@ -29,10 +31,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), description);
+        return String.format("[%s] %s (#%s)", getStatusIcon(), description, tag);
     }
 
     public String toSave() {
-        return String.format("%s | %s", isDone ? "1" : "0", description);
+        return String.format("%s | %s | %s", isDone ? "1" : "0", tag, description);
     }
 }

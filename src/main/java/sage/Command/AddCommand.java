@@ -21,6 +21,7 @@ import sage.Ui;
 public class AddCommand extends Command {
     private final TaskType commandType;
     private final String description;
+    private final String tag;
 
     /**
      * Constructs an AddCommand with the command type and description.
@@ -30,7 +31,9 @@ public class AddCommand extends Command {
      */
     public AddCommand(String commandType, String description) {
         this.commandType = TaskType.inputToEnum(commandType);
-        this.description = description;
+        String[] descriptionAndTag = description.split(" /tag ", 2);
+        this.description = descriptionAndTag[0];
+        this.tag = descriptionAndTag.length == 1 ? "No Tag" : descriptionAndTag[1];
     }
 
     /**
@@ -51,7 +54,7 @@ public class AddCommand extends Command {
                 throw new SageException("Invalid todo command. Please include a description.");
             }
 
-            task = new ToDoTask(description);
+            task = new ToDoTask(description, tag);
             assert task != null : "ToDoTask should not be null after creation.";
         }
 
@@ -71,7 +74,7 @@ public class AddCommand extends Command {
                 throw new SageException("Invalid deadline command. Please include /by.");
             }
 
-            task = new DeadlineTask(deadlineDescription, by);
+            task = new DeadlineTask(deadlineDescription, tag, by);
             assert task != null : "DeadlineTask should not be null after creation.";
         }
 
@@ -96,7 +99,7 @@ public class AddCommand extends Command {
                 throw new SageException("Invalid event command. Please include a /to.");
             }
 
-            task = new EventTask(eventDescription, from, to);
+            task = new EventTask(eventDescription, tag, from, to);
             assert task != null : "EventTask should not be null after creation.";
         }
 

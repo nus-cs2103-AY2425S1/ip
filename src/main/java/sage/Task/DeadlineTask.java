@@ -1,10 +1,10 @@
 package sage.Task;
 
-import sage.SageException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import sage.SageException;
 
 public class DeadlineTask extends Task {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -19,8 +19,8 @@ public class DeadlineTask extends Task {
      * @param by          The deadline of the task in yyyy-MM-dd HHmm format.
      * @throws SageException If the deadline format is invalid.
      */
-    public DeadlineTask(String description, String by) throws SageException {
-        super(description);
+    public DeadlineTask(String description, String tag, String by) throws SageException {
+        super(description, tag);
         try {
             this.by = LocalDateTime.parse(by, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {

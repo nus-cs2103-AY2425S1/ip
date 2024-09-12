@@ -7,8 +7,8 @@ public class ToDoTask extends Task {
      *
      * @param description The description of the todo task.
      */
-    public ToDoTask(String description) {
-        super(description);
+    public ToDoTask(String description, String tag) {
+        super(description, tag);
     }
 
     @Override

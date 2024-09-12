@@ -11,8 +11,8 @@ public class EventTask extends Task {
      * @param from The start date/time of the event.
      * @param to The end date/time of the event.
      */
-    public EventTask(String description, String from, String to) {
-        super(description);
+    public EventTask(String description, String tag, String from, String to) {
+        super(description, tag);
         this.from = from;
         this.to = to;
     }
