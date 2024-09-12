@@ -2,7 +2,11 @@ package hue.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import hue.DateUtils;
+import hue.HueException;
+
 /**
  * Represents a deadline task with a specific due date and time.
  */
@@ -32,5 +36,14 @@ public class Deadline extends Task {
 
         return task + " | " + (this.isDone ? "1" : "0") + " | "
                 + this.description + " | " + this.by.format(DateUtils.DATE_TIME_FORMATTER);
+    }
+
+    @Override
+    public void reschedule(String newDate) throws HueException{
+        try {
+            this.by = DateUtils.parseDateTime(newDate);
+        } catch (DateTimeParseException e) {
+            throw new HueException("Invalid Date Format!");
+        }
     }
 }

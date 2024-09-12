@@ -32,6 +32,8 @@ public class Parser {
             return new DeleteCommand(fullCommand);
         case "find":
             return new FindCommand(fullCommand);
+        case "reschedule":
+            return new RescheduleCommand(fullCommand);
         default:
             throw new HueException("I'm sorry, but I don't know what that means. Womp Womp :(");
         }

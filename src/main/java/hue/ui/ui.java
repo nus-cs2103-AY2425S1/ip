@@ -146,7 +146,10 @@ public class ui {
 
         return response;
 
+    }
 
+    public String showRescheduleSuccess(Task task, String newDate) {
+        return "Task Rescheduled: \n " + task;
     }
 
 }
