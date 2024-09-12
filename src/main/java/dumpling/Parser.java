@@ -7,14 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import dumpling.command.AddCommand;
-import dumpling.command.ByeCommand;
-import dumpling.command.Command;
-import dumpling.command.CommandEnum;
-import dumpling.command.DeleteCommand;
-import dumpling.command.FindCommand;
-import dumpling.command.ListCommand;
-import dumpling.command.MarkCommand;
+import dumpling.command.*;
 import dumpling.task.Deadline;
 import dumpling.task.Event;
 import dumpling.task.Task;
@@ -75,17 +68,35 @@ public class Parser {
                         "There was an issue with indexing! Try listing the items first!");
             }
         case FIND:
-            Pair<String, Integer> pair = Parser.formSubSection(stringCommand.split(" "), 1, "");
+            Pair<String, Integer> pair = Parser.formSubSection(
+                    stringCommand.split(" "), 1, "");
             return new FindCommand(pair.getFirst());
+        case NOTE:
+            try {
+                int itemIdx = Integer.parseInt(stringCommand.split(" ")[1]);
+                return new NoteCommand(
+                        itemIdx,
+                        stringCommand.split(stringCommand.split(" ")[1] + " ")[1]);
+            } catch (NumberFormatException e) {
+                throw new DumplingException(
+                        "There was an issue when marking / unmarking a task! The argument provided was not a number.");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DumplingException(
+                        "There was an issue with indexing! Try listing the items first!");
+            }
         default:
             throw new DumplingException("An invalid command was given! Try again.");
         }
     }
 
     private static Task createTaskFromHardDiskInput(String line) {
-        String[] lineSplit = line.split(" \\| ");
+        String[] lineSplit = line.split("\\|");
+        for (int i = 0; i < lineSplit.length; i++) {
+            lineSplit[i] = lineSplit[i].trim();
+        }
         CommandEnum commandEnum;
         String simulatedTaskStringInput;
+        String taskNotes = (lineSplit.length > 4) ? lineSplit[4] : "";
         switch (lineSplit[0]) {
         case "T":
             commandEnum = CommandEnum.TODO;
@@ -110,6 +121,7 @@ public class Parser {
         if (lineSplit[1].equals("1")) {
             pair.getFirst().markAsDone();
         }
+        pair.getFirst().updateNotes(taskNotes);
         return pair.getFirst();
     }
 
