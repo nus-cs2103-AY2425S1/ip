@@ -21,11 +21,8 @@ public class Ui {
     /**
      * Displays the welcome message with the "King" logo.
      */
-    public void showWelcome() {
-        System.out.println("Behold the wrath of the\n" + LOGO);
-        showLine();
-        System.out.println("What do you have for me?");
-        showLine();
+    public String showWelcome() {
+        return "Behold the wrath of the KING!" + "\n" + "What do you have for me?";
     }
 
     /**

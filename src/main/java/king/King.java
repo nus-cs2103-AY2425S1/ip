@@ -79,6 +79,10 @@ public class King {
         }
     }
 
+    public Ui getUi() {
+        return this.ui;
+    }
+
     public static void main(String[] args) {
         new King("data/King.txt").run();
     }

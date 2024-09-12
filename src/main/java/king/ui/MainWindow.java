@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import king.King;
 
 /**
@@ -35,6 +36,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the King instance */
     public void setKing(King k) {
         king = k;
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(king.getUi().showWelcome(), kingImage) // Display the welcome message
+        );
     }
 
     /**
@@ -50,6 +54,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, kingImage)
         );
         userInput.clear();
+
+        // Close the application if the input is 'bye'
+        if (input.equalsIgnoreCase("bye")) {
+            Stage stage = (Stage) sendButton.getScene().getWindow();
+            stage.close();
+        }
     }
 }
 
