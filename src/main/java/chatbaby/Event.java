@@ -54,6 +54,10 @@ public class Event extends Task {
      */
     @Override
     public String toFileText() {
+        assert from.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+                : "Date must be in the format yyyy-MM-dd";
+        assert to.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+                : "Date must be in the format yyyy-MM-dd";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         return "E | " + (this.isDone() ? "1" : "0") + " | " + this.getName() + " | "
                 + from.format(formatter) + " | " + to.format(formatter);
@@ -66,6 +70,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert from.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+                : "Date must be in the format yyyy-MM-dd";
+        assert to.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+                : "Date must be in the format yyyy-MM-dd";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         return "[E]" + super.toString() + " (from: " + from.format(formatter)
                 + " to: " + to.format(formatter) + ")";

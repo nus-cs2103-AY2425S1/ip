@@ -51,6 +51,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileText() {
+        assert deadline.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+                : "Date must be in the format yyyy-MM-dd";
         return "D | " + (this.isDone() ? "1" : "0") + " | " + this.getName() + " | "
                 + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
     }
@@ -62,6 +64,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert deadline.toString().matches("\\d{4}-\\d{2}-\\d{2}")
+                : "Date must be in the format yyyy-MM-dd";
         return "[D]" + super.toString() + " (by: "
                 + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
     }
