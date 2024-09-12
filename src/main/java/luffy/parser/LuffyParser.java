@@ -141,7 +141,9 @@ public class LuffyParser {
     }
 
     /**
-     * GUI Handle
+     * This method handles the input from the user when they are
+     * using the GUI
+     * @param input the input by the user that will be parsed
      */
     public String handleInputFromGui(String input) {
         ByteArrayOutputStream bStream = new ByteArrayOutputStream();

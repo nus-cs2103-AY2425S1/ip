@@ -64,7 +64,8 @@ public class Luffy {
         }
     }
     /**
-     * Generates a response for the user's chat message.
+     * This method generates a response for the user's chat message.
+     * @param input user's input that will be parsed
      */
     public String getResponse(String input) {
         String response = luffyParser.handleInputFromGui(input);
