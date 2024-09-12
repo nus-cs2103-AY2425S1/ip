@@ -64,7 +64,8 @@ class Parser {
         assert input.length() > 9 : "Input should be long enough to contain a description and deadline";
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new BlacknutExceptions.IncorrectFormatException("The format for a deadline should be: deadline <description> /by <yyyy-MM-dd HH:mm>");
+            throw new BlacknutExceptions.IncorrectFormatException(
+                    "The format for a deadline should be: deadline <description> /by <yyyy-MM-dd HH:mm>");
         }
         return new String[]{parts[0].trim(), parts[1].trim()};
     }
