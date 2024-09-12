@@ -26,7 +26,6 @@ public class Talky {
         }
     }
 
-
     public String returnResponse(String input) {
         assert (input != null);
         String command = input;
