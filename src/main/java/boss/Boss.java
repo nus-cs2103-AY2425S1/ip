@@ -56,6 +56,10 @@ public class Boss {
         switch(input) {
             case "lose to you":
                 return "nah homie, LOSE TO YOU!";
+            case "bryan":
+                return "whats good boss!";
+            case "yashvan":
+                return "whats good GYM MASTER";
         }
 
         try {
