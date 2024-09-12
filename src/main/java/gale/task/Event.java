@@ -22,8 +22,8 @@ public class Event extends Task {
      * @param from the start date and time of the event
      * @param to the end date and time of the event
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, String from, String to, Priority priority) {
+        super(description, priority);
         this.from = Parser.parseDateTime(from);
         this.to = Parser.parseDateTime(to);
     }
@@ -36,7 +36,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from.format(outputFormatter)
-                + " to: " + this.to.format(outputFormatter) + ")";
+                + " to: " + this.to.format(outputFormatter) + ")" + getPriorityString();
     }
 
     /**
@@ -49,8 +49,9 @@ public class Event extends Task {
         int status = super.status() ? 1 : 0;
         String fromInFileFormat = this.from.format(Parser.getFormatters().get(0));
         String toInFileFormat = this.to.format(Parser.getFormatters().get(0));
-        return String.format("E | %d | %s | %s | %s", status, getDescription(),
-                fromInFileFormat,
-                toInFileFormat);
+        return String.format("E | %d | %s | %s | %s | %s", status, getDescription(),
+            getPriority(),
+            fromInFileFormat,
+            toInFileFormat);
     }
 }

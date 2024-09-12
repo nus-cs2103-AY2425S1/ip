@@ -9,6 +9,7 @@ import java.util.List;
 import gale.exception.GaleException;
 import gale.task.Deadline;
 import gale.task.Event;
+import gale.task.Priority;
 import gale.task.Task;
 import gale.task.ToDo;
 
@@ -82,7 +83,7 @@ public class Parser {
      */
     public static ToDo parseToDo(String input) throws GaleException {
         String exceptionMsg = "Oops! The wind blew away your to-do description. "
-            + "Please use: 'todo [description]'.";
+            + "Please use: 'todo [priority] [description]'.";
         if (input.length() <= 5) {
             throw new GaleException(exceptionMsg);
         }
@@ -90,7 +91,18 @@ public class Parser {
         if (description.isEmpty()) {
             throw new GaleException(exceptionMsg);
         }
-        return new ToDo(description);
+        if (description.startsWith("high")) {
+            description = description.substring(5).trim();
+            return new ToDo(description, Priority.HIGH);
+        } else if (description.startsWith("medium")) {
+            description = description.substring(7).trim();
+            return new ToDo(description, Priority.MEDIUM);
+        } else if (description.startsWith("low")) {
+            description = description.substring(4).trim();
+            return new ToDo(description, Priority.LOW);
+        } else {
+            return new ToDo(description, Priority.NONE);
+        }
     }
 
     /**
@@ -112,8 +124,21 @@ public class Parser {
         }
         String description = strA[0].trim();
         String by = strA[1].trim();
+        Priority priority;
+        if (description.startsWith("high")) {
+            description = description.substring(5).trim();
+            priority = Priority.HIGH;
+        } else if (description.startsWith("medium")) {
+            description = description.substring(7).trim();
+            priority = Priority.MEDIUM;
+        } else if (description.startsWith("low")) {
+            description = description.substring(4).trim();
+            priority = Priority.LOW;
+        } else {
+            priority = Priority.NONE;
+        }
         try {
-            return new Deadline(description, by);
+            return new Deadline(description, by, priority);
         } catch (DateTimeParseException e) {
             throw new GaleException("Oops! The wind blew away your date. "
                 + "Please use 'yyyy-MM-dd HH:mm' or 'd/M/yyyy HH:mm'.");
@@ -141,8 +166,21 @@ public class Parser {
         String description = strA[0].trim();
         String from = strA[1].trim();
         String to = strA[2].trim();
+        Priority priority;
+        if (description.startsWith("high")) {
+            description = description.substring(5).trim();
+            priority = Priority.HIGH;
+        } else if (description.startsWith("medium")) {
+            description = description.substring(7).trim();
+            priority = Priority.MEDIUM;
+        } else if (description.startsWith("low")) {
+            description = description.substring(4).trim();
+            priority = Priority.LOW;
+        } else {
+            priority = Priority.NONE;
+        }
         try {
-            return new Event(description, from, to);
+            return new Event(description, from, to, priority);
         } catch (DateTimeParseException e) {
             throw new GaleException("Oops! The wind blew away your date. "
                 + "Please use 'yyyy-MM-dd HH:mm' or 'd/M/yyyy HH:mm'.");

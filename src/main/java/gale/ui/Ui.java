@@ -21,7 +21,10 @@ public class Ui {
     public void greet() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello BladeRunner! I'm Gale, your friendly windy assistant.");
-        System.out.println("I'll keep your deadlines, to-do's and events in my memory. What do you have to do?");
+        System.out.println("I'll keep your deadlines, to-do's and events in my memory.");
+        System.out.println("Please input your command as: task(todo/deadline/event, followed by description,"
+                + " priority(optional/low/medium/high), and date/time(for deadlines and events).");
+        System.out.println("Please try to keep your commands in lowercase letters!");
         System.out.println(HORIZONTAL_LINE);
     }
 

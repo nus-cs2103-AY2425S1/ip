@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import gale.task.Deadline;
 import gale.task.Event;
+import gale.task.Priority;
 import gale.task.Task;
 import gale.task.ToDo;
 
@@ -85,22 +86,23 @@ public class Storage {
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String desc = parts[2];
+        Priority priority = Priority.valueOf(parts[3].toUpperCase());
         try {
             switch (type) {
             case "T":
-                task = new ToDo(desc);
+                task = new ToDo(desc, priority);
                 break;
             case "D":
-                if (parts.length < 4) {
-                    return null;
-                }
-                task = new Deadline(desc, parts[3]);
-                break;
-            case "E":
                 if (parts.length < 5) {
                     return null;
                 }
-                task = new Event(desc, parts[3], parts[4]);
+                task = new Deadline(desc, parts[3], priority);
+                break;
+            case "E":
+                if (parts.length < 6) {
+                    return null;
+                }
+                task = new Event(desc, parts[3], parts[4], priority);
                 break;
             default:
                 return null;
