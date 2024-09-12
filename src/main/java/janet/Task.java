@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Represents a Task
  */
-public class Task {
+public class Task implements Comparable<Task> {
     private final String description;
     private final String symbol;
     private boolean done;
@@ -54,5 +54,10 @@ public class Task {
             return String.format("[%s][X] %s", this.symbol, this.description);
         }
         return String.format("[%s][ ] %s", this.symbol, this.description);
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return this.getScheduledDate().compareTo(o.getScheduledDate());
     }
 }

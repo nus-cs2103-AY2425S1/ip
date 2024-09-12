@@ -164,4 +164,10 @@ public class Ui {
         return "\nHere are your tasks on " + date + ":\n"
                 + displayTasksInList(scheduledTaskList) + "\n";
     }
+
+
+    public String showSortedTasks(TaskList sortedTaskList, String taskType) {
+        return String.format("\nHere are your sorted %s tasks:\n", taskType)
+                + displayTasksInList(sortedTaskList) + "\n";
+    }
 }

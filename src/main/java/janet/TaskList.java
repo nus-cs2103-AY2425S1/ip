@@ -1,9 +1,9 @@
 package janet;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents the list of tasks.
@@ -162,4 +162,38 @@ public class TaskList {
         return tasks;
     }
 
+
+    public TaskList sortTasks(String taskType) {
+        TaskList tasks = new TaskList();
+        if (taskType.equals("deadline")) {
+            tasks = sortedDeadlines();
+        } else if (taskType.equals("event")) {
+            tasks = sortedEvents();
+        }
+        return tasks;
+    }
+
+
+    public TaskList sortedDeadlines() {
+        TaskList tasks = new TaskList();
+        for (Task task : listOfTasks) {
+            if (task.getSymbol() == "D") {
+                tasks.addTaskToList(task);
+            }
+        }
+        Collections.sort(tasks.getListOfTasks());
+        return tasks;
+    }
+
+
+    public TaskList sortedEvents() {
+        TaskList tasks = new TaskList();
+        for (Task task : listOfTasks) {
+            if (task.getSymbol() == "E") {
+                tasks.addTaskToList(task);
+            }
+        }
+        Collections.sort(tasks.getListOfTasks());
+        return tasks;
+    }
 }
