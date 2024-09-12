@@ -45,7 +45,6 @@ public class Task {
      * @return String representation.
      */
     public String printTask() {
-        String output = "";
         String status = (this.isDone ? "X" : " ");
         return "[" + status + "] " + this.description;
     }

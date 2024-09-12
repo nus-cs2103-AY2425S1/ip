@@ -30,7 +30,7 @@ public class ChaCha {
      */
     public ChaCha() {
         try {
-            Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");
+            Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");]
 
             Files.createDirectories(filePath.getParent());
             if (!Files.exists(filePath)) {
@@ -50,31 +50,9 @@ public class ChaCha {
     }
 
     /**
-     * Creates Parser object, Scanner object.
-     * Reads user inputs and calls respective methods to handle respective user inputs.
-     *
-     */
-    public void run() {
-        // make scanner and find commands --> parse commands
-        Parser parser = new Parser(this, this.storage, this.tasks, this.ui);
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(this.ui.printGreeting());
-        while (scanner.hasNextLine()) {
-            String userInput = scanner.nextLine();
-            this.response = parser.parseCommand(userInput);
-
-            if (this.isEnd) {
-                break;
-            }
-
-            scanner = new Scanner(System.in);
-        }
-    }
-
-    /**
      * Generates a response for the user input.
      * @param userInput
-     * @return
+     * @return String representation
      */
     public String getResponse(String userInput) {
         Parser parser = new Parser(this, this.storage, this.tasks, this.ui);
