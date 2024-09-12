@@ -1,5 +1,7 @@
 package duck;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.StringTokenizer;
 
@@ -120,5 +122,15 @@ public class Parser {
         String output = getUntil(pattern);
         nextToken();
         return output;
+    }
+
+    public List<String> parseArgs(String... args) {
+        List<String> parts = new ArrayList<>();
+        for (String arg : args) {
+            String part = getUntilAndRemovePattern(arg);
+            parts.add(part);
+        }
+        parts.add(getRemainingLine());
+        return parts;
     }
 }

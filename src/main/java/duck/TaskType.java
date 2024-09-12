@@ -1,9 +1,11 @@
 package duck;
 
+import duck.commands.CommandType;
+
 public enum TaskType {
-    TODO(Command.TODO.toString()),
-    DEADLINE(Command.DEADLINE.toString()),
-    EVENT(Command.EVENT.toString());
+    TODO(CommandType.TODO.toString()),
+    DEADLINE(CommandType.DEADLINE.toString()),
+    EVENT(CommandType.EVENT.toString());
 
     private final String name;
 

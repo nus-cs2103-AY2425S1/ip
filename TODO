@@ -14,3 +14,7 @@
 - Have jar file as a release
 - Add coding standard check to intellisense
 - Handle bye for gui
+- Add error handling for mark and unmark
+- Check for presence of arguments before trying to parse datetime
+
+event lesson /from 2029-07-08 /to 2030-07-08
