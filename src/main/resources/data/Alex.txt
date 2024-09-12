@@ -1,5 +1,7 @@
 [T][ ] goat //high
 [T][ ] things //medium
 [E][ ] go hikinig //medium /from 2025-10-08 1800 /to 2024-09-10 1900
+[T][ ] buy milk //medium
+[T][ ] last //medium
 [D][ ] things //low /by 2024-10-09 1500
 [T][ ] things 

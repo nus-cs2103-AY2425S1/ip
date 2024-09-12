@@ -16,7 +16,7 @@ public class DeadlineTest {
 
     @Test
     public void testStorageStringMethod() {
-        assertEquals("[D][X] CS coding assignment /by 2024-08-29 1030 //high",
+        assertEquals("[D][X] CS coding assignment //high /by 2024-08-29 1030",
                 new Deadline("CS coding assignment", true, Priority.HIGH,
                         LocalDateTime.of(2024, 8, 29, 10, 30)).toStorageString());
     }
