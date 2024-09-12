@@ -92,6 +92,7 @@ public class Storage {
         try (BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
             String line;
             while ((line = br.readLine()) != null) {
+                assert line != null : "Line read from file should not be null";
                 String[] parts = line.split(",");
                 int taskId = Integer.parseInt(parts[0]);
                 String type = parts[1];
@@ -125,7 +126,7 @@ public class Storage {
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new FileInitializationException("Error parsing task data: " + e.getMessage());
         }
-
+        assert loadedTasks != null : "Loaded tasks should not be null";
         return loadedTasks;
     }
 
@@ -144,6 +145,7 @@ public class Storage {
     public void write(List<Task> tasks) throws FileInitializationException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
             for (Task task : tasks) {
+                assert task != null : "Task should not be null when writing to file";
                 StringBuilder taskLine = new StringBuilder();
                 taskLine.append(task.getTaskID()).append(",");
                 taskLine.append(getTaskType(task)).append(",");
