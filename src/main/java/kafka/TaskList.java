@@ -89,10 +89,21 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return True if the task list is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Finds tasks in the list that contain the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for.
+     * @return A new TaskList containing the found tasks.
+     */
     public TaskList find(String keyword) {
         TaskList temp = new TaskList();
         for (Task t : tasks) {
