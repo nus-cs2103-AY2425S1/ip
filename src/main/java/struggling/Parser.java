@@ -79,7 +79,9 @@ public class Parser {
         final String byKeyword = "/by ";
         int byIndex = cmd.indexOf(byKeyword) + byKeyword.length();
 
-        String description = cmd.substring(DEADLINE_DESCRIPTION_INDEX, cmd.indexOf(byKeyword)).trim();
+        String description = cmd
+                .substring(DEADLINE_DESCRIPTION_INDEX, cmd.indexOf(byKeyword))
+                .trim();
         LocalDate by = LocalDate.parse(cmd.substring(byIndex));
 
         return new Deadline(description, by);
@@ -94,8 +96,12 @@ public class Parser {
         assert fromIndex >= 0 : "index should be >= 0";
         assert toIndex >= 0 : "index should be >= 0";
 
-        String description = cmd.substring(EVENT_DESCRIPTION_INDEX, cmd.indexOf(fromKeyword)).trim();
-        String from = cmd.substring(fromIndex, toIndex).trim();
+        String description = cmd
+                .substring(EVENT_DESCRIPTION_INDEX, cmd.indexOf(fromKeyword))
+                .trim();
+        String from = cmd
+                .substring(fromIndex, cmd.indexOf(toKeyword))
+                .trim();
         String to = cmd.substring(toIndex);
 
         return new Event(description, from, to);
