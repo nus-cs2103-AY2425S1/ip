@@ -38,18 +38,7 @@ public class Parser {
      */
     public static Command parse(String stringCommand) throws DumplingException {
         String commandString = stringCommand.split(" ")[0];
-        CommandEnum commandEnum;
-        try {
-            commandEnum = CommandEnum.valueOf(commandString.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new DumplingException(
-                    String.format(
-                            "%s is not a valid command!\n"
-                            + "     To list items, use 'list'.\n"
-                            + "     To mark or unmark an item as done, use '<mark/unmark> <item index>'.\n"
-                            + "     To add a new item, use '<todo/deadline/event> <task name> <args>'.",
-                            stringCommand));
-        }
+        CommandEnum commandEnum = CommandEnum.retrieveCommandEnum(commandString);
         switch (commandEnum) {
         case TODO:
             // fall through
@@ -80,7 +69,7 @@ public class Parser {
                 return new DeleteCommand(itemIdx);
             } catch (NumberFormatException e) {
                 throw new DumplingException(
-                        "There was an issue when marking / unmarking a task! The argument provided was not a number.");
+                        "There was an issue when deleting a task! The argument provided was not a number.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DumplingException(
                         "There was an issue with indexing! Try listing the items first!");
@@ -93,6 +82,37 @@ public class Parser {
         }
     }
 
+    private static Task createTaskFromHardDiskInput(String line) {
+        String[] lineSplit = line.split(" \\| ");
+        CommandEnum commandEnum;
+        String simulatedTaskStringInput;
+        switch (lineSplit[0]) {
+        case "T":
+            commandEnum = CommandEnum.TODO;
+            simulatedTaskStringInput = String.format("todo %s", lineSplit[2]);
+            break;
+        case "D":
+            commandEnum = CommandEnum.DEADLINE;
+            simulatedTaskStringInput = String.format("deadline %s /by %s", lineSplit[2], lineSplit[3]);
+            break;
+        case "E":
+            commandEnum = CommandEnum.EVENT;
+            String[] fromAndTo = lineSplit[3].split("-");
+            simulatedTaskStringInput = String.format(
+                    "event %s /from %s /to %s", lineSplit[2], fromAndTo[0], fromAndTo[1]);
+            break;
+        default:
+            throw new DumplingException(
+                    String.format("%s is not a valid task type. Data might be corrupted.", lineSplit[0]));
+        }
+        // since the message is not used when loading in the data, we can ignore the numItems argument
+        Pair<Task, String> pair = Parser.add(simulatedTaskStringInput, commandEnum, 0);
+        if (lineSplit[1].equals("1")) {
+            pair.getFirst().markAsDone();
+        }
+        return pair.getFirst();
+    }
+
     /**
      * Loads the data from the harddisk file.
      *
@@ -103,44 +123,51 @@ public class Parser {
         File dataFile = new File(filePath);
         List<Task> items = new ArrayList<>();
         try {
-            // load data
             Scanner scanner = new Scanner(dataFile);
             while (scanner.hasNext()) {
-                String[] line = scanner.nextLine().split(" \\| ");
-                Pair<Task, String> pair;
-                switch (line[0]) {
-                case "T":
-                    pair = Parser.add(String.format("todo %s", line[2]), CommandEnum.TODO, items.size());
-                    items.add(pair.getFirst());
-                    break;
-                case "D":
-                    pair = Parser.add(
-                            String.format("deadline %s /by %s", line[2], line[3]),
-                            CommandEnum.DEADLINE,
-                            items.size());
-                    items.add(pair.getFirst());
-                    break;
-                case "E":
-                    String[] fromAndTo = line[3].split("-");
-                    pair = Parser.add(
-                            String.format("event %s /from %s /to %s", line[2], fromAndTo[0], fromAndTo[1]),
-                            CommandEnum.EVENT,
-                            items.size());
-                    items.add(pair.getFirst());
-                    break;
-                default:
-                    throw new DumplingException(
-                            String.format("%s is not a valid task type. Data might be corrupted.", line[0]));
-                }
-                if (line[1].equals("1")) {
-                    items.get(items.size() - 1).markAsDone();
-                }
+                String line = scanner.nextLine();
+                Task task = Parser.createTaskFromHardDiskInput(line);
+                items.add(task);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             // no data to load
         }
         return items;
+    }
+
+    private static Deadline createDeadlineTaskFromString(String[] splitDescription) {
+        Pair<String, Integer> taskDescriptionIdxPair = Parser.formSubSection(
+                splitDescription, 1, DEADLINE_DATE_SEPARATOR);
+        String taskDescription = taskDescriptionIdxPair.getFirst();
+        Pair<String, Integer> deadlineIdxPair = Parser.formSubSection(
+                splitDescription, taskDescriptionIdxPair.getSecond() + 1, "");
+        String deadline = deadlineIdxPair.getFirst();
+        try {
+            return new Deadline(taskDescription, deadline);
+        } catch (DateTimeParseException e) {
+            throw new DumplingException("Please enter the date in the correct format of YYYY-MM-DD.");
+        }
+    }
+
+    private static Event createEventTaskFromString(String[] splitDescription) {
+        Pair<String, Integer> taskDescriptionIdxPair = Parser.formSubSection(
+                splitDescription, 1, EVENT_FROM_SEPARATOR);
+        String taskDescription = taskDescriptionIdxPair.getFirst();
+        Pair<String, Integer> fromIdxPair = Parser.formSubSection(
+                splitDescription, taskDescriptionIdxPair.getSecond() + 1, EVENT_TO_SEPARATOR);
+        Pair<String, Integer> toIdxPair = Parser.formSubSection(
+                splitDescription, fromIdxPair.getSecond() + 1, "");
+        String from = fromIdxPair.getFirst();
+        String to = toIdxPair.getFirst();
+        return new Event(taskDescription, from, to);
+    }
+
+    private static ToDo createTodoTaskFromString(String[] splitDescription) {
+        Pair<String, Integer> taskDescriptionIdxPair = Parser.formSubSection(
+                splitDescription, 1, "");
+        String taskDescription = taskDescriptionIdxPair.getFirst();
+        return new ToDo(taskDescription);
     }
 
     /**
@@ -155,46 +182,14 @@ public class Parser {
     public static Pair<Task, String> add(
             String description, CommandEnum command, int numItems) throws DumplingException {
         String[] splitDescription = description.split(" ");
-        String taskDescription;
         Task task;
-        Pair<String, Integer> taskDescriptionIdxPair;
-        switch (command) {
-        case DEADLINE:
-            try {
-                taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, DEADLINE_DATE_SEPARATOR);
-                taskDescription = taskDescriptionIdxPair.getFirst();
-                Pair<String, Integer> deadlineIdxPair = Parser.formSubSection(
-                        splitDescription, taskDescriptionIdxPair.getSecond() + 1, "");
-                String deadline = deadlineIdxPair.getFirst();
-                task = new Deadline(taskDescription, deadline);
-            } catch (DateTimeParseException e) {
-                throw new DumplingException("Please enter the date in the correct format of YYYY-MM-DD.");
-            }
-            break;
-        case EVENT:
-            taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, EVENT_FROM_SEPARATOR);
-            taskDescription = taskDescriptionIdxPair.getFirst();
-            Pair<String, Integer> fromIdxPair = Parser.formSubSection(
-                    splitDescription, taskDescriptionIdxPair.getSecond() + 1, EVENT_TO_SEPARATOR);
-            Pair<String, Integer> toIdxPair = Parser.formSubSection(
-                    splitDescription, fromIdxPair.getSecond() + 1, "");
-            String from = fromIdxPair.getFirst();
-            String to = toIdxPair.getFirst();
-            task = new Event(taskDescription, from, to);
-            break;
-        default:
-            taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, "");
-            taskDescription = taskDescriptionIdxPair.getFirst();
-            task = new ToDo(taskDescription);
-            break;
-        }
-        if (taskDescription.isEmpty()) {
-            throw new DumplingException(
-                    "Like a dumpling, tasks cannot be empty! Please provide a descriptive name."
-            );
-        }
+        task = switch (command) {
+        case DEADLINE -> createDeadlineTaskFromString(splitDescription);
+        case EVENT -> createEventTaskFromString(splitDescription);
+        default -> createTodoTaskFromString(splitDescription);
+        };
         String message = "     Got it. I've added this task:\n"
-                + String.format("       %s\n", task.toString())
+                + String.format("       %s\n", task)
                 + String.format("     Now you have %d %s in the list.",
                         numItems + 1, (numItems + 1 == 1 ? "task" : "tasks"));
         return new Pair<>(task, message);
@@ -221,6 +216,11 @@ public class Parser {
             }
             formedSection += splitDescription[currIdx];
             currIdx++;
+        }
+        if (formedSection.isEmpty()) {
+            throw new DumplingException(
+                    "Intending to extract information out of a given input, but nothing to extract."
+            );
         }
         return new Pair<>(formedSection, currIdx);
     }

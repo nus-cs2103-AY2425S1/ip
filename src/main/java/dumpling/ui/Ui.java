@@ -10,9 +10,9 @@ import dumpling.DumplingException;
 public class Ui {
 
     private static final String DIVIDER = "    ____________________________________________________________";
-    private static final String WELCOME_MESSAGE[] = {
-            "    Hello! I'm Dumpling",
-            "    What can I do for you?"
+    private static final String[] WELCOME_MESSAGE = {
+        "    Hello! I'm Dumpling",
+        "    What can I do for you?"
     };
     private static final String EXIT_MESSAGE = "    Bye. Hope to see you again soon!";
 
@@ -49,6 +49,10 @@ public class Ui {
         this.echo(DIVIDER);
     }
 
+    /**
+     * Prints the given messages line by line to the console
+     * @param messages List of messages to be printed
+     */
     public void echo(String ... messages) {
         for (String message : messages) {
             System.out.println(message);
