@@ -1,5 +1,7 @@
 package duck.tasks;
 
+import duck.exceptions.BeforeEarliestTimeException;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -21,7 +23,7 @@ public abstract class Task {
     /**
      * Marks task as done
      */
-    public void markAsDone() {
+    public void markAsDone() throws BeforeEarliestTimeException {
         this.isDone = true;
     }
 

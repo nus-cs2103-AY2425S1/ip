@@ -12,6 +12,10 @@ public class DateAndTime {
         this.date = LocalDate.parse(str);
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     public String getOriginalString() {
         return str;
     }

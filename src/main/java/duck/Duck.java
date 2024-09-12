@@ -3,11 +3,11 @@ package duck;
 import duck.commands.CommandType;
 import duck.commands.DeadlineCommand;
 import duck.commands.DeleteCommand;
+import duck.commands.DoAfterCommand;
 import duck.commands.EventCommand;
 import duck.commands.MarkCommand;
 import duck.commands.TodoCommand;
 import duck.commands.UnmarkCommand;
-import duck.tasks.Task;
 import duck.utils.Formatter;
 
 public class Duck {
@@ -23,14 +23,6 @@ public class Duck {
 
     private static String formatAsResponse(String text) {
         return Formatter.indentText(text, 4);
-    }
-
-    private static String handleNewTask(Task task) {
-        TASKS.addTask(task);
-        String response = "Got it. I've added this task:\n"
-                + Formatter.indentText(task.toString(), 2) + "\n"
-                + "Now you have " + TASKS.getTaskCount() + " tasks in the list.";
-        return formatAsResponse(response);
     }
 
     /**
@@ -52,7 +44,6 @@ public class Duck {
             String command = lineBuffer.getWord();
             String response;
 
-            // "mark" / "unmark" commands
             if (CommandType.FIND.equalsName(command)) {
                 String pattern = lineBuffer.getRemainingLine();
                 TaskList filteredTasks = TASKS.filterTasksByPattern(pattern);
@@ -70,6 +61,8 @@ public class Duck {
                 response = new DeadlineCommand(TASKS, lineBuffer).executeCommand();
             } else if (CommandType.EVENT.equalsName(command)) {
                 response = new EventCommand(TASKS, lineBuffer).executeCommand();
+            } else if (CommandType.DOAFTER.equalsName(command)) {
+                response = new DoAfterCommand(TASKS, lineBuffer).executeCommand();
             } else {
                 response = formatAsResponse("Oops, I do not understand you.");
             }

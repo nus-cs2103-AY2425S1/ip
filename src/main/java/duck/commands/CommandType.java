@@ -9,7 +9,8 @@ public enum CommandType {
     BYE("bye"),
     TODO("todo"),
     DEADLINE("deadline"),
-    EVENT("event");
+    EVENT("event"),
+    DOAFTER("doafter");
 
     private final String name;
 

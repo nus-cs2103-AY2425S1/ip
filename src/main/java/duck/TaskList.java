@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import duck.exceptions.BeforeEarliestTimeException;
 import duck.exceptions.UsageException;
 import duck.tasks.DateAndTime;
 import duck.tasks.Deadline;
+import duck.tasks.DoAfter;
 import duck.tasks.Event;
 import duck.tasks.Task;
 import duck.tasks.Todo;
@@ -88,11 +90,16 @@ public class TaskList {
                     assert record.size() == 5;
                     task = new Event(description,
                             new DateAndTime(record.get(3)), new DateAndTime(record.get(4)));
+                } else if (taskType.equals("A")) {
+                    assert record.size() == 4;
+                    task = new DoAfter(description, new DateAndTime(record.get(3)));
                 }
 
                 if (isDone) {
                     task.markAsDone();
                 }
+
+                assert task != null;
                 addTask(task);
             }
         } catch (IOException e) {
@@ -100,6 +107,8 @@ public class TaskList {
             System.out.println("File read error!");
         } catch (UsageException e) {
             System.out.println("File format error!");
+        } catch (BeforeEarliestTimeException e) {
+            System.out.println("DoAfter task wrongly marked as done in file!");
         }
     }
 
