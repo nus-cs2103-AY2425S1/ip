@@ -102,6 +102,10 @@ public class Ui {
         return "This task already exists in the list!";
     }
 
+    public String UpdateMessage(int index, Tasks task) {
+        return "Task " + index + " has been updated to: " + task;
+    }
+
     /**
      * Closes the Scanner object to release resources.
      */

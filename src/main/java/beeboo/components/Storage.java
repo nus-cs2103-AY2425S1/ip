@@ -49,89 +49,88 @@ public class Storage {
         ArrayList<Tasks> list = new ArrayList<>();
         if (!file.exists()) {
             throw new NoFileException("");
-        } else {
-            try {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String task = scanner.nextLine();
-                    String[] splitted = task.split("\\|");
-                    if (splitted.length < 3 || splitted.length > 6) {
-                        continue;
-                    }
-                    boolean isDone = splitted[1].trim().equals("1");
-                    Tasks newTask = null;
-                    switch (splitted[0].trim()) {
-                    case "T":
-                        newTask = new ToDos(splitted[2].trim());
-                        if (isDone) {
-                            newTask.markDone();
-                        }
-                        break;
-                    case "D":
-                        String[] dateTime = splitted[3].split("T");
-                        LocalDateTime dates = LocalDateTime.of(LocalDate.parse(dateTime[0].trim()),
-                                LocalTime.parse(dateTime[1].trim()));
-                        newTask = new Deadlines(splitted[2].trim(), dates);
-                        if (isDone) {
-                            newTask.markDone();
-                        }
-                        break;
-                    case "E":
-                        String[] startDateTime = splitted[3].split("T");
-                        String[] endDateTime = splitted[4].split("T");
-                        LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(startDateTime[0].trim()),
-                                LocalTime.parse(startDateTime[1].trim()));
-                        LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(endDateTime[0].trim()),
-                                LocalTime.parse(endDateTime[1].trim()));
-
-                        newTask = new Events(splitted[2].trim(), startDate, endDate);
-                        if (isDone) {
-                            newTask.markDone();
-                        }
-                        break;
-                    default:
-                        break;
-                    }
-                    if (newTask != null) {
-                        list.add(newTask);
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("Error has occurred while reading the file");
-            }
         }
-        return list;
-    }
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String task = scanner.nextLine();
+                String[] splitted = task.split("\\|");
+                if (splitted.length < 3 || splitted.length > 6) {
+                    continue;
+                }
+                boolean isDone = splitted[1].trim().equals("1");
+                Tasks newTask = null;
+                switch (splitted[0].trim()) {
+                case "T":
+                    newTask = new ToDos(splitted[2].trim());
+                    if (isDone) {
+                        newTask.markDone();
+                    }
+                    break;
+                case "D":
+                    String[] dateTime = splitted[3].split("T");
+                    LocalDateTime dates = LocalDateTime.of(LocalDate.parse(dateTime[0].trim()),
+                            LocalTime.parse(dateTime[1].trim()));
+                    newTask = new Deadlines(splitted[2].trim(), dates);
+                    if (isDone) {
+                        newTask.markDone();
+                    }
+                    break;
+                case "E":
+                    String[] startDateTime = splitted[3].split("T");
+                    String[] endDateTime = splitted[4].split("T");
+                    LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(startDateTime[0].trim()),
+                            LocalTime.parse(startDateTime[1].trim()));
+                    LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(endDateTime[0].trim()),
+                            LocalTime.parse(endDateTime[1].trim()));
 
-    /**
-     * Saves the specified list of tasks to the file specified by the file path.
-     * Each task is saved in a format suitable for storage.
-     *
-     * @param list the list of Tasks objects to be saved
-     */
-    public void saveItem(TaskList list) {
-        try (FileWriter writer = new FileWriter("./data/beeboo.txt")) {
-            for (int i = 0; i < list.getSize(); i++) {
-                Tasks task = list.get(i);
-                writer.write(task.saveFormat() + System.lineSeparator());
+                    newTask = new Events(splitted[2].trim(), startDate, endDate);
+                    if (isDone) {
+                        newTask.markDone();
+                    }
+                    break;
+                default:
+                    break;
+                }
+                if (newTask != null) {
+                    list.add(newTask);
+                }
             }
         } catch (IOException e) {
-            System.out.println("Unable to create file");
+            System.out.println("Error has occurred while reading the file");
         }
-    }
+        return list;
+}
 
-    /**
-     * Creates the directory for storing task data if it does not already exist.
-     * This method ensures that the directory structure is in place for saving task data.
-     */
-    protected static void createFile() {
-        Path path = Paths.get("./data");
-        if (Files.notExists(path)) {
-            try {
-                Files.createDirectories(path);
-            } catch (IOException e) {
-                System.out.println("Unable to create directory");
-            }
+/**
+ * Saves the specified list of tasks to the file specified by the file path.
+ * Each task is saved in a format suitable for storage.
+ *
+ * @param list the list of Tasks objects to be saved
+ */
+public void saveItem(TaskList list) {
+    try (FileWriter writer = new FileWriter("./data/beeboo.txt")) {
+        for (int i = 0; i < list.getSize(); i++) {
+            Tasks task = list.get(i);
+            writer.write(task.saveFormat() + System.lineSeparator());
+        }
+    } catch (IOException e) {
+        System.out.println("Unable to create file");
+    }
+}
+
+/**
+ * Creates the directory for storing task data if it does not already exist.
+ * This method ensures that the directory structure is in place for saving task data.
+ */
+protected static void createFile() {
+    Path path = Paths.get("./data");
+    if (Files.notExists(path)) {
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            System.out.println("Unable to create directory");
         }
     }
+}
 }

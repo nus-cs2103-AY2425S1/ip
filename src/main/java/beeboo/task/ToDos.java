@@ -24,7 +24,7 @@ public class ToDos extends Tasks {
      * @return the type icon as a String
      */
     @Override
-    protected String typeIcon() {
+    public String typeIcon() {
         return "[T]";
     }
 
@@ -62,5 +62,10 @@ public class ToDos extends Tasks {
     @Override
     public String saveFormat() {
         return "T | " + (super.isDone ? "1 | " : "0 | ") + description;
+    }
+
+    @Override
+    public void updateTime(String time) {
+
     }
 }

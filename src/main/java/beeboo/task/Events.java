@@ -38,7 +38,7 @@ public class Events extends Tasks {
      * @return the type icon as a String, "[E]"
      */
     @Override
-    protected String typeIcon() {
+    public String typeIcon() {
         return "[E]";
     }
 
@@ -84,7 +84,7 @@ public class Events extends Tasks {
         String startDate = dateSubstring.substring(4, startDateEnd).trim();
         LocalDateTime startDateTime;
         try {
-            startDateTime = TimeConverter.timeConverter(startDate);
+            startDateTime = TimeConverter.convertTime(startDate);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException(text);
         }
@@ -96,8 +96,9 @@ public class Events extends Tasks {
         String endDate = endDateCommand.substring(2).trim();
         String[] endDates = endDate.split(" ");
         LocalDateTime endDateTime = (endDates.length == 1)
-                ? TimeConverter.timeConverter(startDateTime.toLocalDate().toString() + " " + endDate)
-                : TimeConverter.timeConverter(endDate);
+                ? TimeConverter.convertTime(startDateTime.toLocalDate().toString()
+                + " " + endDate)
+                : TimeConverter.convertTime(endDate);
 
         return new Events(description, startDateTime, endDateTime);
     }
@@ -112,5 +113,28 @@ public class Events extends Tasks {
     public String saveFormat() {
         return "E | " + (super.isDone ? "1 | " : "0 | ")
                 + description + " | " + startDate + " | " + endDate;
+    }
+
+    //Update 2 from 2024-09-09 1200 /to 2024-09-09 14:00
+    //Update 2 from 2024-09-09 1200
+    //Update 2 to 2024-09-09 14:00
+    @Override
+    public void updateTime(String time) {
+        if (time.contains("from")) {
+            if (time.contains("to")) {
+                String[] times = time.split("/");
+                this.startDate = TimeConverter.convertTime(times[0].substring(5).trim());
+                String endDate = times[1].substring(3).trim();
+                String[] endDates = endDate.split(" ");
+                LocalDateTime endDateTime = (endDates.length == 1)
+                        ? TimeConverter.convertTime(startDate.toLocalDate().toString() + " " + endDate)
+                        : TimeConverter.convertTime(endDate);
+                this.endDate = endDateTime;
+            } else {
+                this.startDate = TimeConverter.convertTime(time.substring(5).trim());
+            }
+        } else {
+            this.endDate = TimeConverter.convertTime(time.substring(3).trim());
+        }
     }
 }

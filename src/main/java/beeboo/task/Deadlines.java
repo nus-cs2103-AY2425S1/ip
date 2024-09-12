@@ -35,7 +35,7 @@ public class Deadlines extends Tasks {
      * @return the type icon as a code String
      */
     @Override
-    protected String typeIcon() {
+    public String typeIcon() {
         return "[D]";
     }
 
@@ -60,14 +60,14 @@ public class Deadlines extends Tasks {
             throw new NoDescriptionException("No description");
         }
 
-        String dateCommand = text.substring(descriptionEnd + 1).trim();
-        if (!dateCommand.startsWith("by")) {
+        String date = text.substring(descriptionEnd + 1).trim();
+        if (!date.startsWith("by")) {
             throw new InvalidDateException(text);
         }
-        String date = dateCommand.substring(2).trim();
+        String deadlineDate = date.substring(2).trim();
         LocalDateTime dateTime;
         try {
-            dateTime = TimeConverter.timeConverter(date);
+            dateTime = TimeConverter.convertTime(deadlineDate);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException(text);
         }
@@ -95,5 +95,10 @@ public class Deadlines extends Tasks {
     @Override
     public String saveFormat() {
         return "D | " + (super.isDone ? "1 | " : "0 | ") + description + " | " + date;
+    }
+
+    @Override
+    public void updateTime(String time) {
+        this.date = TimeConverter.convertTime(time);
     }
 }
