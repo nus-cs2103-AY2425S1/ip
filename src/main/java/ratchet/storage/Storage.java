@@ -19,6 +19,11 @@ import ratchet.task.TodoTask;
 public class Storage {
     private static final String PATH_TO_DIRECTORY = "data";
     private static final String PATH_TO_TASK_FILE = "data/ratchet.txt";
+    private static final int DATA_FIRST = 0;
+    private static final int DATA_SECOND = 1;
+    private static final int DATA_THIRD = 2;
+    private static final int DATA_FOURTH = 3;
+    private static final int DATA_FIFTH = 4;
 
     /**
      * Loads tasks into task list from specified destination.
@@ -29,23 +34,8 @@ public class Storage {
         File file = new File(PATH_TO_TASK_FILE);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                String[] info = scanner.nextLine().split("\\|");
-                String type = info[0];
-                switch (type) {
-                case "T":
-                    tasks.addTask(new TodoTask(info[1], Boolean.parseBoolean(info[2])));
-                    break;
-                case "D":
-                    tasks.addTask(new DeadlineTask(info[1], Boolean.parseBoolean(info[2]),
-                            LocalDate.parse(info[3])));
-                    break;
-                case "E":
-                    tasks.addTask(new EventTask(info[1], Boolean.parseBoolean(info[2]),
-                            LocalDate.parse(info[3]), LocalDate.parse(info[4])));
-                    break;
-                default:
-                    System.out.println("Unexpected type");
-                }
+                String line = scanner.nextLine();
+                processNextLine(line, tasks);
             }
         } catch (FileNotFoundException e) {
             initFile();
@@ -53,7 +43,7 @@ public class Storage {
     }
 
     /**
-     * Save tasks into specified destination from task list.
+     * Saves tasks into specified destination from task list.
      *
      * @param tasks The task list to save the tasks from.
      */
@@ -68,6 +58,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Initialises data file to save if not created.
+     */
     private void initFile() {
         try {
             new File(PATH_TO_DIRECTORY).mkdir();
@@ -75,6 +68,32 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.exit(-1);
+        }
+    }
+
+    /**
+     * Processes the line read from the scanner
+     *
+     * @param line  The line read from the scanner.
+     * @param tasks The task list to load the tasks to.
+     */
+    private void processNextLine(String line, TaskList tasks) {
+        String[] info = line.split("\\|");
+        String type = info[DATA_FIRST];
+        switch (type) {
+        case "T":
+            tasks.addTask(new TodoTask(info[DATA_SECOND], Boolean.parseBoolean(info[DATA_THIRD])));
+            break;
+        case "D":
+            tasks.addTask(new DeadlineTask(info[DATA_SECOND], Boolean.parseBoolean(info[DATA_THIRD]),
+                    LocalDate.parse(info[DATA_FOURTH])));
+            break;
+        case "E":
+            tasks.addTask(new EventTask(info[DATA_SECOND], Boolean.parseBoolean(info[DATA_THIRD]),
+                    LocalDate.parse(info[DATA_FOURTH]), LocalDate.parse(info[DATA_FIFTH])));
+            break;
+        default:
+            System.out.println("Unexpected type");
         }
     }
 }

@@ -23,6 +23,9 @@ import ratchet.task.TodoTask;
  * Class to handle parsing of user input.
  */
 public class Parser {
+    private static final int SPLIT_FIRST = 0;
+    private static final int SPLIT_SECOND = 1;
+
     /**
      * Parses user input and returns a Command.
      *
@@ -64,59 +67,73 @@ public class Parser {
     private Command addTask(String text) throws InvalidCommandArgumentException {
         Task task = null;
         if (text.startsWith("todo")) {
-            try {
-                String description = text.split("todo ")[1];
-                task = new TodoTask(description);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException("The description of a todo task cannot be empty!");
-            }
+            task = createTodo(text);
         } else if (text.startsWith("deadline")) {
-            String[] split = text.split(" /by ");
-            LocalDate deadline;
-            String description;
-            try {
-                deadline = LocalDate.parse(split[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException("The deadline of a deadline task cannot be empty!");
-            } catch (DateTimeParseException e) {
-                throw new InvalidCommandArgumentException("The format of deadline must be YYYY-MM-DD");
-            }
-            try {
-                description = split[0].split("deadline ")[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException(
-                        "The description of a deadline task cannot be " + "empty!");
-            }
-            task = new DeadlineTask(description, deadline);
+            task = createDeadline(text);
+        } else if (text.startsWith("event")) {
+            task = createEvent(text);
         } else {
-            String[] split1 = text.split(" /to ");
-            LocalDate to;
-            LocalDate from;
-            String description;
-            try {
-                to = LocalDate.parse(split1[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException("The to of a event task cannot be empty!");
-            } catch (DateTimeParseException e) {
-                throw new InvalidCommandArgumentException("The format of to must be YYYY-MM-DD");
-            }
-            String[] split2 = split1[0].split(" /from ");
-            try {
-                from = LocalDate.parse(split2[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException("The from of a event task cannot be empty!");
-            } catch (DateTimeParseException e) {
-                throw new InvalidCommandArgumentException("The format of from must be YYYY-MM-DD");
-            }
-            try {
-                description = split2[0].split("event ")[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException(
-                        "The description of a deadline task cannot be " + "empty!");
-            }
-            task = new EventTask(description, from, to);
+            // Not supposed to reach here
+            throw new InvalidCommandArgumentException("Unable to handle this type of task!");
         }
         return new AddCommand(task);
+    }
+
+    private Task createTodo(String text) throws InvalidCommandArgumentException {
+        String description;
+        try {
+            description = text.split("todo ")[SPLIT_SECOND];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandArgumentException("The description of a todo task cannot be empty!");
+        }
+        return new TodoTask(description);
+    }
+
+    private Task createDeadline(String text) throws InvalidCommandArgumentException {
+        String[] firstSplit = text.split(" /by ");
+        LocalDate deadline;
+        String description;
+        try {
+            deadline = LocalDate.parse(firstSplit[SPLIT_SECOND]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandArgumentException("The deadline of a deadline task cannot be empty!");
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandArgumentException("The format of deadline must be YYYY-MM-DD");
+        }
+        try {
+            description = firstSplit[SPLIT_FIRST].split("deadline ")[SPLIT_SECOND];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandArgumentException("The description of a deadline task cannot be empty!");
+        }
+        return new DeadlineTask(description, deadline);
+    }
+
+    private Task createEvent(String text) throws InvalidCommandArgumentException {
+        String[] firstSplit = text.split(" /to ");
+        LocalDate to;
+        LocalDate from;
+        String description;
+        try {
+            to = LocalDate.parse(firstSplit[SPLIT_SECOND]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandArgumentException("The to of a event task cannot be empty!");
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandArgumentException("The format of to must be YYYY-MM-DD");
+        }
+        String[] secondSplit = firstSplit[SPLIT_FIRST].split(" /from ");
+        try {
+            from = LocalDate.parse(secondSplit[SPLIT_SECOND]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandArgumentException("The from of a event task cannot be empty!");
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandArgumentException("The format of from must be YYYY-MM-DD");
+        }
+        try {
+            description = secondSplit[SPLIT_FIRST].split("event ")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandArgumentException("The description of a deadline task cannot be empty!");
+        }
+        return new EventTask(description, from, to);
     }
 
     private Command mark(String input) throws InvalidCommandArgumentException {
@@ -133,7 +150,7 @@ public class Parser {
 
     private int parseIndex(String input) throws InvalidCommandArgumentException {
         try {
-            return Integer.parseInt(input.split(" ")[1]) - 1;
+            return Integer.parseInt(input.split(" ")[SPLIT_SECOND]) - 1;
         } catch (NumberFormatException e) {
             throw new InvalidCommandArgumentException("Task index must be a number!");
         } catch (ArrayIndexOutOfBoundsException e) {
