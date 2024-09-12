@@ -80,6 +80,12 @@ public class Task {
         return this.priorityType;
     }
 
+    /**
+     * Sets priority of task
+     *
+     * @param priorityType priority of task to be set
+     * @return String representing successful change in priority
+     */
     public String setPriority(PriorityType priorityType) {
         this.priorityType = priorityType;
 
