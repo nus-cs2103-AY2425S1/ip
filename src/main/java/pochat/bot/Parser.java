@@ -49,7 +49,7 @@ class Parser {
                 if (taskDescription.isEmpty()) {
                     throw new TaskDescriptionEmptyException();
                 }
-                return replyAndAddTaskToList(taskDescription);
+                return replyAndAddToList(taskDescription);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
@@ -68,7 +68,7 @@ class Parser {
                     throw new TaskDescriptionEmptyException();
                 }
 
-                return replyAndAddTaskToList(taskDescription, deadline);
+                return replyAndAddToList(taskDescription, deadline);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
@@ -92,7 +92,7 @@ class Parser {
                     throw new TaskDescriptionEmptyException();
                 }
 
-                return replyAndAddTaskToList(taskDescription, startDate, endDate);
+                return replyAndAddToList(taskDescription, startDate, endDate);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
@@ -120,17 +120,17 @@ class Parser {
                 + this.getNumTasks() + " tasks in the list.";
     }
 
-    private String replyAndAddTaskToList(String textInput) {
+    private String replyAndAddToList(String textInput) {
         Task task = new ToDo(textInput);
         return this.addTaskToList(task);
     }
 
-    private String replyAndAddTaskToList(String textInput, String deadline) {
+    private String replyAndAddToList(String textInput, String deadline) {
         Task task = new Deadline(textInput, deadline);
         return this.addTaskToList(task);
     }
 
-    private String replyAndAddTaskToList(String textInput, String startDate, String endDate) {
+    private String replyAndAddToList(String textInput, String startDate, String endDate) {
         Task task = new Event(textInput, startDate, endDate);
         return this.addTaskToList(task);
     }
