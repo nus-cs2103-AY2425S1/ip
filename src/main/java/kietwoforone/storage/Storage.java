@@ -2,12 +2,12 @@ package kietwoforone.storage;
 
 import kietwoforone.exceptions.KieTwoForOneException;
 import kietwoforone.tasks.Task;
+import java.io.EOFException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
-import java.io.IOException;
-import java.io.EOFException;
 import java.util.ArrayList;
 
 public class Storage {
@@ -44,4 +44,5 @@ public class Storage {
             throw new KieTwoForOneException("Not a task!");
         }
     }
+
 }

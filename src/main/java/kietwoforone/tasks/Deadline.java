@@ -26,13 +26,16 @@ public class Deadline extends Task {
 
     @Override
     public String markTask() {
-        return String.format("[D] %s (by: %s %s)", this.task.markTask(), this.getDate(), this.deadlineTime);
+        return String.format("[D] %s (by: %s %s)", this.task.markTask(),
+                this.getDate(), this.deadlineTime);
     }
 
     @Override
     public String unmarkTask() {
-        return String.format("[D] %s (by: %s %s)", this.task.unmarkTask(), this.getDate(), this.deadlineTime);
+        return String.format("[D] %s (by: %s %s)", this.task.unmarkTask(),
+                this.getDate(), this.deadlineTime);
     }
+
     @Override
     public boolean compareDate(String date) throws KieTwoForOneException {
         try {
@@ -41,6 +44,7 @@ public class Deadline extends Task {
             throw new KieTwoForOneException("Date must be valid and in the form YYYY-MM-DD!");
         }
     }
+
     @Override
     public String toString() {
         return String.format("[D] %s (by: %s)", this.task.toString(), this.getDate(), this.deadlineTime);

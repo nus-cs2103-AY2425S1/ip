@@ -5,6 +5,7 @@ import kietwoforone.tasks.TaskList;
 import kietwoforone.ui.UI;
 
 public class ByeCommand extends Command {
+
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         ui.showBye();
@@ -19,4 +20,5 @@ public class ByeCommand extends Command {
     public String toString() {
         return "Bye";
     }
+
 }

@@ -42,4 +42,5 @@ public class Task implements Serializable {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
+
 }

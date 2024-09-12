@@ -36,12 +36,14 @@ public class Event extends Task{
 
     @Override
     public String markTask() {
-        return String.format("[E] %s (from: %s %s to: %s %s)", this.task.markTask() , this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
+        return String.format("[E] %s (from: %s %s to: %s %s)", this.task.markTask(),
+                this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
     }
 
     @Override
     public String unmarkTask() {
-        return String.format("[E] %s (from: %s %s to: %s %s)", this.task.unmarkTask() , this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
+        return String.format("[E] %s (from: %s %s to: %s %s)", this.task.unmarkTask() ,
+                this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
     }
 
     @Override
