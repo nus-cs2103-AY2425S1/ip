@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import bobby.exceptions.InvalidTaskException;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
@@ -129,6 +130,8 @@ public class Storage {
             scanner.close();
             System.out.println("Tasks successfully loaded from file.");
         } catch (IOException e) {
+            System.out.println("Error reading from file: " + e.getMessage());
+        } catch (InvalidTaskException e) {
             System.out.println("Error reading from file: " + e.getMessage());
         }
         return tasks;

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import bobby.exceptions.InvalidInputException;
+import bobby.exceptions.InvalidTaskException;
 import bobby.exceptions.InvalidTaskNumberException;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
@@ -34,9 +35,13 @@ public class TaskList {
      * Adds a task to the list.
      *
      * @param task the task to be added
+     * @throws InvalidTaskException if the task already exists in the list
      */
-    public void add(Task task) {
+    public void add(Task task) throws InvalidTaskException {
         assert task != null : "Cannot add a null task";
+        if (isDuplicate(task)) {
+            throw new InvalidTaskException("Task already exists: " + task.getDescription());
+        }
         tasks.add(task);
     }
 
