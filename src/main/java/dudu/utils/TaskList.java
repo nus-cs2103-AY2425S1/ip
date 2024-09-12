@@ -84,12 +84,21 @@ public class TaskList {
      */
     public Task deleteTask(int index) {
         try {
-            Task removed = tasks.get(index);
+            Task removedTask = tasks.get(index);
             tasks.remove(index);
-            return removed;
+            return removedTask;
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
+    }
+
+    public Task deleteTask() {
+        if (this.tasks.isEmpty()) {
+            return null;
+        }
+        Task removedTask = tasks.get(tasks.size() - 1);
+        tasks.remove(tasks.size() - 1);
+        return removedTask;
     }
 
     /**

@@ -9,11 +9,12 @@ import dudu.utils.UI;
  */
 public class CommandList extends Command {
     /**
-     * Executes the exit command by displaying a goodbye message to the user.
+     * Displays a list of tasks to the user
      *
-     * @param taskList The task list (not used in this command).
-     * @param ui The user interface to display the goodbye message.
-     * @param storage The storage (not used in this command).
+     * @param taskList The task list
+     * @param ui The user interface to display the goodbye message
+     * @param storage The storage
+     * @return Successful listing of task response
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {
@@ -22,10 +23,10 @@ public class CommandList extends Command {
 
     /**
      * Compares this CommandList to another object for equality. Two CommandList
-     * objects are considered equal if they are of the same class.
+     * objects are considered equal if they are of the same class
      *
-     * @param o The object to compare this CommandList with.
-     * @return true if the other object is a CommandList, false otherwise.
+     * @param o The object to compare this CommandList with
+     * @return true if the other object is a CommandList, false otherwise
      */
     @Override
     public boolean equals(Object o) {

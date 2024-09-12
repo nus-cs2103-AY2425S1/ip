@@ -2,18 +2,9 @@ package dudu.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Stack;
 
-import dudu.command.Command;
-import dudu.command.CommandBye;
-import dudu.command.CommandDeadline;
-import dudu.command.CommandDelete;
-import dudu.command.CommandEvent;
-import dudu.command.CommandFind;
-import dudu.command.CommandHelp;
-import dudu.command.CommandList;
-import dudu.command.CommandMark;
-import dudu.command.CommandTodo;
-import dudu.command.CommandUnmark;
+import dudu.command.*;
 import dudu.exception.InvalidFormatException;
 import dudu.exception.MissingDateTimeException;
 import dudu.exception.MissingDescriptionException;
@@ -26,8 +17,10 @@ import dudu.task.ToDo;
  */
 public class Parser {
     enum CommandType {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, HELP
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, HELP, UNDO
     }
+
+    private static Stack<Command> undoStack = new Stack<>();
 
     /**
      * Parses a user command and returns the corresponding Command instance
@@ -50,22 +43,28 @@ public class Parser {
         case HELP:
             return new CommandHelp();
         case TODO:
-            return new CommandTodo(createTodo(command));
+            return new CommandTodo(createTodo(command), false);
         case DEADLINE:
-            return new CommandDeadline(createDeadline(command));
+            return new CommandDeadline(createDeadline(command), false);
         case EVENT:
-            return new CommandEvent(createEvent(command));
-        case MARK:
-            return new CommandMark(parseIndex(command));
-        case UNMARK:
-            return new CommandUnmark(parseIndex(command));
-        case DELETE:
-            return new CommandDelete(parseIndex(command));
-        case FIND:
+            return new CommandEvent(createEvent(command), false);
+        case MARK: {
+            return new CommandMark(parseIndex(command), false);
+        } case UNMARK: {
+            return new CommandUnmark(parseIndex(command), false);
+        } case DELETE: {
+            return new CommandDelete(parseIndex(command), false);
+        } case FIND:
             return new CommandFind(parseContent(command));
+        case UNDO:
+            return parseUndoCommand();
         default:
             return new CommandHelp();
         }
+    }
+
+    public static void pushToUndoStack(Command command) {
+        undoStack.push(command);
     }
 
     /**
@@ -291,9 +290,17 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(invalidNumberMessage);
         }
-        if (index <= 0) {
+        if (index < 0) {
             throw new IllegalArgumentException(invalidNumberMessage);
         }
         return index;
+    }
+
+    private static UndoCommand parseUndoCommand() {
+        if (undoStack.isEmpty()) {
+            return new UndoCommand();
+        } else {
+            return new UndoCommand(undoStack.pop());
+        }
     }
 }
