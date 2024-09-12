@@ -53,7 +53,7 @@ public class TaskList {
      */
     public String markTask(int index) throws AlisaException {
         try {
-            taskList.get(index-1).markAsDone();
+            taskList.get(index - 1).markAsDone();
             return "Nice! I've marked this task as done:\n" + taskList.get(index-1);
         } catch (IndexOutOfBoundsException e) {
             throw new AlisaException("The task you want to mark as done doesn't exist!");
@@ -69,7 +69,7 @@ public class TaskList {
      */
     public String unmarkTask(int index) throws AlisaException {
         try {
-            taskList.get(index-1).markAsNotDone();
+            taskList.get(index - 1).markAsNotDone();
             return "OK, I've marked this task as not done yet:\n" + taskList.get(index-1);
         } catch (IndexOutOfBoundsException e) {
             throw new AlisaException("The task you want to mark as not done doesn't exist!");
@@ -110,10 +110,10 @@ public class TaskList {
      *
      * @return String of all tasks and their details in txt file format.
      */
-    public String toFileString() {
+    public String convertToFileString() {
         String fileText = "";
         for (Task task : taskList) {
-            fileText += task.toFileString();
+            fileText += task.convertToFileString();
         }
         return fileText;
     }

@@ -66,7 +66,7 @@ public abstract class Task {
      *
      * @return String of task details.
      */
-    public abstract String toFileString();
+    public abstract String convertToFileString();
 
     /**
      * Indicates if the task description contains the keyword.

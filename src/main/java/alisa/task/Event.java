@@ -50,7 +50,7 @@ public class Event extends Task {
      * @return String of task type, task status, and task description, and task start and end time.
      */
     @Override
-    public String toFileString() {
+    public String convertToFileString() {
         return "E | " + this.getFileStatus() + " | "
                 + this.getTask() + " | " + startTime + "-" + endTime + "\n";
     }
