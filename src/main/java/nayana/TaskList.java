@@ -2,7 +2,9 @@ package nayana;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import nayana.task.Deadline;
 import nayana.task.Event;
@@ -127,14 +129,9 @@ public class TaskList {
      * @return An ArrayList of tasks that match the search query.
      */
     public ArrayList<Task> findTasks(String findValue) {
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task currTask = tasks.get(i);
-            if (currTask.getDescription().contains(findValue)) {
-                foundTasks.add(currTask);
-            }
-        }
-        return foundTasks;
+        return tasks.stream()
+              .filter(task -> task.getDescription().contains(findValue))  // Filter tasks by description
+              .collect(Collectors.toCollection(ArrayList::new));  // Collect into ArrayList
     }
 
     /**
@@ -143,21 +140,19 @@ public class TaskList {
      *
      * @return An {@code ArrayList<Task>} containing the upcoming tasks.
      */
-    public ArrayList<Task>  getUpcomingTasks() {
-        ArrayList<Task> upcomingTasks = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task currTask = tasks.get(i);
-            if (Objects.equals(currTask.getType(), "D ")) {
-                if (isUpcomingDeadline((Deadline)currTask)) {
-                    upcomingTasks.add(currTask);
-                }
-            } else if (Objects.equals(currTask.getType(), "E ")) {
-                if (isUpcomingEvent((Event)currTask)) {
-                    upcomingTasks.add(currTask);
-                }
-            }
-        }
-        return upcomingTasks;
+    public ArrayList<Task> getUpcomingTasks() {
+        LocalDate today = LocalDate.now();
+        return tasks.stream()
+              .filter(task -> task instanceof Deadline || task instanceof Event)
+              .filter(task -> {
+                  if (task instanceof Deadline) {
+                      return isUpcomingDeadline((Deadline) task); // Fixed the extra closing parenthesis
+                  } else if (task instanceof Event) {
+                      return isUpcomingEvent((Event) task);
+                  }
+                  return false;
+              })
+              .collect(Collectors.toCollection(ArrayList::new)); // Collecting into ArrayList
     }
 
     /**
