@@ -1,9 +1,9 @@
 package rapgod.utils;
 
-import rapgod.tasks.Task;
-import rapgod.tasks.ToDo;
 import rapgod.tasks.Deadline;
 import rapgod.tasks.Event;
+import rapgod.tasks.Task;
+import rapgod.tasks.ToDo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -76,15 +76,17 @@ public class Parser {
         boolean isDone = taskString.charAt(8) == 'X'; // The status is represented by the second character
         String info = taskString; // The description starts after the brackets
 
+        int descStartIndex = info.indexOf("[ ]") + 4;
+
         if (taskString.charAt(4) == 'D') {
-            String deadlineDesc = info.substring(11, info.toLowerCase().indexOf(" (by:"));
+            String deadlineDesc = info.substring(descStartIndex, info.toLowerCase().indexOf(" (by:"));
             String due = info.substring(info.toLowerCase().indexOf(" (by:") + 6, info.length() - 1);
             Deadline deadline = new Deadline(deadlineDesc, due);
             deadline.setIsDone(isDone);
             return deadline;
 
         } else if (taskString.charAt(4) == 'E') {
-            String eventDesc = info.substring(11, info.toLowerCase().indexOf(" (from:"));
+            String eventDesc = info.substring(descStartIndex, info.toLowerCase().indexOf(" (from:"));
             String from = info.substring(info.toLowerCase().indexOf(" (from:") + 8, info.toLowerCase().indexOf(" to:"));
             String to = info.substring(info.toLowerCase().indexOf("to:") + 4, info.length() - 1);
             Event event = new Event(eventDesc, from, to);
@@ -92,7 +94,7 @@ public class Parser {
             return event;
 
         } else {
-            ToDo todo = new ToDo(info.substring(11));
+            ToDo todo = new ToDo(info.substring(descStartIndex));
             todo.setIsDone(isDone);
             return todo;
         }

@@ -1,20 +1,14 @@
 package rapgod.storage;
 
 import rapgod.tasks.Task;
-
 import rapgod.utils.Parser;
 
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import rapgod.tasks.Task;
-import rapgod.utils.Parser;
 
 /**
  * Manages task data stored in a file, providing functionality to read from and update the task data file.
@@ -71,16 +65,7 @@ public class DataManager {
                 // Create an empty file if it does not exist
                 Files.createDirectories(DATA_FILE_PATH.getParent()); // Ensure the parent directories exist
                 Files.createFile(DATA_FILE_PATH); // Create the empty file
-                System.out.println("No existing memory found. New data file created.\n");
             }
-
-            System.out.println("-----------------------------------------------");
-            System.out.println("Current Task ListBot: ");
-            System.out.println("Displaying ListBot:");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.printf("%d. %s\n", i + 1, list.get(i));
-            }
-            System.out.println("-----------------------------------------------");
 
         } catch (IOException e) {
             System.err.println("Error fetching data ---> " + e.getMessage());

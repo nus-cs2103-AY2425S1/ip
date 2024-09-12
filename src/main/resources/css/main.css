@@ -1,0 +1,49 @@
+.root {
+    main-color: rgb(15, 15, 15);          /* Dark background for the entire UI */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #2a2a2a;        /* Dark grey for text field background */
+    -fx-font: 20px "Arial";
+    -fx-text-fill: #f0f0f0;               /* Light grey text for contrast */
+}
+
+.button {
+    -fx-background-color: #444444;        /* Dark grey button background */
+    -fx-font: italic bold 16px "Arial";
+    -fx-text-fill: #f0f0f0;               /* Light grey text */
+}
+
+.button:hover {
+    -fx-background-color: #555555;        /* Slightly lighter grey when hovered */
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #666666;        /* Even lighter grey when pressed */
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: #202020;        /* Dark grey for the scroll bar */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #555555;        /* Slightly lighter thumb */
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
