@@ -9,23 +9,23 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private static final DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
-    protected LocalDate by;
+    protected LocalDate endDate;
 
     /**
      * Initialises the Deadline class.
      * @param description the Task description.
-     * @param by Deadline of the deadline task, represented by LocalDate.
+     * @param endDate Deadline of the deadline task, represented by LocalDate.
      */
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate endDate) {
         super(description);
-        this.by = by;
+        this.endDate = endDate;
     }
 
     public LocalDate getEndDate() {
-        return by;
+        return endDate;
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(OUT_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: " + endDate.format(OUT_FORMATTER) + ")";
     }
 }

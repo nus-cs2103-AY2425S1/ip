@@ -27,33 +27,33 @@ public class Parser {
      * @throws TiraException Custom Tira exception class.
      */
     public void parseCommand(String command) throws TiraException {
-        String [] splitCommand = command.split(" ");
-        String taskType = splitCommand[0];
+        String [] commandSplitBySpace = command.split(" ");
+        String taskType = commandSplitBySpace[0];
         try {
             switch(taskType) {
             case "list":
                 ui.showTaskList(taskList);
                 break;
             case "mark":
-                taskList.markTask(command, splitCommand);
+                taskList.markTask(command, commandSplitBySpace);
                 break;
             case "unmark":
-                taskList.unmarkTask(command, splitCommand);
+                taskList.unmarkTask(command, commandSplitBySpace);
                 break;
             case "delete":
-                taskList.delete(splitCommand);
+                taskList.delete(commandSplitBySpace);
                 break;
             case "todo":
-                taskList.addToDo(command, splitCommand);
+                taskList.addToDo(command, commandSplitBySpace);
                 break;
             case "deadline":
-                taskList.addDeadline(command, splitCommand);
+                taskList.addDeadline(command, commandSplitBySpace);
                 break;
             case "event":
-                taskList.addEvent(command, splitCommand);
+                taskList.addEvent(command, commandSplitBySpace);
                 break;
             case "find":
-                taskList.findTask(command, splitCommand);
+                taskList.findTask(command, commandSplitBySpace);
                 break;
             default:
                 throw new TiraException("What task is this??? Please rethink your task!");

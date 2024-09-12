@@ -49,8 +49,7 @@ public class Tira {
 
     public void run() throws TiraException {
         Ui ui = new Ui();
-        ui.welcome();
-        boolean isDone = false;
+        ui.showWelcome();
         PrintWriter printer = new PrintWriter(System.out);
         // check the user input
         /*
@@ -75,7 +74,7 @@ public class Tira {
         } catch (IOException e) {
             System.out.println("Error while saving tasks. Please try again");
         }
-        ui.bye();
+        ui.showBye();
         printer.close();
     }
 

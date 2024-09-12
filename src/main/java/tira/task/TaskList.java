@@ -13,7 +13,7 @@ import tira.Ui;
  * Manages list of tasks, including adding, deleting, marking, unmarking.
  */
 public class TaskList {
-    private static final DateTimeFormatter IN_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private ArrayList<Task> tasks;
     private final PrintWriter printer = new PrintWriter(System.out);
     private final Ui ui = new Ui();
@@ -47,14 +47,14 @@ public class TaskList {
      * Marks the numbered task in the taskList.
      *
      * @param command The main command that the user input
-     * @param splitCommand Command split using " "
+     * @param commandSplitBySpace Command split using " "
      * @throws TiraException Custom Tira exception class
      */
-    public void markTask(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2 && command.equals("mark")) {
+    public void markTask(String command, String[] commandSplitBySpace) throws TiraException {
+        if (commandSplitBySpace.length < 2 && command.equals("mark")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
-        int currNum = Integer.parseInt(splitCommand[1]) - 1;
+        int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
         tasks.get(currNum).markStatus();
         Task currTask = tasks.get(currNum);
         ui.showMarkTask(currTask);
@@ -65,14 +65,14 @@ public class TaskList {
      * Unmarks the numbered task in the taskList.
      *
      * @param command The main command that the user input
-     * @param splitCommand Command split using " "
+     * @param commandSplitBySpace Command split using " "
      * @throws TiraException Custom Tira exception class
      */
-    public void unmarkTask(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2 && command.equals("unmark")) {
+    public void unmarkTask(String command, String[] commandSplitBySpace) throws TiraException {
+        if (commandSplitBySpace.length < 2 && command.equals("unmark")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
-        int currNum = Integer.parseInt(splitCommand[1]) - 1;
+        int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
         tasks.get(currNum).unmarkStatus();
         Task currTask = tasks.get(currNum);
         ui.showUnmarkTask(currTask);
@@ -83,17 +83,17 @@ public class TaskList {
      * Adds the todo task into the task List.
      *
      * @param command The command inputted by user
-     * @param splitCommand User command split using " "
+     * @param commandSplitBySpace User command split using " "
      * @throws TiraException Custom Tira Exception
      */
-    public void addToDo(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2 && command.equals("ToDo")) {
+    public void addToDo(String command, String[] commandSplitBySpace) throws TiraException {
+        if (commandSplitBySpace.length < 2 && command.equals("ToDo")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         String description = "";
-        for (int i = 1; i < splitCommand.length; i++) {
-            description += (splitCommand[i]);
-            if (i != splitCommand.length - 1) {
+        for (int i = 1; i < commandSplitBySpace.length; i++) {
+            description += (commandSplitBySpace[i]);
+            if (i != commandSplitBySpace.length - 1) {
                 description += " ";
             }
         }
@@ -106,16 +106,16 @@ public class TaskList {
      * Adds deadline task to the task list.
      *
      * @param command inputted by the user
-     * @param splitCommand separated by the space
+     * @param commandSplitBySpace separated by the space
      * @throws TiraException custom Tira exception
      */
-    public void addDeadline(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2 && command.equals("Deadline")) {
+    public void addDeadline(String command, String[] commandSplitBySpace) throws TiraException {
+        if (commandSplitBySpace.length < 2 && command.equals("Deadline")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         String[] dateCommands = command.split("/");
         try {
-            LocalDate endDate = LocalDate.parse(dateCommands[1].substring(3).trim(), IN_FORMATTER);
+            LocalDate endDate = LocalDate.parse(dateCommands[1].substring(3).trim(), DATE_FORMATTER);
             Task deadlineTask = new Deadline(dateCommands[0], endDate);
             tasks.add(deadlineTask);
             ui.showAddTask(deadlineTask, tasks.size());
@@ -129,20 +129,19 @@ public class TaskList {
      * Adds event task to the task list.
      *
      * @param command inputted by the user
-     * @param splitCommand separated by the space
+     * @param commandSplitBySpace separated by the space
      * @throws TiraException custom Tira exception
      */
-    public void addEvent(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2 && command.equals("Event")) {
+    public void addEvent(String command, String[] commandSplitBySpace) throws TiraException {
+        if (commandSplitBySpace.length < 2 && command.equals("Event")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         String[] dateCommands = command.split("/");
         try {
-            LocalDate startDate = LocalDate.parse(dateCommands[1].substring(5).trim(), IN_FORMATTER);
-            LocalDate endDate = LocalDate.parse(dateCommands[2].substring(3).trim(), IN_FORMATTER);
+            LocalDate startDate = LocalDate.parse(dateCommands[1].substring(5).trim(), DATE_FORMATTER);
+            LocalDate endDate = LocalDate.parse(dateCommands[2].substring(3).trim(), DATE_FORMATTER);
             Task eventTask = new Event(dateCommands[0].substring(6).trim(), startDate, endDate);
             tasks.add(eventTask);
-            System.out.println("TESTING ADDDEADLINE, DESCRIPTION IS " + eventTask.getDescription());
             ui.showAddTask(eventTask, tasks.size());
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
@@ -152,16 +151,16 @@ public class TaskList {
     /**
      * Deletes task of specific number in the task list.
      *
-     * @param splitCommand separated by the space
+     * @param commandSplitBySpace separated by the space
      * @throws TiraException custom Tira exception
      */
-    public void delete(String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
+    public void delete(String[] commandSplitBySpace) throws TiraException {
+        if (commandSplitBySpace.length < 2) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
-        int indexToDelete = Integer.parseInt(splitCommand[1]);
-        Task taskToRemove = tasks.get(indexToDelete - 1);
-        tasks.remove(indexToDelete - 1);
+        int taskNumberToDelete = Integer.parseInt(commandSplitBySpace[1]);
+        Task taskToRemove = tasks.get(taskNumberToDelete - 1);
+        tasks.remove(taskNumberToDelete - 1);
         ui.showDelete(taskToRemove, tasks.size());
         printer.flush();
     }
@@ -170,17 +169,17 @@ public class TaskList {
      * Finds a specific task.
      *
      * @param command user command.
-     * @param splitCommand User command split by " ".
+     * @param commandSplitBySpace User command split by " ".
      * @throws TiraException Custom Tira exception
      */
-    public void findTask(String command, String[] splitCommand) throws TiraException {
-        ArrayList<Task> tasksThatMatch = new ArrayList<Task>();
+    public void findTask(String command, String[] commandSplitBySpace) throws TiraException {
+        ArrayList<Task> tasksThatMatch = new ArrayList<>();
         String description = "";
-        for (int i = 1; i < splitCommand.length; i++) {
-            if (splitCommand[i].equals("/from") || splitCommand[i].equals("/by")) {
+        for (int i = 1; i < commandSplitBySpace.length; i++) {
+            if (commandSplitBySpace[i].equals("/from") || commandSplitBySpace[i].equals("/by")) {
                 break;
             }
-            description += (splitCommand[i]) + " ";
+            description += (commandSplitBySpace[i]) + " ";
         }
         description = description.trim();
         for (Task task: tasks) {

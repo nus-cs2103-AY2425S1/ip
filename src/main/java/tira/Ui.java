@@ -34,7 +34,7 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void welcome() {
+    public void showWelcome() {
         System.out.println("MIAO! I'm TIRAMISU THE CAT (TIRA)\n"
                 + "What can I do for you today, miao?\n");
     }
@@ -42,7 +42,7 @@ public class Ui {
     /**
      * Displays a goodbye message to the user.
      */
-    public void bye() {
+    public void showBye() {
         System.out.println("Bye. Come back with treats, MIAO!");
     }
 

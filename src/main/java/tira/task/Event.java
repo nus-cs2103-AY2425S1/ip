@@ -9,19 +9,19 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
     private static final DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
-    protected LocalDate start;
-    protected LocalDate end;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
 
     /**
      * Initialises the Event class.
      * @param description The description of event.
-     * @param start The start date and time of the event.
-     * @param end The end date and time of the event.
+     * @param startDate The start date and time of the event.
+     * @param endDate The end date and time of the event.
      */
-    public Event(String description, LocalDate start, LocalDate end) {
+    public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -29,7 +29,7 @@ public class Event extends Task {
      * @return Date and time in LocalDate object.
      */
     public LocalDate getStartDate() {
-        return start;
+        return startDate;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Event extends Task {
      * @return EndDate of the event in LocalDate object.
      */
     public LocalDate getEndDate() {
-        return end;
+        return endDate;
     }
 
     /**
@@ -47,8 +47,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + start.format(OUT_FORMATTER)
-                + " to: " + end.format(OUT_FORMATTER)
+                + " (from: " + startDate.format(OUT_FORMATTER)
+                + " to: " + endDate.format(OUT_FORMATTER)
                 + ")";
     }
 }
