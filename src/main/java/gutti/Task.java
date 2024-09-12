@@ -1,5 +1,7 @@
 package gutti;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task with a description and a completion status.
  * The task can be marked as done or not done.
@@ -14,6 +16,8 @@ public class Task {
      */
     protected boolean isDone;
 
+    protected LocalDateTime completionDate;
+
     /**
      * Constructs a new Task with the specified description.
      * The task is initially not marked as done.
@@ -23,6 +27,7 @@ public class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.completionDate = null;
     }
 
     /**
@@ -41,6 +46,7 @@ public class Task {
     public String markAsDone() {
         this.isDone = true;
         StringBuilder sb = new StringBuilder();
+        this.completionDate = LocalDateTime.now();
         sb.append("Nice! I've marked this task as done:\n");
         sb.append(this.toString());
         return sb.toString();
@@ -53,6 +59,7 @@ public class Task {
         this.isDone = false;
         StringBuilder sb = new StringBuilder();
         sb.append("OK, I've marked this task as not done yet:\n" );
+        this.completionDate = null;
         sb.append(this.toString());
         return sb.toString();
 

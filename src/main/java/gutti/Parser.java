@@ -55,6 +55,8 @@ public class Parser {
                 throw new GuttiException("Delete command requires an index.");
             }
             return new FindCommand(commandString.substring(4).trim());
+        } else if (commandString.startsWith("stats")) {
+            return new StatsCommand();
         } else {
             throw new GuttiException("Unknown command.");
         }
