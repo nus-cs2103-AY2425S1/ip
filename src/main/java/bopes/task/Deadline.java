@@ -24,7 +24,6 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isDone) throws BopesException {
         super(description, isDone);
         assert description != null && !description.isEmpty() : "Description cannot be null or empty.";
-        assert by != null && !by.trim().isEmpty() : "Deadline cannot be null or empty.";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
         try {
             if (by.trim().length() == 10) {  // Length of "dd/MM/yyyy" is 10

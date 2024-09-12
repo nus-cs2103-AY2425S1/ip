@@ -28,6 +28,7 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end, boolean isDone) throws BopesException {
         super(description, isDone);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty.";
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 
@@ -35,11 +36,7 @@ public class Event extends Task {
             // Handle start time
             if (start.trim().length() == 10) { // Length of "dd/MM/yyyy" is 10
                 LocalDate startDate = LocalDate.parse(start.trim(), dateFormatter);
-                if (startDate.equals(LocalDate.now())) {
-                    this.start = LocalDateTime.now(); // Set to current time if it's today
-                } else {
-                    this.start = startDate.atTime(0, 0); // Default to midnight
-                }
+                this.start = startDate.atTime(0, 0); // Default to midnight
             } else {
                 this.start = LocalDateTime.parse(start.toLowerCase(), dateTimeFormatter);
             }
@@ -47,14 +44,13 @@ public class Event extends Task {
             // Handle end time
             if (end.trim().length() == 10) { // Length of "dd/MM/yyyy" is 10
                 LocalDate endDate = LocalDate.parse(end.trim(), dateFormatter);
-                if (endDate.equals(LocalDate.now())) {
-                    this.end = LocalDateTime.now(); // Set to current time if it's today
-                } else {
-                    this.end = endDate.atTime(0, 0); // Default to midnight
-                }
+                this.end = endDate.atTime(0, 0); // Default to midnight
             } else {
                 this.end = LocalDateTime.parse(end.toLowerCase(), dateTimeFormatter);
             }
+
+            assert this.start != null : "Parsed Event start date cannot be null.";
+            assert this.end != null : "Parsed Event end date cannot be null.";
 
             // Check if the end time is before the start time
             if (this.end.isBefore(this.start)) {
