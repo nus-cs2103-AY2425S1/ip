@@ -27,6 +27,7 @@ public class TaskList {
      * @param tasks An ArrayList of tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Task list should not be null";
         this.tasks = tasks;
     }
 
@@ -47,6 +48,7 @@ public class TaskList {
      * @throws DonnaException If the task index is out of range.
      */
     public Task deleteTask(int taskIdx) throws DonnaException {
+        assert taskIdx >= 0 && taskIdx < tasks.size() : "Task index is out of bounds";
         if (taskIdx >= 0 && taskIdx < tasks.size()) {
             return tasks.remove(taskIdx);
         } else {
@@ -63,6 +65,7 @@ public class TaskList {
      * @throws DonnaException If the task index is out of range.
      */
     public Task markTask(int taskIdx, boolean isDone) throws DonnaException {
+        assert taskIdx >= 0 && taskIdx < tasks.size() : "Task index is out of bounds";
         if (taskIdx >= 0 && taskIdx < tasks.size()) {
             Task taskToMark = tasks.get(taskIdx);
             if (isDone) {
@@ -104,6 +107,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int idx) {
+        assert idx >= 0 && idx < tasks.size() : "Index is out of bounds";
         return this.tasks.get(idx);
     }
 

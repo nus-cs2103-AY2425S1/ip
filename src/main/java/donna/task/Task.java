@@ -16,6 +16,8 @@ public abstract class Task {
      * @throws DonnaException If the description is empty.
      */
     public Task(String description) throws DonnaException {
+        assert description != null : "Task description should not be null";
+
         if (description.trim().isEmpty()) {
             throw DonnaException.emptyDescription(this.getClass().getSimpleName());
         }
