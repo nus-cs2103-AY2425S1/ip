@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  * can input date and time.
  */
 public class Deadline extends Task {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime dateTime;
 
     /**
@@ -21,7 +21,7 @@ public class Deadline extends Task {
     public Deadline(String description, String dateTime) {
         super(description);
         try {
-            this.dateTime = LocalDateTime.parse(dateTime.trim(), formatter);
+            this.dateTime = LocalDateTime.parse(dateTime.trim(), FORMATTER);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Please use 'd/M/yyyy HHmm'.");
             throw e;
@@ -29,7 +29,7 @@ public class Deadline extends Task {
     }
 
     public String getDateTime() {
-        return dateTime.format(formatter);
+        return dateTime.format(FORMATTER);
     }
 
     @Override
