@@ -36,6 +36,7 @@ public class Storage {
      * @throws CharlotteException If an error occurs while saving the tasks.
      */
     public void saveTasks(TaskList tasks) throws CharlotteException {
+        assert tasks != null : "TaskList should not be null";
         try {
             File file = new File(filePath);
             File directory = file.getParentFile();
@@ -49,6 +50,7 @@ public class Storage {
 
             if (!file.exists()) {
                 file.createNewFile();
+                assert file.exists() : "Failed to create file: " + filePath;
             }
 
             FileWriter fw = new FileWriter(filePath);
@@ -59,7 +61,6 @@ public class Storage {
         } catch (IOException e) {
             throw new CharlotteException("An error occurred while saving the file.");
         }
-
     }
 
     /**
@@ -71,7 +72,8 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws CharlotteException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        System.out.println(file);
+
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
 
         if (!file.exists()) {
             throw new CharlotteException("No existing data file found");
@@ -81,40 +83,8 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String nextTask = scanner.nextLine();
                 String[] taskData = nextTask.split(" \\| ");
-                String taskType = taskData[0];
-                boolean isDone = taskData[1].equals("1");
-                String description = taskData[2];
-
-                Task task;
-                switch (taskType) {
-                case "T":
-                    task = new ToDo(description);
-                    break;
-                case "D":
-                    if (taskData.length < 4) {
-                        throw new CharlotteException("Invalid format for a deadline task");
-                    }
-                    String by = taskData[3];
-                    task = new Deadline(description, by);
-                    break;
-                case "E":
-                    if (taskData.length < 4) {
-                        throw new CharlotteException("Invalid format for an event task");
-                    }
-                    String[] eventParts = taskData[3].split(" to ");
-                    String from = eventParts[0];
-                    String to = eventParts[1];
-                    task = new Event(description, from, to);
-                    break;
-                default:
-                    throw new CharlotteException("Unknown task type in file: " + taskType);
-                }
-
-                if (isDone) {
-                    task.markAsDone();
-                }
-
-                tasks.add(task);
+                assert taskData.length >= 3 : "Invalid task format in file";
+                tasks.add(parseTask(taskData));
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + filePath);
@@ -122,5 +92,48 @@ public class Storage {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
         return tasks;
+    }
+
+    /**
+     * Parses a task from the given task data array.
+     *
+     * @param taskData An array containing the task type, status, description, and other task-specific details.
+     * @return The parsed task.
+     * @throws CharlotteException If the task data is invalid or the task type is unknown.
+     */
+    private Task parseTask(String[] taskData) throws CharlotteException {
+        String taskType = taskData[0];
+        boolean isDone = taskData[1].equals("1");
+        String description = taskData[2];
+
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            if (taskData.length < 4) {
+                throw new CharlotteException("Invalid format for a deadline task");
+            }
+            String by = taskData[3];
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            if (taskData.length < 4) {
+                throw new CharlotteException("Invalid format for an event task");
+            }
+            String[] eventParts = taskData[3].split(" to ");
+            String from = eventParts[0];
+            String to = eventParts[1];
+            task = new Event(description, from, to);
+            break;
+        default:
+            throw new CharlotteException("Unknown task type in file: " + taskType);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
     }
 }

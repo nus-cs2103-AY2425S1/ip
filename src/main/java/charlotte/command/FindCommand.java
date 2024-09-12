@@ -18,6 +18,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in tasks.
      */
     public FindCommand(String keyword) {
+        assert keyword != null && !keyword.isEmpty() : "Keyword should not be null or empty";
         this.keyword = keyword;
     }
 
@@ -31,11 +32,16 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         TaskList matchingTasks = new TaskList();
         StringBuilder result = new StringBuilder();
 
         //find matching tasks
         for (Task task : tasks.getTasks()) {
+            assert task != null : "Task should not be null";
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.addTask(task);
             }
@@ -47,6 +53,7 @@ public class FindCommand extends Command {
             result.append(ui.printLine()).append("\n");
             result.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.getSize(); i++) {
+                assert matchingTasks.getTask(i) != null : "Matching task should not be null";
                 result.append((i + 1)).append(". ").append(matchingTasks.getTask(i)).append("\n");
             }
             result.append(ui.printLine()).append("\n");

@@ -15,6 +15,7 @@ public class Ui {
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
+        assert scanner != null : "Scanner should be initialised properly";
     }
 
     /**
@@ -23,7 +24,9 @@ public class Ui {
      * @return The line of input entered by the user.
      */
     public String readCommand() {
-        return scanner.nextLine();
+        String input = scanner.nextLine();
+        assert input != null : "User input should not be null";
+        return input;
     }
 
     /**
@@ -64,6 +67,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public String showError(String message) {
+        assert message != null : "Error message should not be null";
         return printLine() + "\n" + message + "\n" + printLine();
     }
 
@@ -73,6 +77,7 @@ public class Ui {
      * @param message The message to be displayed.
      */
     public String showMessage(String message) {
+        assert message != null : "Display message should not be null";
         return printLine() + "\n" + message + "\n" + printLine();
     }
 }

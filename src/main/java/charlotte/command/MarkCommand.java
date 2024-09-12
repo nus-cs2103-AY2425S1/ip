@@ -37,11 +37,17 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         if (index < 1 || index > tasks.getSize()) {
             throw new CharlotteException("Task number is invalid. Please try again");
         }
 
         Task task = tasks.getTask(index - 1);
+
+        assert task != null : "Task at the given index should not be null";
         task.markAsDone();
         storage.saveTasks(tasks);
         return ui.showMessage("Nice! I've marked this task as done:\n " + task);
