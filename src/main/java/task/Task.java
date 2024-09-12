@@ -1,5 +1,7 @@
 package task;
 
+import java.util.Objects;
+
 /**
  * The Task class represents a task with a description, status, and type.
  * It provides methods to manage the task's status and format the task for saving.
@@ -19,6 +21,9 @@ public class Task {
     public Task(String description, String type) {
         this.description = description;
         this.isDone = false;
+
+        assert type.equals("T") || type.equals("D") || type.equals("E")
+                : "The type of a task should only be T, D or E";
         this.type = type;
     }
 

@@ -34,8 +34,12 @@ public class Parser {
     public static String parseUserCommand(
             String command, TaskList taskList, Storage storage
     ) throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
-        String[] slicedStrings = command.split(" ");
-        String action = slicedStrings[0];
+    assert command != null : "Command should not be empty";
+    assert taskList != null : "TaskList should not be empty";
+    assert storage != null : "Storage should not be empty";
+
+    String[] slicedStrings = command.split(" ");
+    String action = slicedStrings[0];
 
         switch (action) {
         case "list":

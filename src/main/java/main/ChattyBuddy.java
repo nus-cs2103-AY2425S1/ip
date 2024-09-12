@@ -26,7 +26,6 @@ public class ChattyBuddy {
      */
     public ChattyBuddy() {
         storage = new Storage("./data/chattybuddy.txt");
-
         try {
             taskList = new TaskList(storage.loadTasks());
         } catch (FileNotFoundException e) {
@@ -44,8 +43,8 @@ public class ChattyBuddy {
             return null;
         }
         try {
-            String response = Parser.parseUserCommand(input, taskList, storage);
-            saveTasksToStorage(taskList.getTasks());
+        String response = Parser.parseUserCommand(input, taskList, storage);
+        saveTasksToStorage(taskList.getTasks());
             return response;
         } catch (InvalidInputException | EmptyTaskException | TaskIndexOutOfBound e) {
             return e.getMessage();
