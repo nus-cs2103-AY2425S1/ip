@@ -47,39 +47,21 @@ public class Parser {
             Task retrievedTask;
             switch(enumeration) {
             case BYE:
-                return ui.bye();
+                return doBye();
             case SCHEDULE:
-                return ui.schedule(taskList);
+                return doSchedule();
             case MARK:
                 taskNumber = validateTaskNumber(splitUserInput);
 
-                //mark the task
-                taskList.mark(taskNumber);
-                retrievedTask = taskList.getTask(taskNumber);
-                storage.save();
-
-                //return mark message
-                return ui.mark(retrievedTask);
+                return doMark(taskNumber);
             case UNMARK:
                 taskNumber = validateTaskNumber(splitUserInput);
 
-                //unmark the task
-                taskList.unMark(taskNumber);
-                retrievedTask = taskList.getTask(taskNumber);
-                storage.save();
-
-                //return unmark message
-                return ui.unMark(retrievedTask);
+                return doUnmark(taskNumber);
             case DELETE:
                 taskNumber = validateTaskNumber(splitUserInput);
 
-                //delete the task
-                retrievedTask = taskList.getTask(taskNumber);
-                taskList.deleteTask(taskNumber);
-                storage.save();
-
-                //return delete message
-                return ui.delete(retrievedTask);
+                return doDelete(taskNumber);
             case FIND:
                 return findTask(splitUserInput);
             default:
@@ -104,6 +86,81 @@ public class Parser {
     public void getUserInput() {
         String userInput = scanner.nextLine();
         parse(userInput);
+    }
+
+    /**
+     * Performs the necessary actions for the bye command
+     *
+     * @return The response from the ui class
+     */
+    private String doBye() {
+        return ui.bye();
+    }
+
+    /**
+     * Performs the necessary actions for the schedule command
+     *
+     * @return The response from the ui class
+     */
+    private String doSchedule() {
+        return ui.schedule(taskList);
+    }
+
+    /**
+     * Performs the necessary actions for the mark command
+     *
+     * @param taskNumber task number of task to mark
+     * @return The response from the ui class
+     * @throws TestamentException thrown if taskNumber is not appropriate
+     */
+    private String doMark(int taskNumber) throws TestamentException {
+        Task retrievedTask;
+
+        //mark the task
+        taskList.mark(taskNumber);
+        retrievedTask = taskList.getTask(taskNumber);
+        storage.save();
+
+        //return mark message
+        return ui.mark(retrievedTask);
+    }
+
+    /**
+     * Performs the necessary actions for the unmark command
+     *
+     * @param taskNumber task number of task to unmark
+     * @return The response from the ui class
+     * @throws TestamentException thrown if taskNumber is not appropriate
+     */
+    private String doUnmark(int taskNumber) throws TestamentException {
+        Task retrievedTask;
+
+        //unmark the task
+        taskList.unMark(taskNumber);
+        retrievedTask = taskList.getTask(taskNumber);
+        storage.save();
+
+        //return unmark message
+        return ui.unMark(retrievedTask);
+    }
+
+    /**
+     * Performs the necessary actions for the delete command
+     *
+     * @param taskNumber task number of task to mark
+     * @return The response from the ui class
+     * @throws TestamentException thrown if taskNumber is not appropriate
+     */
+    private String doDelete(int taskNumber) throws TestamentException {
+        Task retrievedTask;
+
+        //delete the task
+        retrievedTask = taskList.getTask(taskNumber);
+        taskList.deleteTask(taskNumber);
+        storage.save();
+
+        //return delete message
+        return ui.delete(retrievedTask);
     }
 
     /**
