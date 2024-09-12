@@ -1,17 +1,17 @@
 package sage;
 
-import sage.List.TaskList;
-import sage.Task.DeadlineTask;
-import sage.Task.EventTask;
-import sage.Task.Task;
-import sage.Task.ToDoTask;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import sage.List.TaskList;
+import sage.Task.DeadlineTask;
+import sage.Task.EventTask;
+import sage.Task.Task;
+import sage.Task.ToDoTask;
 
 /**
  * A Storage object to load/store the user's tasks.
@@ -31,7 +31,7 @@ public class Storage {
      * @throws SageException If the file is corrupted or contains invalid data.
      */
     public List<Task> loadTasks() throws IOException, SageException {
-        List<Task> taskList = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
         if (!file.exists()) {
@@ -45,35 +45,37 @@ public class Storage {
             String entry = scanner.nextLine();
             String[] entryDetails = entry.split(" \\| ");
 
-            String type = entryDetails[0];
-            boolean isDone = entryDetails[1].equals("1");
-            String description = entryDetails[2];
-
-            switch (type) {
-            case "T":
-                Task toDo = new ToDoTask(description);
-                toDo.setDone(isDone);
-                taskList.add(toDo);
-                break;
-            case "D":
-                String by = entryDetails[3];
-                Task deadline = new DeadlineTask(description, by);
-                deadline.setDone(isDone);
-                taskList.add(deadline);
-                break;
-            case "E":
-                String from = entryDetails[3];
-                String to = entryDetails[4];
-                Task event = new EventTask(description, from, to);
-                event.setDone(isDone);
-                taskList.add(event);
-                break;
-            default:
-                throw new SageException("Corrupted file.");
-            }
+            Task task = getTask(entryDetails);
+            tasks.add(task);
         }
         scanner.close();
-        return taskList;
+        return tasks;
+    }
+
+    private static Task getTask(String[] entryDetails) throws SageException {
+        String type = entryDetails[0];
+        boolean isDone = entryDetails[1].equals("1");
+        String description = entryDetails[2];
+
+        Task task;
+        switch (type) {
+        case "T":
+            task = new ToDoTask(description);
+            break;
+        case "D":
+            String by = entryDetails[3];
+            task = new DeadlineTask(description, by);
+            break;
+        case "E":
+            String from = entryDetails[3];
+            String to = entryDetails[4];
+            task = new EventTask(description, from, to);
+            break;
+        default:
+            throw new SageException("Corrupted file.");
+        }
+        task.setDone(isDone);
+        return task;
     }
 
     /**
