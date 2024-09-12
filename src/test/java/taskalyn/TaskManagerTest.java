@@ -32,8 +32,8 @@ public class TaskManagerTest {
         assertEquals(1, taskManager.getTaskSize(), "There should be just 1 task in the database.");
         String expectedOutput = """
                 Got it, I've added this task to your list!
-                      [T][ ] go to gym
-                    Wah bro... 1 task already!""";
+                [T][ ] go to gym
+                Wah bro... 1 task already!""";
         assertEquals(expectedOutput, actualOutput, "This should be the UI message when a task is added.");
     }
 
@@ -44,8 +44,8 @@ public class TaskManagerTest {
         assertEquals(0, taskManager.getTaskSize(), "There should be no tasks in the database.");
         String expectedOutput = """
                 Awesome bro! One task gone :D
-                      [T][ ] go to gym
-                    Wah bro... 0 task already!""";
+                [T][ ] go to gym
+                Wah bro... 0 task already!""";
         assertEquals(expectedOutput, actualOutput, "This should be the UI message when a task is deleted.");
     }
 
@@ -61,9 +61,9 @@ public class TaskManagerTest {
         String actualOutput = taskManager.listTasks();
         String expectedOutput = """
                 Here are the tasks in your list:
-                    1.[T][ ] go to school
-                    2.[D][ ] hw (by: 11 09 2024, 1:00 PM)
-                    3.[E][ ] party (from: 11 09 2024, 6:00 PM to: 11 09 2024, 8:00 PM)""";
+                1.[T][ ] go to school
+                2.[D][ ] hw (by: 11 09 2024, 1:00 PM)
+                3.[E][ ] party (from: 11 09 2024, 6:00 PM to: 11 09 2024, 8:00 PM)""";
         assertEquals(expectedOutput, actualOutput, "This should be the UI message when a task is listed.");
     }
 
@@ -79,7 +79,7 @@ public class TaskManagerTest {
         String actualOutput = taskManager.markTaskAsComplete(1);
         String expectedOutput = """
                 Nice, I've marked this task as complete:
-                      [T][X] go to school""";
+                [T][X] go to school""";
         assertEquals(expectedOutput, actualOutput, "This should be the UI message when a task is marked.");
     }
 
@@ -96,7 +96,7 @@ public class TaskManagerTest {
         String actualOutput = taskManager.markTaskAsIncomplete(1);
         String expectedOutput = """
                 Ok, I've marked this task as incomplete:
-                      [T][ ] go to school""";
+                [T][ ] go to school""";
         assertEquals(expectedOutput, actualOutput, "This should be the UI message when a task is unmarked.");
     }
 
@@ -112,7 +112,7 @@ public class TaskManagerTest {
         String actualOutput = taskManager.searchTasksByKeyword("school");
         String expectedOutput = """
                 Here are the matching tasks in your list:
-                    1.[T][ ] go to school""";
+                1.[T][ ] go to school""";
         assertEquals(expectedOutput, actualOutput,
                 "This should be the UI message when a task is found by find command.");
     }

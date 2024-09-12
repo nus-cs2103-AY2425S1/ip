@@ -26,7 +26,7 @@ public class Ui {
     public String showAddTaskMessage(Task task, TaskManager taskManager) {
         int numberofTasks = taskManager.getTaskSize();
         return "Got it, I've added this task to your list!\n"
-                + "      " + task.toString() + "\n" + "    Wah bro... "
+                + task.toString() + "\n" + "Wah bro... "
                 + numberofTasks + (numberofTasks > 1 ? " tasks already!" : " task already!");
     }
 
@@ -40,7 +40,7 @@ public class Ui {
     public String showDeleteTaskMessage(Task task, TaskManager taskManager) {
         int numberofTasks = taskManager.getTaskSize();
         return "Awesome bro! One task gone :D\n"
-                + "      " + task.toString() + "\n" + "    Wah bro... "
+                + task.toString() + "\n" + "Wah bro... "
                 + numberofTasks + (numberofTasks > 1 ? " tasks already!" : " task already!");
     }
 
@@ -52,7 +52,7 @@ public class Ui {
      */
     public String showMarkTaskAsCompleteMessage(Task task) {
         return "Nice, I've marked this task as complete:\n"
-                + "      " + task.toString();
+                + task.toString();
     }
 
     /**
@@ -63,7 +63,7 @@ public class Ui {
      */
     public String showMarkTaskAsIncompleteMessage(Task task) {
         return "Ok, I've marked this task as incomplete:\n"
-                + "      " + task.toString();
+                + task.toString();
     }
 
     /**
