@@ -15,7 +15,7 @@ public class Ui {
     private static final String INTRODUCTION = "Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam "
             + "and Purrtector of the Realm of Naps.\n"
             + "How can I purrvide assistance? Purrhaps I could lend a paw!";
-    private static final String FAREWELL = "Fur-well friend, stay paw-sitive!"
+    private static final String FAREWELL = "Fur-well friend, stay paw-sitive!";
 
 
     private final Scanner in;
