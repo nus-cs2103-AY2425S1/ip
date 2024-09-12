@@ -16,7 +16,7 @@ import orion.task.Todo;
 /**
  * Manages a list of tasks, including loading, saving, adding, and modifying
  * tasks.
- * 
+ *
  * <p>
  * This class interacts with the {@link Storage} class to persist tasks in a
  * file.
@@ -31,7 +31,7 @@ public class TaskList {
 
     /**
      * Constructs a TaskList instance with the specified storage.
-     * 
+     *
      * @param storage the storage used to read and write tasks.
      * @throws FileInitializationException if there is an issue with file
      *                                     initialization.
@@ -43,7 +43,7 @@ public class TaskList {
 
     /**
      * Retrieves the next task ID by finding the maximum existing ID and adding one.
-     * 
+     *
      * @param tasks the list of existing tasks.
      * @return the next available task ID.
      */
@@ -56,7 +56,7 @@ public class TaskList {
 
     /**
      * Checks if the given list position is valid.
-     * 
+     *
      * @param listPosition the position to check.
      * @return true if the position is valid, false otherwise.
      * @throws FileInitializationException if there is an issue with file reading.
@@ -71,7 +71,7 @@ public class TaskList {
 
     /**
      * Loads tasks from the storage file into a list.
-     * 
+     *
      * @return a list of tasks read from the file.
      * @throws FileInitializationException if there is an issue reading from the
      *                                     file.
@@ -82,12 +82,12 @@ public class TaskList {
 
     /**
      * Prints all tasks to the console.
-     * 
+     *
      * <p>
      * If there are no tasks, a message indicating this is printed. Otherwise, each
      * task is printed with its position in the list.
      * </p>
-     * 
+     *
      * @throws FileInitializationException if there is an issue reading the tasks
      *                                     from the file.
      */
@@ -105,7 +105,7 @@ public class TaskList {
 
     /**
      * Saves a list of tasks to the storage file.
-     * 
+     *
      * @param tasks the list of tasks to be saved.
      */
     public void saveTasksToFile(List<Task> tasks) {
@@ -134,7 +134,7 @@ public class TaskList {
 
     /**
      * Gets the type of a task as a string.
-     * 
+     *
      * @param task the task for which the type is to be determined.
      * @return a string representing the type of the task (e.g., "TODO", "DEADLINE",
      *         "EVENT").
@@ -154,7 +154,7 @@ public class TaskList {
 
     /**
      * Adds a TODO task to the task list.
-     * 
+     *
      * @param description the description of the new TODO task.
      * @return the newly created TODO task.
      * @throws FileInitializationException if there is an issue with file reading or
@@ -171,7 +171,7 @@ public class TaskList {
 
     /**
      * Adds a DEADLINE task to the task list.
-     * 
+     *
      * @param temp an object containing details of the new DEADLINE task.
      * @return the newly created DEADLINE task.
      * @throws FileInitializationException if there is an issue with file reading or
@@ -188,7 +188,7 @@ public class TaskList {
 
     /**
      * Adds an EVENT task to the task list.
-     * 
+     *
      * @param temp an object containing details of the new EVENT task.
      * @return the newly created EVENT task.
      * @throws FileInitializationException if there is an issue with file reading or
@@ -205,7 +205,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
-     * 
+     *
      * @return the number of tasks.
      * @throws FileInitializationException if there is an issue with file reading.
      */
@@ -216,7 +216,7 @@ public class TaskList {
 
     /**
      * Marks a task as done based on its list position.
-     * 
+     *
      * @param listPosition the position of the task to mark as done.
      * @return the task that was marked as done, or null if the position is invalid.
      * @throws FileInitializationException if there is an issue with file reading or
@@ -236,7 +236,7 @@ public class TaskList {
 
     /**
      * Unmarks a task as done based on its list position.
-     * 
+     *
      * @param listPosition the position of the task to unmark as done.
      * @return the task that was unmarked as done, or null if the position is
      *         invalid.
@@ -257,7 +257,7 @@ public class TaskList {
 
     /**
      * Deletes a task based on its list position.
-     * 
+     *
      * @param listPosition the position of the task to delete.
      * @return the task that was deleted, or null if the position is invalid.
      * @throws FileInitializationException if there is an issue with file reading or
