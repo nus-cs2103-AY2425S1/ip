@@ -7,7 +7,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import cancelgpt.command.Command;
+import cancelgpt.exception.command.UnknownInput;
+import cancelgpt.exception.task.DeleteTaskInputException;
+import cancelgpt.exception.task.FindTaskInputException;
+import cancelgpt.exception.task.InvalidTaskException;
+import cancelgpt.exception.task.MarkTaskInputException;
 import cancelgpt.exception.task.TaskDoesNotExist;
+import cancelgpt.exception.task.UnmarkTaskInputException;
 import cancelgpt.task.Task;
 import javafx.application.Application;
 
@@ -25,14 +31,15 @@ public class CancelGpt {
      *
      * @param storageDirPath the path to the directory that stores tasks data
      */
-    public CancelGpt(Path storageDirPath) {
+    public CancelGpt(Path storageDirPath) throws IOException {
         this.chatbotName = "cancelgpt";
         this.tasksList = new TasksList();
         try {
             this.tasksStorage = new TasksStorage(this, storageDirPath);
         } catch (IOException e) {
-            UI.printMessageToConsole("Unable to use TASKS STORAGE. Exiting program");
-            System.exit(1);
+//            UI.printMessageToConsole("Unable to use TASKS STORAGE. Exiting program");
+//            System.exit(1);
+            throw new IOException("Unable to use TASKS STORAGE. Exiting program");
         }
         this.commandParser = new CommandParser(this);
     }
@@ -57,41 +64,41 @@ public class CancelGpt {
      * The entrypoint for the chatbot.
      * Reads commands from the user and perform operations based on command given.
      */
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-
-        UI.printHorizontalLineToConsole();
-        greet();
-        UI.printHorizontalLineToConsole();
-
-        String command = sc.nextLine();
-        while (!command.equals(Command.BYE.toString())) {
-            UI.printHorizontalLineToConsole();
-            handleCommand(command);
-            UI.printHorizontalLineToConsole();
-
-            try {
-                saveTasks();
-            } catch (IOException e) {
-                UI.printMessageToConsole("Unable to save tasks to TASKS STORAGE. Exiting program");
-                System.exit(1);
-            }
-
-            command = sc.nextLine();
-        }
-
-        sc.close();
-        UI.printHorizontalLineToConsole();
-        exit();
-        UI.printHorizontalLineToConsole();
-    }
+//    public void run() {
+//        Scanner sc = new Scanner(System.in);
+//
+//        UI.printHorizontalLineToConsole();
+//        greet();
+//        UI.printHorizontalLineToConsole();
+//
+//        String command = sc.nextLine();
+//        while (!command.equals(Command.BYE.toString())) {
+//            UI.printHorizontalLineToConsole();
+//            handleCommand(command);
+//            UI.printHorizontalLineToConsole();
+//
+//            try {
+//                saveTasks();
+//            } catch (IOException e) {
+//                UI.printMessageToConsole("Unable to save tasks to TASKS STORAGE. Exiting program");
+//                System.exit(1);
+//            }
+//
+//            command = sc.nextLine();
+//        }
+//
+//        sc.close();
+//        UI.printHorizontalLineToConsole();
+//        exit();
+//        UI.printHorizontalLineToConsole();
+//    }
 
     /**
      * Prints greeting message to the .
      */
-    public void greet() {
-        UI.printMessageToConsole("Hello! I am " + chatbotName);
-        UI.printMessageToConsole("What can I do for you?");
+    public String greet() {
+        return "Hello! I am " + chatbotName + "\n"
+            + "What can I do for you?";
     }
 
     /**
@@ -106,8 +113,10 @@ public class CancelGpt {
      *
      * @param command command entered by user
      */
-    public void handleCommand(String command) {
-        this.commandParser.parseAndHandle(command);
+    public String handleCommand(String command) throws MarkTaskInputException, UnmarkTaskInputException,
+            InvalidTaskException, TaskDoesNotExist, UnknownInput, DeleteTaskInputException,
+            FindTaskInputException {
+        return this.commandParser.parseAndHandle(command);
     }
 
     /**
@@ -116,8 +125,8 @@ public class CancelGpt {
      * @param taskNumber the task number in the chatbot's task list
      * @throws TaskDoesNotExist if the task number does not exist in the task list
      */
-    public void deleteTask(int taskNumber) throws TaskDoesNotExist {
-        this.tasksList.deleteTask(taskNumber);
+    public String deleteTask(int taskNumber) throws TaskDoesNotExist {
+        return this.tasksList.deleteTask(taskNumber);
     }
 
     /**
@@ -126,10 +135,14 @@ public class CancelGpt {
      *
      * @param task a Task object to be added
      */
-    public void handleAddingTask(Task task) {
-        UI.printMessageToConsole("Got it. I've added this task:");
-        UI.printMessageToConsole(" " + this.addToTaskList(task));
-        UI.printMessageToConsole("Now you have " + this.tasksList.getSize() + " tasks in the list.");
+    public String handleAddingTask(Task task) {
+        String addTaskResponse = "Got it. I've added this task: "
+                + " " + this.addToTaskList(task)
+                + "Now you have " + this.tasksList.getSize() + " tasks in the list.";
+        return addTaskResponse;
+//        UI.printMessageToConsole("Got it. I've added this task:");
+//        UI.printMessageToConsole(" " + this.addToTaskList(task));
+//        UI.printMessageToConsole("Now you have " + this.tasksList.getSize() + " tasks in the list.");
     }
 
     /**
@@ -139,8 +152,8 @@ public class CancelGpt {
      * @param taskNumber the task number in the chatbot's task list
      * @throws TaskDoesNotExist if the task number does not exist in the task list
      */
-    public void markTask(int taskNumber) throws TaskDoesNotExist {
-        this.tasksList.markTask(taskNumber);
+    public String markTask(int taskNumber) throws TaskDoesNotExist {
+        return this.tasksList.markTask(taskNumber);
     }
 
     /**
@@ -150,8 +163,8 @@ public class CancelGpt {
      * @param taskNumber the task number in the chatbot's task list
      * @throws TaskDoesNotExist if the task number does not exist in the task list
      */
-    public void unmarkTask(int taskNumber) throws TaskDoesNotExist {
-        this.tasksList.unmarkTask(taskNumber);
+    public String unmarkTask(int taskNumber) throws TaskDoesNotExist {
+        return this.tasksList.unmarkTask(taskNumber);
     }
 
     /**
@@ -166,8 +179,8 @@ public class CancelGpt {
     /**
      * Prints the tasks in the chatbot's task list to console.
      */
-    public void displayTasksList() {
-        this.tasksList.displayTasksList();
+    public String displayTasksList() {
+        return this.tasksList.displayTasksList();
     }
 
     /**
@@ -187,14 +200,18 @@ public class CancelGpt {
      *
      * @param keyword the keyword in the description of tasks to find
      */
-    public void findTasks(String keyword) {
-        UI.printMessageToConsole("Here are the matching tasks in your list:");
+    public String findTasks(String keyword) {
+        StringBuilder findTasksResponse = new StringBuilder();
+        findTasksResponse.append("Here are the matching tasks in your list:\n");
+//        UI.printMessageToConsole("Here are the matching tasks in your list:");
 
         List<Task> tasksFound = this.tasksList.findTasksByDescriptionKeyword(keyword);
         for (int i = 0; i < tasksFound.size(); i++) {
             UI.printMessageToConsole((i + 1) + "."
                     + tasksFound.get(i));
+            findTasksResponse.append(i + 1).append(".").append(tasksFound.get(i)).append("\n");
         }
+        return findTasksResponse.toString();
     }
 
     /**

@@ -32,13 +32,14 @@ public class TasksList {
     }
 
     /**
-     * Prints all the tasks to the console.
+     * Returns string response of all the tasks in tasks list.
      */
-    public void displayTasksList() {
-        UI.printMessageToConsole("Here are the tasks in your list:");
+    public String displayTasksList() {
+        StringBuilder tasksListResponse = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < this.tasksList.size(); i++) {
-            System.out.println(i + 1 + ". " + this.tasksList.get(i));
+            tasksListResponse.append(i + 1).append(". ").append(this.tasksList.get(i)).append("\n");
         }
+        return tasksListResponse.toString();
     }
 
     /**
@@ -66,15 +67,17 @@ public class TasksList {
      * @param taskNumber the task number in the task list
      * @throws TaskDoesNotExist if the task to delete does not exist
      */
-    public void deleteTask(int taskNumber) throws TaskDoesNotExist {
+    public String deleteTask(int taskNumber) throws TaskDoesNotExist {
         if (taskNumber <= 0 || taskNumber > this.tasksList.size()) {
             throw new TaskDoesNotExist();
         }
         Task taskDeleted = this.tasksList.remove(taskNumber - 1);
 
-        UI.printMessageToConsole("Noted. I've removed this task:");
-        UI.printMessageToConsole(" " + taskDeleted);
-        UI.printMessageToConsole("Now you have " + this.tasksList.size() + " tasks in the list.");
+        return "Noted. I've removed this task: " + taskDeleted.toString()
+                + "Now you have " + this.tasksList.size() + " tasks in the list.";
+//        UI.printMessageToConsole("Noted. I've removed this task:");
+//        UI.printMessageToConsole(" " + taskDeleted);
+//        UI.printMessageToConsole("Now you have " + this.tasksList.size() + " tasks in the list.");
     }
 
     /**
@@ -84,15 +87,17 @@ public class TasksList {
      * @param taskNumber the task number in the chatbot's task list
      * @throws TaskDoesNotExist if the task does not exist in the task list
      */
-    public void markTask(int taskNumber) throws TaskDoesNotExist {
+    public String markTask(int taskNumber) throws TaskDoesNotExist {
         if (taskNumber <= 0 || taskNumber > this.tasksList.size()) {
             throw new TaskDoesNotExist();
         }
 
         this.tasksList.get(taskNumber - 1).mark();
 
-        UI.printMessageToConsole("Nice! I've marked this task as done:");
-        UI.printMessageToConsole(" " + this.tasksList.get(taskNumber - 1));
+        return "Nice! I've marked this task as done: "
+                + this.tasksList.get(taskNumber - 1);
+//        UI.printMessageToConsole("Nice! I've marked this task as done:");
+//        UI.printMessageToConsole(" " + this.tasksList.get(taskNumber - 1));
     }
 
     /**
@@ -102,15 +107,17 @@ public class TasksList {
      * @param taskNumber the task number in the task list
      * @throws TaskDoesNotExist if the task does not exist in the task list
      */
-    public void unmarkTask(int taskNumber) throws TaskDoesNotExist {
+    public String unmarkTask(int taskNumber) throws TaskDoesNotExist {
         if (taskNumber <= 0 || taskNumber > this.tasksList.size()) {
             throw new TaskDoesNotExist();
         }
 
         this.tasksList.get(taskNumber - 1).unmark();
 
-        UI.printMessageToConsole("OK, I've marked this task as not done yet:");
-        UI.printMessageToConsole(" " + this.tasksList.get(taskNumber - 1));
+        return "OK, I've marked this task as not done yet: "
+                + this.tasksList.get(taskNumber - 1);
+//        UI.printMessageToConsole("OK, I've marked this task as not done yet:");
+//        UI.printMessageToConsole(" " + this.tasksList.get(taskNumber - 1));
     }
 
     /**
