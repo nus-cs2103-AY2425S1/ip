@@ -175,7 +175,7 @@ public class NotgptJavaFX extends Application {
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }
-
+  
     private String processInput(String command, String text) {
         return parser.parse(command, text);
     }
