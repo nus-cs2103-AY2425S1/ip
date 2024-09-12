@@ -11,6 +11,7 @@ import demurebot.command.DeleteCommand;
 import demurebot.command.EndCommand;
 import demurebot.command.EndsWithCommand;
 import demurebot.command.EventCommand;
+import demurebot.command.Filter;
 import demurebot.command.FindCommand;
 import demurebot.command.InvalidCommand;
 import demurebot.command.ListCommand;
@@ -54,6 +55,8 @@ public abstract class Parser {
             return new StartsWithCommand(command.substring(11).trim());
         } else if (command.startsWith("ends with")) {
             return new EndsWithCommand(command.substring(9).trim());
+        } else if (command.startsWith("filter")) {
+            return new Filter(command.substring(6).trim());
         } else if (command.startsWith("todo")) {
             String description = command.substring(4).trim();
             // check that there is a task description
