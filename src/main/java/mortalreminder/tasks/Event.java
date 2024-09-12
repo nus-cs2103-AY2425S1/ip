@@ -31,7 +31,7 @@ public class Event extends Task implements TimedTask {
         super(description);
         String[] descriptionString = description.split("/from|/to");
         checkInitialisationDetails(descriptionString);
-        this.description = descriptionString[0];
+        this.description = descriptionString[0].trim();
         this.fromTime = getTime(descriptionString[1].trim());
         this.toTime = getTime(descriptionString[2].trim());
         this.type = "E"; // short for Event
@@ -73,7 +73,7 @@ public class Event extends Task implements TimedTask {
         String fromTimeString = convertTimeToString(fromTime);
         String toTimeString = convertTimeToString(toTime);
         return this.description
-                + "(from: " + fromTimeString + ", to: " + toTimeString + ")";
+                + " (from: " + fromTimeString + ", to: " + toTimeString + ")";
     }
 
     /**
