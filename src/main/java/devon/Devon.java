@@ -13,10 +13,10 @@ import java.util.Scanner;
 public class Devon {
 
     protected Scanner scanner = new Scanner(System.in);
-    private TaskList tasks = new TaskList();
-    private Storage storage = new Storage();
-    private Parser parser = new Parser();
-    private Ui ui = new Ui();
+    private final TaskList tasks = new TaskList();
+    private final Storage storage = new Storage();
+    private final Parser parser = new Parser();
+    private final Ui ui = new Ui();
 
     /**
      * Enum to represent the various commands the user can input.
@@ -76,7 +76,6 @@ public class Devon {
      */
     protected String getResponse(String input) {
         Command command = Command.fromStringToEnum(parser.extractCommand(input));
-        String response;
 
         try {
             switch (command) {
@@ -134,6 +133,7 @@ public class Devon {
      */
     private String unmarkAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex;
+
         try {
             taskIndex = parser.extractTaskIndex(input) - 1;
         } catch (NumberFormatException e) {
@@ -142,6 +142,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
+
         return markAsUndone(taskIndex);
     }
 
@@ -218,6 +219,7 @@ public class Devon {
         } catch (NumberFormatException e) {
             throw new DevonInvalidTaskNumberException();
         }
+
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
@@ -274,8 +276,7 @@ public class Devon {
      * @param taskIndex The index of the task to mark as done.
      */
     private String markAsDone(int taskIndex) {
-        String textResponse = tasks.markAsDone(taskIndex);
-        return textResponse;
+        return tasks.markAsDone(taskIndex);
     }
 
     /**
@@ -284,8 +285,7 @@ public class Devon {
      * @param taskIndex The index of the task to mark as undone.
      */
     private String markAsUndone(int taskIndex) {
-        String textResponse = tasks.markAsUndone(taskIndex);
-        return textResponse;
+        return tasks.markAsUndone(taskIndex);
     }
 
     /**
