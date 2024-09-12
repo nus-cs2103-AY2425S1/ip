@@ -21,9 +21,9 @@ public class Parser {
      *                                format.
      */
     public static LocalDateTime parseDateTime(String dateTime) throws DateTimeParseException {
-        String[] dateTimeParts = dateTime.trim().split(" ");
+        String[] dateTimeSplit = dateTime.trim().split(" ");
 
-        if (dateTimeParts.length == 1) {
+        if (dateTimeSplit.length == 1) {
             dateTime = dateTime + " " + DEFAULT_TIME;
         }
 
@@ -49,4 +49,5 @@ public class Parser {
     public static String formatDateTimeToInput(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern(INPUT_FORMAT));
     }
+
 }
