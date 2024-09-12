@@ -27,8 +27,8 @@ public class DialogBox extends HBox {
 
     /**
      * This constructor helps us to make instance of dialog box with given string and image
-     * @param dialog
-     * @param image
+     * @param dialog texts to be displayed as dialog
+     * @param image user image for dialog box
      */
     public DialogBox(String dialog, Image image) {
         try {

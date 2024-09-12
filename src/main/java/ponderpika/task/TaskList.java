@@ -125,7 +125,7 @@ public class TaskList {
      *
      * @param keyword keyword to be searched in the descriptions of tasks
      * @return tasks with keyword in it
-     * @throws PonderPikaException
+     * @throws PonderPikaException for tasks not found
      */
     public String findTasks(String keyword) throws PonderPikaException {
         List<Task> matchedTasks = tasks.stream()

@@ -134,6 +134,13 @@ public class Parser {
                 LocalDateTime.parse(time[0].trim(), FORMATTER), LocalDateTime.parse(time[1].trim(), FORMATTER)));
     }
 
+    /**
+     * parses through the priority setting command
+     *
+     * @param details task and index required for setting priority
+     * @return Command instance with action as Priority and data as detail
+     * @throws PonderPikaException for missing priority and missing index
+     */
     public Command parsePriorityCommand(String details) throws PonderPikaException {
         String[] taskDetail = details.split(" ");
         if (taskDetail[0].trim().isEmpty()) {

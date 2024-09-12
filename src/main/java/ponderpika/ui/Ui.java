@@ -23,11 +23,4 @@ public class Ui {
     public void bidBye() {
         System.out.println("\nBye! See you real soon!");
     }
-
-    /**
-     * Prints a divider line for better readability in the console output.
-     */
-    public void printDivider() {
-        System.out.println("...........................................................");
-    }
 }
