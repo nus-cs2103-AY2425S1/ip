@@ -51,4 +51,10 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    @FXML
+    private void firstLaunch() {
+        dialogContainer.getChildren().add(DialogBox.getIntroDialog("Hello I'm Potong\n What can I do for you?",
+                dukeImage));
+    }
 }

@@ -57,4 +57,8 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    public static DialogBox getIntroDialog(String text, Image img) {
+        return new DialogBox(text, img);
+    }
 }
