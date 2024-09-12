@@ -5,6 +5,7 @@ import java.util.List;
 
 import duck.Parser;
 import duck.TaskList;
+import duck.exceptions.UsageException;
 import duck.tasks.DateAndTime;
 import duck.tasks.Task;
 import duck.utils.Formatter;
@@ -40,10 +41,17 @@ public abstract class TaskCommand extends Command {
         return response;
     }
 
-    public abstract String createNewTask(TaskList taskList);
+    public abstract String createNewTask(TaskList taskList) throws UsageException, DateTimeParseException;
 
     @Override
     public String executeCommand() {
-        return createNewTask(taskList);
+        try {
+            return createNewTask(taskList);
+        } catch (UsageException e) {
+            return e.toString();
+        } catch (DateTimeParseException e) {
+            // TODO: friendly error message
+            return e.toString();
+        }
     }
 }
