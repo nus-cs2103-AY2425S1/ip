@@ -43,6 +43,7 @@ public class Deadline extends ScheduledTask {
             }
         }
         if (indexOfBy == 0) {
+            // when the keyword '/by' is not found in the command.
             throw new JanetException("WHOOPS! Missing/Wrong keywords for creating deadline...");
         }
         // get description of janet.Deadline
@@ -55,6 +56,7 @@ public class Deadline extends ScheduledTask {
             dueDate = ScheduledTask.DateAndTimeFormatter(commandDetails[commandDetails.length - 2],
                     commandDetails[commandDetails.length - 1]);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            // when either dueDate is not provided OR dueDate provided is in wrong format
             throw new JanetException("WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd hh:mm (24hr)");
         }
         return new String[]{description, dueDate};

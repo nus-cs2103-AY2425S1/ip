@@ -7,6 +7,7 @@ public class Ui {
     // handles the interaction with the user
     // receives inputs (readline) and printing outputs to the command line
 
+
     /**
      * Prints the welcome message.
      */
