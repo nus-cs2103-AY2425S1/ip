@@ -37,6 +37,8 @@ public class MarkCommand extends Command {
                 message = taskList.mark(itemIdx);
             } else if (commandEnum == CommandEnum.UNMARK) {
                 message = taskList.unmark(itemIdx);
+            } else {
+                // this function is only called if MARK or UNMARK is used as the command
             }
             storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
