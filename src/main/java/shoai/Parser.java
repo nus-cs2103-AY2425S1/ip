@@ -1,6 +1,7 @@
 package shoai;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 import shoai.TaskList;
 import shoai.Storage;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class Parser {
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Parses a command and executes the appropriate action.
@@ -39,73 +41,83 @@ public class Parser {
                 response.append("Bye bye! Don't forget about me!");
                 return response.toString(); // Indicate that the application should exit
             case "list":
-                response.append("Here are the tasks in your list:\n");
+                response.append("Here are all the tasks in your list!\n");
                 for (int i = 0; i < tasks.size(); i++) {
                     response.append((i + 1) + "." + tasks.get(i) + "\n");
                 }
                 break;
             case "mark":
                 if (words.length < 2) {
-                    throw new ShoAIException("Please specify the task number to mark.");
+                    throw new ShoAIException("Please specify the task number to mark!");
                 }
                 int markIndex = Integer.parseInt(words[1]) - 1;
                 Task taskToMark = tasks.getTask(markIndex);
                 taskToMark.markAsDone();
-                response.append("Nice! I've marked this task as done:\n").append(taskToMark);
+                response.append("Good work! I've marked this task as done:\n").append(taskToMark);
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "unmark":
                 if (words.length < 2) {
-                    throw new ShoAIException("Please specify the task number to unmark.");
+                    throw new ShoAIException("Please specify the task number to unmark!");
                 }
                 int unmarkIndex = Integer.parseInt(words[1]) - 1;
                 Task taskToUnmark = tasks.getTask(unmarkIndex);
                 taskToUnmark.markAsNotDone();
-                response.append("OK, I've marked this task as not done yet:\n").append(taskToUnmark);
+                response.append("Gotcha! I've marked this task as not done yet:\n").append(taskToUnmark);
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "todo":
                 if (words.length < 2 || words[1].trim().isEmpty()) {
-                    throw new ShoAIException("The description of a todo cannot be empty.");
+                    throw new ShoAIException("Watch out! The description of a todo cannot be empty!");
                 }
                 Task newTodo = new Todo(words[1]);
                 tasks.addTask(newTodo);
-                response.append("Got it. I've added this task:\n").append(newTodo);
+                response.append("No problem! I've added this task:\n").append(newTodo);
                 response.append("\nNow you have ").append(tasks.size()).append(" task").append(tasks.size() > 1 ? "s" : "").append(" in the list.");
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "deadline":
                 if (words.length < 2) {
-                    throw new ShoAIException("The description of a deadline cannot be empty.");
+                    throw new ShoAIException("Watch out! The description of a deadline cannot be empty.");
                 }
                 String[] deadlineParts = words[1].split(" /by ");
                 if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
-                    throw new ShoAIException("The deadline description or date cannot be empty.");
+                    throw new ShoAIException("Watch out! The deadline description or datetime cannot be empty.");
                 }
-                LocalDate deadlineDate = LocalDate.parse(deadlineParts[1].trim(), DATE_FORMAT);
-                Task newDeadline = new Deadline(deadlineParts[0], deadlineDate);
+                LocalDateTime deadlineDateTime;
+                try {
+                    deadlineDateTime = LocalDateTime.parse(deadlineParts[1].trim(), DATE_TIME_FORMAT);
+                } catch (DateTimeParseException e) {
+                    throw new ShoAIException("The date and time format for the deadline is incorrect. Use yyyy-MM-dd HH:mm.");
+                }
+                Task newDeadline = new Deadline(deadlineParts[0], deadlineDateTime);
                 tasks.addTask(newDeadline);
-                response.append("Got it. I've added this task:\n").append(newDeadline);
+                response.append("Gotcha! I've added this task:\n").append(newDeadline);
                 response.append("\nNow you have ").append(tasks.size()).append(" task").append(tasks.size() > 1 ? "s" : "").append(" in the list.");
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "event":
                 if (words.length < 2) {
-                    throw new ShoAIException("The description of an event cannot be empty.");
+                    throw new ShoAIException("Watch out! The description of an event cannot be empty.");
                 }
                 String[] eventParts = words[1].split(" /from ");
                 if (eventParts.length < 2) {
-                    throw new ShoAIException("The event description or start date cannot be empty.");
+                    throw new ShoAIException("Watch out! The event description or start datetime cannot be empty.");
                 }
                 String[] timeParts = eventParts[1].split(" /to ");
                 if (timeParts.length < 2 || eventParts[0].trim().isEmpty() || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
-                    throw new ShoAIException("The event description, start date, or end date cannot be empty.");
+                    throw new ShoAIException("Watch out! The event description, start datetime, or end datetime cannot be empty.");
                 }
-                LocalDate fromDate = LocalDate.parse(timeParts[0].trim(), DATE_FORMAT);
-                LocalDate toDate = LocalDate.parse(timeParts[1].trim(), DATE_FORMAT);
-                Task newEvent = new Event(eventParts[0], fromDate, toDate);
+                LocalDateTime fromDateTime, toDateTime;
+                try {
+                    fromDateTime = LocalDateTime.parse(timeParts[0].trim(), DATE_TIME_FORMAT);
+                    toDateTime = LocalDateTime.parse(timeParts[1].trim(), DATE_TIME_FORMAT);
+                } catch (DateTimeParseException e) {
+                    throw new ShoAIException("The date and time format for the event is incorrect. Use yyyy-MM-dd HH:mm.");
+                }
+                Task newEvent = new Event(eventParts[0], fromDateTime, toDateTime);
                 tasks.addTask(newEvent);
-                response.append("Got it. I've added this task:\n").append(newEvent);
+                response.append("Gotcha! I've added this task:\n").append(newEvent);
                 response.append("\nNow you have ").append(tasks.size()).append(" task").append(tasks.size() > 1 ? "s" : "").append(" in the list.");
                 storage.saveTasks(tasks.getAllTasks());
                 break;
@@ -115,19 +127,19 @@ public class Parser {
                 }
                 int deleteIndex = Integer.parseInt(words[1]) - 1;
                 Task removedTask = tasks.removeTask(deleteIndex);
-                response.append("Noted. I've removed this task:\n").append(removedTask);
+                response.append("Wonderful! I've removed this task:\n").append(removedTask);
                 response.append("\nNow you have ").append(tasks.size()).append(" task").append(tasks.size() > 1 ? "s" : "").append(" in the list.");
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "find":
                 if (words.length < 2 || words[1].trim().isEmpty()) {
-                    throw new ShoAIException("The find command requires a keyword.");
+                    throw new ShoAIException("Watch out! The find command requires a keyword.");
                 }
                 String keyword = words[1];
                 response.append(findTasks(keyword, tasks));
                 break;
             default:
-                throw new ShoAIException("Sorry, I don't understand that command.");
+                throw new ShoAIException("Say something I can understand!");
         }
 
         return response.toString(); // Return the accumulated response
@@ -143,9 +155,9 @@ public class Parser {
     private String findTasks(String keyword, TaskList tasks) {
         StringBuilder response = new StringBuilder();
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
-        response.append("Here are the matching tasks in your list:\n");
+        response.append("Here you go! These are the matching tasks in your list:\n");
         if (matchingTasks.isEmpty()) {
-            response.append("No tasks found matching the keyword: ").append(keyword);
+            response.append("Uhoh! No tasks found matching the keyword: ").append(keyword);
         } else {
             for (int i = 0; i < matchingTasks.size(); i++) {
                 response.append((i + 1) + "." + matchingTasks.get(i) + "\n");
@@ -172,13 +184,13 @@ public class Parser {
             Deadline deadline = (Deadline) task;
             sb.append(deadline.isDone() ? "1" : "0");
             sb.append(" | ");
-            sb.append(deadline.getDescription()).append(" | ").append(deadline.getBy().format(DATE_FORMAT));
+            sb.append(deadline.getDescription()).append(" | ").append(deadline.getBy().format(DATE_TIME_FORMAT));
         } else if (task instanceof Event) {
             sb.append("E | ");
             Event event = (Event) task;
             sb.append(event.isDone() ? "1" : "0");
             sb.append(" | ");
-            sb.append(event.getDescription()).append(" | ").append(event.getFrom().format(DATE_FORMAT)).append(" | ").append(event.getTo().format(DATE_FORMAT));
+            sb.append(event.getDescription()).append(" | ").append(event.getFrom().format(DATE_TIME_FORMAT)).append(" | ").append(event.getTo().format(DATE_TIME_FORMAT));
         }
         return sb.toString();
     }
@@ -203,12 +215,12 @@ public class Parser {
             case "T":
                 return new Todo(description);
             case "D":
-                LocalDate deadlineDate = LocalDate.parse(parts[3], DATE_FORMAT);
-                return new Deadline(description, deadlineDate);
+                LocalDateTime deadlineDateTime = LocalDateTime.parse(parts[3], DATE_TIME_FORMAT);
+                return new Deadline(description, deadlineDateTime);
             case "E":
-                LocalDate eventFrom = LocalDate.parse(parts[3], DATE_FORMAT);
-                LocalDate eventTo = LocalDate.parse(parts[4], DATE_FORMAT);
-                return new Event(description, eventFrom, eventTo);
+                LocalDateTime eventFromDateTime = LocalDateTime.parse(parts[3], DATE_TIME_FORMAT);
+                LocalDateTime eventToDateTime = LocalDateTime.parse(parts[4], DATE_TIME_FORMAT);
+                return new Event(description, eventFromDateTime, eventToDateTime);
             default:
                 throw new ShoAIException("Unknown task type: " + type);
         }

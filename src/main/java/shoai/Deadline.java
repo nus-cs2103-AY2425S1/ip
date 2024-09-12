@@ -1,31 +1,32 @@
 package shoai;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a deadline. This class extends the Task class to include
- * a deadline date.
+ * a deadline date and time.
  */
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected LocalDateTime by;
 
     /**
-     * Constructs a Deadline task with the specified description and deadline date.
+     * Constructs a Deadline task with the specified description and deadline datetime.
      *
      * @param description The description of the task.
-     * @param by The deadline date of the task.
+     * @param by The deadline datetime of the task.
      */
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
     /**
-     * Returns the deadline date of the task.
+     * Returns the deadline datetime of the task.
      *
-     * @return The deadline date of the task.
+     * @return The deadline datetime of the task.
      */
-    public LocalDate getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 
@@ -36,6 +37,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }

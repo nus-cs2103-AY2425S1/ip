@@ -70,3 +70,15 @@ checkstyle {
     // Optional: Suppressions configuration (if you use suppressions.xml)
     // configProperties = [suppressionsFile: file('config/checkstyle/suppressions.xml')]
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

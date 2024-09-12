@@ -7,6 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 public class MainWindow extends AnchorPane {
 
@@ -22,13 +27,12 @@ public class MainWindow extends AnchorPane {
     private ShoAI chatbot;
     private boolean welcomed;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Profile Pic.jpeg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image chatbotImage = new Image(this.getClass().getResourceAsStream("/images/shoai.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        // Show the welcome message immediately
         showWelcomeMessage();
     }
 
@@ -40,10 +44,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         if (!welcomed) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getChatbotDialog("Welcome to ShoAI, how may I help you today?",
-                            chatbotImage)
-            );
+            showWelcomeMessage();
             welcomed = true;
         }
         String input = userInput.getText();
@@ -58,11 +59,10 @@ public class MainWindow extends AnchorPane {
     private void showWelcomeMessage() {
         if (!welcomed) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getChatbotDialog("Welcome to ShoAI, how may I help you today?",
+                    DialogBox.getChatbotDialog("What's up! I'm ShoAI, what do you need today?",
                             chatbotImage)
             );
             welcomed = true;
         }
     }
-
 }
