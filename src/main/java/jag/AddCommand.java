@@ -25,9 +25,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Meant to execute the adding of the task to TaskList instance
+     * Execute the adding of the task to TaskList instance
      * and to call upon the ui instance to display the right type of information
-     * by passing it the required information as shown in the JavaDoc of the Ui Class
      *
      * @param tasks To help add the task into the TaskList instance
      * @param ui To pass the required information needed to display the right message

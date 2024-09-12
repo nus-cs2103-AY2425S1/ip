@@ -11,9 +11,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the command such that the required task gets deleted
-     * from the instance of TaskList, by calling upon Ui instance to
-     * get the index of the task to be deleted and displaying the right
-     * message
+     * from the instance of TaskList
      *
      * @param tasks Represents instance of the TaskList to be accessed
      *              such that the right task is deleted
