@@ -16,8 +16,15 @@ public class Ui {
      * </p>
      */
     public void greet() {
-        System.out.println(formatResponse("Hello! :) I'm Nave, your personal task management assistant.\n"
-                + "What can I do for you today?"));
+        System.out.println(formatResponse(guiGreet()));
+    }
+
+    /**
+     * Returns a greeting message to the user for the GUI.
+     */
+    public String guiGreet() {
+        return "Hello! :) I'm Nave, your personal task management assistant.\n"
+                + "What can I do for you today?";
     }
 
     /**
@@ -32,6 +39,12 @@ public class Ui {
     }
 
     /**
+     * Returns a farewell message to the user for the GUI.
+     */
+    public String guiFarewell() {
+        return "Goodbye :( Come visit me again! Closing window in 3 seconds...";
+    }
+    /**
      * Displays a help message that lists all available commands.
      * <p>
      * This method prints a help message to the console, providing the user
@@ -40,7 +53,14 @@ public class Ui {
      * </p>
      */
     public void helpMessage() {
-        System.out.println(formatResponse("""
+        System.out.println(formatResponse(guiHelp()));
+    }
+
+    /**
+     * Returns a help message to the user for the GUI.
+     */
+    public String guiHelp() {
+        return """
             /help: shows all available commands
             list: shows all tasks
             todo [name]: adds a todo with associated name
@@ -48,7 +68,7 @@ public class Ui {
             event [name] /from [date] /to [date]: adds an event with associated name,
                 start date and end date
             find [keyword]: finds tasks that contain the keyword in their name
-            bye: ends the Nave chatbot"""));
+            bye: ends the Nave chatbot""";
     }
 
     /**
@@ -60,7 +80,14 @@ public class Ui {
      * </p>
      */
     public void unsureMessage() {
-        System.out.println(formatResponse("I'm not sure what you want me to do! try /help"));
+        System.out.println(formatResponse(guiUnsure()));
+    }
+
+    /**
+     * Returns an unsure message to the user for the GUI.
+     */
+    public String guiUnsure() {
+        return "I'm not sure what you want me to do! try /help";
     }
 
     /**

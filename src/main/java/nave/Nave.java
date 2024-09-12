@@ -7,15 +7,17 @@ import java.util.Scanner;
  * It interacts with the user, processes commands, manages tasks, and handles
  * persistence of task data.
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class Nave {
     private final TaskList tasks;
     private final TaskStorage storage;
     private final Ui ui;
     private final Parser parser;
+    private Parser.Command commandType;
 
-    private Nave(String filePathString) {
+    Nave() {
         this.tasks = new TaskList();
-        this.storage = new TaskStorage(filePathString);
+        this.storage = new TaskStorage("./data/tasks.txt");
         this.ui = new Ui();
         this.parser = new Parser();
     }
@@ -90,6 +92,80 @@ public class Nave {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String userInput) {
+        String output;
+        int place;
+
+        commandType = parser.handleInput(userInput);
+        switch(commandType) {
+        case LIST:
+            output = tasks.listItems();
+            break;
+        case HELP:
+            output = ui.guiHelp();
+            break;
+        case MARK:
+            place = parser.parseMark(userInput);
+            output = tasks.markItem(place);
+            break;
+        case UNMARK:
+            place = parser.parseUnmark(userInput);
+            output = tasks.unmarkItem(place);
+            break;
+        case TASK:
+            try {
+                Task curr = parser.parseTask(userInput);
+                tasks.addTask(curr);
+                storage.saveToFile(curr.toFileFormat()); //Add task to local file
+                output = curr.creationResponse() + tasks.countTasks();
+            } catch (WrongInputException e) {
+                output = e.getMessage();
+            }
+            break;
+        case DELETE:
+            place = parser.parseDelete(userInput);
+            storage.deleteFromFile(place); //Delete task from local file
+            output = tasks.deleteItem(place);
+            break;
+        case BYE:
+            output = ui.guiFarewell();
+            break;
+        case FIND:
+            String keyword = parser.parseFind(userInput);
+            output = tasks.findTasks(keyword);
+            break;
+        default:
+            output = ui.guiUnsure();
+        }
+
+        return output;
+    }
+
+    /**
+     * Generates a greeting for the user's chat message.
+     */
+    public String getGreeting() {
+        return ui.guiGreet();
+    }
+
+    /**
+     * Loads tasks from storage when starting up Nave on GUI.
+     */
+    public void guiStart() {
+        //Load tasks from local file
+        storage.onStart(tasks);
+    }
+
+    /**
+     * Gets command type of command input by user.
+     */
+    public Parser.Command getCommandType() {
+        return commandType;
+    }
+
+    /**
      * The entry point of the application.
      * <p>
      * Creates a new {@code Nave} instance and starts it by calling the {@code run} method.
@@ -98,7 +174,7 @@ public class Nave {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
-        new Nave("./data/tasks.txt").run();
+        new Nave().run();
     }
 }
 

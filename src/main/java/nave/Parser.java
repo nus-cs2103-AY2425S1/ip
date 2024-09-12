@@ -16,7 +16,7 @@ public class Parser {
      * that the {@code Parser} can recognize.
      */
     public enum Command {
-        LIST, HELP, MARK, UNMARK, TASK, DELETE, UNSURE, FIND
+        LIST, HELP, MARK, UNMARK, TASK, DELETE, UNSURE, FIND, BYE
     }
 
     /**
@@ -59,6 +59,8 @@ public class Parser {
             return Command.DELETE;
         } else if (findMatcher.matches()) {
             return Command.FIND;
+        } else if (input.equals("bye")) {
+            return Command.BYE;
         } else {
             return Command.UNSURE;
         }
