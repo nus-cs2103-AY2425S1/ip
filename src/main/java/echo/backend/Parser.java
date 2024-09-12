@@ -1,8 +1,8 @@
 package echo.backend;
 
 import echo.StateType;
+import echo.TaskStatus;
 import echo.Ui;
-import echo.task.TaskType;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +27,9 @@ public class Parser {
                             "MMM d yyyy"));
     private Ui ui;
     private StateType statetype = StateType.NO_STATE;
-    private String[] tempStrings; // Description, start, end, deadline
+    private String[] tempStrings; // Description, start, end, deadline, index
+    private int tempIndex;
+    private TaskStatus status = TaskStatus.ADD;
     /**
      * Constructs a Parser object with the specified Ui.
      *
@@ -36,7 +38,8 @@ public class Parser {
     public Parser(Ui ui) {
         this.ui = ui;
         assert this.ui != null: "ui should not be null";
-        this.tempStrings = new String[] {"", "", "", ""};
+        this.tempStrings = new String[] {"", "", "", "", ""};
+        this.tempIndex = -1;
     }
     /**
      * Parses the user input and delegates the command to the Ui for execution.
@@ -60,21 +63,27 @@ public class Parser {
         case UNMARK:
             return ui.handleUnmark(arg);
         case TODO:
-            return ui.handleTodo(arg);
+            return ui.handleTodo(arg, status);
         case DEADLINE:
             String[] parsedDeadline = parseDeadline(arg);
             return ui.handleDeadline(
                     parsedDeadline[0].trim(),
-                    parsedDeadline.length > 1 ? parsedDeadline[1].trim() : ""
+                    parsedDeadline.length > 1 ? parsedDeadline[1].trim() : "",
+                    status
             );
         case EVENT:
             String[] parsedEvent = parseEventFrom(arg);
             return ui.handleEvent(
                     parsedEvent[0].trim(),
-                    parsedEvent.length > 1 ? parsedEvent[1] : ""
+                    parsedEvent.length > 1 ? parsedEvent[1] : "",
+                    status
             );
         case FIND:
             return ui.handleFind(arg);
+        case UPDATE:
+            String[] parsedUpdate = parsedUpdate(arg);
+            return ui.handleUpdate(parsedUpdate[0],
+                    parsedUpdate.length > 1 ? parsedUpdate[1] : "");
         case DELETE:
             return ui.handleDelete(arg);
         case BYE:
@@ -84,26 +93,34 @@ public class Parser {
         }
     }
 
+    private String[] parsedUpdate(String arg) {
+        return arg.split(" ", 2);
+    }
+
+    public void changeStatus(TaskStatus status) {
+        this.status = status;
+    }
+
     private String handleState(String userInput) {
         switch (statetype) {
         case TODO_DESCRIPTION:
             changeState(StateType.NO_STATE);
-            return ui.handleTodo(userInput);
+            return ui.handleTodo(userInput, status);
         case DEADLINE_DESCRIPTION:
             changeState(StateType.NO_STATE);
-            return ui.handleDeadline(userInput, tempStrings[3]);
+            return ui.handleDeadline(userInput, tempStrings[3], status);
         case DEADLINE_DEADLINE:
             changeState(StateType.NO_STATE);
-            return ui.handleDeadline(tempStrings[0], userInput.trim());
+            return ui.handleDeadline(tempStrings[0], userInput.trim(), status);
         case EVENT_DESCRIPTION:
             changeState(StateType.NO_STATE);
-            return ui.handleEvent(userInput, tempStrings[1]);
+            return ui.handleEvent(userInput, tempStrings[1], status);
         case EVENT_START:
             changeState(StateType.NO_STATE);
-            return ui.handleEvent(tempStrings[0], userInput);
+            return ui.handleEvent(tempStrings[0], userInput, status);
         case EVENT_END:
             changeState(StateType.NO_STATE);
-            return ui.handleEvent(tempStrings[0], tempStrings[1]+ " /to " + userInput);
+            return ui.handleEvent(tempStrings[0], tempStrings[1]+ " /to " + userInput, status);
         default:
             return ui.handleUnknown();
         }
@@ -176,6 +193,7 @@ public class Parser {
         DELETE,
         LIST,
         FIND,
+        UPDATE,
         BYE,
         UNKNOWN;
         /**

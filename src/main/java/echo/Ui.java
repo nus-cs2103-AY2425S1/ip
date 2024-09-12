@@ -1,8 +1,12 @@
 package echo;
 
 import echo.backend.Parser;
+import echo.task.Event;
+import echo.task.Todo;
+import echo.task.Deadline;
 import echo.task.TaskList;
 import echo.task.TaskType;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -14,6 +18,7 @@ public class Ui {
     private Parser parser;
     private TaskList taskList;
     private Echo echo;
+    private int tempIndex = -1;
     /**
      * Constructs a Ui object with the specified TaskList.
      *
@@ -124,14 +129,22 @@ public class Ui {
      *
      * @param task the task description
      */
-    public String handleTodo(String task) {
+    public String handleTodo(String task, TaskStatus status) {
         if (task.isEmpty()) {
             parser.changeState(StateType.TODO_DESCRIPTION);
             return "Enter task description: ";
         }
 
-        taskList.addTask(task.trim(), TaskType.TODO, "");
-        return handleAddedTask();
+        switch(status) {
+            case UPDATE:
+                parser.changeStatus(TaskStatus.ADD);
+                taskList.updateTask(tempIndex, new Todo(task));
+                return updateMessage(taskList.getTaskString(tempIndex));
+            case ADD:
+                taskList.addTask(task.trim(), TaskType.TODO, "");
+                return handleAddedTask();
+        }
+        return "";
     }
 
     /**
@@ -140,7 +153,7 @@ public class Ui {
      * @param description the event description
      * @param startDate   the event start date
      */
-    public String handleEvent(String description, String startDate) {
+    public String handleEvent(String description, String startDate, TaskStatus status) {
         String endDate = "";
         if (description.contains("/to")) { // No start date, end date provided
             String[] temp = parser.parseEventTo(description);
@@ -177,9 +190,17 @@ public class Ui {
         startDate = startDate.trim();
         endDate = endDate.trim();
 
-        taskList.addTask(description, TaskType.EVENT, startDate + "->" + endDate);
-        parser.resetTempStrings();
-        return handleAddedTask();
+        switch(status) {
+            case UPDATE:
+                parser.changeStatus(TaskStatus.ADD);
+                taskList.updateTask(tempIndex, new Event(description, startDate, endDate));
+                return updateMessage(taskList.getTaskString(tempIndex));
+            case ADD:
+                taskList.addTask(description, TaskType.EVENT, startDate + "->" + endDate);
+                parser.resetTempStrings();
+                return handleAddedTask();
+        }
+        return "";
     }
     /**
      * Handles the "deadline" command to add a new deadline task.
@@ -187,7 +208,7 @@ public class Ui {
      * @param description     the task description
      * @param deadlineToParse the deadline date string to be parsed
      */
-    public String handleDeadline(String description, String deadlineToParse) {
+    public String handleDeadline(String description, String deadlineToParse, TaskStatus status) {
         if (description.isEmpty()) {
             if (!deadlineToParse.isEmpty()) {
                 parser.keepTemp(deadlineToParse, 3);
@@ -210,9 +231,17 @@ public class Ui {
             return "No matching date formats";
         }
 
-        taskList.addDeadline(description, deadline);
-        parser.resetTempStrings();
-        return handleAddedTask();
+        switch(status) {
+        case UPDATE:
+            parser.changeStatus(TaskStatus.ADD);
+            taskList.updateTask(tempIndex, new Deadline(description, deadline));
+            return updateMessage(taskList.getTaskString(tempIndex));
+        case ADD:
+            taskList.addDeadline(description, deadline);
+            parser.resetTempStrings();
+            return handleAddedTask();
+        }
+        return "";
     }
     /**
      * Prints a message indicating that a task was successfully added.
@@ -220,6 +249,38 @@ public class Ui {
     public String handleAddedTask() {
         assert taskList.getNumTasks() > 0: "Task list should have at least one task";
         return addedTaskMessage(taskList.getTaskString(taskList.getNumTasks()), taskList.getNumTasks());
+    }
+    public TaskType getTaskType(int index) {
+        return taskList.getTaskType(index);
+    }
+    public String handleUpdate(String indexString, String info) {
+        int index;
+        try {
+            index = Integer.parseInt(indexString);
+        } catch (NumberFormatException e) {
+            return "Invalid index.";
+        }
+
+        if (index > taskList.getNumTasks()) {
+            return "Invalid index";
+        }
+
+        tempIndex = index;
+
+        TaskType taskType = taskList.getTaskType(index);
+        switch (taskType) {
+        case TODO:
+            parser.changeStatus(TaskStatus.UPDATE);
+            return parser.handleInput("Todo " + info);
+        case DEADLINE:
+            parser.changeStatus(TaskStatus.UPDATE);
+            return parser.handleInput("Deadline " + info);
+        case EVENT:
+            parser.changeStatus(TaskStatus.UPDATE);
+            return parser.handleInput("Event " + info);
+        default:
+            return "";
+        }
     }
     /**
      * Handles the "delete" command to remove a task from the list.
@@ -246,6 +307,11 @@ public class Ui {
 
         taskList.deleteTask(index);
         return deleteMsg;
+    }
+
+    private String updateMessage(String task) {
+        return "Nice! I've edited this task:\n" +
+                task;
     }
     public String welcomeMessage() {
         return "Hello! I'm Echo!\n" +

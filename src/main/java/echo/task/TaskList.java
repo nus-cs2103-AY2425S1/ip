@@ -1,9 +1,9 @@
 package echo.task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * The TaskList class manages a list of tasks,
  * including adding, removing, marking, unmarking, and retrieving tasks.
@@ -154,175 +154,10 @@ public class TaskList {
         assert index > 0: "Index should not be out of range";
         tasks.remove(index - 1);
     }
-
-    /**
-     * The Task class represents a basic task with a description and completion status.
-     */
-    private class Task {
-        private Boolean isComplete = false;
-        private String description;
-        private TaskType type;
-        /**
-         * Constructs a Task with the specified description and type.
-         *
-         * @param description the description of the task
-         * @param type the type of the task (TODO, EVENT, DEADLINE)
-         */
-        private Task(String description, TaskType type) {
-            assert !description.isEmpty(): "Description should not be empty";
-            assert type != null: "Task type should not be null";
-            this.description = description;
-            this.type = type;
-        }
-        /**
-         * Returns a formatted string representing the task,
-         * including its type, completion status, and description.
-         *
-         * @return a string representing the task
-         */
-        public String getTaskString() {
-            String msg = "[" + this.type.getTypeSymbol() + "] ";
-            msg += "[";
-            if (isComplete) {
-                msg += "X] ";
-            } else {
-                msg += " ] ";
-            }
-            msg += this.description;
-            return msg;
-        }
-        /**
-         * Marks the task as complete.
-         */
-        private void completeTask() {
-            this.isComplete = true;
-        }
-        /**
-         * Unmarks the task, indicating it is not complete.
-         */
-
-        private void uncompleteTask() {
-            this.isComplete = false;
-        }
-        /**
-         * Returns a string representing the task's data,
-         * suitable for saving to a file.
-         *
-         * @return a string representing the task's data
-         */
-        public String getData() {
-            return type.getTypeSymbol() + " | " +
-                   (isComplete ? 1 : 0) + " | " +
-                   description;
-        }
+    public TaskType getTaskType(int index) {
+        return tasks.get(index - 1).getTaskType();
     }
-    /**
-     * The Todo class represents a basic task without any additional information.
-     */
-    private class Todo extends Task {
-        /**
-         * Constructs a Todo task with the specified description.
-         *
-         * @param description the description of the todo task
-         */
-        public Todo(String description) {
-            super(description, TaskType.TODO);
-        }
-        /**
-         * Returns a string representing the todo task's save format,
-         * intended for saving to a file.
-         *
-         * @return a string representing the todo task's data
-         */
-        @Override
-        public String getData() {
-            return super.getData();
-        }
-    }
-    /**
-     * The Deadline class represents a task with a deadline.
-     */
-    private class Deadline extends Task {
-        private LocalDate deadline;
-        /**
-         * Constructs a Deadline task with the specified description and deadline date.
-         *
-         * @param description the description of the deadline task
-         * @param deadline the deadline date of the task
-         */
-        public Deadline(String description, LocalDate deadline) {
-            super(description, TaskType.DEADLINE);
-            assert deadline != null: "Deadline should not be null";
-            this.deadline = deadline;
-        }
-        /**
-         * Returns a formatted string representing the deadline task,
-         * including its description and deadline date.
-         *
-         * @return a string representing the deadline task
-         */
-        @Override
-        public String getTaskString() {
-            String formattedDeadline = this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            return super.getTaskString() + " (by: " + formattedDeadline + ")";
-        }
-        /**
-         * Returns a string representing the deadline task's save format,
-         * intended for saving to a file.
-         *
-         * @return a string representing the deadline task's save format
-         */
-        @Override
-        public String getData() {
-             return super.getData() + " | " + this.deadline;
-        }
-    }
-
-    /**
-     * The Event class represents a task with a start and end time.
-     */
-    private class Event extends Task {
-        private String start;
-        private String end;
-        /**
-         * Constructs an Event task with the specified description, start time, and end time.
-         *
-         * @param description the description of the event task
-         * @param start the start date/time of the event
-         * @param end the end date/time of the event
-         */
-        public Event(String description, String start, String end) {
-            super(description, TaskType.EVENT);
-            assert !start.isEmpty(): "Start should not be null";
-            assert !end.isEmpty(): "End should not be null";
-
-            this.start = start;
-            this.end = end;
-        }
-        /**
-         * Returns a formatted string representing the event task,
-         * including its description, start time, and end time.
-         *
-         * @return a string representing the event task
-         */
-        @Override
-        public String getTaskString() {
-            return super.getTaskString() +
-                    String.format(
-                            " (from: %s to: %s)",
-                            this.start,
-                            this.end
-                    );
-        }
-        /**
-         * Returns a string representing the event task's save format,
-         * intended for saving to a file.
-         *
-         * @return a string representing the event task's save format
-         */
-        @Override
-        public String getData() {
-            return super.getData() + " | " + this.start + "->" + this.end;
-        }
+    public void updateTask(int index, Task task) {
+        tasks.set(index - 1, task);
     }
 }
