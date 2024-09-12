@@ -15,11 +15,12 @@ public class Parser {
     private static final int DEADLINE_COMMAND_LENGTH = 8;
     private static final int EVENT_COMMAND_LENGTH = 5;
     private static final int DELETE_COMMAND_LENGTH = 6;
+    private static final int FIND_COMMAND_LENGTH = 4;
 
     /**
      * Different prompt types REI understands
      */
-    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ANNYEONG, UNKNOWN};
+    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, ANNYEONG, UNKNOWN};
 
     /**
      * Checks if a string only contains whitespace
@@ -122,6 +123,16 @@ public class Parser {
                 }
 
                 return Prompt.DELETE;
+            case "find":
+                // Read the rest of the line after "find"
+                prompt = prompt.substring(FIND_COMMAND_LENGTH).trim();
+
+                if (prompt.isEmpty()) {
+                    Ui.print("State the keyword");
+                    return Prompt.UNKNOWN;
+                }
+
+                return Prompt.FIND;
             case "annyeong":
                 Ui.print("Annyeong. Hope to see you soon.");
                 return Prompt.ANNYEONG;

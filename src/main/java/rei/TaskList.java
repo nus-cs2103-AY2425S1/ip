@@ -113,6 +113,21 @@ public class TaskList {
     }
 
     /**
+     * Prints all tasks that match a given keyword
+     * @param keyword the keyword
+     */
+    public void findTasks(String keyword) {
+        List<Task> filteredList = this.listOfTasks.stream().filter(task -> task.getTaskName().contains(keyword)).toList();
+        String taskList = "";
+
+        for (int i = 0; i < filteredList.size(); i++) {
+            taskList += String.format("%d. %s\n", i + 1, filteredList.get(i).toString());
+        }
+
+        Ui.print("Here are the matching tasks in your list: \n" + taskList);
+    }
+
+    /**
      * Converts the list of tasks into its storing format in String
      * @return the String format for storing the tasks
      */

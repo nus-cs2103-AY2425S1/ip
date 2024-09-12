@@ -63,6 +63,10 @@ public class Rei {
                     taskIndex = Integer.parseInt(prompt);
                     tasks.deleteTask(taskIndex);
                     break;
+                case FIND:
+                    String keyword = prompt.substring(5).trim();
+                    tasks.findTasks(keyword);
+                    break;
                 case ANNYEONG:
                     isExit = true;
                     break;
