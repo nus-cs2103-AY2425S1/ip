@@ -1,7 +1,10 @@
+package Timo;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Stack;
+
 
 class Task {
     private String tasktype = "T";

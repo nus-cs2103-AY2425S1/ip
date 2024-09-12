@@ -1,3 +1,5 @@
+package Timo;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +16,13 @@ public class Parser {
 
     private final Stack<Tuple<Task>> commandList;
 
+    /**
+     * Parser to process the commands and give the output
+     * @param ui
+     * @param storage
+     * @param taskList
+     * @param commandList
+     */
     public Parser(UI ui, Storage storage, TaskList taskList, Stack<Tuple<Task>> commandList) {
         this.ui = ui;
         this.storage = storage;
@@ -54,7 +63,7 @@ public class Parser {
             Todo todo = new Todo(false, todoCommands[1]);
             this.taskList.add(todo);
             this.commandList.add(new Tuple<Task>(command, todo));
-            return this.ui.printTodo(todo, this.taskList.showList());
+            return this.ui.printTodo(todo, this.taskList);
 
         case "deadline":
             String[] deadlineCommands = command.split("deadline |/by ");
@@ -67,7 +76,7 @@ public class Parser {
                 Deadline deadline = new Deadline(false, description, date);
                 this.taskList.add(deadline);
                 this.commandList.add(new Tuple<Task>(command, deadline));
-                return this.ui.printDeadline(deadline, this.taskList.showList());
+                return this.ui.printDeadline(deadline, this.taskList);
             } catch (DateTimeException e) {
                 return this.ui.printDeadlineError();
             }
@@ -77,7 +86,7 @@ public class Parser {
             Event event = new Event(false, eventCommands[1], eventCommands[2], eventCommands[3]);
             this.taskList.add(event);
             this.commandList.add(new Tuple<Task>(command, event));
-            return this.ui.printEvent(event, this.taskList.showList());
+            return this.ui.printEvent(event, this.taskList);
 
         case "mark":
             String taskNumberToMark = String.valueOf(command.charAt(command.length() - 1));
@@ -105,7 +114,6 @@ public class Parser {
             return this.ui.printUnmark(unmarkedTask);
 
         case "list":
-            this.commandList.add(new Tuple<Task>(command, null));
             return this.ui.printList(this.taskList);
 
 
@@ -119,7 +127,7 @@ public class Parser {
             //delete target and deleteTask in String format and concatenated
             this.commandList.add(new Tuple<Task>(command, deleteTask));
 
-            return this.ui.printDelete(deleteTask, this.taskList.showList());
+            return this.ui.printDelete(deleteTask, this.taskList);
 
         case "find":
             String phrase = command.split(" ", 2)[1];
@@ -132,7 +140,6 @@ public class Parser {
                     temporaryList.add(currentTask);
                 }
             }
-            this.commandList.add(new Tuple<Task>(command, null));
             return this.ui.printList(temporaryList);
 
         case "bye":
@@ -153,17 +160,17 @@ public class Parser {
                     Task undoTodo = this.taskList.delete(this.taskList.showList().size() - 1);
                     String undoTodoCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
-                    return undoTodoCommand + this.ui.printDelete(undoTodo, this.taskList.showList());
+                    return undoTodoCommand + this.ui.printDelete(undoTodo, this.taskList);
                 case "deadline":
                     Task undoDeadline = this.taskList.delete(this.taskList.showList().size() - 1);
                     String undoDeadlineCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
-                    return undoDeadlineCommand + this.ui.printDelete(undoDeadline, this.taskList.showList());
+                    return undoDeadlineCommand + this.ui.printDelete(undoDeadline, this.taskList);
                 case "event":
                     Task undoEvent = this.taskList.delete(this.taskList.showList().size() - 1);
                     String undoEventCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
-                    return undoEventCommand + this.ui.printDelete(undoEvent, this.taskList.showList());
+                    return undoEventCommand + this.ui.printDelete(undoEvent, this.taskList);
                 case "mark":
                     String undoMarkCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
@@ -176,11 +183,6 @@ public class Parser {
                     int numberToMark = Integer.valueOf(undo.getFirst().split(" ", 2)[1]);
                     Task unmarkedTaskToUndo = this.taskList.unmark(numberToMark);
                     return undoUnmarkCommand + this.ui.printUnmark(unmarkedTaskToUndo);
-                case "list":
-                    String undoListCommand = "----------------------------\n"
-                            + "Seriously? U want to undo list? If you insist...\n"
-                            + this.ui.listSize(this.taskList);
-                    return undoListCommand;
                 case "delete":
                     int positionToAddDeletedTask = Integer.valueOf(undo.getFirst().split(" ", 2)[1]);
                     Task taskToAddBack = undo.getSecond();
@@ -191,7 +193,7 @@ public class Parser {
                             + this.ui.listSize(this.taskList);
                     return undoDeleteCommand;
                 default:
-                    return "hi";
+                    assert false : "Problem with command list";
                 }
             } catch (EmptyStackException e) {
                 return this.ui.undoError();

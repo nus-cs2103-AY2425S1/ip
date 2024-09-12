@@ -1,4 +1,4 @@
-import java.util.List;
+package Timo;
 
 /**
  * Deals with outputting information to the user
@@ -66,7 +66,7 @@ public class UI {
      * @param todo the todo task
      * @param taskList
      */
-    public String printTodo(Task todo, List<Task> taskList) {
+    public String printTodo(Task todo, TaskList taskList) {
         return "----------------------------\n"
                 + "Got it. I've added this task:\n"
                 + todo + "\n"
@@ -79,7 +79,7 @@ public class UI {
      * @param deadline the deadline task
      * @param taskList the size of the task list
      */
-    public String printDeadline(Deadline deadline, List<Task> taskList) {
+    public String printDeadline(Deadline deadline, TaskList taskList) {
         return "----------------------------\n"
                 + "Got it. I've added this task:\n"
                 + deadline + "\n"
@@ -101,7 +101,7 @@ public class UI {
      * @param event the event task
      * @param taskList
      */
-    public String printEvent(Event event, List<Task> taskList) {
+    public String printEvent(Event event, TaskList taskList) {
         return "----------------------------"
                 + "Got it. I've added this task:\n"
                 + event + "\n"
@@ -114,7 +114,7 @@ public class UI {
      * @param task the task
      * @param taskList
      */
-    public String printDelete(Task task, List<Task> taskList) {
+    public String printDelete(Task task, TaskList taskList) {
         return "----------------------------\n"
                 + "Got it. I've removed this task:\n"
                 + task + "\n"
@@ -132,6 +132,10 @@ public class UI {
                 + "----------------------------";
     }
 
+    /**
+     * method to print out undo error
+     * @return
+     */
     public String undoError() {
         return "----------------------------\n"
                 + "Nothing to undo :)\n"
