@@ -32,10 +32,11 @@ public abstract class Command {
     }
 
     /**
-     * Executes a command using the provided TaskList, UI, and Storage.
+     * Executes a command using the provided TaskList and Storage.
      *
      * @param tasks the TaskList that holds the tasks
      * @param storage the Storage used to save and retrieve data from a file
+     * @return the response that will be displayed later
      * @throws NahException if an error occurs during command execution
      */
     public abstract String execute(TaskList tasks, Storage storage) throws NahException;
@@ -45,8 +46,7 @@ public abstract class Command {
      */
     public static class CleanCommand extends Command {
         /**
-         * Executes the command by cleaning all data in the TaskList and Storage.
-         * The UI will display the corresponding interaction.
+         * Executes the command by cleaning all data in the TaskList Storage.
          *
          * @param tasks the TaskList containing the tasks to be cleared
          * @param storage the Storage where data will be cleared from the file
@@ -73,7 +73,6 @@ public abstract class Command {
 
         /**
          * Executes the command by finding tasks that match the keyWord in the TaskList.
-         * The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList containing the tasks to search through
          * @param storage the Storage where data is stored (not modified in this operation)
@@ -100,7 +99,6 @@ public abstract class Command {
 
         /**
          * Executes the command by adding the new task to the TaskList and updating the Storage.
-         * The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList where the new task will be added
          * @param storage the Storage where the updated task list will be saved
@@ -132,7 +130,7 @@ public abstract class Command {
 
         /**
          * Executes the command by deleting the task with the specified index in the TaskList
-         * and updating the Storage. The UI will display the corresponding interaction.
+         * and updating the Storage.
          *
          * @param tasks the TaskList from which the task will be deleted
          * @param storage the Storage where the updated task list will be saved
@@ -158,8 +156,8 @@ public abstract class Command {
         }
 
         /**
-         * Executes the command by finding tasks that have an ending time before the specified due date in the TaskList.
-         * The UI will display the corresponding interaction.
+         * Executes the command by finding tasks that have an ending time before the specified
+         * due date in the TaskList.
          *
          * @param tasks the TaskList containing the tasks to be searched
          * @param storage the Storage where the updated task list will be saved
@@ -185,7 +183,6 @@ public abstract class Command {
 
         /**
          * Executes the command by stopping the program.
-         * The UI will display the corresponding interaction.
          *
          * @param tasks   the TaskList containing the tasks (not modified in this operation)
          * @param storage the Storage where data is stored (not modified in this operation)
@@ -205,7 +202,6 @@ public abstract class Command {
     public static class ListCommand extends Command {
         /**
          * Executes the command by listing all tasks in the TaskList.
-         * The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList containing the tasks
          * @param storage the Storage where data is stored
@@ -229,7 +225,7 @@ public abstract class Command {
 
         /**
          * Executes the command by marking the task with the specified index in the TaskList
-         * as done and updating the storage. The UI will display the corresponding interaction.
+         * as done and updating the storage.
          *
          * @param tasks   the TaskList containing the tasks
          * @param storage the Storage where data is stored
@@ -274,7 +270,7 @@ public abstract class Command {
 
         /**
          * Executes the command by marking the task with the specified index in the TaskList
-         * as not done and updating the storage. The UI will display the corresponding interaction.
+         * as not done and updating the storage.
          *
          * @param tasks   the TaskList containing the tasks
          * @param storage the Storage where data is stored
