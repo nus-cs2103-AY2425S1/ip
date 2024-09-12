@@ -116,6 +116,7 @@ public class Parser {
             }
             task = new EventTask(description, from, to);
         }
+        assert task != null : "task should not be null";
         return new AddCommand(task);
     }
 

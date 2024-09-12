@@ -31,6 +31,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String[] info = scanner.nextLine().split("\\|");
                 String type = info[0];
+                assert !type.isEmpty() : "type should not be empty";
                 switch (type) {
                 case "T":
                     tasks.addTask(new TodoTask(info[1], Boolean.parseBoolean(info[2])));
