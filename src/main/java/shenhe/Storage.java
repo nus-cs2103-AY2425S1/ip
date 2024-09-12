@@ -56,7 +56,7 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    Task task = Parser.parseCommand(line);
+                    Task task = Parser.parseCommandInFile(line);
                     tasks.addTask(task);
                 } catch (Exception e) {
                     System.out.println("Warning: Corrupted line ignored.");

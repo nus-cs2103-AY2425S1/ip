@@ -36,16 +36,24 @@ public class Parser {
      * @return A {@code Task} object corresponding to the parsed line,
      *          or {@code null} if parsing fails or the task type is unknown.
      */
-    public static Task parseCommand(String line) {
+    public static Task parseCommandInFile(String line) {
         // Check the first character to determine the task type
         if (line.startsWith("T")) {
             // Assume the format is "T | isDone | description"
             String[] parts = line.split(" \\| ");
+
+            // Assert that the task string has the correct number of parts for a Todo
+            assert parts.length == 3 : "Todo task string should have 3 parts but found " + parts.length;
+
             boolean isDone = Objects.equals(parts[1], "1");
             return new Todo(parts[2], isDone); // Adjust constructor as per your shenhe.task.Todo class definition
         } else if (line.startsWith("D")) {
             // Assume the format is "D | isDone | description | by"
             String[] parts = line.split(" \\| ");
+
+            // Assert that the task string has the correct number of parts for a Deadline
+            assert parts.length == 4 : "Deadline task string should have 4 parts but found " + parts.length;
+
             boolean isDone = parts[1].equals("1");
             try {
                 LocalDateTime by = DateParser.parseDateTimeFromFile(parts[3]); // Parse date string
@@ -57,6 +65,10 @@ public class Parser {
         } else if (line.startsWith("E")) {
             // Assume the format is "E | isDone | description | from | to"
             String[] parts = line.split(" \\| ");
+
+            // Assert that the task string has the correct number of parts for an Event
+            assert parts.length == 5 : "Event task string should have 5 parts but found " + parts.length;
+
             boolean isDone = parts[1].equals("1");
             try {
                 String from = parts[3]; // Parse "from" date string
@@ -71,6 +83,7 @@ public class Parser {
         // Handle unknown types by returning null
         return null;
     }
+
 
     /**
      * Parses user input and returns the corresponding {@code Command} object.
