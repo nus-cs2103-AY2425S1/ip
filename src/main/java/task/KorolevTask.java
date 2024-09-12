@@ -4,6 +4,7 @@ public class KorolevTask {
     private boolean status = false;
     private String name;
 
+    private String tag;
     /**
      * Constructs an object of KorolevTask.
      *
@@ -25,6 +26,32 @@ public class KorolevTask {
      */
     public void unmarkTask() {
         this.status = false;
+    }
+
+    /**
+     * Adds tag to a specific Korolev Task.
+     *
+     * @param tag input about users from tag
+     */
+    public void tag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * Displays tag information of a specific Korolev task.
+     *
+     * @return formatted tag information
+     */
+    public String showTag() {
+        return tag == null ? "" : "#" + this.tag;
+    }
+
+    /**
+     * Untags a specific tasks
+     *
+     */
+    public void untag() {
+        this.tag = null;
     }
 
     /**

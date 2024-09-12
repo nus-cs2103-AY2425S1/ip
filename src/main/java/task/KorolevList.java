@@ -18,8 +18,10 @@ public class KorolevList {
     private static final String markNotice = "Nice! I've marked this task as done:";
     private static final String unmarkNotice = "OK, I've marked this task as not done yet:";
     private static final String deleteNotice = "Noted. I've removed this task:";
-
     private static final String filteredNotice = "Here are the matching tasks in your list:";
+    private static final String tagNotice = "Noted, here is the tagged task:";
+    private static final String untagNotice = "Noted, here is the untagged task:";
+
     private ArrayList<KorolevTask> events;
 
     private static final KorolevStorage storage = new KorolevStorage();
@@ -126,6 +128,32 @@ public class KorolevList {
         System.out.println(t);
 
         return markNotice + "\n" + t;
+    }
+
+    public String tagEvent(int index, String tag) throws DukeException {
+        if (index >= this.events.size() || index < 0) {
+            throw new DukeException(outOfIndexError);
+        }
+
+        KorolevTask t = this.events.get(index);
+        t.tag(tag);
+        System.out.println(tagNotice);
+        System.out.println(t);
+
+        return tagNotice + "\n" + t;
+    }
+
+    public String untagEvent(int index) throws DukeException {
+        if (index >= this.events.size() || index < 0) {
+            throw new DukeException(outOfIndexError);
+        }
+
+        KorolevTask t = this.events.get(index);
+        t.untag();
+        System.out.println(tagNotice);
+        System.out.println(t);
+
+        return untagNotice + "\n" + t;
     }
 
     /**

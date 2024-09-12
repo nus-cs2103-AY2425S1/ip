@@ -51,6 +51,26 @@ public class KorolevCommand {
                 System.out.println("Error:" + e.getMessage());
                 return "Error:" + e.getMessage();
             }
+        } else if (target[0].equals("tag")) {
+            try {
+                int index = Integer.parseInt(target[1]) - 1;
+                StringBuilder tag = new StringBuilder();
+                for (int i = 2; i < target.length; i++) {
+                    tag.append(target[i]).append(" ");
+                }
+                return repo.tagEvent(index, tag.toString());
+            } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                System.out.println("Error:" + e.getMessage());
+                return "Error:" + e.getMessage();
+            }
+        } else if (target[0].equals("untag")) {
+            try {
+                int index = Integer.parseInt(target[1]) - 1;
+                return repo.untagEvent(index);
+            } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                System.out.println("Error:" + e.getMessage());
+                return "Error:" + e.getMessage();
+            }
         } else if (target[0].equals("find")) {
             String key = "";
             for (String s : this.target) {

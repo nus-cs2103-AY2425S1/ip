@@ -8,22 +8,9 @@ import java.util.Locale;
  * Represents a task of event type
  */
 public class KorolevEvent extends KorolevTask {
-    private String duration;
-    private String tag;
+    private String type;
     private LocalDateTime start;
     private LocalDateTime end;
-
-    /**
-     * Constructs new object of KorolevEvent.
-     *
-     * @param name description of the task
-     * @param date start and end time
-     */
-    public KorolevEvent(String name, String date) {
-        super(name);
-        this.duration = date;
-        this.tag = "E";
-    }
 
     /**
      * Constructs new object of KorolevEvent.
@@ -39,7 +26,7 @@ public class KorolevEvent extends KorolevTask {
 
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
-        this.tag = "E";
+        this.type = "E";
     }
 
     /**
@@ -50,12 +37,12 @@ public class KorolevEvent extends KorolevTask {
     @Override
     public String toString() {
         String base = super.toString();
-        String head = "[" + this.tag + "]";
+        String head = "[" + this.type + "]";
         String from = "from: " + this.start.format(
                 DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH));
         String to = "to: " + this.end.format(
                 DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH));;
 
-        return head + base + " (" + from + " " + to + ")";
+        return head + base + " (" + from + " " + to + ")  " + super.showTag();
     }
 }

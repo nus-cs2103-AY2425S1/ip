@@ -30,6 +30,6 @@ public class KorolevTodo extends KorolevTask {
         String base = super.toString();
         String head = "[" + this.tag + "]";
 
-        return head + base;
+        return head + base + "  " + super.showTag();
     }
 }

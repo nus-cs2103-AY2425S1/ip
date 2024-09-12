@@ -36,6 +36,6 @@ public class KorolevDeadline extends KorolevTask {
             DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH)
         );
 
-        return head + base + " (" + deadlines + ")";
+        return head + base + " (" + deadlines + ")  " + super.showTag();
     }
 }
