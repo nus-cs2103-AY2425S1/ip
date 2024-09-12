@@ -117,7 +117,8 @@ public class ZBot {
                 task = new ToDo(taskComponents[1]);
             }
 
-            assert task != null;
+            assert task != null : "Task should not be null.";
+
             tasks.add(task);
             response = ui.generateAddTaskMsg(task, tasks.size());
         } catch (ArrayIndexOutOfBoundsException e) {

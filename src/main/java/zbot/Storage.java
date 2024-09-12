@@ -49,6 +49,7 @@ public class Storage {
 
         try {
             file.createNewFile();
+            assert file.exists() : "File should exist after creation.";
         } catch (IOException e) {
             System.out.println("I/O error occurred.");
             e.printStackTrace();
@@ -141,7 +142,7 @@ public class Storage {
                             Parser.parseDateTime(taskComponents[4]));
                 }
 
-                assert task != null;
+                assert task != null : "Task should not be null.";
 
                 if (taskComponents[1].equals("1")) {
                     task.markAsDone();
