@@ -77,6 +77,8 @@ public class KorolevCommand {
                 key = (s + " ");
             }
             return KorolevList.displayFilteredList(repo.findItem(key.strip()));
+        } else if (target[0].equals("stats")) {
+            return repo.showStats();
         } else {
             try {
                 return repo.addEvent(input);

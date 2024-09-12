@@ -29,6 +29,15 @@ public class KorolevTask {
     }
 
     /**
+     * Checks whether the task is complete
+     *
+     * @return the state whether the task is complete
+     */
+    public boolean isComplete() {
+        return this.status;
+    }
+
+    /**
      * Adds tag to a specific Korolev Task.
      *
      * @param tag input about users from tag

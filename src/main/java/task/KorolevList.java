@@ -21,6 +21,9 @@ public class KorolevList {
     private static final String filteredNotice = "Here are the matching tasks in your list:";
     private static final String tagNotice = "Noted, here is the tagged task:";
     private static final String untagNotice = "Noted, here is the untagged task:";
+    private static final String statsNotice = "Here is the summary of tasks: ";
+    private static final String finishedMsg = "Number of finished tasks: ";
+    private static final String unfinishedMsg = "Number of unfinished tasks: ";
 
     private ArrayList<KorolevTask> events;
 
@@ -154,6 +157,23 @@ public class KorolevList {
         System.out.println(t);
 
         return untagNotice + "\n" + t;
+    }
+
+    public String showStats() {
+        return statsNotice + "\n"
+                + finishedMsg + this.countMark() + "\n"
+                + unfinishedMsg + (this.events.size() - this.countMark());
+    }
+
+    private int countMark() {
+        int out = 0;
+        for (KorolevTask t : events) {
+            if (t.isComplete()) {
+                out += 1;
+            }
+        }
+
+        return out;
     }
 
     /**
