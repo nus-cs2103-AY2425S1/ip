@@ -26,7 +26,7 @@ public class Rei {
      * Runs the bot
      */
     public void run() {
-        Ui.welcome();
+        Ui.printWelcomeMessage();
         tasks.printTasks();
 
         Scanner scanner = new Scanner(System.in);

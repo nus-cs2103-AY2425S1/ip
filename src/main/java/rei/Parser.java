@@ -9,6 +9,13 @@ import java.util.List;
  * This class encapsulates the parse method that takes the user prompt as its input
  */
 public class Parser {
+    private static final int MARK_COMMAND_LENGTH = 4;
+    private static final int UNMARK_COMMAND_LENGTH = 6;
+    private static final int TODO_COMMAND_LENGTH = 4;
+    private static final int DEADLINE_COMMAND_LENGTH = 8;
+    private static final int EVENT_COMMAND_LENGTH = 5;
+    private static final int DELETE_COMMAND_LENGTH = 6;
+
     /**
      * Different prompt types REI understands
      */
@@ -32,16 +39,16 @@ public class Parser {
     public static Prompt parse(TaskList tasks, String prompt) {
 
         List<String> prompts = Arrays.asList(prompt.split(" "));
-        int id;
+        String taskDetails;
         switch (prompts.get(0)) {
             case "list":
                 return Prompt.LIST;
             case "mark":
                 // Read the rest of the line after "mark"
-                prompt = prompt.substring(4).trim();
+                taskDetails = prompt.substring(MARK_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
-                if (prompt.isEmpty() || !prompt.matches("\\d+")) {
+                if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
                     Ui.print("State the task number.");
                     return Prompt.UNKNOWN;
                 }
@@ -49,24 +56,24 @@ public class Parser {
                 return Prompt.MARK;
             case "unmark":
                 // Read the rest of the line after "unmark"
-                prompt = prompt.substring(6).trim();
+                taskDetails = prompt.substring(UNMARK_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
-                if (prompt.isEmpty() || !prompt.matches("\\d+")) {
+                if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
                     Ui.print("State the task number.");
                     return Prompt.UNKNOWN;
                 }
 
                 return Prompt.UNMARK;
             case "todo":
-                if (isAllWhitespace(prompt.substring(4))) {
+                if (isAllWhitespace(prompt.substring(TODO_COMMAND_LENGTH))) {
                     Ui.print("Task is empty. Please state the task name.");
                     return Prompt.UNKNOWN;
                 }
 
                 return Prompt.TODO;
             case "deadline":
-                if (isAllWhitespace(prompt.substring(8))) {
+                if (isAllWhitespace(prompt.substring(DEADLINE_COMMAND_LENGTH))) {
                     Ui.print("Task is empty. Please state the task and deadline.");
                     return Prompt.UNKNOWN;
                 } else if (prompt.indexOf("/by") == -1) {
@@ -85,7 +92,7 @@ public class Parser {
                 }
                 return Prompt.DEADLINE;
             case "event":
-                if (isAllWhitespace(prompt.substring(5))) {
+                if (isAllWhitespace(prompt.substring(EVENT_COMMAND_LENGTH))) {
                     Ui.print("Event is empty. Please state the event and time range.");
                     return Prompt.UNKNOWN;
                 } else if (prompt.indexOf("/from") == -1 || prompt.indexOf("/to") == -1) {
@@ -106,16 +113,14 @@ public class Parser {
                 return Prompt.EVENT;
             case "delete":
                 // Read the rest of the line after "delete"
-                prompt = prompt.substring(6).trim();
+                taskDetails = prompt.substring(DELETE_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
-                if (prompt.isEmpty() || !prompt.matches("\\d+")) {
+                if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
                     Ui.print("State the task number.");
                     return Prompt.UNKNOWN;
                 }
 
-                id = Integer.parseInt(prompt);
-                tasks.deleteTask(id);
                 return Prompt.DELETE;
             case "annyeong":
                 Ui.print("Annyeong. Hope to see you soon.");

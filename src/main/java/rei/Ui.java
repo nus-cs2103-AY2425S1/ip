@@ -9,11 +9,14 @@ public class Ui {
             + " | |_) |  _|  | | \n"
             + " |  _ <| |___ | | \n"
             + " |_| \\_\\_____|___|\n";
+    
+    private static final String HEADER = "-----------REI♥-----------";
+    private static final String FOOTER = "-----------YOU------------";
 
     /**
      * Outputs a welcome message
      */
-    public static void welcome() {
+    public static void printWelcomeMessage() {
         System.out.println("Annyeong! I'm\n" + LOGO);
     }
 
@@ -22,8 +25,8 @@ public class Ui {
      * @param message the message
      */
     public static void print(String message) {
-        System.out.println("-----------REI♥-----------");
+        System.out.println(HEADER);
         System.out.println(message);
-        System.out.println("-----------YOU------------");
+        System.out.println(FOOTER);
     }
 }
