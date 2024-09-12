@@ -3,3 +3,4 @@ T | 0 | kill
 T | 1 | sleep all day
 T | 0 | read
 T | 0 | read a book
+T | 0 | read another book

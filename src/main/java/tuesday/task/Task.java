@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import tuesday.util.Storage;
 
+
+
 /**
  * All the specific tasks will inherit from the class.
  * This class acts like an abstract class
@@ -16,6 +18,7 @@ public class Task {
     private String description;
     private boolean isMarked;
 
+    private String Priority;
 
     /**
      * Constructor for Task
@@ -29,6 +32,7 @@ public class Task {
         }
         this.description = description;
         this.isMarked = false;
+        this.Priority = " ";
         Task.taskArrayList.add(this);
         count++;
     }
@@ -127,6 +131,9 @@ public class Task {
         return count;
     }
 
+    public void setPriority(String priority) {
+        this.Priority = priority;
+    }
     /**
      * Used for an output message
      *
@@ -135,6 +142,6 @@ public class Task {
     @Override
     public String toString() {
         assert this.description != null : "Use the constructor first";
-        return "[" + this.getDoneX() + "] " + this.description;
+        return "[" + this.getDoneX() + "][" + this.Priority + "] " + this.description;
     }
 }
