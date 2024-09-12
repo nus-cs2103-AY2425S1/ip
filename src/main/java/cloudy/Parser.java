@@ -48,6 +48,7 @@ public class Parser {
      * @return A command object for marking a task as complete.
      */
     private Command parseMarkCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
         if (parts.length >= 2) {
             try {
@@ -67,6 +68,7 @@ public class Parser {
      * @return A command object for marking a task as complete.
      */
     private Command parseUnmarkCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
         if (parts.length == 2) {
             try {
@@ -81,6 +83,7 @@ public class Parser {
     }
 
     private Command parseTodoCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         if (userInput.trim().length() <= 4) {
             return new Command("invalidCommand");
         } else {
@@ -90,6 +93,7 @@ public class Parser {
     }
 
     private Command parseDeadlineCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split("/by ");
         String taskDescription = parts[0].substring(9).trim();
         String inputDeadline = parts.length > 1 ? parts[1].trim() : "";
@@ -112,6 +116,7 @@ public class Parser {
     }
 
     private Command parseEventCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         String[] partsFrom = userInput.split("/from");
         String taskDescription = partsFrom[0].substring(6).trim();
         String startTime = "", endTime = "";
@@ -145,6 +150,7 @@ public class Parser {
     }
 
     private Command parseDeleteCommand(String userInput) {
+        assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
         if (parts.length == 2) {
             try {
@@ -159,7 +165,11 @@ public class Parser {
     }
 
     private Command parseFindCommand(String userInput) {
-        String searchQuery = userInput.substring(5).trim();
+        assert userInput != null : "userInput should not be null";
+        if (userInput.length() <= 4) {
+            return new Command("find", "");
+        }
+        String searchQuery = userInput.substring(4).trim();
         return new Command("find", searchQuery);
     }
 

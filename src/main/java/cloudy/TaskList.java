@@ -29,6 +29,7 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
     }
 
@@ -46,8 +47,13 @@ public class TaskList {
 
     public ArrayList<Task> findTasks(String searchQuery) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+            return matchingTasks;
+        }
+
         for (Task task : tasks) {
-            if (task.description.contains(searchQuery)) {
+            if (task.description != null && task.description.contains(searchQuery)) {
                 matchingTasks.add(task);
             }
         }

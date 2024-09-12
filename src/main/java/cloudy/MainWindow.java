@@ -25,6 +25,10 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image cloudyImage = new Image(this.getClass().getResourceAsStream("/images/cloudy.png"));
 
+    {
+        assert userImage != null : "User image should be loaded";
+        assert cloudyImage != null : "Cloudy image should be loaded";
+    }
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -33,6 +37,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Cloudy instance */
     public void setCloudy(Cloudy c) {
+        assert c != null : "Cloudy instance should not be null";
         cloudy = c;
 
         //Display greeting message
