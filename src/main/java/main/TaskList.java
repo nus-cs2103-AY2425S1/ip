@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Stream;
 
 import exception.CommandFoundButInvalidException;
 import exception.EmptyDescriptionException;
@@ -140,19 +141,15 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks that contain the specified substring in their description
+     * Returns a string containing all the {@code Task} where its toString()
+     * representation contains the input string
      *
-     * @param str the substring to search for
-     * @return a {@code List} of {@code Task} objects that contain the substring
+     * @param str the input string by the user
+     * @return all {@code Task} whose toString() method contains the input string
      */
-    public List<Task> find(String str) {
-        ArrayList<Task> result = new ArrayList<>();
-        for (Task t : this.allTasks) {
-            if (t.toString().contains(str)) {
-                result.add(t);
-            }
-        }
-        return result;
+    public Stream<Task> find2(String str) {
+        return this.allTasks.stream()
+                .filter(x -> x.toString().contains(str));
     }
 
     /**
