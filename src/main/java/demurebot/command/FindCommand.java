@@ -33,6 +33,6 @@ public class FindCommand extends Command {
                 result.append(tasks.getTask(i)).append("\n");
             }
         }
-        return result.toString();
+        return result.toString().isEmpty() ? ui.displayNoTasksFound() : result.toString();
     }
 }

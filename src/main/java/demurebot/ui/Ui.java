@@ -79,6 +79,13 @@ public class Ui {
     }
 
     /**
+     * Displays a message indicating that the search failed.
+     * @return The message indicating that the search failed.
+     */
+    public String displayNoTasksFound() {
+        return "No tasks matching your description were found;-;";
+    }
+    /**
      * Displays the list of tasks.
      *
      * @param list The TaskList containing the tasks to be displayed.
