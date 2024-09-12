@@ -28,7 +28,7 @@ public class Parser {
             return new DeleteCommand(userInput);
         } else if (userInput.contains("find")) {
             return new FindCommand(userInput);
-        }else {
+        } else {
             System.out.println("Command does not exist!");
         }
         return null;

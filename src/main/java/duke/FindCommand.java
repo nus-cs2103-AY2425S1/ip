@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     FindCommand(String input) {
         this.input = input;
@@ -40,7 +40,7 @@ public class FindCommand extends Command{
         String find = this.process(this.input);
         int count = 1;
         StringBuilder result = new StringBuilder();
-        for (Task task: tasks.getList()) {
+        for (Task task : tasks.getList()) {
             if (task.getDescription().contains(find)) {
                 result.append(count).append(". ").append(task).append("\n");
                 count += 1;
