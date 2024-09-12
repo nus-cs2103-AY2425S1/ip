@@ -29,11 +29,12 @@ public class Parser {
             case LIST -> CommandManager.getListCommand(commandsArray);
             case MARK -> CommandManager.getMarkCommand(commandsArray);
             case UNMARK -> CommandManager.getUnmarkCommand(commandsArray);
+            case DELETE -> CommandManager.getDeleteCommand(commandsArray);
+            case FIND -> CommandManager.getFindCommand(fullCommand);
             case TODO -> CommandManager.getTodoCommand(fullCommand);
             case DEADLINE -> CommandManager.getDeadlineCommand(fullCommand);
             case EVENT -> CommandManager.getEventCommand(fullCommand);
-            case DELETE -> CommandManager.getDeleteCommand(commandsArray);
-            case FIND -> CommandManager.getFindCommand(fullCommand);
+            case HELP -> CommandManager.getHelpCommand();
             default -> throw new AtlasException("Unknown command.");
             };
         } catch (IllegalArgumentException e) {

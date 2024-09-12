@@ -65,6 +65,41 @@ public class CommandManager {
     }
 
     /**
+     * @param commandsArray The array containing the command words the user has typed in.
+     * @return DeleteCommand The command that deletes the task from the list.
+     * @throws AtlasException The exception to be thrown in the event of any poorly typed command.
+     */
+    public static DeleteCommand getDeleteCommand(String[] commandsArray) throws AtlasException {
+        if (commandsArray.length == 1) {
+            throw new AtlasException("Deleting a task as undone requires the task number.");
+        } else if (Util.isNotNumber(commandsArray[1])) {
+            throw new AtlasException("Task number provided is not a number.");
+        } else if (commandsArray.length > 2) {
+            throw new AtlasException("Deleting a task only requires the task number.");
+        }
+
+        int deleteIndex = Integer.parseInt(commandsArray[1]) - 1;
+        return new DeleteCommand(deleteIndex);
+    }
+
+    /**
+     * @param fullCommand The command string the user has typed in.
+     * @return FindCommand The command that finds the tasks that match the pattern.
+     * @throws AtlasException The exception to be thrown in the event of any poorly typed command.
+     */
+    public static FindCommand getFindCommand(String fullCommand) throws AtlasException {
+        String[] commandsArray;
+        commandsArray = fullCommand.split("find ");
+        if (commandsArray.length == 1) {
+            throw new AtlasException("Finding tasks requires the task description.");
+        } else if (commandsArray.length > 2) {
+            throw new AtlasException("Invalid task description.");
+        }
+
+        return new FindCommand(commandsArray[1]);
+    }
+
+    /**
      * @param fullCommand The command string the user has typed in.
      * @return TodoCommand The command that creates a new Todo.
      * @throws AtlasException The exception to be thrown in the event of any poorly typed command.
@@ -116,37 +151,9 @@ public class CommandManager {
     }
 
     /**
-     * @param commandsArray The array containing the command words the user has typed in.
-     * @return DeleteCommand The command that deletes the task from the list.
-     * @throws AtlasException The exception to be thrown in the event of any poorly typed command.
+     * @return HelpCommand The command that displays all the possible commands in the Atlas chatbot.
      */
-    public static DeleteCommand getDeleteCommand(String[] commandsArray) throws AtlasException {
-        if (commandsArray.length == 1) {
-            throw new AtlasException("Deleting a task as undone requires the task number.");
-        } else if (Util.isNotNumber(commandsArray[1])) {
-            throw new AtlasException("Task number provided is not a number.");
-        } else if (commandsArray.length > 2) {
-            throw new AtlasException("Deleting a task only requires the task number.");
-        }
-
-        int deleteIndex = Integer.parseInt(commandsArray[1]) - 1;
-        return new DeleteCommand(deleteIndex);
-    }
-
-    /**
-     * @param fullCommand The command string the user has typed in.
-     * @return FindCommand The command that finds the tasks that match the pattern.
-     * @throws AtlasException The exception to be thrown in the event of any poorly typed command.
-     */
-    public static FindCommand getFindCommand(String fullCommand) throws AtlasException {
-        String[] commandsArray;
-        commandsArray = fullCommand.split("find ");
-        if (commandsArray.length == 1) {
-            throw new AtlasException("Finding tasks requires the task description.");
-        } else if (commandsArray.length > 2) {
-            throw new AtlasException("Invalid task description.");
-        }
-
-        return new FindCommand(commandsArray[1]);
+    public static HelpCommand getHelpCommand() {
+        return new HelpCommand();
     }
 }

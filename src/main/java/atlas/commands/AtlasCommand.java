@@ -8,9 +8,10 @@ public enum AtlasCommand {
     LIST,
     MARK,
     UNMARK,
+    DELETE,
+    FIND,
     TODO,
     DEADLINE,
     EVENT,
-    DELETE,
-    FIND
+    HELP
 }
