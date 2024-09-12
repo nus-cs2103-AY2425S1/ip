@@ -2,16 +2,7 @@ package jeff;
 
 
 import jeff.command.Command;
-import jeff.command.DeadlineCommand;
-import jeff.command.DeleteCommand;
-import jeff.command.EventCommand;
-import jeff.command.ExitCommand;
-import jeff.command.FindCommand;
-import jeff.command.ListCommand;
-import jeff.command.MarkCommand;
-import jeff.command.PrintCommand;
-import jeff.command.ToDoCommand;
-import jeff.command.UnMarkCommand;
+import jeff.command.CommandFactory;
 import jeff.exceptions.JeffException;
 
 /**
@@ -19,7 +10,7 @@ import jeff.exceptions.JeffException;
  * The Parser class is responsible for interpreting user commands and returning the corresponding Command object.
  */
 public class Parser {
-
+    private static final CommandFactory commandFactory = new CommandFactory();
     /**
      * Parses the user's command input and returns the corresponding Command object.
      *
@@ -31,32 +22,6 @@ public class Parser {
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0].toLowerCase();
         String args = parts.length > 1 ? parts[1] : "";
-
-        switch (commandWord) {
-        case "bye":
-            return new ExitCommand();
-        case "list":
-            return new ListCommand();
-        case "print":
-            return new PrintCommand(args);
-        case "mark":
-            return new MarkCommand(args);
-        case "unmark":
-            return new UnMarkCommand(args);
-        case "delete":
-            return new DeleteCommand(args);
-        case "todo":
-            return new ToDoCommand(args);
-        case "deadline":
-            return new DeadlineCommand(args);
-        case "event":
-            return new EventCommand(args);
-        case "find":
-            return new FindCommand(args);
-
-        // Add more cases here for other commands
-        default:
-            throw new JeffException("Unknown command!");
-        }
+        return commandFactory.getCommand(commandWord, args);
     }
 }
