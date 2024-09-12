@@ -3,6 +3,7 @@ package beeboo.command;
 import beeboo.components.Storage;
 import beeboo.components.TaskList;
 import beeboo.components.Ui;
+import beeboo.exception.InvalidCommandException;
 import beeboo.exception.InvalidIndexException;
 import beeboo.task.Tasks;
 
@@ -11,7 +12,6 @@ import beeboo.task.Tasks;
  */
 public class MarkCommand extends Command {
     private String type;
-    private String command;
     /**
      * Constructs an AddCommand.
      *
@@ -20,7 +20,6 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(String type, String command) {
         super(command);
-        this.command = command;
         this.type = type;
     }
 
@@ -31,8 +30,8 @@ public class MarkCommand extends Command {
      * @throws InvalidIndexException if index is < 0 or is more than the size of tasklist
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
-        int index = Integer.parseInt(command);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException, InvalidCommandException {
+        int index = Integer.parseInt(super.command);
         if (index < 0 || index > tasks.getSize()) {
             throw new InvalidIndexException("Invalid index");
         }
@@ -46,7 +45,7 @@ public class MarkCommand extends Command {
             storage.saveItem(tasks);
             return ui.unmarkDoneMessage(undone);
         default:
-            return "";
+            throw new InvalidCommandException();
         }
 
     }

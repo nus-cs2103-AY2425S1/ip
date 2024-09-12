@@ -67,7 +67,7 @@ public abstract class Tasks {
      *
      * @return the type icon as a String
      */
-    protected abstract String typeIcon();
+    public abstract String typeIcon();
 
     /**
      * Returns a String representation of the task in a format suitable for saving to storage.
@@ -80,4 +80,6 @@ public abstract class Tasks {
     public String getDescription() {
         return description;
     }
+
+    public abstract void updateTime(String time);
 }

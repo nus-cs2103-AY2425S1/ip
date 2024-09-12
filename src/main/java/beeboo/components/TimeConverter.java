@@ -20,7 +20,7 @@ public class TimeConverter {
      * @return a LocalDateTime object representing the provided date and time
      * @throws DateTimeParseException if the date string is not in a valid format
      */
-    public static LocalDateTime timeConverter(String date) throws DateTimeParseException {
+    public static LocalDateTime convertTime(String date) throws DateTimeParseException {
         String[] arr = date.split(" ");
         LocalDate res = LocalDate.parse(arr[0]);
         LocalTime time;
@@ -28,7 +28,7 @@ public class TimeConverter {
             time = LocalTime.of(Integer.parseInt(arr[1].substring(0, 2)),
                     Integer.parseInt(arr[1].substring(2)));
         } else {
-            time = LocalTime.of(0, 0);
+            time = LocalTime.MIDNIGHT;
         }
         return LocalDateTime.of(res, time);
     }

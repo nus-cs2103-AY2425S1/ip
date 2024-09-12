@@ -10,10 +10,10 @@ import beeboo.task.Tasks;
  * Represents a command to delete a task from the chatbot's task list.
  */
 public class DeleteCommand extends Command {
-    private String command;
     public DeleteCommand(String command) {
-        this.command = command;
+        super(command);
     }
+
 
     /**
      * @param tasks tasklist of chatbot
@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
-        int index = Integer.parseInt(command);
+        int index = Integer.parseInt(super.command);
         if (index < 0 || index > tasks.getSize()) {
             throw new InvalidIndexException("Invalid index");
         }

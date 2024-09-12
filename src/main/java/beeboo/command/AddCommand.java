@@ -3,10 +3,12 @@ package beeboo.command;
 import beeboo.components.Storage;
 import beeboo.components.TaskList;
 import beeboo.components.Ui;
+import beeboo.exception.InvalidCommandException;
 import beeboo.exception.InvalidDateException;
 import beeboo.exception.NoDescriptionException;
 import beeboo.task.Deadlines;
 import beeboo.task.Events;
+import beeboo.task.Tasks;
 import beeboo.task.ToDos;
 
 /**
@@ -38,34 +40,27 @@ public class AddCommand extends Command {
      * @throws NoDescriptionException If the task description is missing.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException ,
+            InvalidCommandException{
+        Tasks task;
         switch(type) {
         case "e":
-            Events event = Events.createEvent(command);
-            if (tasks.addList(event)) {
-                storage.saveItem(tasks);
-                return ui.addList(event, tasks.getSize());
-            } else {
-                return ui.duplicateTaskError();
-            }
+            task = Events.createEvent(command);
+            break;
         case "t":
-            ToDos todo = ToDos.createToDo(command);
-            if (tasks.addList(todo)) {
-                storage.saveItem(tasks);
-                return ui.addList(todo, tasks.getSize());
-            } else {
-                return ui.duplicateTaskError();
-            }
+            task = ToDos.createToDo(command);
+            break;
         case "d":
-            Deadlines deadline = Deadlines.createDeadline(command);
-            if (tasks.addList(deadline)) {
-                storage.saveItem(tasks);
-                return ui.addList(deadline, tasks.getSize());
-            } else {
-                return ui.duplicateTaskError();
-            }
+            task = Deadlines.createDeadline(command);
+            break;
         default:
-            return "";
+            throw new InvalidCommandException();
+        }
+        if (tasks.addList(task)) {
+            storage.saveItem(tasks);
+            return ui.addList(task, tasks.getSize());
+        } else {
+            return ui.duplicateTaskError();
         }
     }
 

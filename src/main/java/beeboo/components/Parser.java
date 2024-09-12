@@ -7,6 +7,7 @@ import beeboo.command.ExitCommand;
 import beeboo.command.FindCommand;
 import beeboo.command.ListCommand;
 import beeboo.command.MarkCommand;
+import beeboo.command.UpdateCommand;
 import beeboo.exception.InvalidCommandException;
 
 /**
@@ -52,6 +53,8 @@ public class Parser {
             return new DeleteCommand(rest);
         case "find":
             return new FindCommand(rest);
+        case "update":
+            return new UpdateCommand(rest);
         default:
             throw new InvalidCommandException();
         }
