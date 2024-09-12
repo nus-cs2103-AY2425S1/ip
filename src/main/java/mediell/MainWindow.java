@@ -25,7 +25,9 @@ public class MainWindow extends AnchorPane {
     private Mediell mediell;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image mediellImage = new Image(this.getClass().getResourceAsStream("/images/MediellNormal.png"));
+    private Image mediellNormal = new Image(this.getClass().getResourceAsStream("/images/MediellNormal.png"));
+    private Image mediellHappy = new Image(this.getClass().getResourceAsStream("/images/MediellHappy.png"));
+    private Image mediellNight = new Image(this.getClass().getResourceAsStream("/images/MediellNight.png"));
 
     @FXML
     public void initialize() {
@@ -45,10 +47,24 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = mediell.getResponse(input);
+        Image responseImage = getImage(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, mediellImage)
+                DialogBox.getDukeDialog(response, responseImage)
         );
         userInput.clear();
+    }
+
+    private Image getImage(String input) {
+        switch (mediell.getImage(input)) {
+            case DAY:
+                return mediellNormal;
+            case NIGHT:
+                return mediellNight;
+            case HAPPY:
+                return mediellHappy;
+            default:
+                return mediellNormal;
+        }
     }
 }
