@@ -154,29 +154,28 @@ public class TaskManager {
      */
     private Task parseTaskFromString(String line) {
         String[] parts = line.split(" \\| ");
-        if (parts.length >= 3) {
-            String taskType = parts[0];
-            boolean isCompleted = parts[1].equals("1");
-            String taskInfo = parts[2];
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        assert parts.length >= 3 : "There should be at least 3 parts after splitting.";
+        String taskType = parts[0];
+        boolean isCompleted = parts[1].equals("1");
+        String taskInfo = parts[2];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
-            switch (taskType) {
-            case "T":
-                return new TodoTask(taskInfo, isCompleted);
+        switch (taskType) {
+        case "T":
+            return new TodoTask(taskInfo, isCompleted);
 
-            case "D":
-                LocalDateTime date = LocalDateTime.parse(parts[3], formatter);
-                return new DeadlineTask(taskInfo, date, isCompleted);
+        case "D":
+            LocalDateTime date = LocalDateTime.parse(parts[3], formatter);
+            return new DeadlineTask(taskInfo, date, isCompleted);
 
-            case "E":
-                LocalDateTime fromDate = LocalDateTime.parse(parts[3], formatter);
-                LocalDateTime toDate = LocalDateTime.parse(parts[4], formatter);
-                return new EventTask(taskInfo, toDate, fromDate, isCompleted);
+        case "E":
+            LocalDateTime fromDate = LocalDateTime.parse(parts[3], formatter);
+            LocalDateTime toDate = LocalDateTime.parse(parts[4], formatter);
+            return new EventTask(taskInfo, toDate, fromDate, isCompleted);
 
-            default:
-            }
+        default:
+            return null;
         }
-        return null;
     }
 
     /**

@@ -30,6 +30,8 @@ public class Taskalyn {
     public String getResponse(String input) {
         if (Objects.equals(input.trim(), "bye")) {
             return ui.showByeMessage();
+        } else if (Objects.equals(input.trim(), "")) {
+            return "Please input a non-empty command.";
         } else {
             return parser.parse(input);
         }
