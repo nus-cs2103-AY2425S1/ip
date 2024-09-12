@@ -1,7 +1,6 @@
 package ponderpika;
 
 import java.time.format.DateTimeFormatter;
-//import java.util.Scanner;
 
 import ponderpika.exception.PonderPikaException;
 import ponderpika.parser.Parser;
@@ -103,16 +102,7 @@ public class PonderPika {
 
         case FIND:
             System.out.println("Found these tasks:\n");
-            String keyword = (String) command.getData();
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < taskList.getTasks().size(); i++) {
-                if (taskList.getTasks().get(i).getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    result.append((i + 1)).append(". ").append(taskList.getTasks().get(i).toString()).append("\n");
-                }
-            }
-            //ui.printDivider();
-            return result.toString();
-            //break;
+            return taskList.findTasks((String) command.getData());
 
         case BYE:
             System.out.println("------------------------------------------------------------");

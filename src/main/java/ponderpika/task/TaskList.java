@@ -2,6 +2,7 @@ package ponderpika.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ponderpika.exception.PonderPikaException;
 
@@ -91,5 +92,23 @@ public class TaskList {
             result.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
         }
         return result.toString();
+    }
+
+    /**
+     * finds the tasks with matched keyword given by user*
+     *
+     * @param keyword keyword to be searched in the descriptions of tasks
+     * @return tasks with keyword in it
+     * @throws PonderPikaException
+     */
+    public String findTasks(String keyword) throws PonderPikaException {
+        List<Task> matchedTasks = tasks.stream()
+                .filter(t -> t.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
+
+        if (matchedTasks.isEmpty()) {
+            throw new PonderPikaException("No Matching tasks found in the list!");
+        }
+        return matchedTasks.stream().map(Task::toString).collect(Collectors.joining("\n"));
     }
 }
