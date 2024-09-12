@@ -15,6 +15,7 @@ public class Command {
     private LocalDate endTime;
 
     public Command(String type) {
+        assert type != null : "Type should not be null";
         this.type = type;
     }
 
@@ -25,16 +26,20 @@ public class Command {
 
     public Command(String type, String taskDescription) {
         this(type);
+        assert taskDescription != null : "Task description should not be null";
         this.taskDescription = taskDescription;
     }
 
     public Command(String type, String taskDescription, LocalDate deadline) {
         this(type, taskDescription);
+        assert deadline != null : "Deadline should not be null";
         this.deadline = deadline;
     }
 
     public Command(String type, String taskDescription, LocalDate startTime, LocalDate endTime) {
         this(type, taskDescription);
+        assert startTime != null : "Start time should not be null";
+        assert endTime != null : "End time should not be null";
         this.startTime = startTime;
         this.endTime = endTime;
     }

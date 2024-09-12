@@ -21,6 +21,7 @@ public class Storage {
      * @param filePath The path to the file where the tasks will be stored.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -48,6 +49,7 @@ public class Storage {
      * is empty or does not exist, an empty list is returned.
      */
     public static ArrayList<Task> loadTasksFromFile() {
+        assert filePath != null && !filePath.trim().isEmpty();
         checkFileExists();
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -73,6 +75,7 @@ public class Storage {
      * Check if the file and its parent directories exist. If they do not exist, it creates them.
      */
     public static void checkFileExists() {
+        assert filePath != null && !filePath.trim().isEmpty();
         File file = new File(filePath);
         File directory = file.getParentFile();
 
