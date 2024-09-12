@@ -10,23 +10,26 @@ import ratchet.ui.Ui;
  * Command to unmark a task as done.
  */
 public class UnmarkCommand extends Command {
-    private final int index;
+    private final Integer[] indexes;
 
     /**
      * Constructor for UnmarkCommand.
      *
-     * @param index Index of task to be unmarked.
+     * @param indexes Index of task to be unmarked.
      */
-    public UnmarkCommand(int index) {
-        this.index = index;
+    public UnmarkCommand(Integer[] indexes) {
+        this.indexes = indexes;
     }
 
     @Override
     public String execute(Storage storage, TaskList tasks, Ui ui) throws InvalidCommandArgumentException {
+        StringBuilder res = new StringBuilder(ui.printWithSeparator("OK, I've marked these task as not done yet:"));
         try {
-            Task task = tasks.unmarkTask(index);
-            return ui.printWithSeparator("OK, I've marked this task as not done yet:")
-                    + ui.printWithSeparator(task.toString()) + ui.printWithSeparator(tasks.toString());
+            for (int index : indexes) {
+                Task task = tasks.unmarkTask(index);
+                res.append(ui.printWithSeparator(task.toString()));
+            }
+            return res.toString() + ui.printWithSeparator(tasks.toString());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandArgumentException("Please enter a valid task index!");
         }
