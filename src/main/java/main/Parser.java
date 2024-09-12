@@ -3,6 +3,9 @@ package main;
 import exception.CommandFoundButInvalidException;
 import exception.CommandNotFoundException;
 import exception.EmptyStringException;
+import task.Task;
+
+import java.util.stream.Stream;
 
 /**
  * Parses user input commands and performs corresponding actions on tasks
@@ -84,7 +87,9 @@ public class Parser {
             storage.put(allTasks);
             return ui.unmarkedMessage(allTasks.getLastUnmarked());
         case FIND:
-            return ui.findMessage() + "\n" + new TaskList(allTasks.find(remainder)).list("");
+            Stream<Task> result = allTasks.find2(remainder);
+            return ui.findMessage() + "\n"
+                    + new TaskList(result.toList()).list("");
         case BYE:
             this.isOver = true;
             return ui.bye();
