@@ -55,11 +55,13 @@ public class ChatData {
         try {
             FileReader fileReader = new FileReader(this.filename);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while (true) {
+
+            boolean hasNextLine = true;
+            while (hasNextLine) {
                 try {
                     String line = bufferedReader.readLine();
                     if (line == null) {
-                        break;
+                        hasNextLine = false;
                     } else {
                         list.add(Task.of(line));
                     }
@@ -67,6 +69,7 @@ public class ChatData {
                     throw new ChatHistoryFileMissingException();
                 }
             }
+
             fileReader.close();
             return new TaskList(list);
         } catch (IOException e) {
