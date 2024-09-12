@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 import bob.task.Task;
 
+/**
+ * Represents the CLI user interface of Bob, depreciated for the GUI. Will be removed in future versions.
+ */
 public class Ui {
 
     /**
@@ -13,7 +16,7 @@ public class Ui {
      *
      * @param input
      */
-    public static void dialogue(String input) {
+    public static void printDialogueCLI(String input) {
         System.out.println("___________________________________\n");
         System.out.println(input);
         System.out.println("___________________________________\n");
@@ -26,17 +29,17 @@ public class Ui {
      * @param tasks
      */
     public static void runDialogue(Scanner scanner, List<Task> tasks) {
-        Ui.dialogue("Hello! I'm Bob\nWhat can I do for you?");
+        Ui.printDialogueCLI("Hello! I'm Bob\nWhat can I do for you?");
 
         while (true) {
             try {
                 String userInput = scanner.nextLine().trim();
 
                 if (userInput.equalsIgnoreCase("bye")) {
-                    Ui.dialogue("Bye. Hope to see you again soon!");
+                    Ui.printDialogueCLI("Bye. Hope to see you again soon!");
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
-                    Parser.processListCommand(tasks);
+                    Parser.executeListCommand(tasks);
                 } else if (userInput.startsWith("mark") || userInput.startsWith("unmark") || userInput.startsWith("delete")) {
                     Parser.processTaskModificationCommands(userInput, tasks);
                 } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
@@ -45,7 +48,7 @@ public class Ui {
                     throw new BobException("I'm sorry, but I don't know what that means :(");
                 }
             } catch (BobException | IOException e) {
-                Ui.dialogue(e.getMessage());
+                Ui.printDialogueCLI(e.getMessage());
             }
         }
         scanner.close();

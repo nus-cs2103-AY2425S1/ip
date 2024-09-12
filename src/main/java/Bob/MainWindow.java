@@ -11,6 +11,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Represents the main window of the Bob application.
+ */
 public class MainWindow extends Application {
 
     private ScrollPane scrollPane;
@@ -42,6 +45,11 @@ public class MainWindow extends Application {
         userInput.clear();
     }
 
+    /**
+     * Starts the Bob application.
+     *
+     * @param stage The primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -92,6 +100,9 @@ public class MainWindow extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
         scene = new Scene(mainLayout);
+
+        // Display welcome help message
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Bob.printHelpString(), dukeImage));
 
         stage.setScene(scene);
         stage.show();

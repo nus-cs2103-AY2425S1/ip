@@ -7,6 +7,9 @@ import java.util.List;
 
 import bob.task.Task;
 
+/**
+ * Represents the storage of Bob.
+ */
 class Storage {
 
     /**

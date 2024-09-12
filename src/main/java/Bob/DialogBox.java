@@ -9,11 +9,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Represents a dialog box in the Bob application.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Constructor for a dialog box in the Bob application.
+     *
+     * @param s The text to be displayed in the dialog box.
+     * @param i The image to be displayed in the dialog box.
+     */
     public DialogBox(String s, Image i) {
         text = new Label(s);
         displayPicture = new ImageView(i);
