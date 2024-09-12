@@ -32,7 +32,7 @@ public class Ui {
      * @param taskList TaskList containing tasks to turn to string.
      */
     public String schedule(TaskList taskList) {
-        return taskList.toString();
+        return "Your schedule is as follows: \n" + taskList.toString();
     }
 
     /**
