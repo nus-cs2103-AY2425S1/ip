@@ -98,6 +98,8 @@ public class Storage {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task task : tasks) {
+                assert task != null : "Task is null in task list";
+
                 writer.write(task.toFileFormat());
                 writer.newLine();
             }
