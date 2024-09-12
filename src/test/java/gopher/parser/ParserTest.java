@@ -38,7 +38,7 @@ public class ParserTest {
 
     @Test
     public void parseDateString_emptyString_exceptionThrown() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(DateTimeParseException.class, () -> {
             Parser.parseDateString("");
         });
     }
