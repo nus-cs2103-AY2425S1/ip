@@ -38,17 +38,20 @@ public class Storage {
      */
     public void createFileIfNotExists() {
         File file = new File(filePath);
-        if (!file.exists()) {
-            String folderPath = filePath.substring(0, filePath.lastIndexOf("/"));
-            File folder = new File(folderPath);
-            folder.mkdirs();
 
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("I/O error occurred.");
-                e.printStackTrace();
-            }
+        if (file.exists()) {
+            return;
+        }
+
+        String folderPath = filePath.substring(0, filePath.lastIndexOf("/"));
+        File folder = new File(folderPath);
+        folder.mkdirs();
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("I/O error occurred.");
+            e.printStackTrace();
         }
     }
 
@@ -80,21 +83,27 @@ public class Storage {
      */
     public void save(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
+
         for (Task task : tasks) {
-            // Append task type, status, and description, separated by ","
-            char taskType = task instanceof ToDo ? 'T' : task instanceof Deadline ? 'D' : 'E';
-            int taskStatus = task.getStatus() ? 1 : 0;
-            sb.append(taskType).append(",").append(taskStatus)
+            char taskType = task instanceof ToDo ? 'T'
+                    : task instanceof Deadline ? 'D'
+                            : task instanceof Event ? 'E' : null;
+            int taskStatusAsInt = task.getStatus() ? 1 : 0;
+            sb.append(taskType).append(",").append(taskStatusAsInt)
                     .append(",").append(task.getDescription());
 
-            // Append task-specific details
             if (taskType == 'D') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getDueDate()));
+                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getDueDate()))
+                        .append("\n");
             } else if (taskType == 'E') {
                 sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).getStartDate()))
-                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).getEndDate()));
+                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).getEndDate()))
+                        .append("\n");
+            } else if (taskType == 'T') {
+                sb.append("\n");
             }
-            sb.append("\n");
+
+            assert taskType == 'T' || taskType == 'D' || taskType == 'E';
         }
 
         writeToTextFile(sb.toString());
@@ -111,21 +120,30 @@ public class Storage {
      */
     public ArrayList<Task> load() throws ZBotException {
         ArrayList<Task> tasks = new ArrayList<>();
+
         try {
             Scanner sc = new Scanner(new File(filePath));
+
             while (sc.hasNextLine()) {
-                String[] taskParts = sc.nextLine().split(",");
-                Task task;
-                if (taskParts[0].equals("T")) {
-                    task = new ToDo(taskParts[2]);
-                } else if (taskParts[0].equals("D")) {
-                    task = new Deadline(taskParts[2], Parser.parseDateTime(taskParts[3]));
-                } else {
-                    task = new Event(taskParts[2],
-                            Parser.parseDateTime(taskParts[3]),
-                            Parser.parseDateTime(taskParts[4]));
+                String[] taskComponents = sc.nextLine().split(",");
+
+                Task task = null;
+                if (taskComponents[0].equals("T")) {
+                    assert taskComponents.length == 3;
+                    task = new ToDo(taskComponents[2]);
+                } else if (taskComponents[0].equals("D")) {
+                    assert taskComponents.length == 4;
+                    task = new Deadline(taskComponents[2], Parser.parseDateTime(taskComponents[3]));
+                } else if (taskComponents[0].equals("E")) {
+                    assert taskComponents.length == 5;
+                    task = new Event(taskComponents[2],
+                            Parser.parseDateTime(taskComponents[3]),
+                            Parser.parseDateTime(taskComponents[4]));
                 }
-                if (taskParts[1].equals("1")) {
+
+                assert task != null;
+
+                if (taskComponents[1].equals("1")) {
                     task.markAsDone();
                 }
                 tasks.add(task);
@@ -139,4 +157,5 @@ public class Storage {
         }
         return tasks;
     }
+
 }
