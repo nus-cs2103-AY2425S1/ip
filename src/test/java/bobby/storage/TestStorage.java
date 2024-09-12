@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // Project-specific imports
+import bobby.exceptions.InvalidTaskException;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
@@ -58,14 +59,14 @@ public class TestStorage {
     }
 
     @Test
-    void testSaveTasks_emptyTaskList() {
+    void testSaveTasks_emptyTaskList() throws InvalidTaskException {
         taskList.add(new Todo("Test"));
         storage.saveTasks(taskList);
         assertTrue(new File(TEST_FILE_PATH).exists(), "File should exist after saving tasks.");
     }
 
     @Test
-    void testSaveTasks_nonEmptyTaskList() throws IOException {
+    void testSaveTasks_nonEmptyTaskList() throws IOException, InvalidTaskException {
         taskList.add(new Todo("Read book"));
         taskList.add(new Deadline("Submit report", LocalDate.of(2024, 12, 12)));
         taskList.add(new Event("Conference", LocalDate.of(2024, 12, 15), LocalDate.of(2024, 12, 16)));
