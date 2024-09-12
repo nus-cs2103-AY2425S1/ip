@@ -79,7 +79,7 @@ public class TaskList {
     }
 
     private String showKeywordErrorMessage() {
-        return "\tPlease provide a keyword to search for.";
+        return "Please provide a keyword to search for.";
     }
 
     private List<Task> searchTask(String keyword) {
