@@ -13,7 +13,7 @@ public class HelpCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return """
-            PandaBot Commands:
+            PandaBot Commands (you do not need '<' and '>' in your input!):
             1. todo <description> : Adds a new Todo task.
             2. deadline <description> /by <DD/MM/YYYY HHmm> : Adds a new Deadline task.
             3. event <task description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm> : Adds a new Event task.
