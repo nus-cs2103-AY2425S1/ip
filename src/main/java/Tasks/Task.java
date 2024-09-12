@@ -44,4 +44,8 @@ public abstract class Task {
     public String print() {
         return "[" + this.getStatusIcon() + "] " + desc;
     }
+
+    public void setDesc(String newValue) {
+        this.desc = newValue;
+    }
 }
