@@ -1,6 +1,16 @@
 package talker;
 
-import talker.command.*;
+import talker.command.AddCommand;
+import talker.command.Command;
+import talker.command.DateCommand;
+import talker.command.DeleteCommand;
+import talker.command.ExitCommand;
+import talker.command.FindCommand;
+import talker.command.FindPriorityCommand;
+import talker.command.ListCommand;
+import talker.command.MarkCommand;
+import talker.command.SetPriorityCommand;
+import talker.command.UnmarkCommand;
 import talker.task.Deadline;
 import talker.task.Event;
 import talker.task.PriorityType;
