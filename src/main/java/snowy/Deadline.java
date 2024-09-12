@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * This class holds the deadline as a LocalDate.
  */
 public class Deadline extends Task {
-    private final LocalDate date;
+    private LocalDate date;
 
     /**
      * Creates a new Deadline with the specific name and date.
@@ -36,5 +36,14 @@ public class Deadline extends Task {
     public String toFileStorage() {
         String temp = super.toFileStorage();
         return String.format("D|%s|%s", temp, date.toString());
+    }
+
+    public void changeDate(String date) throws SnowyException {
+        try {
+            this.date = LocalDate.parse(date);
+        } catch (DateTimeException e) {
+            throw new SnowyException("Wrong date format");
+        }
+
     }
 }

@@ -9,8 +9,8 @@ import java.time.LocalDate;
  * This class holds the fromDate and toDate as a LocalDate.
  */
 public class Event extends Task {
-    private final LocalDate fromDate;
-    private final LocalDate toDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
     /**
      * Creates a new Event with the specific name and dates provided.
@@ -42,5 +42,15 @@ public class Event extends Task {
     public String toFileStorage() {
         String temp = super.toFileStorage();
         return String.format("E|%s|%s|%s", temp, fromDate, toDate);
+    }
+
+    public void changeDate(String fromDate, String toDate) {
+        try {
+            this.fromDate = LocalDate.parse(fromDate);
+            this.toDate = LocalDate.parse(toDate);
+        } catch (DateTimeException e) {
+            throw new SnowyException("Wrong date format");
+        }
+
     }
 }
