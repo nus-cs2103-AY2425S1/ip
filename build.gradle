@@ -2,14 +2,14 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'  // Shadow plugin for FAT JAR
 }
 
 group 'orion'
 version '0.2.0'
 
 repositories {
-    mavenCentral()
+    mavenCentral()  // Where to find dependencies
 }
 
 sourceSets {
@@ -20,9 +20,8 @@ sourceSets {
     }
 }
 
-
 application {
-    mainClassName = 'orion.Launcher'
+    mainClassName = 'orion.Launcher'  // Your main class
 }
 
 javafx {
@@ -40,11 +39,11 @@ test {
 }
 
 shadowJar {
-    archiveBaseName.set("orion")
-    archiveClassifier.set("")
-    archiveVersion.set("")
+    manifest {
+        attributes 'Main-Class': 'orion.Launcher'  
+    }
 }
 
 run {
-    standardInput = System.in
+    standardInput = System.in  
 }
