@@ -42,6 +42,8 @@ public class Parser {
             return new ParsedCommand("add", command, arguments);
         case "find":
             return new ParsedCommand("find", arguments);
+        case "tag":
+            return new ParsedCommand("tag", arguments);
         default:
             throw DonnaException.invalidTaskType(command);
         }

@@ -57,6 +57,8 @@ public class CommandHandler {
         case "find":
             List<Task> foundTasks = tasks.searchTasks(result.getArgument1());
             return ui.findResults(foundTasks);
+        case "tag":
+            return handleTag(result.getArgument1());
         default:
             throw DonnaException.invalidTaskType(commandType);
         }
@@ -122,6 +124,24 @@ public class CommandHandler {
             Task task = tasks.deleteTask(taskIndex);
             storage.saveTasks(tasks);
             return ui.getTaskDeletedMessage(task, tasks.getTaskCount());
+        } catch (NumberFormatException e) {
+            return ui.getErrorMessage(DonnaException.invalidTaskNumber().getMessage());
+        }
+    }
+
+    private String handleTag(String tagDescription) throws DonnaException {
+        try {
+            String[]descriptionParts = tagDescription.split(" #");
+            if (descriptionParts.length != 2) {
+                throw DonnaException.invalidTag();
+            }
+            int taskIdx = Integer.parseInt(descriptionParts[0]) - 1;
+            if (taskIdx >= tasks.size()) {
+                throw DonnaException.invalidTaskNumber();
+            }
+            String tag = descriptionParts[1];
+            Task task = tasks.get(taskIdx).setTag(tag);
+            return ui.getTaskTaggedMessage(task, tag);
         } catch (NumberFormatException e) {
             return ui.getErrorMessage(DonnaException.invalidTaskNumber().getMessage());
         }

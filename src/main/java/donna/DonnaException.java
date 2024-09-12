@@ -68,4 +68,9 @@ public class DonnaException extends Exception {
         return new DonnaException("No task assigned to this number yet.\n"
                 + "Retry with a valid task number!");
     }
+
+    public static DonnaException invalidTag() {
+        return new DonnaException("That's not how you tag a task!\n"
+                + "Retry and specify both, the task number and the tag using a hash symbol (#)");
+    }
 }

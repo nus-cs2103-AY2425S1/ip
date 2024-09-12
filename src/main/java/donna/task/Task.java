@@ -8,6 +8,7 @@ import donna.DonnaException;
 public abstract class Task {
     private final String description;
     private boolean isDone;
+    private String tag;
 
     /**
      * Constructs a Task with the specified description.
@@ -24,6 +25,16 @@ public abstract class Task {
 
         this.description = description;
         this.isDone = false;
+        this.tag = ""; //empty tag by default
+    }
+
+    public Task setTag(String tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    public String getTag() {
+        return this.tag;
     }
 
     /**
@@ -84,6 +95,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String isDoneStr = isDone ? "[X] " : "[ ] ";
-        return "[" + getType() + "]" + isDoneStr + description + " ";
+        String tagStr = tag.equals("") ? "" : "#" + tag;
+        return "[" + getType() + "]" + isDoneStr + description + " " + tagStr;
     }
 }

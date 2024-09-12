@@ -115,6 +115,13 @@ public class Ui {
         return message.toString();
     }
 
+    public String getTaskTaggedMessage(Task task, String tag) {
+        assert task != null : "Task should not be null";
+        StringBuilder message = new StringBuilder();
+        message.append("OK, I've tagged ").append(task);
+        return message.toString();
+    }
+
     /**
      * Returns the list of all tasks.
      *
