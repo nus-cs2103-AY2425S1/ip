@@ -1,0 +1,19 @@
+todo sunday
+deadline return book /by 2024-08-02 1800
+event project meeting /from 2024-08-03 1300 /to 2024-08-03 1600
+list
+mark 2
+unmark 2
+mark 4
+unmark 4
+mark a
+unmark a
+todo
+deadline
+event
+delete 4
+delete 3
+delete a
+delete
+deadline return book /by 2024-09-02 6pm
+bye
