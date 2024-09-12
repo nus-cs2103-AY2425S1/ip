@@ -169,8 +169,7 @@ public class Oliver {
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
-            return "Invalid date or time. Please enter the date and time in the following format: " +
-                    "YYYY-MM-DD HHmm\nNote that date is required but time is optional.";
+            return ui.showInvalidDateTimeError(true);
         }
     }
 
@@ -197,8 +196,7 @@ public class Oliver {
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
-            return "Invalid date or time. Please enter the date and time in the following format: " +
-                    "YYYY-MM-DD HHmm";
+            return ui.showInvalidDateTimeError(false);
         }
     }
 

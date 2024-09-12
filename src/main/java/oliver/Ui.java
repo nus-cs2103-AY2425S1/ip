@@ -188,4 +188,18 @@ public class Ui {
     public String showOutOfRangeError() {
         return "No such task exists. Task number out of range.";
     }
+
+    /**
+     * Shows the error message when the date or time provided are invalid.
+     *
+     * @return string representation of the error message
+     */
+    public String showInvalidDateTimeError(boolean isTimeOptional) {
+        if (isTimeOptional) {
+            return "Invalid date or time. Please enter the date and time in the following format: " +
+                    "YYYY-MM-DD HHmm\nNote that date is required but time is optional.";
+        }
+        return "Invalid date or time. Please enter the date and time in the following format: " +
+                "YYYY-MM-DD HHmm";
+    }
 }
