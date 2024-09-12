@@ -49,7 +49,7 @@ class Parser {
                 if (taskDescription.isEmpty()) {
                     throw new TaskDescriptionEmptyException();
                 }
-                return replyAndAddToList(taskDescription);
+                return replyAndAddTask(taskDescription);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
@@ -68,7 +68,7 @@ class Parser {
                     throw new TaskDescriptionEmptyException();
                 }
 
-                return replyAndAddToList(taskDescription, deadline);
+                return replyAndAddTask(taskDescription, deadline);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
@@ -92,7 +92,7 @@ class Parser {
                     throw new TaskDescriptionEmptyException();
                 }
 
-                return replyAndAddToList(taskDescription, startDate, endDate);
+                return replyAndAddTask(taskDescription, startDate, endDate);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
@@ -113,26 +113,26 @@ class Parser {
         return "Bye. Hope to see you again soon!";
     }
 
-    private String replyAndAddTaskToList(Task task) {
+    private String addTask(Task task) {
         taskList.add(task);
         assert taskList.toList().contains(task);
         return "Got it. I've added this task:\n" + task + "\nNow you have "
                 + this.getNumTasks() + " tasks in the list.";
     }
 
-    private String replyAndAddToList(String textInput) {
+    private String replyAndAddTask(String textInput) {
         Task task = new ToDo(textInput);
-        return this.replyAndAddTaskToList(task);
+        return this.addTask(task);
     }
 
-    private String replyAndAddToList(String textInput, String deadline) {
+    private String replyAndAddTask(String textInput, String deadline) {
         Task task = new Deadline(textInput, deadline);
-        return this.replyAndAddTaskToList(task);
+        return this.addTask(task);
     }
 
-    private String replyAndAddToList(String textInput, String startDate, String endDate) {
+    private String replyAndAddTask(String textInput, String startDate, String endDate) {
         Task task = new Event(textInput, startDate, endDate);
-        return this.replyAndAddTaskToList(task);
+        return this.addTask(task);
     }
 
     private String replyWithListOfTextsEntered() {
