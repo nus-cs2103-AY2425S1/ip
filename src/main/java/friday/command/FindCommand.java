@@ -8,17 +8,21 @@ import friday.util.Ui;
  * Represents a command to find tasks in the task list that contain a specified keyword.
  */
 public class FindCommand extends Command {
-    private final String find;
+    private final String keyword;
 
     /**
      * Constructs a FindCommand with the specified keyword.
      *
-     * @param find The array containing the keyword to search for.
+     * @param commandArgs The array containing the keyword to search for.
      */
-    public FindCommand(String[] find) {
-        assert find != null : "Find command input array should not be null";
-        assert find.length > 1 : "Find command input array should have at least 2 elements";
-        this.find = find[1];
+    public FindCommand(String[] commandArgs) {
+        this.keyword = extractKeyword(commandArgs);
+    }
+
+    private String extractKeyword(String[] commandArgs) {
+        assert commandArgs != null : "Find command input array should not be null";
+        assert commandArgs.length > 1 : "Find command input array should have at least 2 elements";
+        return commandArgs.length > 1 ? commandArgs[1] : "";
     }
 
     /**
@@ -34,6 +38,6 @@ public class FindCommand extends Command {
         assert tasks != null : "Task list should not be null";
         assert ui != null : "UI should not be null";
         assert storage != null : "Storage should not be null";
-        return tasks.findTasks(find);
+        return tasks.findTasks(keyword);
     }
 }

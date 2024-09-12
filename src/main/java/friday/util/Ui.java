@@ -27,21 +27,58 @@ public class Ui {
      * @return {@code true} to indicate that the help message was shown.
      */
     public String showHelp() {
-        String response = "Here are the list of commands that I support:";
-        response += "\nhelp - List of commands supported by me, Friday.";
-        response += "\nlist - View all entries to the current list of things"
-                + " you have asked me to take note of.";
-        response += "\nmark <integer> - Mark an entry in the list as a completed task.";
-        response += "\nunmark <integer> - Unmark an entry in the list as a completed task.";
-        response += "\ntodo <string> - Remember a TODO task for you to revisit again.";
-        response += "\ndeadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline task for"
-                + " you to complete by the deadline.";
-        response += "\nevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event task"
-                + " from when it begins to when it ends.";
-        response += "\ndelete <integer> - Delete an entry from your current list.";
-        response += "\nfind <string> - Find tasks by a keyword from your current list.";
-        response += "\nbye - Exits this app and says Good Bye to Friday :)";
-        return response;
+        return "Here are the list of commands that I support:" + getHelpCommand() +
+                getListCommand() +
+                getMarkCommand() +
+                getUnmarkCommand() +
+                getTodoCommand() +
+                getDeadlineCommand() +
+                getEventCommand() +
+                getDeleteCommand() +
+                getFindCommand() +
+                getByeCommand();
+    }
+
+    private String getHelpCommand() {
+        return "\nhelp - List of commands supported by me, Friday.";
+    }
+
+    private String getListCommand() {
+        return "\nlist - View all entries to the current list of things you have asked me to take note of.";
+    }
+
+    private String getMarkCommand() {
+        return "\nmark <integer> - Mark an entry in the list as a completed task.";
+    }
+
+    private String getUnmarkCommand() {
+        return "\nunmark <integer> - Unmark an entry in the list as a completed task.";
+    }
+
+    private String getTodoCommand() {
+        return "\ntodo <string> - Remember a TODO task for you to revisit again.";
+    }
+
+    private String getDeadlineCommand() {
+        return "\ndeadline <string> /by <yyyy-mm-dd hhmm> -"
+                + " Remember a Deadline task for you to complete by the deadline.";
+    }
+
+    private String getEventCommand() {
+        return "\nevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> -"
+                + " Remember an Event task from when it begins to when it ends.";
+    }
+
+    private String getDeleteCommand() {
+        return "\ndelete <integer> - Delete an entry from your current list.";
+    }
+
+    private String getFindCommand() {
+        return "\nfind <string> - Find tasks by a keyword from your current list.";
+    }
+
+    private String getByeCommand() {
+        return "\nbye - Exits this app and says Good Bye to Friday :).";
     }
 
     /**
@@ -58,11 +95,11 @@ public class Ui {
      * @return The string representation of tasks in the task list.
      */
     public String showTaskList(TaskList tasks) {
-        String response = "Here are the tasks in your list:";
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
-            response += "\n" + (i + 1) + "." + tasks.getTasks().get(i).toString();
+            response.append("\n").append(i + 1).append(".").append(tasks.getTasks().get(i).toString());
         }
-        return response;
+        return response.toString();
     }
 
     /**

@@ -51,11 +51,15 @@ public class Friday {
      */
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
-            assert c != null : "Parsed command should not be null";
-            return c.execute(tasks, ui, storage);
+            return handleUserCommand(input);
         } catch (FridayException | IOException e) {
             return "Error: " + e.getMessage();
         }
+    }
+
+    private String handleUserCommand(String input) throws FridayException, IOException {
+        Command c = Parser.parse(input);
+        assert c != null : "Parsed command should not be null";
+        return c.execute(tasks, ui, storage);
     }
 }
