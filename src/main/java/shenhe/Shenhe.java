@@ -13,9 +13,9 @@ import shenhe.parser.Parser;
  */
 public class Shenhe {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructs a {@code Shenhe} object with the specified file path for storing tasks.
