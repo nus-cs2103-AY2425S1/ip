@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.parsers.CommandParser;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -45,7 +46,7 @@ public class NotgptJavaFX extends Application {
 
     private static final int FONT_SIZE_INPUT = 25;
     private static final int FONT_SIZE = 16;
-    private Parser parser = new Parser();
+    private CommandParser parser = new CommandParser();
     private VBox chatBox;
     private TextField inputField;
     private Button sendButton;

@@ -1,4 +1,4 @@
-package duke.additionalparsers;
+package duke.parsers;
 
 import java.io.IOException;
 import java.nio.file.Files;

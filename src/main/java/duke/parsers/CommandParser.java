@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.parsers;
 
 import duke.commands.*;
 import duke.tasks.Storage;
@@ -8,7 +8,7 @@ import duke.tasks.Storage;
 /**
  * The main driver class of the chatbot, called by notGPT
  */
-public class Parser {
+public class CommandParser {
     private Storage storage = new Storage();
 
     /**

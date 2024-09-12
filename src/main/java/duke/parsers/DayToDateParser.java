@@ -1,4 +1,4 @@
-package duke.additionalparsers;
+package duke.parsers;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -44,6 +44,7 @@ public class DayToDateParser {
         case "fri" -> s = "friday";
         case "sat" -> s = "saturday";
         case "sun" -> s = "sunday";
+        default -> s = s;
         }
         return s;
     }
