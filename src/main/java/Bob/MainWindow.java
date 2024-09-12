@@ -29,8 +29,12 @@ public class MainWindow extends Application {
      * container. Clears the user input after processing.
      */
     private void handleUserInput() {
+        assert(userInput != null);
+
         String userText = userInput.getText();
         String dukeText = bob.getResponse(userInput.getText());
+
+        assert(dialogContainer != null);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getDukeDialog(dukeText, dukeImage)
