@@ -22,19 +22,21 @@ import dude.task.ToDo;
  */
 public class Dude {
     private Storage storage;
+    private Parser parser;
     private TaskList taskList;
     private Ui ui;
     private boolean isRunning;
 
     /**
-     * Constructs a Dude with the specified file path.
+     * Constructs a Dude with the specified directory.
      *
-     * @param filePath The file path where task data is stored.
+     * @param filePath The directory where data files is stored.
      */
     public Dude(String filePath) {
         assert !filePath.isEmpty();
 
         storage = new Storage(filePath);
+        parser = new Parser(storage.loadShortcut());
         taskList = new TaskList(storage.loadData());
         ui = new Ui();
         isRunning = true;
@@ -63,7 +65,7 @@ public class Dude {
         try {
             String taskDes = Parser.getDescription(input);
 
-            switch (Parser.getCommand(input)) {
+            switch (parser.getCommand(input)) {
             case HI:
                 return greet();
             case BYE:
@@ -84,6 +86,10 @@ public class Dude {
                 return addEvent(taskDes);
             case FIND:
                 return find(taskDes);
+            case DEFINE:
+                return define(taskDes);
+            case UNDEFINE:
+                return undefine(taskDes);
             default:
                 throw new DudeInvalidCommandException();
             }
@@ -298,10 +304,50 @@ public class Dude {
     }
 
     /**
+     * Define a new shortcut.
+     *
+     * @param taskDes The task description.
+     * @return A message indicating the shortcut has been added.
+     * @throws DudeException If an error occurs during processing.
+     */
+    public String define(String taskDes) throws DudeException {
+        if (taskDes.isEmpty()) {
+            throw new DudeNullDescriptionException("define");
+        }
+
+        String[] splitDes = taskDes.split(" ", 2);
+        if (splitDes.length < 2) {
+            throw new DudeNullDescriptionException("define");
+        }
+
+        CommandType result = parser.defineShortcut(splitDes[0], splitDes[1]);
+
+        return ui.showDefine(splitDes[0], result);
+    }
+
+    /**
+     * Delete a previously added shortcut.
+     *
+     * @param taskDes The task description.
+     * @return A message indicating the shortcut has been deleted.
+     * @throws DudeException If an error occurs during processing.
+     */
+    public String undefine(String taskDes) throws DudeException {
+        if (taskDes.isEmpty()) {
+            throw new DudeNullDescriptionException("define");
+        }
+
+        parser.deleteShortcut(taskDes);
+
+        return ui.showUndefine(taskDes);
+    }
+
+    /**
      * Exits the application and saves data.
      */
     public String exit() {
         isRunning = false;
+        storage.saveShortcut(parser);
         storage.saveData(taskList);
         ui.closeScanner();
         return ui.showBye();
@@ -317,7 +363,7 @@ public class Dude {
     }
 
     public static void main(String[] args) {
-        Dude dude = new Dude("./data/dude.txt");
+        Dude dude = new Dude("./data");
         dude.start();
     }
 }
