@@ -5,7 +5,7 @@ import morgana.storage.Storage;
 import morgana.task.TaskList;
 
 /**
- * Represents a command to find tasks that match a given keyword in their description.
+ * Represents a command to find tasks that contain a given keyword in their description.
  */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";

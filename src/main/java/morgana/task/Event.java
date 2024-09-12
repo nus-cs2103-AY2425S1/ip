@@ -13,17 +13,20 @@ public class Event extends Task {
     private final LocalDateTime end;
 
     /**
-     * Constructs an {@code Event} task with the specified description,
-     * start date/time, and end date/time.
-     *
-     * @param description The description of the event.
-     * @param start The start date and time of the event.
-     * @param end The end date and time of the event.
+     * Constructs an {@code Event} with the specified description and time period.
      */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(TaskType.EVENT, description);
         this.start = start;
         this.end = end;
+    }
+
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    public LocalDateTime getEnd() {
+        return end;
     }
 
     @Override

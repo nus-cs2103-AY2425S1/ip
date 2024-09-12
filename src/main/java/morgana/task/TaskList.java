@@ -2,6 +2,7 @@ package morgana.task;
 
 import static morgana.common.Messages.MESSAGE_INVALID_TASK_NUMBER;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,8 +25,6 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Constructs a {@code TaskList} with an initial list of tasks.
-     *
-     * @param tasks The initial list of tasks.
      */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
@@ -40,8 +39,6 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Adds a task to the end of the list.
-     *
-     * @param task The task to add.
      */
     public void add(Task task) {
         tasks.add(task);
@@ -49,9 +46,6 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Removes the task at the specified index from the list and returns it.
-     *
-     * @param index The index of the task to remove.
-     * @return The task that was removed.
      */
     public Task remove(int index) throws MorganaException {
         validateIndex(index);
@@ -82,7 +76,6 @@ public class TaskList implements Iterable<Task> {
     /**
      * Finds tasks in the list that contain the given keyword in their description.
      *
-     * @param keyword The keyword to search for in the task description.
      * @return A formatted string listing the matching tasks.
      */
     public String find(String keyword) {
@@ -94,6 +87,22 @@ public class TaskList implements Iterable<Task> {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Finds and returns the first {@link Event} that clashes with the given time period.
+     *
+     * @return The clashing {@code event} or {@code null} if there is no clash.
+     */
+    public Event findClashingEvent(LocalDateTime start, LocalDateTime end) {
+        for (Task task : tasks) {
+            if (task instanceof Event event
+                    && start.isBefore(event.getEnd())
+                    && end.isAfter(event.getStart())) {
+                return event;
+            }
+        }
+        return null;
     }
 
     @Override

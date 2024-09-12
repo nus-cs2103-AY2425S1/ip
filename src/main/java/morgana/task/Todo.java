@@ -5,9 +5,7 @@ package morgana.task;
  */
 public class Todo extends Task {
     /**
-     * Constructs a {@code Todo} task with the specified description.
-     *
-     * @param description The description of the task.
+     * Constructs a {@code Todo} with the specified description.
      */
     public Todo(String description) {
         super(TaskType.TODO, description);

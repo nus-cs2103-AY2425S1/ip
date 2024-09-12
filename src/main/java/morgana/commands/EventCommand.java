@@ -3,9 +3,12 @@ package morgana.commands;
 import static morgana.util.DateTimeUtil.COMPACT_PATTERN;
 import static morgana.util.DateTimeUtil.parseDateTime;
 
+import java.time.LocalDateTime;
+
 import morgana.exceptions.MorganaException;
 import morgana.task.Event;
 import morgana.task.Task;
+import morgana.task.TaskList;
 
 /**
  * Represents a command to add an {@link Event} to the task list.
@@ -22,18 +25,27 @@ public class EventCommand extends AddCommand {
     /**
      * Constructs an {@code EventCommand} with the specified arguments.
      *
-     * @param args The string containing the task description, start date/time, and end date/time.
+     * @param args The string containing the task description and time period.
      */
     public EventCommand(String args) {
         super(args);
     }
 
     @Override
-    Task createTask(String args) throws MorganaException {
+    Task createTask(String args, TaskList tasks) throws MorganaException {
         String[] fields = args.split(" /from | /to ");
         if (fields.length != 3) {
             throw new MorganaException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
-        return new Event(fields[0], parseDateTime(fields[1]), parseDateTime(fields[2]));
+
+        LocalDateTime start = parseDateTime(fields[1]);
+        LocalDateTime end = parseDateTime(fields[2]);
+        assert start.isBefore(end) : "Event start time must be before end time";
+
+        Event event = tasks.findClashingEvent(start, end);
+        if (event != null) {
+            throw new MorganaException("Event clashes with another event:\n" + event);
+        }
+        return new Event(fields[0], start, end);
     }
 }

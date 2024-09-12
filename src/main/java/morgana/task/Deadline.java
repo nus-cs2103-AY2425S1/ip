@@ -6,29 +6,26 @@ import static morgana.util.DateTimeUtil.VERBOSE_FORMATTER;
 import java.time.LocalDateTime;
 
 /**
- * Represents a task with a description and a deadline.
+ * Represents a task with a description and a due date.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private final LocalDateTime dueDate;
 
     /**
-     * Constructs a {@code Deadline} task with the specified description and deadline.
-     *
-     * @param description The description of the task.
-     * @param by The deadline of the task.
+     * Constructs a {@code Deadline} with the specified description and due date.
      */
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime dueDate) {
         super(TaskType.DEADLINE, description);
-        this.by = by;
+        this.dueDate = dueDate;
     }
 
     @Override
     public String toFileFormat() {
-        return "%s | %s".formatted(super.toFileFormat(), by.format(COMPACT_FORMATTER));
+        return "%s | %s".formatted(super.toFileFormat(), dueDate.format(COMPACT_FORMATTER));
     }
 
     @Override
     public String toString() {
-        return "%s (by: %s)".formatted(super.toString(), by.format(VERBOSE_FORMATTER));
+        return "%s (by: %s)".formatted(super.toString(), dueDate.format(VERBOSE_FORMATTER));
     }
 }
