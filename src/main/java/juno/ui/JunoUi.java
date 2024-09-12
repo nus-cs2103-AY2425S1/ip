@@ -5,32 +5,23 @@ package juno.ui;
  * It provides methods for displaying welcome and farewell messages, as well as responses for invalid user inputs.
  */
 public class JunoUi {
-    private String logo;
-    private String greeting;
-    private String farewell;
+    private final String greeting;
+    private final String farewell;
+    private final String invalidUserInputString;
+    private final String invalidFunctionInputString;
 
     /**
      * Constructs a {@code JunoUi} instance and initialises the logo,
      * greeting message, and farewell message for the chatbot.
      */
     public JunoUi() {
-        this.logo = """
-            .----------------.  .----------------.  .-----------------. .----------------.\s
-            | .--------------. || .--------------. || .--------------. || .--------------. |
-            | |     _____    | || | _____  _____ | || | ____  _____  | || |     ____     | |
-            | |    |_   _|   | || ||_   _||_   _|| || ||_   \\|_   _| | || |   .'    `.   | |
-            | |      | |     | || |  | |    | |  | || |  |   \\ | |   | || |  /  .--.  \\  | |
-            | |   _  | |     | || |  | '    ' |  | || |  | |\\ \\| |   | || |  | |    | |  | |
-            | |  | |_' |     | || |   \\ `--' /   | || | _| |_\\   |_  | || |  \\  `--'  /  | |
-            | |  `.___.'     | || |    `.__.'    | || ||_____|\\____| | || |   `.____.'   | |
-            | |              | || |              | || |              | || |              | |
-            | '--------------' || '--------------' || '--------------' || '--------------' |
-             '----------------'  '----------------'  '----------------'  '----------------'\s
-            """;
         this.greeting = "🌟 Welcome to the Future! I'm Juno, your digital assistant.\n"
                 + "How can I assist you on your journey today?";
         this.farewell = "👋 Farewell for now! Looking forward to our next interaction.\n"
                 + "Juno is shutting down now...";
+        this.invalidUserInputString = "Well, seems like you did not input anything! Please try again.";
+        this.invalidFunctionInputString = "The input you provided is invalid! "
+                + "(\uD83D\uDCA1 Tip: You can use the following commands \"add\", \"list\",\"mark\", \"unmark\".)";
     }
 
     /**
@@ -53,7 +44,7 @@ public class JunoUi {
      * @return A string indicating that the input was empty.
      */
     public String invalidUserInput() {
-        return "Well, seems like you did not input anything! Please try again.";
+        return this.invalidUserInputString;
     }
 
     /**
@@ -63,7 +54,6 @@ public class JunoUi {
      */
     // Could implement a help function to see all possible commands in the future
     public String invalidFunctionInput() {
-        return "The input you provided is invalid! "
-                + "(\uD83D\uDCA1 Tip: You can use the following commands \"add\", \"list\",\"mark\", \"unmark\".)";
+        return this.invalidFunctionInputString;
     }
 }

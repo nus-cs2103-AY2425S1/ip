@@ -19,23 +19,23 @@ public class MarkCommand extends Command {
     private FileManager fileManager;
     private String userInput;
     private ArrayList<Task> tasks;
-    private boolean markAsDone;
+    private boolean isMarked;
 
     /**
      * Constructs a MarkCommand instance which takes in a specified user input, TaskManager instance , FileManager
-     * instance, and whether it is a mark/unmark command (through the markAsDone boolean parameter).
+     * instance, and whether it is a mark/unmark command (through the isMarked boolean parameter).
      *
      * @param userInput The input provided by the user to specify which task to mark or unmark.
      * @param taskManager The TaskManager instance to handle all task specific operations.
      * @param fileManager The FileManager instance to handle file operations related to tasks.
-     * @param markAsDone Boolean indicating whether to mark the task (true) or unmark the task (false).
+     * @param isMarked Boolean indicating whether to mark the task (true) or unmark the task (false).
      */
-    public MarkCommand(String userInput, TaskManager taskManager, FileManager fileManager, boolean markAsDone) {
+    public MarkCommand(String userInput, TaskManager taskManager, FileManager fileManager, boolean isMarked) {
         this.userInput = userInput;
         this.taskManager = taskManager;
         this.fileManager = fileManager;
         this.tasks = taskManager.getTasksArray();
-        this.markAsDone = markAsDone;
+        this.isMarked = isMarked;
     }
 
     /**
@@ -55,24 +55,11 @@ public class MarkCommand extends Command {
             int taskNumber = Integer.parseInt(this.userInput.split("\\s+", 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
                 Task taskToMark = this.tasks.get(taskNumber);
-                StringBuilder outString = new StringBuilder();
-                if (this.markAsDone) {
-                    if (taskToMark.getIsDone()) {
-                        outString.append("You have completed the task \"")
-                                 .append(taskToMark.getDescription()).append("\" already!");
-                    } else {
-                        taskToMark.markAsDone();
-                        outString.append("Great work! Knew you would have completed it.");
-                    }
+                StringBuilder outString;
+                if (this.isMarked) {
+                    outString = this.handleMarkTask(taskToMark);
                 } else {
-                    if (!taskToMark.getIsDone()) {
-                        outString.append("Task \"").append(taskToMark.getDescription())
-                                 .append("\" is still not done! You can't unmark an undone task!");
-                    } else {
-                        this.tasks.get(taskNumber).markAsNotDone();
-                        outString.append("Hey, I have unmarked this task for you. ")
-                                 .append("Maybe you should start working on it soon?");
-                    }
+                    outString = this.handleUnmarkTask(taskToMark);
                 }
                 outString.append("\n").append("  ").append(this.tasks.get(taskNumber).toString());
                 return outString.toString();
@@ -89,5 +76,46 @@ public class MarkCommand extends Command {
         } finally {
             this.fileManager.writeTasksToFile(this.tasks);
         }
+    }
+
+    /**
+     * Handles the marking of a task as done.
+     * Checks if the task is already marked as done; if so, informs the user that the task has already been completed.
+     * Otherwise, marks the task as done and provides a confirmation message.
+     *
+     * @param taskToMark The Task object to be marked as done.
+     * @return A StringBuilder containing the response message indicating the result of the mark operation.
+     */
+    private StringBuilder handleMarkTask(Task taskToMark) {
+        StringBuilder outString = new StringBuilder();
+        if (taskToMark.getIsDone()) {
+            outString.append("You have completed the task \"")
+                    .append(taskToMark.getDescription()).append("\" already!");
+        } else {
+            taskToMark.markAsDone();
+            outString.append("Great work! Knew you would have completed it.");
+        }
+        return outString;
+    }
+
+    /**
+     * Handles the unmarking of a task as not done.
+     * Checks if the task is currently marked as done; if so, unmarks the task and provides a confirmation message.
+     * If the task is already not done, informs the user that the task cannot be unmarked.
+     *
+     * @param taskToMark The Task object to be unmarked as not done.
+     * @return A StringBuilder containing the response message indicating the result of the unmark operation.
+     */
+    private StringBuilder handleUnmarkTask(Task taskToMark) {
+        StringBuilder outString = new StringBuilder();
+        if (taskToMark.getIsDone()) {
+            taskToMark.markAsNotDone();
+            outString.append("Hey, I have unmarked this task for you. ")
+                    .append("Maybe you should start working on it soon?");
+        } else {
+            outString.append("Task \"").append(taskToMark.getDescription())
+                    .append("\" is still not done! You can't unmark an undone task!");
+        }
+        return outString;
     }
 }

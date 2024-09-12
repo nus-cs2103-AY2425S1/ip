@@ -1,6 +1,7 @@
 package juno.ui;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -38,8 +39,10 @@ public class MainWindow extends AnchorPane {
     // task manager to handle all the task related method calls
     private TaskManager taskManager;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/JunoImage.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/UserImage.png")));
+    private final Image junoImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/JunoImage.png")));
 
     @FXML
     public void initialize() {
@@ -50,22 +53,26 @@ public class MainWindow extends AnchorPane {
     public void setField() {
         // start the UI
         this.junoUi = new JunoUi();
-        this.fileManager = new FileManager();
-        this.fileManager.ensureFileExist();
+        this.fileManager = new FileManager(dialogContainer, junoImage);
         this.commandParser = new CommandParser();
-        ArrayList<Task> storedTasks = this.fileManager.readTasksFromFile();
-        this.taskManager = new TaskManager(storedTasks);
+        try {
+            this.fileManager.ensureFileExist();
+            ArrayList<Task> storedTasks = this.fileManager.readTasksFromFile();
+            this.taskManager = new TaskManager(storedTasks);
+        } catch (TaskManagerException | RuntimeException e) {
+            dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(e.getMessage(), junoImage));
+        }
     }
 
     public void displayWelcomeMessage() {
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(this.junoUi.displayWelcomeMessage(), dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(this.junoUi.displayWelcomeMessage(), junoImage));
     }
 
     /**
      * Detects user input through the command line.
      * User input is parsed into commands, which are then executed. The loop continues until
      * the user inputs a command "bye" to terminate the chat bot.
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Juno's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -79,14 +86,14 @@ public class MainWindow extends AnchorPane {
             assert command != null : "The command returned should not be null";
             String outputString = command.runCommand();
             assert outputString != null : "The output string returned should not be null";
-            dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(outputString, dukeImage));
+            dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(outputString, junoImage));
             if (!command.isInWhileLoop()) {
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(event -> Platform.exit());
                 delay.play();
             }
         } catch (TaskManagerException e) {
-            dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(e.getMessage(), dukeImage));
+            dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(e.getMessage(), junoImage));
         }
         userInput.clear();
     }
