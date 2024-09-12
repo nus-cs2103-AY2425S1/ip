@@ -51,7 +51,6 @@ public class BeeBot {
         String[] parts = input.split(" ");
         String cmd = parts[0];
         try {
-            int taskNum = Integer.parseInt(parts[1]);
             switch (cmd) {
                 case "list":
                     int size = taskList.size();
@@ -66,14 +65,17 @@ public class BeeBot {
                         return listStr;
                     }
                 case "mark":
-                    assert taskNum > 0 && taskNum <= taskList.size() : "Task number is out of range";
-                    Task doneTask = Parser.getTask(taskList, taskNum);
+
+                    int markTaskNum = Integer.parseInt(parts[1]);
+                    assert markTaskNum > 0 && taskNum <= taskList.size() : "Task number is out of range";
+                    Task doneTask = Parser.getTask(taskList, markTaskNum);
                     doneTask.markAsDone();
                     storage.saveTaskListToFile(FILEPATH, taskList);
                     return "🐝-utiful! Honeyboo marked this task as done:\n" + doneTask;
                 case "unmark":
-                    assert taskNum > 0 && taskNum <= taskList.size() : "Task number is out of range";
-                    Task undoneTask = Parser.getTask(taskList, taskNum);
+                    int unmarkTaskNum = Integer.parseInt(parts[1]);
+                    assert unmarkTaskNum > 0 && taskNum <= taskList.size() : "Task number is out of range";
+                    Task undoneTask = Parser.getTask(taskList, unmarkTaskNum);
                     undoneTask.markAsUndone();
                     storage.saveTaskListToFile(FILEPATH, taskList);
                     return "🐝-utiful! Honeyboo marked this task as not done yet:\n" + undoneTask;
