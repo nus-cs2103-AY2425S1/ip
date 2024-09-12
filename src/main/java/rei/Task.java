@@ -20,6 +20,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+
+    public String getTaskName() {
+        return this.taskName;
+    }
     /**
      * Returns the current status of task indicating whether
      * it's done.

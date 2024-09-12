@@ -8,7 +8,7 @@ import java.util.List;
 public class Parser {
 
 
-    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ANNYEONG, UNKNOWN};
+    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, ANNYEONG, UNKNOWN};
     public static boolean isAllWhitespace(String input) {
         return input.replaceAll("\\s+","").isEmpty();
     }
@@ -97,9 +97,17 @@ public class Parser {
                     return Prompt.UNKNOWN;
                 }
 
-                id = Integer.parseInt(prompt);
-                tasks.deleteTask(id);
                 return Prompt.DELETE;
+            case "find":
+                // Read the rest of the line after "find"
+                prompt = prompt.substring(4).trim();
+
+                if (prompt.isEmpty()) {
+                    Ui.print("State the keyword");
+                    return Prompt.UNKNOWN;
+                }
+
+                return Prompt.FIND;
             case "annyeong":
                 Ui.print("Annyeong. Hope to see you soon.");
                 return Prompt.ANNYEONG;
