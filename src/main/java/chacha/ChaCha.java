@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 import chacha.command.Parser;
 import chacha.task.TaskList;
@@ -21,7 +20,6 @@ public class ChaCha {
     protected Ui ui;
 
     private boolean isEnd;
-    private String response;
 
     /**
      * Contructs a new ChaCha instance
@@ -30,8 +28,7 @@ public class ChaCha {
      */
     public ChaCha() {
         try {
-            Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");]
-
+            Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");
             Files.createDirectories(filePath.getParent());
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
