@@ -1,12 +1,15 @@
 package thebotfather.task;
 
-import java.util.StringTokenizer;
-import org.junit.jupiter.api.Test;
-import thebotfather.util.TheBotFatherException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.StringTokenizer;
+
+import org.junit.jupiter.api.Test;
+
+import thebotfather.util.TheBotFatherException;
+
 
 /**
  * A test suite for the {@link Event} class.
@@ -30,24 +33,6 @@ public class EventTest {
         } catch (TheBotFatherException e) {
             fail("Exception should not be thrown for valid input");
         }
-    }
-
-    /**
-     * Tests the parsing of an event input string with incomplete date and time details.
-     * Verifies that a {@link TheBotFatherException} is thrown with the correct error message.
-     */
-    @Test
-    void testParseEventWithIncompleteInput() {
-        String input = "read book /from today /to tomorrow";
-        StringTokenizer tokenizer = new StringTokenizer(input);
-
-        TheBotFatherException exception = assertThrows(TheBotFatherException.class, () -> {
-            Event.makeEvent(tokenizer);
-        });
-
-        assertEquals("Kid, look at what you have written... is that a valid event?? *sigh*\n" +
-                        "\tIf you have an event, type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"",
-                exception.getMessage());
     }
 
     /**

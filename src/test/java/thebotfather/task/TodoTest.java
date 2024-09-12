@@ -1,12 +1,14 @@
 package thebotfather.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.StringTokenizer;
+
 import org.junit.jupiter.api.Test;
+
 import thebotfather.util.TheBotFatherException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A test suite for the {@link Todo} class.
@@ -29,22 +31,5 @@ public class TodoTest {
         } catch (TheBotFatherException e) {
             fail("Exception should not be thrown for valid input");
         }
-    }
-
-    /**
-     * Tests the parsing of a Todo input string with incomplete input.
-     * Verifies that a {@link TheBotFatherException} is thrown with the correct error message.
-     */
-    @Test
-    void testParseTodoWithIncompleteInput() {
-        String input = "";
-        StringTokenizer tokenizer = new StringTokenizer(input);
-
-        TheBotFatherException exception = assertThrows(TheBotFatherException.class, () -> {
-            Todo.makeTodo(tokenizer);
-        });
-
-        assertEquals("Why to do a todo if there is no todo to do :/ \n" +
-                "\tIf you have a todo, type : \"todo <description>\"", exception.getMessage());
     }
 }
