@@ -40,19 +40,19 @@ public class CompleteCommand extends Command {
      * @throws ChatBotException if index is out of bounds
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public String execute(TaskList tasks, Ui ui, Storage storage)
             throws ChatBotException {
         if (index > tasks.size()) {
             throw new ChatBotException("\tNo task exists for that index");
         }
         Task task = tasks.get(index - 1);
         task.setCompleted(isCompleted);
-        if (isCompleted) {
-            ui.showCompleteTask(task);
-        } else {
-            ui.showUncompleteTask(task);
-        }
         storage.save(tasks);
+        if (isCompleted) {
+            return ui.showCompleteTask(task);
+        } else {
+            return ui.showUncompleteTask(task);
+        }
     }
 
     /**

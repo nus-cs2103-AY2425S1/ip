@@ -48,7 +48,7 @@ public class AddCommand extends Command {
      * @throws ChatBotException if there are missing inputs or arguments with wrong format
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public String execute(TaskList tasks, Ui ui, Storage storage)
             throws ChatBotException {
         Task newTask = null;
         String task;
@@ -74,8 +74,8 @@ public class AddCommand extends Command {
         }
 
         tasks.add(newTask);
-        ui.showAddTask(newTask, tasks.size());
         storage.save(tasks);
+        return ui.showAddTask(newTask, tasks.size());
     }
     /**
      * {@inheritDoc}

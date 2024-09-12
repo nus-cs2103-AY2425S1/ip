@@ -19,8 +19,8 @@ public class ListCommand extends Command {
      * @param storage that handles saving and reading text file with saved data
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showList(tasks);
     }
     @Override
     public boolean isExit() {

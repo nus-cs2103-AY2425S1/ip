@@ -11,40 +11,21 @@ import chatgpt.task.TaskList;
 public class Ui {
     /** Represents Name of the chatbot **/
     private static final String NAME = "ChatGPT";
-    /** Represents the line to display between each message/input **/
-    private static final String LINE = "________________________________________________";
-    /** The Scanner that reads the input from the users **/
-    private Scanner inputReader;
-
-    /**
-     * Default constructor that sets the scanner to be System.in.
-     */
-    public Ui() {
-        this.inputReader = new Scanner(System.in);
-    }
 
     /**
      * Displays the welcome message.
      */
-    public void showWelcome() {
-        showLine();
-        System.out.println("\tHello! I'm " + NAME);
-        System.out.println("\tWhat can I do for you?");
-        showLine();
+    public static String showWelcome() {
+        String welcome = "Hello! I'm " + NAME
+                + "\nWhat can I do for you?";
+        return welcome;
     }
 
     /**
      * Displays the exit message.
      */
-    public void showExit() {
-        System.out.println("\tBye. Hope to see you again soon!");
-    }
-
-    /**
-     * Displays the line that should be between messages.
-     */
-    public void showLine() {
-        System.out.println("\t" + LINE);
+    public String showExit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -52,17 +33,17 @@ public class Ui {
      *
      * @return Input from user until a new line is captured
      */
-    public String readCommand() {
-        return inputReader.nextLine();
-    }
+//    public String readCommand() {
+//        return inputReader.nextLine();
+//    }
 
     /**
      * Displays the error message from any exceptions caught.
      *
      * @param errorMessage of the exception that was caught
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 
     /**
@@ -72,10 +53,11 @@ public class Ui {
      * @param task that is being added
      * @param taskNum is the number of task in the list after addition
      */
-    public void showAddTask(Task task, int taskNum) {
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + task.toString());
-        System.out.println("\tNow you have " + taskNum + " tasks in your list.");
+    public String showAddTask(Task task, int taskNum) {
+        String message = "Got it. I've added this task:"
+        + "\n  " + task.toString()
+        + "\nNow you have " + taskNum + " tasks in your list.";
+        return message;
     }
 
     /**
@@ -85,10 +67,12 @@ public class Ui {
      * @param task that is being deleted
      * @param taskNum is the number of task in the list after deletion
      */
-    public void showDeleteTask(Task task, int taskNum) {
-        System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t  " + task.toString());
-        System.out.println("\tNow you have " + taskNum + " tasks in your list.");
+    public String showDeleteTask(Task task, int taskNum) {
+        String message = "Noted. I've removed this task:"
+        + "\n  " + task.toString()
+        + "\nNow you have " + taskNum + " tasks in your list.";
+
+        return message;
     }
 
     /**
@@ -96,9 +80,11 @@ public class Ui {
      *
      * @param task that is completed
      */
-    public void showCompleteTask(Task task) {
-        System.out.println("\t Nice! I've marked this task as done: \n\t  "
-                + task.toString());
+    public String showCompleteTask(Task task) {
+        String message = " Nice! I've marked this task as done: \n  "
+                + task.toString();
+
+        return message;
     }
 
     /**
@@ -106,9 +92,11 @@ public class Ui {
      *
      * @param task that is not completed
      */
-    public void showUncompleteTask(Task task) {
-        System.out.println("\t OK, I've marked this task as not done yet: \n\t  "
-                + task.toString());
+    public String showUncompleteTask(Task task) {
+        String message = " OK, I've marked this task as not done yet: \n  "
+                + task.toString();
+
+        return message;
     }
 
     /**
@@ -117,15 +105,19 @@ public class Ui {
      *
      * @param tasks is the list of Task to be displayed
      */
-    public void showList(TaskList tasks) {
+    public String showList(TaskList tasks) {
+        String message;
+
         if (tasks.isEmpty()) {
-            System.out.println("\tNothing has been added");
+            message = "Nothing has been added";
         } else {
-            System.out.println("\tHere are the tasks in your list:");
+            message = "Here are the tasks in your list:";
         }
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
+            message = message.concat("\n" + (i + 1) + ". "
+                    + tasks.get(i).toString());
         }
+        return message;
     }
 
     /**
@@ -134,25 +126,30 @@ public class Ui {
      *
      * @param tasks is the list of Task that contains the keyword to be displayed
      */
-    public void showFound(TaskList tasks) {
+    public String showFound(TaskList tasks) {
+        String message;
+
         if (tasks.isEmpty()) {
-            System.out.println("\tNothing with that keyword was found");
+            message = "Nothing with that keyword was found";
         } else {
-            System.out.println("\tHere are the matching tasks in your list:");
+            message = "Here are the matching tasks in your list:";
         }
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
+            message = message.concat("\n" + (i + 1) + ". "
+                    + tasks.get(i).toString());
         }
+        return message;
     }
 
     /**
      * Displays an error message when there is a problem loading data from the save file.
      */
-    public void showLoadingError() {
-        showLine();
-        System.out.println("\tThere was a problem with the save file");
-        System.out.println("\tYou can either: ");
-        System.out.println("\t(1) Fix the save file manually and restart the program");
-        System.out.println("\t(2) Start from scratch");
+    public String showLoadingError() {
+        String message = "There was a problem with the save file"
+        + "\nYou can either: "
+        + "\n(1) Fix the save file manually and restart the program"
+        + "\n(2) Start from scratch";
+
+        return message;
     }
 }

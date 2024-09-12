@@ -32,9 +32,9 @@ public class FindCommand extends Command {
      * @param storage that handles saving and reading text file with saved data
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList results = tasks.find(keyword);
-        ui.showFound(results);
+        return ui.showFound(results);
     }
 
     /**
