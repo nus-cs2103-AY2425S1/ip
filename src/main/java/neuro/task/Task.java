@@ -41,10 +41,10 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task,
+     * Returns a String representation of the task,
      * including its completion status and description.
      *
-     * @return a string representation of the task
+     * @return a String representation of the task
      */
     @Override
     public String toString() {
@@ -56,11 +56,11 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string formatted for saving the task's data to a file.
+     * Returns a String formatted for saving the task's data to a file.
      * The format includes the task's completion status (1 for done, 0 for not done)
      * and its description.
      *
-     * @return a string formatted for saving the task's data
+     * @return a String formatted for saving the task's data
      */
     public String toSaveData() {
         if (this.isDone) {
@@ -70,6 +70,12 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns a String representation of the tags associated with this task.
+     * The format includes "#" symbols at the front of the tags.
+     *
+     * @return a String representation of the tags
+     */
     public String tagsToString() {
         if (tags.isEmpty()) {
             return "";
