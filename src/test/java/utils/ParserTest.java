@@ -1,9 +1,10 @@
 package utils;
 
-import chatterboxerrors.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import chatterboxerrors.*;
 
 public class ParserTest {
     @Test
@@ -89,20 +90,22 @@ public class ParserTest {
 
     @Test
     public void processInputCaseThreeTest() throws ChatterBoxError {
-        assertEquals( "todo", Parser.processInput("todo assignment")[0]);
-        assertEquals( "assignment", Parser.processInput("todo assignment")[1]);
+        assertEquals("todo", Parser.processInput("todo assignment")[0]);
+        assertEquals("assignment", Parser.processInput("todo assignment")[1]);
         assertNull(Parser.processInput("todo assignment")[2]);
         assertNull(Parser.processInput("todo assignment")[3]);
 
-        assertEquals( "todo", Parser.processInput("todo assignment 1")[0]);
-        assertEquals( "assignment 1", Parser.processInput("todo assignment 1")[1]);
+        assertEquals("todo", Parser.processInput("todo assignment 1")[0]);
+        assertEquals("assignment 1", Parser.processInput("todo assignment 1")[1]);
         assertNull(Parser.processInput("todo assignment 1")[2]);
         assertNull(Parser.processInput("todo assignment 1")[3]);
     }
     @Test
     public void processInputCaseThreeWrongInputTest() {
-        assertThrows(ChatterBoxToDoError.class, () -> {Parser.processInput("todo");});
-        assertThrows(ChatterBoxToDoError.class, () -> {Parser.processInput("todo ");});
+        assertThrows(ChatterBoxToDoError.class, () -> {
+            Parser.processInput("todo"); });
+        assertThrows(ChatterBoxToDoError.class, () -> {
+            Parser.processInput("todo "); });
     }
 
     @Test
@@ -125,9 +128,12 @@ public class ParserTest {
 
     @Test
     public void processInputCaseFourWrongInputTest() {
-        assertThrows(ChatterBoxDeadlineError.class, () -> {Parser.processInput("deadline assignment/from 01/12/2024");});
-        assertThrows(ChatterBoxDeadlineError.class, () -> {Parser.processInput("deadline assignment 01/12/2024 1600");});
-        assertThrows(ChatterBoxDeadlineError.class, () -> {Parser.processInput("deadline assignment from 01/12/2024 1600");});
+        assertThrows(ChatterBoxDeadlineError.class, () -> {
+            Parser.processInput("deadline assignment/from 01/12/2024"); });
+        assertThrows(ChatterBoxDeadlineError.class, () -> {
+            Parser.processInput("deadline assignment 01/12/2024 1600"); });
+        assertThrows(ChatterBoxDeadlineError.class, () -> {
+            Parser.processInput("deadline assignment from 01/12/2024 1600"); });
     }
 
     @Test
@@ -155,10 +161,18 @@ public class ParserTest {
 
     @Test
     public void processInputCaseFiveWrongInputTest() {
-        assertThrows(ChatterBoxEventError.class, () -> {Parser.processInput("event assignment /from 01/12/2024");});
-        assertThrows(ChatterBoxEventError.class, () -> {Parser.processInput("event assignment/from 01/12/2024");});
-        assertThrows(ChatterBoxEventError.class, () -> {Parser.processInput("event assignment /from 01/12/2024/to 02/12/2024");});
-        assertThrows(ChatterBoxEventError.class, () -> {Parser.processInput("event assignment /from 01/12/2024 02/12/2024");});
+        assertThrows(ChatterBoxEventError.class, () -> {
+            Parser.processInput("event assignment /from 01/12/2024");
+        });
+        assertThrows(ChatterBoxEventError.class, () -> {
+            Parser.processInput("event assignment/from 01/12/2024");
+        });
+        assertThrows(ChatterBoxEventError.class, () -> {
+            Parser.processInput("event assignment /from 01/12/2024/to 02/12/2024");
+        });
+        assertThrows(ChatterBoxEventError.class, () -> {
+            Parser.processInput("event assignment /from 01/12/2024 02/12/2024");
+        });
     }
 
     @Test
@@ -172,9 +186,15 @@ public class ParserTest {
 
     @Test
     public void oneTimeExtractorWrongInputTest() {
-        assertThrows(ChatterBoxDeadlineError.class, () -> {Parser.oneTimeExtractor("assignment/by 01/12/2024");});
-        assertThrows(ChatterBoxDeadlineError.class, () -> {Parser.oneTimeExtractor("assignment /by01/12/2024");});
-        assertThrows(ChatterBoxDeadlineError.class, () -> {Parser.oneTimeExtractor("assignment 01/12/2024");});
+        assertThrows(ChatterBoxDeadlineError.class, () -> {
+            Parser.oneTimeExtractor("assignment/by 01/12/2024");
+        });
+        assertThrows(ChatterBoxDeadlineError.class, () -> {
+            Parser.oneTimeExtractor("assignment /by01/12/2024");
+        });
+        assertThrows(ChatterBoxDeadlineError.class, () -> {
+            Parser.oneTimeExtractor("assignment 01/12/2024");
+        });
     }
 
     @Test
@@ -190,8 +210,14 @@ public class ParserTest {
 
     @Test
     public void twoTimeExtractorWrongInputTest() {
-        assertThrows(ChatterBoxEventError.class, () -> {Parser.twoTimeExtractor("assignment/from 01/12/2024 /to 02/12/2024");});
-        assertThrows(ChatterBoxEventError.class, () -> {Parser.twoTimeExtractor("assignment /from 01/12/2024");});
-        assertThrows(ChatterBoxEventError.class, () -> {Parser.twoTimeExtractor("assignment 01/12/2024");});
+        assertThrows(ChatterBoxEventError.class, () -> {
+            Parser.twoTimeExtractor("assignment/from 01/12/2024 /to 02/12/2024");
+        });
+        assertThrows(ChatterBoxEventError.class, () -> {
+            Parser.twoTimeExtractor("assignment /from 01/12/2024");
+        });
+        assertThrows(ChatterBoxEventError.class, () -> {
+            Parser.twoTimeExtractor("assignment 01/12/2024");
+        });
     }
 }

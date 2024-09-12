@@ -17,11 +17,16 @@ import chatterboxerrors.ChatterBoxInvalidDateTimeError;
 import chatterboxerrors.ChatterBoxMarkError;
 import chatterboxerrors.ChatterBoxToDoError;
 
-
 /**
  * Represents a static Parser that handles all commands and user inputs.
  */
 public class Parser {
+    private static final String EMPTY_STRING = "";
+    private static final String SAVE_DELIMITTER = ", ";
+    private static final String REGEX_FOR_ONE_TIME = "^(.*) /by (.*)$";
+    private static final String REGEX_FOR_TWO_TIMES = "^(.*) /from (.*) /to (.*)$";
+    private static final String DATE_TIME_FORMATTER_PATTERN = "dd/MM/yyyy HHmm";
+    private static final String DATE_FORMATTER_PATTERN = "dd/MM/yyyy";
     /**
      * Process a command for ChatterBox.
      * @param input A string representing the command.
@@ -58,7 +63,7 @@ public class Parser {
             }
         case TODO, FIND:
             try {
-                if (command[1] != "") {
+                if (command[1] != EMPTY_STRING) {
                     userCommand[1] = command[1];
                     break;
                 } else {
@@ -113,7 +118,7 @@ public class Parser {
     public static String[] processSaveInput(String input) throws ChatterBoxError {
         String[] userCommand = new String[2];
         try {
-            String[] command = input.split(", ", 2);
+            String[] command = input.split(SAVE_DELIMITTER, 2);
             userCommand[0] = command[1];
             if (command[0].equals("done")) {
                 userCommand[1] = "mark ";
@@ -133,8 +138,7 @@ public class Parser {
      * @throws ChatterBoxDeadlineError Specific Error relating to use of Deadline.
      */
     public static String[] oneTimeExtractor(String input) throws ChatterBoxDeadlineError {
-        String oneTimeRegex = "^(.*) /by (.*)$";
-        Matcher oneTimeMatcher = Pattern.compile(oneTimeRegex).matcher(input);
+        Matcher oneTimeMatcher = Pattern.compile(REGEX_FOR_ONE_TIME).matcher(input);
         String[] parsedNameTime = new String[2];
         if (oneTimeMatcher.find()) {
             parsedNameTime[0] = oneTimeMatcher.group(1);
@@ -152,8 +156,7 @@ public class Parser {
      * @throws ChatterBoxEventError Specific Error relating to use of Event.
      */
     public static String[] twoTimeExtractor(String input) throws ChatterBoxEventError {
-        String twoTimeRegex = "^(.*) /from (.*) /to (.*)$";
-        Matcher twoTimeMatcher = Pattern.compile(twoTimeRegex).matcher(input);
+        Matcher twoTimeMatcher = Pattern.compile(REGEX_FOR_TWO_TIMES).matcher(input);
         String[] parsedNameTime = new String[3];
         if (twoTimeMatcher.find()) {
             parsedNameTime[0] = twoTimeMatcher.group(1);
@@ -177,10 +180,10 @@ public class Parser {
         DateTimeFormatter dateTimeFormatter;
         boolean containsTime;
         if (dateString.trim().contains(" ")) { // Contains time
-            dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN);
             containsTime = true;
         } else {
-            dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMATTER_PATTERN);
             containsTime = false;
         }
         try {
