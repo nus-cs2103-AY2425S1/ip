@@ -1,5 +1,7 @@
 package gopher;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
@@ -27,6 +29,9 @@ public class Gopher {
      */
     public Gopher() {
         TaskManager.initialize();
+        assert Files.exists(Paths.get("./task/task.txt"))
+                : "Task save file should exist after successful initialization";
+
         taskList = new TaskList(TaskManager.loadTasks());
     }
 
@@ -119,9 +124,7 @@ public class Gopher {
             throws UnknownCommandException {
         try {
             Task task = Task.of(userInput);
-            if (task != null) {
-                taskList.add(task);
-            }
+            taskList.add(task);
             return UI.getAddTaskMessage(task);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();

@@ -38,9 +38,6 @@ public class Parser {
      * @return LocalDateTime object of the given date
      */
     public static LocalDateTime parseDateString(String input) {
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
         String[] tokens = input.split(" ");
         String date = tokens[0];
         String time = tokens.length == 2 ? tokens[1] : "00:00";
@@ -56,6 +53,7 @@ public class Parser {
      * @return date string in input form(yyyy-MM-dd HH:mm)
      */
     public static String parseLocalDateTime(LocalDateTime date) {
+        assert date != null : "LocalDateTime object being saved cannot be null";
         return date.format(DATE_INPUT_FORMAT);
     }
 
@@ -66,6 +64,7 @@ public class Parser {
      * @return date string in display form(MMM dd yyyy HH:mm)
      */
     public static String displayDate(LocalDateTime date) {
+        assert date != null : "LocalDateTime object being displayed cannot be null";
         return date.format(DATE_TEXT_FORMAT);
     }
 
