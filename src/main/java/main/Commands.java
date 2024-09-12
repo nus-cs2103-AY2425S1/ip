@@ -15,7 +15,8 @@ public enum Commands {
     MARK("mark"),
     UNMARK("unmark"),
     BYE("bye"),
-    FIND("find");
+    FIND("find"),
+    SORT("sort");
 
     private final String value;
 

@@ -76,4 +76,8 @@ public class Deadlines extends Task {
         String str = super.isDone ? "1" : "0";
         return String.format("D | %s | %s", str, this.initDesc);
     }
+
+    public LocalDateTime getDeadline() {
+        return this.deadline;
+    }
 }
