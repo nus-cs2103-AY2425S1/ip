@@ -24,7 +24,7 @@ public class AddCommand implements Command {
         Task newTask = TaskList.getTask(msg, words);
         tasks.addTask(newTask);
         String plural = tasks.size() == 1 ? " task" : " tasks";
-        String response = "atreides.task.Task added\n"
+        String response = "Task added\n"
                 + newTask.toString().indent(2)
                 + tasks.size() + plural + " in list\n";
         return response;

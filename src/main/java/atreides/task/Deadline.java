@@ -16,8 +16,17 @@ public class Deadline extends Task {
             String[] parseDT = by.split("-");
             this.deadline = LocalDateTime.of(Integer.parseInt(parseDT[0]),
                     Integer.parseInt(parseDT[1]), Integer.parseInt(parseDT[2]), 23, 59);
-        } else {
+        } else if (validateDate(by)) {
             this.deadline = LocalDateTime.parse(by, FORMAT);
+        }
+    }
+
+    public boolean validateDate(String date) {
+        try {
+            LocalDateTime.parse(date, FORMAT);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
