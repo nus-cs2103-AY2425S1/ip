@@ -86,14 +86,14 @@ public class Parser {
 
         int descStartIndex = info.indexOf("[ ]") + 4;
 
-        if (taskString.charAt(4) == 'D') {
+        if (taskString.contains("[D]")) {
             String deadlineDesc = info.substring(descStartIndex, info.toLowerCase().indexOf(" (by:"));
             String due = info.substring(info.toLowerCase().indexOf(" (by:") + 6, info.length() - 1);
             Deadline deadline = new Deadline(deadlineDesc, due);
             deadline.setIsDone(isDone);
             return deadline;
 
-        } else if (taskString.charAt(4) == 'E') {
+        } else if (taskString.contains("[E]")) {
             String eventDesc = info.substring(descStartIndex, info.toLowerCase().indexOf(" (from:"));
             String from = info.substring(info.toLowerCase().indexOf(" (from:") + 8, info.toLowerCase().indexOf(" to:"));
             String to = info.substring(info.toLowerCase().indexOf("to:") + 4, info.length() - 1);

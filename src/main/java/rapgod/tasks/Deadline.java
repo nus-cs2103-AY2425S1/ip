@@ -24,6 +24,10 @@ public class Deadline extends Task{
         this.due = Parser.parseToDateTime(due);
     }
 
+    public void setDue(String due) {
+        this.due = Parser.parseToDateTime(due);
+    }
+
     /**
      * Returns the due date of the deadline.
      *
