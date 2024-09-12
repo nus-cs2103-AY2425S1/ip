@@ -1,3 +1,4 @@
-T | 1 | cook pasta
-E | 1 | meeting | 8pm to 10pm
-T | 0 | writing
+T | 0 | r
+T | 0 | shine
+D | 0 | dgqdgg | Sep 09 1999
+E | 1 | adg | dg to adg
