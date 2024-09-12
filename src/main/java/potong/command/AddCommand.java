@@ -3,9 +3,7 @@ package potong.command;
 import potong.Ui;
 import potong.Storage;
 import potong.TaskList;
-
 import potong.exceptions.IllegalInputPotongException;
-
 import potong.task.DeadlineTask;
 import potong.task.EventTask;
 import potong.task.ToDoTask;

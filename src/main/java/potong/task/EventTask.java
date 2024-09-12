@@ -36,8 +36,9 @@ public class EventTask extends Task {
      * @param isDone Whether the task is done.
      * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public EventTask(String description, String start, String end, boolean isDone) throws IllegalInputPotongException {
-        super(description, isDone);
+    public EventTask(String description, String start,
+                     String end, boolean isDone, String tag) throws IllegalInputPotongException {
+        super(description, isDone, tag);
         if (start.isEmpty() || end.isEmpty()) {
             throw new IllegalInputPotongException();
         }
