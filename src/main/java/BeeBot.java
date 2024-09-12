@@ -64,14 +64,14 @@ public class BeeBot {
                         return listStr;
                     }
                 case "mark":
-                    int taskNum = Integer.parseInt(parts[1]);
-                    Task doneTask = Parser.getTask(taskList, taskNum);
+                    int markTaskNum = Integer.parseInt(parts[1]);
+                    Task doneTask = Parser.getTask(taskList, markTaskNum);
                     doneTask.markAsDone();
                     storage.saveTaskListToFile(FILEPATH, taskList);
                     return "🐝-utiful! Worker bee marked this task as done:\n" + doneTask;
                 case "unmark":
-                    int taskNum2 = Integer.parseInt(parts[1]);
-                    Task undoneTask = Parser.getTask(taskList, taskNum2);
+                    int unmarkTaskNum = Integer.parseInt(parts[1]);
+                    Task undoneTask = Parser.getTask(taskList, unmarkTaskNum);
                     undoneTask.markAsUndone();
                     storage.saveTaskListToFile(FILEPATH, taskList);
                     return "🐝-utiful! Worker bee marked this task as not done yet:\n" + undoneTask;

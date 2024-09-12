@@ -7,7 +7,7 @@ package task;
  * </p>
  */
 public class Task {
-    private boolean done = false;
+    private boolean isDone = false;
     private String name;
 
     /**
@@ -27,7 +27,7 @@ public class Task {
 
     public String toString() {
         String str = "";
-        if (done) {
+        if (isDone) {
             str += "[X]";
         } else {
             str += "[ ]";
@@ -41,7 +41,7 @@ public class Task {
      * This method updates the task's status to completed.
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Task {
      * This method updates the task's status to not completed.
      */
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Task {
      * @return {@code true} if the task is done, {@code false} otherwise
      */
     public Boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
