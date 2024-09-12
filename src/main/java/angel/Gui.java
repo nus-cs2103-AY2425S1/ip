@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 /**
  * A GUI for the Angel chatbot using JavaFX and FXML.
- * This class sets up the GUI components and initializes the Angel chatbot.
+ * This class sets up the GUI components and initialises the Angel chatbot.
  */
 public class Gui extends Application {
 
