@@ -11,8 +11,8 @@ public class ToDo extends Task {
      * Constructs a to-do task with the given description.
      * @param description the description of the to-do task
      */
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, Priority priority) {
+        super(description, priority);
     }
 
     /**
@@ -21,7 +21,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + getPriorityString();
     }
 
     /**
@@ -31,6 +31,6 @@ public class ToDo extends Task {
     @Override
     public String toFileString() {
         int status = super.status() ? 1 : 0;
-        return String.format("T | %d | %s", status, getDescription());
+        return String.format("T | %d | %s | %s", status, getDescription(), getPriority());
     }
 }

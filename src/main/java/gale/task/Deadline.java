@@ -19,8 +19,8 @@ public class Deadline extends Task {
      * @param description the description of the deadline
      * @param by the due date and time of the deadline
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, Priority priority) {
+        super(description, priority);
         this.by = Parser.parseDateTime(by);
     }
 
@@ -30,7 +30,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(outputFormatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(outputFormatter) + ")"
+            + getPriorityString();
     }
 
     /**
@@ -41,7 +42,7 @@ public class Deadline extends Task {
     public String toFileString() {
         int status = super.status() ? 1 : 0;
         String byInFileFormat = by.format(Parser.getFormatters().get(0));
-        return String.format("D | %d | %s | %s", status, getDescription(),
-                byInFileFormat);
+        return String.format("D | %d | %s | %s | %s", status, getDescription(),
+            getPriority(), byInFileFormat);
     }
 }

@@ -8,17 +8,20 @@ package gale.task;
  * @author kaikquah
  */
 public abstract class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
+    private Priority priority;
 
     /**
-     * Constructs a task with the given description.
+     * Constructs a task with the given description and priority.
      * Task is abstract and cannot be instantiated directly.
      * @param description the description of the task
+     * @param priority the priority of the task
      */
-    public Task(String description) {
+    public Task(String description, Priority priority) {
         this.description = description;
         this.isDone = false;
+        this.priority = priority;
     }
 
     /**
@@ -60,12 +63,39 @@ public abstract class Task {
     }
 
     /**
+     * Gets the priority of the task.
+     * @return the priority of the task
+     */
+    public Priority getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * Sets the priority of the task to a new one
+     * @param priority the new priority of the task to be set
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    /**
      * Returns the String representation of the task.
      * @return the String representation of the task
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
+    }
+
+    /**
+     * Returns the priority of the task as a String.
+     * @return the priority of the task as a String
+     */
+    public String getPriorityString() {
+        if (priority != Priority.NONE) {
+            return " [" + priority + "]";
+        }
+        return "";
     }
 
     /**
