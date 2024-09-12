@@ -72,6 +72,15 @@ public class Parser {
             if (taskList.getTask(i).toString().toLowerCase().contains(keyword)) {
                 count++;
                 reply.append("\n").append(count).append(". ").append(taskList.getTask(i));
+            } else if (input.toLowerCase().contains("deadline") && taskList.getTask(i) instanceof Deadline) {
+                count++;
+                reply.append("\n").append(count).append(". ").append(taskList.getTask(i));
+            } else if (input.toLowerCase().contains("event") && taskList.getTask(i) instanceof Event) {
+                count++;
+                reply.append("\n").append(count).append(". ").append(taskList.getTask(i));
+            } else if (input.toLowerCase().contains("todo") && taskList.getTask(i) instanceof Todo) {
+                count++;
+                reply.append("\n").append(count).append(". ").append(taskList.getTask(i));
             }
         }
         if (count == 0) {
