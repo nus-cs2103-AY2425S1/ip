@@ -1,6 +1,8 @@
 package talkie.task;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Manages a list of tasks in the Talkie application.
@@ -83,5 +85,9 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
+    }
+
+    public void sortByDesciption() {
+        Collections.sort(this.tasks, (t1, t2) -> t1.getDesc().compareToIgnoreCase(t2.getDesc()));
     }
 }
