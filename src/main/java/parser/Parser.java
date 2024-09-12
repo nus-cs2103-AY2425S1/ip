@@ -84,12 +84,11 @@ public class Parser {
      * @throws TakoException if the mark command is not in the right form
      */
     public static String parseMark(String command) {
-        String output;
         try {
             if (command.length() > 4 && command.charAt(4) == ' ') {
                 try {
                     int taskNumber = Integer.parseInt(command.substring(5));
-                    output = TaskList.markTask(taskNumber);
+                    return TaskList.markTask(taskNumber);
                 } catch (NumberFormatException e) {
                     throw new TakoException("Wrong format! mark command should have the form 'mark x',"
                                             + " where x is an integer");
@@ -109,7 +108,6 @@ public class Parser {
      * @throws TakoException if the unmark command is not in the right form
      */
     public static String parseUnmark(String command) {
-        String output;
         try {
             if (command.length() > 6 && command.charAt(6) == ' ') {
                 try {
@@ -134,12 +132,11 @@ public class Parser {
      * @throws TakoException if the delete command is not in the right form
      */
     public static String parseDelete(String command) {
-        String output;
         try {
             if (command.length() > 6 && command.charAt(6) == ' ') {
                 try {
                     int taskNumber = Integer.parseInt(command.substring(7));
-                    output = TaskList.deleteTask(taskNumber);
+                    return TaskList.deleteTask(taskNumber);
                 } catch (NumberFormatException e) {
                     throw new TakoException("Wrong format! Delete command should have the form 'delete x',"
                                             + " where x is an integer");
