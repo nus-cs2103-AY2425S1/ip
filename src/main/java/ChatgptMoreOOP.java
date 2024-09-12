@@ -44,7 +44,6 @@ public class ChatgptMoreOOP{
         try {
             NewTaskList tasks = storage.load();  // Load the existing tasks from storage
             NewParser parser = new NewParser(tasks, storage);  // Initialize the parser with the loaded tasks and UI
-
             return parser.parse(input);  // Parse and execute the command
         } catch (FileNotFoundException e) {
             return "File not found";
