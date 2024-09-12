@@ -44,8 +44,9 @@ public class EventTask extends Task {
     @Override
     public String toDatabaseFormat() {
         DateTimeFormatter databaseFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        return "E | " + (this.isCompleted() ? "1" : "0") + " | "
-                + this.getTaskDescription() + " | " + this.fromDate.format(databaseFormatter)
+        return "E | " + (this.isCompleted() ? "1" : "0")
+                + " | " + this.getTaskDescription()
+                + " | " + this.fromDate.format(databaseFormatter)
                 + " | " + this.toDate.format(databaseFormatter);
     }
 }

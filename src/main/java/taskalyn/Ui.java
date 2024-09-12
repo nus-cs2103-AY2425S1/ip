@@ -17,14 +17,6 @@ public class Ui {
     }
 
     /**
-     * Returns the starting welcome message from Taskalyn.
-     */
-    public String showWelcome() {
-        return "Hey! I'm Taskalyn, your personal Task Manager :)\n"
-                + "    What can I do for you?";
-    }
-
-    /**
      * Returns the add task message from Taskalyn.
      *
      * @param task The task which was added.
@@ -90,6 +82,7 @@ public class Ui {
      * @return A String saying bye.
      */
     public String showByeMessage() {
-        return "Bye! Hope to see you again soon!";
+        return "Bye! Hope to see you again soon!\n\n"
+                + "Shutting down in 5 seconds...";
     }
 }
