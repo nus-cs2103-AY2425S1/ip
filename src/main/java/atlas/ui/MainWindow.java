@@ -44,6 +44,7 @@ public class MainWindow extends AnchorPane {
      * Injects the Atlas instance, loads tasks and displays the welcome message
      */
     public void setAtlas(Atlas a) {
+        assert a != null : "Atlas object passed in must not be null";
         atlas = a;
         this.handleWelcome();
     }
@@ -56,6 +57,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = atlas.getResponse(input);
+        assert !response.isEmpty() : "Response should not be empty";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getAtlasDialog(response, atlasImage)

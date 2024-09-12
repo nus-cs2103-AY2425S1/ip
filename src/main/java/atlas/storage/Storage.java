@@ -74,6 +74,7 @@ public class Storage {
      */
     public void addTask(String[] sections) {
         Task task;
+        assert sections.length > 0 : "Sections array should have at least 1 element";
         if (sections[0].equals("T")) {
             task = new Todo(sections[2]);
         } else if (sections[0].equals("D")) {
