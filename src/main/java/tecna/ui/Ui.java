@@ -40,7 +40,7 @@ public class Ui {
     }
 
     public String printItems(TaskList tasks) {
-        return tasks.listItems();
+        return tasks.toString();
     }
 
     public void printSectionLine() {

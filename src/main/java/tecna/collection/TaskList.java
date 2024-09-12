@@ -1,6 +1,7 @@
 package tecna.collection;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import tecna.exception.TaskDuplicateException;
 import tecna.task.Task;
@@ -25,19 +26,6 @@ public class TaskList {
 
     public Task getTask(int index) {
         return this.tasks.get(index);
-    }
-
-    /**
-     * Displays all the tasks in the task list
-     */
-    public String listItems() {
-        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < this.size; ++i) {
-            sb.append(i + 1 + ". " + this.tasks.get(i) + "\n");
-        }
-        String response = sb.toString();
-        System.out.println(response);
-        return response;
     }
 
     /**
@@ -130,6 +118,19 @@ public class TaskList {
         String response = sb.toString();
         System.out.println(response);
         return response;
+    }
+
+    /**
+     * Prints string representation of the taskList.
+     *
+     * @return A string of all tasks in the list.
+     * @author brendanng7.
+     */
+    @Override
+    public String toString() {
+        return tasks.stream()
+                .map(t -> (tasks.indexOf(t) + 1) + ". " + t.toString())
+                .collect(Collectors.joining("\n"));
     }
 }
 
