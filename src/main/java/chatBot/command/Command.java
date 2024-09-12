@@ -15,7 +15,7 @@ import chatbot.bot.Ui;
 public abstract class Command {
     Command() {}
 
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 
     public boolean isExit() {
         return false;

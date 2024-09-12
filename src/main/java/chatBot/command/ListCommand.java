@@ -9,7 +9,7 @@ public class ListCommand extends Command {
     public ListCommand() {}
 
     /** Calls listTasks method in TaskList class, which prints the tasks */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.listTasks();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return taskList.listTasks();
     }
 }

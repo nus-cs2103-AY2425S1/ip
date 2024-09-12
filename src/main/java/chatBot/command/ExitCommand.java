@@ -9,9 +9,10 @@ public class ExitCommand extends Command {
     public ExitCommand() {}
 
     /** Writes to file location in storage object and prints exit statement */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         storage.writeToFile(taskList.getTaskCommands());
         ui.showGoodbye();
+        return "Bye B****";
     }
 
     @Override
