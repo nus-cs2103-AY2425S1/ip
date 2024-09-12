@@ -1,6 +1,9 @@
 package tecna.collection;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import tecna.exception.TaskDuplicateException;
 import tecna.task.Task;
@@ -25,19 +28,6 @@ public class TaskList {
 
     public Task getTask(int index) {
         return this.tasks.get(index);
-    }
-
-    /**
-     * Displays all the tasks in the task list
-     */
-    public String listItems() {
-        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < this.size; ++i) {
-            sb.append(i + 1 + ". " + this.tasks.get(i) + "\n");
-        }
-        String response = sb.toString();
-        System.out.println(response);
-        return response;
     }
 
     /**
@@ -111,25 +101,40 @@ public class TaskList {
      * Finds and prints all the matching tasks.
      *
      * @param keyword is one word that user enters to filter the task.
+     * @author Generated with the help of ChatGPT at 11:13PM 12 Sep 2024.
      */
     public String findTasks(String keyword) {
         assert !keyword.isEmpty(); // handled by CommandScanner
-        int counter = 0;
-        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (Task task : this.tasks) {
-            String[] words = task.getTaskName().split(" ");
 
-            for (String word : words) {
-                if (word.toLowerCase().contains(keyword.toLowerCase())) {
-                    counter++;
-                    sb.append(counter + ". " + task + "\n");
-                    break;
-                }
-            }
-        }
-        String response = sb.toString();
+        List<Task> matchingTasks = tasks.stream()
+                                             .filter(task -> {
+                                                 String[] words = task.getTaskName().split(" ");
+                                                 return Stream.of(words)
+                                                              .anyMatch(word -> word.toLowerCase().contains(keyword
+                                                                      .toLowerCase()));
+                                             })
+                                             .collect(Collectors.toList());
+
+        String response = "Here are the matching tasks in your list:\n" +
+                matchingTasks.stream()
+                             .map(task -> (matchingTasks.indexOf(task) + 1) + ". " + task)
+                             .collect(Collectors.joining("\n"));
+
         System.out.println(response);
         return response;
+    }
+
+    /**
+     * Prints string representation of the taskList.
+     *
+     * @return A string of all tasks in the list.
+     * @author brendanng7.
+     */
+    @Override
+    public String toString() {
+        return tasks.stream()
+                .map(t -> (tasks.indexOf(t) + 1) + ". " + t.toString())
+                .collect(Collectors.joining("\n"));
     }
 }
 
