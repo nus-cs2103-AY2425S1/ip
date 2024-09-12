@@ -9,11 +9,12 @@ import dudu.utils.UI;
  */
 public class CommandBye extends Command {
     /**
-     * Executes the exit command by displaying a goodbye message to the user.
+     * Executes the exit command by displaying a goodbye message to the user
      *
-     * @param taskList The task list (not used in this command).
-     * @param ui The user interface to display the goodbye message.
-     * @param storage The storage (not used in this command).
+     * @param taskList The task list
+     * @param ui The user interface to display the goodbye message
+     * @param storage The storage
+     * @return Bye response
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {
