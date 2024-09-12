@@ -21,16 +21,16 @@ public class Parser {
     public static Prompt parse(TaskList tasks, String prompt) {
 
         List<String> prompts = Arrays.asList(prompt.split(" "));
-        int id;
+        String taskDetails;
         switch (prompts.get(0)) {
             case "list":
                 return Prompt.LIST;
             case "mark":
                 // Read the rest of the line after "mark"
-                prompt = prompt.substring(MARK_COMMAND_LENGTH).trim();
+                taskDetails = prompt.substring(MARK_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
-                if (prompt.isEmpty() || !prompt.matches("\\d+")) {
+                if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
                     Ui.print("State the task number.");
                     return Prompt.UNKNOWN;
                 }
@@ -38,10 +38,10 @@ public class Parser {
                 return Prompt.MARK;
             case "unmark":
                 // Read the rest of the line after "unmark"
-                prompt = prompt.substring(UNMARK_COMMAND_LENGTH).trim();
+                taskDetails = prompt.substring(UNMARK_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
-                if (prompt.isEmpty() || !prompt.matches("\\d+")) {
+                if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
                     Ui.print("State the task number.");
                     return Prompt.UNKNOWN;
                 }
@@ -95,16 +95,14 @@ public class Parser {
                 return Prompt.EVENT;
             case "delete":
                 // Read the rest of the line after "delete"
-                prompt = prompt.substring(DELETE_COMMAND_LENGTH).trim();
+                taskDetails = prompt.substring(DELETE_COMMAND_LENGTH).trim();
 
                 // Check if the rest of the line is an integer
-                if (prompt.isEmpty() || !prompt.matches("\\d+")) {
+                if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
                     Ui.print("State the task number.");
                     return Prompt.UNKNOWN;
                 }
 
-                id = Integer.parseInt(prompt);
-                tasks.deleteTask(id);
                 return Prompt.DELETE;
             case "annyeong":
                 Ui.print("Annyeong. Hope to see you soon.");
