@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 /**
  * Represents a task with a description and a status indicating whether it is done or not.

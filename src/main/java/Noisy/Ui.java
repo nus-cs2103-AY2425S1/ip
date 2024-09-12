@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 public class Ui {
 

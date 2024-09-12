@@ -1,6 +1,7 @@
-package Noisy;
+package noisy;
 
 import java.util.Scanner;
+
 
 /**
  * The main entry point for the Noisy task management application.
