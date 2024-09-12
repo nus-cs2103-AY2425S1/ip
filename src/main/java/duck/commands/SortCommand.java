@@ -22,7 +22,12 @@ import duck.ui.Ui;
  */
 public class SortCommand extends Command {
 
-    private static final String ERROR_MESSAGE_SORT_COMMAND = "Invalid sort command format.";
+    private static final String ERROR_MESSAGE_SORT_COMMAND = """
+            Invalid sort command format.
+            Format should be: sort /target <target> /by <criterion>
+            /target : all, todo, deadline, event
+            /by : description, type, deadline, start, end
+            """;
 
     private static final String PARAMETER_TARGET = "/target";
     private static final String PARAMETER_BY = "/by";
