@@ -255,10 +255,6 @@ public class TaskList {
         }
         if (index == 1) {
             printsMessageWhenNoTasksFound(input);
-            /*System.out.println("Looks Like there's no task with taskDescription that contains " + "'" + input + "'");
-            System.out.println("Try Looking for something else!");
-            return "Looks like there's no task with taskDescription that contains '" + input + "'\n"
-                    + "Try looking for something else!";*/
         }
         System.out.println("____________________________________________________________");
         //return scanner.nextLine();
