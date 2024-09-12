@@ -29,7 +29,7 @@ public class Mgtow {
         storage = new Storage(filePath);
         assert storage != null : "Storage should not be null";
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTasks());
         } catch (InvalidTaskException e) {
             ui.showLoadingError();
             tasks = new TaskList();
