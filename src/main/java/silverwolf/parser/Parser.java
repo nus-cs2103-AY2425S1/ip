@@ -30,7 +30,9 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws SilverWolfException {
         String[] parts = fullCommand.split(" ", 2);
+        assert parts.length > 0 : "Command cannot be empty";
         String commandWord = parts[0];
+        assert commandWord != null && !commandWord.isEmpty() : "Command word cannot be null or empty";
         String arguments = parts.length > 1 ? parts[1] : "";
 
         switch (commandWord) {
@@ -69,6 +71,7 @@ public class Parser {
             throw new SilverWolfException("The description of a todo cannot be empty.");
         }
         String description = arguments.trim();
+        assert !description.isEmpty() : "Todo description cannot be empty after trimming";
         return new Todo(description);
     }
     /**
@@ -87,6 +90,8 @@ public class Parser {
             // Parse the string into a LocalDateTime object
             LocalDateTime eventFrom = parser.parseDateTime(to[0]);
             LocalDateTime eventTo = parser.parseDateTime(to[1]);
+            assert eventFrom != null : "Event 'from' date/time cannot be null";
+            assert eventTo != null : "Event 'to' date/time cannot be null";
             // Format the LocalDateTime object into a string
             String formattedFromDateTime = parser.formatDateTime(eventFrom);
             String formattedToDateTime = parser.formatDateTime(eventTo);
@@ -110,6 +115,7 @@ public class Parser {
      */
     private static Deadline parseDeadLine(String arguments) throws SilverWolfException {
         String[] parts = arguments.split(" /by ");
+        assert parts.length == 2 : "Deadline command must contain a description and a date/time";
         if (parts.length < 2) {
             throw new SilverWolfException("Wrong usage. Correct usage: deadline [task in String] /by "
                     + "[date/time] \" +\n"
@@ -121,6 +127,7 @@ public class Parser {
             DateTimeParser parser = new DateTimeParser();
             // Parse the string into a LocalDateTime object
             LocalDateTime deadlineDateTime = parser.parseDateTime(by);
+            assert deadlineDateTime != null : "Deadline date/time cannot be null";
             // Format the LocalDateTime object into a string
             String formattedDateTime = parser.formatDateTime(deadlineDateTime);
             return new Deadline(description, formattedDateTime);
