@@ -50,10 +50,11 @@ test {
 application {
     mainClass.set("main.java.angel.Angel")
     mainClass.set("Launcher")
+    mainClassName = "main.java.angel.Launcher"
 }
 
 shadowJar {
-    archiveBaseName = "angel.jar"
+    archiveBaseName = "GUI_Angel"
     archiveClassifier = null
 }
 
