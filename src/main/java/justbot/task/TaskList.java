@@ -1,6 +1,7 @@
 package justbot.task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import justbot.exception.JustbotException;
@@ -132,6 +133,19 @@ public class TaskList implements Iterable<Task> {
 
     public ArrayList<Task> getTasks() {
         return this.tasks;
+    }
+
+    public void sortTasksChronologically() {
+        tasks.sort(Comparator.comparing(task -> {
+            if (task instanceof Todo) {
+                return null;
+            } else if (task instanceof Deadline) {
+                return ((Deadline) task).getDeadline();
+            } else if (task instanceof Event) {
+                return ((Event) task).getStart();
+            }
+            return null;
+        }, Comparator.nullsFirst(Comparator.naturalOrder())));
     }
 
 }
