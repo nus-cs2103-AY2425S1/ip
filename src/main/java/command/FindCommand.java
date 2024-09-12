@@ -31,6 +31,7 @@ public class FindCommand extends UserCommand {
             ui.printException(e);
             return;
         }
+        assert (keyword != "") : "Keyword should not be empty";
 
         ArrayList<Task> tasks = taskList.filterByKeyword(keyword);
 

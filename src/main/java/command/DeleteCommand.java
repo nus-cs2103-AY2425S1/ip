@@ -38,6 +38,7 @@ public class DeleteCommand extends UserCommand {
             ui.printException(e);
             return;
         }
+        assert (words.length == 2) : "Number of words in delete command should be 2";
 
         try {
             int idx = Integer.parseInt(words[1]) - 1;
