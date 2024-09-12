@@ -4,7 +4,7 @@ package derek.command;
  * The {@code TaskCommand} class is an abstract class that represents a command related to tasks.
  * It extends the {@code Command} class and provides a method to extract the task details from the command.
  */
-public class TaskCommand extends Command {
+public abstract class TaskCommand extends Command {
 
     /**
      * Constructs a {@code TaskCommand} with the specified user command.

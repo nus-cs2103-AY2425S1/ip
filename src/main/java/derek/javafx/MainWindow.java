@@ -73,7 +73,7 @@ public class MainWindow extends AnchorPane {
                 );
                 userInput.clear();
             } else if (isWaitingforConsent) {
-                response = this.ui.processCommands(input);
+                response = this.ui.processConsent(input);
                 isWaitingforConsent = false;
                 isWaitingforUserName = true;
                 dialogContainer.getChildren().addAll(

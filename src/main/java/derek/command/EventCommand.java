@@ -1,8 +1,12 @@
 package derek.command;
 
 import derek.*;
+import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 import derek.task.TaskList;
+
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 
 /**
@@ -11,23 +15,32 @@ import derek.task.TaskList;
  */
 public class EventCommand extends TaskCommand {
 
+    private Storage storage;
+    private Ui ui;
+
     /**
      * Constructs an {@code EventCommand} with the specified user command.
      *
      * @param command the user command input
      */
-    public EventCommand(String command) {
+    public EventCommand(String command, Storage storage, Ui ui) {
         super(command);
+        this.storage = storage;
+        this.ui = ui;
     }
 
-    /**
-     * Executes the command to add the specified event task to the task list.
-     *
-     * @param task the task to be added
-     * @param storage the storage object containing the task list
-     * @param ui the UI object to interact with the user
-     */
-    public String execute(Task task, Storage storage, Ui ui) {
+
+
+    @Override
+    public String execute() throws IncorrectCommandException, DateTimeParseException {
+        String name = this.getTask();
+        String[] taskDescription = name.split("/from");
+        String[] time = taskDescription[1].split("/to");
+        if (taskDescription.length + time.length != 3) {
+            throw new IncorrectCommandException("Please enter your commands correctly "
+                    + "for Derek (event (task) /from (time) /to (time)");
+        }
+        Task task = Task.eventTask(taskDescription[0], time[0], time[1]);
         TaskList taskList = storage.getTaskList();
         taskList.add(task);
         return ui.addTask(task);

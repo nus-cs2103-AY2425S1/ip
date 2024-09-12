@@ -9,8 +9,12 @@ import derek.task.TaskList;
 public class FindCommand extends Command {
 
     private String taskDescription;
-    public FindCommand(String command) {
+    private Storage storage;
+    private Ui ui;
+    public FindCommand(String command, Storage storage, Ui ui) {
         super(command);
+        this.storage = storage;
+        this.ui = ui;
 
     }
 
@@ -21,7 +25,7 @@ public class FindCommand extends Command {
 
     }
 
-    public String execute(Storage storage, Ui ui) {
+    public String execute() {
         try {
             TaskList taskList = storage.getTaskList();
             this.getTaskDescription();

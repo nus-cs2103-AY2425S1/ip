@@ -1,5 +1,7 @@
 package derek.command;
 
+import derek.Storage;
+import derek.Ui;
 import derek.exception.IncorrectCommandException;
 
 /**
@@ -7,7 +9,7 @@ import derek.exception.IncorrectCommandException;
  * based on the input string. It also provides methods to check the validity of the command
  * and to extract the task details from the command.
  */
-public class Command {
+public abstract class Command {
     private String command;
 
     /**
@@ -41,4 +43,7 @@ public class Command {
     public String getCommand() {
         return this.command;
     }
+
+    public abstract String execute() throws IncorrectCommandException;
+
 }

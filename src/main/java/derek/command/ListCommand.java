@@ -2,6 +2,7 @@ package derek.command;
 
 import derek.Storage;
 import derek.Ui;
+import derek.exception.IncorrectCommandException;
 
 /**
  * The {@code ListCommand} class handles the user's command to list all tasks.
@@ -9,22 +10,22 @@ import derek.Ui;
  */
 public class ListCommand extends Command {
 
+    private Storage storage;
+    private Ui ui;
+
     /**
      * Constructs a {@code ListCommand} with the specified user command.
      *
      * @param command the user command input
      */
-    public ListCommand(String command) {
+    public ListCommand(String command, Storage storage, Ui ui) {
         super(command);
+        this.storage = storage;
+        this.ui = ui;
     }
 
-    /**
-     * Executes the command to display the current task list.
-     *
-     * @param storage the storage object containing the task list
-     * @param ui the UI object to interact with the user
-     */
-    public String execute(Storage storage, Ui ui) {
-        return ui.returnList();
+    @Override
+    public String execute() throws IncorrectCommandException {
+        return this.ui.returnList();
     }
 }

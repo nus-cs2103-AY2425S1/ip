@@ -16,17 +16,17 @@ import javafx.application.Platform;
  * It manages input/output operations and facilitates communication between the user and the system.
  */
 public class Ui {
-    private static String logo = " ---    ---\n"
-            + "| # |  | # |\n"
-            + " ---    ---\n"
-            + "  \\      /\n"
-            + "    ----\n";
+    private static String logo = " ---      ---\n"
+            + "|  #  |   |  #  |\n"
+            + "  ---     ---\n"
+            + "   \\            /\n"
+            + "      ----\n";
 
-    private static String sadLogo = " ---    ---\n"
+    private static String sadLogo = " ---      ---\n"
             + "| # |  | # |\n"
             + " ---    ---\n"
-            + "    ----\n"
-            + "  /      \\\n";
+            + "      ----\n"
+            + "   /             \\\n";
     private static String leavingMessage = String.format("Ok...\n" + sadLogo);
 
     private Storage storage;
@@ -48,43 +48,16 @@ public class Ui {
      */
     public String introduce() {
         return "Hello! I'm Derek! Can we be friends?\n" + logo + "\nYour response (Y/N):";
-        /**
-        try {
-            this.isRunning = true;
-            System.out.println("Hello! I'm Derek! Can we be friends?\n" + logo);
-            String userInput =
-                    "Your response (Y/N):";
-            System.out.println(userInput);
-            Scanner sc = new Scanner(System.in);
-            String response = sc.nextLine();
-            Command intro = new Command(response);
-            intro.isConsent();
-            if (response.equalsIgnoreCase("Y")) {
-                getUserName();
-            } else if (response.equalsIgnoreCase("N")) {
-                System.out.println(leavingMessage);
-            }
-        } catch (IncorrectCommandException e) {
-            System.out.println(e.getMessage() + "\n");
-            this.introduce();
-        }
-    */
+
     }
 
     /**
      * Prompts the user to enter their name and starts the main user interaction loop.
      */
     public String getUserName() {
-
         return "Great! I have always wanted a friend!\n"
                 + "What do I call you?";
-        /**
-        System.out.println("Great! I have always wanted a friend!\n"
-                + "What do I call you?");
-        Scanner name = new Scanner(System.in);
-        this.user = name.nextLine();
-        initiateUserInteraction();
-         */
+
     }
 
     /**
@@ -95,7 +68,7 @@ public class Ui {
         return "\n" + "Hi! " + user
                 + "! So, I guess as a friend I become your little slave!\n"
                 + "What do you want me to do?\n"
-                + "----------------------------------------------------------------------\n"
+                + "-------------------------------------------\n"
                 + "Please enter your commands correctly for Derek (he's a little slow):\n"
                 + "todo (task)\n"
                 + "event (task) /from (DD/MM/YYYY HH:MM) /to (DD/MM/YYYY HH:MM))\n"
@@ -116,10 +89,14 @@ public class Ui {
 
     }
 
+    public String processConsent(String command) throws IncorrectCommandException {
+        Parser parser = new Parser(command, this.storage, this);
+        return parser.getConsent();
+    }
+
     public String printLeavingMessage() {
         Platform.exit();
         return leavingMessage;
-       // System.out.println(leavingMessage);
     }
 
     public String returnList() {

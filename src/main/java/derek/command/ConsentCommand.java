@@ -1,13 +1,17 @@
 package derek.command;
+import derek.Storage;
 import derek.Ui;
 
 public class ConsentCommand extends Command {
 
-    public ConsentCommand(String command) {
+    private Ui ui;
+    public ConsentCommand(String command, Ui ui) {
         super(command);
+        this.ui = ui;
     }
 
-    public String execute(Ui ui) {
-        return ui.getUserName();
+    @Override
+    public String execute() {
+        return this.ui.getUserName();
     }
 }

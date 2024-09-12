@@ -2,11 +2,14 @@ package derek.command;
 import derek.Ui;
 
 public class DeclineCommand extends Command {
-    public DeclineCommand(String command) {
+    private Ui ui;
+    public DeclineCommand(String command, Ui ui) {
         super(command);
+        this.ui = ui;
     }
 
-    public String execute(Ui ui) {
+    @Override
+    public String execute() {
         return ui.printLeavingMessage();
     }
 }

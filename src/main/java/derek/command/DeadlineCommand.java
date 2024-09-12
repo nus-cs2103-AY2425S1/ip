@@ -2,8 +2,11 @@ package derek.command;
 
 import derek.Storage;
 import derek.Ui;
+import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 import derek.task.TaskList;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * The {@code DeadlineCommand} class adds a deadline task to the task list.
@@ -11,25 +14,30 @@ import derek.task.TaskList;
  */
 public class DeadlineCommand extends TaskCommand {
 
-
+    private Storage storage;
+    private Ui ui;
     /**
      * Constructs a {@code DeadlineCommand} with the specified user command.
      *
      * @param command the user command input
      */
-    public DeadlineCommand(String command) {
+    public DeadlineCommand(String command, Storage storage, Ui ui) {
+
         super(command);
+        this.storage = storage;
+        this.ui = ui;
     }
 
-    /**
-     * Executes the command to add the specified deadline task to the task list.
-     *
-     * @param task the task to be added
-     * @param storage the storage object containing the task list
-     * @param ui the UI object to interact with the user
-     */
-    public String execute(Task task, Storage storage, Ui ui) {
-        TaskList taskList = storage.getTaskList();
+    @Override
+    public String execute() throws IncorrectCommandException, DateTimeParseException {
+        String name = this.getTask();
+        String[] information = name.split("/by");
+        if (information.length != 2) {
+            throw new IncorrectCommandException("Please enter your commands correctly"
+                + "for Derek (deadline (task) /by (date)");
+        }
+        Task task = Task.deadlineTask(information[0], information[1]);
+        TaskList taskList = this.storage.getTaskList();
         taskList.add(task);
         return ui.addTask(task);
 

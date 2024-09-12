@@ -23,7 +23,7 @@ public class Derek {
     }
 
     public static void main(String[] args) {
-        Derek instance = new Derek();
+        new Derek();
     }
 
 

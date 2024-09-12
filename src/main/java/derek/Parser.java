@@ -35,96 +35,91 @@ public class Parser {
      * It determines the type of command and calls the appropriate command class.
      * If the command is invalid, an error message is printed.
      */
-    public String getCommand() throws IncorrectCommandException{
-        if (this.command.equals("bye")) {
-            LeavingCommand leavingCommand = new LeavingCommand(this.command);
-            return leavingCommand.execute(this.storage, this.ui);
-        } else if (this.command.equals("list")) {
-            ListCommand listCommand = new ListCommand(this.command);
-            return listCommand.execute(this.storage, this.ui);
-        } else if (this.command.equalsIgnoreCase("Y")) {
-            ConsentCommand consentCommand = new ConsentCommand(this.command);
-            return consentCommand.execute(this.ui);
-        } else if(this.command.equalsIgnoreCase("N")) {
-            DeclineCommand declineCommand = new DeclineCommand(this.command);
-            return declineCommand.execute(this.ui);
-        } else {
-            int size = this.storage.getTaskListSize();
-            String[] words = command.split("\\s+");
-            if (words.length > 1) {
-                if (words[0].equals("delete")) {
-                    int taskNumber = Integer.valueOf(words[1]);
-                    if (taskNumber < 1 || taskNumber > size) {
-                        throw new IncorrectCommandException("do you not know how to count????");
-                    }
-                    DeleteCommand deleteCommand = new DeleteCommand(this.command);
-                    return deleteCommand.execute(taskNumber, this.storage, this.ui);
-                } else if (words[0].equals("mark")) {
-                    int taskNumber = Integer.valueOf(words[1]);
-                    if (taskNumber < 1 || taskNumber > size) {
-                        throw new IncorrectCommandException("do you not know how to count????");
-                    }
-                    CompleteCommand completeCommand = new CompleteCommand(this.command);
-                    return completeCommand.execute(this.storage, taskNumber, this.ui);
-                } else if (words[0].equals("unmark")) {
-                    int taskNumber = Integer.valueOf(words[1]);
-                    if (taskNumber < 1 || taskNumber > size) {
-                        throw new IncorrectCommandException("do you not know how to count????");
-                    }
-                    IncompleteCommand incompleteCommand = new IncompleteCommand(this.command);
-                    return incompleteCommand.execute(this.storage, taskNumber, this.ui);
-                } else if (words[0].equals("find")) {
-                    FindCommand findCommand = new FindCommand(this.command);
-                    return findCommand.execute(this.storage, this.ui);
-                }
-            } else {
-                throw new IncorrectCommandException("Please enter your commands correctly for Derek "
-                        + "(e.g. todo (task)), he keeps throwing tantrums");
-            }
-            return this.getTask();
-        }
-    }
+    public String getCommand() throws IncorrectCommandException, DateTimeParseException{
 
-    /**
-     * Processes the task-related commands such as "todo", "deadline", and "event".
-     * It parses the command to extract the task details and then executes the appropriate command.
-     */
-    public String getTask() throws IncorrectCommandException, DateTimeParseException {
+        int sizeOfTaskList = this.storage.getTaskListSize();
         String[] words = command.split("\\s+");
-        if (words[0].equals("deadline")) {
-            String[] parts = command.split("/by");
-            if (parts.length != 2) {
-                throw new IncorrectCommandException("Please enter your commands correctly "
-                        + "for Derek (deadline (task) /by (date))");
-            }
-            DeadlineCommand deadlineCommand = new DeadlineCommand(this.command);
-            String name = deadlineCommand.getTask();
-            String[] information = name.split("/by");
-            Task task = Task.deadlineTask(information[0], information[1]);
-            return deadlineCommand.execute(task, this.storage, this.ui);
+        String command = words[0].toUpperCase();
+        Command processedCommand;
 
-        } else if (words[0].equals("event")) {
-            String[] parts = command.split("/from");
-            String[] time = command.split("/to");
-            if (parts.length != 2 && time.length != 2) {
-                throw new IncorrectCommandException("Please enter your commands correctly "
-                        + "for Derek (event (task) /from (time) /to (time)");
+        try {
+            switch (CommandEnums.valueOf(command)) {
+                case BYE:
+                    processedCommand = new LeavingCommand(this.command,
+                            this.storage, this.ui);
+                    return this.executeCommand(processedCommand);
+                case LIST:
+                    processedCommand = new ListCommand(this.command,
+                            this.storage, this.ui);
+                    return this.executeCommand(processedCommand);
+                case DELETE:
+                    processedCommand = new DeleteCommand(this.command,
+                            this.storage, this.ui, sizeOfTaskList);
+                    return this.executeCommand(processedCommand);
+                case MARK:
+                    processedCommand = new CompleteCommand(this.command,
+                            this.storage, this.ui, sizeOfTaskList);
+                    return this.executeCommand(processedCommand);
+                case UNMARK:
+                    processedCommand = new IncompleteCommand(this.command,
+                            this.storage, this.ui, sizeOfTaskList);
+                    return this.executeCommand(processedCommand);
+                case FIND:
+                    processedCommand = new FindCommand(this.command,
+                            this.storage, this.ui);
+                    return this.executeCommand(processedCommand);
+                case DEADLINE:
+                    processedCommand = new DeadlineCommand(this.command,
+                            this.storage, this.ui);
+                    return this.executeCommand(processedCommand);
+                case EVENT:
+                    processedCommand = new EventCommand(this.command,
+                            this.storage, this.ui);
+                    return this.executeCommand(processedCommand);
+                case TODO:
+                    processedCommand = new TodoCommand(this.command,
+                            this.storage, this.ui);
+                    return this.executeCommand(processedCommand);
+                default:
+                    throw new IncorrectCommandException("Please respond Y or N, Derek does not " +
+                            "appreciate stupid people");
+
             }
-            EventCommand eventCommand = new EventCommand(this.command);
-            String name = eventCommand.getTask();
-            String[] information1 = name.split("/from");
-            String[] information2 = information1[1].split("/to");
-            Task task = Task.eventTask(information1[0], information2[0], information2[1]);
-            return eventCommand.execute(task, this.storage, this.ui);
-        } else if (words[0].equals("todo")) {
-            TodoCommand todoCommand = new TodoCommand(this.command);
-            String name = todoCommand.getTask();
-            Task task = Task.toDoTask(name);
-            return todoCommand.execute(task, this.storage, this.ui);
-        } else {
+        } catch (IllegalArgumentException e) {
             throw new IncorrectCommandException("Is it a todo, event, or deadline?\n"
                     + "Please enter your commands correctly for Derek (e.g. todo (task)), "
                     + "he keeps throwing tantrums");
+        }
+
+    }
+
+
+
+    public String executeCommand(Command command) throws IncorrectCommandException {
+        return command.execute();
+    }
+
+
+    public String getConsent() throws IncorrectCommandException {
+        String command = this.command.toUpperCase();
+        Command processedCommand;
+        try {
+            switch (CommandEnums.valueOf(command)) {
+                case Y:
+                    processedCommand = new ConsentCommand(this.command,
+                            this.ui);
+                    return this.executeCommand(processedCommand);
+                case N:
+                    processedCommand = new DeclineCommand(this.command,
+                            this.ui);
+                    return this.executeCommand(processedCommand);
+                default:
+                    throw new IncorrectCommandException("Please respond Y or N, Derek does not " +
+                            "appreciate stupid people");
+            }
+        } catch (IllegalArgumentException e) {
+            throw new IncorrectCommandException("Please respond Y or N, Derek does not " +
+                    "appreciate stupid people");
         }
 
     }

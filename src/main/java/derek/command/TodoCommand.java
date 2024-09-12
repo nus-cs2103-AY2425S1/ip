@@ -12,23 +12,28 @@ import derek.task.TaskList;
  */
 public class TodoCommand extends TaskCommand {
 
+    private Storage storage;
+    private Ui ui;
     /**
      * Constructs a {@code TodoCommand} with the specified user command.
      *
      * @param command the user command input
      */
-    public TodoCommand(String command) {
+    public TodoCommand(String command, Storage storage, Ui ui) {
         super(command);
+        this.storage = storage;
+        this.ui = ui;
     }
 
     /**
-     * Executes the command to add the specified todo task to the task list.
-     *
-     * @param task the task to be added
-     * @param storage the storage object containing the task list
-     * @param ui the UI object to interact with the user
+     TodoCommand todoCommand = new TodoCommand(this.command);
+     String name = todoCommand.getTask();
+     Task task = Task.toDoTask(name);
+     return todoCommand.execute(task, this.storage, this.ui);
      */
-    public String execute(Task task, Storage storage, Ui ui) {
+    public String execute() {
+        String name = this.getTask();
+        Task task = Task.toDoTask(name);
         TaskList taskList = storage.getTaskList();
         taskList.add(task);
         return ui.addTask(task);
