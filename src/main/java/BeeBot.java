@@ -32,6 +32,7 @@ public class BeeBot {
      * @param filePath the path to the file used for loading and saving tasks
      */
     public BeeBot(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         FILEPATH = filePath;
         storage = new Storage();
         try {
@@ -64,17 +65,20 @@ public class BeeBot {
                         return listStr;
                     }
                 case "mark":
+
                     int markTaskNum = Integer.parseInt(parts[1]);
+                    assert markTaskNum > 0 && taskNum <= taskList.size() : "Task number is out of range";
                     Task doneTask = Parser.getTask(taskList, markTaskNum);
                     doneTask.markAsDone();
                     storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "🐝-utiful! Worker bee marked this task as done:\n" + doneTask;
+                    return "🐝-utiful! Honeyboo marked this task as done:\n" + doneTask;
                 case "unmark":
                     int unmarkTaskNum = Integer.parseInt(parts[1]);
+                    assert unmarkTaskNum > 0 && taskNum <= taskList.size() : "Task number is out of range";
                     Task undoneTask = Parser.getTask(taskList, unmarkTaskNum);
                     undoneTask.markAsUndone();
                     storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "🐝-utiful! Worker bee marked this task as not done yet:\n" + undoneTask;
+                    return "🐝-utiful! Honeyboo marked this task as not done yet:\n" + undoneTask;
                 case "todo":
                     if (parts.length == 1) {
                         throw new EmptyDescriptionException("Enter a description for the Todo Task.\n");
@@ -82,7 +86,7 @@ public class BeeBot {
                     String todoName = Parser.concatenate(parts, 1);
                     TaskList.createToDo(todoName, taskList);
                     storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "bzzzz... Worker bee added " + todoName + " to the list!";
+                    return "Growl... Honeyboo added " + todoName + " to the list!";
                 case "deadline":
                     if (parts.length == 1) {
                         throw new EmptyDescriptionException("Enter a description for the Deadline Task.\n");
@@ -101,12 +105,10 @@ public class BeeBot {
                     String endTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/to", ""));
                     TaskList.createEvent(eventName, startTime, endTime, taskList);
                     storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "buzzbuzzbuzz... Worker bee added " + eventName + " to the list!";
+                    return "Grrrr... Honeyboo added " + eventName + " to the list!";
                 case "delete":
                     int deletionNumber = Integer.parseInt(parts[1]) - 1;
-                    if (deletionNumber >= taskList.size()) {
-                        throw new TaskNotFoundException("Task does not exist.\n");
-                    }
+                    assert deletionNumber >= 0 && deletionNumber < taskList.size() : "Task number is out of range";
                     TaskList.deleteEvent(deletionNumber, taskList);
                     storage.saveTaskListToFile(FILEPATH, taskList);
                     return "Yum yum in my tum tum! Task eaten!";
