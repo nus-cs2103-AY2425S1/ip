@@ -1,6 +1,3 @@
-[X] Invalid task, please contact administrator
-[D][ ] lecture (by: tmr)
-[E][ ] eventA (from: tmr to: 2359)
-[ ] Invalid task, please contact administrator
-[T][ ] homeworkkk
-[ ] Invalid task, please contact administrator
+[T][ ] homework
+[T][ ] homework 2
+[D][ ] THIS LEVEL 10 (by: TODAY)

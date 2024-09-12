@@ -27,34 +27,18 @@ public class Pebble {
         try {
             tasksList = new TasksList(storage.loadTasks());
         } catch (IOException e) {
-            ui.showError("Error loading tasks: " + e.getMessage());
+            ui.showError(e.getMessage());
             tasksList = new TasksList();
         }
     }
 
     /**
-     * Starts running program
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            Command command = Parser.parseCommand(input);
-            command.execute(tasksList, ui, storage);
-            if (command.getCommandType() == CommandType.BYE) {
-                break;
-            }
-        }
-    }
-
-    /**
-     * Entry point for program
-     *
-     * @param args (Unused as input is through file reading and keyboard)
-     */
-    public static void main(String[] args) {
-        // launch with data file
-        new Pebble("data/pebble.txt").run();
+    public String getResponse(String input) {
+        // Parse the command
+        Command command = Parser.parseCommand(input);
+        // Execute the command and get the response for GUI
+        return command.execute(tasksList, ui, storage);
     }
 }
