@@ -59,6 +59,7 @@ checkstyle {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 mainClassName = 'bob.Launcher'

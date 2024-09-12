@@ -5,7 +5,7 @@ package bob;
  * Concrete implementations of this class will define specific commands
  * and how they interact with the task list, user interface, and storage.
  */
-abstract class Command {
+public abstract class Command {
     /**
      * Executes the command using the provided task list, user interface, and storage.
      *

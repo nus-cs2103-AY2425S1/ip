@@ -18,6 +18,7 @@ public class Parser {
      * @throws UnknownCommandException if the input command is not recognized.
      */
     public static Command parse(String command) {
+        assert command != null: "parse command should not be null";
         String[] words = command.split(" ");
         String firstWord = words[0];
 
@@ -34,6 +35,7 @@ public class Parser {
             return new ListCommand();
         case ("mark"): {
             String[] arguments = Parser.splitInput(words, MarkCommand.params, MarkCommand.paramCount);
+            assert arguments.length == MarkCommand.paramCount: "arguments should have correct number of elements";
             int idx;
             try {
                 idx = Integer.parseInt(arguments[0]);
@@ -44,6 +46,7 @@ public class Parser {
         }
         case ("unmark"): {
             String[] arguments = Parser.splitInput(words, UnmarkCommand.params, UnmarkCommand.paramCount);
+            assert arguments.length == UnmarkCommand.paramCount: "arguments should have correct number of elements";
             int idx;
             try {
                 idx = Integer.parseInt(arguments[0]);
@@ -54,26 +57,32 @@ public class Parser {
         }
         case ("find"): {
             String[] arguments = Parser.splitInput(words, FindCommand.params, FindCommand.paramCount);
+            assert arguments.length == FindCommand.paramCount: "arguments should have correct number of elements";
             return new FindCommand(arguments[0]);
         }
         case ("findDate"): {
             String[] arguments = Parser.splitInput(words, FindDateCommand.params, FindDateCommand.paramCount);
+            assert arguments.length == FindDateCommand.paramCount: "arguments should have correct number of elements";
             return new FindDateCommand(arguments[0]);
         }
         case ("todo"): {
             String[] arguments = Parser.splitInput(words, TodoCommand.params, TodoCommand.paramCount);
+            assert arguments.length == TodoCommand.paramCount: "arguments should have correct number of elements";
             return new TodoCommand(arguments[0]);
         }
         case ("deadline"): {
             String[] arguments = Parser.splitInput(words, DeadlineCommand.params, DeadlineCommand.paramCount);
+            assert arguments.length == DeadlineCommand.paramCount: "arguments should have correct number of elements";
             return new DeadlineCommand(arguments[0], arguments[1]);
         }
         case ("event"): {
             String[] arguments = Parser.splitInput(words, EventCommand.params, EventCommand.paramCount);
+            assert arguments.length == EventCommand.paramCount: "arguments should have correct number of elements";
             return new EventCommand(arguments[0], arguments[1], arguments[2]);
         }
         case ("delete"):
             String[] arguments = Parser.splitInput(words, DeleteCommand.params, DeleteCommand.paramCount);
+            assert arguments.length == DeleteCommand.paramCount: "arguments should have correct number of elements";
             int idx;
             try {
                 idx = Integer.parseInt(arguments[0]);
@@ -98,6 +107,8 @@ public class Parser {
      * @throws ExtraParamException if extra parameters for the command are provided.
      */
     public static String[] splitInput(String[] input, String[] splits, int splitCount) {
+        assert (input != null) && (splits != null): "String inputs should not be null";
+        assert splitCount <= splits.length: "splitCount should not be more than splits.length";
         String[] result = new String[splits.length];
         int[] indexes = new int[splits.length + 1];
         indexes[splits.length] = input.length;
@@ -105,6 +116,7 @@ public class Parser {
         // find index of each split/parameter in the input array
         for (int i = 0; i < splits.length; i++) {
             int index = Parser.findIndex(input, splits[i], 0);
+            assert index < input.length: "argument index should be < input.length";
             indexes[i] = index;
             result[i] = "";
         }
@@ -135,6 +147,8 @@ public class Parser {
     }
 
     private static int findIndex(String[] input, String target, int startIndex) {
+        assert startIndex >= 0: "startIndex should be non-negative";
+        assert input.length > startIndex: "startIndex should be a valid index within input";
         for (int i = startIndex; i < input.length; i++) {
             if (input[i].equals(target)) {
                 return i;
