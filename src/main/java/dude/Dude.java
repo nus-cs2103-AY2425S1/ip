@@ -322,6 +322,7 @@ public class Dude {
 
         CommandType result = parser.defineShortcut(splitDes[0], splitDes[1]);
 
+        assert isRunning;
         return ui.showDefine(splitDes[0], result);
     }
 
@@ -339,6 +340,7 @@ public class Dude {
 
         parser.deleteShortcut(taskDes);
 
+        assert isRunning;
         return ui.showUndefine(taskDes);
     }
 
