@@ -64,6 +64,7 @@ public class DeadlinesTask extends Task {
         if (deadline == null) {
             return "No deadline set";
         }
+
         LocalTime timeChecker = LocalDateTime.of(0, 1, 1, 0, 0).toLocalTime();
         if (time.toLocalTime() == timeChecker) {
             // means dont have time specified

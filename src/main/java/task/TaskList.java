@@ -43,6 +43,8 @@ public class TaskList {
     public static void addTask(Task task){
         // add task to the List
         // return a string
+        assert task != null : "Task should not be null";
+
         list.add(task);
         //return "added: " + task.getDescription();
     }

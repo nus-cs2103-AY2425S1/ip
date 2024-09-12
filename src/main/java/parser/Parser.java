@@ -41,11 +41,15 @@ public class Parser {
     public static String parseConversation(String command) throws UnknownWordException, IncompleteDescException {
         /*if(command.equals("bye")) { //string cannot do ==
             return "Bye! Hope to see you again soon!";*/
+
+        assert command != null : "Command should not be null";
+
         if (command.equals("list")) {
             return Ui.listDisplay(TaskList.getList());
         } else if (command.trim().startsWith("find")) {
 
             String[] searchEngine = command.split(" ", 2);
+            assert searchEngine.length == 2 : "Object to search must be specified after the 'find' command";
 
             if (searchEngine.length < 2) {
                 return "Please specify a keyword to search after 'find'.";
@@ -77,6 +81,9 @@ public class Parser {
 
             String[] stringList = command.split(" ");
             int taskNum = Integer.parseInt(stringList[1]); //second word is the number
+            assert taskNum > 0 && taskNum < TaskList.getList().size() : "Task number should be within the correct " +
+                    "range.";
+
             Task t = TaskList.getList().get(taskNum - 1);
 
             if (taskNum < 1 || taskNum > TaskList.getList().size()) {
@@ -125,6 +132,8 @@ public class Parser {
                 try {
                     // split again after by
                     String[] splitAgain = stringTask.split(" /by ", 2);
+                    assert splitAgain.length == 2 : "Deadline task should be properly formatted with '/by'";
+
                     String taskDes = splitAgain[0];
                     String deadline = splitAgain[1];
 
@@ -143,6 +152,7 @@ public class Parser {
                 String second = firstSplit[1];
 
                 String[] secondSplit = second.split(" /to ", 2);
+                assert secondSplit.length == 2 : "Event task should be properly formatted with '/from' and '/to'";
                 String from = secondSplit[0];
                 String to = secondSplit[1];
 
@@ -161,6 +171,8 @@ public class Parser {
      * @return true if command length is only 1
      */
     public static boolean checkCommandLength(String cmd) {
+        assert cmd != null : "Command should not be null.";
+
         String[] split = cmd.trim().split(" ", 2);
         return split.length == 1;
     }
@@ -173,6 +185,7 @@ public class Parser {
      * @return true if command length is only 1
      */
     public static boolean checkUnknownCommand(String cmd) {
+        assert cmd != null : "Command should not be null.";
         return (cmd.startsWith("todo") || cmd.startsWith("deadline") || cmd.startsWith("event"));
     }
 

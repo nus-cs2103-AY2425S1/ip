@@ -49,6 +49,7 @@ public class Ui {
      */
 
     public static String taskAddDescription(Task task) {
+        assert task != null : "Task cannot be null";
         return "Got it. I've added this task:\n" + "  " + task.printTask() + "\n" +
                 "Now you have " + TaskList.getList().size() + " tasks in the list" + "\n" +
                 "How else would you like me to edit your TODO list today?";
@@ -62,6 +63,7 @@ public class Ui {
      */
 
     public static String taskDelDescription(int num, Task task){
+        assert task != null : "Task cannot be null";
         return "Noted. I've removed this task:\n" + "  " + task.printTask() + "\n" +
                 "Now you have " + TaskList.getList().size() + " tasks in the list" + "\n" +
                 "How else would you like me to edit your TODO list today?";
