@@ -32,95 +32,68 @@ public class Blacknut {
         parser = new Parser();
     }
 
-    /**
-     * Runs the Blacknut application, handling user input and executing commands.
-     */
-    public void run() {
-        ui.showWelcome();
-
-        while (true) {
-            String input = ui.readInput();
-            ui.showLine();
-
-            try {
-                String command = parser.parseCommand(input);
-                switch (command) {
-                    case "bye":
-                        ui.showGoodbye();
-                        return;
-                    case "list":
-                        ui.showTasks(tasks.getTasks());
-                        break;
-                    case "mark":
-                    case "unmark":
-                        int markIndex = parser.parseIndex(input);
-                        assert markIndex >= 0 && markIndex < tasks.size() : "Mark index out of bounds";
-                        boolean markAsDone = command.equals("mark");
-                        tasks.markTask(markIndex, markAsDone);
-                        ui.showMarkedTask(tasks.getTask(markIndex), markAsDone);
-                        break;
-                    case "todo":
-                        String todoDescription = parser.parseDescription(input, "todo");
-                        assert !todoDescription.isEmpty() : "Todo description should not be empty";
-                        Task newTodo = new Todo(todoDescription);
-                        tasks.addTask(newTodo);
-                        ui.showAddedTask(newTodo, tasks.size());
-                        break;
-                    case "deadline":
-                        String[] deadlineParts = parser.parseDeadline(input);
-                        Task newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                        tasks.addTask(newDeadline);
-                        ui.showAddedTask(newDeadline, tasks.size());
-                        break;
-                    case "event":
-                        String[] eventParts = parser.parseEvent(input);
-                        Task newEvent = new Event(eventParts[0], eventParts[1], eventParts[2]);
-                        tasks.addTask(newEvent);
-                        ui.showAddedTask(newEvent, tasks.size());
-                        break;
-                    case "delete":
-                        int deleteIndex = parser.parseIndex(input);
-                        Task deletedTask = tasks.deleteTask(deleteIndex);
-                        ui.showDeletedTask(deletedTask, tasks.size());
-                        break;
-                    case "find":
-                        String keyword = parser.parseKeyword(input);
-                        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
-                        ui.showMatchingTasks(matchingTasks);
-                        break;
-                    default:
-                        throw new InvalidCommandException("I don't know what that means. Please enter a valid command.");
-                }
-            } catch (InvalidCommandException e) {
-                ui.showError(e.getMessage());
-            } catch (EmptyDescriptionException e) {
-                ui.showError(e.getMessage());
-            } catch (InvalidTaskNumberException e) {
-                ui.showError(e.getMessage());
-            } catch (IncorrectFormatException e) {
-                ui.showError(e.getMessage());
-            }
-
-            ui.showLine();
-            storage.saveTasksToFile(tasks.getTasks());
-        }
-    }
-
-    /**
-     * The main method to run the Blacknut application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        assert new File(FILE_PATH).exists() || new File(FILE_PATH).getParentFile().exists() : "File path must be valid";
-        new Blacknut().run();
+    public Ui getUi() {
+        return ui;
     }
 
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Blacknut heard: " + input;
+        StringBuilder response = new StringBuilder();
+
+        try {
+            String command = parser.parseCommand(input);
+            switch (command) {
+            case "bye":
+                return ui.getGoodbyeMessage();
+            case "list":
+                return ui.getTasks(tasks.getTasks());
+            case "mark":
+            case "unmark":
+                int markIndex = parser.parseIndex(input);
+                assert markIndex >= 0 && markIndex < tasks.size() : "Mark index out of bounds";
+                boolean markAsDone = command.equals("mark");
+                tasks.markTask(markIndex, markAsDone);
+                return ui.getMarkedTask(tasks.getTask(markIndex), markAsDone);
+            case "todo":
+                String todoDescription = parser.parseDescription(input, "todo");
+                assert !todoDescription.isEmpty() : "Todo description should not be empty";
+                Task newTodo = new Todo(todoDescription);
+                tasks.addTask(newTodo);
+                return ui.getAddedTask(newTodo, tasks.size());
+            case "deadline":
+                String[] deadlineParts = parser.parseDeadline(input);
+                Task newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                tasks.addTask(newDeadline);
+                return ui.getAddedTask(newDeadline, tasks.size());
+            case "event":
+                String[] eventParts = parser.parseEvent(input);
+                Task newEvent = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                tasks.addTask(newEvent);
+                return ui.getAddedTask(newEvent, tasks.size());
+            case "delete":
+                int deleteIndex = parser.parseIndex(input);
+                Task deletedTask = tasks.deleteTask(deleteIndex);
+                return ui.getDeletedTask(deletedTask, tasks.size());
+            case "find":
+                String keyword = parser.parseKeyword(input);
+                ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+                return ui.getMatchingTasks(matchingTasks);
+            default:
+                throw new InvalidCommandException("I don't know what that means. Please enter a valid command.");
+            }
+        } catch (InvalidCommandException e) {
+            return ui.getError(e.getMessage());
+        } catch (EmptyDescriptionException e) {
+            return ui.getError(e.getMessage());
+        } catch (InvalidTaskNumberException e) {
+            return ui.getError(e.getMessage());
+        } catch (IncorrectFormatException e) {
+            return ui.getError(e.getMessage());
+        } finally {
+            storage.saveTasksToFile(tasks.getTasks());
+        }
     }
 }
 

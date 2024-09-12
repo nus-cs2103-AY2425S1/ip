@@ -22,62 +22,62 @@ class Ui {
         System.out.println("____________________________________________________________");
     }
 
-    public String readInput() {
-        return new java.util.Scanner(System.in).nextLine().trim();
+    public String getWelcomeMessage() {
+        return "Hello from\n" + LOGO
+                + "\n____________________________________________________________\n"
+                + " Hello! I'm Blacknut\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________\n";
     }
 
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String getGoodbyeMessage() {
+        return " Bye. Hope to see you again soon!";
     }
 
-    public void showGoodbye() {
-        System.out.println(" Bye. Hope to see you again soon!");
-    }
-
-    public void showTasks(ArrayList<Task> tasks) {
+    public String getTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(" The list is empty.");
-        } else {
-            System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + tasks.get(i));
-            }
+            return " The list is empty.";
         }
+        StringBuilder sb = new StringBuilder(" Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 
-    public void showMarkedTask(Task task, boolean markAsDone) {
+    public String getMarkedTask(Task task, boolean markAsDone) {
         if (markAsDone) {
-            System.out.println(" Nice! I've marked this task as done:");
+            return " Nice! I've marked this task as done:\n   " + task;
         } else {
-            System.out.println(" OK, I've marked this task as not done yet:");
+            return " OK, I've marked this task as not done yet:\n   " + task;
         }
-        System.out.println("   " + task);
     }
 
-    public void showAddedTask(Task task, int totalTasks) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + totalTasks + " tasks in the list.");
+    public String getAddedTask(Task task, int totalTasks) {
+        return " Got it. I've added this task:\n   " + task + "\n Now you have " + totalTasks + " tasks in the list.";
     }
 
-    public void showDeletedTask(Task task, int totalTasks) {
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + totalTasks + " tasks in the list.");
+    public String getDeletedTask(Task task, int totalTasks) {
+        return " Noted. I've removed this task:\n   " + task + "\n Now you have " + totalTasks + " tasks in the list.";
     }
 
-    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+    public String getMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println(" No tasks match your search.");
-        } else {
-            System.out.println(" Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
-            }
+            return " No tasks match your search.";
         }
+        StringBuilder sb = new StringBuilder(" Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append(" ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 
-    public void showError(String message) {
-        System.out.println(" ☹ OOPS!!! " + message);
+    public String getError(String message) {
+        return " ☹ OOPS!!! " + message;
     }
+
+    public String getLine() {
+        return "____________________________________________________________";
+    }
+
 }
