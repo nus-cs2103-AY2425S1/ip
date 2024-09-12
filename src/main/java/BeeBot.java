@@ -67,14 +67,14 @@ public class BeeBot {
                 case "mark":
 
                     int markTaskNum = Integer.parseInt(parts[1]);
-                    assert markTaskNum > 0 && taskNum <= taskList.size() : "Task number is out of range";
+                    assert markTaskNum > 0 && markTaskNum <= taskList.size() : "Task number is out of range";
                     Task doneTask = Parser.getTask(taskList, markTaskNum);
                     doneTask.markAsDone();
                     storage.saveTaskListToFile(FILEPATH, taskList);
                     return "🐝-utiful! Honeyboo marked this task as done:\n" + doneTask;
                 case "unmark":
                     int unmarkTaskNum = Integer.parseInt(parts[1]);
-                    assert unmarkTaskNum > 0 && taskNum <= taskList.size() : "Task number is out of range";
+                    assert unmarkTaskNum > 0 && unmarkTaskNum <= taskList.size() : "Task number is out of range";
                     Task undoneTask = Parser.getTask(taskList, unmarkTaskNum);
                     undoneTask.markAsUndone();
                     storage.saveTaskListToFile(FILEPATH, taskList);
@@ -127,6 +127,15 @@ public class BeeBot {
                         searchStr += (num + "." + searchResults.get(i).toString());
                     }
                     return searchStr;
+                case "update":
+                    int updateTaskNum = Integer.parseInt(parts[1]) - 1;
+                    String updateTo = Parser.getUpdatedName(parts);
+                    TaskList.updateTask(updateTaskNum, updateTo, taskList);
+                    storage.saveTaskListToFile(FILEPATH, taskList);
+                    return "Task updated!";
+                case "bye":
+                    System.exit(0);
+                    return "Goodbye! The application will now close.";
                 default:
                     return """
                             Please enter a valid command for worker bee to follow:
@@ -137,7 +146,8 @@ public class BeeBot {
                             5. unmark [index]
                             6. list
                             7. find
-                            8. bye""";
+                            8. update [task number] /to [new name]
+                            9. bye""";
             }
         } catch (EmptyDescriptionException | MissingDeadlineException
                  | MissingEventTimeException | TaskNotFoundException e) {

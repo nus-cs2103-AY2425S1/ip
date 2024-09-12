@@ -69,4 +69,13 @@ public class Task {
     public String getName() {
         return this.name;
     }
+
+    /**
+     * Sets the name of the task.
+     *
+     * @param name the new name of the task
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 }

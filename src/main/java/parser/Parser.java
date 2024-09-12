@@ -148,4 +148,27 @@ public class Parser {
         words[0] = formattedDate;
         return String.join(" ", words);
     }
+
+    /**
+     * Retrieves the updated name from the command string following the "update [task number] /to" pattern.
+     *
+     * @param parts The array of strings containing the command parts.
+     * @return The updated name.
+     * @throws MissingDeadlineException If the "/to" delimiter is missing or no name follows.
+     */
+    public static String getUpdatedName(String[] parts) throws MissingDeadlineException {
+        int i = 0;
+        while (i < parts.length && !parts[i].equals("/to")) {
+            i++;
+        }
+        if (i == parts.length) {
+            throw new MissingDeadlineException("Missing `/to` or incorrect format.\n");
+        }
+        i++;
+        if (i == parts.length) {
+            throw new MissingDeadlineException("Please provide a new name after `/to`.\n");
+        }
+
+        return concatenate(parts, i);
+    }
 }

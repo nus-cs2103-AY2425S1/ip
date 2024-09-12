@@ -1,5 +1,5 @@
 Event | 0 | bye | 10 September 2024 1600 | 11 September 2024 1600
 Deadline | 0 | bye | 02 October 2024
-ToDo | 0 | run around
+ToDo | 0 | run
 Event | 1 | buy groceries | 11 September 2024 | 12 September 2024
 ToDo | 0 | walk my bee
