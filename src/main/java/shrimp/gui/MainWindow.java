@@ -28,8 +28,8 @@ public class MainWindow {
     }
 
     /** Injects the Shrimp instance */
-    public void setShrimp(Shrimp s) {
-        shrimp = s;
+    public void setShrimp(Shrimp shrimp) {
+        this.shrimp = shrimp;
         String error = shrimp.runChatBot();
         if (!error.isEmpty()) {
             showMessage(error);

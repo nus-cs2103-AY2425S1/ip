@@ -17,6 +17,7 @@ public class DeleteCommand implements Command {
      * @param index The index of the task to be deleted.
      */
     public DeleteCommand(int index) {
+        assert index >= 0 : "index should be more than 0";
         this.index = index;
     }
 
@@ -24,13 +25,13 @@ public class DeleteCommand implements Command {
      * Executes the delete command by removing the task from the task list
      * and printing the result to the user interface.
      *
-     * @param tasks The list of tasks from which the task will be deleted.
+     * @param taskList The list of tasks from which the task will be deleted.
      * @param ui    The user interface to print the result of the command.
      */
     @Override
-    public String run(TaskList tasks, Ui ui) {
-        Task task = tasks.getTask(index);
-        tasks.deleteTask(index);
-        return ui.printDelete(task, tasks);
+    public String run(TaskList taskList, Ui ui) {
+        Task task = taskList.getTask(index);
+        taskList.deleteTask(index);
+        return ui.printDelete(task, taskList);
     }
 }
