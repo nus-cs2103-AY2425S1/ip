@@ -7,16 +7,17 @@ import cheese.exception.CheeseException;
 import cheese.task.Task;
 
 /**
- * Command to mark a Task as done
+ * Command to mark a Task as done.
  */
 public class MarkCommand extends UpdateCommand {
     private final boolean setDone;
     private final int idx;
 
     /**
-     * Creates a MarkCommand, needs idx of task and boolean to indicate if done
-     * @param idx int
-     * @param setDone bool
+     * Creates a MarkCommand, needs idx of task and boolean to indicate if done.
+     *
+     * @param idx int.
+     * @param setDone bool.
      */
     public MarkCommand(int idx, boolean setDone) {
         super(idx, false);
@@ -25,11 +26,12 @@ public class MarkCommand extends UpdateCommand {
     }
 
     /**
-     * Sets tasks to setDone, save and returns Ui response
-     * @param tasks list of tasks
-     * @param ui format response
-     * @param storage store data
-     * @throws CheeseException if UpdateCommand fails
+     * Sets tasks to setDone, save and returns Ui response.
+     *
+     * @param tasks list of tasks.
+     * @param ui format response.
+     * @param storage store data.
+     * @throws CheeseException if UpdateCommand fails.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {

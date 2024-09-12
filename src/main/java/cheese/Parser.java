@@ -16,11 +16,10 @@ import cheese.exception.CheeseException;
 import cheese.exception.InputException;
 import cheese.task.Deadline;
 import cheese.task.Event;
-import cheese.task.Task;
 import cheese.task.ToDo;
 
 /**
- * Parses user input
+ * Parses user input.
  */
 public class Parser {
     //Formats for correct commands
@@ -30,13 +29,15 @@ public class Parser {
     private static final String EVENT_FORMAT = "event [name] /from [date] /to [date]";
     private static final String RESCHEDULE_FORMAT = "reschedule [index] [date]";
     private static final String SNOOZE_FORMAT = "snooze [index] [days to delay]";
+    private static final String INVALID_FORMAT = "Invalid format. Command does not exist";
 
     /**
-     * Parse user input
-     * @param input full user input
-     * @param size size of task list
-     * @return command to execute
-     * @throws CheeseException incorrect input
+     * Parse user input and return the appropriate command.
+     *
+     * @param input full user input.
+     * @param size size of task list.
+     * @return command to execute.
+     * @throws CheeseException incorrect input.
      */
     public static Command parse(String input, int size) throws CheeseException {
         String[] inputTokens = input.split(" ");
@@ -74,14 +75,15 @@ public class Parser {
         case "snooze":
             return createSnooze(inputTokens, size);
         default:
-            return new AddCommand(new Task(input));
+            throw new InputException(INVALID_FORMAT, "");
         }
     }
 
     /**
-     * Return Deadline parsed from user input
-     * @param input cleaned input
-     * @return Deadline from the input
+     * Returns Deadline parsed from user input.
+     *
+     * @param input cleaned input.
+     * @return Deadline from the input.
      * @throws CheeseException if user inputs are incorrect.
      */
     public static Deadline parseDeadline(String input) throws CheeseException {
@@ -96,10 +98,11 @@ public class Parser {
     }
 
     /**
-     * Returns Event parsed from user input
-     * @param input cleaned input
-     * @return Event from input
-     * @throws CheeseException if user inputs are incorrect
+     * Returns Event parsed from user input.
+     *
+     * @param input cleaned input.
+     * @return Event from input.
+     * @throws CheeseException if user inputs are incorrect.
      */
     public static Event parseEvent(String input) throws CheeseException {
         String[] words = input.strip().split("/from");
@@ -114,11 +117,12 @@ public class Parser {
     }
 
     /**
-     * Returns SnoozeCommand by parsing user input to a date to reschedule
-     * @param inputTokens User input split
-     * @param size size of TaskList
-     * @return SnoozeCommand
-     * @throws CheeseException if incorrect user inputs
+     * Returns SnoozeCommand by parsing user input to a date to reschedule.
+     *
+     * @param inputTokens User input split.
+     * @param size size of TaskList.
+     * @return SnoozeCommand.
+     * @throws CheeseException if incorrect user inputs.
      */
     public static SnoozeCommand createReschedule(String[] inputTokens, int size) throws CheeseException {
         if (inputTokens.length < 3) {
@@ -136,11 +140,12 @@ public class Parser {
     }
 
     /**
-     * Returns SnoozeCommand with days to delay
-     * @param inputTokens String[] of user inputs
-     * @param size of TaskList
-     * @return SnoozeCommand
-     * @throws InputException if user inputs are incorrect
+     * Returns SnoozeCommand with days to delay.
+     *
+     * @param inputTokens String[] of user inputs.
+     * @param size of TaskList.
+     * @return SnoozeCommand.
+     * @throws InputException if user inputs are incorrect.
      */
     public static SnoozeCommand createSnooze(String[] inputTokens, int size) throws InputException {
         int idx;
@@ -155,10 +160,11 @@ public class Parser {
     }
 
     /**
-     * Returns index of item in list requested from user input
-     * @param inputTokens input from user
-     * @return int
-     * @throws CheeseException Missing/Incorrect input
+     * Returns index of item in list requested from user input.
+     *
+     * @param inputTokens input from user, split by whitespace.
+     * @return index of item in list.
+     * @throws CheeseException Missing/Incorrect input.
      */
     public static int getIdx(String[] inputTokens, int size) throws CheeseException {
         if (inputTokens.length < 2) {
@@ -171,8 +177,16 @@ public class Parser {
         return idx;
     }
 
+    /**
+     * Returns int converted from String from user input.
+     *
+     * @param inputTokens input from user.
+     * @param target index of number to convert.
+     * @return int
+     * @throws CheeseException if target is wrong.
+     */
     private static int convertInt(String[] inputTokens, int target) throws CheeseException {
-        if (inputTokens.length < target) {
+        if (inputTokens.length < target + 1) {
             throw new CheeseException("Insufficient len to find index");
         }
         int idx;
@@ -185,10 +199,11 @@ public class Parser {
     }
 
     /**
-     * Returns LocalDate by parsing a dateStr in specific format
-     * @param dateStr specific format for date
-     * @return LocalDate
-     * @throws CheeseException if dateStr wrong
+     * Returns LocalDate by parsing a dateStr in specific format.
+     *
+     * @param dateStr specific format for date.
+     * @return LocalDate.
+     * @throws CheeseException if dateStr wrong.
      */
     public static LocalDate parseDate(String dateStr) throws CheeseException {
         LocalDate d;

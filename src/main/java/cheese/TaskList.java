@@ -36,9 +36,10 @@ public class TaskList {
     }
 
     /**
-     * Returns a TaskList of matched tasks
-     * @param query search query of user
-     * @return TaskList
+     * Returns a TaskList of matched tasks.
+     *
+     * @param query search query of user.
+     * @return TaskList.
      */
     public TaskList search(String query) {
         ArrayList<Task> matchedTasks = tasks.stream().filter(

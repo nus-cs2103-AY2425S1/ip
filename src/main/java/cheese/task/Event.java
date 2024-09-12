@@ -7,17 +7,18 @@ import cheese.Parser;
 import cheese.exception.CheeseException;
 
 /**
- * Task with 2 dates
+ * Task with 2 dates.
  */
 public class Event extends Deadline {
     private LocalDate endDate;
 
     /**
-     * Creates an event
-     * @param name name of Task
-     * @param startDate start date of Event
-     * @param endDate end date of Event
-     * @throws CheeseException if name is blank
+     * Creates an event.
+     *
+     * @param name name of Task.
+     * @param startDate start date of Event.
+     * @param endDate end date of Event.
+     * @throws CheeseException if name is blank.
      */
     public Event(String name, LocalDate startDate, LocalDate endDate) throws CheeseException {
         super(name, startDate);
@@ -25,10 +26,10 @@ public class Event extends Deadline {
     }
 
     /**
-     * Takes in csv data (from Storage) that is split
+     * Takes in csv data (from Storage) that is split.
      *
-     * @param data arr of String
-     * @throws CheeseException incorrect date
+     * @param data arr of String.
+     * @throws CheeseException incorrect date.
      */
     public Event(String[] data) throws CheeseException {
         super(data);
@@ -52,9 +53,9 @@ public class Event extends Deadline {
     }
 
     /**
-     * To display task in bot
+     * To display task in bot.
      *
-     * @return String
+     * @return String.
      */
     @Override
     public String toString() {
@@ -65,9 +66,9 @@ public class Event extends Deadline {
     }
 
     /**
-     * To display task as csv to be saved be Storage
+     * To display task as csv to be saved be Storage.
      *
-     * @return String
+     * @return String.
      */
     @Override
     public String dataString() {

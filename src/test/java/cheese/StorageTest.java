@@ -1,22 +1,35 @@
 package cheese;
 
-import cheese.exception.CheeseException;
-import cheese.task.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.*;
-import java.util.ArrayList;
+import cheese.exception.CheeseException;
+import cheese.task.Deadline;
+import cheese.task.Event;
+import cheese.task.Task;
+import cheese.task.ToDo;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Class to test Storage class in cheese package
+ */
 public class StorageTest {
     @TempDir
     File tempDir;
 
-    Deadline deadline = new Deadline("D,1,abc,2025-04-03".split(","));
-    Event event = new Event("E,0,abc ,2024-03-04,2025-04-03".split(","));
-    ToDo toDo = new ToDo("Read a book");
+    private Deadline deadline = new Deadline("D,1,abc,2025-04-03".split(","));
+    private Event event = new Event("E,0,abc ,2024-03-04,2025-04-03".split(","));
+    private ToDo toDo = new ToDo("Read a book");
 
     public StorageTest() throws CheeseException {
     }

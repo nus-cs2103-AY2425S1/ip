@@ -5,7 +5,7 @@ import cheese.TaskList;
 import cheese.Ui;
 
 /**
- * Command to call to exit program
+ * Command to call to exit program.
  */
 public class ExitCommand extends Command {
     public ExitCommand() {
@@ -13,8 +13,9 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Changes isExit() to true to end program
-     * @return true
+     * Changes isExit() to true to end program.
+     *
+     * @return true.
      */
     @Override
     public boolean isExit() {
@@ -22,10 +23,11 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Simple bye
-     * @param tasks list of tasks
-     * @param ui format response
-     * @param storage store data
+     * Says bye.
+     *
+     * @param tasks list of tasks.
+     * @param ui to format response.
+     * @param storage to store data.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

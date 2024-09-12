@@ -14,9 +14,10 @@ public class UpdateCommand extends Command {
     private final int idx;
 
     /**
-     * Creates an UpdateCommand. Require idx of task and whether delete or update
-     * @param idx int
-     * @param isDelete bool
+     * Creates an UpdateCommand. Require idx of task and whether delete or update.
+     *
+     * @param idx index of Task in TaskList.
+     * @param isDelete bool.
      */
     public UpdateCommand(int idx, boolean isDelete) {
         super();
@@ -25,11 +26,12 @@ public class UpdateCommand extends Command {
     }
 
     /**
-     * Deletes/updates a Task from Storage and TaskList, returns response from Ui
-     * @param tasks list of tasks
-     * @param ui format response
-     * @param storage store data
-     * @throws CheeseException if storage fails
+     * Deletes/updates a Task from Storage and TaskList, returns response from Ui.
+     *
+     * @param tasks list of tasks.
+     * @param ui format response.
+     * @param storage store data.
+     * @throws CheeseException if storage fails.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
@@ -38,6 +40,6 @@ public class UpdateCommand extends Command {
         if (isDelete) {
             t = tasks.remove(idx);
         }
-        return ui.say(t, tasks);
+        return ui.say(t, tasks, isDelete);
     }
 }
