@@ -101,6 +101,8 @@ public class Event extends Task {
      * @throws IllegalArgumentException if the date string cannot be parsed.
      */
     public LocalDateTime parseDateTime(String dateStr) {
+        assert dateStr != null : "date string should not be empty";
+
         // First, try parsing as LocalDateTime with a time component
         for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
             try {

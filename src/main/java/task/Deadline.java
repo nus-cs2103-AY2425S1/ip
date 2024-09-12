@@ -68,6 +68,8 @@ public class Deadline extends Task {
      * @throws IllegalArgumentException if the date string cannot be parsed.
      */
     public LocalDate parseDate(String dateStr) {
+        assert dateStr != null : "date string should not be empty";
+
         for (DateTimeFormatter formatter : FORMATTERS) {
             try {
                 LocalDate date = LocalDate.parse(dateStr, formatter);
