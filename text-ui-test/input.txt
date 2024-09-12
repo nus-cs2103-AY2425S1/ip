@@ -1,0 +1,25 @@
+list
+list abc
+todo
+todo terminate aliens
+event
+event abc /from one/two/three
+event abc/from 1/1/2000 0000 /to 2/1/2000 0000
+event abc /from 1/1/2000 0000 /to 2/1/2000 0000
+deadline
+deadline/by 1/1/2000 0000
+deadline /by one/two/three 0000
+deadline /by 1/1/2000 0000
+list
+mark 0
+mark 1
+mark abc
+unmark 0
+unmark 1
+unmark abc
+testUnknownCommand
+
+delete 0
+delete 1
+delete abc
+bye
