@@ -1,5 +1,6 @@
 package cook;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import tasks.Task;
@@ -7,7 +8,9 @@ import tasks.Task;
 /**
  * TaskList class to store tasks.
  */
-public class TaskList {
+// Solution below adapted from https://stackoverflow.com
+// /questions/13895867/why-does-writeobject-throw-java-io-notserializableexception-and-how-do-i-fix-it
+public class TaskList implements Serializable {
     protected ArrayList<Task> tasks;
 
     /**

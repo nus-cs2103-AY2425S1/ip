@@ -1,6 +1,7 @@
 package cook;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import commands.Command;
@@ -15,13 +16,18 @@ public class Cook {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+    //private String[] validCommands = {"bye", "list", "mark", "unmark", "delete", "find", "todo", "deadline", "event"};
 
     /**
      * Constructor for Cook class.
      */
     public Cook(File file) {
         this.storage = new Storage(file);
-        this.tasks = new TaskList();
+        try {
+            this.tasks = this.storage.readFile();
+        } catch (IOException | ClassNotFoundException e) {
+            this.tasks = new TaskList();
+        }
         this.ui = new Ui();
 
         HashMap<String, Integer> validCommandArgs = new HashMap<>();

@@ -52,8 +52,7 @@ public class EventCommand extends Command {
         tasks.addTask(new Event(this.description, this.from, this.to));
         content.append("Event task has been added.\n");
         try {
-            storage.createFile();
-            storage.writeFile(tasks.toString());
+            storage.writeFile(tasks);
             content.append("File saved.");
             return content.toString();
         } catch (IOException e) {

@@ -31,8 +31,7 @@ public class ToDoCommand extends Command {
         tasks.addTask(new ToDo(this.description));
         content.append("ToDo task has been added.\n");
         try {
-            storage.createFile();
-            storage.writeFile(tasks.toString());
+            storage.writeFile(tasks);
             content.append("File saved.");
             return content.toString();
         } catch (IOException e) {

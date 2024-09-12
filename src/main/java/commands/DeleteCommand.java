@@ -38,8 +38,7 @@ public class DeleteCommand extends Command {
             return "The task is not in the list.\n";
         }
         try {
-            storage.createFile();
-            storage.writeFile(tasks.toString());
+            storage.writeFile(tasks);
             content.append("File saved.");
             return content.toString();
         } catch (IOException e) {

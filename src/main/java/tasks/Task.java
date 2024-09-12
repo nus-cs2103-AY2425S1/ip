@@ -1,9 +1,13 @@
 package tasks;
 
+import java.io.Serializable;
+
 /**
  * Abstract Task class to common attributes and methods between concrete tasks.
  */
-public abstract class Task {
+// Solution below adapted from https://stackoverflow.com
+// /questions/13895867/why-does-writeobject-throw-java-io-notserializableexception-and-how-do-i-fix-it
+public abstract class Task implements Serializable {
     protected String description;
     protected boolean isMarked;
 

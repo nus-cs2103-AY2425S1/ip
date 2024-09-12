@@ -1,8 +1,6 @@
 package cook;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Storage class to store file locally.
@@ -19,14 +17,16 @@ public class Storage {
     }
 
     /**
-     * Creates file locally if it does not exist.
+     * Reads from the local file.
      *
-     * @return Success of file creation.
-     * @throws IOException If file existence cannot be checked.
+     * @throws IOException If file cannot be read from.
      */
-    public boolean createFile() throws IOException {
-        this.file.getParentFile().mkdir();
-        return this.file.createNewFile();
+    public TaskList readFile() throws IOException, ClassNotFoundException {
+        // Solution below adapted from https://stackoverflow.com/questions/10404698/saving-arrays-to-the-hard-disk
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(this.file));
+        TaskList tasks = (TaskList) in.readObject();
+        in.close();
+        return tasks;
     }
 
     /**
@@ -34,9 +34,10 @@ public class Storage {
      *
      * @throws IOException If file cannot be written to.
      */
-    public void writeFile(String content) throws IOException {
-        FileWriter writer = new FileWriter(file);
-        writer.write(content);
-        writer.close();
+    public void writeFile(TaskList tasks) throws IOException {
+        // Solution below adapted from https://stackoverflow.com/questions/10404698/saving-arrays-to-the-hard-disk
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(this.file));
+        out.writeObject(tasks);
+        out.close();
     }
 }

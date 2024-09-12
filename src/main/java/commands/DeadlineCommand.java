@@ -42,8 +42,7 @@ public class DeadlineCommand extends Command {
         tasks.addTask(new Deadline(this.description, this.by));
         content.append("Deadline task has been added.\n");
         try {
-            storage.createFile();
-            storage.writeFile(tasks.toString());
+            storage.writeFile(tasks);
             content.append("File saved.");
             return content.toString();
         } catch (IOException e) {
