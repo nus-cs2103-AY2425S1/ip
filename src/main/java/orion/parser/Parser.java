@@ -30,6 +30,21 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Validates that the command starts with one of the valid commands and has the
+     * correct format.
+     *
+     * @param parts         The command parts.
+     * @param validCommands The list of valid commands (e.g., "mark", "unmark",
+     *                      "delete").
+     * @throws InvalidMarkException if the command format is invalid.
+     */
+    private void validateCommandParts(String[] parts, String... validCommands) throws InvalidMarkException {
+        if (parts == null || parts.length < 2 || !Arrays.asList(validCommands).contains(parts[0])) {
+            throw new InvalidMarkException("Invalid command: " + (parts == null ? "null" : String.join(" ", parts)));
+        }
+    }
+
     public boolean isInteger(String str) {
         if (str == null) {
             return false;
@@ -42,8 +57,36 @@ public class Parser {
         return true;
     }
 
+    private int extractTaskIndex(String[] parts) throws InvalidMarkException {
+        // Join the parts starting from the second element onwards (i.e., excluding the
+        // command)
+        String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+
+        // Split the joined string into individual parts, expecting a single index
+        String[] splitParts = joinedString.split(" ");
+
+        // Validate that there is exactly one part and it's a valid integer
+        if (splitParts.length != 1 || !isInteger(splitParts[0])) {
+            throw new InvalidMarkException("Invalid index: " + joinedString);
+        }
+
+        // Parse and return the index as an integer
+        return Integer.parseInt(splitParts[0]);
+    }
+
+    private void validateTaskIndex(int index) throws InvalidIndexException, FileInitializationException {
+        TaskList manager = new TaskList(new Storage());
+
+        if (!manager.isValidIndex(index)) {
+            throw new InvalidIndexException(index, manager.getSize());
+        }
+    }
+
     public int validateMarkAndUnMarkCommand(String... parts)
             throws InvalidMarkException, InvalidIndexException, FileInitializationException {
+
+        this.validateCommandParts(parts, "mark", "unmark");
+
         if (parts == null || parts.length < 2 || !(parts[0].equals("mark") || parts[0].equals("unmark"))) {
             throw new InvalidMarkException(parts == null ? "null" : String.join(" ", parts));
         }
@@ -53,13 +96,7 @@ public class Parser {
         if (split_parts.length != 1 || !isInteger(split_parts[0])) {
             throw new InvalidMarkException(joinedString);
         }
-        int index = Integer.parseInt(split_parts[0]);
-
-        TaskList manager = new TaskList(new Storage());
-        if (!manager.isValidIndex(index)) {
-            throw new InvalidIndexException(index, manager.getSize());
-        }
-
+        int index = extractTaskIndex(parts);
         return index;
     }
 
@@ -168,20 +205,14 @@ public class Parser {
 
     public int validateMarkAndUnMarkCommand(TaskList manager, String... parts)
             throws InvalidMarkException, InvalidIndexException, FileInitializationException {
-        if (parts == null || parts.length < 2 || !(parts[0].equals("mark") || parts[0].equals("unmark"))) {
-            throw new InvalidMarkException(parts == null ? "null" : String.join(" ", parts));
-        }
-        String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+        // Validate that the command is either "mark" or "unmark"
+        validateCommandParts(parts, "mark", "unmark");
 
-        String[] split_parts = joinedString.split(" ");
-        if (split_parts.length != 1 || !isInteger(split_parts[0])) {
-            throw new InvalidMarkException(joinedString);
-        }
-        int index = Integer.parseInt(split_parts[0]);
+        // Extract the task index from the command
+        int index = extractTaskIndex(parts);
 
-        if (!manager.isValidIndex(index)) {
-            throw new InvalidIndexException(index, manager.getSize());
-        }
+        // Validate the task index using the task manager
+        validateTaskIndex(index);
 
         return index;
     }
