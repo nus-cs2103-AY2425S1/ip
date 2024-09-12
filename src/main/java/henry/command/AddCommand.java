@@ -33,59 +33,116 @@ public class AddCommand extends Command {
         int numOfTasks = taskList.getTasks().size();
 
         String[] words = this.input.split(" ");
-        String task = words[0].toLowerCase();
+        String taskCommand = words[0].toLowerCase();
 
         String activityAndTime = this.input.replaceFirst(words[0] + " ", "");
         String[] activityAndTimeList = activityAndTime.split(" /");
         String activity = activityAndTimeList[0];
 
-        if (task.equals("todo")) {
-            //check if todo description is valid
-            if (words.length == 1) {
-                throw new HenryException("The todo description is wrong!! "
-                        + "Ensure that you have included the activity. "
-                        + "Example: todo read book");
-            }
-            taskList.getTasks().add(new Todo(activity));
-        } else if (task.equals("deadline")) {
-            //check if deadline description is valid
-            if (activityAndTimeList.length != 2) {
-                throw new HenryException("The deadline description is wrong!! "
-                        + "Ensure that you have included the activity, "
-                        + "followed by the deadline. "
-                        + "Example: deadline return book /by 2019-12-01 1900");
-            }
-            String dateTime = activityAndTimeList[1]
-                    .replaceFirst("by ", "");
-            String convertedDateTime = convertDateTime(dateTime);
-            taskList.getTasks().add(new Deadline(activity, convertedDateTime));
-        } else if (task.equals("event")) {
-            //check if event description is valid
-            if (activityAndTimeList.length != 3) {
-                throw new HenryException("The event description is wrong!! "
-                        + "Ensure that you have included the activity, "
-                        + "followed by the start time and end time. "
-                        + "Example: event project meeting /from Mon 2pm /to 4pm");
-            }
-            String startTime = activityAndTimeList[1]
-                    .replaceFirst("from ", "");
-            String endTime = activityAndTimeList[2]
-                    .replaceFirst("to ", "");
-            taskList.getTasks().add(new Event(activity, startTime, endTime));
-        } else {
-            //check for invalid input
-            throw new HenryException("This is not a task!! "
-                    + "To write a task, start with "
-                    + "\"" + "todo" + "\","
-                    + " \"" + "deadline" + "\" or"
-                    + " \"" + "event" + "\"");
+        switch (taskCommand) {
+        case "todo" -> addToDo(taskList, words, activity);
+
+        case "deadline" -> addDeadline(taskList, activityAndTimeList, activity);
+
+        case "event" -> addEvent(taskList, activityAndTimeList, activity);
+
+        default -> addInvalidTask();
         }
+        return getTaskAddedConfirmation(taskList, numOfTasks);
+    }
+
+    /**
+     * Returns a summary of the task added
+     *
+     * @param taskList instance of a TaskList class that contains
+     *                 an array of tasks
+     * @param numOfTasks number of tasks in taskList
+     * @return a summary of the task added
+     */
+    private static String getTaskAddedConfirmation(TaskList taskList, int numOfTasks) {
         return "\nGot it. I've added this task:\n"
                 + taskList.getTasks().get(numOfTasks).toString()
                 + "\nNow you have "
                 + (numOfTasks + 1)
                 + (numOfTasks + 1 <= 1 ? " task" : " tasks")
                 + " in the list.\n";
+    }
+
+    /**
+     * Informs user that input added is not a task
+     */
+    private static void addInvalidTask() throws HenryException {
+        //check for invalid input
+        throw new HenryException("This is not a task!! "
+                + "To write a task, start with "
+                + "\"" + "todo" + "\","
+                + " \"" + "deadline" + "\" or"
+                + " \"" + "event" + "\"");
+    }
+
+    /**
+     * Adds Event object into taskList
+     *
+     * @param taskList instance of a TaskList class that contains
+     *                 an array of tasks
+     * @param activityAndTimeList a list containing the activity and time of activity
+     * @param activity name of the activity
+     */
+    private static void addEvent(TaskList taskList, String[] activityAndTimeList,
+                                 String activity) throws HenryException {
+        //check if event description is valid
+        if (activityAndTimeList.length != 3) {
+            throw new HenryException("The event description is wrong!! "
+                    + "Ensure that you have included the activity, "
+                    + "followed by the start time and end time. "
+                    + "Example: event project meeting /from Mon 2pm /to 4pm");
+        }
+        String startTime = activityAndTimeList[1]
+                .replaceFirst("from ", "");
+        String endTime = activityAndTimeList[2]
+                .replaceFirst("to ", "");
+        taskList.getTasks().add(new Event(activity, startTime, endTime));
+    }
+
+    /**
+     * Adds Deadline object into taskList
+     *
+     * @param taskList instance of a TaskList class that contains
+     *                 an array of tasks
+     * @param activityAndTimeList a list containing the activity and time of activity
+     * @param activity name of the activity
+     */
+    private static void addDeadline(TaskList taskList, String[] activityAndTimeList,
+                                    String activity) throws HenryException {
+        //check if deadline description is valid
+        if (activityAndTimeList.length != 2) {
+            throw new HenryException("The deadline description is wrong!! "
+                    + "Ensure that you have included the activity, "
+                    + "followed by the deadline. "
+                    + "Example: deadline return book /by 2019-12-01 1900");
+        }
+        String dateTime = activityAndTimeList[1]
+                .replaceFirst("by ", "");
+        String convertedDateTime = convertDateTime(dateTime);
+        taskList.getTasks().add(new Deadline(activity, convertedDateTime));
+    }
+
+    /**
+     * Adds Todo object into taskList
+     *
+     * @param taskList instance of a TaskList class that contains
+     *                 an array of tasks
+     * @param words a list containing words of the user's input
+     * @param activity name of the activity
+     */
+    private static void addToDo(TaskList taskList, String[] words, String activity) throws HenryException {
+        //check if todo description is valid
+        if (words.length == 1) {
+            throw new HenryException("The todo description is wrong!! "
+                    + "Ensure that you have included the activity. "
+                    + "Example: todo read book");
+        }
+        taskList.getTasks().add(new Todo(activity));
     }
 
     /**
