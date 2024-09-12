@@ -27,9 +27,6 @@ public class Deadlines extends Task {
         super(description);
         this.initDesc = description;
         super.description = this.getValidString(description)[0].trim();
-        // restrict the usage to only "yyyy-mm-dd"
-        // replace all the occurrence of "/" into "-"
-        // check if is a valid LocalDate
         String date = this.getValidString(description)[1].trim();
         date = date.replace("/", "-");
         try {
