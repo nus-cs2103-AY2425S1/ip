@@ -26,9 +26,9 @@ public class TaskList {
     }
 
     public boolean add(Task task) throws IOException {
-        tasks.add(task);
+        boolean bool = tasks.add(task);
         storage.writeData(this);
-        return true;
+        return bool;
     }
 
     public Task getLast(int index) {
