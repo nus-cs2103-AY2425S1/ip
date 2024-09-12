@@ -7,6 +7,7 @@ import ollie.command.ExitCommand;
 import ollie.command.FindCommand;
 import ollie.command.ListCommand;
 import ollie.command.MarkCommand;
+import ollie.command.UndoCommand;
 import ollie.command.UnmarkCommand;
 import ollie.exception.OllieException;
 import ollie.task.Deadline;
@@ -51,7 +52,9 @@ public class Parser {
             return new DeleteCommand(index);
         } else if (input.matches("^find.*")) {
             String findQuery = Parser.getBody("find", input);
-            return new FindCommand(findQuery);
+            return new FindCommand(findQuery);}
+        else if (input.matches("undo")) {
+            return new UndoCommand();
         } else if (input.matches("bye")) {
             return new ExitCommand();
         } else {

@@ -1,5 +1,6 @@
 package ollie.command;
 
+import ollie.History;
 import ollie.Response;
 import ollie.Storage;
 import ollie.TaskList;
@@ -15,8 +16,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
+    public Response execute(TaskList tasks, Ui ui, Storage storage, History history) throws OllieException {
         assert(filterParameter != null);
+        history.add(new EmptyCommand());
         return new Response(ui.getTaskListMessage(tasks.filterByString(this.filterParameter)), false);
     }
 }

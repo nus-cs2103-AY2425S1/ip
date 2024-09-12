@@ -41,7 +41,7 @@ public class TaskList {
      * Remove the task in its ArrayList of Task as specified by the index and
      * return the task.
      *
-     * @param index Index represents the position of the task to be removed within the list.
+     * @param index Index represents the indexition of the task to be removed within the list.
      * @return Task which has been removed.
      * @throws OllieException If the index given does not exist.
      */
@@ -56,10 +56,28 @@ public class TaskList {
     }
 
     /**
+     * Remove the task in its ArrayList of Task as specified by the task and
+     * return the task.
+     *
+     * @param task Task represents the the task to be removed within the list.
+     * @return Task which has been removed.
+     * @throws OllieException If the index given does not exist.
+     */
+    public Task delete(Task task) throws OllieException {
+        assert(tasks != null);
+        int indexOfTask = tasks.indexOf(task);
+        if (indexOfTask < 0) {
+            throw new OllieException("Invalid task given!");
+        }
+        this.tasks.remove(indexOfTask);
+        return task;
+    }
+
+    /**
      * Mark the task, in its ArrayList of Task specified by the index, as done
      * and return the task.
      *
-     * @param index Index represents the position of the task to be mark as done.
+     * @param index Index represents the indexition of the task to be mark as done.
      * @return Task which has been marked as done.
      */
     public Task markAsDone(int index) throws OllieException {
@@ -76,7 +94,7 @@ public class TaskList {
      * Mark the task, in its ArrayList of Task specified by the index, as undone
      * and return the task.
      *
-     * @param index Index reprsents the position of the task to be mark as undone.
+     * @param Index index reprsents the indexition of the task to be mark as undone.
      * @return Task which has been marked as done.
      */
     public Task markAsUndone(int index) throws OllieException{
@@ -101,7 +119,7 @@ public class TaskList {
      */
     private boolean isIndexValid(int index) {
         assert(tasks != null);
-        return (index < 0 || index > tasks.size() - 1);
+        return (index > -1 & index < tasks.size());
     }
 
     @Override

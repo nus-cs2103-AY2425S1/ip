@@ -13,11 +13,13 @@ public class Ollie {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private History history;
     private String initialMessage;
 
     public Ollie(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        history = new History();
         try {
             tasks = new TaskList(storage.load());
             initialMessage = ui.getGreetingMessage();
@@ -37,7 +39,7 @@ public class Ollie {
     public Response getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return c.execute(tasks, ui, storage, history);
         } catch (OllieException e) {
             return new Response(e.getMessage(), false);
         }

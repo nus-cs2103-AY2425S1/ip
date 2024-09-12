@@ -2,18 +2,18 @@ package ollie.command;
 
 import ollie.History;
 import ollie.Response;
-import ollie.exception.OllieException;
 import ollie.Storage;
 import ollie.TaskList;
 import ollie.Ui;
+import ollie.exception.OllieException;
 
 /**
- * Represents a command for ending the conversation.
+ * Represents a command for undoing the previous command
  */
-public class ExitCommand extends Command {
+public class UndoCommand extends Command {
 
     /**
-     * Execute the command to save the data and exit the conversation.
+     * Execute the undoing of a display task
      *
      * @param tasks   List of tasks.
      * @param ui      User interface controller.
@@ -21,9 +21,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public Response execute(TaskList tasks, Ui ui, Storage storage, History history) throws OllieException {
-        storage.save(tasks.getTasks());
-        return new Response(ui.getExitMessage(), true);
+        Response response = history.undo(tasks, ui, storage);
+        return response;
     }
-
-    ;
 }
