@@ -42,35 +42,52 @@ public class DataManager {
     );
 
     /**
-     * Reads task data from the file and returns it as a list of {@link Task} objects.
-     * Creates an empty file if it does not exist. Validates each line against the expected format and
-     * adds valid tasks to the list. Prints the current list of tasks to the console.
+     * Reads task data from the specified file and returns it as a list of {@link Task} objects.
+     * If the file does not exist, an empty file is created. Each line in the file is validated
+     * against the expected format, and valid tasks are added to the list. If a line does not
+     * match the format, an error message is printed to the console. The current list of tasks
+     * is returned, and any issues during file reading are logged.
      *
-     * @return A list of {@link Task} objects read from the file.
+     * @return A list of {@link Task} objects read from the file. If the file is missing or empty,
+     *         an empty list is returned.
      */
     public List<Task> readMemory() {
         List<Task> list = new ArrayList<>();
         try {
-            if (Files.exists(DATA_FILE_PATH)) {
-                List<String> lines = Files.readAllLines(DATA_FILE_PATH);
-                for (String line : lines) {
-                    if (TASK_PATTERN.matcher(line).matches()) {
-                        Task task = Parser.parseToTask(line);
-                        list.add(task);
-                    } else {
-                        System.err.println("Corrupted line found ---> " + line);
-                    }
-                }
-            } else {
-                // Create an empty file if it does not exist
-                Files.createDirectories(DATA_FILE_PATH.getParent()); // Ensure the parent directories exist
-                Files.createFile(DATA_FILE_PATH); // Create the empty file
-            }
-
+            loadLinesToList(list, DATA_FILE_PATH);
         } catch (IOException e) {
             System.err.println("Error fetching data ---> " + e.getMessage());
         }
         return list;
+    }
+
+    /**
+     * Loads lines from the specified file into the given list of {@link Task} objects.
+     * Validates each line against a predefined task pattern. If a line matches the expected
+     * format, it is parsed and added to the list; otherwise, an error message is printed to
+     * the console. If the file does not exist, it creates the necessary directories and an
+     * empty file at the specified path.
+     *
+     * @param list The list to which valid {@link Task} objects are added.
+     * @param dataFilePath The path of the file from which task data is read.
+     * @throws IOException If an error occurs during file reading or writing.
+     */
+    private void loadLinesToList(List<Task> list, Path dataFilePath) throws IOException {
+        if (Files.exists(dataFilePath)) {
+            List<String> lines = Files.readAllLines(dataFilePath);
+            for (String line : lines) {
+                if (TASK_PATTERN.matcher(line).matches()) {
+                    Task task = Parser.parseToTask(line);
+                    list.add(task);
+                } else {
+                    System.err.println("Corrupted line found ---> " + line);
+                }
+            }
+        } else {
+            // Create an empty file if it does not exist
+            Files.createDirectories(dataFilePath.getParent()); // Ensure the parent directories exist
+            Files.createFile(dataFilePath); // Create the empty file
+        }
     }
 
     /**
