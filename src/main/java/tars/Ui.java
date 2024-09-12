@@ -47,7 +47,7 @@ public class Ui {
      * @return a goodbye message string.
      */
     public String getGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "See you on the other side, Coop";
     }
 
     /**
@@ -99,7 +99,12 @@ public class Ui {
      * @return a response message indicating the task was removed.
      */
     public String getTaskRemovedResponse(String taskDescription, int size) {
-        return "Noted. I've removed this task:\n" + taskDescription + "\nNow you have " + size + " tasks in the list.";
+        return "I've removed this task:\n" + taskDescription + "\nNow you have " + size
+                + " tasks in the list."
+                + "Newton’s third law - the only way"
+                + "humans have ever figured out of"
+                + "getting somewhere is to leave"
+                + "something behind";
     }
 
     /**
@@ -131,7 +136,8 @@ public class Ui {
     }
 
     public String getEditedTaskResponse(Task editedTask) {
-        return "Got it! I've edited this task:\n  " + editedTask.toString();
+        return "Cooper, they did not bring us here to change the past. "
+                + "But I'll edit this task this one time: "
+                + editedTask.toString();
     }
-
 }
