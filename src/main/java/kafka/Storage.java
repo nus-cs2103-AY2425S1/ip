@@ -8,14 +8,31 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class represents a storage for managing tasks. It allows loading tasks from a file and saving tasks back to the file.
+ */
 public class Storage {
 
+    /**
+     * The path to the file where tasks are stored.
+     */
     public final String filePath;
 
+    /**
+     * Constructor that takes the file path for storing tasks.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file path.
+     *
+     * @throws FileNotFoundException If the file is not found at the specified path.
+     * @return An ArrayList containing loaded tasks.
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         this.getNewFile(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -23,7 +40,13 @@ public class Storage {
         return tasks;
     }
 
-    public void printFileContents(ArrayList<Task> tasks) {
+    /**
+     * Reads the contents of the file and populates the provided ArrayList with loaded tasks.
+     *
+     * @param tasks The ArrayList to be populated with loaded tasks.
+     * @throws FileNotFoundException If the file is not found at the specified path.
+     */
+    private void printFileContents(ArrayList<Task> tasks) throws FileNotFoundException {
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
@@ -55,7 +78,13 @@ public class Storage {
         }
     }
 
-    public void writeToFile(ArrayList<Task> tasks) {
+    /**
+     * Writes the provided tasks to the specified file path.
+     *
+     * @param tasks The ArrayList containing tasks to be saved.
+     * @throws IOException If an error occurs while writing to the file.
+     */
+    public void writeToFile(ArrayList<Task> tasks) throws IOException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task t : tasks) {
                 if (t instanceof Todo todo) {
@@ -75,7 +104,12 @@ public class Storage {
         }
     }
 
-    public void getNewFile(String filePath) {
+    /**
+     * Creates a new file at the specified path if it doesn't exist, including creating any necessary parent directories.
+     *
+     * @param filePath The path to the file to be created.
+     */
+    private void getNewFile(String filePath) {
         File f = new File(filePath);
         try {
             f.getParentFile().mkdirs();
@@ -87,3 +121,4 @@ public class Storage {
         }
     }
 }
+

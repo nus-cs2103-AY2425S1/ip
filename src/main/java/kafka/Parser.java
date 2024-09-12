@@ -4,8 +4,23 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 
+/**
+ * This class parses user input commands and executes corresponding actions within the Kafka application.
+ * It interacts with TaskList, Storage, and Ui objects to manage tasks, persist data, and provide user feedback.
+ */
 public class Parser {
 
+    /**
+     * Parses the given user input and executes the appropriate command.
+     *
+     * @param userInput The user input string.
+     * @param taskList The TaskList object to manage tasks.
+     * @param storage The Storage object for data persistence.
+     * @param ui The Ui object for user interface interactions.
+     * @throws KafkaException If an error occurs during command parsing or execution.
+     * @throws IOException If an error occurs during file operations.
+     * @throws DateTimeParseException If an error occurs while parsing date and time strings.
+     */
     public static void parseCommand(String userInput, TaskList taskList, Storage storage, Ui ui) throws KafkaException, IOException, DateTimeParseException {
         String[] splitInput = userInput.trim().split(" ", 2);
 
