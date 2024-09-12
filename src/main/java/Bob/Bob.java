@@ -7,6 +7,9 @@ import java.util.Scanner;
 
 import bob.task.Task;
 
+/**
+ * Represents the chat bot Bob.
+ */
 public class Bob {
 
     private Scanner scanner = new Scanner(System.in);
@@ -21,10 +24,14 @@ public class Bob {
             if (userInput.equalsIgnoreCase("bye")) {
                 return "Bye. Hope to see you again soon!";
             } else if (userInput.equalsIgnoreCase("list")) {
-                return Parser.processListCommand(tasks);
-            } else if (userInput.startsWith("mark") || userInput.startsWith("unmark") || userInput.startsWith("delete")) {
+                return Parser.executeListCommand(tasks);
+            } else if (userInput.startsWith("mark") 
+                    || userInput.startsWith("unmark") 
+                    || userInput.startsWith("delete")) {
                 return Parser.processTaskModificationCommands(userInput, tasks);
-            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
+            } else if (userInput.startsWith("todo") 
+                    || userInput.startsWith("deadline") 
+                    || userInput.startsWith("event")) {
                 return Parser.processTaskCreationCommands(userInput, tasks);
             } else {
                 throw new BobException("I'm sorry, but I don't know what that means :(");

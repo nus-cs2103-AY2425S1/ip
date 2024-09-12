@@ -12,6 +12,10 @@ import bob.task.Event;
 import bob.task.Task;
 import bob.task.Todo;
 
+/**
+ * Represents a parser that parses user input and executes the corresponding
+ * commands.
+ */
 class Parser {
 
     /**
@@ -36,7 +40,7 @@ class Parser {
      *
      * @param tasks
      */
-    public static String processListCommand(List<Task> tasks) {
+    public static String executeListCommand(List<Task> tasks) {
         String out = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasks.size(); i++) {
             out += (i + 1) + ". " + tasks.get(i) + "\n";
@@ -52,7 +56,8 @@ class Parser {
      * @throws BobException
      * @throws IOException
      */
-    public static String processTaskModificationCommands(String userInput, List<Task> tasks) throws BobException, IOException {
+    public static String processTaskModificationCommands(String userInput, List<Task> tasks) 
+            throws BobException, IOException {
         String[] words = userInput.split(" ");
         int index = Integer.parseInt(words[1]) - 1;
 
@@ -68,7 +73,8 @@ class Parser {
             return "OK, I've marked this task as not done yet: \n" + tasks.get(index);
         } else if (userInput.startsWith("delete")) {
             Task removed = tasks.remove(index);
-            return "Noted. I've removed this task: \n" + removed + "\nNow you have " + tasks.size() + " tasks in the list.";
+            return "Noted. I've removed this task: \n" + removed + "\nNow you have " 
+                    + tasks.size() + " tasks in the list.";
         }
         Storage.saveTasks(tasks);
 
@@ -84,7 +90,8 @@ class Parser {
      * @throws BobException
      * @throws IOException
      */
-    public static String processTaskCreationCommands(String userInput, List<Task> tasks) throws BobException, IOException {
+    public static String processTaskCreationCommands(String userInput, List<Task> tasks) 
+            throws BobException, IOException {
         Task newTask = null;
         if (userInput.startsWith("todo")) {
             String description = userInput.substring(5).trim();
@@ -121,6 +128,7 @@ class Parser {
 
         tasks.add(newTask);
         Storage.saveTasks(tasks);
-        return "Got it. I've added this task: \n" + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
+        return "Got it. I've added this task: \n" + newTask + "\nNow you have " + tasks.size() 
+                + " tasks in the list.";
     }
 }
