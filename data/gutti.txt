@@ -1,4 +1,4 @@
 [T][X] tomorrow
-[D][ ] tomorrow (by: Apr 10 2023 11:00PM)
+[D][X] tomorrow (by: Apr 10 2023 11:00PM)
 [E][ ] tonight (from: Apr 10 2023 11:00PM to: Apr 11 2023 11:00PM)
 [T][ ] tomorrow

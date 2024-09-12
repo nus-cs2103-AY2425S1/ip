@@ -27,6 +27,7 @@ public class Storage {
      * @param tasks The list of tasks to be saved.
      */
     public void saveTasksToFile(ArrayList<Task> tasks) {
+        assert tasks != null : "Task list cannot be null";
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 writer.write(task.toString());
@@ -43,6 +44,7 @@ public class Storage {
      * @param taskList The task list to load the tasks into.
      */
     public void loadTasksFromFile(TaskList taskList) {
+        assert taskList != null : "TaskList cannot be null";
         try (Scanner sc = new Scanner(new File(filePath))) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
