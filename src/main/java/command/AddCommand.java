@@ -25,6 +25,7 @@ public class AddCommand extends UserCommand {
             if (taskDescription.equals("")) {
                 throw new MissingArgumentException(command, "description");
             }
+            assert (!taskDescription.isEmpty()) : "Task description cannot be empty";
 
             return new Todo(taskDescription);
         } else if (command.equals("deadline")) {
@@ -33,11 +34,13 @@ public class AddCommand extends UserCommand {
             if (byIdx == -1) {
                 throw new MissingArgumentException(command, "by");
             }
+            assert (Arrays.stream(words).anyMatch("/by"::equals)) : "Deadlines must have a /by";
 
             String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, byIdx));
             if (taskDescription.equals("")) {
                 throw new MissingArgumentException(command, "description");
             }
+            assert (!taskDescription.isEmpty()) : "Task description cannot be empty";
             
             String by = String.join(" ", Arrays.copyOfRange(words, byIdx + 1, words.length));
             if (by.equals("")) {
@@ -59,12 +62,15 @@ public class AddCommand extends UserCommand {
             if (toIdx == -1) {
                 throw new MissingArgumentException(command, "to");
             }
+            assert (Arrays.stream(words).anyMatch("/from"::equals)) : "Deadlines must have a /from";
+            assert (Arrays.stream(words).anyMatch("/to"::equals)) : "Deadlines must have a /to";
 
             // Get task description
             String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, fromIdx));
             if (taskDescription.equals("")) {
                 throw new MissingArgumentException(command, "description");
             }
+            assert (!taskDescription.isEmpty()) : "Task description cannot be empty";
             
             // Get from date
             String from = String.join(" ", Arrays.copyOfRange(words, fromIdx + 1, toIdx));
