@@ -5,7 +5,11 @@ import bob.exception.BobException;
 
 public class Parser {
     public Command parse(String input) throws BobException {
+        assert input != null : "Input should not be null";
+
         String[] inputParts = input.split(" ", 2);
+        assert inputParts.length > 0 : "There should be at least one part in the input";
+
         String command = inputParts[0].toLowerCase();
         String taskDescription = (inputParts.length <= 1) ? "" : inputParts[1];
 
@@ -33,8 +37,9 @@ public class Parser {
         }
     }
     private int parseTaskIndex(String taskDescription) throws BobException {
+        assert taskDescription != null : "Task description should not be null";
         try {
-            return Integer.parseInt(taskDescription.trim()) - 1;  //convert to 0-based index
+            return Integer.parseInt(taskDescription.trim()) - 1;  // convert to 0-based index
         } catch (NumberFormatException e) {
             throw new BobException("Invalid task index. Please enter a valid number.");
         }
