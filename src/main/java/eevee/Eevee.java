@@ -55,7 +55,7 @@ public class Eevee {
         case BYE:
             return ui.getExit();
         case LIST:
-            return tasks.listTasks();
+            return handleListCommand(input);
         case MARK:
             return handleMarkCommand(input);
         case UNMARK:
@@ -75,6 +75,17 @@ public class Eevee {
         default:
             throw new EeveeException("You seemed to have typed wrong. This is not a valid command.");
         }
+    }
+
+    private String handleListCommand(String input) {
+        String[] s = input.trim().split(" ");
+
+        if (s.length <= 1) {
+            return tasks.listTasks();
+        }
+
+        Task.Priority priority = parser.parsePriority(s[1]);
+        return tasks.listTasksByPriority(priority);
     }
 
     private String handlePrioritizeCommand(String input) throws EeveeException, IOException {

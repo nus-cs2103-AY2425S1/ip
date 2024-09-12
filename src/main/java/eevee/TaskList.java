@@ -97,4 +97,17 @@ public class TaskList {
         tasks.forEach((task) -> sb.append(tasks.indexOf(task) + 1).append(". ").append(task).append("\n"));
         return sb.toString();
     }
+
+    /**
+     * Prints out the tasks in the TaskList of desired priority level.
+     */
+    public String listTasksByPriority(Task.Priority priority) {
+        StringBuilder sb = new StringBuilder("Here are your tasks of " + priority + " priority:\n");
+        tasks.stream()
+            .filter(task -> task.getPriority() == priority)
+            .forEach((task) -> sb.append(tasks.indexOf(task) + 1)
+            .append(". ").append(task)
+            .append("\n"));
+        return sb.toString();
+    }
 }
