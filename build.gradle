@@ -24,6 +24,7 @@ application {
 shadowJar {
     archiveBaseName = "rei"
     archiveClassifier = null
+    archiveFileName = "rei.jar"
 }
 
 run{
