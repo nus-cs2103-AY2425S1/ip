@@ -112,8 +112,6 @@ public class Parser {
         return message;
     }
 
-
-
     /**
      * Checks if command is to exit chatbot.
      *
