@@ -91,6 +91,12 @@ public class Bee {
                     return addEventResponse(matcher);
                 }
 
+            } else if (input.matches("find (.*)")) {
+                Matcher matcher = Parser.getMatcher(input, "find (\\S.*)");
+                if (matcher.matches()) {
+                    return findTaskResponse(matcher);
+                }
+
             } else if (input.matches("help")) {
                 return Ui.HELP;
             } else {
@@ -118,6 +124,14 @@ public class Bee {
         Event event = new Event(name, fromParam, toParam);
         this.taskList.addTask(event);
         return Ui.addTaskResponse(event.toString(), this.taskList.getTotalNumOfTasks());
+    }
+
+    private String findTaskResponse(Matcher matcher) {
+        String name = matcher.group(1);
+        return "Here are the tasks with names matching \""
+                + name
+                + "\":\n"
+                + this.taskList.findTasksByName(name).toString();
     }
 
     private String addDeadLineResponse(Matcher matcher) {
@@ -175,7 +189,7 @@ public class Bee {
                     "Nice! I've marked this task as done:\n    %s",
                     this.taskList.getTask(index));
         } else {
-             throw new TaskIndexException();
+            throw new TaskIndexException();
         }
     }
 

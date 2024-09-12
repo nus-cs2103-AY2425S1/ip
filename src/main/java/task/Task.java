@@ -47,4 +47,14 @@ public abstract class Task {
         }
         return this.name.equals(task.name);
     }
+
+    /**
+     * Allows search of tasks by substring of name
+     *
+     * @param name substring of name to be searched
+     * @return true if name contains substring provided
+     */
+    public boolean nameContains(String name) {
+        return this.name.contains(name);
+    }
 }

@@ -116,4 +116,18 @@ public class TaskList {
 
         return str.toString();
     }
+
+    /**
+     * Allows search of tasks by substring of name
+     *
+     * @param name substring of name to be searched
+     * @return task list with matching task names
+     */
+    public TaskList findTasksByName(String name) {
+        TaskList filteredList = new TaskList();
+        this.todoList.stream()
+                .filter(task -> task.nameContains(name))
+                .forEach(filteredList::addTask);
+        return filteredList;
+    }
 }
