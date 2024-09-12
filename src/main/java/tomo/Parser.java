@@ -103,6 +103,12 @@ public class Parser {
             }
             
             return new String[]{args[0], args2[0], args2[1], args2[2]};
+        } else if (type.equals("find")) {
+            String[] args = cmd.split(" ", 2);
+            if (args.length == 1) {
+                throw new ParserException("Missing argument pattern for command find");
+            }
+            return args;
         } else {
             throw new ParserException("Unknown command");
         }

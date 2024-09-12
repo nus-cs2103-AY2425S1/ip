@@ -75,11 +75,18 @@ public class ToMo {
             tasks.add(task);
             ui.println("A task is added");
             ui.println(task);
-        } else {
+        } else if (args[0].equals("event")){
             Task task = new Event(args[1], args[2], args[3]);
             tasks.add(task);
             ui.println("A task is added");
             ui.println(task);
+        } else {
+            String pattern = args[1];
+            TaskList filteredTasks = tasks.find(pattern);
+            ui.println("The filtered tasks list as follow:");
+            for (int i = 0; i < filteredTasks.size(); ++i) {
+                ui.println((i + 1) + ". " + filteredTasks.get(i));
+            }
         }
         return false;
     }
