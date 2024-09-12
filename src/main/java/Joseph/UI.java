@@ -13,19 +13,19 @@ public class UI {
      * Prints the welcome message when the chatbot is started.
      */
     public String getWelcomeMessage() {
-        return "----------------------------------\n" +
-                "Hello, I'm Joseph!\n" +
-                "How can I help you today? (type help for all commands)\n" +
-                "----------------------------------\n";
+        return "----------------------------------\n"
+                + "Hello, I'm Joseph!\n"
+                + "How can I help you today? (type help for all commands)\n"
+                + "----------------------------------\n";
     }
 
     /**
      * Prints the exit message when the chatbot is closed i.e. the "bye" command.
      */
     public String getExitMessage() {
-        return "----------------------------------\n" +
-                "Bye! Have a nice day :)\n" +
-                "----------------------------------\n";
+        return "----------------------------------\n"
+                + "Bye! Have a nice day :)\n"
+                + "----------------------------------\n";
     }
 
     /**
@@ -34,42 +34,42 @@ public class UI {
      * @param list The list of tasks within ./data/joseph.txt.
      */
     public String getListMessage(ArrayList<Task> list) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("----------------------------------\n");
+        StringBuilder message = new StringBuilder();
+        message.append("----------------------------------\n");
         for (int i = 0; i < list.size(); i++) {
             String done = "[" + list.get(i).getDone() + "] ";
-            sb.append(i + 1).append(". ").append(done).append(
+            message.append(i + 1).append(". ").append(done).append(
                     list.get(i).getDetails()).append("\n");
         }
-        sb.append("----------------------------------\n");
-        return sb.toString();
+        message.append("----------------------------------\n");
+        return message.toString();
     }
 
     /**
      * Prints a help message showing all available commands. Command is "help".
      */
     public String getHelpMessage() {
-        return "----------------------------------\n" +
-                "help: prints all available commands\n" +
-                "list: prints the current list\n" +
-                "mark X, where X is any number: \n" +
-                "marks task X on the list as completed\n" +
-                "mark X, where X is any number: \n" +
-                "marks task X on the list as completed\n" +
-                "unmark X, where X is any number: \n" +
-                "unmarks task X on the list as uncompleted.\n" +
-                "The below todo, deadline and event commands \n" +
-                "accepts desc as any string\n" +
-                "The below deadline and event commands \n" +
-                "accepts a due or start and end \n" +
-                "in the following format: DD/MM/YYYY HHmm\n" +
-                "todo desc, " + "adds a todo to the list\n" +
-                "deadline desc /due, \n" +
-                "adds a deadline to the list with its due date\n" +
-                "event desc /start /end, \n" +
-                "adds an event to the list with its start and end\n" +
-                "bye: closes the chatbot\n" +
-                "----------------------------------\n";
+        return "----------------------------------\n"
+                + "help: prints all available commands\n"
+                + "list: prints the current list\n"
+                + "mark X, where X is any number: \n"
+                + "marks task X on the list as completed\n"
+                + "mark X, where X is any number: \n"
+                + "marks task X on the list as completed\n"
+                + "unmark X, where X is any number: \n"
+                + "unmarks task X on the list as uncompleted.\n"
+                + "The below todo, deadline and event commands \n"
+                + "accepts desc as any string\n"
+                + "The below deadline and event commands \n"
+                + "accepts a due or start and end \n"
+                + "in the following format: DD/MM/YYYY HHmm\n"
+                + "todo desc, " + "adds a todo to the list\n"
+                + "deadline desc /due, \n"
+                + "adds a deadline to the list with its due date\n"
+                + "event desc /start /end, \n"
+                + "adds an event to the list with its start and end\n"
+                + "bye: closes the chatbot\n"
+                + "----------------------------------\n";
     }
 
     /**
@@ -136,16 +136,16 @@ public class UI {
         if (tasks.isEmpty()) {
             return "I couldn't find any tasks with the keyword: " + keyword;
         } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("I've found the below tasks with the keyword: " + keyword);
-            sb.append("----------------------------------\n");
+            StringBuilder message = new StringBuilder();
+            message.append("I've found the below tasks with the keyword: " + keyword);
+            message.append("----------------------------------\n");
             for (int i = 0; i < tasks.size(); i++) {
                 String done = "[" + tasks.get(i).getDone() + "] ";
-                sb.append(i + 1).append(". ").append(done).append(
+                message.append(i + 1).append(". ").append(done).append(
                         tasks.get(i).getDetails()).append("\n");
             }
-            sb.append("----------------------------------\n");
-            return sb.toString();
+            message.append("----------------------------------\n");
+            return message.toString();
         }
     }
 

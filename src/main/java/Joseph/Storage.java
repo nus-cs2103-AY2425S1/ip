@@ -31,6 +31,7 @@ public class Storage {
      * @return The string representation of the task.
      */
     private static String taskToString(Task task) {
+        assert task != null : "task should not be null";
         String taskType = "";
         String status = task.getDone().equals("X") ? "1" : "0";
         String desc = task.getDesc();
@@ -61,6 +62,7 @@ public class Storage {
      * @param list The list of tasks to be saved.
      */
     public void saveTasks(ArrayList<Task> list) {
+        assert list != null : "list should not be null";
         File file = new File(filePath);
         file.getParentFile().mkdirs();
 

@@ -42,6 +42,7 @@ public class Parser {
      * @throws UnknownCommandException If the command is not in the Command enum.
      */
     public Command parseCommand(String input) throws UnknownCommandException {
+        assert input != null && !input.isEmpty() : "input should not be null or empty";
         for (Command command : Command.values()) {
             if (input.startsWith(command.getCommandText())) {
                 return command;
@@ -59,6 +60,7 @@ public class Parser {
      */
     public int parseTaskNumber(String input, String commandText)
             throws InsufficientDetailsException {
+        assert input.length() > commandText.length() : "input should contain a number";
         try {
             return Integer.parseInt(input.substring(commandText.length()).trim());
         } catch (NumberFormatException e) {
@@ -92,7 +94,8 @@ public class Parser {
     public String[] parseDeadlineDetails(String input, String commandText)
             throws InsufficientDetailsException {
         String[] details = input.substring(commandText.length()).trim().split(" /");
-        if (details.length < 2) {
+        int expectedDeadlineLength = 2;
+        if (details.length < expectedDeadlineLength) {
             throw new InsufficientDetailsException("You need to provide a description "
                     + "and a due date for a deadline!");
         }
@@ -109,7 +112,8 @@ public class Parser {
     public String[] parseEventDetails(String input, String commandText)
             throws InsufficientDetailsException {
         String[] details = input.substring(commandText.length()).trim().split(" /");
-        if (details.length < 3) {
+        int expectedEventLength = 3;
+        if (details.length < expectedEventLength) {
             throw new InsufficientDetailsException("You need to provide a description, "
                     + "a start and an end for an event!");
         }
