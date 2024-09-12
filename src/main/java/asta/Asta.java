@@ -1,6 +1,6 @@
 package asta;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import asta.command.Command;
 import asta.command.Parser;
@@ -102,11 +102,10 @@ public class Asta {
                 break;
             case FIND:
                 String keyword = fullCommand.substring(5).trim();
-                ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+                List<Task> matchingTasks = tasks.findTasks(keyword);
                 response.append("Here are the matching tasks in your list:\n");
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
-                }
+                matchingTasks.forEach(task -> response.append(matchingTasks.indexOf(task) + 1).append(". ").append(task)
+                        .append("\n"));
                 break;
             default:
                 AstaException.handleInvalidCommand();
