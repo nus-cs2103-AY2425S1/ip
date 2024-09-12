@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 /**
  * Represents a task with a description and a status indicating whether it is done or not.
@@ -52,6 +52,11 @@ public abstract class Task {
      *
      * @return The string representation of the task.
      */
+
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 import org.junit.jupiter.api.Test;
 

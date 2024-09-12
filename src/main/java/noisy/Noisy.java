@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 import java.util.Scanner;
 
@@ -41,6 +41,12 @@ public class Noisy {
                 Integer index = Integer.parseInt(string[1]);
                 taskList.markDoneFromList(index - 1);
                 ui.printMark(index, taskList);
+                continue;
+            }
+
+            if (input.startsWith("find ")) {
+                String keyword = input.split(" ", 2)[1];
+                ui.printFind(taskList, keyword);
                 continue;
             }
 

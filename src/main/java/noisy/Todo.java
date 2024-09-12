@@ -1,4 +1,4 @@
-package Noisy;
+package noisy;
 
 /**
  * Represents a Todo task that extends the Task class.
