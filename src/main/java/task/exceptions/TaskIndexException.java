@@ -1,6 +1,6 @@
-package task;
+package task.exceptions;
 
-import chatbot.BeeException;
+import chatbot.exceptions.BeeException;
 
 /**
  * A class that formats error message for

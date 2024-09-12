@@ -2,13 +2,14 @@ package chatbot;
 
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import chatbot.exceptions.BeeException;
 import task.Deadline;
 import task.Event;
-import task.InvalidInputException;
+import task.exceptions.InvalidDurationException;
+import task.exceptions.InvalidInputException;
 import task.Task;
-import task.TaskIndexException;
+import task.exceptions.TaskIndexException;
 import task.TaskList;
 import task.Todo;
 
@@ -19,9 +20,9 @@ import task.Todo;
  * @author celeschai
  */
 public class Bee {
-    TaskList taskList;
-    Storage storage;
-    Boolean isFileOpen;
+    private TaskList taskList;
+    private Storage storage;
+    private Boolean isFileOpen;
 
     public Bee() {
         this.taskList = new TaskList();
@@ -109,7 +110,7 @@ public class Bee {
         return "I don't understand what do you mean by: " + input;
     }
 
-    private String addEventResponse(Matcher matcher) {
+    private String addEventResponse(Matcher matcher) throws InvalidDurationException {
         String name = matcher.group(1);
         String fromParam = matcher.group(2);
         String toParam = matcher.group(3);

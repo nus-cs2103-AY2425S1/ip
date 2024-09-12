@@ -1,7 +1,6 @@
 package chatbot;
 
-import org.junit.jupiter.api.Test;
-import task.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -9,7 +8,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
+
 
 /**
  * Tests Parser class.
@@ -129,7 +135,7 @@ public class ParserTest {
      * in source file.
      */
     @Test
-    public void parseFromTxtTaskList_invalid_empty_input() {
+    public void parseFromTxtTaskList_invalidEmpty_input() {
         TaskList taskList = new TaskList();
         // Create a stream to hold the output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();

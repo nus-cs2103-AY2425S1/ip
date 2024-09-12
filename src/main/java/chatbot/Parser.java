@@ -13,6 +13,7 @@ import task.Deadline;
 import task.Event;
 import task.TaskList;
 import task.Todo;
+import task.exceptions.InvalidDurationException;
 
 /**
  * Handles parsing of text representation of tasks
@@ -86,7 +87,11 @@ public class Parser {
                     Matcher matcherE = getMatcher(taskDetails, "(\\S.*) \\(from: (\\S.*) to: (\\S.*)\\)");
 
                     if (matcherE.matches()) {
-                        handleEvent(taskList, matcherE, taskMarkedDone);
+                        try {
+                            handleEvent(taskList, matcherE, taskMarkedDone);
+                        } catch (InvalidDurationException e) {
+                            System.out.println(e.getMessage());
+                        }
                         continue;
                     }
                 }
@@ -104,7 +109,7 @@ public class Parser {
         taskList.addTask(deadline);
     }
 
-    private static void handleEvent(TaskList taskList, Matcher matcherE, boolean taskMarkedDone) {
+    private static void handleEvent(TaskList taskList, Matcher matcherE, boolean taskMarkedDone) throws InvalidDurationException {
         Event event = new Event(matcherE.group(1), matcherE.group(2), matcherE.group(3));
         if (taskMarkedDone) {
             event.markAsDone();

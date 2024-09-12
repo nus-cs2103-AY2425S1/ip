@@ -1,4 +1,4 @@
-package chatbot;
+package chatbot.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

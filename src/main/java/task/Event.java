@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import chatbot.Parser;
+import task.exceptions.InvalidDurationException;
 
 /**
  * A class representing individual events
@@ -23,10 +24,14 @@ public class Event extends Task {
      * @param to End date-time string.
      * @throws DateTimeParseException If date-time string is in incorrect format.
      */
-    public Event(String name, String from, String to) throws DateTimeParseException {
+    public Event(String name, String from, String to) throws DateTimeParseException, InvalidDurationException {
         super(name);
         this.from = Parser.parseStringToDateTime(from);
         this.to = Parser.parseStringToDateTime(to);
+
+        if (this.from.isAfter(this.to)) {
+            throw new InvalidDurationException();
+        }
     }
 
     @Override

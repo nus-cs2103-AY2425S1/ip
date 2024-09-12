@@ -1,5 +1,6 @@
-package chatbot;
+package chatbot.gui;
 
+import chatbot.Bee;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

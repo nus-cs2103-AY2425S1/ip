@@ -1,4 +1,4 @@
-package chatbot;
+package chatbot.exceptions;
 
 /**
  * A class that formats error message shown
