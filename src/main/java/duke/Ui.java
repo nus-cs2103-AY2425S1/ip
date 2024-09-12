@@ -3,6 +3,9 @@ package duke;
 import duke.Exception.DukeException;
 import duke.task.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * A class that deals with interactions in terminal.
  */
@@ -16,6 +19,8 @@ public class Ui {
     private final String REMOVE_TASK = "Noted. I've removed this task:";
     private final String NEW_LINE = "\n";
     private final String NEW_LINE_TAB = "\n\t";
+
+    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
 
     public String greetings() {
         return NEW_LINE + GREETINGS + NEW_LINE;
@@ -83,6 +88,21 @@ public class Ui {
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(keyword)) {
+                count++;
+                sb.append(NEW_LINE).append(count).append(". ").append(tasks.get(i).toString());
+            }
+        }
+        sb.append(NEW_LINE);
+
+        return sb.toString();
+    }
+
+    public String showViewTask(TaskList tasks, LocalDate date) {
+        StringBuilder sb = new StringBuilder(NEW_LINE + "Here are the tasks on " + date + " in your list:");
+        int count = 0;
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(date.format(DATE_FORMAT))) {
                 count++;
                 sb.append(NEW_LINE).append(count).append(". ").append(tasks.get(i).toString());
             }

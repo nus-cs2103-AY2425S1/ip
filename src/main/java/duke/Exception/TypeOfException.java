@@ -11,7 +11,7 @@ public class TypeOfException {
 
     public String noIdea() {
         return "Sorry! I don't understand what you are saying. Please enter a valid command. "
-                + "todo, deadline, event, list, done, delete, bye";
+                + "todo, deadline, event, list, done, delete, view, bye";
     }
 
     public String todoFormatError() {
@@ -32,5 +32,13 @@ public class TypeOfException {
 
     public String findFormatError() {
         return "Incorrect format. Use 'find <keyword>'";
+    }
+
+    public String dateFormatError() {
+        return "Incorrect format. Use 'view YYYY-MM-DD'";
+    }
+
+    public String viewFormatError() {
+        return "Incorrect format. Use 'view <date>'";
     }
 }

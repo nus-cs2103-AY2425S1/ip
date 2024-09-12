@@ -2,15 +2,15 @@ package duke;
 
 import duke.Exception.DukeException;
 import duke.Exception.TypeOfException;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,6 +19,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Nameless {
     private final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     private final String FILE_PATH = "data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
@@ -127,6 +129,22 @@ public class Nameless {
         return ui.showFindTask(tasks, word);
     }
 
+    private String view(String input) throws DukeException {
+        assert input != null : "Input should not be null";
+        String word = Parser.splitGetWords(input);
+
+        if (word.isEmpty()) {
+            return exception.dateFormatError();
+        }
+
+        try {
+            LocalDate date = LocalDate.parse(word, DATE_FORMAT);
+            return ui.showViewTask(tasks, date);
+        } catch (DateTimeParseException e) {
+            return exception.viewFormatError();
+        }
+    }
+
     /**
      * Generates a response for the user's chat message.
      */
@@ -150,6 +168,8 @@ public class Nameless {
                     return ui.showDeleteTask(tasks, Parser.splitGetNum(input));
                 } else if (input.matches("find(?: .+)?")) {
                     return find(input);
+                } else if (input.matches("view .+")) {
+                    return view(input);
                 } else {
                     return exception.noIdea();
                 }
