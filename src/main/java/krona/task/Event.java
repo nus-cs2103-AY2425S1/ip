@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  * and time to an end date and time.
  */
 public class Event extends Task {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
 
@@ -23,8 +23,8 @@ public class Event extends Task {
     public Event(String description, String startDateTime, String endDateTime) {
         super(description);
         try {
-            this.startDateTime = LocalDateTime.parse(startDateTime.trim(), formatter);
-            this.endDateTime = LocalDateTime.parse(endDateTime.trim(), formatter);
+            this.startDateTime = LocalDateTime.parse(startDateTime.trim(), FORMATTER);
+            this.endDateTime = LocalDateTime.parse(endDateTime.trim(), FORMATTER);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Please use 'd/M/yyyy HHmm'.");
             throw e;
@@ -32,11 +32,11 @@ public class Event extends Task {
     }
 
     public String getStartDateTime() {
-        return startDateTime.format(formatter);
+        return startDateTime.format(FORMATTER);
     }
 
     public String getEndDateTime() {
-        return endDateTime.format(formatter);
+        return endDateTime.format(FORMATTER);
     }
 
 
