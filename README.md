@@ -1,3 +1,6 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/RadieonAjax/ip/gradle.yml?style=flat) ![GitHub Tag](https://img.shields.io/github/v/tag/RadieonAjax/ip)
+
+
 # Shrimp
 
 > Manage Tasks, Free Your Mind
