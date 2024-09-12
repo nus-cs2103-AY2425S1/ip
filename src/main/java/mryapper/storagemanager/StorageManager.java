@@ -8,6 +8,7 @@ import mryapper.task.Todo;
 import mryapper.task.Event;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -34,31 +35,24 @@ public class StorageManager {
      * If there is no data file in the file path, this method then creates a new data file.
      *
      * @return The list of tasks stored in the data file.
+     * @throws InvalidFileDataException If the format of the data in the file is incorrect.
      * @throws IOException If an error occurred while creating a new data file.
      */
-    public TaskList retrieveData() throws IOException {
+    public TaskList loadData() throws InvalidFileDataException, IOException {
         File taskData = new File(filePath);
         try {
-            if (!taskData.exists()) {
-                throw new InvalidFileDataException(" It seems that there isn't a data file!");
-            }
-            ArrayList<Task> taskList = new ArrayList<>(100);
-            Scanner dataFileReader = new Scanner(taskData);
-            while (dataFileReader.hasNextLine()) {
-                taskList.add(readTaskData(dataFileReader.nextLine()));
-            }
-            dataFileReader.close();
-            return new TaskList(taskList);
-        } catch (InvalidFileDataException e) {
-            System.out.println(e.getMessage() + "\n");
-            boolean fileCreationSuccessful = taskData.createNewFile();
-            if (fileCreationSuccessful) {
-                System.out.println(" A new data file has been created successfully");
-                return new TaskList();
-            } else {
-                return null;
-            }
+            return readFileData(taskData);
+        } catch (FileNotFoundException e) {
+            return createNewDataFile(taskData);
         }
+    }
+
+    private TaskList createNewDataFile(File file) throws IOException {
+        boolean isFileCreationSuccessful = file.createNewFile();
+        if (!isFileCreationSuccessful) {
+            throw new IOException();
+        }
+        return new TaskList();
     }
 
     /**
@@ -73,6 +67,17 @@ public class StorageManager {
             fw.write(task.getDataString());
         }
         fw.close();
+    }
+
+    private TaskList readFileData(File file) throws InvalidFileDataException, FileNotFoundException {
+        ArrayList<Task> taskList = new ArrayList<>(100);
+        Scanner dataFileReader = new Scanner(file);
+        while (dataFileReader.hasNextLine()) {
+            taskList.add(readTaskData(dataFileReader.nextLine()));
+        }
+        dataFileReader.close();
+
+        return new TaskList(taskList);
     }
 
     // reads the task data from the data file and adds task into the task ArrayList
@@ -93,18 +98,17 @@ public class StorageManager {
                 task = new Event(taskDescription, processedData[3], processedData[4]);
                 break;
             default:
-                throw new InvalidFileDataException(taskData);
+                throw new InvalidFileDataException("The data file is not in the correct format :(\n");
             }
 
-            boolean isTaskDone;
-            isTaskDone = Integer.parseInt(processedData[1]) > 0;
+            boolean isTaskDone = Integer.parseInt(processedData[1]) > 0;
             if (isTaskDone) {
                 task.markAsDone();
             }
 
             return task;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new InvalidFileDataException(" The data file is not in the correct format :(\n");
+            throw new InvalidFileDataException("The data file is not in the correct format :(\n");
         }
     }
 }

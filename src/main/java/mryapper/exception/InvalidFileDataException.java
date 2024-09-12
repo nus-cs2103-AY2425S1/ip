@@ -5,7 +5,6 @@ package mryapper.exception;
  * or there is no data file detected.
  */
 public class InvalidFileDataException extends Exception {
-    private String errorMessage;
 
     public InvalidFileDataException(String errorMessage) {
         super(errorMessage);
