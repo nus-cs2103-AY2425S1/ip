@@ -168,6 +168,9 @@ public class Devon {
         String description = contents[0];
         String by = contents[1];
 
+        assert description != null && !description.isEmpty() : "Deadline description cannot be empty.";
+        assert by != null && !by.isEmpty() : "Deadline date cannot be empty.";
+
         try {
             LocalDateTime byDateTime = LocalDateTime.parse(by, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
             return addToList(new Deadline(description, byDateTime));
@@ -188,6 +191,10 @@ public class Devon {
         String description = contents[0];
         String from = contents[1];
         String to = contents[2];
+
+        assert description != null && !description.isEmpty() : "Event description cannot be empty.";
+        assert from != null && !from.isEmpty() : "Event start time cannot be empty.";
+        assert to != null && !to.isEmpty() : "Event end time cannot be empty.";
 
         try {
             LocalDateTime fromDateTime = LocalDateTime.parse(from, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
@@ -251,9 +258,9 @@ public class Devon {
     private String addToList(Task task) {
         tasks.addTask(task);
         return "\t" + "Got it. I've added this task:\n\t\t"
-                        + task + "\n\tNow you have "
-                        + tasks.getNumberOfTasks()
-                        + " tasks in the list.";
+                + task + "\n\tNow you have "
+                + tasks.getNumberOfTasks()
+                + " tasks in the list.";
     }
 
     /**
