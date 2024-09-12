@@ -16,12 +16,15 @@ public class TaskCreator {
         if (Objects.equals(message, null)) {
             throw new EmptyTextException();
         }
+        assert message != null : "Empty message exception not thrown";
         Parser p = new Parser(message);
         String m1 = p.getFirstHalf();
-        if (Objects.equals(p.getSecondHalf(), null)) {
+        String m2 = p.getSecondHalf();
+        if (Objects.equals(m2, null)) {
             throw new WrongMessageException();
         }
-        Parser q = new Parser(p.getSecondHalf(), "\\|");
+        assert m2 != null : "Wrong message exception not thrown";
+        Parser q = new Parser(m2, "\\|");
         String description = q.getFirstHalf();
         String isDone = q.getSecondHalf();
 
