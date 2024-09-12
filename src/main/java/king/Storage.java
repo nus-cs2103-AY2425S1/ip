@@ -34,9 +34,6 @@ public class Storage {
      */
     private void ensureDirectoryExists() {
         File directory = new File(new File(filePath).getParent());
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
     }
 
     /**
