@@ -2,7 +2,7 @@ package denim.commands;
 
 import denim.TaskList;
 import denim.exceptions.DenimException;
-import denim.storage.TaskIo;
+import denim.storage.WriteTaskFile;
 import denim.tasks.Task;
 
 /**
@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
+    public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         assert index > 0 : "IndexOutOfBoundsAssertion";
 
         if (!taskList.isValidIndex(index)) {
@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
         taskList.deleteTaskAtIndex(index);
 
         try {
-            taskIo.deleteTask(taskList);
+            writeTaskFile.deleteTask(taskList);
         } catch (DenimException e) {
             taskList.addTaskAtIndex(index, deletedTask);
             return new CommandResult(e.getMessage() + "\n The task was not deleted.");
