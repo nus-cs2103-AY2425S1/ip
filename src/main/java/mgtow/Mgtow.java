@@ -67,6 +67,9 @@ public class Mgtow {
                 case "find":
                     ArrayList<Task> foundTasks = tasks.findTasks(commandParts[1]);
                     return ui.getFoundTasksMessage(foundTasks, commandParts[1]);
+                case "sort":
+                    tasks.sortTasks();
+                    return ui.getSortedTaskListString(tasks.getTasks());
                 default:
                     throw new InvalidTaskException("What you talking?");
             }

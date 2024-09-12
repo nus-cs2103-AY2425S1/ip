@@ -60,5 +60,9 @@ public class Deadline extends Task {
         return getEnd().toLocalDate().equals(date);
     }
 
+    @Override
+    public LocalDateTime getDateTime() {
+        return end;
+    }
 
 }

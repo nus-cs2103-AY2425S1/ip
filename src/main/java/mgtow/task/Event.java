@@ -79,4 +79,9 @@ public class Event extends Task {
         assert date != null : "Date cannot be null";
         return (getStartDateTime().toLocalDate().equals(date) || getEndDateTime().toLocalDate().equals(date));
     }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return start;
+    }
 }

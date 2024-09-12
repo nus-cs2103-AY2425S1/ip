@@ -97,4 +97,13 @@ public class Ui {
     public String getErrorMessage(String message) {
         return "Error: " + message;
     }
+
+    public String getSortedTaskListString(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list, sorted by date:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
 }

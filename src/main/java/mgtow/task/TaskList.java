@@ -3,6 +3,7 @@ package mgtow.task;
 import mgtow.util.InvalidTaskException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
@@ -122,5 +123,15 @@ public class TaskList {
         return tasks.stream()
                 .filter(task -> task.getDesc().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void sortTasks() {
+        Collections.sort(tasks);
+    }
+
+    public ArrayList<Task> getSortedTasks() {
+        ArrayList<Task> sortedTasks = new ArrayList<>(tasks);
+        Collections.sort(sortedTasks);
+        return sortedTasks;
     }
 }

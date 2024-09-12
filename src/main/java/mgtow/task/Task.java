@@ -1,15 +1,16 @@
 package mgtow.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Abstract base class representing a task in the MGTOW application.
  * This class provides common functionality for all types of tasks.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task>{
     private String desc;
     private String type;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a new Task with the given description and type.
@@ -20,25 +21,25 @@ public abstract class Task {
     public Task(String desc, String type){
         this.desc = desc;
         this.type = type;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the task as done.
      */
     public void markDone(){
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void markNotDone(){
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getStatus(){
-        return (done ?  "X" : " ");
+        return (isDone ?  "X" : " ");
     }
 
     public String getType() {
@@ -57,8 +58,23 @@ public abstract class Task {
      */
     public abstract boolean isOnDate(LocalDate date);
 
+    public abstract LocalDateTime getDateTime();
+
     @Override
     public String toString(){
         return String.format("[%s][%s] %s", this.type, this.getStatus(), this.desc);
+    }
+    @Override
+    public int compareTo(Task other) {
+        if (this.getDateTime() == null && other.getDateTime() == null) {
+            return 0;
+        }
+        if (this.getDateTime() == null) {
+            return 1; // Tasks without dates go to the end
+        }
+        if (other.getDateTime() == null) {
+            return -1; // Tasks without dates go to the end
+        }
+        return this.getDateTime().compareTo(other.getDateTime());
     }
 }
