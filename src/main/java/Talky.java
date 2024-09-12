@@ -61,6 +61,9 @@ public class Talky {
             case "find":
                 response = find(commandArgs);
                 break;
+            case "help":
+                response = help();
+                break;
             default:
                 throw new TalkyException("Invalid Command");
             }
@@ -136,6 +139,21 @@ public class Talky {
         TaskList foundTasks = userTasks.find(keyword);
         String header = String.format("Tasks that contains the keyword (%s):\n", keyword);
         return header + foundTasks.toListFormat();
+    }
+
+    private String help() throws TalkyException {
+        String header = "Here are the available commands:";
+        String listCommand = "To show all tasks: list";
+        String todoCommand = "To add ToDo: todo [task name]";
+        String deadlineCommand = "To add Deadline: event [task name] /by [date] [time]";
+        String eventCommand = "To add Event: event [task name] /from [date] [time] /to [date] [time]";
+        String deleteCommand = "To delete task: delete [task index]";
+        String findCommand = "To find keyword in task: find [keyword]";
+        String markCommand = "To mark task use: mark [task index]";
+        String unmarkCommand = "To unmark task use: mark [task index]";
+        String help = String.join("\n\n", header, listCommand, todoCommand, deadlineCommand, eventCommand, deleteCommand,
+            findCommand, markCommand, unmarkCommand);
+        return help;
     }
 }
 

@@ -33,7 +33,7 @@ public class Parser {
     public static String[] commandArgs(String commandLine, String commandType) throws TalkyException {
         String args = "";
         if (commandLine.split(" ").length == 1) {
-            if (!(commandType.equals("list") || commandType.equals("bye"))) {
+            if (!(commandType.equals("list") || commandType.equals("bye") || commandType.equals("help"))) {
                 throw new TalkyException("Invalid Command");
             }
         } else {
@@ -43,6 +43,8 @@ public class Parser {
         case "list":
             break;
         case "bye":
+            break;
+        case "help":
             break;
         case "mark":
             if (args.split(" ").length != 1) {
