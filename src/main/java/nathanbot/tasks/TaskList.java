@@ -67,6 +67,16 @@ public class TaskList {
     }
 
     /**
+     * Tags a task at the specified index.
+     *
+     * @param index The index of the task to be tagged.
+     * @param tag The desired tag of the task.
+     */
+    public void tagTask(int index, String tag) {
+        taskList.get(index).setTag(tag);
+    }
+
+    /**
      * Returns the number of tasks in the task list.
      *
      * @return The number of tasks in the task list.

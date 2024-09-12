@@ -58,6 +58,18 @@ public class TaskListStore extends TaskList {
     }
 
     /**
+     * Tags a task at the specified index.
+     *
+     * @param index The index of the task to be tagged.
+     * @param tag The desired tag of the task.
+     */
+    @Override
+    public void tagTask(int index, String tag) {
+        taskList.get(index).setTag(tag);
+        storage.saveTasksToFile(taskList);
+    }
+
+    /**
      * Deletes the task at the specified index and saves the updated list to storage.
      *
      * @param index The index of the task to be deleted.

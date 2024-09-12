@@ -15,11 +15,13 @@ public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
     private final String description;
     private boolean isDone;
+    private String tag;
 
     /**
      * Constructs a Task with the specified description.
      *
      * @param description The description of the task.
+     * @param tag The tag of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -30,6 +32,13 @@ public class Task implements Serializable {
      */
     public void markAsDone() {
         isDone = true;
+    }
+
+    /**
+     * Sets the tag.
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     /**
@@ -46,6 +55,7 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return (isDone ? "[X] " : "[ ] ") + description;
+        String tagString = (tag != null && !tag.isEmpty()) ? "[" + tag + "] " : " ";
+        return (isDone ? "[X] " : "[ ]") + tagString + description;
     }
 }

@@ -55,6 +55,11 @@ public enum CommandType {
     FIND("find "),
 
     /**
+     * Command to tag an item.
+     */
+    TAG("tag "),
+
+    /**
      * Unknown command type.
      */
     UNKNOWN("");

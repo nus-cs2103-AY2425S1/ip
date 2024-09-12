@@ -50,6 +50,8 @@ public class UserInterface {
             return CommandHandler.handleMarkCommand(input, "mark ", taskList, true);
         case MARK_UNDONE:
             return CommandHandler.handleMarkCommand(input, "unmark ", taskList, false);
+        case TAG:
+            return CommandHandler.handleTagCommand(input, taskList);
         case TODO:
             return CommandHandler.handleTodoCommand(input, taskList);
         case DEADLINE:
