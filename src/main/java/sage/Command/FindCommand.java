@@ -5,6 +5,9 @@ import sage.Storage;
 import sage.Task.Task;
 import sage.Ui;
 
+/**
+ * Represents a command to find a task in the task list.
+ */
 public class FindCommand extends Command {
 
     private final String itemToFind;

@@ -4,6 +4,10 @@ import sage.Task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for the Sage application.
+ * This class handles user interactions.
+ */
 public class Ui {
     public static final String NAME = "sage";
     private final Scanner scanner;
@@ -16,12 +20,6 @@ public class Ui {
         return scanner.nextLine();
     }
 
-//    public void showResponse(String text) {
-//        String horizontalLine = "_________________________________________________";
-//        String indentedText = text.indent(4);
-//        System.out.println(horizontalLine + "\n" + indentedText + horizontalLine);
-//    }
-
     public String showWelcome() {
         return String.format("Hello! I'm %s\nWhat can i do for you?", NAME);
     }
@@ -30,12 +28,26 @@ public class Ui {
         return "Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Formats a message to indicate that a task has been added to the list.
+     *
+     * @param addedTask The task that has been added.
+     * @param size      The current number of tasks in the list after adding the new task.
+     * @return A formatted string message indicating the task has been added and the updated task count.
+     */
     public String showAddedTask(Task addedTask, int size) {
         return String.format(
                 "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", addedTask, size);
     }
 
-    public String showDeletedTask(Task deletedTask, int size)  {
+    /**
+     * Formats a message to indicate that a task has been removed from the list.
+     *
+     * @param deletedTask The task that has been removed.
+     * @param size        The current number of tasks in the list after removing the task.
+     * @return A formatted string message indicating the task has been removed and the updated task count.
+     */
+    public String showDeletedTask(Task deletedTask, int size) {
         return String.format(
                 "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", deletedTask, size);
     }

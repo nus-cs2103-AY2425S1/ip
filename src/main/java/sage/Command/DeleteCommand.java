@@ -3,9 +3,12 @@ package sage.Command;
 import sage.List.TaskList;
 import sage.SageException;
 import sage.Storage;
-import sage.Ui;
 import sage.Task.Task;
+import sage.Ui;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private final String indexString;
 
@@ -36,6 +39,7 @@ public class DeleteCommand extends Command {
             throw new SageException("Invalid delete command. Index must be a number.");
         }
         Task deletedTask = tasks.deleteTask(index);
+        assert !tasks.getTasks().contains(deletedTask) : "Task should be deleted from the task list.";
         return ui.showDeletedTask(deletedTask, tasks.getSize());
     }
 }

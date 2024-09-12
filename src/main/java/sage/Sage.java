@@ -10,18 +10,6 @@ public class Sage {
     private static Ui ui;
     private static Storage storage;
 
-//    public Sage(String filePath) {
-//        ui = new Ui();
-//        storage = new Storage(filePath);
-//
-//        try {
-//            tasks = new TaskList(storage.loadTasks());
-//        } catch (IOException | SageException e) {
-//            ui.showError(e.getMessage());
-//            tasks = new TaskList();
-//        }
-//    }
-
     public Sage(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -46,24 +34,4 @@ public class Sage {
             return "Error: " + e.getMessage();
         }
     }
-
-//    public static void main(String[] args) {
-//        new Sage("data/sage.txt").run();
-//    }
-
-//    public void run() {
-//        ui.showWelcome();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String input = ui.readInput();
-//                Command command = Parser.parse(input);
-//                command.execute(tasks, ui, storage);
-//                isExit = command.isExit();
-//
-//            } catch (SageException e) {
-//                ui.showError(e.getMessage());
-//            }
-//        }
-//    }
 }

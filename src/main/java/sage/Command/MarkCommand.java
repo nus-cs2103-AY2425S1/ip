@@ -5,6 +5,9 @@ import sage.SageException;
 import sage.Storage;
 import sage.Ui;
 
+/**
+ * Represents a command to mark or unmark a task.
+ */
 public class MarkCommand extends Command {
 
     private final String indexString;
