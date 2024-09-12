@@ -1,5 +1,6 @@
 package alfred.task;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,9 +16,11 @@ public abstract class Task {
     private static final String TODO_SYMBOL = "T";
     private static final String DEADLINE_SYMBOL = "D";
     private static final String EVENT_SYMBOL = "E";
+    private static final String NO_TAG = "no tag";
 
     protected String description;
     protected boolean isDone;
+    private List<String> tags;
 
     /**
      * Constructs a new <code>Task</code> with the specified description.
@@ -28,6 +31,7 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -61,16 +65,6 @@ public abstract class Task {
      */
     public void unmark() {
         isDone = false;
-    }
-
-    /**
-     * Returns a string representation of the task, including its status and description.
-     *
-     * @return A string representation of the task.
-     */
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -233,5 +227,53 @@ public abstract class Task {
             taskData[i] = taskData[i].trim();
         }
         return taskData;
+    }
+
+    /**
+     * Adds a tag to the task.
+     *
+     * @param tag The tag to assign to the task.
+     */
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    /**
+     * Removes the tag from the task.
+     * If the tag is not present, the list remains unchanged.
+     *
+     * @param tag The tag to remove from the task.
+     */
+    public void removeTag(String tag) {
+        tags.remove(tag);
+    }
+
+    /**
+     * Returns the tags formatted as a string.
+     * If the tag list is empty, returns "No Tags".
+     *
+     * @return A string representing the tags, separated by spaces and
+     * enclosed within brackets. If no tags exist, returns "No Tags".
+     */
+    public String getTagsAsString() {
+        if (tags.isEmpty()) {
+            return "No Tags";
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (String tag : tags) {
+            result.append(tag).append(" ");
+        }
+        return result.toString().trim();
+    }
+
+    /**
+     * Returns a string representation of the task, including its status and description.
+     *
+     * @return A string representation of the task.
+     */
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "][" + getTagsAsString() + "] " + description;
     }
 }

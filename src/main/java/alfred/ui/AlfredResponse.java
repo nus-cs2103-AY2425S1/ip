@@ -114,7 +114,7 @@ public class AlfredResponse {
      * @return The message indicating task completion.
      */
     public static String showTaskMarked(Task task) {
-        return "Indeed, Sir, the task has been duly completed:\n    " + task;
+        return "Indeed, Sir, the task has been duly completed:\n" + task;
     }
 
     /**
@@ -124,7 +124,7 @@ public class AlfredResponse {
      * @return The message indicating the task remains incomplete.
      */
     public static String showTaskUnmarked(Task task) {
-        return "Very well Sir, the task remains outstanding:\n    " + task
+        return "Very well Sir, the task remains outstanding:\n" + task
                 + "\nA reminder that even small tasks deserve attention.";
     }
 
@@ -136,8 +136,28 @@ public class AlfredResponse {
      * @return The message indicating task deletion.
      */
     public static String showTaskDeleted(Task task, int remainingTasks) {
-        return "Of course Sir, the task has been successfully removed.\n    " + task
+        return "Of course Sir, the task has been successfully removed.\n" + task
                 + "\nYour list now contains " + remainingTasks + " tasks.";
+    }
+
+    /**
+     * Generates a message indicating that a task has been tagged
+     *
+     * @param task The task that was tagged
+     * @return The message indicating the task was tagged
+     */
+    public static String showTaskTagged(Task task) {
+        return "Of course Sir, I have tagged the task.\n" + task;
+    }
+
+    /**
+     * Returns an error message indicating that the input format for tagging
+     * a task is invalid.
+     *
+     * @return A string that informs the user of the correct "tag" command format.
+     */
+    public static String showInvalidTagFormat() {
+        return "That is the wrong tag format Sir.\n It should go: tag <taskNumber> <tag>";
     }
 
     /**

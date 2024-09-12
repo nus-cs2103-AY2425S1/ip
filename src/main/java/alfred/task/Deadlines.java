@@ -117,7 +117,7 @@ public class Deadlines extends Task {
      * Returns a string representation of the Deadlines task formatted for saving to a file.
      *
      * @return A string representing the Deadlines task in file format,
-     *         including the type, status, description, and deadline.
+     *         including the type, status, tags, description, and deadline.
      */
     @Override
     public String toFileFormat() {

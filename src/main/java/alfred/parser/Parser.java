@@ -46,7 +46,11 @@ public class Parser {
      * @return A string containing the error message if validation fails, or an empty string if valid.
      */
     public static String validateCommand(String input, String action, int listSize) {
-        if (!isValidCommandFormat(input, action)) {
+        if (action.equals("tag") && isInvalidCommandFormat(input, action)) {
+            return AlfredResponse.showInvalidTagFormat();
+        }
+
+        if (isInvalidCommandFormat(input, action)) {
             return AlfredResponse.showInvalidCommandFormat();
         }
 
@@ -67,11 +71,19 @@ public class Parser {
      * @param action The action to match.
      * @return True if the input matches the expected command format, false otherwise.
      */
-    private static boolean isValidCommandFormat(String input, String action) {
-        String regex = "^" + action + " \\d+$";
+    private static boolean isInvalidCommandFormat(String input, String action) {
+        String regex;
+        switch (action) {
+        case "tag":
+            regex = "^tag\\s+\\d+\\s+(.+?)$";
+            break;
+        default:
+             regex = "^" + action + " \\d+$";
+             break;
+        }
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        return matcher.matches();
+        return !matcher.matches();
     }
 
     /**
@@ -93,5 +105,26 @@ public class Parser {
      */
     public static String getKeyword(String input) {
         return input.substring(input.indexOf(" ") + 1).trim();
+    }
+
+    /**
+     * Extracts the tag from a tag command.
+     * The input must follow the format: "tag <taskNumber> <tag>"
+     *
+     * @param input The user input string in the form "tag <taskNumber> <tag>".
+     * @return The extracted tag as a string.
+     * @throws IllegalArgumentException If the input format is invalid.
+     */
+    public static String getTagFromInput(String input) {
+        // Split the input based on spaces
+        String[] inputParts = input.split("\\s+");
+
+        // Validate that the input has at least 3 parts ("tag", task number, and the tag)
+        if (inputParts.length < 3) {
+            throw new IllegalArgumentException("Invalid input format. Expected format: 'tag <taskNumber> <tag>'.");
+        }
+
+        // The tag is the third part of the input (index 2)
+        return inputParts[2];
     }
 }

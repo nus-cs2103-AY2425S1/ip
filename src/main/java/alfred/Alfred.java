@@ -105,9 +105,22 @@ public class Alfred {
             return findTask(input);
         case "bye":
             return farewell();
+        case "tag":
+            return tagTask(input);
         default:
             return createNewTask(input);
         }
+    }
+
+    private String tagTask(String input) {
+        String validationResult = Parser.validateCommand(input, "tag", tasks.getTasksCount());
+        if (!validationResult.isEmpty()) {
+            return validationResult;
+        }
+        int taskNumber = Parser.getTaskNumberFromInput(input);
+        String tag = Parser.getTagFromInput(input);
+        Task taggedTask = tasks.tagTask(taskNumber, tag);
+        return AlfredResponse.showTaskTagged(taggedTask);
     }
 
     /**
