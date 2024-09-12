@@ -351,7 +351,7 @@ public class Parser {
         }
 
         String[] splitInput = Arrays.stream(input.split(keyword, 2))
-                .map(String::trim)
+                .map(part -> part.trim())
                 .toArray(String[]::new);
 
         return splitInput;
