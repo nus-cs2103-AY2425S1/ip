@@ -78,7 +78,7 @@ public class Bob {
         try {
             Command command = Parser.parseCommand(userInput);
             String taskDetails = Parser.getTaskDetails(userInput);
-            commandType = command;
+            setCommandType(command);
             return executeCommand(command, taskDetails);
         } catch (BobException e) {
             return ui.showError(e);
@@ -120,6 +120,15 @@ public class Bob {
         default:
             throw new BobException("Sorry, I do not understand. Please try something else.");
         }
+    }
+
+    /**
+     * Sets commandType as the current command provided by the user.
+     *
+     * @param command The command from the user input.
+     */
+    private static void setCommandType(Command command) {
+        commandType = command;
     }
 
     /**
@@ -245,6 +254,7 @@ public class Bob {
         String format = "Add Event task in the following format:\n"
                 + "deadline <description> /from <start date> /to <due date>";
         validateTaskDetails(taskDetails, format);
+
         int numParams = 3;
         String[] params = splitTaskDetails(taskDetails, numParams);
         String description = params[0];
