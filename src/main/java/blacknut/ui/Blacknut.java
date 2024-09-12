@@ -246,6 +246,7 @@ public class Blacknut {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         tasks = new TaskList(storage.loadTasksFromFile());
+        assert tasks != null : "TaskList should not be null after loading from file";
         parser = new Parser();
     }
 
@@ -271,12 +272,14 @@ public class Blacknut {
                     case "mark":
                     case "unmark":
                         int markIndex = parser.parseIndex(input);
+                        assert markIndex >= 0 && markIndex < tasks.size() : "Mark index out of bounds";
                         boolean markAsDone = command.equals("mark");
                         tasks.markTask(markIndex, markAsDone);
                         ui.showMarkedTask(tasks.getTask(markIndex), markAsDone);
                         break;
                     case "todo":
                         String todoDescription = parser.parseDescription(input, "todo");
+                        assert !todoDescription.isEmpty() : "Todo description should not be empty";
                         Task newTodo = new Todo(todoDescription);
                         tasks.addTask(newTodo);
                         ui.showAddedTask(newTodo, tasks.size());
@@ -327,6 +330,7 @@ public class Blacknut {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
+        assert new File(FILE_PATH).exists() || new File(FILE_PATH).getParentFile().exists() : "File path must be valid";
         new Blacknut().run();
     }
 

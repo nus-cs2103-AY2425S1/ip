@@ -19,6 +19,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null && !description.trim().isEmpty() : "Task description cannot be null or empty";
         this.description = description;
         this.isDone = false;
     }
@@ -55,10 +56,14 @@ public class Task {
      * @throws IncorrectFormatException If the line format is incorrect.
      */
     public static Task fromFileFormat(String line) throws IncorrectFormatException {
+        assert line != null && !line.trim().isEmpty() : "File line cannot be null or empty";
+
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
             throw new IncorrectFormatException("File format incorrect: " + line);
         }
+        assert parts.length >= 3 : "File line should contain at least 3 parts";
+
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
@@ -95,11 +100,13 @@ public class Task {
      * @return The string representation of the Task for file storage.
      */
     public String toFileFormat() {
+        assert description != null && !description.trim().isEmpty() : "Task description should not be null or empty";
         return this.getClass().getSimpleName().substring(0, 1) + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override
     public String toString() {
+        assert description != null && !description.trim().isEmpty() : "Task description should not be null or empty";
         return "[" + getStatusIcon() + "] " + description;
     }
 }
