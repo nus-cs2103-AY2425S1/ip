@@ -9,6 +9,7 @@ import java.util.Scanner;
 import cancelgpt.command.Command;
 import cancelgpt.exception.task.TaskDoesNotExist;
 import cancelgpt.task.Task;
+import javafx.application.Application;
 
 /**
  * Represents the chatbot.
@@ -37,9 +38,10 @@ public class CancelGpt {
     }
 
     public static void main(String[] args) {
-        CancelGpt cancelGpt = new CancelGpt(Paths.get(System
-                .getProperty("user.home"), "accountexeregister-ip", "data"));
-        cancelGpt.run();
+//        CancelGpt cancelGpt = new CancelGpt(Paths.get(System
+//                .getProperty("user.home"), "accountexeregister-ip", "data"));
+//        cancelGpt.run();
+        Application.launch(Gui.class, args);
     }
 
     /**
