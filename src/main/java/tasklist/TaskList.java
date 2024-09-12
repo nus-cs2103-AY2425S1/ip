@@ -263,7 +263,6 @@ public class TaskList {
     public static String addMany(String input, List<Task> items, Scanner scanner) {
         return "";
     }
-    // input is "cp (1)<task index> LOW/MEDIUM...
 
     /**
      * Changes the priorityLevel for various task instances
