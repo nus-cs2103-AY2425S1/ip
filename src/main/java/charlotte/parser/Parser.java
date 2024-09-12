@@ -7,6 +7,7 @@ import charlotte.command.ExitCommand;
 import charlotte.command.FindCommand;
 import charlotte.command.ListCommand;
 import charlotte.command.MarkCommand;
+import charlotte.command.RemindersCommand;
 import charlotte.command.UnmarkCommand;
 import charlotte.exception.CharlotteException;
 import charlotte.task.Deadline;
@@ -46,6 +47,8 @@ public class Parser {
             return handleEventCommand(inputParts);
         case "find":
             return handleFindCommand(inputParts);
+        case "reminders":
+            return new RemindersCommand();
         case "bye":
             return new ExitCommand();
         default:
