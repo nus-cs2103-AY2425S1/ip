@@ -26,6 +26,10 @@ public class TaskList {
         this.listTasks = listTasks;
     }
 
+    /**
+     * Adds the task specified to the TaskList
+     * @param task to be added to the TaskList
+     */
     public void add(Task task) {
         this.listTasks.add(task);
         assert this.listTasks.contains(task);
@@ -33,12 +37,16 @@ public class TaskList {
 
     /**
      * Returns the number of tasks stored as an <code>int</code>
-     * @return: size of type int
+     * @return size of type int
      */
     public int size() {
         return this.listTasks.size();
     }
 
+    /**
+     * Removes the task specified from the TaskList
+     * @param task to be removed from the TaskList
+     */
     public void remove(Task task) {
         this.listTasks.remove(task);
         assert !this.listTasks.contains(task);
@@ -66,6 +74,22 @@ public class TaskList {
         }
 
         return message.toString();
+    }
+
+    /**
+     * Checks if the TaskList contains the specified task
+     * @param inputTask the task to be checked
+     * @return <code>true</code> if the TaskList contains the Task specified,
+     *     and otherwise <code>false</code>
+     */
+    public boolean contains(Task inputTask) {
+        for (Task task: this.listTasks) {
+            if (task.equals(inputTask)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public ArrayList<Task> toList() {

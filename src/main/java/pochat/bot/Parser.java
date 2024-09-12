@@ -114,6 +114,11 @@ class Parser {
     }
 
     private String addTask(Task task) {
+        if (taskList.contains(task)) {
+            return "Sorry! You already have this task in your list. Please try adding "
+                        + "another task";
+        }
+
         taskList.add(task);
         assert taskList.toList().contains(task);
         return "Got it. I've added this task:\n" + task + "\nNow you have "

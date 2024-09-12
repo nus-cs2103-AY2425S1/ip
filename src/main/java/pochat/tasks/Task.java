@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  *     that encapsulates the common logic across the three
  */
 public abstract class Task {
-    private final String taskDescription;
+    protected final String taskDescription;
     private boolean isDone;
 
     protected Task(String taskDescription, boolean isDone) {
@@ -80,11 +80,17 @@ public abstract class Task {
         assert this.isDone;
     }
 
+    /**
+     * Marks the task as done
+     */
     public void markAsDone() {
         this.setDone(true);
         assert !this.isDone;
     }
 
+    /**
+     * Marks the task as not done
+     */
     public void unmarkAsDone() {
         this.setDone(false);
     }

@@ -29,6 +29,18 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o instanceof Deadline) {
+            return ((Deadline) o).deadline.equals(this.deadline)
+                    && ((Deadline) o).taskDescription.equals(taskDescription);
+        }
+
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + formatYearMonthDay(this.deadline) + ")";
     }
