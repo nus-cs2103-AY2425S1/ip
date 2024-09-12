@@ -12,6 +12,21 @@ import java.util.List;
  */
 public class Deadline extends Task {
 
+    private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
+            DateTimeFormatter.ofPattern("d MMM yyyy"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+            DateTimeFormatter.ofPattern("MM/dd/yy"),
+            DateTimeFormatter.ofPattern("MMM d yyyy"),
+            DateTimeFormatter.ofPattern("MMM dd yyyy"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+            DateTimeFormatter.ofPattern("d-MMMM-yyyy"),
+            DateTimeFormatter.ofPattern("d/MM/yyyy"),
+            DateTimeFormatter.ofPattern("d/M/yyyy"),
+            DateTimeFormatter.ofPattern("d/M/yy"),
+            DateTimeFormatter.ofPattern("dd/M/yyyy"),
+            DateTimeFormatter.ofPattern("d MMM"),
+            DateTimeFormatter.ofPattern("d MMMM")
+    );
     protected LocalDate dueTime;
 
     /**
@@ -53,23 +68,7 @@ public class Deadline extends Task {
      * @throws IllegalArgumentException if the date string cannot be parsed.
      */
     public LocalDate parseDate(String dateStr) {
-        List<DateTimeFormatter> formatters = Arrays.asList(
-            DateTimeFormatter.ofPattern("d MMM yyyy"),
-            DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-            DateTimeFormatter.ofPattern("MM/dd/yy"),
-            DateTimeFormatter.ofPattern("MMM d yyyy"),
-            DateTimeFormatter.ofPattern("MMM dd yyyy"),
-            DateTimeFormatter.ofPattern("dd/MM/yyyy"),
-            DateTimeFormatter.ofPattern("d-MMMM-yyyy"),
-            DateTimeFormatter.ofPattern("d/MM/yyyy"),
-            DateTimeFormatter.ofPattern("d/M/yyyy"),
-            DateTimeFormatter.ofPattern("d/M/yy"),
-            DateTimeFormatter.ofPattern("dd/M/yyyy"),
-            DateTimeFormatter.ofPattern("d MMM"),
-            DateTimeFormatter.ofPattern("d MMMM")
-        );
-
-        for (DateTimeFormatter formatter : formatters) {
+        for (DateTimeFormatter formatter : FORMATTERS) {
             try {
                 LocalDate date = LocalDate.parse(dateStr, formatter);
                 // If no year was provided, assume the current year

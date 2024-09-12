@@ -13,6 +13,49 @@ import java.util.List;
  */
 public class Event extends Task {
 
+    private static final List<DateTimeFormatter> DATE_TIME_FORMATTERS = Arrays.asList(
+            DateTimeFormatter.ofPattern("d MMM yyyy HHmm"),
+            DateTimeFormatter.ofPattern("d MMM yyyy ha"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd ha"),
+            DateTimeFormatter.ofPattern("MM/dd/yy HHmm"),
+            DateTimeFormatter.ofPattern("MM/dd/yy ha"),
+            DateTimeFormatter.ofPattern("MMM d yyyy HHmm"),
+            DateTimeFormatter.ofPattern("MMM d yyyy ha"),
+            DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"),
+            DateTimeFormatter.ofPattern("MMM dd yyyy ha"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy ha"),
+            DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("dd/M/yyyy ha"),
+            DateTimeFormatter.ofPattern("d-MMMM-yyyy HHmm"),
+            DateTimeFormatter.ofPattern("d-MMMM-yyyy ha"),
+            DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("d/M/yyyy ha"),
+            DateTimeFormatter.ofPattern("d/M/yy ha"),
+            DateTimeFormatter.ofPattern("d/M/yy HHmm"),
+            DateTimeFormatter.ofPattern("d MMM HHmm"),
+            DateTimeFormatter.ofPattern("d MMM ha"),
+            DateTimeFormatter.ofPattern("d MMMM HHmm"),
+            DateTimeFormatter.ofPattern("d MMMM ha"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
+    );
+    private static final List<DateTimeFormatter> DATE_FORMATTERS = Arrays.asList(
+            DateTimeFormatter.ofPattern("d MMM yyyy"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+            DateTimeFormatter.ofPattern("MM/dd/yy"),
+            DateTimeFormatter.ofPattern("MMM d yyyy"),
+            DateTimeFormatter.ofPattern("MMM dd yyyy"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+            DateTimeFormatter.ofPattern("dd/M/yyyy"),
+            DateTimeFormatter.ofPattern("d/M/yy"),
+            DateTimeFormatter.ofPattern("d/M/yyyy"),
+            DateTimeFormatter.ofPattern("d-MMMM-yyyy"),
+            DateTimeFormatter.ofPattern("d/MM/yyyy"),
+            DateTimeFormatter.ofPattern("d MMM"),
+            DateTimeFormatter.ofPattern("d MMMM")
+    );
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
@@ -58,53 +101,8 @@ public class Event extends Task {
      * @throws IllegalArgumentException if the date string cannot be parsed.
      */
     public LocalDateTime parseDateTime(String dateStr) {
-        List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("d MMM yyyy HHmm"),
-                DateTimeFormatter.ofPattern("d MMM yyyy ha"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd ha"),
-                DateTimeFormatter.ofPattern("MM/dd/yy HHmm"),
-                DateTimeFormatter.ofPattern("MM/dd/yy ha"),
-                DateTimeFormatter.ofPattern("MMM d yyyy HHmm"),
-                DateTimeFormatter.ofPattern("MMM d yyyy ha"),
-                DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"),
-                DateTimeFormatter.ofPattern("MMM dd yyyy ha"),
-                DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("dd/MM/yyyy ha"),
-                DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("dd/M/yyyy ha"),
-                DateTimeFormatter.ofPattern("d-MMMM-yyyy HHmm"),
-                DateTimeFormatter.ofPattern("d-MMMM-yyyy ha"),
-                DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("d/M/yyyy ha"),
-                DateTimeFormatter.ofPattern("d/M/yy ha"),
-                DateTimeFormatter.ofPattern("d/M/yy HHmm"),
-                DateTimeFormatter.ofPattern("d MMM HHmm"),
-                DateTimeFormatter.ofPattern("d MMM ha"),
-                DateTimeFormatter.ofPattern("d MMMM HHmm"),
-                DateTimeFormatter.ofPattern("d MMMM ha"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
-        );
-
-        List<DateTimeFormatter> dateFormatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("d MMM yyyy"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-                DateTimeFormatter.ofPattern("MM/dd/yy"),
-                DateTimeFormatter.ofPattern("MMM d yyyy"),
-                DateTimeFormatter.ofPattern("MMM dd yyyy"),
-                DateTimeFormatter.ofPattern("dd/MM/yyyy"),
-                DateTimeFormatter.ofPattern("dd/M/yyyy"),
-                DateTimeFormatter.ofPattern("d/M/yy"),
-                DateTimeFormatter.ofPattern("d/M/yyyy"),
-                DateTimeFormatter.ofPattern("d-MMMM-yyyy"),
-                DateTimeFormatter.ofPattern("d/MM/yyyy"),
-                DateTimeFormatter.ofPattern("d MMM"),
-                DateTimeFormatter.ofPattern("d MMMM")
-        );
-
         // First, try parsing as LocalDateTime with a time component
-        for (DateTimeFormatter formatter : dateTimeFormatters) {
+        for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
             try {
                 return LocalDateTime.parse(dateStr, formatter);
             } catch (DateTimeParseException e) {
@@ -113,7 +111,7 @@ public class Event extends Task {
         }
 
         // If no time component is present, try parsing as LocalDate and set the time to 00:00
-        for (DateTimeFormatter formatter : dateFormatters) {
+        for (DateTimeFormatter formatter : DATE_FORMATTERS) {
             try {
                 LocalDate date = LocalDate.parse(dateStr, formatter);
                 return date.atStartOfDay();
