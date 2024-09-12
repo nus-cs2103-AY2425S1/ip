@@ -29,6 +29,10 @@ public class Parser {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_FROM_HISTORY = DateTimeFormatter
+            .ofPattern("MMM d yyyy HH:mm");
+    private static final DateTimeFormatter DATE_FORMATTER_FROM_HISTORY = DateTimeFormatter.ofPattern("MMM d yyyy");
+
 
     /**
      * Parses a command string and returns the corresponding Command object.
@@ -182,7 +186,7 @@ public class Parser {
      * @return The Task object parsed from the string.
      * @throws IllegalArgumentException If the task type is unknown.
      */
-    public static Task parseTask(String line) {
+    public static Task parseTaskFromHistory(String line) {
         char taskType = line.charAt(0);
         boolean isDone = line.charAt(4) == '1';
         String argument = line.substring(8);
@@ -195,11 +199,11 @@ public class Parser {
             break;
         case 'D':
             String[] deadlineParts = argument.split("\\|", 2);
-            task = getDeadline(deadlineParts[0].strip(), deadlineParts[1].strip());
+            task = getDeadlineFromHistory(deadlineParts[0].strip(), deadlineParts[1].strip());
             break;
         case 'E':
             String[] eventParts = argument.split("\\|", 3);
-            task = getEvent(eventParts[0].strip(), eventParts[1].strip(), eventParts[2].strip());
+            task = getEventFromHistory(eventParts[0].strip(), eventParts[1].strip(), eventParts[2].strip());
             break;
         default:
             throw new IllegalArgumentException("Unknown task type: " + taskType);
@@ -220,13 +224,13 @@ public class Parser {
      * @return The Deadline task created from the given description and date string.
      * @throws IllegalArgumentException If the date format is invalid.
      */
-    private static Task getDeadline(String description, String dateTimeString) {
+    private static Task getDeadlineFromHistory(String description, String dateTimeString) {
         try {
-            LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER_FROM_HISTORY);
             return new Deadline(description, dateTime);
         } catch (DateTimeParseException e1) {
             try {
-                LocalDate date = LocalDate.parse(dateTimeString, DATE_FORMATTER);
+                LocalDate date = LocalDate.parse(dateTimeString, DATE_FORMATTER_FROM_HISTORY);
                 return new Deadline(description, date);
             } catch (DateTimeParseException e2) {
                 throw new IllegalArgumentException("Invalid date format: " + dateTimeString);
@@ -243,15 +247,15 @@ public class Parser {
      * @return The Event task created from the given description and date strings.
      * @throws IllegalArgumentException If the date format is invalid.
      */
-    private static Task getEvent(String description, String dateTimeStringFrom, String dateTimeStringTo) {
+    private static Task getEventFromHistory(String description, String dateTimeStringFrom, String dateTimeStringTo) {
         try {
-            LocalDateTime fromDateTime = LocalDateTime.parse(dateTimeStringFrom, DATE_TIME_FORMATTER);
-            LocalDateTime toDateTime = LocalDateTime.parse(dateTimeStringTo, DATE_TIME_FORMATTER);
+            LocalDateTime fromDateTime = LocalDateTime.parse(dateTimeStringFrom, DATE_TIME_FORMATTER_FROM_HISTORY);
+            LocalDateTime toDateTime = LocalDateTime.parse(dateTimeStringTo, DATE_TIME_FORMATTER_FROM_HISTORY);
             return new Event(description, fromDateTime, toDateTime);
         } catch (DateTimeParseException e1) {
             try {
-                LocalDate fromDate = LocalDate.parse(dateTimeStringFrom, DATE_FORMATTER);
-                LocalDate toDate = LocalDate.parse(dateTimeStringTo, DATE_FORMATTER);
+                LocalDate fromDate = LocalDate.parse(dateTimeStringFrom, DATE_FORMATTER_FROM_HISTORY);
+                LocalDate toDate = LocalDate.parse(dateTimeStringTo, DATE_FORMATTER_FROM_HISTORY);
                 return new Event(description, fromDate, toDate);
             } catch (DateTimeParseException e2) {
                 throw new IllegalArgumentException("Invalid date format: from '"

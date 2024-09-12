@@ -40,7 +40,7 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                Task task = Parser.parseTask(line);
+                Task task = Parser.parseTaskFromHistory(line);
                 tasks.addTask(task);
             }
             scanner.close();
