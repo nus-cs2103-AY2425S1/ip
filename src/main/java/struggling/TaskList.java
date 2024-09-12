@@ -16,6 +16,13 @@ import struggling.task.ToDo;
  */
 public class TaskList {
 
+    private static final int TYPE_INDEX = 0;
+    private static final int PRIORITY_INDEX = 1;
+    private static final int IS_DONE_INDEX = 2;
+    private static final int DESCRIPTION_INDEX = 3;
+    private static final int FIRST_DATE_INDEX = 4;
+    private static final int SECOND_DATE_INDEX = 5;
+
     private final ArrayList<Task> tasks;
 
     /**
@@ -31,27 +38,41 @@ public class TaskList {
      * @param input Input data to populate the TaskList.
      */
     public TaskList(ArrayList<String> input) {
+
+
         tasks = new ArrayList<>();
         for (String s : input) {
             String[] args = s.split(" \\| ");
 
             Task task;
 
-            if (Objects.equals(args[0], "T")) {
-                task = new ToDo(args[2]);
-            } else if (Objects.equals(args[0], "D")) {
-                task = new Deadline(args[2], LocalDate.parse(args[3]));
-            } else if (Objects.equals(args[0], "E")) {
-                task = new Event(args[2], args[3], args[4]);
+            String taskPriority = args[PRIORITY_INDEX];
+            String taskType = args[TYPE_INDEX];
+            String taskIsDone = args[IS_DONE_INDEX];
+            String taskDescription = args[DESCRIPTION_INDEX];
+
+            if (Objects.equals(taskType, "T")) {
+                task = new ToDo(taskDescription);
+            } else if (Objects.equals(taskType, "D")) {
+                String taskFirstDate = args[FIRST_DATE_INDEX];
+                task = new Deadline(taskDescription, LocalDate.parse(taskFirstDate));
+            } else if (Objects.equals(taskType, "E")) {
+                String taskFirstDate = args[FIRST_DATE_INDEX];
+                String taskSecondDate = args[SECOND_DATE_INDEX];
+                task = new Event(taskDescription, taskFirstDate, taskSecondDate);
             } else {
-                System.out.println(args[0]);
                 throw new StrugglingException("Save file corrupted");
             }
 
-            if (Objects.equals(args[1], "1")) {
+            if (Objects.equals(taskPriority, "1")) {
+                task.setPriorityHigh();
+            } else if (!Objects.equals(taskPriority, "0")) {
+                throw new StrugglingException("Save file corrupted");
+            }
+
+            if (Objects.equals(taskIsDone, "1")) {
                 task.mark();
-            } else if (!Objects.equals(args[1], "0")) {
-                System.out.println(args[1]);
+            } else if (!Objects.equals(taskIsDone, "0")) {
                 throw new StrugglingException("Save file corrupted");
             }
 
@@ -102,6 +123,30 @@ public class TaskList {
     public Task unmarkTask(int i) {
         Task t = this.tasks.get(i);
         t.unmark();
+        return t;
+    }
+
+    /**
+     * Sets the Priority property of a Task in TaskList to HIGH.
+     *
+     * @param i Index of the Task in TaskList.
+     * @return The Task with high priority.
+     */
+    public Task setTaskPriorityHigh(int i) {
+        Task t = this.tasks.get(i);
+        t.setPriorityHigh();
+        return t;
+    }
+
+    /**
+     * Sets the Priority property of a Task in TaskList to LOW.
+     *
+     * @param i Index of the Task in TaskList.
+     * @return The Task with low priority.
+     */
+    public Task setTaskPriorityLow(int i) {
+        Task t = this.tasks.get(i);
+        t.setPriorityLow();
         return t;
     }
 
