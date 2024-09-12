@@ -18,7 +18,6 @@ public class Parser {
     private TaskList allTasks;
     private String description;
     private Storage storage;
-    private boolean isOver = false;
     private Ui ui;
     /**
      * Constructs a {@code Parser} instance which processes a given input String and performs
@@ -87,12 +86,14 @@ public class Parser {
             storage.put(allTasks);
             return ui.unmarkedMessage(allTasks.getLastUnmarked());
         case FIND:
-            Stream<Task> result = allTasks.find2(remainder);
+            Stream<Task> result = allTasks.find(remainder);
             return ui.findMessage() + "\n"
                     + new TaskList(result.toList()).list("");
         case BYE:
-            this.isOver = true;
             return ui.bye();
+        case SORT:
+            return ui.sortMessage() + "\n"
+                    + new TaskList(allTasks.sort(remainder)).list("");
         default:
             throw new CommandNotFoundException(command);
         }

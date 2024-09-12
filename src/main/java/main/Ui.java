@@ -87,4 +87,8 @@ public class Ui {
     public String bye() {
         return "Bye. Hope to see you again soon!";
     }
+
+    public String sortMessage() {
+        return "I had sorted them for you.";
+    }
 }

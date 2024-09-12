@@ -1,6 +1,5 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Stream;
@@ -11,6 +10,7 @@ import exception.InvalidSyntaxException;
 import task.Deadlines;
 import task.Events;
 import task.Task;
+import task.TaskComparator;
 import task.ToDos;
 
 /**
@@ -153,7 +153,7 @@ public class TaskList {
      * @param str the input string by the user
      * @return all {@code Task} whose toString() method contains the input string
      */
-    public Stream<Task> find2(String str) {
+    public Stream<Task> find(String str) {
         return this.allTasks.stream()
                 .filter(x -> x.toString().contains(str));
     }
@@ -191,6 +191,17 @@ public class TaskList {
             result.append("\n");
         }
         return result.toString();
+    }
+
+    public List<Task> sort(String input) throws InvalidSyntaxException {
+        if (!input.isEmpty()) {
+            throw new InvalidSyntaxException("sort");
+        }
+
+        return this.allTasks
+                .stream()
+                .sorted(new TaskComparator())
+                .toList();
     }
 
     /**

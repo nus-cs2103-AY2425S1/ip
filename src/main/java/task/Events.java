@@ -90,4 +90,8 @@ public class Events extends Task {
         String str = super.isDone ? "1" : "0";
         return String.format("E | %s | %s", str, this.initDesc);
     }
+
+    public LocalDateTime getStart() {
+            return this.startDate;
+    }
 }
