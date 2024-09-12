@@ -10,7 +10,7 @@ import donna.DonnaException;
  * Represents a Deadline task which includes a description and a due date/time.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private final LocalDateTime byTime;
     private final String description;
     private final DateTimeFormatter inputFormatter =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -21,16 +21,19 @@ public class Deadline extends Task {
      * Constructs a Deadline task with the specified description and due date/time.
      *
      * @param description The description of the task.
-     * @param by The due date and time of the task in the format "dd/MM/yyyy HHmm".
+     * @param byTime The due date and time of the task in the format "dd/MM/yyyy HHmm".
      * @throws DonnaException If the description is empty or the date/time format is invalid.
      */
-    public Deadline(String description, String by) throws DonnaException {
+    public Deadline(String description, String byTime) throws DonnaException {
         super(description);
-        if (by.trim().isEmpty()) {
+
+        assert byTime != null : "byTime should not be null";
+
+        if (byTime.trim().isEmpty()) {
             throw DonnaException.emptyDeadline();
         }
         try {
-            this.by = LocalDateTime.parse(by, inputFormatter);
+            this.byTime = LocalDateTime.parse(byTime, inputFormatter);
         } catch (DateTimeParseException e) {
             throw new DonnaException(
                     "Invalid date and time format! Please use dd/MM/yyyy HHmm (24hr format)");
@@ -46,7 +49,7 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         return "D | " + (this.isDone() ? "1" : "0") + " | " + this.description + " | "
-                + this.by.format(inputFormatter);
+                + this.byTime.format(inputFormatter);
     }
 
     @Override
@@ -63,6 +66,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return super.toString()
-                + "(by: " + this.by.format(outputFormatter) + ")";
+                + "(by: " + this.byTime.format(outputFormatter) + ")";
     }
 }

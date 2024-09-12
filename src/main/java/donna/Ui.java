@@ -82,6 +82,9 @@ public class Ui {
      * @return The task deleted message.
      */
     public String getTaskDeletedMessage(Task task, int taskCount) {
+        assert task != null : "Task should not be null";
+        assert taskCount >= 0 : "Task count can not be negative";
+
         StringBuilder message = new StringBuilder();
         message.append("Alright. The following task has been deleted: \n");
         message.append("    ").append(task);
@@ -101,6 +104,7 @@ public class Ui {
      * @return Message confirming status of a task.
      */
     public String getTaskMarkedMessage(Task task, boolean isMarked) {
+        assert task != null : "Task should not be null";
         StringBuilder message = new StringBuilder();
         if (isMarked) {
             message.append("Nice! I've marked this task as done: \n");
@@ -118,6 +122,7 @@ public class Ui {
      * @return String representation of list of all tasks.
      */
     public String getTaskList(TaskList tasks) {
+        assert tasks != null : "Task list should not be null";
         StringBuilder message = new StringBuilder();
         if (tasks.isEmpty()) {
             message.append("No tasks added to the list yet.\n").append(
@@ -148,6 +153,7 @@ public class Ui {
      * @return The results of the user's search.
      */
     public String findResults(List<Task> tasks) {
+        assert tasks != null : "Tasks list should not be null";
         StringBuilder results = new StringBuilder();
         results.append(results);
         if (tasks.isEmpty()) {

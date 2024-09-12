@@ -18,6 +18,9 @@ public class Parser {
      * @throws DonnaException If the command is invalid or not recognized.
      */
     public ParsedCommand parse(String input) throws DonnaException {
+        assert input != null && !input.trim().isEmpty() :
+                "Input should not be null or empty";
+
         String[] inputWords = input.split(" ", 2);
         String command = inputWords[0];
         String arguments = inputWords.length > 1 ? inputWords[1] : "";

@@ -29,6 +29,11 @@ public class Storage {
      * @param filePath The path of the file where tasks are saved.
      */
     public Storage(String directoryPath, String filePath) {
+        assert directoryPath != null : "Directory path should not be null";
+        assert !directoryPath.isEmpty() : "Directory path should not be empty";
+        assert filePath != null : "File path should not be null";
+        assert !filePath.isEmpty() : "File path should not be empty";
+
         this.directoryPath = directoryPath;
         this.filePath = filePath;
     }
@@ -40,6 +45,7 @@ public class Storage {
      * @param tasks The TaskList containing tasks to be saved.
      */
     public void saveTasks(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null";
         try {
             Files.createDirectories(Paths.get(this.directoryPath)); //ensure directory exists
             try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(this.filePath))) {
@@ -76,9 +82,10 @@ public class Storage {
             while (sc.hasNext()) {
                 String line = sc.nextLine();
                 String[] inWords = line.split(" \\| ");
+                assert inWords.length >= 3 : "Array size does not match the expected format";
                 String taskType = inWords[0];
                 boolean isDone = inWords[1].equals("1");
-                Task task = null;
+                Task task;
 
                 switch (taskType) {
                 case "T":
