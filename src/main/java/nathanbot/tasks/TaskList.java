@@ -92,6 +92,21 @@ public class TaskList {
     }
 
     /**
+     * Checks if a task is in the Tasklist.
+     *
+     * @param searchTask The task to search for in TaskList.
+     * @return A boolean of whether a task is in the TaskList.
+     */
+    public boolean containsTask(Task searchTask) {
+        for (Task t : taskList) {
+            if (t.equals(searchTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns a string representation of the task list.
      *
      * @return A string representation of the task list.

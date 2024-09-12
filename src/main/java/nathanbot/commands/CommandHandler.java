@@ -65,6 +65,8 @@ public abstract class CommandHandler {
      */
     public static String handleMarkCommand(String input, String command, TaskList taskList, boolean isDone) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
+        assert input.startsWith(command) : "Input should start with the command";
+
         try {
             int index = Integer.parseInt(input.substring(command.length()).trim());
             if (isDone) {
@@ -88,6 +90,8 @@ public abstract class CommandHandler {
      */
     public static String handleDeleteCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
+        assert input.startsWith(CommandType.DELETE.getCommand()) : "Input should start with the command";
+
         try {
             int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()).trim());
             Task task = taskList.getTask(index - 1);
@@ -108,12 +112,16 @@ public abstract class CommandHandler {
      */
     public static String handleTodoCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
+        assert input.startsWith(CommandType.TODO.getCommand()) : "Input should start with the command";
+
         input = input.substring(CommandType.TODO.getCommand().length()).trim();
         if (input.isEmpty()) {
             return "The description of a todo cannot be empty. Use: todo <description>\n";
         }
         ToDo task = new ToDo(input);
         taskList.addTask(task);
+        assert taskList.containsTask(task) : "Task should be added to the task list";
+
         return printAddTaskLine(task, taskList);
     }
 
@@ -127,6 +135,8 @@ public abstract class CommandHandler {
      */
     public static String handleDeadlineCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
+        assert input.startsWith(CommandType.DEADLINE.getCommand()) : "Input should start with the command";
+
         input = input.substring(CommandType.DEADLINE.getCommand().length()).trim();
 
         String[] parts = input.split(" /by ");
@@ -143,6 +153,8 @@ public abstract class CommandHandler {
             Deadline task = new Deadline(description, deadline);
 
             taskList.addTask(task);
+            assert taskList.containsTask(task) : "Task should be added to the task list";
+
             return printAddTaskLine(task, taskList);
         } catch (DateTimeParseException e) {
             return "Invalid date format. Please use dd/MM/yyyy HHmm.\n";
@@ -159,6 +171,8 @@ public abstract class CommandHandler {
      */
     public static String handleEventCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
+        assert input.startsWith(CommandType.EVENT.getCommand()) : "Input should start with the command";
+
         input = input.substring(CommandType.EVENT.getCommand().length()).trim();
 
         String[] parts = input.split(" /from | /to ");
@@ -176,6 +190,8 @@ public abstract class CommandHandler {
             Event task = new Event(description, fromDateTime, toDateTime);
 
             taskList.addTask(task);
+            assert taskList.containsTask(task) : "Task should be added to the task list";
+
             return printAddTaskLine(task, taskList);
         } catch (DateTimeParseException e) {
             return "Invalid date format. Please use dd/MM/yyyy HHmm.\n";
@@ -191,6 +207,8 @@ public abstract class CommandHandler {
      */
     public static String handleFindCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
+        assert input.startsWith(CommandType.FIND.getCommand()) : "Input should start with the command";
+
         String searchString = input.substring(CommandType.FIND.getCommand().length()).trim();
         TaskList tasksFound = taskList.find(searchString);
         if (tasksFound.listLength() == 0) {
