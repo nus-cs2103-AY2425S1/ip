@@ -137,7 +137,13 @@ public class TaskList {
         return list.remove(index);
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws AtreidesException {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equals(task)) {
+                throw new AtreidesException("Same Task identified \n"
+                        + (i + 1) + "." + list.get(i));
+            }
+        }
         list.add(task);
     }
 

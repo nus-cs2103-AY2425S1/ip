@@ -36,6 +36,17 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (obj instanceof Deadline other) {
+            return other.deadline.equals(this.deadline) && other.by.equals(this.by);
+        }
+        return false;
+    }
+
+    @Override
     public String write() {
         return "D" + super.write() + " | " + deadline.format(FORMAT);
     }

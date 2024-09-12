@@ -11,6 +11,17 @@ public class Events extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (obj instanceof Events other) {
+            return other.startDT.equals(this.startDT) && other.endDT.equals(this.endDT);
+        }
+        return false;
+    }
+
+    @Override
     public String write() {
         return "E" + super.write() + " | " + startDT + "-" + endDT;
     }

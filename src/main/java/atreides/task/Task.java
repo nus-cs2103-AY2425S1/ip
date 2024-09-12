@@ -45,6 +45,17 @@ public class Task {
         return " | " + this.getStatusIcon("1", "0") + " | " + this.description;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof Task other) {
+            return this.description.equals(other.description);
+        }
+        return false;
+    }
+
     /**
      * @return the representation of the task and whether its completed
      */

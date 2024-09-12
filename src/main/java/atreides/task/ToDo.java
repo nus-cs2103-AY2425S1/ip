@@ -7,6 +7,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
     public String write() {
         return "T" + super.write();
     }
