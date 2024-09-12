@@ -52,6 +52,7 @@ public class Rainy {
         String[] splitByTask = ps.getSplitByTask();
         String message = ps.getMessage();
         int count = ps.getCount();
+        assert(count >= -1);
         Instructions instruction = ps.enumOperator(message);
         switch (instruction) {
         case LIST:
