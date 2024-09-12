@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBee(this.bee);  // inject the Bee instance
+            fxmlLoader.<MainWindow>getController().setBee(this.bee); // inject the Bee instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

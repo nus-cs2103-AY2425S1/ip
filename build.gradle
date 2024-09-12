@@ -50,8 +50,10 @@ application {
 }
 
 shadowJar {
+    mainClassName = "chatbot.Launcher"
     archiveBaseName = "bee"
     archiveClassifier = null
+    archiveFileName = 'bee.jar'
 }
 
 run {
