@@ -19,9 +19,9 @@ public class TaskTest {
 
         aDeadline.markAsDone();
 
-        assertEquals("T | 0 | task", aToDo.storeData());
-        assertEquals("D | 1 | task2 | 2024-09-12T14:00", aDeadline.storeData());
-        assertEquals("E | 0 | task3 | 2024-08-17T08:00 to 2024-09-17T22:00", anEvent.storeData());
+        assertEquals("T | 0 | task", aToDo.toStoringFormat());
+        assertEquals("D | 1 | task2 | 2024-09-12T14:00", aDeadline.toStoringFormat());
+        assertEquals("E | 0 | task3 | 2024-08-17T08:00 to 2024-09-17T22:00", anEvent.toStoringFormat());
     }
 
 

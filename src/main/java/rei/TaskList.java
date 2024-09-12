@@ -6,6 +6,9 @@ import java.util.List;
 public class TaskList {
     private List<Task> listOfTasks;
 
+    public TaskList() {
+        this.listOfTasks = new ArrayList<>();
+    }
     public TaskList(List<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
     }
@@ -29,6 +32,7 @@ public class TaskList {
     public Task getTask(int index) {
         return listOfTasks.get(index);
     }
+
     public void addTask(Task newTask) {
         listOfTasks.add(newTask);
         Ui.print("Got it. I've added this task:\n" +
@@ -63,6 +67,14 @@ public class TaskList {
         } else {
             Ui.print("No task found. Please retry!");
         }
+    }
+
+    public String toStoringFormat() {
+        String tasksInStoringFormat = "";
+        for (int i = 0; i < this.getNumOfTasks(); i++) {
+            tasksInStoringFormat += this.getTask(i).toStoringFormat() + "\n";
+        }
+        return tasksInStoringFormat;
     }
 
 }

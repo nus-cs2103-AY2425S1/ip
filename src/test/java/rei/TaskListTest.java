@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskListTest {
     @Test
     public void getNumOfTasks_newTaskList_0() {
-        TaskList listOfTasks = new TaskList(new ArrayList<Task>());
+        TaskList listOfTasks = new TaskList();
         assertEquals(0, listOfTasks.getNumOfTasks());
     }
 
     @Test
     public void getTaskTest() {
-        TaskList listOfTasks = new TaskList(new ArrayList<Task>());
+        TaskList listOfTasks = new TaskList();
         listOfTasks.addTask(Task.createToDo("task"));
         listOfTasks.addTask(Task.createDeadline("task2", LocalDateTime.of(2024, Month.SEPTEMBER, 12, 14, 00)));
         listOfTasks.addTask(Task.createEvent("task3",

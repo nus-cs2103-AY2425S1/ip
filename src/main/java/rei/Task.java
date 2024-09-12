@@ -89,7 +89,7 @@ public abstract class Task {
      * in the database.
      * @return a string to store the task in the database.
      */
-    public abstract String storeData();
+    public abstract String toStoringFormat();
 
 
     /**
@@ -106,7 +106,7 @@ public abstract class Task {
         }
 
         @Override
-        public String storeData() {
+        public String toStoringFormat() {
             return String.format("T | %d | %s", this.isDone() ? 1 : 0, super.taskName);
         }
     }
@@ -130,7 +130,7 @@ public abstract class Task {
         }
 
         @Override
-        public String storeData() {
+        public String toStoringFormat() {
             return String.format("D | %d | %s| %s", this.isDone() ? 1 : 0, super.taskName, this.deadline);
         }
     }
@@ -143,7 +143,6 @@ public abstract class Task {
         private LocalDateTime to;
         private DateTimeFormatter outputFormat
                 = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm:ss");
-        private DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         private Event(String task, LocalDateTime from, LocalDateTime to) {
             super(task);
             this.from = from;
@@ -157,7 +156,7 @@ public abstract class Task {
         }
 
         @Override
-        public String storeData() {
+        public String toStoringFormat() {
             return String.format("E | %d | %s| %s to %s", this.isDone() ? 1 : 0, super.taskName,
                     this.from, this.to);
         }

@@ -52,10 +52,7 @@ public class Storage {
     }
 
     public void save(TaskList tasks) {
-        String dataStorage = "";
-        for (int i = 0; i < tasks.getNumOfTasks(); i++) {
-            dataStorage += tasks.getTask(i).storeData() + "\n";
-        }
+        String dataStorage = tasks.toStoringFormat();
 
         try {
             Files.writeString(filePath, dataStorage);
