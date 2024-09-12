@@ -43,7 +43,7 @@ public class Parser {
      *
      * @param userInput the input string provided by the user
      */
-    public String parseInput(String userInput) {
+    public String handleInput(String userInput) {
         // Parses user input
         String[] userInputs = userInput.split(" ", 2);
         Command command = Command.fromString(userInputs[0]);
@@ -52,27 +52,7 @@ public class Parser {
         // Handles command
         switch (command) {
         case UNKNOWN:
-            switch (statetype) {
-            case TODO_DESCRIPTION:
-                changeState(StateType.NO_STATE);
-                return ui.handleTodo(userInput);
-            case DEADLINE_DESCRIPTION:
-                changeState(StateType.NO_STATE);
-                return ui.handleDeadline(userInput, tempStrings[3]);
-            case DEADLINE_DEADLINE:
-                changeState(StateType.NO_STATE);
-                return ui.handleDeadline(tempStrings[0], userInput.trim());
-            case EVENT_DESCRIPTION:
-                changeState(StateType.NO_STATE);
-                return ui.handleEvent(userInput, tempStrings[1]);
-            case EVENT_START:
-                changeState(StateType.NO_STATE);
-                return ui.handleEvent(tempStrings[0], userInput);
-            case EVENT_END:
-                changeState(StateType.NO_STATE);
-                return ui.handleEvent(tempStrings[0], tempStrings[1]+ " /to " + userInput);
-            }
-            return ui.handleUnknown();
+            return handleState(userInput);
         case LIST:
             return ui.handleList();
         case MARK:
@@ -99,8 +79,34 @@ public class Parser {
             return ui.handleDelete(arg);
         case BYE:
             return ui.handleBye();
+        default:
+            return "";
         }
-        return "";
+    }
+
+    private String handleState(String userInput) {
+        switch (statetype) {
+        case TODO_DESCRIPTION:
+            changeState(StateType.NO_STATE);
+            return ui.handleTodo(userInput);
+        case DEADLINE_DESCRIPTION:
+            changeState(StateType.NO_STATE);
+            return ui.handleDeadline(userInput, tempStrings[3]);
+        case DEADLINE_DEADLINE:
+            changeState(StateType.NO_STATE);
+            return ui.handleDeadline(tempStrings[0], userInput.trim());
+        case EVENT_DESCRIPTION:
+            changeState(StateType.NO_STATE);
+            return ui.handleEvent(userInput, tempStrings[1]);
+        case EVENT_START:
+            changeState(StateType.NO_STATE);
+            return ui.handleEvent(tempStrings[0], userInput);
+        case EVENT_END:
+            changeState(StateType.NO_STATE);
+            return ui.handleEvent(tempStrings[0], tempStrings[1]+ " /to " + userInput);
+        default:
+            return ui.handleUnknown();
+        }
     }
     public void changeState(StateType s) {
         this.statetype = s;
@@ -108,7 +114,7 @@ public class Parser {
     public void keepTemp(String s, int index) {
         tempStrings[index] = s;
     }
-    public void resetTemp() {
+    public void resetTempStrings() {
         this.tempStrings = new String[]{"", "", "", ""};
     }
     /**
@@ -153,6 +159,7 @@ public class Parser {
                 LocalDate localDate = LocalDate.parse(s, formatter);
                 return localDate;
             } catch (DateTimeParseException e) {
+                continue; // Parse string with next date format
             }
         }
         throw new DateTimeParseException("Cannot parse string", s, 0);

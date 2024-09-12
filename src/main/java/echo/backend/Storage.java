@@ -36,14 +36,21 @@ public class Storage {
      */
     public TaskList load() throws EchoException {
         File savedTasks  = new File(filePath);
+        Boolean hasSavedTasksFile = savedTasks.exists();
 
-        if (!savedTasks.exists()) {
+        if (!hasSavedTasksFile) {
             String parentDirectoryString = savedTasks.getParent();
-            if (parentDirectoryString != null) {
-                File parentDirectory = new File(parentDirectoryString);
-                if (!parentDirectory.exists()) {
-                    parentDirectory.mkdir();
-                }
+            Boolean hasParentDirectory = parentDirectoryString != null;
+            Boolean hasParentDirectoryFolder = false;
+            File parentDirectoryFolder = null;
+
+            if (hasParentDirectory) {
+                parentDirectoryFolder = new File(parentDirectoryString);
+                hasParentDirectoryFolder = parentDirectoryFolder.exists();
+            }
+
+            if (hasParentDirectory && !hasParentDirectoryFolder) {
+                parentDirectoryFolder.mkdir();
             }
 
             try {
@@ -67,6 +74,7 @@ public class Storage {
         String[] splitLines;
 
         while (fileScanner.hasNext()) {
+            // Parse file lines
             nextLine = fileScanner.nextLine();
             splitLines = nextLine.split("\\|");
             assert splitLines.length >= 3: "Tasks format in file is incorrect";
@@ -74,35 +82,46 @@ public class Storage {
             assert !splitLines[1].isEmpty(): "Task status cannot be empty";
             assert !splitLines[2].isEmpty(): "Task description cannot be empty";
 
+            // Assign task fields
             String taskType  = splitLines[0].trim();
+            String taskDescription = splitLines[2].trim();
+
+            // Add tasks to taskList
             switch(taskType) {
             case "T":
                 taskList.addTask(
-                        splitLines[2].trim(),
+                        taskDescription,
                         TaskType.TODO,
                         "");
                 break;
             case "D":
                 assert !splitLines[3].isEmpty(): "Deadline cannot be empty";
+                String deadline = splitLines[3].trim();
                 taskList.addDeadline(
-                        splitLines[2].trim(),
-                        LocalDate.parse(splitLines[3].trim()));
+                        taskDescription,
+                        LocalDate.parse(deadline));
                 break;
             case "E":
                 assert !splitLines[3].isEmpty(): "Event start/end cannot be empty";
+                String startEnd= splitLines[3].trim();
                 taskList.addTask(
-                        splitLines[2].trim(),
+                        taskDescription,
                         TaskType.EVENT,
-                        splitLines[3].trim());
+                        startEnd);
                 break;
             }
 
-            if (Integer.valueOf(splitLines[1].trim()) == 1) {
-                taskList.markTask(taskList.getNumTasks());
+            // Assign mark task arguments
+            String taskStatus = splitLines[1].trim();
+            int taskListIndexToMark = taskList.getNumTasks();
+
+            if (Integer.valueOf(taskStatus) == 1) {
+                taskList.markTask(taskListIndexToMark);
             }
         }
         return this.taskList;
     }
+
     /**
      * Saves the current TaskList to the file specified by filePath.
      * If there is an error writing to the file, it prints an error message.

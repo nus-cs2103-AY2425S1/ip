@@ -21,7 +21,7 @@ public class Echo {
         try {
             taskList = storage.load();
         } catch (EchoException e) {
-            ui.showLoadingError();
+            ui.loadingErrorMessage();
             taskList = new TaskList();
         }
         ui = new Ui(taskList, this);
@@ -40,6 +40,6 @@ public class Echo {
     }
 
     public String greetUser() {
-        return ui.printWelcomeMsg();
+        return ui.welcomeMessage();
     }
 }

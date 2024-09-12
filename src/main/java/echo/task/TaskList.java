@@ -181,7 +181,8 @@ public class TaskList {
          * @return a string representing the task
          */
         public String getTaskString() {
-            String msg = "[" + this.type.getTypeSymbol() + "] [";
+            String msg = "[" + this.type.getTypeSymbol() + "] ";
+            msg += "[";
             if (isComplete) {
                 msg += "X] ";
             } else {
@@ -189,12 +190,6 @@ public class TaskList {
             }
             msg += this.description;
             return msg;
-        }
-        /**
-         * Prints the task's string representation.
-         */
-        public void printTask() {
-            System.out.print(this.getTaskString());
         }
         /**
          * Marks the task as complete.
@@ -216,7 +211,32 @@ public class TaskList {
          * @return a string representing the task's data
          */
         public String getData() {
-            return type.getTypeSymbol() + " | " + (isComplete ? 1 : 0) + " | " + description;
+            return type.getTypeSymbol() + " | " +
+                   (isComplete ? 1 : 0) + " | " +
+                   description;
+        }
+    }
+    /**
+     * The Todo class represents a basic task without any additional information.
+     */
+    private class Todo extends Task {
+        /**
+         * Constructs a Todo task with the specified description.
+         *
+         * @param description the description of the todo task
+         */
+        public Todo(String description) {
+            super(description, TaskType.TODO);
+        }
+        /**
+         * Returns a string representing the todo task's save format,
+         * intended for saving to a file.
+         *
+         * @return a string representing the todo task's data
+         */
+        @Override
+        public String getData() {
+            return super.getData();
         }
     }
     /**
@@ -243,18 +263,8 @@ public class TaskList {
          */
         @Override
         public String getTaskString() {
-            return super.getTaskString() +
-                String.format(
-                    " (by: %s)",
-                    this.deadline.format(DateTimeFormatter.ofPattern("d MMM"))
-                );
-        }
-        /**
-         * Prints the deadline task's string representation.
-         */
-        @Override
-        public void printTask() {
-            System.out.println(this.getTaskString());
+            String formattedDeadline = this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return super.getTaskString() + " (by: " + formattedDeadline + ")";
         }
         /**
          * Returns a string representing the deadline task's save format,
@@ -267,29 +277,7 @@ public class TaskList {
              return super.getData() + " | " + this.deadline;
         }
     }
-    /**
-     * The Todo class represents a basic task without any additional information.
-     */
-    private class Todo extends Task {
-        /**
-         * Constructs a Todo task with the specified description.
-         *
-         * @param description the description of the todo task
-         */
-        public Todo(String description) {
-            super(description, TaskType.TODO);
-        }
-        /**
-         * Returns a string representing the todo task's save format,
-         * intended for saving to a file.
-         *
-         * @return a string representing the todo task's data
-         */
-        @Override
-        public String getData() {
-            return super.getData();
-        }
-    }
+
     /**
      * The Event class represents a task with a start and end time.
      */
@@ -325,13 +313,6 @@ public class TaskList {
                             this.start,
                             this.end
                     );
-        }
-        /**
-         * Prints the event task's string representation.
-         */
-        @Override
-        public void printTask() {
-            System.out.println(this.getTaskString());
         }
         /**
          * Returns a string representing the event task's save format,
