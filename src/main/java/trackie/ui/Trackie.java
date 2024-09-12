@@ -28,8 +28,4 @@ public class Trackie {
             isExit = c.isExit();
         }
     }
-
-    public static void main(String[] args) {
-        new Trackie("src").run();
-    }
 }
