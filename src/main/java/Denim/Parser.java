@@ -141,6 +141,11 @@ public class Parser {
             return new InvalidCommand("Invalid Date Time Format", "Format Accepted: dd/MM/yyyy HHmm");
         }
 
+        if (!isValidEventDuration(eventFormatter, startTime, endTime)) {
+            return new InvalidCommand("Event End Time is Earlier than or Equal to Event Start Time.",
+                    "Format Accepted: event <description> /from <START TIME> /to <END TIME>");
+        }
+
         LocalDateTime startEvent = LocalDateTime.parse(startTime, eventFormatter);
         LocalDateTime endEvent = LocalDateTime.parse(endTime, eventFormatter);
         return new EventCommand(taskDescription, startEvent, endEvent);
@@ -259,6 +264,23 @@ public class Parser {
         try {
             LocalDateTime.parse(args, formatter);
         } catch (DateTimeException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidEventDuration(DateTimeFormatter formatter, String from, String to) {
+        try {
+            LocalDateTime.parse(from, formatter);
+            LocalDateTime.parse(to, formatter);
+        } catch (DateTimeException e) {
+            return false;
+        }
+
+        LocalDateTime eventFrom = LocalDateTime.parse(from, formatter);
+        LocalDateTime eventTo = LocalDateTime.parse(from, formatter);
+
+        if (eventFrom.isAfter(eventTo) || eventFrom.isEqual(eventTo)) {
             return false;
         }
         return true;
