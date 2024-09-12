@@ -11,13 +11,28 @@ import choaticbot.tasks.TaskList;
 import choaticbot.ui.Ui;
 import choaticbot.storage.Storage;
 
+/**
+ * The main class for the ChoaticBot application. This class handles the initialization
+ * of the bot, processes user inputs, manages actions, and interacts with the task list.
+ */
 public class ChoaticBot {
     public TaskList tasklist;
 
+    /**
+     * Constructs a new ChoaticBot instance with an empty task list.
+     */
     public ChoaticBot() {
         this.tasklist = new TaskList();
     }
 
+    /**
+     * The main method that runs the ChoaticBot application.
+     * It initializes the bot, processes user inputs, manages actions, and handles
+     * interactions with the task list and storage. The bot continues running until
+     * the user decides to end the session.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         ChoaticBot chatBot = new ChoaticBot();
         InputProcessor processor = new InputProcessor();

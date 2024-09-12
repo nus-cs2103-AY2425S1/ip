@@ -1,30 +1,25 @@
-# ChoaticBot User Guide
+# **ChoaticBot**
+>"I hate perfection. To be perfect is to be unable to improve any further." -  Kurotsuchi Mayuri
 
-// Update the title above to match the actual product name
+ChoaticBot frees your mind of having to remember things you need to do. It's,
 
-// Product screenshot goes here
+- text-based
+- easy to learn
+- ~~FAST~~ SUPER FAST to use
 
-// Product intro goes here
+All you need to do is,
 
-## Adding deadlines
+1. download it from [here](https://github.com/choaticman/ip/releases/tag/A-Jar).
+2. double-click it.
+3. add your tasks.
+4. let it manage your tasks for you 😉
 
-// Describe the action and its outcome.
+And it is **FREE!**
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+Features:
 
 
-## Feature XYZ
 
-// Feature details
+- [x] Managing tasks
+- [x]  Managing deadlines (coming soon)
+- [ ]  Reminders (coming soon)

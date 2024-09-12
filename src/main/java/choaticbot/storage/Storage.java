@@ -17,9 +17,23 @@ import java.nio.file.Paths;
 
 import static choaticbot.ui.Ui.printText;
 
+/**
+ * The {@code Storage} class handles saving and loading tasks from a file
+ * to persist the user's task list across different program executions.
+ */
 public class Storage {
+
+    /**
+     * The path to the file where tasks are stored.
+     */
     private static final String DATA_FILE_PATH = "./data/choaticbot.txt";
 
+    /**
+     * Saves the tasks in the provided {@link TaskList} to a file.
+     * The tasks are converted to a string format and stored in the specified file path.
+     *
+     * @param taskList The task list containing the tasks to be saved.
+     */
     public static void saveTasks(TaskList taskList) {
         try {
             Files.createDirectories(Paths.get("./data"));
@@ -37,6 +51,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a {@link Task} object into a line of text that can be written to the file.
+     *
+     * @param task The task to be converted into a string representation.
+     * @return A string representation of the task.
+     */
     private static String convertTaskToLine(Task task) {
         String line = "";
         if (task instanceof ToDos) {
@@ -50,6 +70,12 @@ public class Storage {
         return line;
     }
 
+    /**
+     * Loads tasks from the save file into the provided {@link TaskList}.
+     * If the save file does not exist, it creates the necessary directories.
+     *
+     * @param taskList The task list where the loaded tasks will be stored.
+     */
     public static void loadTasksFromFile(TaskList taskList) {
         try {
             Files.createDirectories(Paths.get("./data"));
@@ -60,10 +86,17 @@ public class Storage {
                 reader.close();
             }
         } catch (IOException e) {
-            printText("An error occurred while opening save File: " + e.getMessage());
+            printText("An error occurred while opening save file: " + e.getMessage());
         }
     }
 
+    /**
+     * Reads and loads tasks from the file and adds them to the task list.
+     *
+     * @param reader The {@link BufferedReader} used to read from the file.
+     * @param taskList The task list where the loaded tasks will be stored.
+     * @throws IOException If an I/O error occurs during reading.
+     */
     private static void loadTasksFromText(BufferedReader reader, TaskList taskList) throws IOException {
         try {
             String line = reader.readLine();
@@ -79,6 +112,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the save file and converts it into a {@link Task} object.
+     *
+     * @param parts The parts of the line representing a task.
+     * @return The {@link Task} object created from the parsed line.
+     */
     private static Task parseTask(String[] parts) {
         Task task = null;
         if (parts.length >= 2) {
