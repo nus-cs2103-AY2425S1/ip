@@ -32,6 +32,7 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String[] tasksFound = tasks.findTasksWith(this.text);
         String[] toPrint = new String[tasksFound.length + 2];
+
         toPrint[0] = String.format("Here are the tasks matching %s:", this.text);
         toPrint[tasksFound.length + 1] = String.format("Number of tasks found: %d", tasksFound.length);
         System.arraycopy(tasksFound, 0, toPrint, 1, tasksFound.length);
@@ -49,7 +50,8 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof FindCommand temp) {
-            return this.text.equals(temp.text);
+            boolean hasSameText = this.text.equals(temp.text);
+            return hasSameText;
         }
         return false;
     }

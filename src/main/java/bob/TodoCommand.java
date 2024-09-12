@@ -17,9 +17,10 @@ public class TodoCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         ToDo todo = tasks.todo(name);
+        String tasksRemaining = String.format("Now you have %d tasks in the list.", tasks.getSize());
         return Printer.format(new String[] { "Got it. I've added this task:",
             " " + todo.toString(),
-            String.format("Now you have %d tasks in the list.", tasks.getSize()) });
+            tasksRemaining });
     }
 
     @Override

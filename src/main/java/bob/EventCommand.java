@@ -39,9 +39,10 @@ public class EventCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = tasks.event(this.name, this.from, this.to);
+        String tasksRemaining = String.format("Now you have %d tasks in the list.", tasks.getSize());
         return Printer.format(new String[] { "Got it. I've added this task:",
             " " + event.toString(),
-            String.format("Now you have %d tasks in the list.", tasks.getSize()) });
+            tasksRemaining });
     }
 
     /**
@@ -54,7 +55,11 @@ public class EventCommand extends Command {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof EventCommand temp) {
-            return this.name.equals(temp.name) && this.from.equals(temp.from) && this.to.equals(temp.to);
+            boolean hasSameName = this.name.equals(temp.name);
+            boolean hasSameFromDate = this.from.equals(temp.from);
+            boolean hasSameToDate = this.to.equals(temp.to);
+
+            return hasSameName && hasSameFromDate && hasSameToDate;
         }
         return false;
     }

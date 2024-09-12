@@ -34,9 +34,10 @@ public class DeleteCommand extends Command {
             throw new TaskIndexException(String.format("%d", this.idx));
         }
         Task deleted = tasks.delete(idx);
+        String tasksRemaining = String.format("Now you have %d tasks in the list.", tasks.getSize());
         return Printer.format(new String[] {"Noted. I've removed this task:",
             deleted.toString(),
-            String.format("Now you have %d tasks in the list.", tasks.getSize())});
+            tasksRemaining });
     }
 
     /**

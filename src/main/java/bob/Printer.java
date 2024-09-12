@@ -20,19 +20,6 @@ public class Printer {
         System.out.println(Printer.format(texts));
     }
 
-    /*public static String format(String[] texts) {
-        String separator = Printer.lineIndent + Printer.line;
-        StringBuilder result = new StringBuilder(separator);
-        result.append('\n');
-        for (String text: texts) {
-            result.append(Printer.indentation);
-            result.append(text);
-            result.append('\n');
-        }
-        result.append(separator);
-        return result.toString();
-    }*/
-
     public static String format(String[] texts) {
         StringBuilder result = new StringBuilder();
         for (String text: texts) {
