@@ -53,6 +53,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "UserInput TextField is not injected!";
+        assert demureBot != null : "DemureBot instance is not set!";
+
         String input = userInput.getText();
         String response = demureBot.run(input);
         dialogContainer.getChildren().addAll(

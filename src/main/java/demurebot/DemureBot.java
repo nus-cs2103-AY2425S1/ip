@@ -58,6 +58,8 @@ public class DemureBot {
      * Handles user input, command execution, and data persistence.
      */
     public String run(String input) {
+        assert !input.isEmpty() : "Input is empty!";
+
         try {
             Command command = Parser.parse(input);
             String response = command.execute(this.list, this.ui);

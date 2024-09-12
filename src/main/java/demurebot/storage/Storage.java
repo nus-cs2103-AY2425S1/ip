@@ -114,9 +114,6 @@ public class Storage {
         default:
             throw new DemureBotException("Saved task has invalid format");
         }
-        if (task == null) {
-            throw new DemureBotException("Saved task has invalid format");
-        }
         return task;
     }
 
@@ -140,6 +137,8 @@ public class Storage {
      * @param list     List of tasks to be saved.
      */
     public void save(String filePath, TaskList list) {
+        assert list != null : "TaskList is null!";
+
         FileWriter writer = null;
         try {
             writer = new FileWriter(filePath);
@@ -168,6 +167,8 @@ public class Storage {
      * @return Formatted string of the task to be saved
      */
     private String formatTask(Task task) {
+        assert task != null : "Task is null!";
+
         String[] parts = task.toString().split("]", 3);
         String type = parts[0].substring(1, 2);
         String status = parts[1].charAt(1) == 'X' ? "1" : "0";
