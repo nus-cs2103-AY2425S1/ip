@@ -30,52 +30,81 @@ public class Parser {
         String commandType = commandWords[0];
 
         switch (commandType) {
-        case "bye":
-            return handleByeCommand();  // Handle the "bye" command to display message and exit
-        case "list":
-            return tasks.toString(); // The `list` command doesn't need any arguments
-        case "find":
-            if (commandWords.length > 1) {
-                return handleFindCommand(commandWords[1], tasks);
-            } else {
-                throw new BopesException("The 'find' command requires a keyword.");
-            }
-        case "mark":
-            if (commandWords.length > 1) {
-                return handleMarkCommand(commandWords[1], tasks, storage);
-            } else {
-                throw new BopesException("The 'mark' command requires a task index.");
-            }
-        case "unmark":
-            if (commandWords.length > 1) {
-                return handleUnmarkCommand(commandWords[1], tasks, storage);
-            } else {
-                throw new BopesException("The 'unmark' command requires a task index.");
-            }
-        case "delete":
-            if (commandWords.length > 1) {
-                return handleDeleteCommand(commandWords[1], tasks, storage);
-            } else {
-                throw new BopesException("The 'delete' command requires a task index.");
-            }
-        default:
-            return handleAddTaskCommand(fullCommand, tasks, storage);
+            case "bye":
+                return handleByeCommand();
+            case "list":
+                return handleListCommand(tasks);
+            case "find":
+                return handleFind(commandWords, tasks);
+            case "mark":
+                return handleMark(commandWords, tasks, storage);
+            case "unmark":
+                return handleUnmark(commandWords, tasks, storage);
+            case "delete":
+                return handleDelete(commandWords, tasks, storage);
+            default:
+                return handleAddTask(fullCommand, tasks, storage);
         }
     }
 
+    // Handles the 'bye' command
     private static String handleByeCommand() {
         String goodbyeMessage = "Goodbye! The program will exit in 5 seconds...";
         new Thread(() -> {
             try {
-                // Pause for 5 seconds
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             System.exit(0);
         }).start();
-    
-    return goodbyeMessage;
+        return goodbyeMessage;
+    }
+
+    // Handles the 'list' command
+    private static String handleListCommand(TaskList tasks) {
+        return tasks.toString();
+    }
+
+    // Handles the 'find' command
+    private static String handleFind(String[] commandWords, TaskList tasks) throws BopesException {
+        if (commandWords.length > 1) {
+            return handleFindCommand(commandWords[1], tasks);
+        } else {
+            throw new BopesException("The 'find' command requires a keyword.");
+        }
+    }
+
+    // Handles the 'mark' command
+    private static String handleMark(String[] commandWords, TaskList tasks, Storage storage) throws BopesException {
+        if (commandWords.length > 1) {
+            return handleMarkCommand(commandWords[1], tasks, storage);
+        } else {
+            throw new BopesException("The 'mark' command requires a task index.");
+        }
+    }
+
+    // Handles the 'unmark' command
+    private static String handleUnmark(String[] commandWords, TaskList tasks, Storage storage) throws BopesException {
+        if (commandWords.length > 1) {
+            return handleUnmarkCommand(commandWords[1], tasks, storage);
+        } else {
+            throw new BopesException("The 'unmark' command requires a task index.");
+        }
+    }
+
+    // Handles the 'delete' command
+    private static String handleDelete(String[] commandWords, TaskList tasks, Storage storage) throws BopesException {
+        if (commandWords.length > 1) {
+            return handleDeleteCommand(commandWords[1], tasks, storage);
+        } else {
+            throw new BopesException("The 'delete' command requires a task index.");
+        }
+    }
+
+    // Handles the 'add task' command
+    private static String handleAddTask(String input, TaskList tasks, Storage storage) throws BopesException {
+        return handleAddTaskCommand(input, tasks, storage);
     }
 
     private static String handleMarkCommand(String input, TaskList tasks, Storage storage) throws BopesException {
@@ -113,32 +142,43 @@ public class Parser {
     }
 
     private static String handleAddTaskCommand(String input, TaskList tasks, Storage storage) throws BopesException {
-        Task newTask = null;
-        try {
-            if (input.startsWith("todo ")) {
-                newTask = new ToDo(input.substring(5), false);
-            } else if (input.startsWith("deadline ")) {
-                String[] temp = input.substring(9).split(" /by ");
-                if (temp.length == 2) {
-                    newTask = new Deadline(temp[0], temp[1], false);
-                } else {
-                    throw BopesException.invalidDeadlineFormat();
-                }
-            } else if (input.startsWith("event ")) {
-                String[] temp = input.substring(6).split(" /from | /to ");
-                if (temp.length == 3) {
-                    newTask = new Event(temp[0], temp[1], temp[2], false);
-                } else {
-                    throw BopesException.invalidEventFormat();
-                }
-            } else {
-                throw BopesException.unknownCommand();
-            }
-            tasks.addTask(newTask);
-            storage.saveTasks(tasks);
-            return "Added task: " + newTask.toString();
-        } catch (IllegalArgumentException e) {
-            throw new BopesException(e.getMessage());
+        Task newTask = createTask(input);
+        tasks.addTask(newTask);
+        storage.saveTasks(tasks);
+        return "Added task: " + newTask.toString();
+    }
+    
+    private static Task createTask(String input) throws BopesException {
+        if (input.startsWith("todo ")) {
+            return createTodoTask(input);
+        } else if (input.startsWith("deadline ")) {
+            return createDeadlineTask(input);
+        } else if (input.startsWith("event ")) {
+            return createEventTask(input);
+        } else {
+            throw BopesException.unknownCommand();
+        }
+    }
+    
+    private static Task createTodoTask(String input) {
+        return new ToDo(input.substring(5).trim(), false);  // Remove "todo " prefix
+    }
+    
+    private static Task createDeadlineTask(String input) throws BopesException {
+        String[] temp = input.substring(9).split(" /by ");
+        if (temp.length == 2) {
+            return new Deadline(temp[0].trim(), temp[1].trim(), false);  // Remove "deadline " prefix
+        } else {
+            throw BopesException.invalidDeadlineFormat();
+        }
+    }
+    
+    private static Task createEventTask(String input) throws BopesException {
+        String[] temp = input.substring(6).split(" /from | /to ");
+        if (temp.length == 3) {
+            return new Event(temp[0].trim(), temp[1].trim(), temp[2].trim(), false);  // Remove "event " prefix
+        } else {
+            throw BopesException.invalidEventFormat();
         }
     }
 
