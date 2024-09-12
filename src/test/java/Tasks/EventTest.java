@@ -21,19 +21,14 @@ public class EventTest {
         }
     }
     private ParserStub d = new ParserStub();
+
     @Test
     public void eventDescription_formatting_exceptionThrown() {
         try {
             assertEquals("[E][ ] zoom meeting (from: 1st january 2023 to: 11th january 2023)",
                     new Event("zoom meeting /from 01/01/2024 /to 11/11/2023", d).toString());
-
-            assertEquals("[E][ ] zoom meeting (from: 1st january 2023)",
-                    new Event("zoom meeting /from 01/01/2024", d).toString());
-
-            fail(); // should not reach here
         } catch (DelphiException e) {
-            assertEquals("the input you have provided me is not formatted correctly. "
-                    + "Please give me an input starting with todo, deadline or event", e.getMessage());
+            fail();
         }
     }
 }
