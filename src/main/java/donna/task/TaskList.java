@@ -2,6 +2,7 @@ package donna.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import donna.DonnaException;
 
@@ -82,14 +83,9 @@ public class TaskList {
      * @return A List of tasks that contain the keyword.
      */
     public List<Task> searchTasks(String keyword) {
-        List<Task> searchQuery = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.containsKeyword(keyword)) {
-                searchQuery.add(task);
-            }
-        }
-        return searchQuery;
+        return tasks.stream()
+                .filter(task -> task.containsKeyword(keyword))
+                .collect(Collectors.toList());
     }
 
     /**
