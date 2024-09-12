@@ -134,6 +134,8 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new KieTwoForOneException("Please input a valid date!");
             }
+        case FIND:
+            return new FindWordCommand(instruction[1]);
         default:
             break;
         }
