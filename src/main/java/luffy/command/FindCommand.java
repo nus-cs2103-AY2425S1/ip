@@ -1,4 +1,9 @@
-package luffy;
+package luffy.command;
+
+import luffy.storage.Storage;
+import luffy.task.TaskList;
+import luffy.ui.LuffyUI;
+
 
 /**
  * Represents a command that searches and displays all tasks

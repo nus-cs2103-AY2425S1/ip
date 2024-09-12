@@ -1,4 +1,4 @@
-package luffy;
+package luffy.gui;
 
 import javafx.application.Application;
 

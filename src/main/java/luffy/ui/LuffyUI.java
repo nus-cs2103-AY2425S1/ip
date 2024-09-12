@@ -1,8 +1,11 @@
-package luffy;
-import java.util.Scanner;
+package luffy.ui;
 
 import static java.lang.String.format;
 
+import java.util.Scanner;
+
+import luffy.task.Task;
+import luffy.task.TaskList;
 
 /**
  * Represents a UI for the chatbot that deals with

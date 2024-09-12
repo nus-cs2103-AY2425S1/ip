@@ -1,4 +1,4 @@
-package luffy;
+package luffy.task;
 
 /**
  * Represents a task that has no start time, end time nor deadline

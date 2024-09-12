@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("luffy.LuffyLauncher")
+    mainClass.set("luffy.gui.LuffyLauncher")
 }
 
 shadowJar {

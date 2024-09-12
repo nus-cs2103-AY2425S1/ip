@@ -1,4 +1,4 @@
-package luffy;
+package luffy.task;
 
 /**
  * Represents a task that the chatbot user intends to

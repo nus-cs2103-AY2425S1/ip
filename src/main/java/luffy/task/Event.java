@@ -1,4 +1,4 @@
-package luffy;
+package luffy.task;
 
 /**
  * Represents a task that has a start time and an end time

@@ -1,6 +1,13 @@
-package luffy;
+package luffy.command;
 
 import java.io.IOException;
+
+import luffy.storage.Storage;
+import luffy.task.Task;
+import luffy.task.TaskList;
+import luffy.ui.LuffyUI;
+
+
 
 /**
  * Represents a command that deletes a task into the list of tasks

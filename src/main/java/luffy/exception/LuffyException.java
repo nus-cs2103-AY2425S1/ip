@@ -1,4 +1,4 @@
-package luffy;
+package luffy.exception;
 
 /**
  * Represents an exception in the Luffybot

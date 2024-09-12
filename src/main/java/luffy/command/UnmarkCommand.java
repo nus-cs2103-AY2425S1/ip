@@ -1,20 +1,25 @@
-package luffy;
+package luffy.command;
 
 import java.io.IOException;
 
+import luffy.storage.Storage;
+import luffy.task.Task;
+import luffy.task.TaskList;
+import luffy.ui.LuffyUI;
+
 /**
- * Represents a command that marks a task as done
+ * Represents a command that marks a task as undone
  */
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
 
     private final int markIndex;
 
-    public MarkCommand(int index) {
+    public UnmarkCommand(int index) {
         this.markIndex = index;
     }
 
     /**
-     * This method adds an executable command to mark a
+     * This method adds an executable command to unmark a
      * task in the task list at a specific index by the UI
      *
      * @param ui user interface for Chat Bot
@@ -26,13 +31,13 @@ public class MarkCommand extends Command {
 
         if (markIndex >= 0 && markIndex < taskList.size()) {
             Task task = taskList.getTask(markIndex);
-            task.markDone();
+            task.markUndone();
             try {
                 taskStorage.saveToFile(taskList);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            ui.showMarkedTask(task);
+            ui.showUnmarkedTask(task);
         } else {
             ui.showErrorMessage("Invalid task number.");
         }

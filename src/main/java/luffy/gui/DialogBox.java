@@ -1,4 +1,4 @@
-package luffy;
+package luffy.gui;
 
 import java.io.IOException;
 import java.util.Collections;
