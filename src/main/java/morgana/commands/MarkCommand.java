@@ -1,7 +1,6 @@
 package morgana.commands;
 
 import morgana.exceptions.MorganaException;
-import morgana.parser.Parser;
 import morgana.storage.Storage;
 import morgana.task.Task;
 import morgana.task.TaskList;
@@ -10,27 +9,29 @@ import morgana.task.TaskList;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private final String args;
+    public static final String COMMAND_WORD = "mark";
+
+    public static final String MESSAGE_SUCCESS = """
+            Nice!. I've marked this task as done:
+            %d. %s
+            """;
+
+    private final int index;
 
     /**
-     * Constructs a {@code MarkCommand} with the specified arguments.
+     * Constructs a {@code MarkCommand} with the specified index.
      *
-     * @param args The string containing the task index to be marked as done.
+     * @param index The zero-based index of the task to be marked as done.
      */
-    public MarkCommand(String args) {
-        this.args = args;
+    public MarkCommand(int index) {
+        this.index = index;
     }
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws MorganaException {
-        int index = Parser.parseTaskIndex(args, tasks);
-        Task task = tasks.get(index);
-        task.markAsDone(true);
+        Task task = tasks.updateTaskStatus(index, true);
         storage.save(tasks);
-        return """
-                Nice! I've marked this task as done:
-                %d. %s
-                """.formatted(index + 1, task);
+        return MESSAGE_SUCCESS.formatted(index + 1, task);
     }
 
     @Override

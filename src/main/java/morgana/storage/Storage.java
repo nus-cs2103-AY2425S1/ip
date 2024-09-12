@@ -18,7 +18,7 @@ import morgana.task.TaskList;
  * from a file and write tasks to a file.
  */
 public class Storage {
-    private final String filePath;
+    private final File file;
 
     /**
      * Constructs a {@code Storage} object with the specified file path.
@@ -28,8 +28,7 @@ public class Storage {
      * @throws MorganaException If an error occurs while initializing the storage.
      */
     public Storage(String filePath) throws MorganaException {
-        this.filePath = filePath;
-        File file = new File(filePath);
+        file = new File(filePath);
         try {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
@@ -48,7 +47,6 @@ public class Storage {
      */
     public List<Task> load() throws MorganaException {
         List<Task> tasks = new ArrayList<>();
-        File file = new File(filePath);
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
                 Task task = Parser.parseTask(sc.nextLine());
@@ -70,9 +68,9 @@ public class Storage {
      * @throws MorganaException If an error occurs while saving the tasks.
      */
     public void save(TaskList tasks) throws MorganaException {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            for (int i = 0; i < tasks.size(); i++) {
-                writer.write(tasks.get(i).toFileFormat() + "\n");
+        try (FileWriter writer = new FileWriter(file)) {
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat() + "\n");
             }
         } catch (IOException e) {
             throw new MorganaException("Failed to save tasks to file: " + e.getMessage());

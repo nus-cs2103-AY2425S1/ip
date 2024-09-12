@@ -2,13 +2,16 @@ package morgana.commands;
 
 import morgana.exceptions.MorganaException;
 import morgana.storage.Storage;
-import morgana.task.Task;
 import morgana.task.TaskList;
 
 /**
  * Represents a command to find tasks that match a given keyword in their description.
  */
 public class FindCommand extends Command {
+    public static final String COMMAND_WORD = "find";
+
+    public static final String MESSAGE_EMPTY_KEYWORD = "Please enter a keyword to search for.";
+
     private final String keyword;
 
     /**
@@ -23,15 +26,8 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws MorganaException {
         if (keyword.isEmpty()) {
-            throw new MorganaException("Please enter a keyword to search for.");
+            throw new MorganaException(MESSAGE_EMPTY_KEYWORD);
         }
-        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.getDescription().contains(keyword)) {
-                sb.append("%d. %s\n".formatted(i + 1, task));
-            }
-        }
-        return sb.toString();
+        return tasks.find(keyword);
     }
 }

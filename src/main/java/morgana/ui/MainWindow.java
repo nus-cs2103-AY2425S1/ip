@@ -1,5 +1,7 @@
 package morgana.ui;
 
+import static morgana.common.Messages.MESSAGE_WELCOME;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -36,11 +38,7 @@ public class MainWindow {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getMonaDialog(
-                "Hello! I'm Morgana.\nHow may I help you?",
-                monaImage,
-                null
-        ));
+        dialogContainer.getChildren().add(DialogBox.getMonaDialog(MESSAGE_WELCOME, monaImage, null));
     }
 
     /**

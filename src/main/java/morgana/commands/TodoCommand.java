@@ -8,6 +8,11 @@ import morgana.task.Todo;
  * Represents a command to add a {@link Todo} to the task list.
  */
 public class TodoCommand extends AddCommand {
+    public static final String COMMAND_WORD = "todo";
+
+    public static final String MESSAGE_EMPTY_DESCRIPTION =
+            "Please enter a description for your %s.".formatted(COMMAND_WORD);
+
     /**
      * Constructs a {@code TodoCommand} with the specified arguments.
      *
@@ -20,7 +25,7 @@ public class TodoCommand extends AddCommand {
     @Override
     Task createTask(String description) throws MorganaException {
         if (description.isEmpty()) {
-            throw new MorganaException("Please enter a description for your todo.");
+            throw new MorganaException(MESSAGE_EMPTY_DESCRIPTION);
         }
         return new Todo(description);
     }

@@ -27,7 +27,7 @@ public abstract class Task {
     /**
      * Marks the task as done or not done.
      *
-     * @param isDone True if the task is done, false otherwise.
+     * @param isDone {@code true} if the task is done, {@code false} otherwise.
      */
     public void markAsDone(boolean isDone) {
         this.isDone = isDone;

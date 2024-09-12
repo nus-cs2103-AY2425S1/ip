@@ -1,8 +1,10 @@
 package morgana.parser;
 
+import static morgana.common.Messages.MESSAGE_EMPTY_TASK_NUMBER;
+import static morgana.common.Messages.MESSAGE_INVALID_TASK_NUMBER;
+import static morgana.util.DateTimeUtil.COMPACT_FORMATTER;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import morgana.commands.ByeCommand;
 import morgana.commands.Command;
@@ -18,7 +20,6 @@ import morgana.exceptions.MorganaException;
 import morgana.task.Deadline;
 import morgana.task.Event;
 import morgana.task.Task;
-import morgana.task.TaskList;
 import morgana.task.Todo;
 
 /**
@@ -40,15 +41,15 @@ public class Parser {
         String args = tokens.length > 1 ? tokens[1].trim() : "";
 
         return switch (cmd) {
-            case "list" -> new ListCommand();
-            case "find" -> new FindCommand(args);
-            case "mark" -> new MarkCommand(args);
-            case "unmark" -> new UnmarkCommand(args);
-            case "delete" -> new DeleteCommand(args);
-            case "todo" -> new TodoCommand(args);
-            case "deadline" -> new DeadlineCommand(args);
-            case "event" -> new EventCommand(args);
-            case "bye" -> new ByeCommand();
+            case ListCommand.COMMAND_WORD -> new ListCommand();
+            case FindCommand.COMMAND_WORD -> new FindCommand(args);
+            case MarkCommand.COMMAND_WORD -> new MarkCommand(parseTaskIndex(args));
+            case UnmarkCommand.COMMAND_WORD -> new UnmarkCommand(parseTaskIndex(args));
+            case DeleteCommand.COMMAND_WORD -> new DeleteCommand(parseTaskIndex(args));
+            case TodoCommand.COMMAND_WORD -> new TodoCommand(args);
+            case DeadlineCommand.COMMAND_WORD -> new DeadlineCommand(args);
+            case EventCommand.COMMAND_WORD -> new EventCommand(args);
+            case ByeCommand.COMMAND_WORD -> new ByeCommand();
             default -> throw new MorganaException("Unknown command: " + cmd);
         };
     }
@@ -57,37 +58,17 @@ public class Parser {
      * Parses the task index from the user's input.
      *
      * @param args The input string containing the task index.
-     * @param tasks The {@code TaskList} containing the tasks.
      * @return The zero-based index of the task.
      * @throws MorganaException If the input is empty or the index is invalid.
      */
-    public static int parseTaskIndex(String args, TaskList tasks) throws MorganaException {
+    public static int parseTaskIndex(String args) throws MorganaException {
         if (args.isEmpty()) {
-            throw new MorganaException("Please enter a task number.");
+            throw new MorganaException(MESSAGE_EMPTY_TASK_NUMBER);
         }
         try {
-            int index = Integer.parseInt(args) - 1;
-            if (index < 0 || index >= tasks.size()) {
-                throw new IndexOutOfBoundsException();
-            }
-            return index;
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new MorganaException("Please enter a valid task number.");
-        }
-    }
-
-    /**
-     * Parses a date/time string into a {@link LocalDateTime} object.
-     *
-     * @param dateTime The input string containing the date and time in the format 'yyyy-MM-dd HHmm'.
-     * @return The parsed {@code LocalDateTime} object.
-     * @throws MorganaException If the input string is in an invalid format.
-     */
-    public static LocalDateTime parseDateTime(String dateTime) throws MorganaException {
-        try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        } catch (DateTimeParseException e) {
-            throw new MorganaException("Invalid date/time format. Please use 'yyyy-MM-dd HHmm'.");
+            return Integer.parseInt(args) - 1;
+        } catch (NumberFormatException e) {
+            throw new MorganaException(MESSAGE_INVALID_TASK_NUMBER);
         }
     }
 
@@ -102,14 +83,13 @@ public class Parser {
         String type = parts[0];
         boolean isDone = parts[1].equals("X");
         String description = parts[2];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         Task task = switch (type) {
             case "T" -> new Todo(description);
-            case "D" -> new Deadline(description, LocalDateTime.parse(parts[3], formatter));
+            case "D" -> new Deadline(description, LocalDateTime.parse(parts[3], COMPACT_FORMATTER));
             case "E" -> {
-                LocalDateTime start = LocalDateTime.parse(parts[3], formatter);
-                LocalDateTime end = LocalDateTime.parse(parts[4], formatter);
+                LocalDateTime start = LocalDateTime.parse(parts[3], COMPACT_FORMATTER);
+                LocalDateTime end = LocalDateTime.parse(parts[4], COMPACT_FORMATTER);
                 yield new Event(description, start, end);
             }
             default -> null;

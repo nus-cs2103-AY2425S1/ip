@@ -11,6 +11,12 @@ import morgana.task.TaskList;
  * to define how the task is created based on the user's input.
  */
 public abstract class AddCommand extends Command {
+    public static final String MESSAGE_SUCCESS = """
+            Got it. I've added this task:
+            %s
+            Now you have %d task%s in the list.
+            """;
+
     private final String args;
 
     /**
@@ -27,11 +33,7 @@ public abstract class AddCommand extends Command {
         Task task = createTask(args);
         tasks.add(task);
         storage.save(tasks);
-        return """
-                Got it. I've added this task:
-                %s
-                Now you have %d task%s in the list.
-                """.formatted(task, tasks.size(), tasks.size() > 1 ? "s" : "");
+        return MESSAGE_SUCCESS.formatted(task, tasks.size(), tasks.size() > 1 ? "s" : "");
     }
 
     /**
