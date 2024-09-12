@@ -65,7 +65,7 @@ public class Parser {
 
     }
 
-    public static String parseToString(String input, TaskList tasks, Ui ui, Storage storage) {
+    public static String parseToString(String input, TaskList tasks, Storage storage) {
         String[] parts = input.split(" ", 2);
         String command = parts[0].strip();
         String message;
@@ -75,35 +75,28 @@ public class Parser {
             switch (command) {
             case "bye":
                 message = "Goodbye. Hope to see you again soon!";
-                //ui.showGoodbye();
                 break;
             case "list":
                 message = tasks.toString();
-                //ui.showTaskList(tasks);
                 break;
             case "todo", "deadline", "event":
                 t = tasks.createTask(input);
                 message = tasks.addTask(t);
-                //ui.showMessage(message);
                 storage.saveTask(t);
                 break;
             case "mark", "unmark":
                 message = tasks.changeStatus(input);
-                //ui.showMessage(message);
                 storage.writeToFile(tasks);
                 break;
             case "delete":
                 message = tasks.deleteTask(input);
-                //ui.showMessage(message);
                 storage.writeToFile(tasks);
                 break;
             case "find":
                 message = tasks.findTask(input);
-                //ui.showMessage(message);
                 break;
             default:
                 message = "Error: Invalid task.";
-                //ui.showMessage("Error: Invalid task.");
                 break;
             }
         } catch (SerenityException | IOException e) {
