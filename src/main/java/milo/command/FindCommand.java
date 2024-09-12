@@ -1,8 +1,10 @@
 package milo.command;
 
-import milo.tasks.TaskList;
+import milo.lists.ClientsList;
+import milo.lists.TaskList;
 import milo.tasks.TaskTypes;
-import milo.ui.Ui;
+import milo.ui.ClientUi;
+import milo.ui.TaskUi;
 
 public class FindCommand extends Command {
 
@@ -15,7 +17,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, ClientsList clientsList) {
         // Check for proper formatting
         if (arrOfInput.length != 2) {
             super.hasError = true;
@@ -28,7 +30,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String commandToString(Ui ui, TaskList taskList) {
+    public String commandToString(TaskUi ui, ClientUi cUi, TaskList taskList, ClientsList clientsList) {
         if (super.hasError) {
             return ui.printError(TaskTypes.TaskType.TODO, super.errorDesc);
         }

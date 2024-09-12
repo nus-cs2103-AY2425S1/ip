@@ -1,7 +1,6 @@
 package milo.parser;
 
 import milo.command.*;
-import milo.tasks.TaskList;
 import milo.tasks.TaskTypes;
 
 /**
@@ -17,21 +16,27 @@ public class Parser {
     * given that it is formatted correctly
     * else an error is thrown and printed
      */
-    public Command readInput(String userInput, TaskList todoList) {
+    public Command readInput(String userInput) {
         String[] arrOfInput = userInput.split(" ", 2);
         assert arrOfInput.length == 2;
         String action = arrOfInput[0];
         return switch (action) {
-            // List command
-            case "list" -> new ListCommand();
+            // List client command
+            case "list_client" -> new ListClientCommand();
+            // Add client command
+            case "client" -> new AddClientCommand(arrOfInput);
+            // Delete client command
+            case "delete_client" -> new DeleteClientCommand(Integer.parseInt(arrOfInput[1]) - 1);
+            // List task command
+            case "list_task" -> new ListCommand();
             // Find task command
-            case "find" -> new FindCommand(arrOfInput);
+            case "find_task" -> new FindCommand(arrOfInput);
             // Mark as complete command
             case "mark" -> new MarkCommand(Integer.parseInt(arrOfInput[1]) - 1);
             // Mark as incomplete command
             case "unmark" -> new UnmarkCommand(Integer.parseInt(arrOfInput[1]) - 1);
             // Delete task command
-            case "delete" -> new DeleteCommand(Integer.parseInt(arrOfInput[1]) - 1);
+            case "delete_task" -> new DeleteCommand(Integer.parseInt(arrOfInput[1]) - 1);
             // Add task commands
             // Todos
             case "todo" -> new AddCommand(arrOfInput, TaskTypes.TaskType.TODO);

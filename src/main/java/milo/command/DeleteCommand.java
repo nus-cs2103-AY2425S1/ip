@@ -1,8 +1,10 @@
 package milo.command;
 
+import milo.lists.ClientsList;
 import milo.tasks.Task;
-import milo.tasks.TaskList;
-import milo.ui.Ui;
+import milo.lists.TaskList;
+import milo.ui.ClientUi;
+import milo.ui.TaskUi;
 
 public class DeleteCommand extends Command {
 
@@ -14,14 +16,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, ClientsList clientsList) {
         this.taskToDelete = taskList.get(this.taskIndex);
         taskToDelete.delete();
         taskList.remove(taskIndex);
     }
 
     @Override
-    public String commandToString(Ui ui, TaskList taskList) {
+    public String commandToString(TaskUi ui, ClientUi cUi, TaskList taskList, ClientsList clientsList) {
         return ui.printDelete(this.taskToDelete, taskList.getNumberOfTasks());
     }
 }
