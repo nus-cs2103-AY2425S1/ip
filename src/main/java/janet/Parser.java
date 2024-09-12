@@ -59,7 +59,7 @@ public class Parser {
 
     /**
      * Throws janet.JanetException when,
-     * 1. command is empty (eg. ' ') OR command is an enum CommandType value.
+     * 1. command is empty (.eg. ' ') OR command is an enum CommandType value.
      * 2. task description is not provided.
      * 3. task number is not in proper format, not provided, is negative or equal to 0.
      * 4. task number is larger than the number of tasks in the list.
@@ -69,8 +69,9 @@ public class Parser {
      */
     public static void checkInaccurateCommand(String[] commandDetails, int numOfTasksInlist) throws JanetException {
         if (emptyCommand(commandDetails) || unknownCommand(commandDetails)
-                || notFoundCommand(commandDetails) || invalidViewCommand(commandDetails)) {
-            // when the command is gibberish, empty command, invalid Found command, invalid View command
+                || notFoundCommand(commandDetails) || invalidViewCommand(commandDetails)
+                || invalidSortCommand(commandDetails)) {
+            // when the command is gibberish, empty command, invalid Found command, invalid View command, invalid sort command
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (notByeOrListCommand(commandDetails)) {
             if (taskDescriptionOmitted(commandDetails)) {
@@ -89,6 +90,56 @@ public class Parser {
 
 
     /**
+     * Returns true if the
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
+    private static boolean noKeywordSpecified(String[] commandDetails) {
+        return commandDetails.length == 1;
+    }
+
+    /**
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
+    private static boolean moreThanOneKeywordSpecified(String[] commandDetails) {
+        return commandDetails.length > 2;
+    }
+
+    /**
+     * Returns true if only one task type is specified for the sort command,
+     * but the task type is neither deadline nor event.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
+    private static boolean sortUnknownTaskType(String[] commandDetails) {
+        return commandDetails.length == 2
+                && !(commandDetails[1].equals("deadline") || commandDetails[1].equals("event"));
+    }
+
+    /**
+     * Returns true if command is 'sort' and if at least one of the following conditions is true,
+     * 1. no task type is specified (eg. 'sort    ').
+     * 2. unknown task type specified (eg. 'sort todo' or 'sort this').
+     * 3. more than 1 task type is specified (eg. 'sort event deadline').
+     * returns false otherwise.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value.
+     */
+    private static boolean invalidSortCommand(String[] commandDetails) {
+        if (commandDetails[0].equals("sort")) {
+            return noKeywordSpecified(commandDetails)
+                    || sortUnknownTaskType(commandDetails)
+                    || moreThanOneKeywordSpecified(commandDetails);
+        }
+        return false;
+    }
+
+
+    /**
      * Returns true if the command is a view command and,
      * 1. no date is provided OR more than one date is provided.
      * 2. a single date is provided but cannot be parsed into a LocalDate object.
@@ -101,7 +152,7 @@ public class Parser {
     private static boolean invalidViewCommand(String[] commandDetails) throws JanetException {
         boolean isViewCommand = commandDetails[0].equals("view");
         if (isViewCommand) {
-            if (viewNoDateProvided(commandDetails) || viewMoreThanOneDateProvided(commandDetails)) {
+            if (noKeywordSpecified(commandDetails) || moreThanOneKeywordSpecified(commandDetails)) {
                 return true;
             } else {
                 try {
@@ -112,29 +163,6 @@ public class Parser {
             }
         }
         return false;
-    }
-
-    /**
-     * Returns a true if there is no date provided for the view command (eg. 'view').
-     * False otherwise.
-     *
-     * @param commandDetails A String[], where each element corresponds to a word of the user input.
-     * @return A boolean value.
-     */
-    private static boolean viewNoDateProvided(String[] commandDetails) {
-        return commandDetails.length == 1;
-    }
-
-    /**
-     * Returns true if there is more than one date provided for the view command (eg. 'view 2024-09-10 ...'),
-     * where '...' represents some text after the date provided.
-     * False otherwise.
-     *
-     * @param commandDetails A String[], where each element corresponds to a word of the user input.
-     * @return A boolean value.
-     */
-    private static boolean viewMoreThanOneDateProvided(String[] commandDetails) {
-        return commandDetails.length > 2;
     }
 
 
@@ -153,7 +181,7 @@ public class Parser {
 
 
     /**
-     * Returns true if the command is empty, just whitespaces (eg. '    ').
+     * Returns true if the command is empty, just whitespaces (.eg. '    ').
      *
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
      * @return A boolean value
@@ -179,9 +207,9 @@ public class Parser {
 
     /**
      * Returns true if command is,
-     * 1. gibberish and not an enum CommandType value (eg. marker, blah blah, events).
-     * 2. 'bye ...' where '...' represents additional texts behind the word bye (eg. bye bye).
-     * 3. 'list ...' where '...' represents additional texts behind the word list (eg. list something).
+     * 1. gibberish and not an enum CommandType value (.eg. marker, blah blah, events).
+     * 2. 'bye ...' where '...' represents additional texts behind the word bye (.eg. bye bye).
+     * 3. 'list ...' where '...' represents additional texts behind the word list (.eg. list something).
      * false otherwise.
      *
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
@@ -197,9 +225,9 @@ public class Parser {
 
     /**
      * Returns true if,
-     * 1. task number is not provided (eg. mark).
-     * 2. task number is invalid, unable to parse into Integer (eg. unmark three).
-     * 3. more than 1 task number is provided, separated by whitespace(s) (eg. delete 3 2).
+     * 1. task number is not provided (.eg. mark).
+     * 2. task number is invalid, unable to parse into Integer (.eg. unmark three).
+     * 3. more than 1 task number is provided, separated by whitespace(s) (.eg. delete 3 2).
      *
      * @param commandDetails A String[], where each element corresponds to a word of the user input.
      * @return A boolean value.

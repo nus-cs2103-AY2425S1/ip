@@ -2,8 +2,9 @@ package janet;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents the list of tasks.
@@ -147,11 +148,11 @@ public class TaskList {
      * either a deadline or an event,
      * and has a dueDate/startDate equals to the schedule.
      *
-     * @param dateAndTime A String, representing the date the user inputs (yyyy-MM-dd).
+     * @param date A String, representing the date the user inputs (yyyy-MM-dd).
      * @return A TaskList.
      */
-    public TaskList viewScheduledTasks(String dateAndTime) throws JanetException {
-        LocalDate schedule = LocalDate.parse(dateAndTime);
+    public TaskList viewScheduledTasks(String date) throws JanetException {
+        LocalDate schedule = LocalDate.parse(date);
         TaskList tasks = new TaskList();
         for (Task task : listOfTasks) {     // go through all the tasks in the list
             if (task.getScheduledDate() != null && isScheduledTask(task, schedule)) {
@@ -162,4 +163,57 @@ public class TaskList {
         return tasks;
     }
 
+
+    /**
+     * Returns sorted Deadline objects, if taskType is 'deadline'.
+     * Returns sorted Event objects, if taskType is 'event'.
+     *
+     * @param taskType A type of task, in String, that the user defines (deadline or event)
+     * @return  A TaskList.
+     */
+    public TaskList sortTasks(String taskType) {
+        TaskList tasks = new TaskList();
+        if (taskType.equals("deadline")) {
+            tasks = sortedDeadlines();
+        } else if (taskType.equals("event")) {
+            tasks = sortedEvents();
+        }
+        return tasks;
+    }
+
+
+    /**
+     * Returns a TaskList, where each element is a Deadline object,
+     * sorted by scheduledDate in chronological order.
+     *
+     * @return A TaskList.
+     */
+    public TaskList sortedDeadlines() {
+        TaskList tasks = new TaskList();
+        for (Task task : listOfTasks) {
+            if (task.getSymbol().equals("D")) {
+                tasks.addTaskToList(task);
+            }
+        }
+        Collections.sort(tasks.getListOfTasks());
+        return tasks;
+    }
+
+
+    /**
+     * Returns a TaskList, where each element is an Event object,
+     * sorted by scheduledDate in chronological order.
+     *
+     * @return A TaskList.
+     */
+    public TaskList sortedEvents() {
+        TaskList tasks = new TaskList();
+        for (Task task : listOfTasks) {
+            if (task.getSymbol().equals("E")) {
+                tasks.addTaskToList(task);
+            }
+        }
+        Collections.sort(tasks.getListOfTasks());
+        return tasks;
+    }
 }

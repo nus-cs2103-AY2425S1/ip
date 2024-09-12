@@ -160,8 +160,30 @@ public class Ui {
     }
 
 
+    /**
+     * Returns a String message showing a list of tasks,
+     * where each Task object has a scheduledDateAndTime.toLocalDate() = date.
+     *
+     * @param scheduledTaskList A TaskList.
+     * @param date A date specified by the user (yyyy-MM-dd)
+     * @return A String message showing the tasks that has the same date as the one user specified.
+     */
     public String showScheduledTasksMessage(TaskList scheduledTaskList, String date) {
         return "\nHere are your tasks on " + date + ":\n"
                 + displayTasksInList(scheduledTaskList) + "\n";
+    }
+
+
+    /**
+     * Returns a String message showing a list of tasks,
+     * where each Task object is sorted in chronological order (scheduledDateAndTime).
+     *
+     * @param sortedTaskList A TaskList.
+     * @param taskType A type of a task specified by the user (String)
+     * @return A string message showing the tasks sorted in chronological order.
+     */
+    public String showSortedTasks(TaskList sortedTaskList, String taskType) {
+        return String.format("\nHere are your sorted %s tasks:\n", taskType)
+                + displayTasksInList(sortedTaskList) + "\n";
     }
 }

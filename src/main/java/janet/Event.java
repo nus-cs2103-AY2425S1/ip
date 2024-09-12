@@ -22,7 +22,7 @@ public class Event extends ScheduledTask {
 
     Event(String description, String symbol, LocalDateTime startDate, LocalDateTime endDate) {
         // this is used inside the static method: createEventCommand
-        super(description, symbol, startDate.toLocalDate());  // startDate is the scheduledDate.
+        super(description, symbol, startDate);  // startDate is the scheduledDate.
         this.startDate = startDate;
         this.endDate = endDate;
     }

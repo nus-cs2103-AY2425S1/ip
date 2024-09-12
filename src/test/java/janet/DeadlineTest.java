@@ -19,7 +19,7 @@ public class DeadlineTest {
         }
         if (Objects.equals(d1.getDescription(), d2.getDescription())
                 && Objects.equals(d1.getSymbol(), d2.getSymbol())) {
-            return Objects.equals(d1.getScheduledDate(), d2.getScheduledDate());
+            return Objects.equals(d1.getScheduledDateAndTime(), d2.getScheduledDateAndTime());
         }
         return false;
     }
