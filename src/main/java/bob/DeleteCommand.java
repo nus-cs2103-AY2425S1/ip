@@ -10,6 +10,8 @@ public class DeleteCommand extends Command {
     };
     protected static int paramCount = 1;
     private final int idx;
+    private Task deletedTask;
+    private boolean hasExecuted = false;
 
     /**
      * Constructs a {@code DeleteCommand} with the specified task index.
@@ -29,15 +31,28 @@ public class DeleteCommand extends Command {
      * @param storage the {@code Storage} for saving or loading tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage, ExecutionStack execStack) {
         if (this.idx <= 0 || this.idx > tasks.getSize()) {
             throw new TaskIndexException(String.format("%d", this.idx));
         }
         Task deleted = tasks.delete(idx);
+
+        this.deletedTask = deleted;
+        execStack.push(this);
+        this.hasExecuted = true;
+
         String tasksRemaining = String.format("Now you have %d tasks in the list.", tasks.getSize());
         return Printer.format(new String[] {"Noted. I've removed this task:",
             deleted.toString(),
             tasksRemaining });
+    }
+
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) {
+        if (this.hasExecuted) {
+            tasks.push(this.deletedTask);
+        }
+        return "Re-added task [" + this.deletedTask.toString() + "].";
     }
 
     /**

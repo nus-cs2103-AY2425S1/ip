@@ -37,12 +37,20 @@ public class EventCommand extends Command {
      * @param storage the {@code Storage} for saving or loading tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage, ExecutionStack execStack) {
+        execStack.push(this);
         Event event = tasks.event(this.name, this.from, this.to);
         String tasksRemaining = String.format("Now you have %d tasks in the list.", tasks.getSize());
         return Printer.format(new String[] { "Got it. I've added this task:",
             " " + event.toString(),
             tasksRemaining });
+    }
+
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) {
+        Task removedTask = tasks.pop();
+        String response = "Removed task [" + removedTask.toString() + "].";
+        return response;
     }
 
     /**

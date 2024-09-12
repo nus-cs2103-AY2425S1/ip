@@ -53,6 +53,18 @@ public class TaskList {
         return deleted;
     }
 
+    public Task pop() {
+        int lastIndex = this.tasklist.size() - 1;
+        Task deleted = this.tasklist.get(lastIndex);
+        this.tasklist.remove(lastIndex);
+
+        return deleted;
+    }
+
+    public void push(Task task) {
+        this.tasklist.add(task);
+    }
+
     public int getSize() {
         return this.tasklist.size();
     }

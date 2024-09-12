@@ -10,7 +10,7 @@ public class FindDateCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage, ExecutionStack execStack) {
         String[] tasksFound = tasks.findTasksOn(this.date);
         String[] toPrint = new String[tasksFound.length + 2];
 
@@ -19,6 +19,12 @@ public class FindDateCommand extends Command {
         System.arraycopy(tasksFound, 0, toPrint, 1, tasksFound.length);
 
         return Printer.format(toPrint);
+    }
+
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) {
+        // Do nothing
+        return "";
     }
 
     @Override

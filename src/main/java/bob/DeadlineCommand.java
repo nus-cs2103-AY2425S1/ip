@@ -32,21 +32,30 @@ public class DeadlineCommand extends Command {
      * @param storage the {@code Storage} for saving or loading tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage, ExecutionStack execStack) {
         Deadline deadline = tasks.deadline(this.name, this.by);
         String tasksRemaining = String.format("Now you have %d tasks in the list.", tasks.getSize());
+        execStack.push(this);
         return Printer.format(new String[] { "Got it. I've added this task:",
             " " + deadline.toString(),
              tasksRemaining });
     }
 
-    /**
-     * Compares this {@code DeadlineCommand} with another object for equality.
-     * Two {@code DeadlineCommand} objects are considered equal if they have the same task name and deadline date.
-     *
-     * @param obj the object to be compared with this {@code DeadlineCommand}.
-     * @return {@code true} if the specified object is equal to this {@code DeadlineCommand}; {@code false} otherwise.
-     */
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) {
+        Task removedTask = tasks.pop();
+        String response = "Removed task [" + removedTask.toString() + "].";
+        return response;
+    }
+
+
+        /**
+         * Compares this {@code DeadlineCommand} with another object for equality.
+         * Two {@code DeadlineCommand} objects are considered equal if they have the same task name and deadline date.
+         *
+         * @param obj the object to be compared with this {@code DeadlineCommand}.
+         * @return {@code true} if the specified object is equal to this {@code DeadlineCommand}; {@code false} otherwise.
+         */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof DeadlineCommand temp) {
