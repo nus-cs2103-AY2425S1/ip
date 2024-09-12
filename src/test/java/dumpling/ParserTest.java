@@ -27,7 +27,7 @@ public class ParserTest {
                 fail();
             } catch (DumplingException e) {
                 assertEquals(
-                        "Please enter the date in the correct format of YYYY-MM-DD.",
+                        "Intending to extract information out of a given input, but nothing to extract.",
                         e.getMessage()
                 );
             }
@@ -46,7 +46,7 @@ public class ParserTest {
             fail();
         } catch (DumplingException e) {
             assertEquals(
-                    "Please enter the date in the correct format of YYYY-MM-DD.",
+                    "Intending to extract information out of a given input, but nothing to extract.",
                     e.getMessage()
             );
         }
@@ -93,7 +93,7 @@ public class ParserTest {
                 fail();
             } catch (DumplingException e) {
                 assertEquals(
-                        "Like a dumpling, tasks cannot be empty! Please provide a descriptive name.",
+                        "Intending to extract information out of a given input, but nothing to extract.",
                         e.getMessage()
                 );
             }
@@ -108,7 +108,7 @@ public class ParserTest {
         assertEquals(
                 "     Here are the tasks in your list:\n"
                         + "     1.[T][ ] read book\n"
-                        + "     2.[E][X] project meeting (from: 28 Aug 2 to: 4pm)",
+                        + "     2.[D][X] project meeting (by: Aug 29 2024)",
                 tasks.list()
         );
     }

@@ -45,10 +45,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format(
-                "[D]%s (by: %s) %s",
+                "[D]%s (by: %s)%s",
                 super.toString(),
                 this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
-                this.notes.isEmpty() ? "" : String.format("(%s)", this.notes)
+                this.notes.isEmpty() ? "" : String.format(" (%s)", this.notes)
         );
     }
 }

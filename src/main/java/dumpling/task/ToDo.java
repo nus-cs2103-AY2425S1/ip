@@ -32,9 +32,9 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return String.format("[T]%s %s",
+        return String.format("[T]%s%s",
                 super.toString(),
-                this.notes.isEmpty() ? "" : String.format("(%s)", this.notes)
+                this.notes.isEmpty() ? "" : String.format(" (%s)", this.notes)
         );
     }
 }
