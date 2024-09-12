@@ -73,7 +73,7 @@ public class Event extends Task implements TimedTask {
         String fromTimeString = convertTimeToString(fromTime);
         String toTimeString = convertTimeToString(toTime);
         return this.description
-                + " (from: " + fromTimeString + ", to: " + toTimeString + ")";
+                + "(from: " + fromTimeString + ", to: " + toTimeString + ")";
     }
 
     /**

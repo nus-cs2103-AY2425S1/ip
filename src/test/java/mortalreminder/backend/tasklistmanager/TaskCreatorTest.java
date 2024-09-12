@@ -52,7 +52,7 @@ class TaskCreatorTest {
             TaskListStub stub = new TaskListStub();
             TaskCreator.createTask("project meeting /from 19-08-2024 1900 /to 19-08-2024 2000",
                     stub, CommandType.EVENT);
-            assertEquals("project meeting  (from: 19 Aug 2024 7:00 pm, to: 19 Aug 2024 8:00 pm)",
+            assertEquals("project meeting (from: 19 Aug 2024 7:00 pm, to: 19 Aug 2024 8:00 pm)",
                     stub.getTaskList().get(0).getDescription());
         } catch (MortalReminderException e) {
             fail(e.getMessage());
