@@ -17,7 +17,6 @@ import shrimp.task.Event;
 import shrimp.task.Task;
 import shrimp.task.TaskList;
 import shrimp.task.Todo;
-import shrimp.utility.AnsiCode;
 import shrimp.utility.Parser;
 import shrimp.utility.Storage;
 import shrimp.utility.Ui;
