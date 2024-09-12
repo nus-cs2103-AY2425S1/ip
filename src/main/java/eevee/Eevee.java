@@ -68,12 +68,22 @@ public class Eevee {
             return handleDeadlineCommand(input);
         case EVENT:
             return handleEventCommand(input);
-
         case FIND:
             return handleFindCommand(input);
+        case PRIORITIZE:
+            return handlePrioritizeCommand(input);
         default:
             throw new EeveeException("You seemed to have typed wrong. This is not a valid command.");
         }
+    }
+
+    private String handlePrioritizeCommand(String input) throws EeveeException, IOException {
+        int taskNumber = parser.parseTaskNumber(input);
+        Task.Priority priority = parser.parsePriority(input);
+        Task t = tasks.getTask(taskNumber);
+        t.setPriority(priority);
+        storage.saveTasks(tasks);
+        return "Ok! I've set the priority of the following task to " + priority + ":\n " + t;
     }
 
     private String handleMarkCommand(String input) throws EeveeException, IOException {

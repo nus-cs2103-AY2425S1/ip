@@ -8,7 +8,7 @@ public class Parser {
      * Enumerates the possible commands that can be executed by the Eevee program.
      */
     enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND;
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, PRIORITIZE;
     }
 
     /**
@@ -39,6 +39,20 @@ public class Parser {
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new EeveeException("No task under the given task number. "
                     + "Did you type the wrong number?");
+        }
+    }
+
+    public Task.Priority parsePriority(String input) {
+        input = input.trim().toUpperCase();
+
+        if (input.contains("HIGH")) {
+            return Task.Priority.HIGH;
+        } else if (input.contains("MEDIUM")) {
+            return Task.Priority.MEDIUM;
+        } else if (input.contains("LOW")) {
+            return Task.Priority.LOW;
+        } else {
+            return Task.Priority.LOW;
         }
     }
 }

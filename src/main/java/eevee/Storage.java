@@ -110,7 +110,7 @@ public class Storage {
     }
 
     private void handleDeadlineTask(String[] taskData, String description, boolean isDone, Task.Priority priority, TaskList tasks) {
-        String deadline = taskData[3];
+        String deadline = taskData[4];
         Deadline d = new Deadline(description, deadline);
         if (isDone) {
             d.markAsDone();
@@ -120,8 +120,8 @@ public class Storage {
     }
 
     private void handleEventTask(String[] taskData, String description, boolean isDone, Task.Priority priority, TaskList tasks) {
-        String from = taskData[3];
-        String to = taskData[4];
+        String from = taskData[4];
+        String to = taskData[5];
         Event e = new Event(description, from, to);
         if (isDone) {
             e.markAsDone();
