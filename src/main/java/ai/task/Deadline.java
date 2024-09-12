@@ -3,6 +3,7 @@ package ai.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 import ai.exception.AiException;
 
@@ -68,5 +69,16 @@ public class Deadline extends Task {
     @Override
     public String stringData() {
         return String.format("%s | %s | %s", TASK_TYPE, super.stringData(), deadline);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline castedDeadline = (Deadline) obj;
+
+            return super.equals(obj)
+                    && this.deadline.isEqual(castedDeadline.deadline);
+        }
+        return false;
     }
 }

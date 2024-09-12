@@ -16,9 +16,16 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui) {
-        tasks.add(task);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task temp = tasks.get(i);
 
-        return "Task added!!\n" + task + "\n" + String.format("You better finish your %d tasks!! ehe :3\n", tasks.size());
+            if (task.equals(temp)) {
+                return "Oh dear, it seems that you have a dupe :,(( Try adding a different task...\n";
+            }
+        }
+        tasks.add(task);
+        return "Task added!!\n" + task + "\n" + String.format("You better finish your %d tasks!! ehe :3\n",
+                tasks.size());
     }
 
     @Override
