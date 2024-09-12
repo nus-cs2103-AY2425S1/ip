@@ -51,6 +51,22 @@ public class Yapper {
     }
 
     /**
+     * Processes the user's command and returns the appropriate response.
+     * @param fullCommand
+     * @param commandType
+     * @param expectedParts
+     * @return
+     * @throws YapperException
+     */
+    private String[] splitAndValidateCommand(String fullCommand, String commandType, int expectedParts) throws YapperException {
+        String[] parts = fullCommand.split(" ");
+        if (parts.length < expectedParts) {
+            throw new EmptyDescriptionException(commandType);
+        }
+        return parts;
+    }
+
+    /**
      * Handles the "mark" command by marking a task as done.
      *
      * @param fullCommand The full command string entered by the user.
@@ -58,10 +74,7 @@ public class Yapper {
      * @throws YapperException If the task number is invalid or no task number is provided.
      */
     private String handleMark(String fullCommand) throws YapperException {
-        String[] parts = fullCommand.split(" ");
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("mark");
-        }
+        String[] parts = splitAndValidateCommand(fullCommand, "mark", 2);  
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new InvalidTaskNumberException(taskIndex);
@@ -81,7 +94,7 @@ public class Yapper {
      * @throws YapperException If the task number is invalid or no task number is provided.
      */
     private String handleUnmark(String fullCommand) throws YapperException {
-        String[] parts = fullCommand.split(" ");
+        String[] parts = splitAndValidateCommand(fullCommand, "unmark", 2);  
         if (parts.length < 2) {
             throw new EmptyDescriptionException("unmark");
         }
@@ -103,10 +116,7 @@ public class Yapper {
      * @throws YapperException If the task description is empty.
      */
     private String handleTodo(String fullCommand) throws YapperException {
-        String[] parts = fullCommand.split(" ", 2);
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("todo");
-        }
+        String[] parts = splitAndValidateCommand(fullCommand, "todo", 2);  
         Task task = new Todo(parts[1]);
         tasks.addTask(task);
         return "Got it, Boss! I've added this task to your list:\n  "
@@ -121,10 +131,7 @@ public class Yapper {
      * @throws YapperException If the deadline description or date is missing.
      */
     private String handleDeadline(String fullCommand) throws YapperException {
-        String[] parts = fullCommand.split(" /by ");
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("deadline");
-        }
+        String[] parts = splitAndValidateCommand(fullCommand, "deadline", 2);  
         String description = parts[0].substring(9).trim();
         Task task = new Deadline(description, parts[1]);
         tasks.addTask(task);
@@ -140,10 +147,7 @@ public class Yapper {
      * @throws YapperException If the event description, start time, or end time is missing.
      */
     private String handleEvent(String fullCommand) throws YapperException {
-        String[] parts = fullCommand.split(" /from ");
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("event");
-        }
+        String[] parts = splitAndValidateCommand(fullCommand, "event", 2);  
         String[] times = parts[1].split(" /to ");
         if (times.length < 2) {
             throw new YapperException("Boss, the event command needs both a start and end time.");
@@ -163,10 +167,7 @@ public class Yapper {
      * @throws YapperException If the task number is invalid or no task number is provided.
      */
     private String handleDelete(String fullCommand) throws YapperException {
-        String[] parts = fullCommand.split(" ");
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("delete");
-        }
+        String[] parts = splitAndValidateCommand(fullCommand, "delete", 2);  
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new InvalidTaskNumberException(taskIndex);
@@ -185,10 +186,7 @@ public class Yapper {
      * @throws YapperException If no keyword is provided for the search.
      */
     private String handleFind(String fullCommand) throws YapperException {
-        String[] parts = fullCommand.split(" ", 2);
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("find");
-        }
+        String[] parts = splitAndValidateCommand(fullCommand, "find", 2);  
         String keyword = parts[1];
         List<Task> matchingTasks = tasks.findTasks(keyword);
 
