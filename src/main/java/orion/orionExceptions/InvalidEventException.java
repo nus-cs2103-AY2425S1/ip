@@ -1,4 +1,4 @@
-package orion.orionExceptions;
+package orion.orionexceptions;
 
 /**
  * Exception thrown when the event command format is incorrect.

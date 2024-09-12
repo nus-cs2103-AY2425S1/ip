@@ -1,4 +1,4 @@
-package orion.orionExceptions;
+package orion.orionexceptions;
 
 /**
  * Exception thrown when an invalid index is accessed in a task list.

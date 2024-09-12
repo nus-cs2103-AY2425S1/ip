@@ -1,4 +1,4 @@
-package orion.orionExceptions;
+package orion.orionexceptions;
 
 /**
  * Custom exception class representing an error that occurs during file

@@ -1,4 +1,4 @@
-package orion.orionExceptions;
+package orion.orionexceptions;
 
 /**
  * Base class for all exceptions in the Orion application.
