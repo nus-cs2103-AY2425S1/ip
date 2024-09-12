@@ -1,6 +1,8 @@
 package friday.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import friday.util.FridayException;
 
@@ -58,31 +60,54 @@ public class TaskList {
      * @return The string representation of tasks in the task list matching the keyword.
      */
     public String findTasks(String keyword) {
-        if (keyword.trim().isEmpty()) {
-            return "Please provide a keyword to search for.";
+        if (isKeywordEmpty(keyword)) {
+            return showKeywordErrorMessage();
         }
 
-        String response = "Here are the matching tasks in your list:";
-        boolean found = false;
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            String description = task.toString().toLowerCase();
-            String[] words = description.split("\\s+");
+        List<Task> matchedTasks = searchTask(keyword);
+        if (matchedTasks.isEmpty()) {
+            return showNoTasksFoundMessage();
+        } else {
+            return displayMatchingTasks(matchedTasks);
+        }
+    }
 
-            for (String word : words) {
-                if (word.equals(keyword.toLowerCase())) {
-                    response += "\n" + (i + 1) + "." + task;
-                    found = true;
-                    break;
-                }
+    private boolean isKeywordEmpty(String keyword) {
+        return keyword.trim().isEmpty();
+    }
+
+    private String showKeywordErrorMessage() {
+        return "\tPlease provide a keyword to search for.";
+    }
+
+    private List<Task> searchTask(String keyword) {
+        List<Task> matchedTasks = new ArrayList<>();
+        String lowerCaseKeyword = keyword.toLowerCase();
+
+        for (Task task : tasks) {
+            if (isTaskMatchingKeyword(task, lowerCaseKeyword)) {
+                matchedTasks.add(task);
             }
         }
 
-        if (!found) {
-            return "No matching tasks found.";
-        }
+        return matchedTasks;
+    }
 
-        return response;
+    private boolean isTaskMatchingKeyword(Task task, String keyword) {
+        String description = task.toString().toLowerCase();
+        return Arrays.asList(description.split("\\s+")).contains(keyword);
+    }
+
+    private String displayMatchingTasks(List<Task> matchedTasks) {
+        StringBuilder matchingTasks = new StringBuilder("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchedTasks.size(); i++) {
+            matchingTasks.append("\n").append(i + 1).append(".").append(matchedTasks.get(i));
+        }
+        return matchingTasks.toString();
+    }
+
+    private String showNoTasksFoundMessage() {
+        return "\tNo matching tasks found.";
     }
 
     /**

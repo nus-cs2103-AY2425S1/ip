@@ -8,15 +8,19 @@ import friday.util.Ui;
  * Represents a command to find tasks in the task list that contain a specified keyword.
  */
 public class FindCommand extends Command {
-    private final String find;
+    private final String keyword;
 
     /**
      * Constructs a FindCommand with the specified keyword.
      *
-     * @param find The array containing the keyword to search for.
+     * @param commandArgs The array containing the keyword to search for.
      */
-    public FindCommand(String[] find) {
-        this.find = find[1];
+    public FindCommand(String[] commandArgs) {
+        this.keyword = extractKeyword(commandArgs);
+    }
+
+    private String extractKeyword(String[] commandArgs) {
+        return commandArgs.length > 1 ? commandArgs[1] : "";
     }
 
     /**
@@ -29,6 +33,6 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return tasks.findTasks(find);
+        return tasks.findTasks(keyword);
     }
 }

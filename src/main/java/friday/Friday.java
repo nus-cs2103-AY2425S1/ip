@@ -51,10 +51,14 @@ public class Friday {
      */
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return handleUserCommand(input);
         } catch (FridayException | IOException e) {
             return "Error: " + e.getMessage();
         }
+    }
+
+    private String handleUserCommand(String input) throws FridayException, IOException {
+        Command c = Parser.parse(input);
+        return c.execute(tasks, ui, storage);
     }
 }
