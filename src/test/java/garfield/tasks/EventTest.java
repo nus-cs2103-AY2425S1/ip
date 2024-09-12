@@ -1,13 +1,14 @@
 package garfield.tasks;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 public class EventTest {
     private Event event;
@@ -24,14 +25,14 @@ public class EventTest {
     void constructor_validDescriptionAndDateTimes_taskInitialized() {
         assertNotNull(event);
         assertEquals("Test Event Description", event.getTaskDescription());
-        assertEquals("[E][ ] Test Event Description (from: Mar 25 2024 12:00am to: Mar 25 2024 11:59pm)",
+        assertEquals("[E][ ] Test Event Description (from: Mar 25 2024 12:00AM to: Mar 25 2024 11:59PM)",
                 event.toString());
     }
 
     @Test
     void markAsDone_taskMarkedDone_statusUpdated() {
         event.markAsDone();
-        assertEquals("[E][X] Test Event Description (from: Mar 25 2024 12:00am to: Mar 25 2024 11:59pm)",
+        assertEquals("[E][X] Test Event Description (from: Mar 25 2024 12:00AM to: Mar 25 2024 11:59PM)",
                 event.toString());
     }
 
@@ -39,7 +40,7 @@ public class EventTest {
     void markAsUndone_taskPreviouslyMarkedDone_statusReverted() {
         event.markAsDone(); // Mark as done first
         event.markAsUndone();
-        assertEquals("[E][ ] Test Event Description (from: Mar 25 2024 12:00am to: Mar 25 2024 11:59pm)",
+        assertEquals("[E][ ] Test Event Description (from: Mar 25 2024 12:00AM to: Mar 25 2024 11:59PM)",
                 event.toString());
     }
 

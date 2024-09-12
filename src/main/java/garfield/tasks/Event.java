@@ -2,6 +2,7 @@ package garfield.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * The Event class represents a task with a specific time period in the Garfield chatbot application.
@@ -24,8 +25,8 @@ public class Event extends Task {
         super(eventDescription);
         this.from = from;
         this.to = to;
-        this.saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.uiFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mma");
+        this.saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.US);
+        this.uiFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mma", Locale.US);
     }
 
     @Override

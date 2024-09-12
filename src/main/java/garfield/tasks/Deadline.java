@@ -2,6 +2,7 @@ package garfield.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * The Deadline class represents a task with a specific deadline in the Garfield chatbot application.
@@ -21,8 +22,8 @@ public class Deadline extends Task {
     public Deadline(String taskDescription, LocalDateTime deadline) {
         super(taskDescription);
         this.deadline = deadline;
-        this.saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.uiFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mma");
+        this.saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.US);
+        this.uiFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mma", Locale.US);
     }
 
     /**
