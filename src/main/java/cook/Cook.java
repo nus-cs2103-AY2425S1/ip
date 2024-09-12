@@ -45,6 +45,7 @@ public class Cook {
     public String getResponse(String input) {
         try {
             Command c = this.parser.readInput(input);
+            assert c != null;
             return c.execute(this.tasks, this.ui, this.storage);
         } catch (InvalidCommandException | InvalidInputException e) {
             return e.getMessage();
