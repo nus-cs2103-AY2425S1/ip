@@ -1,11 +1,13 @@
 package ai.task;
 
+import java.util.Objects;
+
 /**
  * Class that has a status and description.
  */
 public class Task {
     private boolean isDone = false;
-    private String description;
+    protected String description;
 
     public Task(String description) {
         this.description = description;
@@ -65,5 +67,14 @@ public class Task {
     public String stringData() {
         int isDoneNum = isDone ? 1 : 0;
         return isDoneNum + " | " + description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task) {
+            Task castedObj = (Task) obj;
+            return this.isDone == castedObj.isDone && Objects.equals(this.description, castedObj.description);
+        }
+        return false;
     }
 }

@@ -1,5 +1,7 @@
 package ai.task;
 
+import java.util.Objects;
+
 /**
  * A subtype of Task that only has a description.
  */
