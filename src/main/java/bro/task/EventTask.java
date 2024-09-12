@@ -5,8 +5,8 @@ package bro.task;
  * is a type of task that has a specific start and end time associated with it.
  */
 public class EventTask extends Task {
-    private String startTime;
-    private String endTime;
+    private final String startTime;
+    private final String endTime;
 
     /**
      * Constructs a new EventTask with the specified content, start time, and end time.
