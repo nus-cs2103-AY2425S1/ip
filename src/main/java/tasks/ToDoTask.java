@@ -1,5 +1,9 @@
 package tasks;
 
+import javafx.util.converter.LocalDateTimeStringConverter;
+
+import java.time.LocalDateTime;
+
 public class ToDoTask extends Task {
 
     public ToDoTask(String description, boolean isDone) {
@@ -29,5 +33,13 @@ public class ToDoTask extends Task {
     public String toString() {
         return String.format("%s | %s | %s",
                 this.getTaskType(), getStatusIcon(), super.description);
+    }
+    @Override
+    protected LocalDateTime parseTime(String time) {
+        return LocalDateTime.now();
+    }
+    @Override
+    public void updateTask(String field, String newValue) {
+        this.setDescription(newValue + " ");
     }
 }
