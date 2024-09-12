@@ -16,6 +16,7 @@ public class TaskList {
     }
 
     public static Task get(int i) {
+        assert i > 0 && i < TaskList.length() : "Invalid task index!";
         return taskLists.get(i);
     }
     public static int length() {
@@ -43,16 +44,25 @@ public class TaskList {
     }
 
     public static String markTask(int i) {
+        if (i > TaskList.length()) {
+            return Ui.noSuchTaskMessage();
+        }
         taskLists.get(i - 1).markAsDone();
         return Ui.markTaskMessage(taskLists.get(i - 1));
     }
 
     public static String unmarkTask(int i) {
+        if (i > TaskList.length()) {
+            return Ui.noSuchTaskMessage();
+        }
         taskLists.get(i - 1).markAsUndone();
         return Ui.unmarkTaskMessage(taskLists.get(i - 1));
     }
 
     public static String deleteTask(int i) {
+        if (i > TaskList.length()) {
+            return Ui.noSuchTaskMessage();
+        }
         Task toBeRemovedTask = taskLists.get(i - 1);
         taskLists.remove(i - 1);
         return Ui.deleteTaskMessage(toBeRemovedTask);

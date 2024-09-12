@@ -34,6 +34,7 @@ public class Ui {
      * ask them for input after that.
      */
     public static String printList() {
+        assert TaskList.length() >= 0;
         String output = "Here are your list of tasks:\n";
         for (int i = 0; i < TaskList.length(); i++) {
             output += TaskList.listTask(i) + "\n";
@@ -95,6 +96,12 @@ public class Ui {
         return output;
     }
 
+    /**
+     * Prints out the tasks that matches the keywords that user inputs.
+     *
+     *
+     * @param targetString string that user is searching for.
+     */
     public static String findTargetString(String targetString) {
         ArrayList<Task> filteredTask = new ArrayList<>();
         for (int i = 0; i < TaskList.length(); i++) {
@@ -107,5 +114,14 @@ public class Ui {
             output += filteredTask.get(i) + "\n";
         }
         return output;
+    }
+
+    /**
+     * Prints out the message when the user mark/unmark/delete a task number
+     * that is longer than the length of the task list.
+     *
+     */
+    public static String noSuchTaskMessage() {
+        return "There is no such task!";
     }
 }
