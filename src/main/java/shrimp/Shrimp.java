@@ -168,6 +168,7 @@ public class Shrimp {
      * @throws ShrimpException If the task number is missing or not a valid integer.
      */
     static int getTaskNumber(String userInput, Parser.CommandType type) throws ShrimpException {
+        assert userInput != null : "userInput is null";
         try {
             return Integer.parseInt(userInput.split(" ")[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {

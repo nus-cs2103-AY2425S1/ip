@@ -44,7 +44,6 @@ public class Ui {
                      \\/     \\/               \\/|__|   \s
                                                       \s
                 """;
-        System.out.println(AnsiCode.CYAN + logo);
     }
 
     /**

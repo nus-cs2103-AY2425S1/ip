@@ -18,6 +18,7 @@ public class AddCommand implements Command {
      * @param task The task to be added to the task list.
      */
     public AddCommand(Task task) {
+        assert task != null : "Task is null";
         this.task = task;
     }
 
