@@ -1,0 +1,9 @@
+todo call mom
+deadline finish report /by Monday
+event team lunch /from Wednesday 12pm /to Wednesday 2pm
+list
+mark 1
+unmark 1
+delete 3
+list
+bye

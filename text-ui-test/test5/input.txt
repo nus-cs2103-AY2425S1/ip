@@ -1,0 +1,6 @@
+todo study
+mark 5
+unmark 0
+delete 2
+list
+bye

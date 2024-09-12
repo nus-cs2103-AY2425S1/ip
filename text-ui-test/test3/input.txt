@@ -1,0 +1,7 @@
+todo watch movie
+deadline complete project /by Wednesday
+event conference /from Friday 10am /to Friday 3pm
+list
+delete 2
+list
+bye
