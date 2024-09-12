@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class RapGod {
+    DataManager dataManager = new DataManager("data/rapgod.txt");
     public static void main(String[] args) {
         System.out.println("Hello!");
     }
@@ -39,7 +40,6 @@ public class RapGod {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        DataManager dataManager = new DataManager("data/rapgod.txt");
         String response = "";
 
         try {
