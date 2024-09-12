@@ -64,6 +64,8 @@ public class Parser {
                 return doDelete(taskNumber);
             case FIND:
                 return findTask(splitUserInput);
+            case ARCHIVE:
+                return archive();
             default:
                 try {
                     taskList.add(Task.of(userInput));
@@ -145,11 +147,11 @@ public class Parser {
     }
 
     /**
-     * Performs the necessary actions for the delete command
+     * Performs the necessary actions for the delete command.
      *
-     * @param taskNumber task number of task to mark
-     * @return The response from the ui class
-     * @throws TestamentException thrown if taskNumber is not appropriate
+     * @param taskNumber task number of task to mark.
+     * @return The response from the ui class.
+     * @throws TestamentException thrown if taskNumber is not appropriate.
      */
     private String doDelete(int taskNumber) throws TestamentException {
         Task retrievedTask;
@@ -161,6 +163,20 @@ public class Parser {
 
         //return delete message
         return ui.delete(retrievedTask);
+    }
+
+    /**
+     * Performs the necessary actions for the archive command.
+     *
+     * @return The response from the ui class
+     */
+    private String archive() {
+        storage.writeArchive();
+        taskList.deleteTaskList();
+        storage.save();
+
+        //return archive message
+        return ui.archive();
     }
 
     /**
