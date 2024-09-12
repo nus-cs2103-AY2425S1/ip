@@ -1,6 +1,7 @@
 package atlas.parser;
 
 import java.time.DateTimeException;
+import java.util.Arrays;
 
 import atlas.commands.AllCommand;
 import atlas.commands.Command;
@@ -29,6 +30,7 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws AtlasException {
         String[] commandsArray = fullCommand.split(" ");
+        assert commandsArray.length > 0 : "Commands array should have at least 1 element";
         String command = commandsArray[0].toUpperCase();
         try {
             switch (AllCommand.valueOf(command)) {

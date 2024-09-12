@@ -23,6 +23,7 @@ public class DateTime {
      * @throws DateTimeException The exception thrown if a user enters an invalid date or an uses an invalid format
      */
     public static LocalDateTime formatDate(String dateTime) throws DateTimeException {
+        assert !dateTime.isEmpty() : "Date time should not be an empty string";
         String[] dateTimes = dateTime.split(" ");
         LocalDate date = LocalDate.parse(dateTimes[0]);
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
