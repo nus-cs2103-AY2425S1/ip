@@ -34,6 +34,8 @@ public class AddDeadlineCommand extends Command {
 
             this.deadline = date + "T" + time;
         }
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
+        assert deadline != null && !deadline.isEmpty() : "Deadline should not be null or empty";
     }
 
     /**
