@@ -42,7 +42,7 @@ public class Config {
 		return sb.toString();
 	}
 
-	public static final String CSV_FILE_PATH = "src/main/java/data/susan.csv";
+	public static final String CSV_FILE_PATH = "src/main/java/data/data.csv";
 
 	public static final String commands = makeCommandMessage(cmds); 
 }	
