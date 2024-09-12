@@ -1,5 +1,7 @@
 package juno.task;
 
+import java.time.LocalDateTime;
+
 import com.google.gson.annotations.Expose;
 
 /**
@@ -87,4 +89,9 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public LocalDateTime getEndTime() {
+        return null;
+    }
+
 }

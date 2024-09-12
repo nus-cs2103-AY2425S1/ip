@@ -63,5 +63,10 @@ public class Deadline extends Task {
     public String getEndTimeString() {
         return this.endTimeString;
     }
+
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
 }
 

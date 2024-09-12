@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import juno.command.Command;
+import juno.command.RemindCommand;
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
@@ -69,6 +70,23 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Checks the user's schedule for upcoming tasks and sends a reminder if any tasks are due soon.
+     * This method creates an instance of {@link RemindCommand} to fetch the list of upcoming tasks
+     * from the task manager. If the list is not empty, it displays the reminder in the chat dialog.
+     * If the list is empty, indicated by an empty string from the {@code RemindCommand}, no reminder is displayed.
+     * This method is called the minute the users start the application, so that the chatbot can displayed users
+     * upcoming tasks when they launch the chatbot, instead of from typing the "remind" keyword.
+     */
+    public void checkScheduleTask() {
+        RemindCommand remindCommand = new RemindCommand(this.taskManager);
+        String outputString = remindCommand.runCommand();
+        boolean isNoScheduleTask = outputString.equalsIgnoreCase("");
+        if (!isNoScheduleTask) {
+            dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(outputString, junoImage));
+        }
+    }
+
+    /**
      * Detects user input through the command line.
      * User input is parsed into commands, which are then executed. The loop continues until
      * the user inputs a command "bye" to terminate the chat bot.
@@ -86,6 +104,9 @@ public class MainWindow extends AnchorPane {
             assert command != null : "The command returned should not be null";
             String outputString = command.runCommand();
             assert outputString != null : "The output string returned should not be null";
+            if (command instanceof RemindCommand && outputString.equalsIgnoreCase("")) {
+                outputString = ((RemindCommand) command).returningStringToUser();
+            }
             dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(outputString, junoImage));
             if (!command.isInWhileLoop()) {
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
