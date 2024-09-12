@@ -48,8 +48,6 @@ public class Event extends Task {
         if (fromDate != null) {
             this.from = fromDate;
         }
-
-
     }
 
     @Override
