@@ -1,6 +1,7 @@
 package jag;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * TaskList Class that encapsulates all the properties and methods
@@ -14,6 +15,20 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    /**
+     * Finds and returns all tasks that contains the given search parameter
+     *
+     * @param searchDescription String that user wants to find amongst TaskList
+     * @return TaskList instance with found tasks or just an empty instance
+     */
+    public TaskList findTask(String searchDescription) {
+        TaskList matchingTasks = new TaskList();
+        this.tasks.stream()
+                .filter(task -> task.getDescription().contains(searchDescription))
+                .forEach(matchingTasks::addTask);
+        return matchingTasks;
     }
 
     /**

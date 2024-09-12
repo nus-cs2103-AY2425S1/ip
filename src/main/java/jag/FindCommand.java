@@ -24,13 +24,7 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         assert (tasks instanceof TaskList) : "tasks is not an instance of TaskList";
         String searchDescription = ui.getDescription('F');
-        TaskList foundTasks = new TaskList();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.getTask(i).getDescription().contains(searchDescription)) {
-                Task foundTask = tasks.getTask(i);
-                foundTasks.addTask(foundTask);
-            }
-        }
+        TaskList foundTasks = tasks.findTask(searchDescription);
         ui.findResponse(foundTasks);
     }
 
