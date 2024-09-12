@@ -19,6 +19,7 @@ import javafx.application.Application;
  *      * mark [index of task]
  *      * unmark [index of task]
  *      * delete [index of task]
+ *      * edit [index of task] [task attribute] [new value]
  *      * bye
  */
 public class Delta {

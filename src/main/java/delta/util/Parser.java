@@ -78,10 +78,12 @@ public class Parser {
                * todo [description]
                * deadline [description] /by [date/time]
                * event [description] /from [start] /to [end]
+               * find [description]
                * mark [index of task]
                * unmark [index of task]
                * delete [index of task]
-               * edit [index of task] [task attribute] [new value]""";
+               * edit [index of task] [task attribute] [new value]
+               * bye""";
 
     /**
      * Formats a user typed date/time into proper format to be used by system.
@@ -273,6 +275,12 @@ public class Parser {
         return new DeleteCommand(deleteTaskIdx);
     }
 
+    /**
+     * Returns EditCommand to edit task in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
     private static Command editTask(String[] description) throws DeltaException {
         int editTaskIdx;
         String editType;
@@ -288,7 +296,7 @@ public class Parser {
 
             if (editType.equals("/desc")) {
                 editDesc = editDetails[2].strip();
-            } else if (editType.equals("/by") || editType.equals("/from") || editType.equals("/to")){
+            } else if (editType.equals("/by") || editType.equals("/from") || editType.equals("/to")) {
                 editTime = formatDateTime(editDetails[2].strip());
                 if (editTime.isBefore(LocalDateTime.now())) {
                     throw new DeltaException(PAST_TIME_ERROR);

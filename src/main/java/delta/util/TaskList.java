@@ -119,6 +119,14 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Edits specific task in list.
+     *
+     * @param index Index of task to be edited in list (one-based indexing).
+     * @param newTask New task to replace old task in list.
+     * @return New task that was added into list.
+     * @throws DeltaException If list is empty or task not found in list.
+     */
     public Task editTask(int index, Task newTask) throws DeltaException {
         Task task = getTask(index - 1);
         if (task.getStatusIcon().equals("X")) {
