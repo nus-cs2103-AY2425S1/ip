@@ -5,6 +5,7 @@ import exceptions.AliceException;
 import exceptions.FormatException;
 import exceptions.MissingArgumentException;
 import storage.TaskList;
+import tasks.Priority;
 import tasks.Task;
 import ui.Ui;
 
@@ -43,7 +44,10 @@ public class Parser {
         case BYE:
             return ui.showExitMessage();
         case LIST:
-            return ui.getListedTasks(list.listTasks(), list.getSize());
+            return ui.getListedTasks(list.getSize(),
+                    list.findTaskOfPriority(Priority.HIGH),
+                    list.findTaskOfPriority(Priority.MEDIUM),
+                    list.findTaskOfPriority(Priority.LOW));
         case MARK:
             int markTaskNumber = checkValidTaskNumber(result[1]);
             Task markTask = list.markTask(markTaskNumber);
@@ -89,8 +93,8 @@ public class Parser {
             String[] eventParams = times[1].split("/p");
 
             addedTask = eventParams.length == 1
-                    ? list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), times[1].strip())
-                    : list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), times[1].strip(), eventParams[1].strip());
+                    ? list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), eventParams[0].strip())
+                    : list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), eventParams[0].strip(), eventParams[1].strip());
             break;
         case FIND:
             return ui.getFilteredTasks(list.findTasks(result[1]));

@@ -87,16 +87,16 @@ public class Ui {
     /**
      * Returns a string of all the tasks in the list.
      *
-     * @param tasks the string representation of all the tasks.
      * @param size number of tasks in the list.
+     * @param tasks the string representation of tasks by priority.
      * @return tasks in the list.
      */
-    public String getListedTasks(String tasks, int size) {
-        StringBuilder s = new StringBuilder();
-        s.append("Here are the tasks in your list: \n");
-        s.append(tasks).append("\n");
-        s.append("Now you have ").append(size).append(" tasks in the list");
-        return s.toString();
+    public String getListedTasks(int size, String ... tasks) {
+        return "Here are the tasks in your list: \n" +
+                "HIGH PRIORITY: \n" + tasks[0] + "\n\n" +
+                "MEDIUM PRIORITY: \n" + tasks[1] + "\n\n" +
+                "LOW PRIORITY: \n" + tasks[2] + "\n\n" +
+                "Now you have a total of " + size + " tasks in the list";
     }
 
     /**
