@@ -212,22 +212,7 @@ public class TaskList {
             return "You need to specify a date!";
         }
         StringBuilder sbr = new StringBuilder("Here are the tasks that occur at this date: " + date + "\n");
-        //int index = 1;
         Parser.printTasksIfDateCorresponds(items, date, sbr, 1);
-        /*for (Task task : items) {
-            if (task instanceof Deadline) {
-                Parser.printDeadlineIfDateCorresponds(task, date, sbr, index);
-                index++;
-            } else if (task instanceof Event) {
-                LocalDate fromDate = ((Event) task).getFromDur();
-                LocalDate toDate = ((Event) task).getToDur();
-                if (fromDate.isBefore(date) && toDate.isAfter(date)) {
-                    System.out.println(index + "." + task);
-                    sbr.append(index + "." + task + "\n");
-                    index++;
-                }
-            }
-        }*/
         System.out.println("____________________________________________________________");
         //return scanner.nextLine();
         return sbr.toString();
