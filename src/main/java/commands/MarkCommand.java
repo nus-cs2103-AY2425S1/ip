@@ -50,32 +50,5 @@ public class MarkCommand extends Command {
                 : "Ok, I've marked this task as not done yet:";
         ui.setResponse(msg, updatedTasks.toString());
         ui.printResponse();
-        // try {
-        // int index = Integer.parseInt(details[1]);
-        // if (!tl.isValidIdx(index)) {
-        // ui.setResponse(
-        // String.format("Someones tryna be funny, idx: %d is out of range!", index));
-        // return;
-        // }
-        // if (this.command == CommandTypes.MARK) {
-        // Task t = tl.markAsDone(index, storage);
-        // if (t != null) {
-        // ui.setResponse("Nice! I've marked this task as done:", INDENT + t);
-        // } else {
-        // ui.setResponse("Task has already been completed!");
-        // }
-        // } else {
-        // Task t = tl.markAsUndone(index, storage);
-        // if (t != null) {
-        // ui.setResponse("Ok, I've marked this task as not done yet:", INDENT + t);
-        // } else {
-        // ui.setResponse("Task is already unmarked!");
-        // }
-        // }
-        // } catch (NumberFormatException e) {
-        // ui.setResponse("Invalid index passed, not a number!: " + details[1]);
-        // } finally {
-        // ui.printResponse();
-        // }
     }
 }
