@@ -13,6 +13,12 @@ public class ToMo {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor of the chatbot
+     * 
+     * @param fileName The file to load and store tasks
+     */
+
     public ToMo(String fileName) {
         parser = new Parser();
         ui = new Ui();
@@ -27,6 +33,9 @@ public class ToMo {
         }
     }
 
+    /**
+     * Closes the conversation
+     */
     void close() {
         try {
             storage.store(tasks);
@@ -36,12 +45,20 @@ public class ToMo {
         ui.close();
     }
 
+    /**
+     * Processes a single command line
+     * 
+     * @return true if that is the last command, false otherwise
+     * @throws ToMoException if encounter any error
+     */
     private boolean processOneCommand() throws ToMoException {
         ui.help();
         String cmd = ui.nextLine();
         String[] args = parser.parse(cmd);
 
-        if (args.length == 0) return false;
+        if (args.length == 0) {
+            return false;
+        }
 
         if (args[0].equals("bye")) {
             return true;
@@ -91,6 +108,9 @@ public class ToMo {
         return false;
     }
 
+    /**
+     * Interacts with user
+     */
     public void run() {
         while (true) {
             try {

@@ -4,7 +4,18 @@ import task.Converter;
 import exception.ParserException;
 import java.time.format.DateTimeParseException;
 
+/**
+ *  Understands of input command
+ */
+
 public class Parser {
+    /**
+     * Parses the user command
+     * 
+     * @param cmd The command input from user
+     * @return Type of command and additional arguments to support next step
+     * @throws ParserException If the command has invalid format
+     */
     public String[] parse(String cmd) throws ParserException {
         if (cmd.split(" ").length == 0) return new String[]{};
         String type = cmd.split(" ")[0];
