@@ -20,7 +20,8 @@ public class TaskManagerException extends Exception {
         EMPTY_INPUT,
         INVALID_DELETE_TASK_NUMBER,
         NO_TASK_FOUND,
-        INVALID_FIND_TASK
+        INVALID_FIND_TASK,
+        FILE_NOT_EXIST
     }
 
     /**
