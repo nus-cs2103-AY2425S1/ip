@@ -24,15 +24,20 @@ public class Storage {
      */
     public String[] load() {
         ArrayList<String> out = new ArrayList<>();
+        File f;
         try {
-            File f = new File(dataAddr);
+            f = new File(dataAddr);
             Scanner s = new Scanner(f);
+            if (f.createNewFile()) {
+                System.out.println("File created");
+                return new String[0];
+            }
             while (s.hasNext()) {
                 out.add(s.nextLine());
             }
             return out.toArray(new String[0]);
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found ");
+        } catch (IOException e) {
+            System.out.println("Failed to create File");
             return new String[0];
         }
     }
