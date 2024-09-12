@@ -133,6 +133,23 @@ public class CSVTaskDAO implements TaskDAO {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int deleteTasks(List<Integer> ids) {
+        tasks = this.tasks.stream()
+                .filter(task -> !ids.contains(task.getId()))
+                .toList();
+
+        IntStream.range(0, tasks.size())
+                .forEach(i -> tasks.get(i).setId(i + 1));
+
+        writeTasksToCSV();
+        return tasks.size();
+    }
+
+
+    /**
      * Writes tasks to the CSV file.
      */
     private void writeTasksToCSV() {

@@ -42,5 +42,13 @@ public interface TaskDAO {
      * @return The deleted task, or null if not found.
      */
     Task deleteTask(int id);
+
+    /**
+     * Deletes multiple tasks from the data store.
+     *
+     * @param ids An integer list of IDs of the task to delete.
+     * @return The number of tasks deleted.
+     */
+    int deleteTasks(List<Integer> ids);
 }
 
