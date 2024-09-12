@@ -4,6 +4,7 @@ import commands.AddDeadlineCommand;
 import commands.AddEventCommand;
 import commands.AddTodoCommand;
 import commands.DeleteCommand;
+import commands.EchoCommand;
 import commands.ExitCommand;
 import commands.FindCommand;
 import commands.ListCommand;
@@ -26,6 +27,8 @@ public class Parser {
         String normalizedInput = input.trim().toLowerCase();
 
         switch (normalizedInput.split(" ")[0]) {
+        case "echo":
+            return new EchoCommand(input);
         case "bye":
             return new ExitCommand();
         case "list":

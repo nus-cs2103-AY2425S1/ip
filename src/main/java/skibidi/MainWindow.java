@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
         String response = skibidi.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -51,5 +51,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSkibidiDialog(response, skibidiImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            Thread.sleep(1000);
+            System.exit(0);
+        }
     }
 }
