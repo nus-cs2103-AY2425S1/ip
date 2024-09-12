@@ -2,6 +2,9 @@ package dumpling.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+
+import dumpling.Pair;
 
 /**
  * Class to handle list of tasks
@@ -36,14 +39,12 @@ public class TaskList {
      * @return String-representation of the list of items
      */
     public String list() {
-        String message = "     Here are the tasks in your list:\n";
-        for (int i = 1; i <= this.items.size(); i++) {
-            message += String.format(
-                "     %d.%s" + (i == this.items.size() ? "" : "\n"),
-                i, this.items.get(i - 1)
-            );
-        }
-        return message;
+        return "     Here are the tasks in your list:\n"
+                + IntStream.range(1, this.items.size() + 1)
+                    .mapToObj(idx -> String.format("     %d.%s", idx, this.items.get(idx - 1)))
+                    .reduce((resultString, currString) -> resultString
+                            + ((resultString.isEmpty()) ? "" : "\n") + currString)
+                .orElse("");
     }
 
     /**
@@ -105,22 +106,18 @@ public class TaskList {
      * @return String with the list of matching tasks, or a default message if no tasks found.
      */
     public String find(String targetSubstring) {
-        List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : this.items) {
-            if (task.hasSubstring(targetSubstring)) {
-                matchingTasks.add(task);
-            }
-        }
-        String message;
-        if (matchingTasks.isEmpty()) {
-            message = "     There are no tasks that has the substring provided.";
-        } else {
-            message = "     Here are the matching tasks in your list:";
-            for (int i = 1; i <= matchingTasks.size(); i++) {
-                message += String.format("\n     %d.%s", i, matchingTasks.get(i - 1));
-            }
-        }
-        return message;
+        return this.items.stream()
+                .filter(task -> task.hasSubstring(targetSubstring))
+                .map(task -> new Pair<>(1, task.toString()))
+                .reduce((resultPair, currentPair) -> {
+                    int currIdx = resultPair.getFirst() + currentPair.getFirst();
+                    return new Pair<>(
+                            currIdx,
+                            resultPair.getSecond() + String.format("\n     %d.%s", currIdx, currentPair.getSecond()));
+                })
+                .map(pair -> "     Here are the matching tasks in your list:"
+                        + "\n     1." + pair.getSecond())
+                .orElse("     There are no tasks that has the substring provided.");
     }
 
     /**
@@ -129,11 +126,10 @@ public class TaskList {
      * @return String representation of tasks in the TaskList
      */
     public String getTasksForSaving() {
-        String dataString = "";
-        for (Task task : this.items) {
-            dataString += task.getTaskForSaving();
-        }
-        return dataString;
+        return this.items.stream()
+                .map(Task::getTaskForSaving)
+                .reduce((resultString, currentString) -> resultString + currentString)
+                .orElse("");
     }
 
     /**
