@@ -139,6 +139,7 @@ public class Parser {
         default:
             break;
         }
+        
         return new ByeCommand();
     }
 
