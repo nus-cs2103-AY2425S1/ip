@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'checkstyle' // Checkstyle plugin applied here
+    id 'checkstyle'
 }
 
 repositories {
@@ -10,40 +10,11 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    runtimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     implementation 'org.openjfx:javafx-controls:20.0.1'
     implementation 'org.openjfx:javafx-fxml:20.0.1'
 
-    String javaFxVersion = '17.0.7'
-
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-
-}
-
-test {
-    useJUnitPlatform()
-
-    testLogging {
-        events "passed", "skipped", "failed"
-
-        showExceptions true
-        exceptionFormat "full"
-        showCauses true
-        showStackTraces true
-        showStandardStreams = false
-    }
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
 application {
@@ -52,8 +23,9 @@ application {
 
 shadowJar {
     archiveBaseName.set("ShoAI")
-    archiveClassifier.set("") // Setting classifier to an empty string for a fat JAR
-    archiveVersion.set("") // Remove version from JAR file name if desired
+    archiveClassifier.set("") // Fat JAR without classifier
+    archiveVersion.set("") // Optional: Remove version from JAR file name if desired
+    mergeServiceFiles()
 }
 
 run {
@@ -66,9 +38,6 @@ run {
 
 checkstyle {
     toolVersion = '10.2'
-//    configFile = file('config/checkstyle/checkstyle.xml') // Path to Checkstyle configuration file
-    // Optional: Suppressions configuration (if you use suppressions.xml)
-    // configProperties = [suppressionsFile: file('config/checkstyle/suppressions.xml')]
 }
 
 sourceSets {
@@ -81,4 +50,12 @@ sourceSets {
 
 processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType(JavaExec) {
+    // Ensure JavaFX modules are included in runtime classpath
+    jvmArgs += [
+            '--module-path', sourceSets.main.output.asPath,
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
 }
