@@ -12,5 +12,5 @@ public class ErrorMessages {
     public static final String INCORRECT_FORMAT_FOR_ON_COMMAND = "";
     public static final String INCORRECT_FORMAT_FOR_CHANGEPRIORITY_COMMAND = "";
     public static final String INCORRECT_FORMAT_FOR_DELETE_COMMAND = "";
-    
+    public static final String INVALID_COMMAND = "";
 }
