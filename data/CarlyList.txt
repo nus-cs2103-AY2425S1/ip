@@ -1,5 +1,3 @@
+D | 0 | eat | Sep 12 1777
 D | 1 | study | Dec 12 1987
-D | 1 | pray | Nov 02 2023
-T | 0 | create post
-E | 1 | hotpot | 1pm to 3pm
-T | 0 | tonight
+T | 0 | werslndasnd

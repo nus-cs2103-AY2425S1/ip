@@ -1,7 +1,8 @@
-package carly;
+package carly.ui;
 
 import java.io.IOException;
 
+import carly.Carly;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

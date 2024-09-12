@@ -1,5 +1,6 @@
-package carly;
+package carly.ui;
 
+import carly.Carly;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import carly.ui.Ui;
 /**
  * Controller for the main GUI.
  */
