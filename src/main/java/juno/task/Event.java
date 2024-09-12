@@ -84,4 +84,9 @@ public class Event extends Task {
     public String getStartTimeString() {
         return this.startTimeString;
     }
+
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
 }
