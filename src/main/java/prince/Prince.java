@@ -98,6 +98,7 @@ public class Prince {
                 return ui.terminationMessage();
             }
             String response = parser.parseConversation(input);
+            assert response != null : "Response should not be null";
             Storage.pushTasksToFile(TaskList.getList());
             return response;
             //System.out.println("How else would you like me to edit your TODO list today?");

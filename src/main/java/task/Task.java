@@ -24,6 +24,9 @@ public abstract class Task {
     }
 
     public String getDescription() {
+
+        assert this.description != null : "Description should not be null";
+
         return this.description;
     }
     public void setProgress(boolean b) {
