@@ -9,11 +9,13 @@ import demurebot.command.Command;
 import demurebot.command.DeadlineCommand;
 import demurebot.command.DeleteCommand;
 import demurebot.command.EndCommand;
+import demurebot.command.EndsWithCommand;
 import demurebot.command.EventCommand;
 import demurebot.command.FindCommand;
 import demurebot.command.InvalidCommand;
 import demurebot.command.ListCommand;
 import demurebot.command.MarkCommand;
+import demurebot.command.StartsWithCommand;
 import demurebot.command.TodoCommand;
 import demurebot.command.UnmarkCommand;
 import demurebot.task.Deadline;
@@ -48,6 +50,10 @@ public abstract class Parser {
             return new DeleteCommand(remainder);
         } else if (command.startsWith("find")) {
             return new FindCommand(command.substring(4).trim());
+        } else if (command.startsWith("starts with")) {
+            return new StartsWithCommand(command.substring(11).trim());
+        } else if (command.startsWith("ends with")) {
+            return new EndsWithCommand(command.substring(9).trim());
         } else if (command.startsWith("todo")) {
             String description = command.substring(4).trim();
             // check that there is a task description
