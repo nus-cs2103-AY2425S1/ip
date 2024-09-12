@@ -11,7 +11,7 @@ import mortalreminder.tasks.Task;
 public class TaskEditor {
 
     /**
-     * Marks, unmarks, or deletes a task based on the given command type.
+     * Marks, or unmarks a task based on the given command type.
      * <p>
      * This method attempts to parse the task index from the command details and then
      * performs the appropriate action (mark as done, unmark) on the task.
