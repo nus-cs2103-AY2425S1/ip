@@ -2,6 +2,9 @@ package Tasks;
 
 import Exceptions.EmptyDescException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class ToDos extends Task {
 
     /**
@@ -24,6 +27,31 @@ public class ToDos extends Task {
     public String print() {
 
         return "[T]" + super.print();
+    }
+
+    @Override
+    public void setDate1(LocalDate newDate) {
+
+    }
+
+    @Override
+    public void setDate2(LocalDate newDate) {
+
+    }
+
+    @Override
+    public void setTime(LocalTime newTime) {
+
+    }
+
+    @Override
+    public void setEventEndTime(LocalTime newTime) {
+
+    }
+
+    @Override
+    public void setEventStartTiming(LocalTime newTime) {
+
     }
 
 }

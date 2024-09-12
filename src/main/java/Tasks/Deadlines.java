@@ -133,5 +133,48 @@ public class Deadlines extends Task {
             return null;
         }
     }
+
+    /**
+     * Sets the primary date for the task to the specified `LocalDate`.
+     *
+     * @param newValue The new `LocalDate` to be assigned to the task.
+     */
+    @Override
+    public void setDate1(LocalDate newValue) {
+        this.localDate = newValue;
+    }
+
+    /**
+     * Sets the secondary date for the task to the specified `LocalDate`.
+     * This method behaves similarly to `setDate1` but can be used in scenarios where a secondary date
+     * needs to be stored or updated.
+     *
+     * @param newValue The new `LocalDate` to be assigned as the secondary date.
+     */
+    @Override
+    public void setDate2(LocalDate newValue) {
+        this.localDate = newValue;
+    }
+
+    /**
+     * Sets the specific time for the task to the given `LocalTime`.
+     *
+     * @param newTime The new `LocalTime` to be assigned to the task.
+     */
+    @Override
+    public void setTime(LocalTime newTime) {
+        this.localTime = newTime;
+    }
+
+    @Override
+    public void setEventEndTime(LocalTime newTime) {
+        //not needed
+    }
+
+    @Override
+    public void setEventStartTiming(LocalTime newTime) {
+        //not needed
+    }
+
 }
 

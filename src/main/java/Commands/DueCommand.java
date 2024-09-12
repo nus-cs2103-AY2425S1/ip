@@ -1,7 +1,5 @@
 package Commands;
 
-import Main.Ui;
-
 public class DueCommand extends Command {
     String userInput;
 

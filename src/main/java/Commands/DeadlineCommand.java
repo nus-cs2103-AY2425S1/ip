@@ -1,7 +1,5 @@
 package Commands;
 
-import Main.Ui;
-
 public class DeadlineCommand extends Command {
     String userInput;
 
