@@ -239,7 +239,6 @@ public class Parser {
         List<Task> matchingTasks = taskList.getTasks().stream()
                 .filter(task -> task.toString().contains(keyword))
                 .collect(Collectors.toList());
-
         return getTaskList(matchingTasks);
     }
 
