@@ -145,23 +145,12 @@ public class Duck {
         }
     }
 
-    public static void main(String[] args) {
+    public String getGreeting() {
+        return GREETING;
+    }
+
+    public void loadTasks() {
         // Get saved tasks
         TASKS.getTaskListFromFile();
-
-        // // Start scanner
-        // Scanner sc = new Scanner(System.in);
-
-        // // Print greeting
-        // printAsResponse(GREETING);
-
-        // // User input loop
-        // while (true) {
-        // String line = sc.nextLine();
-
-        // }
-
-        // // Close Scanner
-        // sc.close();
     }
 }

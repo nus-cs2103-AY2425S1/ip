@@ -26,6 +26,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setDuck(duck); // inject the Duck instance
+            fxmlLoader.<MainWindow>getController().handleStartUp();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

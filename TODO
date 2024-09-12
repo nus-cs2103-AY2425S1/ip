@@ -13,3 +13,4 @@
 - add a command to print deadlines/events occurring on a specific date.
 - Have jar file as a release
 - Add coding standard check to intellisense
+- Handle bye for gui

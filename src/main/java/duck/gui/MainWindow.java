@@ -37,6 +37,16 @@ public class MainWindow extends AnchorPane {
         duck = d;
     }
 
+    public void showGreeting() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDuckDialog(duck.getGreeting(), duckImage));
+    }
+
+    public void handleStartUp() {
+        duck.loadTasks();
+        showGreeting();
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing
      * Duck's reply and then appends them to
