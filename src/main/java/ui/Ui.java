@@ -13,8 +13,6 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private static Scanner input = new Scanner(System.in);
-
     /**
      * Greets the user when the chatbot just starts and ask them for an input.
      */
@@ -23,7 +21,7 @@ public class Ui {
     }
 
     /**
-     * Says goodbye to the user
+     * Says goodbye to the user.
      */
     public static String exit() {
         return "Bye! Have a nice day!";

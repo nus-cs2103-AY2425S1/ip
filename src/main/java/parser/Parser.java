@@ -58,7 +58,7 @@ public class Parser {
     /**
      * Finds the task which consists of the 'command' input
      *
-     * @param command
+     * @param command find command input by user
      * @throws TakoException if the find command is not in the right form
      */
     public static String parseFind(String command) {
@@ -80,7 +80,7 @@ public class Parser {
     /**
      * Marks the task as complete according to the input
      *
-     * @param command
+     * @param command mark command input by user
      * @throws TakoException if the mark command is not in the right form
      */
     public static String parseMark(String command) {
@@ -104,7 +104,7 @@ public class Parser {
     /**
      * Marks the task as incomplete according to the input
      *
-     * @param command
+     * @param command unmark command input by user
      * @throws TakoException if the unmark command is not in the right form
      */
     public static String parseUnmark(String command) {
@@ -128,7 +128,7 @@ public class Parser {
     /**
      * Deletes the task according to the input from the list
      *
-     * @param command
+     * @param command delete command input by user
      * @throws TakoException if the delete command is not in the right form
      */
     public static String parseDelete(String command) {
@@ -153,7 +153,7 @@ public class Parser {
      * Breaks down the command into its description
      * Make the todo task according to the description
      *
-     * @param command
+     * @param command todo task command input by user
      * @throws TakoException if the todo command is not in the right form
      */
     public static String parseTodo(String command) {
@@ -174,7 +174,7 @@ public class Parser {
      * Breaks down the command into its description and when it is due
      * Make the deadline task according to the description and its due date
      *
-     * @param command
+     * @param command deadline task command input by user
      * @throws TakoException if the deadline command is not in the right form
      */
     public static String parseDeadline(String command) {
@@ -206,7 +206,7 @@ public class Parser {
      * Breaks down the command into its description, starting date and end date
      * Make the event task according to the description, start and end date
      *
-     * @param command
+     * @param command event command input by user
      * @throws TakoException if the event command is not in the right form
      */
     public static String parseEvent(String command) {
@@ -253,7 +253,7 @@ public class Parser {
      * whether it is an existing date
      *
      *
-     * @param date
+     * @param date the date to check whether it is valid
      * @return boolean of whether the date is valid
      */
     public static boolean checkValidDate(String date) {
@@ -268,7 +268,7 @@ public class Parser {
     /**
      * Changes the date from MONTH DD YYYY to a local date class
      *
-     * @param date
+     * @param date the date to be changed
      * @return LocalDate object
      */
     public static LocalDate changeDateToLocalDate(String date) {
