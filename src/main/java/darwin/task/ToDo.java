@@ -1,6 +1,8 @@
 package darwin.task;
 
 public class ToDo extends Task {
+    private String symbol = "T";
+
     /**
      * Initialises a ToDo task with name.
      * @param name A string of the task.Task's name.
@@ -11,7 +13,7 @@ public class ToDo extends Task {
 
     @Override
     public String getSymbol() {
-        return "T";
+        return symbol;
     }
 
     @Override

@@ -31,7 +31,10 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskManager taskManager, Ui ui) throws IllegalTaskNumberException {
         Task task = taskManager.deleteTask(this.taskIdx);
-        ui.send(String.format("%s\n    %s\n%s", DELETE_TASK_MSG, task.getTaskInfo(),
-                String.format(TASK_COUNT_MSG, taskManager.getTaskCount())));
+        ui.send(String.format("%s\n    %s\n%s",
+                DELETE_TASK_MSG,
+                task.getTaskInfo(),
+                String.format(TASK_COUNT_MSG, taskManager.getTaskCount())
+        ));
     }
 }

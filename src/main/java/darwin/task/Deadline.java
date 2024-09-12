@@ -18,7 +18,7 @@ public class Deadline extends Task {
 
     @Override
     public String getSymbol() {
-        return "D";
+        return symbol;
     }
 
     @Override
