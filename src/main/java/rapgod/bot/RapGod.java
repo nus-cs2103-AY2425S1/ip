@@ -43,6 +43,10 @@ public class RapGod {
         String response = "";
 
         try {
+
+            assert input != null : "Input should not be null";  // Input should not be null
+            assert !input.trim().isEmpty() : "Input should not be empty";
+
             if (input == null || input.trim().isEmpty()) {
                 throw new NoInputException();
             } else if (RUDE_WORDS.contains(input)) {
@@ -50,6 +54,8 @@ public class RapGod {
             }
 
             CommandType command = CommandType.getCommand(input);
+
+            assert command != null : "Command type should not be null";
 
             switch (command) {
                 case LIST:
@@ -63,22 +69,27 @@ public class RapGod {
 
                 case MARK:
                     int markIndex = CommandType.extractIndex(input, command);
+                    assert markIndex >= 0 : "Mark index should be non-negative";
                     response = dataManager.getTaskList().markTaskByIndex(markIndex);
                     break;
 
                 case UNMARK:
                     int unmarkIndex = CommandType.extractIndex(input, command);
+                    assert unmarkIndex >= 0 : "Unmark index should be non-negative";
                     response = dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
                     break;
 
                 case DELETE:
                     int deleteIndex = CommandType.extractIndex(input, command);
+                    assert deleteIndex >= 0 : "Delete index should be non-negative";
                     response = dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
                     break;
 
                 case DEADLINE:
                     String deadlineDesc = input.substring(0, input.toLowerCase().indexOf("/by"));
                     String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
+                    assert !deadlineDesc.isEmpty() : "Deadline description should not be empty";
+                    assert !due.isEmpty() : "Due date should not be empty";
                     response = dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
                     break;
 
@@ -86,6 +97,9 @@ public class RapGod {
                     String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
                     String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
                     String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
+                    assert !eventDesc.isEmpty() : "Event description should not be empty";
+                    assert !from.isEmpty() : "'From' date should not be empty";
+                    assert !to.isEmpty() : "'To' date should not be empty";
                     response = dataManager.getTaskList().addEventTask(eventDesc, from, to);
                     break;
 
