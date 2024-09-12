@@ -29,6 +29,7 @@ public class Storage {
      * @param taskList The {@code TaskList} containing the tasks to be saved.
      */
     public static void saveTasks(TaskList taskList) {
+        assert taskList != null : "tasks is null";
         File file = new File(FILE_PATH);
         file.getParentFile().mkdirs(); // Create the directory if it doesn't exist
 
@@ -51,6 +52,7 @@ public class Storage {
      */
     public static TaskList loadTasks() throws IOException, ShrimpException {
         TaskList taskList = new TaskList();
+        assert FILE_PATH != null : "file path is null";
         File file = new File(FILE_PATH);
 
         if (file.exists()) {
@@ -70,6 +72,7 @@ public class Storage {
      * @return A string representation of the task.
      */
     private static String formatTaskForSaving(Task task) {
+        assert task != null : "task is null";
         String type = task.getType();
         switch (type) {
         case "[T]" -> {
@@ -85,8 +88,10 @@ public class Storage {
             return String.format("E | %d | %s | %s | %s", task.isDone() ? 1 : 0, task.getDescription(),
                     event.getEventStart(), event.getEventEnd());
         }
+        default -> {
+            return "";
         }
-        return "";
+        }
     }
 
     /**
@@ -97,6 +102,7 @@ public class Storage {
      * @throws ShrimpException If an error occurs while parsing the task.
      */
     private static Task parseTask(String line) throws ShrimpException {
+        assert line != null : "input string is null";
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -125,6 +131,7 @@ public class Storage {
      * @throws ShrimpException If the date-time string is invalid.
      */
     private static LocalDateTime getDateTime(String input) throws ShrimpException {
+        assert input != null : "input string is null";
         try {
             return LocalDateTime.parse(input, Parser.PATTERN);
         } catch (DateTimeParseException e) {

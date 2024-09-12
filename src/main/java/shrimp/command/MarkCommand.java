@@ -20,6 +20,8 @@ public class MarkCommand implements Command {
      * @param toMark {@code true} if the task is to be marked as done, {@code false} otherwise.
      */
     public MarkCommand(int index, Boolean toMark) {
+        assert index >= 0 : "index is less than 0";
+        assert toMark != null : "the program doesn't know to mark or unmark";
         this.index = index;
         this.toMark = toMark;
     }
