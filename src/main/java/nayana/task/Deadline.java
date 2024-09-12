@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a specific deadline.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
 
     private LocalDate date;
 
@@ -16,7 +16,7 @@ public class Deadlines extends Task {
      * @param description The description of the task.
      * @param date The end time of the deadline.
      */
-    public Deadlines(String description, LocalDate date) {
+    public Deadline(String description, LocalDate date) {
         super(description);
         this.date = date;
     }
@@ -50,4 +50,9 @@ public class Deadlines extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    public LocalDate getDate() {
+        return this.date;
+    }
+
 }

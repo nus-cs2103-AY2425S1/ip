@@ -56,4 +56,9 @@ public class Event extends Task {
               + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
               + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    public LocalDate getEndDate() {
+        return this.end;
+    }
+
 }

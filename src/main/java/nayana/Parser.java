@@ -10,8 +10,10 @@ import nayana.command.ExitCommand;
 import nayana.command.FindCommand;
 import nayana.command.ListCommand;
 import nayana.command.MarkCommand;
+import nayana.command.RemindCommand;
 import nayana.command.UnmarkCommand;
-import nayana.task.Deadlines;
+
+import nayana.task.Deadline;
 import nayana.task.Event;
 import nayana.task.Task;
 import nayana.task.ToDos;
@@ -59,6 +61,9 @@ public class Parser {
 
         } else if (command.equals("list")) {
             return new ListCommand();
+
+        } else if (command.equals("remind")) {
+            return new RemindCommand();
 
         } else if (command.startsWith("mark")) {
             return createMarkCommand(command);
@@ -141,11 +146,11 @@ public class Parser {
         if (description.isEmpty() || deadline.isEmpty()) {
             throw new NayanaException("Description and deadline cannot be empty.");
         }
-        if (!validDateFormat(deadline)) {
+        if (invalidDateFormat(deadline)) {
             throw new NayanaException("Invalid date format for deadline.");
         }
         LocalDate date = LocalDate.parse(deadline); // Parses deadline date.
-        Task deadlineTask = new Deadlines(description, date);
+        Task deadlineTask = new Deadline(description, date);
         return new AddCommand(deadlineTask);
     }
 
@@ -164,7 +169,7 @@ public class Parser {
         if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
             throw new NayanaException("Description, start time, and end time cannot be empty.");
         }
-        if (!validDateFormat(startTime) || !validDateFormat(endTime)) {
+        if (invalidDateFormat(startTime) || invalidDateFormat(endTime)) {
             throw new NayanaException("Invalid date format for event.");
         }
         LocalDate startDate = LocalDate.parse(startTime); // Parses start date.
@@ -186,12 +191,12 @@ public class Parser {
         return new AddCommand(todoTask);
     }
 
-    private static boolean validDateFormat(String date) {
+    private static boolean invalidDateFormat(String date) {
         try {
             LocalDate.parse(date);
-            return true;
-        } catch (DateTimeParseException e) {
             return false;
+        } catch (DateTimeParseException e) {
+            return true;
         }
     }
 }
