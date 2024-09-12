@@ -56,6 +56,9 @@ public abstract class Task {
     }
     @Override
     public String toString() {
+        if (tags.isEmpty()) {
+            return "[" + getStatusIcon() + "] " + description;
+        }
         return "[" + getStatusIcon() + "] " + description + tags;
     }
 

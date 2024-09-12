@@ -28,4 +28,21 @@ public class Tag {
     public String toString() {
         return "#" + name;
     }
+    /**
+     * Returns true if the tag has the same name as the other tag.
+     *
+     * @param obj The other object to compare to.
+     * @return True if the tag has the same name as the other tag.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Tag)) {
+            return false;
+        }
+        Tag otherTag = (Tag) obj;
+        return name.equals(otherTag.name);
+    }
 }
