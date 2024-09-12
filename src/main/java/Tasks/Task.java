@@ -1,8 +1,12 @@
 package Tasks;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public abstract class Task {
     //var that describes task
     protected String desc;
+
     //var that stores status of task
     protected boolean isDone;
 
@@ -45,7 +49,31 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + desc;
     }
 
-    public void setDesc(String newValue) {
-        this.desc = newValue;
-    }
+    /**
+     * Sets the date of the task.
+     *
+     * @param updatedDate the new date to be assigned to the task.
+     */
+    public abstract void setDate(LocalDate updatedDate);
+
+    /**
+     * Sets the time of the task.
+     *
+     * @param updatedDeadlineTime the new time to be assigned to the task.
+     */
+    public abstract void setTime(LocalTime updatedDeadlineTime);
+
+    /**
+     * Sets the start time of the event.
+     *
+     * @param updatedEventStartTime the new start time to be assigned to the event.
+     */
+    public abstract void setStartTime(LocalTime updatedEventStartTime);
+
+    /**
+     * Sets the end time of the event.
+     *
+     * @param updatedEventEndTime the new end time to be assigned to the event.
+     */
+    public abstract void setEndTime(LocalTime updatedEventEndTime);
 }

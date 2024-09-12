@@ -2,6 +2,9 @@ package Tasks;
 
 import Exceptions.EmptyDescException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class ToDos extends Task {
 
     /**
@@ -24,6 +27,38 @@ public class ToDos extends Task {
     public String print() {
 
         return "[T]" + super.print();
+    }
+
+    /**
+     * @param updatedDate
+     */
+    @Override
+    public void setDate(LocalDate updatedDate) {
+        //do nothing cause todo has no date attribute
+    }
+
+    /**
+     * @param updatedDeadlineTime
+     */
+    @Override
+    public void setTime(LocalTime updatedDeadlineTime) {
+        //do nothing tasks has no time attribute
+    }
+
+    /**
+     * @param updatedEventStartTime
+     */
+    @Override
+    public void setStartTime(LocalTime updatedEventStartTime) {
+        //do nothing tasks has no time attribute
+    }
+
+    /**
+     * @param updatedEventEndTime
+     */
+    @Override
+    public void setEndTime(LocalTime updatedEventEndTime) {
+        //do nothing tasks has no time attribute
     }
 
 }

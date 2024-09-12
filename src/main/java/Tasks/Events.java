@@ -5,7 +5,6 @@ import Exceptions.EmptyEventException;
 import Exceptions.EmptyEventTimingException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -26,13 +25,13 @@ public class Events extends Task {
      */
     public Events(String desc) throws EmptyEventException, EmptyEventTimingException, EmptyEventDateException {
         super(desc);
+
+        checkValidityOfEventInput(desc);
+
         // Split the description to extract the timings
         String[] parts1 = desc.split(" /from ");
         String[] parts2 = parts1[1].split(" /to ");
         String[] parts3 = parts2[1].split(" /on ");
-
-
-        checkValidityOfEventInput(desc, parts1, parts2, parts3);
 
         parseEvent(parts2, parts3);
     }
@@ -78,16 +77,13 @@ public class Events extends Task {
      * start time, end time, and date are present and correctly formatted.
      * Throws exceptions if any part of the input is missing or invalid.
      *
-     * @param desc   The original event description string.
-     * @param parts1 The array containing the event description and start time.
-     * @param parts2 The array containing the start time and end time.
-     * @param parts3 The array containing the end time and date.
+     * @param desc The original event description string.
      *
      * @throws EmptyEventException       If the event description is empty.
      * @throws EmptyEventTimingException If the start or end time is missing or invalid.
      * @throws EmptyEventDateException   If the date is missing or invalid.
      */
-    private static void checkValidityOfEventInput(String desc, String[] parts1, String[] parts2, String[] parts3) throws EmptyEventException, EmptyEventTimingException, EmptyEventDateException {
+    private static void checkValidityOfEventInput(String desc) throws EmptyEventException, EmptyEventTimingException, EmptyEventDateException {
         if (desc.isEmpty()) {
             throw new EmptyEventException
                     ("     OOPS! Event start time not given leh. " +
@@ -95,6 +91,8 @@ public class Events extends Task {
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
 
+        // Split the description to extract the timings
+        String[] parts1 = desc.split(" /from ");
 
         //throw exception if start time not given, or it is whitespace
         if (parts1.length < 2 || parts1[1].trim().isEmpty()) {
@@ -104,6 +102,8 @@ public class Events extends Task {
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
 
+        String[] parts2 = parts1[1].split(" /to ");
+
         //throw exception if end time not given or it is whitespace
         if (parts2.length < 2 || parts2[1].trim().isEmpty()) {
             throw new EmptyEventTimingException
@@ -112,7 +112,7 @@ public class Events extends Task {
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
 
-
+        String[] parts3 = parts2[1].split(" /on ");
         //throw exception if date not given or it is whitespace
         if (parts3.length < 2 || parts3[1].trim().isEmpty()) {
             throw new EmptyEventDateException
@@ -154,6 +154,38 @@ public class Events extends Task {
 
         // Default return statement if none of the conditions are met
         return "[E]" + super.print();
+    }
+
+    /**
+     * @param updatedDate
+     */
+    @Override
+    public void setDate(LocalDate updatedDate) {
+        this.localDate = updatedDate;
+    }
+
+    /**
+     * @param updatedDeadlineTime
+     */
+    @Override
+    public void setTime(LocalTime updatedDeadlineTime) {
+        //do nothing
+    }
+
+    /**
+     * @param updatedEventStartTime
+     */
+    @Override
+    public void setStartTime(LocalTime updatedEventStartTime) {
+        this.localStartTime = updatedEventStartTime;
+    }
+
+    /**
+     * @param updatedEventEndTime
+     */
+    @Override
+    public void setEndTime(LocalTime updatedEventEndTime) {
+        this.localEndTime = updatedEventEndTime;
     }
 
     /**

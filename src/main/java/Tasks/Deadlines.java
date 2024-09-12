@@ -121,6 +121,38 @@ public class Deadlines extends Task {
     }
 
     /**
+     * @param updatedDate
+     */
+    @Override
+    public void setDate(LocalDate updatedDate) {
+        this.localDate = updatedDate;
+    }
+
+    /**
+     * @param updatedDeadlineTime
+     */
+    @Override
+    public void setTime(LocalTime updatedDeadlineTime) {
+        this.localTime = updatedDeadlineTime;
+    }
+
+    /**
+     * @param updatedEventStartTime
+     */
+    @Override
+    public void setStartTime(LocalTime updatedEventStartTime) {
+        //do nothing for event tasks
+    }
+
+    /**
+     * @param updatedEventEndTime
+     */
+    @Override
+    public void setEndTime(LocalTime updatedEventEndTime) {
+        //do nothing for event tasks
+    }
+
+    /**
      * Returns date of deadline task in LocalDate type
      *
      */

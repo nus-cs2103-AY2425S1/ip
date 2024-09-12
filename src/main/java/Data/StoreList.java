@@ -3,6 +3,8 @@ package Data;
 import Exceptions.*;
 import Tasks.*;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -63,7 +65,7 @@ public class StoreList {
 
         } catch (EmptyDescException | EmptyDeadlineException
                  | EmptyEventException | EmptyDeadlineDateException
-                 | EmptyEventTimingException e) {
+                 | EmptyEventTimingException | EmptyEventDateException e) {
 
             return e.getMessage();
 
@@ -119,7 +121,7 @@ public class StoreList {
 
         assert num > 0 : "Task number does not exist";
 
-        if (num >= items.size()) {
+        if (num > items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
         Task temp = items.get(num - 1);
@@ -229,10 +231,59 @@ public class StoreList {
         return "    Here are the tasks in your list that match your search:\n" + result;
     }
 
-    public String updateTask(int itemNum, String newValue) {
+    /**
+     * Updates the specified attribute (date, time, startTime, endTime) of a task in the list.
+     *
+     * This method takes the task number, the type of attribute to update, and the new value.
+     * It performs validation on the input, particularly for dates and times, to ensure proper formatting.
+     *
+     * @param itemNum the task number in the list (1-based index).
+     * @param type the type of update (e.g., "date", "time", "startTime", "endTime").
+     * @param newValue the new value to update the task with (date or time).
+     * @return a message indicating the result of the update, or an error message for invalid inputs.
+     */
+    public String updateTask(int itemNum, String type, String newValue) {
         Task task = items.get(itemNum - 1);
-        task.setDesc(newValue);
-        return "Task " + itemNum + "desc change to " + newValue;
+        if (type.equals("date")) {
+            try {
+                LocalDate updatedDate = ParseTasks.parseDateFormat1(newValue);
+                task.setDate(updatedDate);
+                return "Task " + itemNum + " date changed to " + newValue;
+            } catch (DateTimeParseException e) {
+                try {
+                    LocalDate updatedDate = ParseTasks.parseDateFormat2(newValue);
+                    task.setDate(updatedDate);
+                    return "Task " + itemNum + " date changed to " + newValue;
+                } catch (DateTimeParseException e1) {
+                    return "Invalid Date format: Use, yyyy-MM-dd/ dd/MM/yyyy";
+                }
+            }
+        } else if (type.equals("time")) {
+                try {
+                    LocalTime updatedDeadlineTime = ParseTasks.parseTime(newValue);
+                    task.setTime(updatedDeadlineTime);
+                    return "Task " + itemNum + " time changed to " + newValue;
+                } catch (DateTimeParseException e) {
+                    return "Invalid Time format: Use, 16:00";
+                }
+        } else if (type.equals("startTime")) {
+            try {
+                LocalTime updatedEventStartTime = ParseTasks.parseTime(newValue);
+                task.setStartTime(updatedEventStartTime);
+                return "Task " + itemNum + " start time changed to " + newValue;
+            } catch (DateTimeParseException e) {
+                return "Invalid Time format: Use, 16:00";
+            }
+        } else if (type.equals("endTime")) {
+            try {
+                LocalTime updatedEventEndTime = ParseTasks.parseTime(newValue);
+                task.setEndTime(updatedEventEndTime);
+                return "Task " + itemNum + " end time changed to " + newValue;
+            } catch (DateTimeParseException e) {
+                return "Invalid Time format: Use, 16:00";
+            }
+        } else {
+            return "Only task type desc, date, startTime, endTime, time are allowed";
+        }
     }
 }
-
