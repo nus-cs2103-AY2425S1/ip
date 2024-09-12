@@ -1,6 +1,9 @@
 package atreides.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import atreides.ui.AtreidesException;
 
@@ -67,14 +70,10 @@ public class TaskList {
      * @return
      */
     public String showList() {
-        StringBuilder tasks = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            tasks.append((i + 1)).append(".").append(list.get(i));
-            if (i != list.size() - 1) {
-                tasks.append("\n");
-            }
-        }
-        return tasks.toString();
+        String tasks = IntStream.range(0, list.size())
+                .mapToObj(i -> (i + 1) + "." + list.get(i))
+                .collect(Collectors.joining("\n"));
+        return tasks;
     }
 
     /**
