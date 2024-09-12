@@ -6,6 +6,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
 import java.time.format.DateTimeParseException;
@@ -62,6 +63,7 @@ public class Nameless {
      * Prints the output of the added task
      */
     private String todo(String input) throws DukeException {
+        assert input != null : "Input should not be null";
         String words = Parser.splitGetWords(input);
         if (words.isEmpty()) {
             exception.todoFormatError();
@@ -75,6 +77,7 @@ public class Nameless {
      * Prints the output of the added task
      */
     private String deadline(String input) throws DukeException {
+        assert input != null : "Input should not be null";
         String[] words = Parser.splitGetWords(input).split(" /by ", 2);
         if(words.length != 2) {
             return exception.deadlineFormatError();
@@ -93,6 +96,7 @@ public class Nameless {
      * Prints the output of the added task
      */
     private String event(String input) throws DukeException {
+        assert input != null : "Input should not be null";
         String[] words = Parser.splitGetWords(input).split(" /from | /to ", 3);
         if (words.length != 3) {
             return exception.eventFormatError();
@@ -108,6 +112,7 @@ public class Nameless {
     }
 
     private String find(String input) throws DukeException {
+        assert input != null : "Input should not be null";
         String word = Parser.splitGetWords(input);
         if (word.isEmpty()) {
             return exception.findFormatError();

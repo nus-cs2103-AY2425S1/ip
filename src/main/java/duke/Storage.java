@@ -43,6 +43,7 @@ public class Storage {
                 throw new DukeException("Error creating directory");
             }
         }
+        assert Files.exists(directory) : "Directory should exist";
     }
 
     /**
@@ -60,6 +61,7 @@ public class Storage {
                 throw new DukeException("Error creating file");
             }
         }
+        assert Files.exists(filePath) : "File should exist after createFile is called";
     }
 
     /**
