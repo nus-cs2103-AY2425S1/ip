@@ -7,7 +7,6 @@ public class PoChat {
 
     public PoChat() {
         this.taskList = new TaskList();
-        sayHello();
     }
 
     /**

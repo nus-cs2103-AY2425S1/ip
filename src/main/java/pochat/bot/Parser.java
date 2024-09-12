@@ -100,7 +100,8 @@ class Parser {
     }
 
     private String addTaskToList(Task task) {
-        taskList.add(task);
+        this.taskList.add(task);
+        assert this.taskList.toList().contains(task);
         return "Got it. I've added this task:\n" + task + "\nNow you have "
                 + this.getNumTasks() + " tasks in the list.";
     }

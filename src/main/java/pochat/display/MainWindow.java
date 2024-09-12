@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = this.poChat.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, poChatImage)
+                DialogBox.getPoChatDialog(response, poChatImage)
         );
         userInput.clear();
         this.poChat.save(chatData);

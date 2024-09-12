@@ -18,6 +18,12 @@ public abstract class Task {
         return LocalDateTime.parse(dateTime, originalFormatter).format(processedFormatter);
     }
 
+    /**
+     *
+     * @param taskObjectString which is the task read from the stored data in a plain text file
+     * @return a <code>Task</code> object of the right type subclass depending on whether it is a ToDo,
+     * Event or Deadline
+     */
     public static Task of(String taskObjectString) {
         if (taskObjectString.startsWith("[T]")) {
             boolean isDone = taskObjectString.charAt(4) == 'X';
@@ -70,10 +76,12 @@ public abstract class Task {
 
     public void markAsDone() {
         this.setDone(true);
+        assert this.isDone;
     }
 
     public void unmarkAsDone() {
         this.setDone(false);
+        assert !this.isDone;
     }
 
     protected LocalDateTime toLocalDateTime(String deadline) {

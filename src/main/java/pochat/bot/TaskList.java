@@ -17,6 +17,7 @@ public class TaskList {
 
     public void add(Task task) {
         this.listTasks.add(task);
+        assert this.listTasks.contains(task);
     }
 
     public int size() {
@@ -25,6 +26,7 @@ public class TaskList {
 
     public void remove(Task task) {
         this.listTasks.remove(task);
+        assert !this.listTasks.contains(task);
     }
 
     public Task get(int index) {
