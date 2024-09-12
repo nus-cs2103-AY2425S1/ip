@@ -1,36 +1,57 @@
 package tira.task;
 
-import tira.Ui;
-import tira.TiraException;
-
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.io.PrintWriter;
-import java.io.IOException;
 
+import tira.TiraException;
+import tira.Ui;
 
+/**
+ * Manages list of tasks, including adding, deleting, marking, unmarking.
+ */
 public class TaskList {
+    private static final DateTimeFormatter IN_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private ArrayList<Task> tasks;
     private final PrintWriter printer = new PrintWriter(System.out);
-    private static DateTimeFormatter IN_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final Ui ui = new Ui();
 
+    /**
+     * Creates an empty list of tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Initialises the taskList using an ArrayList of tasks.
+     *
+     * @param tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Getter method to get the tasks in taskList.
+     *
+     * @return The list of tasks
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Marks the numbered task in the taskList.
+     *
+     * @param command The main command that the user input
+     * @param splitCommand Command split using " "
+     * @throws TiraException Custom Tira exception class
+     */
     public void markTask(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2 && command.equals("mark")){
+        if (splitCommand.length < 2 && command.equals("mark")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int currNum = Integer.parseInt(splitCommand[1]) - 1;
@@ -40,17 +61,31 @@ public class TaskList {
         printer.flush();
     }
 
+    /**
+     * Unmarks the numbered task in the taskList.
+     *
+     * @param command The main command that the user input
+     * @param splitCommand Command split using " "
+     * @throws TiraException Custom Tira exception class
+     */
     public void unmarkTask(String command, String[] splitCommand) throws TiraException {
         if (splitCommand.length < 2 && command.equals("unmark")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
-        int currNum= Integer.parseInt(splitCommand[1]) - 1;
+        int currNum = Integer.parseInt(splitCommand[1]) - 1;
         tasks.get(currNum).unmarkStatus();
         Task currTask = tasks.get(currNum);
         ui.showUnmarkTask(currTask);
         printer.flush();
     }
 
+    /**
+     * Adds the todo task into the task List.
+     *
+     * @param command The command inputted by user
+     * @param splitCommand User command split using " "
+     * @throws TiraException Custom Tira Exception
+     */
     public void addToDo(String command, String[] splitCommand) throws TiraException {
         if (splitCommand.length < 2 && command.equals("ToDo")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
@@ -67,6 +102,13 @@ public class TaskList {
         ui.showAddTask(newTask, tasks.size());
     }
 
+    /**
+     * Adds deadline task to the task list.
+     *
+     * @param command inputted by the user
+     * @param splitCommand separated by the space
+     * @throws TiraException custom Tira exception
+     */
     public void addDeadline(String command, String[] splitCommand) throws TiraException {
         if (splitCommand.length < 2 && command.equals("Deadline")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
@@ -83,6 +125,13 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds event task to the task list.
+     *
+     * @param command inputted by the user
+     * @param splitCommand separated by the space
+     * @throws TiraException custom Tira exception
+     */
     public void addEvent(String command, String[] splitCommand) throws TiraException {
         if (splitCommand.length < 2 && command.equals("Event")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
@@ -100,7 +149,13 @@ public class TaskList {
         }
     }
 
-    public void delete(String[] splitCommand) throws TiraException{
+    /**
+     * Deletes task of specific number in the task list.
+     *
+     * @param splitCommand separated by the space
+     * @throws TiraException custom Tira exception
+     */
+    public void delete(String[] splitCommand) throws TiraException {
         if (splitCommand.length < 2) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
@@ -111,10 +166,17 @@ public class TaskList {
         printer.flush();
     }
 
+    /**
+     * Finds a specific task.
+     *
+     * @param command user command.
+     * @param splitCommand User command split by " ".
+     * @throws TiraException Custom Tira exception
+     */
     public void findTask(String command, String[] splitCommand) throws TiraException {
         ArrayList<Task> tasksThatMatch = new ArrayList<Task>();
         String description = "";
-        for (int i = 1; i < splitCommand.length ; i++) {
+        for (int i = 1; i < splitCommand.length; i++) {
             if (splitCommand[i].equals("/from") || splitCommand[i].equals("/by")) {
                 break;
             }

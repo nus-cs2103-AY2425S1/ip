@@ -1,6 +1,9 @@
 package tira.task;
 
-public class Task {// used Task class from the Week 2 IP Page
+/**
+ * Task class serves as parent class for the sub-classes.
+ */
+public class Task { // used Task class from the Week 2 IP Page
     protected String description;
     protected boolean isDone;
 
@@ -62,6 +65,9 @@ public class Task {// used Task class from the Week 2 IP Page
      * @return A string representing the task.
      */
     public String toString() {
-            return "[" + this.getStatusIcon() + "] " + description.trim();
+        return "["
+                + this.getStatusIcon()
+                + "] "
+                + description.trim();
     }
 }

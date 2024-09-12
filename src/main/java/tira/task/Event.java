@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  * Manages Task that has a from and to date and time.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
     protected LocalDate start;
     protected LocalDate end;
-    private final DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     /**
      * Initialises the Event class.
@@ -46,7 +46,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + start.format(OUT_FORMATTER) + " to: " + end.format(OUT_FORMATTER)+ ")";
+        return "[E]" + super.toString()
+                + " (from: " + start.format(OUT_FORMATTER)
+                + " to: " + end.format(OUT_FORMATTER)
+                + ")";
     }
 }

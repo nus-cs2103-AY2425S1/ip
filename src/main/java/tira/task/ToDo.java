@@ -5,7 +5,7 @@ package tira.task;
  * Represents a task of type ToDo, which is a basic task without any specific
  * deadline or event period.
  */
-public class ToDo  extends Task {
+public class ToDo extends Task {
     /**
      * Constructs a ToDo task with the specified description.
      *
