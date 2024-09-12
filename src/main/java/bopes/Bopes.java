@@ -38,11 +38,7 @@ public class Bopes {
      * @return The response from Bopes.
      */
     public String getResponse(String input) {
-        try {
-            return Parser.parse(input, tasks, storage);
-        } catch (BopesException e) {
-            return e.getMessage();
-        }
+        return Parser.parse(input, tasks, storage);
     }
 
     /**

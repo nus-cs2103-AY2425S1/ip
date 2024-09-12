@@ -41,10 +41,14 @@ public class TaskList {
      * @throws BopesException if the index is out of range (index < 0 or index >= tasks.size())
      */
     public void deleteTask(int index) throws BopesException {
-        if (index < 0 || index >= tasks.size()) {
+        try {
+            if (index < 0 || index >= tasks.size()) {
+                throw new BopesException("Error: The task index is out of range.");
+            }
+            tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
             throw new BopesException("Error: The task index is out of range.");
         }
-        tasks.remove(index);
     }
 
     /**
