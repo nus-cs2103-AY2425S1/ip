@@ -32,7 +32,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String greeting = "Hello! I'm Oliver.\nWhat can I do for you?";
+        String greeting = "Meow! I'm Oliver, your purr-sonal task tracker!\nWhat can I do for you today?\n" +
+                "Need help with your list, or maybe a reminder to chase your dreams... or a mouse?";
         dialogContainer.getChildren().add(
                 DialogBox.getOliverDialog(greeting, oliverImage)
         );
