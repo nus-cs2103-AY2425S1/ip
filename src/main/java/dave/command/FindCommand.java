@@ -1,9 +1,13 @@
 package dave.command;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import dave.storage.Storage;
 import dave.task.Task;
 import dave.task.TaskList;
 import dave.ui.Ui;
+
 
 /**
  * Represents a command to find tasks with a keyword in the task list.
@@ -27,19 +31,26 @@ public class FindCommand extends Command {
 
     /**
      * Executes the find command. It searches the tasks in the provided TaskList
-     * for those that match the keyword and displays them.
+     * for those that match the keyword and returns a formatted string of results.
      *
      * @param tasks The TaskList to search for matching tasks.
      * @param storage The Storage instance, not used in this command.
      * @param ui The Ui instance for user interactions, not used in this command.
+     * @return A String of tasks that match the keyword.
      */
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    @Override
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
-            for (Task task : tasks.findTasks(keyword)) {
-                System.out.println(task);
+            List<Task> matchingTasks = tasks.findTasks(keyword);
+            if (matchingTasks.isEmpty()) {
+                return "No tasks found matching: " + keyword;
             }
+            return matchingTasks.stream()
+                    .map(Task::toString)
+                    .collect(Collectors.joining("\n"));
         } catch (Exception e) {
-            System.out.println("Unexpected error occurred: " + e.getMessage());
+            return "Unexpected error occurred: " + e.getMessage();
         }
     }
 }
+
