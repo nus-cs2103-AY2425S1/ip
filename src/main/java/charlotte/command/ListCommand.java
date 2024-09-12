@@ -22,6 +22,10 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         StringBuilder result = new StringBuilder();
 
         //check if task list is empty
@@ -33,6 +37,7 @@ public class ListCommand extends Command {
 
             //Add each task to the result string
             for (int i = 0; i < tasks.getSize(); i++) {
+                assert tasks.getTask(i) != null : "Task should not be null";
                 result.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
             }
             result.append(ui.printLine()).append("\n");

@@ -28,6 +28,9 @@ public class DialogBox extends HBox {
      * @param img The image to be displayed in the dialog box.
      */
     private DialogBox(String text, Image img) {
+        assert text != null : "Text for DialogBox should not be null";
+        assert img != null : "Image for Dialog Box should not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -36,6 +39,9 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        assert dialog != null : "Label 'dialog' should be initialised in the FXML file";
+        assert displayPicture != null : "ImageView 'displayPicture' should be initialised in the FXML file";
 
         dialog.setText(text);
         displayPicture.setImage(img);
@@ -59,6 +65,8 @@ public class DialogBox extends HBox {
      * @return A DialogBox instance configured for the user.
      */
     public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null : "User dialog text should not be null";
+        assert img != null : "User image should not be null";
         return new DialogBox(text, img);
     }
 
@@ -70,6 +78,8 @@ public class DialogBox extends HBox {
      * @return A DialogBox instance configured for Charlotte.
      */
     public static DialogBox getCharlotteDialog(String text, Image img) {
+        assert text != null : "Charlotte dialog text should not be null";
+        assert img != null : "Charlotte image should not be null";
         var db = new DialogBox(text, img);
         db.flip();
         return db;

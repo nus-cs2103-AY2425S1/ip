@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
      * @param index The index of the task to be deleted from the task list.
      */
     public DeleteCommand(int index) {
+        assert index > 0 : "Index should be greater than 0";
         this.index = index;
     }
 
@@ -37,10 +38,18 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         if (index < 1 || index > tasks.getSize()) {
             throw new CharlotteException("Task number is invalid. Please try again");
         }
+
         Task deletedTask = tasks.deleteTask(index - 1);
+        assert deletedTask != null : "Deleted task should not be null";
+        assert tasks.getSize() >= 0 : "TaskList size should not be negative";
+
         storage.saveTasks(tasks);
         return ui.showMessage("Noted. I've removed this task:\n " + deletedTask
                 + "\n Now you have " + tasks.getSize() + " tasks in the list.");

@@ -21,9 +21,13 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws CharlotteException {
         super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert by != null && !by.isEmpty() : "Due date string cannot be null or empty";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             this.by = LocalDate.parse(by, formatter);
+            assert this.by != null : "Parsed date cannot be null";
         } catch (DateTimeParseException e) {
             throw new CharlotteException("Invalid date format! Use yyyy-MM-dd instead");
         }
@@ -35,6 +39,7 @@ public class Deadline extends Task {
      * @return The due date of the task as a LocalDate.
      */
     public LocalDate getBy() {
+        assert by != null : "Due date (by) should not be null";
         return this.by;
     }
 
@@ -45,6 +50,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
+        assert by != null : "Due date should be initialized before saving";
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
                 + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
@@ -57,6 +63,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert by != null : "Due date should be initialized before converting to string";
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

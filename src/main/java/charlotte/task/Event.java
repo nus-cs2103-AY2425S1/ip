@@ -1,11 +1,10 @@
 package charlotte.task;
 
-import charlotte.exception.CharlotteException;
-
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import charlotte.exception.CharlotteException;
 
 /**
  * Represents a task that spans a period of time, with a start and end date.
@@ -24,10 +23,17 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws CharlotteException {
         super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert from != null && !from.isEmpty() : "Start date cannot be null or empty";
+        assert to != null && !to.isEmpty() : "End date cannot be null or empty";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             this.from = LocalDate.parse(from, formatter);
             this.to = LocalDate.parse(to, formatter);
+
+            assert this.from != null && this.to != null : "Parsed dates cannot be null";
+            assert !this.to.isBefore(this.from) : "End date cannot be before start date";
         } catch (DateTimeParseException e) {
             throw new CharlotteException("Invalid date format! Use yyyy-MM-dd instead");
         }
@@ -40,6 +46,7 @@ public class Event extends Task {
      * @return The start date of the event as a LocalDate.
      */
     public LocalDate getFrom() {
+        assert from != null : "Start date should not be null";
         return this.from;
     }
 
@@ -49,6 +56,7 @@ public class Event extends Task {
      * @return The end date of the event as a LocalDate.
      */
     public LocalDate getTo() {
+        assert to != null : "End date should not be null";
         return this.to;
     }
 
@@ -59,6 +67,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
+        assert from != null : "Start date should be initialized before saving";
+        assert to != null : "End date should be initialized before saving";
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
                 + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 + " to " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -72,6 +82,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert from != null : "Start date should be initialized before converting to string";
+        assert to != null : "End date should be initialized before converting to string";
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                 + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }

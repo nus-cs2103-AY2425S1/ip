@@ -36,6 +36,7 @@ public class Storage {
      * @throws CharlotteException If an error occurs while saving the tasks.
      */
     public void saveTasks(TaskList tasks) throws CharlotteException {
+        assert tasks != null : "TaskList should not be null";
         try {
             File file = new File(filePath);
             File directory = file.getParentFile();
@@ -49,6 +50,7 @@ public class Storage {
 
             if (!file.exists()) {
                 file.createNewFile();
+                assert file.exists() : "Failed to create file: " + filePath;
             }
 
             FileWriter fw = new FileWriter(filePath);
@@ -59,7 +61,6 @@ public class Storage {
         } catch (IOException e) {
             throw new CharlotteException("An error occurred while saving the file.");
         }
-
     }
 
     /**
@@ -71,7 +72,8 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws CharlotteException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        System.out.println(file);
+
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
 
         if (!file.exists()) {
             throw new CharlotteException("No existing data file found");
@@ -81,6 +83,8 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String nextTask = scanner.nextLine();
                 String[] taskData = nextTask.split(" \\| ");
+                assert taskData.length >= 3 : "Invalid task format in file";
+
                 String taskType = taskData[0];
                 boolean isDone = taskData[1].equals("1");
                 String description = taskData[2];

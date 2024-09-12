@@ -23,13 +23,16 @@ public class Charlotte {
      */
     public Charlotte(String filePath) {
         ui = new Ui();
+        assert ui != null : "UI object should not be null";
         storage = new Storage(filePath);
+        assert storage != null : "Storage object should not be null";
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (CharlotteException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+        assert tasks != null : "TaskList object should not be null";
     }
 
     /**
@@ -46,7 +49,9 @@ public class Charlotte {
         while (!isExit) {
             try {
                 String command = ui.readCommand();
+                assert command != null && !command.isEmpty() : "Command input should not be null or empty";
                 Command c = Parser.parse(command);
+                assert c != null : "Parsed command should not be null";
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (CharlotteException e) {
@@ -60,7 +65,9 @@ public class Charlotte {
      */
     public String getResponse(String input) {
         try {
+            assert input != null && !input.isEmpty() : "Input in getResponse should not be null or empty";
             Command c = Parser.parse(input);
+            assert c != null : "Parsed command in getResponse should not be null";
             String response = c.execute(tasks, ui, storage);
             return response;
         } catch (CharlotteException e) {

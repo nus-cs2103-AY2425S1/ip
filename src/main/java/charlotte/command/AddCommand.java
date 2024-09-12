@@ -18,6 +18,7 @@ public class AddCommand extends Command {
      * @param task The task to be added to the task list.
      */
     public AddCommand(Task task) {
+        assert task != null : "Task should not be null";
         this.task = task;
     }
 
@@ -27,6 +28,7 @@ public class AddCommand extends Command {
      * @return The task to be added.
      */
     public Task getTask() {
+        assert task != null : "Task should not be null";
         return this.task;
     }
 
@@ -45,7 +47,12 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         tasks.addTask(task);
+        assert tasks.getSize() > 0 : "Task list size should increase after adding a task";
         storage.saveTasks(tasks);
         return ui.showMessage("Got it. I've added this task:\n  " + task
                 + "\n Now you have " + tasks.getSize() + " tasks in the list.");
