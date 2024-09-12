@@ -6,7 +6,7 @@ import henry.util.TaskList;
 import henry.util.Ui;
 
 /**
- * Deals with marking and unmarking tasks
+ * Deals with marking and unmarking tasks.
  */
 public class ChangeStatusCommand extends Command {
     private String[] inputList;
@@ -16,13 +16,13 @@ public class ChangeStatusCommand extends Command {
     }
 
     /**
-     * Returns a string telling user that the status has been changed
+     * Returns a string telling user that the status has been changed.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param ui instance of an Ui class that interacts with the user
-     * @return a string telling user that task is marked or unmarked
-     *                 depending on user input
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param ui Instance of an Ui class that interacts with the user.
+     * @return A string telling user that task is marked or unmarked
+     *                 depending on user input.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
@@ -47,9 +47,9 @@ public class ChangeStatusCommand extends Command {
     }
 
     /**
-     * Unmarks task based on user input
+     * Unmarks task based on user input.
      *
-     * @param task a Task object that is stored in taskList
+     * @param task A Task object that is stored in taskList.
      */
     private static void unmarkTask(Task task) throws HenryException {
         //check if task is already unmarked
@@ -60,9 +60,9 @@ public class ChangeStatusCommand extends Command {
     }
 
     /**
-     * Marks task based on user input
+     * Marks task based on user input.
      *
-     * @param task a Task object that is stored in taskList
+     * @param task A Task object that is stored in taskList.
      */
     private static void markTask(Task task) throws HenryException {
         //check if task is already marked
@@ -73,12 +73,12 @@ public class ChangeStatusCommand extends Command {
     }
 
     /**
-     * Returns the task that user wants to mark or unmark
+     * Returns the task that user wants to mark or unmark.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param numOfTasks number of tasks recorded in taskList object
-     * @return the task that user is asking for
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param numOfTasks Number of tasks recorded in taskList object.
+     * @return The task that user is asking for.
      */
     private Task getTask(TaskList taskList, int numOfTasks) throws HenryException {
         int number = Integer.parseInt((this.inputList)[1]);

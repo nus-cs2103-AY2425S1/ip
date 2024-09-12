@@ -6,7 +6,7 @@ import henry.util.TaskList;
 import henry.util.Ui;
 
 /**
- * Deals with deleting task for TaskList
+ * Deals with deleting task for TaskList.
  */
 public class DeleteCommand extends Command {
     private String input;
@@ -16,12 +16,12 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Returns a string telling user that task is deleted
+     * Returns a string telling user that task is deleted.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param ui instance of an Ui class that interacts with the user
-     * @return a string mentioning that task is deleted
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param ui Instance of an Ui class that interacts with the user.
+     * @return A string mentioning that task is deleted.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
@@ -48,10 +48,10 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Returns the task number that user wants to delete
+     * Returns the task number that user wants to delete.
      *
-     * @param numOfTasks number of tasks recorded in taskList object
-     * @return the task number that user is asking for
+     * @param numOfTasks Number of tasks recorded in taskList object.
+     * @return The task number that user is asking for.
      */
     private int getNumber(int numOfTasks) throws HenryException {
         int number = Integer.parseInt(this.input);

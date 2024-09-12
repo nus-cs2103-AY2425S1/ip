@@ -51,9 +51,9 @@ public class DialogBox extends HBox {
     /**
      * Creates and returns a DialogBox for the user with the specified text and image.
      *
-     * @param text the text to be displayed in the dialog box.
-     * @param img  the image to represent the user's display picture.
-     * @return a DialogBox with the user's text and image, aligned with the image on the right.
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to represent the user's display picture.
+     * @return A DialogBox with the user's text and image, aligned with the image on the right.
      */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
@@ -63,9 +63,9 @@ public class DialogBox extends HBox {
      * Creates and returns a DialogBox for Henry with the specified text and image,
      *                 and flips the alignment such that the image is on the left and the text is on the right.
      *
-     * @param text the text to be displayed in the dialog box.
-     * @param img  the image to represent Henry's display picture.
-     * @return a DialogBox with Henry's text and image, aligned with the image on the left.
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to represent Henry's display picture.
+     * @return A DialogBox with Henry's text and image, aligned with the image on the left.
      */
     public static DialogBox getHenryDialog(String text, Image img) {
         var db = new DialogBox(text, img);

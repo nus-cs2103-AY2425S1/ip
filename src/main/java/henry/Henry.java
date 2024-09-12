@@ -19,9 +19,9 @@ public class Henry {
     private Ui ui;
 
     /**
-     * Sets up the chat
+     * Sets up the chat.
      *
-     * @param filePath path of the file where it is saved
+     * @param filePath Path of the file where it is saved.
      */
     public Henry(String filePath) {
         ui = new Ui();

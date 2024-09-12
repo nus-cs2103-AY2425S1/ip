@@ -24,10 +24,10 @@ public class AddCommand extends Command {
     /**
      * Returns a string telling user that task is added
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param ui instance of an Ui class that interacts with the user
-     * @return statement telling user that task is added
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param ui Instance of an Ui class that interacts with the user.
+     * @return Statement telling user that task is added.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
@@ -50,10 +50,10 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Returns an array containing the activity and time of activity
+     * Returns an array containing the activity and time of activity.
      *
-     * @param words a list containing words of the user's input
-     * @return an array containing the activity and time of activity
+     * @param words A list containing words of the user's input.
+     * @return An array containing the activity and time of activity.
      */
     private String[] getActivityAndTimeList(String[] words) {
         String activityAndTime = this.input.replaceFirst(words[0] + " ", "");
@@ -61,12 +61,12 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Returns a summary of the task added
+     * Returns a summary of the task added.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param numOfTasks number of tasks in taskList
-     * @return a summary of the task added
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param numOfTasks Number of tasks in taskList.
+     * @return A summary of the task added.
      */
     private static String getTaskAddedConfirmation(TaskList taskList, int numOfTasks) {
         return "\nGot it. I've added this task:\n"
@@ -78,7 +78,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Informs user that input added is not a task
+     * Informs user that input added is not a task.
      */
     private static void addInvalidTask() throws HenryException {
         //check for invalid input
@@ -90,11 +90,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds Event object into taskList
+     * Adds Event object into taskList.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param activityAndTimeList an array containing the activity and time of activity
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param activityAndTimeList An array containing the activity and time of activity.
      */
     private static void addEvent(TaskList taskList, String[] activityAndTimeList) throws HenryException {
         //check if event description is valid
@@ -113,11 +113,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds Deadline object into taskList
+     * Adds Deadline object into taskList.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param activityAndTimeList an array containing the activity and time of activity
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param activityAndTimeList An array containing the activity and time of activity.
      */
     private static void addDeadline(TaskList taskList, String[] activityAndTimeList) throws HenryException {
         //check if deadline description is valid
@@ -135,12 +135,12 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds Todo object into taskList
+     * Adds Todo object into taskList.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param words a list containing words of the user's input
-     * @param activity name of the activity
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param words A list containing words of the user's input.
+     * @param activity Name of the activity.
      */
     private static void addToDo(TaskList taskList, String[] words, String activity) throws HenryException {
         //check if todo description is valid
@@ -153,10 +153,10 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Returns date in the form of MMM dd yyyy
+     * Returns date in the form of MMM dd yyyy.
      *
-     * @param dateTime date in the form of YYYY-MM-DD
-     * @return date in the form of MMM dd yyyy
+     * @param dateTime Date in the form of YYYY-MM-DD.
+     * @return Date in the form of MMM dd yyyy.
      */
     public static String convertDateTime(String dateTime) throws HenryException {
         try {
@@ -169,6 +169,4 @@ public class AddCommand extends Command {
                     + "the following format: YYYY-MM-DD HHmm");
         }
     }
-
-
 }

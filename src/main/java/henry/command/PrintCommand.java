@@ -5,16 +5,16 @@ import henry.util.TaskList;
 import henry.util.Ui;
 
 /**
- * Deals with printing tasks recorded in TaskList
+ * Deals with printing tasks recorded in TaskList.
  */
 public class PrintCommand extends Command {
 
     /**
-     * Prints all the tasks recorded
+     * Prints all the tasks recorded.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param ui instance of an Ui class that interacts with the user
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param ui Instance of an Ui class that interacts with the user.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         //check if there is any task to print

@@ -11,16 +11,16 @@ import henry.command.PrintCommand;
 
 
 /**
- * Deals with making sense of the user command
+ * Deals with making sense of the user command.
  */
 public class Parser {
 
     /**
      * Returns a boolean to see if user input
-     *                 wants to end the program
+     *                 wants to end the program.
      *
-     * @param input String given by user
-     * @return boolean to see if user input is "bye"
+     * @param input String given by user.
+     * @return Boolean to see if user input is "bye".
      */
     public static Command parse(String input) throws HenryException {
         if (input.equals("bye")) {

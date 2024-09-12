@@ -5,7 +5,7 @@ import henry.util.TaskList;
 import henry.util.Ui;
 
 /**
- * Deals with exiting the chat
+ * Deals with exiting the chat.
  */
 public class ExitCommand extends Command {
 
@@ -15,12 +15,12 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Returns a string informing user that the chat has ended
+     * Returns a string informing user that the chat has ended.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param ui instance of an Ui class that interacts with the user
-     * @return a string that signifies the end of chat
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param ui Instance of an Ui class that interacts with the user.
+     * @return A string that signifies the end of chat.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
         return ui.bye();

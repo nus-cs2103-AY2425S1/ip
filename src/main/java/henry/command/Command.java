@@ -11,7 +11,7 @@ import henry.util.TaskList;
 import henry.util.Ui;
 
 /**
- * Deals with executing the task given by user input
+ * Deals with executing the task given by user input.
  */
 public abstract class Command {
 
@@ -22,11 +22,11 @@ public abstract class Command {
     }
 
     /**
-     * Writes text into file
+     * Writes text into file.
      *
-     * @param filePath path of the file where it is saved
-     * @param textToAdd text to be added in the file
-     * @param index number of tasks recorded
+     * @param filePath Path of the file where it is saved.
+     * @param textToAdd Text to be added in the file.
+     * @param index Number of tasks recorded.
      */
     private static void writeToFile(String filePath, String textToAdd, int index)
             throws IOException {
@@ -36,12 +36,12 @@ public abstract class Command {
     }
 
     /**
-     * Updates the file after every input
+     * Updates the file after every input.
      *
-     * @param taskList instance of a TaskList class that contains
-     *                 an array of tasks
-     * @param storage instance of a storage that contains tasks
-     *                recorded previously
+     * @param taskList Instance of a TaskList class that contains
+     *                 an array of tasks.
+     * @param storage Instance of a storage that contains tasks
+     *                recorded previously.
      */
     public void save(TaskList taskList, Storage storage) throws HenryException {
         ArrayList<Task> tasks = taskList.getTasks();
@@ -58,5 +58,4 @@ public abstract class Command {
             throw new HenryException("Failed to save tasks to file");
         }
     }
-
 }

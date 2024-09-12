@@ -2,7 +2,7 @@ package henry.task;
 
 /**
  * Represents a task to be recorded. A <code>Task</code> object
- * is represented by one String
+ * is represented by one String.
  * e.g., <code>return book</code>
  */
 public class Task {
@@ -10,9 +10,9 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Sets up the instance
+     * Sets up the instance.
      *
-     * @param description description of the task
+     * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -20,10 +20,10 @@ public class Task {
     }
 
     /**
-     * Sets up the instance
+     * Sets up the instance.
      *
-     * @param description description of the task
-     * @param isDone whether the task is completed
+     * @param description Description of the task.
+     * @param isDone Whether the task is completed.
      */
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -31,50 +31,50 @@ public class Task {
     }
 
     /**
-     * Returns whether the task is done or not
+     * Returns whether the task is done or not.
      *
-     * @return status of task using symbol
+     * @return Status of task using symbol.
      */
     public String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
     /**
-     * Returns description of task
+     * Returns description of task.
      *
-     * @return description of task
+     * @return Description of task.
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Indicates that the task is done
+     * Indicates that the task is done.
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Indicates that the task is not done
+     * Indicates that the task is not done.
      */
     public void unmark() {
         this.isDone = false;
     }
 
     /**
-     * Returns whether the task is done or not
+     * Returns whether the task is done or not.
      *
-     * @return the status of the task
+     * @return The status of the task.
      */
     public boolean isDone() {
         return this.isDone;
     }
 
     /**
-     * Returns summary of the task
+     * Returns summary of the task.
      *
-     * @return task summary
+     * @return Task summary.
      */
     public String summary() {
         return "| " + (this.isDone() ? "1" : "0") + " | "

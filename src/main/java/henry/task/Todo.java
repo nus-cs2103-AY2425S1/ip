@@ -2,7 +2,7 @@ package henry.task;
 
 /**
  * Represents a todo task to be recorded. A <code>Todo</code> object
- * is represented by one String
+ * is represented by one String.
  * e.g., <code>borrow book</code>
  */
 public class Todo extends Task {
@@ -16,9 +16,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns summary of task
+     * Returns summary of task.
      *
-     * @return task summary
+     * @return Task summary.
      */
     @Override
     public String summary() {

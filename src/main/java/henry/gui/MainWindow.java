@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    /** Sets up the chat */
+    /** Sets up the chat. */
     @FXML
     public void initialize() {
         ui = new Ui();
@@ -41,14 +41,14 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Henry instance */
+    /** Injects the Henry instance. */
     public void setHenry(Henry h) {
         henry = h;
     }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Henry's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     *                 the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
