@@ -56,6 +56,14 @@ public class Event extends Task {
         return end.format(FORMATTER);
     }
 
+    public LocalDateTime getStartUnformatted() {
+        return start;
+    }
+
+    public LocalDateTime getEndUnformatted() {
+        return end;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + getStart() + " to: " + getEnd() + ")";

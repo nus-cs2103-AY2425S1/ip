@@ -34,8 +34,19 @@ public class TaskList {
      *
      * @param index Index of task to be returned (zero-based indexing).
      */
-    public Task getTask(int index) {
-        assert index >= 0 && index < tasks.size() : "Index should be within bounds of TaskList";
+    public Task getTask(int index) throws DeltaException {
+        // List is empty
+        if (tasks.isEmpty()) {
+            throw new DeltaException("OOPS!!! List is empty! Please add tasks!");
+        }
+
+        // Index out of range of list
+        if (index < 0 || index >= tasks.size()) {
+            throw new DeltaException("""
+                    OOPS!!! Task not found in list.
+                    \t Please provide a valid Task.""");
+        }
+
         return tasks.get(index);
     }
 
@@ -63,19 +74,7 @@ public class TaskList {
      * @throws DeltaException If list is empty, task not found in list or task is already marked as done.
      */
     public Task markTask(int index) throws DeltaException {
-        // List is empty
-        if (tasks.isEmpty()) {
-            throw new DeltaException("OOPS!!! List is empty, there is no task to mark.");
-        }
-
-        // Index out of range of list
-        if (index < 1 || index > tasks.size()) {
-            throw new DeltaException("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to mark.""");
-        }
-
-        Task task = tasks.get(index - 1);
+        Task task = getTask(index - 1);
 
         // Task already marked
         if (task.getStatusIcon().equals("X")) {
@@ -95,19 +94,7 @@ public class TaskList {
      * @throws DeltaException If list is empty, task not found in list or task is already unmarked.
      */
     public Task unmarkTask(int index) throws DeltaException {
-        // List is empty
-        if (tasks.isEmpty()) {
-            throw new DeltaException("OOPS!!! List is empty, there is no task to unmark.");
-        }
-
-        // Index out of range of list
-        if (index < 1 || index > tasks.size()) {
-            throw new DeltaException("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to unmark.""");
-        }
-
-        Task task = tasks.get(index - 1);
+        Task task = getTask(index - 1);
 
         // Task already unmarked
         if (task.getStatusIcon().equals(" ")) {
@@ -122,25 +109,30 @@ public class TaskList {
     /**
      * Removes specific task from list.
      *
-     * @param index Index of task to be removed from list.
+     * @param index Index of task to be removed from list (one-based indexing).
      * @return Task that was removed from list.
      * @throws DeltaException If list is empty or task not found in list.
      */
     public Task deleteTask(int index) throws DeltaException {
-        // List is empty
-        if (tasks.isEmpty()) {
-            throw new DeltaException("OOPS!!! List is empty, there is no task to delete.");
-        }
-
-        // Index out of range of list
-        if (index < 1 || index > tasks.size()) {
-            throw new DeltaException("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to delete.""");
-        }
-
-        Task task = tasks.get(index - 1);
+        Task task = getTask(index - 1);
         tasks.remove(index - 1);
         return task;
+    }
+
+    /**
+     * Edits specific task in list.
+     *
+     * @param index Index of task to be edited in list (one-based indexing).
+     * @param newTask New task to replace old task in list.
+     * @return New task that was added into list.
+     * @throws DeltaException If list is empty or task not found in list.
+     */
+    public Task editTask(int index, Task newTask) throws DeltaException {
+        Task task = getTask(index - 1);
+        if (task.getStatusIcon().equals("X")) {
+            newTask.markAsDone();
+        }
+        tasks.set(index - 1, newTask);
+        return newTask;
     }
 }

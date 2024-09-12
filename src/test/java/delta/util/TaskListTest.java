@@ -38,9 +38,13 @@ public class TaskListTest {
     public void testGetTask() {
         TaskList tasklist = new TaskList(createTestList());
 
-        assertEquals((new Todo("test1")).toString(), tasklist.getTask(0).toString());
+        try {
+            assertEquals((new Todo("test1")).toString(), tasklist.getTask(0).toString());
 
-        assertEquals((new Todo("test3")).toString(), tasklist.getTask(2).toString());
+            assertEquals((new Todo("test3")).toString(), tasklist.getTask(2).toString());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -77,7 +81,7 @@ public class TaskListTest {
             testList.markTask(1);
             fail();
         } catch (Exception e) {
-            assertEquals("OOPS!!! List is empty, there is no task to mark.", e.getMessage());
+            assertEquals("OOPS!!! List is empty! Please add tasks!", e.getMessage());
         }
 
         // Mark task index out of range throws error.
@@ -88,7 +92,7 @@ public class TaskListTest {
         } catch (Exception e) {
             assertEquals("""
                     OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to mark.""", e.getMessage());
+                    \t Please provide a valid Task.""", e.getMessage());
         }
 
         // Mark task index out of range throws error.
@@ -99,7 +103,7 @@ public class TaskListTest {
         } catch (Exception e) {
             assertEquals("""
                     OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to mark.""", e.getMessage());
+                    \t Please provide a valid Task.""", e.getMessage());
         }
 
         // Marking a marked task throws error.
@@ -143,7 +147,7 @@ public class TaskListTest {
             testList.unmarkTask(1);
             fail();
         } catch (Exception e) {
-            assertEquals("OOPS!!! List is empty, there is no task to unmark.", e.getMessage());
+            assertEquals("OOPS!!! List is empty! Please add tasks!", e.getMessage());
         }
 
         // Unmark task index out of range throws error.
@@ -154,7 +158,7 @@ public class TaskListTest {
         } catch (Exception e) {
             assertEquals("""
                     OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to unmark.""", e.getMessage());
+                    \t Please provide a valid Task.""", e.getMessage());
         }
 
         // Unmark task index out of range throws error.
@@ -165,7 +169,7 @@ public class TaskListTest {
         } catch (Exception e) {
             assertEquals("""
                     OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to unmark.""", e.getMessage());
+                    \t Please provide a valid Task.""", e.getMessage());
         }
 
         // Unmarking an unmarked task throws error.
@@ -196,7 +200,7 @@ public class TaskListTest {
             testList.deleteTask(1);
             fail();
         } catch (Exception e) {
-            assertEquals("OOPS!!! List is empty, there is no task to delete.", e.getMessage());
+            assertEquals("OOPS!!! List is empty! Please add tasks!", e.getMessage());
         }
 
         // Delete task index out of range throws error.
@@ -207,7 +211,7 @@ public class TaskListTest {
         } catch (Exception e) {
             assertEquals("""
                     OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to delete.""", e.getMessage());
+                    \t Please provide a valid Task.""", e.getMessage());
         }
 
         // Delete task index out of range throws error.
@@ -218,7 +222,7 @@ public class TaskListTest {
         } catch (Exception e) {
             assertEquals("""
                     OOPS!!! Task not found in list.
-                    \t Please provide a valid Task to delete.""", e.getMessage());
+                    \t Please provide a valid Task.""", e.getMessage());
         }
     }
 }

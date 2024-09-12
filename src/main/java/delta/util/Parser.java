@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import delta.command.AddCommand;
 import delta.command.Command;
 import delta.command.DeleteCommand;
+import delta.command.EditCommand;
 import delta.command.ExitCommand;
 import delta.command.FindCommand;
 import delta.command.MarkCommand;
@@ -60,6 +61,14 @@ public class Parser {
             OOPS!!! The format to delete tasks is wrong!
             \t Please follow the proper format:
             \t * delete [index of task]""";
+    private static final String EDIT_ERROR = """
+            OOPS!!! The format to edit tasks is wrong!
+            \t Please follow the proper format:
+            \t * edit [index of task] [task attribute] [new value]
+            \t Possible task attributes include:
+            \t * Todo: /desc
+            \t * Deadline: /desc /by
+            \t * Event: /desc /from /to""";
     private static final String INDEX_ERROR = """
             OOPS!!! The index of a task must be an integer!
             \t Please input a valid index!""";
@@ -69,9 +78,12 @@ public class Parser {
                * todo [description]
                * deadline [description] /by [date/time]
                * event [description] /from [start] /to [end]
+               * find [description]
                * mark [index of task]
                * unmark [index of task]
-               * delete [index of task]""";
+               * delete [index of task]
+               * edit [index of task] [task attribute] [new value]
+               * bye""";
 
     /**
      * Formats a user typed date/time into proper format to be used by system.
@@ -264,6 +276,44 @@ public class Parser {
     }
 
     /**
+     * Returns EditCommand to edit task in TaskList.
+     *
+     * @param description Description of command to be executed.
+     * @throws DeltaException If command not given in correct format.
+     */
+    private static Command editTask(String[] description) throws DeltaException {
+        int editTaskIdx;
+        String editType;
+        String editDesc = null;
+        LocalDateTime editTime = null;
+
+        try {
+            // Split task index and edit details
+            String[] editDetails = description[1].strip().split(" ", 3);
+
+            editTaskIdx = Integer.parseInt(editDetails[0].strip());
+            editType = editDetails[1].strip();
+
+            if (editType.equals("/desc")) {
+                editDesc = editDetails[2].strip();
+            } else if (editType.equals("/by") || editType.equals("/from") || editType.equals("/to")) {
+                editTime = formatDateTime(editDetails[2].strip());
+                if (editTime.isBefore(LocalDateTime.now())) {
+                    throw new DeltaException(PAST_TIME_ERROR);
+                }
+            } else {
+                throw new DeltaException(EDIT_ERROR);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DeltaException(EDIT_ERROR);
+        } catch (NumberFormatException e) {
+            throw new DeltaException(INDEX_ERROR);
+        }
+
+        return new EditCommand(editTaskIdx, editType, editDesc, editTime);
+    }
+
+    /**
      * Parses user input into a command understood by the system.
      *
      * @param input User typed command.
@@ -301,6 +351,9 @@ public class Parser {
 
         // Delete Task
         case "delete" -> deleteTask(description);
+
+        // Edit Task
+        case "edit" -> editTask(description);
 
         // Unknown Action
         default -> throw new DeltaException(UNKNOWN_ERROR);
