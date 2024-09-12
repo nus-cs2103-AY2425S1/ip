@@ -26,7 +26,7 @@ public class Parser {
                             "d MMM yyyy",
                             "MMM d yyyy"));
     private Ui ui;
-    private StateType statetype;
+    private StateType statetype = StateType.NO_STATE;
     private String[] tempStrings; // Description, start, end, deadline
     /**
      * Constructs a Parser object with the specified Ui.
@@ -35,6 +35,7 @@ public class Parser {
      */
     public Parser(Ui ui) {
         this.ui = ui;
+        assert this.ui != null: "ui should not be null";
         this.tempStrings = new String[] {"", "", "", ""};
     }
     /**
