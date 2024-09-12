@@ -6,6 +6,8 @@ import rapgod.tasks.Task;
 import rapgod.tasks.ToDo;
 
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -33,14 +35,16 @@ public class TaskList {
     }
 
     /**
-     * Displays the list of tasks with their indices.
+     * Displays the list of tasks with their indices using streams.
      */
     public String taskString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Displaying ListBot:\n");
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(String.format("%d. %s\n", i + 1, list.get(i)));
-        }
+        StringBuilder sb = new StringBuilder("Displaying ListBot:\n");
+
+        String tasks = IntStream.range(0, list.size())
+                .mapToObj(i -> String.format("%d. %s\n", i + 1, list.get(i)))
+                .collect(Collectors.joining());
+
+        sb.append(tasks);
         return sb.toString();
     }
 
@@ -56,20 +60,33 @@ public class TaskList {
      *                 The method will display tasks that contain at least one of these keywords.
      *                 This parameter can be an empty array, in which case no tasks will be displayed.
      */
+    /**
+     * Filters and displays tasks from the list that contain any of the specified keywords using streams.
+     *
+     * @param keywords An array of keywords to search for in the task descriptions.
+     *                 The method will display tasks that contain at least one of these keywords.
+     *                 This parameter can be an empty array, in which case no tasks will be displayed.
+     */
     public String filteredTask(String ... keywords) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
 
-        for (int i = 0; i < list.size(); i++) {
-            for (int j = 0; j < keywords.length; j++) {
-                if (list.get(i).getDescription().contains(keywords[j])) {
-                    sb.append(String.format("%d. %s\n", i + 1, list.get(i)));
-                    break;
-                }
-            }
-        }
+        String matchingTasks = IntStream.range(0, list.size())
+                .filter(i -> {
+                    Task task = list.get(i);
+                    for (String keyword : keywords) {
+                        if (task.getDescription().contains(keyword)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                })
+                .mapToObj(i -> String.format("%d. %s\n", i + 1, list.get(i)))
+                .collect(Collectors.joining());
+
+        sb.append(matchingTasks);
         return sb.toString();
     }
+
 
     public String markTaskByIndex(int index) {
         list.get(index - 1).setIsDone(true);
