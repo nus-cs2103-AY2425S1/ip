@@ -1,7 +1,6 @@
 package morgana.commands;
 
 import morgana.exceptions.MorganaException;
-import morgana.parser.Parser;
 import morgana.storage.Storage;
 import morgana.task.Task;
 import morgana.task.TaskList;
@@ -10,27 +9,29 @@ import morgana.task.TaskList;
  * Represents a command to mark a task as not done.
  */
 public class UnmarkCommand extends Command {
-    private final String args;
+    public static final String COMMAND_WORD = "unmark";
+
+    public static final String MESSAGE_SUCCESS = """
+            OK, I've marked this task as not done yet:
+            %d. %s
+            """;
+
+    private final int index;
 
     /**
-     * Constructs a {@code UnmarkCommand} with the specified arguments.
+     * Constructs an {@code UnmarkCommand} with the specified index.
      *
-     * @param args The string containing the task index to be marked as not done.
+     * @param index The zero-based index of the task to be marked as not done.
      */
-    public UnmarkCommand(String args) {
-        this.args = args;
+    public UnmarkCommand(int index) {
+        this.index = index;
     }
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws MorganaException {
-        int index = Parser.parseTaskIndex(args, tasks);
-        Task task = tasks.get(index);
-        task.markAsDone(false);
+        Task task = tasks.updateTaskStatus(index, false);
         storage.save(tasks);
-        return """
-                OK, I've marked this task as not done yet:
-                %d. %s
-                """.formatted(index + 1, task);
+        return MESSAGE_SUCCESS.formatted(index + 1, task);
     }
 
     @Override

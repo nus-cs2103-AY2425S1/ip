@@ -1,13 +1,18 @@
 package morgana.task;
 
+import static morgana.common.Messages.MESSAGE_INVALID_TASK_NUMBER;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import morgana.exceptions.MorganaException;
 
 /**
  * Represents a list of tasks, providing methods to add, remove, and
  * retrieve tasks from the list.
  */
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private final List<Task> tasks;
 
     /**
@@ -34,16 +39,6 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the task at the specified index in the list.
-     *
-     * @param index The index of the task to retrieve.
-     * @return The task at the specified index.
-     */
-    public Task get(int index) {
-        return tasks.get(index);
-    }
-
-    /**
      * Adds a task to the end of the list.
      *
      * @param task The task to add.
@@ -58,7 +53,60 @@ public class TaskList {
      * @param index The index of the task to remove.
      * @return The task that was removed.
      */
-    public Task remove(int index) {
+    public Task remove(int index) throws MorganaException {
+        validateIndex(index);
         return tasks.remove(index);
+    }
+
+    /**
+     * Updates the status of the task at the specified index.
+     *
+     * @param index The index of the task to update.
+     * @param isDone {@code true} if the task is done, {@code false} otherwise.
+     * @return The updated task.
+     * @throws MorganaException If the index is out of bounds.
+     */
+    public Task updateTaskStatus(int index, boolean isDone) throws MorganaException {
+        validateIndex(index);
+        Task task = tasks.get(index);
+        task.markAsDone(isDone);
+        return task;
+    }
+
+    private void validateIndex(int index) throws MorganaException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new MorganaException(MESSAGE_INVALID_TASK_NUMBER);
+        }
+    }
+
+    /**
+     * Finds tasks in the list that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for in the task description.
+     * @return A formatted string listing the matching tasks.
+     */
+    public String find(String keyword) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                sb.append("%d. %s\n".formatted(i + 1, task));
+            }
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append("%d. %s\n".formatted(i + 1, tasks.get(i)));
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
     }
 }

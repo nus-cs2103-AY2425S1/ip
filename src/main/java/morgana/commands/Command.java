@@ -22,17 +22,6 @@ public abstract class Command {
     public abstract String execute(TaskList tasks, Storage storage) throws MorganaException;
 
     /**
-     * Determines whether the command should cause the application to exit.
-     * By default, this method returns {@code false}. Subclasses may override
-     * this method if they represent a command that should exit the application.
-     *
-     * @return {@code true} if the command should exit the application, {@code false} otherwise.
-     */
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Returns the style class for this command, which can be applied to the {@code dialog} in {@link DialogBox}.
      *
      * @return The style class for this command, or {@code null} if none is specified.

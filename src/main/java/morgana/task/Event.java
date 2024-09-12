@@ -1,7 +1,9 @@
 package morgana.task;
 
+import static morgana.util.DateTimeUtil.COMPACT_FORMATTER;
+import static morgana.util.DateTimeUtil.VERBOSE_FORMATTER;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a description that spans a specific period of time.
@@ -26,13 +28,17 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "%s | %s | %s".formatted(super.toFileFormat(), start.format(formatter), end.format(formatter));
+        return "%s | %s | %s".formatted(
+                super.toFileFormat(),
+                start.format(COMPACT_FORMATTER),
+                end.format(COMPACT_FORMATTER));
     }
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "%s (from: %s to: %s)".formatted(super.toString(), start.format(formatter), end.format(formatter));
+        return "%s (from: %s to: %s)".formatted(
+                super.toString(),
+                start.format(VERBOSE_FORMATTER),
+                end.format(VERBOSE_FORMATTER));
     }
 }
