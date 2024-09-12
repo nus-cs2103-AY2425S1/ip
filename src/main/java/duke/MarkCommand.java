@@ -38,6 +38,7 @@ public class MarkCommand extends Command {
 
         Task mark = tasks.get(index);
         mark.mark();
+        assert mark.isCompleted() : "Task has not been marked";
         return ui.show("Nice! I've marked this task as done:" + mark);
     }
 }
