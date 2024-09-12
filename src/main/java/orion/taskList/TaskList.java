@@ -1,4 +1,4 @@
-package orion.taskList;
+package orion.tasklist;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

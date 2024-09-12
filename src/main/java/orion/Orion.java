@@ -14,7 +14,7 @@ import orion.storage.Storage;
 import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
 import orion.task.Task;
-import orion.taskList.TaskList;
+import orion.tasklist.TaskList;
 import orion.ui.MainWindow;
 
 public class Orion extends Application {

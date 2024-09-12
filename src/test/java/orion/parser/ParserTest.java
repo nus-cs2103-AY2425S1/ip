@@ -2,7 +2,7 @@ package orion.parser;
 
 import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
-import orion.taskList.TaskList;
+import orion.tasklist.TaskList;
 import orion.orionExceptions.FileInitializationException;
 import orion.orionExceptions.InvalidDeadlineException;
 import orion.orionExceptions.InvalidDeleteException;
