@@ -10,6 +10,11 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    public void update(String description, LocalDateTime by) {
+        this.description = description;
+        this.by = by;
+    }
+
     /**
      * A custom construtor for the Deadline Task that takes in a description
      * and a date and time parameter for its due date.

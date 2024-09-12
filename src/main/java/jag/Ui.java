@@ -131,6 +131,12 @@ public abstract class Ui {
      */
     public abstract void markResponse(Task task);
 
+    /**
+     * Index of the task in the task list for the update command
+     * @return integer of the stored task index in task list
+     */
+    public abstract int getUpdateIndex();
+
 
     /**
      * Display list of tasks that matches the description of the find
@@ -143,6 +149,11 @@ public abstract class Ui {
      */
     public abstract void findResponse(TaskList foundTasks);
 
+    /**
+     * Displays the updated task
+     * @param task Task instance that has been updated
+     */
+    public abstract void updateResponse(Task task);
 
     /**
      * Displays the response for exiting the chatbot
