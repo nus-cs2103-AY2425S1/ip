@@ -17,6 +17,7 @@ public class DeleteCommand implements Command {
      * @param index The index of the task to be deleted.
      */
     public DeleteCommand(int index) {
+        assert index >= 0 : "index should be more than 0";
         this.index = index;
     }
 
