@@ -76,6 +76,20 @@ public class TaskList {
     }
 
     /**
+     * Adds a new {@code Recurring} task to the list.
+     *
+     * @param description The description of the {@code Event} task.
+     * @param frequency   The frequency of the {@code Recurring} task, in a string format.
+     * @return The newly created {@code Recurring} task.
+     */
+    public Task addRecurringToList(String description, String frequency) {
+        assert description != null && !description.isBlank() : "description cannot be null or empty";
+        Task newTask = new Recurring(description, frequency);
+        this.taskList.add(newTask);
+        return newTask;
+    }
+
+    /**
      * Marks a task at the specified index as done.
      *
      * @param index The index of the task to be mark as done.
@@ -107,9 +121,7 @@ public class TaskList {
      */
     public Task deleteTask(int index) {
         assert index >= 0 && index < this.taskList.size() : "Index out of bounds";
-        Task curr = this.taskList.get(index);
-        this.taskList.remove(index);
-        return curr;
+        return this.taskList.remove(index);
     }
 
     /**
