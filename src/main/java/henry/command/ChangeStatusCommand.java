@@ -20,7 +20,7 @@ public class ChangeStatusCommand extends Command {
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
-     * @param ui instance of a Ui class that interacts with the user
+     * @param ui instance of an Ui class that interacts with the user
      * @return a string telling user that task is marked or unmarked
      *                 depending on user input
      */
@@ -30,28 +30,46 @@ public class ChangeStatusCommand extends Command {
         try {
             Task task = getTask(taskList, numOfTasks);
             if ((this.inputList)[0].equals("mark")) {
-                //check if task is already marked
-                if (task.isDone()) {
-                    throw new HenryException("The task is already marked!");
-                }
-                task.mark();
+                markTask(task);
                 return "\nNice! I've marked this task as done:\n"
-                        + task.toString()
+                        + task
                         + "\n";
             } else {
                 assert (this.inputList)[0].equals("unmark");
-                //check if task is already unmarked
-                if (!task.isDone()) {
-                    throw new HenryException("The task is already unmarked!");
-                }
-                task.unmark();
+                unmarkTask(task);
                 return "\nOK, I've marked this task as not done yet:\n"
-                        + task.toString()
+                        + task
                         + "\n";
             }
         } catch (NumberFormatException e) {
             throw new HenryException("This is not a number!!");
         }
+    }
+
+    /**
+     * Unmarks task based on user input
+     *
+     * @param task a Task object that is stored in taskList
+     */
+    private static void unmarkTask(Task task) throws HenryException {
+        //check if task is already unmarked
+        if (!task.isDone()) {
+            throw new HenryException("The task is already unmarked!");
+        }
+        task.unmark();
+    }
+
+    /**
+     * Marks task based on user input
+     *
+     * @param task a Task object that is stored in taskList
+     */
+    private static void markTask(Task task) throws HenryException {
+        //check if task is already marked
+        if (task.isDone()) {
+            throw new HenryException("The task is already marked!");
+        }
+        task.mark();
     }
 
     /**
@@ -75,7 +93,6 @@ public class ChangeStatusCommand extends Command {
         } else if (number <= 0) {
             throw new HenryException("Number must be greater than zero!");
         }
-        Task task = taskList.getTasks().get(number - 1);
-        return task;
+        return taskList.getTasks().get(number - 1);
     }
 }
