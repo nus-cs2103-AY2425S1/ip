@@ -38,6 +38,7 @@ public class DeleteCommand extends Command {
             taskList.validateDeleteTaskNumber(this.deleteNumber);
             String result = ui.deleteTaskMessage(taskList, this.deleteNumber);
             taskList.delete(this.deleteNumber);
+            taskList.sortTasksChronologically();
             storage.saveTasks(taskList);
             return result;
         } catch (JustbotException e) {
