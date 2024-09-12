@@ -1,3 +1,9 @@
+package hien.main;
+
+import hien.command.Command;
+import hien.exception.HienException;
+import hien.ui.UI;
+
 import java.io.*;
 import java.nio.file.*;
 import java.time.LocalDateTime;
