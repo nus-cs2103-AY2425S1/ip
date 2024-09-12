@@ -7,9 +7,34 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    private Priority priority;
+
+    public enum Priority {
+        HIGH,
+        MEDIUM,
+        LOW;
+    }
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        priority = Priority.LOW;
+    }
+
+    public Priority getPriority() {
+        return this.priority;
+    }
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public String getShortPriority(Priority priority) {
+        if (priority == Priority.HIGH) {
+            return "H";
+        } else if (priority == Priority.MEDIUM) {
+            return "M";
+        }
+        return "L";
     }
 
     /**
@@ -35,6 +60,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+        return "[" + this.getStatusIcon() + "][" + this.getShortPriority(priority) + "] " + this.getDescription();
     }
 }

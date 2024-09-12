@@ -1,5 +1,6 @@
 package ui;
 
+import exception.TakoException;
 import task.TaskList;
 import task.Task;
 import storage.Storage;
@@ -121,5 +122,10 @@ public class Ui {
      */
     public static String noSuchTaskMessage() {
         return "There is no such task!";
+    }
+
+    public static String changePriorityMessage(String priority, int taskNumber) {
+        Storage.store(TaskList.getAllTask());
+        return "Task " + (taskNumber + 1) + " has been updated to " + priority + " priority!";
     }
 }
