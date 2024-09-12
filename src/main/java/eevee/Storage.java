@@ -81,16 +81,17 @@ public class Storage {
             String type = taskData[0];
             boolean isDone = taskData[1].equals("1");
             String description = taskData[2];
+            Task.Priority priority = Task.Priority.valueOf(taskData[3]);
 
             switch (type) {
             case "T":
-                handleTodoTask(description, isDone, tasks);
+                handleTodoTask(description, isDone, priority, tasks);
                 break;
             case "D":
-                handleDeadlineTask(taskData, description, isDone, tasks);
+                handleDeadlineTask(taskData, description, isDone, priority, tasks);
                 break;
             case "E":
-                handleEventTask(taskData, description, isDone, tasks);
+                handleEventTask(taskData, description, isDone, priority, tasks);
                 break;
             default:
                 System.out.println("Invalid task found!");
@@ -99,30 +100,33 @@ public class Storage {
         }
     }
 
-    private void handleTodoTask(String description, boolean isDone, TaskList tasks) {
+    private void handleTodoTask(String description, boolean isDone, Task.Priority priority, TaskList tasks) {
         Todo t = new Todo(description);
         if (isDone) {
             t.markAsDone();
         }
+        t.setPriority(priority);
         tasks.addTask(t);
     }
 
-    private void handleDeadlineTask(String[] taskData, String description, boolean isDone, TaskList tasks) {
+    private void handleDeadlineTask(String[] taskData, String description, boolean isDone, Task.Priority priority, TaskList tasks) {
         String deadline = taskData[3];
         Deadline d = new Deadline(description, deadline);
         if (isDone) {
             d.markAsDone();
         }
+        d.setPriority(priority);
         tasks.addTask(d);
     }
 
-    private void handleEventTask(String[] taskData, String description, boolean isDone, TaskList tasks) {
+    private void handleEventTask(String[] taskData, String description, boolean isDone, Task.Priority priority, TaskList tasks) {
         String from = taskData[3];
         String to = taskData[4];
         Event e = new Event(description, from, to);
         if (isDone) {
             e.markAsDone();
         }
+        e.setPriority(priority);
         tasks.addTask(e);
     }
 }

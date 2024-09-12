@@ -93,6 +93,6 @@ public class Task {
      * @return "|(status)|(description)" whereby (status) and (description) are the task's status and description.
      */
     public String toFileString() {
-        return "|" + getStatus() + "|" + description;
+        return "|" + getStatus() + "|" + description + "|" + priority;
     }
 }
