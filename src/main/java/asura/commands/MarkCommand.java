@@ -9,7 +9,7 @@ import asura.ui.Ui;
  * Represents a user inputting a MarkCommand.
  */
 public class MarkCommand extends Command {
-    int selection;
+    private int selection;
 
     /**
      * Creates a MarkCommand with the specified selection.
