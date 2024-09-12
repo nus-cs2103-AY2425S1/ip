@@ -31,7 +31,6 @@ public class Event extends Task {
         try {
             this.from = LocalDate.parse(from, formatter);
             this.to = LocalDate.parse(to, formatter);
-
             assert this.from != null && this.to != null : "Parsed dates cannot be null";
             assert !this.to.isBefore(this.from) : "End date cannot be before start date";
         } catch (DateTimeParseException e) {
@@ -69,9 +68,9 @@ public class Event extends Task {
     public String toFileFormat() {
         assert from != null : "Start date should be initialized before saving";
         assert to != null : "End date should be initialized before saving";
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                + " to " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String formattedFrom = from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String formattedTo = to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + formattedFrom + " to " + formattedTo;
     }
 
     /**
@@ -84,7 +83,8 @@ public class Event extends Task {
     public String toString() {
         assert from != null : "Start date should be initialized before converting to string";
         assert to != null : "End date should be initialized before converting to string";
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String formattedTo = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 }
