@@ -1,7 +1,194 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	____________________________________________________________
+	Hello! I'm Snah
+	What can I do for you?
+	____________________________________________________________
+
+	____________________________________________________________
+	Tasks cleared
+	____________________________________________________________
+
+	____________________________________________________________
+	Added todo to list
+	  [ ] (Task) Do laundry when it is ready
+	____________________________________________________________
+
+	____________________________________________________________
+	Added todo to list
+	  [ ] (Task) Eat dinner
+	____________________________________________________________
+
+	____________________________________________________________
+	Added deadline to list
+	  [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Task) Eat dinner
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	____________________________________________________________
+
+	____________________________________________________________
+	Added deadline to list
+	  [ ] (Deadline: by Feb 21 2022) CS2100 quizzes
+	____________________________________________________________
+
+	____________________________________________________________
+	Added event to list
+	  [ ] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	____________________________________________________________
+
+	____________________________________________________________
+	Added event to list
+	  [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Task) Eat dinner
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	4. [ ] (Deadline: by Feb 21 2022) CS2100 quizzes
+	5. [ ] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	____________________________________________________________
+
+	____________________________________________________________
+	Alright, I will mark the task as done
+	  [X] (Task) Do laundry when it is ready
+	____________________________________________________________
+
+	____________________________________________________________
+	Alright, I will mark the task as done
+	  [X] (Task) Eat dinner
+	____________________________________________________________
+
+	____________________________________________________________
+	Alright, I will mark the task as done
+	  [X] (Deadline: by Feb 21 2022) CS2100 quizzes
+	____________________________________________________________
+
+	____________________________________________________________
+	Alright, I will mark the task as done
+	  [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [X] (Task) Do laundry when it is ready
+	2. [X] (Task) Eat dinner
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	4. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
+	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	____________________________________________________________
+
+	____________________________________________________________
+	Walao, why you press wrong; Will mark the task as NOT done
+	  [ ] (Task) Do laundry when it is ready
+	____________________________________________________________
+
+	____________________________________________________________
+	Walao, why you press wrong; Will mark the task as NOT done
+	  [ ] (Task) Eat dinner
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Task) Eat dinner
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	4. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
+	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	____________________________________________________________
+
+	____________________________________________________________
+	Added event to list
+	  [ ] (Event: from now to later) Test CS2103 bot thingy
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Task) Eat dinner
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	4. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
+	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	7. [ ] (Event: from now to later) Test CS2103 bot thingy
+	____________________________________________________________
+
+	____________________________________________________________
+	Oi, you need to provide a description for the todo
+	Format as such:
+	  todo <description>
+	____________________________________________________________
+	Oi, you need to provide a description, a start time and an end time for the event
+	Format as such:
+	  event <description> /from <start time> /to <end time>
+	____________________________________________________________
+	Oi, you need to provide a description and a deadline for the deadline
+	Format as such:
+	  deadline <description> /by <deadline>
+	____________________________________________________________
+	Oi, you need to provide a description, a start time and an end time for the event
+	Format as such:
+	  event <description> /from <start time> /to <end time>
+	____________________________________________________________
+	Oi, you need to provide a description, a start time and an end time for the event
+	Format as such:
+	  event <description> /from <start time> /to <end time>
+	____________________________________________________________
+	Oi, you need to provide a description, a start time and an end time for the event
+	Format as such:
+	  event <description> /from <start time> /to <end time>
+	____________________________________________________________
+	Oi, you need to provide a description and a deadline for the deadline
+	Format as such:
+	  deadline <description> /by <deadline>
+	____________________________________________________________
+	Oi, you're trying to mark a task that doesn't exist
+	____________________________________________________________
+	Oi, you're trying to mark a task that doesn't exist
+	____________________________________________________________
+	Oi, you're trying to unmark a task that doesn't exist
+	____________________________________________________________
+	Oi, you're trying to unmark a task that doesn't exist
+	____________________________________________________________
+	Alright, task is removed
+	  [ ] (Task) Eat dinner
+	____________________________________________________________
+
+	____________________________________________________________
+	Alright, task is removed
+	  [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	3. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
+	4. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	5. [ ] (Event: from now to later) Test CS2103 bot thingy
+	____________________________________________________________
+
+	____________________________________________________________
+	Oi, you're trying to delete a task that doesn't exist
+	____________________________________________________________
+	Oi, you're trying to delete a task that doesn't exist
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	3. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
+	4. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	5. [ ] (Event: from now to later) Test CS2103 bot thingy
+	____________________________________________________________
+
+	____________________________________________________________
+	Goodbye! See you sooooonnn!
+	____________________________________________________________
 

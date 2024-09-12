@@ -1,0 +1,37 @@
+clear
+todo Do laundry when it is ready
+todo Eat dinner
+deadline CS2109S homework /by 2024-08-31
+list
+deadline CS2100 quizzes /by 2022-02-21
+event Dinner with friendos /from 6pm tonight /to whenever they want to end
+event Game night with gf /from 9pm every night /to whenever she wants to sleep
+list
+mark 1
+mark 2
+mark 4
+mark 5
+list
+unmark 1
+unmark 2
+list
+event Test CS2103 bot thingy /from now /to later
+list
+todo
+event
+deadline
+event Event with no from and to 
+event Event with no to /from today 
+event Event with no to string /from today /to
+deadline Deadline with no by /by
+mark 0
+mark 10
+unmark 0
+unmark 10
+delete 2
+delete 4
+list
+delete 0 
+delete 10
+list
+bye
