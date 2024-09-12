@@ -23,6 +23,7 @@ public class Parser {
         todo,
         deadline,
         event,
+        period,
         delete
     }
 
@@ -124,6 +125,27 @@ public class Parser {
                     return new CreateCommand(taskList, eventTask, storage);
                 } catch (Exception e) {
                     throw new BroException("Usage: event <task> /from <startTime> /to <endTime>");
+                }
+            case period:
+                // Input validation
+                if (secondArg.isEmpty()) {
+                    throw new BroException("Empty task provided");
+                }
+                if (!secondArg.contains("/from") || !secondArg.contains("/to")) {
+                    throw new BroException("Usage: period <task> /from <startDate> /to <endDate>");
+                }
+
+                try {
+                    String[] eventInputs = secondArg.split("/from");
+                    String eventName = eventInputs[0].trim();
+
+                    String[] durationInputs = eventInputs[1].split("/to");
+                    String startDate = durationInputs[0].trim();
+                    String endDate = durationInputs[1].trim();
+                    Task periodTask = new PeriodTask(eventName, startDate, endDate);
+                    return new CreateCommand(taskList, periodTask, storage);
+                } catch (Exception e) {
+                    throw new BroException("Usage: period <task> /from <startDate> /to <endDate>");
                 }
             case delete:
                 try {
