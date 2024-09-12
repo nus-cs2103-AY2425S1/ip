@@ -32,8 +32,8 @@ public class TaskList {
      * @param tasksToAdd The tasks to be added.
      */
     public void addTask(Task... tasksToAdd) {
-        for (Task task : tasksToAdd) {
-            tasks.add(task);
+        for (Task t : tasksToAdd) {
+            tasks.add(t);
         }
     }
 
