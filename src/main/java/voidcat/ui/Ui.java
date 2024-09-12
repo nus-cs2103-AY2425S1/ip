@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String FORMAT = "\t%s%n";
-    private final Scanner scanner;
+//    private final Scanner scanner;
 
     private static final String logo =
         "### ###   ## ##     ####   ### ##\n" +
@@ -17,74 +17,56 @@ public class Ui {
         "  ###    ##   ##     ##     ##  ##\n" +
         "   ##     ## ##     ####   ### ##\n";
 
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
+//    public Ui() {
+//        this.scanner = new Scanner(System.in);
+//    }
 
-    public String readCommand() {
-        return scanner.nextLine();
-    }
+//    public String readCommand() {
+//        return scanner.nextLine();
+//    }
 
-    public void welcome(String[] greetings, String[] assistGreetings) {
-        showLine();
+    public static String welcome(String[] greetings, String[] assistGreetings) {
         // Display a random greeting
-        System.out.printf(FORMAT, greetings[(int) (Math.random() * greetings.length)]);
-        System.out.println(logo.indent(4));
-        // Display a random assist greeting
-        System.out.printf(FORMAT, assistGreetings[(int) (Math.random() * assistGreetings.length)]);
-        showLine();
+        return greetings[(int) (Math.random() * greetings.length)] + logo.indent(4) + assistGreetings[(int) (Math.random() * assistGreetings.length)];
+//        System.out.println(logo.indent(4));
+//        // Display a random assist greeting
+//        System.out.printf(FORMAT, assistGreetings[(int) (Math.random() * assistGreetings.length)]);
+//        showLine();
     }
 
-    public void goodbye(String[] exits) {
-        showLine();
+    public static String goodbye(String[] exits) {
         //Display a random exit
-        System.out.printf(FORMAT, exits[(int) (Math.random() * exits.length)]);
+        return exits[(int) (Math.random() * exits.length)];
 
     }
-    public static void showLine() {
-        System.out.printf(FORMAT, "------------------------------------------------------------------");
+
+    public static String showMessage(String message) {
+        return message;
     }
 
-    public static void showMessage(String message ) {
-        System.out.printf(FORMAT, message);
+//    public static void showMessageAndLines(String message ) {
+//        showLine();
+//        System.out.printf(FORMAT, message);
+//        showLine();
+//    }
+
+    public static String showDeleteTaskMessage(Task removedTask, int size) {
+        return "Noted. I've removed this task:\n\t\t" + removedTask + "\nNow you have " + size + " tasks in the list";
+
     }
 
-    public static void showMessageAndLines(String message ) {
-        showLine();
-        System.out.printf(FORMAT, message);
-        showLine();
+    public static String showMarkTaskMessage(Task markedTask) {
+        return "Good job! I've marked this task as done:\n\t\t" + markedTask;
     }
 
-    public void showDeleteTaskMessage(Task removedTask, int size) {
-        showLine();
-        showMessage("Noted. I've removed this task:");
-        System.out.printf("\t\t%s%n", removedTask);
-        showMessage("Now you have " + size + " tasks in the list.");
-        showLine();
+    public static String showUnmarkTaskMessage(Task unmarkedTask) {
+        return "OK, I've marked this task as not done yet:\n\t\t" + unmarkedTask;
     }
 
-    public void showMarkTaskMessage(Task markedTask) {
-        showLine();
-        showMessage("Good job! I've marked this task as done:");
-        System.out.printf("\t\t%s%n", markedTask);
-        showLine();
+    public static String showAddTaskMessage(Task task, int size) {
+        return "Got it. I've added this task:\n\t\t" + task + "\nNow you have " + size + " tasks in the list";
     }
-
-    public void showUnmarkTaskMessage(Task unmarkedTask) {
-        showLine();
-        showMessage("OK, I've marked this task as not done yet:");
-        System.out.printf("\t\t%s%n", unmarkedTask);
-        showLine();
-    }
-
-    public void showAddTaskMessage(Task task, int size) {
-        showLine();
-        showMessage( "Got it. I've added this task:");
-        System.out.printf("\t\t%s%n", task);
-        showMessage("Now you have " + size + " tasks in the list.");
-        showLine();
-    }
-    public void close() {
-        scanner.close();
-    }
+//    public void close() {
+//        scanner.close();
+//    }
 }

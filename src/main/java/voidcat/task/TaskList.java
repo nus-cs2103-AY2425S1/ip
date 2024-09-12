@@ -1,6 +1,6 @@
 package voidcat.task;
 
-import voidcat.exception.VoidException;
+import voidcat.exception.VoidCatException;
 import voidcat.ui.Ui;
 
 import java.io.BufferedWriter;
@@ -69,18 +69,19 @@ public class TaskList {
     /**
      * Lists the tasks in order of addition of the task to the task list.
      *
-     * @throws VoidException If no tasks are found in task list.
+     * @throws VoidCatException If no tasks are found in task list.
      */
-    public void listTasks() throws VoidException {
+    public String listTasks() throws VoidCatException {
+        String responseList = "";
+
         if (tasks.isEmpty()) {
-            throw new VoidException("No tasks found in list yet!");
+            throw new VoidCatException("No tasks found in list yet!");
         } else {
-            Ui.showLine();
-            System.out.printf(FORMAT, "Here are the tasks in your list:");
+            responseList = "Here are the tasks in your list:\n";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("\t%d. %s%n", i + 1, tasks.get(i));
+                responseList += "\t" + (i + 1) + ". " + tasks.get(i) + "\n";
             }
-            Ui.showLine();
+            return responseList;
         }
     }
 
@@ -112,8 +113,9 @@ public class TaskList {
      *
      * @param keyword The keyword to find in description of task.
      */
-    public void findTasks(String keyword) throws VoidException {
+    public String findTasks(String keyword) throws VoidCatException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+        String responseList = "";
 
         for (Task task : tasks) {
             if (task.description.contains(keyword)) {
@@ -122,14 +124,13 @@ public class TaskList {
         }
 
         if (matchingTasks.isEmpty()) {
-            throw new VoidException("Aww..no matching tasks found for keyword: " + keyword);
+            throw new VoidCatException("Aww..no matching tasks found for keyword: " + keyword);
         } else {
-            Ui.showLine();
-            System.out.printf(FORMAT, "Here are the matching tasks in your list:");
+            responseList = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.printf("\t%d. %s%n", i + 1, matchingTasks.get(i));
+                responseList += "\t" + (i + 1) + ". " + matchingTasks.get(i) + "\n";
             }
-            Ui.showLine();
+            return responseList;
         }
     }
 }
