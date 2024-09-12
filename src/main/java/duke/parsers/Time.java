@@ -28,20 +28,35 @@ public class Time {
     public Time(String dateTimeString) throws InvalidDateException {
         parseDateTime(dateTimeString);
     }
-
     private void parseDateTime(String dateTimeString) throws InvalidDateException {
+        if (tryParseDateTime(dateTimeString)) {
+            return;
+        }
+        if (tryParseDate(dateTimeString)) {
+            return;
+        }
+        throw new InvalidDateException();
+    }
+
+    private boolean tryParseDateTime(String dateTimeString) {
         try {
             this.dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
             this.hasTime = true;
             this.originalFormat = dateTimeString;
-        } catch (DateTimeParseException e1) {
-            try {
-                this.date = LocalDate.parse(dateTimeString, DATE_FORMATTER);
-                this.hasTime = false;
-                this.originalFormat = dateTimeString;
-            } catch (DateTimeParseException e2) {
-                throw new InvalidDateException();
-            }
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    private boolean tryParseDate(String dateTimeString) {
+        try {
+            this.date = LocalDate.parse(dateTimeString, DATE_FORMATTER);
+            this.hasTime = false;
+            this.originalFormat = dateTimeString;
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
         }
     }
 

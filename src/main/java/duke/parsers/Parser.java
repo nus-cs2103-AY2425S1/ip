@@ -11,6 +11,8 @@ import duke.tasks.Todo;
  * the corresponding commands on the task list.
  */
 public class Parser {
+    private static final int VALID_ADD_DEADLINE_LENGTH = 2;
+    private static final int VALID_ADD_EVENT_LENGTH = 3;
     private TaskList taskList;
 
     /**
@@ -71,7 +73,7 @@ public class Parser {
             } else {
                 return taskList.unmarkTask(Integer.parseInt(split[1]));
             }
-        } catch (NumberFormatException e ) {
+        } catch (NumberFormatException e) {
             return "Please enter numbers only";
         } catch (IndexOutOfBoundsException e) {
             return "Index number you inputted does not exist";
@@ -79,38 +81,24 @@ public class Parser {
     }
 
     private String handleAddTodo(String message) throws MissingTaskNameException {
-        String taskName = message.replace("todo", "").trim();
-        if (taskName.isEmpty()) {
-            throw new MissingTaskNameException("todo");
-        }
+        String taskName = validateTaskName(message, "todo");
         return taskList.addTask(new Todo(taskName));
     }
 
     private String handleAddDeadline(String message) throws MissingDateException,
             MissingTaskNameException, InvalidDateException {
-
-        String[] parts = message.split(" /by ");
-        String taskName = parts[0].replace("deadline", "").trim();
-        if (taskName.isEmpty()) {
-            throw new MissingTaskNameException("deadline");
-        }
-        if (parts.length != 2) {
-            throw new MissingDateException("deadline");
-        }
+        String[] parts = splitAddTaskUserInput(message, "deadline");
+        validateDate(parts, "deadline");
+        String taskName = validateTaskName(parts[0], "deadline");
         String by = parts[1].trim();
         return taskList.addTask(new Deadline(taskName, by));
     }
 
     private String handleAddEvent(String message) throws MissingDateException,
             MissingTaskNameException, InvalidDateException {
-        String[] parts = message.split(" /from | /to ");
-        String taskName = parts[0].replace("event", "").trim();
-        if (taskName.isEmpty()) {
-            throw new MissingTaskNameException("event");
-        }
-        if (parts.length != 3) {
-            throw new MissingDateException("event");
-        }
+        String[] parts = splitAddTaskUserInput(message, "event");
+        String taskName = validateTaskName(parts[0], "event");
+        validateDate(parts, "event");
         String from = parts[1].trim();
         String to = parts[2].trim();
         return taskList.addTask(new Event(taskName, from, to));
@@ -124,7 +112,7 @@ public class Parser {
         }
         try {
             return taskList.deleteTask(Integer.parseInt(split[1]));
-        } catch (NumberFormatException e ) {
+        } catch (NumberFormatException e) {
             return "Please enter numbers only";
         } catch (IndexOutOfBoundsException e) {
             return "Index number you inputted does not exist";
@@ -132,16 +120,43 @@ public class Parser {
     }
 
     private String handleFindTask(String message) throws TaskNotFoundException, InvalidInputException {
-        String[] split = message.split(" ", 2);
-        if (split.length > 2 || split.length < 2) {
+        String[] parts = message.split(" ", 2);
+        if (parts.length != 2) {
             throw new InvalidInputException();
         }
-        String keyword = split[1].trim();
-        if (keyword.isEmpty()) {
-            throw new InvalidInputException();
-        }
+        String keyword = parts[1].trim();
         return taskList.findTask(keyword);
     }
 
+    private String validateTaskName(String message, String taskType) throws MissingTaskNameException {
+        String taskName = message.replace(taskType, "").trim();
+
+        if (taskName.isEmpty()) {
+            throw new MissingTaskNameException(taskType);
+        }
+
+        return taskName;
+    }
+
+    private void validateDate(String[] parts, String taskType) throws MissingDateException {
+        if (taskType.equals("deadline") && parts.length != VALID_ADD_DEADLINE_LENGTH) {
+            throw new MissingDateException("deadline");
+        }
+        if (taskType.equals("event") && parts.length != VALID_ADD_EVENT_LENGTH) {
+            throw new MissingDateException("deadline");
+        }
+    }
+
+    private String[] splitAddTaskUserInput(String message, String command) {
+        String[] parts = {};
+        if (command.equals("deadline")) {
+            parts = message.split(" /by ");
+        }
+        if (command.equals("event")) {
+            parts = message.split(" /from | /to ");
+        }
+        return parts;
+    }
 }
+
 
