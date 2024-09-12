@@ -1,0 +1,10 @@
+todo borrow book
+mark 1
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to Mon 4pm
+unmark 1
+mark 999
+deadline return book no by
+event project meeting 2 not from /to mon 4pm
+event project meeting 3 /from mon 2pm no to
+bye

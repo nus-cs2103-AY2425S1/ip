@@ -1,7 +1,29 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello from Yap
+What would you like me to do for you?
+_____________________________________
+Added: [T][ ] borrow book
+You now have 1 tasks in the list
+_____________________________________
+I've marked this task as done:
+[T][X] borrow book
+_____________________________________
+Added: [D][ ] return book (by: Sunday)
+You now have 2 tasks in the list
+_____________________________________
+Added: [E][ ] project meeting (from: Mon 2pm to: Mon 4pm)
+You now have 3 tasks in the list
+_____________________________________
+I've marked this task as not done:
+[T][ ] borrow book
+_____________________________________
+You did not provide a valid task index to mark!
+_____________________________________
+The deadline format is wrong!
+_____________________________________
+Incorrect usage of "event"
+Correct usage: event<event_name
+_____________________________________
+Incorrect usage of "event"
+Correct usage: event<event_name
+_____________________________________
+Bye! It was really nice talking to you, see you soon :)
