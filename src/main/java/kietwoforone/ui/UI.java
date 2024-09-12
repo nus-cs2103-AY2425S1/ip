@@ -13,7 +13,7 @@ public class UI {
     private static String separationLine = "_________________________________________";
     private static String chatBotName = "KieTwoForOne";
     private static Scanner scanner;
-
+    private static String response;
     /**
      * Constructor for UI Object.
      * Initialises a scanner to read keyboard input.
@@ -43,8 +43,8 @@ public class UI {
      */
     public static void showWelcome() {
         showLine();
-        System.out.println("Hello! I'm " + chatBotName + ".");
-        System.out.println("What can I do for you?");
+        response = "Hello! I'm " + chatBotName + "." + "\n" + "What can I do for you?";
+        System.out.println(response);
         showLine();
     }
 
@@ -55,9 +55,9 @@ public class UI {
      * @param newTask
      */
     public void showAddTasks(ArrayList<Task> tasks, Task newTask) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + newTask);
-        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+        response = "Got it. I've added this task:\n" + "    " + newTask.toString() + "\n" +
+                    String.format("Now you have %d tasks in the list.", tasks.size());
+        System.out.println(response);
     }
 
     /**
@@ -67,9 +67,9 @@ public class UI {
      * @param removedTask
      */
     public void showDeleteTask(ArrayList<Task> tasks, Task removedTask) {
-        System.out.println("Noted. I've removed the task");
-        System.out.println("    " + removedTask);
-        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+        response = "Noted. I've removed the task:\n" + "    " + removedTask.toString() + "\n" +
+                String.format("Now you have %d tasks in the list.", tasks.size());
+        System.out.println(response);
     }
 
     /**
@@ -78,10 +78,12 @@ public class UI {
      * @param tasks
      */
     public void showTaskList(ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+        String currString = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, tasks.get(i).toString()));
+            currString = currString + String.format("%d. %s\n", i + 1, tasks.get(i).toString());
         }
+        response = currString;
+        System.out.print(response);
     }
 
     /**
@@ -90,8 +92,8 @@ public class UI {
      * @param task
      */
     public void showMarkTask(String task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("    " + task);
+        response = "Nice! I've marked this task as done:\n" + "    " + task;
+        System.out.println(response);
     }
 
     /**
@@ -100,8 +102,8 @@ public class UI {
      * @param task
      */
     public void showUnmarkTask(String task) {
-        System.out.println("OK. I've marked this task as incomplete:");
-        System.out.println("    " + task);
+        response = "OK. I've marked this task as incomplete:\n" + "    " + task;
+        System.out.println(response);
     }
 
     /**
@@ -119,10 +121,12 @@ public class UI {
                 taskList.add(currTask);
             }
         }
-        System.out.println("Here are the tasks occurring on this date:");
+        String currString = "Here are the tasks occurring on this date:\n";
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, taskList.get(i).toString()));
+            currString = currString + String.format("%d. %s\n", i + 1, taskList.get(i).toString());
         }
+        response = currString;
+        System.out.print(response);
     }
 
     /**
@@ -140,10 +144,12 @@ public class UI {
                 taskList.add(currTask);
             }
         }
-        System.out.println("Here are the matching tasks in your list:");
+        String currString = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, taskList.get(i).toString()));
+            currString = currString + String.format("%d. %s\n", i + 1, taskList.get(i).toString());
         }
+        response = currString;
+        System.out.print(response);
     }
 
     /**
@@ -152,14 +158,20 @@ public class UI {
      * @param e
      */
     public void showErrorMessage(KieTwoForOneException e) {
-        System.out.println(e.getMessage());
+        response = e.getMessage();
+        System.out.println(response);
     }
 
     /**
      * Prints the message when the user exits the chatbot.
      */
     public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        response = "Bye. Hope to see you again soon!";
+        System.out.println(response);
+    }
+
+    public String getResponse() {
+        return response;
     }
 
 }
