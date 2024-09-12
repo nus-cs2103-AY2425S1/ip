@@ -1,6 +1,7 @@
 package friday.ui;
 
 import friday.Friday;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -58,15 +60,33 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         assert input != null : "User input should not be null";
+
+        if (input.equals("bye")) {
+            sayGoodbyeAndExit(input);
+            return;
+        }
+
         String response = friday.getResponse(input);
+        assert response != null : "Response should not be null";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getFridayDialog(response, fridayImage)
         );
-        userInput.clear();
 
-        if (response.contains("EXIT")) {
-            Platform.exit();
-        }
+        userInput.clear();
+    }
+
+    /**
+     * Displays a goodbye message and exits the application after a delay.
+     */
+    private void sayGoodbyeAndExit(String input) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getFridayDialog(friday.getResponse(input), fridayImage)
+        );
+        PauseTransition delay = new PauseTransition(Duration.seconds(0.75));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 }

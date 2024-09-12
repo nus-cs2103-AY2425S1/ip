@@ -74,12 +74,13 @@ public class Friday {
             return ui.greet();
         }
 
+        if (input.equals("bye")) {
+            return ui.sayGoodbye();
+        }
+
         try {
             Command c = Parser.parse(input);
             String response = c.execute(tasks, ui, storage);
-            if (c.shouldExit()) {
-                return response + "\nEXIT";
-            }
             return response;
         } catch (Exception e) {
             return ui.showError(e.getMessage());
