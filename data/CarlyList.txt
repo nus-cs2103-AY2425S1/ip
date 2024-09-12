@@ -1,3 +1,9 @@
-T | 0 | 3
-T | 0 | g
-T | 0 | 42
+T | 0 | read
+
+T | 0 | play
+
+D | 1 | gqrg | Sep 09 1990
+
+D | 1 | gqrg | Sep 09 1990
+
+E | 0 | sdgnsg | g to g

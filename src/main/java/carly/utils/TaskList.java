@@ -15,7 +15,7 @@ import carly.tasks.Todo;
 /** Represents a list of tasks. Handle a collection of {@link Task} objects. */
 public class TaskList {
 
-    /** List of Task objects. */
+    /** List of Task objects.*/
     private final ArrayList<Task> taskList;
 
     /** ONE_INDENT used in displaying tasklist size. */
@@ -35,18 +35,7 @@ public class TaskList {
      * @throws CarlyException If the task number format is incorrect or out of bounds.
      */
     public String mark(String taskNumString) throws CarlyException {
-        Integer taskNum = null;
-        try {
-            taskNum = Integer.parseInt(taskNumString);
-            Task t = this.get(taskNum - 1);
-            Task updatedT = t.markAsDone();
-            this.taskList.set(taskNum - 1, updatedT);
-            return "Okiee! I've marked this task as done:\n" + TWO_INDENT + t;
-        } catch (NumberFormatException e) {
-            throw new CarlyIncorrectIndexFormat();
-        } catch (IndexOutOfBoundsException e) {
-            throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
-        }
+        return updateTaskStatus(taskNumString, true);
     }
 
     /**
@@ -56,15 +45,43 @@ public class TaskList {
      * @throws CarlyException If the task number is out of bounds.
      */
     public String unmark(String taskNumString) throws CarlyException {
-        Integer taskNum = null;
+        return updateTaskStatus(taskNumString, false);
+    }
+
+    /**
+     * Updates the status of a task by marking it as done or not done.
+     *
+     * @param taskNumString The task number to be updated.
+     * @param isMarkingDone A boolean flag indicating whether the task is being marked as done (true) or not done (false).
+     * @throws CarlyException If the task number format is incorrect or out of bounds.
+     */
+    private String updateTaskStatus(String taskNumString, boolean isMarkingDone) throws CarlyException {
+        int taskNum = parseTaskNumber(taskNumString);
+
         try {
-            taskNum = Integer.parseInt(taskNumString);
-            Task t = this.get(taskNum - 1);
-            Task updatedT = t.unmarkAsDone();
-            this.taskList.set(taskNum - 1, updatedT);
-            return "Okiee! I've marked this task as not done yet:\n" + TWO_INDENT + t;
+            Task task = this.get(taskNum - 1);
+            Task updatedTask = isMarkingDone ? task.markAsDone() : task.unmarkAsDone();
+            this.taskList.set(taskNum - 1, updatedTask);
+
+            String statusMessage = isMarkingDone ? "done" : "not done yet";
+            return String.format("Okiee! I've marked this task as %s:\n%s%s", statusMessage, TWO_INDENT, updatedTask);
         } catch (IndexOutOfBoundsException e) {
             throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
+        }
+    }
+
+    /**
+     * Parses a task number string and converts it into an integer.
+     *
+     * @param taskNumString The task number string to parse.
+     * @return The parsed task number as an integer.
+     * @throws CarlyIncorrectIndexFormat If the task number format is invalid.
+     */
+    private int parseTaskNumber(String taskNumString) throws CarlyIncorrectIndexFormat {
+        try {
+            return Integer.parseInt(taskNumString);
+        } catch (NumberFormatException e) {
+            throw new CarlyIncorrectIndexFormat();
         }
     }
 
@@ -80,8 +97,7 @@ public class TaskList {
             taskNum = Integer.parseInt(taskNumString);
             Task t = this.get(taskNum - 1);
             this.taskList.remove(taskNum - 1);
-            String msg = "Okay, I've removed this task:\n" + TWO_INDENT + t;
-            return msg + "\n" + taskListSize();
+            return "Okay, I've removed this task:\n" + TWO_INDENT + t;
         } catch (NumberFormatException e) {
             throw new CarlyIncorrectIndexFormat();
         } catch (IndexOutOfBoundsException e) {
@@ -98,7 +114,7 @@ public class TaskList {
      */
     public String find(String word) throws CarlyException {
         TaskList filteredList = new TaskList();
-        for (Task t: this.taskList) {
+        for (Task t : this.taskList) {
             if (t.getDescription().contains(word)) {
                 filteredList.taskList.add(t);
             }
@@ -114,9 +130,7 @@ public class TaskList {
      */
     public String addToDo(String taskDescription) throws CarlyException {
         Todo t = new Todo(taskDescription);
-        this.taskList.add(t);
-        assert this.getSize() >= 1: "Size of tasklist should be at least 1.";
-        return "Got it. I've added this task:\n" + TWO_INDENT + t;
+        return this.addTaskToList(t);
     }
 
     /**
@@ -132,9 +146,7 @@ public class TaskList {
             String dueDate = taskDueDate[1];
 
             Deadline t = new Deadline(task, dueDate);
-            this.taskList.add(t);
-            assert this.getSize() >= 1: "Size of tasklist should be at least 1.";
-            return "Got it. I've added this task:\n" + TWO_INDENT + t;
+            return this.addTaskToList(t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("task description or \"/by\" command");
         }
@@ -156,13 +168,23 @@ public class TaskList {
             String endTime = startEndTimeParts[1];
 
             Event t = new Event(task, startTime, endTime);
-            this.taskList.add(t);
-            assert this.getSize() >= 1: "Size of tasklist should be at least 1.";
-            String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
-            return msg + "\n" + taskListSize();
+            return this.addTaskToList(t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("\"/from\" or \"/to\" command");
         }
+    }
+
+    /**
+     * Adds a task to the task list and returns a success message.
+     *
+     * @param task The task to add.
+     * @return The formatted success message.
+     */
+    private String addTaskToList(Task task) {
+        this.taskList.add(task);
+        assert this.getSize() >= 1 : "Size of tasklist should be at least 1.";
+        String successMessage = "Got it. I've added this task:";
+        return successMessage + "\n" + TWO_INDENT + task + "\n" + taskListSize();
     }
 
     /** Retrieves a task by index. */
@@ -175,12 +197,12 @@ public class TaskList {
         return this.taskList.size();
     }
 
-    /** Prints the current size of the task list. */
+    /** Gets the message fpr the current size of the task list. */
     public String taskListSize() {
         return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
     }
 
-    /** Prints list for Command FIND*/
+    /** Prints list for Command FIND. */
     public String printTaskList(String msg) {
         StringBuilder sb = new StringBuilder();
 
@@ -192,11 +214,11 @@ public class TaskList {
                     .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, this.get(i).toString())));
         }
 
+        sb.append(this.taskListSize());
         return sb.toString();
     }
 
-
-    /** Prints list for Command LIST*/
+    /** Prints list for Command LIST. */
     public String printTaskList() {
         if (this.taskList.isEmpty()) {
             return "There's nothing in your list yet.";
@@ -215,24 +237,49 @@ public class TaskList {
 
             for (int i = 0; i < this.getSize(); i++) {
                 Task task = this.get(i);
-                String taskType = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
-                String isDone = task.getIsDone() ? "1" : "0";
-                String taskDescription = task.getDescription();
-
-                String details = "";
-                if (task instanceof Deadline) {
-                    details = " | " + ((Deadline) task).getDueDate();
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    details = " | " + event.getStartTime() + " to " + event.getEndTime();
-                }
-
-                sb.append(String.format("%s | %s | %s%s\n", taskType, isDone, taskDescription, details));
+                sb.append(formatTask(task)).append("\n");
             }
 
             return sb.toString().trim();
         }
     }
 
+    /** Formats a single task into the required string format. */
+    private String formatTask(Task task) {
+        String taskType = getTaskType(task);
+        String isDone = formatIsDone(task);
+        String taskDescription = task.getDescription();
+        String taskDetails = getTaskDetails(task);
+
+        return String.format("%s | %s | %s%s\n", taskType, isDone, taskDescription, taskDetails);
+    }
+
+    /** Determines the task type (T for Todo, D for Deadline, E for Event). */
+    private String getTaskType(Task task) {
+        if (task instanceof Todo) {
+            return "T";
+        } else if (task instanceof Deadline) {
+            return "D";
+        } else {
+            return "E";
+        }
+    }
+
+    /** Formats whether the task is done (1 for done, 0 for not done). */
+    private String formatIsDone(Task task) {
+        return task.getIsDone() ? "1" : "0";
+    }
+
+    /** Retrieves the additional details for Deadline and Event tasks. */
+    private String getTaskDetails(Task task) {
+        if (task instanceof Deadline) {
+            return " | " + ((Deadline) task).getDueDate();
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            return " | " + event.getStartTime() + " to " + event.getEndTime();
+        } else {
+            return "";
+        }
+    }
 
 }
