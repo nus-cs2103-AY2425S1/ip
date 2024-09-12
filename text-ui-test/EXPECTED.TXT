@@ -1,5 +1,5 @@
 ____________________________________________________________
-Hello! I am CancelGPT.core.CancelGPT
+Hello! I am cancelgpt.core.cancelgpt
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
@@ -94,28 +94,28 @@ ____________________________________________________________
 The task you are trying to access does not exist
 ____________________________________________________________
 ____________________________________________________________
-Missing description for CancelGPT.task.ToDo task
+Missing description for cancelgpt.task.ToDo task
 ____________________________________________________________
 ____________________________________________________________
-Missing `by` for CancelGPT.task.Deadline task
+Missing `by` for cancelgpt.task.Deadline task
 ____________________________________________________________
 ____________________________________________________________
-Missing `by` for CancelGPT.task.Deadline task
+Missing `by` for cancelgpt.task.Deadline task
 ____________________________________________________________
 ____________________________________________________________
-Missing by date for CancelGPT.task.Deadline task
+Missing by date for cancelgpt.task.Deadline task
 ____________________________________________________________
 ____________________________________________________________
-Missing description for CancelGPT.task.Deadline task
+Missing description for cancelgpt.task.Deadline task
 ____________________________________________________________
 ____________________________________________________________
-Missing description for CancelGPT.task.Event task
+Missing description for cancelgpt.task.Event task
 ____________________________________________________________
 ____________________________________________________________
-Missing from date for CancelGPT.task.Event task
+Missing from date for cancelgpt.task.Event task
 ____________________________________________________________
 ____________________________________________________________
-Missing to date for CancelGPT.task.Event task
+Missing to date for cancelgpt.task.Event task
 ____________________________________________________________
 ____________________________________________________________
 Good bye. Hope to see you again soon!
