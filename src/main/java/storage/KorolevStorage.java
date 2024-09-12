@@ -52,6 +52,7 @@ public class KorolevStorage {
         createNewFile();
 
         try {
+            assert !msg.isEmpty();
             FileWriter writer = new FileWriter(String.valueOf(PATH));
             writer.write(msg);
             writer.close();
