@@ -123,7 +123,7 @@ public class Commands {
         StringBuilder finalOutput = new StringBuilder();
         StringBuilder output = new StringBuilder();
         StringBuilder errorOutput = new StringBuilder();
-        output.append("Nice! I've marked theses tasks as done: \n");
+        output.append("Nice! I've marked these tasks as done: \n");
         for (int i = 1; i < splitCommand.length; i++) {
             int numberToMark = Integer.parseInt(splitCommand[i]);
             try {

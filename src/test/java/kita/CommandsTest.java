@@ -55,7 +55,7 @@ public class CommandsTest {
 
         // Assert the task is marked
         commandsExecutor.mark("mark 1");
-        assertTrue(outContent.toString().contains("Nice! I've marked this task as done:"));
+        assertTrue(outContent.toString().contains("Nice! I've marked these tasks as done:"));
         assertTrue(this.tasks.getTask(0).getCompleted());
     }
 }
