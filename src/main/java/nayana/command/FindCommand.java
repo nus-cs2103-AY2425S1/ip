@@ -34,8 +34,9 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NayanaException {
-        ArrayList<Task> foundTasks = tasks.findTasks(this.findValue);
-        ui.printFoundTasks(foundTasks);
+        ArrayList<Task> foundTasks = tasks.findTasks(this.findValue); // Finds tasks that match the search query.
+        assert ui != null;
+        ui.printFoundTasks(foundTasks); // Displays a confirmation message with the current task list
     }
 
     /**

@@ -22,9 +22,10 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-    
+
 
     public void print(String text, Image image) {
+        assert dialogContainer != null;
         dialogContainer.getChildren().addAll(
               DialogBox.getNayanaDialog(text, image)
         );
