@@ -3,7 +3,7 @@ package xbot.ui;
 import java.util.Scanner;
 
 import xbot.TaskList;
-import xbot.XBotException;
+import xbot.exception.XBotException;
 
 /**
  * The Ui class handles all user interactions in the XBot application.
@@ -44,10 +44,10 @@ public class Ui {
         if (list.size() == 0) {
             return ("There is no task description containing this keyword :(");
         } else {
-            String output = ("Here are the matching tasks in your list:");
+            String output = ("Here are the matching tasks in your list:\n");
             for (int i = 0; i < list.size(); i++) {
                 int index = i + 1;
-                output = output + (index + ". " + list.get(i).toString());
+                output = output + (index + ". " + list.get(i).toString() + "\n");
             }
             return output;
         }

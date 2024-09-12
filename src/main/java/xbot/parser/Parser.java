@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xbot.TaskList;
-import xbot.XBotException;
+import xbot.command.*;
+import xbot.exception.XBotException;
+import xbot.exception.UnknownTaskTypeException;
 import xbot.storage.Storage;
 import xbot.task.Deadline;
 import xbot.task.Event;
@@ -28,39 +30,39 @@ public class Parser {
      * @param line The line of text to parse.
      * @return The Task object represented by the text, or null if the format is unknown.
      */
-    public static Task parseTask(String line) {
+    public static Task parseTask(String line) throws UnknownTaskTypeException {
         String[] parts = line.split(" \\| ");
-        if (parts.length >= 3) {
-            String type = parts[0].trim();
-            boolean isDone = parts[1].trim().equals("1");
-            String description = parts[2].trim();
-            switch (type) {
-            case "T":
-                Task todo = new ToDo(description);
-                if (isDone) {
-                    todo.setIsDone();
-                }
-                return todo;
-            case "D":
-                String deadline = parts[3].trim();
-                Task deadlineTask = new Deadline(description, deadline);
-                if (isDone) {
-                    deadlineTask.setIsDone();
-                }
-                return deadlineTask;
-            case "E":
-                String from = parts[3].trim();
-                String to = parts[4].trim();
-                Task eventTask = new Event(description, from, to);
-                if (isDone) {
-                    eventTask.setIsDone();
-                }
-                return eventTask;
-            default:
-                System.out.println("Unknown task type: " + type);
-            }
+        if (parts.length < 3) {
+            return null;
         }
-        return null;
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+        switch (type) {
+        case "T":
+            Task todo = new ToDo(description);
+            if (isDone) {
+                todo.setIsDone();
+            }
+            return todo;
+        case "D":
+            String deadline = parts[3].trim();
+            Task deadlineTask = new Deadline(description, deadline);
+            if (isDone) {
+                deadlineTask.setIsDone();
+            }
+            return deadlineTask;
+        case "E":
+            String from = parts[3].trim();
+            String to = parts[4].trim();
+            Task eventTask = new Event(description, from, to);
+            if (isDone) {
+                eventTask.setIsDone();
+            }
+            return eventTask;
+        default:
+            throw new UnknownTaskTypeException("Unknown Task Type!", type);
+        }
     }
 
     /**
@@ -159,49 +161,28 @@ public class Parser {
         String output;
         switch(command) {
         case "list":
-            output = ui.showTaskList(list);
+            output = new ListCommand().execute(list, ui, storage, rest);
             break;
         case "mark":
-            output = list.markDone(rest);
-            storage.saveTask(list);
+            output = new MarkCommand().execute(list, ui, storage, rest);
             break;
         case "unmark":
-            output = list.markUndone(rest);
-            storage.saveTask(list);
+            output = new UnmarkCommand().execute(list, ui, storage, rest);
             break;
         case "todo":
-            if (rest.isEmpty()) {
-                throw new XBotException("The description of the todo cannot be empty!");
-            }
-            output = list.addTodo(rest);
-            storage.saveTask(list);
+            output = new TodoCommand().execute(list, ui, storage, rest);
             break;
         case "event":
-            if (rest.isEmpty()) {
-                throw new XBotException("The description of the event cannot be empty!");
-            }
-            output = list.addEvent(rest);
-            storage.saveTask(list);
+            output = new EventCommand().execute(list, ui, storage, rest);
             break;
         case "deadline":
-            if (rest.isEmpty()) {
-                throw new XBotException("The description of the deadline cannot be empty!");
-            }
-            output = list.addDeadline(rest);
-            storage.saveTask(list);
+            output = new DeadlineCommand().execute(list, ui, storage, rest);
             break;
         case "delete":
-            if (rest.isEmpty()) {
-                throw new XBotException("The task number to be deleted cannot be empty!");
-            }
-            output = list.deleteTask(rest);
-            storage.saveTask(list);
+            output = new DeleteCommand().execute(list, ui, storage, rest);
             break;
         case "find":
-            if (rest.isEmpty()) {
-                throw new XBotException("There is nothing to find!");
-            }
-            output = list.findTask(rest);
+            output = new FindCommand().execute(list, ui, storage, rest);
             break;
         case "bye":
             output = "Hope to see you again!";

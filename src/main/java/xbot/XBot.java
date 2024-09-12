@@ -2,6 +2,7 @@ package xbot;
 
 import java.io.IOException;
 
+import xbot.exception.XBotException;
 import xbot.parser.Parser;
 import xbot.storage.Storage;
 import xbot.ui.Ui;
