@@ -71,6 +71,7 @@ public class Ui {
      * @param message Message to be printed.
      */
     public void print(String message) {
+        assert !message.isEmpty();
 //        System.out.println(message);
     }
 

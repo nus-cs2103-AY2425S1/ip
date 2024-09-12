@@ -33,6 +33,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) throws PotongException {
+        assert tasks != null;
         return tasks.delete(this.index);
     }
 }
