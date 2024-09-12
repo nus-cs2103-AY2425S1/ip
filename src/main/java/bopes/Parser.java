@@ -22,14 +22,14 @@ public class Parser {
      * @param tasks       the TaskList object containing the current list of tasks
      * @param storage     the Storage object for saving and loading tasks
      * @return the response after executing the command
-     * @throws BopesException if the command is invalid or an error occurs during execution
      */
-    public static String parse(String fullCommand, TaskList tasks, Storage storage) throws BopesException {
-        String[] commandWords = fullCommand.split(" ", 2);
-        assert commandWords.length > 0 : "Command should not be empty.";
-        String commandType = commandWords[0];
-
-        switch (commandType) {
+    public static String parse(String fullCommand, TaskList tasks, Storage storage) {
+        try {
+            String[] commandWords = fullCommand.split(" ", 2);
+            assert commandWords.length > 0 : "Command should not be empty.";
+            String commandType = commandWords[0];
+    
+            switch (commandType) {
             case "bye":
                 return handleByeCommand();
             case "list":
@@ -44,6 +44,13 @@ public class Parser {
                 return handleDelete(commandWords, tasks, storage);
             default:
                 return handleAddTask(fullCommand, tasks, storage);
+            }
+        } catch (BopesException e) {
+            return "Error: " + e.getMessage();
+        } catch (NumberFormatException e) {
+            return "Error: Invalid number format.";
+        } catch (Exception e) {
+            return "Error: An unexpected error occurred.";
         }
     }
 

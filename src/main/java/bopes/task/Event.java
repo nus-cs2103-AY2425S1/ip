@@ -84,4 +84,13 @@ public class Event extends Task {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return "E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.start.format(fileFormat) + " | " + this.end.format(fileFormat);
     }
+
+    /**
+     * Returns the start time of the event.
+     *
+     * @return the start time of the event
+     */
+    public LocalDateTime getDateTime() {
+        return this.start;
+    }
 }

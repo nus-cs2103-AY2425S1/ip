@@ -1,8 +1,10 @@
 package bopes.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 import bopes.exception.BopesException;
 
 /**
@@ -29,6 +31,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
+        sortTasksChrnologically();
     }
 
     /**
@@ -38,10 +41,14 @@ public class TaskList {
      * @throws BopesException if the index is out of range (index < 0 or index >= tasks.size())
      */
     public void deleteTask(int index) throws BopesException {
-        if (index < 0 || index >= tasks.size()) {
+        try {
+            if (index < 0 || index >= tasks.size()) {
+                throw new BopesException("Error: The task index is out of range.");
+            }
+            tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
             throw new BopesException("Error: The task index is out of range.");
         }
-        tasks.remove(index);
     }
 
     /**
@@ -139,5 +146,16 @@ public class TaskList {
         return matchingTasks.stream()
             .map(Task::toString)
             .collect(Collectors.joining("\n"));
+    }
+
+    public void sortTasksChrnologically() {
+        tasks.sort(Comparator.comparing(task -> {
+            if (task instanceof Deadline) {
+                return ((Deadline) task).getDateTime();
+            } else if (task instanceof Event) {
+                return ((Event) task).getDateTime();
+            }
+            return LocalDateTime.MAX;  // ToDo tasks (or other tasks without a date) are pushed to the end
+        }));
     }
 }
