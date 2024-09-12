@@ -50,8 +50,9 @@ public class GeminiApi {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.contains("text")) {
-                        return line.substring(line.indexOf(":") + 3);
+                        continue;
                     }
+                    return line.substring(line.indexOf(":") + 3);
                 }
             }
             conn.disconnect();
@@ -88,11 +89,12 @@ Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("=", 2);
-                if (parts.length == 2) {
-                    String key = parts[0].trim();
-                    String value = parts[1].trim();
-                    envVars.put(key, value);
+                if (parts.length != 2) {
+                    continue;
                 }
+                String key = parts[0].trim();
+                String value = parts[1].trim();
+                envVars.put(key, value);
             }
         } catch (IOException e) {
             e.printStackTrace();
