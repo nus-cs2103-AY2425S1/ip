@@ -46,4 +46,15 @@ public class TaskList {
         tasks.remove(i); 
         return task;
     }
+
+    public TaskList find(String pattern) {
+        TaskList filteredTasks = new TaskList();
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task task = tasks.get(i);
+            if (task.toString().contains(pattern)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
+    }
 };
