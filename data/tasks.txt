@@ -1,3 +1,4 @@
-D | 0 | do ip project | Aug-30-2024 1600
-T | 1 | join sports cca
 T | 0 | sleep
+T | 0 | cs2103
+D | 0 | sleep | Aug-12-2024 1600
+E | 0 | go to school | Sep-13-2024 0700 | Sep-13-2024 1900

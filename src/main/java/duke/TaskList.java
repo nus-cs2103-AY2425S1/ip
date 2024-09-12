@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
+
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -23,9 +24,12 @@ public class TaskList {
     }
 
     public void deleteTask(int index) throws DukeException {
-        if (index < 0 || index >= tasks.size()) {
+        boolean isValidIndex = index >= 0 && index < tasks.size();
+
+        if (!isValidIndex) {
             throw new DukeException("Invalid nameless.task number.");
         }
+
         tasks.remove(index);
     }
 

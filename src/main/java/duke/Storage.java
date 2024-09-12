@@ -24,6 +24,7 @@ public class Storage {
     private static Path filePath;
     private String line;
     private final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
+
     public Storage(String filePath) throws DukeException {
         Storage.filePath = Paths.get(filePath);
         createFile();
@@ -43,6 +44,7 @@ public class Storage {
                 throw new DukeException("Error creating directory");
             }
         }
+
         assert Files.exists(directory) : "Directory should exist";
     }
 
@@ -52,7 +54,7 @@ public class Storage {
      * @throws DukeException if error creating file
      */
     public void createFile() throws DukeException {
-        if(Files.notExists(filePath)){
+        if (Files.notExists(filePath)){
             createDirectory();
             try {
                 Files.createFile(filePath);
@@ -61,6 +63,7 @@ public class Storage {
                 throw new DukeException("Error creating file");
             }
         }
+
         assert Files.exists(filePath) : "File should exist after createFile is called";
     }
 
@@ -88,7 +91,8 @@ public class Storage {
     public ArrayList<Task> loadFile() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         boolean isDone;
-        try(BufferedReader br = new BufferedReader(new FileReader(filePath.toString()))) {
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath.toString()))) {
             while ((line = br.readLine()) != null) {
                 isDone = line.charAt(4) == '1';
                 tasks.add(stringToTask(line));
@@ -97,6 +101,7 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error reading file");
         }
+
         return tasks;
     }
 
@@ -107,11 +112,11 @@ public class Storage {
      */
     private Task stringToTask(String line) {
         String[] words = line.split(" \\| ");
-        if(words[0].equals("T")){
+        if (words[0].equals("T")){
             return new Todo(words[2]);
-        } else if(words[0].equals("D")){
+        } else if (words[0].equals("D")){
             return new Deadline(words[2], LocalDateTime.parse(words[3], DISPLAY_FORMAT));
-        } else if(words[0].equals("E")){
+        } else if (words[0].equals("E")){
             return new Event(words[2], LocalDateTime.parse(words[3], DISPLAY_FORMAT),
                     LocalDateTime.parse(words[4], DISPLAY_FORMAT));
         } else {

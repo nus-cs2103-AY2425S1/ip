@@ -10,7 +10,8 @@ public class TypeOfException {
     }
 
     public String noIdea() {
-        return "Sorry! I don't understand what you are saying. Please enter a valid command. todo, deadline, event, list, done, delete, bye";
+        return "Sorry! I don't understand what you are saying. Please enter a valid command. "
+                + "todo, deadline, event, list, done, delete, bye";
     }
 
     public String todoFormatError() {
@@ -26,7 +27,7 @@ public class TypeOfException {
     }
 
     public String timeFormatError() {
-        return "Incorrect time format. Must be in yyyy-MM-dd hh:mm a";
+        return "Incorrect time format. Must be in yyyy-MM-dd hh:mm am/pm";
     }
 
     public String findFormatError() {
