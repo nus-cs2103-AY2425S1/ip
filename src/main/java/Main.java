@@ -21,11 +21,19 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assert charlotte != null : "Charlotte instance should not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader.getLocation() != null : "FXML file '/view/MainWindow.fxml' should be found";
+
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "AnchorPane should be initialised from the FXML file";
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            assert stage.getScene() != null : "Scene should be properly set in the stage";
+
             fxmlLoader.<MainWindow>getController().setCharlotte(charlotte); // inject the Charlotte instance
             stage.show();
         } catch (IOException e) {
