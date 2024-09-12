@@ -14,7 +14,7 @@ import nayana.command.FindCommand;
 import nayana.command.ListCommand;
 import nayana.command.MarkCommand;
 import nayana.command.UnmarkCommand;
-import nayana.task.Deadlines;
+import nayana.task.Deadline;
 import nayana.task.Event;
 import nayana.task.ToDos;
 
@@ -40,7 +40,7 @@ class ParserTest {
 
         command = Parser.parse("deadline Homework /by 2024-09-01");
         assertTrue(command instanceof AddCommand, "Command should be an instance of AddCommand.");
-        assertTrue(((AddCommand) command).getTask() instanceof Deadlines, "Task should be an instance of Deadlines.");
+        assertTrue(((AddCommand) command).getTask() instanceof Deadline, "Task should be an instance of Deadlines.");
 
         command = Parser.parse("event Meeting /from 2024-09-01 /to 2024-09-02");
         assertTrue(command instanceof AddCommand, "Command should be an instance of AddCommand.");

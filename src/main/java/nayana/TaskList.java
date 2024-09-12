@@ -1,7 +1,11 @@
 package nayana;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
+import nayana.task.Deadline;
+import nayana.task.Event;
 import nayana.task.Task;
 
 /**
@@ -131,5 +135,54 @@ public class TaskList {
             }
         }
         return foundTasks;
+    }
+
+    /**
+     * Retrieves a list of upcoming tasks that are either deadlines or events.
+     * A task is considered upcoming if it is due or ends within the next 7 days.
+     *
+     * @return An {@code ArrayList<Task>} containing the upcoming tasks.
+     */
+    public ArrayList<Task>  getUpcomingTasks() {
+        ArrayList<Task> upcomingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            if (Objects.equals(currTask.getType(), "D ")) {
+                if (isUpcomingDeadline((Deadline)currTask)) {
+                    upcomingTasks.add(currTask);
+                }
+            } else if (Objects.equals(currTask.getType(), "E ")) {
+                if (isUpcomingEvent((Event)currTask)) {
+                    upcomingTasks.add(currTask);
+                }
+            }
+        }
+        return upcomingTasks;
+    }
+
+    /**
+     * Determines if the given event is upcoming.
+     * An event is considered upcoming if its end date is within the next 7 days.
+     *
+     * @param task The {@code Event} to check.
+     * @return {@code true} if the event is upcoming, {@code false} otherwise.
+     */
+    private boolean isUpcomingEvent(Event task) {
+        LocalDate today = LocalDate.now();
+        return !task.getEndDate().isAfter(today.plusDays(7));
+    }
+
+    /**
+     * Determines if the given deadline is upcoming.
+     * A deadline is considered upcoming if its date is within the next 7 days,
+     * and not in the past.
+     *
+     * @param task The {@code Deadline} to check.
+     * @return {@code true} if the deadline is upcoming, {@code false} otherwise.
+     */
+    private boolean isUpcomingDeadline(Deadline task) {
+        LocalDate today = LocalDate.now();
+        return !task.getDate().isBefore(today) &&
+              !task.getDate().isAfter(today.plusDays(7));
     }
 }
