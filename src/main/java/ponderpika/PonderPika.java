@@ -97,14 +97,8 @@ public class PonderPika {
 
         case FIND:
             System.out.println("Found these tasks:\n");
-            String keyword = (String) command.getData();
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < taskList.getTasks().size(); i++) {
-                if (taskList.getTasks().get(i).getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    result.append((i + 1)).append(". ").append(taskList.getTasks().get(i).toString()).append("\n");
-                }
-            }
-            return result.toString();
+            return taskList.findTasks((String) command.getData());
+
 
         case BYE:
             try {
