@@ -32,8 +32,19 @@ public class Task {
         this.marked = false;
     }
 
-    public boolean includes(String query) {
-        return this.description.toLowerCase().contains(query.toLowerCase());
+    /**
+     * Returns if the task description contains any of the queries
+     *
+     * @param queries Queries to search the task description for
+     * @return True if task description contains any of the queries else false
+     */
+    public boolean includes(String ... queries) {
+        for (String query : queries) {
+            if (this.description.toLowerCase().contains(query.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

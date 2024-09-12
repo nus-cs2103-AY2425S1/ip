@@ -87,15 +87,6 @@ public class TaskList {
      * @return The tasks that have description that includes the query
      */
     public ArrayList<Task> findTasks(String ... queries) {
-        ArrayList<Task> filteredTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            for (String query : queries) {
-                if (task.includes(query)) {
-                    filteredTasks.add(task);
-                    break;
-                }
-            }
-        }
-        return filteredTasks;
+        return new ArrayList<>(this.tasks.stream().filter(task -> task.includes(queries)).toList());
     }
 }
