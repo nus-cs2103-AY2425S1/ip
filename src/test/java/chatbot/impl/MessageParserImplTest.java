@@ -9,6 +9,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,9 +21,6 @@ import chatbot.exceptions.InvalidMessageException;
 import chatbot.impl.tasks.DeadlineTask;
 import chatbot.impl.tasks.EventTask;
 import chatbot.impl.tasks.TodoTask;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 public class MessageParserImplTest {
 

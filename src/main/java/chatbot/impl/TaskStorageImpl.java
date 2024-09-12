@@ -97,11 +97,6 @@ public class TaskStorageImpl implements TaskStorage {
         saveTasks();
     }
 
-    /**
-     * Returns a string representation of all tasks in the storage.
-     *
-     * @return A formatted string containing all tasks.
-     */
     @Override
     public List<Task> findTasks(String keyword) {
         return tasks
@@ -110,6 +105,11 @@ public class TaskStorageImpl implements TaskStorage {
                 .toList();
     }
 
+    /**
+     * Returns a string representation of all tasks in the storage.
+     *
+     * @return A formatted string containing all tasks.
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
