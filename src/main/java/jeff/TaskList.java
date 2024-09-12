@@ -44,4 +44,8 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
+    public void updateTask(int index, Task updatedTask) {
+        tasks.set(index, updatedTask);
+    }
 }
