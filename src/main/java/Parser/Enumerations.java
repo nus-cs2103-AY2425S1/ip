@@ -11,7 +11,8 @@ public enum Enumerations {
     DELETE("delete"),
     FIND("find"),
     TASK("task"),
-    ARCHIVE("archive");
+    ARCHIVE("archive"),
+    RETRIEVE_ARCHIVE("restore");
 
     private final String text;
     private Enumerations(String s) {
