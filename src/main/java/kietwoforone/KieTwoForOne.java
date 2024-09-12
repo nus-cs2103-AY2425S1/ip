@@ -58,4 +58,14 @@ public class KieTwoForOne {
         KieTwoForOne.run();
     }
 
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            return ui.getResponse();
+        } catch (KieTwoForOneException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
 }

@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClassName = 'kietwoforone.KieTwoForOne'
+    mainClassName = 'kietwoforone.gui.Launcher'
 
 }
 
