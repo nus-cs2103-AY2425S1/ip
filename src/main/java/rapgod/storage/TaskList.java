@@ -124,6 +124,45 @@ public class TaskList {
     }
 
     /**
+     * Snoozes a deadline task by its index.
+     *
+     * @param index The index of the task to be deleted.
+     */
+    public String snoozeDeadline(int index, String snoozeDueField) {
+        StringBuilder sb = new StringBuilder();
+        Task task = list.get(index - 1);
+        try {
+            Deadline deadline = (Deadline) task;
+            deadline.setDue(snoozeDueField);
+        } catch (ClassCastException exc) {
+            return "The type of task at " + index + " is not [D]\n";
+        }
+        sb.append("Noted. I've rescheduled this task:\n");
+        sb.append(list.get(index - 1));
+        return sb.toString();
+    }
+
+    /**
+     * Snoozes an event task by its index.
+     *
+     * @param index The index of the task to be deleted.
+     */
+    public String snoozeEvent(int index, String snoozeToField, String snoozeFromField) {
+        StringBuilder sb = new StringBuilder();
+        Task task = list.get(index - 1);
+        try {
+            Event event = (Event) task;
+            event.setTo(snoozeToField);
+            event.setFrom(snoozeFromField);
+        } catch (ClassCastException exc) {
+            return "The type of task at " + index + " is not [E]\n";
+        }
+        sb.append("Noted. I've rescheduled this task:\n");
+        sb.append(list.get(index - 1));
+        return sb.toString();
+    }
+
+    /**
      * Adds a deadline task to the list.
      *
      * @param deadlineDesc The description of the deadline task.

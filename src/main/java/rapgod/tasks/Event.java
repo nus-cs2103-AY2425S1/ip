@@ -45,6 +45,14 @@ public class Event extends Task{
         return this.to;
     }
 
+    public void setFrom(String from) {
+        this.from = Parser.parseToDateTime(from);
+    }
+
+    public void setTo(String to) {
+        this.to = Parser.parseToDateTime(to);
+    }
+
     /**
      * Returns a string representation of the Event.
      * The string includes the task type identifier "[E]", the completion status, the description of the event,
