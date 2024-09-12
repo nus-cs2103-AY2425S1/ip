@@ -76,6 +76,7 @@ public class Parser {
             // Not supposed to reach here
             throw new InvalidCommandArgumentException("Unable to handle this type of task!");
         }
+        assert task != null : "task should not be null";
         return new AddCommand(task);
     }
 

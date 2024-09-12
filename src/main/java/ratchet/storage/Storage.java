@@ -80,6 +80,7 @@ public class Storage {
     private void processNextLine(String line, TaskList tasks) {
         String[] info = line.split("\\|");
         String type = info[DATA_FIRST];
+        assert !type.isEmpty() : "type should not be empty";
         switch (type) {
         case "T":
             tasks.addTask(new TodoTask(info[DATA_SECOND], Boolean.parseBoolean(info[DATA_THIRD])));
