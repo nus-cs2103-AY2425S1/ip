@@ -22,7 +22,7 @@ public class Devon {
      * Enum to represent the various commands the user can input.
      */
     private enum Command {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN;
+        BYE, LIST, MARK, UNMARK, TODO, T, DEADLINE, D, EVENT, E, DELETE, FIND, UNKNOWN;
 
         /**
          * Converts a string command to the corresponding enum value.
@@ -88,10 +88,13 @@ public class Devon {
             case UNMARK:
                 return unmarkAction(input);
             case TODO:
+            case T:
                 return todoAction(input);
             case DEADLINE:
+            case D:
                 return deadlineAction(input);
             case EVENT:
+            case E:
                 return eventAction(input);
             case DELETE:
                 return deleteAction(input);
