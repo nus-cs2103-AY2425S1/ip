@@ -3,8 +3,6 @@ package Data;
 import Exceptions.*;
 import Tasks.*;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -63,11 +61,14 @@ public class StoreList {
             return "    Got it. I've added this task:\n" + "      " + t.print() +
                     "\n    Now you have " + this.getSize() + " tasks in the list.";
 
-        } catch (EmptyDescException | EmptyDeadlineException | EmptyEventException | EmptyDeadlineDateException |
-                 EmptyEventTimingException | EmptyEventDateException e) {
+        } catch (EmptyDescException | EmptyDeadlineException
+                 | EmptyEventException | EmptyDeadlineDateException
+                 | EmptyEventTimingException e) {
 
             return e.getMessage();
 
+        } catch (Exception e) {
+            return "An unexpected error occurred: " + e.getMessage();
         }
     }
 
@@ -118,7 +119,7 @@ public class StoreList {
 
         assert num > 0 : "Task number does not exist";
 
-        if (num > items.size()) {
+        if (num >= items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
         Task temp = items.get(num - 1);
@@ -227,139 +228,5 @@ public class StoreList {
 
         return "    Here are the tasks in your list that match your search:\n" + result;
     }
-
-    /**
-     * Updates a task based on the specified task number, update type, and new value.
-     * Supports updating descriptions, dates, and times for Deadlines, Events, and ToDos.
-     *
-     * @param itemNum    The task number to update (1-based index).
-     * @param updateType The type of update (e.g., desc, date, time).
-     * @param newValue   The new value to set for the update type.
-     * @return A message indicating the success of the update or an error if the task or update type is invalid.
-     */
-
-    public String updateTask(int itemNum, String updateType, String newValue) {
-        Task toBeUpdated = items.get(itemNum - 1);
-        if (toBeUpdated instanceof Deadlines) {
-            return updateDeadlineTask(toBeUpdated, updateType, newValue);
-        } else if (toBeUpdated instanceof Events) {
-            return updateEventTask(toBeUpdated, updateType, newValue);
-        } else if (toBeUpdated instanceof ToDos) {
-            return updateToDoTask(toBeUpdated, newValue);
-        } else {
-            return "Invalid Task type";
-        }
-    }
-
-    /**
-     * Updates the description of a ToDo task.
-     *
-     * @param toBeUpdated The ToDo task to be updated.
-     * @param newValue    The new description for the ToDo task.
-     * @return A message indicating the success of the update.
-     */
-    private String updateToDoTask(Task toBeUpdated, String newValue) {
-        toBeUpdated.setTaskDesc(newValue);
-        return "Updated ToDo description to: " + newValue;
-    }
-
-
-    /**
-     * Updates an Event task based on the update type (description, start time, end time, or date).
-     *
-     * @param toBeUpdated The Event task to be updated.
-     * @param updateType  The type of update (desc, startTime, endTime, date).
-     * @param newValue    The new value for the specified update type.
-     * @return A message indicating the success of the update or an error message for invalid formats or types.
-     */
-    private String updateEventTask(Task toBeUpdated, String updateType, String newValue) {
-        switch (updateType) {
-            case "desc":
-                toBeUpdated.setTaskDesc(newValue);
-                return "Updated Event description to: " + newValue;
-            case "startTime":
-                try {
-                    LocalTime newTime = ParseTasks.parseTime(newValue);
-                    toBeUpdated.setEventStartTiming(newTime); // Assuming there's a method to update timing
-                    return "Updated Event start timing to: " + newValue;
-                } catch (DateTimeParseException e) {
-                    return "invalid time format, Pls provide in the following format: " +
-                            "16:00";
-                }
-            case "endTime":
-                try {
-                    LocalTime newTime = ParseTasks.parseTime(newValue);
-                    toBeUpdated.setEventEndTime(newTime); // Assuming there's a method to update timing
-                    return "Updated Event end timing to: " + newValue;
-                } catch (DateTimeParseException e) {
-                    return "invalid time format, Pls provide in the following format: " +
-                            "16:00";
-                }
-            case "date":
-                try {
-                    LocalDate newDate = ParseTasks.parseDateFormat1(newValue);
-                    toBeUpdated.setDate1(newDate);
-                    return "Updated Event date to: " + newValue;
-                } catch (DateTimeParseException e) {
-                    try {
-                        LocalDate newDate = ParseTasks.parseDateFormat2(newValue);
-                        toBeUpdated.setDate2(newDate);
-                        return "Updated Event date to: " + newValue;
-                    } catch (DateTimeParseException e2) {
-                        return "invalid date format, Pls provide in the following format: " +
-                                "yyyy-MM-dd or dd/MM/yyyy";
-                    }
-                }
-            default:
-                return "Invalid update type for Event. Pls use the following format:" +
-                        "update 1 desc/startTime/endTime/date updatedValue.";
-        }
-    }
-
-
-    /**
-     * Updates a Deadline task based on the update type (description, date, or time).
-     *
-     * @param toBeUpdated The Deadline task to be updated.
-     * @param updateType  The type of update (desc, date, time).
-     * @param newValue    The new value for the specified update type.
-     * @return A message indicating the success of the update or an error message for invalid formats or types.
-     */
-    private String updateDeadlineTask(Task toBeUpdated, String updateType, String newValue) {
-        switch (updateType) {
-            case "desc":
-                toBeUpdated.setTaskDesc(newValue);
-                return "Updated Deadline description to: " + newValue;
-            case "date":
-                try {
-                    LocalDate newDate = ParseTasks.parseDateFormat1(newValue);
-                    toBeUpdated.setDate1(newDate);
-                    return "Updated Deadline due date to: " + newValue;
-                } catch (DateTimeParseException e) {
-                    try {
-                        LocalDate newDate = ParseTasks.parseDateFormat2(newValue);
-                        toBeUpdated.setDate2(newDate);
-                        return "Updated Deadline due date to: " + newValue;
-                    } catch (DateTimeParseException e2) {
-                        return "invalid date format, Pls provide in the following format: " +
-                                "yyyy-MM-dd or dd/MM/yyyy";
-                    }
-                }
-            case "time":
-                try {
-                    LocalTime newTime = ParseTasks.parseTime(newValue);
-                    toBeUpdated.setTime(newTime);
-                    return "Updated Deadline time to: " + newValue;
-                } catch (DateTimeParseException e) {
-                    return "invalid time format, Pls provide in the following format: " +
-                            "16:00";
-                }
-
-            default:
-                return "Invalid update type for Deadline. Pls use the following format: " +
-                        "update 1 desc/date/time updatedValue.";
-        }
-    }
 }
-
 

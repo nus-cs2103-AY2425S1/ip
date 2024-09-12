@@ -1,5 +1,7 @@
 package Commands;
 
+import Main.Ui;
+
 public class EventCommand extends Command {
     String userInput;
 

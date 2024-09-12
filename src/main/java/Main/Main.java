@@ -46,7 +46,7 @@ public class Main extends Application {
             stage.setTitle("EmoteX");
 
             // Inject the parser and store list into the MainWindow controller
-            fxmlLoader.<MainWindow>getController().setEmoteX(parser, new StoreList(Storage.loadTasks()));  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setFlash(parser, new StoreList(Storage.loadTasks()));  // inject the Duke instance
 
             // Display the stage
             stage.show();

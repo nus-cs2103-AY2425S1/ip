@@ -1,6 +1,7 @@
 package Commands;
 
 import Exceptions.InvalidIndexException;
+import Main.Ui;
 
 public class DeleteCommand extends Command {
     String userInput;

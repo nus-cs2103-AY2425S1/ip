@@ -3,7 +3,6 @@ package Main;
 import Commands.Command;
 import Data.Storage;
 import Data.StoreList;
-import Exceptions.InvalidFormatException;
 import Exceptions.InvalidIndexException;
 import Parser.Parser;
 import javafx.fxml.FXML;
@@ -66,7 +65,7 @@ public class MainWindow extends AnchorPane{
      * @param parser The parser responsible for interpreting user input.
      * @param storeList The list of tasks to be managed.
      */
-    public void setEmoteX(Parser parser, StoreList storeList) {
+    public void setFlash(Parser parser, StoreList storeList) {
         this.parser = parser;
         this.storeList = storeList;
     }
@@ -87,7 +86,7 @@ public class MainWindow extends AnchorPane{
             flashText = flashCommand.execute();
             commandType = flashCommand.getClass().getSimpleName();
             Storage.saveTasksToFile(storeList.getItems());
-        } catch (InvalidIndexException | InvalidFormatException e) {
+        } catch (InvalidIndexException e) {
             flashText = e.getMessage();
         }
 

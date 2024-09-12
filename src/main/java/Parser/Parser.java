@@ -67,10 +67,6 @@ public class Parser {
         } else if (words[0].equals("hi")) {
             return new IntroCommand(userInput);
 
-            //if user inputs update
-        } else if (words[0].equals("update")) {
-            return new UpdateCommand(userInput);
-
         } else {
             return new DefaultCommand("     OOPS!!! Sorry leh, but IDK what that means :-");
         }

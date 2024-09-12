@@ -1,5 +1,7 @@
 package Commands;
 
+import Main.Ui;
+
 public class FindCommand extends Command {
     private String userInput;
 
