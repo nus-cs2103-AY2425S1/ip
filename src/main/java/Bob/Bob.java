@@ -20,8 +20,8 @@ public class Bob {
     private Parser parser;
 
     /**
-     * Constructs a Bob instance with a specified file path for storage.
-     * @param filePath The file path where tasks are stored.
+     * Constructs a Bob instance with a specified file path for Storage.
+     * @param filePath The file path where Tasks are stored.
      */
     public Bob(String filePath) {
         ui = new Ui();
@@ -83,7 +83,7 @@ public class Bob {
 
     /**
      * The main entry point of Bob chatbot.
-     * @param args Command-line arguments.
+     * @param args command-line arguments.
      */
     public static void main(String[] args) {
         new Bob("./data/bob.csv").run();
