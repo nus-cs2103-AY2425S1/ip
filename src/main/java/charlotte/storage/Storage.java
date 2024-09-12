@@ -84,41 +84,7 @@ public class Storage {
                 String nextTask = scanner.nextLine();
                 String[] taskData = nextTask.split(" \\| ");
                 assert taskData.length >= 3 : "Invalid task format in file";
-
-                String taskType = taskData[0];
-                boolean isDone = taskData[1].equals("1");
-                String description = taskData[2];
-
-                Task task;
-                switch (taskType) {
-                case "T":
-                    task = new ToDo(description);
-                    break;
-                case "D":
-                    if (taskData.length < 4) {
-                        throw new CharlotteException("Invalid format for a deadline task");
-                    }
-                    String by = taskData[3];
-                    task = new Deadline(description, by);
-                    break;
-                case "E":
-                    if (taskData.length < 4) {
-                        throw new CharlotteException("Invalid format for an event task");
-                    }
-                    String[] eventParts = taskData[3].split(" to ");
-                    String from = eventParts[0];
-                    String to = eventParts[1];
-                    task = new Event(description, from, to);
-                    break;
-                default:
-                    throw new CharlotteException("Unknown task type in file: " + taskType);
-                }
-
-                if (isDone) {
-                    task.markAsDone();
-                }
-
-                tasks.add(task);
+                tasks.add(parseTask(taskData));
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + filePath);
@@ -126,5 +92,48 @@ public class Storage {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
         return tasks;
+    }
+
+    /**
+     * Parses a task from the given task data array.
+     *
+     * @param taskData An array containing the task type, status, description, and other task-specific details.
+     * @return The parsed task.
+     * @throws CharlotteException If the task data is invalid or the task type is unknown.
+     */
+    private Task parseTask(String[] taskData) throws CharlotteException {
+        String taskType = taskData[0];
+        boolean isDone = taskData[1].equals("1");
+        String description = taskData[2];
+
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            if (taskData.length < 4) {
+                throw new CharlotteException("Invalid format for a deadline task");
+            }
+            String by = taskData[3];
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            if (taskData.length < 4) {
+                throw new CharlotteException("Invalid format for an event task");
+            }
+            String[] eventParts = taskData[3].split(" to ");
+            String from = eventParts[0];
+            String to = eventParts[1];
+            task = new Event(description, from, to);
+            break;
+        default:
+            throw new CharlotteException("Unknown task type in file: " + taskType);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
     }
 }
