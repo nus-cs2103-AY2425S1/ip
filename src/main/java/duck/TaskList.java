@@ -70,18 +70,22 @@ public class TaskList {
 
             List<List<String>> records = CSV_HANDLER.getRecords();
             for (List<String> record : records) {
+                assert record.size() > 2;
                 String taskType = record.get(0);
                 Boolean isDone = Boolean.valueOf(record.get(1));
                 String description = record.get(2);
                 Task task = null;
 
                 if (taskType.equals("T")) {
+                    assert record.size() == 3;
                     task = new Todo(description);
                 } else if (taskType.equals("D")) {
+                    assert record.size() == 4;
                     task = new Deadline(description, new DateAndTime(record.get(3)));
                 } else if (taskType.equals("E")) {
+                    assert record.size() == 5;
                     task = new Event(description,
-                            new DateAndTime(record.get(3)), new DateAndTime(record.get(3)));
+                            new DateAndTime(record.get(3)), new DateAndTime(record.get(4)));
                 }
 
                 if (isDone) {
