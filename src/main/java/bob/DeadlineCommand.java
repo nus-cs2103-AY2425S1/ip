@@ -9,7 +9,6 @@ public class DeadlineCommand extends Command {
         "deadline", "/by"
     };
     protected static int paramCount = 2;
-    protected static String identifier = "deadline";
     private String name;
     private String by;
 

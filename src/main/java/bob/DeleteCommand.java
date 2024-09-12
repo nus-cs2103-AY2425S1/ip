@@ -9,7 +9,6 @@ public class DeleteCommand extends Command {
         "delete"
     };
     protected static int paramCount = 1;
-    protected static String identifier = "delete";
     private final int idx;
 
     /**

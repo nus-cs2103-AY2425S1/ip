@@ -61,4 +61,4 @@ run{
     standardInput = System.in
 }
 
-mainClassName = 'bob.Bob'
+mainClassName = 'bob.Launcher'

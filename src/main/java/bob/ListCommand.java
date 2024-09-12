@@ -9,7 +9,6 @@ public class ListCommand extends Command {
         "list"
     };
     protected static int paramCount = 0;
-    protected static String identifier = "list";
 
     /**
      * Executes the list command by retrieving and printing all tasks in the {@code TaskList}.

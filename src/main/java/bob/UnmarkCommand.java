@@ -9,7 +9,6 @@ public class UnmarkCommand extends Command {
         "unmark"
     };
     protected static int paramCount = 1;
-    protected static String identifier = "unmark";
     private final int idx;
 
     /**

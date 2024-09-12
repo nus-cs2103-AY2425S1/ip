@@ -9,7 +9,6 @@ class ExitCommand extends Command {
         "bye"
     };
     protected static int paramCount = 0;
-    protected static String identifier = "bye";
 
     /**
      * Indicates that this command is an exit command.

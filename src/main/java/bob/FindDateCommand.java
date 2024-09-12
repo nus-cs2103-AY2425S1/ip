@@ -3,7 +3,6 @@ package bob;
 public class FindDateCommand extends Command {
     protected static String[] params = new String[] { "findDate" };
     protected static int paramCount = 1;
-    protected static String identifier = "findDate";
     private final String date;
 
     public FindDateCommand(String date) {

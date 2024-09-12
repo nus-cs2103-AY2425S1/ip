@@ -9,7 +9,6 @@ public class FindCommand extends Command {
         "find"
     };
     protected static int paramCount = 1;
-    protected static String identifier = "find";
     private final String text;
 
     /**

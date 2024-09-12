@@ -9,7 +9,6 @@ public class MarkCommand extends Command {
         "mark"
     };
     protected static int paramCount = 1;
-    protected static String identifier = "mark";
     private final int idx;
 
     /**
