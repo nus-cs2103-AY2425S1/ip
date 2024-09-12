@@ -41,7 +41,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException ,
-            InvalidCommandException{
+            InvalidCommandException {
         Tasks task;
         switch(type) {
         case "e":

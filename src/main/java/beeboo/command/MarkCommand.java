@@ -30,7 +30,8 @@ public class MarkCommand extends Command {
      * @throws InvalidIndexException if index is < 0 or is more than the size of tasklist
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException, InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException,
+            InvalidCommandException {
         int index = Integer.parseInt(super.command);
         if (index < 0 || index > tasks.getSize()) {
             throw new InvalidIndexException("Invalid index");

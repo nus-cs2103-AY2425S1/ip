@@ -27,10 +27,11 @@ public class UpdateCommand extends Command {
      * @throws InvalidIndexException if index is < 0 or is more than the size of tasklist
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException , NoDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException ,
+            NoDescriptionException {
         String command = super.command;
         int index = command.indexOf(' ');
-        if (index == - 1) {
+        if (index == -1) {
             throw new NoDescriptionException("No description found");
         }
         int taskIndex = Integer.parseInt(command.substring(0, index));
@@ -38,10 +39,10 @@ public class UpdateCommand extends Command {
             throw new InvalidIndexException("Invalid index");
         }
         Tasks taskToChange = tasks.get(taskIndex - 1);
-        String rest = command.substring( index + 1).trim();
+        String rest = command.substring(index + 1).trim();
         taskToChange.updateTime(rest);
         storage.saveItem(tasks);
-        return ui.UpdateMessage(taskIndex, taskToChange);
+        return ui.updateMessage(taskIndex, taskToChange);
     }
 
 

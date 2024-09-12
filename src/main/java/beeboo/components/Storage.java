@@ -100,37 +100,37 @@ public class Storage {
             System.out.println("Error has occurred while reading the file");
         }
         return list;
-}
-
-/**
- * Saves the specified list of tasks to the file specified by the file path.
- * Each task is saved in a format suitable for storage.
- *
- * @param list the list of Tasks objects to be saved
- */
-public void saveItem(TaskList list) {
-    try (FileWriter writer = new FileWriter("./data/beeboo.txt")) {
-        for (int i = 0; i < list.getSize(); i++) {
-            Tasks task = list.get(i);
-            writer.write(task.saveFormat() + System.lineSeparator());
-        }
-    } catch (IOException e) {
-        System.out.println("Unable to create file");
     }
-}
 
-/**
- * Creates the directory for storing task data if it does not already exist.
- * This method ensures that the directory structure is in place for saving task data.
- */
-protected static void createFile() {
-    Path path = Paths.get("./data");
-    if (Files.notExists(path)) {
-        try {
-            Files.createDirectories(path);
+    /**
+     * Saves the specified list of tasks to the file specified by the file path.
+     * Each task is saved in a format suitable for storage.
+     *
+     * @param list the list of Tasks objects to be saved
+     */
+    public void saveItem(TaskList list) {
+        try (FileWriter writer = new FileWriter("./data/beeboo.txt")) {
+            for (int i = 0; i < list.getSize(); i++) {
+                Tasks task = list.get(i);
+                writer.write(task.saveFormat() + System.lineSeparator());
+            }
         } catch (IOException e) {
-            System.out.println("Unable to create directory");
+            System.out.println("Unable to create file");
         }
     }
-}
+
+    /**
+     * Creates the directory for storing task data if it does not already exist.
+     * This method ensures that the directory structure is in place for saving task data.
+     */
+    protected static void createFile() {
+        Path path = Paths.get("./data");
+        if (Files.notExists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                System.out.println("Unable to create directory");
+            }
+        }
+    }
 }

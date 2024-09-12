@@ -37,7 +37,8 @@ public abstract class Command {
      * @param storage The storage component to save or load data.
      * @throws BeeBooExceptions If an error occurs during command execution.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws BeeBooExceptions, InvalidCommandException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws BeeBooExceptions,
+            InvalidCommandException;
 
     /**
      * Returns whether the command is an exit command.
