@@ -5,17 +5,19 @@ import features.command.CommandDescriptor;
 
 public class Config {
     public static final String INDENTATION = "    "; 
-	public static final String logo = "      ___           ___           ___           ___           ___     \n" +
-		"     /\\  \\         /\\__\\         /\\  \\         /\\  \\         /\\__\\    \n" +
-		"    /::\\  \\       /:/  /        /::\\  \\       /::\\  \\       /::|  |   \n" +
-		"   /:/\\ \\  \\     /:/  /        /:/\\ \\  \\     /:/\\:\\  \\     /:|:|  |   \n" +
-		"  _\\:\\~\\ \\  \\   /:/  /  ___   _\\:\\~\\ \\  \\   /::\\~\\:\\  \\   /:/|:|  |__ \n" +
-		" /\\ \\:\\ \\ \\__\\ /:/__/  /\\__\\ /\\ \\:\\ \\ \\__\\ /:/\\:\\ \\:\\__\\ /:/ |:| /\\__\\\n" +
-		" \\:\\ \\:\\ \\/__/ \\:\\  \\ /:/  / \\:\\ \\:\\ \\/__/ \\/__\\:\\/:/  / \\/__|:|/:/  /\n" +
-		"  \\:\\ \\:\\__\\    \\:\\  /:/  /   \\:\\ \\:\\__\\        \\::/  /      |:/:/  / \n" +
-		"   \\:\\/:/  /     \\:\\/:/  /     \\:\\/:/  /        /:/  /       |::/  /  \n" +
-		"    \\::/  /       \\::/  /       \\::/  /        /:/  /        /:/  /   \n" +
-		"     \\/__/         \\/__/         \\/__/         \\/__/         \\/__/    \n";
+	public static final String logo = """
+			      ___           ___           ___           ___           ___    \s
+			     /\\  \\         /\\__\\         /\\  \\         /\\  \\         /\\__\\   \s
+			    /::\\  \\       /:/  /        /::\\  \\       /::\\  \\       /::|  |  \s
+			   /:/\\ \\  \\     /:/  /        /:/\\ \\  \\     /:/\\:\\  \\     /:|:|  |  \s
+			  _\\:\\~\\ \\  \\   /:/  /  ___   _\\:\\~\\ \\  \\   /::\\~\\:\\  \\   /:/|:|  |__\s
+			 /\\ \\:\\ \\ \\__\\ /:/__/  /\\__\\ /\\ \\:\\ \\ \\__\\ /:/\\:\\ \\:\\__\\ /:/ |:| /\\__\\
+			 \\:\\ \\:\\ \\/__/ \\:\\  \\ /:/  / \\:\\ \\:\\ \\/__/ \\/__\\:\\/:/  / \\/__|:|/:/  /
+			  \\:\\ \\:\\__\\    \\:\\  /:/  /   \\:\\ \\:\\__\\        \\::/  /      |:/:/  /\s
+			   \\:\\/:/  /     \\:\\/:/  /     \\:\\/:/  /        /:/  /       |::/  / \s
+			    \\::/  /       \\::/  /       \\::/  /        /:/  /        /:/  /  \s
+			     \\/__/         \\/__/         \\/__/         \\/__/         \\/__/   \s
+			""";
 	public static final String intro = "Meow. I'm features.Susan!\n" + INDENTATION + "What can I do for you?";
 	public static final String outro = "Meow. Hope to see you again soon!";
 	public static final ArrayList<CommandDescriptor> cmds = new ArrayList<>(Arrays.asList(
@@ -33,7 +35,7 @@ public class Config {
 		StringBuilder sb = new StringBuilder();
 		int num = 1;
 		for (CommandDescriptor cmd : cmds) {
-			sb.append(INDENTATION + num + ". " + cmd.syntax + ": " + cmd.description + "\n");
+			sb.append(INDENTATION).append(num).append(". ").append(cmd.syntax).append(": ").append(cmd.description).append("\n");
 			num++;	
 		}
 

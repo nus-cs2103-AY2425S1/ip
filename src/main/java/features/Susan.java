@@ -42,6 +42,9 @@ public class Susan {
         return ch.handleCommand(command);
     }
 
+    /**
+     * Runs Susan bot using the UI.
+     */
     public void run() {
         ui.intro();
 

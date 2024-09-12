@@ -65,7 +65,7 @@ public class TaskManagement {
 
 		for (int i = 0; i < tasks.size(); i++ ) {
 			Task t = tasks.get(i);
-			res.append(Config.INDENTATION + (i+1) + ". " + t);
+			res.append(Config.INDENTATION).append(i + 1).append(". ").append(t);
 			if (i != tasks.size() - 1) {
 				res.append("\n");
 			}
@@ -78,7 +78,7 @@ public class TaskManagement {
 
 		for (int i = 0; i < tasks.size(); i++ ) {
 			Task t = tasks.get(i);
-			res.append(Config.INDENTATION + (i+1) + ". " + t);
+			res.append(Config.INDENTATION).append(i + 1).append(". ").append(t);
 			if (i != tasks.size() - 1) {
 				res.append("\n");
 			}
@@ -96,20 +96,16 @@ public class TaskManagement {
 		Optional<Task> task = this.findTaskById(id);
 		System.out.println(task);
 		switch (action) {
-			case "mark":
-				task.ifPresent((t) -> {
-					t.mark();
-					taskDAO.updateTask(t);
-				});
-				break;
-			case "unmark":
-				task.ifPresent(t -> {
-					t.unmark();
-					taskDAO.updateTask(t);
-				});
-				break;
-			default:
-				break;
+			case "mark" -> task.ifPresent((t) -> {
+				t.mark();
+				taskDAO.updateTask(t);
+			});
+			case "unmark" -> task.ifPresent(t -> {
+				t.unmark();
+				taskDAO.updateTask(t);
+			});
+			default -> {
+			}
 		}
 	}
 
