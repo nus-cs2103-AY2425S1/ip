@@ -22,18 +22,18 @@ public class TaskPrinter {
             IntStream.range(0, taskList.getSize())
                     .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, taskList.get(i).toString())));
         }
-
+        sb.append("\n");
         return sb.append(this.taskListSize()).toString();
     }
 
     /** Prints the sorted list of tasks. */
     public String printSortedTasks() {
-        return printTaskList(taskList, "Here's your sorted list");
+        return printTaskList(taskList, "Here's your sorted list: ");
     }
 
     /** Prints the list of tasks found with a custom message. */
-    public String printFindResults(String msg) {
-        return printTaskList(taskList, msg);
+    public String printFindResults() {
+        return printTaskList(taskList, "Here's what we found: ");
     }
 
     /** Prints all tasks in the list. */

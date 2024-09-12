@@ -96,7 +96,6 @@ public class Carly {
                 break;
             case SORT:
                 response = this.taskList.sort();
-                response = taskPrinter.printAllTasks();
                 break;
             default:
                 response = "Oops, what are you trying to say again?";

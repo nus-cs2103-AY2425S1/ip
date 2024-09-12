@@ -1,6 +1,1 @@
-D | 0 | eat | Sep 12 1777
-D | 0 | pray | Nov 02 2023
-T | 0 | meme
-D | 0 | study | Dec 12 1987
-T | 0 | cook
-D | 0 | study | Dec 12 1987
+T | 1 | read

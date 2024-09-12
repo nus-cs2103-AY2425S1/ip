@@ -29,6 +29,25 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
+    /** Retrieves a task by index. */
+    public Task get(Integer index) {
+        return this.taskList.get(index);
+    }
+
+    /** Gets the number of tasks in the list. */
+    public Integer getSize() {
+        return this.taskList.size();
+    }
+
+    public Boolean isEmpty() {
+        return this.taskList.isEmpty();
+    }
+
+    /** Gets the message fpr the current size of the task list. */
+    public String taskListSize() {
+        return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
+    }
+
     /**
      * Marks the specified task as done.
      *
@@ -121,7 +140,7 @@ public class TaskList {
             }
         }
         TaskPrinter taskPrinter = new TaskPrinter(filteredList);
-        return taskPrinter.printSortedTasks();
+        return taskPrinter.printFindResults();
     }
 
     /**
@@ -188,67 +207,6 @@ public class TaskList {
         String successMessage = "Got it. I've added this task:";
         return successMessage + "\n" + TWO_INDENT + task + "\n" + taskListSize();
     }
-
-    /** Retrieves a task by index. */
-    public Task get(Integer index) {
-        return this.taskList.get(index);
-    }
-
-    /** Gets the number of tasks in the list. */
-    public Integer getSize() {
-        return this.taskList.size();
-    }
-
-    public Boolean isEmpty() {
-        return this.taskList.isEmpty();
-    }
-
-    /** Gets the message fpr the current size of the task list. */
-    public String taskListSize() {
-        return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
-    }
-
-
-
-//    /** Prints list for Command SORT using java streams. */
-//    public String printTaskList(List<Task> taskList) {
-//        StringBuilder sb = new StringBuilder();
-//
-//        if (taskList.isEmpty()) {
-//            sb.append("Oh no. There's no deadlines in your list. Hence, there's no date to be sorted");
-//        } else {
-//            sb.append("Here's your sorted list").append("\n");
-//            IntStream.range(0, taskList.size())
-//                    .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, taskList.get(i).toString())));
-//        }
-//
-//        return sb.append(this.taskListSize()).toString();
-//    }
-//
-//    /** Prints list for Command FIND using java streams. */
-//    public String printTaskList(String msg) {
-//        StringBuilder sb = new StringBuilder();
-//
-//        if (this.taskList.isEmpty()) {
-//            sb.append("Oh no. What you're looking for is not in the list :(");
-//        } else {
-//            sb.append(msg).append("\n");
-//            IntStream.range(0, this.getSize())
-//                    .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, this.get(i).toString())));
-//        }
-//
-//        return sb.append(this.taskListSize()).toString();
-//    }
-//
-//    /** Prints list for Command LIST. */
-//    public String printTaskList() {
-//        if (this.taskList.isEmpty()) {
-//            return "There's nothing in your list yet.";
-//        } else {
-//            String msg = "Here are the tasks in your list:";
-//            return this.printTaskList(msg);
-//        }
-//    }
 
     /** Generates a string representation of all tasks in the list to be saved in txt file. */
     public String getFormattedTaskList() {
