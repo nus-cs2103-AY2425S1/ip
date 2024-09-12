@@ -59,13 +59,16 @@ public abstract class Task {
      * @param newPriority the new priority level to be assigned to this task
      */
     public void setPriority(String newPriority) {
-        if (newPriority.equals("H")) {
-            this.taskPriority = PriorityLevel.HIGH;
-        } else if (newPriority.equals("M")) {
-            this.taskPriority = PriorityLevel.MEDIUM;
-        } else {
-            this.taskPriority = PriorityLevel.LOW;
+        switch (newPriority) {
+        case "H" -> this.taskPriority = PriorityLevel.HIGH;
+        case "M" -> this.taskPriority = PriorityLevel.MEDIUM;
+        case "L" -> this.taskPriority = PriorityLevel.LOW;
+        default -> this.taskPriority = PriorityLevel.NONE;
         }
+    }
+
+    public String priorityStatus() {
+        return (this.taskPriority == PriorityLevel.NONE ? "" : " (" + this.taskPriority + ")");
     }
 
     /**
@@ -94,6 +97,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.taskStatus(), this.description) + this.taskPriority;
+        return String.format("[%s] %s", this.taskStatus(), this.description) + priorityStatus();
     }
 }

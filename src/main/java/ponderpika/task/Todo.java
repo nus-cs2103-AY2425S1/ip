@@ -28,7 +28,7 @@ public class Todo extends Task {
 
     @Override
     public String saveFullDetails() {
-        return String.format("T | %b | %s", isDone(), getDescription());
+        return String.format("T | %b | %s | (%s)", isDone(), getDescription(), priorityStatus());
     }
 
     /**
