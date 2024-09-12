@@ -66,6 +66,8 @@ public class Parser {
                 return findTask(splitUserInput);
             case ARCHIVE:
                 return archive();
+            case RETRIEVE_ARCHIVE:
+                return retrieveArchive();
             default:
                 try {
                     taskList.add(Task.of(userInput));
@@ -171,12 +173,20 @@ public class Parser {
      * @return The response from the ui class
      */
     private String archive() {
+        retrieveArchive();
         storage.writeArchive();
         taskList.deleteTaskList();
         storage.save();
 
         //return archive message
         return ui.archive();
+    }
+
+    private String retrieveArchive() {
+        storage.loadArchive();
+        storage.save();
+
+        return ui.retrieveArchive();
     }
 
     /**
