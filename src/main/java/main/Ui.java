@@ -19,7 +19,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public static String welcome() {
-        return "Welcome to main.Hyperion!";
+        return "Welcome to Hyperion!";
     }
 
     /**
