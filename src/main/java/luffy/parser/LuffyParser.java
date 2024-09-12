@@ -44,6 +44,7 @@ public class LuffyParser {
     public static Command parse(String fullCommand) {
 
         String[] commandDetails = fullCommand.split(" ", 2);
+        assert(commandDetails.length >= 1);
         String commandWord = commandDetails[0];
 
         switch (commandWord) {
@@ -99,14 +100,17 @@ public class LuffyParser {
 
         case "mark":
             int markIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
+            assert(markIndex > 0);
             return new MarkCommand(markIndex);
 
         case "unmark":
             int unmarkIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
+            assert(unmarkIndex > 0);
             return new UnmarkCommand(unmarkIndex);
 
         case "delete":
             int deleteIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
+            assert(deleteIndex > 0);
             return new DeleteCommand(deleteIndex);
 
         case "list":
