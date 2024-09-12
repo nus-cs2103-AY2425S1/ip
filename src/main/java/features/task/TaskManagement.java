@@ -57,6 +57,18 @@ public class TaskManagement {
 	}
 
 	/**
+	 * Removes multiple tasks by its ID and decrements the task count.
+	 *
+	 * @param ids the list of ID of the tasks to be removed
+	 * @return the number of removed tasks
+	 */
+	public int removeMany(List<Integer> ids) {
+		int deletedTaskCount = taskDAO.deleteTasks(ids);
+		length -= deletedTaskCount;
+		return deletedTaskCount;
+	}
+
+	/**
 	 * Returns a formatted string of all tasks, suitable for printing.
 	 *
 	 * @return a string representing all tasks

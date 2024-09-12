@@ -28,7 +28,8 @@ public class Config {
 		new CommandDescriptor("mark <taskNumber>", "Checks the task with taskNumber as done."),
 		new CommandDescriptor("unmark <taskNumber>", "Checks the task with taskNumber as undone."),
 		new CommandDescriptor("bye", "Exits the program."),
-		new CommandDescriptor("delete <taskNumber>", "Deletes the task with taskNumber.")
+		new CommandDescriptor("delete <taskNumber>", "Deletes the task with taskNumber."),
+		new CommandDescriptor("deleteMany <id1> <id2> ... <idn>", "Deletes all the tasks with IDs from the list of IDs.")
 	));
 
 	public static String makeCommandMessage(List<CommandDescriptor> cmds) {

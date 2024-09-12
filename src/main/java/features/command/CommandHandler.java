@@ -45,6 +45,8 @@ public class CommandHandler {
 					command.startsWith(CommandType.DEADLINE.getType()) ||
 					command.startsWith(CommandType.EVENT.getType())) {
 				res = handleAddTask(command);
+			} else if (command.startsWith(CommandType.DELETE_MANY.getType())) {
+				res = handleDeleteManyTask(command);
 			} else if (command.startsWith(CommandType.DELETE.getType())) {
 				res = handleDeleteTask(command);
 			} else if (command.startsWith(CommandType.FIND.getType())) {
@@ -113,6 +115,26 @@ public class CommandHandler {
 		int id = Integer.parseInt(parts[1]);
 		Task t = tm.remove(id);
 		return printAfterEditList("Noted. I've removed this task:", t);
+	}
+
+	/**
+	 * Handles the 'deleteMany' command by removing a task.
+	 *
+	 * @param command the command string containing the list of task IDs
+	 * @throws Exception if the command is invalid
+	 */
+	private String handleDeleteManyTask(String command) throws Exception {
+		String[] parts = command.split(" ");
+		if (parts.length < 2) {
+			throw new Exception("Invalid command. Usage: deleteMany <id1> <id2> ... <idn>");
+		}
+
+		List<Integer> ids = new ArrayList<>();
+		String[] idsPart = Arrays.copyOfRange(parts, 1, parts.length);
+		Arrays.stream(idsPart).forEach(item -> ids.add(Integer.parseInt(item)));
+
+		int deletedCount = tm.removeMany(ids);
+		return printAfterEditList("Great. I've deleted " + deletedCount + " tasks.", null);
 	}
 
 	/**
@@ -224,7 +246,9 @@ public class CommandHandler {
 	private String printAfterEditList(String message, Task t) {
 		StringBuilder res = new StringBuilder();
 		res.append(message);
-		res.append("\n  " + Config.INDENTATION).append(t.toString());
+		if (t != null) {
+			res.append("\n  " + Config.INDENTATION).append(t.toString());
+		}
 		String taskString = tm.length == 1 ? "task" : "tasks";
 		res.append("\n" + Config.INDENTATION + "Now you have ").append(tm.length).append(" ").append(taskString).append(" in the list.");
 
@@ -246,6 +270,7 @@ enum CommandType {
 	MARK("mark"),
 	UNMARK("unmark"),
 	DELETE("delete"),
+	DELETE_MANY("deleteMany"),
 	FIND("find");
 
 	private final String cmd;
