@@ -63,7 +63,7 @@ public class Boss {
         }
 
         try {
-            Parser parser = new Parser(storage, tasks);
+            Parser parser = new Parser(storage, tasks, ui);
             String responseText = parser.getResponse(input);
 
             assert !responseText.isEmpty() : "responseText cannot be empty!";

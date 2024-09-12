@@ -38,8 +38,6 @@ public class BossTest {
         assertEquals(expectedArray.get(0).toString(), storage.load().get(0).toString());
     }
 
-    // checks if tasks are correctly being marked
-
     /**
      * Conducts a test to check whether tasks are
      * correctly marked.

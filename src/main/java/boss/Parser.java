@@ -17,15 +17,18 @@ public class Parser {
     private final Storage storage;
     private final TaskList tasks;
 
+    private final Ui ui;
+
     /**
      * Creates a Parser object!
      *
      * @param storage deals with loading tasks and saving tasks from file
      * @param tasks contains the task list
      */
-    public Parser(Storage storage, TaskList tasks) {
+    public Parser(Storage storage, TaskList tasks, Ui ui) {
         this.storage = storage;
         this.tasks = tasks;
+        this.ui = ui;
     }
 
     /**
@@ -48,19 +51,19 @@ public class Parser {
             and the second element contains the Boss' response. */
             String[] newFileDataWithResponse = tasks.mark(task);
             storage.writeToFile(newFileDataWithResponse[0], false);
-            return tasks.printMark(newFileDataWithResponse[1]);
+            return ui.printMark(newFileDataWithResponse[1]);
         } else if (task.startsWith("unmark")) {
             /* The first element contains the newFileData
             and the second element contains the Boss' response. */
             String[] newFileDataWithResponse = tasks.unmark(task);
             storage.writeToFile(newFileDataWithResponse[0], false);
-            return tasks.printUnmark(newFileDataWithResponse[1]);
+            return ui.printUnmark(newFileDataWithResponse[1]);
         } else if (task.startsWith("delete")) {
             /*The first element contains the newFileData
             and the second element contains the Boss' response. */
             String[] newFileDataWithResponse = tasks.delete(task);
             storage.writeToFile(newFileDataWithResponse[0], false);
-            return tasks.printDelete(newFileDataWithResponse[1]);
+            return ui.printDelete(newFileDataWithResponse[1]);
         } else if (task.startsWith("find")) {
             String description = task.split("find ")[1];
             return tasks.findTask(description);
