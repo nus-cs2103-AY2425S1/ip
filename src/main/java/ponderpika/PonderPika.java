@@ -99,6 +99,10 @@ public class PonderPika {
             System.out.println("Found these tasks:\n");
             return taskList.findTasks((String) command.getData());
 
+        case PRIORITY:
+            String[] taskToBePrioritized = (String[]) command.getData();
+            int i = Integer.parseInt(taskToBePrioritized[1].trim()) - 1;
+            return taskList.setPriorityLevel(i, taskToBePrioritized[0].trim());
 
         case BYE:
             try {
@@ -110,6 +114,7 @@ public class PonderPika {
                 System.out.println(e.toString());
             }
             return "Exited!";
+
         default:
             throw new PonderPikaException("Unknown command: " + command.getAction());
         }

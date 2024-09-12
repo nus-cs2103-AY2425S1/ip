@@ -13,12 +13,11 @@ import ponderpika.PonderPika;
  * This Main class helps in creating GUI for our PonderPika
  */
 public class Main extends Application {
-    private PonderPika ponderPika;
 
     @Override
     public void start(Stage stage) {
 
-        ponderPika = new PonderPika();
+        PonderPika ponderPika = new PonderPika();
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));

@@ -63,6 +63,9 @@ public class Parser {
             }
             return new Command(Command.Action.FIND, commands[1].trim());
 
+        case "priority":
+            return parsePriorityCommand(commands[1]);
+
         case "bye":
             return new Command(Command.Action.BYE, null);
 
@@ -129,5 +132,24 @@ public class Parser {
 
         return new Command(Command.Action.EVENT, new Event(desc[0].trim(),
                 LocalDateTime.parse(time[0].trim(), FORMATTER), LocalDateTime.parse(time[1].trim(), FORMATTER)));
+    }
+
+    /**
+     * parses through the priority setting command
+     *
+     * @param details task and index required for setting priority
+     * @return Command instance with action as Priority and data as detail
+     * @throws PonderPikaException for missing priority and missing index
+     */
+    public Command parsePriorityCommand(String details) throws PonderPikaException {
+        String[] taskDetail = details.split(" ");
+        if (taskDetail[0].trim().isEmpty()) {
+            throw new PonderPikaException("Missing Priority Level for the task!");
+        }
+        if (taskDetail.length < 2) {
+            throw new PonderPikaException("Task Index not mentioned for setting priority!");
+        }
+
+        return new Command(Command.Action.PRIORITY, taskDetail);
     }
 }

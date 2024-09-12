@@ -7,6 +7,7 @@ package ponderpika.task;
 public abstract class Task {
     private final String description;
     private boolean isDone;
+    private PriorityLevel taskPriority = PriorityLevel.NONE;
 
     /**
      * Constructs a task with the specified description.
@@ -53,6 +54,24 @@ public abstract class Task {
     }
 
     /**
+     * Sets the priority level of this task to the specified value.
+     *
+     * @param newPriority the new priority level to be assigned to this task
+     */
+    public void setPriority(String newPriority) {
+        switch (newPriority) {
+        case "H" -> this.taskPriority = PriorityLevel.HIGH;
+        case "M" -> this.taskPriority = PriorityLevel.MEDIUM;
+        case "L" -> this.taskPriority = PriorityLevel.LOW;
+        default -> this.taskPriority = PriorityLevel.NONE;
+        }
+    }
+
+    public String priorityStatus() {
+        return (this.taskPriority == PriorityLevel.NONE ? "" : " (" + this.taskPriority + ")");
+    }
+
+    /**
      * Returns the description of the task.
      * Acts as a getter.
      *
@@ -78,6 +97,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.taskStatus(), this.description);
+        return String.format("[%s] %s", this.taskStatus(), this.description) + priorityStatus();
     }
 }

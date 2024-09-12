@@ -56,11 +56,11 @@ public class TaskList {
         boolean alreadyMarked = tasks.get(index - 1).isDone();
         if (index < 1 || index > tasks.size()) {
             throw new PonderPikaException("No task available at given index!");
-        } else if (alreadyMarked) {
-            throw new PonderPikaException("Task has already been done!");
-        } else {
-            tasks.get(index - 1).markDone();
         }
+        if (alreadyMarked) {
+            throw new PonderPikaException("Task has already been done!");
+        }
+
         assert index > 0;
         tasks.get(index - 1).markDone();
         return "Task " + index + " has been marked as done";
@@ -79,15 +79,26 @@ public class TaskList {
         boolean alreadyUnmarked = tasks.get(index - 1).isDone();
         if (index < 1 || isIndexMoreThanLimit) {
             throw new PonderPikaException("No task available at given index!");
-        } else if (alreadyUnmarked) {
+        }
+        if (!alreadyUnmarked) {
             throw new PonderPikaException("Task has not been done yet!");
-        } else {
-            tasks.get(index - 1).markUndone();
         }
 
-        assert index > 0;
         tasks.get(index - 1).markUndone();
         return "Task " + index + " has been unmarked!";
+    }
+
+    public String setPriorityLevel(int index, String priority) throws PonderPikaException {
+        if (index < 0 || index > tasks.size()) {
+            throw new PonderPikaException("No task available at given index!");
+        }
+        boolean possiblePriority = (priority.equals("H") || priority.equals("M")
+                || priority.equals("L") || priority.equals("N"));
+        if (possiblePriority) {
+            throw new PonderPikaException("No such priority level available!");
+        }
+        tasks.get(index).setPriority(priority);
+        return String.format("Priority set to %s for %s", priority, tasks.get(index).getDescription());
     }
 
     public List<Task> getTasks() {
@@ -114,7 +125,7 @@ public class TaskList {
      *
      * @param keyword keyword to be searched in the descriptions of tasks
      * @return tasks with keyword in it
-     * @throws PonderPikaException
+     * @throws PonderPikaException for tasks not found
      */
     public String findTasks(String keyword) throws PonderPikaException {
         List<Task> matchedTasks = tasks.stream()

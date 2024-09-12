@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private PonderPika ponderPika;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/pikabot.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image botImage = new Image(this.getClass().getResourceAsStream("/images/pikabot.png"));
 
     /**
      * Helps in initializing GUI

@@ -38,9 +38,9 @@ public class Event extends Task {
      */
     @Override
     public String saveFullDetails() {
-        return String.format("E | %b | %s | %s | %s", isDone(), getDescription(),
+        return String.format("E | %b | %s | %s | %s | (%s)", isDone(), getDescription(),
                 this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+                this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), priorityStatus());
     }
 
     /**
