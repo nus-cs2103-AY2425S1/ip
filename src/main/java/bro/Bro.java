@@ -50,6 +50,7 @@ public class Bro {
                 UI.showLine();
             }
         }
+        assert isExit;
     }
 
     /**
