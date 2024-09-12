@@ -12,7 +12,7 @@ import henry.task.Task;
 import henry.task.Todo;
 
 /**
- * Deals with loading tasks from the file
+ * Deals with loading tasks from the file.
  */
 public class Storage {
     private String filePath;
@@ -22,19 +22,21 @@ public class Storage {
     }
 
     /**
-     * Returns the path of the file
+     * Returns the path of the file.
      *
-     * @return the path of the file
+     * @return The path of the file.
      */
     public String getFilePath() {
         return this.filePath;
     }
 
     /**
-     * Returns an ArrayList of tasks recorded in the hard disk
+     * Returns an ArrayList of tasks recorded in the hard disk.
      *
-     * @return an ArrayList of tasks that are in the form of
-     *                 event, deadline and todo
+     * @return An ArrayList of tasks that are in the form of
+     *                 event, deadline and todo.
+     * @throws HenryException If there is an issue accessing the file, creating
+     *                 the directory, or reading the tasks.
      */
     public ArrayList<Task> load() throws HenryException {
         try {
@@ -57,20 +59,15 @@ public class Storage {
             }
 
             Scanner scanner1 = new Scanner(file);
-
             while (scanner1.hasNext()) {
                 String input = scanner1.nextLine();
                 String[] words = input.split(" \\| ");
                 if (words[0].equals("T")) {
-                    recordedTasks.add(new Todo(words[2], (Integer.parseInt(words[1]) != 0)));
+                    addToDo(recordedTasks, words);
                 } else if (words[0].equals("D")) {
-                    recordedTasks.add(new Deadline(words[2], words[3], (Integer.parseInt(words[1]) != 0)));
+                    addDeadline(recordedTasks, words);
                 } else if (words[0].equals("E")) {
-                    String[] duration = words[3].split("-");
-                    String startTime = duration[0];
-                    String endTime = duration[1];
-                    recordedTasks.add(new Event(words[2], startTime,
-                            endTime, (Integer.parseInt(words[1]) != 0)));
+                    addEvent(words, recordedTasks);
                 }
                 assert (words[0].equals("T") || words[0].equals("D") || words[0].equals("E"));
             }
@@ -78,5 +75,39 @@ public class Storage {
         } catch (IOException e) {
             throw new HenryException("An error occurred while accessing the file");
         }
+    }
+
+    /**
+     * Adds an Event task to the list.
+     *
+     * @param recordedTasks The list to store the all the tasks.
+     * @param words The input string split into components.
+     */
+    private static void addEvent(String[] words, ArrayList<Task> recordedTasks) {
+        String[] duration = words[3].split("-");
+        String startTime = duration[0];
+        String endTime = duration[1];
+        recordedTasks.add(new Event(words[2], startTime,
+                endTime, (Integer.parseInt(words[1]) != 0)));
+    }
+
+    /**
+     * Adds a Deadline task to the list.
+     *
+     * @param recordedTasks The list to store the all the tasks.
+     * @param words The input string split into components.
+     */
+    private static void addDeadline(ArrayList<Task> recordedTasks, String[] words) {
+        recordedTasks.add(new Deadline(words[2], words[3], (Integer.parseInt(words[1]) != 0)));
+    }
+
+    /**
+     * Adds a Todo task to the list.
+     *
+     * @param recordedTasks The list to store the all the tasks.
+     * @param words The input string split into components.
+     */
+    private static void addToDo(ArrayList<Task> recordedTasks, String[] words) {
+        recordedTasks.add(new Todo(words[2], (Integer.parseInt(words[1]) != 0)));
     }
 }
