@@ -76,7 +76,7 @@ public abstract class Task {
      */
     public boolean isMatch(String word) {
         assert word != null && !word.trim().isEmpty() : "Word cannot be null or empty";
-        if (isReferToTask(word)) {
+        if (isReferingToTask(word)) {
             return true;
         }
         word = word.toLowerCase();
@@ -131,7 +131,7 @@ public abstract class Task {
      * @return [X] or [ ]
      */
     private String getStatusMark() {
-        return isDone ? "[X]" : "[ ]";
+        return isDone ? "[X]" : "[  ]";
     }
 
     /**
