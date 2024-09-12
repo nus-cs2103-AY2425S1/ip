@@ -16,6 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import mryapper.MrYapper;
+import mryapper.exception.InvalidFileDataException;
+
+import java.io.IOException;
 
 /**
  * Controller for the main GUI.
@@ -38,12 +41,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getYapperDialog(MrYapper.greet(), yapperImage));
     }
 
     /** Injects the MrYapper instance */
     public void setYapper(MrYapper y) {
         mrYapper = y;
+        try {
+            mrYapper.loadData();
+            dialogContainer.getChildren().addAll(DialogBox.getYapperDialog(y.greet(), yapperImage));
+        } catch (IOException e) {
+            forceExit("An error occurred while creating a data file for storage :(");
+        } catch (InvalidFileDataException e) {
+            forceExit(e.getMessage());
+        }
     }
 
     /**
@@ -61,10 +71,17 @@ public class MainWindow extends AnchorPane {
         
         userInput.clear();
         if (response.equals("Bye. Hope to see you again soon!")) {
-            PauseTransition delay = new PauseTransition(Duration.seconds(1)); // 1-second delay
-            delay.setOnFinished(event -> Platform.exit()); // Terminate the application after delay
-            delay.play(); // Start the delay timer
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
         }
+    }
+
+    private void forceExit(String exitMessage) {
+        dialogContainer.getChildren().addAll(DialogBox.getYapperDialog(exitMessage, yapperImage));
+        PauseTransition delay = new PauseTransition(Duration.seconds(4));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 }
 

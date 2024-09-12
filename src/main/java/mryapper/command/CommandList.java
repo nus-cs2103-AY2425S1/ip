@@ -20,15 +20,15 @@ public class CommandList {
      * @return A command which creates the task to do when executed.
      */
     public static Command addTodoTask(String description) {
-        return (tasks, ui, storage) -> {
+        return (tasks, storage) -> {
             assert !description.isEmpty() : "description should not be empty";
 
             Task newTask = new Todo(description);
             tasks.add(newTask);
+            tasks.saveToStorage(storage);
             String response = String.format("Task added successfully!\n  %s\n"
                     + "Now you have %d tasks in the list",
                     newTask, tasks.count());
-            tasks.saveToStorage(storage);
             return response;
         };
     }
@@ -41,16 +41,16 @@ public class CommandList {
      * @return A command which creates the deadline task when executed.
      */
     public static Command addDeadlineTask(String description, String deadline) {
-        return (tasks, ui, storage) -> {
+        return (tasks, storage) -> {
             assert !description.isEmpty(): "description should not be empty";
             assert !deadline.isEmpty(): "deadline should not be empty";
 
             Task newTask = new Deadline(description, DateTimeParser.parseDateTime(deadline));
             tasks.add(newTask);
+            tasks.saveToStorage(storage);
             String response = String.format("Task added successfully!\n  %s\n"
                     + "Now you have %d tasks in the list",
                     newTask, tasks.count());
-            tasks.saveToStorage(storage);
             return response;
         };
     }
@@ -64,7 +64,7 @@ public class CommandList {
      * @return A command which creates the event task when executed.
      */
     public static Command addEventTask(String description, String start, String end) {
-        return (tasks, ui, storage) -> {
+        return (tasks, storage) -> {
             assert !description.isEmpty(): "description should not be empty";
             assert !start.isEmpty(): "start time/date should not be empty";
             assert !end.isEmpty(): "end time/date should not be empty";
@@ -73,10 +73,10 @@ public class CommandList {
                     DateTimeParser.parseDateTime(start),
                     DateTimeParser.parseDateTime(end));
             tasks.add(newTask);
+            tasks.saveToStorage(storage);
             String response = String.format("Task added successfully!\n  %s\n"
                     + "Now you have %d tasks in the list",
                     newTask, tasks.count());
-            tasks.saveToStorage(storage);
             return response;
         };
     }
@@ -88,7 +88,7 @@ public class CommandList {
      * @return A command which deletes a task from the given task list.
      */
     public static Command deleteTask(int taskNumber) {
-        return (tasks, ui, storage) -> {
+        return (tasks, storage) -> {
             assert taskNumber > 0: "taskNumber should be greater than 0";
             assert taskNumber <= tasks.count(): "taskNumber should be less than or equal to number of tasks";
 
@@ -111,10 +111,7 @@ public class CommandList {
      * @return A command which displays the tasks in the given TaskList when executed.
      */
     public static Command listTasks() {
-        return (tasks, ui, storage) -> {
-            String response = tasks.toString();
-            return response;
-        };
+        return (tasks, storage) -> tasks.toString();
     }
 
     /**
@@ -124,7 +121,7 @@ public class CommandList {
      * @return A command which displays all the task containing keywords in the search input.
      */
     public static Command findTask(String searchInput) {
-        return (tasks, ui, storage) -> {
+        return (tasks, storage) -> {
             assert !searchInput.isEmpty(): "searchInput should not be empty";
 
             ArrayList<Task> searchResult = tasks.searchTasks(searchInput);
@@ -137,7 +134,7 @@ public class CommandList {
             String response = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < searchResult.size(); i++ ) {
                 int taskNumber = i + 1;
-                response += taskNumber + "." + searchResult.get(i).toString();
+                response += taskNumber + "." + searchResult.get(i).toString() + "\n";
             }
             return response;
         };
@@ -150,7 +147,7 @@ public class CommandList {
      * @return A command which marks the task under the given index of the given TaskList.
      */
     public static Command markTask(int taskNumber) {
-        return (tasks, ui, storage) -> {
+        return (tasks, storage) -> {
             assert taskNumber > 0: "taskNumber should be greater than 0";
             assert taskNumber <= tasks.count(): "taskNumber should be less than or equal to number of tasks";
 
@@ -173,10 +170,10 @@ public class CommandList {
      * @return A command which unmarks the task under the given index of the given TaskList.
      */
     public static Command unmarkTask(int taskNumber) {
-        return (tasks, ui, storage) -> {
+        return (tasks, storage) -> {
             assert taskNumber > 0: "taskNumber should be greater than 0";
             assert taskNumber <= tasks.count(): "taskNumber should be less than or equal to number of tasks";
-
+            
             String response;
             try {
                 response = "OK, I've marked this task as not done yet:\n  "
@@ -194,8 +191,6 @@ public class CommandList {
      * @return A command which displays the goodbye message and tells the Chatbot to exit.
      */
     public static Command bye() {
-        return (tasks, ui, storage) -> {
-            return ui.getGoodbye();
-        };
+        return (tasks, storage) -> "Bye. Hope to see you again soon!";
     }
 }

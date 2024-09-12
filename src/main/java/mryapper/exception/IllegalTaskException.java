@@ -35,6 +35,9 @@ public class IllegalTaskException extends Exception {
         case "event":
             errorMessage += "I need one description, start and end time using \"/from\" and \"/to\"\n"
                     + "e.g. event project meeting /from Mon 2pm /to 4pm";
+            break;
+        default:
+            return "You're trying to create a task that does not exist!";
         }
         return errorMessage;
     }

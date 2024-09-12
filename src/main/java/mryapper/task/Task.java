@@ -61,27 +61,27 @@ public abstract class Task {
      * @return Whether all keywords are contained in the task description.
      */
     public boolean hasKeywords(String searchInput) {
-        String[] keywords = searchInput.trim().split("\\s+");
-        int i = 0;
+        String[] searchKeywords = searchInput.trim().split("\\s+");
         String[] descriptionKeywords = this.description.trim().split("\\s+");
-        boolean hasMissingKeyword = false;
 
-        while (!hasMissingKeyword && i < keywords.length) {
-            String keyword = keywords[i].toLowerCase();
-            boolean hasKeyword = false;
-            for (String word : descriptionKeywords) {
-                if (keyword.equals(word.toLowerCase())) {
-                    hasKeyword = true;
-                    break;
-                }
-            }
-
-            if (!hasKeyword) {
+        for (String word : searchKeywords) {
+            boolean isKeywordPresent = checkArrayForKeyword(word, descriptionKeywords);
+            if (!isKeywordPresent) {
                 return false;
             }
-            i += 1;
         }
-        return !hasMissingKeyword;
+        return true;
+    }
+
+    private boolean checkArrayForKeyword(String keyword, String[] arr) {
+        boolean hasKeyword = false;
+        for (String word : arr) {
+            if (keyword.equalsIgnoreCase(word)) {
+                hasKeyword = true;
+                break;
+            }
+        }
+        return hasKeyword;
     }
 
     /**

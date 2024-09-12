@@ -2,11 +2,11 @@ package mryapper;
 
 import mryapper.command.Command;
 import mryapper.exception.IllegalTaskException;
+import mryapper.exception.InvalidFileDataException;
 import mryapper.exception.InvalidSyntaxException;
 import mryapper.parser.Parser;
 import mryapper.storagemanager.StorageManager;
 import mryapper.task.TaskList;
-import mryapper.ui.Ui;
 
 import java.io.IOException;
 
@@ -21,7 +21,6 @@ public class MrYapper {
     private static final String TASK_DATA_PATH = "src/data/tasks.txt";
     private final StorageManager storageManager;
     private TaskList tasks;
-    private final Ui ui;
 
     /**
      * Initializes the ChatBot with the given data file path.
@@ -31,21 +30,32 @@ public class MrYapper {
      * @param filePath The relative file path of data file.
      */
     public MrYapper(String filePath) {
-        this.ui = new Ui();
         this.storageManager = new StorageManager(filePath);
-        try {
-            this.tasks = storageManager.retrieveData();
-        } catch (IOException e) {
-            System.out.println(" An error occurred when creating a new data file :(");
-        }
     }
 
-    public static String greet() {
+    /**
+     * Loads the data from the storage manager into the task list.
+     *
+     * @throws IOException Thrown if an error occurred while creating a new data file.
+     * @throws InvalidFileDataException Thrown if the data file has an invalid format or is corrupted.
+     */
+    public void loadData() throws IOException, InvalidFileDataException {
+        this.tasks = storageManager.loadData();
+    }
+
+    /**
+     * Returns the greeating message.
+     *
+     * @return The greeting message.
+     */
+    public String greet() {
         return GREETING_MESSAGE;
     }
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @return The response from the chatbot.
      */
     public String getResponse(String input) {
         try {
@@ -53,7 +63,7 @@ public class MrYapper {
 
             Command c = Parser.parse(input);
             assert c != null: "Command should not be null";
-            return c.execute(tasks, ui, storageManager);
+            return c.execute(tasks, storageManager);
         } catch (IllegalTaskException | InvalidSyntaxException | IllegalArgumentException e) {
             return e.getMessage();
         }
