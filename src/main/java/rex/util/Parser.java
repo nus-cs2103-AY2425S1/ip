@@ -45,6 +45,9 @@ public class Parser {
      * @throws IOException If an I/O error occurs while reading the file.
      */
     public static void parseFile(TaskList list, File f) throws IOException {
+        assert f != null && f.exists() : "File should exist";
+        assert list != null : "TaskList should not be null";
+
         // Initialize reader to read from save file
         FileReader r = new FileReader(f);
         BufferedReader reader = new BufferedReader(r);
