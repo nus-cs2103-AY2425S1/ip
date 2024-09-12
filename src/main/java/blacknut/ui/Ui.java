@@ -1,6 +1,7 @@
 package blacknut.ui;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -28,6 +29,41 @@ class Ui {
                 + " Hello! I'm Blacknut\n"
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n";
+    }
+
+    /**
+     * Returns a reminder message for tasks (Deadlines or Events) that are due or happening today.
+     *
+     * @param tasks The list of tasks to check.
+     * @return A string reminding the user of tasks happening today.
+     */
+    public String getReminderMessage(ArrayList<Task> tasks) {
+        LocalDate today = LocalDate.now();
+        StringBuilder reminderMessage = new StringBuilder("Reminder: Tasks scheduled for today:\n");
+
+        boolean hasReminders = false;
+
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getDate().equals(today)) {
+                    reminderMessage.append(" - Deadline: ").append(deadline).append("\n");
+                    hasReminders = true;
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getDate().equals(today)) {
+                    reminderMessage.append(" - Event: ").append(event).append("\n");
+                    hasReminders = true;
+                }
+            }
+        }
+
+        if (!hasReminders) {
+            return "No tasks due or events scheduled for today.";
+        }
+
+        return reminderMessage.toString();
     }
 
     public String getGoodbyeMessage() {

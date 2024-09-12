@@ -2,6 +2,7 @@ package blacknut.ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 
 /**
@@ -20,6 +21,15 @@ public class Deadline extends Task {
         super(description);
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.by = LocalDateTime.parse(by, inputFormatter);
+    }
+
+    /**
+     * Returns the LocalDate of the deadline for comparison.
+     *
+     * @return The LocalDate of the deadline.
+     */
+    public LocalDate getDate() {
+        return by.toLocalDate();
     }
 
     /**

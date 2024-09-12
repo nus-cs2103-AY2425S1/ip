@@ -2,3 +2,6 @@ T | 1 | return book
 D | 0 | return bike | 2024-12-04 18:30
 E | 0 | return bike | 2024-09-01 18:30 | 2024-09-04 17:20
 T | 0 | getpen
+T | 0 | bike
+D | 0 | ridebike | 2024-09-13 15:00
+E | 0 | offbike | 2024-09-13 15:30 | 2024-09-13 16:00
