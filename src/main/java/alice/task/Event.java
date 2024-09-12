@@ -2,6 +2,7 @@ package alice.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents an event task with a start and end time.
@@ -50,6 +51,25 @@ public class Event extends Task {
         String formattedStart = (start != null) ? start.format(saveFormatter) : "N/A";
         String formattedEnd = (end != null) ? end.format(saveFormatter) : "N/A";
         return "E" + super.saveString() + " | " + formattedStart + " | " + formattedEnd;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        } else if (!super.equals(o)) {
+            return false;
+        }
+        Event event = (Event) o;
+        return Objects.equals(start, event.start)
+                && Objects.equals(end, event.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), start, end);
     }
 
     /**
