@@ -10,7 +10,6 @@ import Alex.Ui.Ui;
  * Handles initialization, user interactions, and command processing.
  */
 public class Alex {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -37,8 +36,14 @@ public class Alex {
      * @return The response from Alex.
      */
     public String getResponse(String input) {
+        // Assert that input is not null or empty before processing
+        assert input != null && !input.trim().isEmpty() : "Input cannot be null or empty";
+
         try {
             Command command = Parser.parse(input); // Parse the user's input into a command
+            // Assert that the command is successfully parsed
+            assert command != null : "Command must be successfully parsed from input";
+
             command.execute(tasks, ui, storage); // Execute the command (Ui updates will be appended)
             return ui.getOutput(); // Retrieve the response from Ui
         } catch (AlexException e) {
@@ -49,8 +54,6 @@ public class Alex {
     public String getWelcomeMessage() {
         return ui.showWelcome();
     }
-
-
 
     /**
      * Entry point of the application.

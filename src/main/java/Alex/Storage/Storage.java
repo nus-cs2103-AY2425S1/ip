@@ -42,6 +42,10 @@ public class Storage {
     public ArrayList<Task> load() throws AlexException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        // Assert that the tasks list is initialized
+        assert tasks != null : "Tasks ArrayList must be initialized";
+
         if (!file.exists()) {
             return tasks; // No tasks to load if file doesn't exist
         }
@@ -76,6 +80,9 @@ public class Storage {
                 default:
                     throw new AlexException("Unexpected task type: " + type);
                 }
+
+                // Assert that the task was successfully created
+                assert task != null : "Task object must be created successfully";
 
                 if (task != null) {
                     if (isDone) {
