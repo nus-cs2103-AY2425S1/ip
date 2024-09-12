@@ -30,6 +30,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    private void showWelcomeMessage() {
+        String welcomeMessage = blacknut.getUi().getWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
+    }
+
     /** Injects the Duke instance */
     public void setDuke(Blacknut d) {
         blacknut = d;
@@ -50,3 +55,4 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 }
+
