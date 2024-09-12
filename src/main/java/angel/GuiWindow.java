@@ -33,6 +33,10 @@ public class GuiWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        // Assert that scrollPane and dialogContainer are properly initialized
+        assert scrollPane != null : "ScrollPane is not initialized";
+        assert dialogContainer != null : "DialogContainer is not initialized";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -43,6 +47,7 @@ public class GuiWindow extends AnchorPane {
      * @param d The Angel instance to be used.
      */
     public void setAngel(Angel d) {
+        assert d != null : "Angel instance cannot be null";
         angel = d;
     }
 
@@ -54,7 +59,11 @@ public class GuiWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null && !input.trim().isEmpty() : "User input should not be null or empty";
+
         String response = angel.getResponse(input);
+        assert response != null : "Angel's response should not be null";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getAngelDialog(response, angelImage)
