@@ -6,7 +6,9 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     public String[] parse(String cmd) throws ParserException {
-        if (cmd.split(" ").length == 0) return new String[]{};
+        if (cmd.split(" ").length == 0) {
+            return new String[]{};
+        }
         String type = cmd.split(" ")[0];
         if (type.equals("bye")) {
             if (!cmd.equals("bye")) {
