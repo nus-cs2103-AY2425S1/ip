@@ -33,6 +33,7 @@ public class Parser {
         // Split the full command into 2 parts, first part being the command keyword ie. bye, list, mark
         // Second part being the arguments related to the command
         String[] words = fullCommand.split(" ", 2);
+        assert words.length > 0 : "The command must contain at least one word.";
         String command = words[0];
         StringBuilder response = new StringBuilder();
 
@@ -209,6 +210,7 @@ public class Parser {
         }
 
         String type = parts[0];
+        assert type.equals("T") || type.equals("D") || type.equals("E") : "Unknown task type in file.";
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
         switch (type) {
