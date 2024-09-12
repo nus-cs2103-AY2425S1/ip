@@ -27,16 +27,14 @@ public class TaskList {
      * @return The initialized `TaskList` instance.
      */
     public static TaskList init() throws InvalidTaskInDatabaseException {
-        try {
-            if (tasks == null) {
+        if (tasks == null) {
+            try {
                 tasks = new TaskList();
+            } catch (IOException | InvalidDateException e) {
+                throw new InvalidTaskInDatabaseException();
             }
-            return tasks;
-        } catch (IOException e) {
-            throw new InvalidTaskInDatabaseException();
-        } catch (InvalidDateException e) {
-            throw new InvalidTaskInDatabaseException();
         }
+        return tasks;
     }
 
     /**
@@ -46,13 +44,9 @@ public class TaskList {
      */
     public String addTask(Task task) {
         listOfTasks.add(task);
-        try {
-            TaskDataBase.save(listOfTasks);
-            return "Got it! I've added this task:" + "\n" + "  " + task.toString() + "\n"
-                    + "Now you have " + listOfTasks.size() + " tasks in the list.";
-        } catch (IOException e) {
-            return "There is an error saving task into database ( ;´ - `;);";
-        }
+        String successMessage = "Got it! I've added this task:" + "\n" + "  " + task.toString() + "\n"
+                + "Now you have " + listOfTasks.size() + " tasks in the list.";
+        return saveTasksToDataBase(successMessage);
     }
 
     /**
@@ -62,18 +56,10 @@ public class TaskList {
      * @return Description of task marked returned.
      */
     public String markTask(int index) throws TaskNotFoundException {
-        try {
-            if (index > 0 && index <= listOfTasks.size()) {
-                Task task = listOfTasks.get(index - 1);
-                task.markAsDone();
-                TaskDataBase.save(listOfTasks);
-                return "Nice! I've marked this task as done:\n" + "  " + task;
-            } else {
-                throw new TaskNotFoundException();
-            }
-        } catch (IOException e) {
-            return "There is an error saving task into database ( ;´ - `;);";
-        }
+        Task task = getTaskByIndex(index);
+        task.markAsDone();
+        String successMessage = "Nice! I've marked this task as done:\n" + "  " + task;
+        return saveTasksToDataBase(successMessage);
     }
 
     /**
@@ -83,18 +69,10 @@ public class TaskList {
      * @return Description of task unmarked returned.
      */
     public String unmarkTask(int index) throws TaskNotFoundException {
-        try {
-            if (index > 0 && index <= listOfTasks.size()) {
-                Task task = listOfTasks.get(index - 1);
-                TaskDataBase.save(listOfTasks);
-                task.markAsNotDone();
-                return "OK! I've marked this task as not done yet:\n" + "  " + task;
-            } else {
-                throw new TaskNotFoundException();
-            }
-        } catch (IOException e) {
-            return "There is an error saving task into database ( ;´ - `;);";
-        }
+        Task task = getTaskByIndex(index);
+        task.markAsNotDone();
+        String successMessage = "OK! I've marked this task as not done yet:\n" + "  " + task;
+        return saveTasksToDataBase(successMessage);
     }
 
     /**
@@ -104,19 +82,12 @@ public class TaskList {
      * @throws TaskNotFoundException If the index is out of bounds, meaning no task exists at the specified index.
      */
     public String deleteTask(int index) throws TaskNotFoundException {
-        try {
-            if (index > 0 && index <= listOfTasks.size()) {
-                Task removedTask = listOfTasks.remove(index - 1);
-                TaskDataBase.save(listOfTasks);
-                return "Noted! I've removed this task:" + "\n" + "  "
-                        + removedTask + "\n" + "Now you have "
-                        + listOfTasks.size() + " tasks in the list.";
-            } else {
-                throw new TaskNotFoundException();
-            }
-        } catch (IOException e) {
-            return "There is an error saving task into database ( ;´ - `;);";
-        }
+        Task removedTask = getTaskByIndex(index);
+        listOfTasks.remove(removedTask);
+        String successMessage = "Noted! I've removed this task:" + "\n" + "  "
+                + removedTask + "\n" + "Now you have "
+                + listOfTasks.size() + " tasks in the list.";
+        return saveTasksToDataBase(successMessage);
     }
 
     /**
@@ -126,16 +97,13 @@ public class TaskList {
      */
     public String printList() {
         if (listOfTasks.isEmpty()) {
-            return " There is currently no task in your list";
+            return "There is currently no task in your list";
         }
-        StringBuilder tasks = new StringBuilder("Here are the tasks in your list:" + "\n");
+        StringBuilder tasks = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < listOfTasks.size(); i++) {
-            tasks.append(i + 1).append(".").append(listOfTasks.get(i).toString());
-            if (i < listOfTasks.size() - 1) {
-                tasks.append("\n");
-            }
+            tasks.append(i + 1).append(". ").append(listOfTasks.get(i)).append("\n");
         }
-        return tasks.toString();
+        return tasks.toString().trim();
     }
 
     /**
@@ -159,5 +127,22 @@ public class TaskList {
             result.append((i + 1) + ". " + matchingTasks.get(i) + "\n");
         }
         return result.toString();
+    }
+
+    private Task getTaskByIndex(int index) throws TaskNotFoundException {
+        if (index > 0 && index <= listOfTasks.size()) {
+            return listOfTasks.get(index - 1);
+        } else {
+            throw new TaskNotFoundException();
+        }
+    }
+
+    private String saveTasksToDataBase(String successMessage) {
+        try {
+            TaskDataBase.save(listOfTasks);
+            return successMessage;
+        } catch (IOException e) {
+            return "There is an error saving task into database";
+        }
     }
 }
