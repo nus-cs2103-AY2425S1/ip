@@ -1,10 +1,11 @@
 package sage.Command;
 
+import java.io.IOException;
+
 import sage.List.TaskList;
 import sage.Storage;
 import sage.Ui;
 
-import java.io.IOException;
 
 /**
  * Represents a command to exit the application.

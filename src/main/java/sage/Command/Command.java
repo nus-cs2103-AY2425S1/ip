@@ -24,8 +24,4 @@ public abstract class Command {
      * @throws SageException If an error occurs during command execution.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws SageException;
-
-    public boolean isExit() {
-        return isExit;
-    }
 }

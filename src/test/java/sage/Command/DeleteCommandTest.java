@@ -1,15 +1,16 @@
 package sage.Command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import sage.List.TaskList;
 import sage.SageException;
 import sage.Storage;
 import sage.Task.ToDoTask;
 import sage.Ui;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeleteCommandTest {
     private TaskList tasks;
