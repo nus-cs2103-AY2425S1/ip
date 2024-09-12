@@ -28,10 +28,10 @@ public class Parser {
     public static Command parse(String input) throws InvalidCommandException, TaskInputException {
         String[] parts = input.split(" ", 2); // Split into command and arguments
 
-        String command = parts[0].toLowerCase(); // Get the command keyword
+        String commandWord = parts[0].toLowerCase(); // Get the command keyword
         String arguments = parts.length > 1 ? parts[1] : ""; // Get the arguments
 
-        switch (command) {
+        switch (commandWord) {
         case "bye":
             return new ExitCommand();
 
@@ -77,12 +77,9 @@ public class Parser {
      * @throws TaskInputException If the task index is not a valid number.
      */
     private static Command parseMarkCommand(String arguments) throws TaskInputException {
-        try {
-            int taskIndex = Integer.parseInt(arguments.trim()) - 1;
-            return new MarkCommand(taskIndex);
-        } catch (NumberFormatException e) {
-            throw new TaskInputException("Error: Invalid task number for mark command.");
-        }
+        int taskIndex = parseTaskIndex(arguments);
+
+        return new MarkCommand(taskIndex);
     }
 
     /**
@@ -94,12 +91,9 @@ public class Parser {
      * @throws TaskInputException If the task index is not a valid number.
      */
     private static Command parseUnmarkCommand(String arguments) throws TaskInputException {
-        try {
-            int taskIndex = Integer.parseInt(arguments.trim()) - 1;
-            return new UnmarkCommand(taskIndex);
-        } catch (NumberFormatException e) {
-            throw new TaskInputException("Error: Invalid task number for unmark command.");
-        }
+        int taskIndex = parseTaskIndex(arguments);
+
+        return new UnmarkCommand(taskIndex);
     }
 
     /**
@@ -179,12 +173,9 @@ public class Parser {
      * @throws TaskInputException If the task index is not a valid number.
      */
     private static Command parseDeleteCommand(String arguments) throws TaskInputException {
-        try {
-            int taskIndex = Integer.parseInt(arguments.trim()) - 1;
-            return new DeleteCommand(taskIndex);
-        } catch (NumberFormatException e) {
-            throw new TaskInputException("Error: Invalid task number for delete command.");
-        }
+        int taskIndex = parseTaskIndex(arguments);
+
+        return new DeleteCommand(taskIndex);
     }
 
     private static Command parseFindCommand(String arguments) throws TaskInputException {
@@ -194,4 +185,18 @@ public class Parser {
         return new FindCommand(arguments.trim());
     }
 
+    /**
+     * Parses the task index from the provided string argument.
+     *
+     * @param arguments The string containing the task number provided by the user.
+     * @return The zero-based index of the task.
+     * @throws TaskInputException If the provided argument is not a valid number.
+     */
+    private static int parseTaskIndex(String arguments) throws TaskInputException {
+        try {
+            return Integer.parseInt(arguments.trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new TaskInputException("Error: Invalid task number.");
+        }
+    }
 }
