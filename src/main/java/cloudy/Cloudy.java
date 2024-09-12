@@ -65,22 +65,27 @@ public class Cloudy {
         switch (command.getType()) {
             case "bye":
                 return "Bye. Hope to see you again soon!";
+
             case "list":
                 return showList(tasks);
             case "find":
                 return handleFindCommand(command);
+
             case "mark":
                 return handleMarkCommand(command);
             case "unmark":
                 return handleUnmarkCommand(command);
+
             case "todo":
                 return handleTodoCommand(command);
             case "deadline":
                 return handleDeadlineCommand(command);
             case "event":
                 return handleEventCommand(command);
+
             case "delete":
                 return handleDeleteCommand(command);
+
             default:
                 return showInvalidCommand();
         }
@@ -133,35 +138,31 @@ public class Cloudy {
 
     private String handleMarkCommand(Command command) {
         assert command!= null : "Command should not be null";
-        try {
-            int taskNumber = command.getTaskNumber();
-            if (taskNumber > 0 && taskNumber <= tasks.size()) {
-                Task taskToMark = tasks.getTask(taskNumber - 1);
-                taskToMark.markTask();
-                storage.saveTasksToFile(tasks.getAllTasks());
-                return "Nice! I've marked this task as done:\n" + taskToMark.printTaskOnList();
-            } else {
-                return "Invalid task format. Please enter a valid task.";
-            }
-        } catch (NumberFormatException e) {
-            return "Invalid task format. Please enter a valid task.";
+      
+        int taskNumber = command.getTaskNumber();
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            return "Please enter a valid task number.";
         }
+        
+        Task taskToMark = tasks.getTask(taskNumber - 1);
+        taskToMark.markTask();
+        storage.saveTasksToFile(tasks.getAllTasks());
+        return "Nice! I've marked this task as done:\n" + taskToMark.printTaskOnList();
+
     }
 
     private String handleUnmarkCommand(Command command) {
         assert command!= null : "Command should not be null";
-        try {
-            int taskNumber = command.getTaskNumber();
-            if (taskNumber > 0 && taskNumber <= tasks.size()) {
-                Task taskToUnmark = tasks.getTask(taskNumber - 1);
-                taskToUnmark.unmarkTask();
-                return "OK, I've marked this task as not done yet:\n" + taskToUnmark.printTaskOnList();
-            } else {
-                return "Please enter a valid task number.";
-            }
-        } catch (NumberFormatException e) {
+
+        int taskNumber = command.getTaskNumber();
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
             return "Please enter a valid task number.";
         }
+      
+        Task taskToUnmark = tasks.getTask(taskNumber - 1);
+        taskToUnmark.unmarkTask();
+        return "OK, I've marked this task as not done yet:\n" + taskToUnmark.printTaskOnList();
+
     }
 
     private String handleTodoCommand(Command command) {
@@ -202,20 +203,16 @@ public class Cloudy {
 
     private String handleDeleteCommand(Command command) {
         assert command!= null : "Command should not be null";
-        try {
-            int taskNumber = command.getTaskNumber();
-            if (taskNumber > 0 && taskNumber <= tasks.size()) {
-                Task taskToDelete = tasks.getTask(taskNumber - 1);
-                tasks.removeTask(taskNumber - 1);
-                storage.saveTasksToFile(tasks.getAllTasks());
-                return "Noted. I've removed this task:" + taskToDelete.printTaskOnList() + "\n"
-                        + "Now you have " + tasks.size() + " tasks in the list.";
-            } else {
-                return "Please enter a valid task number.";
-            }
-        } catch (NumberFormatException e) {
+
+        int taskNumber = command.getTaskNumber();
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
             return "Please enter a valid task number.";
         }
+      
+        tasks.removeTask(taskNumber - 1);
+        storage.saveTasksToFile(tasks.getAllTasks());
+        return "Noted. I've removed this task:\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
 

@@ -50,16 +50,18 @@ public class Parser {
     private Command parseMarkCommand(String userInput) {
         assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
-        if (parts.length >= 2) {
-            try {
-                int taskNumber = Integer.parseInt(parts[1]);
-                return new Command("mark", taskNumber);
-            } catch (NumberFormatException e) {
-                return new Command("invalidTaskNum");
-            }
-        } else {
+
+        if (parts.length < 2) {
             return new Command("invalidTaskFormat");
         }
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            return new Command("mark", taskNumber);
+        } catch (NumberFormatException e) {
+            return new Command("invalidTaskNum");
+        }
+
     }
 
     /**
@@ -70,16 +72,18 @@ public class Parser {
     private Command parseUnmarkCommand(String userInput) {
         assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
-        if (parts.length == 2) {
-            try {
-                int taskNumber = Integer.parseInt(parts[1]);
-                return new Command("unmark", taskNumber);
-            } catch (NumberFormatException e) {
-                return new Command("invalidTaskNum");
-            }
-        } else {
+
+        if (parts.length != 2) {
             return new Command("invalidCommand");
         }
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            return new Command("unmark", taskNumber);
+        } catch (NumberFormatException e) {
+            return new Command("invalidTaskNum");
+        }
+
     }
 
     private Command parseTodoCommand(String userInput) {
@@ -94,6 +98,11 @@ public class Parser {
 
     private Command parseDeadlineCommand(String userInput) {
         assert userInput != null : "userInput should not be null";
+      
+        if (userInput.length() < 9 || !userInput.contains("/by")) {
+            return new Command("invalidDeadline");
+        }
+
         String[] parts = userInput.split("/by ");
         String taskDescription = parts[0].substring(9).trim();
         String inputDeadline = parts.length > 1 ? parts[1].trim() : "";
@@ -101,22 +110,28 @@ public class Parser {
         Pattern pattern = Pattern.compile(DATE_PATTERN);
         Matcher matcher = pattern.matcher(inputDeadline);
 
-        if (matcher.matches()) {
-            try {
-                String[] deadlineParts = inputDeadline.split("/");
-                LocalDate deadline = LocalDate.parse(
-                        deadlineParts[2] + "-" + deadlineParts[1] + "-" + deadlineParts[0]);
-                return new Command("deadline", taskDescription, deadline);
-            } catch (DateTimeParseException e) {
-                return new Command("invalidDeadline");
-            }
-        } else {
+        if (!matcher.matches()) {
             return new Command("invalidDeadline");
         }
+
+        try {
+            String[] deadlineParts = inputDeadline.split("/");
+            LocalDate deadline = LocalDate.parse(
+                    deadlineParts[2] + "-" + deadlineParts[1] + "-" + deadlineParts[0]);
+            return new Command("deadline", taskDescription, deadline);
+        } catch (DateTimeParseException e) {
+            return new Command("invalidDeadline");
+        }
+
     }
 
     private Command parseEventCommand(String userInput) {
         assert userInput != null : "userInput should not be null";
+
+        if (userInput.length() < 6 || !userInput.contains("/from")) {
+            return new Command("invalidEvent");
+        }
+      
         String[] partsFrom = userInput.split("/from");
         String taskDescription = partsFrom[0].substring(6).trim();
         String startTime = "", endTime = "";
@@ -132,19 +147,19 @@ public class Parser {
         Matcher matcherStartTime = pattern.matcher(startTime);
         Matcher matcherEndTime = pattern.matcher(endTime);
 
-        if (matcherStartTime.matches() && matcherEndTime.matches()) {
-            try {
-                String[] startTimeParts = startTime.split("/");
-                String[] endTimeParts = endTime.split("/");
-                LocalDate startTimeFinal = LocalDate.parse(
-                        startTimeParts[2] + "-" + startTimeParts[1] + "-" + startTimeParts[0]);
-                LocalDate endTimeFinal = LocalDate.parse(
-                        endTimeParts[2] + "-" + endTimeParts[1] + "-" + endTimeParts[0]);
-                return new Command("event", taskDescription, startTimeFinal, endTimeFinal);
-            } catch (DateTimeParseException e) {
-                return new Command("invalidEvent");
-            }
-        } else {
+        if (!matcherStartTime.matches() || !matcherEndTime.matches()) {
+            return new Command("invalidEvent");
+        }
+
+        try {
+            String[] startTimeParts = startTime.split("/");
+            String[] endTimeParts = endTime.split("/");
+            LocalDate startTimeFinal = LocalDate.parse(
+                    startTimeParts[2] + "-" + startTimeParts[1] + "-" + startTimeParts[0]);
+            LocalDate endTimeFinal = LocalDate.parse(
+                    endTimeParts[2] + "-" + endTimeParts[1] + "-" + endTimeParts[0]);
+            return new Command("event", taskDescription, startTimeFinal, endTimeFinal);
+        } catch (DateTimeParseException e) {
             return new Command("invalidEvent");
         }
     }
@@ -152,15 +167,16 @@ public class Parser {
     private Command parseDeleteCommand(String userInput) {
         assert userInput != null : "userInput should not be null";
         String[] parts = userInput.split(" ");
-        if (parts.length == 2) {
-            try {
-                int taskNumber = Integer.parseInt(parts[1]);
-                return new Command("delete", taskNumber);
-            } catch (NumberFormatException e) {
-                return new Command("invalidTaskNum");
-            }
-        } else {
+
+        if (parts.length != 2) {
             return new Command("invalidCommand");
+        }
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            return new Command("delete", taskNumber);
+        } catch (NumberFormatException e) {
+            return new Command("invalidTaskNum");
         }
     }
 
