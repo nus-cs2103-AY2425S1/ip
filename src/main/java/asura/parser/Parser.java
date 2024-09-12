@@ -23,6 +23,7 @@ public class Parser {
      */
     public static Command parse(String command) throws AsuraException {
         List<String> splitCommand = Arrays.asList(command.split(" "));
+        assert !splitCommand.isEmpty() : "splitCommand should not be empty";
         String prefix = splitCommand.get(0);
         if (splitCommand.size() == 1 && !Objects.equals(prefix, "list") && !Objects.equals(prefix, "bye")) {
             throw new AsuraException("Invalid command format");

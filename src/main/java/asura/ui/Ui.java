@@ -147,7 +147,9 @@ public class Ui extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
+        assert userText != null : "User input should not be null";
         String asuraText = asura.getResponse(userInput.getText());
+        assert asuraText != null : "Asura text should not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getDukeDialog(asuraText, asuraImage)
