@@ -31,6 +31,11 @@ public class FindCommand extends Command {
     public String execute(String userInput, Storage storage, Ui ui, TaskList tasks) {
         try {
             ArrayList<Task> results = tasks.find(userInput, ui);
+
+            if (results.isEmpty()) {
+                return "There are no matching tasks in your list.";
+            }
+
             return ui.printList(results, "Here are the matching tasks in your list: \n");
         } catch (ChaChaException e) {
             return e.toString();

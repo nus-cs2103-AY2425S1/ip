@@ -103,8 +103,11 @@ public class Ui {
     public String printError() {
         return "Hmmm... I don't seem to understand this. Please input another command! \n";
     }
+    public String printBlankError() {
+        return "Hmmm... It seems like you left the input blank. \n";
+    }
     /**
-     * Returns string representation for the array of String..
+     * Returns string representation for the array of String.
      *
      * @param arrOfString Array of string to be formatted.
      * @return String representation.

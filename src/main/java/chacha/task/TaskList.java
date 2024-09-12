@@ -173,6 +173,9 @@ public class TaskList {
      * @return String representation.
      */
     public String printList(Ui ui) {
+        if (this.tasks.isEmpty()) {
+            return "You currently have no task. ";
+        }
         return ui.printList(this.tasks, "Here are the tasks in your list: \n");
     }
 

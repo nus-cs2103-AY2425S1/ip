@@ -36,8 +36,15 @@ public class Parser {
      * @return String representation.
      */
     public String parseCommand(String userInput) {
+        if (userInput.equals("")) {
+            return new ErrorCommand(chacha).execute(userInput, storage, ui, tasks);
+        }
+
+        assert !userInput.isEmpty() : "user input should not be empty";
+
         String command = userInput.split(" ")[0];
 
+        assert command != null : "command should not be null";
 
         if (command.equals("bye")) {
             return new ByeCommand(chacha).execute(userInput, storage, ui, tasks);

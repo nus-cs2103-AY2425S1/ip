@@ -58,6 +58,10 @@ public class MainWindow extends AnchorPane {
         }
         String input = userInput.getText();
         String response = chacha.getResponse(input);
+        assert !response.isEmpty() : "response should not be empty";
+
+        assert userImage != null : "user image should not be null";
+        assert chachaImage != null : "chacha image should not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getChaChaDialog(response, chachaImage)
@@ -70,7 +74,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void closeApplication() {
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(action -> Platform.exit());
         delay.play();
     }

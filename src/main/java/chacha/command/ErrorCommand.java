@@ -26,6 +26,9 @@ public class ErrorCommand extends Command {
      */
     @Override
     public String execute(String userInput, Storage storage, Ui ui, TaskList tasks) {
+        if (userInput.equals("")) {
+            return ui.printBlankError();
+        }
         return ui.printError();
     }
 }
