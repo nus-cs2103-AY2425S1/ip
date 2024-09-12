@@ -23,6 +23,7 @@ public class Storage {
      * @param filePath the path to the file where tasks are stored
      */
     public Storage(String filePath) {
+        assert !filePath.isEmpty() : "File path should not be an empty string";
         this.filePath = filePath;
         this.taskList = new TaskList();
     }
@@ -37,9 +38,12 @@ public class Storage {
         File savedTasks  = new File(filePath);
 
         if (!savedTasks.exists()) {
-            File parentDirectory = new File(savedTasks.getParent());
-            if (!parentDirectory.exists()) {
-                parentDirectory.mkdir();
+            String parentDirectoryString = savedTasks.getParent();
+            if (parentDirectoryString != null) {
+                File parentDirectory = new File(parentDirectoryString);
+                if (!parentDirectory.exists()) {
+                    parentDirectory.mkdir();
+                }
             }
 
             try {
@@ -65,26 +69,32 @@ public class Storage {
         while (fileScanner.hasNext()) {
             nextLine = fileScanner.nextLine();
             splitLines = nextLine.split("\\|");
+            assert splitLines.length >= 3: "Tasks format in file is incorrect";
+            assert !splitLines[0].isEmpty(): "Task type cannot be empty";
+            assert !splitLines[1].isEmpty(): "Task status cannot be empty";
+            assert !splitLines[2].isEmpty(): "Task description cannot be empty";
 
             String taskType  = splitLines[0].trim();
             switch(taskType) {
-                case "T":
-                    taskList.addTask(
-                            splitLines[2].trim(),
-                            TaskType.TODO,
-                            "");
-                    break;
-                case "D":
-                    taskList.addDeadline(
-                            splitLines[2].trim(),
-                            LocalDate.parse(splitLines[3].trim()));
-                    break;
-                case "E":
-                    taskList.addTask(
-                            splitLines[2].trim(),
-                            TaskType.EVENT,
-                            splitLines[3].trim());
-                    break;
+            case "T":
+                taskList.addTask(
+                        splitLines[2].trim(),
+                        TaskType.TODO,
+                        "");
+                break;
+            case "D":
+                assert !splitLines[3].isEmpty(): "Deadline cannot be empty";
+                taskList.addDeadline(
+                        splitLines[2].trim(),
+                        LocalDate.parse(splitLines[3].trim()));
+                break;
+            case "E":
+                assert !splitLines[3].isEmpty(): "Event start/end cannot be empty";
+                taskList.addTask(
+                        splitLines[2].trim(),
+                        TaskType.EVENT,
+                        splitLines[3].trim());
+                break;
             }
 
             if (Integer.valueOf(splitLines[1].trim()) == 1) {

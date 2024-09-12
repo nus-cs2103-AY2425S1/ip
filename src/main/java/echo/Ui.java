@@ -20,6 +20,9 @@ public class Ui {
      * @param taskList the TaskList object to be referenced by the Ui
      */
     public Ui(TaskList taskList, Echo echo) {
+        assert taskList != null: "Task list should not be null";
+        assert echo != null: "Echo should not be null";
+
         parser = new Parser(this);
         this.taskList = taskList;
         this.echo = echo;
@@ -215,6 +218,7 @@ public class Ui {
      * Prints a message indicating that a task was successfully added.
      */
     public String handleAddedTask() {
+        assert taskList.getNumTasks() > 0: "Task list should have at least one task";
         return printAddedTask(taskList.getTaskString(taskList.getNumTasks()), taskList.getNumTasks());
     }
     /**
