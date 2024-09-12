@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import nayana.task.Deadlines;
+import nayana.task.Deadline;
 import nayana.task.Task;
 import nayana.task.ToDos;
 
@@ -78,7 +78,7 @@ class TaskListTest {
     @Test
     void testToString() {
         Task task1 = new ToDos("Task 1");
-        Task task2 = new Deadlines("Task 2", LocalDate.now());
+        Task task2 = new Deadline("Task 2", LocalDate.now());
         taskList.addTask(task1);
         taskList.addTask(task2);
         String expectedOutput = "Here are the tasks in your list:\n1. " + task1 + "\n2. " + task2 + "\n";

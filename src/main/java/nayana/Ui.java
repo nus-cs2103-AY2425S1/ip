@@ -1,10 +1,12 @@
 package nayana;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 import nayana.task.Task;
 
 /**
@@ -155,7 +157,34 @@ public class Ui {
         print(text, this.nayanaImage);
     }
 
+    /**
+     * Prints reminders for upcoming tasks within the next week.
+     * If there are upcoming tasks, they are listed. Otherwise, a message indicating no upcoming tasks is printed.
+     *
+     * @param upcomingTasks An {@code ArrayList<Task>} containing the upcoming tasks for the week.
+     */
+    public void printReminders(ArrayList<Task> upcomingTasks) {
+        String text = "";
+        if (upcomingTasks.size() > 0) {
+            text += "Here are your upcoming tasks for the week\n";
+            for(int i = 0; i < upcomingTasks.size(); i++ ) {
+                text += (i + 1) + "." + upcomingTasks.get(i) + "\n";
+            }
+        } else {
+            text += "Yay! There are no upcoming tasks for you this week!\n";
+        }
+        print(text, this.nayanaImage);
+    }
+
+    /**
+     * Sets the {@code VBox} container for displaying dialogs.
+     * This method allows for setting the graphical container where dialog messages will be displayed.
+     *
+     * @param dialogContainer The {@code VBox} container used to display dialog messages.
+     */
     public void setVbox(VBox dialogContainer) {
         this.dialogContainer = dialogContainer;
     }
+
+
 }
