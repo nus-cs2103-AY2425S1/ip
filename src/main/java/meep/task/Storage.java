@@ -78,10 +78,11 @@ public class Storage {
     private void createFileIfNotExists() throws MeepException {
         File file = new File(this.dataPath);
         try {
-            if (!file.exists()) {
-                if (!file.createNewFile()) {
-                    throw new IOException("Failed to create the file");
-                }
+            if (file.exists()) {
+                return;
+            }
+            if (!file.createNewFile()) {
+                throw new IOException("Failed to create the file");
             }
         } catch (IOException e) {
             throw new MeepException("An error occurred." + e.getMessage());
