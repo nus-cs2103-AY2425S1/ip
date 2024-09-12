@@ -75,6 +75,6 @@ public class Parse {
                 System.out.println(e.getMessage());
             }
 
-        return "a";
+        return "Please enter a valid command";
     }
 }
