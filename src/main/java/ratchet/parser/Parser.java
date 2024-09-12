@@ -2,6 +2,8 @@ package ratchet.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Collections;
 
 import ratchet.command.AddCommand;
 import ratchet.command.Command;
@@ -149,9 +151,15 @@ public class Parser {
         return new DeleteCommand(parseIndex(input));
     }
 
-    private int parseIndex(String input) throws InvalidCommandArgumentException {
+    private Integer[] parseIndex(String input) throws InvalidCommandArgumentException {
         try {
-            return Integer.parseInt(input.split(" ")[SPLIT_SECOND]) - 1;
+            String[] splitByArguments = input.split(" ");
+            Integer[] num = new Integer[splitByArguments.length - 1];
+            for (int i = SPLIT_SECOND; i < splitByArguments.length; i++) {
+                num[i - 1] = Integer.parseInt(splitByArguments[i]) - 1;
+            }
+            Arrays.sort(num, Collections.reverseOrder());
+            return num;
         } catch (NumberFormatException e) {
             throw new InvalidCommandArgumentException("Task index must be a number!");
         } catch (ArrayIndexOutOfBoundsException e) {
