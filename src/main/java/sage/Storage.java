@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A Storage object to load/store the user's tasks.
+ * */
 public class Storage {
     private final String filePath;
 
@@ -34,6 +37,7 @@ public class Storage {
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
+            assert file.exists() : "File is supposed to be created.";
         }
 
         Scanner scanner = new Scanner(file);

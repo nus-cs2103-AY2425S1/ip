@@ -9,7 +9,15 @@ import sage.Task.Task;
 import sage.Task.ToDoTask;
 import sage.Ui;
 
-
+/**
+ * Represents a command to add a task to the task list.
+ * The AddCommand supports adding three types of tasks:
+ * - ToDoTask
+ * - DeadlineTask
+ * - EventTask
+ *
+ * Based on the command type provided, the respective task is created and added to the task list.
+ */
 public class AddCommand extends Command {
     private final String commandType;
     private final String description;
@@ -44,6 +52,7 @@ public class AddCommand extends Command {
             }
 
             task = new ToDoTask(description);
+            assert task != null : "ToDoTask should not be null after creation.";
         }
 
         case "deadline" -> {
@@ -63,6 +72,7 @@ public class AddCommand extends Command {
             }
 
             task = new DeadlineTask(deadlineDescription, by);
+            assert task != null : "DeadlineTask should not be null after creation.";
         }
 
         case "event" -> {
@@ -87,12 +97,14 @@ public class AddCommand extends Command {
             }
 
             task = new EventTask(eventDescription, from, to);
+            assert task != null : "EventTask should not be null after creation.";
         }
 
         default -> throw new SageException("Unknown task type.");
         }
 
         tasks.addTask(task);
+        assert tasks.getTasks().contains(task) : "Task should be added to the task list.";
         return ui.showAddedTask(task, tasks.getSize());
     }
 }
