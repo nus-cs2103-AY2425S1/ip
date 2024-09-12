@@ -46,6 +46,9 @@ public class Alex {
             return ui.getOutput(); // Return the error message
         }
     }
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
+    }
 
 
 

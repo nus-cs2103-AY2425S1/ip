@@ -32,12 +32,16 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        appendMessage("Hello! I'm Alex, your friendly assistant!\nWhat can I do for you?");
+    public String showWelcome() {
+        String welcomeMessage = "Hello! I'm Alex, your friendly assistant!\nWhat can I do for you?";
+        appendMessage(welcomeMessage);
+        return welcomeMessage;
     }
 
-    public void showBye() {
-        appendMessage(" Bye. Hope to see you again soon!");
+    public String showBye() {
+        String byeMessage = "Bye. Hope to see you again soon!";
+        appendMessage(byeMessage);
+        return byeMessage;
     }
 
     /**
@@ -57,12 +61,6 @@ public class Ui {
     public void showLoadingError() {
         appendMessage("Error loading tasks. Starting with an empty task list.");
     }
-
-    /**
-     * Reads a command input by the user.
-     *
-     * @return The command entered by the user.
-     */
 
     /**
      * Prints a joke to the user.

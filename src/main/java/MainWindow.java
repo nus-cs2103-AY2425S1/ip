@@ -19,7 +19,7 @@ public class MainWindow extends AnchorPane {
     private Alex alex;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private Image alexImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image alexImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
 
     @FXML
     public void initialize() {
@@ -27,11 +27,19 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Alex instance
+     * Injects the Alex instance and displays the welcome message.
      */
     public void setAlex(Alex alex) {
-
         this.alex = alex;
+        displayWelcomeMessage();  // Display the welcome message upon initialization
+    }
+
+    /**
+     * Displays the welcome message from Alex in the dialog container.
+     */
+    private void displayWelcomeMessage() {
+        String welcomeMessage = alex.getWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getAlexDialog(welcomeMessage, alexImage));
     }
 
     /**
