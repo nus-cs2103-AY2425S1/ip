@@ -18,7 +18,7 @@ import task.Todo;
 
 public class Parser {
     /**
-     * Parses a line in the storage file to the corresonding Task
+     * Parses a line in the storage file to the corresponding Task
      * 
      * @param line String representing a line in the storage file
      * @return Task represented by the line
