@@ -95,7 +95,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String isDoneStr = isDone ? "[X] " : "[ ] ";
-        String tagStr = tag.equals("") ? "" : "#" + tag;
-        return "[" + getType() + "]" + isDoneStr + description + " " + tagStr;
+        String tagStr = tag.equals("") ? "" : " #" + tag + " ";
+        return "[" + getType() + "]" + isDoneStr + description + tagStr;
     }
 }

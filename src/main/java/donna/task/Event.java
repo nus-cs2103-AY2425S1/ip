@@ -51,14 +51,14 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event in a format suitable for saving to a file.
      *
-     * @return A string representing the event in the format "E | mark status | description | from | to".
+     * @return A string representing the event in the format "E | mark status | description | from | to | tag".
      */
     @Override
     public String toFileFormat() {
         String fromFormatted = fromTime.format(inputFormatter);
         String toFormatted = toTime.format(inputFormatter);
         return "E | " + (this.isDone() ? "1" : "0") + " | " + this.description + " | " + fromFormatted + " | "
-                + toFormatted;
+                + toFormatted + " | " + this.getTag();
     }
 
     @Override

@@ -17,8 +17,8 @@ public class ParsedCommand {
      * @param argument2 The second argument associated with the command. ex: the description and timings.
      */
     public ParsedCommand(String commandType, String argument1, String argument2) {
-        assert commandType != null && !commandType.trim().isEmpty() :
-                "Command type should not be null or empty";
+        assert commandType != null && !commandType.trim().isEmpty()
+                : "Command type should not be null or empty";
 
         this.commandType = commandType;
         this.argument1 = argument1;

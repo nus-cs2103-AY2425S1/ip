@@ -69,6 +69,11 @@ public class DonnaException extends Exception {
                 + "Retry with a valid task number!");
     }
 
+    /**
+     * Returns a DonnaException for when a task is tagged incorrectly
+     *
+     * @return DonnaException with error message
+     */
     public static DonnaException invalidTag() {
         return new DonnaException("That's not how you tag a task!\n"
                 + "Retry and specify both, the task number and the tag using a hash symbol (#)");

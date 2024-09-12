@@ -26,7 +26,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "T | " + (this.isDone() ? "1" : "0") + " | " + description;
+        return "T | " + (this.isDone() ? "1" : "0") + " | " + description + " | " + this.getTag();
     }
 
     @Override

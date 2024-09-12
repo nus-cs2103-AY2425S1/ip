@@ -140,7 +140,11 @@ public class CommandHandler {
                 throw DonnaException.invalidTaskNumber();
             }
             String tag = descriptionParts[1];
+            if (tag.trim().isEmpty()) {
+                throw DonnaException.invalidTag();
+            }
             Task task = tasks.get(taskIdx).setTag(tag);
+            storage.saveTasks(tasks);
             return ui.getTaskTaggedMessage(task, tag);
         } catch (NumberFormatException e) {
             return ui.getErrorMessage(DonnaException.invalidTaskNumber().getMessage());

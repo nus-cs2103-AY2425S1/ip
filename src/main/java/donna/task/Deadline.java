@@ -49,7 +49,7 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         return "D | " + (this.isDone() ? "1" : "0") + " | " + this.description + " | "
-                + this.byTime.format(inputFormatter);
+                + this.byTime.format(inputFormatter) + " | " + this.getTag();
     }
 
     @Override

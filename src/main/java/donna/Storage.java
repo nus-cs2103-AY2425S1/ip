@@ -90,12 +90,15 @@ public class Storage {
                 switch (taskType) {
                 case "T":
                     task = new ToDo(inWords[2]);
+                    task.setTag(inWords[3]);
                     break;
                 case "D":
                     task = new Deadline(inWords[2], inWords[3]);
+                    task.setTag(inWords[4]);
                     break;
                 case "E":
                     task = new Event(inWords[2], inWords[3], inWords[4]);
+                    task.setTag(inWords[5]);
                     break;
                 default:
                     throw DonnaException.invalidTaskType(taskType);
