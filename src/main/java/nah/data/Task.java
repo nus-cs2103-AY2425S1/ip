@@ -135,11 +135,12 @@ public abstract class Task {
     }
 
     /**
-     * Returns the end time of the task.
+     * Checks if the task has end time before the time.
      *
      * @return a LocalDateTime value
      */
-    public abstract LocalDateTime endTime();
+    public abstract boolean isBefore(LocalDateTime due);
+
 
     /**
      * Checks if the String is the name of this task (eg: deadline, todo, event).
@@ -180,13 +181,13 @@ public abstract class Task {
         }
 
         /**
-         * Returns the deadline of this task.
+         * Checks is the deadline of this task is before due.
          *
          * @return a LocalDateTime value
          */
         @Override
-        public LocalDateTime endTime() {
-            return this.time;
+        public boolean isBefore(LocalDateTime due) {
+            return this.time.isBefore(due);
         }
 
         /**
@@ -255,13 +256,13 @@ public abstract class Task {
         }
 
         /**
-         * Returns the end time of the task.
+         * Checks if the end of event is before due.
          *
          * @return a LocalDateTime value
          */
         @Override
-        public LocalDateTime endTime() {
-            return this.end;
+        public boolean isBefore(LocalDateTime due) {
+            return this.end.isBefore(due);
         }
 
         /**
@@ -343,13 +344,13 @@ public abstract class Task {
         }
 
         /**
-         * Returns the deadline of this task, which is infinite.
+         * Returns false because this task has no due time.
          *
          * @return a LocalDateTime value.
          */
         @Override
-        public LocalDateTime endTime() {
-            return LocalDateTime.MAX;
+        public boolean isBefore(LocalDateTime due) {
+            return false;
         }
 
         /**

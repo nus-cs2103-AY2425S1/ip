@@ -37,15 +37,8 @@ public class Decoder {
         }
         String[] command = s.split("\\|", 3);
         if (command[0].trim().equals("T")) {
-<<<<<<< HEAD
+
             assert command[0].trim().equals("T") : "the command symbol should be T";
-            if (command.length < 3
-                    || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
-                    || command[2].trim().isEmpty()) {
-                throw new NahException.InvalidFileValueException();
-            }
-=======
->>>>>>> branch-A-CodeQuality
             Task t = new Task.ToDos(command[2].trim());
             if (command[1].trim().equals("1")) {
                 t.mark();
@@ -53,15 +46,8 @@ public class Decoder {
             return t;
         }
         if (command[0].trim().equals("D")) {
-<<<<<<< HEAD
+
             assert command[0].trim().equals("D") : "the command symbol should be D";
-            if (command.length < 3
-                    || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
-                    || command[2].trim().isEmpty()) {
-                throw new NahException.InvalidFileValueException();
-            }
-=======
->>>>>>> branch-A-CodeQuality
             String[] des = command[2].split("\\|", 2);
             if (des.length < 2 || des[1].trim().isEmpty()) {
                 throw new NahException.InvalidFileValueException();
@@ -81,16 +67,8 @@ public class Decoder {
         }
 
         if (command[0].trim().equals("E")) {
-<<<<<<< HEAD
-            assert command[0].trim().equals("E") : "the command symbol should be E";
-            if (command.length < 3
-                    || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
-                    || command[2].trim().isEmpty()) {
-                throw new NahException.InvalidFileValueException();
-            }
 
-=======
->>>>>>> branch-A-CodeQuality
+            assert command[0].trim().equals("E") : "the command symbol should be E";
             String[] des = command[2].split("\\|", 2);
             if (des.length < 2 || des[1].trim().isEmpty()) {
                 throw new NahException.InvalidFileValueException();
