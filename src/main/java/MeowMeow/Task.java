@@ -1,5 +1,8 @@
 package MeowMeow;
 
+/**
+ * Represents a task which can be marked as done or undone
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +12,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns "X" if the Task is marked as done.
+     * Returns " " if the Task is not marked as done.
+     *
+     * @return Status icon of whether the Task is done or not.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -25,6 +34,12 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    /**
+     * Returns the String representation of a task for storing in the save file.
+     *
+     * @return String representation of task for storing in save file.
+     */
     public String toFileFormat() {
         return (this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E") + " | " + (isDone ? "1" : "0") + " | " + description;
     }

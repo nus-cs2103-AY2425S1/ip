@@ -3,6 +3,9 @@ package MeowMeow;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task which has start date and end date
+ */
 class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;

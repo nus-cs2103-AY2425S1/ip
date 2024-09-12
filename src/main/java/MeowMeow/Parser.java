@@ -1,7 +1,11 @@
 package MeowMeow;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Represents a parser which deals with figuring out what to do based on the user command
+ */
 public class Parser {
     private TaskList list;
     private Saving saver;
@@ -15,6 +19,11 @@ public class Parser {
         this.initInput = initInput;
     }
 
+    /**
+     * Parses user input and determines what to do based on it.
+     *
+     * @throws IOException If an I/O error occurs during saving.
+     */
     public void parse() throws IOException {
         while (!initInput.equals("bye")) {
             if (initInput.equals("list")) {
