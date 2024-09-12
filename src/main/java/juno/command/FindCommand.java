@@ -7,17 +7,36 @@ import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
 import juno.task.Task;
 
+/**
+ * A class to find specific tasks for users based on the keyword the user inputs.
+ */
 public class FindCommand extends Command {
     private TaskManager taskManager;
     private ArrayList<Task> tasks;
     private String userInput;
 
+    /**
+     * Constructs a FindCommand instance which takes in a user inputted String and a TaskManager instance.
+     * Initialises the task list from the TaskManager by calling <code>getTasksArray()</code> method.
+     *
+     * @param userInput The input provided by the user to search tasks.
+     * @param taskManager The TaskManager instance to retrieve the tasks from.
+     */
     public FindCommand(String userInput, TaskManager taskManager) {
         this.userInput = userInput;
         this.taskManager = taskManager;
         this.tasks = taskManager.getTasksArray();
     }
 
+    /**
+     * Executes the command to find all tasks based on the user input.
+     * If the task list after finding is empty, throws a TaskManagerException.
+     * Otherwise, prints each task found in a formatted list and the total
+     * number of tasks.
+     * Can be executed with the "find {keyword}" input prompt.
+     *
+     * @throws TaskManagerException If no tasks are present in the list.
+     */
     @Override
     public String runCommand() throws TaskManagerException {
         if (this.tasks.isEmpty()) {
