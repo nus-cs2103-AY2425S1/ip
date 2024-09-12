@@ -30,7 +30,7 @@ public class FindCommand extends Command {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.getTask(i).getDescription().contains(keyword)) {
-                result.append(tasks.getTask(i));
+                result.append(tasks.getTask(i)).append("\n");
             }
         }
         return result.toString();
