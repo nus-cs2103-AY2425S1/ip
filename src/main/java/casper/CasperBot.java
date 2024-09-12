@@ -71,6 +71,10 @@ public class CasperBot {
             if (!result.isEmpty()) {
                 return result;
             }
+            result = this.viewSchedule(parsedInputs);
+            if (!result.isEmpty()) {
+                return result;
+            }
             throw new CasperBotInvalidCommandException();
         } catch (CasperBotException e) {
             return this.ui.showErrorMessage(e);
@@ -211,5 +215,19 @@ public class CasperBot {
         this.taskList.addTask(newEvent);
         this.storage.writeToFile(newEvent);
         return this.ui.addTaskMessage(newEvent, this.taskList.getNumberOfTasks());
+    }
+    private String viewSchedule(String[] parsedInputs) throws CasperBotInvalidCommandException,
+            CasperBotInvalidDateException, CasperBotOutOfBoundsException {
+        try {
+            String command = parsedInputs[0].toLowerCase();
+            if (!command.equals("view")) {
+                throw new CasperBotInvalidCommandException();
+            }
+            LocalDate viewDate = LocalDate.parse(parsedInputs[1]);
+            TaskList taskListOnDay = this.taskList.findTasksByDate(viewDate);
+            return this.ui.displaySchedule(taskListOnDay, viewDate);
+        } catch (DateTimeParseException e) {
+            throw new CasperBotInvalidDateException();
+        }
     }
 }

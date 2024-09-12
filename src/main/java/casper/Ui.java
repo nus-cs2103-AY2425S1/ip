@@ -3,6 +3,8 @@ package casper;
 import exception.CasperBotException;
 import exception.CasperBotOutOfBoundsException;
 
+import java.time.LocalDate;
+
 /**
  * Represents the Ui class
  */
@@ -103,6 +105,19 @@ public class Ui {
             return String.valueOf(output);
         }
     }
+    public String displaySchedule(TaskList taskList, LocalDate date) throws CasperBotOutOfBoundsException {
+        if (taskList.isEmpty()) {
+            return "There is nothing on your schedule on " + date + ".";
+        } else {
+            StringBuilder output = new StringBuilder(String.format("Here are the tasks on %s:", date));
+            for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+                output.append(System.lineSeparator());
+                output.append(String.format("%d. %s", i + 1, taskList.getTask(i)));
+            }
+            return String.valueOf(output);
+        }
+    }
+
 
     public String exit() {
         return "Bye. Hope to see you again soon!";

@@ -117,8 +117,6 @@ public class Storage {
         try {
             Path path = Paths.get(filePath);
             List<String> lines = Files.readAllLines(path);
-
-
             lines.remove(line);
             Files.write(path, lines);
         } catch (IOException e) {

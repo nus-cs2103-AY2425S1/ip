@@ -1,5 +1,6 @@
 package casper;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,33 @@ public class TaskList {
         for (Task task: this.taskList) {
             if (task.toString().contains(keyword)) {
                 matched.addTask(task);
+            }
+        }
+        return matched;
+    }
+
+    /**
+     * Finds all tasks that have deadlines matching the given date, or date within the event duration
+     * @param date Date to identify tasks by
+     * @return A tasklist containing all tasks matching the given date
+     */
+    public TaskList findTasksByDate(LocalDate date) {
+        TaskList matched = new TaskList();
+        for (Task task: this.taskList) {
+            if (task instanceof ToDo) {
+                continue;
+            }
+            if (task instanceof Deadline deadline) {
+                if (LocalDate.parse(deadline.getDeadline()).equals(date)) {
+                    matched.addTask(deadline);
+                }
+            }
+            if (task instanceof Event event) {
+                LocalDate start = LocalDate.parse(event.getStart());
+                LocalDate end = LocalDate.parse(event.getEnd());
+                if ((date.isEqual(start) || date.isAfter(start)) && (date.isEqual(end) || date.isBefore(end))) {
+                    matched.addTask(event);
+                }
             }
         }
         return matched;
