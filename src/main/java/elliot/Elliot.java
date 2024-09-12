@@ -29,6 +29,7 @@ public class Elliot {
      */
     public String getResponse(String input) {
         Ui.flushOutputString();
+        assert(Ui.getOutputString() == "");
         input = input.strip();
         String[] commandString = Strip.stripStringArray(input.toLowerCase().split(" ", 2));
         Ui.say("");

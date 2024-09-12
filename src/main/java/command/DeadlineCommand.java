@@ -51,6 +51,7 @@ public class DeadlineCommand extends Command {
         if (splittedArguments.length < 2) {
             throw new ElliotException("when is this due by?\n");
         }
+        assert(splittedArguments.length == 2);
         try {
             LocalDateTime resolvedDateTime = LocalDateTime.parse(splittedArguments[1],
                     CustomDateTimeFormatter.DATE_TIME_FORMATTER);
@@ -69,6 +70,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
+        assert(taskDescription != "");
         TaskList newTaskList = taskList
             .addTask(new DeadlineTask(taskDescription, deadlineDateTime));
         Ui.say("Got it. I've added this task:\n"

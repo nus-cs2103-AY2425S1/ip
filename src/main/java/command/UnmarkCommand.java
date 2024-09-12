@@ -58,8 +58,10 @@ public class UnmarkCommand extends Command {
             Ui.say("which number task would you like me to mark undone?\n");
             return taskList;
         }
+        assert(!listToUnmark.isEmpty());
         for (int i : listToUnmark) {
             if (taskList.isValidIndex(i - 1)) {
+                assert(i < taskList.size() && i >= 0);
                 taskList = taskList.markTaskAsUndone(i - 1);
                 Ui.say("OK, I've marked this task as not done yet:\n"
                         + taskList.get(i - 1).toString() + "\n");
