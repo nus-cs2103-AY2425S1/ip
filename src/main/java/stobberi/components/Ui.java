@@ -8,7 +8,9 @@ public class Ui {
     private static final String NAME_OF_CHATBOT = "Stobberi";
     private static final String HELLO_GREETING =
             "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
-                    + "What can I do for you?";
+                    + "What can I do for you?" +
+                    "\n" +
+                    "If you're unsure of what you to do, just type '?'!    ";
     private static final String GOODBYE_GREETING = "Byyyyeeeeeeeeeeeeeeee!\n" +
             "\n" +
             "Hope to talk to you again! :)";
