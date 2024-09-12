@@ -18,6 +18,14 @@ public class DeadlineTask extends Task {
         this.date = date;
     }
 
+    public String getSymbol() {
+        return SYMBOL;
+    }
+
+    public String getTimings() {
+        return "(by: " + this.date + ")";
+    }
+
     @Override
     public String toString() {
         return dueTime != null

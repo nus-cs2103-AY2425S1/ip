@@ -47,12 +47,14 @@ public class Storage {
             for (String s : lines) {
                 String[] words = s.split(" ");
                 boolean isDone;
-                switch (words[0].charAt(3)) {
+                switch (words[0].charAt(2)) {
                 case 'T':
-                    int todoFromIndex = 9;
-                    String todoDescription = s.substring(todoFromIndex).trim();
-                    isDone = s.charAt(6) == 'X';
-                    Task newToDoTask = new TodoTask(todoDescription);
+                    int todoDescriptionIndex = s.indexOf("description: ");
+                    int todoNoteIndex = s.indexOf("note: ");
+                    String todoDescription = s.substring(todoDescriptionIndex + 13, todoNoteIndex).trim();
+                    String todoNote = s.substring(todoNoteIndex + 6).trim();
+                    isDone = s.charAt(3) == 'X';
+                    Task newToDoTask = new TodoTask(todoDescription, todoNote);
                     if (isDone) {
                         newToDoTask.markAsDone();
                     }
@@ -63,7 +65,7 @@ public class Storage {
                     int deadlineToIndex = s.indexOf("(by:");
                     String deadlineDescription = s.substring(deadlineFromIndex, deadlineToIndex).trim();
                     String dueTime = s.substring(deadlineToIndex + 4, s.indexOf(')')).trim();
-                    isDone = s.charAt(6) == 'X';
+                    isDone = s.charAt(3) == 'X';
                     Task newDeadlineTask = new DeadlineTask(deadlineDescription, dueTime);
                     if (isDone) {
                         newDeadlineTask.markAsDone();
@@ -74,7 +76,7 @@ public class Storage {
                     String eventDescription = s.substring(9, s.indexOf("(from:")).trim();
                     String eventFromTime = s.substring(s.indexOf("from: ") + 6, s.indexOf("to: ")).trim();
                     String eventToTime = s.substring(s.indexOf("to: ") + 4, s.indexOf(")")).trim();
-                    isDone = s.charAt(6) == 'X';
+                    isDone = s.charAt(3) == 'X';
                     Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime);
                     if (isDone) {
                         newEventTask.markAsDone();
@@ -101,7 +103,12 @@ public class Storage {
         int len = list.size();
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < len; i++) {
-            String output = i + 1 + "." + list.get(i);
+            Task task = list.get(i);
+            String output = i + 1 + "."
+                    + task.getSymbol() + task.getStatusIcon()
+                    + " description: " + task.getDescription()
+                    + " timings: " + task.getTimings()
+                    + " note: " + task.getNote();
             data.append(output);
             data.append("\n");
         }

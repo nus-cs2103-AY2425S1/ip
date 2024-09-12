@@ -22,6 +22,14 @@ public class EventTask extends Task {
         this.toDate = toDate;
     }
 
+    public String getSymbol() {
+        return SYMBOL;
+    }
+
+    public String getTimings() {
+        return "(from: " + this.fromDate + " to: " + this.toDate + ")";
+    }
+
     @Override
     public String toString() {
         return from != null

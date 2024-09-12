@@ -197,6 +197,31 @@ public class Parser {
     }
 
     private static TodoCommand processTodoCommand(String fullCommand) throws PrimoException {
+        if (fullCommand.contains("/n")) {
+            return TodoCommandWithNote(fullCommand);
+        } else {
+            return TodoCommandWithoutNote(fullCommand);
+        }
+    }
+
+    private static TodoCommand TodoCommandWithNote(String fullCommand) throws PrimoException {
+        String[] wordsOfCommand = fullCommand.split(" ");
+        assert wordsOfCommand[0].equals("todo");
+        assert wordsOfCommand.length >= 2;
+        int todoNameIndex = fullCommand.indexOf("todo ") + 5;
+        int todoNoteIndex = fullCommand.indexOf("/n");
+        String todoDescription = fullCommand.substring(todoNameIndex, todoNoteIndex).trim();
+        String todoNote = fullCommand.substring(todoNoteIndex + 2).trim();
+        if (todoDescription.isEmpty()) {
+            throw new PrimoException("Description cannot be empty! Expected: todo <string>");
+        }
+
+        TodoTask newTodoTask = new TodoTask(todoDescription, todoNote);
+        System.out.println(newTodoTask);
+        return new TodoCommand(newTodoTask);
+    }
+
+    private static TodoCommand TodoCommandWithoutNote(String fullCommand) throws PrimoException {
         String[] wordsOfCommand = fullCommand.split(" ");
         assert wordsOfCommand[0].equals("todo");
         assert wordsOfCommand.length >= 2;
@@ -205,6 +230,7 @@ public class Parser {
         if (todoDescription.isEmpty()) {
             throw new PrimoException("Description cannot be empty! Expected: todo <string>");
         }
+
         TodoTask newTodoTask = new TodoTask(todoDescription);
         return new TodoCommand(newTodoTask);
     }
