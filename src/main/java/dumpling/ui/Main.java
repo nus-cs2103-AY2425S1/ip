@@ -15,7 +15,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Dumpling dumpling = new Dumpling();
+    private Dumpling dumpling;
+
+    public Main() {
+        this.dumpling = new Dumpling();
+    }
 
     @Override
     public void start(Stage stage) {

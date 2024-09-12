@@ -22,8 +22,12 @@ public class Storage {
      * @throws DumplingException Thrown if there is an issue with reading or creating the file
      */
     public Storage(String filePath) throws DumplingException {
-        this.filePath = filePath;
+        File dataDir = new File("./data");
         try {
+            if (!dataDir.exists()) {
+                dataDir.mkdir();
+            }
+            this.filePath = filePath;
             File file = new File(filePath);
             if (!file.exists()) {
                 file.createNewFile();

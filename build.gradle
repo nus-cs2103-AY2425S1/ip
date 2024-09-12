@@ -52,8 +52,9 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "dumpling"
     archiveClassifier = null
+    archiveFileName = 'dumpling.jar'
 }
 
 run{
