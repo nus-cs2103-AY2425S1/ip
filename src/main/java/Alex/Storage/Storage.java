@@ -48,6 +48,10 @@ public class Storage {
     public ArrayList<Task> load() throws AlexException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        // Assert that the tasks list is initialized
+        assert tasks != null : "Tasks ArrayList must be initialized";
+
         if (!file.exists()) {
             return tasks; // Return an empty list if file doesn't exist
         }
@@ -55,7 +59,36 @@ public class Storage {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                Task task = parseTaskLine(line);
+                String[] parts = line.split(" \\| ");
+                if (parts.length < 2) {
+                    continue; // Skip invalid lines
+                }
+
+                TaskType type = TaskType.valueOf(parts[0]);
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                Task task = null;
+                switch (type) {
+                case TODO:
+                    task = new Todo(description);
+                    break;
+                case DEADLINE:
+                    if (parts.length == 4) {
+                        task = new Deadline(description, parts[3]);
+                    }
+                    break;
+                case EVENT:
+                    if (parts.length == 5) { // Adjusted length to 5 for Event (with from and to)
+                        task = new Event(description, parts[3], parts[4]);
+                    }
+                    break;
+                default:
+                    throw new AlexException("Unexpected task type: " + type);
+                }
+
+                // Assert that the task was successfully created
+                assert task != null : "Task object must be created successfully";
                 if (task != null) {
                     tasks.add(task);
                 }
