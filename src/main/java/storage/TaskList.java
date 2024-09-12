@@ -306,6 +306,8 @@ public class TaskList {
         }
 
         updateTask.setPriority(newPriority);
+        deleteTask(taskNumber, priority);
+        addTask(updateTask);
         return updateTask;
     }
 }

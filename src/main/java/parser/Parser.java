@@ -114,10 +114,8 @@ public class Parser {
             String[] params = result[1].split(" ");
             int taskNumber = checkValidTaskNumber(params[0]);
             checkValidTaskInput(Command.PRIORITY, params);
-            String[] priorities = params[1].split(" ");
-            checkValidTaskInput(Command.PRIORITY, priorities);
-            Task updateTask = list.updatePriority(taskNumber, priorities[0].strip(), priorities[1].strip());
-            return ui.getHandleTaskMessage(updateTask, "priority", params[1].strip());
+            Task updateTask = list.updatePriority(taskNumber, params[1].strip(), params[2].strip());
+            return ui.getHandleTaskMessage(updateTask, "priority", params[2].strip());
         default:
             throw new AliceException(input);
         }
@@ -155,6 +153,11 @@ public class Parser {
      * @throws MissingArgumentException when there is a missing argument.
      */
     private void checkValidTaskInput(Command command, String[] taskInfo) throws MissingArgumentException {
+        if (command == Command.PRIORITY && taskInfo.length == 3) {
+            return;
+        } else if (command == Command.PRIORITY) {
+            throwMissingArgumentException(command);
+        }
         if (taskInfo.length != 2) {
             throwMissingArgumentException(command);
         }
