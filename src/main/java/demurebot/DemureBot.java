@@ -34,10 +34,10 @@ public class DemureBot {
         this.storage.checkFolder(folderPath);
 
         // check if saved data exists if not create it
-        boolean savedDataExists = this.storage.checkFile(filePath);
+        boolean hasSavedData = this.storage.checkFile(filePath);
 
         // load saved data if exists
-        if (savedDataExists) {
+        if (hasSavedData) {
             try {
                 // fetch list of items to do
                 this.list = new TaskList(this.storage.load(filePath));

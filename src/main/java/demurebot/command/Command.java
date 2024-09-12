@@ -8,26 +8,6 @@ import demurebot.ui.Ui;
  * Represents a command that can be executed by the bot.
  */
 public abstract class Command {
-    private final boolean isExit;
-
-    /**
-     * Constructor for Command.
-     *
-     * @param isExit Boolean value to determine if the command is an exit command.
-     */
-    public Command(boolean isExit) {
-        this.isExit = isExit;
-    }
-
-    /**
-     * Returns a boolean value to determine if the command is an exit command.
-     *
-     * @return Boolean value to determine if the command is an exit command.
-     */
-    public boolean isExit() {
-        return isExit;
-    }
-
     /**
      * Executes the command.
      *

@@ -12,7 +12,6 @@ public class InvalidCommand extends Command {
      * Constructs an InvalidCommand object.
      */
     public InvalidCommand() {
-        super(false);
     }
 
     /**

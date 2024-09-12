@@ -8,16 +8,15 @@ import demurebot.ui.Ui;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private final String remainder;
+    private final String index;
 
     /**
      * Constructor for DeleteCommand.
      *
-     * @param remainder The index of the task to be deleted.
+     * @param index The index of the task to be deleted.
      */
-    public DeleteCommand(String remainder) {
-        super(false);
-        this.remainder = remainder;
+    public DeleteCommand(String index) {
+        this.index = index;
     }
 
     /**
@@ -30,15 +29,15 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui) {
         try {
-            int index = Integer.parseInt(remainder) - 1;
-            Task task = list.getTask(index);
-            list.removeTask(index);
+            int i = Integer.parseInt(index) - 1;
+            Task task = list.getTask(i);
+            list.removeTask(i);
             return ui.displayDeleteTask(task, list.getSize());
         } catch (NumberFormatException e) {
             return "Please enter a positive integer after delete.\n";
         } catch (IndexOutOfBoundsException e) {
             return ("Invalid index: "
-                    + remainder
+                    + index
                     + "\n"
                     + "Please enter a number within 1 to number of current tasks.\n"
             );
