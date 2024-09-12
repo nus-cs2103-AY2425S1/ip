@@ -39,4 +39,9 @@ public class ScheduledTask extends Task {
     public LocalDateTime getScheduledDateAndTime() {
         return scheduledDateAndTime;
     }
+
+    @Override
+    public LocalDate getScheduledDate() {
+        return scheduledDateAndTime.toLocalDate();
+    }
 }
