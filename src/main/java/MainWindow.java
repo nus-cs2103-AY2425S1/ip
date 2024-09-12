@@ -1,11 +1,9 @@
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -13,9 +11,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     private Alex alex;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -31,7 +26,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setAlex(Alex alex) {
         this.alex = alex;
-        displayWelcomeMessage();  // Display the welcome message upon initialization
+        displayWelcomeMessage(); // Display the welcome message upon initialization
     }
 
     /**

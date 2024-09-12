@@ -35,9 +35,9 @@ public class FindCommand extends CommandBase {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException {
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
         if (matchingTasks.isEmpty()) {
-            ui.printTaskList(matchingTasks); // You might want to change this to show a no-match message
+            ui.showTaskList(matchingTasks); // You might want to change this to show a no-match message
         } else {
-            ui.printTaskList(matchingTasks);
+            ui.showTaskList(matchingTasks);
         }
     }
 }

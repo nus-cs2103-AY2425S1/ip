@@ -1,15 +1,13 @@
 package Alex.Ui;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import Alex.Task.Task;
+
+import java.util.ArrayList;
 
 /**
  * Handles user interface operations for displaying messages and reading input.
  */
 public class Ui {
-    private Scanner scanner = new Scanner(System.in);
     private StringBuilder output = new StringBuilder();
 
     /**
@@ -75,7 +73,7 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void printTaskList(ArrayList<Task> tasks) {
+    public void showTaskList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             appendMessage("No matching tasks found.");
         } else {
@@ -96,16 +94,6 @@ public class Ui {
         appendMessage(message + " for task " + (index + 1));
     }
 
-    /**
-     * Prints a divider with a message.
-     *
-     * @param message The message to be displayed between dividers.
-     */
-    private void printDividerWithMessage(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" " + message);
-        System.out.println("____________________________________________________________");
-    }
     /**
      * Appends a message to the output.
      *
