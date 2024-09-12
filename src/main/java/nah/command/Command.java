@@ -147,6 +147,7 @@ public abstract class Command {
     /**
      * The DeleteCommand class is deleting a task.
      */
+
     public static class DeleteCommand extends Command {
         private int idx;
         public DeleteCommand(int idx) {
@@ -220,7 +221,7 @@ public abstract class Command {
         }
 
     }
-
+    
     /**
      * The HelpCommand class is for showing possible command format.
      */
