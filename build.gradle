@@ -55,13 +55,18 @@ application {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'gutti.Main'
+        attributes 'Main-Class': 'gutti.Launcher'
     }
     }
 
 
 run{
     standardInput = System.in
+    enableAssertions = true;
 }
 
+shadowJar {
+    archiveFileName ='gutti.jar'
+}
 
+mainClassName = 'gutti.Launcher'
