@@ -341,6 +341,14 @@
             <property name="option" value="eol"/>
         </module>
 
+        <!-- SuppressionCommentFilter to suppress specific rules between comments -->
+        <module name="SuppressionCommentFilter">
+            <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+            <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+            <property name="checkFormat" value="$1"/>
+        </module>
+
+        <!-- Indentation check with custom case indent set to 0 for alignment -->
         <module name="Indentation">
             <property name="caseIndent" value="0" />
             <property name="throwsIndent" value="8" />

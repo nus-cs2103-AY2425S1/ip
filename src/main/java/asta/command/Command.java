@@ -48,5 +48,6 @@ public enum Command {
     /**
      * Command to exit the application.
      */
-    BYE, UNKNOWN
+    BYE,
+    UNKNOWN
 }

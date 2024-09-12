@@ -1,11 +1,11 @@
 package asta.task;
 
-import asta.AstaException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import asta.AstaException;
 
 /**
  * Represents a list of tasks. Provides methods to add, remove, mark, unmark tasks, and list all tasks.
@@ -64,7 +64,6 @@ public class TaskList {
 
     /**
      * Lists all tasks as a string.
-     *
      */
     public String listTasks() {
         StringBuilder response = new StringBuilder();

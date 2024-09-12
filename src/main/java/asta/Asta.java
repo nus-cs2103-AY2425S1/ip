@@ -12,8 +12,6 @@ import javafx.application.Application;
 
 /**
  * The Asta class encapsulates the following
- *
- *
  */
 public class Asta {
     private static final String FILE_PATH = "./data/asta.txt";
@@ -21,6 +19,11 @@ public class Asta {
     private final Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructs an instance of the Asta bot. Initializes the Ui, Storage, and TaskList components. Loads the tasks
+     * from the storage file and handles any errors that may occur during the loading process. If the storage file does
+     * not exist or an error occurs, an empty TaskList is created.
+     */
     public Asta() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);

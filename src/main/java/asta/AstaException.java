@@ -1,8 +1,8 @@
 package asta;
 
 /**
- * AstaException is a custom exception class used to handle errors specific to the Asta application.
- * This class provides static methods to throw specific error messages, ensuring consistent error handling throughout the application.
+ * AstaException is a custom exception class used to handle errors specific to the Asta application. This class provides
+ * static methods to throw specific error messages, ensuring consistent error handling throughout the application.
  */
 public class AstaException extends Exception {
     /**
