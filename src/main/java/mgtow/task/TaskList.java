@@ -17,6 +17,7 @@ public class TaskList {
     }
 
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list cannot be null";
         this.tasks = tasks;
     }
 
@@ -26,7 +27,9 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
+        assert tasks.contains(task) : "Task was not added successfully";
         System.out.println("\tOk can. I've added this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
@@ -39,10 +42,12 @@ public class TaskList {
      * @return task that is removed.
      */
     public Task deleteTask(int index) throws InvalidTaskException {
+        assert index >= 0 && index < tasks.size() : "Invalid task index";
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskException("Don't bother, task non-existent");
         }
         Task removedTask = tasks.remove(index);
+        assert !tasks.contains(removedTask) : "Task was not removed successfully";
         System.out.println("\tSigh. I've removed this task:");
         System.out.println("\t  " + removedTask);
         System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
@@ -61,6 +66,7 @@ public class TaskList {
         }
         Task task = tasks.get(index);
         task.markDone();
+        assert task.getStatus().equals("X") : "Task was not marked as done";
         System.out.println("\t0.o I've marked this as done: ");
         System.out.println("\t  " + task);
     }
@@ -99,6 +105,7 @@ public class TaskList {
      * @return An ArrayList of tasks scheduled for the given date.
      */
     public ArrayList<Task> getTasksOnDate(LocalDate date) {
+        assert date != null : "Date cannot be null";
         return tasks.stream()
                 .filter(task -> task.isOnDate(date))
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -111,6 +118,7 @@ public class TaskList {
      * @return An ArrayList of tasks whose descriptions contain the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null && !keyword.isEmpty() : "Search keyword cannot be null or empty";
         return tasks.stream()
                 .filter(task -> task.getDesc().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));

@@ -31,6 +31,7 @@ public class Event extends Task {
             if (this.end.isBefore(this.start)) {
                 throw new InvalidTaskException("End time cannot be before start time");
             }
+            assert this.end.isAfter(this.start) : "End time must be after start time";
         } catch (Exception e) {
             throw new InvalidTaskException("Invalid date format. Use yyyy-MM-dd HHmm");
         }
@@ -75,6 +76,7 @@ public class Event extends Task {
      */
     @Override
     public boolean isOnDate(LocalDate date) {
+        assert date != null : "Date cannot be null";
         return (getStartDateTime().toLocalDate().equals(date) || getEndDateTime().toLocalDate().equals(date));
     }
 }

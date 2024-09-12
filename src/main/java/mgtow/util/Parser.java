@@ -26,6 +26,7 @@ public class Parser {
      * @throws InvalidTaskException If the command is invalid or incomplete.
      */
     public static Task createTask(String[] commandParts) throws InvalidTaskException {
+        assert commandParts != null && commandParts.length >= 2 : "Invalid command format";
         if (commandParts.length < 2 || commandParts[1].trim().isEmpty()) {
             throw new InvalidTaskException("What you want me to add?");
         }

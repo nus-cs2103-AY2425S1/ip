@@ -25,12 +25,15 @@ public class Mgtow {
      */
     public Mgtow(String filePath) {
         ui = new Ui();
+        assert ui != null : "UI should not be null";
         storage = new Storage(filePath);
+        assert storage != null : "Storage should not be null";
         try {
             tasks = new TaskList(storage.load());
         } catch (InvalidTaskException e) {
             ui.showLoadingError();
             tasks = new TaskList();
+            assert tasks != null : "TaskList should not be null";
         }
     }
 
