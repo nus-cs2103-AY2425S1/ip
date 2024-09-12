@@ -86,9 +86,17 @@ public class Ui {
      */
     public String find(TaskList taskList) {
         if (taskList.getSize() == 0) {
-            return "There are no relevant tasks";
+            return "Apologies, but there are no relevant tasks.";
         }
         return "Here are the relevant tasks:\n" + taskList.toString();
+    }
+
+    public String archive() {
+        return "All tasks in the taskList have been archived.";
+    }
+
+    public String retrieveArchive() {
+        return "All tasks in the archive have been retrieved.";
     }
 
     /**
