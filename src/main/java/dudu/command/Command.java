@@ -20,12 +20,4 @@ public abstract class Command {
      * @throws IOException If there is an error during rewriting the local data.
      */
     public abstract String execute(TaskList taskList, UI ui, Storage storage) throws IOException;
-
-    /**
-     * Determines if this command will cause the application to exit.
-     * Subclasses will implement the specific exit behavior.
-     *
-     * @return true if the command will cause the application to exit, false otherwise.
-     */
-    public abstract boolean isExit();
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import dudu.command.Command;
+import dudu.exception.DuduException;
 import dudu.exception.InvalidFormatException;
 import dudu.exception.MissingDateTimeException;
 import dudu.exception.MissingDescriptionException;
@@ -21,14 +22,18 @@ public class Dudu {
     private Storage storage;
 
     /**
-     * The constructor for a chatbot instance.
+     * The constructor for a chatbot instance
      *
      * @param filePath The file path of the file containing existing tasks
      */
     public Dudu(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DuduException exception) {
+            tasks = new TaskList();
+        }
     }
 
     /**

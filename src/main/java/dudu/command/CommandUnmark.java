@@ -41,14 +41,4 @@ public class CommandUnmark extends Command {
             return ui.showError(exception);
         }
     }
-
-    /**
-     * Indicates that this command will not cause the application to exit.
-     *
-     * @return false, as this command always does not cause the application to exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

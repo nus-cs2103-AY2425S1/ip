@@ -19,14 +19,4 @@ public class CommandBye extends Command {
     public String execute(TaskList taskList, UI ui, Storage storage) {
         return ui.getGoodbyeMessage();
     }
-
-    /**
-     * Indicates that this command will cause the application to exit.
-     *
-     * @return true, as this command always causes the application to exit.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }

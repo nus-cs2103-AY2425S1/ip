@@ -21,14 +21,4 @@ public class CommandHelp extends Command {
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         return ui.getHelpMessage();
     }
-
-    /**
-     * Indicates that this command will not cause the application to exit.
-     *
-     * @return false, as this command always does not cause the application to exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
