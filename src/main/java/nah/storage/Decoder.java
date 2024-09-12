@@ -13,8 +13,7 @@ public class Decoder {
     /**
      * Checks if the string have the correct format for first three component,
      * in particular ".... | .... | ......"
-     * @param s
-     * @return
+     * @param s the string
      */
     public static boolean checkFirstThreeComponent(String s) {
         String[] command = s.split("\\|", 3);
@@ -33,7 +32,7 @@ public class Decoder {
      * @throws NahException if something wrong happen while processing the String
      */
     public static Task decode(String s) throws NahException {
-        if (checkFirstThreeComponent(s)) {
+        if (!checkFirstThreeComponent(s)) {
             throw new NahException.InvalidFileValueException();
         }
         String[] command = s.split("\\|", 3);
