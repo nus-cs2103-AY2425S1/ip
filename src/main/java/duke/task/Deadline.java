@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-
     protected LocalDateTime by;
     protected final DateTimeFormatter display_format = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
+
+    private final String DEADLINE_ICON = "[D]";
+    private final String DEADLINE = "D";
+
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
@@ -14,7 +17,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(display_format) + ")";
+        String BY_FORMAT = " (by: " + by.format(display_format) + ")";
+        return DEADLINE_ICON + super.toString() + BY_FORMAT;
     }
 
     /**
@@ -23,6 +27,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(display_format);
+        return DEADLINE + BAR + (isDone ? "1" : "0") + BAR
+                + description + BAR + by.format(display_format);
     }
 }

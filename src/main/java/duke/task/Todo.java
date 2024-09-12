@@ -1,13 +1,16 @@
 package duke.task;
 
 public class Todo extends Task {
+    private final String TODO_ICON = "[T]";
+    private final String TODO = "T";
 
     public Todo(String description) {
         super(description);
     }
+
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return TODO_ICON + super.toString();
     }
 
     /**
@@ -16,6 +19,6 @@ public class Todo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return TODO + BAR + (isDone ? "1" : "0") + BAR + description;
     }
 }

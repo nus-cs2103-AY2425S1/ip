@@ -1,14 +1,14 @@
 package duke.Exception;
 
 public class DukeException extends Exception {
-    private final String LINE = "______________________________________________________________";
+    protected final String NEW_LINE = "\n";
+
     public DukeException(String message) {
         super(message);
     }
 
     @Override
     public String getMessage() {
-        return  LINE + "\n" + super.getMessage() + "\n" + LINE;
-
+        return NEW_LINE + super.getMessage() + NEW_LINE;
     }
 }

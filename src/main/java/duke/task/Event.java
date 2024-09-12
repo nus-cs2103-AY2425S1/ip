@@ -7,6 +7,13 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     private final DateTimeFormatter display_format = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
+
+    private final String EVENT_ICON = "[E]";
+    private final String EVENT = "E";
+    private final String FROM = " (from: ";
+    private final String TO = " to: ";
+    private final String CLOSE = ")";
+
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
@@ -15,8 +22,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " "
-                + "(from: " + from.format(display_format) + " to: " + to.format(display_format) + ")";
+        return EVENT_ICON + super.toString() + FROM
+                + from.format(display_format) + TO + to.format(display_format) + CLOSE;
     }
 
     /**
@@ -25,7 +32,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + from.format(display_format) + " | " + to.format(display_format);
+        return EVENT + BAR + (isDone ? "1" : "0") + BAR + description + BAR
+                + from.format(display_format) + BAR + to.format(display_format);
     }
 }

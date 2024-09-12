@@ -7,26 +7,31 @@ import duke.task.Task;
  * A class that deals with interactions in terminal.
  */
 public class Ui {
-    private final String LINE = "____________________________________________________";
-    private final String NAME = "duke";
+    private final String NAME = "Nameless";
     private final String GREETINGS = "Hello, I'm " + NAME + "\n" + "What can I do for you?";
+    private final String LEFT_MESSAGE = "Now you have ";
+    private final String RIGHT_MESSAGE = " task left";
     private final String GOODBYE = "Bye. Hope to see you again!";
+    private final String SHOW_ADD_TASK = "Got it. I've added this task:";
+    private final String REMOVE_TASK = "Noted. I've removed this task:";
+    private final String NEW_LINE = "\n";
+    private final String NEW_LINE_TAB = "\n\t";
 
     public String greetings() {
-        return LINE + "\n" + GREETINGS + "\n" + LINE;
+        return NEW_LINE + GREETINGS + NEW_LINE;
     }
 
     public String goodbye() {
-        return LINE + "\n" + GOODBYE + "\n" + LINE;
+        return NEW_LINE + GOODBYE + NEW_LINE;
     }
 
     /**
      * Show the message printed when a task is added.
      */
     public String showAddTask(TaskList tasks) {
-        return LINE + "\n" + "Got it. I've added this task:"
-                + "\n     " + tasks.get(tasks.size() - 1).toString() + "\n"
-                + "Now you have " + tasks.size() + " task left \n" + LINE;
+        return NEW_LINE + SHOW_ADD_TASK
+                + NEW_LINE_TAB + tasks.get(tasks.size() - 1).toString() + NEW_LINE
+                + LEFT_MESSAGE + tasks.size() + RIGHT_MESSAGE + NEW_LINE;
     }
 
     /**
@@ -35,20 +40,23 @@ public class Ui {
     public String showDeleteTask(TaskList tasks, int index) throws DukeException {
         Task task = tasks.get(index);
         tasks.deleteTask(index);
-        return LINE + "\n" + "Noted. I've removed this task:"
-                + "\n     " + task.toString() + "\n"
-                + "Now you have " + tasks.size() + " task left \n" + LINE;
+
+        return NEW_LINE + REMOVE_TASK
+                + NEW_LINE_TAB + task.toString() + NEW_LINE
+                + LEFT_MESSAGE + tasks.size() + RIGHT_MESSAGE + NEW_LINE;
     }
 
     /**
      * Show the entire list when user input "list".
      */
     public String showList(TaskList tasks) {
-        StringBuilder sb = new StringBuilder(LINE + "\n Here are the tasks in your list:");
+        StringBuilder sb = new StringBuilder(NEW_LINE + "Here are the tasks in your list:");
+
         for (int i = 0; i < tasks.size(); i++) {
             sb.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
         }
-        sb.append("\n" + LINE);
+        sb.append(NEW_LINE);
+
         return sb.toString();
     }
 
@@ -56,29 +64,31 @@ public class Ui {
      * Show the message printed when a task is marked.
      */
     public String showMarkTask(TaskList tasks, int index) {
-        return LINE + "\n" + tasks.get(index).markTask() + "\n" + LINE;
+        return NEW_LINE + tasks.get(index).markTask() + "\n" + NEW_LINE;
     }
 
     /**
      * Show the message printed when a task is unmarked.
      */
     public String showUnmarkTask(TaskList tasks, int index) {
-        return LINE + "\n" + tasks.get(index).unMarkTask() + "\n" + LINE;
+        return NEW_LINE + tasks.get(index).unMarkTask() + NEW_LINE;
     }
 
     /**
      * Returns the task that matches the keyword
      */
     public String showFindTask(TaskList tasks, String keyword) {
-        StringBuilder sb = new StringBuilder(LINE + "\n Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder(NEW_LINE + "Here are the matching tasks in your list:");
         int count = 0;
+
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(keyword)) {
                 count++;
-                sb.append("\n").append(count).append(". ").append(tasks.get(i).toString());
+                sb.append(NEW_LINE).append(count).append(". ").append(tasks.get(i).toString());
             }
         }
-        sb.append("\n" + LINE);
+        sb.append(NEW_LINE);
+
         return sb.toString();
     }
 }

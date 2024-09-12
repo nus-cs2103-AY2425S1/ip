@@ -6,7 +6,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
-import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
 import java.time.format.DateTimeParseException;
@@ -32,6 +31,7 @@ public class Nameless {
         storage = new Storage(FILE_PATH);
         exception = new TypeOfException();
         isRunning = true;
+
         try {
             tasks = new TaskList(storage.loadFile());
         } catch (DukeException e) {
@@ -46,7 +46,8 @@ public class Nameless {
     public void run() {
         ui.greetings();
         TextField inputField = new TextField();
-        while(isRunning) {
+
+        while (isRunning) {
             String input = inputField.getText();
             getResponse(input);
         }
@@ -65,10 +66,12 @@ public class Nameless {
     private String todo(String input) throws DukeException {
         assert input != null : "Input should not be null";
         String words = Parser.splitGetWords(input);
+
         if (words.isEmpty()) {
             exception.todoFormatError();
         }
         tasks.addTask(new Todo(words));
+
         return ui.showAddTask(tasks);
     }
 
@@ -79,9 +82,11 @@ public class Nameless {
     private String deadline(String input) throws DukeException {
         assert input != null : "Input should not be null";
         String[] words = Parser.splitGetWords(input).split(" /by ", 2);
-        if(words.length != 2) {
+
+        if (words.length != 2) {
             return exception.deadlineFormatError();
         }
+
         try {
             LocalDateTime date = LocalDateTime.parse(words[1], PARSE_FORMAT);
             tasks.addTask(new Deadline(words[0], date));
@@ -101,6 +106,7 @@ public class Nameless {
         if (words.length != 3) {
             return exception.eventFormatError();
         }
+
         try {
             LocalDateTime from = LocalDateTime.parse(words[1], PARSE_FORMAT);
             LocalDateTime to = LocalDateTime.parse(words[2], PARSE_FORMAT);
@@ -114,6 +120,7 @@ public class Nameless {
     private String find(String input) throws DukeException {
         assert input != null : "Input should not be null";
         String word = Parser.splitGetWords(input);
+
         if (word.isEmpty()) {
             return exception.findFormatError();
         }
@@ -146,7 +153,6 @@ public class Nameless {
                 } else {
                     return exception.noIdea();
                 }
-
             } catch (DukeException e) {
                 return e.getMessage();
             }
