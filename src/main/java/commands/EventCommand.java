@@ -8,6 +8,7 @@ import cook.Storage;
 import cook.TaskList;
 import cook.Ui;
 import exceptions.InvalidInputException;
+import tasks.Deadline;
 import tasks.Event;
 
 /**
@@ -48,8 +49,12 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        Event event = new Event(this.description, this.from, this.to);
+        if (tasks.detectDuplicate(event)) {
+            return "There is already another task with the same description.";
+        }
         StringBuilder content = new StringBuilder();
-        tasks.addTask(new Event(this.description, this.from, this.to));
+        tasks.addTask(event);
         content.append("Event task has been added.\n");
         try {
             storage.writeFile(tasks);

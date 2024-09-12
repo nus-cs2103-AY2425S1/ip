@@ -77,6 +77,13 @@ public class TaskList implements Serializable {
     }
 
     /**
+     * Checks if there is a duplicate task in tasks.
+     */
+    public boolean detectDuplicate(Task task) {
+        return this.tasks.stream().anyMatch(task::equals);
+    }
+
+    /**
      * Checks if tasks is empty.
      */
     public boolean isEmpty() {

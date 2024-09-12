@@ -27,8 +27,12 @@ public class ToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        ToDo toDo = new ToDo(this.description);
+        if (tasks.detectDuplicate(toDo)) {
+            return "There is already another task with the same description.";
+        }
         StringBuilder content = new StringBuilder();
-        tasks.addTask(new ToDo(this.description));
+        tasks.addTask(toDo);
         content.append("ToDo task has been added.\n");
         try {
             storage.writeFile(tasks);

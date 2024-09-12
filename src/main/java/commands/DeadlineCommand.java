@@ -38,8 +38,12 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        Deadline deadline = new Deadline(this.description, this.by);
+        if (tasks.detectDuplicate(deadline)) {
+            return "There is already another task with the same description.";
+        }
         StringBuilder content = new StringBuilder();
-        tasks.addTask(new Deadline(this.description, this.by));
+        tasks.addTask(deadline);
         content.append("Deadline task has been added.\n");
         try {
             storage.writeFile(tasks);

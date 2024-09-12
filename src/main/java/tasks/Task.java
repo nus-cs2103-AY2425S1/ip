@@ -22,7 +22,7 @@ public abstract class Task implements Serializable {
     /**
      * Marks or unmarks task.
      *
-     * @return Success of marking or unmarking task.
+     * @return Success of marking task.
      */
     public boolean mark() {
         // Tasks.Task is already marked correctly
@@ -37,7 +37,7 @@ public abstract class Task implements Serializable {
     /**
      * Unmarks task.
      *
-     * @return Success of marking or unmarking task.
+     * @return Success of unmarking task.
      */
     public boolean unmark() {
         // Tasks.Task is already marked correctly
@@ -49,6 +49,16 @@ public abstract class Task implements Serializable {
         }
     }
 
+    /**
+     * @inheritDoc.
+     */
+    @Override
+    public boolean equals(Object task) {
+        if (task instanceof Task) {
+            return this.description.equals(((Task) task).description);
+        }
+        return false;
+    }
     /**
      * @inheritDoc.
      */
