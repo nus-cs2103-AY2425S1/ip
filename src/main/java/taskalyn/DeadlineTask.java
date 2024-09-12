@@ -7,29 +7,18 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline Task.
  */
 public class DeadlineTask extends Task {
-    private LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs the DeadlineTask object with description, deadline, and completion status.
      *
      * @param taskItem Description of Deadline Task.
-     * @param deadlineString Deadline of Deadline Task.
+     * @param deadlineDate Deadline of Deadline Task.
      * @param isCompleted Whether a Deadline Task is completed or not.
      */
-    public DeadlineTask(String taskItem, String deadlineString, boolean isCompleted) {
+    public DeadlineTask(String taskItem, LocalDateTime deadlineDate, boolean isCompleted) {
         super(taskItem, isCompleted);
-        this.deadline = getDeadlineDate(deadlineString);
-    }
-
-    /**
-     * Creates a LocalDateTime object for the DeadlineTask.
-     *
-     * @param deadlineString String input of deadline.
-     * @return LocalDateTime object of deadline.
-     */
-    private LocalDateTime getDeadlineDate(String deadlineString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return LocalDateTime.parse(deadlineString, formatter);
+        this.deadline = deadlineDate;
     }
 
     /**
@@ -50,7 +39,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toDatabaseFormat() {
-        DateTimeFormatter databaseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter databaseFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         return "D | " + (this.isCompleted() ? "1" : "0") + " | " + this.getTaskDescription() + " | "
                 + this.deadline.format(databaseFormatter);
     }

@@ -77,4 +77,14 @@ public class MockDatabase extends Database {
         List<String> textLines = readFromDatabase();
         return textLines.size();
     }
+
+    /**
+     * Deletes the database.
+     * This method is used before each unit test.
+     *
+     * @throws IOException If an I/O error occurs during execution.
+     */
+    public void clearDatabase() throws IOException {
+        Files.deleteIfExists(FILE_PATH);
+    }
 }

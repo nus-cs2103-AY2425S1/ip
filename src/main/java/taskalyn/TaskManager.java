@@ -1,6 +1,8 @@
 package taskalyn;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +89,7 @@ public class TaskManager {
         Task task = tasks.get(taskId - 1);
         task.setComplete();
         ui.printLines("Nice, I've marked this task as complete:\n"
-                + "       " + task.toString());
+                + "      " + task.toString());
         updateDatabase();
         return ui.showMarkTaskAsCompleteMessage(task);
     }
@@ -101,7 +103,7 @@ public class TaskManager {
         Task task = tasks.get(taskId - 1);
         task.setIncomplete();
         ui.printLines("Ok, I've marked this task as incomplete:\n"
-                + "       " + task.toString());
+                + "      " + task.toString());
         updateDatabase();
         return ui.showMarkTaskAsIncompleteMessage(task);
     }
@@ -135,7 +137,9 @@ public class TaskManager {
             List<String> textLines = this.database.readFromDatabase();
             for (String line : textLines) {
                 Task task = parseTaskFromString(line);
-                tasks.add(task);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
         } catch (IOException e) {
             System.out.println("Error reading database: " + e.getMessage());
@@ -146,7 +150,7 @@ public class TaskManager {
      * Parses type of task and creates a new Task object of that type.
      *
      * @param line String line from each line in database file.
-     * @return A new TodoTask, DeadlineTask, or EventTask object.
+     * @return A new TodoTask, DeadlineTask, or EventTask object or null.
      */
     private Task parseTaskFromString(String line) {
         String[] parts = line.split(" \\| ");
@@ -154,25 +158,20 @@ public class TaskManager {
             String taskType = parts[0];
             boolean isCompleted = parts[1].equals("1");
             String taskInfo = parts[2];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
             switch (taskType) {
             case "T":
                 return new TodoTask(taskInfo, isCompleted);
 
             case "D":
-                if (parts.length == 4) {
-                    String date = parts[3];
-                    return new DeadlineTask(taskInfo, date, isCompleted);
-                }
-                break;
+                LocalDateTime date = LocalDateTime.parse(parts[3], formatter);
+                return new DeadlineTask(taskInfo, date, isCompleted);
 
             case "E":
-                if (parts.length == 5) {
-                    String toDate = parts[3];
-                    String fromDate = parts[4];
-                    return new EventTask(taskInfo, toDate, fromDate, isCompleted);
-                }
-                break;
+                LocalDateTime fromDate = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime toDate = LocalDateTime.parse(parts[4], formatter);
+                return new EventTask(taskInfo, toDate, fromDate, isCompleted);
 
             default:
             }
@@ -200,7 +199,7 @@ public class TaskManager {
     private String stringBuilder(List<Task> tasks) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString()).append("\n");
+            stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
             if (i != tasks.size() - 1) {
                 stringBuilder.append("\n    ");
             }

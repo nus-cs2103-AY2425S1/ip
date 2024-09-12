@@ -60,7 +60,7 @@ public class Ui {
      */
     public String showMarkTaskAsCompleteMessage(Task task) {
         return "Nice, I've marked this task as complete:\n"
-                + "       " + task.toString();
+                + "      " + task.toString();
     }
 
     /**
@@ -71,7 +71,7 @@ public class Ui {
      */
     public String showMarkTaskAsIncompleteMessage(Task task) {
         return "Ok, I've marked this task as incomplete:\n"
-                + "       " + task.toString();
+                + "      " + task.toString();
     }
 
     /**
@@ -84,6 +84,11 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Returns the bye message when bye command is given.
+     *
+     * @return A String saying bye.
+     */
     public String showByeMessage() {
         return "Bye! Hope to see you again soon!";
     }

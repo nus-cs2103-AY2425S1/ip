@@ -31,7 +31,7 @@ public class Taskalyn {
         if (Objects.equals(input.trim(), "bye")) {
             return ui.showByeMessage();
         } else {
-            return parser.parse(taskManager, input);
+            return parser.parse(input);
         }
     }
 }
