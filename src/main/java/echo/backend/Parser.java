@@ -35,6 +35,7 @@ public class Parser {
      */
     public Parser(Ui ui) {
         this.ui = ui;
+        assert this.ui != null: "ui should not be null";
         this.tempStrings = new String[] {"", "", "", ""};
     }
     /**

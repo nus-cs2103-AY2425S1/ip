@@ -23,6 +23,7 @@ public class Storage {
      * @param filePath the path to the file where tasks are stored
      */
     public Storage(String filePath) {
+        assert !filePath.isEmpty() : "File path should not be an empty string";
         this.filePath = filePath;
         this.taskList = new TaskList();
     }
@@ -76,6 +77,10 @@ public class Storage {
             // Parse file lines
             nextLine = fileScanner.nextLine();
             splitLines = nextLine.split("\\|");
+            assert splitLines.length >= 3: "Tasks format in file is incorrect";
+            assert !splitLines[0].isEmpty(): "Task type cannot be empty";
+            assert !splitLines[1].isEmpty(): "Task status cannot be empty";
+            assert !splitLines[2].isEmpty(): "Task description cannot be empty";
 
             // Assign task fields
             String taskType  = splitLines[0].trim();
@@ -90,12 +95,14 @@ public class Storage {
                         "");
                 break;
             case "D":
+                assert !splitLines[3].isEmpty(): "Deadline cannot be empty";
                 String deadline = splitLines[3].trim();
                 taskList.addDeadline(
                         taskDescription,
                         LocalDate.parse(deadline));
                 break;
             case "E":
+                assert !splitLines[3].isEmpty(): "Event start/end cannot be empty";
                 String startEnd= splitLines[3].trim();
                 taskList.addTask(
                         taskDescription,

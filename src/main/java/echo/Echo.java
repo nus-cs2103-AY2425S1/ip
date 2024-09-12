@@ -35,6 +35,7 @@ public class Echo {
     }
 
     public void stopRunning() {
+        assert storage != null: "Storage should not be null";
         storage.saveToFile();
     }
 

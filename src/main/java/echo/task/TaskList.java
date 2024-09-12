@@ -24,6 +24,9 @@ public class TaskList {
      * @param info additional information related to the task (e.g., start and end dates for an event)
      */
     public void addTask(String description, TaskType type, String info) {
+        assert !description.isEmpty(): "Description shouldn't be empty";
+        assert type != null : "Task type shouldn't be null";
+
         switch (type) {
         case TODO:
             tasks.add(new Todo(description));
@@ -74,6 +77,7 @@ public class TaskList {
      * @param t the task to be added
      */
     private void addTask(Task t) {
+        assert t != null: "Task should not be null";
         tasks.add(t);
     }
     /**
@@ -83,6 +87,9 @@ public class TaskList {
      * @param deadline the deadline date of the task
      */
     public void addDeadline(String description, LocalDate deadline) {
+        assert !description.isEmpty(): "Deadline description should not be empty";
+        assert  deadline != null: "Deadline should not be null";
+
         tasks.add(new Deadline(description, deadline));
     }
     /**
@@ -95,6 +102,7 @@ public class TaskList {
         String tasksString = "";
         int count = 1;
         for (Task task : tasks) {
+            assert !task.getTaskString().isEmpty(): "Task string should not be empty";
             tasksString += count + ". " + task.getTaskString() + "\n";
             count++;
         }
@@ -106,6 +114,7 @@ public class TaskList {
      * @param index the 1-based index of the task to be marked
      */
     public void markTask(int index) {
+        assert index >= 0: "Index should not be out of range";
         tasks.get(index - 1).completeTask();
     }
     /**
@@ -115,6 +124,7 @@ public class TaskList {
      * @return a string representing the task at the specified index of tasks
      */
     public String getTaskString(int index) {
+        assert index > 0: "Index should not be out of range";
         return tasks.get(index - 1).getTaskString() + "\n";
     }
     /**
@@ -123,6 +133,7 @@ public class TaskList {
      * @param index the 1-based index of the task to be unmarked
      */
     public void unmarkTask(int index) {
+        assert index > 0: "Index should not be out of range";
         tasks.get(index - 1).uncompleteTask();
     }
     /**
@@ -131,6 +142,7 @@ public class TaskList {
      * @return the number of tasks in the list
      */
     public int getNumTasks() {
+        assert tasks != null: "Tasks should not be null";
         return tasks.size();
     }
     /**
@@ -139,6 +151,7 @@ public class TaskList {
      * @param index the 1-based index of the task to be deleted
      */
     public void deleteTask(int index) {
+        assert index > 0: "Index should not be out of range";
         tasks.remove(index - 1);
     }
 
@@ -156,6 +169,8 @@ public class TaskList {
          * @param type the type of the task (TODO, EVENT, DEADLINE)
          */
         private Task(String description, TaskType type) {
+            assert !description.isEmpty(): "Description should not be empty";
+            assert type != null: "Task type should not be null";
             this.description = description;
             this.type = type;
         }
@@ -237,6 +252,7 @@ public class TaskList {
          */
         public Deadline(String description, LocalDate deadline) {
             super(description, TaskType.DEADLINE);
+            assert deadline != null: "Deadline should not be null";
             this.deadline = deadline;
         }
         /**
@@ -277,6 +293,9 @@ public class TaskList {
          */
         public Event(String description, String start, String end) {
             super(description, TaskType.EVENT);
+            assert !start.isEmpty(): "Start should not be null";
+            assert !end.isEmpty(): "End should not be null";
+
             this.start = start;
             this.end = end;
         }
