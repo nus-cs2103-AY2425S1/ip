@@ -10,7 +10,12 @@ import asta.ui.Main;
 import asta.ui.Ui;
 import javafx.application.Application;
 
-public class Asta  {
+/**
+ * The Asta class encapsulates the following
+ *
+ *
+ */
+public class Asta {
     private static final String FILE_PATH = "./data/asta.txt";
     private final Storage storage;
     private final Ui ui;
