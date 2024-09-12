@@ -2,6 +2,8 @@ package kobe.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents a list of tasks in the Kobe chatbot application.
@@ -106,14 +108,12 @@ public class TaskList {
      * @return The string representation of all tasks.
      */
     public String getAllTasksAsString() {
-        StringBuilder taskListBuilder = new StringBuilder();
         if (tasks.isEmpty()) {
             return "Your task list is currently empty.";
-        } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                taskListBuilder.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
-            }
-            return taskListBuilder.toString().trim();
         }
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
+                .collect(Collectors.joining("\n"));
     }
+
 }
