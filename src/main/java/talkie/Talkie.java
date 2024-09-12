@@ -31,8 +31,17 @@ public class Talkie {
     public Talkie() {
         ui = new Ui();
         storage = new Storage(Talkie.filePath);
+
+        // Assert that UI and Storage objects are initialized
+        assert ui != null : "UI component should be initialized";
+        assert storage != null : "Storage component should be initialized";
+
         try {
             tasks = new TaskList(this.storage.loadData());
+
+            // Assert that tasks are loaded correctly
+            assert tasks != null : "TaskList should be initialized after loading data";
+
         } catch (TalkieException e) {
             ui.showTalkieException(e);
             tasks = new TaskList();
@@ -53,6 +62,10 @@ public class Talkie {
             try {
                 String input = this.ui.readCommand();
                 Command c = Parser.getCommand(input);
+
+                // Assert that the command is not null
+                assert c != null : "Command should not be null";
+
                 String response = c.execute(this.tasks, this.ui, this.storage);
                 System.out.println(response);
                 isExit = c.isExit();
