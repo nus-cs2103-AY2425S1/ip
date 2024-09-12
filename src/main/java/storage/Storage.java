@@ -70,12 +70,19 @@ public class Storage {
     }
 
     private static void parseEventTaskData(String s, ArrayList<Task> taskList) {
-        boolean isDone;
-        String eventDescription = s.substring(9, s.indexOf("(from:")).trim();
-        String eventFromTime = s.substring(s.indexOf("from: ") + 6, s.indexOf("to: ")).trim();
-        String eventToTime = s.substring(s.indexOf("to: ") + 4, s.indexOf(")")).trim();
-        isDone = s.charAt(3) == 'X';
-        Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime);
+        int eventDescriptionIndex = s.indexOf("description: ");
+        int eventTimingsIndex = s.indexOf("timings: ");
+        int eventFromIndex = s.indexOf("(from: ");
+        int eventToIndex = s.indexOf("to: ");
+        int eventNoteIndex = s.indexOf("note: ");
+
+        String eventDescription = s.substring(eventDescriptionIndex + 13, eventTimingsIndex).trim();
+        String eventNote = s.substring(eventNoteIndex + 6).trim();
+        String eventFromTime = s.substring(eventFromIndex + 7, eventToIndex).trim();
+        String eventToTime = s.substring(eventToIndex + 4, s.indexOf(')')).trim();
+
+        boolean isDone = s.charAt(3) == 'X';
+        Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime, eventNote);
         if (isDone) {
             newEventTask.markAsDone();
         }

@@ -61,7 +61,7 @@ public class Parser {
                 }
             }
             throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, "
-                    + "delete, list, find, bye) (Optional: /n <note>)\n");
+                    + "delete, list, find, bye) (NEW: Try adding /n <note> at the back of command!)\n");
         }
     }
 
@@ -124,45 +124,82 @@ public class Parser {
     }
 
     private static EventCommand processEventCommand(String fullCommand) throws PrimoException {
-        String[] wordsOfCommand = fullCommand.split(" ");
-        assert wordsOfCommand[0].equals("event");
-        assert wordsOfCommand.length >= 4;
+        if (fullCommand.contains("/n")) {
+            return eventCommandWithNote(fullCommand);
+        } else {
+            return eventCommandWithoutNote(fullCommand);
+        }
+    }
+
+    private static EventCommand eventCommandWithNote(String fullCommand) throws PrimoException {
         boolean containsFrom = fullCommand.contains("/from");
         boolean containsTo = fullCommand.contains("/to");
-        if (!containsFrom || !containsTo) {
+        if (!containsFrom || !containsTo) {     // guard against commands without /from and /to
             throw new PrimoException("Invalid parameters! Expected: event <string> /from <string> /to <string>");
         }
-        int eventNameIndex = fullCommand.indexOf("event ") + 6;
+
+        int eventNameIndex = fullCommand.indexOf("event ");
         int eventFromIndex = fullCommand.indexOf("/from");
         int eventToIndex = fullCommand.indexOf("/to");
-        String eventDescription = fullCommand.substring(eventNameIndex, eventFromIndex).trim();
+        int eventNoteIndex = fullCommand.indexOf("/n");
+
+        String eventDescription = fullCommand.substring(eventNameIndex + 6, eventFromIndex).trim();
+        String eventNote = fullCommand.substring(eventNoteIndex + 2).trim();
+        String eventFromDateString = fullCommand.substring(eventFromIndex + 5, eventToIndex).trim();
+        String eventToDateString = fullCommand.substring(eventToIndex + 3, eventNoteIndex).trim();
+
         if (eventDescription.isEmpty()) {
             throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
         }
-        String fromDateString = fullCommand.substring(eventFromIndex + 5, eventToIndex).trim();
-        LocalDate parsedFromDate = null;
-        LocalDate parsedToDate = null;
-        try {
-            parsedFromDate = LocalDate.parse(fromDateString);
-        } catch (DateTimeParseException e) {
-            System.out.println("\"From\" date not in the form of YYYY-MM-DD or invalid DATE");
-            fromDateString = "";
-        }
-        if (fromDateString.isEmpty()) {
+        if (eventFromDateString.isEmpty()) {
             throw new PrimoException("'From' parameter empty or wrong formatting! Expected event "
                     + "/from YYYY-MM-DD /to YYYY-MM-DD");
         }
-        String toDateString = fullCommand.substring(eventToIndex + 3).trim();
-        try {
-            parsedToDate = LocalDate.parse(toDateString);
-        } catch (DateTimeParseException e) {
-            System.out.println("\"To\" date not in the form of YYYY-MM-DD or invalid DATE");
-            toDateString = "";
-        }
-        if (toDateString.isEmpty()) {
+        if (eventToDateString.isEmpty()) {
             throw new PrimoException("'To' parameter cannot be empty! Expected deadline YYYY-MM-DD /by YYYY-MM-DD");
         }
-        EventTask newEventTask = new EventTask(eventDescription, parsedFromDate, parsedToDate);
+
+        EventTask newEventTask;
+        try {
+            newEventTask = new EventTask(eventDescription, eventFromDateString, eventToDateString, eventNote);
+        } catch (DateTimeParseException e) {
+            throw new PrimoException("Date formats are not in the form of YYYY-MM-DD");
+        }
+        return new EventCommand(newEventTask);
+    }
+
+    private static EventCommand eventCommandWithoutNote(String fullCommand) throws PrimoException {
+        boolean containsFrom = fullCommand.contains("/from");
+        boolean containsTo = fullCommand.contains("/to");
+        if (!containsFrom || !containsTo) {     // guard against commands without /from and /to
+            throw new PrimoException("Invalid parameters! Expected: event <string> /from <string> /to <string>");
+        }
+
+        int eventNameIndex = fullCommand.indexOf("event ");
+        int eventFromIndex = fullCommand.indexOf("/from");
+        int eventToIndex = fullCommand.indexOf("/to");
+
+        String eventDescription = fullCommand.substring(eventNameIndex + 6, eventFromIndex).trim();
+        String eventFromDateString = fullCommand.substring(eventFromIndex + 5, eventToIndex).trim();
+        String eventToDateString = fullCommand.substring(eventToIndex + 3).trim();
+
+        if (eventDescription.isEmpty()) {
+            throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
+        }
+        if (eventFromDateString.isEmpty()) {
+            throw new PrimoException("'From' parameter empty or wrong formatting! Expected event "
+                    + "/from YYYY-MM-DD /to YYYY-MM-DD");
+        }
+        if (eventToDateString.isEmpty()) {
+            throw new PrimoException("'To' parameter cannot be empty! Expected deadline YYYY-MM-DD /by YYYY-MM-DD");
+        }
+
+        EventTask newEventTask;
+        try {
+            newEventTask = new EventTask(eventDescription, eventFromDateString, eventToDateString);
+        } catch (DateTimeParseException e) {
+            throw new PrimoException("Date formats are not in the form of YYYY-MM-DD");
+        }
         return new EventCommand(newEventTask);
     }
 

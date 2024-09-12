@@ -2,6 +2,7 @@ package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class EventTask extends Task {
     private static final String SYMBOL = "E";
@@ -10,16 +11,16 @@ public class EventTask extends Task {
     private LocalDate fromDate;
     private LocalDate toDate;
 
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, String from, String to) throws DateTimeParseException {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromDate = LocalDate.parse(from);
+        this.toDate = LocalDate.parse(to);
     }
 
-    public EventTask(String description, LocalDate fromDate, LocalDate toDate) {
-        super(description);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+    public EventTask(String description, String from, String to, String note) throws DateTimeParseException {
+        super(description, note);
+        this.fromDate = LocalDate.parse(from);
+        this.toDate = LocalDate.parse(to);
     }
 
     public String getSymbol() {
@@ -32,10 +33,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        String taskString =  from != null
-                ? String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(),
-                        super.description, this.from, this.to)
-                : String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(),
+        String taskString = String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(),
                         super.description, this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                                 this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         taskString += "\nNote: " + super.note + "\n";
