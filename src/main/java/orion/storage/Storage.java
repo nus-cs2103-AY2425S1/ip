@@ -100,21 +100,21 @@ public class Storage {
 
                 Task task = null;
                 switch (type) {
-                    case "TODO":
-                        task = new Todo(taskId, description);
-                        break;
-                    case "DEADLINE":
-                        LocalDateTime by = LocalDateTime.parse(parts[4]);
-                        task = new Deadline(taskId, description, by);
-                        break;
-                    case "EVENT":
-                        String[] eventTimes = parts[4].split("\\|");
-                        LocalDateTime from = LocalDateTime.parse(eventTimes[0]);
-                        LocalDateTime to = LocalDateTime.parse(eventTimes[1]);
-                        task = new Event(taskId, description, from, to);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown task type: " + type);
+                case "TODO":
+                    task = new Todo(taskId, description);
+                    break;
+                case "DEADLINE":
+                    LocalDateTime by = LocalDateTime.parse(parts[4]);
+                    task = new Deadline(taskId, description, by);
+                    break;
+                case "EVENT":
+                    String[] eventTimes = parts[4].split("\\|");
+                    LocalDateTime from = LocalDateTime.parse(eventTimes[0]);
+                    LocalDateTime to = LocalDateTime.parse(eventTimes[1]);
+                    task = new Event(taskId, description, from, to);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown task type: " + type);
                 }
 
                 task.setCompleted(completed);
