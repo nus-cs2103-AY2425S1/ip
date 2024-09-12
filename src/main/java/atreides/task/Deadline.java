@@ -12,6 +12,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        assert !by.isEmpty();
         if (by.contains("-")) {
             String[] parseDT = by.split("-");
             this.deadline = LocalDateTime.of(Integer.parseInt(parseDT[0]),

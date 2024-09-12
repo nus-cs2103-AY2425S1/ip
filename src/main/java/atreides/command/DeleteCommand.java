@@ -17,7 +17,7 @@ public class DeleteCommand implements Command {
     public String executeString(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
         Task task = tasks.delete(index);
         String plural = tasks.size() == 1 ? " task" : " tasks";
-        String response = "atreides.task.Task removed: \n"
+        String response = "Task removed: \n"
                 + task.toString().indent(2)
                 + tasks.size() + plural + " in list\n";
         return response;
