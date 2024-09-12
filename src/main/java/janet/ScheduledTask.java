@@ -1,6 +1,7 @@
 package janet;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,11 +9,11 @@ import java.time.format.DateTimeFormatter;
  * Represents a task that has a schedule (date and time)
  */
 public class ScheduledTask extends Task {
-    private final LocalDate scheduledDate;
+    private final LocalDateTime scheduledDateAndTime;
 
-    public ScheduledTask(String description, String symbol, LocalDate scheduledDate) {
+    public ScheduledTask(String description, String symbol, LocalDateTime scheduledDateAndTime) {
         super(description, symbol);
-        this.scheduledDate = scheduledDate;
+        this.scheduledDateAndTime = scheduledDateAndTime;
     }
 
 
@@ -35,7 +36,7 @@ public class ScheduledTask extends Task {
     }
 
     @Override
-    public LocalDate getScheduledDate() {
-        return scheduledDate;
+    public LocalDateTime getScheduledDateAndTime() {
+        return scheduledDateAndTime;
     }
 }

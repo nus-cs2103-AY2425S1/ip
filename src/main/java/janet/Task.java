@@ -1,6 +1,7 @@
 package janet;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Represents a Task
@@ -16,6 +17,20 @@ public class Task implements Comparable<Task> {
         this.symbol = symbol;
     }
 
+    /**
+     * For view command (compareTo method), to be used in sorting of Task objects
+     *
+     * @return null.
+     */
+    public LocalDateTime getScheduledDateAndTime() {
+        return null;
+    }
+
+    /**
+     * For view command, to be used to find Task objects with scheduled date
+     *
+     * @return null.
+     */
     public LocalDate getScheduledDate() {
         return null;
     }
@@ -58,6 +73,6 @@ public class Task implements Comparable<Task> {
 
     @Override
     public int compareTo(Task o) {
-        return this.getScheduledDate().compareTo(o.getScheduledDate());
+        return this.getScheduledDateAndTime().compareTo(o.getScheduledDateAndTime());
     }
 }

@@ -98,8 +98,8 @@ public class Janet {
                 response = ui.showFindMessage(tasks.findTasks(keywords));
                 break;
             case VIEW:
-                String dateAndTime = commandDetails[1];
-                response = ui.showScheduledTasksMessage(tasks.viewScheduledTasks(dateAndTime), dateAndTime);
+                String date = commandDetails[1];
+                response = ui.showScheduledTasksMessage(tasks.viewScheduledTasks(date), date);
                 break;
             case SORT:
                 String taskType = commandDetails[1];
