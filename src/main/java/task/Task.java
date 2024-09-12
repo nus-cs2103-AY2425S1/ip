@@ -9,6 +9,8 @@ import task.tasktype.TaskType;
 import task.tasktype.Todo;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Represents a general task. This class is a base class for specific task types such as
@@ -18,6 +20,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;
+    protected ArrayList<Tag> tagsLst = new ArrayList<>();
 
     /**
      * Constructs a new Task with the specified type and description.
@@ -25,10 +28,13 @@ public class Task {
      * @param type The type of the task.
      * @param description The description of the task.
      */
-    protected Task(TaskType type, String description) {
+    protected Task(TaskType type, String description, String... tags) {
         this.type = type;
         this.description = description;
         this.isDone = false;
+        if (tags.length != 0) {
+            Arrays.stream(tags).forEach(tag -> tagsLst.add(TagManager.addTag(tag)));
+        }
     }
     /**
      * Factory method: Creates a new task based on the description provided. The task type is determined from
@@ -51,7 +57,7 @@ public class Task {
 
         try {
             if (taskType == TaskType.TODO) {
-                return new Todo(description);
+                return Task.createTodo(description);
             } else if (taskType == TaskType.DEADLINE) {
                 return Task.createDeadline(description);
             } else {
@@ -62,22 +68,47 @@ public class Task {
         }
     }
 
+    private static String[] extractTags(String description) {
+        int tagIndex = description.indexOf("-t");
+        if (tagIndex == -1) {
+            return new String[]{description, ""};
+        }
+
+        String pureDescription = description.substring(0, tagIndex);
+        String tagString = description.substring(tagIndex + 2).trim();
+        return new String[]{pureDescription, tagString};
+    }
+
+    private static Todo createTodo(String description) {
+        String[] descTagArr = extractTags(description);
+        String[] tagArr = descTagArr[1].split(" ");
+        return new Todo(descTagArr[0], tagArr);
+    }
+
     private static Event createEvent(String description) throws DateTimeParseException {
-        int firstSlashIndex = description.indexOf("/");
-        String des = description.substring(0, firstSlashIndex).trim();
-        String timeDetails = description.substring(firstSlashIndex);
+        String[] descTagArr = extractTags(description);
+        String[] tagArr = descTagArr[1].split(" ");
+        String pureDescription = descTagArr[0];
+
+        int firstSlashIndex = pureDescription.indexOf("/");
+        String des = pureDescription.substring(0, firstSlashIndex).trim();
+        String timeDetails = pureDescription.substring(firstSlashIndex);
 
         String startDateTime = timeDetails.substring(timeDetails.indexOf("/from") + 6,
                 timeDetails.indexOf("/to")).trim();
         String endDateTime = timeDetails.substring(timeDetails.indexOf("/to") + 4).trim();
-        return new Event(des, startDateTime, endDateTime);
+        return new Event(des, startDateTime, endDateTime, tagArr);
     }
 
     private static Deadline createDeadline(String description) throws DateTimeParseException {
-        int firstSlashIndex = description.indexOf("/");
-        String des = description.substring(0, firstSlashIndex).trim();
-        String deadline = description.substring(description.indexOf("/by") + 4);
-        return new Deadline(des, deadline);
+        String[] descTagArr = extractTags(description);
+        String[] tagArr = descTagArr[1].split(" ");
+        String pureDescription = descTagArr[0];
+
+        int firstSlashIndex = pureDescription.indexOf("/");
+        String des = pureDescription.substring(0, firstSlashIndex).trim();
+        String deadline = pureDescription.substring(description.indexOf("/by") + 4);
+        return new Deadline(des, deadline, tagArr);
     }
 
     /**
@@ -117,6 +148,13 @@ public class Task {
      */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
+    }
+
+    public String getTagsAsString() {
+        StringBuilder result = new StringBuilder();
+        tagsLst.forEach(tag -> result.append(tag.toString())
+                .append(" "));
+        return result.toString();
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import exceptions.InvalidDateException;
+import exceptions.InvalidTagNameException;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
 import io.Parser;
@@ -126,9 +127,16 @@ public class TaskList {
 
 
 
-    public ArrayList<Task> matchTaskDescription(String desc) {
+    public ArrayList<Task> filterTaskByDescription(String desc) {
         return inputHistory.stream()
                 .filter(x -> x.description.contains(desc))
+                .collect(Collectors.toCollection(ArrayList :: new));
+    }
+
+    public ArrayList<Task> filterTaskByTags(String[] tags) throws InvalidTagNameException {
+        ArrayList<Tag> tagLst = TagManager.stringArrToTags(tags);
+        return inputHistory.stream()
+                .filter(task -> task.tagsLst.containsAll(tagLst))
                 .collect(Collectors.toCollection(ArrayList :: new));
     }
 

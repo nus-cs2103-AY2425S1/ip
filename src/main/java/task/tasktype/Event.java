@@ -20,8 +20,8 @@ public class Event extends Task {
      * @param start date that the task needs to be finished by, given in {@code d/M/yyyy} format (e.g. 25/10/2015)
      * @param end
      */
-    public Event(String description, String start, String end) {
-        super(TaskType.EVENT, description);
+    public Event(String description, String start, String end, String... tags) {
+        super(TaskType.EVENT, description, tags);
 
         assert !start.isEmpty() : "every Event task must have a start date";
         assert !end.isEmpty() : "every Event task must have an end date";
@@ -62,6 +62,6 @@ public class Event extends Task {
         String start = altFormatStart + " " + startString;
         String end = altFormatEnd + " " + endString;
         String dateStr = ("from: " + start + " to: " + end).trim();
-        return "[E]" + super.toString() + " (" + dateStr + ")";
+        return "[E]" + super.toString() + " (" + dateStr + ")" + "tags: " + this.getTagsAsString();
     }
 }

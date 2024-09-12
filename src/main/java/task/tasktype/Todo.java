@@ -14,12 +14,12 @@ public class Todo extends Task {
      *
      * @param description A description of the to-do task.
      */
-    public Todo(String description) {
-        super(TaskType.TODO, description);
+    public Todo(String description, String... tags) {
+        super(TaskType.TODO, description, tags);
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + "tags: " + this.getTagsAsString();
     }
 }

@@ -1,31 +1,21 @@
 package commands;
 
-import java.util.ArrayList;
+public abstract class FindCommand extends Command {
 
-import task.Task;
-import task.TaskList;
+    public static FindCommand createFindCommand(String description) {
+        if (description.contains("tag") || description.contains("-t")) {
+            String tags;
+            if (description.contains("tag")) {
+                tags = description.split("tag")[1];
+            } else {
+                tags = description.split("-t")[1];
+            }
 
-public class FindCommand extends Command {
-    private final String itemToFind;
-
-    public FindCommand(String item) {
-        this.itemToFind = item;
-    }
-
-    @Override
-    public String execute(TaskList taskList) {
-        StringBuilder resultString = new StringBuilder();
-
-        ArrayList<Task> matchedTasks = taskList.matchTaskDescription(itemToFind);
-
-        
-        matchedTasks.stream().forEach(task ->
-                resultString.append((matchedTasks.indexOf(task) + 1))
-                        .append(". ")
-                        .append(task)
-                        .append("\n")
-        );
-
-        return resultString.toString();
+            tags = tags.trim();
+            String[] tagArr = tags.split("\\s+");
+            return new FilterByTagsCommand(tagArr);
+        } else {
+            return new FilterByDescriptionCommand(description);
+        }
     }
 }
