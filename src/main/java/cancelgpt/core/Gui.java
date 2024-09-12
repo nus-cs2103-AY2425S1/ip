@@ -1,5 +1,7 @@
 package cancelgpt.core;
 
+import java.nio.file.Paths;
+
 import cancelgpt.gui.DialogBox;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,7 +14,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.nio.file.Paths;
 
 /**
  * Test GUI.
@@ -99,10 +100,10 @@ public class Gui extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = cancelGpt.getResponse(userInput.getText());
+        String cancelGptText = cancelGpt.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(dukeText, cancelGptImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getCancelGptDialog(cancelGptText, cancelGptImage)
         );
         userInput.clear();
     }
