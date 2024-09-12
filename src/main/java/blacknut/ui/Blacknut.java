@@ -49,6 +49,8 @@ public class Blacknut {
                 return ui.getGoodbyeMessage();
             case "list":
                 return ui.getTasks(tasks.getTasks());
+            case "remind":
+                return ui.getReminderMessage(tasks.getTasks());
             case "mark":
             case "unmark":
                 int markIndex = parser.parseIndex(input);

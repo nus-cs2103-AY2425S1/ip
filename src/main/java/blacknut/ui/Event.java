@@ -1,4 +1,5 @@
 package blacknut.ui;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -22,6 +23,15 @@ public class Event extends Task {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.from = LocalDateTime.parse(from, inputFormatter);
         this.to = LocalDateTime.parse(to, inputFormatter);
+    }
+
+    /**
+     * Returns the LocalDate of the event start time for comparison.
+     *
+     * @return The LocalDate of the event start time.
+     */
+    public LocalDate getDate() {
+        return from.toLocalDate();
     }
 
     /**
