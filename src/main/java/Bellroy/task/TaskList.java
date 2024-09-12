@@ -40,6 +40,7 @@ public class TaskList {
      * @return the task at index
      */
     public Task get(int index) {
+        assert index >= 0: "index cannot be negative";
         return taskList.get(index);
     }
 
@@ -56,6 +57,7 @@ public class TaskList {
      * @param index of the task to be deleted
      */
     public void removeTask(int index) {
+        assert index >= 0: "index cannot be negative";
         taskList.remove(index);
     }
 
