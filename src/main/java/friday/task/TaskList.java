@@ -58,20 +58,25 @@ public class TaskList {
      * @return The string representation of tasks in the task list matching the keyword.
      */
     public String findTasks(String keyword) {
+        assert keyword != null : "Search keyword cannot be null";
+
         if (keyword.trim().isEmpty()) {
             return "Please provide a keyword to search for.";
         }
 
-        String response = "Here are the matching tasks in your list:";
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:");
         boolean found = false;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
+            assert task != null : "Task should not be null";
+
             String description = task.toString().toLowerCase();
             String[] words = description.split("\\s+");
 
             for (String word : words) {
+                assert word != null : "Word in task description should not be null";
                 if (word.equals(keyword.toLowerCase())) {
-                    response += "\n" + (i + 1) + "." + task;
+                    response.append("\n").append(i + 1).append(".").append(task);
                     found = true;
                     break;
                 }
@@ -82,7 +87,7 @@ public class TaskList {
             return "No matching tasks found.";
         }
 
-        return response;
+        return response.toString();
     }
 
     /**
