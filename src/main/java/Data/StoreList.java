@@ -228,5 +228,11 @@ public class StoreList {
 
         return "    Here are the tasks in your list that match your search:\n" + result;
     }
+
+    public String updateTask(int itemNum, String newValue) {
+        Task task = items.get(itemNum - 1);
+        task.setDesc(newValue);
+        return "Task " + itemNum + "desc change to " + newValue;
+    }
 }
 
