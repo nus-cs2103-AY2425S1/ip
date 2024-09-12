@@ -1,6 +1,6 @@
 # KieTwoForOne
 
-“Your mind is for having ideas, not holding them.” – David Allen ([source](https://www.zen-tools.net/getting-things-done.html))
+> “Your mind is for having ideas, not holding them.” – David Allen ([source](https://www.zen-tools.net/getting-things-done.html))
 
 KieTwoForOne frees your mind from having to remember things you need to do. It's,
 
@@ -22,7 +22,7 @@ Features:
 - [ ] Managing deadlines (coming soon)
 - [ ] Reminders (coming soon) 
 
-If you are a Java programmer, you can also use it to practice Java. Here's the main method:
+If you are a Java programmer, you can also use it to practice Java. Here's the 'main' method:
 
 '''java
 public class Main {
@@ -30,6 +30,7 @@ public class Main {
         Application.launch(MainApp.class, args);
     }
 }
+'''
 
 
 
