@@ -3,6 +3,10 @@
 .root {
     main-color: rgb(169, 169, 169);
     -fx-background-color: main-color;
+    -fx-background-image: url("/images/background.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
 }
 
 .scroll-bar {
@@ -52,4 +56,8 @@
 .scroll-bar .decrement-button {
     -fx-pref-height: 0;
     -fx-opacity: 0;
+}
+
+.vbox {
+    -fx-background-color: transparent;
 }

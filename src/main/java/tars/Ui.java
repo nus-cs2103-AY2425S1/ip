@@ -57,7 +57,7 @@ public class Ui {
      * @return a formatted response message string.
      */
     public String getResponseMessage(String response) {
-        return "____________________________________\n" + response + "\n____________________________________";
+        return response;
     }
 
     /**
