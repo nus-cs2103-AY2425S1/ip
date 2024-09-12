@@ -6,6 +6,7 @@ import sage.Storage;
 import sage.Task.DeadlineTask;
 import sage.Task.EventTask;
 import sage.Task.Task;
+import sage.Task.TaskType;
 import sage.Task.ToDoTask;
 import sage.Ui;
 
@@ -15,11 +16,10 @@ import sage.Ui;
  * - ToDoTask
  * - DeadlineTask
  * - EventTask
- *
  * Based on the command type provided, the respective task is created and added to the task list.
  */
 public class AddCommand extends Command {
-    private final String commandType;
+    private final TaskType commandType;
     private final String description;
 
     /**
@@ -29,7 +29,7 @@ public class AddCommand extends Command {
      * @param description The description of the task, including details needed for each task.
      */
     public AddCommand(String commandType, String description) {
-        this.commandType = commandType;
+        this.commandType = TaskType.inputToEnum(commandType);
         this.description = description;
     }
 
@@ -46,7 +46,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
         Task task;
         switch (commandType) {
-        case "todo" -> {
+        case TODO -> {
             if (description.isEmpty()) {
                 throw new SageException("Invalid todo command. Please include a description.");
             }
@@ -55,7 +55,7 @@ public class AddCommand extends Command {
             assert task != null : "ToDoTask should not be null after creation.";
         }
 
-        case "deadline" -> {
+        case DEADLINE -> {
             String[] deadlineCommand = description.split(" /by ", 2);
             if (deadlineCommand.length < 2) {
                 throw new SageException("Invalid deadline command. Please include a description and /by.");
@@ -75,7 +75,7 @@ public class AddCommand extends Command {
             assert task != null : "DeadlineTask should not be null after creation.";
         }
 
-        case "event" -> {
+        case EVENT -> {
             String[] eventCommand = description.split(" /from | /to ", 3);
             if (eventCommand.length < 3) {
                 throw new SageException("Invalid event command. Please include description, /from, and /to.");
