@@ -15,7 +15,7 @@ public class Task {
      * @param description the description of the task
      * @throws CommandFoundButInvalidException if the description is invalid
      */
-    public Task(String description) throws CommandFoundButInvalidException {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }

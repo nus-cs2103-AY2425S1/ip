@@ -48,15 +48,6 @@ public class Parser {
     }
 
     /**
-     * Returns a boolean to determine if the program should stop running
-     *
-     * @return a boolean value depending on the command input of user
-     */
-    public boolean isOver() {
-        return this.isOver;
-    }
-
-    /**
      * Returns a string of the command performed. Otherwise, it throws an exception.
      *
      * @return a String that corresponds to the success message of the command executed
