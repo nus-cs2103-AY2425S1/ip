@@ -267,8 +267,7 @@ public class Devon {
      * @param taskIndex The index of the task to mark as done.
      */
     private String markAsDone(int taskIndex) {
-        String textResponse = tasks.markAsDone(taskIndex);
-        return textResponse;
+        return tasks.markAsDone(taskIndex);
     }
 
     /**
@@ -277,8 +276,7 @@ public class Devon {
      * @param taskIndex The index of the task to mark as undone.
      */
     private String markAsUndone(int taskIndex) {
-        String textResponse = tasks.markAsUndone(taskIndex);
-        return textResponse;
+        return tasks.markAsUndone(taskIndex);
     }
 
     /**
