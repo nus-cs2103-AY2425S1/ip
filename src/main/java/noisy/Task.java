@@ -22,6 +22,14 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Returns the string representation of the task.
+     * The format includes the status icon and the task description.
+     *
+     * @return The string representation of the task.
+     */
+
+
     public String getDescription() {
         return this.description;
     }
