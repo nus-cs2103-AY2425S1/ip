@@ -1,10 +1,10 @@
 package Joseph.GUI;
 
 import Joseph.Exceptions.UnknownCommandException;
-import Joseph.Tasks.TaskList;
-import Joseph.UI;
 import Joseph.Parser;
 import Joseph.Storage;
+import Joseph.Tasks.TaskList;
+import Joseph.UI;
 
 /**
  *  The main class of the chatbot.
@@ -15,6 +15,9 @@ public class Joseph {
     private final TaskList taskList;
     private final UI ui;
 
+    /**
+     * Creates a new Joseph instance with Parser, Storage, TaskList, UI instances;
+     */
     public Joseph() {
         this.ui = new UI();
         this.parser = new Parser();
@@ -23,6 +26,7 @@ public class Joseph {
     }
 
     public String getResponse(String input) {
+        assert input != null : "input should not be null";
         try {
             Parser.Command command = parser.parseCommand(input);
             if (command == Parser.Command.EXIT) {

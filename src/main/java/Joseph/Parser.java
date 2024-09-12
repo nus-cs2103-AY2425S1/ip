@@ -42,6 +42,7 @@ public class Parser {
      * @throws UnknownCommandException If the command is not in the Command enum.
      */
     public Command parseCommand(String input) throws UnknownCommandException {
+        assert input != null && !input.isEmpty() : "input should not be null or empty";
         for (Command command : Command.values()) {
             if (input.startsWith(command.getCommandText())) {
                 return command;
@@ -59,6 +60,7 @@ public class Parser {
      */
     public int parseTaskNumber(String input, String commandText)
             throws InsufficientDetailsException {
+        assert input.length() > commandText.length() : "input should contain a number";
         try {
             return Integer.parseInt(input.substring(commandText.length()).trim());
         } catch (NumberFormatException e) {
