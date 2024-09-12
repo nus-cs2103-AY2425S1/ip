@@ -11,7 +11,7 @@ import juno.task.Task;
  * Handles the creation and addition of an Event task based on user input.
  */
 public class AddEventCommand extends AddCommand {
-    private final String TASK_TYPE = "event";
+    private static final String TASK_TYPE = "event";
 
     /**
      * Constructs a AddEventCommand instance that takes in a specified user input, TaskManager instance, and FileManager

@@ -12,7 +12,7 @@ import juno.task.Task;
  */
 public class AddDeadlineCommand extends AddCommand {
 
-    private final String TASK_TYPE = "deadline";
+    private static final String TASK_TYPE = "deadline";
 
     /**
      * Constructs an AddDeadlineCommand instance that takes in a specified user input, TaskManager instance,

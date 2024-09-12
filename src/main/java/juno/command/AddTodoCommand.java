@@ -12,7 +12,7 @@ import juno.task.Todo;
  */
 public class AddTodoCommand extends AddCommand {
 
-    private final String TASK_TYPE = "todo";
+    private static final String TASK_TYPE = "todo";
 
     /**
      * Constructs a AddTodoCommand that takes in a specified user input, TaskManager instance, and FileManager instance.
