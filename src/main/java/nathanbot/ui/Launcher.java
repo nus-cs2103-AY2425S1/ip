@@ -1,3 +1,4 @@
+package nathanbot.ui;
 import javafx.application.Application;
 
 /**

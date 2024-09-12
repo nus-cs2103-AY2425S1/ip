@@ -1,3 +1,4 @@
+package nathanbot;
 /**
  * This code has been refined with the assistance of Copilot to comply with the Java Style Guide.
  * For further information, please refer to the Academic Declarations.

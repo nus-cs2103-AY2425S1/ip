@@ -76,6 +76,16 @@ public class TaskList {
     }
 
     /**
+     * Returns if the task list is empty.
+     *
+     * @return if the task list is empty.
+     */
+    public boolean isEmpty() {
+        return taskList.isEmpty();
+    }
+
+
+    /**
      * Finds tasks that contain the specified string in their description.
      *
      * @param searchString The string to search for in task descriptions.
