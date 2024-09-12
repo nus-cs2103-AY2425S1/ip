@@ -64,20 +64,25 @@ public class Storage {
      *         does not match any recognized task type.
      */
     private Task parseTask(String[] taskData) {
-        Task task = null;
+        assert taskData != null : "Task data should not be null";
+        assert taskData.length > 0 : "Task data array should have at least one element";
 
+        Task task = null;
         switch (taskData[0]) {
         case "T":
+            assert taskData.length == 3 : "Todo task data should have 3 elements";
             task = new Todo(taskData[2]);
             break;
         case "D":
+            assert taskData.length == 4 : "Deadline task data should have 4 elements";
             task = new Deadline(taskData[2], taskData[3]);
             break;
         case "E":
+            assert taskData.length == 5 : "Event task data should have 5 elements";
             task = new Event(taskData[2], taskData[3], taskData[4]);
             break;
         default:
-            System.out.println("\tCorrupted data found: " + String.join(" | ", taskData));
+            assert false : "Unknown task type: " + taskData[0];
         }
         return task;
     }

@@ -52,6 +52,7 @@ public class Friday {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            assert c != null : "Parsed command should not be null";
             return c.execute(tasks, ui, storage);
         } catch (FridayException | IOException e) {
             return "Error: " + e.getMessage();

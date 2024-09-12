@@ -16,6 +16,8 @@ public class FindCommand extends Command {
      * @param find The array containing the keyword to search for.
      */
     public FindCommand(String[] find) {
+        assert find != null : "Find command input array should not be null";
+        assert find.length > 1 : "Find command input array should have at least 2 elements";
         this.find = find[1];
     }
 
@@ -29,6 +31,9 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
         return tasks.findTasks(find);
     }
 }
