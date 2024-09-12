@@ -91,6 +91,10 @@ public class Ui {
         return "Here are the relevant tasks:\n" + taskList.toString();
     }
 
+    public String archive() {
+        return "All tasks in the taskList have been archived";
+    }
+
     /**
      * Returns exception message for a specified exception.
      *
