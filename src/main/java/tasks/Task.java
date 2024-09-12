@@ -63,9 +63,12 @@ public class Task {
      * @return string representing the task information.
      */
     public String writeTask() {
-        StringBuilder s = new StringBuilder();
-        s.append(this.isDone ? 1 : 0).append(",").append(this.description);
-        return s.toString();
+        int priorityNumber = this.priority == Priority.HIGH
+                ? 1
+                : this.priority == Priority.MEDIUM
+                ? 2
+                : 3;
+        return (this.isDone ? 1 : 0) + "," + priorityNumber + "," + this.description;
     }
 
     /**

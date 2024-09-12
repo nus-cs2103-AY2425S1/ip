@@ -65,7 +65,9 @@ public class Parser {
             checkValidTaskInput(Command.TODO, result);
 
             String[] todoParams = result[1].split("/p");
-            addedTask = list.addTask(Command.TODO, todoParams);
+            addedTask = todoParams.length == 1
+                    ? list.addTask(Command.TODO, todoParams[0])
+                    : list.addTask(Command.TODO, todoParams[0], todoParams[1].strip());
             break;
         case DEADLINE:
             // result[1] contains description /by deadline /p priority
