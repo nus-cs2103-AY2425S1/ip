@@ -20,6 +20,7 @@ public class DeleteCommand implements Command {
     public String execute(UI ui) {
         Task task = this.taskList.deleteTask(taskId);
         String response = ui.showDeleteTaskSuccess(task);
+        assert !response.isEmpty();
         this.storage.writeToStorage(this.taskList.getTasks());
         return response;
     }

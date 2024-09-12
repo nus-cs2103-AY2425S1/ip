@@ -1,6 +1,4 @@
-1. [T][] 123
-2. [E][] 123123(from: 123123 to: asldk)
-3. [T][] booklao
-4. [D][] return book (by: Monday)
-5. [T][X] 432
-6. [D][X] return books (by: today)
+1. [D][] return book (by: Monday)
+2. [D][X] return books (by: today)
+3. [T][] study
+4. [E][] event(from: Today to: tommorow)

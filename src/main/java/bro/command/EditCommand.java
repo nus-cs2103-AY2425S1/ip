@@ -32,6 +32,7 @@ public class EditCommand implements Command {
             }
 
             this.storage.writeToStorage(this.taskList.getTasks());
+            assert !response.isEmpty();
             return response;
 
         } catch (Exception e) {

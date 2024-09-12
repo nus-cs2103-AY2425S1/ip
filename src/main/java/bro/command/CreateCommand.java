@@ -20,6 +20,7 @@ public class CreateCommand implements Command {
     public String execute(UI ui) {
         Task task = this.taskList.addTask(this.task);
         String response = ui.showCreateTaskSuccess(task, this.taskList.getNumberOfTask());
+        assert !response.isEmpty();
         this.storage.writeToStorage(this.taskList.getTasks());
         return response;
     }
