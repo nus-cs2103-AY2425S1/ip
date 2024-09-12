@@ -64,9 +64,10 @@ public class TaskList {
     }
 
     /**
-     * diuew
-     * @param keyword
-     * @return
+     * Returns a task list that matches the keyword provided by
+     * the user
+     * @param keyword matching phrase that user wants to search for
+     * @return task list containing the matching keyword
      */
     public TaskList findTasks(String keyword) {
         TaskList tempList = new TaskList();
