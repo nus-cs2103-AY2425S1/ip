@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,40 +48,15 @@ public class Storage {
             List<String> lines = Files.readAllLines(filePath);
             for (String s : lines) {
                 String[] words = s.split(" ");
-                boolean isDone;
-                switch (words[0].charAt(3)) {
+                switch (words[0].charAt(0)) {
                 case 'T':
-                    int todoFromIndex = 9;
-                    String todoDescription = s.substring(todoFromIndex).trim();
-                    isDone = s.charAt(6) == 'X';
-                    Task newToDoTask = new TodoTask(todoDescription);
-                    if (isDone) {
-                        newToDoTask.markAsDone();
-                    }
-                    taskList.add(newToDoTask);
+                    parseTodoTaskData(s, taskList);
                     break;
                 case 'D':
-                    int deadlineFromIndex = 9;
-                    int deadlineToIndex = s.indexOf("(by:");
-                    String deadlineDescription = s.substring(deadlineFromIndex, deadlineToIndex).trim();
-                    String dueTime = s.substring(deadlineToIndex + 4, s.indexOf(')')).trim();
-                    isDone = s.charAt(6) == 'X';
-                    Task newDeadlineTask = new DeadlineTask(deadlineDescription, dueTime);
-                    if (isDone) {
-                        newDeadlineTask.markAsDone();
-                    }
-                    taskList.add(newDeadlineTask);
+                    parseDeadlineTaskData(s, taskList);
                     break;
                 case 'E':
-                    String eventDescription = s.substring(9, s.indexOf("(from:")).trim();
-                    String eventFromTime = s.substring(s.indexOf("from: ") + 6, s.indexOf("to: ")).trim();
-                    String eventToTime = s.substring(s.indexOf("to: ") + 4, s.indexOf(")")).trim();
-                    isDone = s.charAt(6) == 'X';
-                    Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime);
-                    if (isDone) {
-                        newEventTask.markAsDone();
-                    }
-                    taskList.add(newEventTask);
+                    parseEventTaskData(s, taskList);
                     break;
                 default:
                     return null; // should not reach here if exception handling is correct
@@ -89,6 +66,60 @@ public class Storage {
         } catch (IOException e) {
             throw e;
         }
+    }
+
+    private static void parseEventTaskData(String s, ArrayList<Task> taskList) {
+        int eventDescriptionIndex = s.indexOf("description: ");
+        int eventTimingsIndex = s.indexOf("timings: ");
+        int eventFromIndex = s.indexOf("(from: ");
+        int eventToIndex = s.indexOf("to: ");
+        int eventNoteIndex = s.indexOf("note: ");
+
+        String eventDescription = s.substring(eventDescriptionIndex + 13, eventTimingsIndex).trim();
+        String eventNote = s.substring(eventNoteIndex + 6).trim();
+        String eventFromTime = s.substring(eventFromIndex + 7, eventToIndex).trim();
+        String eventToTime = s.substring(eventToIndex + 4, s.indexOf(')')).trim();
+
+        boolean isDone = s.charAt(1) == 'X';
+        Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime, eventNote);
+        if (isDone) {
+            newEventTask.markAsDone();
+        }
+        taskList.add(newEventTask);
+    }
+
+    private static void parseDeadlineTaskData(String s, ArrayList<Task> taskList) {
+        int deadlineDescriptionIndex = s.indexOf("description: ");
+        int deadlineTimingsIndex = s.indexOf("timings: ");
+        int deadlineByIndex = s.indexOf("(by: ");
+        int deadlineNoteIndex = s.indexOf("note: ");
+
+        String deadlineDescription = s.substring(deadlineDescriptionIndex + 13, deadlineTimingsIndex).trim();
+        String deadlineNote = s.substring(deadlineNoteIndex + 6).trim();
+        String deadlineTime = s.substring(deadlineByIndex + 5, s.indexOf(')')).trim();
+
+        boolean isDone = s.charAt(1) == 'X';
+        Task newDeadlineTask = new DeadlineTask(deadlineDescription, deadlineTime, deadlineNote);
+        if (isDone) {
+            newDeadlineTask.markAsDone();
+        }
+        taskList.add(newDeadlineTask);
+    }
+
+    private static void parseTodoTaskData(String s, ArrayList<Task> taskList) {
+        int todoDescriptionIndex = s.indexOf("description: ");
+        int todoTimingsIndex = s.indexOf("timings: ");
+        int todoNoteIndex = s.indexOf("note: ");
+
+        String todoDescription = s.substring(todoDescriptionIndex + 13, todoTimingsIndex).trim();
+        String todoNote = s.substring(todoNoteIndex + 6).trim();
+
+        boolean isDone = s.charAt(1) == 'X';
+        Task newToDoTask = new TodoTask(todoDescription, todoNote);
+        if (isDone) {
+            newToDoTask.markAsDone();
+        }
+        taskList.add(newToDoTask);
     }
 
     /**
@@ -101,7 +132,11 @@ public class Storage {
         int len = list.size();
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < len; i++) {
-            String output = i + 1 + "." + list.get(i);
+            Task task = list.get(i);
+            String output = task.getSymbol() + task.getStatusIcon()
+                    + " description: " + task.getDescription()
+                    + " timings: " + task.getTimings()
+                    + " note: " + task.getNote();
             data.append(output);
             data.append("\n");
         }

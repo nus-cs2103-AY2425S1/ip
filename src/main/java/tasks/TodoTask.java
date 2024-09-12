@@ -7,8 +7,22 @@ public class TodoTask extends Task {
         super(description);
     }
 
+    public TodoTask(String description, String note) {
+        super(description, note);
+    }
+
+    public String getSymbol() {
+        return SYMBOL;
+    }
+
+    public String getTimings() {
+        return "";
+    }
+
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s", this.SYMBOL, super.getStatusIcon(), super.description);
+        String taskString = String.format("[%s][%s] %s", this.SYMBOL, super.getStatusIcon(), super.description);
+        taskString += "\nNote: " + super.note + "\n";
+        return taskString;
     }
 }
