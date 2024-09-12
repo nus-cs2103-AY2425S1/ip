@@ -1,24 +1,84 @@
-# Duke project template
+<div id="top"></div>
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" alt="Logo" width="80" height="80">
 
-## Setting up in Intellij
+<h3 align="center">Susan Bot</h3>
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+  <p align="center">
+    Susan bot helps you manage tasks well.
+    <br />
+    <a href="https://nus-cs2103-ay2425s1.github.io/website/schedule/week3/project.html"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+  </p>
+</div>
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+    <li>
+      <a href="#features">Features</a>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ol>
+</details>
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+
+Susan Bot is a simple lightweight chat bot that lets you manage tasks easily from your desktop.
+
+## Features
+
+1. `todo <description>`: Adds tasks without any date/time attached to it e.g., visit new theme park
+2. `deadline <description> /by <deadline>`: adds tasks that need to be done before a specific date/time e.g., submit report by 11/10/2019 5pm
+3. `event <description> /from <from> /to <to>`: adds tasks that start at a specific date/time and ends at a specific date/time e.g., (a) team project meeting 2/10/2019 2-4pm (b) orientation week 4/10/2019 to 11/10/2019
+4. `list`: Lists down your current tasks.
+5. `mark <taskNumber>`: Checks the task with taskNumber as done.
+6. `unmark <taskNumber>`: Checks the task with taskNumber as undone.
+7. `bye`: Exits the program.
+8. `delete <taskNumber>`: Deletes the task with taskNumber.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+1. Set up tools: https://nus-cs2103-ay2425s1.github.io/website/schedule/week1/admin.html
+2. `git clone https://github.com/raihahahan/ip.git`
+3. Gradle build
+4. Run ip [run] with Gradle.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+
+## Roadmap 🚀
+
+- [x] Week 1 Tasks
+- [x] Week 2 Tasks
+- [x] Week 3 Tasks
+- [x] Week 4 Tasks
+- [ ] Week 5 Tasks
+- [ ] Week 6 Tasks
+- [ ] Week 7 Tasks
+- [ ] Week 8 Tasks
+- [ ] Week 9 Tasks
+- [ ] Week 10 Tasks
+- [ ] Week 11 Tasks
+- [ ] Week 12 Tasks
+- [ ] Week 13 Tasks
+
+<p align="right">(<a href="#top">back to top</a>)</p>
