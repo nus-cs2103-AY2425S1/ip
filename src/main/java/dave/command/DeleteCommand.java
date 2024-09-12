@@ -7,7 +7,6 @@ import dave.task.Task;
 import dave.task.TaskList;
 import dave.ui.Ui;
 
-
 /**
  * Represents the command to delete a task from the task list.
  * This command removes the task from the list, provides feedback to the user, and saves the updated list to storage.
@@ -36,6 +35,12 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
+        // Adding assertions for safety checks
+        assert tasks != null : "TaskList should not be null.";
+        assert storage != null : "Storage should not be null.";
+        assert ui != null : "Ui should not be null.";
+        assert index >= 0 : "Task index should be non-negative.";
+
         try {
             Task task = tasks.getTask(index);
             tasks.deleteTask(index);

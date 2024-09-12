@@ -17,15 +17,27 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            assert dave != null : "Dave instance should be initialized"; // Assert that dave is initialized
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+
+            assert ap != null : "AnchorPane should have been loaded"; // Assert that the layout was successfully loaded
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDave(dave); // inject the Duke instance
-            fxmlLoader.<MainWindow>getController().showWelcomeMessage();
+
+            MainWindow controller = fxmlLoader.<MainWindow>getController();
+            assert controller != null : "MainWindow controller should be initialized";
+            // Assert controller initialization
+
+            controller.setDave(dave); // inject the Duke instance
+            controller.showWelcomeMessage();
+
             stage.setMinHeight(220);
             stage.setMinWidth(640);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -8,7 +8,6 @@ import dave.task.Task;
 import dave.task.TaskList;
 import dave.ui.Ui;
 
-
 /**
  * Represents a command to find tasks with a keyword in the task list.
  * The command searches the task descriptions for matches with the given keyword.
@@ -26,6 +25,7 @@ public class FindCommand extends Command {
      * @param description The keyword used to search for tasks in the task list.
      */
     public FindCommand(String description) {
+        assert description != null && !description.isBlank() : "Keyword should not be null or empty";
         this.keyword = description;
     }
 
@@ -33,13 +33,17 @@ public class FindCommand extends Command {
      * Executes the find command. It searches the tasks in the provided TaskList
      * for those that match the keyword and returns a formatted string of results.
      *
-     * @param tasks The TaskList to search for matching tasks.
+     * @param tasks   The TaskList to search for matching tasks.
      * @param storage The Storage instance, not used in this command.
-     * @param ui The Ui instance for user interactions, not used in this command.
+     * @param ui      The Ui instance for user interactions, not used in this command.
      * @return A String of tasks that match the keyword.
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
+        assert tasks != null : "TaskList should not be null.";
+        assert tasks.getSize() >= 0 : "TaskList size should be non-negative.";
+        assert keyword != null && !keyword.isBlank() : "Keyword should not be null or empty.";
+
         try {
             List<Task> matchingTasks = tasks.findTasks(keyword);
             if (matchingTasks.isEmpty()) {
@@ -53,4 +57,3 @@ public class FindCommand extends Command {
         }
     }
 }
-

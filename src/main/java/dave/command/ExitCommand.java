@@ -21,6 +21,11 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
+        // Adding assertions for null checks
+        assert tasks != null : "TaskList should not be null.";
+        assert storage != null : "Storage should not be null.";
+        assert ui != null : "Ui should not be null.";
+
         return "Bye. Hope to see you again soon!";
     }
 

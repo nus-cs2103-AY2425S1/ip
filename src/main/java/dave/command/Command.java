@@ -35,4 +35,19 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Checks that the essential objects required for the command are not null.
+     * This method can be used in subclasses to ensure that the necessary components
+     * are available before proceeding with command execution.
+     *
+     * @param tasks   The {@code TaskList} object containing tasks.
+     * @param storage The {@code Storage} object handling data persistence.
+     * @param ui      The {@code Ui} object handling user interaction.
+     */
+    protected void assertComponents(TaskList tasks, Storage storage, Ui ui) {
+        assert tasks != null : "TaskList should not be null.";
+        assert storage != null : "Storage should not be null.";
+        assert ui != null : "Ui should not be null.";
+    }
 }
