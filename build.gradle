@@ -57,11 +57,11 @@ application {
 
 shadowJar {
     archiveBaseName = "kobe"
-    archiveClassifier = null
+    archiveClassifier.set('all') // This will append '-all' to the JAR name, indicating it contains all dependencies
 }
 
 run{
-    standardInput = System.in
+    enableAssertions = true
 }
 
 jar {
