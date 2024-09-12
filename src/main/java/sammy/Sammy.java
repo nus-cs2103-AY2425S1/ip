@@ -1,15 +1,26 @@
 package sammy;
 
 import sammy.command.Command;
+import sammy.task.Task;
 import sammy.task.TaskList;
 
 import java.io.IOException;
-public class Sammy {
+
+/**
+ * The main class for the Sammy application. Initializes the necessary components such as storage,
+ * task list, and user interface, and handles the main program loop.
+ */public class Sammy {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Parser parser;
 
+    /**
+     * Initializes the Sammy application by setting up the storage, task list, and user interface.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Sammy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +32,20 @@ public class Sammy {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            String line = ui.showLine();
+            Command command = Parser.parse(input);
+            return line + command.execute(tasks, ui, storage) + line;
+        } catch (SammyException | IOException e) {
+            return ui.showErrorMessage(e.getMessage());
+        }
+    }
+
+    /**
+     * Runs the main loop of the Sammy application. Continually reads user commands, executes them,
+     * and handles exceptions until the exit command is received.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
@@ -39,9 +64,12 @@ public class Sammy {
         }
     }
 
-    public static void main(String[] args) {
-        new Sammy("./data/Sammy.txt").run();
-    }
+    /**
+     * The main method to launch the Sammy application.
+     *
+     * @param args Command-line arguments (not used).
+     */
+
 }
 
 

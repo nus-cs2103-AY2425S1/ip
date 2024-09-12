@@ -7,6 +7,14 @@ import sammy.task.Task;
 import sammy.task.Todo;;
 
 public class Parser {
+
+    /**
+     * Parses the input command and returns the corresponding Command object.
+     *
+     * @param fullCommand The full command input as a string.
+     * @return A Command object that corresponds to the parsed command.
+     * @throws SammyException If the command is invalid or if there is an issue during parsing.
+     */
     public static Command parse(String fullCommand) throws SammyException {
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0];
@@ -39,6 +47,8 @@ public class Parser {
                 return new MarkCommand(Integer.parseInt(arguments) - 1);
             case "unmark":
                 return new UnmarkCommand(Integer.parseInt(arguments) - 1);
+            case "find":
+                return new FindCommand(arguments);
             case "bye":
                 return new ExitCommand();
             default:
@@ -46,14 +56,19 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a line of text representing a task and returns the corresponding Task object.
+     *
+     * @param line The string representation of a task.
+     * @return A Task object that corresponds to the parsed task.
+     * @throws IllegalArgumentException If the task format is invalid or unrecognized.
+     */
     public static Task parseTask(String line) {
         System.out.println("Parsing line: " + line);
 
-        String[] parts = line.split(" \\| ");
-
-        String taskType = parts[0].trim();
-        boolean isDone = parts[1].trim().equals("1");
-        String description = parts[2].trim();
+        String taskType = line.substring(1,2);
+        boolean isDone = line.charAt(4) == 'X';
+        String description = line.substring(7);
 
         Task task = null;
         switch (taskType) {
@@ -61,16 +76,19 @@ public class Parser {
                 task = new Todo(description);
                 break;
             case "D":
-                if (parts.length < 4) {
+                String[] deadline = description.split("/by");
+                if (deadline.length == 1) {
                     throw new IllegalArgumentException("Invalid deadline format: " + line);
                 }
-                task = new Deadline(description, parts[3].trim());
+                task = new Deadline(deadline[0], deadline[1]);
                 break;
             case "E":
-                if (parts.length < 5) {
+                String[] event1 = description.split("/from");
+                String[] event2 = event1[1].split("/to");
+                if (event1.length == 1) {
                     throw new IllegalArgumentException("Invalid event format: " + line);
                 }
-                task = new Event(description, parts[3].trim(), parts[4].trim());
+                task = new Event(event1[0], event2[0], event2[1]);
                 break;
             default:
                 throw new IllegalArgumentException("Unrecognized task type: " + taskType);
@@ -83,7 +101,14 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Converts a Task object to its string representation.
+     *
+     * @param task The Task object to be converted.
+     * @return The string representation of the given Task.
+     */
     public static String taskToString(Task task) {
         return task.toString();
     }
 }
+
