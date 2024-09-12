@@ -8,13 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
 /**
  * Represents the main entry point of ChaCha application.
  */
 public class Main extends Application {
     private ChaCha chacha = new ChaCha();
-
 
     @Override
     public void start(Stage stage) {
@@ -28,6 +26,5 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

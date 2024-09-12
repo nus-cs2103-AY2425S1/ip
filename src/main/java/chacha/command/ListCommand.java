@@ -9,7 +9,6 @@ import chacha.task.TaskList;
  * Represents the command to list all tasks.
  */
 public class ListCommand extends Command {
-
     public ListCommand(ChaCha chacha) {
         super(chacha);
     }
@@ -17,10 +16,10 @@ public class ListCommand extends Command {
     /**
      * Returns the string representation of the list of tasks.
      *
-     * @param userInput
-     * @param storage
-     * @param ui
-     * @param tasks
+     * @param userInput User input
+     * @param storage Storage of ChaCha
+     * @param ui UI of ChaCha
+     * @param tasks List of tasks
      * @return String representation.
      */
     @Override

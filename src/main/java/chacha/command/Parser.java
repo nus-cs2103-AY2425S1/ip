@@ -18,10 +18,10 @@ public class Parser {
     /**
      * Creates a Parser object with the specified components
      *
-     * @param chacha
-     * @param storage
-     * @param tasks
-     * @param ui
+     * @param chacha ChaCha object
+     * @param storage Storage of ChaCha
+     * @param ui UI of ChaCha
+     * @param tasks List of tasks
      */
     public Parser(ChaCha chacha, Storage storage, TaskList tasks, Ui ui) {
         this.chacha = chacha;
@@ -37,7 +37,6 @@ public class Parser {
      */
     public String parseCommand(String userInput) {
         String command = userInput.split(" ")[0];
-
 
         if (command.equals("bye")) {
             return new ByeCommand(chacha).execute(userInput, storage, ui, tasks);

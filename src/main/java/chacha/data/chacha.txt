@@ -9,3 +9,4 @@ T | 0 | sleep
 T | 0 | sleep
 E | 0 | bday | 2024-09-08 | 2pm-4pm
 D | 0 | return | 2024-10-02
+E | 0 | sleep | 2021-09-02 | 10pm-9pm

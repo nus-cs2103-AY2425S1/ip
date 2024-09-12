@@ -83,7 +83,6 @@ public class Ui {
                 + "  " + task.printTask() + "\n";
     }
 
-
     /**
      * Returns string representation including LINE and tasks in the array.
      *
@@ -103,6 +102,7 @@ public class Ui {
     public String printError() {
         return "Hmmm... I don't seem to understand this. Please input another command! \n";
     }
+
     /**
      * Returns string representation for the array of String..
      *
