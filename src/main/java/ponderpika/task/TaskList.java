@@ -90,6 +90,14 @@ public class TaskList {
         return "Task " + index + " has been unmarked!";
     }
 
+    public String setPriorityLevel(int index, String priority) throws PonderPikaException {
+        if (index < 1 || index > tasks.size()) {
+            throw new PonderPikaException("No task available at given index!");
+        }
+        tasks.get(index).setPriority(priority);
+        return String.format("Priority set to %s for %i", priority, tasks.get(index));
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }

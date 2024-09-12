@@ -12,7 +12,7 @@ public class Command {
     /**
      * Enum representing the possible actions that can be performed by a command.
      */
-    public enum Action { LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE }
+    public enum Action { LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE, PRIORITY }
 
     private final Action act;
     private final Object data;
