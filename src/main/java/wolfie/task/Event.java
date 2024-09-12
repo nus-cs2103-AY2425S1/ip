@@ -1,7 +1,9 @@
 package wolfie.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
@@ -21,9 +23,22 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, TaskType.EVENT, isDone);
+        if (from == null || to == null || !from.isBefore(to)
+                || !isValidDate(from.toLocalDate()) || !isValidDate(to.toLocalDate())) {
+            throw new IllegalArgumentException("Invalid date or time range provided. Check if your from is before to.");
+        }
         // store the start time
         this.from = from;
         this.to = to; // store the end time
+    }
+
+    private boolean isValidDate(LocalDate date) {
+        try {
+            date.toString();
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     public LocalDateTime getFrom() {

@@ -18,6 +18,9 @@ public abstract class Task {
      * @param isDone Whether the task is done.
      */
     public Task(String description, TaskType taskType, boolean isDone) {
+        if (description.isBlank()) {
+            throw new IllegalArgumentException("Description cannot be empty.");
+        }
         this.description = description;
         this.isDone = isDone;
         this.taskType = taskType;
