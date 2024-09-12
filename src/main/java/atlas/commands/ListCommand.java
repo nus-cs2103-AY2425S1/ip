@@ -18,8 +18,8 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         if (tasks.isEmpty()) {
             return "No items have been added to the task list.";
-        } else {
-            return tasks.listAllTasks();
         }
+
+        return tasks.listAllTasks();
     }
 }

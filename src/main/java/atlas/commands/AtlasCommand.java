@@ -1,9 +1,9 @@
 package atlas.commands;
 
 /**
- * Contains all possible commands.
+ * Contains all possible atlas commands.
  */
-public enum AllCommand {
+public enum AtlasCommand {
     BYE,
     LIST,
     MARK,
