@@ -12,14 +12,14 @@
     <children>
       <ImageView fitHeight="557.0" fitWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../images/background.png" />
+            <Image url="@background.png" />
          </image>
       </ImageView>
         <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="42.0" prefWidth="335.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="76.0" />
         <Button fx:id="sendButton" layoutX="337.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="42.0" prefWidth="64.0" text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <content>
-                <VBox fx:id="dialogContainer" prefHeight="551.0" prefWidth="418.0" />
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" style="-fx-background-image: url('background.png') ;" vvalue="1.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <content>
+                    <VBox fx:id="dialogContainer" prefHeight="551.0" prefWidth="418.0" style="-fx-background-image: url('background.png') ;" />
             </content>
         </ScrollPane>
     </children>
