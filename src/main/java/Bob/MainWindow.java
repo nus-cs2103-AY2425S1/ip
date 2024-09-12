@@ -97,6 +97,9 @@ public class MainWindow extends Application {
 
         scene = new Scene(mainLayout);
 
+        // Display welcome help message
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Bob.printHelpString(), dukeImage));
+
         stage.setScene(scene);
         stage.show();
 
