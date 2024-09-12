@@ -1,2 +1,5 @@
-package yap;public class YapTest {
+package yap;
+
+public class YapTest {
+
 }
