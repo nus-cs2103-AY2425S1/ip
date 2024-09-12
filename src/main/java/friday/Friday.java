@@ -59,6 +59,7 @@ public class Friday {
 
     private String handleUserCommand(String input) throws FridayException, IOException {
         Command c = Parser.parse(input);
+        assert c != null : "Parsed command should not be null";
         return c.execute(tasks, ui, storage);
     }
 }

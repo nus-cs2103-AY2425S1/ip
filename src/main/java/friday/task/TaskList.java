@@ -60,6 +60,8 @@ public class TaskList {
      * @return The string representation of tasks in the task list matching the keyword.
      */
     public String findTasks(String keyword) {
+        assert keyword != null : "Search keyword cannot be null";
+
         if (isKeywordEmpty(keyword)) {
             return showKeywordErrorMessage();
         }
@@ -85,6 +87,7 @@ public class TaskList {
         String lowerCaseKeyword = keyword.toLowerCase();
 
         for (Task task : tasks) {
+            assert task != null : "Task should not be null";
             if (isTaskMatchingKeyword(task, lowerCaseKeyword)) {
                 matchedTasks.add(task);
             }
@@ -107,7 +110,7 @@ public class TaskList {
     }
 
     private String showNoTasksFoundMessage() {
-        return "\tNo matching tasks found.";
+        return "No matching tasks found.";
     }
 
     /**

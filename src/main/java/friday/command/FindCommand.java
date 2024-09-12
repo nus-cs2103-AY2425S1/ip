@@ -20,6 +20,8 @@ public class FindCommand extends Command {
     }
 
     private String extractKeyword(String[] commandArgs) {
+        assert commandArgs != null : "Find command input array should not be null";
+        assert commandArgs.length > 1 : "Find command input array should have at least 2 elements";
         return commandArgs.length > 1 ? commandArgs[1] : "";
     }
 
@@ -33,6 +35,9 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
         return tasks.findTasks(keyword);
     }
 }
