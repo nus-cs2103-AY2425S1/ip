@@ -37,6 +37,15 @@ public class Deadline extends Task implements Datable {
     }
 
     /**
+     * Returns the deadline of the task.
+     *
+     * @return The deadline of the task.
+     */
+    public LocalDateTime getBy() {
+        return by;
+    }
+
+    /**
      * Checks if the task is due on a specified date.
      *
      * @param date The date to check against the task's deadline.

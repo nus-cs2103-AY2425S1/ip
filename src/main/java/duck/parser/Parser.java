@@ -12,6 +12,7 @@ import duck.commands.InvalidCommand;
 import duck.commands.ListCommand;
 import duck.commands.MarkCommand;
 import duck.commands.OnCommand;
+import duck.commands.SortCommand;
 import duck.commands.ToDoCommand;
 import duck.commands.UnmarkCommand;
 
@@ -35,6 +36,7 @@ public class Parser {
                 case HELP -> new HelpCommand(message);
                 case LIST -> new ListCommand(message);
                 case FIND -> new FindCommand(message);
+                case SORT -> new SortCommand(message);
                 case MARK -> new MarkCommand(message);
                 case UNMARK -> new UnmarkCommand(message);
                 case DELETE -> new DeleteCommand(message);

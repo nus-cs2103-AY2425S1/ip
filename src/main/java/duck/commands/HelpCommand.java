@@ -22,13 +22,14 @@ public class HelpCommand extends Command {
             2. deadline <description> /by <date> - Add a deadline task
             3. event <description> /from <date> /to <date> - Add an event task
             4. list - List all tasks
-            5. mark <task number> - Mark a task as done
-            6. unmark <task number> - Mark a task as incomplete
-            7. delete <task number> - Delete a task
-            8. find <keyword> - Find tasks with a keyword
-            9. on <date> - List tasks due on a specific date
-            10. bye - Exit the application
-            11. help - Show this help message
+            5. sort /target <target> /by <criterion> - Sort target tasks by the criterion
+            6. mark <task number> - Mark a task as done
+            7. unmark <task number> - Mark a task as incomplete
+            8. delete <task number> - Delete a task
+            9. find <keyword> - Find tasks with a keyword
+            10. on <date> - List tasks due on a specific date
+            11. bye - Exit the application
+            12. help - Show this help message
             """;
 
     /**

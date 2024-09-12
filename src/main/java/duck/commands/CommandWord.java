@@ -22,6 +22,11 @@ public enum CommandWord {
     FIND,
 
     /**
+     * Command to sort tasks based on the arguments.
+     */
+    SORT,
+
+    /**
      * Command to mark a task as done.
      */
 
