@@ -25,55 +25,70 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    /**
-     * Converts a compliant text string from a text file into a list of tasks.
-     * @return an ArrayList of tasks.
-     */
-    public ArrayList<Task> parseTextStorage() {
-        File file = new File(filePath);
-
-        ArrayList<Task> items = new ArrayList<>();
-
+    private void createFileIfEmpty(File f) {
         try {
             // this creates a file only if it does not already exist - so running it un-conditionally is OK.
             // the only thing which changes is that it will return false if the file already exists.
-            if (file.createNewFile()) {
+            if (f.createNewFile()) {
                 System.out.println("Text file not detected. Initiating a new file to hold records...");
             } else {
                 System.out.println("Reading data from existing text file at location: " + filePath);
             }
         } catch (IOException e) {
             System.out.println("An error occurred in file opening :(");
-            return items;
+            System.exit(1);
         }
+    }
+
+    private Task initializeTaskFromInputLine(String inputLine) {
+        String[] components = inputLine.split(" \\| ");
 
         try {
-            // this line potentially throws FileNotFoundException.
-            Scanner sc = new Scanner(file);
-
-            while (sc.hasNextLine()) {
-                String s = sc.nextLine();
-                String[] components = s.split(" \\| ");
-
-                // this may trigger an invalid input exception - but this is not to be expected at all.
-                switch (s.substring(0, 1)) {
-                case "T":
-                    items.add(new Todo(components[2], components[1].equals("X")));
-                    break;
-                case "D":
-                    items.add(new Deadline(components[2], components[3], components[1].equals("X")));
-                    break;
-                case "E":
-                    items.add(new Event(components[2], components[3], components[4], components[1].equals("X")));
-                    break;
-                default:
-                    System.out.println("Corrupted data detected.");
-                    items.clear();
-                }
+            switch (inputLine.substring(0, 1)) {
+            case "T":
+                return new Todo(components[2], components[1].equals("X"));
+            case "D":
+                return new Deadline(components[2], components[3], components[1].equals("X"));
+            case "E":
+                return new Event(components[2], components[3], components[4], components[1].equals("X"));
+            default:
+                System.out.println("Corrupted data detected.");
+                System.exit(1);
+                return null;
             }
-        } catch (FileNotFoundException | GrokInvalidUserInputException e) {
+        } catch (GrokInvalidUserInputException e) {
+            System.out.println("Data entered is not denoted as a task subtype.");
+            System.exit(1);
+            return null;
+        }
+    }
+    
+    private Scanner createScannerAtFile(File f) {
+        Scanner sc = null;
+        try {
+            sc = new Scanner(f);
+        } catch (FileNotFoundException e) {
             System.out.println("Something has gone wrong - text file is corrupted, or file creation is not working.");
             System.exit(1);
+        }
+        
+        return sc;
+    }
+
+    /**
+     * Converts a compliant text string from a text file into a list of tasks.
+     * @return an ArrayList of tasks.
+     */
+    public ArrayList<Task> parseTextStorage() {
+        File file = new File(filePath);
+        createFileIfEmpty(file);
+
+        ArrayList<Task> items = new ArrayList<>();
+        Scanner sc = createScannerAtFile(file);
+
+        while (sc.hasNextLine()) {
+            String s = sc.nextLine();
+            items.add(initializeTaskFromInputLine(s));
         }
 
         return items;
