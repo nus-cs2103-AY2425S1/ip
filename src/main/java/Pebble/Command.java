@@ -33,31 +33,32 @@ public class Command {
      * @param ui The UI instance to handle output.
      * @param storage The Storage Instance to retrieve or create tasksList
      */
-    public void execute(TasksList tasksList, Ui ui, Storage storage) {
+    public String execute(TasksList tasksList, Ui ui, Storage storage) {
+        String response = "";
         try {
             switch (commandType) {
             case BYE:
-                ui.showGoodbye();
+                response = ui.showGoodbye();
                 break;
             case LIST:
-                ui.showTasksList(tasksList.getAllTasks());
+                response = ui.showTasksList(tasksList.getAllTasks());
                 break;
             case MARK:
                 int markIndex = Integer.parseInt(arguments) - 1;
                 Task taskToMark = tasksList.getTask(markIndex);
                 taskToMark.markAsDone();
-                ui.showMarkTask(taskToMark);
+                response = ui.showMarkTask(taskToMark);
                 break;
             case UNMARK:
                 int unmarkIndex = Integer.parseInt(arguments) - 1;
                 Task taskToUnmark = tasksList.getTask(unmarkIndex);
                 taskToUnmark.unmarkAsNotDone();
-                ui.showUnmarkTask(taskToUnmark);
+                response = ui.showUnmarkTask(taskToUnmark);
                 break;
             case TODO:
                 Task newToDo = new ToDo(arguments);
                 tasksList.addTask(newToDo);
-                ui.showAddTask(newToDo, tasksList.size());
+                response = ui.showAddTask(newToDo, tasksList.size());
                 break;
             case DEADLINE:
                 String[] deadlineParts = arguments.split(" /by ");
@@ -67,7 +68,7 @@ public class Command {
                 }
                 Task newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
                 tasksList.addTask(newDeadline);
-                ui.showAddTask(newDeadline, tasksList.size());
+                response = ui.showAddTask(newDeadline, tasksList.size());
                 break;
             case EVENT:
                 String[] eventParts = arguments.split(" /from | /to ");
@@ -77,7 +78,7 @@ public class Command {
                 }
                 Task newEvent = new Event(eventParts[0], eventParts[1], eventParts[2]);
                 tasksList.addTask(newEvent);
-                ui.showAddTask(newEvent, tasksList.size());
+                response = ui.showAddTask(newEvent, tasksList.size());
                 break;
             case DELETE:
                 int deleteIndex = Integer.parseInt(arguments) - 1;
@@ -86,20 +87,20 @@ public class Command {
                 }
                 Task taskToDelete = tasksList.getTask(deleteIndex);
                 tasksList.deleteTask(deleteIndex);
-                ui.showDeleteTask(taskToDelete, tasksList.size());
+                response = ui.showDeleteTask(taskToDelete, tasksList.size());
                 break;
             case FIND:
                 TasksList filteredTasksList = tasksList.getFilteredList(arguments);
-                ui.showTasksList(filteredTasksList.getAllTasks());
+                response = ui.showTasksList(filteredTasksList.getAllTasks());
                 break;
             default:
-                ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                break;
+                throw new UnknownCommandException();
             }
             storage.saveTasks(tasksList.getAllTasks());
         } catch (Exception e) {
-            ui.showError("Error: " + e.getMessage());
+            response = ui.showError(e.getMessage());
         }
+        return response;
     }
 
 }
