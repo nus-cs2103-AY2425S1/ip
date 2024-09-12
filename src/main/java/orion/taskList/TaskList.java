@@ -275,6 +275,14 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Finds all tasks in the list that contain the given keyword in their
+     * description.
+     *
+     * @param keyword the keyword to search for.
+     * @return a list of tasks that match the keyword.
+     * @throws FileInitializationException if there is an issue with file reading.
+     */
     public List<Task> findTasks(String keyword) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
 

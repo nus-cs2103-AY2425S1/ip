@@ -21,7 +21,7 @@ import javafx.scene.layout.HBox;
  * the image are positioned horizontally next to each other. The dialog bubble
  * can be either on the left or right side of the box, depending on the value
  * of the {@code flip} property.
- * 
+ *
  * @author Pradyumna
  */
 public class DialogBox extends HBox {
