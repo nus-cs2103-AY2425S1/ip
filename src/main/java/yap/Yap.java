@@ -45,4 +45,11 @@ public class Yap {
             }
         }
     }
+
+    /**
+     * Generates a response for the users' chat message
+     */
+    public String getResponse(String input) {
+        return "Yap heard: " + input;
+    }
 }
