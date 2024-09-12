@@ -1,0 +1,54 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #f4d300, #ffeb3b); /* Joy's yellow gradient */
+        -fx-border-color: #003b75; /* Dark blue for the border */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #003b75; /* Dark blue text color */
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+ -fx-background-color: linear-gradient(to bottom right, #a2c9e1, #6db3f2); /* Sadness's light blue */
+    -fx-border-color: #4a90d0; /* Darker blue */
+}
+
+.marked-label {
+   -fx-background-color: linear-gradient(to bottom right, #b7e0a2, #a9d5a1); /* Sadness's light green */
+   -fx-border-color: #8dcb7e; /* Darker green */
+}
+
+.delete-label {
+   -fx-background-color: linear-gradient(to bottom right, #d0b5d9, #a780b7); /* Boredom's purplish grey */
+       -fx-border-color: #8a5a8f; /* Darker purple */
+}
+.unmark-label {
+     -fx-background-color: linear-gradient(to bottom right, #f3a7a7, #f05a5a); /* Anger's red */
+        -fx-border-color: #e55353; /* Darker red */
+}
+.due-label {
+    -fx-background-color: linear-gradient(to bottom right, #f6b96e, #f2a35e); /* Anxiety's orange */
+        -fx-border-color: #f2953e; /* Darker orange */
+}
+.exit-label {
+    -fx-background-color: linear-gradient(to bottom right, #f3a7a7, #f05a5a); /* Anger's red */
+    -fx-border-color: #e55353; /* Darker red */
+}
+
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

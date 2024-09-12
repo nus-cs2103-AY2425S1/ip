@@ -1,0 +1,18 @@
+blah
+todo read book
+deadline project /by 2020-05-12 16:00
+deadline project1 /by 2020-05-12
+deadline project2 /by 16:00
+deadline project /by Sunday
+deadline project /by 12/05/2020 16:00
+deadline project /by 12/05/2021
+event project meeting /from 5pm /to 6pm
+list
+mark 1
+mark 2
+unmark 1
+list
+delete 1
+list
+due 2020-05-12
+bye
