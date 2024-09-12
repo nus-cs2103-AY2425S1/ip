@@ -38,6 +38,7 @@ public class Alisa {
                 String fullCommand = ui.readCommand();
                 ui.showDivider();
                 Command c = Parser.parse(fullCommand);
+                assert c != null : "Command shouldn't be null";
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (AlisaException e) {
