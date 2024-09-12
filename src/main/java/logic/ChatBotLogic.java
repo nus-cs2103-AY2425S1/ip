@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import task.Deadline;
 import task.Task;
@@ -152,6 +153,9 @@ public class ChatBotLogic {
 				eventChainType = EventChainType.DELETE;
 				return "enter the name of task to delete";
 			}
+			case "sort" -> {
+				return taskList.keySet().stream().sorted().reduce("", (x, y) -> x + taskList.get(y) + y + "\n");
+			}
 			case "find" -> {    // bypassing VIEW state to direct operate on list
 				eventChainType = EventChainType.FIND;
 				return "enter keyword: ";
@@ -184,8 +188,8 @@ public class ChatBotLogic {
 				return "back to List state";
 			}
 			default -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "unknown type, return to main";
+				// remain at current state when entering invalid command
+				return "unknown type";
 			}
 			}
 		}
@@ -275,7 +279,7 @@ public class ChatBotLogic {
 					eventChainType = EventChainType.ADD;
 					return "deadline added. enter type for the next task to be added: ";
 				} catch (DateTimeParseException e) {
-					// stay in DEADLINE_DESCRIBED state
+					// stay in DEADLINE_DESCRIBED state when entering invalid date format
 					return "invalid format. please retry";
 				}
 			}
@@ -308,7 +312,11 @@ public class ChatBotLogic {
 				eventChainType = EventChainType.DEFAULT;
 				return "return to main";
 			}
+			case "sort" -> {
+				return taskList.keySet().stream().sorted().reduce("", (x, y) -> x + taskList.get(y) + y + "\n");
+			}
 			default -> {
+				// remain at current state when entering invalid command
 				return "unknown command";
 			}
 			}
