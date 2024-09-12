@@ -44,4 +44,9 @@ public class Deadline extends Task {
         assert savedBy != null: "empty save time format";
         return "D | " + super.save() + " | " + savedBy;
     }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return by;
+    }
 }
