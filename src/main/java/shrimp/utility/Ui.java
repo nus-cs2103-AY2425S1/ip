@@ -21,32 +21,6 @@ public class Ui {
     }
 
     /**
-     * Reads and returns the next line of user input.
-     *
-     * @return The next line of user input.
-     */
-    public String nextLine() {
-        return scanner.nextLine();
-    }
-
-    /**
-     * Prints the application logo to the console.
-     * The logo is displayed in cyan color.
-     */
-    public void printLogo() {
-        String logo = """
-                
-                       .__          .__               \s
-                  _____|  |_________|__| _____ ______ \s
-                 /  ___/  |  \\_  __ \\  |/     \\\\____ \\\s
-                 \\___ \\|   Y  \\  | \\/  |  Y Y  \\  |_> >
-                /____  >___|  /__|  |__|__|_|  /   __/\s
-                     \\/     \\/               \\/|__|   \s
-                                                      \s
-                """;
-    }
-
-    /**
      * Prints a welcome message to the console.
      * The message is displayed in cyan color.
      */
@@ -73,7 +47,7 @@ public class Ui {
      */
     public String printTaskList(TaskList taskList) {
         String output = "Gotchaaa~ Here's the list so far:";
-        for (int i = 0; i < taskList.getCount(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
             output += String.format("\n    %s. %s", i + 1, task);
         }
@@ -87,7 +61,7 @@ public class Ui {
      * @param taskList The {@code TaskList} containing the tasks to be counted.
      */
     private String printTaskCount(TaskList taskList) {
-        return String.format("\nLemme count~ You now have %s item(s) in your list!%n", taskList.getCount());
+        return String.format("\nLemme count~ You now have %s item(s) in your list!%n", taskList.size());
     }
 
     /**
@@ -141,7 +115,7 @@ public class Ui {
 
     public String printFind(TaskList taskList) {
         String output = "Heya~ Here's all the tasks I found matches your description~";
-        for (int i = 0; i < taskList.getCount(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
             output += String.format("\n    %s.%s", i + 1, task);
         }

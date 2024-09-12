@@ -18,6 +18,7 @@ import shrimp.task.Task;
 import shrimp.task.TaskList;
 import shrimp.task.Todo;
 import shrimp.utility.Parser;
+import shrimp.utility.Parser.CommandType;
 import shrimp.utility.Storage;
 import shrimp.utility.Ui;
 
@@ -56,103 +57,120 @@ public class Shrimp {
                 throw new ShrimpException.InvalidCommandException();
             }
 
-            Parser.CommandType commandType = Parser.parseCommand(userInput);
-
+            CommandType commandType = Parser.parseCommand(userInput);
             switch (commandType) {
             case BYE: //exits the program
-                ExitCommand exitCommand = new ExitCommand();
-                return exitCommand.run(taskList, ui);
-
+                return fetchExit();
             case LIST:
-                if (taskList.getCount() == 0) {
-                    throw new ShrimpException.EmptyArrayException();
-                }
-                ListCommand listCommand = new ListCommand();
-                return listCommand.run(taskList, ui);
-
+                return fetchList();
             case MARK:
-                int indexMark = getTaskNumber(userInput, commandType);
-                if (indexMark > taskList.getCount()) {
-                    throw new ShrimpException.ArrayIndexOutOfBoundException();
-                } else if (taskList.getCount() == 0) {
-                    throw new ShrimpException.EmptyArrayException();
-                }
-                MarkCommand markCommand = new MarkCommand(indexMark, true);
-                return markCommand.run(taskList, ui);
-
+                return fetchMark(userInput, commandType, true);
             case UNMARK:
-                int indexUnmark = getTaskNumber(userInput, commandType);
-                if (indexUnmark > taskList.getCount()) {
-                    throw new ShrimpException.ArrayIndexOutOfBoundException();
-                } else if (taskList.getCount() == 0) {
-                    throw new ShrimpException.EmptyArrayException();
-                }
-                MarkCommand markUnmarkCommand = new MarkCommand(indexUnmark, false);
-                return markUnmarkCommand.run(taskList, ui);
-
+                return fetchMark(userInput, commandType, false);
             case DELETE:
-                int indexDelete = getTaskNumber(userInput, commandType);
-                if (indexDelete > taskList.getCount()) {
-                    throw new ShrimpException.ArrayIndexOutOfBoundException();
-                } else if (taskList.getCount() == 0) {
-                    throw new ShrimpException.EmptyArrayException();
-                }
-                DeleteCommand deleteCommand = new DeleteCommand(indexDelete);
-                return deleteCommand.run(taskList, ui);
-
+                return fetchDelete(userInput, commandType);
             case ADD:
-                if (userInput.length() <= 5) {
-                    throw new ShrimpException.MissingArgumentException(commandType);
-                }
-                String input = userInput.substring(5);
-                Todo newTodo = new Todo(input, NEW_EVENT_NOT_DONE); //creates a new Task.Task object
-                AddCommand addTodo = new AddCommand(newTodo);
-                return addTodo.run(taskList, ui);
-
+                return fetchAdd(userInput, commandType);
             case DEADLINE:
-                if (userInput.length() <= 9 || !userInput.contains("/by")) {
-                    throw new ShrimpException.MissingArgumentException(commandType);
-                }
-                String[] deadlineDetails = userInput.split("/by ");
-                String deadlineDescription = deadlineDetails[0].substring(9); // Extracting the task description
-                LocalDateTime by = getDateTime(deadlineDetails[1].trim());
-                Task newDeadline = new Deadline(deadlineDescription, by, NEW_EVENT_NOT_DONE);
-                AddCommand addDeadline = new AddCommand(newDeadline);
-                return addDeadline.run(taskList, ui);
-
+                return fetchDeadline(userInput, commandType);
             case EVENT:
-                if (userInput.length() <= 6 || !userInput.contains("/from") || !userInput.contains("/to")) {
-                    throw new ShrimpException.MissingArgumentException(commandType);
-                }
-                String[] eventDetails = userInput.split("/from | /to ");
-                String eventDescription = eventDetails[0].substring(6); // Extracting the task description
-                LocalDateTime from = getDateTime(eventDetails[1].trim());
-                LocalDateTime to = getDateTime(eventDetails[2].trim());
-                Task newEvent = new Event(eventDescription, from, to, NEW_EVENT_NOT_DONE);
-                AddCommand addEvent = new AddCommand(newEvent);
-                return addEvent.run(taskList, ui);
-
+                return fetchEvent(userInput, commandType);
             case CLEAR:
-                ClearCommand clearCommand = new ClearCommand();
-                return clearCommand.run(taskList, ui);
-
+                return fetchClear();
             case FIND:
-                if (userInput.length() <= 5) {
-                    throw new ShrimpException.MissingArgumentException(commandType);
-                }
-                String keyword = userInput.substring(5).trim();
-                FindCommand findCommand = new FindCommand(keyword);
-                return findCommand.run(taskList, ui);
-
+                return fetchFind(userInput, commandType);
             default:
                 throw new ShrimpException.InvalidCommandException();
             }
-
         } catch (ShrimpException e) {
             return ui.printError(e.getMessage() + String.format(" (%s)", e.getErrorCode()));
         } catch (Exception e) {
             return ui.printError("Something went wrong... Try again!");
         }
+    }
+
+    private static String fetchFind(String userInput, CommandType commandType) throws ShrimpException.MissingArgumentException {
+        if (userInput.length() <= 5) {
+            throw new ShrimpException.MissingArgumentException(commandType);
+        }
+        String keyword = userInput.substring(5).trim();
+        FindCommand findCommand = new FindCommand(keyword);
+        return findCommand.run(taskList, ui);
+    }
+
+    private static String fetchClear() {
+        ClearCommand clearCommand = new ClearCommand();
+        return clearCommand.run(taskList, ui);
+    }
+
+    private static String fetchEvent(String userInput, CommandType commandType) throws ShrimpException {
+        if (userInput.length() <= 6 || !userInput.contains("/from") || !userInput.contains("/to")) {
+            throw new ShrimpException.MissingArgumentException(commandType);
+        }
+        String[] eventDetails = userInput.split("/from | /to ");
+        String eventDescription = eventDetails[0].substring(6); // Extracting the task description
+        LocalDateTime from = getDateTime(eventDetails[1].trim());
+        LocalDateTime to = getDateTime(eventDetails[2].trim());
+        Task newEvent = new Event(eventDescription, from, to, NEW_EVENT_NOT_DONE);
+        AddCommand addEvent = new AddCommand(newEvent);
+        return addEvent.run(taskList, ui);
+    }
+
+    private static String fetchDeadline(String userInput, CommandType commandType) throws ShrimpException {
+        if (userInput.length() <= 9 || !userInput.contains("/by")) {
+            throw new ShrimpException.MissingArgumentException(commandType);
+        }
+        String[] deadlineDetails = userInput.split("/by ");
+        String deadlineDescription = deadlineDetails[0].substring(9); // Extracting the task description
+        LocalDateTime by = getDateTime(deadlineDetails[1].trim());
+        Task newDeadline = new Deadline(deadlineDescription, by, NEW_EVENT_NOT_DONE);
+        AddCommand addDeadline = new AddCommand(newDeadline);
+        return addDeadline.run(taskList, ui);
+    }
+
+    private static String fetchAdd(String userInput, CommandType commandType) throws ShrimpException.MissingArgumentException {
+        if (userInput.length() <= 5) {
+            throw new ShrimpException.MissingArgumentException(commandType);
+        }
+        String input = userInput.substring(5);
+        Todo newTodo = new Todo(input, NEW_EVENT_NOT_DONE); //creates a new Task.Task object
+        AddCommand addTodo = new AddCommand(newTodo);
+        return addTodo.run(taskList, ui);
+    }
+
+    private static String fetchDelete(String userInput, CommandType commandType) throws ShrimpException {
+        int indexDelete = getTaskNumber(userInput, commandType);
+        if (indexDelete > taskList.size()) {
+            throw new ShrimpException.ArrayIndexOutOfBoundException();
+        } else if (taskList.isEmpty()) {
+            throw new ShrimpException.EmptyArrayException();
+        }
+        DeleteCommand deleteCommand = new DeleteCommand(indexDelete);
+        return deleteCommand.run(taskList, ui);
+    }
+
+    private static String fetchMark(String userInput, CommandType commandType, boolean toMark) throws ShrimpException {
+        int indexMark = getTaskNumber(userInput, commandType);
+        if (indexMark > taskList.size()) {
+            throw new ShrimpException.ArrayIndexOutOfBoundException();
+        } else if (taskList.isEmpty()) {
+            throw new ShrimpException.EmptyArrayException();
+        }
+        MarkCommand markCommand = new MarkCommand(indexMark, toMark);
+        return markCommand.run(taskList, ui);
+    }
+
+    private static String fetchList() throws ShrimpException.EmptyArrayException {
+        if (taskList.isEmpty()) {
+            throw new ShrimpException.EmptyArrayException();
+        }
+        ListCommand listCommand = new ListCommand();
+        return listCommand.run(taskList, ui);
+    }
+
+    private static String fetchExit() {
+        ExitCommand exitCommand = new ExitCommand();
+        return exitCommand.run(taskList, ui);
     }
 
     public static void saveTasks() {
