@@ -1,12 +1,5 @@
-T | 1 | read book
+T | 0 | read book
 D | 0 | return book | 2024-12-25
-E | 0 | project meeting | 2024-09-01 | 2024-09-03
-T | 0 | sleep
-T | 0 | dinner at PGP
-T | 0 | sleep
-T | 0 | sleep
-T | 0 | eat
-D | 0 | Submit assignment | 2023-09-12
 D | 0 | Submit assignment | 2023-09-12
 E | 0 | Attend workshop | 2023-09-10 | 2023-09-12
 T | 0 | sleep
