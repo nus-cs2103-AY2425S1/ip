@@ -27,6 +27,7 @@ public class StorageManager {
      */
     public StorageManager(String filePath) {
         this.filePath = filePath;
+        assert this.filePath != null: "filePath of data file should not be null";
     }
 
     /**
@@ -68,6 +69,8 @@ public class StorageManager {
      * @throws IOException If an error occurred while saving the data.
      */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
+        assert tasks != null: "tasks should not be null when saving tasks";
+
         FileWriter fw = new FileWriter(filePath);
         for (Task task: tasks) {
             fw.write(task.getDataString());
