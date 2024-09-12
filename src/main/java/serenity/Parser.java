@@ -22,8 +22,6 @@ public class Parser {
      * @throws SerenityException If user input is invalid and task cannot be created.
      * @throws IOException If there is an issue writing to file that stores data.
      */
-
-
     public static void parse(String input, TaskList tasks, Ui ui, Storage storage)
             throws SerenityException, IOException {
         String[] parts = input.split(" ", 2);
@@ -65,6 +63,15 @@ public class Parser {
 
     }
 
+    /**
+     * Parses user input and carries out corresponding actions and
+     * returns message to be displayed.
+     *
+     * @param input User's input
+     * @param tasks List of tasks.
+     * @param storage Data storage
+     * @return Message to be displayed.
+     */
     public static String parseToString(String input, TaskList tasks, Storage storage) {
         String[] parts = input.split(" ", 2);
         String command = parts[0].strip();
@@ -105,15 +112,12 @@ public class Parser {
         return message;
     }
 
-
-
     /**
      * Checks if command is to exit chatbot.
      *
      * @param input User's input.
      * @return True if the command is bye.
      */
-
     public static boolean isExit(String input) {
         return input.startsWith("bye");
     }

@@ -42,11 +42,8 @@ public class Storage {
      */
     public ArrayList<Task> loadFile() throws IOException, SerenityException {
         File f = new File(filePath);
-        //create directory if directory does not exist
         File directory = new File(f.getParentFile().getAbsolutePath());
         directory.mkdirs();
-
-        //create file if file does not exist
         if (!f.exists()) {
             Files.createFile(Paths.get(filePath));
         }
