@@ -13,8 +13,9 @@ public class ListCommand extends Command{
      * @throws IOException
      */
     @Override
-    public void execute(TaskList list, UI ui, FileManager fileManager)
+    public String execute(TaskList list, UI ui, FileManager fileManager)
             throws InputErrorException, IOException {
         ui.print(list.get());
+        return list.get();
     }
 }

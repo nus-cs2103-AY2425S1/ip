@@ -8,7 +8,8 @@ public class FindCommand extends Command{
         this.keyword = keyword;
     }
     @Override
-    public void execute(TaskList list, UI ui, FileManager fileManager) throws InputErrorException, IOException {
+    public String execute(TaskList list, UI ui, FileManager fileManager) throws InputErrorException, IOException {
         UI.print(list.find(keyword));
+        return list.find(keyword);
     }
 }

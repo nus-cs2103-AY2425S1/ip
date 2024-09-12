@@ -22,9 +22,10 @@ public class UI {
         print(str);
     }
 
-    public void outro() {
+    public static String outro() {
         String str = "Bye. Hope to see you again soon!";
         print(str);
+        return(str);
     }
 
     public static void print(String out) {

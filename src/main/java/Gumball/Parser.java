@@ -25,6 +25,8 @@ public class Parser {
             return new AddCommand(input);
         } else if(input.startsWith("find ")) {
             return new FindCommand(input.substring(5));
+        } else if(input.equals("bye")) {
+            return new ExitCommand();
         } else {
             throw (new InputErrorException("Sorry I don't know how to do that"));
         }

@@ -13,28 +13,32 @@ public class Gumball {
 
     private UI ui;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         try {
             Gumball chat = new Gumball();
             chat.start();
         } catch (IOException e) {
             UI.print(e.getMessage());
-        } catch (InputErrorException e) {
-            UI.print("Error in file please start over.");
         }
 
-    }
+    }*/
 
     /**
      *
      * @throws IOException
      * @throws InputErrorException
      */
-    public Gumball() throws IOException, InputErrorException {
-        ui = new UI();
-        inputScanner = new Scanner(System.in);
-        fileManager = new FileManager("./gumball.txt");
-        list = fileManager.loadFile();
+    public Gumball() {
+        try {
+            ui = new UI();
+            inputScanner = new Scanner(System.in);
+            fileManager = new FileManager("./gumball.txt");
+            list = fileManager.loadFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (InputErrorException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -56,6 +60,17 @@ public class Gumball {
             }
         }
         ui.outro();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(list, ui, fileManager);
+        } catch (InputErrorException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
     }
 
 }

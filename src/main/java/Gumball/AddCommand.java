@@ -22,18 +22,22 @@ public class AddCommand extends Command {
      * @throws IOException
      */
     @Override
-    public void execute(TaskList list, UI ui, FileManager fileManager)
+    public String execute(TaskList list, UI ui, FileManager fileManager)
             throws InputErrorException, IOException {
         if (input.startsWith("todo")) {
-            addToList(new ToDo(input), list, ui);
+            String temp = addToList(new ToDo(input), list, ui);
             fileManager.updateFile(list);
+            return temp;
         } else if (input.startsWith("deadline")) {
-            addToList(new Deadline(input), list, ui);
+            String temp = addToList(new Deadline(input), list, ui);
             fileManager.updateFile(list);
+            return temp;
         } else if (input.startsWith("event")) {
-            addToList(new Event(input), list, ui);
+            String temp = addToList(new Event(input), list, ui);
             fileManager.updateFile(list);
+            return temp;
         }
+        return null;
     }
 
     /**
@@ -43,9 +47,11 @@ public class AddCommand extends Command {
      * @param ui A class which contains ui functions.
      * @throws InputErrorException
      */
-    public void addToList(Task task, TaskList list, UI ui) throws InputErrorException {
-        UI.print("Got it. I've added this task:\n" + list.add(task) +
-                String.format("\nNow you have %d tasks in the list.", list.getN()));
+    public String addToList(Task task, TaskList list, UI ui) throws InputErrorException {
+        String str = "Got it. I've added this task:\n" + list.add(task) +
+                String.format("\nNow you have %d tasks in the list.", list.getN());
+        UI.print(str);
+        return str;
     }
 
 }

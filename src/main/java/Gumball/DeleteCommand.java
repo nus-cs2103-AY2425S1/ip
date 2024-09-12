@@ -22,11 +22,13 @@ public class DeleteCommand extends Command {
      * @throws IOException
      */
     @Override
-    public void execute(TaskList list, UI ui, FileManager fileManager)
+    public String execute(TaskList list, UI ui, FileManager fileManager)
             throws InputErrorException, IOException {
         String temp = list.delete(index);
-        UI.print("Nice! I've deleted this task:\n" + temp
-                + String.format("\nNow you have %d tasks in the list.", list.getN()));
+        String str = "Nice! I've deleted this task:\n" + temp
+                + String.format("\nNow you have %d tasks in the list.", list.getN());
+        UI.print(str);
         fileManager.updateFile(list);
+        return str;
     }
 }

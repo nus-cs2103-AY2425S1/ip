@@ -12,7 +12,7 @@ public abstract class Command {
      * @throws InputErrorException
      * @throws IOException
      */
-    public abstract void execute(TaskList list, UI ui, FileManager fileManager)
+    public abstract String execute(TaskList list, UI ui, FileManager fileManager)
             throws InputErrorException, IOException;
 
 }

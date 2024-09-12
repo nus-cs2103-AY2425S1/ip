@@ -22,10 +22,12 @@ public class MarkCommand extends Command {
      * @throws IOException
      */
     @Override
-    public void execute(TaskList list, UI ui, FileManager fileManager)
+    public String execute(TaskList list, UI ui, FileManager fileManager)
             throws InputErrorException, IOException {
         list.mark(index);
-        ui.print("Nice! I've marked this task as done:\n" + list.getSpecific(index));
+        String str = "Nice! I've marked this task as done:\n" + list.getSpecific(index);
+        ui.print(str);
         fileManager.updateFile(list);
+        return str;
     }
 }
