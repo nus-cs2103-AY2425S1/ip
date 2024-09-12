@@ -1,7 +1,6 @@
 package carly;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import carly.exception.CarlyException;
 import carly.ui.Ui;
@@ -92,6 +91,9 @@ public class Carly {
                 } catch (CarlyException e) {
                     response = e.getMessage();
                 }
+                break;
+            case SORT:
+                response = this.taskList.sort();
                 break;
             default:
                 response = "Oops, what are you trying to say again?";

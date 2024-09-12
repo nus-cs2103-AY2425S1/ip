@@ -24,16 +24,6 @@ gradle tools:
 shortcut:
 - double click on code -> softwrap
 
-checkstyle {
-    toolVersion = '10.2'
-    configFile = file('config/checkstyle/checkstyle.xml')
-}
-    id 'checkstyle'
-
-
-
-        <module name="AbbreviationAsWordInName">
-            <property name="ignoreFinal" value="false"/>
-            <property name="allowedAbbreviationLength" value="1"/>
-            <property name="allowedAbbreviations" value="TWO_INDENT,ONE_INDENT"/>
-        </module>
+deadline eat /by 1777-09-12
+deadline pray /by 2023-11-02
+deadline study /by 1987-12-12

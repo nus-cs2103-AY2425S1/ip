@@ -9,7 +9,7 @@ import carly.exception.CarlyException;
  * Represents a task of type Deadline.
  * A Deadline task includes a description and a due date.
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Comparable<Deadline> {
     /** The task type identifier for Deadline tasks.*/
     private static final String TASK_TYPE = "D";
 
@@ -28,9 +28,18 @@ public class Deadline extends Task {
         }
     }
 
-    public String getDueDate() {
+    public String getDueDateAsString() {
         DateTimeParser d = new DateTimeParser(dueDate.toString());
         return d.formatDateTime();
+    }
+
+    public LocalDate getDueDate() {
+        return this.dueDate;
+    }
+
+    @Override
+    public int compareTo(Deadline other) {
+        return this.dueDate.compareTo(other.getDueDate());
     }
 
     /**
@@ -45,6 +54,7 @@ public class Deadline extends Task {
         return MessageFormat.format("[{0}]{1} (by: {2})",
                 TASK_TYPE,
                 super.toString(),
-                this.getDueDate());
+                this.getDueDateAsString());
     }
+
 }

@@ -18,7 +18,7 @@ public class Parser {
 
     /** represents commands that are allowed to be input by users */
     public enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT
+        BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, SORT
     }
 
     /**
@@ -55,7 +55,7 @@ public class Parser {
      */
     public String getDetailsAfterCommand(Command command)
             throws CarlyNoTaskDescription {
-        Command[] noDescriptionCommands = {Command.BYE, Command.LIST};
+        Command[] noDescriptionCommands = {Command.BYE, Command.LIST, Command.SORT};
         boolean requiresDescription = !Arrays.asList(noDescriptionCommands).contains(command);
 
         if (requiresDescription) {
