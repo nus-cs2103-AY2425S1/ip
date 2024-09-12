@@ -61,7 +61,9 @@ public class TaskList {
         } else {
             tasks.get(index - 1).markDone();
         }
-        return "Task " + index + " has been marked as done!";
+        assert index > 0;
+        tasks.get(index - 1).markDone();
+        return "Task " + index + " has been marked as done";
     }
 
     /**
@@ -82,6 +84,9 @@ public class TaskList {
         } else {
             tasks.get(index - 1).markUndone();
         }
+
+        assert index > 0;
+        tasks.get(index - 1).markUndone();
         return "Task " + index + " has been unmarked!";
     }
 
