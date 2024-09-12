@@ -22,6 +22,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert (tasks instanceof TaskList) : "tasks is not an instance of TaskList";
         String searchDescription = ui.getDescription('F');
         TaskList foundTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {

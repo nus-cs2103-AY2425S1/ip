@@ -35,6 +35,9 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert (tasks instanceof TaskList) : "tasks is not an instance of TaskList";
+        assert (ui instanceof Ui) : "ui is not an instance of Ui";
+        assert (storage instanceof Storage) : "storage is not an instance of Storage";
 
         if (this.type == 'T') {
             // Tasks
