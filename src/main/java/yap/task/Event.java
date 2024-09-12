@@ -3,9 +3,12 @@ package yap.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A event task, which has a start time and end time.
+ */
 public class Event extends Task {
-    LocalDate startTime;
-    LocalDate endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
 
     /**
      * Constructs a task which is an event, with the event's description, startTime and endTime.

@@ -1,5 +1,8 @@
 package yap.task;
 
+/**
+ * A To Do task that has no time attributes.
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);

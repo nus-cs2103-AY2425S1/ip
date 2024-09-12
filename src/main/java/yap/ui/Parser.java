@@ -6,7 +6,18 @@ import yap.task.Event;
 import yap.task.EventException;
 import yap.task.ToDo;
 
+/**
+ * A class containing methods to create task objects from users' string input.
+ */
 public class Parser {
+
+    /**
+     * Converts a users' input to a ToDo task.
+     *
+     * @param input The users' input as a string.
+     * @return A ToDo task.
+     * @throws InputException If the input has a wrong format and there is no description of the task.
+     */
     public static ToDo parseInputAsToDo(String input) throws InputException {
         String taskName = input.replace("todo ", "").trim();
         if (taskName.isBlank()) {
@@ -14,9 +25,20 @@ public class Parser {
         }
         return new ToDo(taskName);
     }
+
+    /**
+     * Converts a users' input to an Event task.
+     *
+     * @param input The users' input as a string.
+     * @return An Event task.
+     * @throws InputException If the input has a wrong format.
+     */
     public static Event parseInputAsEvent(String input) throws InputException {
-        String[] parts, times;
-        String description, startTime, endTime;
+        String[] parts;
+        String[] times;
+        String description;
+        String startTime;
+        String endTime;
         try {
             parts = input.split(" /from ");
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -37,9 +59,17 @@ public class Parser {
         return new Event(description, startTime, endTime);
     }
 
+    /**
+     * Converts a users' input to a Deadline task.
+     *
+     * @param input The users' input as a string.
+     * @return A Deadline task.
+     * @throws InputException If the input has a wrong format.
+     */
     public static Deadline parseInputAsDeadline(String input) throws InputException {
         String[] parts;
-        String description, deadline;
+        String description;
+        String deadline;
         try {
             parts = input.split(" /by ");
             description = parts[0].replace("deadline ", "").trim();

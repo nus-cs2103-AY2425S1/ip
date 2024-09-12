@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import yap.task.Task;
 
+/**
+ * The object that will interact with and perform read/write operations with the filesystem
+ * Should be converted to a monad class eventually as there should only be a single instance of Storage
+ */
 public class Storage {
 
     private String fileName;
@@ -26,7 +30,7 @@ public class Storage {
         this.fileName = fileName;
         this.directoryPath = directoryPath;
         this.filePath = directoryPath + fileName;
-    };
+    }
 
     /**
      * Writes a list of tasks into the data file.
@@ -68,8 +72,9 @@ public class Storage {
         File folder = new File(folderPath);
 
         if (!folder.exists()) {
-            if (!folder.mkdirs()){
-                System.out.println("The data file does not exist, and the directory /data was not successfully created!");
+            if (!folder.mkdirs()) {
+                System.out.println(
+                        "The data file does not exist, and the directory /data was not successfully created!");
             }
         }
 

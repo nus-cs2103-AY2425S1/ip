@@ -4,10 +4,20 @@ import yap.storage.Storage;
 import yap.task.Task;
 import yap.task.TaskList;
 
+/**
+ * Class that implements the interaction with a user.
+ */
 public class Ui {
+    private static final String SEPARATOR = "_____________________________________";
     private Storage storage;
     private TaskList taskList;
-    private final String SEPARATOR = "_____________________________________";
+
+    /**
+     * Constructor for the Ui class.
+     *
+     * @param storage
+     * @param taskList
+     */
     public Ui(Storage storage, TaskList taskList) {
         this.storage = storage;
         this.taskList = taskList;

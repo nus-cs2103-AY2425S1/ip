@@ -2,7 +2,34 @@ package yap.task;
 
 import yap.storage.BadDataFormatException;
 
+/**
+ * Representative of a task, which has a description.
+ */
 public class Task {
+    private String description;
+
+    private boolean isDone; // true for done, false for not done
+
+    /**
+     * Constructs a generic task.
+     *
+     * @param description a description of what the task is.
+     */
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    /**
+     * Constructs a generic task.
+     *
+     * @param description a description of what the task is.
+     * @param isDone whether the task has been completed or not.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
 
     /**
      * Converts the task string that is stored on a hard disk into a Task object.
@@ -36,8 +63,8 @@ public class Task {
                 throw new BadDataFormatException("A task format in the Data file is not valid");
             }
         } catch (ArrayIndexOutOfBoundsException exception) {
-            throw new BadDataFormatException("The format of the file is incorrect." +
-                    "Did you accidentally modify it?");
+            throw new BadDataFormatException("The format of the file is incorrect."
+                    + "Did you accidentally modify it?");
         }
     }
 
@@ -51,31 +78,6 @@ public class Task {
             throw new BadDataFormatException("There was a invalid completion status in the data file");
         }
         return completionStatus;
-    }
-
-    private String description;
-
-    private boolean isDone; // true for done, false for not done
-
-    /**
-     * Constructs a generic task.
-     *
-     * @param description a description of what the task is.
-     */
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    /**
-     * Constructs a generic task.
-     *
-     * @param description a description of what the task is.
-     * @param isDone whether the task has been completed or not.
-     */
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
     }
 
     /**

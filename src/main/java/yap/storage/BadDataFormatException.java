@@ -2,6 +2,9 @@ package yap.storage;
 
 import java.io.IOException;
 
+/**
+ * Represents a bad data format exception, when the program cannot read the data file into storage correctly.
+ */
 public class BadDataFormatException extends IOException {
 
     /**
