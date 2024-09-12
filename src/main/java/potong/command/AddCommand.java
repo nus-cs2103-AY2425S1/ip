@@ -67,6 +67,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) throws IllegalInputPotongException {
+        assert tasks != null;
         switch (this.type) {
         case TODO -> {
             return tasks.add(new ToDoTask(this.task));

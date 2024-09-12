@@ -1,7 +1,6 @@
 package potong.command;
 
 import potong.exceptions.PotongException;
-
 import potong.Storage;
 import potong.TaskList;
 import potong.Ui;
@@ -36,6 +35,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
+        assert tasks != null;
         if (toMark) {
             try {
                 return tasks.mark(this.index);
