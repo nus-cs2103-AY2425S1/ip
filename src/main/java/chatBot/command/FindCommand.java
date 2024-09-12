@@ -19,15 +19,21 @@ public class FindCommand extends Command {
      * Calls findKeyword method in TaskList class, which returns an ArrayList of Task.
      * Afterward, prints the tasks.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "";
         ArrayList<Task> tasksFound = taskList.findKeyword(this.keywordToFind);
         if (tasksFound.size() > 0) {
-            System.out.println("Here are the matching tasks in your list:");
+            output = "Here are the matching tasks in your list:";
+            System.out.println(output);
             for (Task task : tasksFound) {
                 System.out.println(task);
+                output += task + "\n";
             }
+            output = output.stripTrailing();
         } else {
-            System.out.println("No matching tasks found");
+            output = "No matching tasks found";
+            System.out.println(output);
         }
+        return output;
     }
 }

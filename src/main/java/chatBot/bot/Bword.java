@@ -55,7 +55,24 @@ public class Bword {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        String output = "";
+        try {
+            String fullCommand = input;
+            //this.ui.showLine(); // show the divider line ("_______")
+            Command c = Parser.parse(fullCommand);
+            if (c != null) {
+                output = c.execute(this.taskList, this.ui, this.storage);
+                // output = "Successfully executed: " + fullCommand;
+            } else {
+                output = "commands accepted: todo , deadline ,"
+                        + " event , list, mark , unmark , bye , delete, find";
+            }
+        } catch (Exception e) {
+            this.ui.showError(e.getMessage());
+        } finally {
+            this.ui.showLine();
+        }
+        return output;
     }
 
     public static void main(String[] args) {

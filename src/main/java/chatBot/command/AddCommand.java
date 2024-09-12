@@ -23,23 +23,27 @@ public class AddCommand extends Command {
     }
 
     /** Adds Tasks to taskList, if fails catch exceptions and print them */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "";
         if (this.desc == "") {
             try {
                 throw new EmptyDescException();
             } catch (EmptyDescException e) {
                 System.out.println(e.getMessage());
-                return;
+                output = e.getMessage();
+                return output;
             }
         }
         if (action.equals("todo")) {
             try {
                 Task t = new ToDoTask(desc);
                 taskList.addTask(t);
-                System.out.println("added:\n" + t);
-                System.out.println("You have " + taskList.size() + " tasks in list");
+                output = "added:\n" + t + "\n"
+                        + "You have " + taskList.size() + " tasks in list";
+                System.out.println(output);
             } catch (Exception e) {
                 System.out.println(e);
+                output = e.getMessage();
             }
         } else if (action.equals("deadline")) {
             try {
@@ -48,17 +52,21 @@ public class AddCommand extends Command {
                 try {
                     t = new Deadline(arr[0].strip(), arr[1].strip());
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("missing /by");
-                    return;
+                    output = "missing /by";
+                    System.out.println(output);
+                    return output;
                 } catch (DateTimeParseException e) {
-                    System.out.println("Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01");
-                    return;
+                    output = "Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01";
+                    System.out.println(output);
+                    return output;
                 }
                 taskList.addTask(t);
-                System.out.println("added:\n" + t);
-                System.out.println("You have " + taskList.size() + " tasks in list");
+                output = "added:\n" + t + "\n"
+                        + "You have " + taskList.size() + " tasks in list";
+                System.out.println(output);
             } catch (EmptyDescException e) {
-                System.out.println(e);
+                output = e.getMessage();
+                System.out.println(output);
             }
         } else if (action.equals("event")) {
             String[] arr = desc.split("/from");
@@ -66,26 +74,35 @@ public class AddCommand extends Command {
             try {
                 arr2 = arr[1].split("/to");
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("missing /from");
-                return;
+                output = "missing /from";
+                System.out.println(output);
+                return output;
             }
             Task t = null;
             try {
                 try {
                     t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
                 } catch (ArrayIndexOutOfBoundsException ex) {
-                    System.out.println("missing /to");
-                    return;
+                    output = "missing /to";
+                    System.out.println(output);
+                    return output;
                 } catch (DateTimeParseException e) {
-                    System.out.println("Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01");
-                    return;
+                    output = "Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01";
+                    System.out.println(output);
+                    return output;
                 }
                 taskList.addTask(t);
-                System.out.println("added:\n" + t);
-                System.out.println("You have " + taskList.size() + " tasks in list");
+                output = "added:\n" + t + "\n"
+                        + "You have " + taskList.size() + " tasks in list";
+                System.out.println(output);
             } catch (Exception e) {
-                System.out.println(e);
+                output = e.getMessage();
+                System.out.println(output);
             }
         }
+        if (output.isEmpty()) {
+            output = "something went wrong in AddCommand";
+        }
+        return output;
     }
 }
