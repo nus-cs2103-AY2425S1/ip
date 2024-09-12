@@ -14,6 +14,6 @@ public class EventTest {
     @Test
     public void testWriteTask() {
         Event event = new Event("test", "2024-08-30", "2024-08-30");
-        assertEquals("0,test,2024-08-30,2024-08-30", event.writeTask());
+        assertEquals("0,3,test,2024-08-30,2024-08-30", event.writeTask());
     }
 }

@@ -5,6 +5,7 @@ import exceptions.AliceException;
 import exceptions.FormatException;
 import exceptions.MissingArgumentException;
 import storage.TaskList;
+import tasks.Priority;
 import tasks.Task;
 import ui.Ui;
 
@@ -43,36 +44,53 @@ public class Parser {
         case BYE:
             return ui.showExitMessage();
         case LIST:
-            return ui.getListedTasks(list.listTasks(), list.getSize());
+            return ui.getListedTasks(list.getSize(),
+                    list.findTaskOfPriority(Priority.HIGH),
+                    list.findTaskOfPriority(Priority.MEDIUM),
+                    list.findTaskOfPriority(Priority.LOW));
         case MARK:
-            int markTaskNumber = checkValidTaskNumber(result[1]);
-            Task markTask = list.markTask(markTaskNumber);
+            String[] markParams = result[1].split(" ");
+            int markTaskNumber = checkValidTaskNumber(markParams[0]);
+            checkValidTaskInput(Command.MARK, markParams);
+            Task markTask = list.markTask(markTaskNumber, markParams[1]);
             return ui.getHandleTaskMessage(markTask, "mark");
         case UNMARK:
-            int unmarkTaskNumber = checkValidTaskNumber(result[1]);
-            Task unmarkTask = list.unmarkTask(unmarkTaskNumber);
+            String[] unmarkParams = result[1].split(" ");
+            int unmarkTaskNumber = checkValidTaskNumber(unmarkParams[0]);
+            checkValidTaskInput(Command.UNMARK, unmarkParams);
+            Task unmarkTask = list.unmarkTask(unmarkTaskNumber, unmarkParams[1]);
             return ui.getHandleTaskMessage(unmarkTask, "unmark");
         case DELETE:
-            int deleteTaskNumber = checkValidTaskNumber(result[1]);
-            Task task = list.deleteTask(deleteTaskNumber);
+            String[] deleteParams = result[1].split(" ");
+            int deleteTaskNumber = checkValidTaskNumber(deleteParams[0]);
+            checkValidTaskInput(Command.DELETE, deleteParams);
+            Task task = list.deleteTask(deleteTaskNumber, deleteParams[1]);
             return ui.getHandleTaskMessage(task, "delete", list.getSize());
         case TODO:
-            // result[1] contains description
+            // result[1] contains description /p priority
             checkValidTaskInput(Command.TODO, result);
-            addedTask = list.addTask(Command.TODO, result[1]);
+
+            String[] todoParams = result[1].split("/p");
+            addedTask = todoParams.length == 1
+                    ? list.addTask(Command.TODO, todoParams[0])
+                    : list.addTask(Command.TODO, todoParams[0], todoParams[1].strip());
             break;
         case DEADLINE:
-            // result[1] contains description /by deadline
+            // result[1] contains description /by deadline /p priority
             checkValidTaskInput(Command.DEADLINE, result);
 
             String[] deadlineInfo = result[1].split("/by ");
             checkValidTaskInput(Command.DEADLINE, deadlineInfo);
 
-            addedTask = list.addTask(Command.DEADLINE,
-                    deadlineInfo[0], deadlineInfo[1].strip());
+            String[] deadlineParams = deadlineInfo[1].split("/p");
+
+            addedTask = deadlineParams.length == 1
+                    ? list.addTask(Command.DEADLINE, deadlineInfo[0], deadlineParams[0].strip())
+                    : list.addTask(Command.DEADLINE, deadlineInfo[0], deadlineParams[0].strip(),
+                        deadlineParams[1].strip());
             break;
         case EVENT:
-            // result[1] contains description /from from /to to
+            // result[1] contains description /from from /to to /p priority
             checkValidTaskInput(Command.EVENT, result);
 
             String[] eventInfo = result[1].split("/from ");
@@ -81,13 +99,23 @@ public class Parser {
             String[] times = eventInfo[1].split("/to ");
             checkValidTaskInput(Command.EVENT, times);
 
-            addedTask = list.addTask(Command.EVENT,
-                    eventInfo[0], times[0].strip(), times[1].strip());
+            String[] eventParams = times[1].split("/p");
+
+            addedTask = eventParams.length == 1
+                    ? list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), eventParams[0].strip())
+                    : list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), eventParams[0].strip(),
+                        eventParams[1].strip());
             break;
         case FIND:
             return ui.getFilteredTasks(list.findTasks(result[1]));
         case EXIT:
             return "";
+        case PRIORITY:
+            String[] params = result[1].split(" ");
+            int taskNumber = checkValidTaskNumber(params[0]);
+            checkValidTaskInput(Command.PRIORITY, params);
+            Task updateTask = list.updatePriority(taskNumber, params[1].strip(), params[2].strip());
+            return ui.getHandleTaskMessage(updateTask, "priority", params[2].strip());
         default:
             throw new AliceException(input);
         }
@@ -120,30 +148,43 @@ public class Parser {
     /**
      * Checks if the user supplied  information required for the task type.
      *
-     * @param taskType type of task.
+     * @param command type of task.
      * @param taskInfo inputs to check.
      * @throws MissingArgumentException when there is a missing argument.
      */
-    private void checkValidTaskInput(Command taskType, String[] taskInfo) throws MissingArgumentException {
+    private void checkValidTaskInput(Command command, String[] taskInfo) throws MissingArgumentException {
+        if (command == Command.PRIORITY && taskInfo.length == 3) {
+            return;
+        } else if (command == Command.PRIORITY) {
+            throwMissingArgumentException(command);
+        }
         if (taskInfo.length != 2) {
-            throwMissingArgumentException(taskType);
+            throwMissingArgumentException(command);
         }
     }
 
     /**
      * Throws the MissingArgumentException when called, based on the type of task.
      *
-     * @param taskType the type of task.
+     * @param command the type of task.
      * @throws MissingArgumentException when called.
      */
-    private void throwMissingArgumentException(Command taskType) throws MissingArgumentException {
-        switch (taskType) {
+    private void throwMissingArgumentException(Command command) throws MissingArgumentException {
+        switch (command) {
         case TODO:
             throw new MissingArgumentException("Todo", "description");
         case DEADLINE:
             throw new MissingArgumentException("Deadline", "description", "by");
         case EVENT:
             throw new MissingArgumentException("Event", "description", "from", "to");
+        case MARK:
+            throw new MissingArgumentException("Mark", "taskNumber", "priority");
+        case UNMARK:
+            throw new MissingArgumentException("Unmark", "taskNumber", "priority");
+        case DELETE:
+            throw new MissingArgumentException("Delete", "taskNumber", "priority");
+        case PRIORITY:
+            throw new MissingArgumentException("Priority", "taskNumber", "priority", "newPriority");
         default:
             break;
         }

@@ -25,6 +25,20 @@ public class Event extends Task {
     }
 
     /**
+     * Initialises an Event object.
+     *
+     * @param description description of the task.
+     * @param from start date of the task.
+     * @param to end date of the task.
+     * @param priority priority of the task.
+     */
+    public Event(String description, String from, String to, String priority) {
+        super(description, priority);
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
+    }
+
+    /**
      * Returns the string of the task to be saved to data file.
      *
      * @return string representing the task information.

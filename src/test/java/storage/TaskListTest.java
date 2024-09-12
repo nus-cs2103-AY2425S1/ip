@@ -3,6 +3,8 @@ package storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,15 +20,15 @@ public class TaskListTest {
     public void addTask_validTask_success() {
         // task type TODO
         Assertions.assertEquals(new Todo("test").toString(),
-                new TaskList().addTask(Command.TODO, new String[]{"todo", "test"}).toString());
+                new TaskList().addTask(Command.TODO, "test").toString());
 
         // task type DEADLINE
         Assertions.assertEquals(new Deadline("test", "2024-08-30").toString(),
-                new TaskList().addTask(Command.DEADLINE, new String[]{"test", "2024-08-30"}).toString());
+                new TaskList().addTask(Command.DEADLINE, "test", "2024-08-30").toString());
 
         // task type EVENT
         Assertions.assertEquals(new Event("test", "2024-08-29", "2024-08-30").toString(),
-                new TaskList().addTask(Command.EVENT, new String[]{"test", "2024-08-29 /to 2024-08-30"}).toString());
+                new TaskList().addTask(Command.EVENT, "test", "2024-08-29", "2024-08-30").toString());
     }
 
     @Test
@@ -37,15 +39,15 @@ public class TaskListTest {
         list.addTask(new Deadline("test", "2024-08-30"));
         list.addTask(new Event("test", "2024-08-30", "2024-08-30"));
 
-        assertEquals("X", list.markTask(1).getStatusIcon());
-        assertEquals("X", list.markTask(2).getStatusIcon());
-        assertEquals("X", list.markTask(3).getStatusIcon());
+        assertEquals("X", list.markTask(1, "low").getStatusIcon());
+        assertEquals("X", list.markTask(2, "low").getStatusIcon());
+        assertEquals("X", list.markTask(3, "low").getStatusIcon());
     }
 
     @Test
     public void markTask_invalidIndex_exception() {
         try {
-            assertEquals("X", new TaskList().markTask(0).getStatusIcon());
+            assertEquals("X", new TaskList().markTask(0, "low").getStatusIcon());
             fail();
         } catch (InvalidTaskException e) {
             assertEquals("Task 0 does not exist!", e.toString());
@@ -60,15 +62,15 @@ public class TaskListTest {
         list.addTask(new Deadline("test", "2024-08-30"));
         list.addTask(new Event("test", "2024-08-30", "2024-08-30"));
 
-        assertEquals(" ", list.unmarkTask(1).getStatusIcon());
-        assertEquals(" ", list.unmarkTask(2).getStatusIcon());
-        assertEquals(" ", list.unmarkTask(3).getStatusIcon());
+        assertEquals(" ", list.unmarkTask(1, "low").getStatusIcon());
+        assertEquals(" ", list.unmarkTask(2, "low").getStatusIcon());
+        assertEquals(" ", list.unmarkTask(3, "low").getStatusIcon());
     }
 
     @Test
     public void unmarkTask_invalidIndex_exception() {
         try {
-            assertEquals(" ", new TaskList().unmarkTask(0).getStatusIcon());
+            assertEquals(" ", new TaskList().unmarkTask(0, "low").getStatusIcon());
             fail();
         } catch (InvalidTaskException e) {
             assertEquals("Task 0 does not exist!", e.toString());
@@ -84,17 +86,17 @@ public class TaskListTest {
         list.addTask(new Event("test", "2024-08-30", "2024-08-30"));
 
         assertEquals(new Todo("test").toString(),
-                list.deleteTask(1).toString());
+                list.deleteTask(1, "low").toString());
         assertEquals(new Deadline("test", "2024-08-30").toString(),
-                list.deleteTask(1).toString());
+                list.deleteTask(1, "low").toString());
         assertEquals(new Event("test", "2024-08-30", "2024-08-30").toString(),
-                list.deleteTask(1).toString());
+                list.deleteTask(1, "low").toString());
     }
 
     @Test
     public void deleteTask_invalidIndex_exception() {
         try {
-            Assertions.assertEquals(new Task("test"), new TaskList().deleteTask(0));
+            Assertions.assertEquals(new Task("test"), new TaskList().deleteTask(0, "low"));
             fail();
         } catch (InvalidTaskException e) {
             assertEquals("Task 0 does not exist!", e.toString());
@@ -116,32 +118,36 @@ public class TaskListTest {
     @Test
     public void listTasks_valid_success() {
         // empty TaskList
-        assertEquals("", new TaskList().listTasks());
+        assertEquals("", new TaskList().listTasks(new ArrayList<>()));
 
-        // TaskList with a Todo task
+        // ArrayList with a Todo task
         TaskList list1 = new TaskList();
-        list1.addTask(new Todo("test"));
-        assertEquals("1. [T][ ] test\n", list1.listTasks());
+        ArrayList<Task> todos = new ArrayList<>();
+        todos.add(new Todo("test"));
+        assertEquals("1. [T][ ] test\n", list1.listTasks(todos));
 
-        // TaskList with a Deadline task
+        // ArrayList with a Deadline task
         TaskList list2 = new TaskList();
-        list2.addTask(new Deadline("test", "2024-08-30"));
-        assertEquals("1. [D][ ] test (by: Aug 30 2024)\n", list2.listTasks());
+        ArrayList<Task> deadlines = new ArrayList<>();
+        deadlines.add(new Deadline("test", "2024-08-30"));
+        assertEquals("1. [D][ ] test (by: Aug 30 2024)\n", list2.listTasks(deadlines));
 
-        // TaskList with an Event task
+        // ArrayList with an Event task
         TaskList list3 = new TaskList();
-        list3.addTask(new Event("test", "2024-08-30", "2024-08-30"));
-        assertEquals("1. [E][ ] test (from: Aug 30 2024 to: Aug 30 2024)\n", list3.listTasks());
+        ArrayList<Task> events = new ArrayList<>();
+        events.add(new Event("test", "2024-08-30", "2024-08-30"));
+        assertEquals("1. [E][ ] test (from: Aug 30 2024 to: Aug 30 2024)\n", list3.listTasks(events));
 
-        // TaskList with muliple tasks
+        // ArrayList with muliple tasks
         TaskList list4 = new TaskList();
-        list4.addTask(new Todo("test"));
-        list4.addTask(new Deadline("test", "2024-08-30"));
-        list4.addTask(new Event("test", "2024-08-30", "2024-08-30"));
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("test"));
+        tasks.add(new Deadline("test", "2024-08-30"));
+        tasks.add(new Event("test", "2024-08-30", "2024-08-30"));
         assertEquals("1. [T][ ] test\n"
                         + "2. [D][ ] test (by: Aug 30 2024)\n"
                         + "3. [E][ ] test (from: Aug 30 2024 to: Aug 30 2024)\n",
-                list4.listTasks());
+                list4.listTasks(tasks));
     }
 
     @Test

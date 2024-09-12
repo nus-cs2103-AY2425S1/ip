@@ -53,14 +53,16 @@ public class Ui {
      * Returns the custom message when task is marked or unmarked.
      *
      * @param task the task which was handled.
-     * @param command "mark" or "unmark".
+     * @param infos "mark" or "unmark".
      * @return the custom message.
      */
-    public String getHandleTaskMessage(Task task, String command) {
-        if (command.equals("mark")) {
+    public String getHandleTaskMessage(Task task, String ... infos) {
+        if (infos[0].equals("mark")) {
             return "Noted! I've marked this task as done: \n" + task;
-        } else {
+        } else if (infos[0].equals("unmark")) {
             return "Ok, I've marked this task as not done yet: \n" + task;
+        } else {
+            return "Sure, I've changed the priority for this task to " + infos[1] + ": \n" + task;
         }
     }
 
@@ -87,16 +89,16 @@ public class Ui {
     /**
      * Returns a string of all the tasks in the list.
      *
-     * @param tasks the string representation of all the tasks.
      * @param size number of tasks in the list.
+     * @param tasks the string representation of tasks by priority.
      * @return tasks in the list.
      */
-    public String getListedTasks(String tasks, int size) {
-        StringBuilder s = new StringBuilder();
-        s.append("Here are the tasks in your list: \n");
-        s.append(tasks).append("\n");
-        s.append("Now you have ").append(size).append(" tasks in the list");
-        return s.toString();
+    public String getListedTasks(int size, String ... tasks) {
+        return "Here are the tasks in your list: \n"
+                + "HIGH PRIORITY: \n" + tasks[0] + "\n\n"
+                + "MEDIUM PRIORITY: \n" + tasks[1] + "\n\n"
+                + "LOW PRIORITY: \n" + tasks[2] + "\n\n"
+                + "Now you have a total of " + size + " tasks in the list";
     }
 
     /**

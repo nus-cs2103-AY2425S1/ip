@@ -22,6 +22,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Initialises a Deadline object.
+     *
+     * @param description description of the task.
+     * @param deadline due date of the task.
+     * @param priority priority of the task.
+     */
+    public Deadline(String description, String deadline, String priority) {
+        super(description, priority);
+        this.deadline = LocalDate.parse(deadline);
+    }
+
+    /**
      * Returns the string of the task to be saved to data file.
      *
      * @return string representing the task information.

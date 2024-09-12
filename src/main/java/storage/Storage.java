@@ -83,19 +83,25 @@ public class Storage {
         String[] taskParams = line.split(",");
         String taskType = taskParams[0];
         boolean isDone = Integer.parseInt(taskParams[1]) == 1;
+        String priority = Integer.parseInt(taskParams[2]) == 1
+                ? "high"
+                : Integer.parseInt(taskParams[2]) == 2
+                ? "medium"
+                : "low";
+
         Task newTask;
         switch (taskType) {
         case "todo":
-            newTask = new Todo(taskParams[2]);
+            newTask = new Todo(taskParams[3], priority);
             break;
         case "deadline":
-            newTask = new Deadline(taskParams[2], taskParams[3]);
+            newTask = new Deadline(taskParams[3], taskParams[4], priority);
             break;
         case "event":
-            newTask = new Event(taskParams[2], taskParams[3], taskParams[4]);
+            newTask = new Event(taskParams[3], taskParams[4], taskParams[5], priority);
             break;
         default:
-            newTask = new Task(taskParams[2]);
+            newTask = new Task(taskParams[2], priority);
         }
         if (isDone) {
             newTask.markAsDone();
