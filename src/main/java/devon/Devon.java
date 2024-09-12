@@ -134,6 +134,7 @@ public class Devon {
      */
     private String unmarkAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex;
+
         try {
             taskIndex = parser.extractTaskIndex(input) - 1;
         } catch (NumberFormatException e) {
@@ -142,6 +143,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
+
         return markAsUndone(taskIndex);
     }
 
@@ -211,6 +213,7 @@ public class Devon {
         } catch (NumberFormatException e) {
             throw new DevonInvalidTaskNumberException();
         }
+        
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
