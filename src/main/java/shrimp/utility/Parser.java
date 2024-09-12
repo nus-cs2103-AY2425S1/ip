@@ -44,6 +44,7 @@ public class Parser {
      * @return The {@code CommandType} corresponding to the user input.
      */
     public static CommandType parseCommand(String userInput) {
+        assert userInput != null : "userInput is null";
         if (userInput.equalsIgnoreCase("bye")) {
             return CommandType.BYE;
         } else if (userInput.equalsIgnoreCase("list")) {
