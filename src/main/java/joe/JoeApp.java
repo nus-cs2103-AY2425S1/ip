@@ -22,4 +22,9 @@ public class JoeApp extends Application {
         ui.start(stage, joe.getParser());
     }
 
+    @Override
+    public void stop() {
+        joe.endProgram();
+    }
+
 }

@@ -29,6 +29,10 @@ public class Joe {
         return ui;
     }
 
+    public void endProgram() {
+        controller.endProgram();
+    }
+
     /**
      * Generates a response for the user's chat message.
      * 
