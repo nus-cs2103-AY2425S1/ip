@@ -11,13 +11,13 @@ public class ClearCommand implements Command {
     /**
      * Executes the clear command by removing all tasks from the task list.
      *
-     * @param tasks The list of tasks to be cleared.
+     * @param taskList The list of tasks to be cleared.
      * @param ui    The user interface to interact with the user.
      */
     @Override
-    public String run(TaskList tasks, Ui ui) {
-        for (int i = tasks.getCount() - 1; tasks.getCount() != 0; i--) {
-            tasks.deleteTask(i);
+    public String run(TaskList taskList, Ui ui) {
+        for (int i = taskList.getCount() - 1; taskList.getCount() != 0; i--) {
+            taskList.deleteTask(i);
         }
         return "Dayo~ All tasks has been cleared!";
     }

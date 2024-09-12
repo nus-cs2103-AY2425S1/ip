@@ -28,21 +28,21 @@ public class MarkCommand implements Command {
      * Executes the mark command by marking or unmarking the task in the task list
      * and printing the result to the user interface.
      *
-     * @param tasks The list of tasks containing the task to be marked or unmarked.
+     * @param taskList The list of tasks containing the task to be marked or unmarked.
      * @param ui    The user interface to print the result of the command.
      */
     @Override
-    public String run(TaskList tasks, Ui ui) {
+    public String run(TaskList taskList, Ui ui) {
         String output;
         Task task;
         if (toMark) {
-            task = tasks.getTask(index).markAsDone();
+            task = taskList.getTask(index).markAsDone();
             output = ui.printMark(task);
         } else {
-            task = tasks.getTask(index).markAsNotDone();
+            task = taskList.getTask(index).markAsNotDone();
             output = ui.printUnmark(task);
         }
-        tasks.replaceTask(index, task);
+        taskList.replaceTask(index, task);
         return output;
     }
 }
