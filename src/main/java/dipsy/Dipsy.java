@@ -64,7 +64,8 @@ public class Dipsy {
     /**
      * Generates a response based on the user's input in the chat.
      *
-     * <p>This method processes the user's input by parsing it into a command, executing the command, and returning the result.</p>
+     * <p>This method processes the user's input by parsing it into a command, executing the command, and
+     * returning the result.</p>
      *
      * @param input The user's input message to be processed.
      * @return A response message based on the executed command, or an error message if the input is invalid.

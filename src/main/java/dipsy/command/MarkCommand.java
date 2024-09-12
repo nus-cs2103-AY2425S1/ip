@@ -59,7 +59,8 @@ public class MarkCommand extends Command {
      *
      * @param userGivenIndex The 1-based index provided by the user in the input.
      * @return The 0-based index used internally for the task list.
-     * @throws InvalidCommandException If the user-given index is out of bounds (i.e., less than 1 or greater than the task list size).
+     * @throws InvalidCommandException If the user-given index is out of bounds (i.e., less than 1 or greater
+     *      than the task list size).
      */
     private int calculateTaskIndex(int userGivenIndex) throws InvalidCommandException {
         int taskIndex = userGivenIndex - 1; // Since tasks are 0-indexed.
