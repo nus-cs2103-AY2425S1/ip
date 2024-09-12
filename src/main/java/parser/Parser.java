@@ -2,6 +2,8 @@ package parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import exceptions.EmptyTaskException;
 import exceptions.InvalidInputException;
@@ -224,14 +226,10 @@ public class Parser {
         if (slicedStr.length < 2) {
             throw new InvalidInputException("Please indicate what you want to find.");
         }
-
         String keyword = slicedStr[1];
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : taskList.getTasks()) {
-            if (task.toString().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
+        List<Task> matchingTasks = taskList.getTasks().stream()
+                .filter(task -> task.toString().contains(keyword))
+                .collect(Collectors.toList());
         return getTaskList(matchingTasks);
     }
 
@@ -256,16 +254,13 @@ public class Parser {
      * @param taskList The task list containing all tasks.
      * @return return the task list of the user
      */
-    private static String getTaskList(ArrayList<Task> taskList) {
+    private static String getTaskList(List<Task> taskList) {
         if (taskList.isEmpty()) {
             return "Your task list is empty.";
         }
-        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < taskList.size(); i++) {
-            response.append(String.format("%d.[%s][%s] %s\n", i + 1, taskList.get(i).getType(),
-                                          taskList.get(i).getStatusIcon(), taskList.get(i)));
-        }
-        return response.toString();
+        return taskList.stream()
+                .map(task -> String.format("[%s][%s] %s", task.getType(), task.getStatusIcon(), task))
+                .collect(Collectors.joining("\n", "Here are the tasks in your list:\n", ""));
     }
 
     /**
