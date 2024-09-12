@@ -50,12 +50,11 @@ test {
 }
 
 application {
-    // set this if you want the CLI
-    //mainClass.set("pebble.Pebble")
     mainClass.set("pebble.Launcher")
 }
 
 shadowJar {
+    archiveFileName = "pebble.jar"
     archiveBaseName = "pebble"
     archiveClassifier = null
 }
