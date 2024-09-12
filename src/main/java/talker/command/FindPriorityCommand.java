@@ -5,6 +5,9 @@ import talker.TalkerException;
 import talker.Ui;
 import talker.task.TaskList;
 
+/**
+ * Represents command to find all tasks in list of a certain priority level
+ */
 public class FindPriorityCommand extends Command {
 
     private String[] parsed;
