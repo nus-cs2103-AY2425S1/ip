@@ -24,11 +24,12 @@ public class DeadlineCommand extends Command {
         super("deadline");
         this.description = description;
         try {
+            by = by.strip().replace(" ", "T");
             this.by = LocalDateTime.parse(by);
         } catch (DateTimeParseException e) {
             throw new InvalidInputException("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
         } catch (NullPointerException e) {
-            throw new InvalidInputException("Deadline command format: deadline [desc] /by [YYYY-MM-DD HH:mm].");
+            throw new InvalidInputException("Deadline command format: deadline <desc> /by <YYYY-MM-DD HH:mm>.");
         }
     }
 

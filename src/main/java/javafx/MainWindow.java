@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
         );
         // Solution below adapted from
         // https://stackoverflow.com/questions/12153622/how-to-close-a-javafx-application-on-window-close
-        if (response.equals("bye")) {
+        if (response.equals("Bye.")) {
             Platform.exit();
         }
         userInput.clear();

@@ -26,13 +26,15 @@ public class EventCommand extends Command {
         this.description = description;
 
         try {
+            from = from.strip().replace(" ", "T");
+            to = to.strip().replace(" ", "T");
             this.from = LocalDateTime.parse(from);
             this.to = LocalDateTime.parse(to);
         } catch (DateTimeParseException e) {
             throw new InvalidInputException("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
         } catch (NullPointerException e) {
-            throw new InvalidInputException("Tasks.Event command format: event [desc] "
-                    + "/from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm].");
+            throw new InvalidInputException("Tasks.Event command format: event <desc> "
+                    + "/from <YYYY-MM-DD HH:mm> /to <YYYY-MM-DD HH:mm>.");
         }
 
         if (this.to.isAfter(this.from)) {
