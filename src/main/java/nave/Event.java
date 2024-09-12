@@ -1,4 +1,4 @@
-package Nave;
+package nave;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,14 +74,15 @@ public class Event extends Task {
      * @return a string message indicating the addition of a new event task
      */
     public String creationResponse() {
-        return "Ok! I've added a new event:\n" + this +
-                "\n";
+        return "Ok! I've added a new event:\n" + this
+                + "\n";
     }
 
     /**
      * Returns the string format of the event task suitable for saving to a file.
      * <p>
-     * This method includes the task's name, start date, and end date, separated by commas, and ends with a newline character.
+     * This method includes the task's name, start date, and end date, separated by commas,
+     * and ends with a newline character.
      * </p>
      *
      * @return the file format string of the event task
@@ -102,8 +103,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String dateString = " (from: " + startDate + " to: " +
-                endDate + ")";
+        String dateString = " (from: " + startDate + " to: "
+                + endDate + ")";
         return "[E]" + super.toString() + dateString;
     }
 }

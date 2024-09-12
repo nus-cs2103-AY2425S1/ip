@@ -1,4 +1,4 @@
-package Nave;
+package nave;
 
 /**
  * The {@code Ui} class is responsible for interacting with the user through
@@ -16,8 +16,8 @@ public class Ui {
      * </p>
      */
     public void greet() {
-        System.out.println(formatResponse("Hello! :) I'm Nave, your personal task management assistant.\n" +
-                "What can I do for you today?"));
+        System.out.println(formatResponse("Hello! :) I'm Nave, your personal task management assistant.\n"
+                + "What can I do for you today?"));
     }
 
     /**
@@ -65,12 +65,12 @@ public class Ui {
 
     /**
      * Displays a given response message to the user.
-     *
-     * @param response the message to be displayed
      * <p>
      * This method prints the provided {@code response} to the console,
      * formatted with borders for better readability.
      * </p>
+     *
+     * @param response the message to be displayed
      */
     public void showResponse(String response) {
         System.out.println(formatResponse(response));
@@ -78,13 +78,13 @@ public class Ui {
 
     /**
      * Formats a response message with borders for better readability.
-     *
-     * @param input the message to be formatted
-     * @return the formatted message with borders
      * <p>
      * This method wraps the provided {@code input} message in a bordered format,
      * which is used for displaying responses to the user.
      * </p>
+     *
+     * @param input the message to be formatted
+     * @return the formatted message with borders
      */
     public static String formatResponse(String input) {
         return "-----------------------------------------------------------------\n"

@@ -1,9 +1,9 @@
-package Nave;
-
-import org.junit.jupiter.api.Test;
+package nave;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class TodoTest {
     @Test
