@@ -12,21 +12,21 @@ public class TodoTest {
     public void testTodoCreation() {
         Todo todo = new Todo("Read book", false);
         assertEquals("Read book", todo.getName());
-        assertFalse(todo.isDone());
+        assertFalse(todo.getIsDone());
     }
 
     @Test
     public void testMarkDone() {
         Todo todo = new Todo("Read book", false);
         todo.setDone();
-        assertTrue(todo.isDone());
+        assertTrue(todo.getIsDone());
     }
 
     @Test
     public void testMarkUndone() {
         Todo todo = new Todo("Read book", true);
         todo.setUndone();
-        assertFalse(todo.isDone());
+        assertFalse(todo.getIsDone());
     }
 
     @Test
