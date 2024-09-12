@@ -31,7 +31,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        assert dialog != null : "Label 'dialog' should be loaded from FXML!";
+        assert displayPicture != null : "ImageView 'displayPicture' should be loaded from FXML!";
         dialog.setText(text);
         displayPicture.setImage(img);
     }
