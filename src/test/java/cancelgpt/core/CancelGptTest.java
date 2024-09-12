@@ -32,18 +32,26 @@ public class CancelGptTest {
 
     @Test
     public void name_getNameShould_returnCorrectName() {
-        CancelGpt cancelGpt = new CancelGpt(TEST_STORAGE_DIR_PATH);
-        assertEquals("cancelgpt", cancelGpt.getName());
+        try {
+            CancelGpt cancelGpt = new CancelGpt(TEST_STORAGE_DIR_PATH);
+            assertEquals("cancelgpt", cancelGpt.getName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     public void task_addTask_success() {
-        CancelGpt cancelGpt = new CancelGpt(TEST_STORAGE_DIR_PATH);
-        assertTrue(cancelGpt.getTasks().isEmpty());
-        Task testTask = new ToDo("test description");
-        cancelGpt.addToTaskList(testTask);
-        assertEquals(1, cancelGpt.getTasks().size());
-        assertTrue(cancelGpt.getTasks().contains(testTask));
+        try {
+            CancelGpt cancelGpt = new CancelGpt(TEST_STORAGE_DIR_PATH);
+            assertTrue(cancelGpt.getTasks().isEmpty());
+            Task testTask = new ToDo("test description");
+            cancelGpt.addToTaskList(testTask);
+            assertEquals(1, cancelGpt.getTasks().size());
+            assertTrue(cancelGpt.getTasks().contains(testTask));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void clearStorage() {
