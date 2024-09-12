@@ -1,21 +1,21 @@
 package choaticbot.storage;
 
-import choaticbot.tasks.Deadlines;
-import choaticbot.tasks.Events;
-import choaticbot.tasks.TaskList;
-import choaticbot.tasks.ToDos;
-import choaticbot.tasks.Task;
+import static choaticbot.ui.Ui.printText;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static choaticbot.ui.Ui.printText;
+import choaticbot.tasks.Deadlines;
+import choaticbot.tasks.Events;
+import choaticbot.tasks.Task;
+import choaticbot.tasks.TaskList;
+import choaticbot.tasks.ToDos;
 
 /**
  * The {@code Storage} class handles saving and loading tasks from a file
@@ -137,6 +137,8 @@ public class Storage {
                 String to = parts.length > 4 ? parts[4] : "";
                 task = new Events(description, from, to);
                 break;
+            default:
+                //do nothing
             }
 
             assert task != null;

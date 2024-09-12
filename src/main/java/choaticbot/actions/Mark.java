@@ -12,7 +12,7 @@ public class Mark extends Action {
     /**
      * The index of the task to be marked as completed, provided as a string.
      */
-    public String details;
+    private String details;
 
     /**
      * Constructs a {@code Mark} action with the specified task list and task index.

@@ -26,18 +26,18 @@ public class ActionManager {
      * @return The action to be executed based on the user input.
      * @throws UnknownActionException If the action string in the processed input does not match a known action.
      */
-    public Action createAction (ProcessedInput processedInput, TaskList taskList) throws UnknownActionException{
+    public Action createAction(ProcessedInput processedInput, TaskList taskList) throws UnknownActionException {
         return switch (processedInput.getAction()) {
-            case "bye" -> new Bye(taskList);
-            case "list" -> new List(taskList);
-            case "mark" -> new Mark(taskList, processedInput.getDetails());
-            case "unmark" -> new Unmark(taskList, processedInput.getDetails());
-            case "delete" -> new Delete(taskList, processedInput.getDetails());
-            case "find" -> new Find(taskList, processedInput.getDetails());
-            //Allow fall through on purpose to cover all cases
-            case "todo", "deadline", "event" ->
-                    new CreateTask(taskList, processedInput.getAction(), processedInput.getDetails());
-            default -> throw new UnknownActionException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case "bye" -> new Bye(taskList);
+        case "list" -> new List(taskList);
+        case "mark" -> new Mark(taskList, processedInput.getDetails());
+        case "unmark" -> new Unmark(taskList, processedInput.getDetails());
+        case "delete" -> new Delete(taskList, processedInput.getDetails());
+        case "find" -> new Find(taskList, processedInput.getDetails());
+        //Allow fall through on purpose to cover all cases
+        case "todo", "deadline", "event" ->
+                new CreateTask(taskList, processedInput.getAction(), processedInput.getDetails());
+        default -> throw new UnknownActionException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         };
     }
 }

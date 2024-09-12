@@ -37,7 +37,8 @@ public class ToDos extends Task {
     }
 
     /**
-     * Converts the To-Do task to a file-friendly string format. This includes the task type, name, and completion status.
+     * Converts the To-Do task to a file-friendly string format.
+     * This includes the task type, name, and completion status.
      *
      * @return A string formatted for file storage, e.g., "T|task_name|true".
      */

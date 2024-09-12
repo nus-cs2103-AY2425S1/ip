@@ -1,7 +1,8 @@
 package choaticbot.tasks;
 
-import java.util.ArrayList;
 import static choaticbot.ui.Ui.printLine;
+
+import java.util.ArrayList;
 
 /**
  * Represents a list of tasks. Provides methods to manage and manipulate tasks, including adding, deleting,
@@ -25,8 +26,8 @@ public class TaskList {
     public void addTask(Task task) {
         printLine();
         this.tasklist.add(task);
-        System.out.println("Added: " + task + "\n"
-                + "You have " + this.tasklist.size() + " tasks in the list.");
+        System.out.println("added: " + task + "\n"
+                + "You have " + this.tasklist.size() + " tasks in the list");
         printLine();
     }
 
@@ -39,7 +40,7 @@ public class TaskList {
         printLine();
         System.out.println("Deleted: " + this.tasklist.get(index - 1) + "\n");
         this.tasklist.remove(index - 1);
-        System.out.println("You have " + this.tasklist.size() + " tasks in the list.");
+        System.out.println("You have " + this.tasklist.size() + " tasks in the list");
         printLine();
     }
 

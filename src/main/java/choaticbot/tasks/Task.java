@@ -4,7 +4,7 @@ package choaticbot.tasks;
  * The {@code Task} class represents an abstract base class for tasks. It contains common functionality
  * for managing tasks, such as tracking completion status and storing the task's name.
  */
-abstract public class Task {
+public abstract class Task {
 
     /**
      * The name of the task.

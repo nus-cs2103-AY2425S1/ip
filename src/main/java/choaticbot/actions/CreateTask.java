@@ -1,27 +1,27 @@
 package choaticbot.actions;
 
-import choaticbot.tasks.Task;
-import choaticbot.tasks.TaskList;
 import choaticbot.tasks.Deadlines;
 import choaticbot.tasks.Events;
+import choaticbot.tasks.Task;
+import choaticbot.tasks.TaskList;
 import choaticbot.tasks.ToDos;
 
 /**
  * The {@code CreateTask} class represents an action that creates a new task
  * (To-Do, Deadline, or Event) and adds it to the task list.
  */
-public class CreateTask extends Action{
+public class CreateTask extends Action {
 
     /**
      * The type of task to be created (e.g., "todo", "deadline", "event").
      */
-    public String taskType;
+    private String taskType;
 
     /**
      * The details of the task, including the task name and additional information
      * (such as deadlines or event times).
      */
-    public String details;
+    private String details;
 
     /**
      * Constructs a {@code CreateTask} action with the specified task type and details.
@@ -47,18 +47,18 @@ public class CreateTask extends Action{
     @Override
     public void execute() {
         Task task = switch (this.taskType) {
-            case "todo" -> new ToDos(this.details);
-            case "deadline" -> {
-                //[0] = taskName, [1] = deadline
-                String[] deadlineDetails = this.details.split("/by ");
-                yield new Deadlines(deadlineDetails[0], deadlineDetails[1]);
-            }
-            case "event" -> {
-                //[0] = taskName, [1] = from, [2] = to
-                String[] eventDetails = this.details.split("/");
-                yield new Events(eventDetails[0], eventDetails[1], eventDetails[2]);
-            }
-            default -> null;
+        case "todo" -> new ToDos(this.details);
+        case "deadline" -> {
+            //[0] = taskName, [1] = deadline
+            String[] deadlineDetails = this.details.split("/by ");
+            yield new Deadlines(deadlineDetails[0], deadlineDetails[1]);
+        }
+        case "event" -> {
+            //[0] = taskName, [1] = from, [2] = to
+            String[] eventDetails = this.details.split("/");
+            yield new Events(eventDetails[0], eventDetails[1], eventDetails[2]);
+        }
+        default -> null;
         };
 
         if (task != null) {

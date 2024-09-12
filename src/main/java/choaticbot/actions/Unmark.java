@@ -12,7 +12,7 @@ public class Unmark extends Action {
     /**
      * The index of the task to be unmarked as incomplete, provided as a string.
      */
-    public String details;
+    private String details;
 
     /**
      * Constructs an {@code Unmark} action with the specified task list and task index.

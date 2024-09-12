@@ -12,7 +12,7 @@ public class Find extends Action {
     /**
      * The keyword to search for in the task list.
      */
-    public String word;
+    private String word;
 
     /**
      * Constructs a {@code Find} action with the specified task list and keyword.

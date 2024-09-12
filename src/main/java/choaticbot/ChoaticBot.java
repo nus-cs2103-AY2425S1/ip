@@ -2,21 +2,21 @@ package choaticbot;
 
 import java.util.Scanner;
 
-import choaticbot.actions.ActionManager;
 import choaticbot.actions.Action;
+import choaticbot.actions.ActionManager;
 import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.inputs.InputProcessor;
 import choaticbot.inputs.ProcessedInput;
+import choaticbot.storage.Storage;
 import choaticbot.tasks.TaskList;
 import choaticbot.ui.Ui;
-import choaticbot.storage.Storage;
 
 /**
  * The main class for the ChoaticBot application. This class handles the initialization
  * of the bot, processes user inputs, manages actions, and interacts with the task list.
  */
 public class ChoaticBot {
-    public TaskList tasklist;
+    private TaskList tasklist;
 
     /**
      * Constructs a new ChoaticBot instance with an empty task list.

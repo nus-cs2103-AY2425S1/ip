@@ -87,6 +87,6 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (" + deadline.format(OUTPUT_FORMAT) + ")";
+        return "[D] " + super.toString() + "(" + deadline.format(OUTPUT_FORMAT) + ")";
     }
 }

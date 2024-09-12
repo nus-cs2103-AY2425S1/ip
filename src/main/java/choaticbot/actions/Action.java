@@ -7,12 +7,12 @@ import choaticbot.tasks.TaskList;
  * Each action operates on a {@link TaskList} and defines its own behavior
  * by implementing the {@link #execute()} method.
  */
-abstract public class Action {
+public abstract class Action {
 
     /**
      * The task list associated with the action.
      */
-    public TaskList taskList;
+    protected TaskList taskList;
 
     /**
      * Constructor for creating an Action with the given task list.
@@ -27,7 +27,7 @@ abstract public class Action {
      * Executes the specific action. Each subclass must provide an
      * implementation of this method.
      */
-    abstract public void execute();
+    public abstract void execute();
 
     /**
      * Indicates whether this action signifies the end of the program. By

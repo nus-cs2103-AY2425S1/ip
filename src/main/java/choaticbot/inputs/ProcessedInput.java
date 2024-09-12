@@ -11,12 +11,12 @@ public class ProcessedInput {
     /**
      * The action specified in the user's input (e.g., "todo", "delete").
      */
-    public String action;
+    private String action;
 
     /**
      * Additional details associated with the action (e.g., task description or index).
      */
-    public String details;
+    private String details;
 
     /**
      * Constructs a {@code ProcessedInput} with the specified action and details.
