@@ -18,9 +18,11 @@ public class TaskList {
     // Path relative to project directory
     private static final String[] dirPathParts = { "store" };
     private static final String[] filePathParts = { "store", "tasks.csv" };
-    private final File saveDir = new File(String.join(File.separator, dirPathParts));
-    private static final Storage CSV_HANDLER = new Storage(
-            new File(String.join(File.separator, filePathParts)));
+    private static final String saveDirPath = String.join(File.separator, dirPathParts);
+    private static final String saveFilePath = String.join(File.separator, filePathParts);
+    private final File saveDir = new File(saveDirPath);
+    private static final File saveFile = new File(saveFilePath);
+    private static final Storage CSV_HANDLER = new Storage(saveFile);
 
     /**
      * Adds a task to the list.
