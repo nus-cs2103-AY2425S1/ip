@@ -38,7 +38,7 @@ public class Ui {
 
     public String printEventFormatError() {
         return "Invalid input for Event. Make sure that you are following the correct format.\n"
-                + "Example:"
+                + "Example:\n"
                 + "event Orientation Camp /from 2024-09-01 /to 20224-09-04";
     }
 
@@ -77,5 +77,18 @@ public class Ui {
             i++;
         }
         return sb.toString();
+    }
+
+    public String printDateChange(Task task) {
+        return "Ok, I've changed to date of this task:\n"
+                + task.toString();
+    }
+
+    public String printChangeDateError(String error) {
+        return error + "\n"
+                + "Make sure that you are following the correct format.\n"
+                + "Example:\n"
+                + "snooze 1 /from 2024-09-01 /to 20224-09-04\n"
+                + "snooze 2 /by 2024-09-01";
     }
 }

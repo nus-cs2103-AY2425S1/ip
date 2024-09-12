@@ -115,6 +115,15 @@ public class Snowy {
             result = ui.printGreeting();
             break;
 
+        case "snooze":
+            try {
+                task = tasks.changeDate(description);
+                result = ui.printDateChange(task);
+            } catch (NumberFormatException |SnowyException e) {
+                result = ui.printChangeDateError(e.getMessage());
+            }
+            break;
+
         default:
             result = ui.printUnknownCommand();
             break;

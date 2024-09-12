@@ -226,4 +226,62 @@ public class TaskList {
         return result;
     }
 
+    public Task changeDate(String description) throws SnowyException {
+        Task result;
+        if (description.trim().isEmpty() || description.length() < 4) {
+            throw new SnowyException("Invalid snooze format");
+        }
+
+        String indexChar = description.substring(0, 1);
+
+        int index = Integer.parseInt(indexChar);
+        if (index < 1 || index > tasks.size()) {
+            throw new SnowyException("Invalid index input");
+        }
+
+        Task task = tasks.get(index - 1);
+        String details = description.substring(2);
+
+        if (task instanceof Event) {
+            result = changeEventDate((Event) task, details);
+        } else if (task instanceof Deadline) {
+            result = changeDeadlineDate((Deadline) task, details);
+        } else {
+            throw new SnowyException("That task does not contain a date");
+        }
+
+        return result;
+    }
+
+    private Task changeDeadlineDate(Deadline deadline, String details) {
+        int byIndex = details.indexOf("/by ");
+        if (byIndex == -1) {
+            throw new SnowyException("Invalid input for Deadline");
+        }
+
+        String date = details.substring(byIndex + 4).trim();
+        deadline.changeDate(date);
+        return deadline;
+    }
+
+    private Task changeEventDate(Event event, String details) {
+        int fromIndex = details.indexOf("/from ");
+        int toIndex = details.indexOf("/to ");
+
+        if (toIndex == -1 || fromIndex == -1) {
+            throw new SnowyException("Invalid input for Event");
+        }
+        String fromDate = details.substring(fromIndex + 6, toIndex).trim();
+        String toDate = details.substring(toIndex + 4).trim();
+
+        boolean isInvalidInput = fromDate.isEmpty() || toDate.isEmpty();
+
+        if (isInvalidInput) {
+            throw new SnowyException("Invalid input for Event");
+        }
+
+        event.changeDate(fromDate, toDate);
+        return event;
+    }
+
 }
