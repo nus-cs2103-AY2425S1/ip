@@ -27,17 +27,9 @@ public class DeleteCommand extends Command {
         assert details != null : "Details must not be null";
 
         String[] indexes = details[1].split("\\s+");
-        System.out.println("Len: " + indexes.length);
         int[] toBeRemovedIndexes = new int[indexes.length];
 
         for (int i = 0; i < indexes.length; i++) {
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println(indexes[i]);
-            System.out.println();
-            System.out.println();
-            System.out.println();
             int idx = Integer.parseInt(indexes[i]);
             if (!tl.isValidIdx(idx)) {
                 ui.setResponse(
@@ -51,7 +43,6 @@ public class DeleteCommand extends Command {
         int offset = 0;
         Arrays.sort(toBeRemovedIndexes);
         for (int i = 0; i < toBeRemovedIndexes.length; i++) {
-            System.out.println("Index to delete is: " + toBeRemovedIndexes[i]);
             Task t = tl.deleteTask(toBeRemovedIndexes[i] + offset, storage);
             tasksRemoved.append(INDENT + t.toString() + NEW_LINE);
             offset--;
