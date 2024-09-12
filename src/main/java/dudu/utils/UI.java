@@ -12,16 +12,16 @@ public class UI {
     private static String goodbyeMessage = "Bye. Hope to see you again soon!";
     // BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, HELP
 
-    private static final String helpMessage = "These are the list of commands"
-            + "bye - Exit the application"
-            + "list - List the current tasks"
-            + "todo [description] - Create a todo task"
-            + "deadline [description] /by YYYY-MM-DD - Create a deadline task"
-            + "event [description /from YYYY-MM-DD /to YYYY-MM-DD - Create an event task"
-            + "mark [index] - Mark the task at [index] as completed"
-            + "unmark [index] - Unmark the task at [index] as uncompleted"
-            + "delete [index] - Delete the task at [index]"
-            + "find [queries] - List the tasks with matching descriptions"
+    private static final String helpMessage = "These are the list of commands\n"
+            + "bye - Exit the application\n"
+            + "list - List the current tasks\n"
+            + "todo [description] - Create a todo task\n"
+            + "deadline [description] /by YYYY-MM-DD - Create a deadline task\n"
+            + "event [description /from YYYY-MM-DD /to YYYY-MM-DD - Create an event task\n"
+            + "mark [index] - Mark the task at [index] as completed\n"
+            + "unmark [index] - Unmark the task at [index] as uncompleted\n"
+            + "delete [index] - Delete the task at [index]\n"
+            + "find [queries] - List the tasks with matching descriptions\n"
             + "help - List the available commands";
 
     /**
@@ -69,9 +69,8 @@ public class UI {
      * @return Message of successful task addition
      */
     public String addTask(Task task, int size) {
-        String output = String.format("Got it. I've added this task:\n"
+        return String.format("Got it. I've added this task:\n"
                 + "    %s\nNow you have %d tasks in the list.", task, size);
-        return output;
     }
 
     /**

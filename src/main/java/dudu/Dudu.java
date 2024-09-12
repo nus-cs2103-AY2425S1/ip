@@ -1,8 +1,12 @@
 package dudu;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import dudu.command.Command;
+import dudu.exception.InvalidFormatException;
+import dudu.exception.MissingDateTimeException;
+import dudu.exception.MissingDescriptionException;
 import dudu.utils.Parser;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
@@ -33,7 +37,7 @@ public class Dudu {
      * @return Welcome message
      */
     public String welcomeUser() {
-        return ui.welcomeMessage();
+        return ui.getWelcomeMessage();
     }
 
     /**
@@ -47,6 +51,14 @@ public class Dudu {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);
         } catch (IOException e) {
+            return ui.showError(e);
+        } catch (MissingDescriptionException e) {
+            return ui.showError(e);
+        } catch (InvalidFormatException e) {
+            return ui.showError(e);
+        } catch (DateTimeParseException e) {
+            return ui.showError(e);
+        } catch (MissingDateTimeException e) {
             return ui.showError(e);
         }
     }

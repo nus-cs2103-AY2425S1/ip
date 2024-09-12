@@ -53,10 +53,10 @@ public class CommandDeadline extends Command {
         if (o == this) {
             return true;
         }
-        if (o == null || !(o instanceof CommandDeadline)) {
+        if (!(o instanceof CommandDeadline)) {
             return false;
         }
-        CommandDeadline other = (CommandDeadline) o;
-        return this.task.equals(other.task);
+        CommandDeadline otherTask = (CommandDeadline) o;
+        return this.task.equals(otherTask.task);
     }
 }

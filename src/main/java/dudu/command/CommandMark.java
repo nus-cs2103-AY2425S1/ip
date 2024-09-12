@@ -33,9 +33,13 @@ public class CommandMark extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        Task markedTask = taskList.markTask(this.index);
-        storage.rewriteFile(taskList);
-        return ui.markTask(markedTask);
+        try {
+            Task markedTask = taskList.markTask(this.index);
+            storage.rewriteFile(taskList);
+            return ui.markTask(markedTask);
+        } catch (IndexOutOfBoundsException exception) {
+            return ui.showError(exception);
+        }
     }
 
     /**

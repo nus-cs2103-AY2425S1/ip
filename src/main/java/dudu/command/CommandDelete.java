@@ -33,9 +33,13 @@ public class CommandDelete extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        Task deletedTask = taskList.deleteTask(this.index);
-        storage.rewriteFile(taskList);
-        return ui.deleteTask(deletedTask);
+        try {
+            Task deletedTask = taskList.deleteTask(this.index);
+            storage.rewriteFile(taskList);
+            return ui.deleteTask(deletedTask);
+        } catch (IndexOutOfBoundsException exception) {
+            return ui.showError(exception);
+        }
     }
 
     /**
