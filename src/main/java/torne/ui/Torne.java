@@ -27,6 +27,9 @@ public class Torne {
         parser = new Parser(taskHandler, output, storage);
     }
 
+    /**
+     * Runs Torne by itself, via a CLI
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -61,6 +64,28 @@ public class Torne {
         }
     }
 
+    /**
+     * Takes in an input command, sends it to the Torne parser and returns the output.
+     * To be used to communicate with Torne for GUI chatbot use.
+     * <p></p>
+     * Note: the parser does not handle "bye" and other exit commands.
+     *
+     * @param input String input command.
+     * @return output of command.
+     */
+    public String getResponse(String input) {
+        // currently how this works is that it gets parser to execute the command
+        // then just takes the response from chatOutput
+        try {
+            Command c = parser.parse(input);
+            // same issue as above
+
+            return output.getCurrentOut();
+        } catch (TorneException e) {
+            output.error(e.toString());
+            return output.getCurrentOut();
+        }
+    }
 
     // =================== MAIN ===================================
     public static void main(String[] args) {

@@ -2,10 +2,15 @@ package torne.ui;// import java.io.Console;
 
 /**
  * class that handles text outputs for the chatbot.
+ * <p></p>
+ * TODO needs some kind of return format (with whether it's an error, etc)
  */
 public class ChatOutput {
     private static final String BORDER_LINE = "-------------------------------------------------------------";
     public static final String INDENT = "    ";
+
+    // records the currently shown output.
+    private String currentOut = "";
 
     /**
      * Shows a greeting message, to be shown when user initialises Torne.
@@ -39,10 +44,11 @@ public class ChatOutput {
     /**
      * Takes in a text string, wraps it inside a pair of borderlines, and outputs it to the console
      *
-     * @param text text string to be outputed.
+     * @param text text string to be output.
      */
     public void writeText(String text) {
         String output = BORDER_LINE + "\n" + text + "\n" + BORDER_LINE;
+        currentOut = output;
 
         System.out.println(output);
     }
@@ -56,7 +62,16 @@ public class ChatOutput {
     public void error(String errorText) {
         // TODO ANSI color codes no work
         String output = "\\u001B[31m ERROR:" + errorText + "\\u001B[0m";
+        currentOut = errorText;
 
         System.err.println(errorText);
+    }
+
+    /**
+     * Gets the current output sent to this {@link ChatOutput}.
+     * @return Output string.
+     */
+    public String getCurrentOut() {
+        return currentOut;
     }
 }
