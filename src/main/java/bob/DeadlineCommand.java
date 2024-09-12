@@ -34,9 +34,10 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = tasks.deadline(this.name, this.by);
+        String tasksRemaining = String.format("Now you have %d tasks in the list.", tasks.getSize());
         return Printer.format(new String[] { "Got it. I've added this task:",
             " " + deadline.toString(),
-            String.format("Now you have %d tasks in the list.", tasks.getSize()) });
+             tasksRemaining });
     }
 
     /**
@@ -49,7 +50,9 @@ public class DeadlineCommand extends Command {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof DeadlineCommand temp) {
-            return this.name.equals(temp.name) && this.by.equals(temp.by);
+            boolean hasSameName = this.name.equals(temp.name);
+            boolean hasSameByDate = this.by.equals(temp.by);
+            return hasSameName && hasSameByDate;
         }
         return false;
     }

@@ -49,6 +49,8 @@ public class Storage {
         while (scanner.hasNextLine()) {
             String text = scanner.nextLine();
             String[] input = text.split(" \\| ");
+
+            // add tasks to tasklist as required
             if (input[0].equals("T")) {
                 taskList.todo(input[2]);
             } else if (input[0].equals("D")) {
@@ -77,7 +79,8 @@ public class Storage {
         FileWriter writer;
         try {
             writer = new FileWriter(this.file);
-            writer.write(taskList.getSaveFormat());
+            String tasksFormattedForSave = taskList.getSaveFormat();
+            writer.write(tasksFormattedForSave);
             writer.close();
         } catch (IOException e) {
             return Printer.format(new String[]{"OOPS! There was a problem saving the file."});

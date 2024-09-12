@@ -37,8 +37,8 @@ public class Event extends Task {
     public boolean equals(Object obj) {
         if (obj instanceof Event temp) {
             return super.equals(temp)
-                    && this.fromDate == temp.fromDate
-                    && this.toDate == temp.toDate;
+                && this.fromDate == temp.fromDate
+                && this.toDate == temp.toDate;
         }
         return false;
     }
