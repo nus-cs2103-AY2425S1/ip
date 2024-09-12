@@ -99,6 +99,13 @@ public class TaskList {
                     this.items.size(), (this.items.size() == 1 ? "task" : "tasks"));
     }
 
+    /**
+     * Update notes of a task in the task list
+     * @param itemIdx target item index of task to be added
+     * @param notes updated notes to be added
+     * @return message of successful update
+     * @throws IndexOutOfBoundsException thrown if item index given is more than the number of items in the list
+     */
     public String updateTaskNotes(int itemIdx, String notes) throws IndexOutOfBoundsException {
         if (itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();

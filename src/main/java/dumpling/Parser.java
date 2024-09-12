@@ -7,7 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import dumpling.command.*;
+import dumpling.command.AddCommand;
+import dumpling.command.ByeCommand;
+import dumpling.command.Command;
+import dumpling.command.CommandEnum;
+import dumpling.command.DeleteCommand;
+import dumpling.command.FindCommand;
+import dumpling.command.ListCommand;
+import dumpling.command.MarkCommand;
+import dumpling.command.NoteCommand;
 import dumpling.task.Deadline;
 import dumpling.task.Event;
 import dumpling.task.Task;

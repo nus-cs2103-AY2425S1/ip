@@ -46,6 +46,7 @@ public class Event extends Task {
                 super.toString(),
                 this.from,
                 this.to,
-                (this.notes.isEmpty() ? "" : String.format("(%s)", this.notes)));
+                this.notes.isEmpty() ? "" : String.format("(%s)", this.notes)
+        );
     }
 }

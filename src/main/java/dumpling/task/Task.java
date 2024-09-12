@@ -59,6 +59,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Update notes of task.
+     * Note that this completely removes the existing notes (if any) and replaces it with the provided note.
+     * @param updatedNotes updated notes of the task
+     * @throws DumplingException thrown if updated notes has a newline character
+     */
     public void updateNotes(String updatedNotes) throws DumplingException {
         // do not allow new line characters in notes as it will interfere with saving format
         if (updatedNotes.contains("\n")) {
