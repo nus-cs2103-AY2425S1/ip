@@ -26,15 +26,15 @@ public class Storage {
     /**
      * Saves the list of tasks to a file.
      *
-     * @param tasks The {@code TaskList} containing the tasks to be saved.
+     * @param taskList The {@code TaskList} containing the tasks to be saved.
      */
-    public static void saveTasks(TaskList tasks) {
+    public static void saveTasks(TaskList taskList) {
         File file = new File(FILE_PATH);
         file.getParentFile().mkdirs(); // Create the directory if it doesn't exist
 
         try (FileWriter writer = new FileWriter(file)) {
-            for (int i = 0; i < tasks.getCount(); i++) {
-                Task task = tasks.getTask(i);
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.getTask(i);
                 writer.write(formatTaskForSaving(task) + System.lineSeparator());
             }
         } catch (IOException e) {
@@ -50,17 +50,17 @@ public class Storage {
      * @throws ShrimpException If an error occurs while parsing the tasks.
      */
     public static TaskList loadTasks() throws IOException, ShrimpException {
-        TaskList tasks = new TaskList();
+        TaskList taskList = new TaskList();
         File file = new File(FILE_PATH);
 
         if (file.exists()) {
             List<String> lines = Files.readAllLines(Paths.get(FILE_PATH));
             for (String line : lines) {
                 Task task = parseTask(line);
-                tasks.addTask(task);
+                taskList.addTask(task);
             }
         }
-        return tasks;
+        return taskList;
     }
 
     /**
@@ -77,12 +77,13 @@ public class Storage {
         }
         case "[D]" -> {
             Deadline deadline = (Deadline) task;
-            return String.format("D | %d | %s | %s", task.isDone() ? 1 : 0, task.getDescription(), deadline.getBy());
+            return String.format("D | %d | %s | %s", task.isDone() ? 1 : 0, task.getDescription(),
+                    deadline.getDeadline());
         }
         case "[E]" -> {
             Event event = (Event) task;
             return String.format("E | %d | %s | %s | %s", task.isDone() ? 1 : 0, task.getDescription(),
-                    event.getFrom(), event.getTo());
+                    event.getEventStart(), event.getEventEnd());
         }
         }
         return "";

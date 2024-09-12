@@ -64,7 +64,7 @@ public class Shrimp {
                 return exitCommand.run(taskList, ui);
 
             case LIST:
-                if (taskList.getCount() == 0) {
+                if (taskList.size() == 0) {
                     throw new ShrimpException.EmptyArrayException();
                 }
                 ListCommand listCommand = new ListCommand();
@@ -72,9 +72,9 @@ public class Shrimp {
 
             case MARK:
                 int indexMark = getTaskNumber(userInput, commandType);
-                if (indexMark > taskList.getCount()) {
+                if (indexMark > taskList.size()) {
                     throw new ShrimpException.ArrayIndexOutOfBoundException();
-                } else if (taskList.getCount() == 0) {
+                } else if (taskList.size() == 0) {
                     throw new ShrimpException.EmptyArrayException();
                 }
                 MarkCommand markCommand = new MarkCommand(indexMark, true);
@@ -82,9 +82,9 @@ public class Shrimp {
 
             case UNMARK:
                 int indexUnmark = getTaskNumber(userInput, commandType);
-                if (indexUnmark > taskList.getCount()) {
+                if (indexUnmark > taskList.size()) {
                     throw new ShrimpException.ArrayIndexOutOfBoundException();
-                } else if (taskList.getCount() == 0) {
+                } else if (taskList.size() == 0) {
                     throw new ShrimpException.EmptyArrayException();
                 }
                 MarkCommand markUnmarkCommand = new MarkCommand(indexUnmark, false);
@@ -92,9 +92,9 @@ public class Shrimp {
 
             case DELETE:
                 int indexDelete = getTaskNumber(userInput, commandType);
-                if (indexDelete > taskList.getCount()) {
+                if (indexDelete > taskList.size()) {
                     throw new ShrimpException.ArrayIndexOutOfBoundException();
-                } else if (taskList.getCount() == 0) {
+                } else if (taskList.size() == 0) {
                     throw new ShrimpException.EmptyArrayException();
                 }
                 DeleteCommand deleteCommand = new DeleteCommand(indexDelete);

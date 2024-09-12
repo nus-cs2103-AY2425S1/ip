@@ -16,7 +16,7 @@ public class ClearCommand implements Command {
      */
     @Override
     public String run(TaskList taskList, Ui ui) {
-        for (int i = taskList.getCount() - 1; taskList.getCount() != 0; i--) {
+        for (int i = taskList.size() - 1; !taskList.isEmpty(); i--) {
             taskList.deleteTask(i);
         }
         return "Dayo~ All tasks has been cleared!";
