@@ -28,7 +28,7 @@ public class Ui {
      * Starts accepting user input and processes commands until the user inputs 'Bye'.
      */
     public String handleInput(String input) {
-        return parser.parseInput(input);
+        return parser.handleInput(input);
     }
     /**
      * Stops accepting user input.
