@@ -32,7 +32,7 @@ public class Storage {
             try {
                 saveFile.createNewFile();
             } catch (Exception e) {
-                // Fallthrough
+                e.printStackTrace();
             }
         }
         return saveFile;
@@ -63,7 +63,7 @@ public class Storage {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
             oos.writeObject(taskList);
         } catch (Exception e) {
-            // Fallthrough
+            e.printStackTrace();
         }
     }
 

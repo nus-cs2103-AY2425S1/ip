@@ -41,7 +41,7 @@ public class Elliot {
                     : commandString[1]);
             taskList = command.runCommand(taskList, storage);
         } catch (ElliotException e) {
-            // Fallthrough
+            Ui.say(e.getMessage());
         }
         return Ui.getOutputString();
     }

@@ -38,11 +38,10 @@ public class FindCommand extends Command {
      */
     @Override
     public Command parseArguments(String unparsedArguments) throws ElliotException {
+        if (unparsedArguments == "") {
+            throw new ElliotException("Provide a search term\n");
+        }
         try {
-            if (unparsedArguments == "") {
-                Ui.say("Provide a search term\n");
-                throw new ElliotException();
-            }
             return new FindCommand(Pattern.compile(unparsedArguments, Pattern.CASE_INSENSITIVE));
         } catch (PatternSyntaxException e) {
             throw new ElliotException(e);
@@ -66,17 +65,16 @@ public class FindCommand extends Command {
                 matchedTasks = matchedTasks.add(currTask);
             }
         }
-        if (matchedTasks.size() > 0) {
-            String stringsOfMatchedTasks = "Here are the " + matchedTasks.size()
-                + " matching tasks in your list:\n";
-            iter = matchedTasks.iterator();
-            while (iter.hasNext()) {
-                stringsOfMatchedTasks += iter.next().toString() + "\n";
-            }
-            Ui.say(stringsOfMatchedTasks);
-        } else {
+        if (matchedTasks.size() == 0) {
             Ui.say("No matching task!\n");
         }
+        String stringsOfMatchedTasks = "Here are the " + matchedTasks.size()
+            + " matching tasks in your list:\n";
+        iter = matchedTasks.iterator();
+        while (iter.hasNext()) {
+            stringsOfMatchedTasks += iter.next().toString() + "\n";
+        }
+        Ui.say(stringsOfMatchedTasks);
         return taskList;
     }
 }

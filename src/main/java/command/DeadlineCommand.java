@@ -46,12 +46,10 @@ public class DeadlineCommand extends Command {
         String[] splittedArguments = Strip
                 .stripStringArray(unparsedArguments.strip().split("/by", 2));
         if (splittedArguments.length == 0 || splittedArguments[0] == "") {
-            Ui.say("give task a description\n");
-            throw new ElliotException();
+            throw new ElliotException("give task a description\n");
         }
         if (splittedArguments.length < 2) {
-            Ui.say("when is this due by?\n");
-            throw new ElliotException();
+            throw new ElliotException("when is this due by?\n");
         }
         assert(splittedArguments.length == 2);
         try {
@@ -59,8 +57,7 @@ public class DeadlineCommand extends Command {
                     CustomDateTimeFormatter.DATE_TIME_FORMATTER);
             return new DeadlineCommand(splittedArguments[0], resolvedDateTime);
         } catch (DateTimeParseException e) {
-            Ui.say("date format incorrect. try dd-MM-yyyy hhmm (24hr)\n");
-            throw new ElliotException(e);
+            throw new ElliotException("date format incorrect. try dd-MM-yyyy hhmm (24hr)\n", e);
         }
     }
 
@@ -74,10 +71,11 @@ public class DeadlineCommand extends Command {
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
         assert(taskDescription != "");
-        taskList = taskList.addTask(new DeadlineTask(taskDescription, deadlineDateTime));
+        TaskList newTaskList = taskList
+            .addTask(new DeadlineTask(taskDescription, deadlineDateTime));
         Ui.say("Got it. I've added this task:\n"
-                + taskList.get(taskList.size() - 1) + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.\n");
-        return taskList;
+                + newTaskList.get(newTaskList.size() - 1) + "\n"
+                + "Now you have " + newTaskList.size() + " tasks in the list.\n");
+        return newTaskList;
     }
 }
