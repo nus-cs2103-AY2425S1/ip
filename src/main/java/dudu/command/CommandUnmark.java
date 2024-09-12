@@ -34,6 +34,7 @@ public class CommandUnmark extends Command {
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         Task unmarkedTask = taskList.unmarkTask(this.index);
+        assert unmarkedTask != null : "Task was not unmarked successfully";
         storage.rewriteFile(taskList);
         return ui.unmarkTask(unmarkedTask);
     }
