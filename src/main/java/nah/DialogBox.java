@@ -57,6 +57,9 @@ public class DialogBox extends HBox {
 
     }
 
+    /**
+     * Converts the given image into rounded one.
+     */
     public WritableImage getAvatarShape(Image image) {
         ImageView imageView = new ImageView(image);
         Circle clip = new Circle(95, 95, 95);
@@ -79,10 +82,22 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * return a DialogBox for user.
+     * @param text corresponding text
+     * @param img avatar for user
+     * @return a DialogBox
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * return a DialogBox for chatBot Nah.
+     * @param text corresponding text
+     * @param img avatar for Nah
+     * @return a DialogBox
+     */
     public static DialogBox getNahDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
