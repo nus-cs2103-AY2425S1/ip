@@ -27,6 +27,7 @@ public class Kobe {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
+            assert tasks != null : "TaskList should be initialized and not null after loading";
         } catch (IOException e) {
             ui.showLoadingError();
             tasks = new TaskList();
