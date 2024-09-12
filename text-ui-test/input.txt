@@ -1,0 +1,10 @@
+todo pack luggage
+event brenda's birthday party /from tmr 3pm /to 8pm
+deadline math homework /by friday 2359
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+bye

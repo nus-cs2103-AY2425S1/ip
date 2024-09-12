@@ -1,7 +1,49 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+_______________________
+Hi! I'm karen
+What can I do for you?
+_______________________
+_______________________
+Got it! Added this task:
+	[T][ ] pack luggage
+Now you have 1 tasks in the list.
+_______________________
+_______________________
+Got it! Added this task:
+	[E][ ] brenda's birthday party (from: tmr 3pm  to: 8pm)
+Now you have 2 tasks in the list.
+_______________________
+_______________________
+Got it! Added this task:
+	[D][ ] math homework (by: friday 2359)
+Now you have 3 tasks in the list.
+_______________________
+_______________________
+1. [T][ ] pack luggage
+2. [E][ ] brenda's birthday party (from: tmr 3pm  to: 8pm)
+3. [D][ ] math homework (by: friday 2359)
+_______________________
+_______________________
+Nice! I've marked this task as done:
+	[T][X] pack luggage
+_______________________
+_______________________
+Nice! I've marked this task as done:
+	[D][X] math homework (by: friday 2359)
+_______________________
+_______________________
+1. [T][X] pack luggage
+2. [E][ ] brenda's birthday party (from: tmr 3pm  to: 8pm)
+3. [D][X] math homework (by: friday 2359)
+_______________________
+_______________________
+Ok! This task is now marked undone:
+	[T][ ] pack luggage
+_______________________
+_______________________
+1. [T][ ] pack luggage
+2. [E][ ] brenda's birthday party (from: tmr 3pm  to: 8pm)
+3. [D][X] math homework (by: friday 2359)
+_______________________
+_______________________
+Bye! Hope to see you again!
+_______________________
