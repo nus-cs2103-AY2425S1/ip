@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 /**
- * Controller for the main GUI.
+ * Represents the controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -45,6 +45,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws EeveeException, IOException {
         String input = userInput.getText();
+        if (input.isEmpty()) {
+            return;
+        }
         String response = eevee.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

@@ -24,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a dialog box with the given text and profile image.
+     *
+     * @param text The String that goes inside the dialog box.
+     * @param img The image of the user profile that is the owner of the dialog.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,10 +55,24 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Returns the requested user dialog.
+     *
+     * @param text The String that goes inside dialog box.
+     * @param img The image of the user profile.
+     * @return The DialogBox object with the given information.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns the requested Eevee dialog.
+     *
+     * @param text The String that goes inside dialog box.
+     * @param img The image of Eevee's profile.
+     * @return The DialogBox object with the given information.
+     */
     public static DialogBox getEeveeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

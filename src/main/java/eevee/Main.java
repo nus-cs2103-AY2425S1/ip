@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Eevee using FXML.
+ * Represents a GUI for Eevee using FXML.
  */
 public class Main extends Application {
 

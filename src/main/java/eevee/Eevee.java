@@ -20,6 +20,7 @@ public class Eevee {
      * @param filePath The storage file path.
      */
     public Eevee(String filePath) {
+        assert filePath != null;
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
@@ -32,10 +33,21 @@ public class Eevee {
         }
     }
 
+    /**
+     * Constructs an instance of Eevee without an argument.
+     */
     public Eevee() {
         this(DEFAULT_FILE_PATH);
     }
 
+    /**
+     * Handles user input and generates response based on command.
+     * 
+     * @param input The String user inputs that should be a command.
+     * @return The response to the given command. 
+     * @throws EeveeException
+     * @throws IOException
+     */
     public String getResponse(String input) throws EeveeException, IOException {
         Parser.Command command = parser.parseCommand(input);
 
