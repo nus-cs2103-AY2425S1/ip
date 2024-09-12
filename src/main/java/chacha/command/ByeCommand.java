@@ -17,10 +17,10 @@ public class ByeCommand extends Command {
     /**
      * Returns the string representation of bye response.
      *
-     * @param userInput
-     * @param storage
-     * @param ui
-     * @param tasks
+     * @param userInput User input.
+     * @param storage Storage of ChaCha.
+     * @param ui UI of ChaCha.
+     * @param tasks List of tasks.
      * @return String representation.
      */
     @Override

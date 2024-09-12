@@ -48,8 +48,8 @@ public class ChaCha {
 
     /**
      * Generates a response for the user input.
-     * @param userInput
-     * @return String representation
+     * @param userInput User input.
+     * @return String representation of response.
      */
     public String getResponse(String userInput) {
         Parser parser = new Parser(this, this.storage, this.tasks, this.ui);
@@ -70,7 +70,6 @@ public class ChaCha {
      * Create data directory and chacha.txt, whichever does not exist.
      * Runs the chatbot.
      *
-     * @throws IOException if an I/O exception occurs.
      */
     public static void main(String[] args) {
         ChaCha chatbot = new ChaCha();

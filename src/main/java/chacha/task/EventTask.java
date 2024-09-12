@@ -15,11 +15,11 @@ public class EventTask extends Task {
     /**
      * Creates a EventTask object, initialising description, isDone status, date, startTime and endTime.
      *
-     * @param description
-     * @param isDone
-     * @param date
-     * @param startTime
-     * @param endTime
+     * @param description Description of task
+     * @param isDone Status of task
+     * @param date Date of task
+     * @param startTime Start time of task
+     * @param endTime End time of task
      */
     public EventTask(String description, boolean isDone, LocalDate date, String startTime, String endTime) {
         super(description, isDone);
@@ -44,8 +44,6 @@ public class EventTask extends Task {
 
     /**
      * Returns a string representation to be written in chacha.txt.
-     *
-     * @throws String representation.
      */
     @Override
     public String writeTask() {

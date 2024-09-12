@@ -17,7 +17,6 @@ import javafx.util.Duration;
 public class MainWindow extends AnchorPane {
     private static final String GREETING = "Hello! I'm ChaCha the ChatBot. :) \n"
             + "What can I do for you? \n";
-
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -26,9 +25,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private ChaCha chacha;
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
     private Image chachaImage = new Image(this.getClass().getResourceAsStream("/images/ChaChaImage.png"));
 

@@ -83,7 +83,6 @@ public class Ui {
                 + "  " + task.printTask() + "\n";
     }
 
-
     /**
      * Returns string representation including LINE and tasks in the array.
      *
@@ -106,6 +105,7 @@ public class Ui {
     public String printBlankError() {
         return "Hmmm... It seems like you left the input blank. \n";
     }
+
     /**
      * Returns string representation for the array of String.
      *

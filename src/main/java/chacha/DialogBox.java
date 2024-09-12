@@ -19,7 +19,6 @@ import javafx.scene.shape.Circle;
  * Represents a dialog box in the chat interface.
  */
 public class DialogBox extends HBox {
-
     @FXML
     private Label dialog;
     @FXML

@@ -26,7 +26,7 @@ public class Storage {
     /**
      * Creates a Storage object with specified filePath.
      *
-     * @param filePath
+     * @param filePath Path of file that is to be accessed.
      * @throws IOException
      */
     public Storage(String filePath) throws IOException {
@@ -46,30 +46,26 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> listOfTasks = new ArrayList<>();
-        try {
-            String line;
+        String line;
 
-            while ((line = this.readerFile.readLine()) != null) {
-                String[] arr = line.split(" \\| ");
-                boolean isDone = (arr[1].equals("1"));
+        while ((line = this.readerFile.readLine()) != null) {
+            String[] arr = line.split(" \\| ");
+            boolean isDone = (arr[1].equals("1"));
 
-                if (arr[0].equals("T")) {
-                    listOfTasks.add(new ToDoTask(arr[2], isDone));
+            if (arr[0].equals("T")) {
+                listOfTasks.add(new ToDoTask(arr[2], isDone));
 
-                } else if (arr[0].equals("D")) {
-                    listOfTasks.add(new DeadlineTask(arr[2], isDone, LocalDate.parse(arr[3])));
+            } else if (arr[0].equals("D")) {
+                listOfTasks.add(new DeadlineTask(arr[2], isDone, LocalDate.parse(arr[3])));
 
-                } else if (arr[0].equals("E")) {
-                    String[] timings = arr[4].split("-");
-                    String startTime = timings[0];
-                    String endTime = timings[1];
-                    listOfTasks.add(new EventTask(arr[2], isDone, LocalDate.parse(arr[3]), startTime, endTime));
-                }
+            } else if (arr[0].equals("E")) {
+                String[] timings = arr[4].split("-");
+                String startTime = timings[0];
+                String endTime = timings[1];
+                listOfTasks.add(new EventTask(arr[2], isDone, LocalDate.parse(arr[3]), startTime, endTime));
             }
-        } finally {
-            this.readerFile.close();
         }
-
+        this.readerFile.close();
         return listOfTasks;
     }
 

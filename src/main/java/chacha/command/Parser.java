@@ -18,10 +18,10 @@ public class Parser {
     /**
      * Creates a Parser object with the specified components
      *
-     * @param chacha
-     * @param storage
-     * @param tasks
-     * @param ui
+     * @param chacha ChaCha object
+     * @param storage Storage of ChaCha
+     * @param ui UI of ChaCha
+     * @param tasks List of tasks
      */
     public Parser(ChaCha chacha, Storage storage, TaskList tasks, Ui ui) {
         this.chacha = chacha;
@@ -43,7 +43,6 @@ public class Parser {
         assert !userInput.isEmpty() : "user input should not be empty";
 
         String command = userInput.split(" ")[0];
-
         assert command != null : "command should not be null";
 
         if (command.equals("bye")) {

@@ -11,8 +11,8 @@ public class Task {
     /**
      * Creates Task object with specified components.
      *
-     * @param description
-     * @param isDone
+     * @param description Description of task
+     * @param isDone Status of task
      */
     public Task(String description, boolean isDone) {
         this.description = description;
