@@ -48,6 +48,8 @@ public class Parser {
                 return handleByeCommand();
             case LIST:
                 return handleListCommand();
+            case SORT:
+                return handleSortCommand();
             case FIND:
                 checkArgumentCount(items, command);
                 return handleFindCommand(items);
@@ -93,6 +95,15 @@ public class Parser {
      */
     private String handleListCommand() {
         return taskManager.listTasks();
+    }
+
+    /**
+     * Returns the list of deadline tasks sorted by deadline.
+     *
+     * @return String containing list of deadline tasks sorted by deadline.
+     */
+    private String handleSortCommand() {
+        return taskManager.sortDeadlineTasksByDeadline();
     }
 
     /**

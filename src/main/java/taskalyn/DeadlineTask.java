@@ -44,4 +44,13 @@ public class DeadlineTask extends Task {
                 + " | " + this.getTaskDescription()
                 + " | " + this.deadline.format(databaseFormatter);
     }
+
+    /**
+     * Returns a LocalDateTime object containing the deadline.
+     *
+     * @return LocalDateTime object containing deadline.
+     */
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
 }
