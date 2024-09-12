@@ -1,6 +1,7 @@
 package FRIDAY;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * this bot acts as an interactive todo list to manage and track the tasks of users
@@ -10,7 +11,6 @@ public class FRIDAY {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private boolean isActive = true;
 
     /**
      * constructor for bot
@@ -31,31 +31,18 @@ public class FRIDAY {
      * starts the bot
      */
     public String getResponse(String userInput) {
+        String response = "";
         try {
+            //collect user input
             String keyword = Parser.parseCmd(userInput);
+            //taskDetails is the user input without the keyword
             String taskDetails = Parser.parseTaskDetails(userInput);
-            return this.performAction(keyword, taskDetails);
+            response = this.performAction(keyword, taskDetails);
+            assert !Objects.equals(response, "") : "Response is null";
         } catch (FRIDAYException e) {
             System.out.println(e.getMessage());
         }
-        return "";
-    }
-
-    /**
-     * activates the bot
-     */
-    public void activateBot() {
-        this.isActive = true;
-        ui.greeting();
-    }
-
-    /**
-     * deactivates the bot, printing an error message and exiting the program
-     */
-    public void deactivateBot() {
-        ui.farewell();
-        storage.updateStorage(this.taskList.getList());
-        this.isActive = false;
+        return response;
     }
 
     /**
@@ -67,6 +54,7 @@ public class FRIDAY {
      * @throws FRIDAYException exception is thrown when the type of action to be performed is not recognized
      */
     public String performAction(String keyword, String taskDetails) throws FRIDAYException {
+        //keywords trigger respective actions
         switch (keyword) {
         //keywords
         case ("mark"):
@@ -79,14 +67,18 @@ public class FRIDAY {
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
+            //create new to do task
             Task newToDo = new ToDo(taskDetails.strip(), 0);
+            assert newToDo != null : "failed to create task";
             taskList.addTask(newToDo);
             return ui.printAdd(newToDo, taskList.numTasks());
         case ("deadline"):
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
+            //create new deadline task
             Task newDeadline = Parser.parseDeadline(taskDetails);
+            assert newDeadline != null : "failed to create task";
             taskList.addTask(newDeadline);
             return ui.printAdd(newDeadline, taskList.numTasks());
         case ("event"):
@@ -94,6 +86,7 @@ public class FRIDAY {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
             Task newEvent = Parser.parseEvent(taskDetails);
+            assert newEvent != null : "failed to create task";
             taskList.addTask(newEvent);
             return ui.printAdd(newEvent, taskList.numTasks());
         case ("delete"):
@@ -103,16 +96,21 @@ public class FRIDAY {
             taskList.removeTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
             return ui.printRemove(taskList.getTaskAt(Integer.parseInt(taskDetails.substring(0, 1)) - 1), taskList.numTasks());
         case ("bye"):
-            storage.updateStorage(this.taskList.getList());
+            ArrayList<Task> list = this.taskList.getList();
+            assert list != null : "list not found";
+            storage.updateStorage(list);
             return "Bye! See you again!";
         case ("list"):
             return taskList.displayTasks();
         case("search"):
-            String word = Parser.parseTaskDetails(taskDetails);
+            String word = taskDetails;
             ArrayList<Task> searchResults = taskList.search(word);
+            assert searchResults != null : "could not generate search results";
             return ui.displaySearchResults(searchResults);
+            //if there is no input then nothing added to list
         case (""):
             return "Please input a command";
+        //to handle all normal inputs less empty strings
         default:
             throw new FRIDAYException("It appears that you have attempted to log an unrecognized class type. Please try again");
         }

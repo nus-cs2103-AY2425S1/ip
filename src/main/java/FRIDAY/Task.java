@@ -48,6 +48,7 @@ public class Task {
     public boolean getType() {
         return this.isComplete;
     }
+
     public boolean containsKeyword(String keyword) {
         return taskDescription.contains(keyword);
     }
