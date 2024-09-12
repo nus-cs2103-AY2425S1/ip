@@ -6,7 +6,6 @@ import asura.Asura;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -113,7 +112,7 @@ public class Ui extends Application {
         assert asuraText != null : "Asura text should not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(asuraText, asuraImage)
+                DialogBox.getAsuraDialog(asuraText, asuraImage)
         );
         userInput.clear();
     }

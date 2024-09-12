@@ -23,9 +23,10 @@ public class Parser {
      */
     public static Command parse(String command) throws AsuraException {
         List<String> splitCommand = Arrays.asList(command.split(" "));
+        List<String> singletonCommands = Arrays.asList("list", "bye", "help");
         assert !splitCommand.isEmpty() : "splitCommand should not be empty";
         String prefix = splitCommand.get(0);
-        if (splitCommand.size() == 1 && !Objects.equals(prefix, "list") && !Objects.equals(prefix, "bye")) {
+        if (splitCommand.size() == 1 && !singletonCommands.contains(prefix)) {
             throw new AsuraException("Invalid command format");
         }
         int selection;
@@ -77,6 +78,8 @@ public class Parser {
             return new ByeCommand();
         case "find":
             return new FindCommand(taskString);
+        case "help":
+            return new HelpCommand();
         default:
             throw new AsuraException("Invalid input");
         }

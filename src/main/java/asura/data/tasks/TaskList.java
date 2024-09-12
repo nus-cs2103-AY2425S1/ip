@@ -71,7 +71,7 @@ public class TaskList {
     }
 
     /**
-     * Filters the task list to find a specified description.
+     * Filters the task list to find a specified description even if it is a partial match.
      * @param description The specified description.
      * @return A new list of tasks containing all tasks that match the description.
      */
