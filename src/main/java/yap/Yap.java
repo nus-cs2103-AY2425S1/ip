@@ -30,7 +30,7 @@ public class Yap {
         // Infinite loop to get user input
         Storage storage = new Storage("yap.txt", "./data/");
         TaskList taskList = new TaskList(storage);
-        Ui ui = new Ui(storage, taskList);
+        Ui ui = new Ui(taskList);
 
         while (true) {
             String userInput = scanner.nextLine();

@@ -1,26 +1,22 @@
 package yap.ui;
 
-import yap.storage.Storage;
-import yap.task.Task;
 import yap.task.TaskList;
 
 /**
  * Class that implements the interaction with a user.
  */
 public class Ui {
-    private static final String SEPARATOR = "_____________________________________";
-    private Storage storage;
     private TaskList taskList;
+    private Command command;
 
     /**
      * Constructor for the Ui class.
      *
-     * @param storage
-     * @param taskList
+     * @param taskList The tasklist object that is storing all tasks for the program.
      */
-    public Ui(Storage storage, TaskList taskList) {
-        this.storage = storage;
+    public Ui(TaskList taskList) {
         this.taskList = taskList;
+        this.command = new Command(this.taskList);
     }
 
     /**
@@ -38,75 +34,48 @@ public class Ui {
 
         // Mark functionality
         if (userInput.startsWith("mark")) {
-            try {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                taskList.markTask(taskIndex);
-                System.out.println(SEPARATOR);
-            } catch (IndexOutOfBoundsException | NumberFormatException exception) {
-                throw new InputException("You did not provide a valid task index to mark!");
-            }
+            command.mark(userInput);
             return 1;
         }
 
         // Unmark functionality
         if (userInput.startsWith("unmark")) {
-            try {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                taskList.unmarkTask(taskIndex);
-                System.out.println(SEPARATOR);
-            } catch (IndexOutOfBoundsException | NumberFormatException exception) {
-                throw new InputException("You did not provide a valid task index to mark!");
-            }
+            command.unmark(userInput);
             return 1;
         }
 
         // Delete functionality
         if (userInput.startsWith("delete")) {
-            try {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                taskList.deleteTask(taskIndex);
-                System.out.println(SEPARATOR);
-            } catch (IndexOutOfBoundsException | NumberFormatException exception) {
-                throw new InputException("You did not provide a valid task index to mark!");
-            }
+            command.delete(userInput);
             return 1;
         }
 
         // If user adds a todo task
         if (userInput.startsWith("todo")) {
-            Task task = Parser.parseInputAsToDo(userInput);
-            taskList.addTask(task);
-            System.out.println(SEPARATOR);
+            command.todo(userInput);
             return 1;
         }
 
         // If user adds a deadline task
         if (userInput.startsWith("deadline")) {
-            Task task = Parser.parseInputAsDeadline(userInput);
-            taskList.addTask(task);
-            System.out.println(SEPARATOR);
+            command.deadline(userInput);
             return 1;
         }
 
         // If user adds an event task
         if (userInput.startsWith("event")) {
-            Task task = Parser.parseInputAsEvent(userInput);
-            taskList.addTask(task);
-            System.out.println(SEPARATOR);
+            command.event(userInput);
             return 1;
         }
 
         // List functionality
         if (userInput.startsWith("list")) {
-            taskList.listTasks();
-            System.out.println(SEPARATOR);
+            command.list();
             return 1;
         }
 
         if (userInput.startsWith("find")) {
-            System.out.println("Test");
-            taskList.listMatchingDescriptionTasks(Parser.getStringFromFindCommand(userInput));
-            System.out.println(SEPARATOR);
+            command.find(userInput);
             return 1;
         }
 
