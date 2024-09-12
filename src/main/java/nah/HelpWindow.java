@@ -14,18 +14,29 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import nah.DialogBox;
 import nah.Nah;
+public class HelpWindow extends AnchorPane {
 
-/**
- * Controller for the main GUI.
- */
-public class MainWindow extends AnchorPane {
     private final Image userImage =
 
             new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image nahImage =
             new Image(this.getClass().getResourceAsStream("/images/nah.png"));
     private final DialogBox greeting = DialogBox.getNahDialog(
-            " Hello from Nah. How can I help you?", nahImage);
+            " This is Nah HelpBox. These are Nah's single word command"
+                    + " 1.Bye : to exit the program\n"
+                    + " 2.List : to list the tasks in the storage\n"
+                    + " 3.Clean : to clean the storage\n"
+                    + " Or type one of these key words to get the corresponding command format\n"
+                    + " 1.Find : to find the matching tasks\n"
+                    + " 2.DueOn : to find the uncompleted tasks that before due\n"
+                    + " 3.Mark : to mark the corresponding task as done\n"
+                    + " 4.Unmark : to mark the corresponding task as not done\n"
+                    + " 5.Delete : to delete the task\n"
+                    + " 6.Todo : to add a todo task\n"
+                    + " 7.Deadline : to add a deadline task\n"
+                    + " 8.Event : to add an event task\n"
+                    + " Or type 'exit' to close Help Window ^:\n"
+            , nahImage);
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -35,55 +46,42 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Nah nah;
-
     private Stage stage;
-    private HelpWindow helpWindow = new HelpWindow();
-
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public MainWindow(Nah nah) {
-        this.nah = nah;
-    }
-
-    public void setStage(Stage stage) {
+    public HelpWindow() {
         try {
-            this.stage = stage;
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HelpWindow.fxml"));
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             AnchorPane root = fxmlLoader.load();
+            this.stage = new Stage();
             Scene scene = new Scene(root);
-            this.stage.setScene(scene);
-            this.stage.show();
+            stage.setScene(scene);
             dialogContainer.getChildren().addAll(this.greeting);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and
-     * then appends them to the dialog container. Clears the user input after processing.
-     */
+    public void show() {
+        stage.show();
+    }
+
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = nah.getResponse(input);
-
+        String response = HelpWindowResponse.responseTo(input);
+        if (response.equals("exit")) {
+            this.stage.close();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getNahDialog(response, nahImage)
         );
-        if (input.trim().toLowerCase().equals("bye")) {
-            this.stage.close();
-        }
-        if (input.trim().toLowerCase().equals("help")) {
-            helpWindow.show();
-        }
         userInput.clear();
     }
 }

@@ -14,7 +14,7 @@ import nah.exceptions.NahException;
  * Handles the parsing of user input into Command object for execution.
  */
 public class Parser {
-    public static EnumCommand convertToEnumCommand(String s) {
+    /*public static EnumCommand convertToEnumCommand(String s) {
         String cmd = s.trim().toLowerCase();
         switch (cmd) {
         case "" : return EnumCommand.UNKNOWN;
@@ -31,7 +31,7 @@ public class Parser {
         case "event" : return EnumCommand.EVENT;
         default : return EnumCommand.UNKNOWN;
         }
-    }
+    }*/
     /**
      * Converts a String command into an object of Command class.
      *
@@ -80,6 +80,9 @@ public class Parser {
             }
             return new Command.MarkCommand(i);
         }
+        case "help" : {
+            return new Command.HelpCommand();
+        }
         case "unmark": {
             if (cmd.length < 2) {
                 throw new NahException(
@@ -107,11 +110,6 @@ public class Parser {
                         " Nah.Nah!!! Please give me a valid ordinal number for the task\n");
             }
             return new Command.DeleteCommand(i);
-        }
-        case "help" : {
-            if (cmd.length < 2 || cmd[1].trim().isEmpty()) {
-                return new Command.HelpCommand(EnumCommand.UNKNOWN);
-            } return new Command.HelpCommand(convertToEnumCommand(cmd[1]));
         }
         case "dueon": {
             if (cmd.length < 2) {

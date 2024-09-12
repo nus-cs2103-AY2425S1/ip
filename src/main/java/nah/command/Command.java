@@ -22,7 +22,7 @@ import nah.ui.UI;
  * @see Storage
  */
 public abstract class Command {
-    private final static String helpLine = " Please type 'Help' followed by one of these keywords to get the " +
+    /*private final static String helpLine = " Please type 'Help' followed by one of these keywords to get the " +
             "corresponding command format\n"
             + " 1.Bye : to exit the program\n"
             + " 2.List : to list the tasks in the storage\n"
@@ -47,6 +47,8 @@ public abstract class Command {
     private final static String deadLineFormat = "Deadline 'description' /by yyyy-mm-dd HHmm";
     private final static String eventFormat =
             "Event 'description' /from yyyy-mm-dd HHmm /to yyyy-mm-dd HHmm";
+
+     */
     /**
      * Returns true this is exit command
      *
@@ -221,44 +223,22 @@ public abstract class Command {
         }
 
     }
-    
+
     /**
      * The HelpCommand class is for showing possible command format.
      */
-    public static class HelpCommand extends Command {
-        private EnumCommand cmd;
 
-        public HelpCommand(EnumCommand cmd) {
-            this.cmd = cmd;
-        }
+    public static class HelpCommand extends Command {
 
         /**
          * Executes the command by showing the format for the corresponding command.
          *
          * @param tasks   the TaskList containing the tasks (not modified in this operation)
          * @param storage the Storage where data is stored (not modified in this operation)
-         */
+        */
         @Override
         public String execute(TaskList tasks, Storage storage) {
-            String response = " Here is the format for this command:\n" + " ";
-
-            switch (this.cmd) {
-            case UNKNOWN : return Command.helpLine;
-            case LIST : return response + Command.listFormat;
-            case BYE : return response + Command.exitFormat;
-            case CLEAN : return response + Command.cleanFormat;
-            case FIND : return response + Command.findFormat;
-            case DUEON : return response + Command.dueOnFormat;
-            case MARK : return response + Command.markFormat;
-            case UNMARK : return response + Command.markFormat;
-            case DELETE : return response + Command.deleteFormat;
-            case TODO : return response + Command.toDoFormat;
-            case DEADLINE : return response + Command.deadLineFormat;
-            case EVENT : return response + Command.eventFormat;
-            default: assert false : "Something is wrong with help command";
-
-            }
-            return "Something is wrong with help command";
+            return " Opening Help Window";
         }
 
     }
