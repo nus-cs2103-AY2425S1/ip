@@ -21,23 +21,23 @@ public class HelpCommand extends Command {
 
                 Here are all the commands you can try with Atlas!
 
-                bye - exits the Atlas chatbot application
+                bye, b - exits the Atlas chatbot application
 
-                list - lists all tasks in your task list
+                list, l - lists all tasks in your task list
 
-                mark <taskNumber> - marks a task in your task list as done
+                mark, m <taskNumber> - marks a task in your task list as done
 
-                unmark <taskNumber> - unmarks a task in your task list as not done
+                unmark, u <taskNumber> - unmarks a task in your task list as not done
 
-                delete <taskNumber> - removes a task from your task list
+                delete, r <taskNumber> - removes a task from your task list
 
-                find <pattern> - displays tasks whose names match this pattern
+                find, f <pattern> - displays tasks whose names match this pattern
 
-                todo <name> - adds a new todo to the task list
+                todo, t <name> - adds a new todo to the task list
 
-                deadline <name> /by <date (YYYY-MM-DD HHMM)> - adds a new deadline to the task list
+                deadline, d <name> /by <date (YYYY-MM-DD HHMM)> - adds a new deadline to the task list
 
-                event <name> /from <date (YYYY-MM-DD HHMM)> /to <date (YYYY-MM-DD HHMM)> - adds a new event to the list
+                event, e <name> /from <date (YYYY-MM-DD HHMM)> /to <date (YYYY-MM-DD HHMM)> - adds a new event
 
                 """;
     }

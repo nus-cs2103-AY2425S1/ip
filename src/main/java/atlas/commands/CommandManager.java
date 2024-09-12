@@ -1,5 +1,7 @@
 package atlas.commands;
 
+import java.util.HashMap;
+
 import atlas.exceptions.AtlasException;
 import atlas.utils.DateTime;
 import atlas.utils.Util;
@@ -8,6 +10,25 @@ import atlas.utils.Util;
  * Represents the CommandManager class which returns the command that is to be executed.
  */
 public class CommandManager {
+    private static final HashMap<AtlasSimpleCommand, AtlasCommand> COMMAND_HASH_MAP = new HashMap<>();
+
+    public static void init() {
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.B, AtlasCommand.BYE);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.L, AtlasCommand.LIST);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.M, AtlasCommand.MARK);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.U, AtlasCommand.UNMARK);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.R, AtlasCommand.DELETE);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.F, AtlasCommand.FIND);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.T, AtlasCommand.TODO);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.D, AtlasCommand.DEADLINE);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.E, AtlasCommand.EVENT);
+        COMMAND_HASH_MAP.put(AtlasSimpleCommand.H, AtlasCommand.HELP);
+    }
+
+    public static AtlasCommand getFullCommandFromSimpleCommand(AtlasSimpleCommand command) {
+        return COMMAND_HASH_MAP.get(command);
+    }
+
     /**
      * @return ExitCommand The command that exits the user out of the chatbot when executed.
      */

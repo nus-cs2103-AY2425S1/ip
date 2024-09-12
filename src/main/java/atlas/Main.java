@@ -2,6 +2,7 @@ package atlas;
 
 import java.io.IOException;
 
+import atlas.commands.CommandManager;
 import atlas.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setAtlas(atlas); // inject the Atlas instance
             stage.show();
+            CommandManager.init();
         } catch (IOException e) {
             e.printStackTrace();
         }

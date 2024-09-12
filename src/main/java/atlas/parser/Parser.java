@@ -3,6 +3,7 @@ package atlas.parser;
 import java.time.DateTimeException;
 
 import atlas.commands.AtlasCommand;
+import atlas.commands.AtlasSimpleCommand;
 import atlas.commands.Command;
 import atlas.commands.CommandManager;
 import atlas.exceptions.AtlasException;
@@ -22,9 +23,16 @@ public class Parser {
         try {
             String[] commandsArray = fullCommand.split(" ");
             assert commandsArray.length > 0 : "Commands array should have at least 1 element";
-            String command = commandsArray[0].toUpperCase();
+            String commandString = commandsArray[0].toUpperCase();
+            AtlasCommand command;
+            if (commandString.length() == 1) {
+                AtlasSimpleCommand simpleCommand = AtlasSimpleCommand.valueOf(commandString);
+                command = CommandManager.getFullCommandFromSimpleCommand(simpleCommand);
+            } else {
+                command = AtlasCommand.valueOf(commandString);
+            }
 
-            return switch (AtlasCommand.valueOf(command)) {
+            return switch (command) {
             case BYE -> CommandManager.getExitCommand();
             case LIST -> CommandManager.getListCommand(commandsArray);
             case MARK -> CommandManager.getMarkCommand(commandsArray);
