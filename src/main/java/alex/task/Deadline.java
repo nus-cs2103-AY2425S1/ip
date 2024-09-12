@@ -16,8 +16,8 @@ public class Deadline extends Task {
      * @param isCompleted A boolean indicating whether the task is completed.
      * @param deadline The deadline for the task as a LocalDateTime object.
      */
-    public Deadline(String taskName, boolean isCompleted, LocalDateTime deadline) {
-        super(taskName, isCompleted);
+    public Deadline(String taskName, boolean isCompleted, Priority priority, LocalDateTime deadline) {
+        super(taskName, isCompleted, priority);
         this.deadline = deadline;
     }
 
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        return "[D]" + super.toString() + " /by "
+        return "[D]" + super.toStorageString() + " /by "
                 + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

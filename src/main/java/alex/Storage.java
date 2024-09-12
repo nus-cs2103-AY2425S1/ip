@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import alex.task.Priority;
 import alex.task.Task;
 
 /**
@@ -45,7 +46,7 @@ public class Storage {
             assert !lineOfWords.isEmpty() : "Empty line in Alex.txt";
             Scanner lineScanner = new Scanner(lineOfWords);
             String category = lineScanner.next();
-            Task task = new Task("", false);
+            Task task = new Task("", false, Priority.NONE);
 
             ArrayList<String> arrOfStr = new ArrayList<>();
             switch (category) {

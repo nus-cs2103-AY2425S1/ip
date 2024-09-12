@@ -15,6 +15,7 @@ import alex.command.ListCommand;
 import alex.command.MarkCommand;
 import alex.task.Deadline;
 import alex.task.Event;
+import alex.task.Priority;
 import alex.task.Task;
 import alex.task.Todo;
 
@@ -69,6 +70,22 @@ public class Parser {
         return LocalDateTime.parse(deadline, formatter);
     }
 
+    public static Priority readTaskPriority(String word) throws AlexException {
+        String priorityInput = word.substring(2);
+
+        switch (priorityInput) {
+        case "high":
+            return Priority.HIGH;
+        case "medium":
+            return Priority.MEDIUM;
+        case "low":
+            return Priority.LOW;
+        default:
+            throw new AlexException("Hey! Please provide a valid priority! Either '//high', "
+                    + "'//medium' or '//low'");
+        }
+    }
+
     /**
      * Creates a Todo task based on user description.
      *
@@ -80,8 +97,14 @@ public class Parser {
      */
     public static Task makeTodoTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
             throws AlexException {
+        Priority priority = Priority.NONE;
         while (lineScanner.hasNext()) {
-            arrOfStr.add(lineScanner.next());
+            String word = lineScanner.next();
+            if (word.startsWith("//")) {
+                priority = readTaskPriority(word);
+            } else {
+                arrOfStr.add(word);
+            }
         }
 
         if (arrOfStr.isEmpty()) {
@@ -89,7 +112,7 @@ public class Parser {
                     + "You have to provide a task!");
         }
 
-        return new Todo(String.join(" ", arrOfStr), isDone);
+        return new Todo(String.join(" ", arrOfStr), isDone, priority);
     }
 
     /**
@@ -104,20 +127,23 @@ public class Parser {
     public static Task makeDeadlineTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
             throws AlexException {
         String description = "";
-        String deadline = "";
         boolean hasProvidedDeadline = false;
+        Priority priority = Priority.NONE;
+
         while (lineScanner.hasNext()) {
-            String next = lineScanner.next();
-            if (next.equals("/by")) {
+            String word = lineScanner.next();
+            if (word.startsWith("//")) {
+                priority = readTaskPriority(word);
+            } else if (word.equals("/by")) {
                 description = String.join(" ", arrOfStr);
                 arrOfStr.clear();
                 hasProvidedDeadline = true;
             } else {
-                arrOfStr.add(next);
+                arrOfStr.add(word);
             }
         }
 
-        deadline = String.join(" ", arrOfStr);
+        String deadline = String.join(" ", arrOfStr);
 
         boolean hasDescriptionButNoSlashBy = !hasProvidedDeadline
                 && !deadline.isEmpty() && description.isEmpty();
@@ -133,7 +159,7 @@ public class Parser {
             throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( You have to provide "
                     + "a task!");
         }
-        return new Deadline(description, isDone, convertDateTime(deadline));
+        return new Deadline(description, isDone, priority, convertDateTime(deadline));
     }
 
     /**
@@ -156,11 +182,14 @@ public class Parser {
         String start = "";
         boolean isStart = false;
         boolean isEnd = false;
+        Priority priority = Priority.NONE;
 
         //creates description, start and end strings based on user input to create event task
         while (lineScanner.hasNext()) {
-            String next = lineScanner.next();
-            if (next.equals("/from")) {
+            String word = lineScanner.next();
+            if (word.startsWith("//")) {
+                priority = readTaskPriority(word);
+            } else if (word.equals("/from")) {
                 description = String.join(" ", arrOfStr);
                 arrOfStr.clear();
                 if (lineScanner.hasNext()) {
@@ -170,14 +199,14 @@ public class Parser {
                     throw new AlexException("Oh no! Alex doesn't like that /to comes before /from :( You should "
                             + "write the start time first before the end time");
                 }
-            } else if (next.equals("/to")) {
+            } else if (word.equals("/to")) {
                 start = String.join(" ", arrOfStr);
                 arrOfStr.clear();
                 if (lineScanner.hasNext()) {
                     isEnd = true;
                 }
             } else {
-                arrOfStr.add(next);
+                arrOfStr.add(word);
             }
         }
         if (!isStart || start.isEmpty()) {
@@ -192,7 +221,7 @@ public class Parser {
             throw new AlexException("Oh no! Alex doesn't like that the event task is blank :( You have to provide "
                     + "a task!");
         }
-        return new Event(description, isDone, convertDateTime(start),
+        return new Event(description, isDone, priority, convertDateTime(start),
                 convertDateTime(String.join(" ", arrOfStr)));
     }
 }

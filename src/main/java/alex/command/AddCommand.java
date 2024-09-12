@@ -9,6 +9,7 @@ import alex.AlexException;
 import alex.Parser;
 import alex.Storage;
 import alex.Ui;
+import alex.task.Priority;
 import alex.task.Task;
 import alex.task.TaskList;
 
@@ -46,7 +47,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
         ArrayList<String> arrOfStr = new ArrayList<>();
-        Task task = new Task("", false);
+        Task task = new Task("", false, Priority.NONE);
 
         if (this.response.equals("todo")) {
             task = Parser.makeTodoTask(lineScanner, arrOfStr, false);
