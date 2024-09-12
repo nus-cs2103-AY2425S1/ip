@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a type of task that has a deadline.
  */
 public class Deadline extends Task {
+    private static final String DATE_FORMAT = "MMM d yyyy";
     protected String by;
 
     /**
@@ -18,16 +19,23 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description.trim());
+        this.by = formatDueDate(by.trim());
+    }
 
-        // Handle date given in format yyyy-mm-dd
-        String dueDate = by.trim();
+    /**
+     * Formats a date given in the form of yyyy-mm-dd to mmm d yyyy.
+     * Does not change due date inputs in other formats.
+     *
+     * @param dueDate The String input for due date.
+     * @return The correctly formatted due date. e
+     */
+    private String formatDueDate(String dueDate) {
         try {
             LocalDate date = LocalDate.parse(dueDate);
-            dueDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        } catch(DateTimeException ignored) {
-
+            return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+        } catch (DateTimeException ignored) {
+            return dueDate;  // Return the original string if the date is invalid
         }
-        this.by = dueDate;
     }
 
     @Override

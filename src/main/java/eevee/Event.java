@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a type of Task that has a start and end time.
  */
 public class Event extends Task {
+    private static final String DATE_FORMAT = "MMM d yyyy";
     protected String from;
     protected String to;
 
@@ -20,28 +21,43 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description.trim());
+        this.from = formatDate(from.trim());
+        this.to = formatDate(to.trim());
+        validateDates();
+    }
 
-        // Handle date given in format yyyy-mm-dd
-        String startDate = from.trim();
-        String endDate = to.trim();
+    /**
+     * Formats a date given in the form of yyyy-mm-dd to mmm d yyyy.
+     * Does not change date inputs in other formats.
+     *
+     * @param date The String input for the date.
+     * @return The correctly formatted date.
+     */
+    private String formatDate(String date) {
         try {
-            LocalDate date = LocalDate.parse(startDate);
-            LocalDate date2 = LocalDate.parse(endDate);
+            LocalDate parsedDate = LocalDate.parse(date);
+            return parsedDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+        } catch (DateTimeException ignored) {
+            return date;
+        }
+    }
+
+    /**
+     * Checks that the start date does not come after the end date.
+     */
+    private void validateDates() {
+        try {
+            LocalDate date = LocalDate.parse(this.from, DateTimeFormatter.ofPattern(DATE_FORMAT));
+            LocalDate date2 = LocalDate.parse(this.to, DateTimeFormatter.ofPattern(DATE_FORMAT));
 
             if (date.isAfter(date2)) {
                 throw new EeveeException("Start date occurs before end date! Please check your input.");
             }
-
-            startDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            endDate = date2.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } catch(DateTimeException ignored) {
 
         } catch (EeveeException e) {
             throw new RuntimeException(e);
         }
-
-        this.from = startDate;
-        this.to = endDate;
     }
 
     @Override
