@@ -35,11 +35,21 @@ public class Storage {
      */
     public TaskList load() throws EchoException {
         File savedTasks  = new File(filePath);
+        Boolean hasSavedTasksFile = savedTasks.exists();
 
-        if (!savedTasks.exists()) {
-            File parentDirectory = new File(savedTasks.getParent());
-            if (!parentDirectory.exists()) {
-                parentDirectory.mkdir();
+        if (!hasSavedTasksFile) {
+            String parentDirectoryString = savedTasks.getParent();
+            Boolean hasParentDirectory = parentDirectoryString != null;
+            Boolean hasParentDirectoryFolder = false;
+            File parentDirectoryFolder = null;
+
+            if (hasParentDirectory) {
+                parentDirectoryFolder = new File(parentDirectoryString);
+                hasParentDirectoryFolder = parentDirectoryFolder.exists();
+            }
+
+            if (hasParentDirectory && !hasParentDirectoryFolder) {
+                parentDirectoryFolder.mkdir();
             }
 
             try {
@@ -63,36 +73,48 @@ public class Storage {
         String[] splitLines;
 
         while (fileScanner.hasNext()) {
+            // Parse file lines
             nextLine = fileScanner.nextLine();
             splitLines = nextLine.split("\\|");
 
+            // Assign task fields
             String taskType  = splitLines[0].trim();
+            String taskDescription = splitLines[2].trim();
+
+            // Add tasks to taskList
             switch(taskType) {
-                case "T":
-                    taskList.addTask(
-                            splitLines[2].trim(),
-                            TaskType.TODO,
-                            "");
-                    break;
-                case "D":
-                    taskList.addDeadline(
-                            splitLines[2].trim(),
-                            LocalDate.parse(splitLines[3].trim()));
-                    break;
-                case "E":
-                    taskList.addTask(
-                            splitLines[2].trim(),
-                            TaskType.EVENT,
-                            splitLines[3].trim());
-                    break;
+            case "T":
+                taskList.addTask(
+                        taskDescription,
+                        TaskType.TODO,
+                        "");
+                break;
+            case "D":
+                String deadline = splitLines[3].trim();
+                taskList.addDeadline(
+                        taskDescription,
+                        LocalDate.parse(deadline));
+                break;
+            case "E":
+                String startEnd= splitLines[3].trim();
+                taskList.addTask(
+                        taskDescription,
+                        TaskType.EVENT,
+                        startEnd);
+                break;
             }
 
-            if (Integer.valueOf(splitLines[1].trim()) == 1) {
-                taskList.markTask(taskList.getNumTasks());
+            // Assign mark task arguments
+            String taskStatus = splitLines[1].trim();
+            int taskListIndexToMark = taskList.getNumTasks();
+
+            if (Integer.valueOf(taskStatus) == 1) {
+                taskList.markTask(taskListIndexToMark);
             }
         }
         return this.taskList;
     }
+
     /**
      * Saves the current TaskList to the file specified by filePath.
      * If there is an error writing to the file, it prints an error message.

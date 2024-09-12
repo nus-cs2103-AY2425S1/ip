@@ -40,20 +40,20 @@ public class Ui {
      * Handles unknown commands by printing an error message.
      */
     public String handleUnknown() {
-        return printUnknown();
+        return unknownMessage();
     }
     /**
      * Handles the "bye" command and stops accepting user input.
      */
     public String handleBye() {
         stopAcceptingInput();
-        return printBye();
+        return byeMessage();
     }
     /**
      * Handles the "list" command and prints all tasks in the TaskList.
      */
     public String handleList() {
-        return printList(taskList.getTasksString());
+        return listMessage(taskList.getTasksString());
     }
     /**
      * Handles the "find" command by searching for tasks that contain the specified
@@ -62,10 +62,8 @@ public class Ui {
      * @param arg The substring to search for within the tasks.
      */
     public String handleFind(String arg) {
-        return String.format(
-                "Here are the matching tasks in your list:\n" +
-                "%s",
-                taskList.getFoundTasks(arg));
+        String foundTasks = taskList.getFoundTasks(arg);
+        return foundMessage(foundTasks);
     }
     /**
      * Handles the "mark" command to mark a task as done.
@@ -84,15 +82,14 @@ public class Ui {
         } catch (NumberFormatException e) { // Index is not an integer
             return "Please input 'mark [index]'";
         }
+
         if (index > taskList.getNumTasks()) { // Index is not within tasks length
             return "Invalid index.";
         }
 
-        // Mark task
         taskList.markTask(index);
 
-        // Print success message
-        return printMarkedTask(taskList.getTaskString(index));
+        return markedTaskMessage(taskList.getTaskString(index));
     }
     /**
      * Handles the "unmark" command to unmark a task as not done.
@@ -117,7 +114,7 @@ public class Ui {
         taskList.unmarkTask(index);
 
         // Print success msg
-        return printUnmarkedTask(taskList.getTaskString(index));
+        return unmarkedTaskMessage(taskList.getTaskString(index));
     }
     /**
      * Handles the "todo" command to add a new todo task.
@@ -144,8 +141,8 @@ public class Ui {
         String endDate = "";
         if (description.contains("/to")) { // No start date, end date provided
             String[] temp = parser.parseEventTo(description);
-            endDate = temp[1];
             description = temp[0];
+            endDate = temp[1];
         }
 
         if (description.isEmpty()) { // No echo.task description, start date provided
@@ -163,8 +160,8 @@ public class Ui {
 
         if (startDate.contains("/to")) {
             String[] temp = parser.parseEventTo(startDate);
-            endDate = temp[1];
             startDate = temp[0];
+            endDate = temp[1];
         }
 
         if (endDate.isEmpty()) {
@@ -174,8 +171,11 @@ public class Ui {
             return "End: ";
         }
 
+        startDate = startDate.trim();
+        endDate = endDate.trim();
+
         taskList.addTask(description, TaskType.EVENT, startDate + "->" + endDate);
-        parser.resetTemp();
+        parser.resetTempStrings();
         return handleAddedTask();
     }
     /**
@@ -208,14 +208,14 @@ public class Ui {
         }
 
         taskList.addDeadline(description, deadline);
-        parser.resetTemp();
+        parser.resetTempStrings();
         return handleAddedTask();
     }
     /**
      * Prints a message indicating that a task was successfully added.
      */
     public String handleAddedTask() {
-        return printAddedTask(taskList.getTaskString(taskList.getNumTasks()), taskList.getNumTasks());
+        return addedTaskMessage(taskList.getTaskString(taskList.getNumTasks()), taskList.getNumTasks());
     }
     /**
      * Handles the "delete" command to remove a task from the list.
@@ -238,58 +238,59 @@ public class Ui {
             return "Invalid index.";
         }
 
+        String deleteMsg = deleteMessage(taskList.getTaskString(index));
+
         taskList.deleteTask(index);
-        return printDelete(taskList.getTaskString(index));
+        return deleteMsg;
     }
-    public String printWelcomeMsg() {
-        String welcomeMsg =
-                "Hello! I'm Echo!\n" +
+    public String welcomeMessage() {
+        return "Hello! I'm Echo!\n" +
                 "What can I do for you?";
-        return welcomeMsg;
     }
-    private String printMarkedTask(String task) {
-        return
-            "Nice! I've marked this task as done:\n" +
-            task;
+    private String markedTaskMessage(String task) {
+        return "Nice! I've marked this task as done:\n" +
+               task;
     }
-    private String printUnmarkedTask(String task) {
-        return
-            "Ok, I've marked this task as not done yet:\n" +
-            task;
+    private String unmarkedTaskMessage(String task) {
+        return "Ok, I've marked this task as not done yet:\n" +
+                task;
     }
-    private String printAddedTask(String task, int numTasks) {
-        return
-            String.format(
+
+    private String foundMessage(String foundTasks) {
+        return String.format(
+                "Here are the matching tasks in your list:\n" +
+                        "%s",
+                foundTasks);
+    }
+    private String addedTaskMessage(String task, int numTasks) {
+        return String.format(
                     "Got it. I've added this task:\n" +
                     task +
                     "Now you have %d task" +
                     (numTasks == 1 ? "" : "s") +
                     " in the list.\n",
                     numTasks
-            );
+                );
     }
-    private String printUnknown() {
+    private String unknownMessage() {
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
-    private String printList(String tasks) {
-        return
-            "Here are the tasks in your list:\n" +
-            tasks;
+    private String listMessage(String tasks) {
+        return "Here are the tasks in your list:\n" +
+                tasks;
     }
-    private String printDelete(String task) {
-        return
-            "Noted. I've removed this task:\n" +
-            task;
+    private String deleteMessage(String task) {
+        return "Noted. I've removed this task:\n" +
+                task;
     }
-    private String printBye() {
+    private String byeMessage() {
         return "Bye. Hope to see you again soon!";
     }
     /**
      * Prints an error message indicating that there was an issue loading from the file.
      */
-    public String showLoadingError() {
-        return
-            "Oh no! Error loading from file!";
+    public String loadingErrorMessage() {
+        return "Oh no! Error loading from file!";
     }
 
 }

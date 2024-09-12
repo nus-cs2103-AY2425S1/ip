@@ -166,7 +166,8 @@ public class TaskList {
          * @return a string representing the task
          */
         public String getTaskString() {
-            String msg = "[" + this.type.getTypeSymbol() + "] [";
+            String msg = "[" + this.type.getTypeSymbol() + "] ";
+            msg += "[";
             if (isComplete) {
                 msg += "X] ";
             } else {
@@ -174,12 +175,6 @@ public class TaskList {
             }
             msg += this.description;
             return msg;
-        }
-        /**
-         * Prints the task's string representation.
-         */
-        public void printTask() {
-            System.out.print(this.getTaskString());
         }
         /**
          * Marks the task as complete.
@@ -201,54 +196,9 @@ public class TaskList {
          * @return a string representing the task's data
          */
         public String getData() {
-            return type.getTypeSymbol() + " | " + (isComplete ? 1 : 0) + " | " + description;
-        }
-    }
-    /**
-     * The Deadline class represents a task with a deadline.
-     */
-    private class Deadline extends Task {
-        private LocalDate deadline;
-        /**
-         * Constructs a Deadline task with the specified description and deadline date.
-         *
-         * @param description the description of the deadline task
-         * @param deadline the deadline date of the task
-         */
-        public Deadline(String description, LocalDate deadline) {
-            super(description, TaskType.DEADLINE);
-            this.deadline = deadline;
-        }
-        /**
-         * Returns a formatted string representing the deadline task,
-         * including its description and deadline date.
-         *
-         * @return a string representing the deadline task
-         */
-        @Override
-        public String getTaskString() {
-            return super.getTaskString() +
-                String.format(
-                    " (by: %s)",
-                    this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                );
-        }
-        /**
-         * Prints the deadline task's string representation.
-         */
-        @Override
-        public void printTask() {
-            System.out.println(this.getTaskString());
-        }
-        /**
-         * Returns a string representing the deadline task's save format,
-         * intended for saving to a file.
-         *
-         * @return a string representing the deadline task's save format
-         */
-        @Override
-        public String getData() {
-             return super.getData() + " | " + this.deadline;
+            return type.getTypeSymbol() + " | " +
+                   (isComplete ? 1 : 0) + " | " +
+                   description;
         }
     }
     /**
@@ -274,6 +224,44 @@ public class TaskList {
             return super.getData();
         }
     }
+    /**
+     * The Deadline class represents a task with a deadline.
+     */
+    private class Deadline extends Task {
+        private LocalDate deadline;
+        /**
+         * Constructs a Deadline task with the specified description and deadline date.
+         *
+         * @param description the description of the deadline task
+         * @param deadline the deadline date of the task
+         */
+        public Deadline(String description, LocalDate deadline) {
+            super(description, TaskType.DEADLINE);
+            this.deadline = deadline;
+        }
+        /**
+         * Returns a formatted string representing the deadline task,
+         * including its description and deadline date.
+         *
+         * @return a string representing the deadline task
+         */
+        @Override
+        public String getTaskString() {
+            String formattedDeadline = this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return super.getTaskString() + " (by: " + formattedDeadline + ")";
+        }
+        /**
+         * Returns a string representing the deadline task's save format,
+         * intended for saving to a file.
+         *
+         * @return a string representing the deadline task's save format
+         */
+        @Override
+        public String getData() {
+             return super.getData() + " | " + this.deadline;
+        }
+    }
+
     /**
      * The Event class represents a task with a start and end time.
      */
@@ -306,13 +294,6 @@ public class TaskList {
                             this.start,
                             this.end
                     );
-        }
-        /**
-         * Prints the event task's string representation.
-         */
-        @Override
-        public void printTask() {
-            System.out.println(this.getTaskString());
         }
         /**
          * Returns a string representing the event task's save format,
