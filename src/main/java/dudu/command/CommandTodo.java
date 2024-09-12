@@ -39,14 +39,4 @@ public class CommandTodo extends Command {
         storage.rewriteFile(taskList);
         return ui.addTask(task, size);
     }
-
-    /**
-     * Indicates that this command will not cause the application to exit.
-     *
-     * @return false, as this command always does not cause the application to exit.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

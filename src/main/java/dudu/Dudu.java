@@ -1,8 +1,13 @@
 package dudu;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import dudu.command.Command;
+import dudu.exception.DuduException;
+import dudu.exception.InvalidFormatException;
+import dudu.exception.MissingDateTimeException;
+import dudu.exception.MissingDescriptionException;
 import dudu.utils.Parser;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
@@ -17,14 +22,18 @@ public class Dudu {
     private Storage storage;
 
     /**
-     * The constructor for a chatbot instance.
+     * The constructor for a chatbot instance
      *
      * @param filePath The file path of the file containing existing tasks
      */
     public Dudu(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DuduException exception) {
+            tasks = new TaskList();
+        }
     }
 
     /**
@@ -33,7 +42,7 @@ public class Dudu {
      * @return Welcome message
      */
     public String welcomeUser() {
-        return ui.welcomeMessage();
+        return ui.getWelcomeMessage();
     }
 
     /**
@@ -47,6 +56,14 @@ public class Dudu {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);
         } catch (IOException e) {
+            return ui.showError(e);
+        } catch (MissingDescriptionException e) {
+            return ui.showError(e);
+        } catch (InvalidFormatException e) {
+            return ui.showError(e);
+        } catch (DateTimeParseException e) {
+            return ui.showError(e);
+        } catch (MissingDateTimeException e) {
             return ui.showError(e);
         }
     }
