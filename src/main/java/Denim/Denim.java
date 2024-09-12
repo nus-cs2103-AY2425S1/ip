@@ -1,11 +1,12 @@
 package denim;
 
-import java.util.Scanner;
 
 import denim.commands.Command;
 import denim.commands.CommandResult;
-import denim.exceptions.DenimException;
-import denim.storage.TaskIo;
+import denim.exceptions.DenimDirectoryException;
+import denim.exceptions.DenimFileException;
+import denim.storage.ReadTaskFile;
+import denim.storage.WriteTaskFile;
 
 /**
  * The main class for the Denim application.
@@ -13,52 +14,46 @@ import denim.storage.TaskIo;
  * and runs the command loop until the exit command is received.
  */
 public class Denim {
-    static final String FILE_PATH = "data/denim.txt";
-    private TextBasedUi ui;
-    private TaskIo taskIo;
-    private Parser parser = new Parser();
+    public static final int INDEX_OFFSET = 1;
 
+    private ReadTaskFile readTaskFile;
+    private WriteTaskFile writeTaskFile;
+    private String filePath;
+
+    private Parser parser;
     private TaskList taskList;
 
-    /**
-     * The main method that serves as the entry point of the Denim application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        Denim denim = new Denim();
-        denim.start();
-        denim.runCommandLoopUntilExitCommand();
-        denim.exit();
+    public Denim(String filePath) {
+        this.filePath = filePath;
     }
 
-    void start() {
-        taskIo = new TaskIo(FILE_PATH);
+
+    /**
+     * Starts the Denim Application first by reading the file with tasks stored in it.
+     */
+    public void start() throws DenimFileException, DenimDirectoryException {
+        initialize();
+        readFile();
+    }
+
+    /**
+     * Initializes the required fields for the application.
+     */
+    public void initialize() {
+        readTaskFile = new ReadTaskFile(filePath);
+        writeTaskFile = new WriteTaskFile(filePath);
+        parser = new Parser();
         taskList = new TaskList();
-
-        try {
-            Scanner tempScanner = new Scanner(System.in);
-            taskIo.readTaskData(taskList, tempScanner);
-        } catch (DenimException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-        this.ui = new TextBasedUi();
-        ui.displayGreetingMessage();
     }
 
     /**
-     * Runs the command loop, repeatedly reading user input,
-     * executing commands, and displaying results until the exit command is given.
+     * Attempt to read file given in readTaskFile.
+     *
+     * @throws DenimFileException if File is not found.
+     * @throws DenimDirectoryException if Directory is not found.
      */
-    private void runCommandLoopUntilExitCommand() {
-        Command command;
-        do {
-            String userCommandText = ui.getUserCommand();
-            command = new Parser().parseCommand(userCommandText);
-            CommandResult result = command.execute(taskList, taskIo);
-            ui.displayReplyMessage(result);
-        } while (!command.isExit());
+    public void readFile() throws DenimFileException, DenimDirectoryException {
+        readTaskFile.readTaskData(taskList);
     }
 
     /**
@@ -74,7 +69,7 @@ public class Denim {
     }
 
     public CommandResult executeGuiCommand(Command command) {
-        return command.execute(taskList, taskIo);
+        return command.execute(taskList, writeTaskFile);
     }
 
     /**
@@ -82,6 +77,14 @@ public class Denim {
      */
     public void exit() {
         System.exit(0);
+    }
+
+    public void handleDirectoryNotFound() throws DenimDirectoryException {
+        readTaskFile.handleDirectoryNotFound();
+    }
+
+    public void handleFileNotFound() throws DenimFileException {
+        readTaskFile.handleFileNotFound();
     }
 }
 

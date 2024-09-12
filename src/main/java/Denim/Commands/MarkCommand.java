@@ -2,7 +2,7 @@ package denim.commands;
 
 import denim.TaskList;
 import denim.exceptions.DenimException;
-import denim.storage.TaskIo;
+import denim.storage.WriteTaskFile;
 
 /**
  * Represents a mark command that can be executed.
@@ -18,8 +18,9 @@ public class MarkCommand extends Command {
     public MarkCommand(int index) {
         this.index = index;
     }
+    
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
+    public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         assert index > 0 : "IndexOutOfBoundsAssertion";
 
         if (!taskList.isValidIndex(index)) {
@@ -33,7 +34,7 @@ public class MarkCommand extends Command {
 
         try {
             taskList.markTask(index);
-            taskIo.markTask(taskList);
+            writeTaskFile.markTask(taskList);
         } catch (DenimException e) {
             taskList.unmarkTask(index);
             return new CommandResult(e.getMessage());

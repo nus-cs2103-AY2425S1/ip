@@ -4,10 +4,9 @@ import java.time.LocalDateTime;
 
 import denim.TaskList;
 import denim.exceptions.DenimException;
-import denim.storage.TaskIo;
+import denim.storage.WriteTaskFile;
 import denim.tasks.Deadline;
 import denim.tasks.Task;
-
 
 /**
  * Represents a deadline command that can be executed.
@@ -21,9 +20,9 @@ public class DeadlineCommand extends Command {
         deadlineTask = new Deadline(taskDescription, deadline);
     }
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
+    public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         try {
-            taskIo.writeTaskData(deadlineTask);
+            writeTaskFile.writeTaskData(deadlineTask);
         } catch (DenimException e) {
             return new CommandResult("Command Failed. Error:\n" + e.getMessage());
         }

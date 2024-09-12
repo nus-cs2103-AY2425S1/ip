@@ -1,13 +1,18 @@
 package denim.ui;
 
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import denim.Denim;
 import denim.commands.Command;
 import denim.commands.CommandResult;
+import denim.exceptions.DenimDirectoryException;
+import denim.exceptions.DenimFileException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -27,12 +32,13 @@ public class MainWindow extends VBox {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Alert alert;
 
     private Denim denim;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image denimImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
 
     @FXML
     private void handleUserInput() {
@@ -40,7 +46,7 @@ public class MainWindow extends VBox {
         Command command = denim.parseGuiCommand(input);
 
         if (command.isExit()) {
-            handleExit(command);
+            handleExit();
         }
 
         CommandResult commandResult = denim.executeGuiCommand(command);
@@ -58,7 +64,7 @@ public class MainWindow extends VBox {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    private void handleExit(Command command) {
+    private void handleExit() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -69,7 +75,70 @@ public class MainWindow extends VBox {
         timer.schedule(task, 1000);
     }
 
-    public void setDenim(Denim d) {
+    /**
+     * Displays a simple greeting message.
+     */
+    public void displayGreetingMessage() {
+        DialogBox greetingMessage = DialogBox.getDenimDialog("Hello! I'm Denim! "
+                + "What can I do for you?", denimImage);
+        dialogContainer.getChildren().add(greetingMessage);
+    }
+
+    /**
+     * Injects the instance of Denim being used.
+     */
+    public void injectDenim(Denim d) {
         denim = d;
+    }
+
+    /**
+     * Alerts the user that the file to read data from does not exist, and prompts the user for actions.
+     */
+    public void handleFileNotFound() {
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("File Not Found");
+        alert.setHeaderText("File Not Found");
+        alert.setContentText("File denim.txt does not exist. Create?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.CANCEL) {
+            denim.exit();
+        }
+
+        try {
+            denim.handleFileNotFound();
+        } catch (DenimFileException e) {
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(e.getMessage());
+            denim.exit();
+        }
+    }
+
+    /**
+     * Alerts the user that the directory containing the file to read data from does not exist,
+     * and prompts the user for actions.
+     */
+    public void handleDirectoryNotFound() {
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("File Not Found");
+        alert.setHeaderText("File Not Found");
+        alert.setContentText("Directory data and File denim.txt does not exist. Create?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.CANCEL) {
+            denim.exit();
+        }
+
+        try {
+            denim.handleDirectoryNotFound();
+        } catch (DenimDirectoryException e) {
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(e.getMessage());
+            denim.exit();
+        }
     }
 }

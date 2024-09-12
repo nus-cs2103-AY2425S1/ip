@@ -1,7 +1,7 @@
 package denim.commands;
 
 import denim.TaskList;
-import denim.storage.TaskIo;
+import denim.storage.WriteTaskFile;
 
 /**
  * Represents an abstract command that can be executed.
@@ -14,10 +14,10 @@ public abstract class Command {
      * Executes the command on the given task list and with the provided I/O operations.
      *
      * @param taskList The task list to perform the command on.
-     * @param taskIo   The I/O operations for reading from and writing to storage.
+     * @param writeTaskFile The I/O operations for reading from and writing to storage.
      * @return The result of the command execution.
      */
-    public abstract CommandResult execute(TaskList taskList, TaskIo taskIo);
+    public abstract CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile);
 
     /**
      * Determines whether this command should exit the application.
