@@ -21,7 +21,7 @@ public class Bword {
     private TaskList taskList;
     private Ui ui;
 
-    private Bword(String s) {
+    public Bword(String s) {
         this.ui = new Ui();
         this.storage = new Storage(s);
         try {
@@ -49,6 +49,13 @@ public class Bword {
                 this.ui.showLine();
             }
         }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
     public static void main(String[] args) {
