@@ -1,7 +1,6 @@
 package carly.utils;
 
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -121,7 +120,8 @@ public class TaskList {
                 filteredList.taskList.add(t);
             }
         }
-        return filteredList.printTaskList("Here are the matching returns for your list:");
+        TaskPrinter taskPrinter = new TaskPrinter(filteredList);
+        return taskPrinter.printSortedTasks();
     }
 
     /**
@@ -199,50 +199,56 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    public Boolean isEmpty() {
+        return this.taskList.isEmpty();
+    }
+
     /** Gets the message fpr the current size of the task list. */
     public String taskListSize() {
         return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
     }
 
-    /** Prints list for Command SORT using java streams. */
-    public String printTaskList(List<Task> taskList) {
-        StringBuilder sb = new StringBuilder();
 
-        if (taskList.isEmpty()) {
-            sb.append("Oh no. There's no deadlines in your list. Hence, there's no date to be sorted");
-        } else {
-            sb.append("Here's your sorted list").append("\n");
-            IntStream.range(0, taskList.size())
-                    .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, taskList.get(i).toString())));
-        }
 
-        return sb.append(this.taskListSize()).toString();
-    }
-
-    /** Prints list for Command FIND using java streams. */
-    public String printTaskList(String msg) {
-        StringBuilder sb = new StringBuilder();
-
-        if (this.taskList.isEmpty()) {
-            sb.append("Oh no. What you're looking for is not in the list :(");
-        } else {
-            sb.append(msg).append("\n");
-            IntStream.range(0, this.getSize())
-                    .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, this.get(i).toString())));
-        }
-
-        return sb.append(this.taskListSize()).toString();
-    }
-
-    /** Prints list for Command LIST. */
-    public String printTaskList() {
-        if (this.taskList.isEmpty()) {
-            return "There's nothing in your list yet.";
-        } else {
-            String msg = "Here are the tasks in your list:";
-            return this.printTaskList(msg);
-        }
-    }
+//    /** Prints list for Command SORT using java streams. */
+//    public String printTaskList(List<Task> taskList) {
+//        StringBuilder sb = new StringBuilder();
+//
+//        if (taskList.isEmpty()) {
+//            sb.append("Oh no. There's no deadlines in your list. Hence, there's no date to be sorted");
+//        } else {
+//            sb.append("Here's your sorted list").append("\n");
+//            IntStream.range(0, taskList.size())
+//                    .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, taskList.get(i).toString())));
+//        }
+//
+//        return sb.append(this.taskListSize()).toString();
+//    }
+//
+//    /** Prints list for Command FIND using java streams. */
+//    public String printTaskList(String msg) {
+//        StringBuilder sb = new StringBuilder();
+//
+//        if (this.taskList.isEmpty()) {
+//            sb.append("Oh no. What you're looking for is not in the list :(");
+//        } else {
+//            sb.append(msg).append("\n");
+//            IntStream.range(0, this.getSize())
+//                    .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, this.get(i).toString())));
+//        }
+//
+//        return sb.append(this.taskListSize()).toString();
+//    }
+//
+//    /** Prints list for Command LIST. */
+//    public String printTaskList() {
+//        if (this.taskList.isEmpty()) {
+//            return "There's nothing in your list yet.";
+//        } else {
+//            String msg = "Here are the tasks in your list:";
+//            return this.printTaskList(msg);
+//        }
+//    }
 
     /** Generates a string representation of all tasks in the list to be saved in txt file. */
     public String getFormattedTaskList() {
@@ -310,11 +316,12 @@ public class TaskList {
         }
         Collections.sort(deadlines);
 
-        List<Task> combinedTasks = new ArrayList<>();
-        combinedTasks.addAll(deadlines);
-        combinedTasks.addAll(remainingTasks);
+        TaskList combinedTasks = new TaskList();
+        combinedTasks.taskList.addAll(deadlines);
+        combinedTasks.taskList.addAll(remainingTasks);
 
-        return this.printTaskList(combinedTasks);
+        TaskPrinter taskPrinter = new TaskPrinter(combinedTasks);
+        return taskPrinter.printSortedTasks();
     }
 
 }

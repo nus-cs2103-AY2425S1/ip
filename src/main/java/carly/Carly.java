@@ -7,6 +7,7 @@ import carly.ui.Ui;
 import carly.utils.Parser;
 import carly.utils.Storage;
 import carly.utils.TaskList;
+import carly.utils.TaskPrinter;
 
 /**
  *  Represents a chatbot named Carly that manages a list of tasks.
@@ -22,12 +23,13 @@ public class Carly {
     }
 
     public String getResponse(String input) {
-        String response = "";
+        String response;
         try {
             Ui ui = new Ui();
             ui.welcomeMsg();
             String taskDescription;
             Parser.Command command;
+            TaskPrinter taskPrinter = new TaskPrinter(this.taskList);
             Storage listStorage = new Storage("./data/CarlyList.txt");
 
             Parser parser = new Parser(input);
@@ -39,7 +41,7 @@ public class Carly {
                 response = ui.byeMsg();
                 break;
             case LIST:
-                response = this.taskList.printTaskList();
+                response = taskPrinter.printAllTasks();
                 break;
             case MARK:
                 try {
@@ -94,6 +96,7 @@ public class Carly {
                 break;
             case SORT:
                 response = this.taskList.sort();
+                response = taskPrinter.printAllTasks();
                 break;
             default:
                 response = "Oops, what are you trying to say again?";
