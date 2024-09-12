@@ -42,6 +42,7 @@ public class Optimus {
      */
     public void run(String userInput) {
         try {
+            assert userInput != null && !userInput.trim().isEmpty() : "User input should not be null or empty";
             String[] command = Parser.parseCommand(userInput);
             if (command[0].equals("bye")) { // Exit the program
                 ui.sayBye();
