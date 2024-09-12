@@ -115,6 +115,7 @@ class Parser {
 
     private String replyAndAddTaskToList(Task task) {
         taskList.add(task);
+        assert taskList.toList().contains(task);
         return "Got it. I've added this task:\n" + task + "\nNow you have "
                 + this.getNumTasks() + " tasks in the list.";
     }
