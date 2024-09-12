@@ -47,7 +47,6 @@ public class DeleteTask extends Command {
                     + String.format("\nNow you have %d task", count)
                     + ((count > 1) ? "s left!" : " left!");
             output.writeText(message);
-
         } catch (NumberFormatException e) {
             output.error("Invalid task index. It is not an integer.");
         }
