@@ -8,7 +8,7 @@ import java.util.List;
  * Provides methods to display messages and interact with the user through the command line.
  */
 public class Ui {
-    private static final String LINE = "____________________________________________________________";
+    private static final String LINE = "===================================";
     private static final String INDENT = "    ";
     protected Scanner scanner;
 
