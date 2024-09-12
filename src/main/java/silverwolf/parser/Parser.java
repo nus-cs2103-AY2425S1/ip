@@ -77,15 +77,21 @@ public class Parser {
     /**
      * Parses the arguments for an event command and returns an Event object.
      *
-     * @param arugments The string containing the description and date/time information of the event.
+     * @param arguments The string containing the description and date/time information of the event.
      * @return The Event object created from the parsed input.
      * @throws SilverWolfException If the input format is incorrect or essential details are missing.
      */
-    private static Event parseEvent(String arugments) throws SilverWolfException {
+    private static Event parseEvent(String arguments) throws SilverWolfException {
         try {
             // Split the input into description and date/time components
-            String[] parts = arugments.split(" /from ");
+            String[] parts = arguments.split(" /from ");
+            if (parts.length < 2) {
+                throw new SilverWolfException("Please provide the event description and the /from time.");
+            }
             String[] to = parts[1].split(" /to ");
+            if (to.length < 2) {
+                throw new SilverWolfException("Please provide both /from and /to times for the event.");
+            }
             DateTimeParser parser = new DateTimeParser();
             // Parse the string into a LocalDateTime object
             LocalDateTime eventFrom = parser.parseDateTime(to[0]);
@@ -123,7 +129,13 @@ public class Parser {
         }
         try {
             String description = parts[0].trim();
+            if (description.isEmpty()) {
+                throw new SilverWolfException("Deadline description cannot be empty.");
+            }
             String by = parts[1].trim();
+            if (by.isEmpty()) {
+                throw new SilverWolfException("Deadline date/time cannot be empty.");
+            }
             DateTimeParser parser = new DateTimeParser();
             // Parse the string into a LocalDateTime object
             LocalDateTime deadlineDateTime = parser.parseDateTime(by);
