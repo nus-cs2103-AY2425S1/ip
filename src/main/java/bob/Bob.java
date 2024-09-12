@@ -82,6 +82,10 @@ public class Bob {
                 retStr = ui.replyFind(strArr[1], tasklist);
                 return retStr;
 
+            case "findexact":
+                retStr = ui.replyFindExact(strArr[1], tasklist);
+                return retStr;
+
             default:
                 throw new CommandNotFoundException();
 

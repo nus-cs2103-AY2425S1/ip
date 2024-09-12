@@ -133,4 +133,12 @@ public class Ui {
         return (String.format("Here are the matching tasks in your list:" + "\n"
                 + tasklist.getMatchRegex(s)));
     }
+
+    /**
+     * Return tasks matching exact string.
+     */
+    public String replyFindExact(String s, Tasklist tasklist) {
+        return (String.format("Here are the matching tasks in your list:" + "\n"
+                + tasklist.getMatchRegexExact(s)));
+    }
 }

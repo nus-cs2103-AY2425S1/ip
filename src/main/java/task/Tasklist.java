@@ -45,6 +45,27 @@ public class Tasklist {
         return retString;
     }
 
+        /**
+     * Returns a string of all the tasks matching regex exactly
+     * @return String
+     */
+    public String getMatchRegexExact(String s) {
+        // init string to return
+        String retString = "";
+
+        Pattern pattern = Pattern.compile(".*\\b" + s + "\\b.*");
+        int counter = 1;
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Matcher matcher = pattern.matcher(taskList.get(i).toString());
+            if (matcher.find()) {
+                retString += counter + ". " + taskList.get(i) + "\n";
+                counter++;
+            }
+        }
+        return retString;
+    }
+
     /**
      * Return string of the task at that position
      * @param pos
