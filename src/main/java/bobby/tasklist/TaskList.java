@@ -74,6 +74,22 @@ public class TaskList {
     }
 
     /**
+     * Checks if a task is already in the list using only the description of the task.
+     *
+     * @param task The task to check for duplicates.
+     * @return true if the task already exists, false otherwise.
+     */
+    public boolean isDuplicate(Task task) {
+        for (Task t : tasks) {
+            if (t.getDescription().equals(task.getDescription())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
      * Returns the number of tasks in the list.
      *
      * @return the size of the task list
