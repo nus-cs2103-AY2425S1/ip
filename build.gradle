@@ -47,11 +47,11 @@ test {
 }
 
 application {
-    mainClass.set("Echo")
+    mainClass.set("Main")
 }
 
 shadowJar {
-    archiveBaseName = "echo"
+    archiveBaseName = "echoOnJar"
     archiveClassifier = null
 }
 
