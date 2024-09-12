@@ -2,6 +2,8 @@ package utility;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import task.Task;
 
@@ -101,14 +103,14 @@ public class TaskList implements Serializable {
     @Override
     public String toString() {
         String outputString;
-        if (imTaskList.size() > 0) {
-            outputString = "Here are your tasks in your list:\n";
-            for (int i = 0; i < imTaskList.size(); i++) {
-                outputString += (i + 1) + "." + imTaskList.get(i) + "\n";
-            }
-        } else {
+        if (imTaskList.size() == 0) {
             outputString = "No tasks! What tasks would you like to add?\n";
         }
+        outputString = "Here are your tasks in your list:\n"
+            + IntStream.rangeClosed(1, imTaskList.size())
+            .mapToObj(i -> i + "." + imTaskList.get(i - 1))
+            .collect(Collectors.joining("\n"))
+            + "\n";
         return outputString;
     }
 
