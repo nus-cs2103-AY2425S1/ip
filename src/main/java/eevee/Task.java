@@ -1,11 +1,15 @@
 package eevee;
 
 /**
- * Represents a Task object
+ * Represents a Task object.
  */
 public class Task {
+    public enum Priority {
+        LOW, MEDIUM, HIGH
+    }
     protected String description;
     protected boolean isDone;
+    protected Priority priority;
 
     /**
      * Constructs a new Task with the specified description string.
@@ -16,6 +20,25 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.LOW;
+    }
+
+    /**
+     * Returns current priority of task. Default priority is LOW.
+     *
+     * @return The level of priority of the task.
+     */
+    public Priority getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * Sets the priority level of the task.
+     *
+     * @param priority The priority level to be set as.
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     /**
