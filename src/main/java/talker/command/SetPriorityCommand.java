@@ -30,6 +30,4 @@ public class SetPriorityCommand extends Command {
     public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
         return list.setPriorityOfTask(parsed, ui);
     }
-
-
 }

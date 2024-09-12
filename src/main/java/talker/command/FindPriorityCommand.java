@@ -28,5 +28,4 @@ public class FindPriorityCommand extends Command {
     public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
         return list.findPriorityTask(parsed[1], ui);
     }
-
 }
