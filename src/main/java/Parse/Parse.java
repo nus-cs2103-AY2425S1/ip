@@ -57,20 +57,18 @@ public class Parse {
         } else if (input.equals("list")) {
             return tasks.handleList();
         } else if (input.startsWith("mark")) {
-            storage.writeFile(tasks.getArray());
-            return tasks.markDone(input);
+            return tasks.markDone(input, storage);
         } else if (input.startsWith("unmark")) {
-            storage.writeFile(tasks.getArray());
-            return tasks.markUnDone(input);
+            return tasks.markUnDone(input, storage);
         } else if (input.startsWith("delete")) {
-            storage.writeFile(tasks.getArray());
-            return tasks.delete(input);
+            return tasks.delete(input, storage);
         } else if (input.startsWith("find")) {
             return tasks.search(input);
+        } else if (input.startsWith("sort")) {
+            return tasks.sort();
         }
             try {
-                storage.writeFile(tasks.getArray());
-                return tasks.handleTask(input);
+                return tasks.handleTask(input, storage);
             } catch (WrongKeyword | MissingArg e) {
                 System.out.println(e.getMessage());
             }
