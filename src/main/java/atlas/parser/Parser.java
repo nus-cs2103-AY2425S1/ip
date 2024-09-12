@@ -1,7 +1,6 @@
 package atlas.parser;
 
 import java.time.DateTimeException;
-import java.util.Arrays;
 
 import atlas.commands.AllCommand;
 import atlas.commands.Command;
