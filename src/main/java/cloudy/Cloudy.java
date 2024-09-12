@@ -11,6 +11,8 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents the main class for the Cloudy program.
@@ -82,29 +84,22 @@ public class Cloudy {
      * @param tasks The TaskList containing all the tasks to be displayed.
      */
     public String showList(TaskList tasks) {
-        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
 
-        for (int i = 0; i < tasks.size(); i++) {
-            output.append(i + 1)
-                    .append(". ")
-                    .append(tasks.getTask(i).printTaskOnList())
-                    .append("\n");
-        }
-        return output.toString();
+        return "Here are the tasks in your list:\n"
+                + IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.getTask(i).printTaskOnList())
+                .collect(Collectors.joining("\n"));
+
     }
 
     private String handleFindCommand(Command command) {
         ArrayList<Task> matchingTasks = tasks.findTasks(command.getTaskDescription());
 
-        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
+        return "Here are the matching tasks in your list:\n" +
+                IntStream.range(0, matchingTasks.size())
+                        .mapToObj(i -> (i + 1) + ". " + matchingTasks.get(i).printTaskOnList())
+                        .collect(Collectors.joining("\n"));
 
-        for (int i = 0; i < tasks.size(); i++) {
-            output.append(i + 1)
-                    .append(". ")
-                    .append(tasks.getTask(i).printTaskOnList())
-                    .append("\n");
-        }
-        return output.toString();
     }
 
     private String handleMarkCommand(Command command) {
