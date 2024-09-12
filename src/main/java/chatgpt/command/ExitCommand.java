@@ -20,8 +20,8 @@ public class ExitCommand extends Command {
      * @param storage that handles saving and reading text file with saved data
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showExit();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showExit();
     }
 
     /**

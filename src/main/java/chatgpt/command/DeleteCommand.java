@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
      * @throws ChatBotException if index is out of bounds
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public String execute(TaskList tasks, Ui ui, Storage storage)
             throws ChatBotException {
         if (index > tasks.size()) {
             throw new ChatBotException("\tNo task exists for that index");
@@ -43,8 +43,9 @@ public class DeleteCommand extends Command {
 
         Task removedTask = tasks.get(index - 1);
         tasks.remove(index - 1);
-        ui.showDeleteTask(removedTask, tasks.size());
         storage.save(tasks);
+        return ui.showDeleteTask(removedTask, tasks.size());
+
     }
 
     /**

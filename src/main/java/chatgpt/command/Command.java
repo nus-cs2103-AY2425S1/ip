@@ -23,7 +23,7 @@ public abstract class Command {
      * @param storage that handles saving and reading text file with saved data
      * @throws ChatBotException if command is unable to execute successfully
      */
-    public abstract void execute(TaskList tasks,
+    public abstract String execute(TaskList tasks,
                                  Ui ui, Storage storage) throws ChatBotException;
 
     /**
