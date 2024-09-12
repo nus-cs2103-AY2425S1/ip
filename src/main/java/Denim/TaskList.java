@@ -1,7 +1,9 @@
 package denim;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import denim.tasks.Task;
 
@@ -59,13 +61,13 @@ public class TaskList {
      */
     public TaskList findTasks(String ... keywords) {
         TaskList matchingTasks = new TaskList();
-        for (Task task: taskList) {
-            for (String keyword: keywords) {
-                if (task.getDescription().contains(keyword)) {
-                    matchingTasks.addTask(task);
-                }
-            }
-        }
+
+        Stream<Task> taskStream = taskList.stream();
+        taskStream.filter(task ->
+                Arrays.stream(keywords).anyMatch(keyword ->
+                        task.getDescription().contains(keyword)))
+                .forEach(task -> matchingTasks.addTask(task));
+
         return matchingTasks;
     }
 
