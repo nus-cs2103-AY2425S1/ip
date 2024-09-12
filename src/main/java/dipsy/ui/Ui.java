@@ -12,6 +12,12 @@ import dipsy.task.Task;
  * It provides methods for printing various messages, including task updates and error messages.
  */
 public class Ui {
+    private static final String INTRODUCTION = "Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam "
+            + "and Purrtector of the Realm of Naps.\n"
+            + "How can I purrvide assistance? Purrhaps I could lend a paw!";
+    private static final String FAREWELL = "Fur-well friend, stay paw-sitive!"
+
+
     private final Scanner in;
     private final PrintStream out;
 
@@ -48,10 +54,7 @@ public class Ui {
      * @return A welcome message to be shown when at the start of the application.
      */
     public String getWelcomeMessage() {
-        String introduction = "Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam "
-                + "and Purrtector of the Realm of Naps.\n"
-                + "How can I purrvide assistance? Purrhaps I could lend a paw!";
-        return introduction;
+        return INTRODUCTION;
     }
 
     /**
@@ -59,7 +62,7 @@ public class Ui {
      * @return A farewell message to be shown when the user exits the application.
      */
     public String getExitMessage() {
-        return "Fur-well friend, stay paw-sitive!";
+        return FAREWELL;
     }
 
     /**
