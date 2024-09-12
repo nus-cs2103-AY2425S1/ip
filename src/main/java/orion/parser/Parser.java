@@ -1,8 +1,8 @@
 package orion.parser;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -21,8 +21,23 @@ import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
 import orion.tasklist.TaskList;
 
+/**
+ * Parses and validates user commands.
+ *
+ * <p>
+ * This class is responsible for validating the format of user commands and
+ * extracting relevant information from the commands.
+ * </p>
+ */
 public class Parser {
 
+    /**
+     * Validates that the command is a valid list command.
+     *
+     * @param parts the parts of the command to be validated
+     * @return true if the command is valid, false otherwise
+     * @throws InvalidListException if the command is invalid
+     */
     public boolean validateListCommand(String... parts) throws InvalidListException {
         if (parts == null || parts.length > 1 || !parts[0].equals("list")) {
             throw new InvalidListException(parts == null ? "null" : String.join(" ", parts));
@@ -45,6 +60,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the given string can be parsed as an integer.
+     *
+     * @param str the string to check
+     * @return true if the string can be parsed as an integer, false otherwise
+     */
     public boolean isInteger(String str) {
         if (str == null) {
             return false;
@@ -57,6 +78,13 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Extracts the task index from the given command parts.
+     *
+     * @param parts the command parts
+     * @return the task index
+     * @throws InvalidMarkException if the command format is invalid
+     */
     private int extractTaskIndex(String[] parts) throws InvalidMarkException {
         // Join the parts starting from the second element onwards (i.e., excluding the
         // command)
@@ -74,6 +102,18 @@ public class Parser {
         return Integer.parseInt(splitParts[0]);
     }
 
+    /**
+     * Validates that the given index is valid in the task list.
+     *
+     * <p>
+     * This method creates a new TaskList instance and checks if the given index is
+     * valid. If the index is invalid, it throws an InvalidIndexException.
+     * </p>
+     *
+     * @param index the index to validate
+     * @throws InvalidIndexException       if the index is invalid
+     * @throws FileInitializationException if there is an issue with file reading
+     */
     private void validateTaskIndex(int index) throws InvalidIndexException, FileInitializationException {
         TaskList manager = new TaskList(new Storage());
 
@@ -82,6 +122,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Validates that the given command parts form a valid mark or unmark command.
+     *
+     * <p>
+     * A valid mark or unmark command consists of the command name followed by a
+     * single
+     * integer index. The index is validated to ensure it is a valid task index.
+     * </p>
+     *
+     * @param parts the command parts
+     * @return the task index
+     * @throws InvalidMarkException        if the command format is invalid
+     * @throws InvalidIndexException       if the index is invalid
+     * @throws FileInitializationException if there is an issue with file reading
+     */
     public int validateMarkAndUnMarkCommand(String... parts)
             throws InvalidMarkException, InvalidIndexException, FileInitializationException {
 
@@ -108,6 +163,21 @@ public class Parser {
         return parts[1];
     }
 
+    /**
+     * Validates that the given command parts form a valid event command.
+     *
+     * <p>
+     * A valid event command consists of the command name followed by a
+     * description, a start date and time, and an end date and time. The dates
+     * and times are validated to ensure they are in the correct format and
+     * correctly represent a valid date and time.
+     * </p>
+     *
+     * @param parts the command parts
+     * @return EventDetails object containing the details of the event
+     * @throws InvalidEventException      if the command format is invalid
+     * @throws InvalidDateFormatException if the date and time format is invalid
+     */
     public EventDetails validateEventCommand(String... parts) throws InvalidEventException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("event")) {
             throw new InvalidEventException(parts == null ? "null" : String.join(" ", parts));
@@ -132,6 +202,20 @@ public class Parser {
         return new EventDetails(description, from, to);
     }
 
+    /**
+     * Validates that the given command parts form a valid deadline command.
+     *
+     * <p>
+     * A valid deadline command consists of the command name followed by a
+     * description and a due date specified by '/by'. The description and due
+     * date are validated to ensure they are not empty.
+     * </p>
+     *
+     * @param parts the command parts
+     * @return DeadlineDetails object containing the details of the deadline
+     * @throws InvalidDeadlineException   if the command format is invalid
+     * @throws InvalidDateFormatException if the date and time format is invalid
+     */
     public DeadlineDetails validateDeadlineCommand(String... parts)
             throws InvalidDeadlineException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("deadline")) {
@@ -158,6 +242,22 @@ public class Parser {
         return new DeadlineDetails(description, by);
     }
 
+    /**
+     * Validates that the given command parts form a valid delete command.
+     *
+     * <p>
+     * A valid delete command consists of the command name followed by a
+     * single number representing the task list index of the task to delete.
+     * The index is validated to ensure it is a valid index in the task list.
+     * </p>
+     *
+     * @param parts the command parts
+     * @return the task list index of the task to delete
+     * @throws InvalidDeleteException      if the command format is invalid
+     * @throws InvalidIndexException       if the index is invalid
+     * @throws FileInitializationException if there is an issue with file reading or
+     *                                     writing.
+     */
     public int validateDeleteCommand(String... parts)
             throws InvalidDeleteException, InvalidIndexException, FileInitializationException {
         if (parts == null || parts.length < 2 || !parts[0].equals("delete")) {
@@ -179,6 +279,22 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Parses a string representation of a date and time into a
+     * <code>LocalDateTime</code> object.
+     *
+     * <p>
+     * The string representation should be in the format
+     * <code>dd/MM/yyyy HHmm</code> or <code>dd/MM/yyyy</code>. If the
+     * string representation is invalid, an <code>InvalidDateFormatException</code>
+     * is thrown.
+     * </p>
+     *
+     * @param dateTimeStr the string representation of the date and time
+     * @return a <code>LocalDateTime</code> object representing the parsed date
+     *         and time
+     * @throws InvalidDateFormatException if the date and time format is invalid
+     */
     private LocalDateTime parseDateTime(String dateTimeStr) throws InvalidDateFormatException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -195,6 +311,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Validates that the given command parts form a valid find command.
+     *
+     * <p>
+     * A valid find command consists of the command name followed by a
+     * keyword.
+     * </p>
+     *
+     * @param parts the command parts
+     * @return the keyword
+     * @throws InvalidListException if the command format is invalid
+     */
     public String validateFindCommand(String... parts) throws InvalidListException {
         if (parts == null || parts.length < 2 || !parts[0].equals("find")) {
             throw new InvalidListException(parts == null ? "null" : String.join(" ", parts));
@@ -203,6 +331,22 @@ public class Parser {
         return parts[1].trim();
     }
 
+    /**
+     * Validates that the given command parts form a valid mark or unmark command.
+     *
+     * <p>
+     * A valid mark or unmark command consists of the command name followed by a
+     * single integer index. The index is validated to ensure it is a valid task
+     * index.
+     * </p>
+     *
+     * @param manager the task list manager
+     * @param parts   the command parts
+     * @return the task index
+     * @throws InvalidMarkException        if the command format is invalid
+     * @throws InvalidIndexException       if the index is invalid
+     * @throws FileInitializationException if there is an issue with file reading
+     */
     public int validateMarkAndUnMarkCommand(TaskList manager, String... parts)
             throws InvalidMarkException, InvalidIndexException, FileInitializationException {
         // Validate that the command is either "mark" or "unmark"
@@ -217,6 +361,22 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Validates that the given command parts form a valid delete command.
+     *
+     * <p>
+     * A valid delete command consists of the command name followed by a
+     * single integer index. The index is validated to ensure it is a valid
+     * task index.
+     * </p>
+     *
+     * @param manager the task list manager
+     * @param parts   the command parts
+     * @return the task index
+     * @throws InvalidDeleteException      if the command format is invalid
+     * @throws InvalidIndexException       if the index is invalid
+     * @throws FileInitializationException if there is an issue with file reading
+     */
     public int validateDeleteCommand(TaskList manager, String... parts)
             throws InvalidDeleteException, InvalidIndexException, FileInitializationException {
         if (parts == null || parts.length < 2 || !parts[0].equals("delete")) {
