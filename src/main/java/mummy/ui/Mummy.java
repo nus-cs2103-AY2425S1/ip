@@ -43,11 +43,34 @@ public class Mummy {
 
     public String getResponse(String input) {
         try {
-            this.currentCommand = Command.of(input);
+            Command command = Command.of(input);
+
+            if (command.getCommandType().equals(Command.CommandType.UNDO)) {
+                return undoCommand(command);
+            }
+
+            this.currentCommand = command;
             return this.currentCommand.execute(this.taskList, this.storage);
         } catch (MummyException exception) {
             return exception.getMessage();
         }
+    }
+
+    private String undoCommand(Command undoCommand) throws MummyException {
+        assert (undoCommand.getCommandType().equals(Command.CommandType.UNDO));
+
+        if (currentCommand == null) {
+            throw new MummyException("No command to undo");
+        }
+
+        String message = String.format(
+                "%s\n%s",
+                undoCommand.execute(this.taskList, this.storage),
+                this.currentCommand.undo(this.taskList, this.storage)
+        );
+
+        this.currentCommand = undoCommand;
+        return message;
     }
 
     public Command.CommandType getCommandType() {
