@@ -41,28 +41,57 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {
-        String[] detailsArr = this.getArgument().split(" /from ");
-        if (detailsArr.length != 2) {
-            throw new InvalidCommandException("Invalid input format."
-                    + "Please use the correct format: 'event [task] /from [start time] /to [end time]'");
-        }
-
+        String[] detailsArr = getDetailsArray();
         String description = detailsArr[0];
-        String[] fromToArr = detailsArr[1].split(" /to ");
-        if (fromToArr.length != 2) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please ensure both start and end times are provided."
-            );
-        }
+        String[] fromToArr = getFromToArray(detailsArr[1]);
 
         try {
             LocalDateTime startDate = DateTimeUtility.parse(fromToArr[0]);
             LocalDateTime endDate = DateTimeUtility.parse(fromToArr[1]);
+            if (startDate.isAfter(endDate)) {
+                throw new InvalidCommandException("The start date/time must be before the end date/time.");
+            }
+
             Event event = new Event(description, startDate, endDate);
             taskList.add(event);
             return generateTaskAddedResponse(event, taskList.size());
         } catch (InvalidDateException e) {
             throw new InvalidCommandException(e.getMessage());
         }
+    }
+
+    /**
+     * Splits the command argument into an array of two strings representing the task details and the time range.
+     *
+     * @return a {@code String[]} array where the first element is the task description and the second element
+     *         is the time range (including both start and end time).
+     * @throws InvalidCommandException if the input format is invalid, meaning the input does not contain exactly
+     *                                  one " /from " delimiter or does not conform to the expected format.
+     */
+    private String[] getDetailsArray() throws InvalidCommandException {
+        String[] detailsArr = this.getArgument().split(" /from ");
+        if (detailsArr.length != 2) {
+            throw new InvalidCommandException("Invalid input format."
+                    + "Please use the correct format: 'event [task] /from [start time] /to [end time]'");
+        }
+        return detailsArr;
+    }
+
+    /**
+     * Splits the time range into an array of two strings representing the start and end times.
+     *
+     * @param argument the string containing the time range to be split
+     * @return a {@code String[]} array containing the start and end time
+     * @throws InvalidCommandException if the input format is invalid, meaning the input does not contain exactly
+     *                                  one " /to " delimiter or does not conform to the expected format.
+     */
+    private String[] getFromToArray(String argument) throws InvalidCommandException {
+        String[] fromToArr = argument.split(" /to ");
+        if (fromToArr.length != 2) {
+            throw new InvalidCommandException(
+                    "Invalid input format. Please ensure both start and end times are provided."
+            );
+        }
+        return fromToArr;
     }
 }
