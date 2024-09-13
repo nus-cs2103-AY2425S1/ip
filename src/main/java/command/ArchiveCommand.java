@@ -6,6 +6,9 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command to archive the task list.
+ */
 public class ArchiveCommand extends Command {
     /**
      * Executes the command.
