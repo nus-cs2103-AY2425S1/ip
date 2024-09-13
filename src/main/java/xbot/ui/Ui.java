@@ -21,7 +21,7 @@ public class Ui {
     public String showTaskList(TaskList list) {
         String output;
         if (list.size() == 0) {
-            output = ("Yayy!! You have no task in your list");
+            output = showNoTask();
         } else {
             output = ("Here are the tasks in your list:\n");
             for (int i = 0; i < list.size(); i++) {
@@ -85,6 +85,10 @@ public class Ui {
      */
     public String mainErrorMessage(XBotException e) {
         return ("Oh No!! " + e.getMessage());
+    }
+
+    public String showNoTask() {
+        return "Yayy!! You have no task in your list";
     }
 
     /**

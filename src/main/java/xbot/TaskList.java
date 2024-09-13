@@ -3,12 +3,10 @@ package xbot;
 import java.util.ArrayList;
 import java.util.List;
 
-import xbot.exception.XBotException;
 import xbot.parser.Parser;
 import xbot.task.Deadline;
-import xbot.task.Event;
 import xbot.task.Task;
-import xbot.task.ToDo;
+import xbot.task.TaskType;
 import xbot.ui.Ui;
 
 /**
@@ -88,5 +86,45 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(keyword))
                 .forEach(filtered -> specificTasks.add(filtered));
         return Ui.showMatchingTaskList(specificTasks);
+    }
+
+    /**
+     * Finds and displays tasks that match the given keyword.
+     *
+     * @param keyword the keyword to search for in task descriptions
+     */
+    public String viewTask(String keyword) {
+        assert !keyword.isEmpty() : "The keyword for find task is empty!";
+        TaskList specificTasks = new TaskList();
+        list.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .forEach(filtered -> specificTasks.add(filtered));
+        return Ui.showMatchingTaskList(specificTasks);
+    }
+
+    public TaskList viewTodoTask() {
+        TaskList specificTasks = new TaskList();
+        list.stream()
+                .filter(task -> task.getType().equals(TaskType.T))
+                .forEach(filtered -> specificTasks.add(filtered));
+        return specificTasks;
+    }
+
+    public TaskList viewDeadlineTask(String date) {
+        TaskList specificTasks = new TaskList();
+        list.stream()
+                .filter(task -> task.getType().equals(TaskType.D))
+                .map(x -> (Deadline)x)
+                .filter(z -> Parser.isSameDate(date, z.getBy()))
+                .forEach(filtered -> specificTasks.add(filtered));
+        return specificTasks;
+    }
+
+    public TaskList viewEventTask(String date) {
+        TaskList specificTasks = new TaskList();
+        list.stream()
+                .filter(task -> task.getType().equals(TaskType.E))
+                .forEach(filtered -> specificTasks.add(filtered));
+        return specificTasks;
     }
 }
