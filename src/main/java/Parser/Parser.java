@@ -9,7 +9,7 @@ public class Parser {
 
     /**
      * Makes sense of input and creates relevant objects
-     * if userinput does not match print deafult message
+     * if user input does not match print deafult message
      *
      * @param userInput string input of user
      *
