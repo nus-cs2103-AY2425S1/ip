@@ -54,6 +54,7 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String s = sc.nextLine();
                 String[] components = s.split(" \\| ");
+                assert !s.isEmpty();
 
                 // this may trigger an invalid input exception - but this is not to be expected at all.
                 switch (s.substring(0, 1)) {
