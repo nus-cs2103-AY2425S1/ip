@@ -16,6 +16,36 @@ import exceptions.BuddyException;
 public class Parser {
 
     /**
+     * Enum to represent the different types of commands.
+     */
+    enum CommandType {
+        TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, BYE, LIST, FIND, UNKNOWN;
+    }
+
+    /**
+     * Converts a string to the corresponding CommandType.
+     *
+     * @param command The input command string.
+     * @return The corresponding CommandType.
+     */
+    public static CommandType fromString(String command) {
+
+        return switch (command.toLowerCase()) {
+            case "todo" -> CommandType.TODO;
+            case "deadline" -> CommandType.DEADLINE;
+            case "event" -> CommandType.EVENT;
+            case "delete" -> CommandType.DELETE;
+            case "mark" -> CommandType.MARK;
+            case "unmark" -> CommandType.UNMARK;
+            case "bye" -> CommandType.BYE;
+            case "list" -> CommandType.LIST;
+            case "find" -> CommandType.FIND;
+            default -> CommandType.UNKNOWN;
+        };
+
+    }
+
+    /**
      * Parses the given command string and returns a corresponding Command object.
      *
      * @param command The user input command string.
@@ -25,27 +55,18 @@ public class Parser {
     public static Command parse(String command) throws BuddyException {
         String[] commandParts = command.split(" ");
         String mainCommand = commandParts[0].toLowerCase();
+        CommandType commandType = fromString(mainCommand);
 
-        switch (mainCommand) {
-            case "todo":
-            case "deadline":
-            case "event":
-                return new AddCommand(command);
-            case "delete":
-                return new DeleteCommand(parseTaskIndex(commandParts));
-            case "mark":
-                return new MarkCommand(parseTaskIndex(commandParts));
-            case "unmark":
-                return new UnmarkCommand(parseTaskIndex(commandParts));
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "find":
-                return new FindCommand(commandParts[1].trim());
-            default:
-                throw new BuddyException("Unknown command.");
-        }
+        return switch (commandType) {
+            case TODO, DEADLINE, EVENT -> new AddCommand(command);
+            case DELETE -> new DeleteCommand(parseTaskIndex(commandParts));
+            case MARK -> new MarkCommand(parseTaskIndex(commandParts));
+            case UNMARK -> new UnmarkCommand(parseTaskIndex(commandParts));
+            case BYE -> new ExitCommand();
+            case LIST -> new ListCommand();
+            case FIND -> new FindCommand(commandParts[1].trim());
+            default -> throw new BuddyException("Unknown command.");
+        };
     }
 
     /**

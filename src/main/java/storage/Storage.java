@@ -81,25 +81,24 @@ public class Storage {
                 String taskType = details[0].trim();
                 String description = details[2].trim();
                 Task task;
-
                 switch (taskType) {
-                    case "T":
-                        task = new ToDos(description);
-                        break;
-                    case "D":
-                        String deadline = details[3].trim();
-                        LocalDateTime formattedDeadline = formatDate(deadline);
-                        task = new Deadlines(description, formattedDeadline);
-                        break;
-                    case "E":
-                        String startDate = details[3].trim();
-                        String endDate = details[4].trim();
-                        LocalDateTime formattedStartDate = formatDate(startDate);
-                        LocalDateTime formattedEndDate = formatDate(endDate);
-                        task = new Events(description, formattedStartDate, formattedEndDate);
-                        break;
-                    default:
-                        throw new BuddyException("Unknown task type found in file.");
+                case "T":
+                    task = new ToDos(description);
+                    break;
+                case "D":
+                    String deadline = details[3].trim();
+                    LocalDateTime formattedDeadline = formatDate(deadline);
+                    task = new Deadlines(description, formattedDeadline);
+                    break;
+                case "E":
+                    String startDate = details[3].trim();
+                    String endDate = details[4].trim();
+                    LocalDateTime formattedStartDate = formatDate(startDate);
+                    LocalDateTime formattedEndDate = formatDate(endDate);
+                    task = new Events(description, formattedStartDate, formattedEndDate);
+                    break;
+                default:
+                    throw new BuddyException("Unknown task type found in file.");
                 }
 
                 if (details[1].trim().equals("1")) {
