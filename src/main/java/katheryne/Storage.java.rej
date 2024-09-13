@@ -1,0 +1,12 @@
+diff a/src/main/java/katheryne/Storage.java b/src/main/java/katheryne/Storage.java	(rejected hunks)
+@@ -9,6 +9,10 @@
+ import java.io.FileNotFoundException;
+ import java.util.Scanner;
+ 
++/**
++ * Storage Class handles the loading and save of tasks in the local hard disk
++ */
++
+ public class Storage {
+     private String path;
+ 
