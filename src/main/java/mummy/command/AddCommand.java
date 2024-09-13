@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import mummy.task.Task;
 import mummy.task.TaskList;
+import mummy.task.TaskListException;
 import mummy.ui.MummyException;
 import mummy.utility.Storage;
 
@@ -44,5 +45,21 @@ public abstract class AddCommand extends Command {
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
                 task, taskList.count()
         );
+    }
+
+    @Override
+    public final String undo(TaskList taskList, Storage storage) throws MummyException {
+        try {
+            Task removedTask = taskList.remove(taskList.count());
+            saveTaskListToStorage(taskList, storage);
+            return String.format(
+                    "Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.\n",
+                    removedTask, taskList.count()
+            );
+        } catch (TaskListException exception) {
+            throw new MummyException("Something went wrong when undoing command: "
+                    + exception.getMessage()
+            );
+        }
     }
 }
