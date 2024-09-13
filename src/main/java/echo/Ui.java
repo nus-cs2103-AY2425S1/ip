@@ -4,11 +4,13 @@ package echo;
  * Deals with interactions with the user.
  */
 public class Ui {
-    private static final String LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String LOGO = "  ______      _           \n"
+            + " |  ____|    | |          \n"
+            + " | |__   __ _| | ___  ___ \n"
+            + " |  __| / _` | |/ _ \\/ _ \\\n"
+            + " | |___| (_| | |  __/  __/\n"
+            + " |______\\__,_|_|\\___|\\___|\n";
+
 
 
     /**
@@ -16,7 +18,7 @@ public class Ui {
      */
     public void greet() {
         System.out.println("Hello from\n" + LOGO);
-        System.out.println("Hello! I'm echo.EchoBot");
+        System.out.println("Hello! I'm EchoBot");
         System.out.println("What can I do for you?");
     }
 }
