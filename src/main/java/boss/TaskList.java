@@ -132,8 +132,6 @@ public class TaskList {
         return s;
     }
 
-
-
     /**
      * Find the tasks that match the given word (for GUI)
      *

@@ -60,6 +60,8 @@ public class Boss {
                 return "whats good boss!";
             case "yashvan":
                 return "whats good GYM MASTER";
+            case "nictok":
+                return "omg, its nictok, hiii";
         }
 
         try {
