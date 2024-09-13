@@ -55,64 +55,64 @@ public class Rainy {
         assert(validResponse >= -1);
         Instructions instruction = ps.enumOperator(message);
         switch (instruction) {
-            case LIST:
-                List listCommand = new List(tm);
-                listCommand.getResponse();
-                break;
+        case LIST:
+            List listCommand = new List(tm);
+            listCommand.getResponse();
+            break;
 
-            case MARK:
-                Mark markCommand = new Mark(validResponse, tm);
-                tm = markCommand.getResponse();
-                break;
+        case MARK:
+            Mark markCommand = new Mark(validResponse, tm);
+            tm = markCommand.getResponse();
+            break;
 
-            case UNMARK:
-                Unmark unmarkCommand = new Unmark(validResponse, tm);
-                tm = unmarkCommand.getResponse();
-                break;
+        case UNMARK:
+            Unmark unmarkCommand = new Unmark(validResponse, tm);
+            tm = unmarkCommand.getResponse();
+            break;
 
-            case DELETE:
-                Delete deleteCommand = new Delete(validResponse, tm);
-                tm = deleteCommand.getResponse();
-                break;
+        case DELETE:
+            Delete deleteCommand = new Delete(validResponse, tm);
+            tm = deleteCommand.getResponse();
+            break;
 
-            case TODO:
-                String taskName = splitByTask[0].substring(5);
-                ToDoCommand toDoCommand = new ToDoCommand(input, taskName, tm);
-                tm = toDoCommand.getResponse();
-                break;
+        case TODO:
+            String taskName = splitByTask[0].substring(5);
+            ToDoCommand toDoCommand = new ToDoCommand(input, taskName, tm);
+            tm = toDoCommand.getResponse();
+            break;
 
-            case DEADLINE:
-                DeadlineCommand deadlineCommand = new DeadlineCommand(splitByTask, input, tm);
-                tm = deadlineCommand.getResponse();
-                break;
+        case DEADLINE:
+            DeadlineCommand deadlineCommand = new DeadlineCommand(splitByTask, input, tm);
+            tm = deadlineCommand.getResponse();
+            break;
 
-            case EVENT:
-                EventCommand eventCommand = new EventCommand(splitByTask, input, tm);
-                tm = eventCommand.getResponse();
-                break;
+        case EVENT:
+            EventCommand eventCommand = new EventCommand(splitByTask, input, tm);
+            tm = eventCommand.getResponse();
+            break;
 
-            case SORT:
-                SortCommand sortCommand = new SortCommand(tm);
-                tm = sortCommand.getResponse();
-                break;
+        case SORT:
+            SortCommand sortCommand = new SortCommand(tm);
+            tm = sortCommand.getResponse();
+            break;
 
-            case FIND:
-                String searchKeyword = ps.findTask(scanCommand);
-                FindCommand findCommand = new FindCommand(tm, searchKeyword);
-                tm = findCommand.getResponse();
-                break;
+        case FIND:
+            String searchKeyword = ps.findTask(scanCommand);
+            FindCommand findCommand = new FindCommand(tm, searchKeyword);
+            tm = findCommand.getResponse();
+            break;
 
-            case BYE:
-                ByeCommand byeCommand = new ByeCommand();
-                byeCommand.getResponse();
-                break;
+        case BYE:
+            ByeCommand byeCommand = new ByeCommand();
+            byeCommand.getResponse();
+            break;
 
-            case INVALID:
-                ui.noCategoryDeclared();
-                break;
+        case INVALID:
+            ui.noCategoryDeclared();
+            break;
 
-            default:
-                ui.noCategoryDeclared();
+        default:
+            ui.noCategoryDeclared();
         }
         File f = new File("src/main/java/rainy.txt");
         storage.writeOverFile(f, tm);
