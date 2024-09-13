@@ -24,8 +24,8 @@ public class Parser {
         String[] parseSpaces = command.split(" ", 2);
         parsedResult.add(parseSpaces[0]);
         if (parseSpaces.length > 1) {
-            String[] parseSlash = parseSpaces[1].split(" /", 3);
-            parsedResult.addAll(Arrays.stream(parseSlash).toList());
+            String[] parseSlashes = parseSpaces[1].split(" /", 3);
+            parsedResult.addAll(Arrays.stream(parseSlashes).toList());
         }
         return parsedResult;
     }
