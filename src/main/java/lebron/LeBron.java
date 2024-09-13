@@ -41,6 +41,9 @@ public class LeBron {
      * input and executes commands until the application is instructed to exit.
      */
     public String getResponse(String input) {
+
+        assert input != null : "Input should not be null";
+        
         StringBuilder response = new StringBuilder();
         try {
             // Parse the input and execute the command
