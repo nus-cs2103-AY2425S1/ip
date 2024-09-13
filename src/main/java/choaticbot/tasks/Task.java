@@ -1,5 +1,7 @@
 package choaticbot.tasks;
 
+import choaticbot.exceptions.WrongInputFormatException;
+
 /**
  * The {@code Task} class represents an abstract base class for tasks. It contains common functionality
  * for managing tasks, such as tracking completion status and storing the task's name.
@@ -94,13 +96,30 @@ public abstract class Task {
     /**
      * Checks if the task name contains the specified word.
      *
-     * @param name The word to search for in the task's name.
+     * @param word The word to search for in the task's name.
      * @return {@code true} if the name contains the specified word, otherwise {@code false}.
      */
-    public boolean containWord(String name) {
-        assert name != null : "Search word should not be null";
-        return this.name.contains(name);
+    public boolean containWord(String word) {
+        assert word != null : "Search word should not be null";
+        return this.name.contains(word);
     }
+
+    /**
+     * Change the task name to the specified new name.
+     *
+     * @param name The new name for the task.
+     */
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Abstract method updates information about the task, such as description or times.
+     *
+     * @param details A string containing task information to update.
+     * @throws WrongInputFormatException If the user input is of wrong format.
+     */
+    public abstract void update(String details) throws WrongInputFormatException;
 
     /**
      * Returns a string representation of the task, including its completion status and name.

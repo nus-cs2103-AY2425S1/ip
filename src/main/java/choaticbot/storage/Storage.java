@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import choaticbot.exceptions.WrongInputFormatException;
 import choaticbot.tasks.Deadlines;
 import choaticbot.tasks.Events;
 import choaticbot.tasks.Task;
@@ -107,7 +108,7 @@ public class Storage {
                 taskList.addTask(task);
                 line = reader.readLine();
             }
-        } catch (IOException e) {
+        } catch (IOException | WrongInputFormatException e) {
             printText("An error occurred while loading tasks: " + e.getMessage());
         }
     }
@@ -118,7 +119,7 @@ public class Storage {
      * @param parts The parts of the line representing a task.
      * @return The {@link Task} object created from the parsed line.
      */
-    private static Task parseTask(String[] parts) {
+    private static Task parseTask(String[] parts) throws WrongInputFormatException {
         Task task = null;
         if (parts.length >= 2) {
             String type = parts[0];

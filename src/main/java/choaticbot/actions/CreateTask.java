@@ -1,6 +1,7 @@
 package choaticbot.actions;
 
 import choaticbot.exceptions.ChoaticBotException;
+import choaticbot.exceptions.WrongInputFormatException;
 import choaticbot.tasks.Deadlines;
 import choaticbot.tasks.Events;
 import choaticbot.tasks.Task;
@@ -52,13 +53,17 @@ public class CreateTask extends Action {
             case "deadline" -> {
                 //[0] = taskName, [1] = deadline
                 String[] deadlineDetails = this.details.split("/by ");
-                assert deadlineDetails.length == 2 : "Deadline details should have 2 parts: taskName and deadline";
+                if (deadlineDetails.length != 2) {
+                    throw new WrongInputFormatException("Expected format example: Read a book /by 2024-01-31 18:00");
+                }
                 yield new Deadlines(deadlineDetails[0], deadlineDetails[1]);
             }
             case "event" -> {
                 //[0] = taskName, [1] = from, [2] = to
                 String[] eventDetails = this.details.split("/");
-                assert eventDetails.length == 3 : "Event details should have 3 parts: taskName, from, and to";
+                if (eventDetails.length != 3) {
+                    throw new WrongInputFormatException("Expected format example: Buy a kite event /from Monday /to Saturday");
+                }
                 yield new Events(eventDetails[0], eventDetails[1], eventDetails[2]);
             }
             default -> null;
