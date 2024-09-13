@@ -10,28 +10,7 @@ import ontos.task.TaskList;
  * and displaying relevant messages. It includes methods to greet the user,
  * display tasks, handle incorrect input, and various task-related actions.
  */
-public class Ui {
-    /** Greeting message displayed when the application starts. */
-    private static final String HELLO = " Hello! I'm Ontos \n What can I do for you?";
-
-    /** Line separator used in the user interface. */
-    private static final String LINE = "____________________________________________________________";
-
-    /** Goodbye message displayed when the application ends. */
-    private static final String BYE = " Bye. Hope to see you again soon!";
-
-    /** Prompt shown before listing all tasks. */
-    private static final String LIST_PROMPT = " Here are the tasks in your list:\n";
-
-    /** Message shown when a task is marked as completed. */
-    private static final String COMPLETE_TASK_PROMPT = " Nice! I've marked this task as done:\n";
-
-    /** Message shown when a task is marked as not completed. */
-    private static final String UNCOMPLETE_TASK_PROMPT = " OK, I've marked this task as not done yet:\n";
-
-    /** Message shown when a task is added to the list. */
-    private static final String TASK_ADDED = " Got it. I've added this task:\n";
-
+public class Ui { 
     /** Scanner object to handle user input. */
     private Scanner inputs;
 
@@ -57,8 +36,9 @@ public class Ui {
      * @return the line separator String.
      */
     public String showLine() {
-        System.out.println(LINE);
-        return LINE;
+        String output = "____________________________________________________________";
+        System.out.println(output);
+        return output;
     }
 
     /**
@@ -67,8 +47,9 @@ public class Ui {
      * @return the greeting message String.
      */
     public String greet() {
-        System.out.println(HELLO);
-        return HELLO;
+        String output = " Hello! I'm Ontos \n What can I do for you?";
+        System.out.println(output);
+        return output;
     }
 
     /**
@@ -78,8 +59,9 @@ public class Ui {
      */
     public String goodbye() {
         inputs.close();
-        System.out.println(BYE);
-        return BYE;
+        String output = " Bye. Hope to see you again soon!";
+        System.out.println(output);
+        return output;
     }
 
     /**
@@ -90,8 +72,9 @@ public class Ui {
      */
     public String list(TaskList taskList) {
         assert taskList != null : "TaskList cannot be null";
+        String listPrompt = " Here are the tasks in your list:\n";
 
-        String list = LIST_PROMPT + taskList.toString();
+        String list = listPrompt + taskList.toString();
         System.out.println(list);
         return list;
     }
@@ -133,7 +116,9 @@ public class Ui {
         assert taskList != null : "TaskList cannot be null";
         assert index >= 0 && index < taskList.getSize() : "Index out of bounds for TaskList";
 
-        String output = COMPLETE_TASK_PROMPT + taskList.getTaskString(index);
+        String completeTaskPrompt = " Nice! I've marked this task as done:\n";
+
+        String output = completeTaskPrompt + taskList.getTaskString(index);
         System.out.println(output);
         return output;
     }
@@ -149,7 +134,8 @@ public class Ui {
         assert taskList != null : "TaskList cannot be null";
         assert index >= 0 && index < taskList.getSize() : "Index out of bounds for TaskList";
 
-        String output = UNCOMPLETE_TASK_PROMPT + taskList.getTaskString(index);
+        String uncompleteTaskPrompt = " OK, I've marked this task as not done yet:\n";
+        String output = uncompleteTaskPrompt + taskList.getTaskString(index);
         System.out.println(output);
         return output;
     }
@@ -180,7 +166,9 @@ public class Ui {
         assert task != null : "Task cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
-        String output = TASK_ADDED
+        String taskAddedPrompt = " Got it. I've added this task:\n";
+
+        String output = taskAddedPrompt
                 + " " + task.toString() + "\n"
                 + " Now you have " + tasks.getSize() + " tasks in the list.";
         System.out.println(output);
