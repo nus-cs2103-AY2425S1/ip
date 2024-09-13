@@ -55,6 +55,9 @@ public class Parser {
             case "find":
                 taskList.findTask(command, commandSplitBySpace);
                 break;
+            case "statistics":
+                ui.showStatistics(taskList.getTasks());
+                break;
             default:
                 throw new TiraException("What task is this??? Please rethink your task!");
             }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import tira.task.Deadline;
 import tira.task.Event;
@@ -111,7 +112,7 @@ public class Storage {
                     + "\n";
         }
         if (task instanceof Deadline) {
-            output += "D |";
+            output += "D | ";
             Deadline deadline = (Deadline) task;
             if (deadline.getIsDone()) {
                 output += "1";
@@ -121,24 +122,24 @@ public class Storage {
             output += " | "
                     + deadline.getDescription()
                     + " | "
-                    + deadline.getEndDate()
+                    + deadline.getEndDate().format(DATE_FORMATTER)
                     + "\n";
 
         }
         if (task instanceof Event) {
-            output += "D |";
+            output += "E | ";
             Event event = (Event) task;
             if (event.getIsDone()) {
-                output += "1 ";
+                output += "1";
             } else {
-                output += "0 ";
+                output += "0";
             }
             output += " | "
-                    + event.getDescription()
+                    + event.getDescription().trim()
                     + " | "
-                    + event.getStartDate()
+                    + event.getStartDate().format(DATE_FORMATTER)
                     + " | "
-                    + event.getEndDate()
+                    + event.getEndDate().format(DATE_FORMATTER)
                     + "\n";
         }
         return output;
@@ -156,8 +157,8 @@ public class Storage {
         for (String task : tasksFromFile) {
             String[] splitTaskLine = task.split(" \\|"); // Separate words by "|"
             String taskType = splitTaskLine[0];
-            boolean isDone = splitTaskLine[1].equals("1");
-            String description = splitTaskLine[2];
+            boolean isDone = splitTaskLine[1].trim().equals("1");
+            String description = splitTaskLine[2].trim();
 
             switch (taskType) {
             case "T":
@@ -168,6 +169,7 @@ public class Storage {
                 tasks.add(todo);
                 break;
             case "D":
+                System.out.println("Entering deadline");
                 LocalDate endDate = this.getStartDate(splitTaskLine);
 
                 Deadline deadline = new Deadline(description, endDate);
@@ -199,11 +201,11 @@ public class Storage {
 
     private LocalDate getEndDate(String[] splitTaskLine) {
         assert splitTaskLine.length >= 3 : "The splitTaskLine is not enough";
-        return LocalDate.parse(splitTaskLine[4], DATE_FORMATTER);
+        return LocalDate.parse(splitTaskLine[4].trim(), DATE_FORMATTER);
     }
 
     private LocalDate getStartDate(String[] splitTaskLine) {
         assert splitTaskLine.length >= 3 : "The splitTaskLine is not enough";
-        return LocalDate.parse(splitTaskLine[4], DATE_FORMATTER);
+        return LocalDate.parse(splitTaskLine[3].trim(), DATE_FORMATTER);
     }
 }

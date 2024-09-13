@@ -3,8 +3,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import tira.task.Deadline;
+import tira.task.Event;
 import tira.task.Task;
 import tira.task.TaskList;
+import tira.task.ToDo;
 
 /**
  * The Ui class handles the user's commands and interacts with the user.
@@ -150,6 +153,51 @@ public class Ui {
         for (Task task: tasks) {
             printer.println(task);
         }
+        printer.flush();
+    }
+
+    private Statistics countStats (ArrayList<Task> tasks) {
+        Statistics stats = new Statistics();
+
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                stats.addDeadlineCount();
+                if (task.getIsDone()) {
+                    stats.addMarkedDeadline();
+                }
+            } else if (task instanceof Event) {
+                stats.addEventCount();
+                if (task.getIsDone()) {
+                    stats.addMarkedEvent();
+                }
+            } else if (task instanceof ToDo) {
+                System.out.println("Encountering a ToDo task");
+                stats.addToDoCount();
+                if (task.getIsDone()) {
+                    stats.addMarkedToDo();
+                }
+            }
+        }
+        return stats;
+    }
+
+    public void showStatistics(ArrayList<Task> taskList) {
+        Statistics stats = countStats(taskList);
+        printer.println("OK MIAO! Here's your TaskList statistics:\n");
+        printer.println("Number of tasks in the list: " + stats.getTotalTasks()
+                + "\nTODOS\nToDos: " + stats.toDoCount
+                + "\nMarked ToDos: " + stats.markedToDoCount
+                + "\nUnmarked ToDos: " + stats.unmarkedToDoCount  + "\n"
+                + "\nDEADLINES\nDeadlines: " + stats.deadlineCount
+                + "\nMarked Deadlines: " + stats.markedDeadlineCount
+                + "\nUnmarked Deadlines: " + stats.unmarkedDeadlineCount + "\n"
+                + "\nEVENTS\nEvents: " + stats.eventCount
+                + "\nMarked Events: " + stats.markedEventCount
+                + "\nUnmarked Events: " + stats.unmarkedEventCount  + "\n"
+                + "Total number of Marked tasks:" + stats.getTotalMarkedTasks() + "\n"
+                + "Total number of Unmarked tasks:" + stats.getTotalUnmarkedTasks() + "\n"
+                + "% of Marked tasks: " + stats.getTotalMarkedTasks() * 100/stats.getTotalTasks()
+        );
         printer.flush();
     }
 }
