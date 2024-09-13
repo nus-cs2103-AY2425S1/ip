@@ -85,6 +85,7 @@ public class BocchiDateTimeFormatter {
      * @throws DateTimeParseException If the date/time format is invalid against all predefined formats.
      */
     public static LocalDateTime parse(String dateTime) throws DateTimeParseException {
+        // try all possible formats with only time specified
         for (DateTimeFormatter formatter : TIME_FORMATTERS) {
             try {
                 // Default date to current date if not specified.
@@ -93,6 +94,8 @@ public class BocchiDateTimeFormatter {
                 // Do nothing.
             }
         }
+
+        // try all possible formats with only date specified
         for (DateTimeFormatter formatter : DATE_FORMATTERS) {
             try {
                 // Default time to 00:00:00 if not specified.
@@ -101,6 +104,8 @@ public class BocchiDateTimeFormatter {
                 // Do nothing.
             }
         }
+
+        //try all possible formats with both date and time specified
         for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
             try {
                 return LocalDateTime.parse(dateTime, formatter);
@@ -108,6 +113,7 @@ public class BocchiDateTimeFormatter {
                 // Do nothing.
             }
         }
+
         throw new DateTimeParseException("Invalid date/time format.", dateTime, 0);
     }
 
