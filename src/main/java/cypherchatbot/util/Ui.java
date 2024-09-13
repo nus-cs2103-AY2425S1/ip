@@ -71,14 +71,41 @@ public class Ui {
 
     public String showHelpMessage() {
         StringBuilder str = new StringBuilder();
-        String linebreak = "=========================================================================";
+        String linebreak = "========================================================================="
+                                +"=====================================================================\n";
         str.append("Here are the list of available commands with format and a short description:\n");
         str.append("\n");
-        str.append("Use the todo command in order to add a todo task (no time)");
-        str.append("Format of the command: todo <task description>");
+        str.append("Use the todo command in order to add a todo task (no time)\n");
+        str.append("Format of the command: todo <task description>\n");
         str.append(linebreak);
-        str.append("Use the deadline command in order to add a deadline task (have a certain time to finish by)");
-        str.append("Format of the command: deadline <task description> /by <>");
+        str.append("Use the deadline command in order to add a deadline task (have a certain time to finish by)\n");
+        str.append("Format of the command: deadline <Description of task> /by yyyy-MM-dd HH:mm\n");
+        str.append(linebreak);
+        str.append("Use the event command in order to add a event task (have a certain time frame for the task)\n");
+        str.append("Format of the command: event <Description of task> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm\n");
+        str.append(linebreak);
+        str.append("Use the list command to view a list of all the tasks that have been added\n");
+        str.append("Format of the command: list\n");
+        str.append(linebreak);
+        str.append("Use the sort command to the view a list of all the tasks sorted according to time");
+        str.append("Format of the 2 different sort commands:\n");
+        str.append(" > sort ascending (earliest task at the top)\n");
+        str.append(" > sort descending (latest task at the top)\n");
+        str.append(linebreak);
+        str.append("Use the mark command to mark a certain task as completed\n");
+        str.append("Format of the mark command is: mark <task number (based on the list view)>\n");
+        str.append(linebreak);
+        str.append("Use the unmark command to mark a certain task as not complete\n");
+        str.append("Format of the unmark command is: unmark <task number (based on the list view)>\n");
+        str.append(linebreak);
+        str.append("Use the delete command to delete a certain task");
+        str.append("Format of the unmark command is: unmark <task number (based on the list view)>\n");
+        str.append(linebreak);
+        str.append("CAUTION: FOR MARK,UNMARK AND DELETE COMMANDS USE THE NUMBER SHOWN IN THE LIST COMMAND,");
+        str.append("DO NOT USE THE NUMBER SHOWN AFTER USING THE SORT COMMAND\n");
+        str.append(linebreak);
+        str.append("Use the find command to a find a certian task using a phrase/time");
+        str.append("Format of the find command is: find <phrase/time that you want to find>");
         str.append("\n");
         return str.toString();
     }
