@@ -1,11 +1,25 @@
 package tasks;
 
+/**
+ * Class for todo-type task.
+ */
 public class Todo extends Task {
 
+    /**
+     * Constructor for a Todo task.
+     *
+     * @param name Name for the todo.
+     */
     public Todo(String name) {
         super(name);
     }
 
+    /**
+     * Constructor for a Todo task, marking it as done or undone.
+     *
+     * @param name Name for the todo.
+     * @param done True if the task is marked as done.
+     */
     public Todo(String name, boolean done) {
         super(name, done);
     }
