@@ -94,12 +94,13 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Removes a tag from this task.
+     * Removes a tag from this task, if it exists.
      *
      * @param tag The tag to be removed.
+     * @return True if the tag was present and removed, false otherwise.
      */
-    public void removeTag(String tag) {
-        tags.remove(tag);
+    public boolean removeTag(String tag) {
+        return tags.remove(tag);
     }
 
     /**
