@@ -64,10 +64,19 @@ public class Parser {
             }
             return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
         case "mark":
+            if (words.length < 2 || words[1].trim().isEmpty()) {
+                return new InvalidCommand("You cannot mark nothing!");
+            }
             return new MarkCommand(Integer.parseInt(words[1]) - 1);
         case "unmark":
+            if (words.length < 2 || words[1].trim().isEmpty()) {
+                return new InvalidCommand("You cannot unmark nothing!");
+            }
             return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
         case "delete":
+            if (words.length < 2 || words[1].trim().isEmpty()) {
+                return new InvalidCommand("You cannot delete nothing!");
+            }
             return new DeleteCommand(Integer.parseInt(words[1]) - 1);
         case "find":
             if (words.length < 2 || words[1].trim().isEmpty()) {
