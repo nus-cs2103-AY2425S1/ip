@@ -20,7 +20,7 @@ public class TodoCommand extends Command {
     @Override
     public CommandResult execute() throws SnowyException {
         Task todo = new Todo(description);
-        taskList.addTask(todo);
-        return new CommandResult("Added a to-do to your list of tasks: " + description);
+        String str = taskList.addTask(todo);
+        return new CommandResult(str + "\nAdded a to-do to your list of tasks: " + description);
     }
 }

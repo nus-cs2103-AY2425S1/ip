@@ -26,7 +26,7 @@ public class DeadlineCommand extends Command {
     @Override
     public CommandResult execute() {
         Deadline deadline = new Deadline(description, date);
-        taskList.addTask(deadline);
-        return new CommandResult("Added a task with a deadline to your list of tasks");
+        String str = taskList.addTask(deadline);
+        return new CommandResult(str + "\nAdded a task with a deadline to your list of tasks");
     }
 }

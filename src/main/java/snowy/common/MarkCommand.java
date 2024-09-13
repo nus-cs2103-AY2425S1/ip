@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
         if (taskList.isTaskDone(index - 1)) {
             throw new SnowyException("Task is already done");
         }
-        taskList.toggleTask(index - 1);
-        return new CommandResult("Marked task as done at index " + index);
+        String str = taskList.toggleTask(index - 1);
+        return new CommandResult(str + "\nMarked task as done at index " + index);
     }
 }

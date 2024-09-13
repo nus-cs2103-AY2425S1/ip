@@ -51,14 +51,11 @@ public class Storage {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Writes a task to the file. The task is appended to the end of the file.
      *
      * @param task the task to be written to the file
      */
-=======
->>>>>>> branch-A-CodingStandard
     public void writeTaskToFile(Task task) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFilePath.toString(), true))) {
             writer.write(task.toString());

@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public CommandResult execute() throws SnowyException {
-        taskList.deleteTask(index);
-        return new CommandResult("Deleted task at index " + index);
+        String str = taskList.deleteTask(index);
+        return new CommandResult(str + "\nDeleted task at index " + index);
     }
 }

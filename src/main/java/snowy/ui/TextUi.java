@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class TextUi {
 
     private static final String LINE = "____________________________________________________________";
-
     private final Scanner in;
     private final PrintStream out;
 
