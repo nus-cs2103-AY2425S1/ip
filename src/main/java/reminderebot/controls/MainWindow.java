@@ -27,9 +27,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image reminderebotImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initial message for Reminderebot GUI.
+     */
     @FXML
     public void initialize() {
-        String greeting = " Hello! I'm [" + "Reminderebot" + "]\n" + " What can I do for you?";
+        String greeting = " Hello! I'm ***" + "Reminderebot" + "***\n" + " What can I do for you?";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
                 DialogBox.getReminderebotDialog(greeting, reminderebotImage)
@@ -38,6 +41,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Reminderebot instance */
     public void setReminderebot(Reminderebot reminderebot) {
+        assert reminderebot != null;
         this.reminderebot = reminderebot;
     }
 
@@ -48,6 +52,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null;
         String response = reminderebot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

@@ -43,6 +43,7 @@ public class Reminderebot {
      * @param filePath
      */
     public Reminderebot(String filePath) {
+        assert !(filePath.equals(""));
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
