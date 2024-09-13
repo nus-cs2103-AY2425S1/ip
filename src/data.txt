@@ -1,3 +1,4 @@
-T | 0 | tp discussion
-T | 0 | Eat dinner with red flags
-D | 0 | return book  | Sunday
+T | 0 | 3 | running 2 
+T | 0 | 2 | Buy groceries 
+T | 0 | 3 | Buy groceries 
+T | 0 | 2 | bake cookies 

@@ -22,6 +22,8 @@ public class Parser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_FIND = "find";
 
+    private static final String COMMAND_PRIORITY = "priority";
+
     /**
      * Parses the user's input and executes the corresponding command.
      * <p>
@@ -147,8 +149,20 @@ public class Parser {
      */
     private String handleTodoCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         if (splitInput.length > 1) {
-            String description = splitInput[1];
-            Todo newTodo = new Todo(description);
+            String[] parts = splitInput[1].split("/priority ", 2);
+            String description = parts[0];
+            int priority = 3; // Default priority is low
+            if (parts.length > 1) {
+                try {
+                    priority = Integer.parseInt(parts[1].trim());
+                    if (priority < 1 || priority > 3) {
+                        return "OOPS!!! Priority level must be 1, 2, or 3.";
+                    }
+                } catch (NumberFormatException e) {
+                    return "OOPS!!! The priority level must be an integer.";
+                }
+            }
+            Todo newTodo = new Todo(description, priority);
             tasks.add(newTodo);
             storage.save(tasks);
             return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
@@ -172,14 +186,26 @@ public class Parser {
             String[] parts = splitInput[1].split("/by ", 2);
             String description = parts[0];
             String by = parts[1];
-            tasks.add(new Deadline(description, by));
+            int priority = 3; // Default priority is low
+            if (parts.length > 1) {
+                try {
+                    priority = Integer.parseInt(parts[1].trim());
+                    if (priority < 1 || priority > 3) {
+                        return "OOPS!!! Priority level must be 1, 2, or 3.";
+                    }
+                } catch (NumberFormatException e) {
+                    return "OOPS!!! The priority level must be an integer.";
+                }
+            }
+            tasks.add(new Deadline(description, by, priority));
             storage.save(tasks);
             return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
                     "\nNow you have " + tasks.size() + " tasks in the list.";
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "OOPS!!! The deadline command must include '/by <date/time>'.";
+            return "OOPS!!! The deadline command must include '/by <date/time>' and optional '/priority <level>'";
         }
     }
+
 
     /**
      * Handles the "event" command, adding a new Event task.
@@ -197,12 +223,23 @@ public class Parser {
             String description = parts[0];
             String from = fromTo[0];
             String to = fromTo[1];
-            tasks.add(new Event(description, from, to));
+            int priority = 3; // Default priority is low
+            if (parts.length > 1) {
+                try {
+                    priority = Integer.parseInt(parts[1].trim());
+                    if (priority < 1 || priority > 3) {
+                        return "OOPS!!! Priority level must be 1, 2, or 3.";
+                    }
+                } catch (NumberFormatException e) {
+                    return "OOPS!!! The priority level must be an integer.";
+                }
+            }
+            tasks.add(new Event(description, from, to, priority));
             storage.save(tasks);
             return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
                     "\nNow you have " + tasks.size() + " tasks in the list.";
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>'.";
+            return "OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>' and optional '/priority <level>'";
         }
     }
 
