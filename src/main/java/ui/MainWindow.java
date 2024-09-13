@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -31,6 +32,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        ImageView imageView = new ImageView(getClass().getResource("/images/send_v3.png").toExternalForm());
+        imageView.setFitWidth(20);  // Set the desired width
+        imageView.setFitHeight(20); // Set the desired height
+        sendButton.setGraphic(imageView);
     }
 
     /** Injects the Duke instance */
