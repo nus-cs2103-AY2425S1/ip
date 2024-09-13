@@ -72,6 +72,7 @@ public class Ui {
      */
 
     public void showMessage(String message) {
+        assert message != null: "Message should not be null";
         System.out.println(message);
 
     }
