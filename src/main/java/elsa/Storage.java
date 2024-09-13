@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Storage {
     private static final Path DATA_DIR = Paths.get("data");
-    private static final Path DATA_FILE = DATA_DIR.resolve("elsa.ui.Elsa.txt");
+    private static final Path DATA_FILE = DATA_DIR.resolve("Elsa.txt");
 
     public Storage() throws ElsaException {
         ensureDataFileExists();
