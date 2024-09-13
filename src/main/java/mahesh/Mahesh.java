@@ -27,6 +27,7 @@ public class Mahesh {
      * @param paths the optional relative path to the file used for storing tasks
      */
     public Mahesh(String path) {
+        assert path != null : "Path should not be null";
         this.path = path;
         this.store = new Storage(this.path);
         try {
@@ -34,6 +35,8 @@ public class Mahesh {
         } catch (IOException e) {
             this.list = new TaskList();
         }
+        assert this.store != null : "Storage should be initialized";
+        assert this.list != null : "TaskList should be initialized";
     }
 
     /**
@@ -46,6 +49,8 @@ public class Mahesh {
         } catch (IOException e) {
             this.list = new TaskList();
         }
+        assert this.store != null : "Storage should be initialized";
+        assert this.list != null : "TaskList should be initialized";
     }
 
     /**
