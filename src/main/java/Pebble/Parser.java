@@ -53,47 +53,78 @@ public class Parser {
      */
     public static Task parseTaskFromString(String line) {
         if (line.startsWith("[T]")) {
-            String description = line.substring(line.indexOf("] ") + 2);
-            ToDo todo = new ToDo(description);
-            if (line.contains("[X]")) {
-                todo.markAsDone();
-            }
-            return todo;
+            return createToDoTask(line);
         } else if (line.startsWith("[D]")) {
-            String description = line.substring(line.indexOf("] ") + 2, line.lastIndexOf(" (by: "));
-            String by = line.substring(line.lastIndexOf(" (by: ") + 6, line.length() - 1);
-            Deadline deadline;
-            try {
-                // Try to parse the date
-                deadline = new Deadline(description,
-                        LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy")).toString());
-            } catch (DateTimeException e) {
-                // If parsing fails, use the original string
-                deadline = new Deadline(description, by);
-            }
-            if (line.contains("[X]")) {
-                deadline.markAsDone();
-            }
-            return deadline;
+            return createDeadlineTask(line);
         } else if (line.startsWith("[E]")) {
-            String description = line.substring(line.indexOf("] ") + 2, line.lastIndexOf(" (from: "));
-            String from = line.substring(line.lastIndexOf(" (from: ") + 8, line.lastIndexOf(" to: "));
-            String to = line.substring(line.lastIndexOf(" to: ") + 5, line.length() - 1);
-            Event event;
-            try {
-                // Try to parse the dates
-                event = new Event(description,
-                        LocalDate.parse(from, DateTimeFormatter.ofPattern("MMM dd yyyy")).toString(),
-                        LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM dd yyyy")).toString());
-            } catch (DateTimeException e) {
-                // If parsing fails, use the original strings
-                event = new Event(description, from, to);
-            }
-            if (line.contains("[X]")) {
-                event.markAsDone();
-            }
-            return event;
+            return createEventTask(line);
         }
         return new InvalidTask();
+    }
+
+    private static ToDo createToDoTask(String line) {
+        String description = extractDescription(line);
+        ToDo todo = new ToDo(description);
+        if (line.contains("[X]")) {
+            todo.markAsDone();
+        }
+        return todo;
+    }
+
+    private static Deadline createDeadlineTask(String line) {
+        String description = extractDescriptionForDeadline(line);
+        String by = extractDeadlineDate(line);
+
+        Deadline deadline;
+        try {
+            deadline = new Deadline(description, by);  // Use the stored date directly
+        } catch (DateTimeException e) {
+            deadline = new Deadline(description, by);
+        }
+        if (line.contains("[X]")) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
+
+    private static Event createEventTask(String line) {
+        String description = extractDescriptionForEvent(line);
+        String from = extractEventStart(line);
+        String to = extractEventEnd(line);
+
+        Event event;
+        try {
+            event = new Event(description, from, to);  // Use the stored dates directly
+        } catch (DateTimeException e) {
+            event = new Event(description, from, to);
+        }
+        if (line.contains("[X]")) {
+            event.markAsDone();
+        }
+        return event;
+    }
+
+    private static String extractDescription(String line) {
+        return line.substring(line.indexOf("] ") + 2); // Generic description for ToDo
+    }
+
+    private static String extractDescriptionForDeadline(String line) {
+        return line.substring(line.indexOf("] ") + 2, line.lastIndexOf(" (by: "));  // Skip adding 'by'
+    }
+
+    private static String extractDescriptionForEvent(String line) {
+        return line.substring(line.indexOf("] ") + 2, line.lastIndexOf(" (from: "));  // Skip adding 'from' and 'to'
+    }
+
+    private static String extractDeadlineDate(String line) {
+        return line.substring(line.lastIndexOf(" (by: ") + 6, line.length() - 1);
+    }
+
+    private static String extractEventStart(String line) {
+        return line.substring(line.lastIndexOf(" (from: ") + 8, line.lastIndexOf(" to: "));
+    }
+
+    private static String extractEventEnd(String line) {
+        return line.substring(line.lastIndexOf(" to: ") + 5, line.length() - 1);
     }
 }
