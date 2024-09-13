@@ -66,19 +66,27 @@ public class Luke {
             }
             case deleteNote -> {
                 Note n = (Note) taskList.deleteTask(parser.getIndex() - 1);
-                ui.addNoteDialog(n);
+                if (n != null) {
+                    ui.addNoteDialog(n);
+                }
             }
             case mark -> {
                 Task t = taskList.markTask(parser.getIndex() - 1);
-                ui.markDialog(t);
+                if (t != null) {
+                    ui.markDialog(t);
+                }
             }
             case unmark -> {
                 Task t = taskList.unMarkTask(parser.getIndex() - 1);
-                ui.unMarkDialog(t);
+                if (t != null) {
+                    ui.unMarkDialog(t);
+                }
             }
             case delete -> {
                 Task deletedTask = this.taskList.deleteTask(parser.getIndex() - 1);
-                ui.deleteTaskDialog(deletedTask, this.taskList.getTaskListSize());
+                if (deletedTask != null) {
+                    ui.deleteTaskDialog(deletedTask, this.taskList.getTaskListSize());
+                }
             }
             case todo -> {
                 Task t = new Todo(parser.getDescription());

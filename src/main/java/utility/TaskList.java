@@ -3,19 +3,16 @@ package utility;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import exceptions.LukeException;
 import tasks.Task;
 
 /** Wrapper class for tasks recorded by Luke. */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-    /** Returns the size of tasks. */
-    public int getTaskListSize() {
-        return tasks.size();
-    }
-
     /**
      * Returns an instance of TaskList object.
+     *
      * @param storage Where tasks are stored.
      * @throws IOException When retrieving tasks fails.
      */
@@ -24,7 +21,7 @@ public class TaskList {
     }
 
     /** Returns the size of tasks. */
-    public int getTasksSize() {
+    public int getTaskListSize() {
         return tasks.size();
     }
 
@@ -35,17 +32,6 @@ public class TaskList {
      */
     public void addTask(Task t) {
         tasks.add(t);
-    }
-
-    /**
-     * Removes a Task from the list of existing tasks.
-     * @param index Is the index of the Task.
-     * @return A Task of corresponding index.
-     */
-    public Task deleteTask(int index) {
-        Task t = tasks.get(index);
-        tasks.remove(index);
-        return t;
     }
 
     /**
@@ -76,10 +62,15 @@ public class TaskList {
 
     /**
      * Marks a Task as complete.
+     *
      * @param index Is the index of the task.
      * @return The instance of the task that is marked.
      */
     public Task markTask(int index) {
+        if (index >= tasks.size() || index < 0) {
+            System.out.println("Dude, Index is out of range.");
+            return null;
+        }
         Task t = tasks.get(index);
         t.mark();
         return t;
@@ -91,8 +82,27 @@ public class TaskList {
      * @return The instance of the task that is unmarked.
      */
     public Task unMarkTask(int index) {
+        if (index >= tasks.size() || index < 0) {
+            System.out.println("Dude, Index is out of range.");
+            return null;
+        }
         Task t = tasks.get(index);
         t.unMark();
+        return t;
+    }
+
+    /**
+     * Removes a Task from the list of existing tasks.
+     * @param index Is the index of the Task.
+     * @return A Task of corresponding index.
+     */
+    public Task deleteTask(int index) {
+        if (index >= tasks.size() || index < 0) {
+            System.out.println("Dude, Index is out of range.");
+            return null;
+        }
+        Task t = tasks.get(index);
+        tasks.remove(index);
         return t;
     }
 
