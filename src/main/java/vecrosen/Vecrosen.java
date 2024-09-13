@@ -1,5 +1,7 @@
 package vecrosen;
 
+import javafx.application.Application;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -11,6 +13,7 @@ public class Vecrosen {
     private static Ui ui;
 
     public static void main(String[] args) {
+        Application.launch(Main.class, args);
         File data = new File("data/vecrosen.txt");
         File datafolder = new File("data");
         if (!datafolder.exists()) {
