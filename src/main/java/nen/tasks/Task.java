@@ -13,9 +13,10 @@ import nen.exceptions.InvalidInputException;
  * This class represents a Task, super class of Todo, Event and Deadline
  * @author Gan Ren Yick (A0276246X)
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected String description;
     protected boolean isDone;
+    protected String name;
 
     protected Task(String description) {
         this.description = description;
@@ -80,6 +81,13 @@ public abstract class Task {
         return description;
     }
 
+    /**
+     * @return name of the class
+     */
+    public String getClassName() {
+        return name;
+    }
+
     protected String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -96,6 +104,11 @@ public abstract class Task {
      */
     public void markAsNotDone() {
         isDone = false;
+    }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        return description.compareTo(otherTask.description);
     }
 
     @Override

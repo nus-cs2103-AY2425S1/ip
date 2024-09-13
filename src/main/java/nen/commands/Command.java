@@ -32,6 +32,8 @@ public abstract class Command {
             return new ListCommand(name);
         case "find":
             return new FindCommand(name, arg);
+        case "sort":
+            return new SortCommand(name, arg);
         default:
             return new AddTaskCommand(name);
         }
