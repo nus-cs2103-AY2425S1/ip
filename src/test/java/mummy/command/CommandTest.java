@@ -93,5 +93,10 @@ public class CommandTest {
         public CommandType getCommandType() {
             return CommandType.UNKNOWN;
         }
+
+        @Override
+        public String undo(TaskList taskList, Storage storage) {
+            return "Undid stub command";
+        }
     }
 }
