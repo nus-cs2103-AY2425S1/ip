@@ -93,6 +93,7 @@ public class Ui {
     public String invalidCommand() {
         return """
                 Sorry, I don't understand that command. Please try again.
+                Try using the 'help' command for a list of available commands.
                 """;
     }
 
@@ -209,6 +210,24 @@ public class Ui {
         return """
                 Sorry, there is something wrong with your find command.
                 Find command should be in the format: find <keyword>
+                """;
+    }
+
+    /**
+     * Returns a help message with a list of commands.
+     */
+    public String help() {
+        return """
+                Here are the list of commands you can use:
+                1. todo <description>: Adds a todo task to the list.
+                2. deadline <description> /by <date>: Adds a deadline task to the list.
+                3. event <description> /from <date> /to <date>: Adds an event task to the list.
+                4. list: Lists all tasks in the list.
+                5. mark <index>: Marks the task at the specified index as done.
+                6. unmark <index>: Marks the task at the specified index as not done.
+                7. delete <index>: Deletes the task at the specified index.
+                8. find <keyword>: Finds tasks that contain the specified keyword.
+                9. bye: Exits the application.
                 """;
     }
 
