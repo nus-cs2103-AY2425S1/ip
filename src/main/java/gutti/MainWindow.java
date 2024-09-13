@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         // Initialize images here
         userImage = new Image(getClass().getResourceAsStream("/Image/DaUser.png"));
-        guttiImage = new Image(getClass().getResourceAsStream("/Image/Dagutti.png"));
+        guttiImage = new Image(getClass().getResourceAsStream("/Image/DaGutti.png"));
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }

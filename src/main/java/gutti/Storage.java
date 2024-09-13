@@ -44,7 +44,6 @@ public class Storage {
      * @param taskList The task list to load the tasks into.
      */
     public void loadTasksFromFile(TaskList taskList) {
-        assert taskList != null : "TaskList cannot be null";
         try (Scanner sc = new Scanner(new File(filePath))) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
