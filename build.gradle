@@ -13,6 +13,13 @@ dependencies {
     implementation 'org.openjfx:javafx-controls:20.0.2'
     implementation 'org.openjfx:javafx-fxml:20.0.2'
 
+    implementation "org.openjfx:javafx-base:20.0.2:win"
+    implementation "org.openjfx:javafx-graphics:20.0.2:win"
+    implementation "org.openjfx:javafx-base:20.0.2:mac"
+    implementation "org.openjfx:javafx-graphics:20.0.2:mac"
+    implementation "org.openjfx:javafx-base:20.0.2:linux"
+    implementation "org.openjfx:javafx-graphics:20.0.2:linux"
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
@@ -37,7 +44,7 @@ application {
 
 javafx {
     version = "20.0.2" // Use the latest stable version
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base' ]
 }
 
 shadowJar {
