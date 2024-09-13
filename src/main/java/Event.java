@@ -1,6 +1,8 @@
+import java.time.LocalDate;
+
 public class Event extends Task{
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
     /**
      * Private constructor for a Task
@@ -9,8 +11,8 @@ public class Event extends Task{
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDate.parse(from.trim());
+        this.to = LocalDate.parse(to.trim());
     }
 
     /**
@@ -22,8 +24,8 @@ public class Event extends Task{
      */
     protected Event(String description, String status, String from, String to) {
         super(description, Status.valueOf(status));
-        this.from = from;
-        this.to = to;
+        this.from = LocalDate.parse(from.trim());
+        this.to = LocalDate.parse(to.trim());
     }
 
     @Override
@@ -31,7 +33,7 @@ public class Event extends Task{
         StringBuilder str = new StringBuilder();
         str.append("[E]");
         str.append(super.toString());
-        str.append(String.format("(From: %sTo: %s)", from, to));
+        str.append(String.format("(From: %s To: %s)", from, to));
         return str.toString();
     }
 
