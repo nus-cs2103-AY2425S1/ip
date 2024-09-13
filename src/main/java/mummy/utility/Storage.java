@@ -33,20 +33,18 @@ public class Storage {
         File file = new File(ioPath);
         List<String> lines = new ArrayList<>();
 
-        if (file.exists()) {
-            // if file already exists or is successfully created
-            Scanner sc = new Scanner(file);
-
-            while (sc.hasNext()) {
-                lines.add(sc.nextLine());
-            }
-
-            // clean up
-            sc.close();
-        } else {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
+        if (!file.exists()) {
+            createFile(file);
+            return lines;
         }
+
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            lines.add(sc.nextLine());
+        }
+
+        // clean up
+        sc.close();
 
         return lines;
     }
@@ -57,12 +55,23 @@ public class Storage {
      * @throws IOException if an I/O error occurs while writing to the file
      */
     public void save(List<String> lines) throws IOException {
-        assert (new File(ioPath)).exists();
+        File file = new File(ioPath);
+
+        if (!file.exists()) {
+            createFile(file);
+        }
+
+        assert file.exists();
 
         FileWriter fw = new FileWriter(this.ioPath, false);
         for (String line : lines) {
             fw.write(line + "\n");
         }
         fw.close();
+    }
+
+    private void createFile(File file) throws IOException {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
     }
 }
