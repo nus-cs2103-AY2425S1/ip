@@ -27,7 +27,6 @@ public class Deadline extends Task {
             dl = deadline;
         }
         assert dld != null;
-        this.deadlineDate = dld;
         this.deadline = dl;
     }
 
