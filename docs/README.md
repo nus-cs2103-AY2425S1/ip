@@ -4,7 +4,8 @@
 **TARS** is an intuitive and efficient command-line-based chatbot designed to help you manage your tasks easily. This user guide will provide you with all the necessary information to effectively use TARS and its features.
 
 ---
-
+![Ui](https://github.com/appleshill/ip/blob/master/docs/Ui.png)
+---
 ## Quick Start
 
 1. Ensure you have **Java 17** or above installed on your system.
