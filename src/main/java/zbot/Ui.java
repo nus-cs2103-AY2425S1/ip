@@ -13,9 +13,8 @@ public class Ui {
     /**
      * Prints the welcome message.
      */
-    public void intro() {
-        System.out.println("Hello! I'm ZBot!");
-        System.out.println("What can I do for you?\n");
+    public String intro() {
+        return "Hello! I'm ZBot\n" + "What can I do for you?";
     }
 
     /**
