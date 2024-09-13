@@ -50,6 +50,7 @@ public class EventParser extends Parser {
 
         LocalDate[] dates = validateCommand(startCommand, endCommand);
 
+        assert dates.length == 2;
         return new Event(name, dates[0], dates[1]);
     }
 
