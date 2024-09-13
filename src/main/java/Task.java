@@ -1,12 +1,18 @@
 public class Task {
-    private String status;
-    private boolean isDone;
-    private TaskType type;
+    protected String description;
+    protected boolean isDone;
 
-    public Task(String status, TaskType type) {
-        this.status = status;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
-        this.type = type;
+    }
+
+    public boolean contains(String substring) {
+        return description.contains(substring);
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
     public void mark() {
@@ -17,21 +23,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public boolean getIsDone() {
-        return isDone;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getIcon() {
-        return (isDone ? "[X]" : "[ ]");
-    }
-
     @Override
     public String toString() {
-        return getIcon() + " " + status;
+        return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String toText() {
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }
-
