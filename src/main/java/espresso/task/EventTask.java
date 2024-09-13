@@ -1,6 +1,9 @@
+package espresso.task;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import espresso.command.InvalidCommandException;
 
 public class EventTask extends Task {
     private Date starts;

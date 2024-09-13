@@ -1,3 +1,11 @@
+package espresso;
+
+import espresso.task.TaskList;
+import espresso.storage.Storage;
+import espresso.parser.Parser;
+import espresso.command.InvalidCommandException;
+import espresso.ui.Ui;
+
 import java.io.IOException;
 import java.text.ParseException;
 
