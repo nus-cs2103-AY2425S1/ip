@@ -3,6 +3,7 @@ package derek.command.taskcommand;
 import derek.Storage;
 import derek.Ui;
 import derek.command.taskcommand.TaskCommand;
+import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 
 /**
@@ -27,7 +28,7 @@ public class TodoCommand extends TaskCommand {
      *
      * @return a message indicating that the todo task has been added
      */
-    public String execute() {
+    public String execute() throws IncorrectCommandException {
         String name = this.getTask();
         Task task = this.createTask(name);
         this.addTask(task);

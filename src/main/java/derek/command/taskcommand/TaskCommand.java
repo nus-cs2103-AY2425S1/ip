@@ -3,6 +3,7 @@ package derek.command.taskcommand;
 import derek.Storage;
 import derek.Ui;
 import derek.command.Command;
+import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 import derek.task.TaskList;
 
@@ -30,10 +31,15 @@ public abstract class TaskCommand extends Command {
      *
      * @return the task details as a string
      */
-    public String getTask() {
+    public String getTask() throws IncorrectCommandException{
         String command = super.getCommand();
         int firstWord = command.indexOf(" ");
-        return command.substring(firstWord + 1);
+        if (firstWord > 0) {
+            return command.substring(firstWord + 1);
+        } else {
+            throw new IncorrectCommandException("Please enter your task!");
+        }
+
     }
 
     /**
