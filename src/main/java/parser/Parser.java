@@ -17,7 +17,7 @@ public class Parser {
      * Enum contains list of valid commands
      */
     public enum ValidCommand {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, TAG;
     }
 
 
@@ -75,7 +75,8 @@ public class Parser {
      */
     public ValidCommand parseCommand(String text) {
 
-
+        System.out.println(text);
+        System.out.println(text.startsWith("tag"));
         if (text.startsWith("bye")) {
             return ValidCommand.BYE;
         } else if (text.startsWith("list")) {
@@ -94,6 +95,8 @@ public class Parser {
             return ValidCommand.DELETE;
         } else if (text.startsWith("find")) {
             return ValidCommand.FIND;
+        } else if (text.startsWith("tag")) {
+            return ValidCommand.TAG;
         } else {
             return ValidCommand.INVALID;
 
@@ -221,6 +224,20 @@ public class Parser {
         return new String[] {plainDesc.toString().trim(), startDate.toString().trim(), endDate.toString().trim()};
     }
 
+    public String parseTagText(String desc) {
+        int start = desc.indexOf("/t");
+        return desc.substring(start + 2).trim();
+    }
+
+    public int parseTagIndex(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
+        int start = desc.indexOf("/i");
+        int end = desc.indexOf("/t");
+        if (start < 0 || end <0) {
+            end = desc.length();
+        }
+        return Integer.parseInt(desc.substring(start + 2, end).trim());
+
+    }
 
 
     /**

@@ -1,5 +1,6 @@
 package tasks;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import chatterboxexceptions.ChatterboxExceptions;
@@ -11,6 +12,7 @@ import chatterboxexceptions.ChatterboxExceptions;
 public abstract class Task {
     private Boolean status;
     private String desc;
+    private ArrayList<String> tags = new ArrayList<>();
 
 
     /**
@@ -28,11 +30,24 @@ public abstract class Task {
 
 
     /**
+     * initializes a task with status
+     *
+     * @return a string with tags
+     * @throws ChatterboxExceptions.ChatterBoxNoInput if no input
+     */
+    public String getTags() {
+        if (tags.size() <= 0) {
+            return "";
+        }
+        return "tags: " + String.join(" ", this.tags);
+    }
+
+    /**
      * returns a string with description of task
      * @return string of description
      */
     public String getDescription() {
-        return this.desc;
+        return this.desc + " " + this.getTags();
     }
 
     /**
@@ -50,10 +65,22 @@ public abstract class Task {
     public void setStatus(Boolean stat) {
         this.status = stat;
     }
+
+    /**
+     * gets the symbol of the task
+     * @return a string representing the task
+     */
     public String getTaskSymbol() {
         return "";
     }
 
+    /**
+     * gets the tags of the task
+     * @return an arraylist of tags
+     */
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
     @Override
     public String toString() {
         return this.getDescription();
