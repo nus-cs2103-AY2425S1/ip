@@ -37,6 +37,7 @@ public class Storage {
      * @return String of all Task Details divided by " | ".
      */
     private String obtainTaskString(TaskList taskList) {
+        assert taskList != null : "TaskList in Storage::obtainTaskList should not be null\n";
         return taskList.getTaskList().stream()
                 .map(Task::getTaskDetails)
                 .map(x -> String.join(" | ", x) + "\n")
@@ -49,6 +50,7 @@ public class Storage {
      * @param taskList TaskList.
      */
     public void saveTaskList(TaskList taskList) throws SoraException {
+        assert taskList != null : "TaskList in Storage::saveTaskList should not be null\n";
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
             fileWriter.write(obtainTaskString(taskList));
@@ -65,6 +67,7 @@ public class Storage {
      * @throws SoraException If line in this Storage instance's filePath is wrongly formatted.
      */
     public void loadTaskList(TaskList taskList) throws SoraException {
+        assert taskList != null : "TaskList in Storage::loadTaskList should not be null\n";
         File file = new File(this.filePath);
         try {
             if (!file.exists()) {
@@ -100,6 +103,8 @@ public class Storage {
      * @throws SoraException If line in this Storage instance's filePath is wrongly formatted.
      */
     private void loadTaskListHelper(int lineNumber, String fileTaskDetails, TaskList taskList) throws SoraException {
+        assert taskList != null : "TaskList in Storage::loadTaskListHelper should not be null\n";
+        assert !fileTaskDetails.isEmpty() : "fileTaskDetails in Storage::loadTaskListHelper should not be Empty\n";
         String[] parsedFileTaskDetails = fileTaskDetails.split(" \\| ", 5);
         switch (parsedFileTaskDetails[0]) {
         case "T":

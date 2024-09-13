@@ -97,6 +97,7 @@ public class TaskList {
      * @throws SoraException If parsedCommand is invalid.
      */
     public Task addTask(String mainCommand, ArrayList<String> parsedCommand) throws SoraException {
+        assert !mainCommand.isEmpty() : "MainCommand in TaskList::addTask should not be Empty\n";
         switch (mainCommand) {
         case "todo":
             try {
@@ -173,6 +174,7 @@ public class TaskList {
      * @return Stringbuilder containing the Tasks in String Format.
      */
     public StringBuilder findTask(String s) {
+        assert !s.isEmpty() : "Substring in TaskList::findTask should not be Empty!\n";
         HashMap<Integer, Task> taskListFound = new HashMap<>();
         int index = 1;
         for (Task t : this.taskList) {
