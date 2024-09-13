@@ -83,6 +83,7 @@ public class TaskList {
         if (tokens.size() == 1) {
             throw new MissingTaskException("Failed. Specify a task for your todo!!!! D:");
         } else {
+            assert tokens.size() > 1 : "there should be more than 1 token";
             String taskDescription = "";
             int len = tokens.size();
             for (int i = 1; i < len; i++) {
@@ -106,6 +107,9 @@ public class TaskList {
             throw new InvalidTaskFormatException(
                     "Failed. Add /by [DATE] to specify when to complete your task by!!! ;=;");
         } else {
+            assert (tokens.size() > 1 && !tokens.get(1).equals("/by")
+                    && tokens.contains("/by") && !(tokens.indexOf("/by") == tokens.size() - 1))
+                    : "Accepted wrong format for deadline task";
             String taskDescription = "";
             int i = 1;
             while (!tokens.get(i).equals("/by")) {
@@ -160,7 +164,6 @@ public class TaskList {
      */
     public String displayList() {
         String res = "These are your tasks!\n";
-        this.ui.response("These are your tasks!");
         for (int i = 0; i < this.numOfTasks; i++) {
             Task currTask = this.taskList.get(i);
             res += String.format("%d.%s\n", i + 1, currTask);
@@ -184,12 +187,15 @@ public class TaskList {
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
             throw new TaskNumOutOfBoundsException(
                     String.format("I can't mark task %d cause it doesn't exist!!! ;-;", taskNum));
+        } else {
+            assert (taskNum > 0 && taskNum <= this.numOfTasks) : "Task does not exist!";
+            Task reqTask = this.taskList.get(taskNum - 1);
+            reqTask.complete();
+            assert (reqTask.isComplete()) : "Task should be marked as complete";
+            String res = "Oki, I'll mark the task as done *w*! Good job finishing the task!!\n";
+            res += String.format("%s", reqTask);
+            return this.ui.response(res);
         }
-        Task reqTask = this.taskList.get(taskNum - 1);
-        reqTask.complete();
-        String res = "Oki, I'll mark the task as done *w*! Good job finishing the task!!\n";
-        res += String.format("%s", reqTask);
-        return this.ui.response(res);
     }
 
     /**

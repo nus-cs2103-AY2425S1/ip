@@ -26,7 +26,6 @@ public class Bunbun {
         this.ui = new Ui();
         this.list = new TaskList(this.storage, this.ui);
     }
-
     public void close() {
         this.storage.writeAllFromList(list);
     }

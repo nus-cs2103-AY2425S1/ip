@@ -34,6 +34,8 @@ public class Storage {
     public Storage(String filePathParent) {
         this.filePathParent = filePathParent;
         this.filePath = filePathParent + "/Bunbun.txt";
+        assert this.filePath.equals(String.format("%s/Bunbun.txt", this.filePathParent))
+                : "File path should be [filePathParent]/Bunbun.txt";
     }
 
     /**
@@ -149,7 +151,6 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 }
