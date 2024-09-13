@@ -24,6 +24,7 @@ public class TaskList {
      * @param inputTasks the new list of tasks to be set.
      */
     public void setTaskList(ArrayList<Task> inputTasks) {
+        assert inputTasks != null : "Input task list should not be null";
         this.tasks = inputTasks;
     }
 
@@ -33,6 +34,7 @@ public class TaskList {
      * @param task the task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task being added should not be null";
         tasks.add(task);
     }
 
@@ -42,6 +44,7 @@ public class TaskList {
      * @param index the index of the task to be deleted.
      */
     public void deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         tasks.remove(index);
     }
 
@@ -52,6 +55,7 @@ public class TaskList {
      * @return the task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.get(index);
     }
 
@@ -83,6 +87,7 @@ public class TaskList {
      * @return An {@code ArrayList} of tasks that contain the keyword in their description.
      */
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword should not be null or empty";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.toString().contains(keyword)) {
@@ -91,5 +96,4 @@ public class TaskList {
         }
         return matchingTasks;
     }
-
 }

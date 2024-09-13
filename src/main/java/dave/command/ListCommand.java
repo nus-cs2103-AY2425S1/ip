@@ -21,6 +21,9 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
+        assert tasks != null : "Task list should not be null.";
+        assert tasks.getSize() >= 0 : "Task list size should be non-negative.";
+
         StringBuilder taskListString = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
             taskListString.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
