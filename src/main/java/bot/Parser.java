@@ -1,14 +1,14 @@
 package bot;
 
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import bot.enums.Command;
 import bot.exceptions.InvalidCommandException;
 import bot.exceptions.InvalidTaskDescriptionException;
 import bot.tasks.Deadline;
 import bot.tasks.Event;
-
-import java.time.LocalDate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Parser {
     // TODO: Move this into a Command class

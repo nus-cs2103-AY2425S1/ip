@@ -1,5 +1,7 @@
 package bot.tasks;
 
+import bot.enums.TaskSymbol;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -16,7 +18,6 @@ public class Todo extends Task {
 
     @Override
     public String toData() {
-        // TODO: Replace `T` with enum
-        return "T | " + super.toData();
+        return TaskSymbol.TODO.name + " | " + super.toData();
     }
 }

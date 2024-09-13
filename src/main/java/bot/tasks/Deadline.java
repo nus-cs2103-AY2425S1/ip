@@ -2,6 +2,8 @@ package bot.tasks;
 
 import java.time.LocalDate;
 
+import bot.enums.TaskSymbol;
+
 public class Deadline extends Task {
 
     protected final LocalDate by;
@@ -23,7 +25,6 @@ public class Deadline extends Task {
 
     @Override
     public String toData() {
-        // TODO: Replace `D` with enum
-        return "D | " + super.toData() + " | " + by;
+        return TaskSymbol.DEADLINE.name + " | " + super.toData() + " | " + by;
     }
 }

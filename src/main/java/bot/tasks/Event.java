@@ -2,6 +2,8 @@ package bot.tasks;
 
 import java.time.LocalDate;
 
+import bot.enums.TaskSymbol;
+
 public class Event extends Task {
 
     protected LocalDate from;
@@ -26,7 +28,6 @@ public class Event extends Task {
 
     @Override
     public String toData() {
-        // TODO: Replace `E` with enum
-        return "E | " + super.toData() + " | " + from + " | " + to;
+        return TaskSymbol.EVENT.name + " | " + super.toData() + " | " + from + " | " + to;
     }
 }

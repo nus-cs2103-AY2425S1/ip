@@ -1,13 +1,19 @@
 package bot.storage;
 
-import bot.tasks.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import bot.enums.TaskSymbol;
+import bot.exceptions.InvalidTaskEnumException;
+import bot.tasks.Deadline;
+import bot.tasks.Event;
+import bot.tasks.Task;
+import bot.tasks.TaskList;
+import bot.tasks.Todo;
 
 /**
  * Handles writing to and reading from local files.
@@ -78,28 +84,33 @@ public class Storage {
         File f = new File(TASK_FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
-            tasks.add(parseData(s.nextLine()));
+            try {
+                tasks.add(parseData(s.nextLine()));
+            } catch (InvalidTaskEnumException e) {
+                System.out.println("The current line cannot be read and will be skipped. " + e.getMessage());
+            }
         }
     }
 
     /**
+     * Parses string data into a <code>Task</code> object
      *
      * @param data String data read from the local disk file.
      * @return <code>Task</code> object parsed from the given data.
      */
-    private Task parseData(String data) {
+    private Task parseData(String data) throws InvalidTaskEnumException {
         String[] args = data.split(" \\| ");
-        return switch (args[0]) {
-            // TODO: Replace with enums
-            case "T" -> {
+        TaskSymbol sym = TaskSymbol.fromString(args[0]);
+        return switch (sym) {
+            case TODO -> {
                 assert args.length == 3;
                 yield new Todo(args[1], Boolean.parseBoolean(args[2]));
             }
-            case "D" -> {
+            case DEADLINE -> {
                 assert args.length == 4;
                 yield new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
             }
-            case "E" -> {
+            case EVENT -> {
                 assert args.length == 5;
                 yield new Event(
                         args[1],
@@ -107,10 +118,6 @@ public class Storage {
                         LocalDate.parse(args[3]),
                         LocalDate.parse(args[4])
                 );
-            }
-            default -> {
-                assert false : "Invalid data: " + data;
-                yield null;
             }
         };
     }
