@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import yappingbot.commands.commands.ArgEnums;
 import yappingbot.commands.commands.Pair;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
@@ -15,7 +16,7 @@ import yappingbot.exceptions.YappingBotIncorrectCommandException;
  *
  * @param <A> Enum defining the valid Arguments.
  */
-abstract class CommandBase<A extends Enum<A>> {
+public abstract class CommandBase<A extends Enum<A> & ArgEnums> {
     HashMap<A, String> arguments = new HashMap<>();
     A firstArg;
 
@@ -39,7 +40,7 @@ abstract class CommandBase<A extends Enum<A>> {
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public CommandBase(String firstArg, Pair<String, String>... argPairs)
+    public CommandBase(String firstArg, Pair<String, String>[] argPairs)
     throws YappingBotIncorrectCommandException {
         try {
             this.firstArg = getArgTypeFromString(firstArg);

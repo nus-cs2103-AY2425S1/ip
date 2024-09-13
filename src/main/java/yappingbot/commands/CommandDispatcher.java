@@ -60,7 +60,6 @@ public class CommandDispatcher {
             ui.println("List is empty!");
         }
 
-
         StringBuilder sb = new StringBuilder();
         sb.append(ReplyTextMessages.LIST_TEXT);
         if (userList instanceof TaskListFilterView) {

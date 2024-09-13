@@ -106,23 +106,46 @@ public class Parser {
      *
      * @param flagMarker String of the character used to denote a flag.
      * @param userInputSlices User input sliced by space, including command verb.
-     * @param flattenedFlaggedArguments empty ArrayList to push parsed flagged arguments into.
+     * @param flaggedArgumentPairs arrayList to push parsed flagged arguments into.
      * @return First argument value after command verb, that is not flagged.
      */
-    public static String parseFlaggedArguments(String flagMarker,
-                                               String[] userInputSlices,
-                                               ArrayList<Pair<String, String>> flattenedFlaggedArguments) {
+    public static String parseFlaggedArguments(
+            String flagMarker,
+            String[] userInputSlices,
+            ArrayList<Pair<String, String>> flaggedArgumentPairs) {
+
+        final String emptyFlag = "";
         String firstArg = null;
+        String currentFlag = "";
         StringBuilder sb = new StringBuilder();
 
         // skip first item since it's the command verb
         for (int i = 1; i < userInputSlices.length; i++) {
-            if (!userInputSlices[i].startsWith(flagMarker)) {
-                // add slice to value
+            String currentSlice = userInputSlices[i];
+
+            // add slice to value if not a new flag
+            if (!currentSlice.startsWith(flagMarker)) {
+                sb.append(currentSlice).append(" ");
+                // continue by default, except for last slice - add that in
+                if (i != userInputSlices.length - 1) {
+                    continue;
+                }
             }
+
+
+            // we hit a new flag
+            if (currentFlag.equals(emptyFlag)) {
+                // this is unflagged first argument
+                firstArg = sb.toString().trim();
+            } else {
+                // add to flagged arguments
+                flaggedArgumentPairs.add(new Pair<>(currentFlag, sb.toString()));
+            }
+
+            currentFlag = currentSlice;
+            sb.setLength(0); // clear buffer
         }
 
-        assert true : "Not all arguments parsed!";
         return firstArg;
     }
 }
