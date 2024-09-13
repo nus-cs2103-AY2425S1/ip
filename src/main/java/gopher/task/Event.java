@@ -2,6 +2,7 @@ package gopher.task;
 
 import java.time.LocalDateTime;
 
+import gopher.exception.InvalidTokenException;
 import gopher.parser.Parser;
 
 /**
@@ -26,16 +27,18 @@ public class Event extends Task {
     }
 
     @Override
-    public void update(String[] tokens) {
+    public void update(String[] tokens) throws InvalidTokenException {
         // Determine the positions of from & to tokens if they exist in the command tokens
+        // Check for any invalid token as well
         int fromTokenIndex = -1;
         int toTokenIndex = -1;
         for (int i = 2; i < tokens.length; i++) {
             if (tokens[i].equalsIgnoreCase("/from")) {
                 fromTokenIndex = i;
-            }
-            if (tokens[i].equalsIgnoreCase("/to")) {
+            } else if (tokens[i].equalsIgnoreCase("/to")) {
                 toTokenIndex = i;
+            } else if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("event", tokens[i]);
             }
         }
 

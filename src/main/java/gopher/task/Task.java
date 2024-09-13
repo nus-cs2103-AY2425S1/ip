@@ -1,6 +1,7 @@
 package gopher.task;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.parser.Parser;
@@ -45,7 +46,7 @@ public abstract class Task {
     /**
      * Updates the relevant detail in the specified task.
      */
-    public abstract void update(String[] tokens);
+    public abstract void update(String[] tokens) throws InvalidTokenException;
 
     /**
      * Gets the save file message representation of this task.

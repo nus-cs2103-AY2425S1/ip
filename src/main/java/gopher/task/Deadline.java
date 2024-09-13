@@ -2,6 +2,7 @@ package gopher.task;
 
 import java.time.LocalDateTime;
 
+import gopher.exception.InvalidTokenException;
 import gopher.parser.Parser;
 
 /**
@@ -23,12 +24,15 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void update(String[] tokens) {
+    public void update(String[] tokens) throws InvalidTokenException {
         // Determine the position of /by token in update command tokens
+        // Check for any invalid tokens as well
         int byTokenIndex = -1;
         for (int i = 2; i < tokens.length; i++) {
             if (tokens[i].equalsIgnoreCase("/by")) {
                 byTokenIndex = i;
+            } else if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("deadline", tokens[i]);
             }
         }
 

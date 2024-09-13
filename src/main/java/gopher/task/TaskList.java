@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import gopher.exception.InvalidTokenException;
 import gopher.storage.TaskManager;
 
 /**
@@ -45,7 +46,8 @@ public class TaskList {
      * @param taskNumber number of the task to be updated
      * @param tokens tokens from the update command
      */
-    public void update(int taskNumber, String[] tokens) {
+    public void update(int taskNumber, String[] tokens)
+            throws InvalidTokenException {
         this.getTask(taskNumber).update(tokens);
         TaskManager.saveTasks(tasks);
     }

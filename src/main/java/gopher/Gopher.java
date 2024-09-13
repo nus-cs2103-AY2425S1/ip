@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.parser.Parser;
@@ -150,6 +151,8 @@ public class Gopher {
             return "Hi I have updated this task for you already!";
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
+        } catch (InvalidTokenException e) {
+            return e.getMessage();
         }
     }
 
