@@ -44,39 +44,50 @@ public class Storage {
                 String[] splitResponse = response.split(" ", 3);
                 if (splitResponse[1].equals("todo") || splitResponse[1].equals("event")
                         || splitResponse[1].equals("deadline")) {
-                    Task currentTask = null;
-                    String[] taskDetails;
-                    try {
-                        switch (splitResponse[1]) {
-                        case "todo":
-                            currentTask = new Todo(splitResponse[2]);
-                            break;
-                        case "event":
-                            taskDetails = splitResponse[2].split(" /from ");
-                            String[] taskTimings = taskDetails[1].split(" /to ");
-                            currentTask = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
-                            break;
-                        case "deadline":
-                            taskDetails = splitResponse[2].split(" /by ");
-                            currentTask = new Deadline(taskDetails[0], taskDetails[1]);
-                            break;
-                        default:
-                            throw new DukeException("Something went wrong with the file!");
-                        }
-                        if ("1".equals(splitResponse[0])) {
-                            currentTask.mark();
-                        }
-                        taskList.add(currentTask);
-                    } catch (DukeException e) {
-                        System.out.println("________________________________");
-                        System.out.println(e.getMessage() + "________________________________");
-                    }
+                    handleTaskLoad(splitResponse, taskList);
                 }
             }
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
         return taskList;
+    }
+
+    private static void handleTaskLoad(String[] splitResponse, ArrayList<Task> taskList) {
+        Task currentTask;
+        try {
+            switch (splitResponse[1]) {
+            case "todo":
+                currentTask = new Todo(splitResponse[2]);
+                break;
+            case "event":
+                currentTask = getEventTask(splitResponse);
+                break;
+            case "deadline":
+                currentTask = getDeadlineTask(splitResponse);
+                break;
+            default:
+                throw new DukeException("Something went wrong with the file!");
+            }
+            if ("1".equals(splitResponse[0])) {
+                currentTask.mark();
+            }
+            taskList.add(currentTask);
+        } catch (DukeException e) {
+            System.out.println("________________________________");
+            System.out.println(e.getMessage() + "________________________________");
+        }
+    }
+
+    private static Task getDeadlineTask(String[] splitResponse) {
+        String[] taskDetails = splitResponse[2].split(" /by ");
+        return new Deadline(taskDetails[0], taskDetails[1]);
+    }
+
+    private static Task getEventTask(String[] splitResponse) {
+        String[] taskDetails = splitResponse[2].split(" /from ");
+        String[] taskTimings = taskDetails[1].split(" /to ");
+        return new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
     }
 
     /**

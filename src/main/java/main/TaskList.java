@@ -64,15 +64,20 @@ public class TaskList {
             System.out.println("No such task found!");
             return "No such task found!";
         } else {
-            int counter = 1;
-            for (Task i : foundTask) {
-                String current = String.valueOf(counter) + ". " + i.getString();
-                System.out.println(current);
-                counter += 1;
-                output += current + "\n";
-            }
+            output = getListOutput(foundTask, output);
         }
         System.out.println("________________________________");
+        return output;
+    }
+
+    private static String getListOutput(ArrayList<Task> foundTask, String output) {
+        int index = 1;
+        for (Task i : foundTask) {
+            String current = String.valueOf(index) + ". " + i.getString();
+            System.out.println(current);
+            index += 1;
+            output += current + "\n";
+        }
         return output;
     }
 
@@ -123,12 +128,12 @@ public class TaskList {
             if (index < 0 || index >= taskList.size()) {
                 throw new DukeException("Invalid position!");
             }
-            Task curr = taskList.get(index);
-            if (curr.isDone()) {
+            Task currentTask = taskList.get(index);
+            if (currentTask.isDone()) {
                 throw new DukeException("It is already marked!");
             }
-            curr.mark();
-            return curr;
+            currentTask.mark();
+            return currentTask;
         } catch (DukeException e) {
             System.out.println("________________________________");
             System.out.println(e.getMessage() + "\n________________________________");
@@ -146,12 +151,12 @@ public class TaskList {
             if (index < 0 || index >= taskList.size()) {
                 throw new DukeException("Invalid position!");
             }
-            Task curr = taskList.get(index);
-            if (!curr.isDone()) {
+            Task currentTask = taskList.get(index);
+            if (!currentTask.isDone()) {
                 throw new DukeException("It is already unmarked!");
             }
-            curr.mark();
-            return curr;
+            currentTask.mark();
+            return currentTask;
         } catch (DukeException e) {
             System.out.println("________________________________");
             System.out.println(e.getMessage() + "\n________________________________");
