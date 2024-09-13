@@ -91,18 +91,17 @@ public class TaskList {
 
         if (taskIndex >= tasksSize || taskIndex < 0) {
             throw new InfinityException(BOT_INVALID_INDEX);
-        } else {
-            try {
-                Task removedTask = tasks.remove(taskIndex);
-                tasksSize--;
+        }
+        try {
+            Task removedTask = tasks.remove(taskIndex);
+            tasksSize--;
 
-                assert tasks.size() >= 0 : "Task size should be at least 0";
+            assert tasks.size() >= 0 : "Task size should be at least 0";
 
-                return String.format(
-                        "I've removed task %d:\n%s\n", taskIndex + 1, removedTask.toString());
-            } catch (IndexOutOfBoundsException e) {
-                throw new InfinityException(BOT_INVALID_INDEX);
-            }
+            return String.format(
+                    "I've removed task %d:\n%s\n", taskIndex + 1, removedTask.toString());
+        } catch (IndexOutOfBoundsException e) {
+            throw new InfinityException(BOT_INVALID_INDEX);
         }
     }
 
