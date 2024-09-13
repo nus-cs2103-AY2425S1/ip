@@ -9,7 +9,8 @@ import denim.storage.WriteTaskFile;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
-    public static final String USAGE = "find <taskDescription>";
+    public static final String COMMAND_USAGE = "find <taskDescription>";
+    public static final String COMMAND_EXAMPLE = "find homework";
 
     private String[] keywords;
 

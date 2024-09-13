@@ -13,6 +13,7 @@ public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
     public static final String COMMAND_USAGE = "todo <taskDescription>";
+    public static final String COMMAND_EXAMPLE = "todo clean windows";
     private Task todoTask;
 
     public TodoCommand(String taskDescription) {

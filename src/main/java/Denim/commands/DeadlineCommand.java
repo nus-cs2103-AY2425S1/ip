@@ -14,6 +14,7 @@ import denim.tasks.Task;
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     public static final String COMMAND_USAGE = "deadline <task> /by <date>\nWhere date is in dd/MM/yyyy HHmm";
+    public static final String COMMAND_EXAMPLE = "deadline homework 5 /by 21/12/2002";
     private final Task deadlineTask;
 
     public DeadlineCommand(String taskDescription, LocalDateTime deadline) {
