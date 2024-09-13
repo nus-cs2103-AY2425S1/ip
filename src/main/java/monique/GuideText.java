@@ -20,55 +20,58 @@ public class GuideText {
      *  <li>Exiting the application</li>
      * </ul>
      */
-    public static final String GUIDE = """
-            Here are the following commands:
-            1. **List Tasks**:
-               To list all current tasks, type:
-               "list"
-               This will display all tasks with their statuses.
 
-            2. **Mark/Unmark a Task**:
-               To mark a task as complete, type:
-               "mark {task_number}"
-               Example: "mark 1" marks task 1 as complete.
+    public static final String GUIDE =
+            "Here are the following commands:\n"
+            + "1. **List Tasks**:\n"
+            + "   To list all current tasks, type:\n"
+            + "   \"list\"\n"
+            + "   This will display all tasks with their statuses.\n\n"
 
-               To unmark a task as incomplete, type:
-               "unmark {task_number}"
-               Example: "unmark 2" marks task 2 as incomplete.
+            + "2. **Mark/Unmark a Task**:\n"
+            + "   To mark a task as complete, type:\n"
+            + "   \"mark {task_number}\"\n"
+            + "   Example: \"mark 1\" marks task 1 as complete.\n\n"
 
-               Note: Tasks are indexed from 1.
+            + "   To unmark a task as incomplete, type:\n"
+            + "   \"unmark {task_number}\"\n"
+            + "   Example: \"unmark 2\" marks task 2 as incomplete.\n\n"
 
-            3. **Add a Todo Task**:
-               To add a todo item, type:
-               "todo {description}"
-               Example: "todo read a book" adds "read a book" to your tasks.
+            + "   Note: Tasks are indexed from 1.\n\n"
 
-            4. **Add a Deadline Task**:
-               To add a deadline item, type:
-               "deadline {description} /by {date} {optional_time}"
-               Example: "deadline submit report /by 12-12-2024 1700" adds a task with a deadline of 12th 
-               December 2024, 5:00 PM.
+            + "3. **Add a Todo Task**:\n"
+            + "   To add a todo item, type:\n"
+            + "   \"todo {description}\"\n"
+            + "   Example: \"todo read a book\" adds \"read a book\" to your tasks.\n\n"
 
-               Valid date formats:
-               - Days of the week: "Monday" to "Sunday" or abbreviations "mon" to "sun"
-               - Date formats: "DD/MM/YYYY", "DD-MM-YYYY", or "tomorrow"
+            + "4. **Add a Deadline Task**:\n"
+            + "   To add a deadline item, type:\n"
+            + "   \"deadline {description} /by {date} {optional_time}\"\n"
+            + "   Example: \"deadline submit report /by 12-12-2024 1700\" adds a task with a deadline of 12th "
+            + "December 2024, 5:00 PM.\n\n"
 
-               Valid time formats:
-               - "HHmm" (24-hour format)
-               - "h:mmam" or "h:mmpm" (12-hour format with am/pm)
+            + "   Valid date formats:\n"
+            + "   - Days of the week: \"Monday\" to \"Sunday\" or abbreviations \"mon\" to \"sun\"\n"
+            + "   - Date formats: \"DD/MM/YYYY\", \"DD-MM-YYYY\", or \"tomorrow\"\n\n"
 
-            5. **Add an Event Task**:
-               To add an event item, type:
-               "event {description} /from {start_date} {start_time} /to {end_date} {end_time}"
-               Example: "event meeting /from tomorrow 1400 /to 12-12-2024 1700" schedules an event from tomorrow at 2:00 PM until 12th December 2024, 5:00 PM.
+            + "   Valid time formats:\n"
+            + "   - \"HHmm\" (24-hour format)\n"
+            + "   - \"h:mmam\" or \"h:mmpm\" (12-hour format with am/pm)\n\n"
 
-            6. **Delete a Task**:
-               To delete a task, type:
-               "delete {task_number}"
-               Example: "delete 3" deletes task number 3.
+            + "5. **Add an Event Task**:\n"
+            + "   To add an event item, type:\n"
+            + "   \"event {description} /from {start_date} {start_time} /to {end_date} {end_time}\"\n"
+            + "   Example: \"event meeting /from tomorrow 1400 /to 12-12-2024 1700\" schedules an event from tomorrow "
+            + "at 2:00 PM until 12th December 2024, 5:00 PM.\n\n"
 
-            7. **Exit the Application**:
-               To exit the application, type:
-               "bye"
-               This will save your progress and close the application.""";
+            + "6. **Delete a Task**:\n"
+            + "   To delete a task, type:\n"
+            + "   \"delete {task_number}\"\n"
+            + "   Example: \"delete 3\" deletes task number 3.\n\n"
+
+            + "7. **Exit the Application**:\n"
+            + "   To exit the application, type:\n"
+            + "   \"bye\"\n"
+            + "   This will save your progress and close the application.";
+
 }

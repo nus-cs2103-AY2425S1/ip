@@ -148,7 +148,7 @@ public class DateParser {
             }
         } else {
             throw new IllegalDateFormatException();
-        }; // No date or day string found
+        } // No date or day string found
         return null;
     }
 
