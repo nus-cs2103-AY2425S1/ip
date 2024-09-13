@@ -62,7 +62,7 @@ public class Ui {
                 + "! So, I guess as a friend I become your little slave!\n"
                 + "What do you want me to do?\n"
                 + "-------------------------------------------\n"
-                + "Please enter your commands correctly for Derek (he's a little slow):\n"
+                + "Please enter your commands correctly for Derek (he's a little slow):\n\n"
                 + "todo (task)\n"
                 + "event (task) /from (DD/MM/YYYY HH:MM) /to (DD/MM/YYYY HH:MM))\n"
                 + "deadline (task) /by (DD/MM/YYYY HH:MM)\n"
