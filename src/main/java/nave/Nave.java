@@ -76,10 +76,12 @@ public class Nave {
             break;
         case MARK:
             place = parser.parseMark(userInput);
+            assert place > 0 : "Tasks index should be a positive number";
             output = tasks.markItem(place);
             break;
         case UNMARK:
             place = parser.parseUnmark(userInput);
+            assert place > 0 : "Tasks index should be a positive number";
             output = tasks.unmarkItem(place);
             break;
         case TASK:
@@ -94,6 +96,7 @@ public class Nave {
             break;
         case DELETE:
             place = parser.parseDelete(userInput);
+            assert place > 0 : "Tasks index should be a positive number";
             storage.deleteFromFile(place); //Delete task from local file
             output = tasks.deleteItem(place);
             break;
