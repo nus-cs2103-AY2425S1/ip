@@ -57,7 +57,7 @@ public abstract class Task {
     public abstract void setDate(LocalDate updatedDate);
 
     /**
-     * Sets the time of the task.
+     * Sets the time of the task
      *
      * @param updatedDeadlineTime the new time to be assigned to the task.
      */
