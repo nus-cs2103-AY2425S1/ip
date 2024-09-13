@@ -3,14 +3,25 @@ package tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to store TaskList
+ */
 public class TaskList {
 
     private List<Task> list;
 
+    /**
+     * Initialise tasklist with local data.
+     *
+     * @param loadedData List of tasks to store into tasklist.
+     */
     public TaskList(List<Task> loadedData) {
         this.list = loadedData;
     }
 
+    /**
+     * Initialise empty tasklist.
+     */
     public TaskList() {
         this.list = new ArrayList<>();
     }
@@ -87,6 +98,12 @@ public class TaskList {
         return this.list;
     }
 
+    /**
+     * Filter tasklist by keyword.
+     *
+     * @param word Keyword to filter by.
+     * @return Filtered list.
+     */
     public List<Task> filterByWord(String word) {
         return this.list.stream().filter(task -> task.containsWord(word)).toList();
     }
