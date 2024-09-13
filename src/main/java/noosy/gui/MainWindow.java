@@ -49,6 +49,10 @@ public class MainWindow extends AnchorPane {
      */
     public void setNoosy(Noosy n) {
         noosy = n;
+        String welcome = noosy.getWelcome();
+//        dialogContainer.getChildren().add(
+//                DialogBox.getNoosyDialog(welcome, noosyImage, );
+//        )
     }
 
     /**
