@@ -32,6 +32,7 @@ public class AddCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {
+        assert taskMessage != null : "task message cannot be null";
         String taskType = Parser.splitTaskInfo(taskMessage)[0].trim();
         if (taskType.equalsIgnoreCase("todo")) {
             try {
@@ -99,6 +100,7 @@ public class AddCommand extends Command{
      */
     @Override
     public String executeAndRespond(TaskList tasks, Storage storage) {
+        assert taskMessage != null : "task message cannot be null";
         String taskType = Parser.splitTaskInfo(taskMessage)[0].trim();
         String response;
         if (taskType.equalsIgnoreCase("todo")) {
