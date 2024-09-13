@@ -27,9 +27,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image reminderebotImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initial message for Reminderebot GUI.
+     */
     @FXML
     public void initialize() {
-        String greeting = " Hello! I'm [" + "Reminderebot" + "]\n" + " What can I do for you?";
+        String greeting = " Hello! I'm ***" + "Reminderebot" + "***\n" + " What can I do for you?";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
                 DialogBox.getReminderebotDialog(greeting, reminderebotImage)
