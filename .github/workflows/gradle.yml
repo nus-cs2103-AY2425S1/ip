@@ -37,9 +37,13 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
 
-      - name: List running processes
-        if: always()
+      - name: List running processes (Unix)
+        if: runner.os != 'Windows'
         run: ps aux
+
+      - name: List running processes (Windows)
+        if: runner.os == 'Windows'
+        run: Get-Process | Select-Object Id, ProcessName, CPU
 
       - name: Upload test results
         if: always()
