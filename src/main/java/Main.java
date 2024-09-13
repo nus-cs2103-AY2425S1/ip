@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private ChatgptMoreOOP chatgptMoreOOP = new ChatgptMoreOOP();
-
     @Override
     public void start(Stage stage) {
         try {
