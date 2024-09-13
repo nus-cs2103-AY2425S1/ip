@@ -35,7 +35,17 @@
 }
 
 #dialog {
-    -fx-background-color: #c8e0ff;
     -fx-padding: 12px;
-    -fx-background-radius: 8px;
+}
+
+.user-dialog {
+    -fx-background-color: #f6d9be;
+    -fx-background-radius: 10px 10px 0 10px;
+    -fx-border-radius: 10px 10px 0 10px;
+}
+
+.thanos-dialog {
+    -fx-background-color: #c8e0ff;
+    -fx-background-radius: 10px 10px 10px 0;
+    -fx-border-radius: 10px 10px 10px 0;
 }
