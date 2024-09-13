@@ -3,6 +3,7 @@ package Kira;
 import Exceptions.EmptyException;
 import Exceptions.InvalidTaskException;
 import Exceptions.UnreadableException;
+import Tasks.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class ParserTest {
-    Parser parser = new Parser(new KiraStub());
+    Parser parser = new Parser(new List());
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
