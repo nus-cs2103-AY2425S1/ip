@@ -31,6 +31,7 @@ public class Storage {
 
     /**
      * Reads the file and lists out their items
+     *
      * @param path to the file to be read
      * @return a String representation of the item
      * @throws IOException if there is an error reading the file

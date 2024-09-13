@@ -8,6 +8,7 @@ package sigma;
 public class Ui {
     /**
      * Greets the user upon running the program
+     *
      * @return The welcome message
      */
     public String welcome() {
