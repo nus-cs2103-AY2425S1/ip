@@ -132,10 +132,12 @@ public class Storage {
     }
 
     public TaskList getTaskList() {
+        assert taskList != null : "TaskList should not be null when accessed";
         return this.taskList;
     }
 
     public int getTaskListSize() {
+        assert this.taskList.size() >= 0 : "TaskList size should not be negative";
         return this.taskList.size();
     }
 
