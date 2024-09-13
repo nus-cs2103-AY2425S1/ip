@@ -34,15 +34,11 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {
         if (this.getArgument().isEmpty()) {
-            throw new InvalidCommandException(
-                    "No task index provided. Please use the correct format: 'mark [task index]'"
-            );
+            throw new InvalidCommandException("No task index provided.");
         }
 
         if (this.getArgument().split(" ").length != 1) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please use the correct format: 'mark [task index]'"
-            );
+            throw new InvalidCommandException("Invalid input format.");
         }
 
         try {

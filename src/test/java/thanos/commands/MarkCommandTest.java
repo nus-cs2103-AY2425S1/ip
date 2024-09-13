@@ -27,8 +27,7 @@ public class MarkCommandTest {
                 InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
-        assertEquals("No task index provided. Please use the correct format: 'mark [task index]'",
-                exception.getMessage());
+        assertEquals("No task index provided.", exception.getMessage());
     }
 
     @Test
@@ -39,8 +38,7 @@ public class MarkCommandTest {
                 InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
-        assertEquals("Invalid input format. Please use the correct format: 'mark [task index]'",
-                exception.getMessage());
+        assertEquals("Invalid input format.", exception.getMessage());
     }
 
     @Test
@@ -49,10 +47,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("1");
         command.execute(taskList);
 
-        assertEquals(
-                "[T][X] read book",
-                taskList.getTaskList().get(0).toString()
-        );
+        assertEquals("[T][X] read book", taskList.getTaskList().get(0).toString());
     }
 
     @Test

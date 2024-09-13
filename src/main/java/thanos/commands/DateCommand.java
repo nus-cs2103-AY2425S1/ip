@@ -43,9 +43,7 @@ public class DateCommand extends Command {
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {
         if (this.getArgument().isEmpty()) {
-            throw new InvalidCommandException(
-                    "No date provided. Please use the correct format: 'date [date_to_search]'"
-            );
+            throw new InvalidCommandException("No date provided.");
         }
 
         try {

@@ -28,8 +28,7 @@ public class DeadlineCommandTest {
                 InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
-        assertEquals("Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'",
-                exception.getMessage());
+        assertEquals("Invalid input format.", exception.getMessage());
     }
 
     @Test
@@ -40,8 +39,7 @@ public class DeadlineCommandTest {
                 InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
-        assertEquals("Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'",
-                exception.getMessage());
+        assertEquals("Invalid input format.", exception.getMessage());
     }
 
     @Test
@@ -52,8 +50,7 @@ public class DeadlineCommandTest {
                 InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
-        assertEquals("Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'",
-                exception.getMessage());
+        assertEquals("Invalid input format.", exception.getMessage());
     }
 
     @Test
@@ -66,13 +63,12 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void execute_invalidDateFormat_addTaskFailed() throws InvalidCommandException {
+    public void execute_invalidDateFormat_addTaskFailed() {
         DeadlineCommand command = new DeadlineCommand("finish assignment /by invalid-date");
         InvalidCommandException exception = assertThrows(
                 InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
-        assertEquals("Invalid datetime format: invalid-date",
-                exception.getMessage());
+        assertEquals("Invalid datetime format: invalid-date", exception.getMessage());
     }
 }

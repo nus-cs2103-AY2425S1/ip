@@ -28,8 +28,7 @@ public class TodoCommandTest {
                 InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
-        assertEquals("No task description provided. Please use the correct format: 'todo [task]'",
-                exception.getMessage());
+        assertEquals("No task description provided.", exception.getMessage());
     }
 
     @Test

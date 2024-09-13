@@ -36,9 +36,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {
         if (this.getArgument().isEmpty()) {
-            throw new InvalidCommandException(
-                    "No keyword provided. Please use the correct format: 'find [keyword]'"
-            );
+            throw new InvalidCommandException("No keyword provided.");
         }
 
         ArrayList<Task> result = taskList.find(this.getArgument());

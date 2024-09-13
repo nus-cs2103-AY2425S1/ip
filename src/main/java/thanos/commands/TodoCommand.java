@@ -35,9 +35,7 @@ public class TodoCommand extends Command {
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {
         if (this.getArgument().isEmpty()) {
-            throw new InvalidCommandException(
-                    "No task description provided. Please use the correct format: 'todo [task]'"
-            );
+            throw new InvalidCommandException("No task description provided.");
         }
 
         Todo todo = new Todo(this.getArgument());

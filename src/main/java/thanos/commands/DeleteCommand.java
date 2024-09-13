@@ -44,10 +44,7 @@ public class DeleteCommand extends Command {
         ArrayList<Integer> indices = getTaskIndices();
         indices.sort(Collections.reverseOrder());
 
-        ArrayList<Task> deletedTasks = new ArrayList<>();
-        for (int index : indices) {
-            deletedTasks.add(deleteTask(index, taskList));
-        }
+        ArrayList<Task> deletedTasks = deleteTasks(taskList, indices);
 
         String response = generateTaskListResponse("Noted. I've removed these task(s):",
                 deletedTasks.toArray(new Task[0]));
@@ -62,9 +59,7 @@ public class DeleteCommand extends Command {
      */
     private ArrayList<Integer> getTaskIndices() throws InvalidCommandException {
         if (this.getArgument().isEmpty()) {
-            throw new InvalidCommandException(
-                    "No task index provided. Please use the correct format: 'delete [task index]'"
-            );
+            throw new InvalidCommandException("No task index provided.");
         }
 
         String[] parts = this.getArgument().split(" ");
@@ -99,5 +94,21 @@ public class DeleteCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is out of range.");
         }
+    }
+
+    /**
+     * Deletes multiple tasks from the {@code TaskList} based on the provided indices.
+     *
+     * @param taskList the list of tasks from which the tasks will be removed.
+     * @param indices a list of indices specifying which tasks to remove from the {@code TaskList}.
+     * @return an {@code ArrayList<Task>} containing the tasks that were removed from the {@code TaskList}.
+     * @throws InvalidCommandException if any of the provided indices are invalid or out of range
+     */
+    private ArrayList<Task> deleteTasks(TaskList taskList, ArrayList<Integer> indices) throws InvalidCommandException {
+        ArrayList<Task> deletedTasks = new ArrayList<>();
+        for (int index : indices) {
+            deletedTasks.add(deleteTask(index, taskList));
+        }
+        return deletedTasks;
     }
 }
