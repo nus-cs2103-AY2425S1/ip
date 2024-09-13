@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import javafx.util.Pair;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 
@@ -15,7 +16,7 @@ import yappingbot.exceptions.YappingBotIncorrectCommandException;
  * @param <A> Enum defining the valid Arguments.
  */
 abstract class CommandBase<A extends Enum<A>> {
-    HashMap<A, String[]> arguments = new HashMap<>();
+    HashMap<A, String> arguments = new HashMap<>();
     A firstArg;
 
     /**
@@ -33,19 +34,21 @@ abstract class CommandBase<A extends Enum<A>> {
      * Constructs Command object with arguments to prepare for execution.
      *
      * @param firstArg String of the first argument passed in that is not demacated by flags.
-     * @param flattenedFlaggedArguments a flat String array that is ordered with all given
+     * @param argPairs array of String-String Pairs that is ordered with all given
      *                                  argument flags followed by argument values.
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public CommandBase(String firstArg, ArrayList<String[]> flattenedFlaggedArguments)
+    public CommandBase(String firstArg, Pair<String, String> ... argPairs)
     throws YappingBotIncorrectCommandException {
         try {
             this.firstArg = getArgTypeFromString(firstArg);
-            for (String[] argValues : flattenedFlaggedArguments) {
-                A argFlag = getArgTypeFromString(argValues[0]);
-                arguments.put(argFlag, Arrays.copyOfRange(argValues, 1, argValues.length));
+
+            for (Pair<String, String> argPair : argPairs) {
+                A argFlag = getArgTypeFromString(argPair.getKey());
+                arguments.put(argFlag, argPair.getValue());
             }
+
         } catch (Exception e) {
             throw new YappingBotIncorrectCommandException(getHelpText(), e.getMessage());
         }
