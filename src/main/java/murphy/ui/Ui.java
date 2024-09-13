@@ -1,36 +1,39 @@
 package murphy.ui;
 
-import java.util.Scanner;
+import java.io.IOException;
 
-public class Ui {
-    private Scanner scanner;
-    public Ui() {
-        scanner = new Scanner(System.in);
-        showLine();
-        System.out.println("Hello! I'm Murphy");
-        System.out.println("What can I do for you?");
-        showLine();
-    }
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-    public String getInput() {
-        return scanner.nextLine();
+import murphy.Murphy;
+
+
+public class Ui extends Application {
+    private Murphy murphy = new Murphy("./data/murphy.txt", this);
+    private FXMLLoader fxmlLoader;
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setMurphy(murphy);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showText(String text) {
-        System.out.println(text);
-        System.out.println("____________________");
+        fxmlLoader.<MainWindow>getController().showText(text);
     }
 
-    public void showError(String text) {
-        System.out.printf("ERROR: %s\n", text);
-        System.out.println("____________________");
-    }
-
-    private void showLine() {
-        System.out.println("____________________");
-    }
-
-    public void closeScanner() {
-        scanner.close();
+    public void showError(String error) {
+        fxmlLoader.<MainWindow>getController().showError(error);
     }
 }
