@@ -23,12 +23,16 @@ public class TaskList {
     }
 
     public void deleteTask(int id) {
+        Integer size = tasks.size();
         if (id < 0 || id >= this.tasks.size()) {
             System.out.println("Task ID is out of range!");
             return;
         }
 
         Task removedTask = this.tasks.remove(id); // Removes the task and captures it for confirmation message
+
+        assert(tasks.size() == size - 1);
+
         System.out.println("Noted. I've removed this task:\n  " + removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -42,10 +46,14 @@ public class TaskList {
 
     void markTask(int id) {
         tasks.get(id).markDone();
+        assert(tasks.get(id).getStatusIcon() == "[X]");
+
         System.out.println("Nice! I've marked this task as done:");
     }
     void unmarkTask(int id) {
         tasks.get(id).unmarkDone();
+        assert(tasks.get(id).getStatusIcon() == "[ ]");
+
         System.out.println("OK, I've marked this task as not done yet:");
     }
 
