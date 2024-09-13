@@ -2,6 +2,8 @@ package bill;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The TaskList class allows for initialising and storing and modifying the lists of tasks during the program's run.
@@ -83,16 +85,18 @@ public class TaskList {
 
     private String concatenateFilterListMessage(String keyWord, StringBuilder sb) {
         sb.append("Here are the matching tasks in your list:\n");
-        boolean hasNoMatch = true;
-        for (int i = 0; i < userList.size(); i++) {
-            if (userList.get(i).getDescription().contains(keyWord)) {
-                sb.append(i + 1).append(". ").append(userList.get(i)).append("\n");
-                hasNoMatch = false;
-            }
-        }
-        if (hasNoMatch) {
+
+        List<String> matchingTasks = userList.stream()
+                .filter(task -> task.getDescription().contains(keyWord))
+                .map(task -> (userList.indexOf(task) + 1) + ". " + task + "\n")
+                .collect(Collectors.toList());
+
+        if (matchingTasks.isEmpty()) {
             sb.append("There are no matching tasks in your list currently matching the keyword ").append(keyWord);
+        } else {
+            matchingTasks.forEach(sb::append);
         }
+
         return sb.toString();
     }
 
