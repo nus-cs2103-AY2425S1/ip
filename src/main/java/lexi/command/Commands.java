@@ -13,7 +13,8 @@ public enum Commands {
     DELETE("Deletes a task."),
     LIST("Lists all tasks."),
     FIND("Finds all related tasks"),
-    BYE("Exits the application.");
+    BYE("Exits the application."),
+    UPDATE("Updates a task");
 
     private final String description;
 

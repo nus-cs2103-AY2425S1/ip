@@ -59,6 +59,7 @@ public class Lexi {
             c.execute(tasks, ui, storage);
             return c.getString();
         } catch (LexiException e) {
+            this.commandType = "Error";
             return ui.showError(e.getMessage());
         }
     }

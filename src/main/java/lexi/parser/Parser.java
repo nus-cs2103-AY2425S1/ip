@@ -13,6 +13,7 @@ import lexi.command.DeleteCommand;
 import lexi.command.FindCommand;
 import lexi.command.ListCommand;
 import lexi.command.MarkCommand;
+import lexi.command.UpdateCommand;
 import lexi.exception.LexiException;
 import lexi.task.Deadline;
 import lexi.task.Event;
@@ -42,7 +43,6 @@ public class Parser {
 
             String[] parts = response.split(" ");
             assert parts.length > 0 : "Command must have at least one part";
-
             Commands command = Commands.valueOf(parts[0].toUpperCase());
             return switch (command) {
             case MARK, UNMARK -> handleMark(parts);
@@ -53,11 +53,28 @@ public class Parser {
             case LIST -> listTasks();
             case FIND -> handleFind(parts);
             case BYE -> handleBye();
+            case UPDATE -> handleUpdate(response);
             };
         } catch (IllegalArgumentException e) {
             throw new LexiException("Please enter one of the following commands:\n" + Commands.printCommands());
         }
     }
+
+    private static Command handleUpdate(String response) throws LexiException {
+        String[] parts = response.split(" ");
+        if (parts.length < 3) {
+            throw new LexiException("Please enter in this format:\n\"update <task number> <task>\"");
+        }
+        String newCommand = parts[2];
+        int updateTaskNumber = Integer.parseInt(parts[1]) - 1;
+        if (!(newCommand.equalsIgnoreCase(Commands.TODO.name()))
+                && !(newCommand.equalsIgnoreCase(Commands.DEADLINE.name()))
+                && !(newCommand.equalsIgnoreCase(Commands.EVENT.name()))) {
+            throw new LexiException("Updated task should only be TODO, DEADLINE or EVENT type");
+        }
+        return new UpdateCommand(response.substring(8).trim(), updateTaskNumber);
+    }
+
     private static FindCommand handleFind(String[] parts) throws LexiException {
         assert parts != null && parts.length > 1 : "Find command must have a query part";
         String query = Arrays.stream(parts).skip(1).findFirst().orElseThrow(() ->
