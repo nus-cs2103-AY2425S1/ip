@@ -9,8 +9,21 @@ import tasks.Event;
 import tasks.TaskList;
 import tasks.Todo;
 
+/**
+ * Class for Parser to parse user input.
+ */
+
 public class Parser {
 
+    /**
+     * Responds according to user input and return a bot response.
+     *
+     * @param response User response.
+     * @param taskList Tasklist to store tasks.
+     * @return Bot response.
+     * @throws InvalidCommandException If invalid command is given.
+     * @throws InvalidNumberException If invalid number is given.
+     */
     public static String answer(String response, TaskList taskList)
             throws InvalidCommandException, InvalidNumberException {
         String command = response.contains(" ")
@@ -65,6 +78,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a help list.
+     *
+     * @return a string of available commands.
+     */
     public static String showCommands() {
         return "todo {taskName}: add a new Todo\n"
                 + "deadline {taskName} /by {deadline}: add a new Deadline\n"
