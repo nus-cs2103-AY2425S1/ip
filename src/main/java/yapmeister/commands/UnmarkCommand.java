@@ -24,9 +24,9 @@ public class UnmarkCommand implements Command {
         if (index >= tasks.getSize() || index < 0) {
             throw new InvalidMarkException("No task at that index");
         }
-        tasks.get(index).setCompleted(false);
+        tasks.getTask(index).setCompleted(false);
         ui.displayString("You did this:");
-        ui.displayString(tasks.get(index).toString());
+        ui.displayString(tasks.getTask(index).toString());
     }
 
     @Override

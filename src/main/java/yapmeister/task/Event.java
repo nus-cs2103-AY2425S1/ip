@@ -11,8 +11,6 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     private final String from;
     private final String to;
-    private final LocalDate fromDate;
-    private final LocalDate toDate;
 
     /**
      * Creates a Deadline Task
@@ -30,7 +28,6 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             f = from;
         }
-        this.fromDate = fD;
         this.from = f;
         String t;
         LocalDate tD = null;
@@ -40,7 +37,6 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             t = to;
         }
-        this.toDate = tD;
         this.to = t;
     }
 
