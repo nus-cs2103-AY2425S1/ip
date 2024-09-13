@@ -26,6 +26,7 @@ public class Friday {
     public Friday(String filePath) {
         this.storage = new Storage(filePath);
         this.master = new TaskList(this.storage.initList());
+        assert this.master.getSize() >= 0 : "Invalid list size";
         this.ui = new UI();
     }
 

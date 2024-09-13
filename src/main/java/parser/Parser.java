@@ -4,6 +4,7 @@ import commands.AddCommand;
 import commands.ByeCommand;
 import commands.Command;
 import commands.ExitCommand;
+import commands.FindCommand;
 import commands.HelpCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
@@ -45,6 +46,12 @@ public class Parser {
         case "mark", "unmark" -> {
             if (parsed.length > 1) {
                 yield new MarkCommand(parsed[0], parsed[1]);
+            }
+            yield new InvalidCommand(parsed[0]);
+        }
+        case "find" -> {
+            if (parsed.length > 1 && !parsed[1].trim().isEmpty()) {
+                yield new FindCommand(parsed[1]);
             }
             yield new InvalidCommand(parsed[0]);
         }
