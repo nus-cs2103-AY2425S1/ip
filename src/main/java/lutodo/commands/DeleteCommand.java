@@ -14,6 +14,45 @@ public class DeleteCommand extends Command{
     private int index = -1;
     private String fullCommand;
 
+    private void manageIndex() {
+        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
+            System.out.println("You are not telling me which task should I delete :-(");
+            return;
+        }
+        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
+    }
+
+    private String manageIndexAndReturn() {
+        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
+            return "You are not telling me which task should I mark/unmark :-(";
+        }
+        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
+        return "";
+    }
+
+    private void deleteAndPrint(TaskList tasks, Storage storage) {
+        try {
+            System.out.println("Noted. I've removed this task:\n" + tasks.get(index)
+                    + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
+            tasks.deleteTask(index);
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("The task you want to delete is not in task list, please try again.");
+        }
+        storage.save(tasks);
+    }
+
+    private String deleteAndReturn(TaskList tasks, Storage storage) {
+        try {
+            Task removedTask = tasks.get(index);
+            tasks.deleteTask(index);
+            storage.save(tasks);
+            return "Noted. I've removed this task:\n" + removedTask
+                    + "\nNow you have " + tasks.size() + " tasks in the list.";
+        } catch(IndexOutOfBoundsException e) {
+            return "The task you want to delete is not in task list, please try again.";
+        }
+    }
+
     /**
      * Constructs a DeleteCommand object with the index of the task to be deleted.
      *
@@ -32,18 +71,8 @@ public class DeleteCommand extends Command{
     @Override
     public void execute(TaskList tasks, Storage storage) {
         assert fullCommand != null : "task message cannot be null";
-        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
-            System.out.println("You are not telling me which task should I delete :-(");
-        }
-        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
-        try {
-            System.out.println("Noted. I've removed this task:\n" + tasks.get(index)
-                    + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
-            tasks.deleteTask(index);
-        } catch(IndexOutOfBoundsException e) {
-            System.out.println("The task you want to delete is not in task list, please try again.");
-        }
-        storage.save(tasks);
+        manageIndex();
+        deleteAndPrint(tasks, storage);
     }
 
     /**
@@ -55,18 +84,10 @@ public class DeleteCommand extends Command{
     @Override
     public String executeAndRespond(TaskList tasks, Storage storage) {
         assert fullCommand != null : "task message cannot be null";
-        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
-            return  "You are not telling me which task should I delete :-(";
-        }
-        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
-        try {
-            Task removedTask = tasks.get(index);
-            tasks.deleteTask(index);
-            storage.save(tasks);
-            return "Noted. I've removed this task:\n" + removedTask
-                    + "\nNow you have " + tasks.size() + " tasks in the list.";
-        } catch(IndexOutOfBoundsException e) {
-            return "The task you want to delete is not in task list, please try again.";
+        if (!manageIndexAndReturn().isEmpty()) {
+            return manageIndexAndReturn();
+        } else {
+            return deleteAndReturn(tasks, storage);
         }
     }
 

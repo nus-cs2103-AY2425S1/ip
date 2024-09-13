@@ -14,6 +14,49 @@ public class FindCommand extends Command{
     private String fullCommand;
     private String toSearch;
 
+    private void manageToSearch() {
+        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
+            System.out.println("You are not telling me which key should I search for :-(");
+            return;
+        }
+        toSearch = Parser.splitTaskInfo(fullCommand)[1];
+    }
+
+    private String manageToSearchAndReturn() {
+        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
+            return "You are not telling me which task should I search for :-(.";
+        }
+        toSearch = Parser.splitTaskInfo(fullCommand)[1];
+        return "";
+    }
+
+    private void searchAndPrint(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("You don't have any task now :-)");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(toSearch)) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
+    }
+
+    private String searchAndReturn(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            return "You don't have any task now :-)";
+        } else {
+            String response = "Here are the matching tasks in your list:";
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).getDescription().contains(toSearch)) {
+                    response = response + "\n" + (i + 1) + "." + tasks.get(i);
+                }
+            }
+            return response;
+        }
+    }
+
     /**
      * Constructs a FindCommand object with the key word to search for.
      *
@@ -32,21 +75,8 @@ public class FindCommand extends Command{
     @Override
     public void execute(TaskList tasks, Storage storage) {
         assert fullCommand != null : "task message cannot be null";
-        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
-            System.out.println("You are not telling me which key should I search for :-(");
-        }
-        toSearch = Parser.splitTaskInfo(fullCommand)[1];
-        assert toSearch != null : "search key cannot be null";
-        if (tasks.isEmpty()) {
-            System.out.println("You don't have any task now :-)");
-            return;
-        }
-        System.out.println("Here are the matching tasks in your list:");
-        for (int i = 1; i <= tasks.size(); i++) {
-            if (tasks.get(i - 1).getDescription().contains(toSearch)) {
-                System.out.println(i + "." + tasks.get(i - 1));
-            }
-        }
+        manageToSearch();
+        searchAndPrint(tasks);
     }
 
     /**
@@ -58,19 +88,10 @@ public class FindCommand extends Command{
     @Override
     public String executeAndRespond(TaskList tasks, Storage storage) {
         assert fullCommand != null : "task message cannot be null";
-        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
-            return "You are not telling me which task should I search for :-(.";
-        }
-        if (tasks.isEmpty()) {
-            return "You don't have any task now :-)";
+        if (!manageToSearchAndReturn().isEmpty()) {
+            return manageToSearchAndReturn();
         } else {
-            String response = "Here are the matching tasks in your list:";
-            for (int i = 1; i <= tasks.size(); i++) {
-                if (tasks.get(i - 1).getDescription().contains(toSearch)) {
-                    response = response + "\n" + i + "." + tasks.get(i - 1);
-                }
-            }
-            return response;
+            return searchAndReturn(tasks);
         }
 
     }
