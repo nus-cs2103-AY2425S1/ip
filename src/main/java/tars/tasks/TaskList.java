@@ -56,6 +56,8 @@ public class TaskList {
         String[] taskInfo = input.split(" ", 2);
         Task t;
 
+        assert taskInfo.length > 1;
+
         String taskType = taskInfo[0];
 
         if (taskType.contains("todo")) {
@@ -76,6 +78,7 @@ public class TaskList {
                     "Try using words in my vocabulary next time");
         }
 
+        assert t != null;
         return t;
     }
 

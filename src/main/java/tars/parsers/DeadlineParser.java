@@ -43,6 +43,7 @@ public class DeadlineParser extends Parser {
 
         LocalDate deadlineDate = validateCommand(date);
 
+        assert date != null;
 
         return new Deadline(name, deadlineDate);
     }
