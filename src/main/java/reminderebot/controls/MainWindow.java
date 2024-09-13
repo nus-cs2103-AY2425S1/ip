@@ -38,6 +38,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Reminderebot instance */
     public void setReminderebot(Reminderebot reminderebot) {
+        assert reminderebot != null;
         this.reminderebot = reminderebot;
     }
 
@@ -48,6 +49,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null;
         String response = reminderebot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
