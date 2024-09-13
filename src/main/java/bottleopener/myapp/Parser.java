@@ -29,7 +29,6 @@ public class Parser {
     public Parser(String userInput, Tasklist tasklist, Ui ui) {
         assert !userInput.trim().isEmpty() : "Input cannot be empty";
         assert tasklist != null : "Tasklist cannot be null";
-        assert ui != null : "Ui cannot be null";
 
         this.isExitCalled = false;
         this.userInput = userInput.split(" ", 2);
