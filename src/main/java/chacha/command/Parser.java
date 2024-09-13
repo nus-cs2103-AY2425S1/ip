@@ -33,47 +33,33 @@ public class Parser {
     /**
      * Returns the string representation of response to the user input.
      *
+     * @param userInput User input.
+     *
      * @return String representation.
      */
     public String parseCommand(String userInput) {
-        if (userInput.equals("")) {
-            return new ErrorCommand(chacha).execute(userInput, storage, ui, tasks);
+        String alteredInput = userInput.toLowerCase();
+        if (alteredInput.isEmpty()) {
+            return new ErrorCommand(chacha).execute(alteredInput, storage, ui, tasks);
         }
 
-        assert !userInput.isEmpty() : "user input should not be empty";
+        assert !alteredInput.isEmpty() : "user input should not be empty";
 
-        String command = userInput.split(" ")[0];
+        String command = alteredInput.split(" ")[0];
         assert command != null : "command should not be null";
 
-        if (command.equals("bye")) {
-            return new ByeCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else if (command.equals("list")) {
-            return new ListCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else if (command.equals("todo")) {
-            return new ToDoCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else if (command.equals("deadline")) {
-            return new DeadlineCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else if (command.equals("event")) {
-            return new EventCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else if (command.equals("mark")) {
-            return new MarkCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else if (command.equals("unmark")) {
-            return new UnmarkCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else if (command.equals("delete")) {
-            return new DeleteCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else if (command.equals("find")) {
-            return new FindCommand(chacha).execute(userInput, storage, ui, tasks);
-
-        } else {
-            return new ErrorCommand(chacha).execute(userInput, storage, ui, tasks);
-        }
+        return switch (command) {
+        case "bye" -> new ByeCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "list" -> new ListCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "todo" -> new ToDoCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "deadline" -> new DeadlineCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "event" -> new EventCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "mark" -> new MarkCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "unmark" -> new UnmarkCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "delete" -> new DeleteCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "find" -> new FindCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        case "help" -> new HelpCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        default -> new ErrorCommand(chacha).execute(alteredInput, storage, ui, tasks);
+        };
     }
 }
