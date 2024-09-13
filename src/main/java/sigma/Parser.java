@@ -175,16 +175,21 @@ public class Parser {
                 }
             }
             if (!matchingTasks.isEmpty()) {
-                String begin = "Here are the matching tasks in your list:\n";
-                String matching = "";
-                String end = "No remaining matching tasks found.";
+//                String begin = "Here are the matching tasks in your list:\n";
+//                String matching = "";
+//                String end = "\n No remaining matching tasks found.";
+//                for (int i = 0; i < matchingTasks.size(); i++) {
+//                    matching = (i + 1) + ". " + matchingTasks.get(i).toString();
+//                }
+//                return begin + matching + end;
+                StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
                 for (int i = 0; i < matchingTasks.size(); i++) {
-                    matching = (i + 1) + ". " + matchingTasks.get(i).toString();
+                    result.append((i + 1)).append(". ").append(matchingTasks.get(i).toString()).append("\n");
                 }
-                return begin + matching + end;
+                return result.toString();
             }
 
         }
-        return "No remaining matching tasks found.";
+        return "\n No remaining matching tasks found.";
     }
 }
