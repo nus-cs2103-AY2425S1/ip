@@ -39,7 +39,7 @@ public class TaskList {
         System.out.println("________________________________");
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
-            String display = String.valueOf(i + 1) + ". " + taskList.get(i).getString();
+            String display = (i + 1) + ". " + taskList.get(i).getString();
             System.out.println(display);
             output += display + "\n";
         }
@@ -66,7 +66,7 @@ public class TaskList {
         } else {
             int counter = 1;
             for (Task i : foundTask) {
-                String current = String.valueOf(counter) + ". " + i.getString();
+                String current = counter + ". " + i.getString();
                 System.out.println(current);
                 counter += 1;
                 output += current + "\n";
@@ -95,6 +95,7 @@ public class TaskList {
     public Task addEvent(String description) {
         String[] taskDetails = description.split(" /from ");
         String[] taskTimings = taskDetails[1].split(" /to ");
+        assert taskTimings.length == 2 : "Event should have a /to";
         Task current = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
         taskList.add(current);
         return current;
@@ -107,6 +108,7 @@ public class TaskList {
      */
     public Task addDeadline(String description) {
         String[] taskDetails = description.split(" /by ");
+        assert taskDetails.length == 2 : "Deadline should have a /by";
         Task current = new Deadline(taskDetails[0], taskDetails[1]);
         taskList.add(current);
         return current;
@@ -123,6 +125,7 @@ public class TaskList {
             if (index < 0 || index >= taskList.size()) {
                 throw new DukeException("Invalid position!");
             }
+            assert index >= 0 : "Index should be greater than 0";
             Task curr = taskList.get(index);
             if (curr.isDone()) {
                 throw new DukeException("It is already marked!");
@@ -142,6 +145,7 @@ public class TaskList {
      * @return the tasked that is marked to be displayed by UI class
      */
     public Task unmark(int index) {
+        assert index >= 0 : "Index should be greater than 0";
         try {
             if (index < 0 || index >= taskList.size()) {
                 throw new DukeException("Invalid position!");
@@ -165,6 +169,7 @@ public class TaskList {
      * @return the tasked that is deleted to be displayed by UI class
      */
     public Task delete(int index) {
+        assert index >= 0 : "Index should be greater than 0";
         try {
             if (index < 0 || index >= taskList.size()) {
                 throw new DukeException("Invalid position!");
