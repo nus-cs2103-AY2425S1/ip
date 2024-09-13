@@ -54,7 +54,6 @@ public class TaskList {
             final String DELIMITER = ",";
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                System.out.println("Potato");
                 String[] tokens = line.split(DELIMITER);
                 //To handle the different types of tasks separately.
                 switch (tokens[0]) {
@@ -80,7 +79,6 @@ public class TaskList {
                 try {
                     Files.createFile(FILE_PATH);
                 } catch (IOException e2) {
-                    System.out.println("Potato");
                     System.out.println("Oh no! I can't save your file.\n" +
                             "Check out the error message to see what went wrong\n");
                     e2.printStackTrace();
