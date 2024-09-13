@@ -32,6 +32,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setJard(Jard j) {
+        assert j != null : "Jard! Instance should not be null.";
         jard = j;
     }
 

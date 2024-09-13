@@ -53,6 +53,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getJardResponse(String text, Image img) {
+        assert text != null : "Jard! Text should not be null.";
+        assert img != null : "Jard! Image should not be null.";
         var db = new DialogBox(text, img);
         db.flip();
         return db;
