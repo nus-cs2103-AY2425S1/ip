@@ -1,7 +1,5 @@
 package astor.command;
 
-import java.util.List;
-
 import astor.Storage;
 import astor.TaskList;
 import astor.Ui;

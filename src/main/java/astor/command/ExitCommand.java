@@ -1,9 +1,10 @@
 package astor.command;
 
+import java.io.IOException;
+
 import astor.Storage;
 import astor.TaskList;
 import astor.Ui;
-import java.io.IOException;
 
 /**
  * Represents a command to exit the application.

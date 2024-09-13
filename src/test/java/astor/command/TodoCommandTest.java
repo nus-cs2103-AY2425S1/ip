@@ -1,19 +1,20 @@
 package astor.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import astor.Storage;
 import astor.TaskList;
 import astor.Ui;
 import astor.exception.EmptyTaskInfoException;
 import astor.task.Task;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TodoCommandTest {
 
@@ -144,3 +145,4 @@ public class TodoCommandTest {
     }
 
 }
+

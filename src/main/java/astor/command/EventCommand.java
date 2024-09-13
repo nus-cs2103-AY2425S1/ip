@@ -1,5 +1,7 @@
 package astor.command;
 
+import java.io.IOException;
+
 import astor.Storage;
 import astor.TaskList;
 import astor.Ui;
@@ -8,8 +10,6 @@ import astor.exception.EmptyTaskInfoException;
 import astor.exception.EmptyTimeException;
 import astor.task.Event;
 import astor.task.Task;
-
-import java.io.IOException;
 
 /**
  * Represents a command to create an Event task.
@@ -42,8 +42,8 @@ public class EventCommand extends Command {
             }
             Task task = new Event(stringArr[0].trim(), stringArr2[0].trim(), stringArr2[1].trim());
             String s3 = taskList.addTask(task, storage);
-            String output = "Got it. I've added this astor.task:\n  " +
-                    s3 + "\nNow you have " + taskList.size() + " tasks in the list.";
+            String output = "Got it. I've added this astor.task:\n  "
+                    + s3 + "\nNow you have " + taskList.size() + " tasks in the list.";
             ui.showOutput(output);
             return output;
         }
