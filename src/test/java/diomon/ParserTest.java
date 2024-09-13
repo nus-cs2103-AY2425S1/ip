@@ -2,6 +2,8 @@ package diomon;
 
 import diomon.parser.Parser;
 import org.junit.jupiter.api.Test;
+import diomon.task.Deadline;
+import diomon.task.Event;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

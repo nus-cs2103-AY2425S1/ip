@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Diomon diomon = new Diomon();
+    private final Diomon diomon = new Diomon("data/data.txt");
 
     @Override
     public void start(Stage stage) {

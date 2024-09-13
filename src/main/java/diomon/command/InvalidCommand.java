@@ -1,7 +1,7 @@
 package diomon.command;
 
 import diomon.Storage;
-import diomon.TaskList;
+import diomon.task.TaskList;
 import diomon.ui.Ui;
 
 public class InvalidCommand extends Command{

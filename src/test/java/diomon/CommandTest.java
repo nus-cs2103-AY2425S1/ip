@@ -2,6 +2,9 @@ package diomon;
 
 import diomon.command.Command;
 import org.junit.jupiter.api.Test;
+import diomon.task.Task;
+import diomon.task.TaskList;
+import diomon.task.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

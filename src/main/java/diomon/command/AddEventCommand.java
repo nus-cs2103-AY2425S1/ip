@@ -1,14 +1,11 @@
 package diomon.command;
 
 import diomon.Storage;
-import diomon.Task;
-import diomon.TaskList;
+import diomon.task.Task;
+import diomon.task.TaskList;
 import diomon.exception.MissingInputException;
 import diomon.parser.Parser;
 import diomon.ui.Ui;
-
-import java.time.LocalDate;
-import java.util.Date;
 
 public class AddEventCommand extends AddCommand{
 

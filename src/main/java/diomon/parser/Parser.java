@@ -1,7 +1,10 @@
 package diomon.parser;
 
-import diomon.*;
 import diomon.command.*;
+import diomon.task.Deadline;
+import diomon.task.Event;
+import diomon.task.Task;
+import diomon.task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -39,13 +42,13 @@ public class Parser {
         case EVENT:
             return new AddEventCommand(inputContent);
         case MARK:
-            return new MarkCommand();
+            return new MarkCommand(inputContent);
         case UNMARK:
-            return new UnmarkCommand();
+            return new UnmarkCommand(inputContent);
         case DELETE:
-            return new DeleteCommand();
+            return new DeleteCommand(inputContent);
         case FIND:
-            return new FindCommand();
+            return new FindCommand(inputContent);
         default:
             return new InvalidCommand();
         }

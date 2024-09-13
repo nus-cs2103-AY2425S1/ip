@@ -3,6 +3,7 @@ package diomon;
 import diomon.command.Command;
 import diomon.parser.Parser;
 import diomon.ui.Ui;
+import diomon.task.TaskList;
 
 import java.util.Scanner;
 
@@ -16,6 +17,11 @@ public class Diomon {
     private TaskList taskList;
     private Ui ui;
 
+    public Diomon(String filepath){
+        storage = new Storage(filepath);
+        taskList = new TaskList(storage.load());
+        ui = new Ui();
+    }
     /**
      * Prints a greeting message when the application starts.
      */
@@ -30,11 +36,7 @@ public class Diomon {
      */
     private void run() {
         // Initialise instance
-        storage = new Storage("data/data.txt");
-        Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
-        taskList = new TaskList(storage.load());
-        ui = new Ui();
         while (true) {
             String input = scanner.nextLine();
             command = Parser.parse(input);
@@ -49,10 +51,7 @@ public class Diomon {
 
     public String getResponse(String input) {
         try {
-            storage = new Storage("data/data.txt");
-            Scanner scanner = new Scanner(System.in);
-            taskList = new TaskList(storage.load());
-            ui = new Ui();
+
             command = Parser.parse(input);
             command.execute(taskList, ui, storage);
             return command.getResponse();
@@ -67,6 +66,6 @@ public class Diomon {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Diomon().run();
+        new Diomon("data/data.txt").run();
     }
 }
