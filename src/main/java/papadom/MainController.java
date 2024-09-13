@@ -1,13 +1,13 @@
 package papadom;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.image.Image;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import papadom.utils.Papadom;
 import papadom.utils.Ui;
+
 
 public class MainController {
 

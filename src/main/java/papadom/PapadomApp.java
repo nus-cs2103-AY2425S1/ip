@@ -4,12 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PapadomApp extends Application {
-
     public static final int WINDOW_WIDTH = 600;
     public static final int WINDOW_HEIGHT = 400;
 
