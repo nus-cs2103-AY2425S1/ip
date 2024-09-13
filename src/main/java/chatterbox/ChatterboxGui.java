@@ -84,7 +84,7 @@ public class ChatterboxGui {
     public String processInput(String input) {
 
 
-        String result;
+        String result = "";
         input = input.trim();
         try {
             Parser.ValidCommand command = parser.parseCommand(input);
