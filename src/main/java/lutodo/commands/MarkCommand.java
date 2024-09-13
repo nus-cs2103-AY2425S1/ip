@@ -24,23 +24,7 @@ public class MarkCommand extends Command{
         this.fullCommand = fullCommand;
     }
 
-    /**
-     * Marks the certain task as done / not done.
-     *
-     * @param tasks   The TaskList the method interacts with.
-     * @param storage The Storage object used to save the new task list.
-     */
-    @Override
-    public void execute(TaskList tasks, Storage storage) {
-        assert fullCommand != null : "task message cannot be null";
-        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
-            System.out.println("You are not telling me which task should I mark/unmark :-(");
-        }
-        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
-        assert Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("mark") ||
-                Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("unmark") :
-                "the command should be mark/unmark.";
-
+    private void manageIsDone() {
         if (Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("mark")) {
             this.isDone = true;
         } else if (Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("unmark")) {
@@ -48,7 +32,25 @@ public class MarkCommand extends Command{
         } else {
             System.out.println("Task type not match, try again.");
         }
+    }
 
+    private void manageIndex() {
+        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
+            System.out.println("You are not telling me which task should I mark/unmark :-(");
+            return;
+        }
+        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
+    }
+
+    private String manageIndexAndReturn() {
+        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
+            return  "You are not telling me which task should I mark/unmark :-(";
+        }
+        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
+        return "";
+    }
+
+    private void markAndSave(TaskList tasks, Storage storage) {
         try {
             if (isDone) {
                 tasks.get(index).markAsDone();
@@ -66,6 +68,41 @@ public class MarkCommand extends Command{
         }
     }
 
+    private String markAndReturn(TaskList tasks, Storage storage) {
+        try {
+            if (this.isDone) {
+                tasks.get(this.index).markAsDone();
+                storage.save(tasks);
+                return "Nice! I've marked this task as done:\n"
+                        + tasks.get(this.index);
+            } else {
+                tasks.get(this.index).markAsNotDone();
+                storage.save(tasks);
+                return "OK, I've marked this task as not done yet:\n"
+                        + tasks.get(this.index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return "The task you want to mark/unmark is not in task list, please try again.";
+        }
+    }
+
+    /**
+     * Marks the certain task as done / not done.
+     *
+     * @param tasks   The TaskList the method interacts with.
+     * @param storage The Storage object used to save the new task list.
+     */
+    @Override
+    public void execute(TaskList tasks, Storage storage) {
+        assert fullCommand != null : "task message cannot be null";
+        assert Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("mark") ||
+                Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("unmark") :
+                "the command should be mark/unmark.";
+        manageIndex();
+        manageIsDone();
+        markAndSave(tasks, storage);
+    }
+
     /**
      * Marks the certain task as done / not done.
      *
@@ -75,38 +112,16 @@ public class MarkCommand extends Command{
     @Override
     public String executeAndRespond(TaskList tasks, Storage storage) {
         assert fullCommand != null : "task message cannot be null";
-        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
-            return "You are not telling me which task should I mark/unmark :-(";
-        }
-        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
         assert Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("mark") ||
                 Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("unmark") :
                 "the command should be mark/unmark.";
 
-        if (Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("mark")) {
-            this.isDone = true;
-        } else if (Parser.splitTaskInfo(fullCommand)[0].equalsIgnoreCase("unmark")) {
-            this.isDone = false;
+        manageIsDone();
+        if (!manageIndexAndReturn().isEmpty()) {
+            return manageIndexAndReturn();
         } else {
-            System.out.println("Task type not match, try again.");
+            return markAndReturn(tasks, storage);
         }
-
-        try {
-            if (isDone) {
-                tasks.get(index).markAsDone();
-                storage.save(tasks);
-                return "Nice! I've marked this task as done:\n"
-                        + tasks.get(index);
-            } else {
-                tasks.get(index).markAsNotDone();
-                storage.save(tasks);
-                return "OK, I've marked this task as not done yet:\n"
-                        + tasks.get(index);
-            }
-        } catch (IndexOutOfBoundsException e) {
-            return "The task you want to mark/unmark is not in task list, please try again.";
-        }
-
     }
 
     /**
