@@ -47,46 +47,10 @@ public class Rex {
 
             // Process user command
             command = Command.inputToCommand(inputTokens[0]);
-            switch (command) {
-            case HELP:
-                return ui.getHelp();
-            case TODO:
-                String argument = inputTokens[1];
-                ToDo toDo = taskList.addToDo(argument);
-                return ui.addTask(toDo);
-            case DEADLINE:
-                argument = inputTokens[1];
-                Deadline deadline = taskList.addDeadline(argument);
-                return ui.addTask(deadline);
-            case EVENT:
-                argument = inputTokens[1];
-                Event event = taskList.addEvent(argument);
-                return ui.addTask(event);
-            case LIST:
-                String output = taskList.getListDisplay();
-                return ui.displayList(output);
-            case FIND:
-                argument = inputTokens[1];
-                output = taskList.findTasks(argument);
-                return ui.findTask(output);
-            case MARK:
-                argument = inputTokens[1];
-                Task marked = taskList.markTask(argument);
-                return ui.markTask(marked);
-            case UNMARK:
-                argument = inputTokens[1];
-                Task unmarked = taskList.unmarkTask(argument);
-                return ui.unmarkTask(unmarked);
-            case DELETE:
-                argument = inputTokens[1];
-                Task deleted = taskList.deleteTask(argument);
-                return ui.deleteTask(deleted);
-            case RAWR:
-                return ui.rawr();
-            case BYE:
-                return ui.getGoodbye();
-            default:
-                throw new InvalidCommandException();
+            if (inputTokens.length == 1) {
+                return commandToOutput(command);
+            } else {
+                return commandToOutput(command, inputTokens[1]);
             }
         } catch (InvalidInputException e) {
             if (command != null) {
@@ -104,6 +68,48 @@ public class Rex {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             String usageMessage = Command.usageMessage(command);
             return ui.errorMessage("Invalid task number!\nUsage: " + usageMessage);
+        }
+    }
+
+    private String commandToOutput(Command command, String ... argument)
+            throws InvalidInputException, IOException {
+        if (argument.length > 1) {
+            throw new InvalidInputException("Too many arguments.");
+        }
+
+        switch (command) {
+        case HELP:
+            return ui.getHelp();
+        case TODO:
+            ToDo toDo = taskList.addToDo(argument[0]);
+            return ui.addTask(toDo);
+        case DEADLINE:
+            Deadline deadline = taskList.addDeadline(argument[0]);
+            return ui.addTask(deadline);
+        case EVENT:
+            Event event = taskList.addEvent(argument[0]);
+            return ui.addTask(event);
+        case LIST:
+            String output = taskList.getListDisplay();
+            return ui.displayList(output);
+        case FIND:
+            output = taskList.findTasks(argument[0]);
+            return ui.findTask(output);
+        case MARK:
+            Task marked = taskList.markTask(argument[0]);
+            return ui.markTask(marked);
+        case UNMARK:
+            Task unmarked = taskList.unmarkTask(argument[0]);
+            return ui.unmarkTask(unmarked);
+        case DELETE:
+            Task deleted = taskList.deleteTask(argument[0]);
+            return ui.deleteTask(deleted);
+        case RAWR:
+            return ui.rawr();
+        case BYE:
+            return ui.getGoodbye();
+        default:
+            throw new InvalidCommandException();
         }
     }
 }
