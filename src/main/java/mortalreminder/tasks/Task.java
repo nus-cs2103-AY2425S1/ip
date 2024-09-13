@@ -2,6 +2,7 @@ package mortalreminder.tasks;
 
 import java.util.Objects;
 
+import mortalreminder.MortalReminder;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 
@@ -29,7 +30,7 @@ public abstract class Task {
      */
     public Task(String description) throws MortalReminderException {
         if (Objects.equals(description, "")) {
-            throw new MortalReminderException("Description cannot be empty!");
+            throw new MortalReminderException(MortalReminderException.getInvalidDescriptionErrorMessage());
         }
         this.isDone = false;
     }
@@ -75,12 +76,11 @@ public abstract class Task {
      * @return the confirmation if the task was marked successfully or an error if the task has already been marked.
      */
     public String markDone() throws MortalReminderException {
-        if (!this.isDone) {
-            this.isDone = true;
-            return FormattedPrinting.printMarked(this);
-        } else {
-            throw new MortalReminderException("This task has already been marked as done.");
+        if (this.isDone) {
+            throw new MortalReminderException(MortalReminderException.getAlreadyMarkedErrorMessage());
         }
+        this.isDone = true;
+        return FormattedPrinting.printMarked(this);
     }
 
     /**
@@ -95,12 +95,11 @@ public abstract class Task {
      * @return the confirmation if the task was unmarked successfully or an error if the task has already been unmarked.
      */
     public String markUndone() throws MortalReminderException {
-        if (this.isDone) {
-            this.isDone = false;
-            return FormattedPrinting.printUnmarked(this);
-        } else {
-            throw new MortalReminderException("This task has already been marked as not done.");
+        if (!this.isDone) {
+            throw new MortalReminderException(MortalReminderException.getAlreadyNotMarkedErrorMessage());
         }
+        this.isDone = false;
+        return FormattedPrinting.printUnmarked(this);
     }
 
     /**

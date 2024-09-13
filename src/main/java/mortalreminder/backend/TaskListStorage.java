@@ -32,7 +32,7 @@ public class TaskListStorage {
             f.createNewFile();
             f.exists();
         } catch (IOException e) {
-            throw new MortalReminderException("File Creation Problem!");
+            throw new MortalReminderException(MortalReminderException.getFileCannotBeCreatedErrorMessage());
         }
     }
 
@@ -47,12 +47,15 @@ public class TaskListStorage {
      */
     public static void appendToListFile(Task task) throws MortalReminderException {
         try {
+            initialise();
+
             FileWriter fw = new FileWriter(STORAGE_LIST_FILE_PATH, true);
             String textToAdd = task.convertToFileFormat();
             fw.write(textToAdd + System.lineSeparator());
             fw.close();
+
         } catch (IOException e) {
-            throw new MortalReminderException("Corrupted storage file! Please refresh using clear_tasks.");
+            throw new MortalReminderException(MortalReminderException.getStorageFileCorruptedErrorMessage());
         }
     }
 
@@ -70,7 +73,7 @@ public class TaskListStorage {
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            throw new MortalReminderException("File cannot be found!");
+            throw new MortalReminderException(MortalReminderException.getFileNotFoundErrorMessage());
         }
     }
 
@@ -106,19 +109,22 @@ public class TaskListStorage {
      */
     public static TaskList loadTaskListFromFile() throws MortalReminderException {
         try {
+            initialise();
+
             File f = new File(STORAGE_LIST_FILE_PATH);
-            boolean checkFileExists = f.getParentFile().mkdirs() || f.createNewFile() || f.exists();
             Scanner s = new Scanner(f);
             TaskList taskList = new TaskList();
+
             while (s.hasNextLine()) {
                 String input = s.nextLine();
                 Task task = Parser.parseInputFromFile(input);
                 taskList.loadTask(task);
             }
+
             s.close();
             return taskList;
         } catch (RuntimeException | IOException e) {
-            throw new MortalReminderException("Corrupted storage file!");
+            throw new MortalReminderException(MortalReminderException.getStorageFileCorruptedErrorMessage());
         }
     }
 }

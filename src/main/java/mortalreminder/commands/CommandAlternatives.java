@@ -11,7 +11,7 @@ import mortalreminder.io.Parser;
  * Helps map user input to commands more easily to ensure more flexibility.
  */
 public class CommandAlternatives {
-    private HashMap<String, CommandType> alternativeCommands;
+    private final HashMap<String, CommandType> alternativeCommands;
 
     /**
      * Creates a new CommandAlternatives Object with all basic commands.
@@ -44,8 +44,7 @@ public class CommandAlternatives {
     public String addCommandAlternative(String commandDetails) throws MortalReminderException {
         String[] splitInput = commandDetails.split(" ");
         if (splitInput.length != 2) {
-            throw new MortalReminderException("Please specify a command word followed by a space"
-                    + "and a current saved version of the command word");
+            throw new MortalReminderException(MortalReminderException.getExtraSpaceInAlternativeCommandErrorMessage());
         }
         String commandAlternative = splitInput[0];
         CommandType commandType = Parser.parseCommandWord(splitInput[1]);

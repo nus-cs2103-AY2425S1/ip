@@ -51,7 +51,7 @@ public class TaskEditorTest {
             fail();
         } catch (MortalReminderException e) {
             assertTrue(taskListStub.getTask(0).getIsDone());
-            assertEquals(e.getMessage(), "This task has already been marked as done.");
+            assertEquals(e.getMessage(), MortalReminderException.getAlreadyMarkedErrorMessage());
         }
     }
 
@@ -73,7 +73,7 @@ public class TaskEditorTest {
             fail();
         } catch (MortalReminderException e) {
             assertFalse(taskListStub.getTask(0).getIsDone());
-            assertEquals(e.getMessage(), "This task has already been marked as not done.");
+            assertEquals(e.getMessage(), MortalReminderException.getAlreadyNotMarkedErrorMessage());
         }
     }
 
@@ -82,7 +82,7 @@ public class TaskEditorTest {
         try {
             TaskEditor.executeMarkOrUnmark(testIndexString, taskListStub, CommandType.UNKNOWN);
         } catch (MortalReminderException e) {
-            assertEquals(e.getMessage(), TaskEditor.getUnreachableCodeErrorMessage());
+            assertEquals(e.getMessage(), MortalReminderException.getUnreachableCodeErrorMessage());
         }
     }
 
@@ -104,7 +104,7 @@ public class TaskEditorTest {
             TaskEditor.executeMarkOrUnmark(testIndexString, taskListStub, CommandType.MARK);
             fail();
         } catch (MortalReminderException e) {
-            assertEquals(e.getMessage(), TaskEditor.getInvalidNumberFormatErrorMessage());
+            assertEquals(e.getMessage(), MortalReminderException.getInvalidNumberFormatErrorMessage());
         }
     }
 }

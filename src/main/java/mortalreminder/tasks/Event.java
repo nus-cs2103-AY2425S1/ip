@@ -104,14 +104,13 @@ public class Event extends Task implements TimedTask {
     public void checkInitialisationDetails(String[] descriptionString)
             throws MortalReminderException {
         if (descriptionString.length != 3) {
-            throw new MortalReminderException("Please input the correct number of details for deadlines! "
-                    + "Remember that you need to include /from and /to in the command.");
+            throw new MortalReminderException(MortalReminderException.getInvalidEventDescriptionErrorMessage());
         }
         try {
             getTime(descriptionString[1].trim());
             getTime(descriptionString[2].trim());
         } catch (DateTimeParseException e) {
-            throw new MortalReminderException("Please enter a valid date in dd-MM-yyy HHmm (24hr format)!");
+            throw new MortalReminderException(MortalReminderException.getInvalidDateFormatErrorMessage());
         }
 
     }

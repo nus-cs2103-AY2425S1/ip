@@ -103,7 +103,7 @@ public class Deadline extends Task implements TimedTask {
         try {
             getTime(descriptionString[1].trim());
         } catch (DateTimeParseException e) {
-            throw new MortalReminderException("Please enter a valid date in dd-MM-yyy HHmm (24hr format)!");
+            throw new MortalReminderException(MortalReminderException.getInvalidDateFormatErrorMessage());
         }
     }
 

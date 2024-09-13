@@ -36,8 +36,10 @@ public class Parser {
         // Trim and split the input into designated parts
         String[] splitInput = input.trim().replaceAll("\\s+", " ").split(" ");
         String commandWord = splitInput[0];
+
         int splitInputLength = splitInput.length;
         splitInput = Arrays.copyOfRange(splitInput, 1, splitInputLength);
+
         CommandType commandType = parseCommandWord(commandWord);
         return Command.initialise(commandType, splitInput);
     }
@@ -47,10 +49,12 @@ public class Parser {
      */
     public static CommandType parseCommandWord(String commandWord) throws MortalReminderException {
         CommandAlternatives allMappedCommands = CommandAlternativesStorage.loadCommandsFromFile();
-        if (allMappedCommands.getCommandType(commandWord) != null) {
-            return allMappedCommands.getCommandType(commandWord);
+
+        if (allMappedCommands.getCommandType(commandWord) == null) {
+            return CommandType.UNKNOWN;
         }
-        return CommandType.UNKNOWN;
+
+        return allMappedCommands.getCommandType(commandWord);
     }
 
     /**
@@ -84,7 +88,7 @@ public class Parser {
             String toTime = parts[4].trim();
             return new Event(description, fromTime, toTime, isDone);
         default:
-            throw new MortalReminderException("File might be corrupted! Please use clear_tasks to restart the file.");
+            throw new MortalReminderException(MortalReminderException.getStorageFileCorruptedErrorMessage());
         }
     }
 

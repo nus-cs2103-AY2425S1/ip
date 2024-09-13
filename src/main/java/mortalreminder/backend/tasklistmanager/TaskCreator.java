@@ -36,7 +36,7 @@ public class TaskCreator {
         } else if (commandType == CommandType.EVENT) {
             newTask = new Event(commandDetails);
         } else {
-            throw new MortalReminderException("This statement should be unreachable, code has an error!");
+            throw new MortalReminderException(MortalReminderException.getUnreachableCodeErrorMessage());
         }
         return taskList.addTask(newTask);
     }

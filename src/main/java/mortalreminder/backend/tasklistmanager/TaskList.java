@@ -32,15 +32,13 @@ public class TaskList {
      * @throws MortalReminderException if the index is invalid in the list.
      */
     public Task getTask(int index) throws MortalReminderException {
+        if (this.getSize() == 0) {
+            throw new MortalReminderException(MortalReminderException.getQueryOnEmptyListErrorMessage());
+        }
         try {
             return this.taskList.get(index);
         } catch (IndexOutOfBoundsException e) {
-            if (this.getSize() == 0) {
-                throw new MortalReminderException("List is empty!");
-            }
-            throw new MortalReminderException("Invalid task number!\n"
-                    + "Please input a number between 1 and "
-                    + this.getSize());
+            throw new MortalReminderException(MortalReminderException.getOutOfTaskListBoundsErrorMessage(this));
         }
     }
 
@@ -65,7 +63,7 @@ public class TaskList {
             this.taskList.add(task);
             return FormattedPrinting.addTask(task, this);
         } else {
-            throw new MortalReminderException("Description cannot be empty!");
+            throw new MortalReminderException(MortalReminderException.getInvalidEventDescriptionErrorMessage());
         }
     }
 
@@ -94,12 +92,9 @@ public class TaskList {
      * @throws MortalReminderException if the task does not exist.
      */
     public String deleteTask(Task task) throws MortalReminderException {
-        if (Objects.equals(task.getDescription().trim(), "")) {
-            assert false;
-            // We are deleting a task, the task should have gone through this check when it was created.
-            // As such the code should never have reached this point in the delete function.
-            throw new MortalReminderException("The code should have never reached this point!");
-        }
+        assert !task.getDescription().trim().isEmpty();
+        // We are deleting a task, the task should have gone through this check when it was created.
+
         this.taskList.remove(task);
         TaskListStorage.refreshStorageFile(this);
         return FormattedPrinting.deleteTask(task, this);

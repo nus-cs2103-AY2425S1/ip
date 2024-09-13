@@ -31,13 +31,13 @@ public class TaskListStorageTest {
     }
 
     @Test
-    public void loadTaskListFromFile_IOExceptionThrown_exceptionHandled() throws MortalReminderException {
+    public void loadTaskListFromFile_IOExceptionThrown_exceptionHandled() {
         try {
             TaskListStorage.appendToListFile(new ToDoStub("Fake Task"));
             TaskList taskList = TaskListStorage.loadTaskListFromFile();
             fail();
         } catch (Exception e) {
-            assertEquals("Corrupted storage file!", e.getMessage());
+            assertEquals(MortalReminderException.getStorageFileCorruptedErrorMessage(), e.getMessage());
         }
     }
 

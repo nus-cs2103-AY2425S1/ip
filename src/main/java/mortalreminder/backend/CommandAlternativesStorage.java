@@ -58,7 +58,7 @@ public class CommandAlternativesStorage {
             s.close();
             return new CommandAlternatives(stringCommandTypeHashMap);
         } catch (RuntimeException | IOException e) {
-            throw new MortalReminderException("Corrupted storage file!");
+            throw new MortalReminderException(MortalReminderException.getCorruptedAlternativeCommandFileErrorMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class CommandAlternativesStorage {
             fw.close();
             return FormattedPrinting.alternativesCleared();
         } catch (IOException e) {
-            throw new MortalReminderException("File cannot be found!");
+            throw new MortalReminderException(MortalReminderException.getCorruptedAlternativeCommandFileErrorMessage());
         }
     }
 }
