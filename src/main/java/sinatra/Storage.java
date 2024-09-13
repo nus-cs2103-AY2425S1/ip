@@ -30,6 +30,8 @@ public class Storage {
      */
     public void appendLineToTxtFile(String line) {
         System.out.println("appending line");
+        File f = new File(this.fileName);
+        assert f.exists() : this.fileName + " does not exist";
         try {
             FileWriter file = new FileWriter(this.fileName, true);
             try {

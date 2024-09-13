@@ -23,7 +23,7 @@ public class Sinatra {
         this.printIntro();
         this.storage = new Storage(Sinatra.FILE_PATH);
         this.tasks = storage.loadTasksFromFile();
-//        this.sinatraScanner();
+
     }
 
     /**
@@ -75,6 +75,7 @@ public class Sinatra {
      */
     private List<String> handleInputs(String message) {
         List<String> output = new ArrayList<>();
+
         try {
 
             if (message.equals("list")) {
