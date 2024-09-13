@@ -13,5 +13,11 @@ src/main/resources/docs/
 *.iml
 bin/
 
+src/main/resources/data
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+text-ui-test/EXPECTED.TXT
+text-ui-test/input.txt
+
+
+build.gradle
