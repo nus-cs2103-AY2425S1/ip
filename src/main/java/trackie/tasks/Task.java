@@ -71,7 +71,8 @@ public abstract class Task {
      * @return A String containing relevant information about the task,
      *         depending on the type of the task.
      */
-    public abstract String getTaskInfo();
+    @Override
+    public abstract String toString();
 
     /**
      * Retrieves the type of the task.

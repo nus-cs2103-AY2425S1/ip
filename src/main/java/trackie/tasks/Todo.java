@@ -31,7 +31,7 @@ public class Todo extends Task {
      * @return A String containing the description of the task.
      */
     @Override
-    public String getTaskInfo() {
+    public String toString() {
         return(super.description);
     }
 

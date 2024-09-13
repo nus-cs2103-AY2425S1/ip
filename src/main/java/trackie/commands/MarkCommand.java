@@ -2,6 +2,7 @@ package trackie.commands;
 
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
+import trackie.tasks.Task;
 import trackie.ui.TrackieException;
 import trackie.ui.Ui;
 
@@ -26,16 +27,26 @@ public class MarkCommand extends Command {
      * The user is then notified of the tasks' completion by the chatbot.
      *
      * @param tasklist The TaskList object from which a task will be marked.
-     * @param ui The Ui object used to display messages to the user.
      * @param storage The Storage object used to save the updated task list.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Storage storage) throws TrackieException {
         try {
-            tasklist.markTask(arguments);
+            if (arguments.length == 1) {
+                throw new TrackieException("Please specify an index to mark!");
+            }
+
+            int number = Integer.parseInt(arguments[1]);
+
+            if (number < 1 || number > tasklist.size()) {
+                throw new TrackieException("Invalid index.");
+            }
+
+            tasklist.markTask(number - 1);
             storage.save();
+            return "Gratz, you've completed: " + tasklist.getTasks().get(number - 1).toString();
         } catch (TrackieException e) {
-            ui.displayErrorMessage(e);
+            return e.getMessage();
         }
     }
 }

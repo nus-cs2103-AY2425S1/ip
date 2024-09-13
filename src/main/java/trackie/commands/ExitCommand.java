@@ -22,12 +22,11 @@ public class ExitCommand extends Command {
      * to the memory before quitting.
      *
      * @param tasklist The TaskList object whose state is to be saved to memory.
-     * @param ui The Ui object used to display messages to the user.
      * @param storage The Storage object used to save the state of the task list.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Storage storage) {
         storage.save();
-        ui.sayGoodbyeMessage();
+        return "Seeya!";
     }
 }

@@ -20,12 +20,11 @@ public class InvalidCommand extends Command {
      * Notifies the user that the command that they have typed in is invalid.
      *
      * @param tasklist The TaskList object used.
-     * @param ui The Ui object used.
      * @param storage The Storage object used.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        System.out.println("Invalid command.");
+    public String execute(TaskList tasklist, Storage storage) {
+        return "Invalid command, bozo.";
     }
 
 }

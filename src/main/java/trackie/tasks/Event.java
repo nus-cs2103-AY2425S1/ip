@@ -40,7 +40,7 @@ public class Event extends Task {
      *
      * @return A String containing the description, the start time and the end time of the task.
      */
-    public String getTaskInfo() {
+    public String toString() {
         return(String.format("%s, (from: %s to: %s)", super.description, this.start, this.end));
     }
 

@@ -2,6 +2,7 @@ package trackie.commands;
 
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
+import trackie.tasks.Task;
 import trackie.ui.TrackieException;
 import trackie.ui.Ui;
 
@@ -17,16 +18,25 @@ public class UnmarkCommand extends Command {
      * not completed after the unmarking operation.
      *
      * @param tasklist The TaskList object from which a task will be unmarked.
-     * @param ui The Ui object used to display messages to the user.
      * @param storage The Storage object used to save the updated task list.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Storage storage) {
         try {
-            tasklist.unmarkTask(arguments);
+            if (arguments.length == 1) {
+                throw new TrackieException("Please specify an index to unmark!");
+            }
+
+            int number = Integer.parseInt(arguments[1]);
+
+            if (number < 1 || number > tasklist.size()) {
+                throw new TrackieException("Invalid index.");
+            }
+            tasklist.unmarkTask(number - 1);
             storage.save();
+            return "Aight, I've unmarked the following: " + tasklist.getTasks().get(number - 1).toString();
         } catch (TrackieException e) {
-            ui.displayErrorMessage(e);
+            return e.getMessage();
         }
     }
 }

@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
         String response = trackie.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getTrackieDialog(response, dukeImage)
         );
         userInput.clear();
     }

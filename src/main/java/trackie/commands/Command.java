@@ -2,6 +2,7 @@ package trackie.commands;
 
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
+import trackie.ui.TrackieException;
 import trackie.ui.Ui;
 /**
  * Represents an abstract command in the task management application.
@@ -30,20 +31,10 @@ public abstract class Command {
     }
 
     /**
-     * Retrieves the arguments that the user provided to invoke this command.
-     *
-     * @return an array of Strings which are the arguments
-     */
-    public String[] getArguments() {
-        return this.arguments;
-    }
-
-    /**
      * Executes the command. This method must be implemented by concrete subclasses.
      *
      * @param tasklist the TaskList to operate on
-     * @param ui the user interface to interact with
      * @param storage the storage system to interact with
      */
-    public abstract void execute(TaskList tasklist, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasklist, Storage storage) throws TrackieException;
 }

@@ -1,5 +1,6 @@
 package trackie.storage;
 
+import trackie.commands.ListCommand;
 import trackie.tasks.Deadline;
 import trackie.tasks.Event;
 import trackie.tasks.Task;
@@ -63,7 +64,7 @@ public class Storage {
                     taskList.tasks.add(new Event(arguments[2], arguments[3], arguments[4], Integer.parseInt(arguments[1])));
                 }
             }
-            taskList.listTasks();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

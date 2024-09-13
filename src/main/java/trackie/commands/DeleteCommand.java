@@ -2,6 +2,7 @@ package trackie.commands;
 
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
+import trackie.tasks.Task;
 import trackie.ui.TrackieException;
 import trackie.ui.Ui;
 
@@ -27,16 +28,27 @@ public class DeleteCommand extends Command {
      * and handled, causing an error message to be printed.
      *
      * @param tasklist The TaskList object from which a task will be deleted.
-     * @param ui The Ui object used to display messages to the user.
      * @param storage The Storage object used to save the updated task list.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Storage storage) {
         try {
-            tasklist.deleteTask(arguments);
+            if (arguments.length == 1) {
+                throw new TrackieException("Please specify an index to unmark!");
+            }
+
+            int number = Integer.parseInt(arguments[1]);
+
+            if (number < 1 || number > tasklist.size()) {
+                throw new TrackieException("Invalid index.");
+            }
+
+            Task target = tasklist.getTasks().get(number - 1);
+            tasklist.deleteTask(number - 1);
             storage.save();
+            return "Deleted: " + target.toString();
         } catch (TrackieException e) {
-            ui.displayErrorMessage(e);
+            return e.getMessage();
         }
     }
 }
