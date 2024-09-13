@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import luffy.command.AddCommand;
@@ -99,18 +100,27 @@ public class LuffyParser {
             return new FindCommand(commandDetails[1]);
 
         case "mark":
-            int markIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
-            assert(markIndex > 0);
-            return new MarkCommand(markIndex);
+            String[] indices = fullCommand.substring(5).split(" ");
+            assert(indices.length > 0);
+            if (indices.length == 1) {
+                int markIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
+                assert(markIndex >= 0);
+                return new MarkCommand(markIndex);
+            } else {
+                int[] intArray = Arrays.stream(indices)
+                        .mapToInt(Integer::parseInt).map(x -> x - 1)
+                        .toArray();
+                return new MarkCommand(intArray);
+            }
 
         case "unmark":
             int unmarkIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
-            assert(unmarkIndex > 0);
+            assert(unmarkIndex >= 0);
             return new UnmarkCommand(unmarkIndex);
 
         case "delete":
             int deleteIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
-            assert(deleteIndex > 0);
+            assert(deleteIndex >= 0);
             return new DeleteCommand(deleteIndex);
 
         case "list":
