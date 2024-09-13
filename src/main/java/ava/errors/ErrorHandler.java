@@ -4,7 +4,7 @@ public class ErrorHandler {
 
     /**
      * //TODO:log to disk or console
-     * @param error Error recieved
+     * @param error Error received
      */
     public static void handle(Error... errors) {
 
