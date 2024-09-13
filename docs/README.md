@@ -1,6 +1,6 @@
 # BingBong User Guide
 
-![Screenshot of the BingBong app Ui](/Ui.png)
+<div style="text-align: -webkit-left;"><img src="Ui.png" alt="help-1" width="301"></div>
 
 BingBong is the ultimate solution for managing your tasks, offering a user-friendly and intuitive experience designed 
 for simplicity. It’s lightweight, providing just the essentials without any unnecessary frills, and operates with 
