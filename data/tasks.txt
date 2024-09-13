@@ -1,10 +1,8 @@
 
-T|1|testFind
-T|1|GUI for chatbot
-T|1|tmr
-T|0|today
 T|0|newTask
 T|0|5tueiu5
 T|0|rt
 T|0|ff
 D|0|tmr|2036-09-05 14:00
+T|0|tmr
+D|0|early|2022-09-09 14:00

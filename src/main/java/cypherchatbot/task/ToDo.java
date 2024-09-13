@@ -4,8 +4,9 @@ import java.util.Objects;
 
 public class ToDo extends Task {
 
+
     public ToDo(String desc) {
-        super(desc);
+        super(desc,1);
     }
 
     @Override

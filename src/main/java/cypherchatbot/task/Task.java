@@ -1,11 +1,15 @@
 package cypherchatbot.task;
 
+
 public abstract class Task {
     protected String description;
     protected Boolean completed;
 
-    public Task(String desc) {
+    protected final Integer TASK_PRIORITY;
+
+    public Task(String desc, Integer priority) {
         this.description = desc.trim();
+        this.TASK_PRIORITY = priority;
         this.completed = false;
     }
 
@@ -25,4 +29,5 @@ public abstract class Task {
     }
 
     public abstract String toStringInFile();
+
 }

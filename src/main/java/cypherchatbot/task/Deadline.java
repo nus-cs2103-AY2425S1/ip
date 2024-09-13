@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Deadline extends Task {
+public class Deadline extends Task implements Comparable<Deadline>{
     private LocalDateTime deadline;
     public Deadline(String desc, LocalDateTime deadline) {
-        super(desc);
+        super(desc,2);
         this.deadline = deadline;
     }
 
@@ -36,5 +36,10 @@ public class Deadline extends Task {
                     && this.deadline == ((Deadline) o).deadline;
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(Deadline compareDeadline) {
+        return this.deadline.compareTo(compareDeadline.deadline);
     }
 }
