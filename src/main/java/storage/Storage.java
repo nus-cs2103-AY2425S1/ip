@@ -41,9 +41,43 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println("An error occurred in file opening :(");
+            System.exit(1);
         }
     }
 
+    private Task initializeTaskFromInputLine(String inputLine) {
+        String[] components = inputLine.split(" \\| ");
+        try {
+            switch (inputLine.substring(0, 1)) {
+            case "T":
+                return new Todo(components[2], components[1].equals("X"));
+            case "D":
+                return new Deadline(components[2], components[3], components[1].equals("X"));
+            case "E":
+                return new Event(components[2], components[3], components[4], components[1].equals("X"));
+            default:
+                System.out.println("Corrupted data detected.");
+                System.exit(1);
+                return null;
+            }
+        } catch (GrokInvalidUserInputException e) {
+            System.out.println("Data entered is not denoted as a task subtype.");
+            System.exit(1);
+            return null;
+        }
+    }
+
+    private Scanner createScannerAtFile(File f) {
+        Scanner sc = null;
+        try {
+            sc = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            System.out.println("Something has gone wrong - text file is corrupted, or file creation is not working.");
+            System.exit(1);
+        }
+        
+        return sc;
+    }
 
     /**
      * Converts a compliant text string from a text file into a list of tasks.
@@ -54,34 +88,11 @@ public class Storage {
         openFile(file);
 
         ArrayList<Task> items = new ArrayList<>();
-        try {
-            // this line potentially throws FileNotFoundException.
-            Scanner sc = new Scanner(file);
+        Scanner sc = createScannerAtFile(file);
 
-            while (sc.hasNextLine()) {
-                String s = sc.nextLine();
-                String[] components = s.split(" \\| ");
-                assert !s.isEmpty();
-
-                // this may trigger an invalid input exception - but this is not to be expected at all.
-                switch (s.substring(0, 1)) {
-                case "T":
-                    items.add(new Todo(components[2], components[1].equals("X")));
-                    break;
-                case "D":
-                    items.add(new Deadline(components[2], components[3], components[1].equals("X")));
-                    break;
-                case "E":
-                    items.add(new Event(components[2], components[3], components[4], components[1].equals("X")));
-                    break;
-                default:
-                    System.out.println("Corrupted data detected.");
-                    items.clear();
-                }
-            }
-        } catch (FileNotFoundException | GrokInvalidUserInputException e) {
-            System.out.println("Something has gone wrong - text file is corrupted, or file creation is not working.");
-            System.exit(1);
+        while (sc.hasNextLine()) {
+            String s = sc.nextLine();
+            items.add(initializeTaskFromInputLine(s));
         }
 
         return items;
