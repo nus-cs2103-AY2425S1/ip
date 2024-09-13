@@ -17,7 +17,6 @@ public class Parser {
     private final String[] userInput;
     private final String instruction;
     private final Tasklist tasklist;
-    private final Ui ui;
 
     /**
      * Constructs a {@code Parser} object with the given user input, task list, and user interface.
@@ -26,16 +25,14 @@ public class Parser {
      * @param tasklist The current list of tasks.
      * @param ui The user interface for displaying messages.
      */
-    public Parser(String userInput, Tasklist tasklist, Ui ui) {
+    public Parser(String userInput, Tasklist tasklist) {
         assert !userInput.trim().isEmpty() : "Input cannot be empty";
         assert tasklist != null : "Tasklist cannot be null";
-        assert ui != null : "Ui cannot be null";
 
         this.isExitCalled = false;
         this.userInput = userInput.split(" ", 2);
         this.instruction = this.userInput[0].toLowerCase();
         this.tasklist = tasklist;
-        this.ui = ui;
 
         assert !this.instruction.isEmpty() : "Instruction cannot be empty";
     }
@@ -57,43 +54,43 @@ public class Parser {
         switch (this.instruction) {
         case "bye":
             this.isExitCalled = true;
-            return ui.showGoodbye();
+            return Ui.showGoodbye();
 
         case "list":
             String output = tasklist.showTasklist();
-            return ui.wrapSpacer(output);
+            return Ui.wrapSpacer(output);
 
         case "mark":
             try {
                 int num = Integer.parseInt(this.userInput[1]);
                 this.tasklist.markTask(num);
-                return ui.showMark();
+                return Ui.showMark();
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                return ui.showMissingInfoError();
+                return Ui.showMissingInfoError();
             } catch (IndexOutOfBoundsException e) {
-                return ui.showAppropriateNumberError();
+                return Ui.showAppropriateNumberError();
             }
 
         case "unmark":
             try {
                 int num = Integer.parseInt(this.userInput[1]);
                 this.tasklist.unmarkTask(num);
-                return ui.showUnmark();
+                return Ui.showUnmark();
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                return ui.showMissingInfoError();
+                return Ui.showMissingInfoError();
             } catch (IndexOutOfBoundsException e) {
-                return ui.showAppropriateNumberError();
+                return Ui.showAppropriateNumberError();
             }
 
         case "delete":
             try {
                 int num = Integer.parseInt(this.userInput[1]);
                 this.tasklist.deleteTask(num);
-                return ui.showDelete();
+                return Ui.showDelete();
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                return ui.showMissingInfoError();
+                return Ui.showMissingInfoError();
             } catch (IndexOutOfBoundsException e) {
-                return ui.showAppropriateNumberError();
+                return Ui.showAppropriateNumberError();
             }
 
         case "find":
@@ -109,9 +106,9 @@ public class Parser {
                         count++;
                     }
                 }
-                return ui.wrapSpacer(ui.showFoundTasks() + findOutput);
+                return Ui.wrapSpacer(Ui.showFoundTasks() + findOutput);
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                return ui.showMissingInfoError();
+                return Ui.showMissingInfoError();
             }
 
         default:
@@ -121,7 +118,7 @@ public class Parser {
                 case "todo":
                     Task newTodo = new ToDo(taskDescription);
                     this.tasklist.addTask(newTodo);
-                    return ui.wrapSpacer(String.format("added: %s%n", newTodo));
+                    return Ui.wrapSpacer(String.format("added: %s%n", newTodo));
 
                 case "deadline":
                     try {
@@ -130,11 +127,11 @@ public class Parser {
                         String taskDue = activity[1].trim();
                         Task newDeadline = new Deadline(action, taskDue);
                         this.tasklist.addTask(newDeadline);
-                        return ui.wrapSpacer(String.format("added: %s%n", newDeadline));
+                        return Ui.wrapSpacer(String.format("added: %s%n", newDeadline));
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        return ui.showCommandFormatError();
+                        return Ui.showCommandFormatError();
                     } catch (IllegalArgumentException e) {
-                        return ui.showInvalidDateFormatError();
+                        return Ui.showInvalidDateFormatError();
                     }
 
                 case "event":
@@ -145,18 +142,18 @@ public class Parser {
                         String taskEnd = activity[2].trim();
                         Task newEvent = new Event(action, taskStart, taskEnd);
                         this.tasklist.addTask(newEvent);
-                        return ui.wrapSpacer(String.format("added: %s%n", newEvent));
+                        return Ui.wrapSpacer(String.format("added: %s%n", newEvent));
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        return ui.showCommandFormatError();
+                        return Ui.showCommandFormatError();
                     } catch (IllegalArgumentException e) {
-                        return ui.showInvalidDateFormatError();
+                        return Ui.showInvalidDateFormatError();
                     }
 
                 default:
-                    return ui.showCommandFormatError();
+                    return Ui.showCommandFormatError();
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                return ui.showMissingInfoError();
+                return Ui.showMissingInfoError();
             }
         }
     }

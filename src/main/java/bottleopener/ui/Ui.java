@@ -6,16 +6,7 @@ package bottleopener.ui;
  */
 public class Ui {
     private static final String SPACER = "-----------------------------------\n";
-    private final String botName;
 
-    /**
-     * Constructs a new {@code Ui} object with the specified bot name.
-     *
-     * @param botName The name of the chatbot.
-     */
-    public Ui(String botName) {
-        this.botName = botName;
-    }
 
     /**
      * Wraps a given message with a spacer line above and below it.
@@ -24,7 +15,7 @@ public class Ui {
      * @param message The message to be wrapped with spacers.
      * @return The formatted message with spacers.
      */
-    public String wrapSpacer(String message) {
+    public static String wrapSpacer(String message) {
         if (message.endsWith("\n")) {
             return SPACER + message + SPACER;
         } else {
@@ -37,7 +28,7 @@ public class Ui {
      *
      * @return The formatted goodbye message.
      */
-    public String showGoodbye() {
+    public static String showGoodbye() {
         return wrapSpacer("Bye! See you next time!\n");
     }
 
@@ -46,7 +37,7 @@ public class Ui {
      *
      * @return The formatted mark-as-done message.
      */
-    public String showMark() {
+    public static String showMark() {
         return wrapSpacer("Good job completing it!\n");
     }
 
@@ -55,7 +46,7 @@ public class Ui {
      *
      * @return The formatted mark-as-undone message.
      */
-    public String showUnmark() {
+    public static String showUnmark() {
         return wrapSpacer("I have added it back to the list!\n");
     }
 
@@ -64,7 +55,7 @@ public class Ui {
      *
      * @return The formatted delete message.
      */
-    public String showDelete() {
+    public static String showDelete() {
         return wrapSpacer("I have removed the item!\n");
     }
 
@@ -73,7 +64,7 @@ public class Ui {
      *
      * @return The formatted error message.
      */
-    public String showAppropriateNumberError() {
+    public static String showAppropriateNumberError() {
         return wrapSpacer("Please provide an appropriate number!\n");
     }
 
@@ -82,7 +73,7 @@ public class Ui {
      *
      * @return The formatted error message.
      */
-    public String showCommandFormatError() {
+    public static String showCommandFormatError() {
         return wrapSpacer("Please use the correct format!\n");
     }
 
@@ -91,7 +82,7 @@ public class Ui {
      *
      * @return The formatted error message.
      */
-    public String showMissingInfoError() {
+    public static String showMissingInfoError() {
         return wrapSpacer("You have missing information! Please try again!\n");
     }
 
@@ -100,7 +91,7 @@ public class Ui {
      *
      * @return A string message stating that the relevant tasks have been found.
      */
-    public String showFoundTasks() {
+    public static String showFoundTasks() {
         return "Here are all the tasks I could find!\n";
     }
 
@@ -109,7 +100,7 @@ public class Ui {
      *
      * @return A string message requesting the user to use the correct date/time format.
      */
-    public String showInvalidDateFormatError() {
+    public static String showInvalidDateFormatError() {
         return wrapSpacer("Please use the correct date/time format!\n");
     }
 

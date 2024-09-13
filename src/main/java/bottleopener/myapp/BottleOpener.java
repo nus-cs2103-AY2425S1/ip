@@ -12,7 +12,6 @@ public class BottleOpener {
     private static final String BOT_NAME = "BottleOpener";
     private static final String FILE_PATH = "data/BottleOpener.txt";
     private final Storage storage;
-    private final Ui ui;
     private final Tasklist tasks;
     private boolean hasExited;
 
@@ -24,11 +23,9 @@ public class BottleOpener {
     public BottleOpener() {
         Tasklist tasklist = new Tasklist();
         this.storage = new Storage(FILE_PATH);
-        this.ui = new Ui(BOT_NAME);
         this.tasks = storage.load(tasklist);
 
         assert this.storage != null : "Storage initialisation failed";
-        assert this.ui != null : "Ui initialisation failed";
         assert this.tasks != null : "Tasklist loading from storage failed";
 
         this.hasExited = false;
@@ -43,7 +40,7 @@ public class BottleOpener {
      */
     public String getResponse(String userInput) {
         storage.save(tasks);
-        Parser parser = new Parser(userInput, this.tasks, this.ui);
+        Parser parser = new Parser(userInput, this.tasks);
         assert parser != null : "Parser initialisation failed";
 
         String botMessage = parser.execute();
