@@ -36,10 +36,8 @@ public class Event extends Task {
             }
         } catch (DateTimeException e) {
             throw new LictException(
-                    """
-                    Invalid format for event start date or event end date.
-                    Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.
-                    """
+                    "Invalid format for event start date or event end date. Please ensure that Event date and "
+                            + "time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'."
             );
         }
     }

@@ -55,9 +55,8 @@ public class EventTest {
             fail("LictException was not thrown");
         } catch (LictException e) {
             assertEquals(
-                    """
-                            Invalid format for event start date or event end date. Please ensure that Event date and
-                             time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.""",
+                    "Invalid format for event start date or event end date. Please ensure that Event date and "
+                            + "time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.",
                     e.getMessage());
         }
 
@@ -66,9 +65,8 @@ public class EventTest {
             fail("LictException was not thrown");
         } catch (LictException e) {
             assertEquals(
-                    """
-                            Invalid format for event start date or event end date. Please ensure that Event date and
-                             time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.""",
+                    "Invalid format for event start date or event end date. Please ensure that Event date and "
+                            + "time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.",
                     e.getMessage());
         }
     }
@@ -111,9 +109,8 @@ public class EventTest {
             fail("LictException was not thrown");
         } catch (LictException e) {
             assertEquals(
-                    """
-                            Invalid format for event start date or event end date. Please ensure that Event date and
-                             time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.""",
+                    "Invalid format for event start date or event end date. Please ensure that Event date and "
+                            + "time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.",
                     e.getMessage());
         }
 
@@ -131,9 +128,8 @@ public class EventTest {
             fail("LictException was not thrown");
         } catch (LictException e) {
             assertEquals(
-                    """
-                            Invalid format for event start date or event end date. Please ensure that Event date and
-                             time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.""",
+                    "Invalid format for event start date or event end date. Please ensure that Event date and "
+                            + "time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.",
                     e.getMessage());
         }
     }

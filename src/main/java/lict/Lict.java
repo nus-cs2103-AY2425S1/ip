@@ -19,6 +19,7 @@ public class Lict {
      * @param filePath The file path where the task data is stored.
      */
     public Lict(String filePath) {
+        assert filePath != null : "File path should not be null";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
