@@ -49,52 +49,20 @@ public class Parser {
                 throw new MizzException("Incomplete entry!:" + entry);
             }
 
-            String[] parts = entry.substring(7).split("\\s+");
             char taskType = entry.charAt(1);
-            String details = String.join(" ", parts);
-            if (details.isEmpty()) {
-                throw new MizzException("Missing details: " + entry);
-            }
+            String details = Parser.getDetailsFromEntry(entry);
             Task t;
             switch (taskType) {
             case 'T': {
-                t = new ToDo(details);
+                t = Parser.createTodo(details);
                 break;
             }
             case 'D': {
-                int byIdx = details.indexOf(" (by: ");
-                if (byIdx == -1) {
-                    throw new MizzException("Invalid format for Deadline: " + details);
-                }
-                String description = details.substring(0, byIdx);
-                String by = details.substring(byIdx + 6, details.length() - 1);
-                try {
-                    LocalDate byDate =
-                            LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                    t = new Deadline(description, byDate);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateException(e.getMessage());
-                }
+                t = Parser.createDeadline(details);
                 break;
             }
             case 'E': {
-                int fromIdx = details.indexOf(" (from: ");
-                int toIdx = details.indexOf(" to: ");
-                if (fromIdx == -1 || toIdx == -1) {
-                    throw new MizzException("Invalid format for Event: " + details);
-                }
-                String description = details.substring(0, fromIdx);
-                String from = details.substring(fromIdx + 8, toIdx);
-                String to = details.substring(toIdx + 5, details.length() - 1);
-                try {
-                    LocalDate fromDate =
-                            LocalDate.parse(from, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                    LocalDate toDate =
-                            LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                    t = new Event(description, fromDate, toDate);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateException(e.getMessage());
-                }
+                t = Parser.createEvent(details);
                 break;
             }
             default:
@@ -260,5 +228,51 @@ public class Parser {
         parsedParts[DESCRIPTION_IDX] =
                 String.join(" ", Arrays.copyOfRange(parts, DESCRIPTION_IDX, parts.length));
         return parsedParts;
+    }
+
+    private static ToDo createTodo(String details) {
+        return new ToDo(details);
+    }
+
+    private static String getDetailsFromEntry(String entry) throws MizzException {
+        String[] parts = entry.substring(7).split("\\s+");
+        String details = String.join(" ", parts);
+        if (details.isEmpty()) {
+            throw new MizzException("Missing details: " + entry);
+        }
+        return details;
+    }
+
+    private static Deadline createDeadline(String details) throws MizzException {
+        int byIdx = details.indexOf(" (by: ");
+        if (byIdx == -1) {
+            throw new MizzException("Invalid format for Deadline: " + details);
+        }
+        String description = details.substring(0, byIdx);
+        String by = details.substring(byIdx + 6, details.length() - 1);
+        try {
+            LocalDate byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return new Deadline(description, byDate);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(e.getMessage());
+        }
+    }
+
+    private static Event createEvent(String details) throws MizzException {
+        int fromIdx = details.indexOf(" (from: ");
+        int toIdx = details.indexOf(" to: ");
+        if (fromIdx == -1 || toIdx == -1) {
+            throw new MizzException("Invalid format for Event: " + details);
+        }
+        String description = details.substring(0, fromIdx);
+        String from = details.substring(fromIdx + 8, toIdx);
+        String to = details.substring(toIdx + 5, details.length() - 1);
+        try {
+            LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            LocalDate toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return new Event(description, fromDate, toDate);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(e.getMessage());
+        }
     }
 }
