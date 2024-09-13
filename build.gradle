@@ -59,7 +59,7 @@ test {
 }
 
 application {
-    mainClass.set("tars.Main")
+    mainClass.set("tars.Launcher")
 }
 
 shadowJar {
