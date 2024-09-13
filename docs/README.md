@@ -26,15 +26,7 @@
 
 ## Features
 
-### 1. Viewing Help: `help`
-Displays a message explaining how to access the help.
-
-**Format**: 
-```
-help
-```
-
-### 2. Adding a Task
+### 1. Adding a Task
 
 You can add three types of tasks to your list: **Todo**, **Deadline**, and **Event**.
 
@@ -79,7 +71,7 @@ event Enter the wormhole /from 2067-01-12 1000 /to 2067-01-12 1200
 
 ---
 
-### 3. Listing All Tasks: `list`
+### 2. Listing All Tasks: `list`
 Displays a list of all tasks in your task list.
 
 **Format**:
@@ -89,7 +81,7 @@ list
 
 ---
 
-### 4. Marking a Task as Done: `mark`
+### 3. Marking a Task as Done: `mark`
 Marks a specific task as completed.
 
 **Format**:
@@ -104,7 +96,7 @@ mark 2
 
 ---
 
-### 5. Unmarking a Task: `unmark`
+### 4. Unmarking a Task: `unmark`
 Marks a task as not completed.
 
 **Format**:
@@ -119,7 +111,7 @@ unmark 2
 
 ---
 
-### 6. Removing a Task: `remove`
+### 5. Removing a Task: `remove`
 Removes a task from your list.
 
 **Format**:
@@ -134,7 +126,7 @@ remove 1
 
 ---
 
-### 7. Finding a Task: `find`
+### 6. Finding a Task: `find`
 Searches your task list for tasks that match a keyword.
 
 **Format**:
@@ -149,7 +141,7 @@ find Cooper
 
 ---
 
-### 8. Editing a Task: `edit`
+### 7. Editing a Task: `edit`
 Edits a task’s name, start time, or end time (for events), or a due date (for deadlines).
 
 **Format**:
@@ -171,7 +163,7 @@ edit 4 /from 2067-01-15 0900
 
 ---
 
-### 9. Exiting the Program: `bye`
+### 8. Exiting the Program: `bye`
 Exits the TARS application.
 
 **Format**:
@@ -190,7 +182,6 @@ See you on the other side, Coop
 
 | Action                  | Format                                              |
 |-------------------------|-----------------------------------------------------|
-| Help                    | `help`                                              |
 | Add Todo                | `todo TASK_DESCRIPTION`                             |
 | Add Deadline            | `deadline TASK_DESCRIPTION /by DUE_DATE`            |
 | Add Event               | `event TASK_DESCRIPTION /from START_DATE /to END_DATE` |
@@ -203,5 +194,5 @@ See you on the other side, Coop
 | Exit                    | `bye`                                               |
 
 ---
-
+There are also a couple of Interstellar-themed easter eggs sprinkled into the commands.
 Enjoy!
