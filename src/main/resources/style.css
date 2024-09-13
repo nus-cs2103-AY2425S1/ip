@@ -1,0 +1,8 @@
+.rectangle-textbox {
+    -fx-background-color: #FFDAB9; /* Pale orange background */
+    -fx-background-radius: 5; /* Optional: rounded corners */
+    -fx-padding: 10; /* Padding inside the text box */
+    -fx-border-color: #FF8C00; /* Border color */
+    -fx-border-width: 2; /* Border width */
+    -fx-border-radius: 5; /* Optional: rounded corners for the border */
+}
