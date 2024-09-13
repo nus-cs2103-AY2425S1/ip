@@ -16,15 +16,6 @@ import exception.DukeException;
  * on the input.
  */
 public class Parser {
-    private TaskList taskList;
-    private Ui ui;
-
-    private Storage storage;
-    public Parser(TaskList taskList, Ui ui, Storage storage) {
-        this.taskList = taskList;
-        this.ui = ui;
-        this.storage = storage;
-    };
 
     /**
      * Takes in response from user and runs different functions based on the input
@@ -32,8 +23,8 @@ public class Parser {
      * @param response user input
      * @return whether the program continues to run
      */
-    public static Command parse(String response) throws DukeException{
-        String[] splitResponse = response.split(" ",2);
+    public static Command parse(String response) throws DukeException {
+        String[] splitResponse = response.split(" ", 2);
         switch (splitResponse[0]) {
         case "todo", "event", "deadline":
             return handleAdd(splitResponse);
@@ -73,6 +64,8 @@ public class Parser {
                 return new AddTaskCommand(splitResponse[1], "event");
             case "deadline":
                 return new AddTaskCommand(splitResponse[1], "deadline");
+            default:
+                throw new DukeException("I dont understand what you are trying to say :(");
             }
         } catch (DukeException e) {
             System.out.println("________________________________");

@@ -1,9 +1,12 @@
 package main;
 
-import exception.DukeException;
-import task.*;
-
 import java.util.ArrayList;
+
+import exception.DukeException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 /**
  * This class is used to handle operations regarding the list of tasks
@@ -16,6 +19,7 @@ public class TaskList {
      * @param taskList ArrayList of type Task to be be used
      */
     private final ArrayList<Task> taskList;
+
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -114,7 +118,7 @@ public class TaskList {
      * @param index The index of task in taskList to be marked as done
      * @return the tasked that is marked to be displayed by UI class
      */
-    public Task mark(int index) throws DukeException{
+    public Task mark(int index) throws DukeException {
         try {
             if (index < 0 || index >= taskList.size()) {
                 throw new DukeException("Invalid position!");

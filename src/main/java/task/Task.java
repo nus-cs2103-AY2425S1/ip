@@ -1,9 +1,16 @@
 package task;
 
+/**
+ * Represents a task that can be marked as done
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor for Task
+     * @param description Description of task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -13,6 +20,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Marks the task as done
+     * @return
+     */
     public String mark() {
         this.isDone = !this.isDone;
         return getString();
@@ -21,6 +32,7 @@ public class Task {
     public boolean isDone() {
         return this.isDone;
     }
+
 
     /**
      * Gets string representation of the task

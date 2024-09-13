@@ -3,15 +3,16 @@ package task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import exception.DukeException;
 
 /**
  * This class represents a type of Task that has a deadline
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
-    String deadline;
-    LocalDate formattedDeadline;
+    private String deadline;
+    private LocalDate formattedDeadline;
 
     /**
      * Constructor for task of type Deadline which is a task with a deadline and description
@@ -19,7 +20,7 @@ public class Deadline extends Task{
      * @param deadline Deadline at which task is to be completed
      * @throws DukeException An exception that happens due to invalid input
      */
-    public Deadline(String description, String deadline) throws DukeException{
+    public Deadline(String description, String deadline) throws DukeException {
         super(description);
         if (description.isEmpty() || description.equals("deadline")) {
             throw new DukeException("deadline", "OOPS!!! The description of a deadline shouldn't be empty!\n");
@@ -37,6 +38,15 @@ public class Deadline extends Task{
         return "[D]" + super.getString() + " (by: " + ((formattedDeadline != null)
                 ? formattedDeadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     : this.deadline) + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline other = (Deadline) obj;
+            return this.description.equals(other.description) && this.deadline.equals(other.deadline);
+        }
+        return false;
     }
 
     @Override

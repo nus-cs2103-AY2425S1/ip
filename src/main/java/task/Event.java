@@ -2,12 +2,17 @@ package task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import exception.DukeException;
+
+/**
+ * This class represents a normal Task type
+ */
 public class Event extends Task {
-    LocalDate formattedFrom;
-    LocalDate formattedTo;
-    String from;
-    String to;
+    private LocalDate formattedFrom;
+    private LocalDate formattedTo;
+    private String from;
+    private String to;
 
     /**
      * Constructor of Event which is a type of task that includes a start
@@ -17,7 +22,7 @@ public class Event extends Task {
      * @param to End time of task
      * @throws DukeException An exception that happens due to invalid input
      */
-    public Event(String description, String from, String to) throws DukeException{
+    public Event(String description, String from, String to) throws DukeException {
         super(description);
         if (description.isEmpty() || description.equals("event")) {
             throw new DukeException("event", "OOPS!!! The description of a event shouldn't be empty!\n");
@@ -30,9 +35,19 @@ public class Event extends Task {
 
     @Override
     public String getString() {
-        return "[E]" + super.getString() + " (from: " +
-                formattedFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
+        return "[E]" + super.getString() + " (from: "
+                + formattedFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
                     + formattedTo.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event other = (Event) obj;
+            return this.description.equals(other.description) && this.from.equals(other.from)
+                    && this.to.equals(other.to);
+        }
+        return false;
     }
 
     @Override

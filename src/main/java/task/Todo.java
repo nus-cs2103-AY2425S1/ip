@@ -24,6 +24,15 @@ public class Todo extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Todo) {
+            Todo other = (Todo) obj;
+            return this.description.equals(other.description);
+        }
+        return false;
+    }
+
+    @Override
     public String getStorageFormat() {
         String output = this.isDone ? "1" : "0";
         output += " todo " + description + "\n";

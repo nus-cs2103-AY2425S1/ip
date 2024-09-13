@@ -19,9 +19,13 @@ import java.util.ArrayList;
  */
 public class Storage {
     private final String path;
-    FileWriter fw;
-    File f;
+    private FileWriter fw;
+    private File f;
 
+    /**
+     * Constructor for Storage class
+     * @param path The path of the text file to be read from and written to
+     */
     public Storage(String path) {
         this.path = path;
         f = new File(this.path);
@@ -54,8 +58,10 @@ public class Storage {
                             break;
                         case "deadline":
                             taskDetails = splitResponse[2].split(" /by ");
-                            currentTask = new Deadline(taskDetails[0],taskDetails[1]);
+                            currentTask = new Deadline(taskDetails[0], taskDetails[1]);
                             break;
+                        default:
+                            throw new DukeException("Something went wrong with the file!");
                         }
                         if ("1".equals(splitResponse[0])) {
                             currentTask.mark();
@@ -79,12 +85,12 @@ public class Storage {
      */
     public void writeStorage(ArrayList<Task> taskList) {
         try {
-            FileWriter fw = new FileWriter(this.path,false);
+            FileWriter fw = new FileWriter(this.path, false);
             for (Task curr : taskList) {
                 fw.write(curr.getStorageFormat());
             }
             fw.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
