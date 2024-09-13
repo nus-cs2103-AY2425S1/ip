@@ -17,6 +17,7 @@ public class Tasklist {
     public Tasklist() {
         this.index = 0;
         this.tasklist = new ArrayList<Task>();
+        assert this.tasklist != null : "Tasklist failed to initialise";
     }
 
     /**
@@ -25,6 +26,7 @@ public class Tasklist {
      * @param tasklist The list of tasks to be managed.
      */
     public Tasklist(ArrayList<Task> tasklist) {
+        assert tasklist != null : "Provided task list cannot be null";
         this.index = tasklist.size();
         this.tasklist = tasklist;
     }
@@ -35,6 +37,7 @@ public class Tasklist {
      * @param toAdd The task to be added.
      */
     public void addTask(Task toAdd) {
+        assert toAdd != null : "Task cannot be null";
         this.tasklist.add(toAdd);
         this.index++;
     }
@@ -45,6 +48,7 @@ public class Tasklist {
      * @param num The 1-based index of the task to be deleted.
      */
     public void deleteTask(int num) {
+        assert num > 0 : "Number cannot be negative";
         this.tasklist.remove(num - 1);
         this.index = this.tasklist.size();
     }
@@ -85,6 +89,7 @@ public class Tasklist {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index > 0 : "Index given cannot be negative";
         return this.tasklist.get(index);
     }
 
@@ -94,6 +99,7 @@ public class Tasklist {
      * @return A formatted string of the task list with each task numbered.
      */
     public String showTasklist() {
+        assert this.tasklist != null : "Tasklist should not be null";
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < this.tasklist.size(); i++) {
             output.append(String.format("%d. %s%n", i + 1, this.tasklist.get(i)));
