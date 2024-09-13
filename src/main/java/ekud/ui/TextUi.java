@@ -5,6 +5,9 @@ import java.util.stream.Stream;
 
 /**
  * Represents the UI of EKuD when running on CLI mode.
+ *
+ * @author uniqly
+ * @see Ui
  */
 public class TextUi extends Ui {
     /** Line separator between outputs by EKuD and inputs by the user */
@@ -38,23 +41,22 @@ public class TextUi extends Ui {
     @Override
     public void printGreeting() {
         printLineSeparator();
-        String greeting = "Hey! My name is EkuD!!\nYou can call me Eku-Chan!";
-        addToBuffer(greeting);
+        addToBuffer(GREETING_MESSAGE);
         printOutput();
     }
 
     @Override
     public void printGoodbye() {
-        String goodbye = "I hope you enjoyed your stay!\nSee you next time! NOT!!";
-        addToBuffer(goodbye);
+        addToBuffer(GOODBYE_MESSAGE);
         printOutput();
     }
 
     @Override
     public void printOutput() {
+        String printLineFormat = "%s%s\n";
         String output = collectBuffer();
         Stream<String> lines = output.lines();
-        lines.forEach(line -> System.out.printf("%s%s%n", PREFIX, line));
+        lines.forEach(line -> System.out.printf(printLineFormat, PREFIX, line));
         printLineSeparator();
     }
 

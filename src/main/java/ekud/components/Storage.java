@@ -18,6 +18,8 @@ import ekud.ui.Ui;
  * @see ekud.Ekud
  */
 public class Storage {
+    private static final String TEMP_FILE_PATH = "/temp.txt";
+
     /** The folder where data is stored */
     private final File directory;
 
@@ -56,6 +58,8 @@ public class Storage {
     public void createPath(Ui ui) {
         assert ui != null : "ui should not be null";
 
+        String creationErrorResponseFormat = "Oh no!! I could not create a save file for you\n  ERROR: %s";
+
         try {
             if (!directory.exists()) {
                 boolean createdDirectory = directory.mkdir();
@@ -65,8 +69,7 @@ public class Storage {
 
             assert (createdFile) : "save file should have been created";
         } catch (IOException e) {
-            String error = String.format("Oh no!! I could not create a save file for you\n  ERROR %s", e);
-            ui.addToBuffer(error);
+            ui.addFormattedToBuffer(creationErrorResponseFormat, e.getMessage());
         }
     }
 
@@ -83,7 +86,7 @@ public class Storage {
         assert tasks != null : "tasks should not be null";
         assert ui != null : "ui should not be null";
 
-        File copy = new File(dataFile.getParent() + "/temp.txt");
+        File copy = new File(dataFile.getParent() + TEMP_FILE_PATH);
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(dataFile));
@@ -112,11 +115,9 @@ public class Storage {
             boolean renamed = copy.renameTo(dataFile);
             assert (deletedOriginal && renamed) : "original file should be replaced";
         } catch (IOException e) {
-            String error = String.format("""
-                    Something went wrong when trying to load your save!
-                      ERROR: %s""",
-                    e);
-            ui.addToBuffer(error);
+            String loadErrorResponseFormat =
+                    "Something went wrong when trying to load your save!\n  ERROR: %s";
+            ui.addFormattedToBuffer(loadErrorResponseFormat, e.getMessage());
         }
     }
 
@@ -136,11 +137,9 @@ public class Storage {
             writer.newLine();
             writer.close();
         } catch (IOException e) {
-            String error = String.format("""
-                    Oh no! I've encountered an error while trying to save your task!
-                      ERROR: %s""",
-                    e);
-            ui.addToBuffer(error);
+            String saveErrorResponseFormat =
+                    "Oh no! I've encountered an error while trying to save your task!\n  ERROR: %s";
+            ui.addFormattedToBuffer(saveErrorResponseFormat, e.getMessage());
         }
     }
 
@@ -174,11 +173,10 @@ public class Storage {
             writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            String error = String.format("""
+            String deleteErrorResponseFormat = """
                     Oh no!! I've encountered an error while remove your task from your save file!
-                      ERROR: %s""",
-                    e);
-            ui.addToBuffer(error);
+                      ERROR: %s""";
+            ui.addFormattedToBuffer(deleteErrorResponseFormat, e.getMessage());
         }
     }
 
@@ -216,11 +214,10 @@ public class Storage {
             writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            String error = String.format("""
+            String updateErrorResponseFormat = """
                     Oh no!! I've encountered an error while trying to update the task in your save file!
-                      ERROR: %s""",
-                    e);
-            ui.addToBuffer(error);
+                      ERROR: %s""";
+            ui.addFormattedToBuffer(updateErrorResponseFormat, e.getMessage());
         }
     }
 }

@@ -14,12 +14,23 @@ import ekud.exceptions.EkudException;
  */
 public class DeadlineTask extends Task {
     /** The {@link LocalDateTime} format when parsing input date Strings */
-    public static final DateTimeFormatter READ_FORMAT =
+    private static final DateTimeFormatter READ_DATE_FORMAT =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
 
     /** The {@link LocalDateTime} format when outputting date Strings */
-    public static final DateTimeFormatter PRINT_FORMAT =
+    private static final DateTimeFormatter PRINT_DATE_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a", Locale.ENGLISH);
+
+    private static final String EMPTY_DESCRIPTION_MESSAGE =
+        "I'm sorry, but, nothing does not have a DEADLINE.\nTry giving me an actual task.";
+    private static final String EMPTY_DEADLINE_MESSAGE = """
+            Whoopsies!! Looks like you forgot your deadline!
+            I'll say this once: next time mark your deadline with '/by'.""";
+    private static final String WRONG_DATE_FORMAT_MESSAGE = """
+            Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
+            I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...""";
+    private static final String SAVE_STRING_FORMAT = "D | %s | %s";
+    private static final String STRING_FORMAT = "[D]%s (by: %s)";
 
     /** The deadline of the task */
     protected LocalDateTime deadline;
@@ -34,31 +45,29 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String description, String deadline) throws EkudException {
         super(description);
         if (deadline == null || deadline.isEmpty()) {
-            throw new EkudException("""
-                    Whoopsies!! Looks like you forgot your deadline!
-                    I'll say this once: next time mark your deadline with '/by'.""");
+            throw new EkudException(EMPTY_DEADLINE_MESSAGE);
         }
+
         try {
-            this.deadline = LocalDateTime.parse(deadline, READ_FORMAT);
+            this.deadline = LocalDateTime.parse(deadline, READ_DATE_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new EkudException("""
-                    Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
-                    I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...""");
+            throw new EkudException(WRONG_DATE_FORMAT_MESSAGE);
         }
     }
 
     @Override
     public String getEmptyDescriptionErrorMessage() {
-        return "I'm sorry, but, nothing does not have a DEADLINE.\nTry giving me an actual task.";
+        return EMPTY_DESCRIPTION_MESSAGE;
     }
 
     @Override
     public String getSaveTaskString() {
-        return String.format("D | %s | %s", super.getSaveTaskString(), deadline.format(READ_FORMAT));
+        return String.format(SAVE_STRING_FORMAT, super.getSaveTaskString(),
+                deadline.format(READ_DATE_FORMAT));
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadline.format(PRINT_FORMAT));
+        return String.format(STRING_FORMAT, super.toString(), deadline.format(PRINT_DATE_FORMAT));
     }
 }

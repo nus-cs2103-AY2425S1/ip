@@ -1,12 +1,18 @@
 package ekud.ui;
 
 /**
- * Represents the UI of EKuD, responsible for outputting EKuD's responses and reading the user's input.
+ * An abstract class that represents the UI of EKuD,
+ * responsible for outputting EKuD's responses and reading the user's input.
  *
  * @author uniqly
  * @see ekud.Ekud
  */
 public abstract class Ui {
+    protected static final String GREETING_MESSAGE =
+            "Hey! My name is EkuD!!\nYou can call me Eku-Chan!";
+    protected static final String GOODBYE_MESSAGE =
+            "I hope you enjoyed your stay!\nSee you next time! NOT!!";
+
     /** Buffer of Strings to print as one output */
     private final StringBuilder bufferedOutputs = new StringBuilder();
 
@@ -27,6 +33,16 @@ public abstract class Ui {
             bufferedOutputs.append("\n");
         }
         bufferedOutputs.append(input);
+    }
+
+    /**
+     * Formats inputs following a format and adds it to the buffer.
+     * @param format The {@link String} format to follow.
+     * @param inputs The list of inputs.
+     */
+    public void addFormattedToBuffer(String format, Object... inputs) {
+        String formattedInput = String.format(format, inputs);
+        addToBuffer(formattedInput);
     }
 
     /**

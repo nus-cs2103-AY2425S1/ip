@@ -7,7 +7,9 @@ import ekud.exceptions.EkudException;
 import ekud.ui.Ui;
 
 /**
- * Represents a task. Each task minimally has a description and completion status.
+ * An abstract class that represents a task; cannot be instantiated directly.
+ * <p/>
+ * Each task minimally has a description and completion status.
  *
  * @author uniqly
  */
