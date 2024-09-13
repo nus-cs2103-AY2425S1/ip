@@ -14,7 +14,7 @@ public class TaskList {
     /**
      * Deletes the specified task at index taskNumber (0-indexed) in the ArrayList.
      *
-     * @param taskNumber The task to be deleted.
+     * @param indexes The task indexes to be deleted.
      */
     public void deleteTasks(ArrayList<Integer> indexes) {
         for (int i = indexes.size() - 1; i >= 0; i--) {

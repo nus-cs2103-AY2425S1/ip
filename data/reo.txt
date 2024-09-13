@@ -1,3 +1,6 @@
 T | 1 | sajbds
-T | 0 | lab2
 T | 0 | shbf
+E | 0 | Tutorial 3  | 1pm | 3pm
+T | 0 | lab 1
+T | 0 | lab 2
+T | 0 | lab 3
