@@ -174,6 +174,61 @@ public class Parser {
     }
 
     /**
+     * Checks if the desired date is within the range of the task's from and to dates.
+     *
+     * @param desiredDate the date to check
+     * @param taskFromDate the task's from date
+     * @param taskToDate the task's to date
+     * @return true if the desired date is inclusive of either taskFromDate or taskToDate, or if it falls between them
+     */
+    public static boolean isDateInRange(String desiredDate, String taskFromDate, String taskToDate) {
+        DateTimeFormatter desiredFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate desiredLocalDate = LocalDate.parse(desiredDate, desiredFormatter);
+
+        List<String> taskFormats = new ArrayList<>();
+        taskFormats.add("d/M/yyyy");
+        taskFormats.add("d/M/yyyy HHmm");
+
+        LocalDate taskFromLocalDate = null;
+        LocalDate taskToLocalDate = null;
+
+        for (String format : taskFormats) {
+            DateTimeFormatter taskFormatter = DateTimeFormatter.ofPattern(format);
+            try {
+                if (format.contains("HHmm")) {
+                    LocalDateTime taskLocalDateTime = LocalDateTime.parse(taskFromDate, taskFormatter);
+                    taskFromLocalDate = taskLocalDateTime.toLocalDate();
+                } else {
+                    taskFromLocalDate = LocalDate.parse(taskFromDate, taskFormatter);
+                }
+            } catch (DateTimeParseException e) {
+                // ignore and continue to next format
+            }
+        }
+
+        for (String format : taskFormats) {
+            DateTimeFormatter taskFormatter = DateTimeFormatter.ofPattern(format);
+            try {
+                if (format.contains("HHmm")) {
+                    LocalDateTime taskLocalDateTime = LocalDateTime.parse(taskToDate, taskFormatter);
+                    taskToLocalDate = taskLocalDateTime.toLocalDate();
+                } else {
+                    taskToLocalDate = LocalDate.parse(taskToDate, taskFormatter);
+                }
+            } catch (DateTimeParseException e) {
+                // ignore and continue to next format
+            }
+        }
+
+        if (taskFromLocalDate != null && taskToLocalDate != null) {
+            return (desiredLocalDate.isEqual(taskFromLocalDate) || desiredLocalDate.isEqual(taskToLocalDate) ||
+                    (desiredLocalDate.isAfter(taskFromLocalDate) && desiredLocalDate.isBefore(taskToLocalDate)));
+        }
+
+        return false;
+    }
+
+    /**
      * Processes a user input string and executes the corresponding command.
      *
      * @param input The user's input string.

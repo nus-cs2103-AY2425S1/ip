@@ -30,20 +30,18 @@ public class ViewCommand implements Command {
             throw new XBotException("The date to view is in invalid format!");
         }
 
-        String output = "";
+        String output = "Here are the tasks for today!!\n\n";
         boolean noTodo = listTodoForDate(rest) == ui.showNoTask();
         boolean noDeadline = listDeadlineForDate(rest) == ui.showNoTask();
+        boolean noEvent = listEventForDate(rest) == ui.showNoTask();
 
-        if (!noTodo) {
-            output = output + listTodoForDate(rest);
-        }
-        if (!noDeadline) {
-            output = output + listDeadlineForDate(rest);
-        }
-
-        if (noTodo && noDeadline) {
+        if (noTodo && noDeadline && noEvent) {
             output = ui.showNoTask();
         }
+
+        output = output + listTodoForDate(rest);
+        output = output + listDeadlineForDate(rest);
+        output = output + listEventForDate(rest);
 
         return output;
     }
@@ -51,17 +49,37 @@ public class ViewCommand implements Command {
     public String listTodoForDate(String date) {
         assert Parser.isValidDateFormat(date) : "The date to view is invalid!";
         String output;
-        output = "This is the summary of todo list for the day!\n";
+        output = "Todos: \n";
         TaskList todoList = totalList.viewTodoTask();
-        output = output + ui.showTaskList(todoList) + "\n";
+        String displayTodoList = ui.showTaskList(todoList);
+        if (displayTodoList == ui.showNoTask()) {
+            return "";
+        }
+        output = output + displayTodoList + "\n";
         return output;
     }
 
     public String listDeadlineForDate(String date) {
         assert Parser.isValidDateFormat(date) : "The date to view is invalid!";
-        String output = "This is the summary of Deadline list for the day!\n";
+        String output = "Deadlines: \n";
         TaskList deadlineList = totalList.viewDeadlineTask(date);
-        output = output + ui.showTaskList(deadlineList);
+        String displayDeadlineList = ui.showTaskList(deadlineList);
+        if (displayDeadlineList == ui.showNoTask()) {
+            return "";
+        }
+        output = output + displayDeadlineList + "\n";
+        return output;
+    }
+
+    public String listEventForDate(String date) {
+        assert Parser.isValidDateFormat(date) : "The date to view is invalid!";
+        String output = "Events: \n";
+        TaskList eventList = totalList.viewEventTask(date);
+        String displayEventList = ui.showTaskList(eventList);
+        if (displayEventList == ui.showNoTask()) {
+            return "";
+        }
+        output = output + displayEventList + "\n";
         return output;
     }
 }

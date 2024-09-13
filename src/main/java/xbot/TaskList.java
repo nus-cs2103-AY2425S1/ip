@@ -5,6 +5,7 @@ import java.util.List;
 
 import xbot.parser.Parser;
 import xbot.task.Deadline;
+import xbot.task.Event;
 import xbot.task.Task;
 import xbot.task.TaskType;
 import xbot.ui.Ui;
@@ -88,20 +89,6 @@ public class TaskList {
         return Ui.showMatchingTaskList(specificTasks);
     }
 
-    /**
-     * Finds and displays tasks that match the given keyword.
-     *
-     * @param keyword the keyword to search for in task descriptions
-     */
-    public String viewTask(String keyword) {
-        assert !keyword.isEmpty() : "The keyword for find task is empty!";
-        TaskList specificTasks = new TaskList();
-        list.stream()
-                .filter(task -> task.getDescription().contains(keyword))
-                .forEach(filtered -> specificTasks.add(filtered));
-        return Ui.showMatchingTaskList(specificTasks);
-    }
-
     public TaskList viewTodoTask() {
         TaskList specificTasks = new TaskList();
         list.stream()
@@ -114,7 +101,7 @@ public class TaskList {
         TaskList specificTasks = new TaskList();
         list.stream()
                 .filter(task -> task.getType().equals(TaskType.D))
-                .map(x -> (Deadline)x)
+                .map(x -> (Deadline) x)
                 .filter(z -> Parser.isSameDate(date, z.getBy()))
                 .forEach(filtered -> specificTasks.add(filtered));
         return specificTasks;
@@ -124,6 +111,8 @@ public class TaskList {
         TaskList specificTasks = new TaskList();
         list.stream()
                 .filter(task -> task.getType().equals(TaskType.E))
+                .map(x -> (Event) x)
+                .filter(z -> Parser.isDateInRange(date, z.getFrom(), z.getTo()))
                 .forEach(filtered -> specificTasks.add(filtered));
         return specificTasks;
     }
