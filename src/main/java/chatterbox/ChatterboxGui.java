@@ -176,7 +176,7 @@ public class ChatterboxGui {
                 tasks.tagTask(tagIndex, tagText);
                 break;
             default:
-                result = "Error occuring...";
+                result = "Error occured...";
                 ChatterboxExceptions.checkMessage(input);
 
                 break;
