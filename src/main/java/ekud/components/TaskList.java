@@ -92,7 +92,8 @@ public class TaskList implements Iterable<Task> {
      */
     public void checkTask(int index) throws EkudException {
         // checks if there is a task at the given index
-        if (index < 0 || index >= tasks.size()) {
+        boolean isIndexOutOfRange = index < 0 || index >= tasks.size();
+        if (isIndexOutOfRange) {
             String errorMessageFormat = """
                     Whats this? You tried an invalid list index!?
                     Pfft... That's so hilarious!
