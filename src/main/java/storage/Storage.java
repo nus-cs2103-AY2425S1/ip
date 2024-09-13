@@ -66,10 +66,10 @@ public class Storage {
      * @throws BuddyException If the file is not found or if there is an error parsing the file contents.
      */
     public ArrayList<Task> load() throws BuddyException {
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
         if (!file.exists()) {
-            throw new BuddyException("  No tasks found, starting from scratch");
+            throw new BuddyException("No tasks found, starting from scratch");
         }
 
         // Reading previously stored tasks from the file
@@ -106,17 +106,18 @@ public class Storage {
                     task.markAsDone();
                 }
 
-                list.add(task);
+                tasks.add(task);
             }
 
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("    No previous task list found, starting fresh!");
+            System.out.println("No previous task list found, starting fresh!");
         } catch (BuddyException e) {
-            System.out.println("    OOPS!!! The task list file seems to be corrupted... ");
+            System.out.println("OOPS!!! The task list file seems to be corrupted... ");
         }
 
-        return list;
+        assert tasks != null : "Task list is null after loading.";
+        return tasks;
     }
 
     /**
