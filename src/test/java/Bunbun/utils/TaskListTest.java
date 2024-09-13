@@ -5,6 +5,8 @@ import Bunbun.tasks.ToDo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -24,7 +26,10 @@ public class TaskListTest {
     @Test
     public void markDoneTask_outOfBoundsTaskNum_exceptionThrown() {
         try {
-            taskList.markDoneTask(-1);
+            ArrayList<String> tokens = new ArrayList<>();
+            tokens.add("mark");
+            tokens.add("-1");
+            taskList.markDoneTask(tokens);
             fail();
         } catch (BunbunException e) {
             assertEquals("I can't mark task -1 cause it doesn't exist!!! ;-;", e.getMessage());
@@ -33,9 +38,11 @@ public class TaskListTest {
 
     @Test
     public void markDoneTask_one_success() {
-
         try {
-            taskList.markDoneTask(1);
+            ArrayList<String> tokens = new ArrayList<>();
+            tokens.add("mark");
+            tokens.add("1");
+            taskList.markDoneTask(tokens);
             assertEquals("[T][X] HAI", toAdd.toString());
         } catch (BunbunException e) {
             fail();

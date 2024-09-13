@@ -36,16 +36,10 @@ public class Command {
     public String execute(ArrayList<String> tokens) {
         try {
             String firstWord = tokens.get(0);
-            int len = tokens.size();
             if (firstWord.equals("list")) {
                 return this.taskList.displayList();
             } else if (firstWord.equals("mark")) {
-                if (len == 2) {
-                    String val = tokens.get(1);
-                    return this.taskList.markDoneTask(Integer.parseInt(val));
-                } else {
-                    return this.ui.response("Specify 1! positive integer to mark task as complete D:");
-                }
+                return this.taskList.markDoneTask(tokens);
             } else if (firstWord.equals("todo")) {
                 return this.taskList.addToDo(tokens);
             } else if (firstWord.equals("deadline")) {
@@ -53,11 +47,7 @@ public class Command {
             } else if (firstWord.equals("event")) {
                 return this.taskList.addEvent(tokens);
             } else if (firstWord.equals("delete")) {
-                if (len == 2) {
-                    return this.taskList.deleteTask(Integer.parseInt(tokens.get(1)));
-                } else {
-                    return this.ui.response("Specify 1! positive integer to delete task D:");
-                }
+                return this.taskList.deleteTask(tokens);
             } else if (firstWord.equals("find")) {
                 return this.taskList.searchAndDisplay(tokens);
             } else {

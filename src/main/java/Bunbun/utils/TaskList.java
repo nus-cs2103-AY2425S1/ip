@@ -1,8 +1,8 @@
 package Bunbun.utils;
 
 import Bunbun.exceptions.BunbunException;
+import Bunbun.exceptions.InvalidCommandFormatException;
 import Bunbun.exceptions.InvalidDateFormatException;
-import Bunbun.exceptions.InvalidFindFormatException;
 import Bunbun.exceptions.InvalidTaskFormatException;
 import Bunbun.exceptions.MissingTaskException;
 import Bunbun.exceptions.TaskNumOutOfBoundsException;
@@ -76,10 +76,10 @@ public class TaskList {
      * Adds To Do task to the task list from an array list of tokens specifying the task.
      *
      * @param tokens ArrayList with Strings specifying the task.
-     * @throws MissingTaskException if the command specifying the task is invalid due to
+     * @throws InvalidCommandFormatException if the command specifying the task is invalid due to
      * no task specified.
      */
-    public String addToDo(ArrayList<String> tokens) throws MissingTaskException {
+    public String addToDo(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1) {
             throw new MissingTaskException("Failed. Specify a task for your todo!!!! D:");
         } else {
@@ -102,31 +102,23 @@ public class TaskList {
     public String addDeadline(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1 || tokens.get(1).equals("/by")) {
             throw new MissingTaskException("Failed. Specify a task for your deadline task!!!! D:");
-        } else if (!(tokens.contains("/by")) || tokens.indexOf("/by") == tokens.size() - 1) {
+        } else if (!(tokens.contains("/by")) || tokens.indexOf("/by") != tokens.size() - 2) {
             throw new InvalidTaskFormatException(
                     "Failed. Add /by [DATE] to specify when to complete your task by!!! ;=;");
         } else {
             String taskDescription = "";
-            LocalDate deadline = null;
-            int len = tokens.size();
-            Boolean failed = false;
-            for (int i = 1; i < len; i++) {
-                if (tokens.get(i).equals("/by")) {
-                    i += 1;
-                    deadline = DateTimeHandler.isValidLocalDate(tokens.get(i));
-                    if (deadline == null || tokens.size() > i + 1) {
-                        failed = true;
-                    }
-                } else {
-                    taskDescription += tokens.get(i) + " ";
-                }
+            int i = 1;
+            while (!tokens.get(i).equals("/by")) {
+                taskDescription += tokens.get(i) + " ";
+                i += 1;
             }
-            if (!failed) {
-                Deadline deadlineTask = new Deadline(taskDescription, deadline);
-                return this.addTask(deadlineTask);
-            } else {
+            LocalDate deadline = DateTimeHandler.isValidLocalDate(tokens.get(i+1));
+            if (deadline == null) {
                 throw new InvalidDateFormatException("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
             }
+
+            Deadline deadlineTask = new Deadline(taskDescription, deadline);
+            return this.addTask(deadlineTask);
         }
     }
 
@@ -139,41 +131,26 @@ public class TaskList {
     public String addEvent(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1 || tokens.get(1).equals("/from") || tokens.get(1).equals("/to")) {
             throw new MissingTaskException("Failed. Specify a task for your event task!!!! D:");
-        } else if (!(tokens.contains("/from")) || !(tokens.contains("/to")) ||
-                (tokens.indexOf("/from") > tokens.indexOf("/to")) ||
-                (tokens.indexOf("/from") + 1 == tokens.indexOf("/to")) ||
-                tokens.indexOf("/to") == tokens.size() - 1) {
+        } else if (!(tokens.contains("/from")) || !(tokens.contains("/to"))
+                || (tokens.indexOf("/from") != tokens.indexOf("/to") - 2)
+                || tokens.indexOf("/to") != tokens.size() - 2) {
             throw new InvalidTaskFormatException(
                     "Failed. Add /from [DATE] /to [DATE] to specify the duration of your event!!! ;=;");
         } else {
             String taskDescription = "";
-            LocalDate start = null;
-            LocalDate end = null;
-            int len = tokens.size();
             int i = 1;
-            Boolean failed = false;
-            while (i < len && !(tokens.get(i).equals("/from"))) {
+            while (!tokens.get(i).equals("/from")) {
                 taskDescription += tokens.get(i) + " ";
                 i += 1;
             }
             i += 1;
-            start = DateTimeHandler.isValidLocalDate(tokens.get(i));
-            if (start == null || !tokens.get(i + 1).equals("/to")) {
-                failed = true;
-            } else {
-                i += 2;
-                end = DateTimeHandler.isValidLocalDate(tokens.get(i));
-                if (end == null || tokens.size() > i + 1) {
-                    failed = true;
-                }
-            }
-
-            if (!failed) {
-                Event event = new Event(taskDescription, start, end);
-                return this.addTask(event);
-            } else {
+            LocalDate start = DateTimeHandler.isValidLocalDate(tokens.get(i));
+            LocalDate end = DateTimeHandler.isValidLocalDate(tokens.get(i+2));
+            if (start == null || end == null) {
                 throw new InvalidDateFormatException("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
             }
+            Event event = new Event(taskDescription, start, end);
+            return this.addTask(event);
         }
     }
 
@@ -196,37 +173,45 @@ public class TaskList {
     /**
      * Signals that a task is complete and marks the description with an X.
      *
-     * @param taskNum int to indicate which task to mark as complete.
+     * @param tokens ArrayList with Strings specifying the task to mark complete.
      */
-    public String markDoneTask(int taskNum) throws TaskNumOutOfBoundsException {
+    public String markDoneTask(ArrayList<String> tokens) throws BunbunException {
+        if (tokens.size() == 1) {
+            throw new InvalidCommandFormatException("Specify 1! positive integer to mark task as complete D:");
+        }
+
+        int taskNum = Integer.parseInt(tokens.get(1));
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
             throw new TaskNumOutOfBoundsException(
                     String.format("I can't mark task %d cause it doesn't exist!!! ;-;", taskNum));
-        } else {
-            Task reqTask = this.taskList.get(taskNum - 1);
-            reqTask.complete();
-            String res = "Oki, I'll mark the task as done *w*! Good job finishing the task!!\n";
-            res += String.format("%s", reqTask);
-            return this.ui.response(res);
         }
+        Task reqTask = this.taskList.get(taskNum - 1);
+        reqTask.complete();
+        String res = "Oki, I'll mark the task as done *w*! Good job finishing the task!!\n";
+        res += String.format("%s", reqTask);
+        return this.ui.response(res);
     }
 
     /**
      * Deletes a task from the list
      *
-     * @param taskNum int to indicate which task to delete.
+     * @param tokens ArrayList with Strings specifying the task to delete.
      */
-    public String deleteTask(int taskNum) throws TaskNumOutOfBoundsException {
+    public String deleteTask(ArrayList<String> tokens) throws BunbunException {
+        if (tokens.size() == 1) {
+            throw new InvalidCommandFormatException("Specify 1! positive integer to delete task!");
+        }
+
+        int taskNum = Integer.parseInt(tokens.get(1));
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
             throw new TaskNumOutOfBoundsException(
                     String.format("I can't delete task %d cause it doesn't exist!!! ;-;", taskNum));
-        } else {
-            String res = String.format("Oki, I've deleted %s task!\n", this.taskList.get(taskNum - 1));
-            this.taskList.remove(taskNum - 1);
-            this.numOfTasks -= 1;
-            res += String.format("You have %d tasks left!!", this.numOfTasks);
-            return this.ui.response(res);
         }
+        String res = String.format("Oki, I've deleted %s task!\n", this.taskList.get(taskNum - 1));
+        this.taskList.remove(taskNum - 1);
+        this.numOfTasks -= 1;
+        res += String.format("You have %d tasks left!!", this.numOfTasks);
+        return this.ui.response(res);
     }
 
     /**
@@ -236,7 +221,7 @@ public class TaskList {
      */
     public String searchAndDisplay(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1) {
-            throw new InvalidFindFormatException("Failed. Key in word to find!! :<");
+            throw new InvalidCommandFormatException("Failed. Key in word to find!! :<");
         }
 
         String word = "";

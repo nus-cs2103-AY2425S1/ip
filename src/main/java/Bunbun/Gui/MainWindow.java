@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Bunbun instance */
-    public void setBunbun (Bunbun b) {
+    public void setBunbun(Bunbun b) {
         bunbun = b;
     }
 
