@@ -42,7 +42,7 @@ public class Parser {
     public String[] nextInput(Scanner scanner) {
         return scanner.nextLine().split(" ");
     }
-    public void Parse() throws ElonException{
+    public void parse() throws ElonException{
         while (!inputArr[0].equals("bye")) {
             if (inputArr[0].equals("list")) {
                 ui.listTasks(list);
