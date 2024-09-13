@@ -14,10 +14,18 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+/**
+ * Class for storage to store local data.
+ */
 public class Storage {
 
     private File data;
 
+    /**
+     * Initialises a storage object.
+     *
+     * @param filePath FilePath to local data.
+     */
     public Storage(String filePath) {
         this.data = new File(filePath);
         if (!data.exists()) {
