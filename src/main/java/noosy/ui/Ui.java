@@ -47,7 +47,7 @@ public class Ui {
      * Displays a message confirming that a task has been added to the list.
      *
      * @param tasks The updated TaskList.
-     * @param task The Task that was added.
+     * @param task  The Task that was added.
      */
     public void showTaskAdded(TaskList tasks, Task task) {
         System.out.println("I added it to the list! \n" + task);

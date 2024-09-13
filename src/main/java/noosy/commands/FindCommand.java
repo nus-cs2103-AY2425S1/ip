@@ -2,7 +2,6 @@ package noosy.commands;
 
 import noosy.exception.NoosyException;
 import noosy.storage.Storage;
-import noosy.task.Task;
 import noosy.task.TaskList;
 import noosy.ui.Ui;
 
@@ -12,10 +11,14 @@ import noosy.ui.Ui;
  */
 public class FindCommand extends Command {
 
-    /** The keyword to search for in tasks. */
-    private String keyword;
+    /**
+     * The keyword to search for in tasks.
+     */
+    private final String keyword;
 
-    /** The list of tasks that contain the keyword. */
+    /**
+     * The list of tasks that contain the keyword.
+     */
     private TaskList tasksWithKeyword;
 
     /**
@@ -42,5 +45,10 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NoosyException {
         this.tasksWithKeyword = tasks.find(this.keyword);
         ui.showFindCommand(tasksWithKeyword);
+    }
+
+    @Override
+    public String getString() {
+        return "Found!";
     }
 }

@@ -31,8 +31,8 @@ public class MarkCommand extends Command {
      * It updates the task's status to "done", displays this information to the user,
      * and saves the updated task list.
      *
-     * @param tasks the task list containing the task to be unmarked
-     * @param ui the user interface to display feedback to the user
+     * @param tasks   the task list containing the task to be unmarked
+     * @param ui      the user interface to display feedback to the user
      * @param storage the storage system to save the updated task list
      * @throws NoosyException if the specified task index is out of bounds or unavailable
      */
@@ -47,5 +47,10 @@ public class MarkCommand extends Command {
             throw new NoosyException("This task number is unavailable at the moment. \n " +
                     "Please try again later.");
         }
+    }
+
+    @Override
+    public String getString() {
+        return "Marked!";
     }
 }

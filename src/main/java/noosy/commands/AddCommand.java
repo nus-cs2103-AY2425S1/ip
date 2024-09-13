@@ -32,8 +32,8 @@ public class AddCommand extends Command {
      * It updates the task list, displays the task added message to the user,
      * and saves the updated task list to storage.
      *
-     * @param tasks the task list to which the task will be added
-     * @param ui the user interface to display feedback to the user
+     * @param tasks   the task list to which the task will be added
+     * @param ui      the user interface to display feedback to the user
      * @param storage the storage system to save the updated task list
      * @throws NoosyException if there is an issue adding the task
      */
@@ -42,5 +42,10 @@ public class AddCommand extends Command {
         tasks.add(task);
         ui.showTaskAdded(tasks, task);
         storage.addTask(task);
+    }
+
+    @Override
+    public String getString() {
+        return "Added!";
     }
 }

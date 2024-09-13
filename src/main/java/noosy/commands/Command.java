@@ -31,4 +31,11 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Returns a string of the command
+     *
+     * @return the command as a String.
+     */
+    public abstract String getString();
 }

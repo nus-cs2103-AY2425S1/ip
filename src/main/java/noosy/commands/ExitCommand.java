@@ -30,7 +30,12 @@ public class ExitCommand extends Command {
      * @param storage The storage for persisting tasks (not used in this command).
      */
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
+    }
+
+    @Override
+    public String getString() {
+        return "Exited!";
     }
 }

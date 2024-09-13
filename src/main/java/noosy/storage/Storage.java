@@ -1,5 +1,8 @@
 package noosy.storage;
 
+import noosy.exception.NoosyException;
+import noosy.task.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,27 +12,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import noosy.exception.NoosyException;
-import noosy.task.Deadline;
-import noosy.task.Event;
-import noosy.task.Task;
-import noosy.task.TaskList;
-import noosy.task.Todo;
-
 /**
  * Handles the storage and retrieval of tasks from a file.
  */
 public class Storage {
 
     /**
-     * The file path where tasks are stored.
-     */
-    private String path;
-
-    /**
      * The date-time formatter used for parsing and formatting event times.
      */
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    /**
+     * The file path where tasks are stored.
+     */
+    private final String path;
 
     /**
      * Constructs a new Storage object with the specified file path.
@@ -61,7 +56,7 @@ public class Storage {
      *
      * @return An ArrayList of Task objects loaded from the file.
      * @throws NoosyException If there's an error reading from the file.
-     * @throws IOException If there's an I/O error or if the file contains an invalid task type.
+     * @throws IOException    If there's an I/O error or if the file contains an invalid task type.
      */
     public ArrayList<Task> load() throws NoosyException, IOException {
         ArrayList<Task> tasks = new ArrayList<>();

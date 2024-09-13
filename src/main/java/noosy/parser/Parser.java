@@ -5,6 +5,7 @@ import noosy.exception.NoosyException;
 import noosy.task.Deadline;
 import noosy.task.Event;
 import noosy.task.Todo;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class Parser {
      * @throws NoosyException If the input is invalid or incomplete.
      */
     public static Command parse(String fullCommand) throws NoosyException {
-        String separated[] = fullCommand.split(" ", 2);
+        String[] separated = fullCommand.split(" ", 2);
         String firstWord = separated[0];
         String input = separated.length > 1 ? separated[1] : null;
 

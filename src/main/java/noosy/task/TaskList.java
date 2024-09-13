@@ -10,7 +10,7 @@ public class TaskList {
     /**
      * The list of tasks.
      */
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -77,7 +77,7 @@ public class TaskList {
     public TaskList find(String keyword) {
         TaskList tasksWithKeyword = new TaskList();
 
-        for (Task task: this.tasks) {
+        for (Task task : this.tasks) {
             if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
                 tasksWithKeyword.add(task);
             }
