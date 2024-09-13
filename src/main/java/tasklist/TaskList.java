@@ -1,6 +1,7 @@
 package tasklist;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 import task.*;
 import ui.Ui;
 
@@ -63,7 +64,42 @@ public class TaskList {
             return findResponse.toString();
         }
 
+    }
 
+    /**
+     * Returns a list of tasks (Deadlines or Events) that are due within 3 days.
+     * @return String
+     */
+    public String sayReminders() {
+        StringBuilder remindersResponse = new StringBuilder();
+        ArrayList<Task> reminderTasks = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime threeDaysLater = now.plusDays(3);
+
+        for (Task task : botMemory) {
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                if (deadlineTask.deadlineDateTime != null && deadlineTask.deadlineDateTime.isBefore(threeDaysLater) && deadlineTask.deadlineDateTime.isAfter(now)) {
+                    reminderTasks.add(deadlineTask);
+                }
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                if (eventTask.startDateTime != null && eventTask.startDateTime.isBefore(threeDaysLater) && eventTask.startDateTime.isAfter(now)) {
+                    reminderTasks.add(eventTask);
+                }
+            }
+        }
+
+        if (reminderTasks.isEmpty()) {
+            remindersResponse.append("You have no tasks with deadlines or events within the next 3 days.");
+        } else {
+            remindersResponse.append("Here are your upcoming tasks for the next 3 days:\n");
+            for (int i = 0; i < reminderTasks.size(); i++) {
+                remindersResponse.append((i + 1)).append(". ").append(reminderTasks.get(i).toString()).append("\n");
+            }
+        }
+
+        return remindersResponse.toString();
     }
 
     /**

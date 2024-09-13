@@ -74,6 +74,9 @@ public class Parser {
                 throw new MollyException("Invalid find command. Please use 'find (search term)'.");
             }
 
+        } else if (userInput.startsWith("reminders")) {
+            mollyResponse.append(taskList.sayReminders()).append("\n");
+
         } else if (!userInput.toLowerCase().equals("list")) {
             if (userInput.startsWith("todo")) {
                 if (userInput.equals("todo")) {
