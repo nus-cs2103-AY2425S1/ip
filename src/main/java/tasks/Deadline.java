@@ -22,12 +22,6 @@ public class Deadline extends Task {
         this.by = by;
         Task.incrementTaskCount();
     }
-
-
-    /*@Override
-    public String toDataString() {
-        return "D | " + super.toDataString() + " | " + by;
-    }*/
     @Override
     public String toDataString() {
         return "D | " + super.toDataString() + " | " + by + " | " + super.getPriorityNum();
