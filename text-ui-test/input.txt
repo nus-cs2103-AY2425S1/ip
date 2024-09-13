@@ -1,0 +1,11 @@
+todo return book
+deadline return book /by 28-07-2024
+event project meeting /from 30-07-2024 1400 /to 1600
+list
+mark 2
+mark 1
+list
+unmark 2
+list
+delete 1
+list
