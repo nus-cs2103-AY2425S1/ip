@@ -42,7 +42,7 @@ public class AddTaskCommand extends Command {
             displayMessage = ui.displayAddMessage(taskList.addDeadline(super.getDescription()), taskList.size());
             break;
         default:
-            return "I dont understand what you are trying to say :(";
+            return "I don't understand what you are trying to say :(";
         }
         storage.writeStorage(taskList.getTaskList());
         return displayMessage;

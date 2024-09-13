@@ -13,6 +13,13 @@ public class ListCommand extends Command {
         super("");
     }
 
+    /**
+     * Executes the list command to display tasks
+     * @param taskList
+     * @param ui
+     * @param storage
+     * @return
+     */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return taskList.list();
     }

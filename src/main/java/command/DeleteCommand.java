@@ -22,9 +22,9 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the delete command
-     * @param taskList
-     * @param ui
-     * @param storage
+     * @param taskList tasklist Object to store task
+     * @param ui ui object to display messages
+     * @param storage storage object to read and write to file
      * @return
      */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
