@@ -100,17 +100,25 @@ public class Storage {
      */
     private Task parseData(String data) throws InvalidTaskEnumException {
         String[] args = data.split(" \\| ");
-        // TODO: handle corrupted data
         TaskSymbol sym = TaskSymbol.fromString(args[0]);
         return switch (sym) {
-            case TODO -> new Todo(args[1], Boolean.parseBoolean(args[2]));
-            case DEADLINE -> new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
-            case EVENT -> new Event(
-                    args[1],
-                    Boolean.parseBoolean(args[2]),
-                    LocalDate.parse(args[3]),
-                    LocalDate.parse(args[4])
-            );
+            case TODO -> {
+                assert args.length == 3;
+                yield new Todo(args[1], Boolean.parseBoolean(args[2]));
+            }
+            case DEADLINE -> {
+                assert args.length == 4;
+                yield new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
+            }
+            case EVENT -> {
+                assert args.length == 5;
+                yield new Event(
+                        args[1],
+                        Boolean.parseBoolean(args[2]),
+                        LocalDate.parse(args[3]),
+                        LocalDate.parse(args[4])
+                );
+            }
         };
     }
 }
