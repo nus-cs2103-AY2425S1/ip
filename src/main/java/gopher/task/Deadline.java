@@ -25,40 +25,17 @@ public class Deadline extends Task {
 
     @Override
     public void update(String[] tokens) throws InvalidTokenException {
-        // Determine the position of /by token in update command tokens
-        // Check for any invalid tokens as well
-        int byTokenIndex = -1;
-        for (int i = 2; i < tokens.length; i++) {
-            if (tokens[i].equalsIgnoreCase("/by")) {
-                byTokenIndex = i;
-            } else if (tokens[i].startsWith("/")) {
-                throw new InvalidTokenException("deadline", tokens[i]);
-            }
-        }
+        String[] parsedResult = Parser.parseUpdateDeadlineTaskCommand(tokens);
 
-        // Update task name based on the position of /by token
-        StringBuilder taskName = new StringBuilder();
-        int taskNameIndexLimit = byTokenIndex != -1 ? byTokenIndex : tokens.length;
-        for (int i = 2; i < taskNameIndexLimit; i++) {
-            taskName.append(tokens[i]);
-            if (i < taskNameIndexLimit - 1) {
-                taskName.append(" ");
-            }
-        }
+        String taskName = parsedResult[0];
+        String dueDateString = parsedResult[1];
+
         if (!taskName.isEmpty()) {
-            this.name = taskName.toString();
+            this.name = taskName;
         }
 
-        // Update due date if /by token is found in command tokens
-        if (byTokenIndex != -1) {
-            StringBuilder dueDateString = new StringBuilder();
-            for (int i = byTokenIndex + 1; i < tokens.length; i++) {
-                dueDateString.append(tokens[i]);
-                if (i < tokens.length - 1) {
-                    dueDateString.append(" ");
-                }
-            }
-            this.dueDate = Parser.parseDateString(dueDateString.toString());
+        if (!dueDateString.isEmpty()) {
+            this.dueDate = Parser.parseDateString(dueDateString);
         }
     }
 

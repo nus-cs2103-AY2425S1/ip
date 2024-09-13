@@ -45,6 +45,9 @@ public abstract class Task {
 
     /**
      * Updates the relevant detail in the specified task.
+     *
+     * @param tokens tokens within the given update task command
+     * @throws InvalidTokenException if an invalid token exists in the given command
      */
     public abstract void update(String[] tokens) throws InvalidTokenException;
 

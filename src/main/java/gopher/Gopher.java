@@ -146,8 +146,7 @@ public class Gopher {
             if (tokens.length < 2) {
                 return "Update command cannot be empty";
             }
-            int taskNumber = Integer.parseInt(tokens[1]);
-            taskList.update(taskNumber, tokens);
+            taskList.update(tokens);
             return "Hi I have updated this task for you already!";
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();

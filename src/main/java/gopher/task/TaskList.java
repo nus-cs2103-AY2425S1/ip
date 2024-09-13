@@ -43,11 +43,11 @@ public class TaskList {
     /**
      * Updates the task with the given task number with the relevant information.
      *
-     * @param taskNumber number of the task to be updated
      * @param tokens tokens from the update command
      */
-    public void update(int taskNumber, String[] tokens)
+    public void update(String[] tokens)
             throws InvalidTokenException {
+        int taskNumber = Integer.parseInt(tokens[1]);
         this.getTask(taskNumber).update(tokens);
         TaskManager.saveTasks(tasks);
     }

@@ -1,6 +1,7 @@
 package gopher.task;
 
 import gopher.exception.InvalidTokenException;
+import gopher.parser.Parser;
 
 /**
  * Represents the todo Task.
@@ -19,22 +20,10 @@ public class ToDo extends Task {
     @Override
     public void update(String[] tokens) throws InvalidTokenException {
         // Extract task name from the given tokens
-        StringBuilder taskName = new StringBuilder();
-        for (int i = 2; i < tokens.length; i++) {
-            // If other tasks tokens are used, remind user that
-            // he/she may be updating the undesired task
-            if (tokens[i].startsWith("/")) {
-                throw new InvalidTokenException("todo", tokens[i]);
-            }
-
-            // Append the token if everything is fine
-            taskName.append(tokens[i]);
-            if (i < tokens.length - 1) {
-                taskName.append(" ");
-            }
+        String taskName = Parser.parseUpdateTodoTaskCommand(tokens);
+        if (!taskName.isEmpty()) {
+            this.name = taskName;
         }
-
-        this.name = taskName.toString();
     }
 
     @Override
