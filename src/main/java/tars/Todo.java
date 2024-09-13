@@ -32,7 +32,8 @@ public class Todo extends Task {
     @Override
     public String toString() {
         String taskString = super.toString();
-        assert taskString != null && !taskString.trim().isEmpty() : "Task string representation should not be null or empty.";
+        assert taskString != null
+                && !taskString.trim().isEmpty() : "Task string representation should not be null or empty.";
         return "[T] " + taskString;
     }
 
