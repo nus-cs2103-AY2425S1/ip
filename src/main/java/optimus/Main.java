@@ -13,7 +13,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Optimus optimus = new Optimus("./data/optimus.txt");
+    String FILE_PATH = "./data/optimus.txt";
+    private Optimus optimus = new Optimus(FILE_PATH);
 
     @Override
     public void start(Stage stage) {

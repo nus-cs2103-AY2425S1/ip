@@ -35,9 +35,19 @@ public class TaskList {
     }
 
     public String findTasks(String keyword, Ui ui) {
+        String[] keywords = keyword.split("\\s+");
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : record) {
-            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+            boolean isMatch = true;
+            String description = task.getDescription().toLowerCase();
+
+            for (String kw : keywords) {
+                if (!description.contains(kw.toLowerCase())) {
+                    isMatch = false;
+                    break;
+                }
+            }
+            if (isMatch) {
                 matchingTasks.add(task);
             }
         }
