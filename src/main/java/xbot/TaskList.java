@@ -84,11 +84,9 @@ public class TaskList {
     public String findTask(String keyword) {
         assert !keyword.isEmpty() : "The keyword for find task is empty!";
         TaskList specificTasks = new TaskList();
-        for (Task task : list) {
-            if (task.getDescription().contains(keyword)) {
-                specificTasks.add(task);
-            }
-        }
+        list.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .forEach(filtered -> specificTasks.add(filtered));
         return Ui.showMatchingTaskList(specificTasks);
     }
 }
