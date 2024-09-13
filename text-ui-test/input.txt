@@ -1,0 +1,8 @@
+todo buy cards
+mark 1
+deadline go home /by 15 July
+event play games /from 12am /to 12pm
+schedule
+unmark 1
+schedule
+bye
