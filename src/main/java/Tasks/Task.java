@@ -71,7 +71,7 @@ public abstract class Task {
     public abstract void setStartTime(LocalTime updatedEventStartTime);
 
     /**
-     * Sets the end time of the event.
+     * Sets the end time of the event
      *
      * @param updatedEventEndTime the new end time to be assigned to the event.
      */
