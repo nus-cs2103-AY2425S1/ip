@@ -16,11 +16,10 @@ public class ListCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master, UI ui) {
+    public boolean execute(Storage storage, TaskList master) {
         if (master.getSize() <= 0) {
             System.out.println("Friday > No tasks in here! Try adding something!");
         } else {

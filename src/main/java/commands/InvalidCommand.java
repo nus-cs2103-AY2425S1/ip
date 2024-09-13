@@ -9,7 +9,7 @@ import ui.UI;
  * The InvalidCommand class provides feedback to the user on how to correct their input.
  */
 public class InvalidCommand implements Command {
-    private String desc;
+    private final String desc;
 
     /**
      * Constructs an InvalidCommand with the specified invalid or incomplete input.
@@ -26,11 +26,10 @@ public class InvalidCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master, UI ui) {
+    public boolean execute(Storage storage, TaskList master) {
         switch(desc) {
         case "mark":
         case "unmark":

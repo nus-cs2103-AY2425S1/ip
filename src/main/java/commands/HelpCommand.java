@@ -16,11 +16,10 @@ public class HelpCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master, UI ui) {
+    public boolean execute(Storage storage, TaskList master) {
         System.out.println("""
                         Friday > Hello! I'm Friday! Your personal chatbot for ensuring you get things done by Friday ;)
                         To create a new task, type "add <task name>" and follow the instructions.

@@ -25,12 +25,11 @@ public class RemoveCommand implements Command {
      * If the input is invalid (e.g., not a number or out of range), an error message is displayed.
      *
      * @param storage the Storage object for handling task persistence
-     * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
+     * @param master  the TaskList object containing the list of tasks
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master, UI ui) {
+    public boolean execute(Storage storage, TaskList master) {
         try {
             int index = Integer.parseInt(this.desc);
 

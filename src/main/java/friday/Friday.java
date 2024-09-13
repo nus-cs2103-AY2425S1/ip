@@ -43,7 +43,7 @@ public class Friday {
             System.out.print("Your input > ");
             String[] parsed = this.ui.getInput();
             Command command = Parser.parse(parsed);
-            boolean isBye = command.execute(this.storage, this.master, this.ui);
+            boolean isBye = command.execute(this.storage, this.master);
             if (isBye) {
                 bye = true;
             }

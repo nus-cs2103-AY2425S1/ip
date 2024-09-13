@@ -28,16 +28,15 @@ public class FindCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master, UI ui) {
+    public boolean execute(Storage storage, TaskList master) {
         String s = "";
         for (int i = 0; i < master.getSize(); i++) {
             Task task = master.getParent().get(i);
             if (task.containsWord(this.desc)) {
-                s += "\n" + task.toString();
+                s += "\n" + task;
             }
         }
         if (!s.isEmpty()) {
