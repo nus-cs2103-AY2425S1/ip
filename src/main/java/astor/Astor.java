@@ -1,9 +1,9 @@
 package astor;
 
-import astor.command.Command;
-import astor.exception.*;
-
 import java.io.IOException;
+
+import astor.command.Command;
+import astor.exception.AstorException;
 
 /**
  * Represents the main application for managing tasks.
@@ -12,11 +12,11 @@ import java.io.IOException;
  * initializing the user interface, managing task data, and processing commands.
  */
 public class Astor {
+    private static final String DESTINATION_STORAGE = "./src/main/data/astor.Astor.txt";
 
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private static final String DESTINATION_STORAGE = "./src/main/data/astor.Astor.txt";
 
 
     /**

@@ -1,10 +1,5 @@
 package astor;
 
-import astor.task.Deadline;
-import astor.task.Event;
-import astor.task.Task;
-import astor.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +10,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import astor.task.Deadline;
+import astor.task.Event;
+import astor.task.Task;
+import astor.task.Todo;
 
 /**
  * Represents a storage manager.

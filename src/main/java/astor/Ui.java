@@ -6,8 +6,8 @@ import java.util.Scanner;
  * This class represents the user interface and the interactions to be conducted with the user.
  */
 public class Ui {
-    private final String SEPARATOR_LINE = "--------------------------------------";
-    private final String INTRODUCTION_LINE = "Hello, I'm Astor!\n" + "What can I do for you?\n"
+    private static final String SEPARATOR_LINE = "--------------------------------------";
+    private static final String INTRODUCTION_LINE = "Hello, I'm Astor!\n" + "What can I do for you?\n"
             + SEPARATOR_LINE;
     private Parser parser;
     private Scanner scanner;
@@ -57,7 +57,7 @@ public class Ui {
      *
      * @param output the output message
      */
-    public void showOutput (String output) {
+    public void showOutput(String output) {
         System.out.println(output);
     }
 

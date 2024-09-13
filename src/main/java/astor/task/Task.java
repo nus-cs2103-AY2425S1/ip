@@ -71,9 +71,9 @@ public class Task {
         String parsedDate = dateAndTime[2] + "-" + dateAndTime[1] + "-" + dateAndTime[0];
 
         if (dateAndTime.length > 3) {
-            String hour = dateAndTime[3].substring(0,2);
+            String hour = dateAndTime[3].substring(0, 2);
             String minute = dateAndTime[3].substring(2);
-            parsedDate +=  "T" + hour + ":" + minute;
+            parsedDate += "T" + hour + ":" + minute;
         } else {
             parsedDate += "T00:00:00";
         }
@@ -92,6 +92,12 @@ public class Task {
         return "";
     }
 
+    /**
+     * Checks if the task matches the input keyword.
+     *
+     * @param input a string of keyword to check
+     * @return a boolean to indicate if the task is indeed what the input is referring to
+     */
     public boolean isIncluded(String input) {
         String[] words = taskInfo.split("\\s+");
         for (String word : words) {

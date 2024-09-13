@@ -1,5 +1,7 @@
 package astor.command;
 
+import java.io.IOException;
+
 import astor.Storage;
 import astor.TaskList;
 import astor.Ui;
@@ -8,8 +10,6 @@ import astor.exception.EmptyDeadlineException;
 import astor.exception.EmptyTaskInfoException;
 import astor.task.Deadline;
 import astor.task.Task;
-
-import java.io.IOException;
 
 /**
  * Represents a command for creating a deadline task.

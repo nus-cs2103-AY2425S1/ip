@@ -1,11 +1,11 @@
 package astor.command;
 
+import java.io.IOException;
+
 import astor.Storage;
 import astor.TaskList;
 import astor.Ui;
 import astor.exception.AstorException;
-
-import java.io.IOException;
 
 /**
  * Represents an abstract command in the chatbot.

@@ -26,7 +26,8 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs an Event object with a task description, start time, and end time represented as LocalDateTime objects.
+     * Constructs an Event object with a task description, start time,
+     * and end time represented as LocalDateTime objects.
      *
      * @param taskInfo a description of the task
      * @param start a LocalDateTime object representing the start time

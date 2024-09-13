@@ -1,7 +1,18 @@
 package astor;
 
-import astor.command.*;
-import astor.exception.*;
+import astor.command.Command;
+import astor.command.DeadlineCommand;
+import astor.command.DeleteCommand;
+import astor.command.EventCommand;
+import astor.command.ExitCommand;
+import astor.command.FindCommand;
+import astor.command.ListCommand;
+import astor.command.MarkCommand;
+import astor.command.TodoCommand;
+import astor.command.UnmarkCommand;
+import astor.exception.AstorException;
+import astor.exception.EmptyInputException;
+import astor.exception.UnspecificTaskException;
 
 /**
  * Parses user input and categorises the command to take.
@@ -89,11 +100,10 @@ public class Parser {
             throw new EmptyInputException();
         case BYE:
             return new ExitCommand();
-        case DEFAULT:
-            throw new UnspecificTaskException();
         case FIND:
             return new FindCommand(input);
+        default:
+            throw new UnspecificTaskException();
         }
-        return null;
     }
 }

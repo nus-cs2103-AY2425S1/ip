@@ -1,13 +1,14 @@
 package astor;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import astor.exception.AstorException;
 import astor.exception.DeleteTaskOutOfRangeException;
 import astor.exception.MarkTaskOutOfRangeException;
 import astor.task.Task;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Manages a list of tasks and provides functionalities to modify and access tasks.
@@ -16,7 +17,7 @@ import java.util.List;
  * It also provides methods to retrieve the list of tasks and their status.
  */
 public class TaskList {
-    List<Task> taskList;
+    private final List<Task> taskList;
 
     public TaskList() {
         taskList = new ArrayList<>();
@@ -106,8 +107,8 @@ public class TaskList {
         if (taskIndex >= 1 && taskIndex <= taskList.size()) {
             Task task = taskList.remove(taskIndex - 1);
             storage.updateData(taskList);
-            return "Noted. I've removed this task:\n  " +
-                    task + "\nNow you have " + taskList.size() + " tasks in the list.";
+            return "Noted. I've removed this task:\n  "
+                    + task + "\nNow you have " + taskList.size() + " tasks in the list.";
         } else {
             throw DeleteTaskOutOfRangeException.outOfRangeTaskToDelete(taskList.size());
         }
@@ -129,6 +130,12 @@ public class TaskList {
         return task.toString();
     }
 
+    /**
+     * Finds the task that matches the description.
+     *
+     * @param description a string of keywords to search for
+     * @return a string that contains all the tasks that matches the description
+     */
     public String matchesDescription(String description) {
         StringBuilder s = new StringBuilder();
         int i = 1;
