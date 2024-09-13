@@ -41,6 +41,8 @@ public abstract class Task {
      * @return A new ToDo Task.
      */
     public static Task toDo(String description) {
+        assert description != null : "Description cannot be null";
+        
         return new ToDo(description);
     }
 
@@ -53,6 +55,9 @@ public abstract class Task {
      * @return A new ToDo Task.
      */
     public static Task toDo(String description, boolean isDone) {
+        assert description != null : "Description cannot be null";
+        assert isDone == true || isDone == false : "isDone must be a boolean value";
+
         return new ToDo(description, isDone);
     }
 
@@ -65,6 +70,9 @@ public abstract class Task {
      * @return A new Task representing a Deadline.
      */
     public static Task deadline(String description, LocalDate time) {
+        assert description != null : "Description cannot be null";
+        assert time != null : "Time cannot be null";
+
         return new Deadline(description, time);
     }
 
@@ -78,6 +86,10 @@ public abstract class Task {
      * @return A new Task representing a Deadline.
      */
     public static Task deadline(String description, boolean isDone, LocalDate time) {
+        assert description != null : "Description cannot be null";
+        assert isDone == true || isDone == false : "isDone must be a boolean value";
+        assert time != null : "Time cannot be null";
+
         return new Deadline(description, isDone, time);
     }
 
@@ -91,6 +103,11 @@ public abstract class Task {
      * @return A new Task representing an Event.
      */
     public static Task event(String description, LocalDate start, LocalDate end) {
+        assert description != null : "Description cannot be null";
+        assert start != null : "Start cannot be null";
+        assert end != null : "End cannot be null";
+        assert start.isBefore(end) : "Start date must be before end date";
+
         return new Event(description, start, end);
     }
 
@@ -105,6 +122,12 @@ public abstract class Task {
      * @return A new Task representing an Event.
      */
     public static Task event(String description, boolean isDone, LocalDate start, LocalDate end) {
+        assert description != null : "Description cannot be null";
+        assert isDone == true || isDone == false : "isDone must be a boolean value";
+        assert start != null : "Start cannot be null";
+        assert end != null : "End cannot be null";
+        assert start.isBefore(end) : "Start date must be before end date";
+
         return new Event(description, isDone, start, end);
     }
 
@@ -152,6 +175,8 @@ public abstract class Task {
     }
 
     public boolean containsString(String searchCriteria) {
+        assert searchCriteria != null : "Search criteria cannot be null";
+        
         return this.description.indexOf(searchCriteria) != -1;
     }
 

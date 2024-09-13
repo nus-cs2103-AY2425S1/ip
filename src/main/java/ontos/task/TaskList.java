@@ -22,6 +22,7 @@ public class TaskList {
      * @param task The task to be added to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         this.taskList.add(task);
     }
 
@@ -32,6 +33,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range (index < 1 or index > size()).
      */
     public void completeTaskAt(int index) throws IndexOutOfBoundsException {
+        assert index >= 1 && index <= this.getSize() : "Index out of bounds for TaskList";
         this.taskList.get(index - 1).completeTask();
     }
 
@@ -42,6 +44,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range (index < 1 or index > size()).
      */
     public void uncompleteTaskAt(int index) throws IndexOutOfBoundsException {
+        assert index >= 1 && index <= this.getSize() : "Index out of bounds for TaskList";
         this.taskList.get(index - 1).uncompleteTask();
     }
 
@@ -62,6 +65,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range (index < 1 or index > size()).
      */
     public Task removeTaskAt(int index) throws IndexOutOfBoundsException {
+        assert index >= 1 && index <= this.getSize() : "Index out of bounds for TaskList";
         Task removedTask = taskList.get(index - 1);
         taskList.remove(index - 1);
         return removedTask;
@@ -75,6 +79,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range (index < 1 or index > size()).
      */
     public Task getTaskAt(int index) {
+        assert index >= 1 && index <= this.getSize() : "Index out of bounds for TaskList";
         return taskList.get(index - 1);
     }
 
@@ -86,6 +91,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range (index < 1 or index > size()).
      */
     public String getTaskString(int index) {
+        assert index >= 1 && index <= this.getSize() : "Index out of bounds for TaskList";
         return taskList.get(index - 1).toString();
     }
 
@@ -127,6 +133,8 @@ public class TaskList {
      * @return A String representing the tasks that have been searched for.
      */
     public String containsString(String searchCriteria) {
+        assert searchCriteria != null : "Search criteria cannot be null";
+        
         int index = 1;
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {

@@ -109,6 +109,7 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+            assert tasks != null : "TaskList should not be null";
             return ui.list(tasks);
         }
 
@@ -161,6 +162,9 @@ public abstract class Command {
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
         public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+            assert tasks != null : "TaskList cannot be null";
+            assert index >= 0 && index < tasks.getSize() : "Index out of bounds for TaskList";
+
             try {
                 if (isMarkCorrect) {
                     tasks.completeTaskAt(index);
@@ -200,6 +204,9 @@ public abstract class Command {
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
         public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+            assert tasks != null : "TaskList cannot be null";
+            assert index >= 0 && index < tasks.getSize() : "Index out of bounds for TaskList";
+
             try {
                 Task task = tasks.removeTaskAt(index);
                 return ui.delete(task);
@@ -234,6 +241,7 @@ public abstract class Command {
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
         public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+            assert tasks != null : "TaskList cannot be null";
             tasks.addTask(task);
             return ui.taskAdded(task, tasks);
         }
@@ -263,6 +271,7 @@ public abstract class Command {
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
         public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+            assert tasks != null : "TaskList cannot be null";
             String filteredList = tasks.containsString(searchCriteria);
             return ui.findOutput(filteredList);
         }
