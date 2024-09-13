@@ -46,8 +46,8 @@ public class Storage {
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
         try {
-            File f = new File(filePath); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
                 String line = s.nextLine();
                 Task task = fileParser.parse(line);

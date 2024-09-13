@@ -60,8 +60,11 @@ public class Task {
     /**
      * Toggles the status of the task between done and not done.
      */
-    public void changeStatus() {
-        this.isDone = !isDone;
+    public void markDone() {
+        this.isDone = true;
+    }
+    public void markUndone() {
+        this.isDone = false;
     }
 
     /**

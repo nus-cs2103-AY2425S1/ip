@@ -21,18 +21,7 @@ public class TaskListStub implements MaxineList {
     }
 
 
-    public void addTodo(String input) {
-        Todo task = new Todo("homework");
-        list.add(task);
-    }
-
-    public void addDeadline(String input) {
-        Deadline task = new Deadline("description", "tomorrow");
-        list.add(task);
-    }
-
-    public void addEvent(String input) throws MaxineException {
-        Event task = new Event("test", "today", "tomorrow");
+    public void addTask(Task task) {
         list.add(task);
     }
 
@@ -51,5 +40,8 @@ public class TaskListStub implements MaxineList {
     @Override
     public Iterator<Task> iterator() {
         return list.iterator();
+    }
+    public void deleteAll() {
+        list.clear();
     }
 }
