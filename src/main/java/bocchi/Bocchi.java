@@ -127,6 +127,7 @@ public class Bocchi {
 
         checkTaskIndex(index);
 
+        assert index >= 0 && index < taskList.size() : "Index out of bounds";
         Task task = taskList.getTask(index);
         task.markAsDone();
 
@@ -144,6 +145,7 @@ public class Bocchi {
 
         checkTaskIndex(index);
 
+        assert index >= 0 && index < taskList.size() : "Index out of bounds";
         Task task = taskList.getTask(index);
         task.markAsUnDone();
 
@@ -161,6 +163,7 @@ public class Bocchi {
 
         checkTaskIndex(index);
 
+        assert index >= 0 && index < taskList.size() : "Index out of bounds";
         Task task = taskList.removeTask(index);
 
         return DELETE_MESSAGE + "\n" + task + "\n";
