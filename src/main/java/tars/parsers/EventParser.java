@@ -69,14 +69,15 @@ public class EventParser extends Parser {
             throw new TarsException("Add a /from command and a start date");
         } else {
             switch (startCommand.length) {
-                case 1:
+                case 1 -> {
                     if (startCommand[0].equals("from")) {
                         throw new TarsException("Add a event start date");
                     } else {
                         throw new TarsException("Add the /from command");
                     }
+                }
 
-                case 2:
+                case 2 -> {
                     if (startCommand[0].equals("from")) {
                         if (startCommand[1].isEmpty()) {
                             throw new TarsException("Add an event start date");
@@ -84,6 +85,7 @@ public class EventParser extends Parser {
                     } else {
                         throw new TarsException("Add the /from command");
                     }
+                }
             }
         }
 
@@ -91,14 +93,15 @@ public class EventParser extends Parser {
             throw new TarsException("Add a /to command and a end date");
         } else {
             switch (endCommand.length) {
-                case 1:
+                case 1 -> {
                     if (endCommand[0].equals("to")) {
                         throw new TarsException("Add an event end date");
                     } else {
                         throw new TarsException("Add the /to command");
                     }
+                }
 
-                case 2:
+                case 2 -> {
                     if (endCommand[0].equals("to")) {
                         if (endCommand[1].isEmpty()) {
                             throw new TarsException("Add an event end date");
@@ -106,6 +109,7 @@ public class EventParser extends Parser {
                     } else {
                         throw new TarsException("Add the /to command");
                     }
+                }
             }
         }
 

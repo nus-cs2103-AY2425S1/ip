@@ -30,11 +30,11 @@ public class DeadlineParser extends Parser {
             throw new TarsException("Add a name to your deadline");
         }
 
-        String[] split = taskInfo[1].split("/", 2);
+        String[] taskDetails = taskInfo[1].split("/", 2);
 
-        String name = split[0].trim();
-        String[] date = split.length > 1
-                ? split[1].split(" ", 2)
+        String name = taskDetails[0].trim();
+        String[] date = taskDetails.length > 1
+                ? taskDetails[1].split(" ", 2)
                 : null;
 
         if (name.isEmpty()) {
@@ -61,14 +61,15 @@ public class DeadlineParser extends Parser {
         }
 
         switch(deadlineCommand.length) {
-            case 1:
+            case 1 -> {
                 if (deadlineCommand[0].equals("by")) {
                     throw new TarsException("Finish the command by adding a deadline date");
                 } else {
                     throw new TarsException("Add the /by command");
                 }
+            }
 
-            case 2:
+            case 2 -> {
                 if (deadlineCommand[0].equals("by")) {
                     if (deadlineCommand[1].isEmpty()) {
                         throw new TarsException("Finish the command by adding a deadline date");
@@ -76,6 +77,7 @@ public class DeadlineParser extends Parser {
                 } else {
                     throw new TarsException("Add the /by command");
                 }
+            }
         }
         LocalDate date;
         try {

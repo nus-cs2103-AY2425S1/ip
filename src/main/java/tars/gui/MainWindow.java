@@ -3,7 +3,6 @@ package tars.gui;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -28,8 +27,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-    @FXML
-    private Button sendButton;
     private Tars tars;
 
     private final Image userImage = new Image(Objects.requireNonNull(
@@ -46,7 +43,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Tars instance */
     public void setTars(Tars t) {
         tars = t;
-        var dialogBox = new DialogBox(tars.intro(), tarsImage);
+        var dialogBox = new DialogBox(tars.displayIntro(), tarsImage);
         dialogBox.flip();
         dialogContainer.getChildren().addAll(dialogBox);
     }

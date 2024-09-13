@@ -18,8 +18,8 @@ public class Tars {
     Response response = new Response();
     TaskList tasks = new TaskList(storage.updateTasks());
 
-    public String intro() {
-        return response.intro();
+    public String displayIntro() {
+        return response.displayIntro();
     }
 
     /**
@@ -30,7 +30,7 @@ public class Tars {
         return switch (input) {
             case "bye" -> {
                 storage.saveTasks(tasks);
-                yield response.outro();
+                yield response.displayOutro();
             }
             case "list" -> tasks.toString();
             default -> response.generateResponse(input, tasks);
