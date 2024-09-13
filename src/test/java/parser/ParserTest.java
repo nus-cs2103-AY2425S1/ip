@@ -2,9 +2,9 @@ package parser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import exception.DynamikeException;
 import org.junit.jupiter.api.Test;
 
+import exception.DynamikeException;
 import command.AddCommand;
 import command.ExitCommand;
 import command.InvalidCommand;

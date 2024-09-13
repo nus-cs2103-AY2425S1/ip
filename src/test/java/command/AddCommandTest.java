@@ -3,9 +3,9 @@ package command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import exception.DynamikeException;
 import org.junit.jupiter.api.Test;
 
+import exception.DynamikeException;
 import storage.Storage;
 import storage.TaskList;
 import task.Deadline;
