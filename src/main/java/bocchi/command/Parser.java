@@ -30,15 +30,24 @@ public class Parser {
 
             assert paramAndKeywordParams.length >= 1 : "paramAndKeywordParams should have length >= 1";
 
-            param = paramAndKeywordParams[0]; // extract param
-            for (int i = 1; i < paramAndKeywordParams.length; i++) { // extract keyword params
+            // deal with both cases where the param is present or not
+            int keywordParamStartIndex;
+            if (!paramAndKeywordParams[0].contains("/")) {
+                param = paramAndKeywordParams[0]; // extract param
+                keywordParamStartIndex = 1;
+            } else {
+                param = null; // no param
+                keywordParamStartIndex = 0;
+            }
+
+            for (int i = keywordParamStartIndex; i < paramAndKeywordParams.length; i++) { // extract keyword params
                 String keywordParamString = paramAndKeywordParams[i];
                 String[] keyAndValue = keywordParamString.split(" +", 2); // split key and value
 
                 assert keyAndValue.length >= 1 : "keyAndValue should have length >= 1";
 
                 String key = keyAndValue[0].substring(1); // remove the leading '/'
-                String value = keyAndValue.length == 2 ? keyAndValue[1] : null; // extract value if it is specified
+                String value = keyAndValue.length == 2 ? keyAndValue[1] : ""; // extract value if it is specified
 
                 keywordParams.put(key, value);
             }

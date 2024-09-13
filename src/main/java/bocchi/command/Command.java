@@ -1,5 +1,6 @@
 package bocchi.command;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,7 +50,22 @@ public class Command {
      * @param key The key to the required keyword parameter.
      * @return The value of the required keyword parameter.
      */
-    public String getKeywordParams(String key) {
+    public String getKeywordParam(String key) {
         return keywordParams.get(key);
+    }
+
+    /**
+     * Gets the values of a list-like keyword parameter associated with key.
+     *
+     * @param key The key to the required keyword parameter.
+     * @return The list of values of the required keyword parameter.
+     */
+    public List<String> getListKeywordParam(String key) {
+        if (!keywordParams.containsKey(key)) {
+            return null;
+        } else if (keywordParams.get(key) == null) {
+            return null;
+        }
+        return List.of(getKeywordParam(key).split(" +"));
     }
 }

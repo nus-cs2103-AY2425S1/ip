@@ -12,7 +12,7 @@ public class ParserTest {
         assertEquals("list", command.getName());
         assertNull(command.getParam());
         try {
-            assertNull(command.getKeywordParams("key"));
+            assertNull(command.getKeywordParam("key"));
         } catch (NullPointerException e) {
             // expected
         }
@@ -24,7 +24,7 @@ public class ParserTest {
         assertEquals("mark", command.getName());
         assertEquals("1", command.getParam());
         try {
-            assertNull(command.getKeywordParams("key"));
+            assertNull(command.getKeywordParam("key"));
         } catch (NullPointerException e) {
             // expected
         }
@@ -35,7 +35,7 @@ public class ParserTest {
         Command command = Parser.parse("ddl thesis /by 2024-8-20");
         assertEquals("ddl", command.getName());
         assertEquals("thesis", command.getParam());
-        assertEquals("2024-8-20", command.getKeywordParams("by"));
+        assertEquals("2024-8-20", command.getKeywordParam("by"));
     }
 
     @Test
@@ -43,6 +43,6 @@ public class ParserTest {
         Command command = Parser.parse("ddl thesis /by 2024/8/29");
         assertEquals("ddl", command.getName());
         assertEquals("thesis", command.getParam());
-        assertEquals("2024/8/29", command.getKeywordParams("by"));
+        assertEquals("2024/8/29", command.getKeywordParam("by"));
     }
 }
