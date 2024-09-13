@@ -1,0 +1,9 @@
+todo Read book
+deadline Submit assignment /by 12/12/2020 0000
+event Team meeting /from 12/12/2020 0000 /to 12/12/2020 0000
+list
+mark 1
+unmark 2
+delete 3
+list
+bye
