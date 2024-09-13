@@ -42,4 +42,8 @@ public class Maga {
         maga.closeBot();
     }
 
+    public String getResponse(String input) {
+        return "test" + input;
+    }
+
 }
