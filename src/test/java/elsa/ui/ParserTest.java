@@ -2,6 +2,7 @@ package elsa.ui;
 
 import elsa.command.*;
 import elsa.ElsaException;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
