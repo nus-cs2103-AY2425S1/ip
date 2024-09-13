@@ -70,12 +70,15 @@ public class Storage {
                     switch (parts[0]) {
                         case "T":
                             task = new Todo(parts[2]);
+                            assert task.description != null : "task description cannot be empty";
                             break;
                         case "D":
                             task = new Deadline(parts[2], parts[3]);
+                            assert task.description != null : "task description cannot be empty";
                             break;
                         case "E":
                             task = new Event(parts[2], parts[3], parts[4]);
+                            assert task.description != null : "task description cannot be empty";
                             break;
                         default:
                             task = task;
