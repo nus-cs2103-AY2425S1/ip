@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 class TaskListTest {
 
@@ -31,8 +32,12 @@ class TaskListTest {
         try {
             taskList.completeTaskAt(0);
             fail();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e ) {
             assertEquals("Index -1 out of bounds for length 3", e.getMessage());
+        } catch (AssertionError e) {
+            assertEquals("Index out of bounds for TaskList", e.getMessage());
+        } catch (Exception e) {
+            throw new AssertionFailedError("Wrong exception thrown", e);
         }
     }
 
