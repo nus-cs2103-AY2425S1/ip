@@ -29,7 +29,8 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "D | " + (isDone ? "1" : "0") + " | " + name + " | " + byWhen.format(formatter);
+        return "D | " + (isDone ? "1" : "0") + " | " + name + " | " + byWhen.format(formatter)
+                + (getTags().isEmpty() ? "" : " | " + String.join(",", getTags()));
     }
 
     /**

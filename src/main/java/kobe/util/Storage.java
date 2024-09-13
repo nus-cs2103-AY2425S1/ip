@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Handles the loading and saving of tasks to and from a file for the Duke chatbot application.
- * The Storage class provides methods to read tasks from a file and write tasks back to a file.
+ * Handles the loading and saving of tasks to and from a file for the Kobe chatbot application.
  */
 public class Storage {
     /** The path to the file where tasks are stored. */
@@ -42,9 +41,6 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        assert file.exists() : "Task file should exist when loading tasks";
-        assert file.canRead() : "Task file should be readable";
-
         if (!file.exists()) {
             new File(file.getParent()).mkdirs(); // Create the directory if it doesn't exist
             file.createNewFile(); // Create the file if it doesn't exist
@@ -56,29 +52,37 @@ public class Storage {
                 String taskType = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String name = parts[2];
-
+                Task task;
                 switch (taskType) {
                     case "T":
-                        Task todo = new Todo(name);
-                        if (isDone) todo.markAsDone();
-                        tasks.add(todo);
+                        task = new Todo(name);
                         break;
                     case "D":
                         LocalDateTime by = LocalDateTime.parse(parts[3], FORMATTER);
-                        Task deadline = new Deadline(name, by);
-                        if (isDone) deadline.markAsDone();
-                        tasks.add(deadline);
+                        task = new Deadline(name, by);
                         break;
                     case "E":
                         LocalDateTime from = LocalDateTime.parse(parts[3], FORMATTER);
                         LocalDateTime to = LocalDateTime.parse(parts[4], FORMATTER);
-                        Task event = new Event(name, from, to);
-                        if (isDone) event.markAsDone();
-                        tasks.add(event);
+                        task = new Event(name, from, to);
                         break;
                     default:
                         throw new IOException("Invalid task type in file: " + taskType);
                 }
+
+                if (isDone) task.markAsDone();
+
+                // Load the tags (if present)
+                if (parts.length > 3) {
+                    String[] tags = parts[parts.length - 1].split(",");
+                    for (String tag : tags) {
+                        if (!tag.isEmpty()) {
+                            task.addTag(tag);
+                        }
+                    }
+                }
+
+                tasks.add(task);
             }
             reader.close();
         }

@@ -1,21 +1,13 @@
 package kobe.util;
 
-import kobe.KobeException;
 import kobe.command.*;
+import kobe.KobeException;
 
 /**
  * Parses user input and converts it into a command to be executed by the Kobe chatbot application.
- * The Parser class helps interpret the user's commands and instantiate the appropriate Command objects.
  */
 public class Parser {
 
-    /**
-     * Parses the user input into a specific Command object.
-     *
-     * @param fullCommand The full user input string to parse.
-     * @return A Command object corresponding to the user's input.
-     * @throws Exception If the user input is invalid or cannot be parsed into a known command.
-     */
     public static Command parse(String fullCommand) throws Exception {
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0];
@@ -32,13 +24,17 @@ public class Parser {
             case "delete":
                 return new DeleteCommand(Integer.parseInt(words[1]));
             case "todo":
-                return new AddCommand(fullCommand);
             case "deadline":
-                return new AddCommand(fullCommand);
             case "event":
                 return new AddCommand(fullCommand);
             case "find":
                 return new FindCommand(words[1]);
+            case "tag":
+                String[] tagParts = words[1].split(" ", 2);
+                if (tagParts.length != 2) {
+                    throw new KobeException("Invalid tag command. Use: tag <task number> <#tag>");
+                }
+                return new TagCommand(Integer.parseInt(tagParts[0]), tagParts[1].replace("#", ""));
             default:
                 throw new KobeException("I'm sorry, but I don't know what that means :-(");
         }
