@@ -15,6 +15,8 @@ import krona.task.Event;
 import krona.task.Task;
 import krona.task.ToDo;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Handles the parsing of user input and task data for the Krona chatbot.
  */
@@ -49,7 +51,11 @@ public class Parser {
             if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
                 return new InvalidCommand("The time of a deadline cannot be empty.");
             }
-            return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+            try {
+                return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+            } catch (IllegalArgumentException e) {
+                return new InvalidCommand(e.getMessage());
+            }
         case "event":
             if (words.length < 2 || words[1].trim().isEmpty()) {
                 return new InvalidCommand("The description and times of an event cannot be empty.");
@@ -62,7 +68,11 @@ public class Parser {
             if (timeParts.length < 2 || timeParts[1].trim().isEmpty()) {
                 return new InvalidCommand("The end time of an event cannot be empty.");
             }
-            return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
+            try {
+                return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
+            } catch (IllegalArgumentException e) {
+                return new InvalidCommand(e.getMessage());
+            }
         case "mark":
             if (words.length < 2 || words[1].trim().isEmpty()) {
                 return new InvalidCommand("You cannot mark nothing!");

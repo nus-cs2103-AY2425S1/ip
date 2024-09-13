@@ -26,8 +26,7 @@ public class Event extends Task {
             this.startDateTime = LocalDateTime.parse(startDateTime.trim(), FORMATTER);
             this.endDateTime = LocalDateTime.parse(endDateTime.trim(), FORMATTER);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use 'd/M/yyyy HHmm'.");
-            throw e;
+            throw new IllegalArgumentException("Invalid date format. Please use 'd/M/yyyy HHmm'.", e);
         }
     }
 

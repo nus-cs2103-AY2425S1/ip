@@ -23,8 +23,7 @@ public class Deadline extends Task {
         try {
             this.dateTime = LocalDateTime.parse(dateTime.trim(), FORMATTER);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use 'd/M/yyyy HHmm'.");
-            throw e;
+            throw new IllegalArgumentException("Invalid date format. Please use 'd/M/yyyy HHmm'.", e);
         }
     }
 
