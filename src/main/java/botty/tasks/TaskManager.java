@@ -127,8 +127,11 @@ public class TaskManager {
             throw new TaskListEmptyException();
         }
         ArrayList<String> matchedTasks = new ArrayList<>();
+
+        String containsKeywordRegex = ".*\\b" + keyword.toLowerCase() + "\\b.*";
+        
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).toString().toLowerCase().matches(".*\\b" + keyword.toLowerCase() + "\\b.*")) {
+            if (taskList.get(i).toString().toLowerCase().matches(containsKeywordRegex)) {
                 matchedTasks.add((i + 1) + ". " + taskList.get(i).toString());
             }
         }
