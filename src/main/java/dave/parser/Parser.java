@@ -40,6 +40,7 @@ public class Parser {
      * @throws InvalidDescriptionException if the command arguments are invalid.
      */
     public static Command parse(String fullCommand) throws InvalidCommandException, InvalidDescriptionException {
+        assert fullCommand != null && !fullCommand.isEmpty() : "User input should not be null or empty";
         String[] commandParts = splitCommand(fullCommand);
         String commandWord = commandParts[0];
         String commandArgs = commandParts[1]; // Now properly extracted even if empty
@@ -70,6 +71,7 @@ public class Parser {
      * @throws InvalidDescriptionException if the task arguments are invalid.
      */
     private static Command handleTaskType(TaskType taskType, String commandArgs) throws InvalidDescriptionException, InvalidCommandException {
+        assert taskType != null : "TaskType should not be null at this point";
         switch (taskType) {
         case todo:
             return new AddCommand(new Todo(commandArgs));
@@ -135,9 +137,11 @@ public class Parser {
         try {
             return TaskType.valueOf(commandWord);
         } catch (IllegalArgumentException e) {
-            throw new InvalidCommandException("Are you joking? Here are the missions I accept: todo, deadline, event, list, mark, unmark, bye.");
+            throw new InvalidCommandException(
+                    "Are you joking? Here are the missions I accept: todo, deadline, event, list, mark, unmark, delete, find, bye);
         }
     }
+
 
     /**
      * Handles commands that require numerical arguments (such as mark, unmark, delete) and ensures proper formatting.

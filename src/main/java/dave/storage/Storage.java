@@ -29,6 +29,7 @@ public class Storage {
      * @param taskList The TaskList to populate with tasks loaded from the file.
      */
     public Storage(String file, TaskList taskList) {
+        assert file != null : "File path must not be null";
         this.filePath = file;
         loadTasks(taskList);
     }
@@ -53,6 +54,7 @@ public class Storage {
     }
 
     private static File createFile() throws IOException {
+        assert filePath != null : "File path must not be null";
         File fileObj = new File(filePath);
         fileObj.getParentFile().mkdirs();
         if (!fileObj.exists()) {
@@ -79,9 +81,10 @@ public class Storage {
     }
 
     private static void writeToFile(String content) throws IOException {
-        try (FileWriter fw = new FileWriter(filePath, false)) {
-            fw.write(content);
-        }
+        assert filePath != null : "File path must not be null";
+        FileWriter fw = new FileWriter(filePath, false);
+        fw.write("");
+        fw.close();
     }
 
     /**
@@ -91,6 +94,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void amendFile(Task task) throws IOException {
+        assert filePath != null : "File path must not be null";
         File fileObj = createFile();
         try (FileWriter fw = new FileWriter(fileObj, true)) {
             fw.write(task.write());
@@ -104,6 +108,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading from the file.
      */
     public ArrayList<Task> loadFile() throws IOException {
+        assert filePath != null : "File path must not be null";
+
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {

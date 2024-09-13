@@ -35,6 +35,12 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
+        // Adding assertions for safety checks
+        assert task != null : "Task should not be null.";
+        assert tasks != null : "TaskList should not be null.";
+        assert storage != null : "Storage should not be null.";
+        assert ui != null : "Ui should not be null.";
+
         try {
             tasks.addTask(task);
             String output = "Got it. I've added this task: \n"
