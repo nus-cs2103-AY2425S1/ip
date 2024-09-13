@@ -60,9 +60,7 @@ public class Storage {
                 String line = bufferedReader.readLine();
                 while (line != null) {
                     lines.add(line);
-                    if (bufferedReader.readLine() == null) {
-                        break;
-                    }
+                    line = bufferedReader.readLine();
                 }
                 return this.convertStringToTaskList(lines);
             }
@@ -108,7 +106,9 @@ public class Storage {
             } else {
                 output += "0";
             }
-            output += " | " + task.getDescription();
+            output += " | "
+                    + task.getDescription()
+                    + "\n";
         }
         if (task instanceof Deadline) {
             output += "D |";
@@ -118,7 +118,11 @@ public class Storage {
             } else {
                 output += "0";
             }
-            output += " | " + deadline.getDescription() + " | " + deadline.getEndDate();
+            output += " | "
+                    + deadline.getDescription()
+                    + " | "
+                    + deadline.getEndDate()
+                    + "\n";
 
         }
         if (task instanceof Event) {
@@ -134,7 +138,8 @@ public class Storage {
                     + " | "
                     + event.getStartDate()
                     + " | "
-                    + event.getEndDate();
+                    + event.getEndDate()
+                    + "\n";
         }
         return output;
     }
@@ -142,17 +147,17 @@ public class Storage {
     /**
      * Converts the text on the file to an ArrayList of String.
      *
-     * @param taskStringList The String of text read from the file.
+     * @param tasksFromFile The String of text read from the file.
      * @return the ArrayList of Task objects.
      */
 
-    public ArrayList<Task> convertStringToTaskList(ArrayList<String> taskStringList) {
+    public ArrayList<Task> convertStringToTaskList(ArrayList<String> tasksFromFile) {
         ArrayList<Task> tasks = new ArrayList<Task>();
-        for (String task : taskStringList) {
-            String[] splitString = task.split(" \\|");
-            String taskType = splitString[0];
-            boolean isDone = splitString[1].equals("1");
-            String description = splitString[2];
+        for (String task : tasksFromFile) {
+            String[] splitTaskLine = task.split(" \\|"); // Separate words by "|"
+            String taskType = splitTaskLine[0];
+            boolean isDone = splitTaskLine[1].equals("1");
+            String description = splitTaskLine[2];
 
             switch (taskType) {
             case "T":
@@ -163,7 +168,8 @@ public class Storage {
                 tasks.add(todo);
                 break;
             case "D":
-                LocalDate endDate = LocalDate.parse(splitString[3], DATE_FORMATTER);
+                LocalDate endDate = this.getStartDate(splitTaskLine);
+
                 Deadline deadline = new Deadline(description, endDate);
                 if (isDone) {
                     deadline.markStatus();
@@ -171,8 +177,9 @@ public class Storage {
                 tasks.add(deadline);
                 break;
             case "E":
-                LocalDate startDate = LocalDate.parse(splitString[3], DATE_FORMATTER);
-                LocalDate endDateEvent = LocalDate.parse(splitString[4], DATE_FORMATTER);
+                LocalDate startDate = this.getStartDate(splitTaskLine);
+                LocalDate endDateEvent = this.getEndDate(splitTaskLine);
+
                 Event event = new Event(description, startDate, endDateEvent);
                 if (isDone) {
                     event.markStatus();
@@ -186,5 +193,17 @@ public class Storage {
             }
         }
         return tasks;
+    }
+
+
+
+    private LocalDate getEndDate(String[] splitTaskLine) {
+        assert splitTaskLine.length >= 3 : "The splitTaskLine is not enough";
+        return LocalDate.parse(splitTaskLine[4], DATE_FORMATTER);
+    }
+
+    private LocalDate getStartDate(String[] splitTaskLine) {
+        assert splitTaskLine.length >= 3 : "The splitTaskLine is not enough";
+        return LocalDate.parse(splitTaskLine[4], DATE_FORMATTER);
     }
 }

@@ -77,6 +77,7 @@ public class TaskList {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
+
         tasks.get(currNum).unmarkStatus();
         Task currTask = tasks.get(currNum);
         ui.showUnmarkTask(currTask);
