@@ -1,17 +1,19 @@
+package Tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
 /**
  * Represents an event task.
- * An Event object corresponds to a task represented by a description, a start time, and an end time.
+ * An Tasks.Event object corresponds to a task represented by a description, a start time, and an end time.
  */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
     /**
-     * Constructor for Event class.
+     * Constructor for Tasks.Event class.
      *
      * @param description The description of the task.
      * @param from The start time of the event.
