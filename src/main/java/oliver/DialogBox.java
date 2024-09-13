@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -23,6 +24,7 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    private final double IMAGE_SIZE = 80;
 
     private DialogBox(String text, Image img) {
         try {
@@ -36,6 +38,18 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setFitHeight(IMAGE_SIZE);
+        displayPicture.setFitWidth(IMAGE_SIZE);
+        cropImageToCircle();
+    }
+
+    /**
+     * Crops the display image to a circle.
+     */
+    private void cropImageToCircle() {
+        double radius = Math.min(displayPicture.getFitWidth(), displayPicture.getFitHeight()) / 2;
+        Circle circle = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, radius);
+        displayPicture.setClip(circle);
     }
 
     /**

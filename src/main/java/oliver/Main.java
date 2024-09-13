@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Oliver oliver = new Oliver("./data/oliver.txt");
+    private final double MIN_HEIGHT = 220;
+    private final double MIN_WIDTH = 417;
 
     @Override
     public void start(Stage stage) {
@@ -21,7 +23,10 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Oliver");
             stage.setScene(scene);
+            stage.setMinHeight(MIN_HEIGHT);
+            stage.setMinWidth(MIN_WIDTH);
             fxmlLoader.<MainWindow>getController().setOliver(oliver);
             stage.show();
         } catch (IOException e) {
