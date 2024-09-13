@@ -110,6 +110,7 @@ public class Parser {
         assert input != null;
 
         int length = input.length();
+        assert length > 0;
         StringBuilder numberBuild = new StringBuilder();
         for (int i = length - 1; i >= 0; i--) {
             char currentChar = input.charAt(i);

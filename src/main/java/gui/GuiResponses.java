@@ -8,14 +8,14 @@ import tasks.Task;
 /**
  * Handles the string formatting of chatterbox responses for the gui
  */
-public class ChatterboxResponses {
+public class GuiResponses {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     private static final String BOTNAME = "Chatterbox";
 
     private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
 
 
-    public ChatterboxResponses() {
+    public GuiResponses() {
 
     }
 
@@ -24,7 +24,7 @@ public class ChatterboxResponses {
      * @return string format of the greeting
      */
     public String greeting() {
-        return "Hello! I'm " + ChatterboxResponses.BOTNAME
+        return "Hello! I'm " + GuiResponses.BOTNAME
                 + "\nWhat can I do for you?";
 
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import chatterboxexceptions.ChatterboxExceptions;
-import gui.ChatterboxResponses;
+import gui.GuiResponses;
 import parser.Parser;
 import storage.Storage;
 import tasks.Deadline;
@@ -19,7 +19,7 @@ import tasks.Todo;
  * main class that encapsulates all gui chatbot functionality
  */
 public class ChatterboxGui {
-    private final ChatterboxResponses guiResponses;
+    private final GuiResponses guiResponses;
     private final Parser parser;
     private final Storage storage;
 
@@ -30,7 +30,9 @@ public class ChatterboxGui {
      * @param filepath contains the history of tasks
      */
     public ChatterboxGui(String filepath) {
-        this.guiResponses = new ChatterboxResponses();
+        assert filepath != null;
+
+        this.guiResponses = new GuiResponses();
         this.parser = new Parser();
         this.storage = new Storage(filepath);
         ArrayList<Task> loaded = new ArrayList<>();
@@ -50,7 +52,7 @@ public class ChatterboxGui {
      * Initiates Chatterbox with no prior history
      */
     public ChatterboxGui() {
-        this.guiResponses = new ChatterboxResponses();
+        this.guiResponses = new GuiResponses();
 
         this.parser = new Parser();
         this.storage = new Storage();
@@ -93,6 +95,7 @@ public class ChatterboxGui {
          * @return an ArrayList userTasks
          */
         public ArrayList<Task> getTasks() {
+            assert userTasks != null;
             return userTasks;
         }
 
@@ -103,6 +106,7 @@ public class ChatterboxGui {
          * @return returns the task that was marked
          */
         public Task markTask(int index) {
+            assert index >= 0;
             userTasks.get(index).setStatus(true);
             return userTasks.get(index);
         }
@@ -181,6 +185,7 @@ public class ChatterboxGui {
          * @return
          */
         public String getTaskDescription(int index) {
+            assert index >= 0;
             return userTasks.get(index).getDescription();
         }
 
@@ -198,6 +203,8 @@ public class ChatterboxGui {
          * @return ArrayList with only tasks that have the keywords
          */
         public ArrayList<Task> findTasks(String keywords) {
+            assert userTasks != null;
+
             return userTasks.stream()
                     .filter(task -> task.getDescription().contains(keywords))
                     .collect(Collectors.toCollection(ArrayList::new));
@@ -218,7 +225,6 @@ public class ChatterboxGui {
 
         try {
             Parser.ValidCommand command = parser.parseCommand(input);
-
 
             int index;
             switch (command) {
