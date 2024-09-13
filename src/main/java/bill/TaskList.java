@@ -20,6 +20,11 @@ public class TaskList {
         return userList;
     }
 
+    private String generateAddTaskMessage(Task newTask, ArrayList<Task> userList) {
+        return "added: " + newTask.toString() + "\n"
+                + "Now you have " + userList.size() + " tasks in the list.\n";
+    }
+
     /**
      * Adds task to list to userList and calls storage to save current state of list of tasks.
      *
@@ -31,11 +36,10 @@ public class TaskList {
     public String addTask(Task newTask, ArrayList<Task> userList, Storage storage) throws IOException {
         userList.add(newTask);
 
-        //update hardisk list
+        //update bill.txt file
         storage.saveList(userList);
 
-        return "added: " + newTask.toString() + "\n"
-                + "Now you have " + userList.size() + " tasks in the list.\n";
+        return generateAddTaskMessage(newTask, userList);
     }
 
     /**
@@ -51,6 +55,19 @@ public class TaskList {
         storage.saveList(userList);
     }
 
+    private String generateEmptyTaskMessage() {
+        return "List is empty\n";
+    }
+
+    private String generateTaskListMessage(ArrayList<Task> userList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < userList.size(); i++) {
+            sb.append((i + 1)).append(". ").append(userList.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
     /**
      * Shows task from userList.
      *
@@ -58,15 +75,30 @@ public class TaskList {
      */
     public String showList(ArrayList<Task> userList) {
         if (userList.isEmpty()) {
-            return "List is empty\n";
+            return generateEmptyTaskMessage();
         } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Here are the tasks in your list:\n");
-            for (int i = 0; i < userList.size(); i++) {
-                sb.append((i + 1)).append(". ").append(userList.get(i)).append("\n");
-            }
-            return sb.toString();
+            return generateTaskListMessage(userList);
         }
+    }
+
+    private String concatenateFilterListMessage(String keyWord, StringBuilder sb) {
+        sb.append("Here are the matching tasks in your list:\n");
+        boolean hasNoMatch = true;
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getDescription().contains(keyWord)) {
+                sb.append(i + 1).append(". ").append(userList.get(i)).append("\n");
+                hasNoMatch = false;
+            }
+        }
+        if (hasNoMatch) {
+            sb.append("There are no matching tasks in your list currently matching the keyword ").append(keyWord);
+        }
+        return sb.toString();
+    }
+
+    private String generateFilterListMessage(String keyWord) {
+        StringBuilder sb = new StringBuilder();
+        return concatenateFilterListMessage(keyWord, sb);
     }
 
     /**
@@ -75,23 +107,22 @@ public class TaskList {
      * @param keyWord The keyword that the user want to match.
      */
     public String showFilterList(String keyWord) {
-        // similar to show list but filter by description to contains the keyword searched by the user
         if (userList.isEmpty()) {
-            return "List is empty, no matching tasks\n";
+            return generateEmptyFilterListMessage();
         } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Here are the matching tasks in your list:\n");
-            boolean hasNoMatch = true;
-            for (int i = 0; i < userList.size(); i++) {
-                if (userList.get(i).getDescription().contains(keyWord)) {
-                    sb.append(i + 1).append(". ").append(userList.get(i)).append("\n");
-                    hasNoMatch = false;
-                }
-            }
-            if (hasNoMatch) {
-                sb.append("There are no matching tasks in your list currently matching the keyword ").append(keyWord);
-            }
-            return sb.toString();
+            return generateFilterListMessage(keyWord);
+        }
+    }
+
+    private String generateEmptyFilterListMessage() {
+        return "List is empty, no matching tasks\n";
+    }
+
+    private void handleTaskMarkState(String markOrUnmark, Task targetTask) {
+        if (markOrUnmark.equals("mark")) {
+            targetTask.mark();
+        } else {
+            targetTask.unmark();
         }
     }
 
@@ -103,12 +134,7 @@ public class TaskList {
      */
     public String markOrUnmarkTask(int targetTaskNumber, String markOrUnmark, Storage storage) throws IOException {
         Task targetTask = userList.get(targetTaskNumber);
-        if (markOrUnmark.equals("mark")) {
-            targetTask.mark();
-        } else {
-            // unmarked
-            targetTask.unmark();
-        }
+        handleTaskMarkState(markOrUnmark, targetTask);
         storage.saveList(userList);
         return targetTask.toString();
     }

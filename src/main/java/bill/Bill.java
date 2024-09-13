@@ -21,7 +21,6 @@ public class Bill {
      * Returns strings based on the route chosen by the user which is used in the Gui
      */
     public String getResponse(String userCommand) {
-        // returns a string based on bill's response to user input
         return ui.handleUserCommandsGui(userCommand, storage, tasks);
     }
 

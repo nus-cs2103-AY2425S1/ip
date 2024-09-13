@@ -91,7 +91,7 @@ public class Ui {
                 throws BillException, IOException {
         int targetTaskNumber = parser.handleMarkOfTaskParser(parsedInput, userList);
 
-        //update hardisk list
+        // update bill.txt
         storage.saveList(userList);
 
         return tasks.markOrUnmarkTask(targetTaskNumber, parsedInput[0], storage);
@@ -141,7 +141,6 @@ public class Ui {
         }
     }
 
-
     /**
      * Adds the event task, update the state of the list and save to bill.txt
      *
@@ -184,6 +183,14 @@ public class Ui {
         return tasks.showFilterList(keyWord);
     }
 
+    private String handleBye(String[] parsedInput) throws BillException {
+        if (parsedInput.length == 1) {
+            return "Goodbye! Hope to see you again soon!";
+        } else {
+            throw new BillException("Not a recognised command, bye command should follow the format: bye");
+        }
+    }
+
     /**
      * Handles routing based on user command, to call appropriate functions
      *
@@ -214,11 +221,7 @@ public class Ui {
             case FIND:
                 return handleFind(parsedInput, tasks);
             case BYE:
-                if (parsedInput.length == 1) {
-                    return "Goodbye! Hope to see you again soon!";
-                } else {
-                    throw new BillException("Not a recognised command, bye command should follow the format: bye");
-                }
+                return handleBye(parsedInput);
             default:
                 throw new BillException("Not a recognised command, please try again");
             }
@@ -236,7 +239,7 @@ public class Ui {
      */
     public void silenceLoadingData(Storage storage, ArrayList<Task> userList, TaskList tasks) {
         PrintStream originalOutput = System.out;
-        // temp output to hide print messages, so can leverage previously built methods which have print statements
+        // temp output to hide print messages, to leverage previously built methods which have print statements
         OutputStream silence = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
