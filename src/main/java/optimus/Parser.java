@@ -12,6 +12,7 @@ public class Parser {
      * @return An array of command words from the input.
      */
     public static String[] parseCommand(String userInput) {
+        // Check that user input is not empty
         assert userInput != null && !userInput.trim().isEmpty() : "User input should not be null or empty";
         return userInput.split(" ");
     }
