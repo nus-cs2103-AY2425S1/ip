@@ -21,6 +21,10 @@ public class Deadline extends Task implements Comparable<Deadline> {
 
     @Override
     public String toString() {
+        return String.format("[Deadline] " + super.toString() + " By: [%s]", this.by.toString());
+    }
+
+    public String toStringFormatted() {
         return String.format("[Deadline] " + super.toString() + " By: [%s]", this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 

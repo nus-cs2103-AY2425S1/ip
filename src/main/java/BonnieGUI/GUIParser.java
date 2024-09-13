@@ -20,7 +20,14 @@ public class GUIParser {
         if (input.equals("list")) {
             String list = "Your current tasks are\n";
             for (int i = 1; i <= GUITaskList.getSize(); i++) {
-                list += String.format("%d. %s\n", i, GUITaskList.getTasks().get(i - 1));
+                Task currTask = GUITaskList.getTasks().get(i - 1);
+                if (currTask instanceof Deadline) {
+                    Deadline d = (Deadline) currTask;
+                    list += String.format("%d. %s\n", i, d.toStringFormatted());
+                } else {
+                    list += String.format("%d. %s\n", i, currTask.toString());
+                }
+
             }
             output = list;
         } else if (checkMarkCommand(input)) {
