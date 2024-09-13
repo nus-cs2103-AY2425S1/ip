@@ -69,7 +69,7 @@ public class Storage {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(FILE_PATH);
         if (!file.exists()) {
-            throw new BuddyException("  No tasks found, starting from scratch");
+            throw new BuddyException("No tasks found, starting from scratch");
         }
 
         // Reading previously stored tasks from the file
@@ -81,25 +81,24 @@ public class Storage {
                 String taskType = details[0].trim();
                 String description = details[2].trim();
                 Task task;
-
                 switch (taskType) {
-                    case "T":
-                        task = new ToDos(description);
-                        break;
-                    case "D":
-                        String deadline = details[3].trim();
-                        LocalDateTime formattedDeadline = formatDate(deadline);
-                        task = new Deadlines(description, formattedDeadline);
-                        break;
-                    case "E":
-                        String startDate = details[3].trim();
-                        String endDate = details[4].trim();
-                        LocalDateTime formattedStartDate = formatDate(startDate);
-                        LocalDateTime formattedEndDate = formatDate(endDate);
-                        task = new Events(description, formattedStartDate, formattedEndDate);
-                        break;
-                    default:
-                        throw new BuddyException("Unknown task type found in file.");
+                case "T":
+                    task = new ToDos(description);
+                    break;
+                case "D":
+                    String deadline = details[3].trim();
+                    LocalDateTime formattedDeadline = formatDate(deadline);
+                    task = new Deadlines(description, formattedDeadline);
+                    break;
+                case "E":
+                    String startDate = details[3].trim();
+                    String endDate = details[4].trim();
+                    LocalDateTime formattedStartDate = formatDate(startDate);
+                    LocalDateTime formattedEndDate = formatDate(endDate);
+                    task = new Events(description, formattedStartDate, formattedEndDate);
+                    break;
+                default:
+                    throw new BuddyException("Unknown task type found in file.");
                 }
 
                 if (details[1].trim().equals("1")) {
@@ -111,9 +110,9 @@ public class Storage {
 
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("    No previous task list found, starting fresh!");
+            System.out.println("No previous task list found, starting fresh!");
         } catch (BuddyException e) {
-            System.out.println("    OOPS!!! The task list file seems to be corrupted... ");
+            System.out.println("OOPS!!! The task list file seems to be corrupted... ");
         }
 
         return list;

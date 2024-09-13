@@ -35,7 +35,6 @@ public class DeleteCommand extends Command {
 
         Task t = tasks.getTasks().get(taskIndex);
         tasks.deleteTask(taskIndex);
-        System.out.println(taskIndex);
         storage.save(tasks.getTasks());
         return ui.displayDeleteTask(t, tasks);
     }

@@ -36,17 +36,6 @@ public class Events extends Task {
         return "E";
     }
 
-    /**
-     * Returns a string representation of the task in a format suitable for saving to a file.
-     * Formats a LocalDateTime object into a string with the pattern "d/M/yyyy HHmm".
-     *
-     * @param date The LocalDateTime object to format.
-     * @return The formatted date string.
-     */
-    private static String localDateTimeString(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return date.format(formatter);
-    }
 
     /**
      * Returns a string representation of the task suitable for saving to a file.
@@ -65,14 +54,4 @@ public class Events extends Task {
         );
     }
 
-    /**
-     * Formats a LocalDateTime object into a string with the pattern "MMM dd yyyy HHmm".
-     *
-     * @param date The LocalDateTime object to format.
-     * @return The formatted date string.
-     */
-    public static String formatDate(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        return date.format(formatter);
-    }
 }

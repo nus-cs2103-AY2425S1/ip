@@ -1,5 +1,8 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a description and completion status.
  */
@@ -66,4 +69,14 @@ public abstract class Task {
      * @return A string representing the task type.
      */
     public abstract String getTaskType();
+
+    static String localDateTimeString(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return date.format(formatter);
+    }
+
+    public static String formatDate(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        return date.format(formatter);
+    }
 }
