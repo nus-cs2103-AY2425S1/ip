@@ -3,6 +3,7 @@ package lutodo.commands;
 import lutodo.parser.Parser;
 import lutodo.storage.Storage;
 import lutodo.tasklist.TaskList;
+import lutodo.tasks.Task;
 
 import static java.lang.Integer.parseInt;
 
@@ -43,13 +44,19 @@ public class FindCommand extends Command{
         }
     }
 
+    private boolean isMatching(Task task) {
+        // find items even if the keyword, deadline date or event start/end time
+        // matches the item only partially.
+        return task.toString().contains(toSearch);
+    }
+
     private String searchAndReturn(TaskList tasks) {
         if (tasks.isEmpty()) {
             return "You don't have any task now :-)";
         } else {
             String response = "Here are the matching tasks in your list:";
             for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).getDescription().contains(toSearch)) {
+                if (isMatching(tasks.get(i))) {
                     response = response + "\n" + (i + 1) + "." + tasks.get(i);
                 }
             }
