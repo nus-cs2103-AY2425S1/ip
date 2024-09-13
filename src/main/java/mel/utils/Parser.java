@@ -64,7 +64,8 @@ public class Parser {
         assert !str.isEmpty() : "date/time field should not be empty";
         for (String s : FORMAT_DATE) {
             try {
-                DateTimeFormatter dts = DateTimeFormatter.ofPattern(s).withResolverStyle(ResolverStyle.STRICT);
+                DateTimeFormatter dts = DateTimeFormatter.ofPattern(s)
+                        .withResolverStyle(ResolverStyle.STRICT);
                 return LocalDate.parse(str, dts).atStartOfDay();
             } catch (DateTimeParseException e) {
                 /*
@@ -75,7 +76,8 @@ public class Parser {
         }
         for (String s : FORMAT_DATE_TIME) {
             try {
-                DateTimeFormatter dts = DateTimeFormatter.ofPattern(s).withResolverStyle(ResolverStyle.STRICT);
+                DateTimeFormatter dts = DateTimeFormatter.ofPattern(s)
+                        .withResolverStyle(ResolverStyle.STRICT);
                 return LocalDateTime.parse(str, dts);
             } catch (DateTimeParseException e) {
                 /*

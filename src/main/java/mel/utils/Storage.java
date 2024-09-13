@@ -1,11 +1,11 @@
 package mel.utils;
 
-import mel.exceptions.MelException;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import mel.exceptions.MelException;
 
 /**
  * Storage class that handles a

@@ -9,9 +9,34 @@ import mel.exceptions.TaskException;
 
 public class DeadlineTest {
     @Test
+    public void constructor_invalidDate_exceptionThrown() {
+        try {
+            assertEquals("",
+                    new Deadline("deadline something /by 30-2-2022").toString());
+            fail();
+        } catch (TaskException e) {
+            assertEquals("deadline <task> /by <date> <time>", e.getMessage());
+        } catch (Exception e) {
+            fail("Unexpected exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void constructor_invalidFormat_exceptionThrown() {
+        try {
+            assertEquals("", new Deadline("deadline /by 22-2-22").toString());
+            fail();
+        } catch (TaskException e) {
+            assertEquals("deadline <task> /by <date> <time>", e.getMessage());
+        } catch (Exception e) {
+            fail("Unexpected exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
     public void constructor_invalidInput_exceptionThrown() {
         try {
-            assertEquals("", new Deadline("deadline something /by ?"));
+            assertEquals("", new Deadline("deadline something /by ?").toString());
             fail();
         } catch (TaskException e) {
             assertEquals("deadline <task> /by <date> <time>", e.getMessage());
@@ -29,4 +54,6 @@ public class DeadlineTest {
             fail("Unexpected exception caught: " + e.getMessage());
         }
     }
+
+
 }

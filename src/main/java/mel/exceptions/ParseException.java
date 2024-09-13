@@ -15,6 +15,6 @@ public class ParseException extends Exception {
 
     @Override
     public String toString() {
-        return "Incorrect format: " + super.getMessage();
+        return "Incorrect date/time: " + super.getMessage();
     }
 }
