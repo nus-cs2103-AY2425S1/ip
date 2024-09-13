@@ -15,6 +15,7 @@ import meep.ui.Ui;
  */
 public class Storage {
     private final String dataPath;
+    private final String archivePath;
 
     /**
      * Constructs a {@code Storage} object with the specified file path for task data.
@@ -23,6 +24,7 @@ public class Storage {
      */
     public Storage(String dataPath) {
         this.dataPath = dataPath;
+        this.archivePath = dataPath + ".archive";
     }
 
     /**
@@ -121,6 +123,22 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(this.dataPath);
             fw.write(taskList.getSaveFormatList());
+            fw.close();
+        } catch (IOException e) {
+            throw new MeepException("An error occurred: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Archives a task by moving it to the archive file.
+     *
+     * @param task The task to be archived.
+     * @throws MeepException If an error occurs while archiving the task.
+     */
+    public void archiveTask(Task task) throws MeepException {
+        try {
+            FileWriter fw = new FileWriter(this.archivePath, true);
+            fw.write(task.getSaveFormat() + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
             throw new MeepException("An error occurred: " + e.getMessage());

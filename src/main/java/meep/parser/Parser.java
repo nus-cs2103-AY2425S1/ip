@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import meep.task.Deadline;
 import meep.task.Event;
+import meep.task.Storage;
 import meep.task.TaskList;
 import meep.task.Todo;
 import meep.ui.Ui;
@@ -24,7 +25,8 @@ enum Command {
     TODO,
     LIST,
     FIND,
-    HELP
+    HELP,
+    ARCHIVE
 }
 
 /**
@@ -35,12 +37,14 @@ enum Command {
  */
 public class Parser {
     private final Ui ui;
+    private final Storage storage;
 
     /**
      * Constructs a {@code Parser} with a specified user interface.
      */
-    public Parser() {
+    public Parser(Storage storage) {
         this.ui = new Ui();
+        this.storage = storage;
     }
 
     /**
@@ -173,6 +177,15 @@ public class Parser {
             }
         } else if (CommandParser.checkCommandWithoutArgument(input, Command.HELP.toString())) {
             return ui.help();
+        } else if (CommandParser.checkCommandWithArgument(input, Command.ARCHIVE.toString())) {
+            try {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                String output = ui.archiveTask(taskList.getTask(index), taskList.getSize());
+                taskList.archiveItem(storage, index);
+                return output;
+            } catch (Exception e) {
+                return ui.invalidArchiveCommand();
+            }
         }
         // Any other command will be considered invalid
         return ui.invalidCommand();

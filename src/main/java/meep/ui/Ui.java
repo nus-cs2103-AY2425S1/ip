@@ -171,6 +171,17 @@ public class Ui {
     }
 
     /**
+     * Returns a message when an invalid archive command is entered.
+     */
+    public String invalidArchiveCommand() {
+        return """
+                Sorry, there is something wrong with your archive command.
+                Archive command should be in the format: archive <index>
+                The index should be a number within the range of the list
+                """;
+    }
+
+    /**
      * Returns a message when an error occurs while loading tasks.
      */
     public String errorLoadingTask() {
@@ -231,4 +242,15 @@ public class Ui {
                 """;
     }
 
+    /**
+     * Returns a message indicating that a task has been archived.
+     */
+    public String archiveTask(String task, int size) {
+        return """
+                Noted. I've archived this task:
+                """ + task + "\n"
+                + "Now you have "
+                + (size - 1)
+                + " tasks in the list\n";
+    }
 }

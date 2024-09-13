@@ -131,4 +131,13 @@ Here are the matching tasks in your list:
 3. [D][ ] return book (by: 12th of September 2021, 6:00pm)
 4. [T][ ] read book
 
+Got it. I've added this task:
+[T][ ] test archive
+Now you have 5 tasks in the list
+
+Noted. I've archived this task:
+[T][ ] test archive
+
+Now you have 4 tasks in the list
+
 Bye! Have a great day!
