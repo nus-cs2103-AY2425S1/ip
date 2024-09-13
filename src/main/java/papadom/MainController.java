@@ -18,7 +18,6 @@ public class MainController {
 
     public static final String USER_MESSAGE_COLOR = "#DCF8C6";
     public static final String BOT_MESSAGE_COLOR = "#FFFFFF";
-    public static final String GOODBYE_MESSAGE = "Session ended. Goodbye!";
     public static final String BYE = "bye";
     @FXML
     private VBox chatArea;
@@ -65,7 +64,6 @@ public class MainController {
 
             // If the command is "bye", disable further input
             if (userInput.equalsIgnoreCase(BYE)) {
-                addMessage(GOODBYE_MESSAGE, Pos.CENTER_LEFT, BOT_MESSAGE_COLOR);
                 inputField.setDisable(true); // Disable further input
             }
         }
