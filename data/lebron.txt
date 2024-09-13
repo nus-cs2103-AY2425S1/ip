@@ -1,4 +1,11 @@
-T | 0 | buy beer
 E | 1 | drinks | 2010-11-11 to 2012-10-11
+<<<<<<< HEAD
 T | 0 | study
 E | 0 | drinks | 2020-11-11 to 2019-10-11
+=======
+T | 1 | study
+T | 0 | buy beer
+D | 0 | return CD | 2011-10-09
+E | 0 | project meeting | 2019-12-10 to 2020-11-12
+E | 0 | meeting | 2010-09-09 to 2012-11-11
+>>>>>>> 4872385 (Improve code quality by refactoring Event)
