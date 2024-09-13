@@ -29,11 +29,15 @@ public class Storage {
      * @param taskList The TaskList to populate with tasks loaded from the file.
      */
     public Storage(String file, TaskList taskList) {
+<<<<<<< HEAD
         this.filePath = file;
         loadTasks(taskList);
     }
 
     private void loadTasks(TaskList taskList) {
+=======
+        assert file != null : "File path must not be null";
+>>>>>>> master
         try {
             taskList.setTaskList(loadFile());
         } catch (IOException e) {
@@ -48,11 +52,16 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void saveFile(TaskList dataList) throws IOException {
+<<<<<<< HEAD
         File fileObj = createFile();
         writeTasksToFile(dataList, fileObj);
     }
 
     private static File createFile() throws IOException {
+=======
+        assert filePath != null : "File path must not be null";
+
+>>>>>>> master
         File fileObj = new File(filePath);
         fileObj.getParentFile().mkdirs();
         if (!fileObj.exists()) {
@@ -75,6 +84,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void clearFile() throws IOException {
+<<<<<<< HEAD
         writeToFile("");
     }
 
@@ -82,6 +92,13 @@ public class Storage {
         try (FileWriter fw = new FileWriter(filePath, false)) {
             fw.write(content);
         }
+=======
+        assert filePath != null : "File path must not be null";
+
+        FileWriter fw = new FileWriter(filePath, false);
+        fw.write("");
+        fw.close();
+>>>>>>> master
     }
 
     /**
@@ -91,9 +108,18 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void amendFile(Task task) throws IOException {
+<<<<<<< HEAD
         File fileObj = createFile();
         try (FileWriter fw = new FileWriter(fileObj, true)) {
             fw.write(task.write());
+=======
+        assert filePath != null : "File path must not be null";
+
+        File fileObj = new File(filePath);
+        fileObj.getParentFile().mkdirs();
+        if (!fileObj.exists()) {
+            fileObj.createNewFile();
+>>>>>>> master
         }
     }
 
@@ -104,6 +130,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading from the file.
      */
     public ArrayList<Task> loadFile() throws IOException {
+        assert filePath != null : "File path must not be null";
+
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
