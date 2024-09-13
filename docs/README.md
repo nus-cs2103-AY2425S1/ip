@@ -8,7 +8,7 @@
 ## Quick Start
 
 1. Ensure you have **Java 17** or above installed on your system.
-2. Download the latest `tars.jar` file [here](#) or navigate to `src/main/java/tars/Launcher.java` to run the application directly.
+2. Download the latest `tars.jar` file [here](#https://github.com/appleshill/ip/releases/tag/A-Release) or navigate to `src/main/java/tars/Launcher.java` to run the application directly.
 3. To run the application via the JAR file:
    - Open a terminal.
    - Navigate to the folder where you saved the `tars.jar` file.
