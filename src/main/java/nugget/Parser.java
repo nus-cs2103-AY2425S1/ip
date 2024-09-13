@@ -1,12 +1,6 @@
 package nugget;
 
-import nugget.command.AddTaskCommand;
-import nugget.command.Command;
-import nugget.command.DeleteTaskCommand;
-import nugget.command.FindTaskCommand;
-import nugget.command.ListCommand;
-import nugget.command.MarkTaskCommand;
-import nugget.command.UnmarkTaskCommand;
+import nugget.command.*;
 import nugget.exception.EmptyDescriptionException;
 import nugget.exception.InvalidTaskNumberException;
 import nugget.exception.NuggetException;
@@ -53,6 +47,8 @@ public class Parser {
         switch (command) {
         case "list":
             return new ListCommand();
+        case "sort":
+            return new SortListCommand();
         case "todo":
         case "deadline":
         case "event":

@@ -49,4 +49,8 @@ public class Event extends Task {
         return String.format("%s%s (from: %s to: %s)", this.getTaskType(),
                 super.toString(), startFormatted, endFormatted);
     }
+
+    public LocalDateTime getEnd() {
+        return this.end;
+    }
 }
