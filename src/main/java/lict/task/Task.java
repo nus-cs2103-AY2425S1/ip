@@ -1,6 +1,7 @@
 package lict.task;
 
 import lict.LictException;
+import lict.Ui;
 
 /**
  * The abstract {@code lict.task.Task} class represents a task with a description and a status
@@ -31,11 +32,14 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-        assert description != "" : "Description should not be empty";
+        assert !description.isEmpty() : "Description should not be empty";
         this.description = description;
         this.isDone = false;
     }
 
+    public boolean isScheduledTask() {
+        return false;
+    }
     /**
      * Returns the status icon of the task.
      *
@@ -67,6 +71,8 @@ public abstract class Task {
     public boolean containsKeyword(String keyword) {
         return this.description.toLowerCase().contains(keyword.toLowerCase());
     }
+
+    public void snoozeTask(Ui ui, String info) throws LictException {}
     /**
      * Converts the task to a string format suitable for saving to a data file.
      * This method must be implemented by subclasses to provide their specific data format.

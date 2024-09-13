@@ -40,7 +40,7 @@ public class Lict {
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
+                String fullCommand = ui.readInput();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);

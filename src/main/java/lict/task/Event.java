@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 
 import lict.DateTime;
 import lict.LictException;
+import lict.Ui;
 
 
 /**
@@ -42,11 +43,45 @@ public class Event extends Task {
             );
         }
     }
-
-
+    @Override
+    public boolean isScheduledTask() {
+        return true;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from.getString() + " to: " + this.to.getString() + ")";
+    }
+
+    @Override
+    public void snoozeTask(Ui ui, String info) throws LictException {
+        String[] infoParts = info.split("/from", 2);
+        if (infoParts.length != 2 || infoParts[1].trim().isEmpty()) {
+            throw new LictException("Please include the new event details you wish to set in the following format: "
+                    + "snooze {task number} /from {new event start} /to {new event end}");
+        }
+        String trimmedDetails = infoParts[1].trim();
+        String[] newEventInfo = trimmedDetails.split("/to", 2);
+        if (newEventInfo.length != 2) {
+            throw new LictException("Please include the new event details you wish to set in the following format: "
+                    + "snooze {task number} /from {new event start} /to {new event end}");
+        }
+        String newFrom = newEventInfo[0];
+        String newTo = newEventInfo[1];
+        try {
+            this.from = new DateTime(newFrom);
+            //If 'newTo' only contains time, assume that it has the same date as from
+            if (newTo.matches(TIME_ONLY_REGEX)) {
+                String date = this.from.getData().split(WHITESPACE_DELIMITER)[0];
+                this.to = new DateTime(date + " " + newTo);
+            } else {
+                this.to = new DateTime(newTo);
+            }
+        } catch (DateTimeException e) {
+            throw new LictException(
+                    "Invalid format for event start date or event end date. Please ensure that Event date and "
+                            + "time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'."
+            );
+        }
     }
 
     @Override

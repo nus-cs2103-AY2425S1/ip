@@ -29,10 +29,10 @@ public class Ui {
      * @return The command input by the user.
      * @throws LictException If the input is empty.
      */
-    public String readCommand() throws LictException {
+    public String readInput() throws LictException {
         String input = sc.nextLine().trim();
         if (input.isEmpty()) {
-            throw new LictException("Please enter a valid command.");
+            throw new LictException("Input cannot be empty.");
         }
         return input;
     }
@@ -171,5 +171,14 @@ public class Ui {
 
     public String getLastOutput() {
         return lastOutput;
+    }
+    /**
+     * Displays a message indicating that a task has been snoozed.
+     *
+     * @param task The task that has been snoozed with updated details.
+     */
+    public void hasSnoozedTask(Task task) {
+        lastOutput = "Got it, I've snoozed this task. Updated task details are:\n" + tab + task;
+        System.out.println(lastOutput);
     }
 }

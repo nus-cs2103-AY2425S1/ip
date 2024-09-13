@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 
 import lict.DateTime;
 import lict.LictException;
+import lict.Ui;
 
 /**
  * The {@code lict.task.Deadline} class represents a task that has a deadline.
@@ -34,10 +35,33 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean isScheduledTask() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.getString() + ")";
     }
 
+    @Override
+    public void snoozeTask(Ui ui, String info) throws LictException {
+        String[] infoParts = info.split("/by", 2);
+        if (infoParts.length != 2 || infoParts[1].trim().isEmpty()) {
+            throw new LictException("Please include the new deadline you wish to set in the following format: "
+                    + "snooze {task number} /by {new deadline}");
+        }
+        String newDeadline = infoParts[1].trim();
+        try {
+            this.by = new DateTime(newDeadline);
+        } catch (DateTimeException e) {
+            throw new LictException(
+                    """
+                    Invalid format for deadline.
+                    Please ensure that deadline is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'."""
+            );
+        }
+    }
     @Override
     public String toData() {
         String status = this.isDone ? "1" : "0";

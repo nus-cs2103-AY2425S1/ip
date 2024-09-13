@@ -11,6 +11,7 @@ import lict.command.FindCommand;
 import lict.command.HelloCommand;
 import lict.command.ListCommand;
 import lict.command.MarkCommand;
+import lict.command.SnoozeCommand;
 import lict.command.TodoCommand;
 import lict.command.UnmarkCommand;
 
@@ -41,6 +42,7 @@ public class Parser {
         FIND,
         HELLO,
         BYE,
+        SNOOZE,
     }
 
     /**
@@ -102,6 +104,10 @@ public class Parser {
 
             case BYE:
                 c = new ByeCommand();
+                break;
+
+            case SNOOZE:
+                c = new SnoozeCommand(info);
                 break;
 
             default:
