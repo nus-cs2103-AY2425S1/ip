@@ -76,6 +76,7 @@ public class Parser {
      * @return           Returns a processed result containing only the keyword and not the command.
      */
     public String findTask(String inputTask) {
+        assert(inputTask.contains("find"));
         return inputTask.split("find |find").length == 0
                 ? "" : inputTask.split("find ")[1];
     }
