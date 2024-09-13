@@ -2,7 +2,16 @@ package karen.util;
 
 import java.time.format.DateTimeParseException;
 
-import karen.commands.*;
+import karen.commands.AddTaskCommand;
+import karen.commands.Command;
+import karen.commands.DeleteCommand;
+import karen.commands.ExitCommand;
+import karen.commands.FindCommand;
+import karen.commands.ListCommand;
+import karen.commands.MarkCommand;
+import karen.commands.ShowErrorCommand;
+import karen.commands.UnknownCommand;
+import karen.commands.UnmarkCommand;
 import karen.tasks.Deadline;
 import karen.tasks.Event;
 import karen.tasks.Todo;
@@ -68,8 +77,8 @@ public class Parser {
             try {
                 String[] params = arr[1].split(" /from ");
                 String name = params[0];
-                String[] datetimes = params[1].split(" /to ");
-                c = new AddTaskCommand(new Event(name, datetimes[0], datetimes[1]));
+                String[] dateTimes = params[1].split(" /to ");
+                c = new AddTaskCommand(new Event(name, dateTimes[0], dateTimes[1]));
             } catch (IndexOutOfBoundsException e) {
                 c = new ShowErrorCommand(ui.showEventSyntax());
             } catch (DateTimeParseException e) {
