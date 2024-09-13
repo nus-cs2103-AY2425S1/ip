@@ -34,6 +34,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(MINHEIGHT);
             stage.setMinWidth(MINWIDTH);
+            stage.setTitle("Sigma Chatbot");
             fxmlLoader.<MainWindow>getController().setSigma(sigma);
             stage.show();
         } catch (IOException e) {

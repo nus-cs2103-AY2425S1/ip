@@ -126,8 +126,8 @@ public class Ui {
      * @param numberOfTasks The current number of tasks in the list.
      */
     public String showDeletedTask(Task task, int numberOfTasks) {
-        return "Alright, I’ve yeeted this task out of your list:\n" + String.format("  %s\n", task)
-                + "You’re down to " + numberOfTasks + " tasks now — keep hustling, champ!";
+        return "Alright, I have yeeted this task out of your list:\n" + String.format("  %s\n", task)
+                + "You are down to " + numberOfTasks + " tasks now. Keep hustling, champ!";
     }
 
     /**
