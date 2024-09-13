@@ -22,7 +22,7 @@ import yapmeister.task.ToDo;
  * @author BlazeChron
  */
 public class Storage {
-    private String filepath;
+    private final String filepath;
     private File tasksFile;
     enum TaskType {
         ToDo,
@@ -43,19 +43,13 @@ public class Storage {
      * @return ArrayList of tasks loaded from the file at filepath.
      * @throws StorageException Error when the file is inaccessible or does not exist.
      */
-    public ArrayList<Task> load() throws StorageException {
+    public ArrayList<Task> loadTasks() throws StorageException {
         ArrayList<Task> tasks = null;
         this.tasksFile = null;
         try {
             tasksFile = loadTaskFile();
-        } catch (IOException e) {
-            throw new StorageException(e.getMessage());
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        try {
             tasks = loadSavedTasks(tasksFile);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new StorageException(e.getMessage());
         }
         return tasks;
@@ -131,7 +125,7 @@ public class Storage {
      * @param type creates task based on TaskType
      * @param isCompleted Initialises the boolean task completion with respect to this value
      * @param args holds the respective details of the task
-     * @return
+     * @return created task
      */
     private Task createTask(TaskType type, boolean isCompleted, String ... args) {
         Task task = null;

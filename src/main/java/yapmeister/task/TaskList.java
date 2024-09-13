@@ -27,10 +27,10 @@ public class TaskList {
 
     /**
      * Adds task to the TaskList.
-     * @param t Task to be added.
+     * @param task Task to be added.
      */
-    public void addTask(Task t) {
-        this.tasks.add(t);
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 
     /**
@@ -63,14 +63,4 @@ public class TaskList {
     public int getSize() {
         return this.tasks.size();
     }
-
-    /**
-     * Returns Task at index.
-     * @param index Index of the task.
-     * @return Task at the index.
-     */
-    public Task get(int index) {
-        return this.tasks.get(index);
-    }
-
 }

@@ -18,7 +18,7 @@ public class YapMeister {
         this.ui = new UI();
         this.storage = new Storage(filepath);
         try {
-            this.tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.loadTasks());
         } catch (StorageException e) {
             //ui.showLoadingError();
             this.tasks = new TaskList();
@@ -40,10 +40,10 @@ public class YapMeister {
     }
 
     public String getResponse(String input) {
-        return ui.getResponse(input);
+        return this.ui.getResponse(input);
     }
 
     public String getWelcomeMessage() {
-        return ui.getWelcomeMessage();
+        return this.ui.getWelcomeMessage();
     }
 }
