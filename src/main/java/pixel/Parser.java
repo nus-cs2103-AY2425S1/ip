@@ -33,6 +33,7 @@ public class Parser {
             }
         } else if (command.startsWith("deadline")) {
             String[] stringArray = command.split("/", 0);
+            assert stringArray.length == 2;
             String description = stringArray[0].replace("deadline", "").trim();
             String by = stringArray[1].replace("by", "").trim();
             Deadline newDeadline = new Deadline(description, by);
@@ -41,6 +42,7 @@ public class Parser {
             return Ui.getAddConfirmation(tasks);
         } else if (command.startsWith("event")) {
             String[] stringArray = command.split("/", 0);
+            assert stringArray.length == 3;
             String description = stringArray[0].replace("event", "").trim();
             String from = stringArray[1].replace("from", "").trim();
             String to = stringArray[2].replace("to", "").trim();
@@ -75,5 +77,6 @@ public class Parser {
         } else {
             return Ui.handleInvalidCommandException();
         }
+
     }
 }
