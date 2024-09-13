@@ -30,6 +30,7 @@ public class DeleteCommand extends Command {
      * @param tasks The task list from which the task will be deleted.
      * @param ui The user interface to interact with.
      * @param storage The storage to save the updated task list.
+     * @return A String representation of Killua's response.
      * @throws KilluaException If there is an error related to task handling.
      * @throws IOException If there is an error in reading or writing to storage.
      */

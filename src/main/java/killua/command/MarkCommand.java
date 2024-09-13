@@ -32,6 +32,7 @@ public class MarkCommand extends Command {
      * @param tasks The task list containing all tasks.
      * @param ui The user interface to interact with and display the updated task.
      * @param storage The storage to save the updated task list.
+     * @return A String representation of Killua's response.
      * @throws KilluaException If there is an error marking the task as done.
      * @throws IOException If there is an error saving the task list to storage.
      */

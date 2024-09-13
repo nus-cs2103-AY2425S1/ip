@@ -33,6 +33,7 @@ public class UnmarkCommand extends Command {
      * @param tasks The task list containing all tasks.
      * @param ui The user interface to display the task status.
      * @param storage The storage to save the updated task list.
+     * @return A String representation of Killua's response.
      * @throws KilluaException If the task index is out of bounds or if there is an error with the task operations.
      * @throws IOException If there is an error saving the task list to storage.
      */

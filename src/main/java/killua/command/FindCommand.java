@@ -49,6 +49,7 @@ public class FindCommand extends Command {
      * @param tasks The task list containing all tasks.
      * @param ui The user interface to display the matched tasks.
      * @param storage The storage object (not used in this command).
+     * @return A String representation of Killua's response.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

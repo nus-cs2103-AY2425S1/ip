@@ -19,6 +19,7 @@ public abstract class Command {
      * @param tasks The task list to operate on.
      * @param ui The user interface to interact with.
      * @param storage The storage to read from or write to.
+     * @return A String representation of Killua's response.
      * @throws KilluaException If there is an error in the execution related to task handling.
      * @throws IOException If there is an error in reading or writing to storage.
      */

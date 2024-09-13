@@ -17,6 +17,7 @@ public class ListCommand extends Command {
      * @param tasks The task list containing all the tasks.
      * @param ui The user interface to interact with and display the task list.
      * @param storage The storage to save the task list (not used in this command).
+     * @return A String representation of Killua's response.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
