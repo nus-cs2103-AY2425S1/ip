@@ -44,11 +44,9 @@ public class AddTodoCommandTest {
         System.setOut(originalOut);
 
         // Assert
-        String expectedOutput = "____________________________________________________________\n" +
-                " Got it. I've added this task:\n" +
+        String expectedOutput = " Got it. I've added this task:\n" +
                 "  [T][ ] buy milk\n" +
-                " Now you have 1 tasks in the list.\n" +
-                "____________________________________________________________";
+                " Now you have 1 tasks in the list.";
         assertEquals(expectedOutput, output);
     }
     @Test

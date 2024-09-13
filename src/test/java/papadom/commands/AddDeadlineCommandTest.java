@@ -42,11 +42,9 @@ public class AddDeadlineCommandTest {
         String output = command.execute(taskList, ui, storage);
 
         // Assert
-        String expectedOutput = "____________________________________________________________\n" +
-                " Got it. I've added this task:\n" +
+        String expectedOutput = " Got it. I've added this task:\n" +
                 "  [D][ ] return book (by: Dec 12 2024, 12:00 pm)\n" +
-                " Now you have 1 tasks in the list.\n" +
-                "____________________________________________________________";
+                " Now you have 1 tasks in the list.";
         System.out.println("Expected: [" + expectedOutput + "]");
         System.out.println("Actual: [" + output + "]");
         assertEquals(expectedOutput, output);

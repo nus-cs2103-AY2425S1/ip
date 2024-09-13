@@ -44,11 +44,9 @@ public class AddEventCommandTest {
         System.setOut(originalOut);
 
         // Assert
-        String expectedOutput = "____________________________________________________________\n" +
-                " Got it. I've added this task:\n" +
+        String expectedOutput = " Got it. I've added this task:\n" +
                 "  [E][ ] project meeting (from: Mon 2pm to: 4pm)\n" +
-                " Now you have 1 tasks in the list.\n" +
-                "____________________________________________________________";
+                " Now you have 1 tasks in the list.";
         assertEquals(expectedOutput, output);
     }
     @Test
