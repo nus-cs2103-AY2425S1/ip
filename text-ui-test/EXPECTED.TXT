@@ -1,7 +1,53 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Bob the bot!
+How can I help you?
+Adding ToDo task:
+ [T][ ] borrow book
+Total number of tasks in your list: 1
+Adding Deadline task:
+ [D][ ] return book (by: Sunday)
+Total number of tasks in your list: 2
+Adding Event task:
+ [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Total number of tasks in your list: 3
+Your list of tasks:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Good Job! Marking this task as done:
+ [T][X] borrow book
+Your list of tasks:
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+The task number provided is invalid.
+No such task number found. Please provide a valid task number.
+No such task number found. Please provide a valid task number.
+Okay, marking this task as not done yet:
+ [T][ ] borrow book
+Your list of tasks:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Sorry, I do not understand. Please try something else.
+You may have missing details or wrong format!
+Add Deadline task in the following format:
+deadline <description> /by <due date>
+You may have missing details or wrong format!
+Add Deadline task in the following format:
+deadline <description> /by <due date>
+Sorry, I do not understand. Please try something else.
+You did not key in anything...
+Please provide a task number.
+Good Job! Marking this task as done:
+ [D][X] return book (by: Sunday)
+Your list of tasks:
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Noted, removing this task:
+ [D][X] return book (by: Sunday)
+Total number of tasks in your list: 2
+Your list of tasks:
+1. [T][ ] borrow book
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Bye! Hope to see you again :)
