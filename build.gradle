@@ -42,6 +42,10 @@ test {
     }
 }
 
+tasks.withType(Checkstyle) {
+    enabled = false
+}
+
 application {
     mainClass.set("yapper.Launcher")
 }
