@@ -1,3 +1,5 @@
+package friday;
+
 import commands.Command;
 import parser.Parser;
 import storage.Storage;
@@ -5,8 +7,8 @@ import storage.TaskList;
 import ui.UI;
 
 /**
- * The main class that runs the Friday application, a to-do list chatbot.
- * The Friday class initializes the necessary components (Storage, TaskList, and UI)
+ * The main class that runs the Friday.Friday application, a to-do list chatbot.
+ * The Friday.Friday class initializes the necessary components (Storage, TaskList, and UI)
  * and manages the application's main loop, handling user input and executing commands.
  */
 public class Friday {
@@ -16,7 +18,7 @@ public class Friday {
     private final UI ui;
 
     /**
-     * Constructs a Friday object with the specified file path for storage.
+     * Constructs a Friday.Friday object with the specified file path for storage.
      * Initializes the Storage, TaskList, and UI components.
      *
      * @param filePath the path to the file where tasks are stored
@@ -28,7 +30,7 @@ public class Friday {
     }
 
     /**
-     * Runs the main loop of the Friday application.
+     * Runs the main loop of the Friday.Friday application.
      * This method initializes the UI, processes user input, and executes commands
      * until the user issues a command to exit the application.
      * Upon termination, it saves the task list to the storage file.
@@ -52,12 +54,19 @@ public class Friday {
     }
 
     /**
-     * The main entry point of the Friday application.
-     * Creates a new Friday instance with the specified file path and runs it.
+     * The main entry point of the Friday.Friday application.
+     * Creates a new Friday.Friday instance with the specified file path and runs it.
      *
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
         new Friday("./data/friday.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Friday.Friday heard: " + input;
     }
 }

@@ -37,7 +37,7 @@ public class RemoveCommand implements Command {
             master.removeTask(index - 1);
             storage.saveList(master.getParent());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
+            System.out.println("Friday.Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
         }
         UI.printLine();
         return false;

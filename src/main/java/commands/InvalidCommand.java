@@ -34,19 +34,19 @@ public class InvalidCommand implements Command {
         switch(desc) {
         case "mark":
         case "unmark":
-            System.out.println("Friday > Input the task number to mark/unmark the task");
+            System.out.println("Friday.Friday > Input the task number to mark/unmark the task");
             break;
         case "add":
-            System.out.println("Friday > Try doing add <task name>");
+            System.out.println("Friday.Friday > Try doing add <task name>");
             break;
         case "remove":
-            System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
+            System.out.println("Friday.Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
             break;
         case "find":
-            System.out.println("Friday > Try doing find <keyword>");
+            System.out.println("Friday.Friday > Try doing find <keyword>");
             break;
         default:
-            System.out.println("Friday > Hmm...you can't do that. Try add/remove <task> or \"help\" for more options");
+            System.out.println("Friday.Friday > Hmm...you can't do that. Try add/remove <task> or \"help\" for more options");
             break;
         }
         UI.printLine();

@@ -5,7 +5,7 @@ import storage.TaskList;
 import ui.UI;
 
 /**
- * Represents a command that can be executed within the Friday application.
+ * Represents a command that can be executed within the Friday.Friday application.
  * The Command interface defines a method that must be implemented by all concrete command classes.
  */
 public interface Command {
