@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import java.util.List;
 
+import chatsy.parser.Parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,12 +19,12 @@ import chatsy.tasks.TodoTask;
 
 class CommandHandlerTest {
     private TaskManager taskManager;
-    private CommandHandler commandHandler;
+    private Parser commandHandler;
 
     @BeforeEach
     void setUp() {
         taskManager = new TaskManager();
-        commandHandler = new CommandHandler(taskManager);
+        commandHandler = new Parser(taskManager);
     }
 
     @Test

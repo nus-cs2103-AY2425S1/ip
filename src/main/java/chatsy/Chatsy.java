@@ -2,17 +2,21 @@ package chatsy;
 
 import chatsy.exceptions.ChatsyException;
 import chatsy.exceptions.LocalFileException;
+import chatsy.exceptions.InvalidTaskStringException;
+import chatsy.parser.Parser;
 
 /**
  * The main class for the Chatsy application.
  * It initializes the necessary components and interacts with the GUI.
  */
 public class Chatsy {
+
     private static final String LOCAL_DIRECTORY_PATH = "./data";
     private static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatsy.txt";
-    private TaskManager taskManager;
-    private Storage storage;
-    private CommandHandler commandHandler;
+
+    private final TaskManager taskManager;
+    private final Storage storage;
+    private final Parser parser;
 
     /**
      * Constructs a Chatsy instance.
@@ -20,14 +24,22 @@ public class Chatsy {
     public Chatsy() {
         this.storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
         this.taskManager = new TaskManager();
-        this.commandHandler = new CommandHandler(taskManager); // GUI will handle output now
+        this.parser = new Parser(taskManager);
 
-        // Load tasks when starting the application
+        // Initialize tasks from the storage upon starting the application
+        loadTasks();
+    }
+
+    /**
+     * Loads tasks from storage and sets them into the task manager.
+     */
+    private void loadTasks() {
         try {
             taskManager.setTasks(storage.loadTasks());
         } catch (LocalFileException e) {
-            // Handle error in the GUI
             System.out.println("Failed to load tasks: " + e.getMessage());
+        } catch (InvalidTaskStringException e) {
+            System.out.println("Failed to set tasks: Invalid task data.");
         }
     }
 
@@ -39,7 +51,7 @@ public class Chatsy {
      * @throws ChatsyException If any error occurs while handling the command.
      */
     public String handleCommand(String input) throws ChatsyException {
-        return commandHandler.handle(input);
+        return parser.parse(input).execute(taskManager);
     }
 
     /**
@@ -59,10 +71,10 @@ public class Chatsy {
     public String exit() {
         try {
             storage.saveTasks(taskManager.getTasks());
+            return "Bye. Hope to see you again soon!";
         } catch (LocalFileException e) {
             return "Failed to save tasks: " + e.getMessage();
         }
-        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -76,10 +88,13 @@ public class Chatsy {
             return "Task list initialized successfully!";
         } catch (LocalFileException e) {
             return "Failed to load tasks: " + e.getMessage();
+        } catch (InvalidTaskStringException e) {
+            return "Failed to set tasks: Invalid task data.";
         }
     }
 
     // Getter methods for accessing task manager, storage, etc., if needed by GUI
+
     public TaskManager getTaskManager() {
         return taskManager;
     }
@@ -88,7 +103,7 @@ public class Chatsy {
         return storage;
     }
 
-    public CommandHandler getCommandHandler() {
-        return commandHandler;
+    public Parser getParser() {
+        return parser;
     }
 }

@@ -25,8 +25,8 @@ import chatsy.tasks.TodoTask;
 public class Storage {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private String directoryPath;
-    private String filePath;
+    private final String directoryPath;
+    private final String filePath;
 
     /**
      * Constructs a {@code Storage} instance with the specified directory and file paths.
@@ -46,28 +46,18 @@ public class Storage {
      * @throws LocalFileException If there is an issue with loading the file.
      */
     public List<Task> loadTasks() throws LocalFileException {
-        List<Task> tasks = new ArrayList<>();
+        ensureDirectoryExists();
         try {
-            File dir = new File(directoryPath);
-            if (!dir.exists()) {
-                dir.mkdirs(); // Create directory if it doesn't exist
-            }
+            ensureFileExists();
+        } catch (IOException e) {
+            throw new FileCorruptedException(filePath);
+        }
 
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.createNewFile(); // Create file if it doesn't exist
-            } else {
-                try (Scanner scanner = new Scanner(file)) {
-                    while (scanner.hasNextLine()) {
-                        String line = scanner.nextLine();
-                        tasks.add(parseTask(line));
-                    }
-                }
-            }
+        try (Scanner scanner = new Scanner(new File(filePath))) {
+            return parseTasksFromFile(scanner);
         } catch (IOException | InvalidTaskStringException e) {
             throw new FileCorruptedException(filePath);
         }
-        return tasks;
     }
 
     /**
@@ -86,10 +76,31 @@ public class Storage {
         }
     }
 
+    private void ensureDirectoryExists() throws LocalFileException {
+        File dir = new File(directoryPath);
+        if (!dir.exists() && !dir.mkdirs()) {
+            throw new LocalFileException("Failed to create directory: " + directoryPath);
+        }
+    }
+
+    private void ensureFileExists() throws IOException, LocalFileException {
+        File file = new File(filePath);
+        if (!file.exists() && !file.createNewFile()) {
+            throw new LocalFileException("Failed to create file: " + filePath);
+        }
+    }
+
+    private List<Task> parseTasksFromFile(Scanner scanner) throws InvalidTaskStringException {
+        List<Task> tasks = new ArrayList<>();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            tasks.add(parseTask(line));
+        }
+        return tasks;
+    }
+
     private Task parseTask(String taskString) throws InvalidTaskStringException {
         String[] parts = taskString.split(" \\| ");
-
-        // Check if the taskString has enough parts to parse
         if (parts.length < 3) {
             throw new InvalidTaskStringException();
         }
@@ -99,33 +110,43 @@ public class Storage {
         String description = parts[2];
 
         switch (taskType) {
-        case "T":
-            return new TodoTask(description, isDone);
-        case "D":
-            LocalDate by = LocalDate.parse(parts[3], DATE_FORMATTER);
-            return new DeadlineTask(description, by, isDone);
-        case "E":
-            LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
-            LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
-            return new EventTask(description, from, to, isDone);
-        default:
-            throw new InvalidTaskStringException();
+            case "T":
+                return new TodoTask(description, isDone);
+            case "D":
+                LocalDate by = LocalDate.parse(parts[3], DATE_FORMATTER);
+                return new DeadlineTask(description, by, isDone);
+            case "E":
+                LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
+                return new EventTask(description, from, to, isDone);
+            default:
+                throw new InvalidTaskStringException();
         }
     }
 
     private String formatTaskForSaving(Task task) {
         if (task instanceof TodoTask) {
-            return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+            return formatTodoTask((TodoTask) task);
         } else if (task instanceof DeadlineTask) {
-            DeadlineTask deadlineTask = (DeadlineTask) task;
-            return "D | " + (deadlineTask.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription()
-                    + " | " + deadlineTask.getBy().format(DATE_FORMATTER);
+            return formatDeadlineTask((DeadlineTask) task);
         } else if (task instanceof EventTask) {
-            EventTask eventTask = (EventTask) task;
-            return "E | " + (eventTask.isDone() ? "1" : "0") + " | " + eventTask.getDescription()
-                    + " | " + eventTask.getFrom().format(DATE_TIME_FORMATTER)
-                    + " | " + eventTask.getTo().format(DATE_TIME_FORMATTER);
+            return formatEventTask((EventTask) task);
         }
         return "";
+    }
+
+    private String formatTodoTask(TodoTask task) {
+        return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+    }
+
+    private String formatDeadlineTask(DeadlineTask task) {
+        return "D | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription()
+                + " | " + task.getBy().format(DATE_FORMATTER);
+    }
+
+    private String formatEventTask(EventTask task) {
+        return "E | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription()
+                + " | " + task.getFrom().format(DATE_TIME_FORMATTER)
+                + " | " + task.getTo().format(DATE_TIME_FORMATTER);
     }
 }
