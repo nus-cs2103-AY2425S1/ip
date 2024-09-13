@@ -1,5 +1,7 @@
 package friday.task;
 
+import friday.util.FridayException;
+
 /**
  * Represents a TODO task.
  */
@@ -12,6 +14,15 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+    }
+
+    @Override
+    public void update(String updateDetails) throws FridayException {
+        if (!updateDetails.trim().isEmpty()) {
+            this.description = updateDetails;
+        } else {
+            throw new FridayException("Todo description cannot be empty.");
+        }
     }
 
     /**

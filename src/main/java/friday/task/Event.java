@@ -2,13 +2,16 @@ package friday.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import friday.util.FridayException;
 
 /**
  * Represents an Event with a description, start time, and end time.
  */
 public class Event extends Task {
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructs an Event with the specified description, start time, and end time.
@@ -22,6 +25,30 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
+    }
+
+    @Override
+    public void update(String updateDetails) throws FridayException {
+        String[] details = updateDetails.split(" /from | /to ");
+        if (details.length > 0 && !details[0].trim().isEmpty()) {
+            this.description = details[0]; // Update the description
+        } else {
+            throw new FridayException("Event description cannot be empty.");
+        }
+        if (details.length > 1) {
+            try {
+                this.from = LocalDateTime.parse(details[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } catch (DateTimeParseException e) {
+                throw new FridayException("Invalid 'from' date format. Use 'yyyy-MM-dd HHmm'.");
+            }
+        }
+        if (details.length > 2) {
+            try {
+                this.to = LocalDateTime.parse(details[2].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } catch (DateTimeParseException e) {
+                throw new FridayException("Invalid 'to' date format. Use 'yyyy-MM-dd HHmm'.");
+            }
+        }
     }
 
     /**

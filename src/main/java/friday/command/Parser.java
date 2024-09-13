@@ -58,6 +58,7 @@ public class Parser {
         case EVENT -> createEventCommand(fullCommand);
         case DELETE -> createDeleteCommand(inputs);
         case FIND -> new FindCommand(inputs);
+        case UPDATE -> createUpdateCommand(inputs);
         default -> throw new FridayException("Invalid input. Please ensure that this command is supported by me"
                 + " and you have utilized the right syntax.\nCheck 'help' for more information.");
         };
@@ -115,5 +116,13 @@ public class Parser {
                     + "\nusage: delete <integer>");
         }
         return new DeleteCommand(inputs);
+    }
+
+    private static Command createUpdateCommand(String[] inputs) throws FridayException {
+        if (inputs.length < 3) {
+            throw new FridayException("Invalid input. 'update' command requires an index and the new values."
+                    + "\nusage: update <index> <fields>");
+        }
+        return new UpdateCommand(inputs);
     }
 }
