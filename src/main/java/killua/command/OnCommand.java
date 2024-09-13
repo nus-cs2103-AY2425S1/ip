@@ -50,6 +50,7 @@ public class OnCommand extends Command {
      * @param tasks The task list containing all tasks.
      * @param ui The user interface to display the tasks on the specified date.
      * @param storage The storage is not used in this command, but required for method signature.
+     * @return A String representation of Killua's response.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

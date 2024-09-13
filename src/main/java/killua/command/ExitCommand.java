@@ -17,6 +17,7 @@ public class ExitCommand extends Command {
      * @param tasks The task list (not used in this command).
      * @param ui The user interface to interact with.
      * @param storage The storage to save the task list (not used in this command).
+     * @return A String representation of Killua's response.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
