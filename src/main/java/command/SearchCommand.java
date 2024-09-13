@@ -13,6 +13,13 @@ public class SearchCommand extends Command {
         super(description);
     }
 
+    /**
+     * Executes the search command to search tasks with description containing the keyword
+     * @param taskList
+     * @param ui
+     * @param storage
+     * @return
+     */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return taskList.searchTask(getDescription());
     }
