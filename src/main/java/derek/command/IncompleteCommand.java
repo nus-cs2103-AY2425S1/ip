@@ -64,8 +64,9 @@ public class IncompleteCommand extends Command {
      * @throws IncorrectCommandException if the task number is out of bounds
      */
     public void validateTaskNumber(int taskNumber) throws IncorrectCommandException {
+        // Explicitly check the condition and throw exception if needed
         if (taskNumber < 1 || taskNumber > this.sizeOfTaskList) {
-            throw new IncorrectCommandException("do you not know how to count??");
+            throw new IncorrectCommandException("Do you not know how to count?");
         }
     }
 
