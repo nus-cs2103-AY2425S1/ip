@@ -4,25 +4,40 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task {
+public class Deadline extends Task implements Comparable<Deadline> {
 
     private LocalDate by;
-    private String byString;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         try {
             LocalDate d = LocalDate.parse(by);
             this.by = d;
         } catch (DateTimeParseException e) {
-            this.byString = by;
+            e.printStackTrace();
+            throw e;
         }
     }
 
     @Override
     public String toString() {
-        return this.by == null
-                ? String.format("[Deadline] " + super.toString() + " By: [%s]", this.byString)
-                : String.format("[Deadline] " + super.toString() + " By: [%s]", this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return String.format("[Deadline] " + super.toString() + " By: [%s]", this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+    }
+
+    /**
+     * Compares this Deadline object with the specified Deadline object for order.
+     *
+     * @param d the Deadline object to be compared
+     * @return a negative integer, zero, or a positive integer as this Deadline object has a earlier, equal or further deadline than the specified Deadline object.
+     */
+    @Override
+    public int compareTo(Deadline d) {
+        if (this.by.isBefore(d.by)) {
+            return -1;
+        } else if (this.by.isAfter(d.by)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
