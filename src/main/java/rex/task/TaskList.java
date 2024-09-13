@@ -152,12 +152,9 @@ public class TaskList {
             return "The list is empty! rawr\n";
         }
 
-        StringBuilder output = new StringBuilder();
-        for (int i = 1; i <= tasks.size(); i++) {
-            output.append(i).append(".").append(getTask(i)).append("\n");
-        }
-
-        return output.toString();
+        return tasks.stream()
+                .map(task -> (tasks.indexOf(task) + 1) + "." + task)
+                .reduce("", (output, taskDetails) -> output + taskDetails + "\n");
     }
 
     /**
@@ -186,18 +183,11 @@ public class TaskList {
      *         with a message indicating the search results.
      */
     public String findTasks(String keyword) {
-        int taskNumber = 1;
-        String output = "Here are the matching tasks in your list:\n";
-
-        for (int i = 1; i <= tasks.size(); i++) {
-            Task task = getTask(i);
-            if (task.getDescription().contains(keyword)) {
-                output += taskNumber + "." + task + "\n";
-                taskNumber++;
-            }
-        }
-
-        return output;
+        return tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .map(task -> (tasks.indexOf(task) + 1) + "." + task)
+                .reduce("Here are the matching tasks in your list:\n",
+                        (output, taskDetails) -> output + taskDetails + "\n");
     }
 
     /**
