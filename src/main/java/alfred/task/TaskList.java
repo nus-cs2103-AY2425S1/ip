@@ -123,7 +123,7 @@ public class TaskList {
     }
 
     /**
-     * Tags the task at the specified position in the list (marks it as not done).
+     * Tags the task at the specified position in the list.
      * The task number is 1-based, so taskNumber - 1 is used to access the correct index.
      * Returns the task that was tagged.
      *
@@ -133,6 +133,21 @@ public class TaskList {
     public Task tagTask(int taskNumber, String tag) {
         Task task = tasks.get(taskNumber - 1);
         task.addTag(tag);
+        return task;
+    }
+
+    /**
+     * Untags the task at the specified position in the list.
+     * The task number is 1-based, so taskNumber - 1 is used to access the correct index.
+     * Returns the task that was untagged.
+     * Task will be returned unchanged if tag was not found.
+     *
+     * @param taskNumber The position of the task to be tagged (1-based index).
+     * @return The Task that was tagged.
+     */
+    public Task untagTask(int taskNumber, String tag) {
+        Task task = tasks.get(taskNumber - 1);
+        task.untag(tag);
         return task;
     }
 }

@@ -244,7 +244,7 @@ public abstract class Task {
      *
      * @param tag The tag to remove from the task.
      */
-    public void removeTag(String tag) {
+    public void untag(String tag) {
         tags.remove(tag);
     }
 
@@ -252,8 +252,7 @@ public abstract class Task {
      * Returns the tags formatted as a string.
      * If the tag list is empty, returns "No Tags".
      *
-     * @return A string representing the tags, separated by spaces and
-     * enclosed within brackets. If no tags exist, returns "No Tags".
+     * @return A string representing the tags, separated by spaces. If no tags exist, returns "No Tags".
      */
     public String getTagsAsString() {
         if (tags.isEmpty()) {
