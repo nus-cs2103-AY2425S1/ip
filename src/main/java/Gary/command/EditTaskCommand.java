@@ -2,6 +2,7 @@ package Gary.command;
 
 import java.io.IOException;
 
+import Gary.GaryException;
 import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
@@ -39,20 +40,21 @@ public class EditTaskCommand extends Command {
      * @param storage The {@code Storage} object for saving and loading tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws GaryException {
         try {
             Task task = taskList.getTask(index);
             if (isDone) {
-                ui.markTask(task);
                 task.editStatus();
+                storage.saveTask(taskList);
+                return ui.markTask(task);
             } else {
-                ui.unmarkTask(task);
+                storage.saveTask(taskList);
+                return ui.unmarkTask(task);
             }
-            storage.saveTask(taskList);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task list index is out of bounds!");
+            throw new GaryException("Task list index is out of bounds!");
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the task list: " + e.getMessage());
+            throw new GaryException("An error occurred while saving the task list. Try again.");
         }
     }
 

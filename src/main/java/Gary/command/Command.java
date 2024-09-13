@@ -1,5 +1,6 @@
 package Gary.command;
 
+import Gary.GaryException;
 import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
@@ -18,7 +19,7 @@ public abstract class Command {
      * @param ui The {@code Ui} object for user interaction.
      * @param storage The {@code Storage} object for saving and loading tasks.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws GaryException;
 
     /**
      * Indicates whether this command is a "bye" command, which ends the application.
