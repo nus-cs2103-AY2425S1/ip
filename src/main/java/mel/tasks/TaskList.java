@@ -104,12 +104,14 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?! "
                     + "Mel recalls only " + tasks.size() + " things");
+            mel.setHasException();
         }
     }
 
     /**
      * Handles marking of tasks completion based on input.
      * @param input user input string.
+     * @throws MelException unexpected user input.
      */
     private void handleTaskMarking(String... input) throws MelException {
         try {
@@ -132,32 +134,41 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?!\n"
                     + "Mel recalls only " + tasks.size() + " things");
+            mel.setHasException();
         }
     }
 
     /**
      * Marks tasks as completed.
-     * @param str indices of tasks.
+     * @param strings indices of tasks.
      */
-    private void markTasksAsDone(String... str) throws MelException {
-        for (String s : str) {
-            int idx = Integer.parseInt(s) - 1;
-            Task task = tasks.get(idx);
-            task.markTaskAsDone();
-            mel.println("  " + task);
+    private void markTasksAsDone(String... strings) {
+        for (String s : strings) {
+            if (!s.isEmpty()) {
+                int idx = Integer.parseInt(s) - 1;
+                Task task = tasks.get(idx);
+                task.markTaskAsDone();
+                mel.println("  " + task);
+            } else {
+                //fallthrough for invalid string value.
+            }
         }
     }
 
     /**
      * Marks tasks as incomplete.
-     * @param str indices of tasks.
+     * @param strings indices of tasks.
      */
-    private void markTasksAsNotDone(String... str) throws MelException {
-        for (String s : str) {
-            int idx = Integer.parseInt(s) - 1;
-            Task task = tasks.get(idx);
-            task.markTaskAsNotDone();
-            mel.println("  " + task);
+    private void markTasksAsNotDone(String... strings) {
+        for (String s : strings) {
+            if (!s.isEmpty()) {
+                int idx = Integer.parseInt(s) - 1;
+                Task task = tasks.get(idx);
+                task.markTaskAsNotDone();
+                mel.println("  " + task);
+            } else {
+                //fallthrough for invalid string value.
+            }
         }
     }
 
@@ -186,6 +197,7 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?!\n"
                     + "Mel recalls only " + tasks.size() + " things");
+            mel.setHasException();
         }
     }
 
@@ -205,6 +217,7 @@ public class TaskList {
         } catch (IOException e) {
             mel.println("Mel ran into an error"
                     + " creating save file :(");
+            mel.setHasException();
         }
     }
 

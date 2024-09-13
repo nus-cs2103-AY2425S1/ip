@@ -18,6 +18,8 @@ public class Mel {
     private final Gui gui;
     private boolean isUsingGui;
     private String response = "";
+    private boolean hasException = false;
+
 
     /**
      * Constructor for Mel chatbot, instantiates
@@ -40,6 +42,7 @@ public class Mel {
             taskList.executeTask(input);
         } catch (MelException | TaskException e) {
             println(e.toString());
+            setHasException();
         }
     }
 
@@ -77,14 +80,27 @@ public class Mel {
      * handles session's read-response sequence.
      * Only used in GUI.
      * @param input user input.
-     * @return Mel response string
+     * @return Mel's response's status and string
      */
-    public String getResponse(String input) {
+    public String[] getResponse(String input) {
         isUsingGui = true;
         gui.read(input);
-        String s = response;
+        String[] s = {"", response};
         response = "";
+        if (hasException) {
+            s[0] = "exception";
+            hasException = false;
+        } else {
+            //Fallthrough: indicates regular response.
+        }
         return s;
+    }
+
+    /**
+     * Sets indicator that an error has been thrown.
+     */
+    public void setHasException() {
+        hasException = true;
     }
 
     /**

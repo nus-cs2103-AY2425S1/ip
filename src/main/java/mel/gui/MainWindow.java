@@ -54,11 +54,29 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         assert (melImage != null) || (userImage != null) : "Missing image resource";
         String input = userInput.getText();
-        String response = mel.getResponse(input);
+        String[] response = mel.getResponse(input);
+        DialogBox melDialogBox = handleMelDialog(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMelDialog(response, melImage)
+                melDialogBox
         );
         userInput.clear();
+    }
+
+    /**
+     * Creates dialog box instance based on Mel's response status and string.
+     * @param response Mel's response status and string.
+     * @return DialogBox Mel response represented in dialog box.
+     */
+    private DialogBox handleMelDialog(String... response) {
+        DialogBox d;
+        switch (response[0]) {
+        case "exception":
+            d = DialogBox.getMelExceptionDialog(response[1], melImage);
+            break;
+        default:
+            d = DialogBox.getMelDialog(response[1], melImage);
+        }
+        return d;
     }
 }

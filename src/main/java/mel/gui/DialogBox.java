@@ -52,6 +52,12 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
+    }
+
+    /** Formats the dialog box to indicate warning from exceptions. */
+    private void setExceptionDialog() {
+        dialog.getStyleClass().add("exception-label");
     }
 
     /**
@@ -61,6 +67,18 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
+    }
+
+    /**
+     * Generates dialog box for Mel response during exceptions.
+     * @param s string label for dialog box.
+     * @param i path to image file representing dialog source.
+     */
+    public static DialogBox getMelExceptionDialog(String s, Image i) {
+        var db = new DialogBox(s, i);
+        db.flip();
+        db.setExceptionDialog();
+        return db;
     }
 
     /**
