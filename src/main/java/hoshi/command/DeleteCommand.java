@@ -34,14 +34,15 @@ public class DeleteCommand implements Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            // if specified is out of bounds
+            // invalid index
             if (taskIndex >= tasks.size()) {
                 throw new HoshiException("Hoshi doesn't have such a task!");
             }
-            // else if not out of bounds
+            // delete and display deleted task name
             Task task = tasks.get(taskIndex);
             tasks.delete(taskIndex);
             CommandUtils.handleSave(tasks, storage, ui);
+
             return ui.displayTaskDeleted(task);
         } catch (HoshiException e) {
             return ui.displayError(e.getMessage());

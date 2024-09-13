@@ -29,6 +29,7 @@ public class AddCommand implements Command {
         try {
             String taskType = splitInput[1];
             String desc = getDescription(splitInput);
+
             switch (taskType) {
             case "todo":
                 return handleAddTask(new Todo(desc), tasks, ui, storage, desc);
@@ -74,6 +75,7 @@ public class AddCommand implements Command {
             // Parse datetime and create deadline to be added
             LocalDate dateTime = LocalDate.parse(splitInput[3]);
             Deadline deadline = new Deadline(desc, dateTime);
+
             // Add deadline to taskList
             return handleAddTask(deadline, taskList, ui, storage, desc);
         } catch (DateTimeParseException e) {
@@ -94,6 +96,7 @@ public class AddCommand implements Command {
             // Parse datetime and create event to be added
             LocalDate dateTimeStart = LocalDate.parse(splitInput[3]);
             LocalDate dateTimeEnd = LocalDate.parse(splitInput[4]);
+
             // Add event to taskList
             return handleAddTask(new Event(desc, dateTimeStart, dateTimeEnd), taskList, ui, storage, desc);
         } catch (DateTimeParseException e) {

@@ -35,9 +35,11 @@ public class FindCommand implements Command {
         // create new matchingTasks list for matched tasks
         TaskList matchingTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
+
+            // get current description of task
             Task currentTask = tasks.get(i);
             String currentDesc = currentTask.getDesc().toLowerCase();
-            // Check if the task contains the keyword
+
             if (currentDesc.contains(keyword)) {
                 // add currentTask if currentDesc contains the keyword
                 matchingTasks.add(currentTask);

@@ -14,9 +14,10 @@ public class CommandUtils {
     /**
      * Utility method for handling save when required in command classes
      */
-    public static void handleSave(TaskList taskList, Storage storage, Ui ui) {
+    public static void handleSave(TaskList tasks, Storage storage, Ui ui) {
         try {
-            storage.save(taskList);
+            // save tasks to storage
+            storage.save(tasks);
         } catch (IOException e) {
             ui.displayError("Hoshi encountered a problem while saving the task list.");
         }

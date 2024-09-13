@@ -38,7 +38,7 @@ public class MarkCommand implements Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            // if specified is out of bounds
+            // if index is invalid
             if (taskIndex >= tasks.size()) {
                 throw new HoshiException("Hoshi doesn't have such a task!");
             }
@@ -46,10 +46,12 @@ public class MarkCommand implements Command {
             // assert retrieved index is not out of bounds
             assert taskIndex < tasks.size() && taskIndex >= 0 : "Index is out of bounds for tasks";
 
-            // else if not out of bounds
+            // mark or unmark the specified task
             Boolean isMark = this.isMark;
             tasks.get(taskIndex).setIsDone(isMark);
             CommandUtils.handleSave(tasks, storage, ui);
+
+            // display corresponding UI to mark or unmark command
             if (isMark) {
                 return ui.displayTaskMarked(tasks.get(taskIndex));
             } else {

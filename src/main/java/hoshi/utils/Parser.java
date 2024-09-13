@@ -39,20 +39,25 @@ public class Parser {
         if (input.isEmpty()) {
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
+
         String[] splitInput = input.split(" ");
         String commandInput = splitInput[0].toLowerCase();
         Command command;
+
         // switch case for parsing commands
         switch (commandInput) {
         case "initialize":
             command = new InitializeCommand();
             break;
+
         case "bye":
             command = new ByeCommand();
             break;
+
         case "list":
             command = new ListCommand();
             break;
+
         case "mark":
             if (input.trim().length() < MIN_MARK_LENGTH) {
                 return ui.displayTaskToMark();
@@ -60,6 +65,7 @@ public class Parser {
 
             command = new MarkCommand(splitInput, true);
             break;
+
         case "unmark":
             if (input.trim().length() < MIN_UNMARK_LENGTH) {
                 return ui.displayTaskToMark();
@@ -67,6 +73,7 @@ public class Parser {
 
             command = new MarkCommand(splitInput, false);
             break;
+
         case "delete":
             if (input.trim().length() < MIN_DELETE_LENGTH) {
                 return ui.displayError(INPUT_ERROR_MESSAGE);
@@ -74,13 +81,16 @@ public class Parser {
             int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
             command = new DeleteCommand(deleteIndex);
             break;
+
         case "add":
             command = new AddCommand(splitInput);
             break;
+
         case "find":
             String keyword = splitInput[1];
             command = new FindCommand(keyword);
             break;
+
         default:
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
