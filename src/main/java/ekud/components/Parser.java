@@ -17,6 +17,9 @@ import ekud.task.Task;
  * The Parser of user inputs to {@link Command Commands}.
  */
 public class Parser {
+    private static final String COMMAND_TOKEN = "command";
+    private static final String ARGUMENT_TOKEN = "argument";
+
     /**
      * Parses an input {@link String} into an integer.
      * @param input The input.
@@ -48,9 +51,9 @@ public class Parser {
         StringBuilder tokenBuilder = new StringBuilder();
         HashMap<String, String> tokenMap = new HashMap<>();
         // get command
-        tokenMap.put("command", words[0]);
+        tokenMap.put(COMMAND_TOKEN, words[0]);
         // get params
-        String currToken = "argument";
+        String currToken = ARGUMENT_TOKEN;
         for (int i = 1; i < words.length; i++) {
             // encounter optional token
             if (!words[i].isEmpty() && words[i].charAt(0) == '/') {
@@ -77,8 +80,8 @@ public class Parser {
      */
     public static Command parse(String command) throws EkudException {
         HashMap<String, String> tokenMap = tokenize(command);
-        Command.Type type = Command.Type.getType(tokenMap.get("command"));
-        String argument = tokenMap.get("argument");
+        Command.Type type = Command.Type.getType(tokenMap.get(COMMAND_TOKEN));
+        String argument = tokenMap.get(ARGUMENT_TOKEN);
         // CHECKSTYLE.OFF: Indentation
         return switch (type) {
             case ADD -> new AddCommand(Task.getTaskFromTokens(tokenMap));
