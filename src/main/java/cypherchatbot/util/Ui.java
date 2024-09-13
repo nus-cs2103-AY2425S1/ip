@@ -70,7 +70,17 @@ public class Ui {
     }
 
     public String showHelpMessage() {
-        return "<<UNDER CONSTRUCTION>>";
+        StringBuilder str = new StringBuilder();
+        String linebreak = "=========================================================================";
+        str.append("Here are the list of available commands with format and a short description:\n");
+        str.append("\n");
+        str.append("Use the todo command in order to add a todo task (no time)");
+        str.append("Format of the command: todo <task description>");
+        str.append(linebreak);
+        str.append("Use the deadline command in order to add a deadline task (have a certain time to finish by)");
+        str.append("Format of the command: deadline <task description> /by <>");
+        str.append("\n");
+        return str.toString();
     }
 
     public String showList (ArrayList<Task> taskList) {

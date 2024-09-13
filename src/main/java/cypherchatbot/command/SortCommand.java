@@ -12,7 +12,7 @@ public class SortCommand extends Command{
 
     private final Integer SortBy;
 
-    private static enum SortCommands {
+    private enum SortCommands {
         ASCENDING, DESCENDING
     }
     public SortCommand(String[] command) throws CypherException{

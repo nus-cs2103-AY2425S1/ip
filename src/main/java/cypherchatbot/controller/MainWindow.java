@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.util.Objects;
 
 
 public class MainWindow extends AnchorPane {
@@ -23,8 +24,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Cypher cypher;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userProfile.png"));
-    private Image cypherImage = new Image(this.getClass().getResourceAsStream("/images/cypherBot.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/userProfile.png")));
+    private final Image cypherImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/cypherBot.png")));
 
     @FXML
     public void initialize() {
