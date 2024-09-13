@@ -33,10 +33,10 @@ public class CompleteCommand extends Command {
         String command = this.getCommand();
         String[] words = command.split("\\s+");
         int taskNumber = Integer.valueOf(words[1]);
+        // Explicitly check the condition and throw exception if needed
         if (taskNumber < 1 || taskNumber > this.sizeOfTaskList) {
-            throw new IncorrectCommandException("do you not know how to count??");
-        }
-        TaskList taskList = storage.getTaskList();
+            throw new IncorrectCommandException("Do you not know how to count?");
+        }        TaskList taskList = storage.getTaskList();
         Task task = taskList.get(taskNumber - 1);
         task.markCompleted();
         return ui.completeTask(task);

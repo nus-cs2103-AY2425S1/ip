@@ -34,8 +34,9 @@ public class DeadlineCommand extends TaskCommand {
         String[] information = name.split("/by");
         if (information.length != 2) {
             throw new IncorrectCommandException("Please enter your commands correctly"
-                + "for Derek (deadline (task) /by (date)");
+                    + "for Derek (deadline (task) /by (date)");
         }
+
         Task task = Task.deadlineTask(information[0], information[1]);
         TaskList taskList = this.storage.getTaskList();
         taskList.add(task);

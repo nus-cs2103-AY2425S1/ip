@@ -112,17 +112,12 @@ public class Ui {
         return "phew! that list was looooonngggg... i was getting tired of remembering it!"
                 + "\n"
                 + task.toString();
-        /**
-        System.out.println("phew! that list was looooonngggg... i was getting tired of remembering it!"
-                + "\n"
-                + task.toString());
-         */
+
     }
 
     public String completeTask(Task task) {
         String celebration = generateRandomCelebration();
         return celebration + " you slayed that!" + "\n" + task.toString();
-        //System.out.println(celebration + " you slayed that!" + "\n" + task.toString());
     }
 
     public String incompleteTask(Task task) {
