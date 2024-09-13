@@ -38,7 +38,16 @@ public class SortCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui) {
-        return "";
+        switch (criteria) {
+        case DATE:
+            taskList.sortByDate(this.order);
+            return ui.displayTaskList(taskList);
+        case ALPHABETICAL:
+            taskList.sortByAlphabet(this.order);
+            return ui.displayTaskList(taskList);
+        default:
+            return "";
+        }
     }
 
     @Override

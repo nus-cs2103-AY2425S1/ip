@@ -2,8 +2,11 @@ package karen.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import karen.commands.SortCommand.Order;
 
 /**
  * TaskList class which manages the List of Tasks and contains methods to modify it
@@ -90,7 +93,7 @@ public class TaskList {
     /**
      * Sorts the TaskList by date, in ascending order
      */
-    public void sortByDate() {
+    public void sortByDate(Order order) {
         Comparator<Task> dateComparator = (Task thisTask, Task otherTask) -> {
             if (thisTask instanceof Todo) {
                 if (otherTask instanceof Todo) {
@@ -124,6 +127,23 @@ public class TaskList {
             }
         };
         this.tasks.sort(dateComparator);
+
+        if (order == Order.DESCENDING) {
+            Collections.reverse(this.tasks);
+        }
+    }
+
+    /**
+     * Sorts the TaskList by alphabetical order
+     */
+    public void sortByAlphabet(Order order) {
+        Comparator<Task> alphabetComparator = (Task thisTask, Task otherTask) -> {
+            return thisTask.getName().compareTo(otherTask.getName());
+        };
+        this.tasks.sort(alphabetComparator);
+        if (order == Order.DESCENDING) {
+            Collections.reverse(this.tasks);
+        }
     }
 
     /**
