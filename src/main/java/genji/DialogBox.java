@@ -70,6 +70,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getGenjiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        assert db != null : "Dialog box not constructed successfully";
         db.flip();
         return db;
     }

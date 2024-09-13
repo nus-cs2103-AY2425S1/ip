@@ -36,6 +36,7 @@ public class DeleteCommand extends Command {
                 Task temp = list.get(index);
                 list.delete(index);
                 response = ui.delete(temp, list);
+                assert response != "" : "Delete response not generated successfully";
                 s.saveList(list);
             } catch (IndexOutOfBoundsException i) {
                 response = ui.showError(new GenjiException(
