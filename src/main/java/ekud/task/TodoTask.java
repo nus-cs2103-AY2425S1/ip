@@ -35,6 +35,6 @@ public class TodoTask extends Task {
 
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, description);
+        return String.format(STRING_FORMAT, super.toString());
     }
 }
