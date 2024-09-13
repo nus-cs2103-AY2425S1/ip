@@ -41,10 +41,10 @@ public class FindCommand implements Command {
             }
         }
         if (!s.isEmpty()) {
-            System.out.printf("Here are the tasks containing \"%s\"!%n", this.desc);
+            System.out.printf("Friday > Here are the tasks containing \"%s\"!%n", this.desc);
             System.out.println(s);
         } else {
-            System.out.printf("Sorry! There are no tasks containing \"%s\".%n", this.desc);
+            System.out.printf("Friday > Sorry! There are no tasks containing \"%s\".%n", this.desc);
         }
         UI.printLine();
         return false;
