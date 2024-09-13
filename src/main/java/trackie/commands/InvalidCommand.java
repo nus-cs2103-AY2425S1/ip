@@ -2,7 +2,6 @@ package trackie.commands;
 
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
-import trackie.ui.Ui;
 
 /**
  * Represents an invalid command.

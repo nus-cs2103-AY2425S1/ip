@@ -3,7 +3,7 @@ package trackie.commands;
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
 import trackie.ui.TrackieException;
-import trackie.ui.Ui;
+
 /**
  * Represents an abstract command in the task management application.
  * This class serves as a base for all concrete command implementations.

@@ -6,7 +6,6 @@ import trackie.storage.Storage;
 import trackie.storage.TaskList;
 import trackie.tasks.Task;
 import trackie.ui.TrackieException;
-import trackie.ui.Ui;
 
 public class FindCommand extends Command {
     private String[] arguments;

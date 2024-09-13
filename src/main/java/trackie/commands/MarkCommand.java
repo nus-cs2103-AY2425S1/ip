@@ -2,9 +2,7 @@ package trackie.commands;
 
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
-import trackie.tasks.Task;
 import trackie.ui.TrackieException;
-import trackie.ui.Ui;
 
 /**
  * Represents a command to mark a certain task a completed.
