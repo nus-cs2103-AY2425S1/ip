@@ -1,14 +1,10 @@
 package parser;
 
-import command.AddCommand;
-import command.FindCommand;
-import command.ExitCommand;
-import command.DeleteCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.UnmarkCommand;
-import command.Command;
+import command.*;
 import exceptions.BuddyException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parses user input and returns the appropriate command.
@@ -19,7 +15,7 @@ public class Parser {
      * Enum to represent the different types of commands.
      */
     enum CommandType {
-        TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, BYE, LIST, FIND, UNKNOWN;
+        TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, BYE, LIST, FIND, UPDATE, UNKNOWN;
     }
 
     /**
@@ -29,7 +25,6 @@ public class Parser {
      * @return The corresponding CommandType.
      */
     public static CommandType fromString(String command) {
-
         return switch (command.toLowerCase()) {
             case "todo" -> CommandType.TODO;
             case "deadline" -> CommandType.DEADLINE;
@@ -40,9 +35,9 @@ public class Parser {
             case "bye" -> CommandType.BYE;
             case "list" -> CommandType.LIST;
             case "find" -> CommandType.FIND;
+            case "update" -> CommandType.UPDATE;
             default -> CommandType.UNKNOWN;
         };
-
     }
 
     /**
@@ -57,16 +52,51 @@ public class Parser {
         String mainCommand = commandParts[0].toLowerCase();
         CommandType commandType = fromString(mainCommand);
 
-        return switch (commandType) {
-            case TODO, DEADLINE, EVENT -> new AddCommand(command);
-            case DELETE -> new DeleteCommand(parseTaskIndex(commandParts));
-            case MARK -> new MarkCommand(parseTaskIndex(commandParts));
-            case UNMARK -> new UnmarkCommand(parseTaskIndex(commandParts));
-            case BYE -> new ExitCommand();
-            case LIST -> new ListCommand();
-            case FIND -> new FindCommand(commandParts[1].trim());
-            default -> throw new BuddyException("Unknown command.");
-        };
+        switch (commandType) {
+            case TODO, DEADLINE, EVENT:
+                return new AddCommand(command);
+            case DELETE:
+                return new DeleteCommand(parseTaskIndex(commandParts));
+            case MARK:
+                return new MarkCommand(parseTaskIndex(commandParts));
+            case UNMARK:
+                return new UnmarkCommand(parseTaskIndex(commandParts));
+            case BYE:
+                return new ExitCommand();
+            case LIST:
+                return new ListCommand();
+            case FIND:
+                String searchValue = commandParts[1].trim();
+                return new FindCommand(searchValue);
+            case UPDATE:
+                return parseUpdateCommand(command);
+            default:
+                throw new BuddyException("Unknown command.");
+        }
+    }
+
+    /**
+     * Parses the update command, handling the quoted "new value".
+     *
+     * @param command The full command string for update.
+     * @return The UpdateCommand object.
+     * @throws BuddyException If the update command is malformed.
+     */
+    private static Command parseUpdateCommand(String command) throws BuddyException {
+        // Regular expression to capture: update <Task Index> <Task Field> "<New Value>"
+        Pattern pattern = Pattern.compile("update (\\d+) (\\w+) \"([^\"]+)\"");
+        Matcher matcher = pattern.matcher(command);
+
+        if (matcher.matches()) {
+            int taskIndex = Integer.parseInt(matcher.group(1)) - 1; // Convert to 0-based index
+            String field = matcher.group(2);
+            String updatedValue = matcher.group(3);
+            return new UpdateCommand(taskIndex, field, updatedValue);
+        } else {
+            throw new BuddyException("format: update <Task Index> <Task Field> \"<New Value>\" \n\n" +
+                    "Options for task Field:\n1. Todo: description\n2. Deadline: description, deadline\n" +
+                    "3. Event: description, start, end");
+        }
     }
 
     /**

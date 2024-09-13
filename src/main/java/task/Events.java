@@ -1,5 +1,8 @@
 package task;
 
+import buddy.Buddy;
+import exceptions.BuddyException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,7 +23,7 @@ public class Events extends Task {
      * @param end         The end time of the event.
      */
     public Events(String description, LocalDateTime start, LocalDateTime end) {
-        super(description + " (from: " + formatDate(start) + ", to: " + formatDate(end) + ")", TaskType.EVENT);
+        super(description, TaskType.EVENT);
         this.start = start;
         this.end = end;
     }
@@ -44,14 +47,26 @@ public class Events extends Task {
      */
     @Override
     public String toFileString() {
-        int index = description.indexOf("(from:");
         return String.format(
                 "E | %d | %s | %s | %s",
                 isDone ? 1 : 0,
-                description.substring(0, index).trim(),
+                description,
                 localDateTimeString(start),
                 localDateTimeString(end)
         );
+    }
+
+    @Override
+    public String toString() {
+        return description + " (from: " + formatDate(start) + ", to: " + formatDate(end) + ")";
+    }
+
+    public void updateStartDate(String newStart) throws BuddyException {
+        this.start = stringToDate(newStart);
+    }
+
+    public void updateEndDate(String newEnd) throws BuddyException {
+        this.end = stringToDate(newEnd);
     }
 
 }

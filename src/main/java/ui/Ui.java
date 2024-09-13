@@ -25,21 +25,26 @@ public class Ui {
         return "Bye! See ya soon!";
     }
 
-    public void displayUpperLineBreak() {
-        System.out.println("\n    ---------------------------------------------------------");
+    public String displayUpdate(int index, TaskList list) {
+        return String.format(
+                "Alright buddy, let's update this task!\n" +
+                        "    [%s][%s] %s\n",
+                list.getTasks().get(index).getTaskType(),
+                list.getTasks().get(index).getStatusIcon(),
+                list.getTasks().get(index).description
+        );
     }
 
-    public void displayLowerLineBreak() {
-        System.out.println("    ---------------------------------------------------------\n");
+    public String displayUpdateSuccess() {
+        return "Task is updated!";
     }
-
 
     public String displayAddTask(Task task, TaskList list) {
         return String.format(
                 "Gotcha! I've added this task: \n" +
                         "         [%s][%s] %s\n" +
                         "Now, you have %d tasks in the list!\n",
-                task.getTaskType(), task.getStatusIcon(), task.description, list.getTasks().size()
+                task.getTaskType(), task.getStatusIcon(), task, list.getTasks().size()
         );
     }
 
@@ -48,7 +53,7 @@ public class Ui {
                 "Noted. I've removed this task:\n" +
                         "      [%s][%s] %s\n" +
                         "Now you have %d tasks in the list.\n",
-                task.getTaskType(), task.getStatusIcon(), task.description, list.getTasks().size()
+                task.getTaskType(), task.getStatusIcon(), task, list.getTasks().size()
         );
     }
 
@@ -70,7 +75,7 @@ public class Ui {
                         "    [%s][%s] %s\n",
                 list.getTasks().get(index).getTaskType(),
                 list.getTasks().get(index).getStatusIcon(),
-                list.getTasks().get(index).description
+                list.getTasks().get(index).toString()
         );
     }
 
@@ -80,7 +85,7 @@ public class Ui {
                         "    [%s][%s] %s\n",
                 list.getTasks().get(index).getTaskType(),
                 list.getTasks().get(index).getStatusIcon(),
-                list.getTasks().get(index).description
+                list.getTasks().get(index).toString()
         );
     }
 
@@ -100,7 +105,7 @@ public class Ui {
                         i + 1,
                         tasks.get(i).getTaskType(),
                         tasks.get(i).getStatusIcon(),
-                        tasks.get(i).description
+                        tasks.get(i).toString()
                 ));
             }
         }
@@ -117,12 +122,12 @@ public class Ui {
             result.append("Here are the matching tasks in your list:\n");
             int tracker = 0;
             for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).description.contains(search)) {
+                if (tasks.get(i).toString().contains(search)) {
                     result.append(String.format("%d. [%s][%s] %s\n",
                             tracker + 1,
                             tasks.get(i).getTaskType(),
                             tasks.get(i).getStatusIcon(),
-                            tasks.get(i).description
+                            tasks.get(i).toString()
                     ));
                     tracker++;
                 }

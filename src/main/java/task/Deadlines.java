@@ -1,5 +1,7 @@
 package task;
 
+import exceptions.BuddyException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * A deadline task has a description and a deadline date/time by which the task must be completed.
  */
 public class Deadlines extends Task {
-    private final LocalDateTime deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructs a Deadlines task with the specified description and deadline.
@@ -17,7 +19,7 @@ public class Deadlines extends Task {
      * @param deadline    The deadline by which the task must be completed.
      */
     public Deadlines(String description, LocalDateTime deadline) {
-        super(description + " (by: " + formatDate(deadline) + ")", TaskType.DEADLINE);
+        super(description, TaskType.DEADLINE);
         this.deadline = deadline;
     }
 
@@ -38,7 +40,15 @@ public class Deadlines extends Task {
      */
     @Override
     public String toFileString() {
-        int index = description.indexOf("(by:");
-        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description.substring(0, index).trim(), localDateTimeString(deadline));
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, localDateTimeString(deadline));
+    }
+
+    @Override
+    public String toString() {
+        return description + " (by: " + formatDate(deadline) + ")";
+    }
+
+    public void updateDeadline(String newDeadline) throws BuddyException {
+        this.deadline = stringToDate(newDeadline);
     }
 }
