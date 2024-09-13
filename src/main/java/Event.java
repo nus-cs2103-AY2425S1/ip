@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
     protected LocalDate from;
@@ -33,7 +34,9 @@ public class Event extends Task{
         StringBuilder str = new StringBuilder();
         str.append("[E]");
         str.append(super.toString());
-        str.append(String.format("(From: %s To: %s)", from, to));
+        str.append(String.format("(From: %s To: %s)",
+                from.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                to.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
         return str.toString();
     }
 
