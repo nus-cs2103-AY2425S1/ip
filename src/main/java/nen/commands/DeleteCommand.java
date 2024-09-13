@@ -24,7 +24,6 @@ public class DeleteCommand extends Command {
     public void execute(TaskList taskList) {
         description = "Noted. I've removed this task:\n"
                 + taskList.get(arg - 1).toString() + "\n";
-        taskList.get(arg - 1).markAsNotDone();
         taskList.remove(arg - 1);
         description += "Now you have " + taskList.size() + " tasks in the list." + "\n";
     }

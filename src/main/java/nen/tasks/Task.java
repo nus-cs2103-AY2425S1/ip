@@ -57,9 +57,10 @@ public abstract class Task {
             if (args[0].equals(parameter)) {
                 args[0] = "";
                 String out = String.join(" ", args);
-                if (!out.isEmpty()) {
-                    return out.substring(1);
+                if (out.isEmpty()) {
+                    continue;
                 }
+                return out.substring(1);
             }
         }
         throw new InvalidInputException("OOPSIEE where is your /" + parameter + " argument");
