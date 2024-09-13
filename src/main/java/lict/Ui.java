@@ -10,6 +10,7 @@ import lict.task.Task;
  */
 public class Ui {
     private final Scanner sc = new Scanner(System.in);
+    private final String tab = "    ";
     private String lastOutput = "";
 
     /**
@@ -119,7 +120,7 @@ public class Ui {
      * @param t The task that has been marked as done.
      */
     public void hasMarkedTask(Task t) {
-        lastOutput = "Nice! I've marked this task as done:\n    " + t;
+        lastOutput = "Nice! I've marked this task as done:\n" + tab + t;
         System.out.println(lastOutput);
     }
 
@@ -129,7 +130,7 @@ public class Ui {
      * @param t The task that has been marked as not done.
      */
     public void hasUnmarkedTask(Task t) {
-        lastOutput = "OK, I've marked this task as not done yet:\n    " + t;
+        lastOutput = "OK, I've marked this task as not done yet:\n" + tab + t;
         System.out.println(lastOutput);
     }
 
@@ -140,7 +141,7 @@ public class Ui {
      * @param numOfTasks The number of tasks remaining in the task list.
      */
     public void hasDeletedTask(Task t, int numOfTasks) {
-        lastOutput = "Noted. I've removed this task:\n    " + t
+        lastOutput = "Noted. I've removed this task:\n" + tab + t
                 + "\nNow you have " + numOfTasks + " tasks in the list.";
         System.out.println(lastOutput);
     }
@@ -163,7 +164,7 @@ public class Ui {
      * @param numOfTasks The number of tasks in the task list after adding the new task.
      */
     public void hasAddedTask(Task newTask, int numOfTasks) {
-        lastOutput = "Got it. I've added this task:\n    " + newTask
+        lastOutput = "Got it. I've added this task:\n" + tab + newTask
                 + "\nNow you have " + numOfTasks + " tasks in the list.";
         System.out.println(lastOutput);
     }

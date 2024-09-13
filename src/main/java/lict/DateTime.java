@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
  * It provides methods to format the date and time for display and data storage purposes.
  */
 public class DateTime {
+    protected static final String WHITESPACE_DELIMITER = "\\s+";
     protected DateTimeFormatter stringFormatter;
     protected DateTimeFormatter dataFormatter;
     protected LocalDateTime dateTime;
@@ -25,7 +26,7 @@ public class DateTime {
      * @throws DateTimeException if the input string does not match the expected formats.
      */
     public DateTime(String info) throws DateTimeException {
-        String[] details = info.split("\\s+", 2);
+        String[] details = info.split(WHITESPACE_DELIMITER, 2);
         DateTimeFormatter formatter;
         if (details.length == 2) {
             formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");

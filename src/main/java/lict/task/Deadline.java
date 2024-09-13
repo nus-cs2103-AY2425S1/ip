@@ -52,7 +52,7 @@ public class Deadline extends Task {
      * @throws LictException If the data string is invalid or the deadline format is incorrect.
      */
     public static Deadline loadTask(String dataMessage) throws LictException {
-        String[] messageParts = dataMessage.split("\\|", 2);
+        String[] messageParts = dataMessage.split(PIPE_DELIMITER, 2);
         String description = messageParts[0].trim();
         if (description.isEmpty() || messageParts.length != 2) {
             throw new LictException();
