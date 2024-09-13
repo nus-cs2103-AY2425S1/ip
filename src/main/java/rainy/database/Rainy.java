@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
+import rainy.commands.*;
 import rainy.gui.Main;
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
@@ -51,110 +52,59 @@ public class Rainy {
         String[] input = ps.getInput();
         String[] splitByTask = ps.getSplitByTask();
         String message = ps.getMessage();
-        int count = ps.getCount();
-        assert(count >= -1);
+        int validResponse = ps.getCount();
         Instructions instruction = ps.enumOperator(message);
         switch (instruction) {
         case LIST:
-            System.out.println(tm.getList());
+            List listCommand = new List(tm);
+            listCommand.getResponse();
             break;
 
         case MARK:
-            if (count != -1) {
-                tm.markDone(count - 1);
-            } else {
-                ui.noCategoryDeclared();
-            }
-            if (tm.getCounter() > 0) {
-                File f = new File("src/main/java/rainy.txt");
-                storage.writeOverFile(f, tm);
-            }
+            Mark markCommand = new Mark(validResponse, tm);
+            tm = markCommand.getResponse();
             break;
 
         case UNMARK:
-            if (count != -1) {
-                tm.unmarkDone(count - 1);
-            } else {
-                ui.noCategoryDeclared();
-            }
-            if (tm.getCounter() > 0) {
-                File f = new File("src/main/java/rainy.txt");
-                storage.writeOverFile(f, tm);
-            }
+            Unmark unmarkCommand = new Unmark(validResponse, tm);
+            tm = unmarkCommand.getResponse();
             break;
 
         case DELETE:
-            if (count != -1) {
-                tm.delete(count - 1);
-            } else {
-                ui.noCategoryDeclared();
-            }
-            if (tm.getCounter() >= 0) {
-                File f = new File("src/main/java/rainy.txt");
-                storage.writeOverFile(f, tm);
-            }
+            Delete deleteCommand = new Delete(validResponse, tm);
+            tm = deleteCommand.getResponse();
             break;
 
         case TODO:
-            if (input.length == 1) {
-                ui.noToDoDescription();
-            } else {
-                tm.updateListToDo(splitByTask[0].substring(5));
-            }
-            if (tm.getCounter() > 0) {
-                File f = new File("src/main/java/rainy.txt");
-                storage.writeOverFile(f, tm);
-            }
+            String taskName = splitByTask[0].substring(5);
+            ToDoCommand toDoCommand = new ToDoCommand(input, taskName, tm);
+            tm = toDoCommand.getResponse();
             break;
 
         case DEADLINE:
-            if (input.length == 1) {
-                ui.noDeadlineDescription();
-            } else if (splitByTask.length == 1) {
-                ui.noEndDateDeadline();
-            } else if (splitByTask.length < 4) {
-                ui.invalidDateDeadline();
-            } else {
-                tm.updateListDeadline(splitByTask[0].substring(9), "" + splitByTask[3].substring(0, 4)
-                    + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5)
-                    + " " + splitByTask[3].substring(5, 9));
-            }
-            if (tm.getCounter() > 0) {
-                File f = new File("src/main/java/rainy.txt");
-                storage.writeOverFile(f, tm);
-            }
+            DeadlineCommand deadlineCommand = new DeadlineCommand(splitByTask, input, tm);
+            tm = deadlineCommand.getResponse();
             break;
 
         case EVENT:
-            if (input.length == 1) {
-                ui.noEventDescription();
-            } else if (splitByTask.length < 5) {
-                ui.invalidEventDate();
-            } else {
-                tm.updateListEvent(splitByTask[0].substring(6), splitByTask[3].substring(0, 4)
-                    + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5), splitByTask[4]);
-            }
-            if (tm.getCounter() > 0) {
-                File f = new File("src/main/java/rainy.txt");
-                storage.writeOverFile(f, tm);
-            }
+            EventCommand eventCommand = new EventCommand(splitByTask, input, tm);
+            tm = eventCommand.getResponse();
             break;
 
         case SORT:
-            tm.sortList();
-            System.out.println(tm.getList());
-            File f = new File("src/main/java/rainy.txt");
-            storage.writeOverFile(f, tm);
+            SortCommand sortCommand = new SortCommand(tm);
+            tm = sortCommand.getResponse();
             break;
 
         case FIND:
-            tm.findTask(ps.findTask(messages));
+            String searchKeyword = ps.findTask(messages);
+            FindCommand findCommand = new FindCommand(tm, searchKeyword);
+            tm = findCommand.getResponse();
             break;
 
         case BYE:
-            f = new File("src/main/java/rainy.txt");
-            storage.writeOverFile(f, tm);
-            ui.goodbyeMessage();
+            ByeCommand byeCommand = new ByeCommand();
+            byeCommand.getResponse();
             break;
 
         case INVALID:
@@ -164,6 +114,8 @@ public class Rainy {
         default:
             ui.noCategoryDeclared();
         }
+        File f = new File("src/main/java/rainy.txt");
+        storage.writeOverFile(f, tm);
         System.out.print("^");
     }
 }
