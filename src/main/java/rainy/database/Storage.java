@@ -77,6 +77,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             newTask = new TaskTracker();
         }
+        assert(newTask.getCounter() >= 0);
         newTask.toggleReceivedInputs();
         return newTask;
     }

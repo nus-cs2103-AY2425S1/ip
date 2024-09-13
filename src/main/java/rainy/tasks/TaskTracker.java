@@ -47,6 +47,7 @@ public class TaskTracker {
      * @return  This method returns the list of tasks in <code>String</code>.
      */
     public String getList() {
+        assert(this.counter >= 0);
         List<Task> newList = this.taskList;
         AtomicInteger numMatch = new AtomicInteger(1);
         return (this.counter == 0) ? "No tasks currently!" : (this.taskList.stream().map(t -> t.getIsDone() == false ? "\n" + numMatch.getAndIncrement() + ". [ ] " + t
@@ -63,6 +64,7 @@ public class TaskTracker {
      *                                        marks a marked tasked or unmarks an unmarked task.
      */
     public void markDone(int z) throws InvalidIndexException, InvalidMarkAndUnmarkException {
+        assert(this.counter >= 0);
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (z < 0 || z >= this.counter) {
@@ -70,6 +72,7 @@ public class TaskTracker {
         } else {
             Task newTask = this.taskList.get(z);
             newTask.mark();
+            assert(newTask.getIsDone() == true);
             this.taskList.set(z, newTask);
             if (this.receivedInputs) {
                 this.ui.markedTask();
@@ -86,6 +89,7 @@ public class TaskTracker {
      *                                        marks a marked tasked or unmarks an unmarked task.
      */
     public void unmarkDone(int q) throws InvalidIndexException, InvalidMarkAndUnmarkException {
+        assert(this.counter >= 0);
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (q < 0 || q >= this.counter) {
@@ -93,6 +97,7 @@ public class TaskTracker {
         } else {
             Task newTask = this.taskList.get(q);
             newTask.unmark();
+            assert(newTask.getIsDone() == false);
             this.taskList.set(q, newTask);
             if (this.receivedInputs) {
                 this.ui.unmarkedTask();
@@ -137,6 +142,14 @@ public class TaskTracker {
      * @param t  Represents the date and time of the deadline.
      */
     public void updateListDeadline(String s, String t) {
+        if (this.receivedInputs) {
+            assert(Integer.valueOf(t.substring(0, 4)) instanceof Integer);
+            assert(Integer.valueOf(t.substring(5, 7)) instanceof Integer);
+            assert(Integer.valueOf(t.substring(8, 10)) instanceof Integer);
+            assert(Integer.valueOf(t.substring(11, 15)) instanceof Integer);
+            assert(t.charAt(4) == '-');
+            assert(t.charAt(7) == '-');
+        }
         this.taskList.add(new Deadline(s, t));
         this.counter++;
         if (this.receivedInputs) {
@@ -154,6 +167,16 @@ public class TaskTracker {
      * @param u  Represents the timeframe of the event.
      */
     public void updateListEvent(String s, String t, String u) {
+        if (this.receivedInputs) {
+            assert(Integer.valueOf(t.substring(0, 4)) instanceof Integer);
+            assert(Integer.valueOf(t.substring(5, 7)) instanceof Integer);
+            assert(Integer.valueOf(t.substring(8, 10)) instanceof Integer);
+            assert(t.charAt(4) == '-');
+            assert(t.charAt(7) == '-');
+            assert(Integer.valueOf(u.substring(0, 4)) instanceof Integer);
+            assert(Integer.valueOf(u.substring(8, 12)) instanceof Integer);
+            assert(u.substring(5, 7).equals("to"));
+        }
         this.taskList.add(new Event(s, t, u));
         this.counter++;
         if (this.receivedInputs) {
