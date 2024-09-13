@@ -1,6 +1,7 @@
 package Kira;
 
 public class Ui {
+    private final String line = "____________________________________________________________\n";
     public Ui() {}
 
     public void showLoadingError() {
@@ -10,6 +11,10 @@ public class Ui {
                 "| |  | | |  | |  ___/  \n" +
                 "| |__| | |__| | |    \n" +
                 " \\____/ \\____/|_|  \n");
+    }
+
+    public String addLines(String response) {
+        return line + response + line;
     }
 
 }

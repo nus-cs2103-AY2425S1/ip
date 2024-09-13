@@ -19,16 +19,12 @@ public class List {
     }
 
     /**
-     * Returns a string that displays the current number of tasks in the list
+     * Returns the number of tasks in the list currently
      *
-     * @return A string to be displayed
+     * @return Number of tasks
      */
-    public String numOfTasks() {
-        if (tasks.size() < 2) {
-            return "Now you have " + tasks.size() + " task in the list.\n";
-        } else {
-            return "Now you have " + tasks.size() + " tasks in the list.\n";
-        }
+    public int numOfTasks() {
+        return tasks.size();
     }
 
     /**
@@ -58,11 +54,10 @@ public class List {
      */
     public String displayList() {
         StringBuilder list = new StringBuilder();
-        list.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             list.append(i + 1).append(".").append(tasks.get(i).displayTask());
         }
-        return line + list + line;
+        return list.toString();
     }
 
     public Task getTask(int index) throws InvalidTaskException {
@@ -78,14 +73,11 @@ public class List {
      * @param index Index of task specified by user
      * @throws InvalidTaskException If index of task does not exist
      */
-    public void deleteTask(int index) throws InvalidTaskException {
+    public Task deleteTask(int index) throws InvalidTaskException {
         try {
             Task task = tasks.get(index);
-            String display = line + "Noted. I've removed this task:\n"
-                    + task.displayTask();
             tasks.remove(index);
-            display = display + numOfTasks() + line;
-            System.out.println(display);
+            return task;
         } catch (Exception e) {
             throw new InvalidTaskException(index);
         }
