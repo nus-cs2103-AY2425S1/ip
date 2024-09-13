@@ -36,9 +36,6 @@ public class SaveManager {
      * @param saveFileName The name of the save file (without extension).
      */
     public SaveManager(Path rootPath, String saveFileName) {
-        assert rootPath != null : "Root path cannot be null";
-        assert saveFileName != null : "Save file name cannot be null";
-
         this.savePath = rootPath.resolve("data");
         this.saveFileName = saveFileName;
         this.saveFilePath = savePath.resolve(saveFileName + ".txt");
@@ -91,8 +88,6 @@ public class SaveManager {
      */
     private Task stringToTask(String input) throws StringIndexOutOfBoundsException,
             NumberFormatException, IllegalArgumentException, DateTimeParseException {
-        
-        assert input != null : "Input cannot be null";
 
         Boolean isDone = isDoneHashMap.get(input.charAt(2));
         if (isDone == null) {
@@ -131,8 +126,6 @@ public class SaveManager {
      * @throws IOException If an I/O error occurs while writing to the save file.
      */
     public void writeToSave(TaskList tasks) throws IOException {
-        assert tasks != null : "TaskList cannot be null";
-        
         FileWriter fw = new FileWriter(saveFilePath.toString());
         String[] tasksToAdd = tasks.toSave();
         for (String task : tasksToAdd) {
