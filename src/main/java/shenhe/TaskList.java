@@ -101,8 +101,11 @@ public final class TaskList {
      */
     public List<Task> findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
+        String normalizedKeyword = keyword.trim().toLowerCase(); // Normalize keyword
+
         for (Task task : tasks) {
-            if (task.toString().contains(keyword)) {
+            String description = task.toString().toLowerCase().trim(); // Normalize task description
+            if (description.contains(normalizedKeyword)) {
                 matchingTasks.add(task);
             }
         }
