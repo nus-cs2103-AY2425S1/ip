@@ -40,8 +40,8 @@ public abstract class AddCommand extends Command {
      * @return A string message indicating the task has been added and showing the current number of tasks.
      */
     public String printAddMessage(TaskList tasks, Task t) {
-        return "Got it. I've added this task:\n" + t
+        return "Yippee! \uD83D\uDCDA. I've added this task:\n" + t
                 + "\n" + "Now you have " + tasks.size()
-                + " tasks in the list";
+                + " tasks in the list. How exciting!";
     }
 }

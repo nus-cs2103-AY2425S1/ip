@@ -33,7 +33,7 @@ public class ListCommand extends Command {
             throw new BingBongException("No tasks have been saved.");
         }
 
-        StringBuilder list = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder list = new StringBuilder("Here are the tasks in your list:\uD83C\uDF88 \n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             appendTaskToList(list, task, i);

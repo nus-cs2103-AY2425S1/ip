@@ -60,7 +60,7 @@ public class DeleteCommand extends Command {
      * @return A string message confirming the task removal.
      */
     private String printRemoveMessage(Task task, int size) {
-        return "Noted. I've removed this task:\n" + task
+        return "Oopsie! \uD83D\uDDD1\uFE0F I've removed this task:\n" + task
                 + "\n" + "Now you have " + size
                 + " tasks in the list";
     }

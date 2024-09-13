@@ -34,7 +34,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        StringBuilder list = new StringBuilder("Here are your matching tasks in your list:\n");
+        StringBuilder list = new StringBuilder("Here are your matching tasks in your list:\uD83D\uDCDA \n");
         boolean hasTasks = findMatchingTasks(tasks, list);
 
         return generateResultMessage(hasTasks, list);

@@ -61,6 +61,6 @@ public class MarkCommand extends Command {
      * @return A string message confirming the task has been marked as done.
      */
     private String printMarkMessage(Task task) {
-        return "Nice! I've marked this task as done:\n" + task;
+        return "Hooray! \uD83C\uDF8A I've marked this task as done:\n" + task;
     }
 }
