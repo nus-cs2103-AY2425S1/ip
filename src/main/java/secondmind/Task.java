@@ -13,6 +13,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null: "description cannot be null";
         this.description = description;
         this.isdone = false;
     }
