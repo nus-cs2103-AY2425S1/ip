@@ -2,48 +2,58 @@ package tira;
 
 import tira.task.TaskList;
 
-/*
-Parser class:
-1. Splits the initial command and then calls the appropriate function
-if command is list, calls the getTaskList method from TaskList
-if command is delete, cal
+/**
+ * The Parser class is responsible for interpreting user input commands
+ * and calling the appropriate functions in the {@link TaskList} class.
+ * Depending on the command, it may list tasks, mark/unmark tasks,
+ * add tasks (ToDo, Deadline, Event), or delete and find tasks.
  */
 public class Parser {
     private TaskList taskList;
     private final Ui ui = new Ui();
-
+    /**
+     * Constructs a Parser instance with the specified taskList.
+     *
+     * @param taskList The task list that this parser will operate on.
+     */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the user command and determines which method to call based on the command.
+     *
+     * @param command Main command entered by user.
+     * @throws TiraException Custom Tira exception class.
+     */
     public void parseCommand(String command) throws TiraException {
-        String [] splitCommand = command.split(" ");
-        String taskType = splitCommand[0];
+        String [] commandSplitBySpace = command.split(" ");
+        String taskType = commandSplitBySpace[0];
         try {
             switch(taskType) {
             case "list":
                 ui.showTaskList(taskList);
                 break;
             case "mark":
-                taskList.markTask(command, splitCommand);
+                taskList.markTask(command, commandSplitBySpace);
                 break;
             case "unmark":
-                taskList.unmarkTask(command, splitCommand);
+                taskList.unmarkTask(command, commandSplitBySpace);
                 break;
             case "delete":
-                taskList.delete(splitCommand);
+                taskList.delete(commandSplitBySpace);
                 break;
             case "todo":
-                taskList.addToDo(command, splitCommand);
+                taskList.addToDo(command, commandSplitBySpace);
                 break;
             case "deadline":
-                taskList.addDeadline(command, splitCommand);
+                taskList.addDeadline(command, commandSplitBySpace);
                 break;
             case "event":
-                taskList.addEvent(command, splitCommand);
+                taskList.addEvent(command, commandSplitBySpace);
                 break;
-            case "find" :
-                taskList.findTask(command, splitCommand);
+            case "find":
+                taskList.findTask(command, commandSplitBySpace);
                 break;
             default:
                 throw new TiraException("What task is this??? Please rethink your task!");
