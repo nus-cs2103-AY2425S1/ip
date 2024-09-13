@@ -136,28 +136,4 @@ public class TaskList implements Iterable<Task> {
         checkTask(index);
         return tasks.get(index);
     }
-
-    /**
-     * Marks the {@link Task} at the specified index of the list as completed.
-     *
-     * @param index The index of the list to mark as complete.
-     * @throws EkudException If {@code index} out-of-bounds of the list.
-     * @see Task#markAsDone()
-     */
-    public void markComplete(int index) throws EkudException {
-        checkTask(index);
-        tasks.get(index).markAsDone();
-    }
-
-    /**
-     * Marks the {@link Task} at the specified index of the list as incomplete.
-     *
-     * @param index The index of the list to mark as incomplete.
-     * @throws EkudException If {@code index} out-of-bounds of the list.
-     * @see Task#markAsUndone()
-     */
-    public void markIncomplete(int index) throws EkudException {
-        checkTask(index);
-        tasks.get(index).markAsUndone();
-    }
 }
