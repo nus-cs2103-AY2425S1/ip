@@ -26,8 +26,24 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v2
 
-      - name: Build and test with Gradle
-        run: ./gradlew clean build test
+      - name: Build with Gradle
+        run: ./gradlew clean build --exclude-task test --info --stacktrace
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
+
+      - name: Test with Gradle
+        run: ./gradlew test --info --stacktrace
+        env:
+          JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
+
+      - name: List running processes
+        if: failure()
+        run: ps aux
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: build/reports/tests/test
 
