@@ -24,23 +24,20 @@ public class Parser {
      * @throws JarException If the task number is invalid or incorrectly formatted.
      */
     public int getTaskNumber(String command) throws JarException {
-        String[] parts = command.split(" ");
-        if (parts.length == 2) {
-            try {
-                int taskNumber = Integer.parseInt(parts[1]) - 1;
+        String[] parts = command.trim().split("\\s+");
 
-                // Assert that taskNumber is within valid range (0 or higher)
-                assert taskNumber >= 0 : "Task number should be greater than or equal to 0";
-
-                if (taskNumber < 0) {
-                    throw new JarException("tasks.Task number must be greater than 0.");
-                }
-                return taskNumber;
-            } catch (NumberFormatException e) {
-                throw new JarException("Invalid task number format.");
-            }
-        } else {
+        if (parts.length != 2) {
             throw new JarException("Invalid task command format.");
+        }
+        try {
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
+            assert taskNumber >= 0 : "Task number should be greater than or equal to 0";
+            if (taskNumber < 0) {
+                throw new JarException("Task number must be greater than 0.");
+            }
+            return taskNumber;
+        } catch (NumberFormatException e) {
+            throw new JarException("Invalid task number format.");
         }
     }
 
@@ -110,12 +107,14 @@ public class Parser {
     private Task parseEventTask(String command) throws JarException {
         String[] eventParts = command.substring(5).split("/from", 2);
         if (eventParts.length < 2 || eventParts[0].trim().isEmpty()) {
-            throw new JarException("Invalid event format. Use: event <description> /from <start time> /to <end time>");
+            throw new JarException("Invalid event format. "
+                    + "Use: event <description> /from <start time> /to <end time>");
         }
         String eventDescription = eventParts[0].trim();
         String[] timeParts = eventParts[1].split("/to", 2);
         if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
-            throw new JarException("Invalid event time format. Use: event <description> /from <start time> /to <end time>");
+            throw new JarException("Invalid event time format. "
+                    + "Use: event <description> /from <start time> /to <end time>");
         }
         return new Event(eventDescription, timeParts[0].trim(), timeParts[1].trim());
     }

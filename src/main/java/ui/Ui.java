@@ -74,14 +74,19 @@ public class Ui {
      */
     public String showTaskList(ArrayList<Task> matchingTasks) {
         StringBuilder sb = new StringBuilder();
+
         if (matchingTasks.isEmpty()) {
             sb.append("No matching tasks found.");
-        } else {
-            sb.append("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                sb.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
-            }
+            String message = sb.toString();
+            System.out.println(message);
+            return message;
         }
+
+        sb.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
+        }
+
         String message = sb.toString();
         System.out.println(message);
         return message;
