@@ -30,7 +30,7 @@ public class TaskList {
      * @return The ArrayList of tasks.
      */
     public ArrayList<Task> getTasks() {
-        return Storage.TASKS;
+        return Storage.TASK_LIST;
     }
 
     /**
@@ -40,8 +40,8 @@ public class TaskList {
      */
     public String outputList() {
         String finalList = " Here are the tasks in your list:";
-        for (int i = 0; i < Storage.TASKS.size(); i++) {
-            Task task = Storage.TASKS.get(i);
+        for (int i = 0; i < Storage.TASK_LIST.size(); i++) {
+            Task task = Storage.TASK_LIST.get(i);
             if (task == null) {
                 break;
             }
@@ -70,10 +70,10 @@ public class TaskList {
      */
     public String addToList(Task task) {
         assert task != null : "Task cannot be null";
-        Storage.TASKS.add(task);
+        Storage.TASK_LIST.add(task);
         this.STORAGE.addTaskToDatabase(task);
         String response = " Got it. I've added this task:\n  " + task.toString() + "\n"
-                + " Now you have " + (Storage.TASKS.size()) + " tasks in the list.";
+                + " Now you have " + (Storage.TASK_LIST.size()) + " tasks in the list.";
         return response;
     }
 
@@ -87,13 +87,13 @@ public class TaskList {
      */
     public String deleteEvent(String text) throws NoTaskNumberException, WrongTaskNumberException {
         int taskIndex = extractTaskIndex(text);
-        if (taskIndex >= Storage.TASKS.size()) {
+        if (taskIndex >= Storage.TASK_LIST.size()) {
             throw new WrongTaskNumberException();
         }
-        Task taskToBeDeleted = Storage.TASKS.get(taskIndex);
-        Storage.TASKS.remove(taskIndex);
+        Task taskToBeDeleted = Storage.TASK_LIST.get(taskIndex);
+        Storage.TASK_LIST.remove(taskIndex);
         return " Noted. I've removed this task:\n  " + taskToBeDeleted
-                + "\n Now you have " + Storage.TASKS.size() + " tasks in the list.";
+                + "\n Now you have " + Storage.TASK_LIST.size() + " tasks in the list.";
             // Proceed with your logic using taskIndex
     }
 
@@ -107,10 +107,10 @@ public class TaskList {
      */
     public String markTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
         int taskIndex = extractTaskIndex(text);
-        if (taskIndex >= Storage.TASKS.size()) {
+        if (taskIndex >= Storage.TASK_LIST.size()) {
             throw new WrongTaskNumberException();
         }
-        Task task = Storage.TASKS.get(taskIndex);
+        Task task = Storage.TASK_LIST.get(taskIndex);
         task.markAsDone();
         return " Nice! I've marked this task as done:\n  " + task;
     }
@@ -125,10 +125,10 @@ public class TaskList {
      */
     public String unmarkTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
         int taskIndex = extractTaskIndex(text);
-        if (taskIndex >= Storage.TASKS.size()) {
+        if (taskIndex >= Storage.TASK_LIST.size()) {
             throw new WrongTaskNumberException();
         }
-        Task task = Storage.TASKS.get(taskIndex);
+        Task task = Storage.TASK_LIST.get(taskIndex);
         task.unmark();
         return " OK, I've marked this task as not done yet:\n  " + task;
     }

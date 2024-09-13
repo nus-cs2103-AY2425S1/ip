@@ -24,7 +24,7 @@ public class Parser {
      * @return A Deadline task.
      * @throws IncorrectTaskInputFormatException If the input format is incorrect.
      */
-    public Deadline deadlineTaskCreator(String details) throws IncorrectTaskInputFormatException {
+    public Deadline createDeadlineTask(String details) throws IncorrectTaskInputFormatException {
         String[] parts = details.split(" /by ");
         if (Objects.equals(parts[0], "") || parts.length == 1) {
             throw new IncorrectTaskInputFormatException();
@@ -54,7 +54,7 @@ public class Parser {
      * @return An Event task.
      * @throws IncorrectTaskInputFormatException If the input format is incorrect.
      */
-    public Event eventTaskCreator(String details) throws IncorrectTaskInputFormatException {
+    public Event createEventTask(String details) throws IncorrectTaskInputFormatException {
         String[] parts = details.split(" /from | /to ");
         boolean isPartsLengthOne = parts.length == 1;
         if (parts[0].isEmpty() || isPartsLengthOne) {

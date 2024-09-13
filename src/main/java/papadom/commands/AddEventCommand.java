@@ -34,7 +34,7 @@ public class AddEventCommand extends Command{
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
         try {
-            Event eventTask = PARSER.eventTaskCreator(TEXT.substring(6));
+            Event eventTask = PARSER.createEventTask(TEXT.substring(6));
             return ui.output(taskList.addToList(eventTask));
         } catch (IndexOutOfBoundsException e) {
             throw new IncorrectTaskInputFormatException();

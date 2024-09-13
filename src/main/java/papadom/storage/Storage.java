@@ -10,9 +10,9 @@ import papadom.tasks.Task;
  * Manages the storage of tasks in a file.
  */
 public class Storage {
-    protected static final ArrayList<Task> TASKS = new ArrayList<>();
+    protected static final ArrayList<Task> TASK_LIST = new ArrayList<>();
     public ArrayList<Task> getTasks() {
-        return Storage.TASKS;
+        return Storage.TASK_LIST;
     }
     private final String FILE_PATH;
 
@@ -61,7 +61,7 @@ public class Storage {
     public String findTaskBySearching(String searchText) {
         String searchResult = " Here are the matching tasks in your list:";
         int count = 1;
-        for (Task task : Storage.TASKS) {
+        for (Task task : Storage.TASK_LIST) {
             // Perform operations with each task
             String description = task.getDescription();
             if (description.contains(searchText)) {
@@ -78,6 +78,6 @@ public class Storage {
     }
 
     public void clearTasks() {
-        TASKS.clear(); // Clear all tasks from the list
+        TASK_LIST.clear(); // Clear all tasks from the list
     }
 }

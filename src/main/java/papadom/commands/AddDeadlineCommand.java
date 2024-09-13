@@ -34,7 +34,7 @@ public class AddDeadlineCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
         try {
-            Deadline deadlineTask = PARSER.deadlineTaskCreator(TEXT.substring(9));
+            Deadline deadlineTask = PARSER.createDeadlineTask(TEXT.substring(9));
             return ui.output(taskList.addToList(deadlineTask));
         } catch (IndexOutOfBoundsException e) {
             throw new IncorrectTaskInputFormatException();
