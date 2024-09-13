@@ -39,9 +39,9 @@ public class Task {
      */
     public String toDataFormat() {
         if (isDone) {
-            return "|" + "1" + "|" + name;
+            return "|1|" + name;
         } else {
-            return "|" + "0" + "|" + name;
+            return "|0|" + name;
         }
     }
 

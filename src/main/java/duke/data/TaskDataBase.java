@@ -22,48 +22,65 @@ public class TaskDataBase {
      * @throws InvalidDateException If a date in the file is invalid or cannot be parsed.
      */
     public static List<Task> load() throws IOException, InvalidDateException {
-        List<Task> tasks = new ArrayList<>();
         File file = new File("data/tasklist.txt");
+        ensureFileExists(file);
+        List<String> lines = readFile(file);
+        return parseTasks(lines);
+    }
 
+    private static void ensureFileExists(File file) throws IOException {
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
-
         assert file.exists() : "File tasklist.txt should exist after attempting to create it.";
+    }
+    private static List<String> readFile(File file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<String> lines = new ArrayList<>();
         String line;
 
         while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("\\|");
-            Task task;
-
-            switch (parts[0]) {
-            case "T":
-                assert parts.length >= 3 : "Data format in tasklist.txt is incorrect, todo should contain 3 parts";
-                task = new Todo(parts[2]);
-                break;
-            case "D":
-                assert parts.length >= 3 : "Data format in tasklist.txt is incorrect, deadline should contain 4 parts";
-                task = new Deadline(parts[2], parts[3]);
-                break;
-            case "E":
-                assert parts.length >= 3 : "Data format in tasklist.txt is incorrect, event should contain 5 parts";
-                task = new Event(parts[2], parts[3], parts[4]);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected task type: " + parts[0]);
-            }
-
-            if (parts[1].equals("1")) {
-                task.markAsDone();
-            }
-
-            tasks.add(task);
+            lines.add(line);
         }
 
         reader.close();
+        return lines;
+    }
+
+    private static List<Task> parseTasks(List<String> lines) throws InvalidDateException {
+        List<Task> tasks = new ArrayList<>();
+
+        for (String line : lines) {
+            tasks.add(parseTask(line));
+        }
+
         return tasks;
+    }
+
+    private static Task parseTask(String line) throws InvalidDateException {
+        String[] parts = line.split("\\|");
+        Task task;
+
+        switch (parts[0]) {
+        case "T":
+            task = new Todo(parts[2]);
+            break;
+        case "D":
+            task = new Deadline(parts[2], parts[3]);
+            break;
+        case "E":
+            task = new Event(parts[2], parts[3], parts[4]);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected task type: " + parts[0]);
+        }
+
+        if (parts[1].equals("1")) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     /**
