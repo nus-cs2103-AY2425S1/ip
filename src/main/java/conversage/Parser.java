@@ -41,6 +41,8 @@ public class Parser {
             return new DeleteCommand(commandParts[1]);
         case "find":
             return new FindCommand(commandParts[1]);
+        case "help":
+            return new HelpCommand();
         default:
             throw new ConverSageException("Invalid command, please try again");
         }
