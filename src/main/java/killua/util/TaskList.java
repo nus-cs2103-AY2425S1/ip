@@ -2,6 +2,7 @@ package killua.util;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import killua.task.Deadline;
 import killua.task.Event;
@@ -101,18 +102,16 @@ public class TaskList {
      */
     public TaskList getTasksOnDate(LocalDate date) {
         TaskList tasksOnDate = new TaskList();
-
-        for (Task task : tasks) {
-            if (task instanceof Deadline deadline) {
-                if (deadline.getDate().equals(date)) {
-                    tasksOnDate.addTask(task);
-                }
-            } else if (task instanceof Event event) {
-                if (!event.getStartDate().isAfter(date) && !event.getEndDate().isBefore(date)) {
-                    tasksOnDate.addTask(task);
-                }
-            }
-        }
+        tasks.stream()
+                .filter(task -> {
+                    if (task instanceof Deadline deadline) {
+                        return deadline.getDate().equals(date);
+                    } else if (task instanceof Event event) {
+                        return !event.getStartDate().isAfter(date) && !event.getEndDate().isBefore(date);
+                    }
+                    return false;
+                })
+                .forEach(tasksOnDate::addTask);
 
         return tasksOnDate;
     }
@@ -130,12 +129,8 @@ public class TaskList {
      * Prints all tasks in the task list with their respective index.
      */
     public String getTasksString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            sb.append(String.format("%d.%s%n", i + 1, task));
-        }
-        return sb.toString();
+        return tasks.stream()
+                .map(task -> String.format("%d.%s", tasks.indexOf(task) + 1, task))
+                .collect(Collectors.joining(System.lineSeparator()));
     }
-
 }
