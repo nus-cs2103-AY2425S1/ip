@@ -41,6 +41,18 @@ public class TaskList {
     }
 
     /**
+     * Constructs a TaskList with the given tasks.
+     *
+     * @param tasks Varargs of tasks to be added to the TaskList.
+     */
+    public TaskList(Task... tasks) {
+        this.tasks = new ArrayList<>();
+        for (Task task : tasks) {
+            this.tasks.add(task);
+        }
+    }
+
+    /**
      * Returns a copy of the list of tasks.
      *
      * @return A copy of the list of tasks.
