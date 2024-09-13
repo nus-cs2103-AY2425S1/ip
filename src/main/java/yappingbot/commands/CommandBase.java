@@ -1,5 +1,6 @@
 package yappingbot.commands;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -37,7 +38,7 @@ abstract class CommandBase<A extends Enum<A>> {
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public CommandBase(String firstArg, String[] ... flattenedFlaggedArguments)
+    public CommandBase(String firstArg, ArrayList<String[]> flattenedFlaggedArguments)
     throws YappingBotIncorrectCommandException {
         try {
             this.firstArg = getArgTypeFromString(firstArg);

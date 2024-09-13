@@ -1,5 +1,6 @@
 package yappingbot.commands;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
@@ -96,5 +97,23 @@ public class Parser {
         if ((userInputSlices.length - 1) < i) {
             throw new YappingBotOobException(ReplyTextMessages.NOT_ENOUGH_ARGUMENTS, i);
         }
+    }
+
+    /**
+     * Parses the user arguments into the first unflagged argument, and pushes the rest into
+     * the given ArrayList as String arrays of the argument flag and its preceeding values.
+     *
+     * @param flagMarker Char of the character used to denote a flag.
+     * @param userInputSlices User input sliced by space, including command verb.
+     * @param flattenedFlaggedArguments empty ArrayList to push parsed flagged arguments into.
+     * @return First argument value after command verb, that is not flagged.
+     */
+    public static String parseFlaggedArguments(char flagMarker,
+                                               String[] userInputSlices,
+                                               ArrayList<String[]> flattenedFlaggedArguments) {
+        String firstArg = null;
+
+        assert true : "Not all arguments parsed!";
+        return firstArg;
     }
 }

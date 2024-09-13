@@ -28,40 +28,6 @@ public class Launcher {
         boolean stopTakingInputs = false;
         String[] jfxArgs = new String[0];
 
-        // loops through arguments to parse them.
-        // any arguments preceeding a '--' are not processed and directly passed on to javaFX
-        for (int i = 0; i < args.length; i++) {
-            if (stopTakingInputs) {
-                // -- has been detected. Stop and just copy everything to be passed to javaFX
-                jfxArgs = Arrays.copyOfRange(args, i + 1, args.length);
-                break;
-            } else {
-                switch (args[i]) {
-                case "-c":
-                    isUsingGui = false;
-                    continue;
-                case "-s":
-                case "--savefile":
-                    // peek the next arguemnt to get the savefile name
-                    int savefilePathIndex = i + 1;
-                    if (savefilePathIndex >= args.length
-                        || args[savefilePathIndex].startsWith("-")) {
-                        System.out.printf("Error: %s missing argument: savefile path!\n", args[i]);
-                    } else {
-                        savefilePath = args[savefilePathIndex];
-                        // only advance the pointer if there was a valid value for this flag
-                        i = i + 1;
-                    }
-                    continue;
-                case "--":
-                    stopTakingInputs = true;
-                    continue;
-                default:
-                    System.out.printf("Error: unknown flag %s!\n", args[i]);
-                }
-            }
-        }
-
         if (isUsingGui) {
             launchGui(jfxArgs);
         } else {
