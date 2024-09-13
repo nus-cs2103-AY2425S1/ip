@@ -1,12 +1,13 @@
 package chatsy;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import chatsy.exceptions.EmptyDescriptionException;
 import chatsy.exceptions.InvalidTaskIndexException;
 import chatsy.exceptions.InvalidTaskStringException;
-import chatsy.exceptions.FilePermissionException;
+import chatsy.tasks.DeadlineTask;
 import chatsy.tasks.Task;
 
 /**
@@ -150,5 +151,29 @@ public class TaskManager {
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException();
         }
+    }
+
+    /**
+     * Sorts tasks with deadlines chronologically.
+     */
+    public void sortDeadlinesChronologically() {
+        tasks.sort(Comparator.comparing(task -> {
+            if (task instanceof DeadlineTask) {
+                return ((DeadlineTask) task).getBy(); // Sort by deadline
+            }
+            return null;
+        }));
+    }
+
+    /**
+     * Sorts tasks with deadlines in reverse chronological order.
+     */
+    public void sortDeadlinesReverseChronologically() {
+        tasks.sort(Comparator.comparing(task -> {
+            if (task instanceof DeadlineTask) {
+                return ((DeadlineTask) task).getBy();
+            }
+            return null;
+        }).reversed());
     }
 }

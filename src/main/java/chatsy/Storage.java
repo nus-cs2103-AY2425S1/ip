@@ -110,17 +110,17 @@ public class Storage {
         String description = parts[2];
 
         switch (taskType) {
-            case "T":
-                return new TodoTask(description, isDone);
-            case "D":
-                LocalDate by = LocalDate.parse(parts[3], DATE_FORMATTER);
-                return new DeadlineTask(description, by, isDone);
-            case "E":
-                LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
-                LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
-                return new EventTask(description, from, to, isDone);
-            default:
-                throw new InvalidTaskStringException();
+        case "T":
+            return new TodoTask(description, isDone);
+        case "D":
+            LocalDate by = LocalDate.parse(parts[3], DATE_FORMATTER);
+            return new DeadlineTask(description, by, isDone);
+        case "E":
+            LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
+            return new EventTask(description, from, to, isDone);
+        default:
+            throw new InvalidTaskStringException();
         }
     }
 

@@ -48,6 +48,9 @@ public class Parser {
             return new EventCommand(arguments);
         case "find":
             return new FindCommand(arguments);
+        case "sort":
+            boolean reverse = arguments.equalsIgnoreCase("reverse");
+            return new SortCommand(reverse);
         default:
             throw new InvalidCommandException();
         }
