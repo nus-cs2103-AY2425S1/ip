@@ -1,15 +1,11 @@
 package bot.storage;
 
-import bot.tasks.TaskList;
-import bot.tasks.Task;
-import bot.tasks.Todo;
-import bot.tasks.Deadline;
-import bot.tasks.Event;
+import bot.tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -93,18 +89,29 @@ public class Storage {
      */
     private Task parseData(String data) {
         String[] args = data.split(" \\| ");
-        // TODO: handle corrupted data
         return switch (args[0]) {
             // TODO: Replace with enums
-            case "T" -> new Todo(args[1], Boolean.parseBoolean(args[2]));
-            case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
-            case "E" -> new Event(
-                    args[1],
-                    Boolean.parseBoolean(args[2]),
-                    LocalDate.parse(args[3]),
-                    LocalDate.parse(args[4])
-            );
-            default -> null;
+            case "T" -> {
+                assert args.length == 3;
+                yield new Todo(args[1], Boolean.parseBoolean(args[2]));
+            }
+            case "D" -> {
+                assert args.length == 4;
+                yield new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
+            }
+            case "E" -> {
+                assert args.length == 5;
+                yield new Event(
+                        args[1],
+                        Boolean.parseBoolean(args[2]),
+                        LocalDate.parse(args[3]),
+                        LocalDate.parse(args[4])
+                );
+            }
+            default -> {
+                assert false : "Invalid data: " + data;
+                yield null;
+            }
         };
     }
 }
