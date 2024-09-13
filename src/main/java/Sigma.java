@@ -1,5 +1,9 @@
 import java.util.Scanner;
-import sigma.*;
+
+import sigma.TaskList;
+import sigma.Ui;
+import sigma.Parser;
+import sigma.Storage;
 @SuppressWarnings("FieldMayBeFinal")
 /**
  * The main class from where the program is run
@@ -14,6 +18,7 @@ public class Sigma {
 
     /**
      * Constructor for Sigma
+     *
      * @param filePath The path to the file where past data is stored
      */
     public Sigma(String filePath) {
@@ -109,6 +114,12 @@ public class Sigma {
         } else if (input.startsWith("find")) {
             response.append(parser.handleFind(input));
         } else {
+            // assert that input is not any of the commands
+            assert !(input.equals("list") || input.equals("greet") || input.equals("bye") ||
+                    input.startsWith("mark") || input.startsWith("unmark") ||
+                    input.startsWith("delete") || input.startsWith("todo") ||
+                    input.startsWith("deadline") || input.startsWith("event") ||
+                    input.startsWith("find")) : "Input should not be any of the recognised commands";
             response.append(ui.dontRecognise());
         }
         return response.toString();

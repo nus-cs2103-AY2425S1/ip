@@ -1,12 +1,19 @@
 package sigma;
+
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import sigma.task.*;
+
+import sigma.task.Task;
+import sigma.task.Deadline;
+import sigma.task.Event;
+import sigma.task.ToDo;
 
 /**
  * Class that handles the logic relating to user commands
@@ -28,6 +35,7 @@ public class Parser {
 
     /**
      * Greets the user upon command
+     *
      * @return The greeting message
      */
     public String greet() {
@@ -49,6 +57,7 @@ public class Parser {
 
     /**
      * Adds a To-do task to the TaskList
+     *
      * @param userInput The to-do task that the user wants to add
      */
     public String handleTodo(String userInput) {
@@ -68,6 +77,7 @@ public class Parser {
 
     /**
      * Adds a Deadline task to the TaskList
+     *
      * @param userInput The Deadline task that the user wants to add
      */
     public String handleDeadline(String userInput) {
@@ -76,7 +86,7 @@ public class Parser {
         if (matcher.find()) {
             String description = matcher.group(1);
             String by = matcher.group(2);
-            String dateBy = stringToDate(by);
+            String dateBy = convertStringToDate(by);
             Task task = new Deadline(description, false, dateBy);
             TaskList.addToList(task);
             try {
@@ -92,6 +102,7 @@ public class Parser {
 
     /**
      * Adds an Event task to the TaskList
+     *
      * @param userInput The Event task that the user wants to add
      */
     public String handleEvent(String userInput) {
@@ -100,9 +111,9 @@ public class Parser {
         if (matcher.find()) {
             String description = matcher.group(1);
             String from = matcher.group(2);
-            String fromDate = stringToDate(from);
+            String fromDate = convertStringToDate(from);
             String to = matcher.group(3);
-            String toDate = stringToDate(to);
+            String toDate = convertStringToDate(to);
             Task task = new Event(description, false, fromDate, toDate);
             TaskList.addToList(task);
             try {
@@ -119,6 +130,7 @@ public class Parser {
 
     /**
      * Marks a task as done or undone
+     *
      * @param userInput The task that the user wants to mark or unmark
      */
     public String handleMarkUnmark(String userInput) {
@@ -145,10 +157,11 @@ public class Parser {
 
     /**
      * Converts the date provided by the user into a Date object
+     *
      * @param date The date given by the user as a String
      * @return The formatted date object
      */
-    public static String stringToDate(String date) {
+    public static String convertStringToDate(String date) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime parsedDateTime = LocalDateTime.parse(date, inputFormatter);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss");
@@ -158,6 +171,7 @@ public class Parser {
 
     /**
      * Returns all tasks containing descriptions that match the given keyword(s)
+     *
      * @param userInput The keyword
      */
     public String handleFind(String userInput) {

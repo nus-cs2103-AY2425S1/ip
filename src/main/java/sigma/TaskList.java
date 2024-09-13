@@ -1,11 +1,11 @@
 package sigma;
-import sigma.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import sigma.task.Task;
 /**
  * Class that wraps around the list of Tasks with added operations
  *
@@ -43,10 +43,11 @@ public class TaskList {
      * @return String representation of the tasks
      */
     public static String toPrettyList() {
+        // can i use streams for this?? im too lazy
         int i = 1;
         StringBuilder result = new StringBuilder(); // this is a terrible time complexity
         for (Task item : items) {
-            result.append("\n").append(i).append(". ").append(item.toString());
+            result.append("\n").append(i).append(". ").append(item);
             i++;
         }
         return result.toString();
