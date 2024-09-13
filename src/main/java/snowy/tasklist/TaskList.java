@@ -19,11 +19,10 @@ public class TaskList {
      *
      * @param t the task to be added
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         taskList.add(t);
-        String str = String.format(" %s\nNow you have %d task(s) in your list\n", t, this.taskList.size());
-        System.out.println(str);
         storage.writeTaskToFile(t);
+        return String.format(" %s\nNow you have %d task(s) in your list\n", t, this.taskList.size());
     }
 
     public boolean isTaskDone(int i) {
@@ -45,12 +44,11 @@ public class TaskList {
      * @param i the index of the task to toggle
      * @throws SnowyException if the provided index is invalid
      */
-    public void toggleTask(int i) throws SnowyException {
+    public String toggleTask(int i) throws SnowyException {
         if (i >= 0 && i < taskList.size()) {
             Task task = taskList.get(i);
             task.toggleStatus();
-            String str = String.format("%d. %s", i + 1, task);
-            System.out.println(str);
+            return String.format("%d. %s", i + 1, task);
         } else {
             throw new SnowyException("Invalid index.");
         }
@@ -61,15 +59,15 @@ public class TaskList {
      *
      * @throws SnowyException if the task list is empty
      */
-    public void displayList() throws SnowyException {
+    public String displayList() throws SnowyException {
         if (taskList.isEmpty()) {
             throw new SnowyException("No tasks, make a list first.");
         }
-        System.out.println("Your list of tasks:");
+        String str = "Your list of tasks:\n";
         for (int i = 0; i < taskList.size(); i++) {
-            String str = String.format("%d. %s", i + 1, taskList.get(i));
-            System.out.println(str);
+            str += String.format("%d. %s", i + 1, taskList.get(i));
         }
+        return str;
     }
 
     /**
@@ -78,16 +76,16 @@ public class TaskList {
      * @param index the index of the task to delete (1-based index)
      * @throws SnowyException if the index is invalid or the task list is empty
      */
-    public void deleteTask(int index) throws SnowyException {
+    public String deleteTask(int index) throws SnowyException {
         if (taskList.isEmpty()) {
             throw new SnowyException("No tasks in list.");
         }
         if (index >= 1 && index <= taskList.size()) {
             Task task = taskList.get(index - 1);
-            System.out.println("Removed task:\n " + task);
+            String str = String.format("Removed task:\n " + task);
             taskList.remove(index - 1);
             storage.deleteTaskFromFile(task);
-            System.out.printf("Now you have %d task(s) in your list.\n", this.taskList.size());
+            return str + String.format("\nNow you have %d task(s) in your list.\n", this.taskList.size());
         } else {
             throw new SnowyException("Invalid index.");
         }

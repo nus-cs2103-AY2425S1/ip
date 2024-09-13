@@ -32,8 +32,8 @@ public class EventCommand extends Command {
     public CommandResult execute() {
         try {
             Event event = new Event(description, from, to);
-            taskList.addTask(event);
-            return new CommandResult("Added an event to your list of tasks");
+            String str = taskList.addTask(event);
+            return new CommandResult(str + "\nAdded an event to your list of tasks");
         } catch (SnowyException e) {
             return new CommandResult("An error occurred while adding the event: " + e.getMessage());
         }

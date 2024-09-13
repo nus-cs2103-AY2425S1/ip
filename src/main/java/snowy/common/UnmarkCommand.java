@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command {
         if (!taskList.isTaskDone(index - 1)) {
             throw new SnowyException("Cannot unmark task as it is not done");
         }
-        taskList.toggleTask(index - 1);
-        return new CommandResult("Unmarked task at index " + index);
+        String str = taskList.toggleTask(index - 1);
+        return new CommandResult(str + "\nUnmarked task at index " + index);
     }
 }
