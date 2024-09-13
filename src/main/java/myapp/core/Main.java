@@ -1,7 +1,9 @@
 package myapp.core;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 
 /**
  * The Main class serves as the entry point for the BingBong application.
@@ -23,6 +25,12 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
+        stage.setMinHeight(220);
+        stage.setMinWidth(417);
+        stage.setTitle("BingBong Bot");
+        Image windowImage = new Image(getClass().getResourceAsStream("/images/BingBong.png"));
+        stage.getIcons().add(windowImage);
+
         MainWindow mainWindow = new MainWindow(stage);
         mainWindow.setBingBong(bot);
         mainWindow.show();
