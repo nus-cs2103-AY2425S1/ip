@@ -42,7 +42,6 @@ public class Deadline extends AbstractTask {
         }
     }
 
-
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
