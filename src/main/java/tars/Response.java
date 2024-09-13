@@ -23,7 +23,9 @@ public class Response {
     DeleteCommand deleteCommand = new DeleteCommand();
     AddCommand addCommand = new AddCommand();
     FindCommand findCommand = new FindCommand();
-    private final static String LOGO = """
+
+    /*
+    * private final static String LOGO = """
                 ________________ __________  _________
                 \\__    ___/  _  \\\\______   \\/   _____/
                   |    | /  /_\\  \\|       _/\\_____  \\
@@ -31,6 +33,7 @@ public class Response {
                   |____|\\____|__  /____|_  /_______  /
                                 \\/       \\/        \\/\s
                 """.trim();
+    * */
 
 
     /**
@@ -79,11 +82,10 @@ public class Response {
      * Displays the introductory message when the TARS application starts.
      */
     public String intro() {
-        String introMessage = """
-                \nGreetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
-                Let's get this chat started! Just remember, my humor setting is at 75%, so things might get a bit cheeky.""";
 
-        return (LOGO + introMessage);
+        return ("""
+                \nGreetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
+                Let's get this chat started! Just remember, my humor setting is at 75%, so things might get a bit cheeky.""");
     }
 
     /**

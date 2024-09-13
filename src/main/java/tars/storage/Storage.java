@@ -116,7 +116,7 @@ public class Storage {
 
             tasks.add(t);
         }
-
+        assert taskString.size() == tasks.size();
         return tasks;
     }
 

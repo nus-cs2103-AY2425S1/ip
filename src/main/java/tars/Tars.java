@@ -38,14 +38,4 @@ public class Tars {
 
 
     }
-
-    /**
-     * The main entry point for the TARS application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-
-
-    }
 }
