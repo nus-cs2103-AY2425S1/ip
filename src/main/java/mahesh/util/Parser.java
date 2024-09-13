@@ -41,9 +41,16 @@ public class Parser {
      * @throws MaheshException if the input cannot be parsed into a valid command
      */
     public Command parse(String originalInput) throws MaheshException {
+        assert originalInput != null : "Input should not be null";
+        assert !originalInput.trim().isEmpty() : "Input should not be empty";
+
         StringTokenizer tokenizedInput = new StringTokenizer(originalInput);
+        assert tokenizedInput.hasMoreTokens() : "Input should contain at least one token";
+
         String commandString = tokenizedInput.nextToken();
         CommandNames command = CommandNames.fromString(commandString);
+        assert command != null : "Command should not be null";
+
         switch (command) {
         case LIST:
             return new PrintCommand(list);
