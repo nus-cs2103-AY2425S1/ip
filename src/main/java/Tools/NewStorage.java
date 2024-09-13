@@ -21,46 +21,7 @@ public class NewStorage {
         NewTaskList tasks = new NewTaskList();
         File file = new File(filePath);
         try {
-            Scanner fileScanner = new Scanner(file);
-
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] split = line.split(" \\| ");
-                switch (split[0]) {
-                case "T":
-                    if (split[1].equals("1")) {
-                        Todo todo = new Todo(split[2]);
-                        todo.markDone();
-                        tasks.add(todo);
-                    } else {
-                        Todo todo = new Todo(split[2]);
-                        tasks.add(todo);
-                    }
-                    break;
-
-                case "D":
-                    if (split[1].equals("1")) {
-                        Deadline deadline = new Deadline(split[2], split[3]);
-                        deadline.markDone();
-                        tasks.add(deadline);
-                    } else {
-                        Deadline deadline = new Deadline(split[2], split[3]);
-                        tasks.add(deadline);
-                    }
-                    break;
-                case "E":
-                    if (split[1].equals("1")) {
-                        Event event = new Event(split[2], split[3], split[4]);
-                        event.markDone();
-                        tasks.add(event);
-                    } else {
-                        Event event = new Event(split[2], split[3], split[4]);
-                        tasks.add(event);
-                    }
-                    break;
-                }
-            }
-            fileScanner.close();
+            addTasks(tasks, file);
         } catch (FileNotFoundException e) {
             new File("./data").mkdirs();
             try {
@@ -71,6 +32,53 @@ public class NewStorage {
         }
 
         return tasks;
+    }
+
+    public void parseTask(String[] split, NewTaskList tasks) throws FileNotFoundException {
+        switch (split[0]) {
+            case "T":
+                if (split[1].equals("1")) {
+                    Todo todo = new Todo(split[2]);
+                    todo.markDone();
+                    tasks.add(todo);
+                } else {
+                    Todo todo = new Todo(split[2]);
+                    tasks.add(todo);
+                }
+                break;
+
+            case "D":
+                if (split[1].equals("1")) {
+                    Deadline deadline = new Deadline(split[2], split[3]);
+                    deadline.markDone();
+                    tasks.add(deadline);
+                } else {
+                    Deadline deadline = new Deadline(split[2], split[3]);
+                    tasks.add(deadline);
+                }
+                break;
+            case "E":
+                if (split[1].equals("1")) {
+                    Event event = new Event(split[2], split[3], split[4]);
+                    event.markDone();
+                    tasks.add(event);
+                } else {
+                    Event event = new Event(split[2], split[3], split[4]);
+                    tasks.add(event);
+                }
+                break;
+        }
+    }
+
+    public void addTasks(NewTaskList tasks, File file) throws FileNotFoundException {
+        Scanner fileScanner = new Scanner(file);
+
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            String[] split = line.split(" \\| ");
+            parseTask(split, tasks);
+        }
+        fileScanner.close();
     }
 
     public void saveTasks(NewTaskList tasks) {
