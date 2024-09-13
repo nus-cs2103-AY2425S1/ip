@@ -61,6 +61,6 @@ public class UnMarkCommand extends Command {
      * @return A string message confirming the task has been unmarked as incomplete.
      */
     private String printMarkMessage(Task task) {
-        return "Nice! I've marked this task as done:\n" + task;
+        return "Okay. I've unmarked this task:\n" + task;
     }
 }
