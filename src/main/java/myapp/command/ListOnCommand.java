@@ -43,7 +43,8 @@ public class ListOnCommand extends ListCommand {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        StringBuilder list = new StringBuilder("Tasks on " + DateTimeHandler.format(queryDate) + ":\n");
+        StringBuilder list = new StringBuilder("Here are your tasks on " + DateTimeHandler.format(queryDate)
+                + ":\uD83C\uDF89 \n");
         boolean hasTasks = listMatchingTasks(tasks, list);
 
         return generateResultMessage(hasTasks, list);
