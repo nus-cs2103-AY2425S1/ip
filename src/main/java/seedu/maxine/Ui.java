@@ -149,4 +149,7 @@ public class Ui {
 
         return sb.toString();
     }
+    public String deleteAll() {
+        return "All tasks have been deleted!";
+    }
 }

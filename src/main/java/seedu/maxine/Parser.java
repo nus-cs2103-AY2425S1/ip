@@ -1,7 +1,13 @@
 package seedu.maxine;
 
 import seedu.maxine.exception.MaxineException;
+import seedu.maxine.task.Deadline;
+import seedu.maxine.task.Event;
 import seedu.maxine.task.Task;
+import seedu.maxine.task.Todo;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
     private Ui ui;
@@ -39,8 +45,9 @@ public class Parser {
             case ("list"):
                 return handleList();
             case ("mark"):
-            case ("unmark"):
                 return handleMark(answer[1]);
+            case ("unmark"):
+                return handleUnmark(answer[1]);
             case ("todo"):
                 return handleTodo(input);
             case ("deadline"):
@@ -51,6 +58,8 @@ public class Parser {
                 return handleDelete(answer[1]);
             case ("find"):
                 return handleFind(input);
+            case ("clear"):
+                return handleDeleteAll();
             default:
                 throw new MaxineException("Oh no.. this command is not recognised");
             }
@@ -81,34 +90,77 @@ public class Parser {
     }
     public String handleMark(String answer) {
         int mark = Integer.parseInt(answer) - 1;
-        Task curr = list.get(mark);
-        curr.changeStatus();
+        Task task = list.get(mark);
+        task.markDone();
         storage.refreshStorage(list);
-        return ui.changeMark(curr);
+        return ui.changeMark(task);
+    }
+    public String handleUnmark(String answer) {
+        int mark = Integer.parseInt(answer) - 1;
+        Task task = list.get(mark);
+        task.markUndone();
+        storage.refreshStorage(list);
+        return ui.changeMark(task);
     }
     public String handleTodo(String input) {
         try {
-            list.addTodo(input);
+            assert input != null : "input should not be null";
+            String[] answer = input.split("todo ");
+            String regex = "todo";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+            if (answer.length != 2 || !matcher.find()) {
+                throw new MaxineException("Please follow this "
+                        + "format: todo [enter maxine.task]");
+            }
+            String description = answer[1];
+            Todo task = new Todo(description);
+            list.addTask(task);
             storage.refreshStorage(list);
-            return "todo task added!";
+            return task + " - todo task added!";
         } catch (MaxineException e) {
             return e.getMessage();
         }
     }
     public String handleDeadline(String input) {
         try {
-            list.addDeadline(input);
+            assert input != null : "input should not be null";
+            String[] answer = input.split("deadline | /by ");
+            String regex = "deadline.*?/by";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+            if (answer.length != 3 || !matcher.find()) {
+                throw new MaxineException("Please follow this format: deadline "
+                        + "[enter maxine.task] /by [enter deadline]");
+            }
+            String description = answer[1];
+            String deadline = answer[2];
+            Deadline task = new Deadline(description, deadline);
+            list.addTask(task);
             storage.refreshStorage(list);
-            return "deadline task added!";
+            return task + " - deadline task added!";
         } catch (MaxineException e) {
             return e.getMessage();
         }
     }
     public String handleEvent(String input) {
         try {
-            list.addEvent(input);
+            assert input != null : "input should not be null";
+            String[] answer = input.split("event | /from | /to ");
+            String regex = "event.*?/from.*?/to";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+            if (answer.length != 4 || !matcher.find()) {
+                throw new MaxineException("Please follow this format: event [enter event] "
+                        + "/from [start date] /to [end date]");
+            }
+            String description = answer[1];
+            String startTime = answer[2];
+            String endTime = answer[3];
+            Event task = new Event(description, startTime, endTime);
+            list.addTask(task);
             storage.refreshStorage(list);
-            return "event added!";
+            return task + " - event added!";
         } catch (MaxineException e) {
             return e.getMessage();
         }
@@ -122,5 +174,10 @@ public class Parser {
     }
     public String handleFind(String input) {
         return ui.search(input.substring(5));
+    }
+    public String handleDeleteAll() {
+        list.deleteAll();
+        storage.refreshStorage(list);
+        return ui.deleteAll();
     }
 }
