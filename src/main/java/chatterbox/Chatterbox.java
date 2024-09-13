@@ -74,7 +74,7 @@ public class Chatterbox {
         }
 
         /**
-         * gets the userTasks of TaskList object
+         * gets the userTasks of tasks.TaskList object
          * @return an ArrayList userTasks
          */
         public ArrayList<Task> getTasks() {
@@ -88,7 +88,7 @@ public class Chatterbox {
          * @return returns the task that was marked
          */
         public Task markTask(int index) {
-            assert index  >= 0;
+            assert index >= 0;
             userTasks.get(index).setStatus(true);
             return userTasks.get(index);
         }

@@ -94,7 +94,7 @@ ____________________________________________________________
     /**
      * Displays message for adding a task
      * @param type Type of task (todo, deadline ...)
-     * @param size of TaskList object task is added to
+     * @param size of tasks.TaskList object task is added to
      */
     public void addTaskMsg(String type, int size) {
         System.out.println(UI.getLineseperator());
@@ -105,7 +105,7 @@ ____________________________________________________________
     /**
      * Displays message for deleting a task
      * @param task Task that is deleted
-     * @param size size of the TaskList object task is removed from
+     * @param size size of the tasks.TaskList object task is removed from
      */
     public void delTaskMsg(Task task, int size) {
         System.out.println(UI.getLineseperator());

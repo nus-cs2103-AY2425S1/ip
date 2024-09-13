@@ -157,12 +157,9 @@ public class Parser {
             } else {
                 if (desc.charAt(i) == '/') {
                     if (!commandEncountered) {
-                        i += 2;
+                        i += 3;
                         commandEncountered = true;
-
                     }
-
-
                 }
                 deadline.append(desc.charAt(i));
             }
