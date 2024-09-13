@@ -1,5 +1,10 @@
-TODO | 0 | buy flowers
+TODO | 0 | cook dinner
 TODO | 0 | cook dinner
 TODO | 0 | cook dinner
 TODO | 0 | cook bfast
-TODO | 0 | go sch
+TODO | 0 | cook breakfast
+TODO | 0 | eat
+TODO | 0 | cook bfast
+TODO | 0 | cook dinner
+DEFAULT | 0 | tofo
+TODO | 0 | cook brunch

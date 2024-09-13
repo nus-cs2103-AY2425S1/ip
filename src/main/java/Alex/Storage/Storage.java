@@ -11,26 +11,24 @@ import java.util.ArrayList;
 
 import Alex.Exceptions.AlexException;
 import Alex.Task.Deadline;
+import Alex.Task.DefaultTask;
 import Alex.Task.Event;
+import Alex.Task.FixedDurationTask;
 import Alex.Task.Task;
 import Alex.Task.TaskType;
 import Alex.Task.Todo;
 
+
+
 /**
- * Manages the loading and saving of tasks to and from a file.
- * Ensures that tasks are correctly persisted and restored from storage.
+ * Manages the loading and saving of tasks from/to a file.
  */
 public class Storage {
 
-    private String filePath;
-
-    // DateTimeFormatter used for formatting Deadline and Event times.
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the given file path.
-     * Initializes the data directory if it does not exist.
-     *
      * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
@@ -40,83 +38,57 @@ public class Storage {
 
     /**
      * Loads tasks from the file specified by the file path.
-     * Parses each line to create Task objects and adds them to an ArrayList.
-     *
      * @return An ArrayList of tasks loaded from the file.
      * @throws AlexException If there is an error loading tasks from the file.
      */
     public ArrayList<Task> load() throws AlexException {
         File file = new File(filePath);
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        // Assert that the tasks list is initialized
-        assert tasks != null : "Tasks ArrayList must be initialized";
-
         if (!file.exists()) {
-            return tasks; // Return an empty list if file doesn't exist
+            return new ArrayList<>(); // No tasks to load if file doesn't exist
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                if (parts.length < 2) {
-                    continue; // Skip invalid lines
-                }
-
-                TaskType type = TaskType.valueOf(parts[0]);
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-
-                Task task = null;
-                switch (type) {
-                case TODO:
-                    task = new Todo(description);
-                    break;
-                case DEADLINE:
-                    if (parts.length == 4) {
-                        task = new Deadline(description, parts[3]);
-                    }
-                    break;
-                case EVENT:
-                    if (parts.length == 5) { // Adjusted length to 5 for Event (with from and to)
-                        task = new Event(description, parts[3], parts[4]);
-                    }
-                    break;
-                default:
-                    throw new AlexException("Unexpected task type: " + type);
-                }
-
-                // Assert that the task was successfully created
-                assert task != null : "Task object must be created successfully";
-                if (task != null) {
-                    tasks.add(task);
-                }
-            }
+            return loadTasksFromFile(br);
         } catch (IOException | IllegalArgumentException e) {
             throw new AlexException("Error loading tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads tasks from the BufferedReader.
+     * @param br The BufferedReader to read from.
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws IOException If there is an error reading from the file.
+     */
+    private ArrayList<Task> loadTasksFromFile(BufferedReader br) throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        String line;
+
+        while ((line = br.readLine()) != null) {
+            Task task = parseTaskFromLine(line);
+            if (task != null) {
+                tasks.add(task);
+            }
         }
         return tasks;
     }
 
     /**
-     * Parses a line from the file to create a Task object.
-     *
-     * @param line A line from the file representing a task.
-     * @return A Task object created from the line, or null if the line is invalid.
-     * @throws AlexException If the task type is unexpected.
+     * Parses a task from a line of text.
+     * @param line The line to parse.
+     * @return The parsed Task object, or null if the line is invalid.
      */
-    private Task parseTaskLine(String line) throws AlexException {
+    private Task parseTaskFromLine(String line) {
         String[] parts = line.split(" \\| ");
-        if (parts.length < 3) {
-            return null; // Skip invalid lines with insufficient data
+        if (parts.length < 2) {
+            return null; // Skip invalid lines
         }
 
         TaskType type = TaskType.valueOf(parts[0]);
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        Task task = createTask(type, description, parts);
+        Task task = createTaskFromParts(type, description, parts);
         if (task != null && isDone) {
             task.markAsDone();
         }
@@ -124,46 +96,42 @@ public class Storage {
     }
 
     /**
-     * Creates a Task object based on the type and data provided.
-     *
-     * @param type The type of task to create (TODO, DEADLINE, EVENT).
-     * @param description The description of the task.
-     * @param parts The split line parts containing additional task details.
-     * @return A Task object of the specified type, or null if the data is insufficient.
-     * @throws AlexException If the task type is unexpected.
+     * Creates a task object based on the type and parts from the file.
+     * @param type The type of task (TODO, DEADLINE, EVENT).
+     * @param description The task description.
+     * @param parts Additional information for the task (such as deadlines or event times).
+     * @return The created Task object, or null if invalid.
      */
-    private Task createTask(TaskType type, String description, String[] parts) throws AlexException {
+    private Task createTaskFromParts(TaskType type, String description, String[] parts) {
         switch (type) {
         case TODO:
             return new Todo(description);
         case DEADLINE:
-            if (parts.length == 4) {
-                return new Deadline(description, parts[3]);
-            }
-            break;
+            return parts.length == 4 ? new Deadline(description, parts[3]) : null;
         case EVENT:
-            if (parts.length == 5) {
-                return new Event(description, parts[3], parts[4]);
-            }
-            break;
+            return parts.length == 5 ? new Event(description, parts[3], parts[4]) : null;
+        case DEFAULT:
+            // Default tasks may only have the description, so no need for additional parts
+            return new DefaultTask(description); // Assuming DefaultTask class exists
+        case FIXED_DURATION:
+            // Assuming the FixedDurationTask takes description and duration (parts[3])
+            return parts.length == 4 ? new FixedDurationTask(description, Integer.parseInt(parts[3])) : null;
         default:
-            throw new AlexException("Unexpected task type: " + type);
+            return null;
         }
-        return null;
     }
 
     /**
      * Saves the given tasks to the file specified by the file path.
-     * Formats each task into a string and writes it to the file.
-     *
      * @param tasks The ArrayList of tasks to save to the file.
      * @throws AlexException If there is an error saving tasks to the file.
      */
     public void save(ArrayList<Task> tasks) throws AlexException {
         File file = new File(filePath);
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             for (Task task : tasks) {
-                String line = formatTaskLine(task);
+                String line = formatTaskForSaving(task);
                 bw.write(line);
                 bw.newLine();
             }
@@ -173,29 +141,26 @@ public class Storage {
     }
 
     /**
-     * Formats a Task object into a string representation for saving.
-     *
-     * @param task The Task object to format.
-     * @return A string representation of the task.
+     * Formats a task as a line for saving to the file.
+     * @param task The task to format.
+     * @return The formatted string.
      */
-    private String formatTaskLine(Task task) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(task.getTaskType()).append(" | ");
-        sb.append(task.isDone ? "1" : "0").append(" | ");
-        sb.append(task.getDescription());
+    private String formatTaskForSaving(Task task) {
+        StringBuilder line = new StringBuilder(task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription());
 
         if (task instanceof Deadline) {
-            sb.append(" | ").append(((Deadline) task).by.format(DATE_TIME_FORMATTER));
+            line.append(" | ").append(((Deadline) task).by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
         } else if (task instanceof Event) {
-            sb.append(" | ").append(((Event) task).getStarttime())
-                    .append(" | ").append(((Event) task).getEndtime());
+            line.append(" | ").append(((Event) task).getStarttime()).append(" | ").append(((Event) task).getEndtime());
+        } else if (task instanceof FixedDurationTask) {
+            line.append(" | ").append(((FixedDurationTask) task).getDurationInMinutes());
         }
-        return sb.toString();
+
+        return line.toString();
     }
 
     /**
-     * Creates the data directory if it does not already exist.
-     * This ensures that the directory structure is in place for storing task files.
+     * Creates the data directory if it does not exist.
      */
     private void createDataDirectory() {
         File dataDir = new File("./data");
@@ -204,4 +169,3 @@ public class Storage {
         }
     }
 }
-

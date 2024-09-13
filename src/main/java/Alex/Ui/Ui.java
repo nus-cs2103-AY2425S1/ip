@@ -31,9 +31,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public String showWelcome() {
-        String welcomeMessage = "Hello! I'm Alex, your friendly assistant!\nWhat can I do for you?";
-        appendMessage(welcomeMessage);
-        return welcomeMessage;
+        return "Hello! I'm Alex, your friendly assistant!\nWhat can I do for you?";
     }
 
     public String showBye() {

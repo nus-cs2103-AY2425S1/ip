@@ -15,6 +15,7 @@ import Alex.Exceptions.UnknownCommandException;
 import Alex.Task.Deadline;
 import Alex.Task.DefaultTask;
 import Alex.Task.Event;
+import Alex.Task.FixedDurationTask;
 import Alex.Task.Todo;
 
 /**
@@ -47,6 +48,33 @@ public class Parser {
                 throw new AlexException("Invalid event format. Correct format: event [description] /from [start] /to [end]");
             }
             return new AddCommand(new Event(parts[0], parts[1], parts[2]));
+        } else if (userInput.startsWith("fixed duration ")) {
+            String taskAndDuration = userInput.substring(15);
+
+            // Check if the format is correct, with duration inside parentheses
+            int openParenIndex = taskAndDuration.indexOf('(');
+            int closeParenIndex = taskAndDuration.indexOf(')');
+
+            if (openParenIndex == -1 || closeParenIndex == -1 || !taskAndDuration.contains(" minutes")) {
+                throw new AlexException("Invalid format. Correct format: fixed duration [task] (XX minutes)");
+            }
+            // Extract task description and duration
+            String taskDescription = taskAndDuration.substring(0, openParenIndex).trim();
+            String durationPart = taskAndDuration.substring(openParenIndex + 1, closeParenIndex).trim();
+
+            // Split duration part and check format
+            String[] durationParts = durationPart.split(" ");
+            int duration;
+            try {
+                duration = Integer.parseInt(durationParts[0]);
+                if (!durationParts[1].equals("minutes")) {
+                    throw new AlexException("Invalid format. Duration must be in minutes.");
+                }
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                throw new AlexException("Invalid duration format. Use: fixed duration [task] (XX minutes)");
+            }
+
+            return new AddCommand(new FixedDurationTask(taskDescription, duration));
         } else if (userInput.startsWith("find ")) {
             return new FindCommand(userInput.substring(5));
         } else if (userInput.startsWith("mark ")) {
@@ -65,11 +93,14 @@ public class Parser {
             throw new EmptyTodoException();
         } else if (userInput.toLowerCase().equals("blah")) {
             throw new UnknownCommandException();
-        } else {
-            // Default behavior for unrecognized commands
-            return new AddDefaultCommand(new DefaultTask(userInput));
+        } else if (userInput.toLowerCase().equals("fixed duration")) {
+            throw new UnknownCommandException();
         }
+        // Default behavior for unrecognized commands
+        return new AddDefaultCommand(new DefaultTask(userInput));
     }
+
+
 
     /**
      * Parses the task index from the user input.
