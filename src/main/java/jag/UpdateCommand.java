@@ -8,6 +8,14 @@ import java.time.format.DateTimeFormatter;
  * Class to encapsulate Updating a given task
  */
 public class UpdateCommand extends Command {
+
+    /**
+     * Updates the clients requested task
+     *
+     * @param tasks Instance of TaskList to find the task to be updated
+     * @param ui Instance of the Ui to respond with the client upon request
+     * @param storage Instance of Storage to save updated task
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String description;
