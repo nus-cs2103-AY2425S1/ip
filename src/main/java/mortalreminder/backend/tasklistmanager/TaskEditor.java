@@ -9,7 +9,9 @@ import mortalreminder.tasks.Task;
  * Handles marking, unmarking or deleting tasks that have already been created.
  */
 public class TaskEditor {
-
+    private static final String unreachableCodeErrorMessage =
+            "This statement should be unreachable, code has an error!";
+    private static final String invalidNumberFormatErrorMessage = "Please enter a valid number after the command!";
     /**
      * Marks, or unmarks a task based on the given command type.
      * <p>
@@ -33,12 +35,12 @@ public class TaskEditor {
             } else if (commandType == CommandType.UNMARK) {
                 feedback = newTask.markUndone();
             } else {
-                throw new MortalReminderException("This statement should be unreachable, code has an error!");
+                throw new MortalReminderException(unreachableCodeErrorMessage);
             }
             TaskListStorage.refreshStorageFile(taskList);
             return feedback;
         } catch (NumberFormatException e) {
-            throw new MortalReminderException("Please enter a valid number after the command!");
+            throw new MortalReminderException(invalidNumberFormatErrorMessage);
         }
     }
 
@@ -58,5 +60,13 @@ public class TaskEditor {
     private static Task retrieveTask(String commandDetails, TaskList taskList) throws MortalReminderException {
         int index = Integer.parseInt(commandDetails) - 1;
         return taskList.getTask(index);
+    }
+
+    public static String getUnreachableCodeErrorMessage() {
+        return unreachableCodeErrorMessage;
+    }
+
+    public static String getInvalidNumberFormatErrorMessage() {
+        return invalidNumberFormatErrorMessage;
     }
 }
