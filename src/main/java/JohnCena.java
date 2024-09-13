@@ -1,5 +1,5 @@
-import Storage.Storage;
-import Tasks.Task;
+import storage.Storage;
+import tasks.Task;
 import exceptions.*;
 
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Parser.InputHandler;
+import parser.InputHandler;
 
 
 public class JohnCena {

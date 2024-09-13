@@ -1,9 +1,9 @@
-package Parser;
+package parser;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 import exceptions.*;
 
 import java.time.LocalDate;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import art.Logo;
 
-import Storage.Storage;
+import storage.Storage;
 
 /**
  * This class is responsible for handling user input and executing the corresponding commands.

@@ -1,17 +1,17 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDate;
 
 /**
  * Represents a task.
- * A Tasks.Task object corresponds to a task represented by a description and a completion status.
+ * A tasks.Task object corresponds to a task represented by a description and a completion status.
  */
 public class Task {
     private String description;
     private boolean isDone;
 
     /**
-     * Constructor for Tasks.Task class.
+     * Constructor for tasks.Task class.
      *
      * @param description The description of the task.
      */

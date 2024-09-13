@@ -1,9 +1,9 @@
-package Storage;
+package storage;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 import exceptions.CenaException;
 
 import java.io.*;
@@ -55,7 +55,7 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    // Assuming the toString method of Tasks.Task class returns a string that can be used to recreate the task
+                    // Assuming the toString method of tasks.Task class returns a string that can be used to recreate the task
                     tasks.add(parseTask(line));
                 } catch (CenaException e) {
                     System.out.println(e.getMessage());
@@ -71,11 +71,11 @@ public class Storage {
 
 
     /**
-     * Parses a line from the file into a Tasks.Task object.
+     * Parses a line from the file into a tasks.Task object.
      *
      * @param line The line to parse.
-     * @return The Tasks.Task object created from the line.
-     * @throws CenaException If the line cannot be parsed into a Tasks.Task object.
+     * @return The tasks.Task object created from the line.
+     * @throws CenaException If the line cannot be parsed into a tasks.Task object.
      */
     private static Task parseTask(String line) throws CenaException {
         Task task = null;
@@ -111,10 +111,10 @@ public class Storage {
     }
 
     /**
-     * Converts a Tasks.Task object into a string that can be saved to a file.
+     * Converts a tasks.Task object into a string that can be saved to a file.
      *
-     * @param task The Tasks.Task object to convert.
-     * @return The string representation of the Tasks.Task object.
+     * @param task The tasks.Task object to convert.
+     * @return The string representation of the tasks.Task object.
      */
     private static String toSaveString(Task task) {
         String taskStatus = task.isTaskDone() ? "1" : "0";
