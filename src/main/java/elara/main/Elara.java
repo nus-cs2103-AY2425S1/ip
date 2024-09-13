@@ -15,15 +15,22 @@ import elara.utils.Ui;
  */
 public class Elara {
 
-    private static final String FILE_PATH = "./data/Elara.txt";
-
     private final Storage storage;
     private final TaskList taskList;
     private final Ui ui;
+    private static final String FILE_PATH = "./data/Elara.txt";
 
     /**
      * Constructs an instance of the Elara chatbot.
+     *
+     * @param filePath The file path where the task list is stored.
      */
+    public Elara(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        taskList = new TaskList(storage.load());
+    }
+
     public Elara() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -51,13 +58,33 @@ public class Elara {
         }
     }
 
+    public String getResponse(String input) {
+        String response;
+
+        if (input.equals("bye")) {
+            ui.showExitMessage();
+            response = ui.getLastResponse();
+            return response;
+        }
+
+        try {
+            Command cmd = Parser.parse(input);
+            cmd.execute(taskList, ui, storage);
+            response = ui.getLastResponse();
+        } catch (InvalidInputException e) {
+            ui.showInvalidCommandMessage(e);
+            response = ui.getLastResponse();
+        }
+        return response;
+    }
+
     /**
      * The main method that starts the Elara chatbot program.
-     * Initializes the chatbot with  the given file path to store tasks.
+     * Initializes the chatbot with the given file path to store tasks.
      *
      * @param args Command-line arguments (not used in this program).
      */
     public static void main(String[] args) {
-        new Elara().run();
+        new Elara(FILE_PATH).run();
     }
 }
