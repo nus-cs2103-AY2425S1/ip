@@ -47,7 +47,13 @@ public class SnoozeCommand extends Command {
         if (!t.isScheduledTask()) {
             throw new LictException("Only DEADLINE or EVENT tasks can be snoozed.");
         }
-        t.snoozeTask(ui, messageParts[1].trim());
+        String newDateTime;
+        if (messageParts.length != 2) {
+            newDateTime = "";
+        } else {
+            newDateTime = messageParts[1].trim();
+        }
+        t.snoozeTask(ui, newDateTime);
         ui.hasSnoozedTask(t);
         storage.saveTasks(tasks);
     }

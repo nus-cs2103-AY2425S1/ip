@@ -46,12 +46,11 @@ public class Deadline extends Task {
 
     @Override
     public void snoozeTask(Ui ui, String info) throws LictException {
-        String[] infoParts = info.split("/by", 2);
-        if (infoParts.length != 2 || infoParts[1].trim().isEmpty()) {
-            throw new LictException("Please include the new deadline you wish to set in the following format: "
+        if (!info.startsWith("/by")) {
+            throw new LictException("Please include the new deadline you wish to set in the following format:\n"
                     + "snooze {task number} /by {new deadline}");
         }
-        String newDeadline = infoParts[1].trim();
+        String newDeadline = info.substring(3);
         try {
             this.by = new DateTime(newDeadline);
         } catch (DateTimeException e) {

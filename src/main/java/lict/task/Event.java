@@ -54,19 +54,17 @@ public class Event extends Task {
 
     @Override
     public void snoozeTask(Ui ui, String info) throws LictException {
-        String[] infoParts = info.split("/from", 2);
-        if (infoParts.length != 2 || infoParts[1].trim().isEmpty()) {
-            throw new LictException("Please include the new event details you wish to set in the following format: "
+        if (!info.startsWith("/from")) {
+            throw new LictException("Please include the new event details you wish to set in the following format:\n"
                     + "snooze {task number} /from {new event start} /to {new event end}");
         }
-        String trimmedDetails = infoParts[1].trim();
-        String[] newEventInfo = trimmedDetails.split("/to", 2);
-        if (newEventInfo.length != 2) {
-            throw new LictException("Please include the new event details you wish to set in the following format: "
+        String[] newEventInfo = info.substring(5).split("/to", 2);
+        if (newEventInfo.length != 2 || newEventInfo[0].isEmpty() || newEventInfo[1].isEmpty()) {
+            throw new LictException("Please include the new event details you wish to set in the following format:\n"
                     + "snooze {task number} /from {new event start} /to {new event end}");
         }
-        String newFrom = newEventInfo[0];
-        String newTo = newEventInfo[1];
+        String newFrom = newEventInfo[0].trim();
+        String newTo = newEventInfo[1].trim();
         try {
             this.from = new DateTime(newFrom);
             //If 'newTo' only contains time, assume that it has the same date as from
