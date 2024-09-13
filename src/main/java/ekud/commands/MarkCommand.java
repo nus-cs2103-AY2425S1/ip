@@ -25,26 +25,34 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        String responseMessageFormat = """
+                Wowie!! You've completed your task!
+                I shall mark it as complete in celebration!
+                  %s
+                %s!""";
+
+        // find task and mark as done
         Task task = tasks.getTask(index);
         String previousSaveState = task.getSaveTaskString();
         task.markAsDone();
-        String listStatus = tasks.isAllComplete()
-                ? String.format("WOOHOO!! YOU DID IT! Everything is complete!! All %d of them",
-                tasks.getCount())
-                : String.format("Woohoo!! Only %d out of %d tasks more to go",
-                tasks.getIncompleteCount(),
-                tasks.getCount());
-        String message = String.format("""
-                        Wowie!! You've completed your task!
-                        I shall mark it as complete in celebration!
-                          %s
-                        %s!""",
-                task,
-                listStatus);
-        ui.addToBuffer(message);
+
+        // send response
+        String listStatus = getListStatus(tasks);
+        ui.addFormattedToBuffer(responseMessageFormat, task.toString(), listStatus);
 
         // update data file
         storage.updateTaskState(task, previousSaveState, ui);
+    }
+
+    private static String getListStatus(TaskList tasks) {
+        String responseAllCompleteFormat = "WOOHOO!! YOU DID IT! Everything is complete!! All %d of them";
+        String responseInProgressFormat = "Woohoo!! Only %d out of %d tasks more to go";
+
+        if (tasks.isAllComplete()) {
+            return String.format(responseAllCompleteFormat, tasks.getCount());
+        } else {
+            return String.format(responseInProgressFormat, tasks.getIncompleteCount(), tasks.getCount());
+        }
     }
 
     @Override

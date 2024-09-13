@@ -26,36 +26,45 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        String responseDeleteCompleted = "Great work on completing your task!";
+        String responseDeleteIncomplete = "I'm going to assume that task wasn't meant to be there...";
+        String responseMessageFormat = """
+                %s
+                Proceeding with ekud.task removal directive...
+                  deleted: %s
+                %s""";
+
         Task removed = tasks.removeTask(index);
+
         String completeResponse = removed.isDone()
-                ? "Great work on completing your ekud.task!"
-                : "I'm going to assume that ekud.task wasn't meant to be there...";
+                ? responseDeleteCompleted
+                : responseDeleteIncomplete;
+        String listStatus = getListStatus(tasks);
 
-        String listStatus;
-        if (tasks.isEmpty()) {
-            listStatus = "Well, looks like there is nothing left for you do!";
-        } else if (tasks.isAllComplete()) {
-            listStatus = String.format("I've ran the numbers, and it says that all %d tasks are complete!",
-                    tasks.getCount());
-        } else {
-            listStatus = String.format("Now get a move on, "
-                            + "you have %d out of %d incomplete tasks remaining!",
-                    tasks.getIncompleteCount(),
-                    tasks.getCount());
-        }
-
-        String message = String.format("""
-                        %s
-                        Proceeding with ekud.task removal directive...
-                          deleted: %s
-                        %s
-                        """,
-                completeResponse,
-                removed,
-                listStatus);
-        ui.addToBuffer(message);
+        ui.addFormattedToBuffer(responseMessageFormat, completeResponse, removed, listStatus);
 
         storage.deleteTask(removed, ui);
+    }
+
+    /**
+     * Checks the given {@link TaskList} and returns a status {@link String}.
+     * @param tasks The {@link TaskList} to check.
+     * @return The status {@link String}.
+     */
+    private static String getListStatus(TaskList tasks) {
+        String responseEmpty = "Well, looks like there is nothing left for you do!";
+        String responseAllCompleteFormat =
+                "I've ran the numbers, and it says that all %d tasks are complete!";
+        String responseElseFormat =
+                "Now get a move on, you have %d out of %d incomplete tasks remaining!";
+
+        if (tasks.isEmpty()) {
+            return responseEmpty;
+        } else if (tasks.isAllComplete()) {
+            return String.format(responseAllCompleteFormat, tasks.getCount());
+        } else {
+            return String.format(responseElseFormat, tasks.getIncompleteCount(), tasks.getCount());
+        }
     }
 
     @Override

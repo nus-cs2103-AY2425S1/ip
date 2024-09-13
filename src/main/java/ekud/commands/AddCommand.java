@@ -24,13 +24,12 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        String responseFormat = "added: %s\nAnd another one; %d out of %d tasks to complete...";
+
         tasks.addTask(task);
 
-        String message = String.format("added: %s\nAnd another one; %d out of %d tasks to complete...",
-                task,
-                tasks.getIncompleteCount(),
-                tasks.getCount());
-        ui.addToBuffer(message);
+        ui.addFormattedToBuffer(responseFormat, task.toString(),
+                tasks.getIncompleteCount(), tasks.getCount());
 
         storage.saveNewTask(task, ui);
     }
