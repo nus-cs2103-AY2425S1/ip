@@ -26,6 +26,10 @@ public class Bunbun {
         this.ui = new Ui();
         this.list = new TaskList(this.storage, this.ui);
     }
+
+    public void start() {
+        this.storage.initializeTaskFile();
+    }
     public void close() {
         this.storage.writeAllFromList(list);
     }

@@ -35,6 +35,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Bunbun instance */
     public void setBunbun(Bunbun b) {
         bunbun = b;
+        bunbun.start();
     }
 
     /**
