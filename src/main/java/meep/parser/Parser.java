@@ -23,7 +23,8 @@ enum Command {
     EVENT,
     TODO,
     LIST,
-    FIND
+    FIND,
+    HELP
 }
 
 /**
@@ -170,6 +171,8 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 return ui.invalidFindCommand();
             }
+        } else if (CommandParser.checkCommandWithoutArgument(input, Command.HELP.toString())) {
+            return ui.help();
         }
         // Any other command will be considered invalid
         return ui.invalidCommand();
