@@ -2,7 +2,6 @@ package bot;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
 import bot.enums.Command;
 import bot.exceptions.BotException;
@@ -64,7 +63,7 @@ public class Bot {
         return "Here are the tasks in your list:\n" + tasks.search(args);
     }
 
-    private String handleAddTask(Command cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
+    private String handleAddTask(Command cmd, String args) throws InvalidTaskDescriptionException {
         Task taskToAdd;
         if (cmd.equals(Command.TODO)) {
             if (args.isEmpty()) {
