@@ -20,11 +20,14 @@ public class MarkCommand extends Command {
      * @param index The index to mark as complete.
      */
     public MarkCommand(int index) {
-        this.index = index - 1;
+        assert index >= 0 : "index should be non negative";
+
+        this.index = index;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        super.execute(tasks, ui, storage);
         String responseMessageFormat = """
                 Wowie!! You've completed your task!
                 I shall mark it as complete in celebration!

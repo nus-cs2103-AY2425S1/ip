@@ -33,7 +33,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        super.execute(tasks, ui, storage);
         String responseAcknowledge = """
                 Urrgh! Why do you bother me with this task!
                 Fine, fine.... I will go look for them...
