@@ -22,6 +22,13 @@ public class Event extends Task {
         super(description);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
+        this.name = "event";
+    }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        Event other = (Event) otherTask;
+        return this.from.compareTo(other.from);
     }
 
     @Override

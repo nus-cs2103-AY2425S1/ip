@@ -19,6 +19,13 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDate.parse(by);
+        this.name = "deadline";
+    }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        Deadline other = (Deadline) otherTask;
+        return this.by.compareTo(other.by);
     }
 
     @Override

@@ -27,11 +27,13 @@ public class Parser {
      * @return a boolean which determined if nen2 should continue read user input
      */
     public Command parse(String input) {
-        String arg = "";
+        String arg = input.split(" ").length > 1
+                ? input.split(" ")[1]
+                : "";
         String action = input.split(" ")[0];
         try {
             switch(action) {
-            case "bye", "list", "find":
+            case "bye", "list", "find", "sort":
                 break;
             case "mark", "delete", "unmark":
                 arg = String.valueOf(getIndex(input));

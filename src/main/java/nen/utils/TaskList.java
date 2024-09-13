@@ -1,7 +1,7 @@
 package nen.utils;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.Collections;
 
 import nen.exceptions.FailToParseDataException;
 import nen.tasks.Task;
@@ -13,9 +13,7 @@ import nen.tasks.Todo;
  * @author Gan Ren Yick (A0276246X)
  */
 public class TaskList {
-    private static ArrayList<Task> listOfTasks = new ArrayList<>();
-
-    private static PriorityQueue<Task> listOfTasksWithDeadline = new PriorityQueue<>();
+    private ArrayList<Task> listOfTasks = new ArrayList<>();
 
     public TaskList() {
 
@@ -36,11 +34,18 @@ public class TaskList {
     }
 
     /**
+     * Constructs a list of tasks
+     * @param taskList of type ArrayList of Task
+     */
+    public TaskList(ArrayList<Task> taskList) {
+        listOfTasks.addAll(taskList);
+    }
+
+    /**
      * Returns an array of strings which represent all the tasks which will be saved in file
      * @return array of task string
      */
     public String[] toDataStringArr() {
-        String[] out = new String[listOfTasks.size()];
         return listOfTasks.stream().map(Task::toData).toArray(String[]::new);
     }
 
@@ -94,12 +99,33 @@ public class TaskList {
         listOfTasks.add(t);
     }
 
+    /**
+     * Sort the task list of the given type of task
+     * @param taskClassName string of the task type
+     * @return ArrayList of Task which are sorted
+     */
+    public TaskList sort(String taskClassName) {
+        ArrayList<Task> temp = new ArrayList<>();
+        TaskList out;
+        for (int i = listOfTasks.size() - 1; i >= 0; i--) {
+            if (listOfTasks.get(i).getClassName().equals(taskClassName)) {
+                temp.add(listOfTasks.get(i));
+                listOfTasks.remove(i);
+            }
+        }
+        Collections.sort(temp);
+        out = new TaskList(temp);
+        temp.addAll(listOfTasks);
+        listOfTasks = temp;
+        return out;
+    }
+
     @Override
     public String toString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            str += String.valueOf(i + 1) + "." + listOfTasks.get(i) + "\n";
+            str.append(String.valueOf(i + 1)).append(".").append(listOfTasks.get(i)).append("\n");
         }
-        return str;
+        return str.toString();
     }
 }
