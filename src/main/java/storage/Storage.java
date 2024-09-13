@@ -56,6 +56,9 @@ public class Storage {
      */
     public TaskList initTasks() throws IOException, DynamikeException {
         TaskList tasks = new TaskList();
+        if (this.filePath == null) {
+            return tasks;
+        }
         File file = new File(this.filePath);
         if (!file.exists()) {
             return tasks;
