@@ -124,7 +124,6 @@ public class Parser {
     public static String changeDateFormat(String by) {
 
         List<String> formats = new ArrayList<>();
-        formats.add("yyyy-MM-dd");
         formats.add("d/M/yyyy");
         formats.add("d/M/yyyy HHmm");
 
@@ -143,6 +142,90 @@ public class Parser {
             }
         }
         return "TimeDate cannot be converted to another format :'0";
+    }
+
+    public static boolean isSameDate(String desiredDate, String taskDate) {
+        DateTimeFormatter desiredFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate desiredLocalDate = LocalDate.parse(desiredDate, desiredFormatter);
+
+        List<String> taskFormats = new ArrayList<>();
+        taskFormats.add("d/M/yyyy");
+        taskFormats.add("d/M/yyyy HHmm");
+
+        for (String format : taskFormats) {
+            DateTimeFormatter taskFormatter = DateTimeFormatter.ofPattern(format);
+            try {
+                if (format.contains("HHmm")) {
+                    LocalDateTime taskLocalDateTime = LocalDateTime.parse(taskDate, taskFormatter);
+                    if (taskLocalDateTime.toLocalDate().equals(desiredLocalDate)) {
+                        return true;
+                    }
+                } else {
+                    LocalDate taskLocalDate = LocalDate.parse(taskDate, taskFormatter);
+                    if (taskLocalDate.equals(desiredLocalDate)) {
+                        return true;
+                    }
+                }
+            } catch (DateTimeParseException e) {
+                // ignore and continue to next format
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the desired date is within the range of the task's from and to dates.
+     *
+     * @param desiredDate the date to check
+     * @param taskFromDate the task's from date
+     * @param taskToDate the task's to date
+     * @return true if the desired date is inclusive of either taskFromDate or taskToDate, or if it falls between them
+     */
+    public static boolean isDateInRange(String desiredDate, String taskFromDate, String taskToDate) {
+        DateTimeFormatter desiredFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate desiredLocalDate = LocalDate.parse(desiredDate, desiredFormatter);
+
+        List<String> taskFormats = new ArrayList<>();
+        taskFormats.add("d/M/yyyy");
+        taskFormats.add("d/M/yyyy HHmm");
+
+        LocalDate taskFromLocalDate = null;
+        LocalDate taskToLocalDate = null;
+
+        for (String format : taskFormats) {
+            DateTimeFormatter taskFormatter = DateTimeFormatter.ofPattern(format);
+            try {
+                if (format.contains("HHmm")) {
+                    LocalDateTime taskLocalDateTime = LocalDateTime.parse(taskFromDate, taskFormatter);
+                    taskFromLocalDate = taskLocalDateTime.toLocalDate();
+                } else {
+                    taskFromLocalDate = LocalDate.parse(taskFromDate, taskFormatter);
+                }
+            } catch (DateTimeParseException e) {
+                // ignore and continue to next format
+            }
+        }
+
+        for (String format : taskFormats) {
+            DateTimeFormatter taskFormatter = DateTimeFormatter.ofPattern(format);
+            try {
+                if (format.contains("HHmm")) {
+                    LocalDateTime taskLocalDateTime = LocalDateTime.parse(taskToDate, taskFormatter);
+                    taskToLocalDate = taskLocalDateTime.toLocalDate();
+                } else {
+                    taskToLocalDate = LocalDate.parse(taskToDate, taskFormatter);
+                }
+            } catch (DateTimeParseException e) {
+                // ignore and continue to next format
+            }
+        }
+
+        if (taskFromLocalDate != null && taskToLocalDate != null) {
+            return (desiredLocalDate.isEqual(taskFromLocalDate) || desiredLocalDate.isEqual(taskToLocalDate) ||
+                    (desiredLocalDate.isAfter(taskFromLocalDate) && desiredLocalDate.isBefore(taskToLocalDate)));
+        }
+
+        return false;
     }
 
     /**
@@ -184,6 +267,9 @@ public class Parser {
             break;
         case "find":
             output = new FindCommand().execute(list, ui, storage, rest);
+            break;
+        case "view":
+            output = new ViewCommand().execute(list, ui, storage, rest);
             break;
         case "bye":
             output = "Hope to see you again!";

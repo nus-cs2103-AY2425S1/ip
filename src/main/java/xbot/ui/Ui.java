@@ -19,11 +19,10 @@ public class Ui {
      * @param list The TaskList containing the tasks to be displayed.
      */
     public String showTaskList(TaskList list) {
-        String output;
+        String output = "";
         if (list.size() == 0) {
-            output = ("Yayy!! You have no task in your list");
+            output = showNoTask();
         } else {
-            output = ("Here are the tasks in your list:\n");
             for (int i = 0; i < list.size(); i++) {
                 int index = i + 1;
                 output = output + (index + ". " + list.get(i).toString() + "\n");
@@ -85,6 +84,10 @@ public class Ui {
      */
     public String mainErrorMessage(XBotException e) {
         return ("Oh No!! " + e.getMessage());
+    }
+
+    public String showNoTask() {
+        return "Yayy!! You have no task in your list";
     }
 
     /**

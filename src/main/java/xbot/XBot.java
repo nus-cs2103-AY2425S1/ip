@@ -14,7 +14,7 @@ import xbot.ui.Ui;
  * that continuously processes user input until the user exits the program.
  */
 public class XBot {
-    private static TaskList list = new TaskList();
+    private static TaskList list;
     private static Storage storage = new Storage();
     private static Ui ui = new Ui();
     private static Parser parser = new Parser();
@@ -28,14 +28,17 @@ public class XBot {
      */
     public static void main(String[] args) {
     }
+
+    public XBot() {
+        try {
+            this.list = storage.loadTask();
+        } catch (IOException e) {
+            storage.cleanData();
+        }
+    }
+
     public String getResponse(String input) {
         String output;
-        try {
-            storage.loadTask();
-        } catch (IOException e) {
-            return ("Error loading tasks: " + e.getMessage());
-        }
-
         try {
             output = parser.processInput(input, list, ui, storage);
         } catch (XBotException e) {

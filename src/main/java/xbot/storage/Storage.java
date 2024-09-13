@@ -27,11 +27,11 @@ public class Storage {
      *
      * @throws IOException If an I/O error occurs during the loading process.
      */
-    public void loadTask() throws IOException {
+    public TaskList loadTask() throws IOException {
         TaskList list = new TaskList();
         if (!Files.exists(DATA_PATH)) {
             createFile();
-            return;
+            return list;
         }
 
         //Add all task in data/XBot.txt to the list
@@ -43,8 +43,7 @@ public class Storage {
                     list.add(task);
                 }
             }
-        } catch (FileNotFoundException e) {
-            throw new IOException("File not found", e);
+            return list;
         } catch (UnknownTaskTypeException e) {
             throw new IOException("Invalid data in file!");
         }
@@ -89,6 +88,17 @@ public class Storage {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Clears the contents of the DATA_PATH file.
+     */
+    public void cleanData() {
+        try (FileWriter writer = new FileWriter(DATA_PATH.toFile())) {
+            writer.write("");
+        } catch (IOException e) {
+            System.out.println("Error cleaning data: " + e.getMessage());
         }
     }
 }
