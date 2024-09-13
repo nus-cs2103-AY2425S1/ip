@@ -10,20 +10,22 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String NAME = "neon.Neon";
-    private static final String DASH_BREAK = "-----------------------------------";
+    private static final String DASH_BREAK = "-----------------------------------\n";
 
-    public void printGreetingLine() {
-        System.out.println(DASH_BREAK);
-        String greeting = "hello i'm " + NAME + "!\n"
-                + "what can i help you with?";
-        System.out.println(greeting);
-        System.out.println(DASH_BREAK);
+    public String printGreetingLine() {
+        StringBuilder response = new StringBuilder();
+        response.append(DASH_BREAK);
+        response.append("hello i'm " + NAME + "!\n"
+                + "what can i help you with?");
+        response.append(DASH_BREAK);
+        return response.toString();
     }
 
-    public void printClosingLine() {
-        String closing = "byeee! nice to meet you :)";
-        System.out.println(closing);
-        System.out.println(DASH_BREAK);
+    public String printClosingLine() {
+        StringBuilder response = new StringBuilder();
+        response.append("byeee! nice to meet you :)\n");
+        response.append(DASH_BREAK);
+        return response.toString();
     }
 
     public void printLine() {

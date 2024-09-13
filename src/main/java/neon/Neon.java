@@ -20,18 +20,31 @@ public class Neon {
     }
 
     public void run() {
-        ui.printGreetingLine();
-        boolean isExit = false;
+        System.out.println(ui.printGreetingLine());
+        boolean isExited = false;
 
         Scanner scanner = new Scanner(System.in);
 
-        while (!isExit) {
-            isExit = parser.processInput(scanner.nextLine());
+        while (!isExited) {
+            Object[] processedInput = new Object[2];
+            processedInput = parser.processInput(scanner.nextLine());
+            isExited = (boolean)processedInput[0];
         }
 
-        ui.printClosingLine();
+        System.out.println(ui.printClosingLine());
 
         storage.save(tasks.getTasks());
+    }
+
+    public String getResponse(String input) {
+        StringBuilder response = new StringBuilder();
+        try {
+            Object[] processedInput = new Object[2];
+            processedInput = parser.processInput(input);
+            return (String) processedInput[1];
+        } catch (Exception e) {
+            return ("error: " + e);
+        }
     }
 
     public static void main(String[] args) throws IOException {

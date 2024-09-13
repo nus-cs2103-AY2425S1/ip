@@ -37,19 +37,22 @@ public class TaskList {
         return tasks;
     }
 
-    public void printList() {
-        String message = "";
+    public String printList() {
+        StringBuilder message = new StringBuilder();
         if (getSize() == 0) {
-            message = "nothing in the list!";
+            message.append("nothing in the list!\n");
         } else {
-            message = "printing list:";
+            message.append("printing list:\n");
         }
 
-        System.out.println(message);
+        //message.append(message);
 
         for(int i = 0; i < getSize(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i).toString());
+            int inc = i + 1;
+            message.append((inc) + ". " + tasks.get(i).toString() + "\n");
         }
+
+        return message.toString();
     }
 
     public void markItem(int taskNumber) {

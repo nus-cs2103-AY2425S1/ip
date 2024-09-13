@@ -12,19 +12,21 @@ public class Parser {
         this.ui = ui;
     }
 
-    public boolean processInput(String input) {
+    public Object[] processInput(String input) {
+        String response = "nothing here for now";
         String[] inputArray = input.split(" ", 2);
 
         ui.printLine();
 
         switch (inputArray[0]) {
         case "bye":
-            return true;
+            return new Object[] {true, ui.printClosingLine()};
 
         case "list":
-            tasks.printList();
+            response = tasks.printList();
             break;
 
+            //continue here!!!
         case "mark":
             tasks.markItem(extractTaskIndex(input));
             break;
@@ -96,8 +98,8 @@ public class Parser {
             System.out.println("cannot read : " + inputArray[0]);
             break;
         }
-        ui.printLine();
-        return false;
+        //ui.printLine();
+        return new Object[] {false, response};
     }
 
     private static String removeSpace(String line) {
