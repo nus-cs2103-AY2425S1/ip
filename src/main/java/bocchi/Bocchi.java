@@ -10,6 +10,7 @@ import bocchi.task.TaskList;
 import bocchi.task.Todo;
 
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 /**
  * Represents a chatbot that can manage tasks.
@@ -121,7 +122,12 @@ public class Bocchi {
      * @param task The task to be added.
      * @return The response to the command.
      */
-    private String task(Task task) {
+    private String task(Task task, String tagString) {
+        if (tagString != null) {
+            Arrays.stream(tagString.split(" +"))
+                    .sequential()
+                    .forEach(task::addTag);
+        }
         taskList.addTask(task);
         return TASK_MESSAGE;
     }
@@ -210,13 +216,13 @@ public class Bocchi {
                 case "list" -> list();
                 case "mark" -> mark(Integer.parseInt(command.getParam()));
                 case "unmark" -> unmark(Integer.parseInt(command.getParam()));
-                case "todo" -> task(new Todo(command.getParam()));
-                case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParams("by")));
+                case "todo" -> task(new Todo(command.getParam()), command.getKeywordParams("tag"));
+                case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParams("by")), command.getKeywordParams("tag"));
                 case "event" -> task(new Event(
                         command.getParam(),
                         command.getKeywordParams("from"),
                         command.getKeywordParams("to")
-                ));
+                        ), command.getKeywordParams("tag"));
                 case "del", "delete" -> delete(Integer.parseInt(command.getParam()));
                 case "" -> throw new BocchiException(EMPTY_COMMAND_ERROR_MESSAGE);
                 default -> throw new BocchiException(INVALID_COMMAND_ERROR_MESSAGE);

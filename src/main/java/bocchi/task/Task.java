@@ -3,6 +3,8 @@ package bocchi.task;
 import bocchi.exception.BocchiException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a base task.
@@ -19,9 +21,14 @@ public abstract class Task implements Serializable {
     protected boolean isDone;
 
     /**
+     * The tags of this task.
+     */
+    protected List<String> tags;
+
+    /**
      * The constructor.
      *
-     * @param description tasks.Task description.
+     * @param description Task description.
      * @throws BocchiException If the description is empty.
      */
     public Task(String description) throws BocchiException {
@@ -30,6 +37,23 @@ public abstract class Task implements Serializable {
         }
         this.description = description;
         this.isDone = false;
+        this.tags = new ArrayList<>();
+    }
+
+    /**
+     * The constructor with tags.
+     *
+     * @param description Task description.
+     * @param tags        .Task tags.
+     * @throws BocchiException If the description is empty.
+     */
+    public Task(String description, List<String> tags) throws BocchiException {
+        if (description == null) {
+            throw new BocchiException("So..sorry, but the task description can't be empty.");
+        }
+        this.description = description;
+        this.isDone = false;
+        this.tags = tags;
     }
 
     /**
@@ -56,6 +80,14 @@ public abstract class Task implements Serializable {
         return description;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
     /**
      * Returns a string representation of this task.
      *
@@ -63,6 +95,9 @@ public abstract class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return (isDone ? "[X]" : "[ ]") + " " + description;
+        String tagsString = tags.isEmpty() ? "{}" : "{#" + String.join(" #", tags) + "}";
+        String doneString = isDone ? "[X]" : "[ ]";
+
+        return doneString + " " + tagsString + " " + description;
     }
 }
