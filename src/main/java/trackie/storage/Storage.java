@@ -1,10 +1,14 @@
 package trackie.storage;
 
+import javax.sound.midi.Track;
 import trackie.commands.ListCommand;
+import trackie.parsing.Parser;
 import trackie.tasks.Deadline;
 import trackie.tasks.Event;
 import trackie.tasks.Task;
 import trackie.tasks.Todo;
+import trackie.ui.Trackie;
+import trackie.ui.TrackieException;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +52,7 @@ public class Storage {
      * This method reads the file and populates the associated TaskList with the stored tasks.
      * After loading, it displays the list of loaded tasks.
      */
-    public void load() {
+    public String load() {
         try {
             Scanner sc = new Scanner(fPtr);
             while (sc.hasNextLine()) {
@@ -65,8 +69,17 @@ public class Storage {
                 }
             }
 
+            if (taskList.isEmpty()) {
+                return "You currently have no tasks =)";
+            }
+
+            String loadedList = Parser.parseCommand("list").execute(taskList, this);
+            return "Here are your tasks: \n" + loadedList;
+
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return "Error: File not found.";
+        } catch (TrackieException ex) {
+            return ex.getMessage();
         }
     }
 

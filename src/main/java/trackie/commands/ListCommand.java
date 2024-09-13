@@ -1,12 +1,9 @@
 package trackie.commands;
 
-import javax.sound.midi.Track;
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
 import trackie.tasks.Task;
-import trackie.ui.Trackie;
 import trackie.ui.TrackieException;
-import trackie.ui.Ui;
 
 /**
  * Represents a command to list out all the tasks in the tasklist at a given point in time.
@@ -36,9 +33,10 @@ public class ListCommand extends Command {
 
         int index = 1;
         for (Task t : tasklist.getTasks()) {
-            listOfTasks.append(String.valueOf(index) + ". " + t.toString() + System.lineSeparator());
+            listOfTasks.append(String.format("%d. [%s][%s] %s", index, t.getTaskType(), t.getStatusIcon(), t.toString()));
+            listOfTasks.append(System.lineSeparator());
             index++;
         }
-        return listOfTasks.toString();
+        return "Here are your current tasks: \n" + listOfTasks.toString();
     }
 }

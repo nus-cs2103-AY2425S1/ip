@@ -1,0 +1,3 @@
+T|0|task 1
+E|1|something|1|3
+D|0|finish this damned thing|2024-09-11

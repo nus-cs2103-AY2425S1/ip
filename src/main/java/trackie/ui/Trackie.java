@@ -1,5 +1,6 @@
 package trackie.ui;
 
+import javafx.scene.image.Image;
 import trackie.commands.Command;
 import trackie.parsing.Parser;
 import trackie.storage.Storage;

@@ -23,16 +23,22 @@ public class MainWindow extends AnchorPane {
     private Trackie trackie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image trackieImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        greet();
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Trackie instance */
     public void setTrackie(Trackie t) {
         trackie = t;
+    }
+
+    public void greet() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getTrackieDialog("Yo wassup", new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"))));
     }
 
     /**
@@ -45,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = trackie.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTrackieDialog(response, dukeImage)
+                DialogBox.getTrackieDialog(response, trackieImage)
         );
         userInput.clear();
     }
