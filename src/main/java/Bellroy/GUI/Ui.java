@@ -83,11 +83,24 @@ public class Ui {
         return s;
     }
 
+    public String associationMessage(Task task, String association) {
+        return ("Got it. I've tagged this task:\n " + task + " \nwith association: " + association);
+    }
+
     public String findTask(TaskList matchingTask) {
         if (matchingTask.isEmpty()) {
             return ("There are no matching tasks");
         } else {
             String s = ("Here are the matching tasks in your list:\n" + matchingTask + "\n");
+            return s;
+        }
+    }
+
+    public String filterTask(TaskList filteredTask) {
+        if (filteredTask.isEmpty()) {
+            return ("There are no matching tasks");
+        } else {
+            String s = ("Here are the filtered tasks in your list:\n" + filteredTask + "\n");
             return s;
         }
     }

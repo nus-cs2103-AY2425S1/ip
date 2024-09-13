@@ -16,7 +16,7 @@ public class Parser {
 
     public String parse(String userInput, TaskList taskList, Ui ui, Storage storage) {
         String[] input;
-        if (userInput.startsWith("find ")) {
+        if (userInput.startsWith("find ") || userInput.startsWith("tag ") || userInput.startsWith("filter ")) {
             input = userInput.split(" ", 2);
         } else {
             input = userInput.split(" /", 2);
@@ -68,6 +68,16 @@ public class Parser {
                     String keyword = input[1].trim();
                     TaskList output = taskList.findTask(keyword);
                     return ui.findTask(output);
+                case("tag"):
+                    String[] tagInput = input[1].split(" ", 2);
+                    int tagPos = Integer.parseInt(tagInput[0]);
+                    String association = tagInput[1];
+                    taskList.get(tagPos - 1).setAssociation(association);
+                    return ui.associationMessage(taskList.get(tagPos - 1), association);
+                case("filter"):
+                    String assoc = input[1].trim();
+                    TaskList result = taskList.filterAssociation(assoc);
+                    return ui.filterTask(result);
             }
         } catch (Exception e) {
             return e.getMessage();

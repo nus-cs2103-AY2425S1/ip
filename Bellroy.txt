@@ -1,2 +1,3 @@
 [T][ ] say hello
-[T][X]  swim
+[T][ ] swim
+[T][ ]  run

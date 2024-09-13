@@ -4,6 +4,7 @@ import Bellroy.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Encapsulates the list of tasks in the chatbot
@@ -77,6 +78,16 @@ public class TaskList {
             }
         }
         return matchingTask;
+    }
+
+    public TaskList filterAssociation(String keyword) {
+        TaskList filteredTask = new TaskList();
+        for (Task task: taskList) {
+            if (Objects.equals(task.getAssociation(), keyword)) {
+                filteredTask.addTask(task);
+            }
+        }
+        return filteredTask;
     }
 
     public boolean isEmpty() {
