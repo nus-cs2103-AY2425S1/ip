@@ -1,0 +1,12 @@
+$t Complete automated test cases
+$d Add possible test cases $5pm
+$e Add event test case $Monday 3pm $3.15pm
+$e Add delete test case $3.15pm $3.30pm
+$t Add UI
+$d Complete test case creation by $5pm
+$l
+$m 5
+$del 5
+$l
+$m 2
+$bye
