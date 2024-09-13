@@ -10,6 +10,18 @@ import sora.Tasks.TaskList;
  * It deals with interactions with the user.
  */
 public class Ui {
+    protected static final String HELP = "Here are all the features of Sora:\n"
+            + "Help: Sora's Features\n"
+            + "Welcome: Sora's Greeting\n"
+            + "Bye: Sora's Farewell\n"
+            + "List: Display all Tasks\n"
+            + "Mark (int): Mark a Task\n"
+            + "Unmark (int): Unmark a Task\n"
+            + "Todo (Description): Add Todo Task\n"
+            + "Deadline (Description) /by (dd/MM/yy HHmm): Add Deadline Task\n"
+            + "Event (Description) /from (dd/MM/yy HHmm) /to (dd/MM/yy HHmm): Add Event Task\n"
+            + "Delete (int): Delete a Task\n"
+            + "Find (String): Find a Task\n";
     protected static final String GREETING = "Hello! I'm Sora!\nWhat can I do for you?\n";
     protected static final String FAREWELL = "Bye. Hope to see you again soon!\n";
     protected static final String EMPTYCOMMAND = "Please Enter a Command\n";
