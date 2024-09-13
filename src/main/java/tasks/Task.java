@@ -20,7 +20,6 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
         this.priorityAssignment(priority);
-        //this.priority = priority;
     }
 
     @Override
