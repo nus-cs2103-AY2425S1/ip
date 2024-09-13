@@ -9,14 +9,20 @@ import javafx.scene.layout.VBox;
 
 /**
  * Controller for the main GUI.
+ * This class is responsible for handling user input, interacting with the Duke instance (called Dave),
+ * and updating the user interface.
  */
 public class MainWindow extends AnchorPane {
+
     @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private VBox dialogContainer;
+
     @FXML
     private TextField userInput;
+
     @FXML
     private Button sendButton;
 
@@ -25,6 +31,11 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("userImage.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("dukeImage.png"));
 
+    /**
+     * Initializes the MainWindow by binding the scroll pane's vertical value to the dialog container's height
+     * and setting the scroll behavior.
+     * Ensures the scroll pane adapts to the height and automatically scrolls down when new content is added.
+     */
     @FXML
     public void initialize() {
         assert scrollPane != null : "ScrollPane should not be null"; // Assert that scrollPane is initialized
@@ -36,15 +47,21 @@ public class MainWindow extends AnchorPane {
         dialogContainer.setFillWidth(true);
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Duke (Dave) instance into the controller.
+     * This allows the MainWindow to interact with the Duke instance for task management.
+     *
+     * @param d The Dave instance that handles tasks and processes user commands.
+     */
     public void setDave(Dave d) {
         assert d != null : "Dave instance should not be null"; // Assert that a valid Dave instance is passed
         dave = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by creating dialog boxes for both the user's input and Dave's response.
+     * Adds the dialog boxes to the dialog container and clears the user input field after processing.
+     * This method is triggered when the user clicks the "Send" button or presses enter.
      */
     @FXML
     private void handleUserInput() {
@@ -62,7 +79,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Displays the welcome message and available commands in the dialog container when the app starts.
+     * Displays a welcome message and lists the available commands to the user when the application starts.
+     * This message is displayed in a dialog box within the GUI.
      */
     public void showWelcomeMessage() {
         String welcomeMessage = "Welcome to Dave!\n"
