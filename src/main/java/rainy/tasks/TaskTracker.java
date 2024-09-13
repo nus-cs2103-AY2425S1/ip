@@ -2,6 +2,8 @@ package rainy.tasks;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import rainy.database.UI;
 import rainy.rainyexceptions.InvalidIndexException;
@@ -45,6 +47,12 @@ public class TaskTracker {
      * @return  This method returns the list of tasks in <code>String</code>.
      */
     public String getList() {
+        branch-A-Streams
+        List<Task> newList = this.taskList;
+        AtomicInteger numMatch = new AtomicInteger(1);
+        return (this.counter == 0) ? "No tasks currently!" : (this.taskList.stream().map(t -> t.getIsDone() == false ? "\n" + numMatch.getAndIncrement() + ". [ ] " + t
+                        : "\n" + numMatch.getAndIncrement() + ". [X] " + t)
+                .reduce("Here are your tasks!!! Remember to complete them!!!", (a, b) -> a + b));
         assert(this.counter >= 0);
         if (this.counter == 0) {
             return "No tasks currently!";
@@ -63,6 +71,7 @@ public class TaskTracker {
             }
             return result;
         }
+        master
     }
 
     /**
@@ -223,19 +232,14 @@ public class TaskTracker {
      * @param compareTask  Represents the keyword provided by the user.
      */
     public void findTask(String compareTask) {
-        int numMatch = 0;
-        String output = "Here are some tasks matching your description:";
-        for (Task t: this.taskList) {
-            String taskDescription = t.toString();
-            String[] extractDesc = taskDescription.substring(4).split("\\(");
-            String secondCompare = extractDesc[0];
-            if (secondCompare.toUpperCase().contains(compareTask.toUpperCase())) {
-                numMatch++;
-                output += (t.getIsDone()) ? "\n" + numMatch + ". [X] " + t
-                        : "\n" + numMatch + ". [ ] " + t;
-            }
-        }
-        if (numMatch > 0) {
+        AtomicInteger numMatch = new AtomicInteger(1);
+        List<Task> newList = this.taskList;
+        String output = newList.stream()
+                .filter(t -> t.toString().substring(4).split("\\(")[0].toUpperCase().contains(compareTask.toUpperCase()))
+                .map(x -> ((x.getIsDone()) ? "\n" + (numMatch.getAndIncrement()) + ". [X] " + x
+                        : "\n" + (numMatch.getAndIncrement()) + ". [ ] " + x))
+                .reduce("Here are some tasks matching your description: ", (a, b) -> a + b);
+        if (numMatch.get() > 1) {
             System.out.println(output);
         } else {
             System.out.println("There are no tasks matching your description!");
