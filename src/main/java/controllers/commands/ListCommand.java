@@ -1,5 +1,6 @@
 package controllers.commands;
 
+import controllers.OutputHandler;
 import models.TaskList;
 
 /**
@@ -18,7 +19,7 @@ public class ListCommand implements Command {
      * @param taskList The {@code TaskList} from which tasks are retrieved and displayed.
      */
     @Override
-    public void execute(TaskList taskList) {
-        System.out.println(taskList.listTasks());
+    public void execute(TaskList taskList, OutputHandler outputHandler) {
+        outputHandler.print(taskList.listTasks());
     }
 }

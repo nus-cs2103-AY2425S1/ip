@@ -1,6 +1,7 @@
 package controllers.commands;
 
 import models.TaskList;
+import controllers.OutputHandler;
 
 /**
  * Represents a command to mark a task as completed in the task management system.
@@ -30,15 +31,15 @@ public class MarkTaskCommand implements Command {
      * @param taskList The {@code TaskList} on which the command operates.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, OutputHandler outputHandler) {
         try {
             taskList.markTask(index - 1);
-            System.out.println("____________________________________________________________");
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(taskList.getTask(this.index - 1));
-            System.out.println("____________________________________________________________");
+            outputHandler.print("____________________________________________________________");
+            outputHandler.print("Nice! I've marked this task as done:");
+            outputHandler.print(taskList.getTask(this.index - 1).toString());
+            outputHandler.print("____________________________________________________________");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("index out of bounds");
+            outputHandler.print("index out of bounds");
         }
     }
 }

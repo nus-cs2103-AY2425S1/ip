@@ -1,5 +1,6 @@
 package controllers.commands;
 
+import controllers.OutputHandler;
 import models.Task;
 import models.TaskList;
 
@@ -29,9 +30,9 @@ public class DeleteTaskCommand implements Command {
      * @param taskList The {@code TaskList} from which the task is removed.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, OutputHandler outputHandler) {
         Task task = taskList.removeTask(this.index);
-        System.out.println("____________________________________________________________\n" +
+        outputHandler.print("____________________________________________________________\n" +
                 "Removed: " + task.getDescription() + "\n" +
                 "____________________________________________________________");
     }

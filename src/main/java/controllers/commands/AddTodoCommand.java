@@ -1,5 +1,6 @@
 package controllers.commands;
 
+import controllers.OutputHandler;
 import models.Task;
 import models.Todo;
 import models.TaskList;
@@ -30,9 +31,9 @@ public class AddTodoCommand implements Command {
      * @param taskList The {@code TaskList} to which the task is added.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, OutputHandler outputHandler) {
         taskList.addTask(this.task);
-        System.out.println("____________________________________________________________\n" +
+        outputHandler.print("____________________________________________________________\n" +
                 "added: " + this.task.getDescription() + "\n" +
                 "____________________________________________________________");
     }
