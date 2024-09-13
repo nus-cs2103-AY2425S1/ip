@@ -107,6 +107,7 @@ public class TaskList {
             }
         case "deadline":
             try {
+                // Obtain by or byDate
                 String by = parsedCommand.get(2).substring(3);
                 LocalDateTime byDate = Parser.parseDate(by);
                 if (byDate == null) {
@@ -120,8 +121,10 @@ public class TaskList {
             }
         case "event":
             try {
+                // Obtain from or fromDate
                 String from = parsedCommand.get(2).substring(5);
                 LocalDateTime fromDate = Parser.parseDate(from);
+                // Obtain to or toDate
                 String to = parsedCommand.get(3).substring(3);
                 LocalDateTime toDate = Parser.parseDate(to);
                 if (fromDate != null && toDate != null) {
