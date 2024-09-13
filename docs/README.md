@@ -204,4 +204,4 @@ See you on the other side, Coop
 
 ---
 
-This user guide ensures you have all the information you need to interact with **TARS** and efficiently manage your tasks.
+Enjoy!
