@@ -17,6 +17,11 @@ public class Elsa {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs an Elsa instance.
+     * Initialises the Ui instance and loads tasks from storage while handling any errors that occur during loading.
+     * If an error occurs, an empty TaskList is initialised.
+     */
     public Elsa() {
         ui = new Ui();
 
@@ -30,6 +35,11 @@ public class Elsa {
         }
     }
 
+    /**
+     * Starts and runs the Elsa chatbot.
+     * Greets the user, reads and processes user commands in a loop until the user says goodbye.
+     * Handles any errors that occur during command execution.
+     */
     public void run() {
         ui.greetUser();
 
@@ -54,6 +64,12 @@ public class Elsa {
         }
     }
 
+    /**
+     * The main entry point of the Elsa application.
+     * Creates an Elsa instance and starts its run method.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Elsa().run();
     }

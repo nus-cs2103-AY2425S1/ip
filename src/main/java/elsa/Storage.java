@@ -27,6 +27,12 @@ public class Storage {
     private static final Path DATA_DIR = Paths.get("data");
     private static final Path DATA_FILE = DATA_DIR.resolve("Elsa.txt");
 
+    /**
+     * Initialises the storage and ensures that the data file exists. If the data file does not exist,
+     * it will be created.
+     *
+     * @throws ElsaException If there is an error when ensuring the existence of the data file.
+     */
     public Storage() throws ElsaException {
         ensureDataFileExists();
     }
@@ -36,6 +42,8 @@ public class Storage {
      * If it does not exist, the method creates the ..\ip\data folder.
      * The method then checks if an elsa.ui.Elsa.txt file exists within the ..\ip\data folder.
      * If it does not exist, a new elsa.ui.Elsa.txt file is created.
+     *
+     * @throws ElsaException If there is an error when creating directories or files.
      */
     private static void ensureDataFileExists() throws ElsaException {
         try {
@@ -56,6 +64,7 @@ public class Storage {
      * This method updates the tasks arrayList to match the data in the elsa.ui.Elsa.txt file.
      *
      * @return A list of tasks, reflecting the content found in the elsa.ui.Elsa.txt file.
+     * @throws ElsaException If there is an error when reading from the data file.
      */
     public List<Task> populateTaskList() throws ElsaException {
         List<Task> tasks = new ArrayList<>();
@@ -77,6 +86,7 @@ public class Storage {
      *
      * @param taskInfo A line of text from the file.
      * @return The corresponding elsa.task.Task object.
+     * @throws ElsaException If the task type is invalid or if there is an error when parsing the task.
      */
     private static Task convertStringToTask(String taskInfo) throws ElsaException {
         String[] parts = taskInfo.split(" \\| ");
@@ -113,6 +123,7 @@ public class Storage {
      * Saves the list of tasks to the data file.
      *
      * @param tasks The list of tasks to save.
+     * @throws ElsaException If there is an error when writing to the data file.
      */
     public void saveTasksToDataFile(TaskList tasks) throws ElsaException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE.toFile(), false))) {
@@ -129,8 +140,10 @@ public class Storage {
 
     /**
      * Converts an elsa.task.Task object to a line of text for the file.
+     *
      * @param task The elsa.task.Task object.
      * @return The corresponding line of text.
+     * @throws ElsaException If the task type is unknown or cannot be converted.
      */
     private String taskToString(Task task) throws ElsaException {
         if (task instanceof Todo) {
