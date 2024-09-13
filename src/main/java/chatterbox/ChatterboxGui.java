@@ -142,6 +142,7 @@ public class ChatterboxGui {
         public Event addEvent(String desc, String startDate, String endDate)
                 throws ChatterboxExceptions.ChatterBoxNoInput {
             Event nextEve = new Event(desc, startDate, endDate);
+            assert nextEve != null;
             userTasks.add(nextEve);
             return nextEve;
         }
