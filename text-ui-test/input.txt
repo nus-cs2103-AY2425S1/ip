@@ -1,0 +1,13 @@
+todo dance all night
+todo play games
+deadline sleep /by 4am
+event dance competition /from 5th Aug /to 25th Aug
+todo work
+list
+mark 4
+mark 2
+mark 1
+list
+unmark 4
+list
+bye
