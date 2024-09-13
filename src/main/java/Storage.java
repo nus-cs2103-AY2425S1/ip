@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class is responsible for saving and loading tasks from a file.
@@ -74,7 +76,6 @@ public class Storage {
         Task task = null;
         String[] taskDescription = line.trim().split("\\s*\\|\\s*");
         String taskType = taskDescription[0];
-        System.out.println(Arrays.toString(taskDescription));
 
         switch (taskType) {
             case "T":
@@ -86,7 +87,7 @@ public class Storage {
                 break;
 
             case "E":
-                String[] eventTimes = taskDescription[3].split(" - ");
+                String[] eventTimes = taskDescription[3].split(" ~ ");
                 task = new Event(taskDescription[2], eventTimes[0], eventTimes[1]);
                 break;
 
@@ -121,7 +122,7 @@ public class Storage {
                     + deadline.getBy();
         } else if (task instanceof Event event) {
             taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + event.getDescription() + SEPARATOR
-                    + event.getFrom() + " - " + event.getTo();
+                    + event.getFrom() + " ~ " + event.getTo();
         }
 
         return taskDescription;

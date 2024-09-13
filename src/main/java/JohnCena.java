@@ -1,7 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class JohnCena {
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -28,7 +32,7 @@ public class JohnCena {
     public static void main(String[] args) {
 
         tasks = Storage.loadTasks();
-        //hello();
+
         Scanner scanner;
         if (args.length > 0) {
             try {
@@ -42,12 +46,6 @@ public class JohnCena {
         }
 
         hello();
-//
-//        System.out.println("____________________________________________________________");
-//        System.out.println("Hello from\n" + logo);
-//        //System.out.println(" Hello! I'm John Cena");
-//        System.out.println(" What can I do for you?");
-//        System.out.println("____________________________________________________________");
 
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
@@ -168,15 +166,48 @@ public class JohnCena {
             } catch (NumberFormatException e) {
                 throw new CenaInvalidTaskIndexException("The task index must be a number.");
             }
+        } else if (input.startsWith("on ")) {
+            try {
+                String date = input.substring(3).trim();
+                LocalDate targetDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                System.out.println("____________________________________________________________");
+                System.out.println(" Here are the tasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+                for (int i = 0; i < tasks.size(); i++) {
+                    Task task = tasks.get(i);
+                    if (task.occursOn(targetDate)) {
+                        System.out.println(" " + (i + 1) + "." + task);
+                    }
+                }
+                System.out.println("____________________________________________________________");
+
+            } catch (DateTimeParseException e) {
+                System.out.println("The date and time must be in the format yyyy-MM-dd.");
+            }
+        } else if (input.equals("hello") || input.equals("hi") || input.equals("hey") || input.equals("yo") || input.equals("sup")) {
+            hello();
+        } else if (input.equals("help") || input.equals("commands") || input.equals("command") || input.equals("cmds") || input.equals("cmd")) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Here are the commands you can use:");
+            System.out.println("  bye - Exits the program");
+            System.out.println("  list - Lists all tasks");
+            System.out.println("  mark [task number] - Marks a task as done");
+            System.out.println("  unmark [task number] - Marks a task as not done");
+            System.out.println("  delete [task number] - Deletes a task");
+            System.out.println("  todo [description] - Adds a todo task");
+            System.out.println("  deadline [description] /by [due date] - Adds a deadline task");
+            System.out.println("  event [description] /from [start date] /to [end date] - Adds an event task");
+            System.out.println("  on [date] - Lists all tasks on a specific date");
+            System.out.println("  hello - Displays the welcome message");
+            System.out.println("  help - Displays the list of commands");
+            System.out.println("____________________________________________________________");
         } else {
-            throw new CenaUnknownCommandException("I'm sorry, but I don't know what that means :-(\n  Please use a valid command (todo, deadline or event)");
+            throw new CenaUnknownCommandException("I'm sorry, but I don't know what that means :-(\n  Please use a valid command (see available commands by typing 'help')");
         }
     }
 
     private static void hello() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello from\n" + logo);
-        //System.out.println(" Hello! I'm John Cena");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
     }
