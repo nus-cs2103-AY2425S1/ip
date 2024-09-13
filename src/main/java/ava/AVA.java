@@ -106,6 +106,11 @@ public class AVA {
         }
     }
 
+    public void streamResponse(){
+        //TODO: implement
+        //stream a response to output
+    }
+
     /**
      *  Runs AVA
      *
