@@ -10,16 +10,12 @@ public class Ui {
             "delete (task number) - removes a task"
     };
 
-    /**
-     * This static method prints a line for Molly's user interface
-     */
+
     public static String printLine() {
         return "____________________________________________________________";
     }
 
-    /**
-     * This is a public static method that makes Molly greet the user.
-     */
+
     public static String greetUser() {
         return "Hello! I'm Molly.\n" +
                 "I am a virtual assistant designed to help you plan your tasks.\n" +
@@ -27,9 +23,6 @@ public class Ui {
     }
 
 
-    /**
-     * This is a public static method that makes Molly say bye.
-     */
     public static String sayBye() {
         return "Bye. Hope to see you again soon!\n";
     }
