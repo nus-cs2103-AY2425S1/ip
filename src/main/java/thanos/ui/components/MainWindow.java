@@ -37,6 +37,8 @@ public class MainWindow extends AnchorPane {
             this.getClass().getResourceAsStream("/images/TonyStark.jpg")));
     private final Image thanosImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/Thanos.jpg")));
+    private final String greeting = "Greetings, mortal!\nI'm Thanos, your ever-watchful task management assistant.\n"
+            + "Ready to snap away your worries?\nLet's get started!";
 
     /**
      * Initializes the main window to ensure that the scroll pane scrolls automatically to show the
@@ -45,6 +47,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getThanosDialog(greeting, thanosImage)
+        );
     }
 
     /**

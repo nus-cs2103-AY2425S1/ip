@@ -23,23 +23,27 @@ import javafx.scene.shape.Circle;
  * </p>
  */
 public class DialogBox extends HBox {
+    private static final String USER_STYLE = "user-dialog";
+    private static final String THANOS_STYLE = "thanos-dialog";
+
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
     /**
-     * Constructs a new {@code DialogBox} with the specified text and image.
+     * Constructs a new {@code DialogBox} with the specified text, image, and style class.
      * <p>
      * This constructor initializes the dialog box by loading the FXML layout,
-     * setting the text of the {@code Label}, and configuring the {@code ImageView} with the given image.
-     * The image is clipped to a circular shape.
+     * setting the text of the {@code Label}, configuring the {@code ImageView} with the given image,
+     * and applying the specified style class to the {@code Label}. The image is clipped to a circular shape.
      * </p>
      *
      * @param message the text message to be displayed in the dialog box.
      * @param image the image to be displayed in the dialog box.
+     * @param styleClass the style class to be applied to the {@code Label} for styling the dialog box.
      */
-    private DialogBox(String message, Image image) {
+    private DialogBox(String message, Image image, String styleClass) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -50,6 +54,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(message);
+        dialog.getStyleClass().add(styleClass);
         Circle clip = new Circle(48, 48, 48);
         displayPicture.setClip(clip);
         displayPicture.setImage(image);
@@ -76,7 +81,7 @@ public class DialogBox extends HBox {
      * @return a {@code DialogBox} instance configured for user messages.
      */
     public static DialogBox getUserDialog(String message, Image image) {
-        return new DialogBox(message, image);
+        return new DialogBox(message, image, USER_STYLE);
     }
 
     /**
@@ -87,7 +92,7 @@ public class DialogBox extends HBox {
      * @return a {@code DialogBox} instance configured for Thanos' messages.
      */
     public static DialogBox getThanosDialog(String message, Image image) {
-        var db = new DialogBox(message, image);
+        var db = new DialogBox(message, image, THANOS_STYLE);
         db.flip();
         return db;
     }
