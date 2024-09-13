@@ -26,72 +26,36 @@ public class Command {
         return arguments;
     }
 
-    /**
-     * Receives input from either user or local storage to operate the chat bot.
-     *
-     * @param tasksList The current list of tasks.
-     * @param ui The UI instance to handle output.
-     * @param storage The Storage Instance to retrieve or create tasksList
-     */
     public String execute(TasksList tasksList, Ui ui, Storage storage) {
         String response = "";
         try {
             switch (commandType) {
             case BYE:
-                response = ui.showGoodbye();
+                response = handleBye(ui);
                 break;
             case LIST:
-                response = ui.showTasksList(tasksList.getAllTasks());
+                response = handleList(ui, tasksList);
                 break;
             case MARK:
-                int markIndex = Integer.parseInt(arguments) - 1;
-                Task taskToMark = tasksList.getTask(markIndex);
-                taskToMark.markAsDone();
-                response = ui.showMarkTask(taskToMark);
+                response = handleMark(ui, tasksList);
                 break;
             case UNMARK:
-                int unmarkIndex = Integer.parseInt(arguments) - 1;
-                Task taskToUnmark = tasksList.getTask(unmarkIndex);
-                taskToUnmark.unmarkAsNotDone();
-                response = ui.showUnmarkTask(taskToUnmark);
+                response = handleUnmark(ui, tasksList);
                 break;
             case TODO:
-                Task newToDo = new ToDo(arguments);
-                tasksList.addTask(newToDo);
-                response = ui.showAddTask(newToDo, tasksList.size());
+                response = handleToDo(ui, tasksList);
                 break;
             case DEADLINE:
-                String[] deadlineParts = arguments.split(" /by ");
-                if (deadlineParts.length < 2) {
-                    throw new InvalidInputFormatException("OOPS!!! The deadline command requires "
-                            + "a description and a date/time after '/by'.");
-                }
-                Task newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                tasksList.addTask(newDeadline);
-                response = ui.showAddTask(newDeadline, tasksList.size());
+                response = handleDeadline(ui, tasksList);
                 break;
             case EVENT:
-                String[] eventParts = arguments.split(" /from | /to ");
-                if (eventParts.length < 3) {
-                    throw new InvalidInputFormatException("OOPS!!! The event command requires "
-                            + "a description, start time after '/from', and end time after '/to'.");
-                }
-                Task newEvent = new Event(eventParts[0], eventParts[1], eventParts[2]);
-                tasksList.addTask(newEvent);
-                response = ui.showAddTask(newEvent, tasksList.size());
+                response = handleEvent(ui, tasksList);
                 break;
             case DELETE:
-                int deleteIndex = Integer.parseInt(arguments) - 1;
-                if (deleteIndex < 0 || deleteIndex > tasksList.size()) {
-                    throw new InvalidTaskNumberException();
-                }
-                Task taskToDelete = tasksList.getTask(deleteIndex);
-                tasksList.deleteTask(deleteIndex);
-                response = ui.showDeleteTask(taskToDelete, tasksList.size());
+                response = handleDelete(ui, tasksList);
                 break;
             case FIND:
-                TasksList filteredTasksList = tasksList.getFilteredList(arguments);
-                response = ui.showTasksList(filteredTasksList.getAllTasks());
+                response = handleFind(ui, tasksList);
                 break;
             default:
                 throw new UnknownCommandException();
@@ -101,6 +65,69 @@ public class Command {
             response = ui.showError(e.getMessage());
         }
         return response;
+    }
+
+    private String handleBye(Ui ui) {
+        return ui.showGoodbye();
+    }
+
+    private String handleList(Ui ui, TasksList tasksList) {
+        return ui.showTasksList(tasksList.getAllTasks());
+    }
+
+    private String handleMark(Ui ui, TasksList tasksList) throws InvalidTaskNumberException {
+        int markIndex = Integer.parseInt(arguments) - 1;
+        Task taskToMark = tasksList.getTask(markIndex);
+        taskToMark.markAsDone();
+        return ui.showMarkTask(taskToMark);
+    }
+
+    private String handleUnmark(Ui ui, TasksList tasksList) throws InvalidTaskNumberException {
+        int unmarkIndex = Integer.parseInt(arguments) - 1;
+        Task taskToUnmark = tasksList.getTask(unmarkIndex);
+        taskToUnmark.unmarkAsNotDone();
+        return ui.showUnmarkTask(taskToUnmark);
+    }
+
+    private String handleToDo(Ui ui, TasksList tasksList) {
+        Task newToDo = new ToDo(arguments);
+        tasksList.addTask(newToDo);
+        return ui.showAddTask(newToDo, tasksList.size());
+    }
+
+    private String handleDeadline(Ui ui, TasksList tasksList) throws InvalidInputFormatException {
+        String[] deadlineParts = arguments.split(" /by ");
+        if (deadlineParts.length < 2) {
+            throw new InvalidInputFormatException("OOPS!!! The deadline command requires a description and a date/time after '/by'.");
+        }
+        Task newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+        tasksList.addTask(newDeadline);
+        return ui.showAddTask(newDeadline, tasksList.size());
+    }
+
+    private String handleEvent(Ui ui, TasksList tasksList) throws InvalidInputFormatException {
+        String[] eventParts = arguments.split(" /from | /to ");
+        if (eventParts.length < 3) {
+            throw new InvalidInputFormatException("OOPS!!! The event command requires a description, start time after '/from', and end time after '/to'.");
+        }
+        Task newEvent = new Event(eventParts[0], eventParts[1], eventParts[2]);
+        tasksList.addTask(newEvent);
+        return ui.showAddTask(newEvent, tasksList.size());
+    }
+
+    private String handleDelete(Ui ui, TasksList tasksList) throws InvalidTaskNumberException {
+        int deleteIndex = Integer.parseInt(arguments) - 1;
+        if (deleteIndex < 0 || deleteIndex >= tasksList.size()) {
+            throw new InvalidTaskNumberException();
+        }
+        Task taskToDelete = tasksList.getTask(deleteIndex);
+        tasksList.deleteTask(deleteIndex);
+        return ui.showDeleteTask(taskToDelete, tasksList.size());
+    }
+
+    private String handleFind(Ui ui, TasksList tasksList) {
+        TasksList filteredTasksList = tasksList.getFilteredList(arguments);
+        return ui.showTasksList(filteredTasksList.getAllTasks());
     }
 
 }
