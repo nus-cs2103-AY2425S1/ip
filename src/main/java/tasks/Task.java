@@ -23,7 +23,7 @@ public abstract class Task {
      * Sets the description and complete flag for all task type.
      *
      * @param description Is the description of the task.
-     * @param completed Is the complete flag.
+     * @param isComplete Is the complete flag.
      */
     public Task(String description, boolean isComplete) {
         this.isComplete = isComplete;

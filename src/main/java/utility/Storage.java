@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tasks.DeadLine;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,6 +84,7 @@ public class Storage {
         case 'T' -> Todo.load(line);
         case 'D' -> DeadLine.load(line);
         case 'E' -> Event.load(line);
+        case 'N' -> Note.load(line);
         default -> null;
         };
     }

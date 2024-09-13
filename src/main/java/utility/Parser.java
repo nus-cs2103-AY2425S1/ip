@@ -40,6 +40,8 @@ public class Parser {
         return to;
     }
 
+
+
     public int getIndex() {
         return index;
     }
@@ -55,8 +57,9 @@ public class Parser {
         getCommand(tokens);
         switch (command) {
         case list, bye -> { }
-        case mark, unmark, delete -> parseIndex(tokens);
-        case todo -> description = line.substring(4).trim();
+        case find -> this.description = tokens[1].trim();
+        case note, todo -> description = line.substring(4).trim();
+        case deleteNote, mark, unmark, delete -> parseIndex(tokens);
         case event -> parseEvent(line.substring(5));
         case deadline -> parseDeadLine(line.substring(8));
         default -> { }
