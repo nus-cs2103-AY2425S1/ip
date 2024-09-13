@@ -17,6 +17,7 @@ public class MarkCommand extends Command {
      * @param taskNumber Index of the task to be marked as done.
      */
     public MarkCommand(int taskNumber) {
+        assert taskNumber >= 0 : "Task number cannot be negative";
         this.taskIndex = taskNumber;
     }
 
@@ -39,8 +40,11 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
         try {
+            assert tasks != null : "Task list cannot be null";
             tasks.markTaskDone(taskIndex);
+            assert ui != null : "User interface cannot be null";
             ui.showTaskMarked(tasks.getTaskString(taskIndex));
+            assert storage != null : "Storage cannot be null";
             storage.writeToFile(tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new SpikeException("Please enter a valid task number");
