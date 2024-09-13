@@ -24,7 +24,7 @@ public class Rizzler {
     public Rizzler() {
         parser = new Parser();
         storage = new Storage();
-        taskLog = new TaskLog();
+        taskLog = storage.getTasks();
         rizzlerSpeech = new RizzlerSpeech();
     }
 
