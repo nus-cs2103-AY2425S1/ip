@@ -1,8 +1,7 @@
 package conversage.storage;
 
-import conversage.exception.ConverSageException;
-import conversage.task.Task;
-import conversage.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import conversage.exception.ConverSageException;
+import conversage.task.Task;
+import conversage.task.ToDo;
 
 class StorageTest {
 

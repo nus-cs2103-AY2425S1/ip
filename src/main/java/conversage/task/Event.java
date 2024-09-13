@@ -10,10 +10,11 @@ import java.time.format.DateTimeParseException;
  * Represents an event task with a start and end time.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
+
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -31,17 +32,20 @@ public class Event extends Task {
             this.to = LocalDateTime.parse(to, INPUT_FORMAT);
 
         } catch (DateTimeParseException e) {
-            System.out.println("The provided datE/time format is invalid! Please use the following format: yyyy-MM-dd HH:mm.");
+            System.out.println("The provided datE/time format is invalid! "
+                    + "Please use the following format: yyyy-MM-dd HH:mm.");
         }
     }
 
     @Override
     public String toFileFormat() {
-        return "conversage.task.Event | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc + " | " + from.format(INPUT_FORMAT) + " | " + to.format(INPUT_FORMAT);
+        return "conversage.task.Event | " + (isDone ? "Done" : "Not Done") + " | "
+                + taskDesc + " | " + from.format(INPUT_FORMAT) + " | " + to.format(INPUT_FORMAT);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + " to: " + to.format(OUTPUT_FORMAT) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT)
+                + " to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 }

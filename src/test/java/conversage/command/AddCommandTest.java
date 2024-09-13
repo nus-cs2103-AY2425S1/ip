@@ -1,16 +1,16 @@
 package conversage.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import conversage.exception.ConverSageException;
 import conversage.storage.Storage;
 import conversage.task.TaskList;
 import conversage.task.ToDo;
 import conversage.ui.Ui;
 
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddCommandTest {
 

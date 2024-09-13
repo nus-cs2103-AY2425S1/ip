@@ -47,8 +47,7 @@ public class ConverSage {
             } catch (ConverSageException e) {
                 ui.showLine();
                 ui.showError(e.getMessage());
-            } 
-                    
+            }
         }
     }
 
@@ -63,8 +62,6 @@ public class ConverSage {
     public Storage getStorage() {
         return storage;
     }
-
-    
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);

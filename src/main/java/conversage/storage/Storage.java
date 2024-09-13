@@ -1,4 +1,4 @@
-package conversage.storage;// This class deals with loading tasks from the file, and saving tasks to the file
+package conversage.storage; // This class deals with loading tasks from the file, and saving tasks to the file
 
 import conversage.exception.ConverSageException;
 import conversage.task.Task;
@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 /**
  * Represents the storage system for loading and saving tasks.
@@ -24,7 +26,7 @@ public class Storage {
      */
     public Storage(String filePath) {
 
-        // filePath represents the path to the file where tasks are stored. 
+        // filePath represents the path to the file where tasks are stored.
         this.file = new File(filePath);
         // if dir doesn't exist, we need to create it
         File directory = file.getParentFile();

@@ -27,11 +27,13 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         tasks.add(toAdd);
         ui.showLine();
-        ui.showMessage("Understood, I've added this task: " + toAdd.toString() + "\nYou have " + tasks.size() + " tasks in your list.");
+        ui.showMessage("Understood, I've added this task: " + toAdd.toString()
+                + "\nYou have " + tasks.size() + " tasks in your list.");
         ui.showLine();
         storage.save(tasks.getTasks());
 
-        return "Understood, I've added this task: " + toAdd.toString() + "\nYou have " + tasks.size() + " tasks in your list.";
+        return "Understood, I've added this task: " + toAdd.toString()
+                + "\nYou have " + tasks.size() + " tasks in your list.";
     }
 
 }
