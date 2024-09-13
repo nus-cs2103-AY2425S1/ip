@@ -14,6 +14,7 @@ public class Optimus {
     private TaskList tasks;  // Manages the list of tasks.
     private Ui ui;  // Handles user interaction.
 
+
     /**
      * Constructs an object with the specified file path for storing tasks.
      */
@@ -26,6 +27,8 @@ public class Optimus {
             ui.printError(e.getMessage());
             tasks = new TaskList();
         }
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
     }
 
     /**

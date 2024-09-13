@@ -7,7 +7,9 @@ import java.util.List;
 public class Parser {
 
     public static String parseCommand(String text, TaskList record, Ui ui, Storage storage) throws OptimusException, IOException {
+        assert text != null : "Input text should not be null";
         text = text.trim();
+        assert !text.isEmpty() : "Input text should not be empty";
         if (text.equals("bye")) {
             storage.saveToFile(record.getTasks());
             return ui.showGoodbye();  // Return goodbye message to GUI
