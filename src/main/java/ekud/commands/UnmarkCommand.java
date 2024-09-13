@@ -21,11 +21,15 @@ public class UnmarkCommand extends Command {
      * @param index The index to mark as incomplete.
      */
     public UnmarkCommand(int index) {
-        this.index = index - 1;
+        assert index >= 0 : "index should be non negative";
+
+        this.index = index;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        super.execute(tasks, ui, storage);
+
         Task task = tasks.getTask(index);
         String previousSaveState = task.getSaveTaskString();
         task.markAsUndone();
