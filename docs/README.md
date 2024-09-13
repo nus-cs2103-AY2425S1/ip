@@ -8,10 +8,11 @@ FAST SUPER FAST to use
 
 All you need to do is:
 
-1. Download it
+1. You can download the latest release of Jar Bot [here](https://github.com/jarrellc1/ip/releases).
 2. Double-click it.
-3. Add your tasks.
-4. Let it manage your tasks for you 😄.
+3. Run ```java -jar {filename}.jar```
+4. Add your tasks.
+5. Let it manage your tasks for you 😄.
 
 
 ## Adding DeadLines
@@ -135,4 +136,9 @@ Sample input: ```bye```
 
 Expected output: JarBot window will automatically close and exit. No action is required.
 
-Data is automatically saved as txt file ```[JAR file location]/data/jar.txt``
+Data is automatically saved as txt file ```[JAR file location]/data/jar.txt```
+
+## User Acknowledgement
+- [ ] I know how to use the bot now
+- [ ] I am aware of the risks associated to the bot
+
