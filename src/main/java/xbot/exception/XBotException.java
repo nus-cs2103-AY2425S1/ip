@@ -1,4 +1,4 @@
-package xbot;
+package xbot.exception;
 
 /**
  * The XBotException class represents custom exceptions specific to the XBot application.

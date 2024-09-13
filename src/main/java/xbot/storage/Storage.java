@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import xbot.TaskList;
+import xbot.exception.UnknownTaskTypeException;
 import xbot.parser.Parser;
 import xbot.task.Task;
 
@@ -28,22 +29,24 @@ public class Storage {
      */
     public void loadTask() throws IOException {
         TaskList list = new TaskList();
-        if (Files.exists(DATA_PATH)) {
-            //Add all task in data/XBot.txt to the list
-            try (Scanner scanner = new Scanner(DATA_PATH.toFile())) {
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    Task task = Parser.parseTask(line);
-                    if (task != null) {
-                        list.add(task);
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found: " + e.getMessage());
-                throw new IOException("File not found", e);
-            }
-        } else {
+        if (!Files.exists(DATA_PATH)) {
             createFile();
+            return;
+        }
+
+        //Add all task in data/XBot.txt to the list
+        try (Scanner scanner = new Scanner(DATA_PATH.toFile())) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = Parser.parseTask(line);
+                if (task != null) {
+                    list.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new IOException("File not found", e);
+        } catch (UnknownTaskTypeException e) {
+            throw new IOException("Invalid data in file!");
         }
     }
 
