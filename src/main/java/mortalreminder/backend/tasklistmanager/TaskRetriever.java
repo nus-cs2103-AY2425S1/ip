@@ -57,7 +57,7 @@ public class TaskRetriever {
                 .filter(x -> filterTask(x, descriptions))
                 .collect(Collectors.toCollection(ArrayList::new));
         if (similarTasks.isEmpty()) {
-            throw new MortalReminderException("No similar tasks found!");
+            throw new MortalReminderException(MortalReminderException.getNoSimilarTasksFoundMessage());
         }
         return FormattedPrinting.printList(taskList);
     }

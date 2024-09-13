@@ -69,4 +69,8 @@ public class MortalReminderException extends Exception {
     public static String getCorruptedAlternativeCommandFileErrorMessage() {
         return "Alternative command file does not exist!";
     }
+
+    public static String getNoSimilarTasksFoundMessage() {
+        return "No similar tasks found!";
+    }
 }
