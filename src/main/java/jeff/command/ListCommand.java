@@ -21,6 +21,6 @@ public class ListCommand extends Command {
                 .mapToObj(i -> (i + 1) + ". " + tasks.getTask(i))
                 .collect(Collectors.joining("\n"));
 
-        ui.showMessage(taskListString);
+        ui.showMessage((taskListString.isEmpty() ? "No tasks yet!" : taskListString));
     }
 }

@@ -29,6 +29,7 @@ public class CommandFactory {
         commandMap.put("deadline", DeadlineCommand::new);
         commandMap.put("event", EventCommand::new);
         commandMap.put("find", FindCommand::new);
+        commandMap.put("edit", EditCommand::new);
     }
 
     public Command getCommand(String commandWord, String args) throws JeffException {

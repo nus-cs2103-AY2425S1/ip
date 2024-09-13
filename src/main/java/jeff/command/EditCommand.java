@@ -14,142 +14,139 @@ import jeff.task.ToDo;
 
 /**
  * Represents a command to edit an existing task in the task list.
- * Depending on the type of task (ToDo, Deadline, Event), the command allows
+ * Depending on the type of task (ToDoTask, Deadline, Event), the command allows
  * updating the task description, start time, and/or end time.
  */
 public class EditCommand extends Command {
-    private final int index;
-    private final String newDescription;
-    private final LocalDateTime newStartTime;
-    private final LocalDateTime newEndTime;
+    private String args;
+    private int index;
 
     /**
-     * Private constructor for creating an EditCommand. This is invoked through static factory methods.
+     * Constructs a {@code EditCommand} with the specified arguments.
      *
-     * @param index The index of the task to be edited in the task list.
-     * @param newDescription The new description for the task.
-     * @param newStartTime The new start time for an Event task, or null if not applicable.
-     * @param newEndTime The new end time for Deadline or Event tasks, or null if not applicable.
+     * @param args the command arguments. The arguments are variable depending on what the task is.
+     * @throws JeffException if {@code args} is empty, does not properly include "/from" and "/to",
+     *                       or is otherwise malformed.
      */
-    private EditCommand(int index, String newDescription, LocalDateTime newStartTime, LocalDateTime newEndTime) {
-        this.index = index;
-        this.newDescription = newDescription;
-        this.newStartTime = newStartTime;
-        this.newEndTime = newEndTime;
-    }
-
-    /**
-     * Factory method to create an EditCommand for ToDo tasks.
-     *
-     * @param index The index of the ToDo task to be edited.
-     * @param newDescription The new description of the ToDo task.
-     * @return A new EditCommand for the ToDo task.
-     */
-    public static EditCommand forToDoTask(int index, String newDescription) {
-        return new EditCommand(index, newDescription, null, null);
-    }
-
-    /**
-     * Factory method to create an EditCommand for Deadline tasks.
-     *
-     * @param index The index of the Deadline task to be edited.
-     * @param newDescription The new description for the Deadline task.
-     * @param newEndTime The new end time for the Deadline task in string format.
-     * @return A new EditCommand for the Deadline task.
-     * @throws JeffException If the date format is incorrect.
-     */
-    public static EditCommand forDeadlineTask(int index,
-                                              String newDescription,
-                                              String newEndTime) throws JeffException {
-        return parseTime(index, newDescription, null, newEndTime);
-    }
-
-    /**
-     * Factory method to create an EditCommand for Event tasks.
-     *
-     * @param index The index of the Event task to be edited.
-     * @param newDescription The new description for the Event task.
-     * @param newStartTime The new start time for the Event task in string format.
-     * @param newEndTime The new end time for the Event task in string format.
-     * @return A new EditCommand for the Event task.
-     * @throws JeffException If the date format is incorrect.
-     */
-    public static EditCommand forEventTask(int index,
-                                           String newDescription,
-                                           String newStartTime,
-                                           String newEndTime) throws JeffException {
-        return parseTime(index, newDescription, newStartTime, newEndTime);
-    }
-
-    /**
-     * Parses date strings into LocalDateTime objects for deadline or event tasks.
-     *
-     * @param index The index of the task to be edited.
-     * @param newDescription The new description for the task.
-     * @param newStartTime The new start time (null if not applicable).
-     * @param newEndTime The new end time (required for deadlines/events).
-     * @return A new EditCommand with parsed times.
-     * @throws JeffException If the date format is invalid.
-     */
-    private static EditCommand parseTime(int index,
-                                         String newDescription,
-                                         String newStartTime,
-                                         String newEndTime) throws JeffException {
-        try {
-            LocalDateTime startTime = (newStartTime != null)
-                    ? LocalDateTime.parse(newStartTime.trim(), Storage.getDateTimeFormatter())
-                    : null;
-            LocalDateTime endTime = (newEndTime != null)
-                    ? LocalDateTime.parse(newEndTime.trim(), Storage.getDateTimeFormatter())
-                    : null;
-
-            return new EditCommand(index, newDescription, startTime, endTime);
-        } catch (DateTimeParseException e) {
-            throw new JeffException("You need to format your dates as follows: " + Storage.getDateFormat());
+    public EditCommand(String args) throws JeffException {
+        // guard clause to ensure args not empty
+        if (args.isEmpty()) {
+            throw new JeffException("There have to be arguments in the form "
+                    + "\nedit X newDescription newEndDate newStartDate");
         }
+        String[] parts = args.split(" ", 2);
+
+        // ensure that the length of parts is at least 2
+        if (parts.length != 2) {
+            throw new JeffException("You did not specify enough arguments!");
+        }
+
+        // ensure that the command in the integers place is a number
+        if (!Command.isNumeric(parts[0])) {
+            throw new JeffException("You did not specify an integer!");
+        }
+        this.index = Integer.parseInt(parts[0]) - 1;
+        this.args = parts[1];
     }
 
-    /**
-     * Executes the EditCommand by updating the relevant task in the task list.
-     * The task is replaced with a new version reflecting the provided updates.
-     *
-     * @param tasks The task list to be updated.
-     * @param ui The user interface to display messages.
-     * @param storage The storage to update saved tasks.
-     * @throws JeffException If the task index is invalid or if the task type is unsupported.
-     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new JeffException("Invalid task index.");
-        }
+        // Need to find what task is at the index
+        Task task = tasks.getTask(index);
 
-        Task originalTask = tasks.getTask(index);
-        Task updatedTask;
-
-        // Update based on the type of task (Event, Deadline, ToDo)
-        if (originalTask instanceof Event event) {
-            updatedTask = new Event(
-                    newDescription != null ? newDescription : event.getDescription(),
-                    newStartTime != null ? newStartTime : event.getFrom(),
-                    newEndTime != null ? newEndTime : event.getTo()
-            );
-        } else if (originalTask instanceof Deadline deadline) {
-            updatedTask = new Deadline(
-                    newDescription != null ? newDescription : deadline.getDescription(),
-                    newEndTime != null ? newEndTime : deadline.getDueDate()
-            );
-        } else if (originalTask instanceof ToDo todo) {
-            updatedTask = new ToDo(
-                    newDescription != null ? newDescription : todo.getDescription()
-            );
+        // Dynamically determine the task type and call the appropriate edit method
+        if (task instanceof ToDo todo) {
+            editTask(tasks, ui, storage, todo);
+        } else if (task instanceof Deadline deadline) {
+            editTask(tasks, ui, storage, deadline);
+        } else if (task instanceof Event event) {
+            editTask(tasks, ui, storage, event);
         } else {
             throw new JeffException("Unsupported task type.");
         }
+    }
 
-        // Replace the old task with the updated task
+    /**
+     * Edits a ToDoTask by updating the description.
+     *
+     * @param tasks   The task list.
+     * @param ui      The user interface to display messages.
+     * @param storage The storage to update saved tasks.
+     * @param task    The ToDoTask to edit.
+     */
+    public void editTask(TaskList tasks, Ui ui, Storage storage, ToDo task) throws JeffException {
+        String[] parsedArgs = args.split(" ", 2);
+
+        if (parsedArgs.length < 1) {
+            throw new JeffException("Please provide a valid new description.");
+        }
+
+        String newDescription = parsedArgs[0];
+        ToDo updatedTask = new ToDo(newDescription);
         tasks.updateTask(index, updatedTask);
-        storage.updateSave(tasks.getTasks(), index);
+        storage.updateSave(tasks.getTasks());
+        ui.showMessage("Task updated: " + updatedTask);
+    }
+
+    /**
+     * Edits a Deadline task by updating the description and deadline.
+     *
+     * @param tasks   The task list.
+     * @param ui      The user interface to display messages.
+     * @param storage The storage to update saved tasks.
+     * @param task    The Deadline task to edit.
+     */
+    public void editTask(TaskList tasks, Ui ui, Storage storage, Deadline task) throws JeffException {
+        String[] parsedArgs = args.split("/by", 2);
+
+        if (parsedArgs.length < 2) {
+            throw new JeffException("Please provide a valid new description and deadline.");
+        }
+
+        String newDescription = parsedArgs[0].trim();
+        LocalDateTime newEndTime;
+
+        try {
+            newEndTime = LocalDateTime.parse(parsedArgs[1].trim(), Storage.getDateTimeFormatter());
+        } catch (DateTimeParseException e) {
+            throw new JeffException("You need to format your deadline dates as: " + Storage.getDateFormat());
+        }
+
+        Deadline updatedTask = new Deadline(newDescription, newEndTime);
+        tasks.updateTask(index, updatedTask);
+        storage.updateSave(tasks.getTasks());
+        ui.showMessage("Task updated: " + updatedTask);
+    }
+
+    /**
+     * Edits an Event task by updating the description, start time, and end time.
+     *
+     * @param tasks   The task list.
+     * @param ui      The user interface to display messages.
+     * @param storage The storage to update saved tasks.
+     * @param task    The Event task to edit.
+     */
+    public void editTask(TaskList tasks, Ui ui, Storage storage, Event task) throws JeffException {
+        String[] parsedArgs = args.split("/from | /to ", 3);
+
+        if (parsedArgs.length < 3) {
+            throw new JeffException("Please provide a valid new description, start time, and end time.");
+        }
+
+        String newDescription = parsedArgs[0].trim();
+        LocalDateTime newStartTime;
+        LocalDateTime newEndTime;
+
+        try {
+            newStartTime = LocalDateTime.parse(parsedArgs[1].trim(), Storage.getDateTimeFormatter());
+            newEndTime = LocalDateTime.parse(parsedArgs[2].trim(), Storage.getDateTimeFormatter());
+        } catch (DateTimeParseException e) {
+            throw new JeffException("You need to format your event dates as: " + Storage.getDateFormat());
+        }
+
+        Event updatedTask = new Event(newDescription, newStartTime, newEndTime);
+        tasks.updateTask(index, updatedTask);
+        storage.updateSave(tasks.getTasks());
         ui.showMessage("Task updated: " + updatedTask);
     }
 }
