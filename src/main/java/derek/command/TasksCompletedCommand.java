@@ -18,6 +18,13 @@ public class TasksCompletedCommand extends Command {
 
     @Override
     public String execute() {
+        TaskList tasksCompleted = this.findCompletedTasks();
+        Ui ui = this.getUi();
+        return ui.returnListOfPastWeek(tasksCompleted);
+    }
+
+
+    public TaskList findCompletedTasks() {
         TaskList taskList = this.getTaskList();
         TaskList tasksCompleted = new TaskList();
         int sizeOfTaskList = this.getSizeOfTaskList();
@@ -26,13 +33,13 @@ public class TasksCompletedCommand extends Command {
             Task task = taskList.get(i);
             LocalDateTime dateOfCompletion = task.getCompletionTime();
             if (dateOfCompletion != null &&
-                isWithinLastWeek(dateOfCompletion, dateOneWeekBefore)) {
+                    isWithinLastWeek(dateOfCompletion, dateOneWeekBefore)) {
                 tasksCompleted.add(task);
             }
         }
-        Ui ui = this.getUi();
-        return ui.returnListOfPastWeek(tasksCompleted);
+        return tasksCompleted;
     }
+
 
     public LocalDateTime getDateOneWeekBefore() {
         return this.date.minusDays(7);
