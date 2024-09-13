@@ -21,23 +21,33 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> parseTextStorage() {
-        File file = new File(filePath);
 
-        ArrayList<Task> items = new ArrayList<>();
-
+    /**
+     * Opens a file at a given file directory.
+     * It should create a new empty file if the file does not exist, or open an existing file at the directory.
+     * @param f The file directory of a file which may or may not exist.
+     */
+    public void openFile(File f) {
         try {
             // this creates a file only if it does not already exist - so running it un-conditionally is OK.
             // the only thing which changes is that it will return false if the file already exists.
-            if (file.createNewFile()) {
+            if (f.createNewFile()) {
                 System.out.println("Text file not detected. Initiating a new file to hold records...");
             } else {
                 System.out.println("Reading data from existing text file at location: " + filePath);
             }
         } catch (IOException e) {
             System.out.println("An error occurred in file opening :(");
-            return items;
         }
+    }
+
+    public ArrayList<Task> parseTextStorage() {
+        File file = new File(filePath);
+        openFile(file);
+
+        ArrayList<Task> items = new ArrayList<>();
+
+
 
         try {
             // this line potentially throws FileNotFoundException.
