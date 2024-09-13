@@ -15,8 +15,8 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param by The due date/time of the task.
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, int priority) {
+        super(description, priority);
         this.by = by;
     }
 
@@ -37,7 +37,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + getPriority() + " | " + by;
     }
 }
 

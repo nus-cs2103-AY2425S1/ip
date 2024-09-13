@@ -12,6 +12,7 @@ package repsmax;
 public class Task {
     private final String description;
     private boolean isDone;
+    private int priority;
 
     /**
      * Constructs a {@code Task} with the specified description. The task
@@ -19,10 +20,11 @@ public class Task {
      *
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String description, int priority) {
         assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
         this.description = description;
         this.isDone = false;
+        this.priority = priority;
     }
 
     /**
@@ -60,6 +62,19 @@ public class Task {
         return isDone;
     }
 
+    public String getPriority() {
+        switch (priority) {
+            case 1:
+                return "[High Priority]";
+            case 2:
+                return "[Medium Priority]";
+            case 3:
+                return "[Low Priority]";
+            default:
+                return "[No Priority]";
+        }
+    }
+
     /**
      * Returns the description of the task.
      *
@@ -80,7 +95,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getStatusIcon() + "] " + getPriority() + " " + description;
     }
 
     /**
@@ -93,7 +108,7 @@ public class Task {
      * @return A string representation of the task in file format.
      */
     public String toFileFormat() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "T | " + (isDone ? "1" : "0") + " | " + priority + " | " + description;
     }
 
     /**
@@ -109,12 +124,13 @@ public class Task {
      */
     public static Task fromFileFormat(String fileFormat) {
         String[] parts = fileFormat.split(" \\| ");
-        if (parts.length != 3) {
-            throw new IllegalArgumentException("Invalid task format: " + fileFormat);
+        if (parts.length != 4) {
+            throw new IllegalArgumentException("Invalid task format.");
         }
-        String description = parts[2];
+        String description = parts[3];
         boolean isDone = parts[1].equals("1");
-        Task task = new Task(description);
+        int priority = Integer.parseInt(parts[2]);
+        Task task = new Task(description, priority);
         if (isDone) {
             task.setDone();
         }

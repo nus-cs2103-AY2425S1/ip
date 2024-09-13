@@ -19,8 +19,8 @@ public class Event extends Task {
      * @param from The start date/time of the event.
      * @param to The end date/time of the event.
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, String from, String to, int priority) {
+        super(description, priority);
         this.from = from;
         this.to = to;
     }
@@ -42,6 +42,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E | " + (super.isDone() ? "1" : "0") + " | " + getDescription() + " | " + from + " | " + to;
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + getPriority() + " | " + from + " | " + to;
     }
 }
