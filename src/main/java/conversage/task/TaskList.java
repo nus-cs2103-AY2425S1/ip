@@ -46,6 +46,7 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new ConverSageException("Invalid task number!");
         }
+        assert index >= 0 && index < tasks.size() : "Task index should be within valid range";
         tasks.remove(index);
     }
 
@@ -60,6 +61,7 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new ConverSageException("Invalid task number!");
         }
+        assert index >= 0 && index < tasks.size() : "Task index should be within valid range";
         return tasks.get(index);
     }
 
