@@ -284,4 +284,34 @@ public class Ui {
         System.out.print(output);
         return output;
     }
+
+    /**
+     * Prints an error message when user enters invalid syntax for <code>SortCommand</code>
+     */
+    public String showSortSyntax() {
+        String output = LINE
+                + "Invalid syntax! Please follow this syntax for Sort:\n"
+                + "\tsort <sort criteria> /order <sort order>\n"
+                + LINE;
+        System.out.print(output);
+        return output;
+    }
+
+    /**
+     * Prints help message if user enters wrong paramters for <code>SortCommand</code>
+     */
+    public String showSortKeys() {
+        String output = LINE
+                + "Sorry! I don't understand these keywords for sort :(\n"
+                + "Here are some keywords you can use:\n"
+                + "Criteria:\n"
+                + "\tdate\n"
+                + "\talphabetical\n\n"
+                + "Order:\n"
+                + "\tascending\n"
+                + "\tdescending\n"
+                + LINE;
+        System.out.print(output);
+        return output;
+    }
 }

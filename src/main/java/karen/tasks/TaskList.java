@@ -1,7 +1,12 @@
 package karen.tasks;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import karen.commands.SortCommand.Order;
 
 /**
  * TaskList class which manages the List of Tasks and contains methods to modify it
@@ -83,6 +88,62 @@ public class TaskList {
             }
         }
         return result;
+    }
+
+    /**
+     * Sorts the TaskList by date, in ascending order
+     */
+    public void sortByDate(Order order) {
+        Comparator<Task> dateComparator = (Task thisTask, Task otherTask) -> {
+            if (thisTask instanceof Todo) {
+                if (otherTask instanceof Todo) {
+                    return thisTask.getName().compareTo(otherTask.getName());
+                } else {
+                    // Place Todos at front of TaskList
+                    return -1;
+                }
+            } else if (thisTask instanceof Deadline) {
+                LocalDateTime thisDate = ((Deadline) thisTask).getDueDate();
+                if (otherTask instanceof Todo) {
+                    return 1;
+                } else if (otherTask instanceof Deadline) {
+                    LocalDateTime otherDate = ((Deadline) otherTask).getDueDate();
+                    return thisDate.compareTo(otherDate);
+                } else {
+                    LocalDateTime otherDate = ((Event) otherTask).getStartDate();
+                    return thisDate.compareTo(otherDate);
+                }
+            } else {
+                LocalDateTime thisDate = ((Event) thisTask).getStartDate();
+                if (otherTask instanceof Todo) {
+                    return 1;
+                } else if (otherTask instanceof Deadline) {
+                    LocalDateTime otherDate = ((Deadline) otherTask).getDueDate();
+                    return thisDate.compareTo(otherDate);
+                } else {
+                    LocalDateTime otherDate = ((Event) otherTask).getStartDate();
+                    return thisDate.compareTo(otherDate);
+                }
+            }
+        };
+        this.tasks.sort(dateComparator);
+
+        if (order == Order.DESCENDING) {
+            Collections.reverse(this.tasks);
+        }
+    }
+
+    /**
+     * Sorts the TaskList by alphabetical order
+     */
+    public void sortByAlphabet(Order order) {
+        Comparator<Task> alphabetComparator = (Task thisTask, Task otherTask) -> {
+            return thisTask.getName().compareTo(otherTask.getName());
+        };
+        this.tasks.sort(alphabetComparator);
+        if (order == Order.DESCENDING) {
+            Collections.reverse(this.tasks);
+        }
     }
 
     /**
