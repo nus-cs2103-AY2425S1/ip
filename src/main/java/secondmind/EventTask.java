@@ -19,6 +19,8 @@ public class EventTask extends Task {
      */
     public EventTask(String task, String eventStart, String eventEnd) {
         super(task);
+        assert eventStart != null: "eventStart must not be null";
+        assert eventEnd != null: "eventEnd must not be null";
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
     }
