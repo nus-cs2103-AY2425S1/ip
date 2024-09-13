@@ -18,7 +18,7 @@ public class Ui {
     }
 
     public String displayWelcome() {
-        return "Hey there! I'm Buddy\nWhat do ya need help with?";
+        return "Hey there! I'm Abdul Buddy\nWhat do ya need help with?";
     }
 
     public String displayGoodbye() {

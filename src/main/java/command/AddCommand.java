@@ -26,6 +26,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String command) {
         this.command = command;
+        assert command != null : "Command cannot be null";
     }
 
     /**
@@ -36,6 +37,7 @@ public class AddCommand extends Command {
      * @throws BuddyException If the date string is not in the correct format.
      */
     private static LocalDateTime formatDate(String date) throws BuddyException {
+        assert date != null : "Date cannot be null";
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(date, formatter);
@@ -54,6 +56,12 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+
+        //Assertions to ensure arguments are valid
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "UI object cannot be null";
+        assert storage != null : "Storage object cannot be null";
+
         if (command.startsWith("todo")) {
             return addTodoTask(tasks, ui, storage);
         } else if (command.startsWith("deadline")) {
@@ -65,12 +73,14 @@ public class AddCommand extends Command {
         }
     }
 
-
     private String addTodoTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         String taskDesc = command.substring(4).trim();
+
         if (taskDesc.isEmpty()) {
             throw new BuddyException("The description of a todo cannot be empty.");
         }
+
+        //create and store task in storage
         Task task = new ToDos(taskDesc);
         tasks.addTask(task);
         storage.save(tasks.getTasks());
@@ -79,51 +89,49 @@ public class AddCommand extends Command {
 
     private String addDeadlineTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         String taskDesc = command.substring(8).trim();
+
         if (taskDesc.isEmpty()) {
             throw new BuddyException("The description of a deadline cannot be empty.");
         }
         String[] parts = taskDesc.split("/by ", 2);
+        assert parts.length == 2 : "Deadline task description format incorrect";
 
-        if (parts.length == 2) {
-            String desc = parts[0].trim();
-            String day = parts[1].trim();
-            LocalDateTime date = formatDate(day);
-            Task task = new Deadlines(desc, date);
-            tasks.addTask(task);
-            storage.save(tasks.getTasks());
-            return ui.displayAddTask(task, tasks);
-        } else {
-            throw new BuddyException("When do ya need to get it done by? (Include '/by' after your description followed by the deadline in the format 'd/M/yyyy HHmm')");
-        }
+        //format parameters for task creation
+        String desc = parts[0].trim();
+        String deadline = parts[1].trim();
+        LocalDateTime date = formatDate(deadline);
+
+        //create and store task in storage
+        Task task = new Deadlines(desc, date);
+        tasks.addTask(task);
+        storage.save(tasks.getTasks());
+
+        return ui.displayAddTask(task, tasks);
     }
 
     private String addEventTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         String taskDesc = command.substring(5).trim();
+
         if (taskDesc.isEmpty()) {
             throw new BuddyException("The description of an event cannot be empty.");
         }
         String[] parts = taskDesc.split("/from ", 2);
+        assert parts.length == 2 : "Event task description format incorrect";
 
-        if (parts.length == 2) {
-            String task = parts[0].trim();
-            String dateTimeAndEnd = parts[1].trim();
-            String[] dateTimeAndEndParts = dateTimeAndEnd.split("/to ", 2);
+        //format parameters for task creation
+        String task = parts[0].trim();
+        String dateTimeRange = parts[1].trim();
+        String[] dateTimeParts = dateTimeRange.split("/to ", 2);
 
-            if (dateTimeAndEndParts.length == 2) {
-                String startTime = dateTimeAndEndParts[0].trim();
-                String endTime = dateTimeAndEndParts[1].trim();
-                LocalDateTime formattedStartTime = formatDate(startTime);
-                LocalDateTime formattedEndTime = formatDate(endTime);
-                Task eventTask = new Events(task, formattedStartTime, formattedEndTime);
-                tasks.addTask(eventTask);
-                storage.save(tasks.getTasks());
-                return ui.displayAddTask(eventTask, tasks);
-            } else {
-                throw new BuddyException("There's no end date? (Include '/to' after the start date)");
-            }
-        } else {
-            throw new BuddyException("There's no start date? (Include '/from' after your description)");
-        }
+        assert dateTimeParts.length == 2 : "Event time format incorrect";
+        LocalDateTime startTime = formatDate(dateTimeParts[0].trim());
+        LocalDateTime endTime = formatDate(dateTimeParts[1].trim());
+
+        //create and store event in storage
+        Task eventTask = new Events(task, startTime, endTime);
+        tasks.addTask(eventTask);
+        storage.save(tasks.getTasks());
+
+        return ui.displayAddTask(eventTask, tasks);
     }
-
 }
