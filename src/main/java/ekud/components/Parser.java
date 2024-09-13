@@ -19,6 +19,7 @@ import ekud.task.Task;
 public class Parser {
     private static final String COMMAND_TOKEN = "command";
     private static final String ARGUMENT_TOKEN = "argument";
+    private static final String TOKEN_PREFIX = "/";
 
     /**
      * Parses an input {@link String} into an integer.
@@ -55,16 +56,21 @@ public class Parser {
         String currToken = ARGUMENT_TOKEN;
         for (int i = 1; i < words.length; i++) {
             // encounter optional token
-            if (!words[i].isEmpty() && words[i].charAt(0) == '/') {
+            boolean isNotEmpty = !words[i].isEmpty();
+            boolean hasTokenPrefix = words[i].startsWith(TOKEN_PREFIX);
+            boolean isToken = isNotEmpty && hasTokenPrefix;
+            if (isToken) {
                 tokenMap.put(currToken, tokenBuilder.toString());
                 currToken = words[i];
                 tokenBuilder.setLength(0); // reset builder
-            } else {
-                if (!tokenBuilder.isEmpty()) { // add space in between words
-                    tokenBuilder.append(" ");
-                }
-                tokenBuilder.append(words[i]);
+                continue;
             }
+
+            boolean isNotEndOfToken = !tokenBuilder.isEmpty();
+            if (isNotEndOfToken) { // add space in between words
+                tokenBuilder.append(" ");
+            }
+            tokenBuilder.append(words[i]);
         }
         tokenMap.put(currToken, tokenBuilder.toString());
         return tokenMap;
