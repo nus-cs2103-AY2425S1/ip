@@ -2,10 +2,11 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-}
+    }
 
 repositories {
     mavenCentral()
+
 }
 
 dependencies {
@@ -28,11 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("JohnCena")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "JohnCena"
     archiveClassifier = null
 }
 
