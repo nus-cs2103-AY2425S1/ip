@@ -42,6 +42,9 @@ public class Event extends Task {
                 endDate.format(DateTimeFormatter.ofPattern("dd-MM-yy")));
     }
 
+    public LocalDate getDate() {
+        return startDate;
+    }
     /**
      * Returns a string representation of the event task, including its completion status,
      * start date, and end date.

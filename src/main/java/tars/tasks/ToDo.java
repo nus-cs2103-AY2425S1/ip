@@ -1,5 +1,7 @@
 package tars.tasks;
 
+import java.time.LocalDate;
+
 /**
  * Represents a basic to-do task.
  *
@@ -29,6 +31,12 @@ public class ToDo extends Task {
         return String.format("T|%s|%s", super.getStatus(), super.getTask());
     }
 
+
+    @Override
+    public LocalDate getDate() {
+        return null;
+    }
+
     /**
      * Returns a string representation of the to-do task, including its completion status.
      *
@@ -37,5 +45,10 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return String.format("[T] %s", super.toString());
+    }
+
+    @Override
+    public int compareTo(Task t) {
+        return 0;
     }
 }

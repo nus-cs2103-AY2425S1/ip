@@ -39,6 +39,11 @@ public class Deadline extends Task {
                 deadlineDate.format(DateTimeFormatter.ofPattern("dd-MM-yy")));
     }
 
+    @Override
+    public LocalDate getDate() {
+        return deadlineDate;
+    }
+
     /**
      * Returns a string representation of the {@link Deadline} task, including its completion status
      * and deadline date.
