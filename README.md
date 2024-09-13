@@ -112,7 +112,18 @@ delete 1
 ```
 This command deletes the task with number 1 from your list.
 
-### 8. **Exit the Application** 👋
+### 8. **Tag a Task** 
+To tag a task, use the following format:
+```bash
+tag [task_number] <tag_name>
+```
+**Example:**
+```bash
+tag 1 important
+```
+This command tags task 1 with the tag "important".
+
+### 9. **Exit the Application** 👋
 To exit Lolo, use the command:
 ```bash
 bye
