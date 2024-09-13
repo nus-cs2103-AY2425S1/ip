@@ -30,8 +30,5 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
-      - name: Run chmod to make gradlew executable
-        run: chmod +x ./gradlew
-
       - name: Build and check with Gradle
         run: ./gradlew check
