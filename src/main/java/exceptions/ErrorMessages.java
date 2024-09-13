@@ -25,5 +25,5 @@ public class ErrorMessages {
             + "list - To list all tasks\n"
             + "cp - To change priority of specific tasks"
             + "deadline - To add a new task with a deadline"
-            + "";
+            + "event - To add a new task with a starting time and ending time";
 }
