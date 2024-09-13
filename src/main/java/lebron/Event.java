@@ -27,6 +27,7 @@ public class Event extends Task {
 
 >>>>>>> 4872385 (Improve code quality by refactoring Event)
         assert !end.isBefore(start) : "End date must not be before the start date";
+
         this.start = start;
         this.end = end;
     }
