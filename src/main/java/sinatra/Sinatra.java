@@ -3,6 +3,7 @@ package sinatra;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Represents the main Sinatra application.
@@ -59,13 +60,9 @@ public class Sinatra {
     }
 
     private ArrayList<Task> findTasksWithContent(String contentPart) {
-        ArrayList<Task> foundTasks = new ArrayList<Task>();
-        for (Task task : tasks) {
-            if (task.getContent().contains(contentPart)) {
-                foundTasks.add(task);
-            }
-        }
-        return foundTasks;
+        return tasks.stream()
+                .filter(task -> task.getContent().contains(contentPart))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
