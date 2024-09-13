@@ -1,22 +1,26 @@
 package lutodo.commands;
 
+import lutodo.parser.Parser;
 import lutodo.tasklist.TaskList;
 import lutodo.storage.Storage;
 import lutodo.tasks.Task;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * Represents the command of deleting a task in the task list.
  */
 public class DeleteCommand extends Command{
-    private int index;
+    private int index = -1;
+    private String fullCommand;
 
     /**
      * Constructs a DeleteCommand object with the index of the task to be deleted.
      *
-     * @param index The index of the task to be deleted. 1 represents the first task.
+     * @param fullCommand The command message sent by user.
      */
-    public DeleteCommand(int index) {
-        this.index = index;
+    public DeleteCommand(String fullCommand) {
+        this.fullCommand = fullCommand;
     }
 
     /**
@@ -27,6 +31,11 @@ public class DeleteCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {
+        assert fullCommand != null : "task message cannot be null";
+        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
+            System.out.println("You are not telling me which task should I delete :-(");
+        }
+        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
         try {
             System.out.println("Noted. I've removed this task:\n" + tasks.get(index)
                     + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
@@ -45,6 +54,11 @@ public class DeleteCommand extends Command{
      */
     @Override
     public String executeAndRespond(TaskList tasks, Storage storage) {
+        assert fullCommand != null : "task message cannot be null";
+        if (Parser.splitTaskInfo(fullCommand).length <= 1) {
+            return  "You are not telling me which task should I delete :-(";
+        }
+        this.index = parseInt(Parser.splitTaskInfo(fullCommand)[1]) - 1;
         try {
             Task removedTask = tasks.get(index);
             tasks.deleteTask(index);

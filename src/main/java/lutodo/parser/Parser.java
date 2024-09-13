@@ -57,23 +57,19 @@ public class Parser {
             if (taskType.equalsIgnoreCase("bye")) {
                 return new ExitCommand();
             } else if (taskType.equalsIgnoreCase("delete")) {
-                int taskIndex = parseInt(divideMessage(fullCommand)[1]) - 1;
-                return new DeleteCommand(taskIndex);
+                return new DeleteCommand(fullCommand);
             } else if (taskType.equalsIgnoreCase("list")) {
                 return new ShowListCommand();
-            } else if (taskType.equalsIgnoreCase("mark")) {
-                int taskIndex = parseInt(divideMessage(fullCommand)[1]) - 1;
-                return new MarkCommand(taskIndex, true);
-            } else if (taskType.equalsIgnoreCase("unmark")) {
-                int taskIndex = parseInt(divideMessage(fullCommand)[1]) - 1;
-                return new MarkCommand(taskIndex, false);
+            } else if (taskType.equalsIgnoreCase("mark") ||
+                    taskType.equalsIgnoreCase("unmark")) {
+                return new MarkCommand(fullCommand);
             } else if (taskType.equalsIgnoreCase("todo") ||
                     taskType.equalsIgnoreCase("deadline") ||
                     taskType.equalsIgnoreCase("event")) {
                 return new AddCommand(fullCommand);
-            } else if (taskType.equalsIgnoreCase("find")
-            || taskType.equalsIgnoreCase("search")) {
-                return new FindCommand(splitTaskInfo(fullCommand)[1]);
+            } else if (taskType.equalsIgnoreCase("find") ||
+             taskType.equalsIgnoreCase("search")) {
+                return new FindCommand(fullCommand);
             } else {
                 return new UnknownCommand(fullCommand);
             }
