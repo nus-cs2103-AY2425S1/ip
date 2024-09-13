@@ -35,8 +35,8 @@ public class EventCommand extends TaskCommand {
     public String execute() throws IncorrectCommandException, DateTimeParseException {
         String name = this.getTask();
         String[] taskDescription = name.split("/from");
-        String[] time = taskDescription[1].split("/to");
-        if (taskDescription.length + time.length != 3) {
+        String[] time = name.split("/to");
+        if (taskDescription.length + time.length != 4) {
             throw new IncorrectCommandException("Please enter your commands correctly "
                     + "for Derek (event (task) /from (time) /to (time)");
         }

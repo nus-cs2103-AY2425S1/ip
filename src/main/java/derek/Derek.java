@@ -14,6 +14,7 @@ public class Derek {
         this.taskList = new TaskList();
         this.storage = new Storage(this.taskList);
         this.taskList = storage.readFile();
+        assert taskList != null : "Task list should not be null after reading from storage";
         this.handleUserInteraction();
     }
 
