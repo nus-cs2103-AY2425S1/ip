@@ -1,5 +1,7 @@
 package boss;
 
+import boss.tasks.Task;
+
 /**
  * Represents the class that deals with the
  * interactions with the user.
@@ -13,6 +15,20 @@ public class Ui {
     public void showLoadingError(Exception e) {
         System.out.println(e.getMessage());
     }
+
+    /**
+     * Returns user messages to print onto screen for GUI.
+     *
+     * @return String containing messages for user.
+     */
+    public String printAddTask(Task task, int size) {
+        String toPrint = "";
+        toPrint = toPrint + "Got it! I've added this task now!" + "\n";
+        toPrint = toPrint + task + "\n";
+        toPrint = toPrint + "Now you have " + size + " tasks in the list." + "\n";
+        return toPrint;
+    }
+
 
     /**
      * Returns the Chatbot's response when user marks a task.

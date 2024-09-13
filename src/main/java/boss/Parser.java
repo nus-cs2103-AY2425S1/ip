@@ -74,15 +74,15 @@ public class Parser {
         } else if (task.startsWith("todo")) {
             Task newTask = todo(task);
             storage.writeToFile(newTask + System.lineSeparator(), true);
-            return tasks.printAddTask(newTask);
+            return ui.printAddTask(newTask, tasks.getSize());
         } else if (task.startsWith("deadline")) {
             Task newTask = deadline(task);
             storage.writeToFile(newTask + System.lineSeparator(), true);
-            return tasks.printAddTask(newTask);
+            return ui.printAddTask(newTask, tasks.getSize());
         } else if (task.startsWith("event")) {
             Task newTask = event(task);
             storage.writeToFile(newTask + System.lineSeparator(), true);
-            return tasks.printAddTask(newTask);
+            return ui.printAddTask(newTask, tasks.getSize());
         } else {
             Task taskItem = new Task(task);
             tasks.addTask(taskItem);

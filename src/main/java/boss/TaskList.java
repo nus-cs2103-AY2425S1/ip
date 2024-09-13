@@ -26,6 +26,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the number of tasks in the arraylist
+     *
+     * @return number of elements
+     */
+    public int getSize() {
+        return tasks.size();
+    }
+
+    /**
      * Unmarks a task from the list.
      * @param task the task that the user wants to unmark
      * @return the text to replace text in file
@@ -123,18 +132,6 @@ public class TaskList {
         return s;
     }
 
-    /**
-     * Returns user messages to print onto screen for GUI.
-     *
-     * @return String containing messages for user.
-     */
-    public String printAddTask(Task task) {
-        String toPrint = "";
-        toPrint = toPrint + "Got it! I've added this task now!" + "\n";
-        toPrint = toPrint + task + "\n";
-        toPrint = toPrint + "Now you have " + tasks.size() + " tasks in the list." + "\n";
-        return toPrint;
-    }
 
 
     /**
