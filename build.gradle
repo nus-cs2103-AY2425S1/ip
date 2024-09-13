@@ -9,16 +9,10 @@ repositories {
     mavenCentral()
 }
 
+mainClassName = 'duke.Launcher'
 dependencies {
-    def javaFxVersion = '17.0.2'
-    implementation "org.openjfx:javafx-controls:17.0.2"
-    implementation "org.openjfx:javafx-fxml:17.0.2"
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-    testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
-    testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    String javaFxVersion = '17.0.7'
+
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -37,35 +31,36 @@ checkstyle {
     toolVersion = '10.2'
 }
 
+dependencies {
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
 test {
     useJUnitPlatform()
 
     testLogging {
         events "passed", "skipped", "failed"
+
         showExceptions true
         exceptionFormat "full"
         showCauses true
         showStackTraces true
         showStandardStreams = false
     }
-
-    jvmArgs = [
-            '--add-exports', 'javafx.graphics/com.sun.javafx.application=ALL-UNNAMED',
-            '--add-opens', 'javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED',
-            '--add-opens', 'javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED',
-            '--add-opens', 'javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED',
-    ]
 }
 
 application {
-    mainClass.set("tars.Launcher")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "tars"
+    archiveBaseName = "MentalHealth"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
