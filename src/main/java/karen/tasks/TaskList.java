@@ -1,6 +1,8 @@
 package karen.tasks;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -83,6 +85,45 @@ public class TaskList {
             }
         }
         return result;
+    }
+
+    /**
+     * Sorts the TaskList by date, in ascending order
+     */
+    public void sortByDate() {
+        Comparator<Task> dateComparator = (Task thisTask, Task otherTask) -> {
+            if (thisTask instanceof Todo) {
+                if (otherTask instanceof Todo) {
+                    return thisTask.getName().compareTo(otherTask.getName());
+                } else {
+                    // Place Todos at front of TaskList
+                    return -1;
+                }
+            } else if (thisTask instanceof Deadline) {
+                LocalDateTime thisDate = ((Deadline) thisTask).getDueDate();
+                if (otherTask instanceof Todo) {
+                    return 1;
+                } else if (otherTask instanceof Deadline) {
+                    LocalDateTime otherDate = ((Deadline) otherTask).getDueDate();
+                    return thisDate.compareTo(otherDate);
+                } else {
+                    LocalDateTime otherDate = ((Event) otherTask).getStartDate();
+                    return thisDate.compareTo(otherDate);
+                }
+            } else {
+                LocalDateTime thisDate = ((Event) thisTask).getStartDate();
+                if (otherTask instanceof Todo) {
+                    return 1;
+                } else if (otherTask instanceof Deadline) {
+                    LocalDateTime otherDate = ((Deadline) otherTask).getDueDate();
+                    return thisDate.compareTo(otherDate);
+                } else {
+                    LocalDateTime otherDate = ((Event) otherTask).getStartDate();
+                    return thisDate.compareTo(otherDate);
+                }
+            }
+        };
+        this.tasks.sort(dateComparator);
     }
 
     /**
