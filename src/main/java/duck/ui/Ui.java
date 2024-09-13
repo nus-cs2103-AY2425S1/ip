@@ -81,11 +81,26 @@ public class Ui {
      */
     public void showTasks(TaskList list) {
         this.lastResponse = "Here are the tasks in your list: ";
+        this.addTasksInList(list);
+        System.out.println(this.lastResponse);
+    }
+
+    /**
+     * Message to display upcoming deadlines in the current task list.
+     *
+     * @param upcomingDeadlines the current task list
+     */
+    public void showUpcomingDeadlines(TaskList upcomingDeadlines) {
+        this.lastResponse = "Here are your upcoming deadlines: ";
+        this.addTasksInList(upcomingDeadlines);
+        System.out.println(this.lastResponse);
+    }
+
+    private void addTasksInList(TaskList list) {
         for (int i = 0; i < list.getSize(); i++) {
             int num = i + 1;
             this.lastResponse += "\n" + num + ". " + list.getTask(i);
         }
-        System.out.println(this.lastResponse);
     }
 
     /**

@@ -22,6 +22,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Checks if this deadline is upcoming within a given number of days.
+     *
+     * @param today the current date
+     * @param daysAhead the number of days ahead to check for
+     * @return true if the deadline is upcoming within the specified number of days
+     */
+    public boolean isUpcoming(LocalDate today, int daysAhead) {
+        long daysUntilDue = LocalDate.now().until(by).getDays();
+        return daysUntilDue >= 0 && daysUntilDue <= daysAhead;
+    }
+
+    /**
      * Returns a string representation of this deadline task.
      *
      * @return A string representation of this deadline task.

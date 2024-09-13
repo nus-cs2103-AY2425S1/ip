@@ -1,5 +1,6 @@
 package duck.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,25 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
         return new TaskList(tasksWithKeyword);
+    }
+
+    /**
+     * Filters upcoming deadlines for reminder purposes.
+     * Only includes deadlines that are due within the next 3 days.
+     *
+     * @return a list of upcoming Deadline tasks that need reminders
+     */
+    public TaskList getUpcomingDeadlines() {
+        LocalDate today = LocalDate.now();
+        int daysAhead = 3;
+
+        ArrayList<Task> upcomingDeadlinesList = this.list.stream()
+                .filter(task -> task instanceof Deadline)
+                .map(task -> (Deadline) task)
+                .filter(deadline -> deadline.isUpcoming(today, daysAhead))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return new TaskList(upcomingDeadlinesList);
     }
 
     public ArrayList<Task> getList() {

@@ -6,6 +6,7 @@ import duck.command.FindCommand;
 import duck.command.InvalidCommandException;
 import duck.command.ListCommand;
 import duck.command.MarkCommand;
+import duck.command.RemindCommand;
 import duck.command.TaskCommand;
 import duck.command.UnmarkCommand;
 
@@ -32,6 +33,7 @@ public class Parser {
         case "delete" -> new DeleteCommand(fullCommand);
         case "list" -> new ListCommand(fullCommand);
         case "find" -> new FindCommand(fullCommand);
+        case "remind" -> new RemindCommand();
         default -> throw new InvalidCommandException("Invalid command: " + commandType);
         };
     }

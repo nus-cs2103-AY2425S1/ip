@@ -78,7 +78,7 @@ public class TaskCommand implements Command {
      */
     public static Task parseDeadline(String fullCommand) {
         String[] commandParts = fullCommand.split("/by");
-        LocalDate date = LocalDate.parse(commandParts[1]);
+        LocalDate date = LocalDate.parse(commandParts[1].trim());
         return new Deadline(commandParts[0].split(" ", 2)[1], date);
     }
 
