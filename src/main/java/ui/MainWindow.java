@@ -29,12 +29,13 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
+    /** Initializes the main window */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         ImageView imageView = new ImageView(getClass().getResource("/images/send_v3.png").toExternalForm());
-        imageView.setFitWidth(20);  // Set the desired width
-        imageView.setFitHeight(20); // Set the desired height
+        imageView.setFitWidth(20);
+        imageView.setFitHeight(20);
         sendButton.setGraphic(imageView);
     }
 
