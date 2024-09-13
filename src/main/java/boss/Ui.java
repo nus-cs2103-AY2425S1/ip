@@ -37,7 +37,7 @@ public class Ui {
      * @return String containing chatbot's response
      */
     public String printMark(String task) {
-        String toPrint = "";
+        String toPrint;
         toPrint = "Nice! I have marked this task as done!" + "\n";
         toPrint = toPrint + task + "\n";
         return toPrint;
@@ -50,7 +50,7 @@ public class Ui {
      * @return String containing chatbot's response
      */
     public String printUnmark(String task) {
-        String toPrint = "";
+        String toPrint;
         toPrint = "Nice! I have marked this task as undone!" + "\n";
         toPrint = toPrint + task + "\n";
         return toPrint;
@@ -63,7 +63,7 @@ public class Ui {
      * @return String containing chatbot's response
      */
     public String printDelete(String task) {
-        String toPrint = "";
+        String toPrint;
         toPrint = "Ok! This task has been removed!" + "\n";
         toPrint = toPrint + task + "\n";
         return toPrint;
