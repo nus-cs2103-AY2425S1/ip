@@ -28,11 +28,13 @@ public class Parser {
      * @param tasklist The list of tasks to be manipulated by the user commands.
      */
     public Parser(String rawInput, Tasklist tasklist) {
+        assert !rawInput.trim().isEmpty() : "Input cannot be empty";
+        assert tasklist != null : "Tasklist cannot be null";
+
         this.userInput = rawInput.trim().split(" ", 2);
         this.instruction = this.userInput[0].toLowerCase();
         this.tasklist = tasklist;
         this.isExitCalled = false;
-
     }
 
     /**

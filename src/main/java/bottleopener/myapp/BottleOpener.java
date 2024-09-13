@@ -21,6 +21,10 @@ public class BottleOpener {
         Tasklist tasklist = new Tasklist();
         this.storage = new Storage(FILE_PATH);
         this.tasks = storage.load(tasklist);
+
+        assert this.storage != null : "Storage initialisation failed";
+        assert this.tasks != null : "Tasklist loading from storage failed";
+
         this.hasExited = false;
     }
 
