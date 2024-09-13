@@ -40,7 +40,7 @@ public class MarkCommand implements Command {
             master.doneTask(this.action, index - 1);
             storage.saveList(master.getParent());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Friday.Friday > Input the task number (1 - " + master.getSize() + ") to mark/unmark the task");
+            System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to mark/unmark the task");
         }
         UI.printLine();
         return false;
