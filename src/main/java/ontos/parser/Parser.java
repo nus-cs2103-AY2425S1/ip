@@ -26,95 +26,172 @@ public class Parser {
         } else if (input.equalsIgnoreCase("list")) {
             return new Command.ListCommand();
         } else if (input.startsWith("mark")) {
-            try {
-                int index = Integer.parseInt(input.split(" ")[1]);
-                return new Command.MarkCommand(true, index);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new OntosException("The correct usage of 'mark' is: mark n, where n is a natural number (ℕ).");
-            }
+            return parseMark(input);
         } else if (input.startsWith("unmark")) {
-            try {
-                int index = Integer.parseInt(input.split(" ")[1]);
-                return new Command.MarkCommand(false, index);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new OntosException("The correct usage of 'unmark' is:"
-                        + " unmark n, where n is a natural number (ℕ).");
-            }
+            return parseUnmark(input);
         } else if (input.startsWith("delete")) {
-            try {
-                int index = Integer.parseInt(input.split(" ")[1]);
-                return new Command.DeleteCommand(index);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new OntosException("The correct usage of 'delete' is:"
-                        + " delete n, where n is a natural number (ℕ).");
-            }
+            return parseDelete(input);
         } else if (input.startsWith("todo")) {
-            Task toDo = null;
-            try {
-                toDo = Task.toDo(input.split(" ", 2)[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new OntosException(" OOPS!!! The description of a todo cannot be empty.");
-            }
-            return new Command.AddTaskCommand(toDo);
+            return parseToDo(input);
         } else if (input.startsWith("deadline")) {
-            int startOfDesc = input.indexOf(" ");
-            int endOfDesc = input.indexOf(" /by");
-
-            if (endOfDesc == -1) {
-                throw new OntosException(" OOPS!!! A deadline task requires a deadline.");
-            }
-
-            try {
-                String description = input.substring(startOfDesc, endOfDesc).trim();
-                LocalDate dueBy = LocalDate.parse(input.substring(endOfDesc + 4).trim());
-
-                if (description == "") {
-                    throw new OntosException("");
-                }
-
-                Task deadline = Task.deadline(description, dueBy);
-                return new Command.AddTaskCommand(deadline);
-            } catch (OntosException e) {
-                throw new OntosException(" OOPS!!! The description of a deadline cannot be empty.");
-            } catch (DateTimeParseException e) {
-                throw new OntosException(" OOPS!!! An deadline task requires valid deadline.");
-            }
+            return parseDeadline(input);
         } else if (input.startsWith("event")) {
-            int startOfDesc = input.indexOf(" ");
-            int endOfDesc = input.indexOf(" /from");
-            int endOfFrom = input.indexOf(" /to");
-
-            if (endOfDesc == -1 || endOfFrom == -1) {
-                throw new OntosException(" OOPS!!! An event task requires a start and end date.");
-            }
-
-            try {
-                String description = input.substring(startOfDesc, endOfDesc).trim();
-                LocalDate start = LocalDate.parse(input.substring(endOfDesc + 6, endOfFrom).trim());
-                LocalDate end = LocalDate.parse(input.substring(endOfFrom + 4).trim());
-
-                if (description == "") {
-                    throw new OntosException("");
-                }
-
-                Task event = Task.event(description, start, end);
-                return new Command.AddTaskCommand(event);
-            } catch (OntosException e) {
-                throw new OntosException(" OOPS!!! The description of an event cannot be empty.");
-            } catch (DateTimeParseException e) {
-                throw new OntosException(" OOPS!!! An event task requires valid a start and end date.");
-            }
+            return parseEvent(input);
         } else if (input.startsWith("find")) {
-            String searchCriteria = "";
-            try {
-                searchCriteria = input.split(" ", 2)[1].trim();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new OntosException("The correct usage of 'find' is:"
-                        + " find n, where n is the keyword you want to search.");
-            }
-            return new Command.FindCommand(searchCriteria);
+            return parseFind(input);
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * Parses the user input and returns a MarkCommand.
+     *
+     * @param input The user's input as a String.
+     * @return A MarkCommand object representing the user's desired action.
+     * @throws OntosException if the input is invalid.
+     */
+    public static Command parseMark(String input) throws OntosException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]);
+            return new Command.MarkCommand(true, index);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new OntosException("The correct usage of 'mark' is: mark n, where n is a natural number (ℕ).");
+        }
+    }
+
+    /**
+     * Parses the user input and returns an UnmarkCommand.
+     *
+     * @param input The user's input as a String.
+     * @return An UnmarkCommand object representing the user's desired action.
+     * @throws OntosException if the input is invalid.
+     */
+    public static Command parseUnmark(String input) throws OntosException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]);
+            return new Command.MarkCommand(false, index);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new OntosException("The correct usage of 'unmark' is:"
+                    + " unmark n, where n is a natural number (ℕ).");
+        }
+    }
+
+    /**
+     * Parses the user input and returns a DeleteCommand.
+     *
+     * @param input The user's input as a String.
+     * @return A DeleteCommand object representing the user's desired action.
+     * @throws OntosException if the input is invalid.
+     */
+    public static Command parseDelete(String input) throws OntosException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]);
+            return new Command.DeleteCommand(index);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new OntosException("The correct usage of 'delete' is:"
+                    + " delete n, where n is a natural number (ℕ).");
+        }
+    }
+
+    /**
+     * Parses the user input and returns an AddTaskCommand for a ToDo task.
+     *
+     * @param input The user's input as a String.
+     * @return An AddTaskCommand object representing the user's desired action.
+     * @throws OntosException if the input String does not contain a description.
+     */
+    public static Command parseToDo(String input) throws OntosException {
+        Task toDo = null;
+        try {
+            toDo = Task.toDo(input.split(" ", 2)[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new OntosException(" OOPS!!! The description of a todo cannot be empty.");
+        }
+        return new Command.AddTaskCommand(toDo);
+    }
+
+    /**
+     * Parses the user input and returns an AddTaskCommand for a Deadline task.
+     *
+     * @param input The user's input as a String.
+     * @return An AddTaskCommand object representing the user's desired action.
+     * @throws OntosException if the input String does not contain a description or deadline.
+     */
+    public static Command parseDeadline(String input) throws OntosException {
+        int startOfDesc = input.indexOf(" ");
+        int endOfDesc = input.indexOf(" /by");
+
+        if (endOfDesc == -1) {
+            throw new OntosException(" OOPS!!! A deadline task requires a deadline.");
+        }
+
+        try {
+            String description = input.substring(startOfDesc, endOfDesc).trim();
+            LocalDate dueBy = LocalDate.parse(input.substring(endOfDesc + 4).trim());
+
+            if (description == "") {
+                throw new OntosException(" OOPS!!! The description of a deadline cannot be empty.");
+            }
+
+            Task deadline = Task.deadline(description, dueBy);
+            return new Command.AddTaskCommand(deadline);
+        } catch (OntosException e) {
+            throw new OntosException(" OOPS!!! The description of a deadline cannot be empty.");
+        } catch (DateTimeParseException e) {
+            throw new OntosException(" OOPS!!! An deadline task requires valid deadline.");
+        }
+    }
+
+    /**
+     * Parses the user input and returns an AddTaskCommand for an Event task.
+     *
+     * @param input The user's input as a String.
+     * @return An AddTaskCommand object representing the user's desired action.
+     * @throws OntosException if the input String does not contain a description or start and end dates.
+     */
+    public static Command parseEvent(String input) throws OntosException {
+        int startOfDesc = input.indexOf(" ");
+        int endOfDesc = input.indexOf(" /from");
+        int endOfFrom = input.indexOf(" /to");
+
+        if (endOfDesc == -1 || endOfFrom == -1) {
+            throw new OntosException(" OOPS!!! An event task requires a start and end date.");
+        }
+
+        try {
+            String description = input.substring(startOfDesc, endOfDesc).trim();
+            LocalDate start = LocalDate.parse(input.substring(endOfDesc + 6, endOfFrom).trim());
+            LocalDate end = LocalDate.parse(input.substring(endOfFrom + 4).trim());
+
+            if (description == "") {
+                throw new OntosException(" OOPS!!! The description of an event cannot be empty.");
+            }
+
+            Task event = Task.event(description, start, end);
+            return new Command.AddTaskCommand(event);
+        } catch (OntosException e) {
+            throw new OntosException(" OOPS!!! The description of an event cannot be empty.");
+        } catch (DateTimeParseException e) {
+            throw new OntosException(" OOPS!!! An event task requires valid a start and end date.");
+        }
+    }
+
+    /**
+     * Parses the user input and returns a FindCommand.
+     *
+     * @param input The user's input as a String.
+     * @return A FindCommand object representing the user's desired action.
+     * @throws OntosException if the input is invalid.
+     */
+    public static Command parseFind(String input) throws IllegalArgumentException, OntosException {
+        String searchCriteria = "";
+        try {
+            searchCriteria = input.split(" ", 2)[1].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new OntosException("The correct usage of 'find' is:"
+                    + " find n, where n is the keyword you want to search.");
+        }
+        return new Command.FindCommand(searchCriteria);
     }
 }
