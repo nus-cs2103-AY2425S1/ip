@@ -10,12 +10,21 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Locale;
+import java.util.TimeZone;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import monique.exception.IllegalDateFormatException;
 
 public class DateParserTest {
+
+    @BeforeAll
+    public static void setUp() {
+        Locale.setDefault(new Locale("en", "SG"));
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
+    }
     @Test
     void testGetTimeString() {
         assertEquals("1700", DateParser.getTimeString("11/9/2024 1700"));
@@ -208,6 +217,7 @@ public class DateParserTest {
     // Test for 12-hour format with AM
     @Test
     void testParseTime12HourAM() throws IllegalDateFormatException {
+        // Set locale and time zone to your actual settings
         LocalTime expectedTime = LocalTime.of(6, 0);
         LocalTime actualTime = DateParser.parseTime("6am");
         assertEquals(expectedTime, actualTime, "The time should be parsed as 06:00 AM");
