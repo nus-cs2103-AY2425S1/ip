@@ -63,6 +63,14 @@ public class Parser {
             } else if (fullCommand.startsWith("find ")) {
                 String keyword = fullCommand.substring(5);
                 return new FindCommand(keyword);
+            } else if (fullCommand.startsWith("tag")) {
+                parts = fullCommand.split(" ", 3);
+                if (parts.length < 3) {
+                    throw new LoloException("Please specify both task number and tag.");
+                }
+                int taskNumber = Integer.parseInt(parts[1]) - 1; // Task numbers in the UI are 1-based, but internally they are 0-based.
+                String tag = parts[2]; // The tag to be added to the task
+                return new TagCommand(taskNumber, tag);
             } else {
                 throw new LoloException("I'm sorry, but I don't know what that means :-(");
             }

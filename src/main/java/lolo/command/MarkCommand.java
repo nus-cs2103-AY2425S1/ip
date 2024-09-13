@@ -33,6 +33,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws LoloException {
+        // Ensure taskIndex is within valid range
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+            int indexShown = taskNumber + 1;
+            throw new LoloException("Invalid task index: " + indexShown + " is out of Range");
+        }
         Task task = tasks.markTaskAsDone(taskNumber);
         storage.save(tasks.getTasks());
         return "Nice! I've marked this task as done:\n  " + task;
