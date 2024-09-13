@@ -38,32 +38,32 @@ public class NewStorage {
         switch (split[0]) {
         case "T":
                 if (split[1].equals("1")) {
-                    Todo todo = new Todo(split[2]);
+                    Todo todo = new Todo(split[2], split[3]);
                     todo.markDone();
                     tasks.add(todo);
                 } else {
-                    Todo todo = new Todo(split[2]);
+                    Todo todo = new Todo(split[2], split[3]);
                     tasks.add(todo);
                 }
                 break;
 
         case "D":
                 if (split[1].equals("1")) {
-                    Deadline deadline = new Deadline(split[2], split[3]);
+                    Deadline deadline = new Deadline(split[2], split[3], split[4]);
                     deadline.markDone();
                     tasks.add(deadline);
                 } else {
-                    Deadline deadline = new Deadline(split[2], split[3]);
+                    Deadline deadline = new Deadline(split[2], split[3], split[4]);
                     tasks.add(deadline);
                 }
                 break;
         case "E":
                 if (split[1].equals("1")) {
-                    Event event = new Event(split[2], split[3], split[4]);
+                    Event event = new Event(split[2], split[3], split[4], split[5]);
                     event.markDone();
                     tasks.add(event);
                 } else {
-                    Event event = new Event(split[2], split[3], split[4]);
+                    Event event = new Event(split[2], split[3], split[4], split[5]);
                     tasks.add(event);
                 }
                 break;

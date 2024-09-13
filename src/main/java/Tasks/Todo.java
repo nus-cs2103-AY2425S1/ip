@@ -17,6 +17,11 @@ public class Todo extends Task {
         super(description, TaskType.TODO);
     }
 
+    public Todo(String description, String priority) {
+        super(description, TaskType.TODO, priority);
+    }
+
+
     /**
      * Returns the string representation of this to-do task in a format suitable for file storage.
      * This includes the type indicator 'T', followed by the base task's file format.
@@ -25,7 +30,7 @@ public class Todo extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "T" + super.toFileFormat();
+        return "T" + super.toFileFormat() + " | " + priority;
     }
 
     /**

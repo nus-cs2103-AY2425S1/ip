@@ -24,6 +24,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String description, String start, String end, String priority) {
+        super(description, TaskType.EVENT, priority);
+        this.start = start;
+        this.end = end;
+    }
+
     /**
      * Returns the string representation of this event task in a format suitable for file storage.
      * This includes the type indicator 'E', followed by the base task's file format, and the event's start and end times.
@@ -32,7 +38,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E" + super.toFileFormat() + " | " + start + " | " + end;
+        return "E" + super.toFileFormat() + " | " + start + " | " + end + " | " + priority;
     }
 
     /**

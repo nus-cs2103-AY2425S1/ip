@@ -10,17 +10,31 @@ public class Task {
     protected String description;  // Textual description of the task.
     protected boolean isDone;      // Completion status of the task.
     protected TaskType taskType;   // Type of the task, as defined in the TaskType enum.
+    protected Integer priority;
+
+    /**
+     * Constructs a new Task with a specified description and type and a default priority.
+     *
+     * @param description The textual description of the task.
+     * @param taskType The type of the task, indicating its category (e.g., TODO, DEADLINE, EVENT).
+     */
+
+    public Task(String description, TaskType taskType) {
+        this(description, taskType, "100000");  // Default priority is set to 1.
+    }
 
     /**
      * Constructs a new Task with a specified description and type.
      *
      * @param description The textual description of the task.
      * @param taskType The type of the task, indicating its category (e.g., TODO, DEADLINE, EVENT).
+     * @param priority a integer specifies a priority
      */
-    public Task(String description, TaskType taskType) {
+    public Task(String description, TaskType taskType, String priority) {
         this.description = description;
         this.isDone = false;
         this.taskType = taskType;
+        this.priority = Integer.valueOf(priority);
     }
 
     /**
@@ -58,7 +72,8 @@ public class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        String priorityString = priority != 100000 ? priority.toString() : "no priority";
+        return getStatusIcon() + " " + description + " priority: " + priorityString;
     }
 
     /**
@@ -83,5 +98,22 @@ public class Task {
      */
     public void unmarkDone() {
         isDone = false;
+    }
+
+    /**
+     * update the content
+     */
+
+    public void update(Integer priority) {
+        this.priority = Integer.valueOf(priority);
+    }
+
+    public void update(String description) {
+        this.description = description;
+    }
+
+    public void update(String description, Integer priority) {
+        this.description = description;
+        this.priority = priority;
     }
 }

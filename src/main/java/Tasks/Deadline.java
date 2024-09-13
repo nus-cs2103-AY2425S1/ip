@@ -22,6 +22,11 @@ public class Deadline extends Task {
         this.deadline = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    public Deadline(String description, String deadline, String priority) {
+        super(description, TaskType.DEADLINE, priority);
+        this.deadline = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
     /**
      * Returns the formatted deadline date as a string.
      *
@@ -39,7 +44,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D" + super.toFileFormat() + " | " + deadline.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        return "D" + super.toFileFormat() + " | " + deadline.format(DateTimeFormatter.ISO_LOCAL_DATE) + " | " + priority;
     }
 
     /**
@@ -51,5 +56,19 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+    }
+
+
+    /**
+     * @param deadline that can update the deadline or all 3 properties
+     */
+    public void update(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+
+    public void update(String description, Integer priority, LocalDate deadline) {
+        this.description = description;
+        this.priority = priority;
+        this.deadline = deadline;
     }
 }

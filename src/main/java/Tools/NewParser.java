@@ -27,6 +27,10 @@ public class NewParser {
                 storage.saveTasks(tasks);
                 assert (tasks.size() == size-1);
                 return s;
+            } else if (input.startsWith("update")) {
+                String command_message = tasks.updateTask(input);
+                storage.saveTasks(tasks);
+                return command_message;
             } else if (input.startsWith("todo")) {
                 int size = tasks.size();
                 String s = tasks.addTodoTask(input);
