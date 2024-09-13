@@ -157,6 +157,7 @@ public class Parser {
         String command = words[0].toLowerCase();
         String rest = words.length > 1 ? words[1] : "";
         String output;
+
         switch(command) {
         case "list":
             output = ui.showTaskList(list);
