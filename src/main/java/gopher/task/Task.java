@@ -43,6 +43,11 @@ public abstract class Task {
     }
 
     /**
+     * Updates the relevant detail in the specified task.
+     */
+    public abstract void update(String[] tokens);
+
+    /**
      * Gets the save file message representation of this task.
      *
      * @return save string format of the task

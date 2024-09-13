@@ -23,6 +23,42 @@ public class Deadline extends Task {
     }
 
     @Override
+    public void update(String[] tokens) {
+        // Determine the position of /by token in update command tokens
+        int byTokenIndex = -1;
+        for (int i = 2; i < tokens.length; i++) {
+            if (tokens[i].equalsIgnoreCase("/by")) {
+                byTokenIndex = i;
+            }
+        }
+
+        // Update task name based on the position of /by token
+        StringBuilder taskName = new StringBuilder();
+        int taskNameIndexLimit = byTokenIndex != -1 ? byTokenIndex : tokens.length;
+        for (int i = 2; i < taskNameIndexLimit; i++) {
+            taskName.append(tokens[i]);
+            if (i < taskNameIndexLimit - 1) {
+                taskName.append(" ");
+            }
+        }
+        if (!taskName.isEmpty()) {
+            this.name = taskName.toString();
+        }
+
+        // Update due date if /by token is found in command tokens
+        if (byTokenIndex != -1) {
+            StringBuilder dueDateString = new StringBuilder();
+            for (int i = byTokenIndex + 1; i < tokens.length; i++) {
+                dueDateString.append(tokens[i]);
+                if (i < tokens.length - 1) {
+                    dueDateString.append(" ");
+                }
+            }
+            this.dueDate = Parser.parseDateString(dueDateString.toString());
+        }
+    }
+
+    @Override
     public String getSaveMessage() {
         return String.format("D | %s | %s | %s",
                 getStatusIcon(),

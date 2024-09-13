@@ -134,6 +134,26 @@ public class Gopher {
     }
 
     /**
+     * Executes the relevant actions when user input update task command.
+     *
+     * @param userInput command input by the user
+     * @return response by gopher after successful action
+     */
+    public static String executeUpdateTaskCommand(String userInput) {
+        try {
+            String[] tokens = userInput.split(" ");
+            if (tokens.length < 2) {
+                return "Update command cannot be empty";
+            }
+            int taskNumber = Integer.parseInt(tokens[1]);
+            taskList.update(taskNumber, tokens);
+            return "Hi I have updated this task for you already!";
+        } catch (DateTimeParseException e) {
+            return UI.getInvalidDateWarning();
+        }
+    }
+
+    /**
      * Start the main event loop.
      */
     public static String getResponse(String userInput)
@@ -152,6 +172,8 @@ public class Gopher {
             return executeFindTaskCommand(userInput);
         } else if (Parser.isValidTaskType(userInput.split(" ")[0])) {
             return executeCreateTaskCommand(userInput);
+        } else if (userInput.toLowerCase().startsWith("update")) {
+            return executeUpdateTaskCommand(userInput);
         } else {
             throw new UnknownCommandException(userInput);
         }

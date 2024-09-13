@@ -15,6 +15,18 @@ public class ToDo extends Task {
     }
 
     @Override
+    public void update(String[] tokens) {
+        StringBuilder taskName = new StringBuilder();
+        for (int i = 2; i < tokens.length; i++) {
+            taskName.append(tokens[i]);
+            if (i < tokens.length - 1) {
+                taskName.append(" ");
+            }
+        }
+        this.name = taskName.toString();
+    }
+
+    @Override
     public String getSaveMessage() {
         return String.format("T | %s | %s",
                 getStatusIcon(),

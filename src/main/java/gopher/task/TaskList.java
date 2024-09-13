@@ -40,6 +40,17 @@ public class TaskList {
     }
 
     /**
+     * Updates the task with the given task number with the relevant information.
+     *
+     * @param taskNumber number of the task to be updated
+     * @param tokens tokens from the update command
+     */
+    public void update(int taskNumber, String[] tokens) {
+        this.getTask(taskNumber).update(tokens);
+        TaskManager.saveTasks(tasks);
+    }
+
+    /**
      * Deletes the task with the given task number from the task list.
      * Triggers the TaskManager to update the local saved tasks.
      *
