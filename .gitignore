@@ -13,5 +13,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Exclude JAR files in build/libs
+/build/libs/Elsa.jar
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
