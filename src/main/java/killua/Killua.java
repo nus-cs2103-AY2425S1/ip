@@ -2,7 +2,6 @@ package killua;
 
 import java.io.IOException;
 
-import javafx.stage.Stage;
 import killua.command.Command;
 import killua.parser.Parser;
 import killua.storage.Storage;
@@ -17,26 +16,22 @@ import killua.util.TaskList;
  */
 public class Killua {
 
+    // Path to save list data
     private static final String FILE_PATH = "./data/tasks.txt";
     private final Storage storage;
-    private final Stage stage;
-    private TaskList tasks;
+    private final TaskList tasks;
     private final Ui ui;
+    private boolean isRunning;
 
     /**
-     * Constructs a Killua instance with the specified file path for task storage.
+     * Constructs Killua instance.
      *
-     * @param filePath The path to the file where tasks are stored.
      */
-    public Killua(String filePath, Stage stage) {
-        this.stage = stage;
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = storage.load();
-        } catch (IOException e) {
-            tasks = new TaskList();
-        }
+    public Killua() {
+        this.ui = new Ui();
+        this.storage = new Storage(FILE_PATH);
+        this.tasks = storage.load();
+        this.isRunning = true;
     }
 
     /**
@@ -46,7 +41,7 @@ public class Killua {
         try {
             Command c = Parser.parseCommand(input);
             if (c.isExit()) {
-                stage.close();
+                this.isRunning = false;
             }
             return c.execute(tasks, ui, storage);
         } catch (KilluaException | IOException e) {
@@ -59,5 +54,11 @@ public class Killua {
      */
     public String welcomeUser() {
         return ui.welcomeUser();
+    }
+    /**
+     * Return running state.
+     */
+    public boolean isRunning() {
+        return this.isRunning;
     }
 }

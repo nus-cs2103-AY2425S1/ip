@@ -13,7 +13,8 @@ import killua.util.TaskList;
  * This command parses the given date and displays the tasks scheduled for that date.
  */
 public class OnCommand extends Command {
-    private LocalDate date;
+    private static final String INVALID_FORMAT_MESSAGE = "Please use the correct format for dates: yyyy-mm-dd";
+    private final LocalDate date;
 
     /**
      * Constructs an OnCommand with the specified date string.
@@ -38,7 +39,7 @@ public class OnCommand extends Command {
         try {
             return LocalDate.parse(dateStr);
         } catch (DateTimeParseException e) {
-            throw new KilluaException("Please use the correct format for dates: yyyy-mm-dd");
+            throw new KilluaException(INVALID_FORMAT_MESSAGE);
         }
     }
 
