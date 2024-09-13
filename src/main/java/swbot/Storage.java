@@ -92,6 +92,7 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
             String line = "";
             fileParser(f, line, reader, database);
+
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
