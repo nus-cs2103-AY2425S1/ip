@@ -1,0 +1,5 @@
+T | 0 | eat
+T | 1 | swim
+T | 0 | sleep
+D | 0 | cs2103 | tonight
+E | 0 | cs2100 | 9am - 10am

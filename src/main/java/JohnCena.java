@@ -26,6 +26,9 @@ public class JohnCena {
 
 
     public static void main(String[] args) {
+
+        tasks = Storage.loadTasks();
+        //hello();
         Scanner scanner;
         if (args.length > 0) {
             try {
@@ -38,11 +41,13 @@ public class JohnCena {
             scanner = new Scanner(System.in);
         }
 
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello from\n" + logo);
-        //System.out.println(" Hello! I'm John Cena");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        hello();
+//
+//        System.out.println("____________________________________________________________");
+//        System.out.println("Hello from\n" + logo);
+//        //System.out.println(" Hello! I'm John Cena");
+//        System.out.println(" What can I do for you?");
+//        System.out.println("____________________________________________________________");
 
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
@@ -82,6 +87,7 @@ public class JohnCena {
                     throw new CenaInvalidTaskIndexException("The task index is invalid.");
                 }
                 tasks.get(taskIndex).markAsDone();
+                Storage.saveTasks(tasks);
                 System.out.println("____________________________________________________________");
                 System.out.println(" Nice! I've marked this task as done:");
                 System.out.println("   " + tasks.get(taskIndex));
@@ -96,6 +102,7 @@ public class JohnCena {
                     throw new CenaInvalidTaskIndexException("The task index is invalid.");
                 }
                 tasks.get(taskIndex).markAsNotDone();
+                Storage.saveTasks(tasks);
                 System.out.println("____________________________________________________________");
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println("   " + tasks.get(taskIndex));
@@ -113,6 +120,7 @@ public class JohnCena {
             }
             Task task = new Todo(description);
             tasks.add(task);
+            Storage.saveTasks(tasks);
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             System.out.println("   " + task);
@@ -125,6 +133,7 @@ public class JohnCena {
             }
             Task task = new Deadline(parts[0], parts[1]);
             tasks.add(task);
+            Storage.saveTasks(tasks);
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             System.out.println("   " + task);
@@ -137,6 +146,7 @@ public class JohnCena {
             }
             Task task = new Event(parts[0], parts[1], parts[2]);
             tasks.add(task);
+            Storage.saveTasks(tasks);
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             System.out.println("   " + task);
@@ -149,6 +159,7 @@ public class JohnCena {
                     throw new CenaInvalidTaskIndexException("The task index is invalid.");
                 }
                 Task removedTask = tasks.remove(taskIndex);
+                Storage.saveTasks(tasks);
                 System.out.println("____________________________________________________________");
                 System.out.println(" Noted. I've removed this task:");
                 System.out.println("   " + removedTask);
@@ -160,5 +171,13 @@ public class JohnCena {
         } else {
             throw new CenaUnknownCommandException("I'm sorry, but I don't know what that means :-(\n  Please use a valid command (todo, deadline or event)");
         }
+    }
+
+    private static void hello() {
+        System.out.println("____________________________________________________________");
+        System.out.println("Hello from\n" + logo);
+        //System.out.println(" Hello! I'm John Cena");
+        System.out.println(" What can I do for you?");
+        System.out.println("____________________________________________________________");
     }
 }
