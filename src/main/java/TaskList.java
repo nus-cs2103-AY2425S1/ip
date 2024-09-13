@@ -97,7 +97,7 @@ public class TaskList {
             System.out.println("Oh no, I can't read the saved file. \n" +
                     "Check the error message to see why");
             e.printStackTrace();
-        } ;
+        }
     }
 
     private static void save() {

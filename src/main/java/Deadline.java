@@ -1,14 +1,15 @@
+import java.time.LocalDate;
 public class Deadline extends Task{
-    protected String deadline;
+    protected LocalDate deadline;
     /**
      * Private constructor for a Task
      *
      * @param description A string description of the task
      * @param deadline A string description of the deadline of the task
      */
-    protected Deadline(String description, String deadline) {
+    protected Deadline(String description, String deadline){
         super(description);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline.trim());
     }
 
     /**
@@ -17,9 +18,9 @@ public class Deadline extends Task{
      * @param status The current status of the task
      * @param deadline The deadline of this task
      */
-    protected Deadline(String description, String status, String deadline) {
+    protected Deadline(String description, String status, String deadline){
         super(description, Status.valueOf(status));
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
     @Override
