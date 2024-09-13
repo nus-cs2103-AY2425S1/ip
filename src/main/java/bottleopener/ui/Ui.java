@@ -1,19 +1,20 @@
 package bottleopener.ui;
 
 /**
- * The {@code Ui} class handles the user interface for the BottleOpener chatbot.
- * It provides methods for displaying messages to the user with consistent formatting.
+ * The {@code Ui} class provides utility methods for formatting messages
+ * with a predefined spacer. It helps in wrapping messages to maintain
+ * consistency in the output displayed by the application.
  */
 public class Ui {
     private static final String SPACER = "-----------------------------------\n";
 
-
     /**
-     * Wraps a given message with a spacer line above and below it.
-     * If the message does not end with a newline, it adds one before the closing spacer.
+     * Wraps the given message with a spacer before and after it.
+     * If the message does not end with a newline, one will be added before appending
+     * the closing spacer.
      *
-     * @param message The message to be wrapped with spacers.
-     * @return The formatted message with spacers.
+     * @param message The message to be wrapped.
+     * @return A string with the message wrapped between two spacer lines.
      */
     public static String wrapSpacer(String message) {
         if (message.endsWith("\n")) {
