@@ -1,5 +1,6 @@
 package david;
 
+import java.awt.*;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -7,9 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for David using FXML.
  */
 public class Main extends Application {
 
@@ -23,8 +25,13 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
+
+            stage.setTitle("David");
+            Image davidLogo = new Image("/images/DavidLogo.png");
+            stage.getIcons().add(davidLogo);
+
             MainWindow controller = fxmlLoader.<MainWindow>getController();
-            controller.setDavid(chatbot); // inject the Duke instance
+            controller.setDavid(chatbot); // inject the David instance
             controller.launchChatBot();
 
             stage.show();
