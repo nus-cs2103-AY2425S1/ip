@@ -19,6 +19,9 @@ public class Deadline extends Task {
         //param dueDate in the form "yyyy-mm-dd HHmm"
         this.dueDate = LocalDateTime.parse(dueDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
+    public LocalDateTime getDueDate() {
+        return this.dueDate;
+    }
 
     @Override
     public String toString() {
