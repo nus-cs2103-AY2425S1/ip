@@ -6,5 +6,6 @@ package bill;
 public class BillException extends Exception {
     public BillException(String str) {
         super(str);
+        assert !str.isEmpty() : "All BillException should have a string message and not be blank";
     }
 }

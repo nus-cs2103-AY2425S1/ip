@@ -78,6 +78,9 @@ public class Storage {
 
         File file = new File(String.valueOf(pathStorageFile));
 
+        assert Files.exists(pathStorageDirectory) : "Ensure the data directory exists";
+        assert Files.exists(pathStorageFile) : "Ensure the file bill.txt exists";
+
         // if text file empty return early to main function
         if (file.length() == 0) {
             return;
