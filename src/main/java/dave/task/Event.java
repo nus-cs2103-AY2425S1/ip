@@ -31,6 +31,9 @@ public class Event extends Task {
      */
     public Event(String description) throws InvalidDescriptionException, InvalidDateTimeFormatException {
         super(description.split("/from")[0].trim());
+
+        assert description != null && !description.trim().isEmpty() : "Event description must not be null or empty";
+
         String[] arguments = description.split("/from ");
 
         if (arguments.length < 2 || arguments[1].trim().isEmpty()) {
@@ -96,7 +99,6 @@ public class Event extends Task {
     public LocalTime getToTime() {
         return toTime;
     }
-
 
     /**
      * Parses the provided time string into a LocalTime.

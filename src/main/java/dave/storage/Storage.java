@@ -16,8 +16,6 @@ import dave.task.Task;
 import dave.task.TaskList;
 import dave.task.Todo;
 
-
-
 /**
  * The Storage class handles the loading and saving of tasks to and from a file.
  */
@@ -31,6 +29,7 @@ public class Storage {
      * @param taskList The TaskList to populate with tasks loaded from the file.
      */
     public Storage(String file, TaskList taskList) {
+        assert file != null : "File path must not be null";
         try {
             this.filePath = file;
             taskList.setTaskList(loadFile());
@@ -46,6 +45,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void saveFile(TaskList dataList) throws IOException {
+        assert filePath != null : "File path must not be null";
+
         File fileObj = new File(filePath);
         fileObj.getParentFile().mkdirs();
         if (!fileObj.exists()) {
@@ -64,6 +65,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void clearFile() throws IOException {
+        assert filePath != null : "File path must not be null";
+
         FileWriter fw = new FileWriter(filePath, false);
         fw.write("");
         fw.close();
@@ -76,6 +79,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void amendFile(Task task) throws IOException {
+        assert filePath != null : "File path must not be null";
+
         File fileObj = new File(filePath);
         fileObj.getParentFile().mkdirs();
         if (!fileObj.exists()) {
@@ -93,6 +98,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading from the file.
      */
     public ArrayList<Task> loadFile() throws IOException {
+        assert filePath != null : "File path must not be null";
+
         ArrayList<Task> tasks = new ArrayList<>();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -156,5 +163,3 @@ public class Storage {
         return tasks;
     }
 }
-
-
