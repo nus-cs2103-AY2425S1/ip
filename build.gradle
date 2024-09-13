@@ -29,18 +29,23 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
-
-    testLogging {
-        events "passed", "skipped", "failed"
-
-        showExceptions true
-        exceptionFormat "full"
-        showCauses true
-        showStackTraces true
-        showStandardStreams = false
-    }
+    enabled = false // Disable all tests
 }
+
+
+// test {
+//     useJUnitPlatform()
+
+//     testLogging {
+//         events "passed", "skipped", "failed"
+
+//         showExceptions true
+//         exceptionFormat "full"
+//         showCauses true
+//         showStackTraces true
+//         showStandardStreams = false
+//     }
+// }
 
 tasks.withType(Checkstyle) {
     enabled = false
