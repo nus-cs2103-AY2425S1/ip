@@ -93,18 +93,16 @@ public class TaskList {
      * @return String of user response
      */
     public String findTasks(String input) {
-        String message = "";
+        StringBuilder sb = new StringBuilder();
+        sb.append(MESSAGE_ONFIND);
 
-        message += MESSAGE_ONFIND;
-        int count = 1;
-        for (Task t : this.taskList) {
-            if (t.toString().contains(input)) {
-                message += String.format("%d.%s", count, t.toString());
-                count++;
-            }
-        }
+        final int counter[] = { 1 };
+        this.taskList.stream()
+                .filter(t -> t.toString().contains(input) || t.getTag().contains(input))
+                .map(t -> String.format("%d.%s %s\n", counter[0]++, t.toString(), t.getTag()))
+                .forEach(t -> sb.append(t));
 
-        return message;
+        return sb.toString();
     }
 
     public int getSize() {
@@ -113,14 +111,13 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String output = "";
-        int count = 1;
-        for (Task t : this.taskList) {
-            String temp = String.format("%d.%s  %s\n", count, t.toString(), t.getTag());
-            output += temp;
-            count++;
-        }
+        StringBuilder sb = new StringBuilder();
 
-        return output;
+        final int counter[] = { 1 };
+        this.taskList.stream()
+                .map(t -> String.format("%d.%s  %s\n", counter[0]++, t.toString(), t.getTag()))
+                .forEach(t -> sb.append(t));
+
+        return sb.toString();
     }
 }
