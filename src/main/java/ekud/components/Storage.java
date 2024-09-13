@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 
 import ekud.task.Task;
 import ekud.ui.Ui;
@@ -75,35 +76,22 @@ public class Storage {
      * @param ui The {@link Ui} to print output to.
      */
     public void loadTasks(TaskList tasks, Ui ui) {
-        File copy = new File(dataFile.getParent() + "/temp.txt");
-
         try {
+            StringBuilder sb = new StringBuilder();
+
             BufferedReader reader = new BufferedReader(new FileReader(dataFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(copy, true));
-            String currLine = reader.readLine();
-
-            // read tasks and add to list
-            while (currLine != null) {
-                String taskSave = currLine.trim();
-                Task task = Task.getTaskFromSave(taskSave, ui);
-                if (task != null) {
-                    // preserve tasks
-                    writer.write(taskSave);
-                    writer.newLine();
-
-                    // add valid ekud.task to list
-                    tasks.addTask(task);
-                }
-
-                currLine = reader.readLine();
-            }
+            reader.lines()
+                    .map((taskSave) -> Task.getTaskFromSave(taskSave, ui))
+                    .filter(Objects::nonNull)
+                    .forEach((task) -> {
+                        sb.append(task.getSaveTaskString()).append("\n");
+                        tasks.addTask(task);
+                    });
             reader.close();
-            writer.close();
 
-            boolean deletedOriginal = dataFile.delete();
-            boolean renamed = copy.renameTo(dataFile);
-            boolean deleted = copy.delete();
-            assert(deletedOriginal && renamed && deleted);
+            FileWriter writer = new FileWriter(dataFile);
+            writer.write(sb.toString());
+            writer.close();
         } catch (IOException e) {
             String error = String.format("""
                     Something went wrong when trying to load your save!
@@ -144,19 +132,14 @@ public class Storage {
         String saveString = task.getSaveTaskString();
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
             StringBuilder sb = new StringBuilder();
-            String currLine = reader.readLine();
-            while (currLine != null) {
-                // keep non deleted lines
-                if (!saveString.equals(currLine)) {
-                    sb.append(currLine).append("\n");
-                }
-                currLine = reader.readLine();
-            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+            reader.lines()
+                    .filter((taskSave) -> !Objects.equals(saveString, taskSave))
+                    .forEach((taskSave) -> sb.append(taskSave).append("\n"));
             reader.close();
 
-            // rewrite file
             FileWriter writer = new FileWriter(dataFile);
             writer.write(sb.toString());
             writer.close();
@@ -179,21 +162,17 @@ public class Storage {
      */
     public void updateTaskState(Task task, String previousState, Ui ui) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
             StringBuilder sb = new StringBuilder();
-            String currLine = reader.readLine();
 
-            while (currLine != null) {
-                if (previousState.equals(currLine)) { // replace old state with new state
-                    sb.append(task.getSaveTaskString()).append("\n");
-                } else {
-                    sb.append(currLine).append("\n");
-                }
-                currLine = reader.readLine();
-            }
+            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+            reader.lines()
+                    .map((taskSave) -> Objects.equals(taskSave, previousState)
+                                    ? task.getSaveTaskString()
+                                    : taskSave)
+                    .forEach((taskSave) -> sb.append(taskSave).append("\n"));
+            reader.close();
 
             // rewrite data to file
-            reader.close();
             FileWriter writer = new FileWriter(dataFile);
             writer.write(sb.toString());
             writer.close();
