@@ -6,10 +6,7 @@ import Bunbun.exceptions.InvalidDateFormatException;
 import Bunbun.exceptions.InvalidTaskFormatException;
 import Bunbun.exceptions.MissingTaskException;
 import Bunbun.exceptions.TaskNumOutOfBoundsException;
-import Bunbun.tasks.Deadline;
-import Bunbun.tasks.Event;
-import Bunbun.tasks.Task;
-import Bunbun.tasks.ToDo;
+import Bunbun.tasks.*;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -91,6 +88,33 @@ public class TaskList {
             }
             ToDo todo = new ToDo(taskDescription);
             return this.addTask(todo);
+        }
+    }
+
+    /**
+     * Adds TimeBox task to the task list from an array list of tokens specifying the task.
+     *
+     * @param tokens ArrayList with Strings specifying the task.
+     * @return String response that task was added.
+     * @throws BunbunException if the command specifying the task is invalid due to no task specified
+     * or incorrect formatting.
+     */
+    public String addTimeBox(ArrayList<String> tokens) throws BunbunException {
+        if (tokens.size() == 1 || tokens.get(1).equals("/in")) {
+            throw new MissingTaskException("Failed. Specify a task for your deadline task!!!! D:");
+        } else if (!(tokens.contains("/in")) || tokens.indexOf("/in") != tokens.size() - 2) {
+            throw new InvalidTaskFormatException(
+                    "Failed. Add /in [TIME IN HOURS] to specify when to complete your task by!!! ;=;");
+        } else {
+            String taskDescription = "";
+            int i = 1;
+            while (!tokens.get(i).equals("/in")) {
+                taskDescription += tokens.get(i) + " ";
+                i += 1;
+            }
+            int duration = Integer.parseInt(tokens.get(i+1));
+            TimeBox timeBoxTask = new TimeBox(taskDescription, duration);
+            return this.addTask(timeBoxTask);
         }
     }
 

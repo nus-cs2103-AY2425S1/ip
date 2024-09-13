@@ -3,6 +3,7 @@ package Bunbun.utils;
 import Bunbun.tasks.Deadline;
 import Bunbun.tasks.Event;
 import Bunbun.tasks.Task;
+import Bunbun.tasks.TimeBox;
 import Bunbun.tasks.ToDo;
 
 import java.io.File;
@@ -69,7 +70,11 @@ public class Storage {
         } else if (type.equals("deadline")) {
             LocalDate date = DateTimeHandler.isValidLocalDate(info.get(3));
             task = new Deadline(info.get(2), date);
+        } else if (type.equals("timebox")) {
+            int duration = Integer.parseInt(info.get(3));
+            task = new TimeBox(info.get(2), duration);
         } else {
+            assert type.equals("event") : "Type of task should be event";
             LocalDate startDate = DateTimeHandler.isValidLocalDate(info.get(3));
             LocalDate endDate = DateTimeHandler.isValidLocalDate(info.get(4));
             task = new Event(info.get(2), startDate, endDate);
@@ -154,3 +159,4 @@ public class Storage {
     }
 
 }
+

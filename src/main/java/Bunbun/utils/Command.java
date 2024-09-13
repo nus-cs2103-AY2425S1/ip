@@ -42,6 +42,8 @@ public class Command {
                 return this.taskList.markDoneTask(tokens);
             } else if (firstWord.equals("todo")) {
                 return this.taskList.addToDo(tokens);
+            } else if (firstWord.equals("timebox")) {
+                return this.taskList.addTimeBox(tokens);
             } else if (firstWord.equals("deadline")) {
                 return this.taskList.addDeadline(tokens);
             } else if (firstWord.equals("event")) {
