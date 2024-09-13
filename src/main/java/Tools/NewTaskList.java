@@ -23,12 +23,16 @@ public class NewTaskList {
     }
 
     public String deleteTask(int id) {
+        Integer size = tasks.size();
         if (id < 0 || id >= this.tasks.size()) {
             return "Task ID is out of range!";
 
         }
 
         Task removedTask = this.tasks.remove(id); // Removes the task and captures it for confirmation message
+
+        assert(tasks.size() == size - 1);
+
         return "Noted. I've removed this task:\n  " + removedTask +
                 "\nNow you have " + tasks.size() + " tasks in the list.";
 
@@ -47,10 +51,14 @@ public class NewTaskList {
 
     String markTask(int id) {
         tasks.get(id).markDone();
+        assert(tasks.get(id).getStatusIcon() == "[X]");
+
         return"Nice! I've marked this task as done:";
     }
     String unmarkTask(int id) {
         tasks.get(id).unmarkDone();
+        assert(tasks.get(id).getStatusIcon() == "[ ]");
+
         return"OK, I've marked this task as not done yet:";
     }
 
@@ -63,19 +71,16 @@ public class NewTaskList {
             throw new EmptyDescriptionException("OPS!!! The description of a todo cannot be empty.");
         }
 
+        Integer size = tasks.size();
+
         String description = input.substring(5).trim();
         tasks.add(new Todo(description));
 
-        String tasklist = "";
-
-        for (int i = 0; i < tasks.size(); i++) {
-            int index = i+1;
-            tasklist += index + " , " + tasks.get(i).toString() + "\n";
-        }
+        assert(tasks.size() == size + 1);
 
         return "Got it. I've added this task:\n  " +
                 new Todo(description) + "\nNow you have " +
-                tasks.size() + " tasks in the list" + tasks.size() + "." + tasklist;
+                tasks.size() + " tasks in the list" + tasks.size() + ".";
 
     }
 
@@ -88,9 +93,12 @@ public class NewTaskList {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("OPS!!! The description of a deadline cannot be empty");
         }
+
         try {
+            Integer size = tasks.size();
             String by = parts[1].trim();
             tasks.add(new Deadline(description, by));
+            assert(tasks.size() == size + 1);
             return "Got it. I've added this task:\n  "
                     + tasks.get(tasks.size() - 1) +
                     "\nNow you have " + tasks.size() + " tasks in the list.";
@@ -111,7 +119,9 @@ public class NewTaskList {
         }
         String start = parts[1].trim();
         String end = parts[2].trim();
+        Integer size = tasks.size();
         tasks.add(new Event(description, start, end));
+        assert(tasks.size() == size + 1);
         return "Got it. I've added this task:\n"
                 + "  " + new Event(description, start, end) + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";
@@ -119,6 +129,10 @@ public class NewTaskList {
 
     public boolean isEmpty() {
         return tasks.isEmpty();
+    }
+
+    public int size() {
+        return tasks.size();
     }
 
     public String findTask(String input) {
