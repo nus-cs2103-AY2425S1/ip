@@ -1,5 +1,7 @@
 package lebron;
 
+import java.time.LocalDate;
+
 public class Task {
     protected String description;
     protected boolean done;
@@ -7,6 +9,10 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.done = false;
+    }
+
+    public void reschedule(LocalDate newDate) {
+        
     }
 
     public String getStatusIcons() {

@@ -32,6 +32,10 @@ public class Ui {
         return "Alright bro, I've unmarked that task\n" + task.toString();
     }
 
+    public String showTaskRescheduled(Task task) {
+        return "Alright bro, I've rescheduled that task\n" + task.toString();
+    }
+
     public String showTaskList(TaskList taskList) throws LeBronException {
         StringBuilder result = new StringBuilder();
         for (int i = 1; i <= taskList.size(); i++) {

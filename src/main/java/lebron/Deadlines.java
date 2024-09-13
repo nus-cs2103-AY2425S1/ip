@@ -23,6 +23,10 @@ public class Deadlines extends Task {
         this.deadline = deadline;
     }
 
+    public void reschedule(LocalDate newDeadline) {
+        this.deadline = newDeadline;
+    }
+
     /**
      * Returns a string representation of the deadline task.
      * The string includes the task type, status icon, description, and formatted deadline date.

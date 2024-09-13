@@ -1,5 +1,6 @@
 package lebron;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -33,6 +34,19 @@ public class TaskList {
     public void unmarkTask(int index) throws LeBronException {
         if (index <= this.tasks.size()) {
             this.tasks.get(index - 1).markAsUndone();
+        } else {
+            throw new LeBronException("Thats out of bounds bro");
+        }
+    }
+
+    public void rescheduleTask(int index, LocalDate newDate) throws LeBronException {
+        if (index <= this.tasks.size()) {
+            Task task = this.tasks.get(index - 1);
+            if (!(task instanceof ToDos)) {
+                task.reschedule(newDate);
+            } else {
+                throw new LeBronException("Can't reschedule a ToDo bro!"); 
+            }
         } else {
             throw new LeBronException("Thats out of bounds bro");
         }

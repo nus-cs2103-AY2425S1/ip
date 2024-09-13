@@ -22,11 +22,6 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
-<<<<<<< HEAD
-=======
-
->>>>>>> 4872385 (Improve code quality by refactoring Event)
-        assert !end.isBefore(start) : "End date must not be before the start date";
 
         this.start = start;
         this.end = end;
@@ -44,6 +39,10 @@ public class Event extends Task {
         return String.format("[E][%s] %s (from: %s to: %s)", super.getStatusIcons(),
                 super.description, this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                 this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+    }
+
+    public void reschedule(LocalDate newDate) {
+        this.end = newDate;
     }
 
     /**

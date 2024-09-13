@@ -26,6 +26,11 @@ public class Parser {
             case "find":
                 String keyword = words[1];
                 return new FindCommand(keyword);
+            case "snooze":
+                String[] snoozeStr = words[1].split("/to ", 2);
+                index = Integer.parseInt(snoozeStr[0].trim());
+                LocalDate newDate = parseDate(snoozeStr[1].trim());
+                return new SnoozeCommand(index, newDate);
             case "todo":
                 ToDos todo = new ToDos(words[1].trim());
                 return new AddCommand(todo);
