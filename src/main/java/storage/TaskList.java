@@ -91,6 +91,7 @@ public class TaskList {
         String ans = "";
         ans += String.format("Completed: %d tasks | Incomplete: %d tasks | Total: %d tasks%n%n",
                 countCompleted(true), countCompleted(false), parent.size());
+        assert countCompleted(true) + countCompleted(false) == parent.size() : "Invalid completion breakdown";
         for (int i = 1; i <= parent.size(); i++) {
             ans += String.format("%d: %s%n", i, parent.get(i - 1).toString());
         }
@@ -201,6 +202,7 @@ public class TaskList {
                 }
             }
         }
+        assert count >= 0 : "Invalid number of completed tasks";
         return count;
     }
 }
