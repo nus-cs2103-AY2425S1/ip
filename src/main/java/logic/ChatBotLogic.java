@@ -102,361 +102,420 @@ public class ChatBotLogic {
 	 * @return The bot's response.
 	 */
 	public String readInput(String userMessage) {
-		if (eventChainType == EventChainType.TERMINATE) {
-			switch (userMessage) {
-			case "yes" -> {
-				writer.writeMapToFile(taskList, filePath);
-				System.exit(0);
-			}
-			default -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "We are so back.";
-			}
-			}
+		switch (eventChainType) {
+		case TERMINATE -> {
+			return processTerminateState(userMessage);
 		}
-		if (eventChainType == EventChainType.DEFAULT) { // state DEFAULT
-			switch (userMessage) {
-			case "exit" -> {
-				eventChainType = EventChainType.TERMINATE;
-				return "It's jover?";
-			}
-			case "list" -> {
-				eventChainType = EventChainType.LIST;
-				return "Sure. What do you want to do with the list? (add, view, find, mark, unmark, delete)";
-			}
-			default -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "At your service my queen.";
-			}
-			}
+		case DEFAULT -> {
+			return processDefaultState(userMessage);
 		}
-		if (eventChainType == EventChainType.LIST) {    // state DEFAULT -> LIST
-			assert (taskList != null);  // taskList should not be null
-			switch (userMessage) {
-			case "view" -> {
-				eventChainType = EventChainType.VIEW;
-				return taskList.toString();
-			}
-			case "add" -> {
-				eventChainType = EventChainType.ADD;
-				return "Enter the type of task to add: (todo, deadline)";
-			}
-			case "mark" -> {    // bypassing VIEW state to direct operate on list
-				eventChainType = EventChainType.MARK;
-				return "enter name of the task to mark done";
-			}
-			case "unmark" -> {  // bypassing VIEW state to direct operate on list
-				eventChainType = EventChainType.UNMARK;
-				return "enter name of the task to mark undone";
-			}
-			case "delete" -> {  // bypassing VIEW state to direct operate on list
-				eventChainType = EventChainType.DELETE;
-				return "enter the name of task to delete";
-			}
-			case "sort" -> {
-				return taskList.keySet().stream().sorted().reduce("", (x, y) -> x + taskList.get(y) + y + "\n");
-			}
-			case "find" -> {    // bypassing VIEW state to direct operate on list
-				eventChainType = EventChainType.FIND;
-				return "enter keyword: ";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "return to main";
-			}
-			default -> {
-				return "unknown command";
-			}
-			}
+		case LIST -> {
+			return processListState(userMessage);
 		}
-		if (eventChainType == EventChainType.ADD) {     // state DEFAULT -> LIST -> ADD
-			switch (userMessage) {
-			case "todo" -> {
-				eventChainType = EventChainType.TODO;
-				return "enter the name of todo task: ";
-			}
-			case "deadline" -> {
-				eventChainType = EventChainType.DEADLINE;
-				return "enter the name of deadline task: ";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "return to main";
-			}
-			case "back" -> {
-				eventChainType = EventChainType.LIST;
-				return "back to List state";
-			}
-			default -> {
-				// remain at current state when entering invalid command
-				return "unknown type";
-			}
-			}
+		case ADD -> {
+			return processAddState(userMessage);
 		}
-		if (eventChainType == EventChainType.TODO) {    // state DEFAULT -> LIST -> ADD -> TODO
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.ADD;
-				return "return to add";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				tempName = userMessage;
-				eventChainType = EventChainType.TODO_NAMED;
-				return "enter description:";
-			}
-			}
+		case TODO -> {
+			return processTodoState(userMessage);
 		}
-		if (eventChainType == EventChainType.DEADLINE) {    // state DEFAULT -> LIST -> ADD -> DEADLINE
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.ADD;
-				return "return to add";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				tempName = userMessage;
-				eventChainType = EventChainType.DEADLINE_NAMED;
-				return "enter description";
-			}
-			}
+		case DEADLINE -> {
+			return processDeadlineState(userMessage);
 		}
-		if (eventChainType == EventChainType.TODO_NAMED) {      // state DEFAULT -> LIST -> ADD -> TODO -> TODO_NAMED
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.ADD;
-				return "return to add";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				taskList.put(tempName, Todo.createTodo(tempName, userMessage));
-				eventChainType = EventChainType.ADD;
-				return "todo added. enter type for the next task to be added: ";
-			}
-			}
+		case TODO_NAMED -> {
+			return processTodoNamedState(userMessage);
 		}
-		if (eventChainType == EventChainType.DEADLINE_NAMED) {  // state DEFAULT -> LIST -> ADD -> DEADLINE -> DEADLINE_NAMED
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.ADD;
-				return "return to add";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				tempDescription = userMessage;
-				eventChainType = EventChainType.DEADLINE_DESCRIBED;
-				return "enter deadline date (yyyy-mm-dd): ";
-			}
-			}
+		case DEADLINE_NAMED -> {
+			return processDeadlineNamedState(userMessage);
 		}
-		// state DEFAULT -> LIST -> ADD -> DEADLINE -> DEADLINE_NAMED -> DEADLINE_DESCRIBED
-		if (eventChainType == EventChainType.DEADLINE_DESCRIBED) {
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.ADD;
-				return "return to add";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				try {
-					LocalDate byDate = LocalDate.parse(userMessage);
-					taskList.put(tempName, Deadline.createDeadline(tempName, tempDescription, byDate));
-					eventChainType = EventChainType.ADD;
-					return "deadline added. enter type for the next task to be added: ";
-				} catch (DateTimeParseException e) {
-					// stay in DEADLINE_DESCRIBED state when entering invalid date format
-					return "invalid format. please retry";
-				}
-			}
-			}
+		case DEADLINE_DESCRIBED -> {
+			return processDeadlineDescribedState(userMessage);
 		}
-		// state DEFAULT -> LIST -> VIEW
-		if (eventChainType == EventChainType.VIEW) {
-			switch (userMessage) {
-			case "find" -> {
-				eventChainType = EventChainType.FIND;
-				return "enter keyword";
-			}
-			case "mark" -> {
-				eventChainType = EventChainType.MARK;
-				return "enter name of the task to mark done";
-			}
-			case "unmark" -> {
-				eventChainType = EventChainType.UNMARK;
-				return "enter name of the task to mark undone";
-			}
-			case "delete" -> {
-				eventChainType = EventChainType.DELETE;
-				return "enter the name of task to delete";
-			}
-			case "back" -> {
-				eventChainType = EventChainType.LIST;
-				return "return to list";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "return to main";
-			}
-			case "sort" -> {
-				return taskList.keySet().stream().sorted().reduce("", (x, y) -> x + taskList.get(y) + y + "\n");
-			}
-			default -> {
-				// remain at current state when entering invalid command
-				return "unknown command";
-			}
-			}
+		case VIEW -> {
+			return processViewState(userMessage);
 		}
-		// state DEFAULT -> LIST -> VIEW -> FIND
-		if (eventChainType == EventChainType.FIND) {
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.VIEW;
-				return "back to view";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				for (Task task : taskList.values()) {
-					if (task.getName().toLowerCase().contains(userMessage)) {
-						flaggedTask = task;
-						eventChainType = EventChainType.FOUND;
-						return "Found task: " + task.toString();
-					}
-				}
-				return userMessage + " not found";
-			}
-			}
+		case FIND -> {
+			return processFindState(userMessage);
 		}
-		// state DEFAULT -> LIST -> VIEW -> FIND -> FOUND
-		if (eventChainType == EventChainType.FOUND) {
-			switch (userMessage) {
-			case "back" -> {
-				flaggedTask = null;
-				eventChainType = EventChainType.VIEW;
-				return "back to view";
-			}
-			case "exit" -> {
-				flaggedTask = null;
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			case "mark" -> {
-				assert (flaggedTask != null);   // flaggedTask should not be null
-				if (flaggedTask.isDone()) {
-					return flaggedTask.getName() + " is already marked done";
-				} else {
-					String taskName = flaggedTask.getName();
-					flaggedTask.markDone();
-					flaggedTask = null;
-					eventChainType = EventChainType.VIEW;
-					return taskName + " marked done";
-				}
-			}
-			case "unmark" -> {
-				assert (flaggedTask != null);   // flaggedTask should not be null
-				if (!flaggedTask.isDone()) {
-					return flaggedTask.getName() + " is already marked undone";
-				} else {
-					String taskName = flaggedTask.getName();
-					flaggedTask.markUndone();
-					flaggedTask = null;
-					eventChainType = EventChainType.VIEW;
-					return taskName + " marked undone";
-				}
-			}
-			case "delete" -> {
-				String taskRemoved = flaggedTask.getName();
-				taskList.remove(taskRemoved);
-				flaggedTask = null;
-				eventChainType = EventChainType.VIEW;
-				return taskRemoved + " has been removed.";
-			}
-			}
+		case FOUND -> {
+			return processFoundState(userMessage);
 		}
-		// state DEFAULT -> LIST -> VIEW -> MARK
-		if (eventChainType == EventChainType.MARK) {
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.VIEW;
-				return "back to view";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				for (Task task : taskList.values()) {
-					if (task.getName().equalsIgnoreCase(userMessage)) {
-						task.markDone();
-						return "Mark task: " + task.toString() + ". Enter name for the next task to mark";
-					}
-				}
-				return userMessage + "not found.";
-			}
-			}
+		case MARK -> {
+			return processMarkState(userMessage);
 		}
-		// state DEFAULT -> LIST -> VIEW -> UNMARK
-		if (eventChainType == EventChainType.UNMARK) {
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.VIEW;
-				return "back to view";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				for (Task task : taskList.values()) {
-					if (task.getName().equalsIgnoreCase(userMessage)) {
-						task.markUndone();
-						return "Unmark task: " + task.toString() + ". Enter name for the next task to unmark";
-					}
-				}
-				return userMessage + "not found.";
-			}
-			}
+		case UNMARK -> {
+			return processUnmarkState(userMessage);
 		}
-		// state DEFAULT -> LIST -> VIEW -> DELETE
-		if (eventChainType == EventChainType.DELETE) {
-			switch (userMessage) {
-			case "back" -> {
-				eventChainType = EventChainType.VIEW;
-				return "back to view";
-			}
-			case "exit" -> {
-				eventChainType = EventChainType.DEFAULT;
-				return "back to main";
-			}
-			default -> {
-				for (Task task : taskList.values()) {
-					if (task.getName().equalsIgnoreCase(userMessage)) {
-						taskList.remove(userMessage);
-						return "remove task: " + userMessage + ". Enter name for the next task to remove";
-					}
-				}
-				return userMessage + "not found.";
-			}
-			}
+		case DELETE -> {
+			return processDeleteState(userMessage);
+		}
 		}
 		writer.writeMapToFile(taskList, filePath);
 		return "debugging";
+	}
+
+	// State processing methods
+	private String processTerminateState(String userMessage) {
+		switch (userMessage) {
+		case "yes" -> {
+			writer.writeMapToFile(taskList, filePath);
+			System.exit(0);
+		}
+		default -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "We are so back.";
+		}
+		}
+		return "";
+	}
+
+	private String processDefaultState(String userMessage) {
+		switch (userMessage) {
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.TERMINATE);
+			return "It's jover?";
+		}
+		case "list" -> {
+			EventChainType.setState(this, EventChainType.LIST);
+			return "Sure. What do you want to do with the list? (add, view, find, mark, unmark, delete)";
+		}
+		default -> {
+			return "At your service my queen.";
+		}
+		}
+	}
+
+	private String processListState(String userMessage) {
+		assert taskList != null;
+		switch (userMessage) {
+		case "view" -> {
+			EventChainType.setState(this, EventChainType.VIEW);
+			return taskList.toString();
+		}
+		case "add" -> {
+			EventChainType.setState(this, EventChainType.ADD);
+			return "Enter the type of task to add: (todo, deadline)";
+		}
+		case "mark" -> {
+			EventChainType.setState(this, EventChainType.MARK);
+			return "enter name of the task to mark done";
+		}
+		case "unmark" -> {
+			EventChainType.setState(this, EventChainType.UNMARK);
+			return "enter name of the task to mark undone";
+		}
+		case "delete" -> {
+			EventChainType.setState(this, EventChainType.DELETE);
+			return "enter the name of task to delete";
+		}
+		case "sort" -> {
+			return taskList.keySet().stream().sorted().reduce("", (x, y) -> x + taskList.get(y) + y + "\n");
+		}
+		case "find" -> {
+			EventChainType.setState(this, EventChainType.FIND);
+			return "enter keyword: ";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "return to main";
+		}
+		default -> {
+			return "unknown command";
+		}
+		}
+	}
+
+	private String processAddState(String userMessage) {
+		switch (userMessage) {
+		case "todo" -> {
+			EventChainType.setState(this, EventChainType.TODO);
+			return "enter the name of todo task: ";
+		}
+		case "deadline" -> {
+			EventChainType.setState(this, EventChainType.DEADLINE);
+			return "enter the name of deadline task: ";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "return to main";
+		}
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.LIST);
+			return "back to List state";
+		}
+		default -> {
+			return "unknown type";
+		}
+		}
+	}
+
+	private String processTodoState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.ADD);
+			return "return to add";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			tempName = userMessage;
+			EventChainType.setState(this, EventChainType.TODO_NAMED);
+			return "enter description:";
+		}
+		}
+	}
+
+	private String processDeadlineState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.ADD);
+			return "return to add";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			tempName = userMessage;
+			EventChainType.setState(this, EventChainType.DEADLINE_NAMED);
+			return "enter description";
+		}
+		}
+	}
+
+	private String processTodoNamedState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.ADD);
+			return "return to add";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			taskList.put(tempName, Todo.createTodo(tempName, userMessage));
+			EventChainType.setState(this, EventChainType.ADD);
+			return "todo added. enter type for the next task to be added: ";
+		}
+		}
+	}
+
+	private String processDeadlineNamedState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.ADD);
+			return "return to add";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			tempDescription = userMessage;
+			EventChainType.setState(this, EventChainType.DEADLINE_DESCRIBED);
+			return "enter deadline date (yyyy-mm-dd): ";
+		}
+		}
+	}
+
+	private String processDeadlineDescribedState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.ADD);
+			return "return to add";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			try {
+				LocalDate byDate = LocalDate.parse(userMessage);
+				taskList.put(tempName, Deadline.createDeadline(tempName, tempDescription, byDate));
+				EventChainType.setState(this, EventChainType.ADD);
+				return "deadline added. enter type for the next task to be added: ";
+			} catch (DateTimeParseException e) {
+				return "invalid format. please retry";
+			}
+		}
+		}
+	}
+
+	private String processViewState(String userMessage) {
+		switch (userMessage) {
+		case "find" -> {
+			EventChainType.setState(this, EventChainType.FIND);
+			return "enter keyword";
+		}
+		case "mark" -> {
+			EventChainType.setState(this, EventChainType.MARK);
+			return "enter name of the task to mark done";
+		}
+		case "unmark" -> {
+			EventChainType.setState(this, EventChainType.UNMARK);
+			return "enter name of the task to mark undone";
+		}
+		case "delete" -> {
+			EventChainType.setState(this, EventChainType.DELETE);
+			return "enter the name of task to delete";
+		}
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.LIST);
+			return "return to list";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "return to main";
+		}
+		case "sort" -> {
+			return taskList.keySet().stream().sorted().reduce("", (x, y) -> x + taskList.get(y) + y + "\n");
+		}
+		default -> {
+			return "unknown command";
+		}
+		}
+	}
+
+	private String processFindState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.VIEW);
+			return "back to view";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			for (Task task : taskList.values()) {
+				if (task.getName().toLowerCase().contains(userMessage)) {
+					flaggedTask = task;
+					EventChainType.setState(this, EventChainType.FOUND);
+					return "Found task: " + task.toString();
+				}
+			}
+			return userMessage + " not found";
+		}
+		}
+	}
+
+	private String processFoundState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			flaggedTask = null;
+			EventChainType.setState(this, EventChainType.VIEW);
+			return "back to view";
+		}
+		case "exit" -> {
+			flaggedTask = null;
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		case "mark" -> {
+			assert flaggedTask != null;
+			if (flaggedTask.isDone()) {
+				return flaggedTask.getName() + " is already marked done";
+			} else {
+				String taskName = flaggedTask.getName();
+				flaggedTask.markDone();
+				flaggedTask = null;
+				EventChainType.setState(this, EventChainType.VIEW);
+				return taskName + " marked done";
+			}
+		}
+		case "unmark" -> {
+			assert flaggedTask != null;
+			if (!flaggedTask.isDone()) {
+				return flaggedTask.getName() + " is already marked undone";
+			} else {
+				String taskName = flaggedTask.getName();
+				flaggedTask.markUndone();
+				flaggedTask = null;
+				EventChainType.setState(this, EventChainType.VIEW);
+				return taskName + " marked undone";
+			}
+		}
+		case "delete" -> {
+			String taskRemoved = flaggedTask.getName();
+			taskList.remove(taskRemoved);
+			flaggedTask = null;
+			EventChainType.setState(this, EventChainType.VIEW);
+			return taskRemoved + " has been removed.";
+		}
+		}
+		return "";
+	}
+
+	private String processMarkState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.VIEW);
+			return "back to view";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			for (Task task : taskList.values()) {
+				if (task.getName().equalsIgnoreCase(userMessage)) {
+					task.markDone();
+					return "Mark task: " + task.toString() + ". Enter name for the next task to mark";
+				}
+			}
+			return userMessage + " not found.";
+		}
+		}
+	}
+
+	private String processUnmarkState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.VIEW);
+			return "back to view";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			for (Task task : taskList.values()) {
+				if (task.getName().equalsIgnoreCase(userMessage)) {
+					task.markUndone();
+					return "Unmark task: " + task.toString() + ". Enter name for the next task to unmark";
+				}
+			}
+			return userMessage + " not found.";
+		}
+		}
+	}
+
+	private String processDeleteState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.VIEW);
+			return "back to view";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			for (Task task : taskList.values()) {
+				if (task.getName().equalsIgnoreCase(userMessage)) {
+					taskList.remove(userMessage);
+					return "remove task: " + userMessage + ". Enter name for the next task to remove";
+				}
+			}
+			return userMessage + " not found.";
+		}
+		}
+	}
+
+	// Method to set the event chain type for the bot
+	public void setEventChainType(EventChainType eventChainType) {
+		this.eventChainType = eventChainType;
 	}
 }

@@ -50,4 +50,9 @@ public enum EventChainType {
 	DELETE,
 	/** The state before terminating the program*/
 	TERMINATE;
+
+	// State management method for setting the current state.
+	public static void setState(ChatBotLogic bot, EventChainType newState) {
+		bot.setEventChainType(newState);
+	}
 }
