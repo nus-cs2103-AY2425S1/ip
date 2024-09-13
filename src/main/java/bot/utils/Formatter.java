@@ -1,8 +1,8 @@
 package bot.utils;
 
-import bot.tasks.Task;
-
 import java.util.List;
+
+import bot.tasks.Task;
 
 public class Formatter {
     public static final String DIVIDER = "____________________________________________________________\n";

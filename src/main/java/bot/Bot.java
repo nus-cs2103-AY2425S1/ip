@@ -1,19 +1,19 @@
 package bot;
 
-import bot.enums.Command;
-import bot.exceptions.BotException;
-import bot.exceptions.InvalidCommandException;
-import bot.exceptions.EmptyTodoException;
-import bot.exceptions.InvalidTaskIdException;
-import bot.exceptions.InvalidTaskDescriptionException;
-import bot.storage.Storage;
-import bot.tasks.TaskList;
-import bot.tasks.Todo;
-import bot.tasks.Task;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+
+import bot.enums.Command;
+import bot.exceptions.BotException;
+import bot.exceptions.EmptyTodoException;
+import bot.exceptions.InvalidCommandException;
+import bot.exceptions.InvalidTaskDescriptionException;
+import bot.exceptions.InvalidTaskIdException;
+import bot.storage.Storage;
+import bot.tasks.Task;
+import bot.tasks.TaskList;
+import bot.tasks.Todo;
 
 public class Bot {
     private final TaskList tasks;
