@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import bot.enums.TaskSymbol;
+import bot.exceptions.InvalidTaskEnumException;
 import bot.tasks.Deadline;
 import bot.tasks.Event;
 import bot.tasks.Task;
@@ -82,7 +84,11 @@ public class Storage {
         File f = new File(TASK_FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
-            tasks.add(parseData(s.nextLine()));
+            try {
+                tasks.add(parseData(s.nextLine()));
+            } catch (InvalidTaskEnumException e) {
+                System.out.println("The current line cannot be read and will be skipped. " + e.getMessage());
+            }
         }
     }
 
@@ -92,20 +98,19 @@ public class Storage {
      * @param data String data read from the local disk file.
      * @return <code>Task</code> object parsed from the given data.
      */
-    private Task parseData(String data) {
+    private Task parseData(String data) throws InvalidTaskEnumException {
         String[] args = data.split(" \\| ");
         // TODO: handle corrupted data
-        return switch (args[0]) {
-            // TODO: Replace with enums
-            case "T" -> new Todo(args[1], Boolean.parseBoolean(args[2]));
-            case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
-            case "E" -> new Event(
+        TaskSymbol sym = TaskSymbol.fromString(args[0]);
+        return switch (sym) {
+            case TODO -> new Todo(args[1], Boolean.parseBoolean(args[2]));
+            case DEADLINE -> new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
+            case EVENT -> new Event(
                     args[1],
                     Boolean.parseBoolean(args[2]),
                     LocalDate.parse(args[3]),
                     LocalDate.parse(args[4])
             );
-            default -> null;
         };
     }
 }
