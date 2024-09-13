@@ -1,0 +1,4 @@
+.anchor-pane {
+    -fx-background-image: url("/images/Wallpaper.png");
+    -fx-background-size: cover;
+}
