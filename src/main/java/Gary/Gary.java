@@ -50,14 +50,22 @@ public class Gary {
             }
         }
     }
-
+    /*
     /**
      * The main entry point of the application. Initializes a new {@code Gary} object
      * and starts the program.
      *
      * @param args Command-line arguments (not used in this application).
-     */
     public static void main(String[] args) {
         new Gary("src/textFile/gary.txt").start();
+    }
+    */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(taskList, ui, storage);
+        } catch (GaryException e) {
+            return e.getMessage();
+        }
     }
 }

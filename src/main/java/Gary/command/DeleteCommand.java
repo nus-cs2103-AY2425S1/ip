@@ -2,6 +2,7 @@ package Gary.command;
 
 import java.io.IOException;
 
+import Gary.GaryException;
 import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
@@ -31,15 +32,15 @@ public class DeleteCommand extends Command {
      * @param storage The {@code Storage} object for saving and loading tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws GaryException {
         try {
             Task deletedTask = taskList.removeTask(deletedIndex);
-            ui.deleteTask(deletedTask, taskList.size());
             storage.saveTask(taskList);
+            return ui.deleteTask(deletedTask, taskList.size());
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the task list: " + e.getMessage());
+            throw new GaryException("An error occurred while saving the task list. Try again.");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task list index is out of bounds!");
+            throw new GaryException("Task list index is out of bounds!");
         }
     }
 

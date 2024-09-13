@@ -2,6 +2,7 @@ package Gary.command;
 
 import java.io.IOException;
 
+import Gary.GaryException;
 import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
@@ -31,13 +32,13 @@ public class AddCommand extends Command {
      * @param storage The storage object to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskLists, Ui ui, Storage storage) {
-        taskLists.addTask(task);
-        ui.addTask(task, taskLists.size());
+    public String execute(TaskList taskLists, Ui ui, Storage storage) throws GaryException {
         try {
+            taskLists.addTask(task);
             storage.saveTask(taskLists);
+            return ui.addTask(task, taskLists.size());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new GaryException("Oops! There was an error saving the file. Please try again.");
         }
     }
 
