@@ -1,16 +1,15 @@
 package seedu.maxine;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.maxine.exception.MaxineException;
 import seedu.maxine.task.Deadline;
 import seedu.maxine.task.Event;
 import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TaskList implements MaxineList {
     private ArrayList<Task> list;
@@ -24,45 +23,45 @@ public class TaskList implements MaxineList {
         this.list = storage.load();
     }
 
-    public void addTodo(String input) {
-        try {
-            assert input != null : "input should not be null";
-            String[] answer = input.split("todo ");
-            String regex = "todo";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(input);
-            if (answer.length != 2 || !matcher.find()) {
-                throw new MaxineException("Please follow this "
-                        + "format: todo [enter maxine.task]");
-            }
-            String description = answer[1];
-            Todo task = new Todo(description);
-            list.add(task);
-        } catch (Exception e) {
-            System.out.println("Please follow this format: todo [enter maxine.task]");
+    /**
+     * 
+     * @param input
+     * @throws MaxineException
+     */
+    public void addTodo(String input) throws MaxineException {
+        assert input != null : "input should not be null";
+        String[] answer = input.split("todo ");
+        String regex = "todo";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if (answer.length != 2 || !matcher.find()) {
+            throw new MaxineException("Please follow this "
+                    + "format: todo [enter maxine.task]");
         }
+        String description = answer[1];
+        Todo task = new Todo(description);
+        list.add(task);
     }
 
-    
+    /**
+     * 
+     * @param input
+     * @throws MaxineException
+     */
     public void addDeadline(String input) throws MaxineException {
-        try {
-            assert input != null : "input should not be null";
-            String[] answer = input.split("deadline | /by ");
-            String regex = "deadline.*?/by";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(input);
-            if (answer.length != 3 || !matcher.find()) {
-                throw new MaxineException("Please follow this format: deadline "
-                        + "[enter maxine.task] /by [enter deadline]");
-            }
-            String description = answer[1];
-            String deadline = answer[2];
-            Deadline task = new Deadline(description, deadline);
-            list.add(task);
-        } catch (Exception e) {
-            System.out.println("Please follow this format: deadline "
+        assert input != null : "input should not be null";
+        String[] answer = input.split("deadline | /by ");
+        String regex = "deadline.*?/by";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if (answer.length != 3 || !matcher.find()) {
+            throw new MaxineException("Please follow this format: deadline "
                     + "[enter maxine.task] /by [enter deadline]");
         }
+        String description = answer[1];
+        String deadline = answer[2];
+        Deadline task = new Deadline(description, deadline);
+        list.add(task);
     }
 
 
@@ -72,24 +71,20 @@ public class TaskList implements MaxineList {
      * @throws MaxineException
      */
     public void addEvent(String input) throws MaxineException {
-        try {
-            assert input != null : "input should not be null";
-            String[] answer = input.split("event | /from | /to ");
-            String regex = "event.*?/from.*?/to";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(input);
-            if (answer.length != 4 || !matcher.find()) {
-                throw new MaxineException("Please follow this format: event [enter event] "
-                        + "/from [start date] /to [end date]");
-            }
-            String description = answer[1];
-            String startTime = answer[2];
-            String endTime = answer[3];
-            Event task = new Event(description, startTime, endTime);
-            list.add(task);
-        } catch (MaxineException e) {
-            System.out.println(e.getMessage());
+        assert input != null : "input should not be null";
+        String[] answer = input.split("event | /from | /to ");
+        String regex = "event.*?/from.*?/to";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if (answer.length != 4 || !matcher.find()) {
+            throw new MaxineException("Please follow this format: event [enter event] "
+                    + "/from [start date] /to [end date]");
         }
+        String description = answer[1];
+        String startTime = answer[2];
+        String endTime = answer[3];
+        Event task = new Event(description, startTime, endTime);
+        list.add(task);
     }
 
     /**

@@ -35,42 +35,26 @@ public class Parser {
             String[] answer = input.split(" ");
             switch (answer[0]) {
             case ("bye"):
-                isRunning = false;
-                return ui.goodbye();
+                return handleBye();
             case ("list"):
-                return ui.showList(list);
+                return handleList();
             case ("mark"):
             case ("unmark"):
-                int mark = Integer.parseInt(answer[1]) - 1;
-                Task curr = list.get(mark);
-                curr.changeStatus();
-                storage.refreshStorage(list);
-                return ui.changeMark(curr);
+                return handleMark(answer[1]);
             case ("todo"):
-                list.addTodo(input);
-                storage.refreshStorage(list);
-                return "todo task added!";
+                return handleTodo(input);
             case ("deadline"):
-                list.addDeadline(input);
-                storage.refreshStorage(list);
-                return "deadline task added!";
+                return handleDeadline(input);
             case ("event"):
-                list.addEvent(input);
-                storage.refreshStorage(list);
-                return "event added!";
+                return handleEvent(input);
             case ("delete"):
-                int key = Integer.parseInt(answer[1]) - 1;
-                Task task = list.get(key);
-                list.delete(key);
-                storage.refreshStorage(list);
-                return ui.delete(task);
+                return handleDelete(answer[1]);
             case ("find"):
-                return ui.search(input.substring(5));
+                return handleFind(input);
             default:
                 throw new MaxineException("Oh no.. this command is not recognised");
             }
         } catch (MaxineException e) {
-            System.out.println(e.getMessage());
             return "Oh no.. this command is not recognised";
         }
     }
@@ -82,5 +66,61 @@ public class Parser {
      */
     public boolean getStatus() {
         return isRunning;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String handleBye() {
+        isRunning = false;
+        return ui.goodbye();
+    }
+    public String handleList() {
+        return ui.showList(list);
+    }
+    public String handleMark(String answer) {
+        int mark = Integer.parseInt(answer) - 1;
+        Task curr = list.get(mark);
+        curr.changeStatus();
+        storage.refreshStorage(list);
+        return ui.changeMark(curr);
+    }
+    public String handleTodo(String input) {
+        try {
+            list.addTodo(input);
+            storage.refreshStorage(list);
+            return "todo task added!";
+        } catch (MaxineException e) {
+            return e.getMessage();
+        }
+    }
+    public String handleDeadline(String input) {
+        try {
+            list.addDeadline(input);
+            storage.refreshStorage(list);
+            return "deadline task added!";
+        } catch (MaxineException e) {
+            return e.getMessage();
+        }
+    }
+    public String handleEvent(String input) {
+        try {
+            list.addEvent(input);
+            storage.refreshStorage(list);
+            return "event added!";
+        } catch (MaxineException e) {
+            return e.getMessage();
+        }
+    }
+    public String handleDelete(String answer) {
+        int key = Integer.parseInt(answer) - 1;
+        Task task = list.get(key);
+        list.delete(key);
+        storage.refreshStorage(list);
+        return ui.delete(task);
+    }
+    public String handleFind(String input) {
+        return ui.search(input.substring(5));
     }
 }
