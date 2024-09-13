@@ -1,5 +1,7 @@
 package diomon;
 
+import diomon.parser.Parser;
+
 import java.time.LocalDate;
 
 /**
@@ -60,7 +62,7 @@ public class Task {
                 if (taskArray.length == 2){
                     String[] by = taskArray[1].split(" ", 2);
                     if (by[0].equalsIgnoreCase("by") && by.length == 2) {
-                        return new Deadline(taskArray[0], LocalDate.parse(by[1],Parser.DATEFORMATTER));
+                        return new Deadline(taskArray[0], LocalDate.parse(by[1], Parser.DATEFORMATTER));
                     }
                 }
                 throw new RuntimeException();

@@ -1,4 +1,9 @@
-package diomon;
+package diomon.command;
+
+import diomon.Storage;
+import diomon.Task;
+import diomon.TaskList;
+import diomon.ui.Ui;
 
 /**
  * The {@code Commands} class represents a collection of commands that can be executed
@@ -6,8 +11,13 @@ package diomon;
  * marking tasks as done or undone, deleting tasks, and more. The class also provides
  * support for handling user inputs and running the appropriate command based on the input.
  */
-public class Commands {
-    private boolean canExit;
+public abstract class Command {
+    protected String input;
+    protected boolean canExit;
+    protected String response;
+
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+
     public enum Types {
         TODO,
         DEADLINE,
@@ -24,7 +34,7 @@ public class Commands {
     /**
      * Initializes a new {@code Commands} object with the exit flag set to false.
      */
-    public Commands() {
+    public Command() {
         this.canExit = false;
     }
 
@@ -37,6 +47,14 @@ public class Commands {
         return canExit;
     }
 
+    public String getResponse() {
+        return response;
+    }
+    protected void setResponse(String res) {
+        response = res;
+    }
+
+
     /**
      * Checks and returns the command type based on the user's input string.
      *
@@ -48,7 +66,7 @@ public class Commands {
         for(Types t : Types.values()) {
             if (t.name().equalsIgnoreCase(command)) return t;
         }
-        throw new RuntimeException();
+        throw new RuntimeException("Nein, the command dont exist");
     }
 
     /**
@@ -135,7 +153,7 @@ public class Commands {
     public void runTodo(TaskList taskList, String input) {
         Task newTask = Task.of(input, Task.TaskType.TODO);
         taskList.add(newTask);
-        System.out.printf("New Diomon.Task: [%s] has been added.\n", newTask);
+        System.out.printf("New diomon.Diomon.Task: [%s] has been added.\n", newTask);
         System.out.print(taskList);
     }
 
@@ -149,7 +167,7 @@ public class Commands {
         try {
             Task newTask = Task.of(input, Task.TaskType.DEADLINE);
             taskList.add(newTask);
-            System.out.printf("New Diomon.Task: [%s] has been added.\n", newTask);
+            System.out.printf("New diomon.Diomon.Task: [%s] has been added.\n", newTask);
             System.out.print(taskList);
         } catch (Exception e) {
             System.out.println("Incorrect/ missing details given");
@@ -167,7 +185,7 @@ public class Commands {
         try {
             Task newTask = Task.of(input, Task.TaskType.EVENT);
             taskList.add(newTask);
-            System.out.printf("New Diomon.Task: [%s] has been added.\n", newTask);
+            System.out.printf("New diomon.Diomon.Task: [%s] has been added.\n", newTask);
             System.out.print(taskList);
         } catch (Exception e) {
             System.out.println("Incorrect/ missing details given");
@@ -180,7 +198,7 @@ public class Commands {
      * @param taskList The task list to display.
      */
     public void runList(TaskList taskList) {
-        System.out.println("Diomon.TaskList:");
+        System.out.println("diomon.Diomon.TaskList:");
         System.out.print(taskList);
     }
 
@@ -193,7 +211,7 @@ public class Commands {
     public void runMark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
-            System.out.printf("Diomon.Task %d: [%s] has been marked", i, taskList.get(i - 1));
+            System.out.printf("diomon.Diomon.Task %d: [%s] has been marked", i, taskList.get(i - 1));
             taskList.mark( i- 1);
         } catch (NumberFormatException e) {
             System.out.println("Param given for marking a task is wrong, please try again");
@@ -211,7 +229,7 @@ public class Commands {
     public void runUnmark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
-            System.out.printf("Diomon.Task %d: [%s] has been unmarked\n", i, taskList.get(i - 1));
+            System.out.printf("diomon.Diomon.Task %d: [%s] has been unmarked\n", i, taskList.get(i - 1));
             taskList.unmark( i- 1);
         } catch (NumberFormatException e) {
             System.out.println("Param given for unmarking a task is wrong, please try again");
@@ -233,7 +251,7 @@ public class Commands {
      * Displays help information.
      */
     public void runHelp() {
-        String helpMessage = "Diomon.Commands:\n-TODO\n-DEADLINE\n-EVENT\n-LIST\n-MARK\n-UNMARK\n-BYE\n-HELP";
+        String helpMessage = "diomon.Diomon.Commands:\n-TODO\n-DEADLINE\n-EVENT\n-LIST\n-MARK\n-UNMARK\n-BYE\n-HELP";
         System.out.print(helpMessage);
     }
 
@@ -246,7 +264,7 @@ public class Commands {
     public void runDelete(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
-            System.out.printf("Diomon.Task %d: [%s] has been deleted", i, taskList.get(i - 1));
+            System.out.printf("diomon.Diomon.Task %d: [%s] has been deleted", i, taskList.get(i - 1));
             taskList.remove( i- 1);
         } catch (NumberFormatException e) {
             System.out.println("Param given for marking a task is wrong, please try again");
@@ -263,4 +281,5 @@ public class Commands {
             System.out.println("Something went wrong with the search");
         }
     }
+
 }

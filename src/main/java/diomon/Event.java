@@ -1,5 +1,7 @@
 package diomon;
 
+import diomon.parser.Parser;
+
 import java.time.LocalDate;
 
 /**

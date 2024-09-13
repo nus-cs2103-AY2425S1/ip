@@ -1,5 +1,7 @@
 package diomon;
 
+import diomon.parser.Parser;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
