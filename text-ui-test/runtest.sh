@@ -1,38 +1,40 @@
 #!/usr/bin/env bash
 
-# create bin directory if it doesn't exist
-if [ ! -d "../bin" ]
-then
-    mkdir ../bin
+# create out/production/ip directory if it doesn't exist
+if [ ! -d "./out/production/ip" ]; then
+    mkdir -p ./out/production/ip
 fi
 
 # delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
-    rm ACTUAL.TXT
+if [ -e "./text-ui-test/ACTUAL.TXT" ]; then
+    rm ./text-ui-test/ACTUAL.TXT
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
+# delete the data/tasks.csv file if it exists
+if [ -e "./data/tasks.csv" ]; then
+    rm ./data/tasks.csv
+fi
+
+# compile the code into the out/production/ip folder, terminates if error occurred
+if ! javac -cp ./src/main/java -Xlint:none -d ./out/production/ip $(find ./src/main/java/orion -name "*.java"); then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ./out/production/ip orion.Orion < ./text-ui-test/input.txt > ./text-ui-test/ACTUAL.TXT
 
 # convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+cp ./text-ui-test/EXPECTED.TXT ./text-ui-test/EXPECTED-UNIX.TXT
+dos2unix ./text-ui-test/ACTUAL.TXT ./text-ui-test/EXPECTED-UNIX.TXT
 
 # compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
+diff ./text-ui-test/ACTUAL.TXT ./text-ui-test/EXPECTED-UNIX.TXT
+if [ $? -eq 0 ]; then
     echo "Test result: PASSED"
     exit 0
 else
     echo "Test result: FAILED"
     exit 1
 fi
+

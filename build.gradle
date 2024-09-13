@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'  // Shadow plugin for FAT JAR
+    id 'checkstyle'  // Add the Checkstyle plugin
+}
+
+group 'orion'
+version '0.2.0'
+
+repositories {
+    mavenCentral()  // Where to find dependencies
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
+application {
+    mainClassName = 'orion.Launcher'  // Your main class
+}
+
+javafx {
+    version = "17"
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': 'orion.Launcher'  
+    }
+}
+
+run {
+    standardInput = System.in  
+}
+
+// Add Checkstyle configuration
+checkstyle {
+    toolVersion = '8.45'
+    configFile = file("${project.rootDir}/checkstyle.xml")
+    configDirectory = file("${project.rootDir}")
+}
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = false  // Disable XML report
+        html.required = true  // Enable HTML report
+    }
+}

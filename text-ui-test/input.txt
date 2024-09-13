@@ -1,0 +1,21 @@
+todo Finish homework
+deadline Submit report /by 10/09/2024 1800
+event Company retreat /from 15/09/2024 0900 /to 17/09/2024 1700
+todo Buy groceries
+deadline Pay utility bills /by 05/09/2024 1200
+event Friend's wedding /from 12/09/2024 1500 /to 12/09/2024 2100
+list
+mark 2
+mark 5
+delete 4
+list
+unmark 2
+todo Prepare presentation
+event Conference /from 20/09/2024 0900 /to 22/09/2024 1700
+find report
+find wedding
+find non-existent
+list
+delete 3
+find retreat
+bye
