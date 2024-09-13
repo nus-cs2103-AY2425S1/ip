@@ -1,7 +1,5 @@
 package trackie.commands;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 import trackie.storage.Storage;
@@ -10,9 +8,7 @@ import trackie.tasks.Deadline;
 import trackie.tasks.Event;
 import trackie.tasks.Task;
 import trackie.tasks.Todo;
-import trackie.ui.Trackie;
 import trackie.ui.TrackieException;
-import trackie.ui.Ui;
 
 /**
  * A command that adds a task to <code>TaskList</code>.

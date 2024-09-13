@@ -2,7 +2,6 @@ package trackie.commands;
 
 import trackie.storage.Storage;
 import trackie.storage.TaskList;
-import trackie.ui.Ui;
 
 /**
  * Represents a command that tells the chatbot to exit and shutdown.
