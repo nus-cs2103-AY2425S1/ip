@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import mel.exceptions.ParseException;
 
@@ -63,8 +64,8 @@ public class Parser {
         assert !str.isEmpty() : "date/time field should not be empty";
         for (String s : FORMAT_DATE) {
             try {
-                return LocalDate.parse(str, DateTimeFormatter.ofPattern(s))
-                        .atStartOfDay();
+                DateTimeFormatter dts = DateTimeFormatter.ofPattern(s).withResolverStyle(ResolverStyle.STRICT);
+                return LocalDate.parse(str, dts).atStartOfDay();
             } catch (DateTimeParseException e) {
                 /*
                  * Fallthrough: DateTimeParseException is ignored to test
@@ -74,7 +75,8 @@ public class Parser {
         }
         for (String s : FORMAT_DATE_TIME) {
             try {
-                return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(s));
+                DateTimeFormatter dts = DateTimeFormatter.ofPattern(s).withResolverStyle(ResolverStyle.STRICT);
+                return LocalDateTime.parse(str, dts);
             } catch (DateTimeParseException e) {
                 /*
                  * Fallthrough: DateTimeParseException is ignored to test

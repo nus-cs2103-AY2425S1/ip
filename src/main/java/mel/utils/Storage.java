@@ -1,5 +1,7 @@
 package mel.utils;
 
+import mel.exceptions.MelException;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -24,10 +26,18 @@ public class Storage {
      * data directory and save file if necessary.
      * @param taskList array representing list of tasks.
      * @throws IOException if I/O error occurs when writing save file.
+     * @throws MelException if save file cannot be accessed.
      */
-    public void updateTasks(String[] taskList) throws IOException {
+    public void updateTasks(String[] taskList) throws IOException, MelException {
         if (!dirData.exists()) {
             dirData.mkdir();
+        }
+        try {
+            pathTask.canRead();
+            pathTask.canWrite();
+        } catch (SecurityException e) {
+            throw new MelException("Mel is stunned!\n"
+                    + "Mel couldn't access your file");
         }
         pathTask.delete();
         pathTask.createNewFile();

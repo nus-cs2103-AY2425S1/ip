@@ -42,7 +42,7 @@ public class TaskList {
         } else if (cmd.contains("mark")) {
             handleTaskMarking(input);
         } else if (cmd.equals("delete")) {
-            deleteTask(input);
+            handleTaskDeletion(input);
         } else if (cmd.equals("find")) {
             findTask(input);
         } else {
@@ -82,22 +82,24 @@ public class TaskList {
     }
 
     /**
-     * Deletes tasks based on input.
+     * Handles deletion of tasks based on input.
      * @param input user input string.
+     * @throws MelException on unexpected user input.
      */
-    private void deleteTask(String... input) {
-        /* Command detail string as array */
-        String[] s = input[0].trim()
-                             .split(" ", 2)[1]
-                             .trim()
-                             .split(" ");
+    private void handleTaskDeletion(String... input) throws MelException {
         try {
+            String[] s = input[0].trim()
+                                 .split(" ", 2)[1]
+                                 .trim()
+                                 .split(" ");
             mel.println("Mel helps you forget...");
+            ArrayList<Integer> indices = new ArrayList<>();
             for (String str : s) {
-                int idx = Integer.parseInt(str) - 1;
-                mel.println("  " + tasks.get(idx));
-                tasks.remove(idx);
+                if (!str.isEmpty()) {
+                    indices.add(Integer.parseInt(str) - 1);
+                }
             }
+            deleteTasks(indices);
             updateTasks();
             mel.println("Mel counts " + tasks.size()
                     + " stuffs memorized XD");
@@ -109,9 +111,28 @@ public class TaskList {
     }
 
     /**
+     * Deletes tasks based on input.
+     * @param indices user input string.
+     * @throws MelException on unexpected user input.
+     */
+    private void deleteTasks(ArrayList<Integer> indices) throws MelException {
+        if (indices.isEmpty()) {
+            throw new MelException("Mel is confused... \n"
+                    + "Mel doesn't understand you :((");
+        }
+        indices.sort(null);
+        while (!indices.isEmpty()) {
+            int idx = indices.get(indices.size() - 1);
+            mel.println("  " + tasks.get(idx));
+            tasks.remove(idx);
+            indices.remove(idx);
+        }
+    }
+
+    /**
      * Handles marking of tasks completion based on input.
      * @param input user input string.
-     * @throws MelException unexpected user input.
+     * @throws MelException on unexpected user input.
      */
     private void handleTaskMarking(String... input) throws MelException {
         try {
@@ -203,9 +224,10 @@ public class TaskList {
 
     /**
      * Updates save file of task list using Storage.
+     * @throws MelException if save file could not be executed on.
      * @see Storage
      */
-    private void updateTasks() {
+    private void updateTasks() throws MelException {
         int i = 0;
         String[] s = new String[tasks.size()];
         for (Task t : tasks) {
@@ -215,9 +237,9 @@ public class TaskList {
         try {
             storage.updateTasks(s);
         } catch (IOException e) {
-            mel.println("Mel ran into an error"
-                    + " creating save file :(");
             mel.setHasException();
+            throw new MelException("Mel ran into an error"
+                    + " creating save file :(");
         }
     }
 
