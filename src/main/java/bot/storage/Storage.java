@@ -87,6 +87,7 @@ public class Storage {
     }
 
     /**
+     * Parses string data into a <code>Task</code> object
      *
      * @param data String data read from the local disk file.
      * @return <code>Task</code> object parsed from the given data.
