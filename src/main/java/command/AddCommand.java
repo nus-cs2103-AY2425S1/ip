@@ -96,6 +96,7 @@ public class AddCommand extends Command {
         String[] parts = taskDesc.split("/by ", 2);
         assert parts.length == 2 : "Deadline task description format incorrect";
 
+
         if (parts.length == 2) {
             //format parameters for task
             String desc = parts[0].trim();

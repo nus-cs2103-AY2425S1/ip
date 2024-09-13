@@ -31,6 +31,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "UI object cannot be null";
+        assert storage != null : "Storage object cannot be null";
+        assert taskIndex < tasks.getTasks().size() && taskIndex >=0 : "task index should be [0, size)";
+
         if (taskIndex >= tasks.getTasks().size()) {
             return ui.displayUnavailableItem();
         } else if (tasks.isTaskDone(taskIndex)) {

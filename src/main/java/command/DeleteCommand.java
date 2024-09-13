@@ -33,6 +33,10 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
 
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "UI object cannot be null";
+        assert storage != null : "Storage object cannot be null";
+
         Task t = tasks.getTasks().get(taskIndex);
         tasks.deleteTask(taskIndex);
         storage.save(tasks.getTasks());

@@ -4,8 +4,11 @@ import command.Command;
 import exceptions.BuddyException;
 import parser.Parser;
 import storage.Storage;
+import task.Task;
 import task.TaskList;
 import ui.Ui;
+
+import java.util.ArrayList;
 
 public class Buddy {
     private Storage storage;
@@ -18,6 +21,7 @@ public class Buddy {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
+            assert storage.load() != null : "storage.load() should not be null";
             tasks = new TaskList(storage.load());
         } catch (BuddyException e) {
             ui.displayError(e.getMessage());
