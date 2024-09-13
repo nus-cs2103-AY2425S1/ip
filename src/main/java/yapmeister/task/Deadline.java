@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     private final String deadline;
-    private final LocalDate deadlineDate;
 
     /**
      * Creates a Deadline Task

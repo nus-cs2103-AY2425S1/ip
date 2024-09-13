@@ -22,8 +22,8 @@ import yapmeister.task.TaskList;
  */
 public class Parser {
     private TaskList tasks;
-    private Storage storage;
-    private UI ui;
+    private final Storage storage;
+    private final UI ui;
 
     /**
      * Creates a Parser.

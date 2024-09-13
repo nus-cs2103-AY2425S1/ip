@@ -10,9 +10,8 @@ import yapmeister.task.TaskList;
  * @author BlazeChron
  */
 public class UI {
-    private Scanner scanner;
+    private final Scanner scanner;
     private Parser parser;
-    private TaskList tasks;
 
     private boolean isRunning;
     private String currentReply = "";
@@ -35,18 +34,18 @@ public class UI {
      */
     public void process() {
         String input = "";
-        isRunning = true;
-        while (isRunning) {
-            input = scanner.nextLine();
-            isRunning = parser.processInput(input);
+        this.isRunning = true;
+        while (this.isRunning) {
+            input = this.scanner.nextLine();
+            this.isRunning = this.parser.processInput(input);
         }
-        scanner.close();
+        this.scanner.close();
     }
 
     public String getResponse(String input) {
-        if (parser.processInput(input)) {
-            String ret = currentReply;
-            currentReply = "";
+        if (this.parser.processInput(input)) {
+            String ret = this.currentReply;
+            this.currentReply = "";
             return ret;
         } else {
             return "Fine. Bye. Leave and never return";
@@ -54,12 +53,11 @@ public class UI {
     }
 
     public void exit() {
-        isRunning = false;
+        this.isRunning = false;
     }
 
     public void displayString(String s) {
-        //System.out.println(s);
-        currentReply = currentReply + "\n" + s;
+        this.currentReply = this.currentReply + "\n" + s;
     }
 
     public String getWelcomeMessage() {
