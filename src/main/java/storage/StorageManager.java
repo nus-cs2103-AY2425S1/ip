@@ -96,19 +96,37 @@ public class StorageManager {
         String type = parts[0];
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2];
+        List<Tag> tags = new ArrayList<>();
 
+        if (parts.length > 3) {
+            String[] tagParts = parts[3].split(",");
+            for (String tagName : tagParts) {
+                tags.add(new Tag(tagName.trim()));
+            }
+        }
+
+        Task task;
         switch (type) {
         case "T":
-            return new Todo(description, isDone);
+            task = new Todo(description, isDone);
+            break;
         case "D":
             String by = parts[3];
-            return new Deadline(description, by, isDone);
+            task = new Deadline(description, by, isDone);
+            break;
         case "E":
             String from = parts[3];
             String to = parts[4];
-            return new Event(description, from, to, isDone);
+            task = new Event(description, from, to, isDone);
+            break;
         default:
             throw new IllegalArgumentException("Invalid task type in file.");
         }
+
+        for (Tag tag : tags) {
+            task.addTag(tag);
+        }
+
+        return task;
     }
 }

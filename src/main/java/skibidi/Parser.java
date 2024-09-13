@@ -2,6 +2,7 @@ package skibidi;
 
 import commands.AddDeadlineCommand;
 import commands.AddEventCommand;
+import commands.AddTagCommand;
 import commands.AddTodoCommand;
 import commands.DeleteCommand;
 import commands.EchoCommand;
@@ -9,6 +10,7 @@ import commands.ExitCommand;
 import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
+import commands.RemoveTagCommand;
 import commands.UnmarkCommand;
 
 /**
@@ -47,6 +49,10 @@ public class Parser {
             return new DeleteCommand(input);
         case "find":
             return new FindCommand(input);
+        case "tag":
+            return new AddTagCommand(input);
+        case "untag":
+            return new RemoveTagCommand(input);
         default:
             throw new SkibidiException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
