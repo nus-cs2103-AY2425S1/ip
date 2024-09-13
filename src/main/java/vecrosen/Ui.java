@@ -5,12 +5,33 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
 /**
  * Handles receiving input and displaying output to/from the user.
  */
-public class Ui {
+public class Ui extends AnchorPane{
     private Scanner input;
     private PrintStream output;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initializes the UI
@@ -23,14 +44,24 @@ public class Ui {
         output = outputStream;
     }
 
+    public Ui() {
+        this(System.in, System.out);
+    }
+
+    /** Initializes the UI window */
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
     /**
      * Outputs a string with an indentation, to differentiate Vecrosen's dialog from the user's.
      *
      * @param s The string to be printed.
      */
     public void speak(String s) {
-        output.print("    ");
-        output.println(s);
+        System.out.println(s);
+        dialogContainer.getChildren().add(DialogBox.getVecrosenDialog(s, dukeImage));
     }
 
     /**
@@ -64,10 +95,19 @@ public class Ui {
 
     /**
      * Obtains the next line that the user had entered.
+     * TODO: Delete? Might be obsolete
      *
      * @return The line the user entered
      */
     public String readLine() {
         return input.nextLine();
+    }
+
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+        Main.respond(input);
+        userInput.clear();
     }
 }
