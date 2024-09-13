@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String response = echoBot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getEchoDialog(response, dukeImage)
         );
         userInput.clear();
     }
