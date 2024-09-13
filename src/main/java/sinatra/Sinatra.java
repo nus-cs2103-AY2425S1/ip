@@ -3,6 +3,7 @@ package sinatra;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Represents the main Sinatra application.
@@ -32,6 +33,7 @@ public class Sinatra {
         String startingPhrase = "Hello! I'm Sinatra. \nWhat can I do for you? ";
         System.out.println(startingPhrase);
     }
+
     /**
      * Generates a response for the user's chat message.
      */
@@ -43,15 +45,11 @@ public class Sinatra {
         }
         return "Sinatra: \n" + response.toString();
     }
-    private ArrayList<Task> findTasksWithContent(String contentPart) {
 
-        ArrayList<Task> foundTasks = new ArrayList<Task>();
-        for (Task task : tasks) {
-            if (task.getContent().contains(contentPart)) {
-                foundTasks.add(task);
-            }
-        }
-        return foundTasks;
+    private ArrayList<Task> findTasksWithContent(String contentPart) {
+        return tasks.stream()
+                .filter(task -> task.getContent().contains(contentPart))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -81,6 +79,7 @@ public class Sinatra {
 
             if (message.equals("list")) {
                 output.add("Here are the tasks in your list:");
+
                 for (int i = 0; i < tasks.size(); i++) {
                     int count = i + 1;
                     output.add(count + "." + tasks.get(i).toString());
