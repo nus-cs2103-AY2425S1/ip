@@ -89,8 +89,6 @@ public class Ui {
      * @return the list of tasks as a String.
      */
     public String list(TaskList taskList) {
-        assert taskList != null : "TaskList cannot be null";
-        
         String list = listPrompt + taskList.toString();
         System.out.println(list);
         return list;
@@ -114,8 +112,6 @@ public class Ui {
      * @return the correct usage message as a String.
      */
     public String incorrectUse(String command) {
-        assert command != null : "Command cannot be null";
-
         String output = "The correct usage of '" + command + "' is: "
                 + command + " n, where n is a natural number (ℕ).";
         System.out.println(output);
@@ -130,9 +126,6 @@ public class Ui {
      * @return the completion message as a String.
      */
     public String mark(TaskList taskList, int index) {
-        assert taskList != null : "TaskList cannot be null";
-        assert index >= 0 && index < taskList.getSize() : "Index out of bounds for TaskList";
-
         String output = completeTaskPrompt + taskList.getTaskString(index);
         System.out.println(output);
         return output;
@@ -146,9 +139,6 @@ public class Ui {
      * @return the incomplete message as a String.
      */
     public String unmark(TaskList taskList, int index) {
-        assert taskList != null : "TaskList cannot be null";
-        assert index >= 0 && index < taskList.getSize() : "Index out of bounds for TaskList";
-
         String output = uncompleteTaskPrompt + taskList.getTaskString(index);
         System.out.println(output);
         return output;
@@ -161,8 +151,6 @@ public class Ui {
      * @return the deletion message as a String.
      */
     public String delete(Task task) {
-        assert task != null : "Task cannot be null";
-
         String output = " Noted. I've removed this task:\n"
                 + " " + task.toString();
         System.out.println(output);
@@ -177,9 +165,6 @@ public class Ui {
      * @return the task added message as a String.
      */
     public String taskAdded(Task task, TaskList tasks) {
-        assert task != null : "Task cannot be null";
-        assert tasks != null : "TaskList cannot be null";
-
         String output = taskAdded
                 + " " + task.toString() + "\n"
                 + " Now you have " + tasks.getSize() + " tasks in the list.";
@@ -194,7 +179,6 @@ public class Ui {
      * @return the empty description message as a String.
      */
     public String emptyDescription(String type) {
-        assert type != null : "Task type cannot be null";
         String output = " OOPS!!! The description of a " + type + " cannot be empty.";
         System.out.println(output);
         return output;
@@ -240,8 +224,6 @@ public class Ui {
      * @return the search results as a String.
      */
     public String findOutput(String filteredList) {
-        assert filteredList != null : "Filtered list cannot be null";
-
         String output = "Here are the matching tasks in your list:\n" + filteredList;
         System.out.println(output);
         return output;
