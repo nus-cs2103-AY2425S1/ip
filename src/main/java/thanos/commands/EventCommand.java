@@ -71,8 +71,7 @@ public class EventCommand extends Command {
     private String[] getDetailsArray() throws InvalidCommandException {
         String[] detailsArr = this.getArgument().split(" /from ");
         if (detailsArr.length != 2) {
-            throw new InvalidCommandException("Invalid input format."
-                    + "Please use the correct format: 'event [task] /from [start time] /to [end time]'");
+            throw new InvalidCommandException("Invalid input format.");
         }
         return detailsArr;
     }
@@ -88,9 +87,7 @@ public class EventCommand extends Command {
     private String[] getFromToArray(String argument) throws InvalidCommandException {
         String[] fromToArr = argument.split(" /to ");
         if (fromToArr.length != 2) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please ensure both start and end times are provided."
-            );
+            throw new InvalidCommandException("Invalid input format.");
         }
         return fromToArr;
     }

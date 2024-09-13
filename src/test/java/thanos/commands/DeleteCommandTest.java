@@ -28,8 +28,7 @@ public class DeleteCommandTest {
                 InvalidCommandException.class, () -> command.execute(taskList),
                 "Expected InvalidCommandException to be thrown"
         );
-        assertEquals("No task index provided. Please use the correct format: 'delete [task index]'",
-                exception.getMessage());
+        assertEquals("No task index provided.", exception.getMessage());
     }
 
     @Test

@@ -41,9 +41,7 @@ public class DeadlineCommand extends Command {
     public String execute(TaskList taskList) throws InvalidCommandException {
         String[] detailsArr = this.getArgument().split(" /by ");
         if (detailsArr.length != 2) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'"
-            );
+            throw new InvalidCommandException("Invalid input format.");
         }
 
         try {
