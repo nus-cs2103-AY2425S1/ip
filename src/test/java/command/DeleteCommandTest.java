@@ -1,15 +1,14 @@
 package command;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
 
 import exception.DynamikeException;
 import storage.Storage;
 import storage.TaskList;
 import task.Todo;
 import ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeleteCommandTest {
 

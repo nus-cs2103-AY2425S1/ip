@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import exception.DynamikeException;
 import command.AddCommand;
 import command.ExitCommand;
 import command.InvalidCommand;
 import command.ListCommand;
+import exception.DynamikeException;
 
 public class ParserTest {
 
