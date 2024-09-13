@@ -53,6 +53,7 @@ public class TaskList {
      * @return The Task object at the specified index.
      */
     public Task get(int index) {
+        assert index >= 0 : "Index for task list should not be less than 0";
         return list.get(index);
     }
 
@@ -62,6 +63,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void add(Task task) {
+        assert task != null : "Task added should not be null";
         list.add(task);
     }
 
@@ -80,6 +82,7 @@ public class TaskList {
      * @param keyword the keyword to search for in task descriptions
      */
     public String findTask(String keyword) {
+        assert !keyword.isEmpty() : "The keyword for find task is empty!";
         TaskList specificTasks = new TaskList();
         for (Task task : list) {
             if (task.getDescription().contains(keyword)) {
