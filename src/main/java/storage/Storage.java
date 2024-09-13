@@ -13,6 +13,7 @@ public class Storage {
     public String FILE_PATH;
     public ArrayList<Task> botMemory;
     public Storage(String FILE_PATH) {
+        assert FILE_PATH != null && !FILE_PATH.isEmpty() : "File path should not be null or empty";
         this.FILE_PATH = FILE_PATH;
         this.botMemory = new ArrayList<>();
     }
@@ -29,6 +30,7 @@ public class Storage {
                 Scanner fileScanner = new Scanner(file);
                 while (fileScanner.hasNextLine()) {
                     String taskData = fileScanner.nextLine();
+                    assert taskData != null && !taskData.isEmpty() : "Task data should not be null or empty";
                     Task task = parseTask(taskData);
                     if (task != null) {
                         botMemory.add(task);
@@ -51,8 +53,11 @@ public class Storage {
      * @return
      */
     public Task parseTask(String taskData) {
+        assert taskData != null : "Task data should not be null";
+
         if (taskData.startsWith("[T]")) {
             String description = taskData.substring(7);
+            assert description != null && !description.isEmpty() : "Task description should not be null or empty";
             Task task = new Task(description);
             if (taskData.charAt(4) == 'X') {
                 task.markDone();
@@ -60,9 +65,12 @@ public class Storage {
             return task;
         } else if (taskData.startsWith("[D]")) {
             int byIndex = taskData.indexOf("(by:");
+            assert byIndex != -1 : "Deadline task should contain a valid '(by:' index";
             if (byIndex != -1) {
                 String description = taskData.substring(7, byIndex - 1);
                 String by = taskData.substring(byIndex + 5, taskData.length() - 1);
+                assert description != null && !description.isEmpty() : "Deadline description should not be null or empty";
+                assert by != null && !by.isEmpty() : "Deadline time should not be null or empty";
                 Deadline deadline = new Deadline(description, by);
                 if (taskData.charAt(4) == 'X') {
                     deadline.markDone();
@@ -72,6 +80,7 @@ public class Storage {
         } else if (taskData.startsWith("[E]")) {
             int fromIndex = taskData.indexOf("(from:");
             int toIndex = taskData.indexOf("to:");
+            assert fromIndex != -1 && toIndex != -1 : "Event task should contain valid '(from:' and 'to:' indices";
             if (fromIndex != -1 && toIndex != -1) {
                 String description = taskData.substring(7, fromIndex - 1);
                 String from = taskData.substring(fromIndex + 7, toIndex - 1);
@@ -93,6 +102,7 @@ public class Storage {
      * @param taskList
      */
     public void saveTasks(TaskList taskList) {
+        assert taskList != null : "TaskList should not be null";
         this.botMemory = taskList.getBotMemory();
         try {
             File file = new File(FILE_PATH);
@@ -109,6 +119,5 @@ public class Storage {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
-
 
 }
