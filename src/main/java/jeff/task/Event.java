@@ -1,7 +1,8 @@
 package jeff.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import jeff.Storage;
 
 /**
  * Represents an Event task with a description, start time, and end time.
@@ -25,14 +26,12 @@ public class Event extends Task {
         this.to = to;
     }
 
-    private String fromDateToString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return from.format(formatter);
+    public String fromDateToString() {
+        return from.format(Storage.getDateTimeFormatter());
     }
 
-    private String toDateToString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return to.format(formatter);
+    public String toDateToString() {
+        return to.format(Storage.getDateTimeFormatter());
     }
 
     @Override
@@ -43,5 +42,13 @@ public class Event extends Task {
     @Override
     public String saveAsCsv() {
         return "E," + super.saveAsCsv() + "," + this.fromDateToString() + "," + this.toDateToString();
+    }
+
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
     }
 }

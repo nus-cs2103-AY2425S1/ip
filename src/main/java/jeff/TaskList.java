@@ -2,6 +2,7 @@ package jeff;
 
 import java.util.ArrayList;
 
+import jeff.exceptions.JeffException;
 import jeff.task.Task;
 
 /**
@@ -43,5 +44,20 @@ public class TaskList {
 
     public int size() {
         return tasks.size();
+    }
+
+    /**
+     * Updates the task at the specified index in the task list with the provided updated task.
+     *
+     * @param index The index of the task to be updated
+     * @param updatedTask The new task that will replace the existing task at the specified index.
+     * @throws JeffException If the index is out of range
+     */
+    public void updateTask(int index, Task updatedTask) throws JeffException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new JeffException("The index that you have provided is out of range!");
+        }
+
+        tasks.set(index, updatedTask);
     }
 }

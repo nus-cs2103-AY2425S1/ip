@@ -1,7 +1,8 @@
 package jeff.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import jeff.Storage;
 
 /**
  * Represents a Deadline task with a description and a due date.
@@ -34,8 +35,7 @@ public class Deadline extends Task {
      * @return a string representation of the {@code dueDate} field, formatted according to the specified pattern.
      */
     public String dateToString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return dueDate.format(formatter);
+        return dueDate.format(Storage.getDateTimeFormatter());
     }
 
     @Override
