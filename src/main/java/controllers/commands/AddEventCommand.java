@@ -1,5 +1,6 @@
 package controllers.commands;
 
+import controllers.OutputHandler;
 import models.Event;
 import models.TaskList;
 
@@ -29,9 +30,9 @@ public class AddEventCommand implements Command {
      * @param taskList The {@code TaskList} to which the event task is added.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, OutputHandler outputHandler) {
         taskList.addTask(this.task);
-        System.out.println("____________________________________________________________\n" +
+        outputHandler.print("____________________________________________________________\n" +
                 "added: " + this.task.getDescription() + "\n" +
                 "____________________________________________________________");
     }

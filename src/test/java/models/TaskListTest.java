@@ -28,7 +28,7 @@ class TaskListTest {
     }
 
     @Test
-    void testDeserialiseRawData_TodoTask() {
+    void testDeserialiseRawData_TodoTask() throws Exception {
         // Arrange: Setting up raw data for a Todo task
         String rawData = "T|0|Buy milk\n"; // "T" for Todo, "0" for incomplete, "Buy milk" is the description
         dbDriver.save(rawData); // Writing raw data to the driver
@@ -46,7 +46,7 @@ class TaskListTest {
     }
 
     @Test
-    void testDeserialiseRawData_EventTask() {
+    void testDeserialiseRawData_EventTask() throws Exception {
         // Arrange: Setting up raw data for an Event task
         String rawData = "E|1|Meeting|2024-10-10|2024-10-11\n"; // "E" for Event, "1" for complete, details for description, date, and time
         dbDriver.save(rawData); // Writing raw data to the driver
@@ -64,7 +64,7 @@ class TaskListTest {
     }
 
     @Test
-    void testDeserialiseRawData_DeadlineTask() {
+    void testDeserialiseRawData_DeadlineTask() throws Exception {
         // Arrange: Setting up raw data for a Deadline task
         String rawData = "D|0|Submit report|2024-09-15\n"; // "D" for Deadline, "0" for incomplete, description, and deadline date
         dbDriver.save(rawData); // Writing raw data to the driver

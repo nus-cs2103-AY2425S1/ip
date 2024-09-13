@@ -1,5 +1,6 @@
 package controllers.commands;
 
+import controllers.OutputHandler;
 import models.TaskList;
 
 /**
@@ -30,15 +31,15 @@ public class UnmarkTaskCommand implements Command {
      * @param taskList The {@code TaskList} on which the command operates.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, OutputHandler outputHandler) {
         try {
             taskList.unmarkTask(index - 1);
-            System.out.println("____________________________________________________________");
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(taskList.getTask(this.index - 1));
-            System.out.println("____________________________________________________________");
+            outputHandler.print("____________________________________________________________");
+            outputHandler.print("OK, I've marked this task as not done yet:");
+            outputHandler.print(taskList.getTask(this.index - 1).toString());
+            outputHandler.print("____________________________________________________________");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("index out of bounds");
+            outputHandler.print("index out of bounds");
         }
     }
 }

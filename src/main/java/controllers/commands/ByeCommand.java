@@ -1,5 +1,6 @@
 package controllers.commands;
 
+import controllers.OutputHandler;
 import models.TaskList;
 
 /**
@@ -18,8 +19,8 @@ public class ByeCommand implements Command {
      * @param taskList The {@code TaskList}, though not used in this command.
      */
     @Override
-    public void execute(TaskList taskList) {
-        System.out.println(
+    public void execute(TaskList taskList, OutputHandler outputHandler) {
+        outputHandler.print(
                 "Bye. Hope to see you again soon!\n" +
                         "____________________________________________________________");
         System.exit(0);

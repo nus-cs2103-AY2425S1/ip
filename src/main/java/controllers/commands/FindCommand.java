@@ -1,5 +1,6 @@
 package controllers.commands;
 
+import controllers.OutputHandler;
 import models.TaskList;
 import models.Task;
 /**
@@ -31,13 +32,13 @@ public class FindCommand implements Command {
      * @param taskList The {@code TaskList} from which tasks are retrieved and displayed.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, OutputHandler outputHandler) {
 
-        System.out.println("This are some possible tasks found");
+        outputHandler.print("This are some possible tasks found");
 
         for (Task task : taskList.getTasks()) {
             if (task.getDescription().contains(this.taskName)) {
-                System.out.println(task);
+                outputHandler.print(task.toString());
             }
         }
     }
