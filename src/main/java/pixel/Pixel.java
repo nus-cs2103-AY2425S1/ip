@@ -19,16 +19,6 @@ public class Pixel {
         }
     }
 
-    /*
-    public void run() {
-        Ui.printGreeting();
-        while (true) {
-            String command = Ui.getCommand();
-            Parser.parse(command, tasks, storage);
-        }
-    }
-    */
-
     public static String getResponse(String command) {
         return Parser.parse(command, tasks, storage);
     }
