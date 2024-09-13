@@ -16,6 +16,22 @@ public class ToDo extends Task {
     }
 
     /**
+     * The method takes in the details and update the task accordingly.
+     *
+     * @param details containing new description
+     */
+    public void update(Object[] details) {
+        assert details.length == 1;
+        assert details[0] == null || details[0] instanceof String;
+
+        String newDescription = (String) details[0];
+
+        if (details[0] != null) {
+            super.editDescription(newDescription);
+        }
+    }
+
+    /**
      * The method converts the task to its text representation in the file.
      *
      * @return String representation of text.

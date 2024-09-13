@@ -79,6 +79,27 @@ public class Echoa {
                 taskList.deleteTask(deleteIndex);
                 storage.handleChange(taskList);
                 break;
+            case "update":
+                int updateIndex = parser.parseUpdateIndex(task);
+                Task updateTask = taskList.getSpecificTask(updateIndex);
+                String updateDetails = task.replace(String.valueOf(updateIndex + 1), "").trim();
+                Object[] details = {};
+
+                assert updateTask instanceof ToDo ||
+                        updateTask instanceof Deadline ||
+                        updateTask instanceof Event;
+
+                if (updateTask instanceof ToDo) {
+                    details = parser.parseToDoUpdate(updateDetails);
+                } else if (updateTask instanceof Deadline) {
+                    details = parser.parseDeadlineUpdate(updateDetails);
+                } else if (updateTask instanceof Event) {
+                    details = parser.parseEventUpdate(updateDetails);
+                }
+                updateTask.update(details);
+                response = ui.getUpdateTaskMessage(updateTask, updateIndex + 1);
+                storage.handleChange(taskList);
+                break;
             case "todo":
                 Object[] todo = parser.parseToDoTask(task);
                 String todoDescription = (String) todo[0];
@@ -116,6 +137,8 @@ public class Echoa {
             response = "An error has occurred to the IO.";
         } catch (EchoaException e) {
             response = ui.getExceptionMessage(e);
+        } catch (Exception e) {
+            response = e.getClass().getName() + " " + e.getMessage();
         }
     }
 

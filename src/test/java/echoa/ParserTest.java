@@ -102,4 +102,16 @@ public class ParserTest {
         String expected = "todo";
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testParseUpdateIndex() {
+        try {
+            String input = "4  /d test1!";
+            int actual = parser.parseUpdateIndex(input);
+            int expected = 3;
+            assertEquals(expected, actual);
+        } catch (InvalidIndexInputException e) {
+            assertEquals(true, true);
+        }
+    }
 }

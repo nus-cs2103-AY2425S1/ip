@@ -35,6 +35,12 @@ public class Ui {
                 taskList.getSpecificTask(index).toString() + "\n";
     }
 
+    public String getUpdateTaskMessage(Task task, int label) {
+        return "Task" + label + " updated: "
+                + task.toString();
+    }
+
+
     /**
      * The method prints the list of tasks in the taskList.
      *
@@ -59,6 +65,6 @@ public class Ui {
     }
 
     public String getExceptionMessage(Exception e) {
-        return e.getMessage() + "\n" + "Please try again.\n";
+        return e.getMessage() + "\n" + e.getClass().getName() + "\n" + "Please try again.\n";
     }
 }

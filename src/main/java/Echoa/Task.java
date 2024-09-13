@@ -19,8 +19,24 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * The method reformat the given date into MONTH-DD-YYYY.
+     *
+     * @param date LocalDate to be reformatted.
+     * @return String representation of reformatted date.
+     */
+    public static String getReformattedDate(LocalDate date) {
+        return date.getMonth() + " " +
+                date.getDayOfMonth() + " " +
+                date.getYear();
+    }
+
     public String getDescription() {
         return this.description;
+    }
+
+    public void editDescription(String newDescription) {
+        this.description = newDescription;
     }
 
     /**
@@ -47,24 +63,14 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
+    public abstract void update(Object[] details);
+
     /**
      * The method converts the task to its text representation in the file.
      *
      * @return String representation of text.
      */
     public abstract String toText();
-
-    /**
-     * The method reformat the given date into MONTH-DD-YYYY.
-     *
-     * @param date LocalDate to be reformatted.
-     * @return String representation of reformatted date.
-     */
-    public static String getReformattedDate(LocalDate date) {
-        return date.getMonth() + " " +
-                date.getDayOfMonth() + " " +
-                date.getYear();
-    }
 
     @Override
     public String toString() {

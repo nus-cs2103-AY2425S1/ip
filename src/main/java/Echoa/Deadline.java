@@ -23,13 +23,52 @@ public class Deadline extends Task {
         this.dateAndTime = dateAndTime;
     }
 
-
-    public LocalDate getDate() {
+    private LocalDate getDate() {
         return this.dateAndTime.toLocalDate();
     }
 
-    public LocalTime getTime() {
+    private LocalTime getTime() {
         return this.dateAndTime.toLocalTime();
+    }
+
+    private void editDateAndTime(LocalDate date, LocalTime time) {
+        this.dateAndTime = LocalDateTime.of(date, time);
+    }
+
+    private void editDate(LocalDate date) {
+        this.dateAndTime = LocalDateTime.of(date, this.getTime());
+    }
+
+    private void editTime(LocalTime time) {
+        this.dateAndTime = LocalDateTime.of(this.getDate(), time);
+    }
+
+    /**
+     * The method takes in the details and update the task accordingly.
+     *
+     * @param details containing new description, new date and new time.
+     */
+    public void update(Object[] details) {
+        assert details.length == 3;
+        assert details[0] == null || details[0] instanceof String;
+        assert details[1] == null || details[1] instanceof LocalDate;
+        assert details[2] == null || details[2] instanceof LocalTime;
+
+        String newDescription = (String) details[0];
+        LocalDate newDate = (LocalDate) details[1];
+        LocalTime newTime = (LocalTime) details[2];
+
+        if (newDescription != null) {
+            super.editDescription(newDescription);
+        }
+
+        if (newDate != null && newTime != null) {
+            editDateAndTime(newDate, newTime);
+        } else if (newDate != null) {
+            editDate(newDate);
+        } else if (newTime != null) {
+            editTime(newTime);
+        }
     }
 
     /**

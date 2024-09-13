@@ -18,6 +18,35 @@ public class Parser {
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
+    private static String findDate(String s) {
+        String date = null;
+
+        String timeRegex = "\\b\\d{4}-\\d{2}-\\d{2}\\b";
+        Pattern pattern = Pattern.compile(timeRegex);
+        Matcher matcher = pattern.matcher(s);
+
+        if (matcher.find()) {
+            date = matcher.group();
+        }
+
+        return date;
+    }
+
+    private static String findTime(String s) {
+        String time = null;
+
+        String timeRegex = "\\b([01]\\d|2[0-3]):[0-5]\\d\\b";
+        Pattern pattern = Pattern.compile(timeRegex);
+        Matcher matcher = pattern.matcher(s);
+
+        if (matcher.find()) {
+            time = matcher.group();
+        }
+
+        return time;
+    }
+
+
     /**
      * The method removes excess white space in all the Strings within the commandArray.
      *
@@ -44,6 +73,23 @@ public class Parser {
     }
 
     /**
+     * The method removes the first occurrence of a given letter in a string.
+     *
+     * @param str string from which letter has be removed from.
+     * @param letter letter that has to be removed.
+     * @return String without the first occurrence of the letter.
+     */
+    public static String removeFirstOccurrence(String str, char letter) {
+        int index = str.indexOf(letter);
+
+        if (index == -1) {
+            return str;
+        }
+
+        return str.substring(0, index) + str.substring(index + 1);
+    }
+
+    /**
      * The method parses the line for specific instructions.
      *
      * @param line line to be parsed.
@@ -64,6 +110,8 @@ public class Parser {
             command = "unmark";
         } else if (line.startsWith("delete")) {
             command = "delete";
+        } else if (line.startsWith("update")) {
+            command = "update";
         } else if (line.startsWith("todo")) {
             command = "todo";
         } else if (line.startsWith("deadline")) {
@@ -100,6 +148,19 @@ public class Parser {
         }
 
         return Integer.parseInt(indexString) - 1;
+    }
+
+    public int parseUpdateIndex(String indexString) throws InvalidIndexInputException {
+        String[] lineArray = indexString.split("/", 2);
+        trimSplitCommands(lineArray);
+
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(lineArray[0]);
+        if (!matcher.find()) {
+            throw  new InvalidIndexInputException(indexString);
+        }
+
+        return Integer.parseInt(lineArray[0]) - 1;
     }
 
     /**
@@ -202,5 +263,146 @@ public class Parser {
         LocalDateTime endDateAndTime = createDateTime(endDate, endTime);
 
         return new Object[] {taskDescription, startDateAndTime, endDateAndTime};
+    }
+
+    /**
+     * The method parses for any description from the toDoUpdates.
+     *
+     * @param toDoUpdates updated ToDo content
+     * @return an array of description
+     */
+    public Object[] parseToDoUpdate(String toDoUpdates) throws EchoaException {
+
+        String description = null;
+
+        String[] updatesArray = toDoUpdates.split("/");
+        trimSplitCommands(updatesArray);
+
+        for (String s : updatesArray) {
+            if (s.equals("")) {
+                // do nothing
+            } else if (s.startsWith("d")) {
+                s = removeFirstOccurrence(s, 'd').trim();
+                description = s;
+            } else {
+                throw new ToDoUpdateFormatException();
+            }
+        }
+
+        return new Object[] {description};
+    }
+
+    /**
+     * The method parses for any description, date or time from the deadlineUpdates.
+     *
+     * @param deadlineUpdates updated Deadline content
+     * @return an array of description, date, time
+     */
+    public Object[] parseDeadlineUpdate(String deadlineUpdates) throws EchoaException {
+
+        String description = null;
+        LocalDate endDate = null;
+        LocalTime endTime = null;
+
+        String[] updatesArray = deadlineUpdates.split("/");
+        trimSplitCommands(updatesArray);
+
+        for (String s : updatesArray) {
+            if (s.equals("")) {
+                //do nothing
+            } else if (s.startsWith("d")) {
+                s = removeFirstOccurrence(s, 'd').trim();
+                description = s;
+            } else if (s.startsWith("e")) {
+                s = removeFirstOccurrence(s, 'e').trim();
+
+                if (findDate(s) != null) {
+                    try {
+                        endDate = LocalDate.parse(findDate(s), DATE_FORMATTER);
+                    } catch (DateTimeParseException e) {
+                        throw new DateFormatException();
+                    }
+                }
+
+                if (findTime(s) != null) {
+                    try {
+                        endTime = LocalTime.parse(findTime(s), TIME_FORMATTER);
+                    } catch (DateTimeParseException e) {
+                        throw new TimeFormatException();
+                    }
+                }
+
+            } else {
+                throw new DeadlineUpdateFormatException();
+            }
+        }
+        return new Object[] {description, endDate, endTime};
+    }
+
+    /**
+     * The method parses for any description, startDate, startTime, endDate, endTime from the eventUpdates.
+     *
+     * @param eventUpdates updated Event content
+     * @return an array of description, startDate, startTime, endDate, endTime
+     */
+    public Object[] parseEventUpdate(String eventUpdates) throws EchoaException {
+        String description = null;
+        LocalDate startDate = null;
+        LocalTime startTime = null;
+        LocalDate endDate = null;
+        LocalTime endTime = null;
+
+        String[] updatesArray = eventUpdates.split("/");
+        trimSplitCommands(updatesArray);
+        for (int i = 1; i < updatesArray.length; i++) {
+            String s = updatesArray[i];
+            if (s.equals("")) {
+                // do nothing
+            } else if (s.startsWith("d")) {
+                s = removeFirstOccurrence(s, 'd').trim();
+                description = s;
+            } else if (s.startsWith("s")) {
+                s = removeFirstOccurrence(s, 's').trim();
+
+                if (findDate(s) != null) {
+                    try {
+                        startDate = LocalDate.parse(findDate(s), DATE_FORMATTER);
+                    } catch (DateTimeParseException e) {
+                        throw new DateFormatException();
+                    }
+                }
+
+                if (findTime(s) != null) {
+                    try {
+                        startTime = LocalTime.parse(findTime(s), TIME_FORMATTER);
+                    } catch (DateTimeParseException e) {
+                        throw new TimeFormatException();
+                    }
+                }
+
+            } else if (s.startsWith("e")) {
+                s = removeFirstOccurrence(s, 'e').trim();
+
+                if (findDate(s) != null) {
+                    try {
+                        endDate = LocalDate.parse(findDate(s), DATE_FORMATTER);
+                    } catch (DateTimeParseException e) {
+                        throw new DateFormatException();
+                    }
+                }
+
+                if (findTime(s) != null) {
+                    try {
+                        endTime = LocalTime.parse(findTime(s), TIME_FORMATTER);
+                    } catch (DateTimeParseException e) {
+                        throw new TimeFormatException();
+                    }
+                }
+
+            } else {
+                throw new EventUpdateFormatException();
+            }
+        }
+        return new Object[] {description, startDate, startTime, endDate, endTime};
     }
 }
