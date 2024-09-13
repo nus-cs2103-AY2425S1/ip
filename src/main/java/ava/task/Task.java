@@ -3,6 +3,7 @@ package ava.task;
 abstract public class Task {
     private String title;
     private boolean done;
+    private Priority priority;
 
     public Task(String title) {
         this.title = title;
