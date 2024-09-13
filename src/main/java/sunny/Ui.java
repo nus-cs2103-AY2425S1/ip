@@ -47,21 +47,30 @@ public class Ui {
             return c.runCommand(ls, "");
         } else if (Objects.equals(command, "find")) {
             Command c = new FindCommand();
-            return c.runCommand(ls, p.getSecondHalf());
+            String s = c.runCommand(ls, p.getSecondHalf());
+            return s;
         } else if (Objects.equals(command, "")) {
             return LINE;
         } else if (Objects.equals(command, "mark")) {
             Command c = new MarkCommand();
-            return c.runCommand(ls, p.getSecondHalf());
+            String s = c.runCommand(ls, p.getSecondHalf());
+            store.write(ls);
+            return s;
         } else if (Objects.equals(command, "unmark")) {
             Command c = new UnmarkCommand();
-            return c.runCommand(ls, p.getSecondHalf());
+            String s = c.runCommand(ls, p.getSecondHalf());
+            store.write(ls);
+            return s;
         } else if (Objects.equals(command, "delete")) {
             Command c = new DeleteCommand();
-            return c.runCommand(ls, p.getSecondHalf());
+            String s = c.runCommand(ls, p.getSecondHalf());
+            store.write(ls);
+            return s;
         } else if (Objects.equals(command, "snooze")) {
             Command c = new SnoozeCommand();
-            return c.runCommand(ls, p.getSecondHalf());
+            String s = c.runCommand(ls, p.getSecondHalf());
+            store.write(ls);
+            return s;
         } else {
             try {
                 Command c = new AddTaskCommand();
