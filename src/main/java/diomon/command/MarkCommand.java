@@ -13,7 +13,7 @@ public class MarkCommand extends Command{
         try {
             int i = Integer.parseInt(input);
             tasks.mark( i- 1);
-            setResponse(String.format("%s completed!!!", tasks.get(i - 1)));
+            setResponse(String.format("( %s ) completed!!!", tasks.get(i - 1)));
         } catch (NumberFormatException e) {
             setResponse("Param given for marking a task is wrong, please try again");
         } catch (IndexOutOfBoundsException e) {

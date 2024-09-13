@@ -20,7 +20,7 @@ public class AddDeadlineCommand extends AddCommand{
             }
             Task newTask = Parser.parseDeadline(input);
             tasks.add(newTask);
-            setResponse(String.format("Task: [%s] has been added.\\n", newTask));
+            setResponse(String.format("Task: ( %s ) has been added.", newTask));
         } catch (RuntimeException e) {
             throw e;
         }
