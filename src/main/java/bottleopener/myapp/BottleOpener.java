@@ -4,11 +4,9 @@ import bottleopener.task.Tasklist;
 
 /**
  * Represents the BottleOpener chatbot that handles user interactions, processes commands,
- * and maintains the state of tasks. It integrates with storage and user interface components
- * to provide a responsive and functional chatbot experience.
+ * and maintains the state of tasks.
  */
 public class BottleOpener {
-    private static final String BOT_NAME = "BottleOpener";
     private static final String FILE_PATH = "data/BottleOpener.txt";
     private final Storage storage;
     private final Tasklist tasks;
@@ -16,17 +14,13 @@ public class BottleOpener {
 
     /**
      * Constructs a BottleOpener instance with initial settings.
-     * Initializes the task list, storage, and user interface components.
+     * Initializes the task list and storage.
      * Loads previously saved tasks from storage.
      */
     public BottleOpener() {
         Tasklist tasklist = new Tasklist();
         this.storage = new Storage(FILE_PATH);
         this.tasks = storage.load(tasklist);
-
-        assert this.storage != null : "Storage initialisation failed";
-        assert this.tasks != null : "Tasklist loading from storage failed";
-
         this.hasExited = false;
     }
 
@@ -40,9 +34,7 @@ public class BottleOpener {
     public String getResponse(String userInput) {
         storage.save(tasks);
         Parser parser = new Parser(userInput, this.tasks);
-        assert parser != null : "Parser initialisation failed";
-
-        String botMessage = parser.execute();
+        String botMessage = parser.runParser();
         this.hasExited = parser.checkExit();
         return botMessage;
     }
