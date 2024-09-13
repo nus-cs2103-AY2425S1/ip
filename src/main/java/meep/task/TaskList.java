@@ -50,6 +50,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void markAsDone(int index) {
+        assert index >= 0 : "Index should be non-negative";
         this.tasks.get(index).markAsDone();
     }
 
@@ -59,6 +60,7 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      */
     public void markAsUndone(int index) {
+        assert index >= 0 : "Index should be non-negative";
         this.tasks.get(index).markAsUndone();
     }
 
@@ -70,6 +72,7 @@ public class TaskList {
      * @return The string representation of the task at the specified index.
      */
     public String getTask(int index) {
+        assert index >= 0 : "Index should be non-negative";
         return this.tasks.get(index).toString() + "\n";
     }
 
