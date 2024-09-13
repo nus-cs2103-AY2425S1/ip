@@ -43,8 +43,8 @@ public class MarkCommandTest {
     public void executeTest_mark_success() throws IOException {
 
         // prepare mocked objects/behaviour and input
-        int markIndex = 0;
-        MarkCommand markCommand = spy(new MarkCommand(markIndex));
+        String[] splitInput = {"mark", "0"};
+        MarkCommand markCommand = spy(new MarkCommand(splitInput, true));
 
         Task task = new Todo("Mocked Description");
 
@@ -70,8 +70,8 @@ public class MarkCommandTest {
     public void executeTest_markInvalidIndex_failure() throws IOException {
 
         // prepare mocked objects/behaviour and input
-        int markIndex = 2;
-        MarkCommand markCommand = spy(new MarkCommand(markIndex));
+        String[] splitInput = {"mark", "2"};
+        MarkCommand markCommand = spy(new MarkCommand(splitInput, true));
 
         when(tasks.size()).thenReturn(1);
         when(ui.displayError("Hoshi doesn't have such a task!"))

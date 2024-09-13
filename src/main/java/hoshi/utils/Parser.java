@@ -8,7 +8,6 @@ import hoshi.command.FindCommand;
 import hoshi.command.InitializeCommand;
 import hoshi.command.ListCommand;
 import hoshi.command.MarkCommand;
-import hoshi.command.UnmarkCommand;
 import hoshi.task.TaskList;
 import hoshi.ui.Ui;
 
@@ -58,23 +57,15 @@ public class Parser {
             if (input.trim().length() < MIN_MARK_LENGTH) {
                 return ui.displayTaskToMark();
             }
-            int markIndex = Integer.parseInt(splitInput[1]) - 1;
 
-            // assert retrieved index is not out of bounds
-            assert markIndex < taskList.size() && markIndex >= 0 : "Index is out of bounds for tasks";
-
-            command = new MarkCommand(markIndex);
+            command = new MarkCommand(splitInput, true);
             break;
         case "unmark":
             if (input.trim().length() < MIN_UNMARK_LENGTH) {
                 return ui.displayTaskToMark();
             }
-            int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
 
-            // assert retrieved index is not out of bounds
-            assert unmarkIndex < taskList.size() && unmarkIndex >= 0 : "Index is out of bounds for tasks";
-
-            command = new UnmarkCommand(unmarkIndex);
+            command = new MarkCommand(splitInput, false);
             break;
         case "delete":
             if (input.trim().length() < MIN_DELETE_LENGTH) {
@@ -95,6 +86,8 @@ public class Parser {
         }
         return command.execute(taskList, ui, storage);
     }
+
+
 
 
 }
