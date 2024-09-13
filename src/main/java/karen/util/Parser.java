@@ -10,6 +10,9 @@ import karen.commands.FindCommand;
 import karen.commands.ListCommand;
 import karen.commands.MarkCommand;
 import karen.commands.ShowErrorCommand;
+import karen.commands.SortCommand;
+import karen.commands.SortCommand.Criteria;
+import karen.commands.SortCommand.Order;
 import karen.commands.UnknownCommand;
 import karen.commands.UnmarkCommand;
 import karen.tasks.Deadline;
@@ -30,6 +33,7 @@ public class Parser {
         EVENT,
         DELETE,
         FIND,
+        SORT,
         BYE,
         UNKNOWN
     }
@@ -121,6 +125,19 @@ public class Parser {
                 c = new FindCommand(searchWord);
             } catch (IndexOutOfBoundsException e) {
                 c = new ShowErrorCommand(ui.showFindSyntax());
+            }
+            break;
+        case SORT:
+            // sort date /order ascending
+            try {
+                String[] sortParams = arr[1].split(" /order ");
+                Criteria criteria = Criteria.valueOf(sortParams[0].toUpperCase());
+                Order order = Order.valueOf(sortParams[1].toUpperCase());
+                c = new SortCommand(criteria, order);
+            } catch (IndexOutOfBoundsException e) {
+                c = new ShowErrorCommand(ui.showSortSyntax());
+            } catch (IllegalArgumentException e) {
+                c = new ShowErrorCommand(ui.showSortKeys());
             }
             break;
         case UNKNOWN:
