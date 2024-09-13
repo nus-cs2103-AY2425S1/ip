@@ -5,6 +5,9 @@ import java.util.stream.Stream;
 
 /**
  * Represents the UI of EKuD when running on CLI mode.
+ *
+ * @author uniqly
+ * @see Ui
  */
 public class TextUi extends Ui {
     /** Line separator between outputs by EKuD and inputs by the user */

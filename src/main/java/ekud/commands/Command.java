@@ -9,8 +9,11 @@ import ekud.ui.Ui;
 
 /**
  * Represents commands made by the user.
+ * <p/>
+ * {@link Command} is an abstract class and cannot be instantiated directly.
  *
  * @author uniqly
+ * @see ekud.components.Parser
  */
 public abstract class Command {
     /**
@@ -37,7 +40,8 @@ public abstract class Command {
         }
 
         /**
-         * Converts a given {@link String} into a {@link Type}.
+         * Returns a {@link Type} corresponding to an input {@link String}.
+         *
          * @param type The {@link String} to convert.
          * @return The converted {@link Type}.
          * @throws EkudException If {@code type} does not match to any {@link Type}.

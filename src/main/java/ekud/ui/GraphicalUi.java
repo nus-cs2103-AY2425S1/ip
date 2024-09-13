@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
  * Represents the UI of EKuD when running in GUI mode.
  *
  * @author uniqly
+ * @see Ui
  */
 public class GraphicalUi extends Ui {
     private static final String EKUD_IMAGE_PATH = "/images/upside-down.png";

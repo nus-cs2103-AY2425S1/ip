@@ -1,7 +1,8 @@
 package ekud.ui;
 
 /**
- * Represents the UI of EKuD, responsible for outputting EKuD's responses and reading the user's input.
+ * An abstract class that represents the UI of EKuD,
+ * responsible for outputting EKuD's responses and reading the user's input.
  *
  * @author uniqly
  * @see ekud.Ekud
