@@ -42,7 +42,7 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
-
+  
     /**
      * Marks the numbered task in the taskList.
      *
@@ -50,8 +50,10 @@ public class TaskList {
      * @param commandSplitBySpace Command split using " "
      * @throws TiraException Custom Tira exception class
      */
-    public void markTask(String command, String[] commandSplitBySpace) throws TiraException {
-        if (commandSplitBySpace.length < 2 && command.equals("mark")) {
+
+    public void markTask(String command, String[] splitCommand) throws TiraException {
+        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
+        if (splitCommand.length < 2 && command.equals("mark")){
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
@@ -61,15 +63,17 @@ public class TaskList {
         printer.flush();
     }
 
-    /**
+      /**
      * Unmarks the numbered task in the taskList.
      *
      * @param command The main command that the user input
      * @param commandSplitBySpace Command split using " "
      * @throws TiraException Custom Tira exception class
      */
-    public void unmarkTask(String command, String[] commandSplitBySpace) throws TiraException {
-        if (commandSplitBySpace.length < 2 && command.equals("unmark")) {
+
+    public void unmarkTask(String command, String[] splitCommand) throws TiraException {
+        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
+        if (splitCommand.length < 2 && command.equals("unmark")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
@@ -148,14 +152,15 @@ public class TaskList {
         }
     }
 
-    /**
+      /**
      * Deletes task of specific number in the task list.
      *
      * @param commandSplitBySpace separated by the space
      * @throws TiraException custom Tira exception
      */
-    public void delete(String[] commandSplitBySpace) throws TiraException {
-        if (commandSplitBySpace.length < 2) {
+    public void delete(String[] splitCommand) throws TiraException{
+        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
+        if (splitCommand.length < 2) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int taskNumberToDelete = Integer.parseInt(commandSplitBySpace[1]);
