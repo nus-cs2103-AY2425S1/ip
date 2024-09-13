@@ -29,6 +29,8 @@ public class TaskDataBase {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
+
+        assert file.exists() : "File tasklist.txt should exist after attempting to create it.";
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
 
@@ -38,12 +40,15 @@ public class TaskDataBase {
 
             switch (parts[0]) {
             case "T":
+                assert parts.length >= 3 : "Data format in tasklist.txt is incorrect, todo should contain 3 parts";
                 task = new Todo(parts[2]);
                 break;
             case "D":
+                assert parts.length >= 3 : "Data format in tasklist.txt is incorrect, deadline should contain 4 parts";
                 task = new Deadline(parts[2], parts[3]);
                 break;
             case "E":
+                assert parts.length >= 3 : "Data format in tasklist.txt is incorrect, event should contain 5 parts";
                 task = new Event(parts[2], parts[3], parts[4]);
                 break;
             default:

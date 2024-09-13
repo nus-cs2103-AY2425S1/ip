@@ -71,7 +71,7 @@ public class Parser {
             } else {
                 return taskList.unmarkTask(Integer.parseInt(split[1]));
             }
-        } catch (NumberFormatException e ) {
+        } catch (NumberFormatException e) {
             return "Please enter numbers only";
         } catch (IndexOutOfBoundsException e) {
             return "Index number you inputted does not exist";

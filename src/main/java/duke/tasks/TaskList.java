@@ -19,6 +19,7 @@ public class TaskList {
 
     protected TaskList() throws IOException, InvalidDateException {
         listOfTasks = TaskDataBase.load();
+        assert listOfTasks != null : "Task list should not be null after loading.";
     }
 
     /**
@@ -48,6 +49,7 @@ public class TaskList {
         listOfTasks.add(task);
         try {
             TaskDataBase.save(listOfTasks);
+            assert listOfTasks.contains(task) : "Task should have been added to the list.";
             return "Got it! I've added this task:" + "\n" + "  " + task.toString() + "\n"
                     + "Now you have " + listOfTasks.size() + " tasks in the list.";
         } catch (IOException e) {
@@ -65,6 +67,7 @@ public class TaskList {
         try {
             if (index > 0 && index <= listOfTasks.size()) {
                 Task task = listOfTasks.get(index - 1);
+                assert task != null : "Task to be marked as done should not be null.";
                 task.markAsDone();
                 TaskDataBase.save(listOfTasks);
                 return "Nice! I've marked this task as done:\n" + "  " + task;
@@ -86,6 +89,7 @@ public class TaskList {
         try {
             if (index > 0 && index <= listOfTasks.size()) {
                 Task task = listOfTasks.get(index - 1);
+                assert task != null : "Task to be unmarked as done should not be null.";
                 TaskDataBase.save(listOfTasks);
                 task.markAsNotDone();
                 return "OK! I've marked this task as not done yet:\n" + "  " + task;
@@ -107,6 +111,7 @@ public class TaskList {
         try {
             if (index > 0 && index <= listOfTasks.size()) {
                 Task removedTask = listOfTasks.remove(index - 1);
+                assert removedTask != null : "Task should have been removed.";
                 TaskDataBase.save(listOfTasks);
                 return "Noted! I've removed this task:" + "\n" + "  "
                         + removedTask + "\n" + "Now you have "
