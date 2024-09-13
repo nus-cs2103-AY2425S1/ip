@@ -74,6 +74,7 @@ public class Storage {
     /**
      * Parses a single line from the file into a Task object.
      * The format of the line determines the type of Task created.
+     * "td" for todo, "d" for deadline, "e" for event
      *
      * @param line the line from the file representing a task
      * @return the Task object created from the line
@@ -149,7 +150,7 @@ public class Storage {
                     } else {
                         str += ",n,";
                     }
-                    str += e.getStart() + "," + e.getEnd();
+                    str += e.getStartDate() + "," + e.getEndDate();
                 }
                 bw.write(str);
                 bw.newLine();

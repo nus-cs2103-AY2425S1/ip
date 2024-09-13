@@ -10,17 +10,17 @@ import ui.UI;
  */
 public class MarkCommand implements Command {
     private final String action;
-    private final String desc;
+    private final String description;
 
     /**
      * Constructs a MarkCommand with the specified action and task description.
      *
      * @param action the action to perform ("mark" to mark as done, "unmark" to mark as not done)
-     * @param desc the description or index of the task to be marked/unmarked
+     * @param description the description or index of the task to be marked/unmarked
      */
-    public MarkCommand(String action, String desc) {
+    public MarkCommand(String action, String description) {
         this.action = action;
-        this.desc = desc;
+        this.description = description;
     }
 
     /**
@@ -34,10 +34,10 @@ public class MarkCommand implements Command {
     @Override
     public boolean execute(Storage storage, TaskList master) {
         try {
-            int index = Integer.parseInt(this.desc);
+            int index = Integer.parseInt(this.description);
 
-            master.doneTask(this.action, index - 1);
-            storage.saveList(master.getParent());
+            master.setTaskCompletion(this.action, index - 1);
+            storage.saveList(master.getTasks());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to mark/unmark the task");
         }

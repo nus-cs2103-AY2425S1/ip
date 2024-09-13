@@ -16,7 +16,7 @@ import tasks.Todo;
  * The TaskList class is responsible for handling all operations on the tasks stored in the list.
  */
 public class TaskList {
-    private final ArrayList<Task> parent;
+    private final ArrayList<Task> tasks;
     private final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MM uuuu");
 
     /**
@@ -25,7 +25,7 @@ public class TaskList {
      * @param list the list of tasks to be managed
      */
     public TaskList(ArrayList<Task> list) {
-        this.parent = list;
+        this.tasks = list;
     }
 
     /**
@@ -45,12 +45,12 @@ public class TaskList {
                 """);
         switch(getInputFromUser(sc, "(1, 2 or 3) > ")) {
         case "1":
-            this.parent.add(new Todo(task));
+            this.tasks.add(new Todo(task));
             System.out.println("Friday > Okay, I've added a todo: " + task);
             break;
         case "2":
             System.out.println("What is the deadline? In dd mm yyyy");
-            this.parent.add(new Deadline(task, getDate("d", sc)));
+            this.tasks.add(new Deadline(task, getDate("d", sc)));
             System.out.println("Friday > Okay, I've added a deadline: " + task);
             break;
         case "3":
@@ -58,7 +58,7 @@ public class TaskList {
             LocalDate start = getDate("es", sc);
             System.out.println("What is the end date? In dd mm yyyy");
             LocalDate end = getDate("ee", sc);
-            this.parent.add(new Event(task, start, end));
+            this.tasks.add(new Event(task, start, end));
             System.out.println("Friday > Okay, I've added an event: " + task);
             break;
         default:
@@ -73,8 +73,8 @@ public class TaskList {
      * @param task the index of the task to be removed
      */
     public void removeTask(int task) {
-        Task temp = parent.get(task);
-        this.parent.remove(task);
+        Task temp = tasks.get(task);
+        this.tasks.remove(task);
 
         System.out.println("Friday > Successfully removed: " + temp.getName());
         System.out.println("Friday > You now have " + getSize() + " total tasks left.");
@@ -90,10 +90,10 @@ public class TaskList {
     public String toString() {
         String ans = "";
         ans += String.format("Completed: %d tasks | Incomplete: %d tasks | Total: %d tasks%n%n",
-                countCompleted(true), countCompleted(false), parent.size());
-        assert countCompleted(true) + countCompleted(false) == parent.size() : "Invalid completion breakdown";
-        for (int i = 1; i <= parent.size(); i++) {
-            ans += String.format("%d: %s%n", i, parent.get(i - 1).toString());
+                countCompleted(true), countCompleted(false), tasks.size());
+        assert countCompleted(true) + countCompleted(false) == tasks.size() : "Invalid completion breakdown";
+        for (int i = 1; i <= tasks.size(); i++) {
+            ans += String.format("%d: %s%n", i, tasks.get(i - 1).toString());
         }
         return ans;
     }
@@ -104,7 +104,7 @@ public class TaskList {
      * @return the number of tasks in the list
      */
     public int getSize() {
-        return this.parent.size();
+        return this.tasks.size();
     }
 
     /**
@@ -112,8 +112,8 @@ public class TaskList {
      *
      * @return the list of tasks
      */
-    public ArrayList<Task> getParent() {
-        return this.parent;
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     /**
@@ -123,8 +123,8 @@ public class TaskList {
      * @param action the action to perform ("mark" for done, any other value for undone)
      * @param task the index of the task to be marked
      */
-    public void doneTask(String action, int task) {
-        Task temp = parent.get(task);
+    public void setTaskCompletion(String action, int task) {
+        Task temp = tasks.get(task);
         if (action.equals("mark") || action.equals("Mark")) {
             if (!temp.isDone()) {
                 temp.setDone();
@@ -132,7 +132,7 @@ public class TaskList {
             System.out.println("Friday > Good job! Marked as done :)");
         } else {
             if (temp.isDone()) {
-                this.parent.get(task).setUndone();
+                this.tasks.get(task).setUndone();
             }
             System.out.println("Friday > Oh man! Marked as undone :(");
         }
@@ -184,19 +184,19 @@ public class TaskList {
     /**
      * Counts the number of tasks that are either completed or incomplete.
      *
-     * @param test true to count completed tasks, false to count incomplete tasks
+     * @param isComplete true to count completed tasks, false to count incomplete tasks
      * @return the number of tasks that match the specified completion status
      */
-    public int countCompleted(boolean test) {
+    public int countCompleted(boolean isComplete) {
         int count = 0;
-        if (test) {
-            for (Task task : this.parent) {
+        if (isComplete) {
+            for (Task task : this.tasks) {
                 if (task.isDone()) {
                     count++;
                 }
             }
         } else {
-            for (Task task : this.parent) {
+            for (Task task : this.tasks) {
                 if (!task.isDone()) {
                     count++;
                 }

@@ -10,15 +10,15 @@ import ui.UI;
  * The FindCommand class searches through the task list for tasks that match the specified description.
  */
 public class FindCommand implements Command {
-    private final String desc;
+    private final String description;
 
     /**
      * Constructs a FindCommand with the specified keyword or phrase to search for.
      *
-     * @param desc the keyword or phrase to search for in the task descriptions
+     * @param description the keyword or phrase to search for in the task descriptions
      */
-    public FindCommand(String desc) {
-        this.desc = desc;
+    public FindCommand(String description) {
+        this.description = description;
     }
 
     /**
@@ -34,16 +34,16 @@ public class FindCommand implements Command {
     public boolean execute(Storage storage, TaskList master) {
         String s = "";
         for (int i = 0; i < master.getSize(); i++) {
-            Task task = master.getParent().get(i);
-            if (task.containsWord(this.desc)) {
+            Task task = master.getTasks().get(i);
+            if (task.containWord(this.description)) {
                 s += "\n" + task;
             }
         }
         if (!s.isEmpty()) {
-            System.out.printf("Friday > Here are the tasks containing \"%s\"!%n", this.desc);
+            System.out.printf("Friday > Here are the tasks containing \"%s\"!%n", this.description);
             System.out.println(s);
         } else {
-            System.out.printf("Friday > Sorry! There are no tasks containing \"%s\".%n", this.desc);
+            System.out.printf("Friday > Sorry! There are no tasks containing \"%s\".%n", this.description);
         }
         UI.printLine();
         return false;
