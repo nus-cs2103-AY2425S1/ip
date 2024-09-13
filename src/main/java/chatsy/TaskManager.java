@@ -19,6 +19,7 @@ public class TaskManager {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null"; // Assert that the task being added is not null
         tasks.add(task);
     }
 
@@ -30,6 +31,7 @@ public class TaskManager {
      */
     public void deleteTask(int index) throws InvalidTaskIndexException {
         validateIndex(index);
+        assert tasks.size() > 0 : "No tasks available to delete"; // Ensure there are tasks to delete
         tasks.remove(index - 1);
     }
 
@@ -41,7 +43,9 @@ public class TaskManager {
      */
     public void markTask(int index) throws InvalidTaskIndexException {
         validateIndex(index);
-        tasks.get(index - 1).markAsDone();
+        Task task = tasks.get(index - 1);
+        assert task != null : "Task must exist to mark as done"; // Ensure the task exists
+        task.markAsDone();
     }
 
     /**
@@ -52,7 +56,9 @@ public class TaskManager {
      */
     public void unmarkTask(int index) throws InvalidTaskIndexException {
         validateIndex(index);
-        tasks.get(index - 1).markAsNotDone();
+        Task task = tasks.get(index - 1);
+        assert task != null : "Task must exist to unmark"; // Ensure the task exists
+        task.markAsNotDone();
     }
 
     /**
@@ -61,6 +67,7 @@ public class TaskManager {
      * @return The list of tasks.
      */
     public List<Task> getTasks() {
+        assert tasks != null : "Task list cannot be null"; // Ensure the tasks list is not null
         return tasks;
     }
 
@@ -70,6 +77,7 @@ public class TaskManager {
      * @param tasks The list of tasks to set.
      */
     public void setTasks(List<Task> tasks) {
+        assert tasks != null : "Task list cannot be null"; // Ensure the tasks list being set is not null
         this.tasks = tasks;
     }
 
@@ -79,6 +87,7 @@ public class TaskManager {
      * @return The string representation of the task list.
      */
     public String listTasks() {
+        assert tasks != null : "Task list cannot be null"; // Ensure the task list is not null
         if (tasks.isEmpty()) {
             return "No tasks to list.";
         } else {
@@ -97,6 +106,8 @@ public class TaskManager {
      * @throws InvalidTaskIndexException If the index is out of bounds.
      */
     private void validateIndex(int index) throws InvalidTaskIndexException {
+        assert index >= 1 : "Index must be 1 or higher"; // Index should not be less than 1
+        assert tasks != null : "Task list cannot be null"; // Ensure the task list is initialized
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException();
         }
@@ -109,6 +120,7 @@ public class TaskManager {
      * @return A string representation of the matching tasks.
      */
     public String findTasks(String keyword) {
+        assert keyword != null : "Keyword cannot be null"; // Ensure keyword is not null
         StringBuilder matchingTasks = new StringBuilder();
         int matchCount = 0;
 
