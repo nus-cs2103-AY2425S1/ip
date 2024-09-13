@@ -31,7 +31,8 @@ public class Storage {
 
     /**
      * Returns String of all Task Details divided by " | ".
-     * It is a Helper Function for saveTaskList(TaskList)
+     * It is a Helper Function for saveTaskList(TaskList).
+     * This Method uses Streams.
      *
      * @param taskList TaskList.
      * @return String of all Task Details divided by " | ".
