@@ -1,12 +1,14 @@
+package Tasks;
+
 import java.time.LocalDate;
 /**
  * Represents a todo task.
- * A Todo object corresponds to a task represented by a description.
+ * A Tasks.Todo object corresponds to a task represented by a description.
  */
 public class Todo extends Task {
 
     /**
-     * Constructor for Todo class.
+     * Constructor for Tasks.Todo class.
      *
      * @param description The description of the task.
      */
