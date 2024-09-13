@@ -31,11 +31,11 @@ public class ParserTest {
     @Test
     public void test_parse_delete() {
         Task t1 = new Deadline("write essay", "2023/03/23 23:59");
-        Task t2 = new Event("read book", "2pm Sunday", "2pm Monday");
+        Task t2 = new Event("read book", "2023/03/02 08:00", "2023/03/02 20:00");
         TaskList allTask = new TaskList();
         try {
             Parser.parse("deadline write essay /by 2023/03/23 23:59", allTask);
-            Parser.parse("event read book /from 2pm Sunday /to 2pm Monday", allTask);
+            Parser.parse("event read book /from 2023/03/02 08:00 /to 2023/03/02 20:00", allTask);
             Parser.parse("delete 1", allTask);
         } catch (DukeException e) {
             System.out.println(e.getMessage());

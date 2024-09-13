@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 public class TaskListTest {
     @Test
     public void test_list_delete() {
-
         Task t1 = new Deadline("write essay", "2023/03/23 23:59");
-        Task t2 = new Event("read book", "2pm Sunday", "2pm Monday");
+        Task t2 = new Event("read book", "2023/03/02 08:00", "2023/03/02 20:00");
         Task t3 = new ToDo("programming");
         ArrayList<Task> list = new ArrayList<>();
         list.add(t1);
