@@ -8,6 +8,11 @@ import ekud.exceptions.EkudException;
  * @author uniqly
  */
 public class TodoTask extends Task {
+    private static final String EMPTY_DESCRIPTION_MESSAGE =
+        "I think you tried TODO nothing.\nI can only help to remind you of something todo.";
+    private static final String SAVE_STRING_FORMAT = "T | %s";
+    private static final String STRING_FORMAT = "[T] %s";
+
     /**
      * Constructs a {@link Task} the user wants to do.
      *
@@ -20,16 +25,16 @@ public class TodoTask extends Task {
 
     @Override
     public String getEmptyDescriptionErrorMessage() {
-        return "I think you tried TODO nothing.\nI can only help to remind you of something todo.";
+        return EMPTY_DESCRIPTION_MESSAGE;
     }
 
     @Override
     public String getSaveTaskString() {
-        return String.format("T | %s", super.getSaveTaskString());
+        return String.format(SAVE_STRING_FORMAT, super.getSaveTaskString());
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return String.format(STRING_FORMAT, super.toString());
     }
 }

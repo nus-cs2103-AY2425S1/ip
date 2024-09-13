@@ -92,16 +92,15 @@ public class TaskList implements Iterable<Task> {
      */
     public void checkTask(int index) throws EkudException {
         // checks if there is a task at the given index
-        if (index < 0 || index >= tasks.size()) {
-            String message = String.format(
-                    """
-                            Whats this? You tried an invalid list index!?
-                            Pfft... That's so hilarious!
-                            Lemme spell it out for ya.
-                            Your number must be between 1 and %d and clearly %d isn't""",
-                    tasks.size(),
-                    index + 1);
-            throw new EkudException(message);
+        boolean isIndexOutOfRange = index < 0 || index >= tasks.size();
+        if (isIndexOutOfRange) {
+            String errorMessageFormat = """
+                    Whats this? You tried an invalid list index!?
+                    Pfft... That's so hilarious!
+                    Lemme spell it out for ya.
+                    Your number must be between 1 and %d and clearly %d isn't""";
+            String errorMessage = String.format(errorMessageFormat, tasks.size(), index + 1);
+            throw new EkudException(errorMessage);
         }
     }
 
@@ -136,29 +135,5 @@ public class TaskList implements Iterable<Task> {
     public Task getTask(int index) throws EkudException {
         checkTask(index);
         return tasks.get(index);
-    }
-
-    /**
-     * Marks the {@link Task} at the specified index of the list as completed.
-     *
-     * @param index The index of the list to mark as complete.
-     * @throws EkudException If {@code index} out-of-bounds of the list.
-     * @see Task#markAsDone()
-     */
-    public void markComplete(int index) throws EkudException {
-        checkTask(index);
-        tasks.get(index).markAsDone();
-    }
-
-    /**
-     * Marks the {@link Task} at the specified index of the list as incomplete.
-     *
-     * @param index The index of the list to mark as incomplete.
-     * @throws EkudException If {@code index} out-of-bounds of the list.
-     * @see Task#markAsUndone()
-     */
-    public void markIncomplete(int index) throws EkudException {
-        checkTask(index);
-        tasks.get(index).markAsUndone();
     }
 }

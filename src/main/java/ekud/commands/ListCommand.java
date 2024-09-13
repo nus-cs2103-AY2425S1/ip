@@ -13,17 +13,22 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
         super.execute(tasks, ui, storage);
+        String responseListEmpty = "Would Ya look at that: No tasks to be found. Shocking ain't it";
+        String responseAcknowledge = "Look at all these tasks:";
+        String responseTaskFormat = "%d. %s";
 
         if (tasks.isEmpty()) {
-            ui.addToBuffer("Would Ya look at that: No tasks to be found. Shocking ain't it");
-        } else {
-            ui.addToBuffer("Look at all these tasks:");
-            int i = 1;
-            for (Task task : tasks) {
-                String line = String.format("%d. %s", i, task);
-                ui.addToBuffer(line);
-                i++;
-            }
+            ui.addToBuffer(responseListEmpty);
+            return;
+        }
+
+        ui.addToBuffer(responseAcknowledge);
+
+        // display tasks
+        int i = 1;
+        for (Task task : tasks) {
+            ui.addFormattedToBuffer(responseTaskFormat, i, task.toString());
+            i++;
         }
     }
 

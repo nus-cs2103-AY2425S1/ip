@@ -29,19 +29,20 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
         super.execute(tasks, ui, storage);
+        String responseMessageFormat = """
+                Oh ho ho, did you perhaps forget something?
+                It's OK, I already noted down your incompetence...
+                  %s
+                Tsk Tsk... Back to %d out of %d incomplete tasks you go!""";
 
+        // find task and unmark
         Task task = tasks.getTask(index);
         String previousSaveState = task.getSaveTaskString();
         task.markAsUndone();
-        String message = String.format("""
-                        Oh ho ho, did you perhaps forget something?
-                        It's OK, I already noted down your incompetence...
-                          %s
-                        Tsk Tsk... Back to %d out of %d incomplete tasks you go!""",
-                tasks.getTask(index),
-                tasks.getIncompleteCount(),
-                tasks.getCount());
-        ui.addToBuffer(message);
+
+        // send response
+        ui.addFormattedToBuffer(responseMessageFormat, task.toString(),
+                tasks.getIncompleteCount(), tasks.getCount());
 
         // update data file
         storage.updateTaskState(task, previousSaveState, ui);
