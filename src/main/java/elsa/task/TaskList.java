@@ -102,6 +102,25 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks in the taskList according to the userInput.
+     *
+     * @param taskToFind The edited userInput that indicates which task(s) to search for in the taskList.
+     */
+    public void findTasks(String taskToFind) {
+        int taskNum = 1;
+
+        Ui.addLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : tasks) {
+            if (task.getDescription().contains(taskToFind)) {
+                System.out.println(taskNum + "." + task);
+                taskNum++;
+            }
+        }
+        Ui.addLine();
+    }
+
+    /**
      * Marks a task as done with an 'X'.
      *
      * @param index the index of the task to be marked as done

@@ -57,6 +57,13 @@ public class Parser {
             } else if (userInput.startsWith("delete")) {
                 int index = Integer.parseInt(userInput.substring(7)) - 1;
                 return new DeleteCommand(index);
+            } else if (userInput.startsWith("find")) {
+                // If user just enters "find" followed by blank spaces, return a ListCommand
+                if (userInput.trim().length() == 4) {
+                    return new ListCommand();
+                }
+                String taskToFind = userInput.substring(5).trim();
+                return new FindCommand(taskToFind);
             } else {
                 // elsa.ui.Elsa will ask for clarification upon encountering any unrecognised input
                 String message = ElsaException.addSeparatorLines("Sorry, I'm unable to perform this action: " +

@@ -9,13 +9,10 @@ import elsa.ui.Ui;
  * @author Aaron
  */
 public class TodoCommand extends Command {
-    /**
-     * The description of the todoTask to be created.
-     */
-    private String description;
+    private final String description;
 
     /**
-     * Constructs a elsa.command.TodoCommand with the specified task description.
+     * Constructs an elsa.command.TodoCommand with the specified task description.
      *
      * @param description The description of the todoTask to be added.
      */
