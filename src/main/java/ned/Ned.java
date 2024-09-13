@@ -38,7 +38,7 @@ public class Ned {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            c.execute(tasks,ui, storage, input);
+            c.execute(tasks, ui, storage, input);
             if (c.isExit()) {
                 return "EXIT MESSAGE";
             }

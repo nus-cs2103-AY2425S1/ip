@@ -65,8 +65,8 @@ public class Parser {
                     savedLine));
         } catch (NumberFormatException e) {
             throw new NedException(
-                    String.format("M'lord, it appears that this line: %s is saved with an invalid status number."
-                            , savedLine));
+                    String.format("M'lord, it appears that this line: %s is saved with an invalid status number.",
+                            savedLine));
         }
     }
 }

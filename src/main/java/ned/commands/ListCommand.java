@@ -9,7 +9,7 @@ import ned.Ui;
  * displayed to the user.
  */
 public class ListCommand implements Command {
-    private final String REGEX = "list";
+    private static final String REGEX = "list";
 
     /**
      * This method will call the taskList::listTasks method.

@@ -5,6 +5,31 @@ import java.util.ArrayList;
 import ned.exceptions.NedException;
 import ned.tasks.Task;
 
+/**
+ * The {@code TaskList} class manages a collection of tasks within the application.
+ * It provides methods to add, remove, and manipulate tasks, as well as to search and list them.
+ * This class interacts closely with the {@code Ui} class to display messages and updates to the user,
+ * and it handles exceptions through the {@code NedException} class.
+ *
+ * <p>Key functionalities include:
+ * <ul>
+ *   <li>Adding a task to the list via {@link #addTask(Task, Ui)}.</li>
+ *   <li>Removing a task from the list via {@link #removeTask(int, Ui)}.</li>
+ *   <li>Marking tasks as done or undone using {@link #markTaskAsDone(int, Ui)} and
+ *   {@link #markTaskAsUndone(int, Ui)}.</li>
+ *   <li>Listing all tasks through {@link #listTasks(Ui)}.</li>
+ *   <li>Finding tasks that match a specific search term using {@link #findRelatedTasks(String)}.</li>
+ *   <li>Retrieving the size of the task list with {@link #getSize()}.</li>
+ *   <li>Getting a task's text representation via {@link #getTaskTextForm(int)}.</li>
+ * </ul>
+ *
+ * <p>The class ensures proper error handling by throwing {@code NedException} when invalid indices are provided.
+ * It maintains an internal {@code ArrayList} of {@code Task} objects, representing the user's tasks.
+ *
+ * @see Task
+ * @see Ui
+ * @see NedException
+ */
 public class TaskList {
     private ArrayList<Task> listOfTasks;
 
@@ -30,8 +55,8 @@ public class TaskList {
             this.listOfTasks.remove(index);
             uiInstance.removeTasksToNedDialogue(selectedTask, this.listOfTasks.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list " +
-                    "size");
+            throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list "
+                    + "size");
         }
     }
 
@@ -45,8 +70,8 @@ public class TaskList {
         try {
             return this.listOfTasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list " +
-                    "size");
+            throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list "
+                    + "size");
         }
     }
 

@@ -9,7 +9,7 @@ import ned.exceptions.NedException;
  * Represents the bye command, which when executed, causes a bye message to be displayed and the program to exit.
  */
 public class ByeCommand implements Command {
-    private final String REGEX = "bye\\s*";
+    private static final String REGEX = "bye\\s*";
 
     /**
      * Represents the command activated when the user types 'bye' with Ned.
@@ -32,7 +32,8 @@ public class ByeCommand implements Command {
      *                      to the user
      */
     @Override
-    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
+    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput)
+            throws NedException {
         uiInstance.getByeMessage();
     }
 

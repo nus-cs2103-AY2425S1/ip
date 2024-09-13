@@ -11,7 +11,7 @@ import ned.tasks.Task;
  * Represents the deadline command, which when executed, adds a new deadline to the list of tasks.
  */
 public class AddDeadlineCommand implements Command {
-    private final String REGEX = "^deadline.*";
+    private static final String REGEX = "^deadline.*";
 
     /**
      * This method carries out the adding of a new Deadline object with information parsed from the command to the

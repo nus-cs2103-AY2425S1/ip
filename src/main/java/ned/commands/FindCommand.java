@@ -1,7 +1,7 @@
 package ned.commands;
 
-import ned.TaskList;
 import ned.Storage;
+import ned.TaskList;
 import ned.Ui;
 import ned.exceptions.NedException;
 
@@ -10,7 +10,7 @@ import ned.exceptions.NedException;
  * it to be displayed to the user.
  */
 public class FindCommand implements Command {
-    private final String REGEX = "^find.*";
+    private static final String REGEX = "^find.*";
 
     /**
      * Executes the find command, by checking first for whether any search term was specified, and if so it searches
@@ -23,7 +23,8 @@ public class FindCommand implements Command {
      * @param userInput       A string which represents input from users into Ned
      * @throws NedException Thrown if the number specified in the delete command is not a valid number or if the
      *                      number is not a valid index
-     */@Override
+     */
+    @Override
     public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput)
             throws NedException {
         String[] splitInput = userInput.split(" ");

@@ -2,8 +2,8 @@ package ned.commands;
 
 import ned.Storage;
 import ned.TaskList;
-import ned.exceptions.NedException;
 import ned.Ui;
+import ned.exceptions.NedException;
 import ned.tasks.Task;
 import ned.tasks.ToDo;
 
@@ -11,7 +11,7 @@ import ned.tasks.ToDo;
  * Represents the todo command, which when executed, adds a new todo task to the list of tasks.
  */
 public class AddToDoCommand implements Command {
-    private final String REGEX = "^todo.*";
+    private static final String REGEX = "^todo.*";
 
     /**
      * This method creates a new ToDo object and then adds it to the taskList instance belonging to the Ned instance

@@ -10,7 +10,7 @@ import ned.exceptions.NedException;
  * and marks it as not done. The status change is shown to the user.
  */
 public class UnmarkCommand implements Command {
-    private final String REGEX = "^unmark.*";
+    private static final String REGEX = "^unmark.*";
 
     public UnmarkCommand() {
     }

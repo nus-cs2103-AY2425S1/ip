@@ -9,7 +9,7 @@ import ned.exceptions.NedException;
  * Represents the delete command, which when executed, causes the selected task to be removed from the list of tasks.
  */
 public class DeleteCommand implements Command {
-    private final String REGEX = "^delete.*";
+    private static final String REGEX = "^delete.*";
 
     /**
      * Returns an instance of the delete command
