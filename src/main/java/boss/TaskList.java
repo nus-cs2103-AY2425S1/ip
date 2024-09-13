@@ -101,6 +101,12 @@ public class TaskList {
         return new String[] {newFileData, item.toString()};
     }
 
+    /**
+     * Gets all the tasks that have an upcoming
+     * deadline (within 7 days).
+     *
+     * @return a String containing all such tasks
+     */
     public String remind() {
         String s = "";
         for (Task task : tasks) {
@@ -119,7 +125,7 @@ public class TaskList {
     }
 
     /**
-     * used to rewrite text file
+     * Rewrites text file
      *
      * @param tasks list of tasks
      * @return a String containing all the tasks
