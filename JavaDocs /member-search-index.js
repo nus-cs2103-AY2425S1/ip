@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"<Unnamed>","c":"ChatterBox","l":"ChatterBox(String)","u":"%3Cinit%3E(java.lang.String)"},{"p":"<Unnamed>","c":"ChatterBox","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"<Unnamed>","c":"ChatterBox","l":"run()"}];updateSearchResults();
