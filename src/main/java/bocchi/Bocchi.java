@@ -89,14 +89,30 @@ public class Bocchi {
      * @return The response to the command.
      */
     private String list() {
-        StringBuilder response = new StringBuilder(LIST_MESSAGE);
-        for (int i = 0; i < taskList.size(); i++) {
-            response.append((i + 1))
-                    .append(". ")
-                    .append(taskList.getTask(i))
-                    .append("\n");
+
+        class TaskStringBuilder {
+            private int index = 1;
+            private final StringBuilder stringBuilder = new StringBuilder("No problem! This is your task list! (/▽＼)\n");
+
+            public void addTask(Task task) {
+                stringBuilder.append(index)
+                        .append(". ")
+                        .append(task)
+                        .append("\n");
+                index++;
+            }
+            public String build() {
+                return stringBuilder.toString();
+            }
         }
-        return response.toString();
+
+        TaskStringBuilder response = new TaskStringBuilder();
+
+        taskList.stream()
+                .sequential()
+                .forEach(response::addTask);
+
+        return response.build();
     }
 
     /**
