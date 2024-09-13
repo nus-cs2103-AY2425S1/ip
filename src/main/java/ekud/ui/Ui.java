@@ -30,6 +30,16 @@ public abstract class Ui {
     }
 
     /**
+     * Formats inputs following a format and adds it to the buffer.
+     * @param format The {@link String} format to follow.
+     * @param inputs The list of inputs.
+     */
+    public void addFormattedToBuffer(String format, Object... inputs) {
+        String formattedInput = String.format(format, inputs);
+        addToBuffer(formattedInput);
+    }
+
+    /**
      * Returns {@link #bufferedOutputs} as one {@link String}.
      *
      * @return The combined output.
