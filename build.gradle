@@ -15,7 +15,7 @@ dependencies {
     implementation "org.openjfx:javafx-fxml:$javaFxVersion"
     implementation "org.openjfx:javafx-base:$javaFxVersion"
     implementation "org.openjfx:javafx-graphics:$javaFxVersion"
-    def junitVersion = '510.0'
+    def junitVersion = '5.10.0'
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     def testFxVersion = '4.0.16-alpha'
