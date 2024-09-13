@@ -54,42 +54,42 @@ Sigma is a command-line task management application designed to help you organiz
 
 ### Creating Tasks
 
-#### Add Todo task
+### Add Todo task
 Adds a Todo task to your task list.
 
-Format: `todo <description>`
+**Format:** `todo <description>`
 
-Example: `todo Plan holiday trip`
+**Example:** `todo Plan holiday trip`
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 Ayy, task added to the grindset! Check it out:
   [T][ ] Plan holiday trip
 You are now dripping with rizz: 1 tasks in your epic collection.
 ```
 
-#### Add Deadline task
+### Add Deadline task
 Adds a Deadline task to your task list.
 
-Format: `deadline <description> /by DD/MM/YY HH:MM`
+**Format:** `deadline <description> /by DD/MM/YY HH:MM`
 
-Example: `deadline Submit CS2100 Assignment /by 16/09/24 13:00`
+**Example:** `deadline Submit CS2100 Assignment /by 16/09/24 13:00`
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 Ayy, task added to the grindset! Check it out:
   [D][ ] Submit CS2100 Assignment (by: 16 Sep 24 13:00)
 You are now dripping with rizz: 2 tasks in your epic collection.
 ```
 
-#### Add Event task
+### Add Event task
 Adds an Event task to your task list.
 
-Format: `event <description> /from DD/MM/YY HH:MM /to DD/MM/YY HH:MM`
+**Format:** `event <description> /from DD/MM/YY HH:MM /to DD/MM/YY HH:MM`
 
-Example: `event CS2103T Finals /from 26/11/24 17:00 /to 26/11/24 18:30`
+**Example:** `event CS2103T Finals /from 26/11/24 17:00 /to 26/11/24 18:30`
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 Ayy, task added to the grindset! Check it out:
   [E][ ] CS2103T Finals (from: 26 Nov 24 17:00 to: 26 Nov 24 18:30)
@@ -99,9 +99,9 @@ You are now dripping with rizz: 3 tasks in your epic collection.
 ### List tasks
 Displays all tasks currently in your task list, including their status.
 
-Format: `list`
+**Format:** `list`
 
-Expected Output:
+**Expected Output:**
 ```
 Yo, here's the list of your goon cave missions, king:
 1. [T][ ] Plan holiday trip
@@ -113,11 +113,11 @@ Get that grind on, fam!
 ### Mark task
 Marks a task as done in your task list.
 
-Format: `mark <task number>`
+**Format:** `mark <task number>`
 
-Example: `mark 1`
+**Example:** `mark 1`
 
-Expected Output:
+**Expected Output:**
 ```
 Rizzed up and ready to go! Task has been marked as done like a true sigma:
   [T][X] Plan holiday trip
@@ -126,11 +126,11 @@ Rizzed up and ready to go! Task has been marked as done like a true sigma:
 ### Unmark task
 Unmarks a task that you previously marked as done.
 
-Format: `unmark <task number>`
+**Format:** `unmark <task number>`
 
-Example: `unmark 1`
+**Example:** `unmark 1`
 
-Expected Output:
+**Expected Output:**
 ```
 L, blud. I've marked this task as not done yet:
   [T][ ] Plan holiday trip
@@ -139,25 +139,25 @@ L, blud. I've marked this task as not done yet:
 ### Delete task
 Deletes a task in your task list.
 
-Format: `delete <task number>`
+**Format:** `delete <task number>`
 
-Example: `delete 1`
+**Example:** `delete 1`
 
-Expected Output:
+**Expected Output:**
 ```
 Alright, I have yeeted this task out of your list:
   [T][ ] Plan holiday trip
 You are down to 2 tasks now. Keep hustling, champ!
 ```
 
-### Find task(s)
+### Find task
 Finds all tasks in your task list whose description contains the keyword provided.
 
-Format: `find <keyword>`
+**Format:** `find <keyword>`
 
-Example: `find assignment`
+**Example:** `find assignment`
 
-Expected Output:
+**Expected Output:**
 ```
 Boom! Check out these epic tasks that match your search quest:
 1. [D][ ] Submit CS2100 Assignment (by: 16 Sep 24 13:00)
@@ -165,42 +165,42 @@ Boom! Check out these epic tasks that match your search quest:
 
 ### Update task
 
-#### Update Todo task
+### Update Todo task
 Updates an existing Todo task in your task list.
 
-Format: `update <task number> <description>`
+**Format:** `update <task number> <description>`
 
-Example: `update 1 Finish IP`
+**Example:** `update 1 Finish IP`
 
-Expected Output:
+**Expected Output:**
 ```
 Ayo, task number 1 just got a major glow-up:
   [T][ ] Finish IP
 ```
 
-#### Update Deadline task
+### Update Deadline task
 Updates an existing Deadline task in your task list. Fields in [] are optional but at least one field must be included.
 
-Format: `update <task_number> [<description>] [/by DD/MM/YY HH:MM]`
+**Format:** `update <task_number> [<description>] [/by DD/MM/YY HH:MM]`
 
-Examples:
+**Example:**
 * update 2 Rizz someone /by 14/9/24 23:59
 
-Expected Output:
+**Expected Output:**
 ```
 Ayo, task number 2 just got a major glow-up:
   [D][ ] Rizz someone (by: 14 Sep 24 23:59)
 ```
 
-#### Update Event task
+### Update Event task
 Updates an existing Event task in your task list. Fields in [] are optional but at least one field must be included.
 
-Format: `update <task_number> [<description>] [/from DD/MM/YY HH:MM /to DD/MM/YY HH:MM]`
+**Format:** `update <task_number> [<description>] [/from DD/MM/YY HH:MM /to DD/MM/YY HH:MM]`
 
-Examples:
+**Example:**
 * update 3 Rizz someone /from 13/9/24 00:00 /to 14/9/24 23:59 
 
-Expected Output:
+**Expected Output:**
 ```
 Ayo, task number 3 just got a major glow-up:
   [E][ ] Rizz someone (from: 13 Sep 24 00:00 to: 14 Sep 24 23:59)
@@ -209,9 +209,9 @@ Ayo, task number 3 just got a major glow-up:
 ### Help
 Displays a list of all available commands with brief descriptions.
 
-Format: `help`
+**Format:** `help`
 
-Expected Output:
+**Expected Output:**
 ```
 List of Commands:
 1. bye: Exits the program. Use this command when you want to end your session.
@@ -238,9 +238,9 @@ List of Commands:
 ### Bye
 Terminates the application and saves all tasks in the task list to a specified text file.
 
-Format: `bye`
+**Format:** `bye`
 
-Expected Output:
+**Expected Output:**
 ```
 Skedaddling outta here, my dude! See you in the Matrix or when baby Gronk rizzes up Livvy Dunne!
 Exiting in 3...2...1...
