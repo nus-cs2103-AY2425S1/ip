@@ -14,17 +14,6 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="lolo.ui.MainWindow">
     <children>
-        <!-- Add a Label for the welcome message -->
-        <Label fx:id="welcomeLabel"
-               text="Welcome!"
-               layoutX="10.0"
-               layoutY="10.0"
-               prefHeight="50.0"
-               prefWidth="380.0"
-               AnchorPane.leftAnchor="10.0"
-               AnchorPane.topAnchor="10.0"
-               style="-fx-background-color: yellow;"
-        />
 
         <TextField fx:id="userInput"
                    layoutY="558.0"

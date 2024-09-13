@@ -20,7 +20,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     @FXML
-    private Label welcomeLabel; // Add a Label for the welcome message
 
     private Lolo lolo;
 
@@ -30,7 +29,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        setWelcomeMessage(); // Display the welcome message when initializing
     }
 
     public void setLolo(Lolo lolo) {
@@ -46,10 +44,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getLoloDialog(response, loloImage)
         );
         userInput.clear();
-    }
-
-    private void setWelcomeMessage() {
-        welcomeLabel.setText("Hello! I'm lolo, your friendly task manager! \nWhat do you want to do today?");
     }
 }
 
