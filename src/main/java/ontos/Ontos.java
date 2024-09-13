@@ -27,6 +27,8 @@ public class Ontos {
      * @param saveLocation The location of the save file relative to the project's root directory.
      */
     public Ontos(String saveLocation) {
+        assert saveLocation != null : "Save location cannot be null";
+
         Path projectRoot = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
         this.ui = new Ui();
         this.saveManager = new SaveManager(projectRoot, saveLocation);
@@ -67,6 +69,8 @@ public class Ontos {
      * @return The response from the chatbot.
      */
     public String getResponse(String input) {
+        assert input != null : "Input cannot be null";
+        
         try {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, saveManager);
