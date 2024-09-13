@@ -12,25 +12,25 @@ import ontos.task.TaskList;
  */
 public class Ui {
     /** Greeting message displayed when the application starts. */
-    private static String hello = " Hello! I'm Ontos \n What can I do for you?";
+    private static final String HELLO = " Hello! I'm Ontos \n What can I do for you?";
 
     /** Line separator used in the user interface. */
-    private static String line = "____________________________________________________________";
+    private static final String LINE = "____________________________________________________________";
 
     /** Goodbye message displayed when the application ends. */
-    private static String bye = " Bye. Hope to see you again soon!";
+    private static final String BYE = " Bye. Hope to see you again soon!";
 
     /** Prompt shown before listing all tasks. */
-    private static String listPrompt = " Here are the tasks in your list:\n";
+    private static final String LIST_PROMPT = " Here are the tasks in your list:\n";
 
     /** Message shown when a task is marked as completed. */
-    private static String completeTaskPrompt = " Nice! I've marked this task as done:\n";
+    private static final String COMPLETE_TASK_PROMPT = " Nice! I've marked this task as done:\n";
 
     /** Message shown when a task is marked as not completed. */
-    private static String uncompleteTaskPrompt = " OK, I've marked this task as not done yet:\n";
+    private static final String UNCOMPLETE_TASK_PROMPT = " OK, I've marked this task as not done yet:\n";
 
     /** Message shown when a task is added to the list. */
-    private static String taskAdded = " Got it. I've added this task:\n";
+    private static final String TASK_ADDED = " Got it. I've added this task:\n";
 
     /** Scanner object to handle user input. */
     private Scanner inputs;
@@ -57,8 +57,8 @@ public class Ui {
      * @return the line separator String.
      */
     public String showLine() {
-        System.out.println(line);
-        return line;
+        System.out.println(LINE);
+        return LINE;
     }
 
     /**
@@ -67,8 +67,8 @@ public class Ui {
      * @return the greeting message String.
      */
     public String greet() {
-        System.out.println(hello);
-        return hello;
+        System.out.println(HELLO);
+        return HELLO;
     }
 
     /**
@@ -78,8 +78,8 @@ public class Ui {
      */
     public String goodbye() {
         inputs.close();
-        System.out.println(bye);
-        return bye;
+        System.out.println(BYE);
+        return BYE;
     }
 
     /**
@@ -90,8 +90,8 @@ public class Ui {
      */
     public String list(TaskList taskList) {
         assert taskList != null : "TaskList cannot be null";
-        
-        String list = listPrompt + taskList.toString();
+
+        String list = LIST_PROMPT + taskList.toString();
         System.out.println(list);
         return list;
     }
@@ -133,7 +133,7 @@ public class Ui {
         assert taskList != null : "TaskList cannot be null";
         assert index >= 0 && index < taskList.getSize() : "Index out of bounds for TaskList";
 
-        String output = completeTaskPrompt + taskList.getTaskString(index);
+        String output = COMPLETE_TASK_PROMPT + taskList.getTaskString(index);
         System.out.println(output);
         return output;
     }
@@ -149,7 +149,7 @@ public class Ui {
         assert taskList != null : "TaskList cannot be null";
         assert index >= 0 && index < taskList.getSize() : "Index out of bounds for TaskList";
 
-        String output = uncompleteTaskPrompt + taskList.getTaskString(index);
+        String output = UNCOMPLETE_TASK_PROMPT + taskList.getTaskString(index);
         System.out.println(output);
         return output;
     }
@@ -180,7 +180,7 @@ public class Ui {
         assert task != null : "Task cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
-        String output = taskAdded
+        String output = TASK_ADDED
                 + " " + task.toString() + "\n"
                 + " Now you have " + tasks.getSize() + " tasks in the list.";
         System.out.println(output);
@@ -246,4 +246,5 @@ public class Ui {
         System.out.println(output);
         return output;
     }
+
 }

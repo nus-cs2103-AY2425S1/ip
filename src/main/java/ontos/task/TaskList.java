@@ -134,7 +134,7 @@ public class TaskList {
      */
     public String containsString(String searchCriteria) {
         assert searchCriteria != null : "Search criteria cannot be null";
-        
+
         int index = 1;
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
