@@ -5,6 +5,7 @@ import bocchi.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Represents a list of tasks.
@@ -70,5 +71,13 @@ public class TaskList {
         } catch (BocchiException e) {
 
         }
+    }
+
+    /**
+     * Returns a stream of tasks.
+     * @return A stream of tasks.
+     */
+    public Stream<Task> stream() {
+        return tasks.stream();
     }
 }

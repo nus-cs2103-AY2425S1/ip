@@ -34,6 +34,7 @@ public class Bocchi {
 
     /**
      * Ends the conversation.
+     *
      * @return The response to the command.
      */
     private String exit() {
@@ -43,21 +44,39 @@ public class Bocchi {
 
     /**
      * Prints all items in the item list.
+     *
      * @return The response to the command.
      */
     private String list() {
-        StringBuilder response = new StringBuilder("No problem! This is your task list! (/▽＼)\n");
-        for (int i = 0; i < taskList.size(); i++) {
-            response.append((i + 1))
-                    .append(". ")
-                    .append(taskList.getTask(i))
-                    .append("\n");
+
+        class TaskStringBuilder {
+            private int index = 1;
+            private final StringBuilder stringBuilder = new StringBuilder("No problem! This is your task list! (/▽＼)\n");
+
+            public void addTask(Task task) {
+                stringBuilder.append(index)
+                        .append(". ")
+                        .append(task)
+                        .append("\n");
+                index++;
+            }
+            public String build() {
+                return stringBuilder.toString();
+            }
         }
-        return response.toString();
+
+        TaskStringBuilder response = new TaskStringBuilder();
+
+        taskList.stream()
+                .sequential()
+                .forEach(response::addTask);
+
+        return response.build();
     }
 
     /**
      * Adds a task to the list.
+     *
      * @param task The task to be added.
      * @return The response to the command.
      */
@@ -125,6 +144,7 @@ public class Bocchi {
 
     /**
      * Greets the user.
+     *
      * @return The greeting message.
      */
     public String greet() {
