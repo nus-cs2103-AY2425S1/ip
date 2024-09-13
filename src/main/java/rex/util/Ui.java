@@ -15,8 +15,6 @@ public class Ui {
     /**
      * Constructs a new {@code Ui} instance and initializes the {@code Scanner}.
      */
-    // Horizontal line divider;
-    private static final String DIVIDER = "____________________________________________________________";
 
     // "rawr" string added to end of each print statement
     private static final String RAWR = "rawr";
@@ -28,16 +26,6 @@ public class Ui {
     private Scanner scanner;
     public Ui() {
         scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads the next line of input from the user.
-     *
-     * @return The user's input as a {@code String}.
-     */
-    public String readInput() {
-        printDivider();
-        return scanner.nextLine();
     }
 
     /**
@@ -115,9 +103,9 @@ public class Ui {
      * @param task The {@code Task} that was removed from the list.
      */
     public String deleteTask(Task task) {
-        String output = "Noted. I've removed this task:";
+        String output = "Noted. I've removed this task:\n";
         output += "  " + task;
-        output += "Now you have " + Task.getNumberOfTasks() + " tasks in the list.";
+        output += "\nNow you have " + Task.getNumberOfTasks() + " tasks in the list.";
         return output;
     }
 
@@ -152,12 +140,5 @@ public class Ui {
      */
     public String errorMessage(String message) {
         return ERROR_PREFIX + " " + message;
-    }
-
-    /**
-     * Prints a horizontal line for visual separation in the UI.
-     */
-    private void printDivider() {
-        System.out.println(DIVIDER);
     }
 }

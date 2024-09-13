@@ -28,7 +28,6 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading the file or creating directories/files.
      */
     public void loadFile(TaskList list) throws IOException {
-        // Create new file and directory for filepath
         File file = new File(FILE_PATH);
         File dir = file.getParentFile();
 
@@ -55,7 +54,6 @@ public class Storage {
         createFile(temp);
 
         try (FileWriter writer = new FileWriter(temp, true)) {
-            // Write each task from the TaskList to the temp file
             for (int i = 1; i <= list.size(); i++) {
                 Task task = list.getTask(i);
                 writer.write(task.formatter() + System.lineSeparator());
@@ -73,7 +71,6 @@ public class Storage {
      * @param dir The directory to be created.
      */
     private void createDirectory(File dir) {
-        // Create new directory if it does not exist
         if (!dir.isDirectory()) {
             dir.mkdirs();
         }
