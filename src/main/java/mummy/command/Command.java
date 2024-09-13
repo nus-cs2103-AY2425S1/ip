@@ -3,7 +3,6 @@ package mummy.command;
 import java.io.IOException;
 import java.util.HashMap;
 
-import mummy.task.Task;
 import mummy.task.TaskList;
 import mummy.ui.MummyException;
 import mummy.utility.Storage;
@@ -21,8 +20,7 @@ public abstract class Command {
      * Represents the types of commands that can be executed.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE,
-        EVENT, DELETE, FIND, UNKNOWN
+        BYE, LIST, MARK, UNMARK, ADD, DELETE, FIND, UNKNOWN
     }
 
     /**
@@ -44,35 +42,24 @@ public abstract class Command {
     public static Command of(String fullCommand) throws MummyException {
         HashMap<String, String> arguments = Parser.parse(fullCommand);
 
-        CommandType commandType;
-
-        try {
-            commandType = CommandType.valueOf(
-                    arguments.getOrDefault("command", "")
-                            .toUpperCase()
-            );
-        } catch (IllegalArgumentException exception) {
-            commandType = CommandType.UNKNOWN;
-        }
-
-        switch (commandType) {
-        case BYE:
+        switch (arguments.getOrDefault("command", "")) {
+        case "bye":
             return new ByeCommand(arguments);
-        case LIST:
+        case "list":
             return new ListCommand(arguments);
-        case MARK:
+        case "mark":
             return new MarkCommand(arguments);
-        case UNMARK:
+        case "unmark":
             return new UnmarkCommand(arguments);
-        case TODO:
+        case "todo":
             return new ToDoCommand(arguments);
-        case DEADLINE:
+        case "deadline":
             return new DeadlineCommand(arguments);
-        case EVENT:
+        case "event":
             return new EventCommand(arguments);
-        case DELETE:
+        case "delete":
             return new DeleteCommand(arguments);
-        case FIND:
+        case "find":
             return new FindCommand(arguments);
         default:
             throw new MummyException("I'm sorry, but I don't know what that means :-(");
@@ -137,22 +124,5 @@ public abstract class Command {
             throw new MummyException("Something went wrong when saving to file: "
                     + exception.getMessage());
         }
-    }
-
-    /**
-     * Adds a task to the task list.
-     *
-     * @param task the task to be added
-     * @param taskList the task list to add the task to
-     * @param storage the storage to save the task list
-     * @throws MummyException if there is an error adding the task or saving the task list
-     */
-    public String addTask(Task task, TaskList taskList, Storage storage) throws MummyException {
-        taskList.add(task);
-        saveTaskListToStorage(taskList, storage);
-        return String.format(
-                "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                task, taskList.count()
-        );
     }
 }

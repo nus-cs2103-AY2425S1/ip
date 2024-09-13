@@ -11,7 +11,7 @@ import mummy.utility.Storage;
  * Represents a command to add a new ToDo task.
  * Inherits from the Command class.
  */
-public final class ToDoCommand extends Command {
+public final class ToDoCommand extends AddCommand {
 
     public ToDoCommand(HashMap<String, String> arguments) {
         super(arguments);
@@ -21,15 +21,5 @@ public final class ToDoCommand extends Command {
     public String execute(TaskList taskList, Storage storage) throws MummyException {
         String description = this.getArgument("description", "");
         return this.addTask(new ToDo(description), taskList, storage);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public CommandType getCommandType() {
-        return CommandType.TODO;
     }
 }
