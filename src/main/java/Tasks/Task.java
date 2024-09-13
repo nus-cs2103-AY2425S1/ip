@@ -19,6 +19,7 @@ public abstract class Task {
      * marks item as complete
      */
     public void mark() {
+
         isDone = true;
     }
 
@@ -26,6 +27,7 @@ public abstract class Task {
      * Unmarks item as incomplete
      */
     public void unMark() {
+
         isDone = false;
     }
 
