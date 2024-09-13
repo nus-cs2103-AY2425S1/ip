@@ -22,14 +22,11 @@ public class MainController {
     @FXML
     private TextField inputField;
 
-    private Papadom chatbot;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+        private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+        private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    // Constructor initializes the Papadom chatbot
-    public MainController() {
-        chatbot = new Papadom(); // Initialize the Papadom chatbot
-    }
+        // Constructor initializes the Papadom chatbot
+    public MainController() {}
 
     // Called automatically when the controller is initialized (after FXML is loaded)
     @FXML
