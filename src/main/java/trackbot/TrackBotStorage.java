@@ -62,6 +62,8 @@ public class TrackBotStorage {
             System.out.println("Data file does not exist. A new file will be created.");
             return tasks;
         }
+        assert taskfile.exists();
+        assert taskfile.canRead();
 
         Scanner s = new Scanner(taskfile);
         while (s.hasNext()) {

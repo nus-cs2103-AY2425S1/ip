@@ -35,9 +35,10 @@ public class TrackBot {
         } catch (IOException e) {
             System.out.println("File not found");
         }
-        if (trackList == null) {
-            System.out.println("Failed to initialize TrackList.");
-        }
+        assert trackList != null;
+        // if (trackList == null) {
+        //     System.out.println("Failed to initialize TrackList.");
+        // }
     }
 
     /**
@@ -72,6 +73,7 @@ public class TrackBot {
         boolean isExit = false;
         try {
             Command command = parser.parse(input);
+            assert command != null;
             output = command.execute(trackList, ui, storage);
             // isExit = command.isExit();
         } catch (TrackBotException e) {

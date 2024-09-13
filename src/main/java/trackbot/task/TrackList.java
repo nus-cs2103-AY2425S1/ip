@@ -23,9 +23,11 @@ public class TrackList {
      * @throws IOException If an I/O error occurs while loading the tasks.
      */
     public TrackList(TrackBotStorage storage) throws IOException {
+        assert storage != null : "Storage cannot be null";
         this.storage = storage;
         try {
             tasks = storage.loadContents();
+            assert tasks != null;
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Starting with an empty task list.");
         }
@@ -49,6 +51,7 @@ public class TrackList {
      * @param task The task to be added to the list.
      */
     public String addToList(Task task) {
+        assert tasks != null : "Task must not be null";
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (task == null) {
@@ -58,10 +61,6 @@ public class TrackList {
         }
         tasks.add(task);
         saveList();
-        // System.out.println("````````````````````````````````````````````````````````````");
-        // System.out.println("Successfully added this task:\n  " + task);
-        // System.out.println("Now you have " + list.size() + " tasks in the list.");
-        // System.out.println("````````````````````````````````````````````````````````````");
         writer.println("Successfully added this task:\n  " + task);
         writer.println("Now you have " + tasks.size() + " tasks in the list.");
         return stringWriter.toString();
@@ -82,10 +81,6 @@ public class TrackList {
         }
         tasks.get(num).mark();
         saveList();
-        // System.out.println("````````````````````````````````````````````````````````````");
-        // System.out.println("Successfully marked task " + (num + 1) + " as done:");
-        // System.out.println("  " + list.get(num).toString());
-        // System.out.println("````````````````````````````````````````````````````````````");
         writer.println("Successfully marked task " + (num + 1) + " as done:");
         writer.println("  " + tasks.get(num).toString());
         return stringWriter.toString();
@@ -106,10 +101,6 @@ public class TrackList {
         }
         tasks.get(num).unmark();
         saveList();
-        // System.out.println("````````````````````````````````````````````````````````````");
-        // System.out.println("Successfully marked task " + (num + 1) + " as not done yet:");
-        // System.out.println("  " + list.get(num).toString());
-        // System.out.println("````````````````````````````````````````````````````````````");
         writer.println("Successfully marked task " + (num + 1) + " as not done yet:");
         writer.println("  " + tasks.get(num).toString());
         return stringWriter.toString();
@@ -131,11 +122,6 @@ public class TrackList {
         String deletedTask = tasks.get(num).toString();
         tasks.remove(num);
         saveList();
-        // System.out.println("````````````````````````````````````````````````````````````");
-        // System.out.println("Successfully deleted task " + (num + 1) + " from list:");
-        // System.out.println("  " + deletedTask);
-        // System.out.println("Now you have " + list.size() + " tasks in the list.");
-        // System.out.println("````````````````````````````````````````````````````````````");
         writer.println("Successfully deleted task " + (num + 1) + " from list:");
         writer.println("  " + deletedTask);
         writer.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -167,18 +153,13 @@ public class TrackList {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (matchingTasks.isEmpty()) {
-            // System.out.println("No matching tasks found.");
             writer.println("No matching tasks found.");
             return writer.toString();
         } else {
-            // System.out.println("````````````````````````````````````````````````````````````");
-            // System.out.println("Here are the matching tasks in your list:");
             writer.println("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                // System.out.println((i + 1) + ". " + matchingTasks.get(i));
                 writer.println((i + 1) + ". " + matchingTasks.get(i));
             }
-            // System.out.println("````````````````````````````````````````````````````````````");
             return stringWriter.toString();
         }
     }
@@ -195,15 +176,12 @@ public class TrackList {
             writer.println("The list is currently empty.");
             return stringWriter.toString();
         }
-        // System.out.println("````````````````````````````````````````````````````````````\n" + "List:");
         writer.println("List:");
         int i = 1;
         for (Task item : tasks) {
-            // System.out.print(i + ". " + item.toString() + "\n");
             writer.println(i + ". " + item.toString() + "\n");
             i++;
         }
-        // System.out.println("````````````````````````````````````````````````````````````");
         return stringWriter.toString();
     }
 }
