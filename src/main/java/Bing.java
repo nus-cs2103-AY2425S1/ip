@@ -3,6 +3,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Bing {
 
     private static final String FILE_PATH = "./data/tasks.txt";
@@ -17,7 +21,6 @@ public class Bing {
         Scanner scanner = new Scanner(System.in);
         String input;
         ArrayList<Task> tasks = new ArrayList<Task>();
-
         loadTasks(tasks);
 
         while (true) {
@@ -72,7 +75,6 @@ public class Bing {
                     System.out.println("______________________________\n");
                 }
 
-
             } else if (input.startsWith("todo")) {
                 String temp = input.substring(4).trim();
                 if (temp.isEmpty()) {
@@ -87,14 +89,18 @@ public class Bing {
                             + "______________________________\n");
                     saveTasks(tasks);
                 }
-
             } else if (input.startsWith("deadline ")) {
                 try {
                     String[] segments = input.substring(9).split(" /by ");
                     if (segments.length < 2 || segments[0].trim().isEmpty() || segments[1].trim().isEmpty()) {
                         System.out.println("Invalid Input.\n");
                     } else {
-                        Task temp = new Deadline(segments[0],segments[1]);
+                        LocalDateTime deadline = parseDate(segments[1].trim());
+                        if (deadline == null) {
+                            System.out.println("Invalid date format. Please enter date as d/M/yyyy HHmm");
+                            return;
+                        }
+                        Task temp = new Deadline(segments[0].trim(), deadline);
                         tasks.add(temp);
                         System.out.println("______________________________\n"
                                 + "Added the task:\n"
@@ -109,15 +115,24 @@ public class Bing {
                     System.out.println("______________________________\n");
                 }
 
-
             } else if (input.startsWith("event ")) {
                 try {
                     String[] segments = input.substring(6).split(" /from ");
-                    if (segments.length<2) {
+                    if (segments.length < 2) {
                         System.out.println("Invalid Input.\n");
                     } else {
                         String[] segments2 = segments[1].split(" /to ");
-                        Task temp = new Event(segments[0],segments2[0],segments2[1]);
+                        if (segments2.length < 2) {
+                            System.out.println("Invalid Input.\n");
+                            return;
+                        }
+                        LocalDateTime from = parseDate(segments2[0].trim());
+                        LocalDateTime to = parseDate(segments2[1].trim());
+                        if (from == null || to == null) {
+                            System.out.println("Invalid date format. Please enter date as d/M/yyyy HHmm");
+                            return;
+                        }
+                        Task temp = new Event(segments[0].trim(), from, to);
                         tasks.add(temp);
                         System.out.println("______________________________\n"
                                 + "Added the task:\n"
@@ -158,9 +173,11 @@ public class Bing {
     }
 
     private static void loadTasks(ArrayList<Task> tasks) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
         try {
             File file = new File(FILE_PATH);
-            if (!file.exists()) { // File does not exist
+            if (!file.exists()) {
                 return;
             }
             Scanner fileScanner = new Scanner(file);
@@ -171,38 +188,46 @@ public class Bing {
                     continue;
                 }
                 String taskType = parts[0];
-                boolean isDone;
-                if (parts[1].equals("1")) {
-                    isDone = true;
-                } else {
-                    isDone = false;
-                }
+                boolean isDone = parts[1].equals("1");
                 String info = parts[2];
                 Task task;
                 if (taskType.equals("T")) {
                     task = new ToDo(info);
+
                 } else if (taskType.equals("D")) {
                     if (parts.length < 4) {
                         continue;
                     }
-                    String deadline = parts[3];
-                    task = new Deadline(info, deadline);
-                } else if (taskType.equals("E")) {
-                    if (parts.length < 4) {
+                    String deadlineStr = parts[3];
+                    LocalDateTime deadline;
+                    try {
+                        deadline = LocalDateTime.parse(deadlineStr, formatter);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Error parsing deadline date: " + deadlineStr);
                         continue;
                     }
-                    String from = parts[3];
-                    String to = parts[4];
+                    task = new Deadline(info, deadline);
+                } else if (taskType.equals("E")) {
+                    if (parts.length < 5) {
+                        continue;
+                    }
+                    String fromStr = parts[3];
+                    String toStr = parts[4];
+                    LocalDateTime from, to;
+                    try {
+                        from = LocalDateTime.parse(fromStr, formatter);
+                        to = LocalDateTime.parse(toStr, formatter);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Error parsing event date: " + fromStr + " to " + toStr);
+                        continue;
+                    }
                     task = new Event(info, from, to);
+
                 } else {
                     continue;
                 }
 
-                if (isDone) {
-                    task.setStatus(TaskStatus.DONE);
-                } else {
-                    task.setStatus(TaskStatus.UNDONE);
-                }
+                task.setStatus(isDone ? TaskStatus.DONE : TaskStatus.UNDONE);
                 tasks.add(task);
             }
             fileScanner.close();
@@ -211,17 +236,28 @@ public class Bing {
         }
     }
 
+
     private static void saveTasks(ArrayList<Task> tasks) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
         try {
             File file = new File(FILE_PATH);
             file.getParentFile().mkdirs();
             FileWriter writer = new FileWriter(file);
             for (Task task : tasks) {
-                writer.write(task.toFileFormat() + "\n");
+                writer.write(task.toFileFormat(formatter) + "\n");
             }
             writer.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks to file.");
+        }
+    }
+    private static LocalDateTime parseDate(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        try {
+            return LocalDateTime.parse(dateStr, formatter);
+        } catch (DateTimeParseException e) {
+            return null;
         }
     }
 }

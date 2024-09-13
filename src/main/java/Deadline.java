@@ -1,18 +1,23 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    private String deadline;
+    private LocalDateTime deadline;
 
-    public Deadline(String info, String deadline) {
+    public Deadline(String info, LocalDateTime deadline) {
         super(info);
         this.deadline = deadline;
     }
+
     @Override
     public String toString() {
-        return "[D]" + "[" + getStatus().getStatusSymbol() + "]" + " " + getInfo() + " (by: " + deadline + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
+        return "[D]" + "[" + getStatus().getStatusSymbol() + "]" + " " + getInfo() + " (by: " + deadline.format(formatter) + ")";
     }
 
-    public String toFileFormat() {
-        return "D | " + (getStatus() == TaskStatus.DONE ? "1" : "0") + " | " + getInfo() + " | " + deadline;
+    @Override
+    public String toFileFormat(DateTimeFormatter formatter) {
+        return "D | " + (getStatus() == TaskStatus.DONE ? "1" : "0") + " | " + getInfo() + " | " + deadline.format(formatter);
     }
 }
-////
