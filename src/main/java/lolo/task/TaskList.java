@@ -142,4 +142,9 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    public void addTagToTask(int index, String tag) {
+        Task task = tasks.get(index);
+        task.addTag(tag);
+    }
 }

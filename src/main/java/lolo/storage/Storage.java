@@ -61,6 +61,7 @@ public class Storage {
                     String type = parts[0];
                     boolean isDone = parts[1].equals("1");
                     String description = parts[2];
+                    String tags = parts.length > 3 ? parts[parts.length - 1] : "";
 
                     Task task;
                     switch (type) {
@@ -82,6 +83,12 @@ public class Storage {
 
                     if (isDone) {
                         task.markAsDone();
+                    }
+                    // Set the tags if present
+                    if (!tags.isEmpty()) {
+                        for (String tag : tags.split(",")) {
+                            task.addTag(tag.trim());
+                        }
                     }
 
                     tasks.add(task);
