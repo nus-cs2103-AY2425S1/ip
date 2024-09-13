@@ -15,7 +15,7 @@ public class CommandParser {
      * @param command The command to check against.
      * @return {@code true} if the input starts with the specified command (case-insensitive), {@code false} otherwise.
      */
-    public static boolean checkCommand(String input, String command) {
+    public static boolean checkCommandWithArgument(String input, String command) {
         return input.split(" ")[0].equalsIgnoreCase(command);
     }
 
@@ -28,7 +28,7 @@ public class CommandParser {
      * @return {@code true} if the input exactly matches the specified command
      *     (case-insensitive),{@code false} otherwise.
      */
-    public static boolean checkEqualCommand(String input, String command) {
+    public static boolean checkCommandWithoutArgument(String input, String command) {
         return input.equalsIgnoreCase(command);
     }
 }
