@@ -29,7 +29,7 @@ public class Bunbun {
 
     public void run() {
         this.ui.startScreen();
-        storage.initializeTaskFile();
+        this.storage.initializeTaskFile();
 
         while (true) {
             String msg = Parser.getMessage();
