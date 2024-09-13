@@ -18,9 +18,14 @@ public abstract class Task {
      * @param isDone      the status of the task (true if done, false otherwise)
      */
     public Task(String description, boolean isDone) {
+        // Assert that the description is not null and not empty
+        assert description != null : "Task description should not be null";
+        assert !description.trim().isEmpty() : "Task description should not be empty";
+
         this.description = description;
         this.isDone = isDone;
     }
+
 
     /**
      * Returns the status icon of the task.
@@ -71,6 +76,14 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        String statusIcon = getStatusIcon();
+        // Assert that status icon is either "1" or "0"
+        assert statusIcon.equals("1") || statusIcon.equals("0") : "Status icon should be '1' or '0'";
+
+        // Assert that description is not null
+        assert description != null : "Task description should not be null";
+
+        return "[" + statusIcon + "] " + description;
     }
+
 }
