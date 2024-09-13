@@ -1,7 +1,6 @@
 package bottleopener.myapp;
 
 import bottleopener.task.Tasklist;
-import bottleopener.ui.Ui;
 
 /**
  * Represents the BottleOpener chatbot that handles user interactions, processes commands,
