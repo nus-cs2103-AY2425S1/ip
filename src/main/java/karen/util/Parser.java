@@ -2,15 +2,7 @@ package karen.util;
 
 import java.time.format.DateTimeParseException;
 
-import karen.commands.AddTaskCommand;
-import karen.commands.Command;
-import karen.commands.DeleteCommand;
-import karen.commands.ExitCommand;
-import karen.commands.FindCommand;
-import karen.commands.ListCommand;
-import karen.commands.MarkCommand;
-import karen.commands.UnknownCommand;
-import karen.commands.UnmarkCommand;
+import karen.commands.*;
 import karen.tasks.Deadline;
 import karen.tasks.Event;
 import karen.tasks.Todo;
@@ -59,7 +51,7 @@ public class Parser {
             try {
                 c = new AddTaskCommand(new Todo(arr[1]));
             } catch (IndexOutOfBoundsException e) {
-                ui.showTodoSyntax();
+                c = new ShowErrorCommand(ui.showTodoSyntax());
             }
             break;
         case DEADLINE:
@@ -67,9 +59,9 @@ public class Parser {
                 String[] params = arr[1].split(" /by ");
                 c = new AddTaskCommand(new Deadline(params[0], params[1]));
             } catch (IndexOutOfBoundsException e) {
-                ui.showDeadlineSyntax();
+                c = new ShowErrorCommand(ui.showDeadlineSyntax());
             } catch (DateTimeParseException e) {
-                ui.showDateTimeError();
+                c = new ShowErrorCommand(ui.showDateTimeError());
             }
             break;
         case EVENT:
@@ -79,9 +71,9 @@ public class Parser {
                 String[] datetimes = params[1].split(" /to ");
                 c = new AddTaskCommand(new Event(name, datetimes[0], datetimes[1]));
             } catch (IndexOutOfBoundsException e) {
-                ui.showEventSyntax();
+                c = new ShowErrorCommand(ui.showEventSyntax());
             } catch (DateTimeParseException e) {
-                ui.showDateTimeError();
+                c = new ShowErrorCommand(ui.showDateTimeError());
             }
             break;
         case MARK:
@@ -89,9 +81,9 @@ public class Parser {
                 int i = Integer.parseInt(arr[1]) - 1;
                 c = new MarkCommand(i);
             } catch (NumberFormatException e) {
-                ui.showNotANumberError();
+                c = new ShowErrorCommand(ui.showNotANumberError());
             } catch (IndexOutOfBoundsException e) {
-                ui.showMarkSyntax();
+                c = new ShowErrorCommand(ui.showMarkSyntax());
             }
             break;
         case UNMARK:
@@ -99,9 +91,9 @@ public class Parser {
                 int i = Integer.parseInt(arr[1]) - 1;
                 c = new UnmarkCommand(i);
             } catch (NumberFormatException e) {
-                ui.showNotANumberError();
+                c = new ShowErrorCommand(ui.showNotANumberError());
             } catch (IndexOutOfBoundsException e) {
-                ui.showUnmarkSyntax();
+                c = new ShowErrorCommand(ui.showUnmarkSyntax());
             }
             break;
         case DELETE:
@@ -109,9 +101,9 @@ public class Parser {
                 int i = Integer.parseInt(arr[1]) - 1;
                 c = new DeleteCommand(i);
             } catch (NumberFormatException e) {
-                ui.showNotANumberError();
+                c = new ShowErrorCommand(ui.showNotANumberError());
             } catch (IndexOutOfBoundsException e) {
-                ui.showDeleteSyntax();
+                c = new ShowErrorCommand(ui.showDeleteSyntax());
             }
             break;
         case FIND:
@@ -119,10 +111,13 @@ public class Parser {
                 String searchWord = arr[1];
                 c = new FindCommand(searchWord);
             } catch (IndexOutOfBoundsException e) {
-                ui.showFindSyntax();
+                c = new ShowErrorCommand(ui.showFindSyntax());
             }
             break;
         case UNKNOWN:
+            c = new UnknownCommand();
+            break;
+        default:
             c = new UnknownCommand();
             break;
         }
