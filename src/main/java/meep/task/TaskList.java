@@ -1,6 +1,7 @@
 package meep.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * The {@code TaskList} class represents a list of tasks.
@@ -88,11 +89,9 @@ public class TaskList {
      * @return The string representation of the entire task list.
      */
     public String getList() {
-        StringBuilder list = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            list.append(i + 1).append(". ").append(this.tasks.get(i)).append("\n");
-        }
-        return list.toString();
+        return tasks.stream()
+                .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                .collect(Collectors.joining("\n", "", "\n")); // Adding a trailing newline
     }
 
     /**
@@ -102,11 +101,10 @@ public class TaskList {
      * @return The save format string of the entire task list.
      */
     public String getSaveFormatList() {
-        StringBuilder list = new StringBuilder();
-        for (Task task : this.tasks) {
-            list.append(task.getSaveFormat()).append("\n");
-        }
-        return list.toString();
+        return tasks.stream()
+                .map(Task::getSaveFormat)
+                .collect(Collectors.joining("\n", "", "\n")); // Adding a trailing newline
+
     }
 
     /**
@@ -130,12 +128,11 @@ public class TaskList {
      * @return A formatted string of tasks that contain the keyword. If no tasks match, an empty string is returned.
      */
     public String findTasks(String keyword) {
-        TaskList foundTasks = new TaskList();
-        for (Task task : this.tasks) {
-            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                foundTasks.addItem(task);
-            }
-        }
-        return foundTasks.getList();
+        return tasks.stream()
+                .filter(task -> task.toString().toLowerCase().contains(keyword.toLowerCase()))
+                .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                .collect(Collectors.joining("\n", "", "\n")); // Adding a trailing newline
+
     }
 }
+
