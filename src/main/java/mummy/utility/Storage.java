@@ -57,6 +57,8 @@ public class Storage {
      * @throws IOException if an I/O error occurs while writing to the file
      */
     public void save(List<String> lines) throws IOException {
+        assert (new File(ioPath)).exists();
+
         FileWriter fw = new FileWriter(this.ioPath, false);
         for (String line : lines) {
             fw.write(line + "\n");
