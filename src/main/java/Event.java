@@ -1,11 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 /**
  * Represents an event task.
  * An Event object corresponds to a task represented by a description, a start time, and an end time.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructor for Event class.
@@ -16,8 +19,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -26,7 +29,7 @@ public class Event extends Task {
      * @return Start time of the event.
      */
     public String getFrom() {
-        return this.from;
+        return this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -35,7 +38,18 @@ public class Event extends Task {
      * @return End time of the event.
      */
     public String getTo() {
-        return this.to;
+        return this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    /**
+     * Checks if the task occurs on the given date.
+     *
+     * @param date The date to check.
+     * @return True if the task occurs on the given date, false otherwise.
+     */
+    @Override
+    public boolean occursOn(LocalDate date) {
+        return this.from.toLocalDate().equals(date) || this.to.toLocalDate().equals(date);
     }
 
     /**
@@ -45,6 +59,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + getFrom() + " to: " + getTo() + ")";
     }
 }

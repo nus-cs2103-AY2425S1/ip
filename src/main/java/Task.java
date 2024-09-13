@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Represents a task.
  * A Task object corresponds to a task represented by a description and a completion status.
@@ -55,6 +57,16 @@ public class Task {
      */
     public boolean isTaskDone() {
         return this.isDone;
+    }
+
+    /**
+     * Checks if the task occurs on the given date.
+     *
+     * @param date The date to check.
+     * @return True if the task occurs on the given date, false otherwise.
+     */
+    public boolean occursOn(LocalDate date) {
+        return false;
     }
 
     /**

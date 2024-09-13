@@ -1,4 +1,4 @@
-
+import java.time.LocalDate;
 /**
  * Represents a todo task.
  * A Todo object corresponds to a task represented by a description.
@@ -14,6 +14,16 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * Checks if the task occurs on the given date.
+     *
+     * @param date The date to check.
+     * @return True if the task occurs on the given date, false otherwise.
+     */
+    @Override
+    public boolean occursOn(LocalDate date) {
+        return false;
+    }
     /**
      * Returns a string representation of the task.
      *
