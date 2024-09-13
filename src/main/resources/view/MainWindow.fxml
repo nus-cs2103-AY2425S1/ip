@@ -27,6 +27,7 @@
             </content>
         </ScrollPane>
         <HBox alignment="CENTER" spacing="10">
+            <Button fx:id="helpButton" onAction="#openHelpWindow" text="Help" />
             <TextField fx:id="userInput"
                        minHeight="100.0"
                        minWidth="400.0"

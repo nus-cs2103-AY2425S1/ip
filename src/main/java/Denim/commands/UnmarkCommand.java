@@ -10,6 +10,7 @@ import denim.storage.WriteTaskFile;
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     public static final String COMMAND_USAGE = "unmark <taskNumber>";
+    public static final String COMMAND_EXAMPLE = "unmark 3";
     private int index;
 
     public UnmarkCommand(int index) {

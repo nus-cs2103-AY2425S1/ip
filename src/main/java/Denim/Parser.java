@@ -246,7 +246,7 @@ public class Parser {
         final Matcher matcher = FIND_ARGUMENT_FORMAT.matcher(args);
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Wrong format for find command", FindCommand.USAGE);
+            return new InvalidCommand("Wrong format for find command", FindCommand.COMMAND_USAGE);
         }
 
         String[] keywords = args.split(" ");

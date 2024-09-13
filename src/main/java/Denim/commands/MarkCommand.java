@@ -10,6 +10,7 @@ import denim.storage.WriteTaskFile;
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     public static final String COMMAND_USAGE = "mark <taskNumber>";
+    public static final String COMMAND_EXAMPLE = "mark 5";
     private int index;
 
     /**
@@ -18,7 +19,7 @@ public class MarkCommand extends Command {
     public MarkCommand(int index) {
         this.index = index;
     }
-    
+
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         assert index > 0 : "IndexOutOfBoundsAssertion";

@@ -11,6 +11,7 @@ import denim.tasks.Task;
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String COMMAND_USAGE = "delete <taskNumber>";
+    public static final String COMMAND_EXAMPLE = "delete 5";
     private int index;
 
     public DeleteCommand(int index) {

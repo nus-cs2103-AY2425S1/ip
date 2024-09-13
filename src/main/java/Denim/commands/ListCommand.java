@@ -10,6 +10,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_USAGE = "list";
+    public static final String COMMAND_EXAMPLE = "list";
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         String returnMessage = taskList.printList();

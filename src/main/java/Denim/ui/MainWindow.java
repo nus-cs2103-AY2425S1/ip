@@ -10,6 +10,7 @@ import denim.commands.CommandResult;
 import denim.exceptions.DenimDirectoryException;
 import denim.exceptions.DenimFileException;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -17,6 +18,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 
 /**
@@ -34,6 +36,8 @@ public class MainWindow extends VBox {
     private Button sendButton;
     @FXML
     private Alert alert;
+    @FXML
+    private Button helpButton;
 
     private Denim denim;
 
@@ -140,5 +144,20 @@ public class MainWindow extends VBox {
             alert.setContentText(e.getMessage());
             denim.exit();
         }
+    }
+
+
+    /**
+     * Creates a new stage containing all the commands available to the program, before showing it to the user.
+     */
+    public void openHelpWindow() {
+        Stage helpStage = new Stage();
+        helpStage.setResizable(false);
+
+        VBox helpWindow = new Help();
+
+        helpStage.setTitle("Help");
+        helpStage.setScene(new Scene(helpWindow, 600, 500));
+        helpStage.show();
     }
 }
