@@ -1,6 +1,6 @@
 package command;
 
-import exception.DudeException;
+import exception.DynamikeException;
 import storage.Storage;
 import storage.TaskList;
 import task.Task;
@@ -27,10 +27,10 @@ public class AddCommand extends Command {
      * @param tasks The task list to which the task is to be added.
      * @param ui The user interface to interact with the user.
      * @param storage The storage file to be updated.
-     * @throws DudeException If there is an error adding the task.
+     * @throws DynamikeException If there is an error adding the task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DynamikeException {
         assert task != null : "Task should not be null";
         assert tasks != null : "Task list should not be null";
         tasks.addTask(task);

@@ -1,6 +1,6 @@
 package command;
 
-import exception.DudeException;
+import exception.DynamikeException;
 import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
@@ -16,10 +16,10 @@ public class ExitCommand extends Command {
      * @param tasks The task list to be listed.
      * @param ui The user interface to interact with the user.
      * @param storage The storage file to be updated.
-     * @throws DudeException If there is an error listing the tasks.
+     * @throws DynamikeException If there is an error listing the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DynamikeException {
         ui.showGoodbye();
     }
 

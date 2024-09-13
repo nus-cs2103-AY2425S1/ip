@@ -2,7 +2,7 @@ package command;
 
 import java.util.ArrayList;
 
-import exception.DudeException;
+import exception.DynamikeException;
 import storage.Storage;
 import storage.TaskList;
 import task.Task;
@@ -29,10 +29,10 @@ public class FindCommand extends Command {
      * @param tasks The task list to search for tasks.
      * @param ui The user interface to interact with the user.
      * @param storage The storage file to be updated.
-     * @throws DudeException If there is an error finding the tasks.
+     * @throws DynamikeException If there is an error finding the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DynamikeException {
         assert keyword != null : "Keyword should not be null";
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
         ui.showMatching(matchingTasks);

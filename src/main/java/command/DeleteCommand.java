@@ -1,6 +1,6 @@
 package command;
 
-import exception.DudeException;
+import exception.DynamikeException;
 import storage.Storage;
 import storage.TaskList;
 import task.Task;
@@ -27,10 +27,10 @@ public class DeleteCommand extends Command {
      * @param tasks The task list from which the task is to be deleted.
      * @param ui The user interface to interact with the user.
      * @param storage The storage file to be updated.
-     * @throws DudeException If there is an error deleting the task.
+     * @throws DynamikeException If there is an error deleting the task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DynamikeException {
         assert tasks != null : "Task list should not be null";
         Task task = tasks.deleteTask(index);
         storage.saveTasks(tasks);

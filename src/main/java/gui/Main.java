@@ -2,7 +2,7 @@ package gui;
 
 import java.io.IOException;
 
-import dude.Dude;
+import dynamike.Dynamike;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Dude using FXML.
+ * A GUI for Dynamike using FXML.
  */
 public class Main extends Application {
 
-    private Dude dude = new Dude();
+    private Dynamike dynamike = new Dynamike();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDude(dude);
+            fxmlLoader.<MainWindow>getController().setDynamike(dynamike);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

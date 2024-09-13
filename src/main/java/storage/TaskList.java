@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import exception.DudeException;
+import exception.DynamikeException;
 import task.Task;
 
 /**
@@ -45,9 +45,9 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) throws DudeException {
+    public void addTask(Task task) throws DynamikeException {
         if (hasDuplicate(task)) {
-            throw new DudeException("This task is already in the list!");
+            throw new DynamikeException("This task is already in the list!");
         }
         this.tasks.add(task);
     }
@@ -58,9 +58,9 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      * @return The task that was deleted.
      */
-    public Task deleteTask(int index) throws DudeException {
+    public Task deleteTask(int index) throws DynamikeException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DudeException("There is no such task!");
+            throw new DynamikeException("There is no such task!");
         }
         return this.tasks.remove(index);
     }
@@ -98,12 +98,12 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void markDone(int index) throws DudeException {
+    public void markDone(int index) throws DynamikeException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DudeException("There is no such task!");
+            throw new DynamikeException("There is no such task!");
         }
         if (tasks.get(index).isDone()) {
-            throw new DudeException("This task is already marked as done!");
+            throw new DynamikeException("This task is already marked as done!");
         }
         Task task = this.tasks.get(index);
         task.markAsDone();
@@ -114,12 +114,12 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as undone.
      */
-    public void markUndone(int index) throws DudeException {
+    public void markUndone(int index) throws DynamikeException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DudeException("There is no such task!");
+            throw new DynamikeException("There is no such task!");
         }
         if (!tasks.get(index).isDone()) {
-            throw new DudeException("This task is already marked as undone!");
+            throw new DynamikeException("This task is already marked as undone!");
         }
         Task task = this.tasks.get(index);
         task.markAsUndone();

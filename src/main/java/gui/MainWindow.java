@@ -1,6 +1,6 @@
 package gui;
 
-import dude.Dude;
+import dynamike.Dynamike;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,32 +22,32 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Dude dude;
+    private Dynamike dynamike;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dudeImage = new Image(this.getClass().getResourceAsStream("/images/Dude.png"));
+    private Image dynamikeImage = new Image(this.getClass().getResourceAsStream("/images/Dynamike.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Dude instance */
-    public void setDude(Dude d) {
-        dude = d;
+    /** Injects the Dynamike instance */
+    public void setDynamike(Dynamike d) {
+        dynamike = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Dude's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Dynamike's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = dude.getResponse(input);
+        String response = dynamike.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDudeDialog(response, dudeImage)
+                DialogBox.getDynamikeDialog(response, dynamikeImage)
         );
         userInput.clear();
     }

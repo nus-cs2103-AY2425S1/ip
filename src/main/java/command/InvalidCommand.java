@@ -1,6 +1,6 @@
 package command;
 
-import exception.DudeException;
+import exception.DynamikeException;
 import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
@@ -10,16 +10,16 @@ import ui.Ui;
  */
 public class InvalidCommand extends Command {
     /**
-     * Throws a DudeException to indicate that the command is invalid.
+     * Throws a DynamikeException to indicate that the command is invalid.
      *
      * @param tasks The task list to be listed.
      * @param ui The user interface to interact with the user.
      * @param storage The storage file to be updated.
-     * @throws DudeException To indicate that the command is invalid.
+     * @throws DynamikeException To indicate that the command is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
-        throw new DudeException("I'm sorry, but I don't know what that means :(");
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DynamikeException {
+        throw new DynamikeException("I'm sorry, but I don't know what that means :(");
     }
 
     /**

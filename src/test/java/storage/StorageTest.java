@@ -2,14 +2,13 @@ package storage;
 
 import java.io.IOException;
 
+import exception.DynamikeException;
 import org.junit.jupiter.api.Test;
-
-import exception.DudeException;
 
 public class StorageTest {
 
     @Test
-    public void testSaveAndLoad() throws DudeException, IOException {
+    public void testSaveAndLoad() throws DynamikeException, IOException {
         Storage storage = new Storage("test.txt");
         TaskList tasks = new TaskList();
         tasks.addTask(new task.Todo("read book"));
@@ -19,7 +18,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testStorageEmpty() throws IOException, DudeException {
+    public void testStorageEmpty() throws IOException, DynamikeException {
         Storage storage = new Storage("test.txt");
         TaskList tasks = new TaskList();
         storage.saveTasks(tasks);

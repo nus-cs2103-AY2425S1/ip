@@ -47,7 +47,7 @@ public class Ui {
      * Shows the greeting message.
      */
     public void showGreeting() {
-        this.response = "Hello! I'm Dude!\nWhat can I do for you?";
+        this.response = "Hello! I'm Dynamike!\nWhat can I do for you?";
         printLine();
         System.out.println(response);
         printLine();

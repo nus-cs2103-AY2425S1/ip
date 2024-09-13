@@ -1,6 +1,6 @@
 package command;
 
-import exception.DudeException;
+import exception.DynamikeException;
 import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
@@ -16,9 +16,9 @@ public abstract class Command {
      * @param tasks The task list to be listed.
      * @param ui The user interface to interact with the user.
      * @param storage The storage file to be updated.
-     * @throws DudeException If there is an error executing the command.
+     * @throws DynamikeException If there is an error executing the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DynamikeException;
 
     /**
      * Returns true if the command is an exit command.

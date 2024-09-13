@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import exception.DudeException;
+import exception.DynamikeException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -33,9 +33,9 @@ public class Storage {
      * Saves the tasks to the storage file.
      *
      * @param tasks The tasks to be saved.
-     * @throws DudeException If there is an error saving the tasks.
+     * @throws DynamikeException If there is an error saving the tasks.
      */
-    public void saveTasks(TaskList tasks) throws DudeException {
+    public void saveTasks(TaskList tasks) throws DynamikeException {
         try {
             File file = new File(this.filePath);
             FileWriter writer = new FileWriter(file);
@@ -44,7 +44,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DudeException("An error occurred while saving data to your file!");
+            throw new DynamikeException("An error occurred while saving data to your file!");
         }
     }
 
@@ -54,7 +54,7 @@ public class Storage {
      * @return The task list with the tasks from the storage file.
      * @throws IOException If there is an error initializing the tasks.
      */
-    public TaskList initTasks() throws IOException, DudeException {
+    public TaskList initTasks() throws IOException, DynamikeException {
         TaskList tasks = new TaskList();
         File file = new File(this.filePath);
         if (!file.exists()) {
@@ -93,7 +93,7 @@ public class Storage {
                 }
                 break;
             default:
-                throw new DudeException("An error occurred while initializing your tasks!");
+                throw new DynamikeException("An error occurred while initializing your tasks!");
             }
         }
         return tasks;

@@ -1,29 +1,29 @@
-package dude;
+package dynamike;
 
 import java.io.IOException;
 
 import command.Command;
-import exception.DudeException;
+import exception.DynamikeException;
 import parser.Parser;
 import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
 
 /**
- * The Dude class is a chatbot, whose name is Dude, that can help you manage your tasks.
+ * The Dynamike class is a chatbot, whose name is Dynamike, that can help you manage your tasks.
  */
-public class Dude {
+public class Dynamike {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * Creates a Dude object with the given file path.
+     * Creates a Dynamike object with the given file path.
      *
      * @param filePath The file path of the storage file.
      */
-    public Dude(String filePath) {
+    public Dynamike(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
@@ -31,15 +31,15 @@ public class Dude {
         } catch (IOException e) {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
-        } catch (DudeException e) {
+        } catch (DynamikeException e) {
             this.ui.showError(e.getMessage());
         }
     }
 
     /**
-     * Creates a Dude object with the default file path.
+     * Creates a Dynamike object with the default file path.
      */
-    public Dude() {
+    public Dynamike() {
         this("data.txt");
     }
 
@@ -55,7 +55,7 @@ public class Dude {
                 Command c = Parser.parse(fullCommand);
                 c.execute(this.tasks, this.ui, this.storage);
                 isExit = c.isExit();
-            } catch (DudeException e) {
+            } catch (DynamikeException e) {
                 this.ui.showError(e.getMessage());
             }
         }
@@ -73,13 +73,13 @@ public class Dude {
             Command c = Parser.parse(input);
             c.execute(this.tasks, this.ui, this.storage);
             output = this.ui.getResponse();
-        } catch (DudeException e) {
+        } catch (DynamikeException e) {
             output = e.getMessage();
         }
-        return "Dude: " + output;
+        return output;
     }
 
     public static void main(String[] args) {
-        new Dude("data.txt").run();
+        new Dynamike("data.txt").run();
     }
 }

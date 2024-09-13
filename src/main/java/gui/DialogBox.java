@@ -74,7 +74,7 @@ public class DialogBox extends HBox {
      * @param image The image to be displayed.
      * @return A dialog box with the given string and image, flipped.
      */
-    public static DialogBox getDudeDialog(String string, Image image) {
+    public static DialogBox getDynamikeDialog(String string, Image image) {
         var db = new DialogBox(string, image);
         db.flip();
         return db;
