@@ -1,4 +1,5 @@
 package ip.derrick;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
 
 /**
  * Storage class to store and load the TaskList.
@@ -16,41 +16,38 @@ public class Storage {
     private static final String FOLDER_PATH = Paths.get(System.getProperty("user.home"), "ip", "data").toString();
     private static final String FILE_NAME = "DATA.TXT";
     private static final Path FILE_PATH = Paths.get(FOLDER_PATH, FILE_NAME);
+
     public Storage() {
         createDirectory();
     }
 
     /**
-     * Creates a new directory if the specified directory does not exist.
-     * If the specified FILE_NAME does not exist at the specified directory, it also creates the file.
+     * Creates the directory and file if they do not exist.
      */
-    public void createDirectory() {
+    private void createDirectory() {
         Path folderPath = Paths.get(FOLDER_PATH);
-        if (!java.nio.file.Files.exists(folderPath)) {
-            try {
-                Files.createDirectories(folderPath);
-            } catch (IOException e) {
-                System.out.println("An error occurred while creating the directory: " + e.getMessage());
-            }
-        }
 
-        if (!Files.exists(FILE_PATH)) {
-            try {
-                Files.createFile(FILE_PATH);
-            } catch (IOException e) {
-                System.out.println("An error occurred while creating the file: " + e.getMessage());
+        try {
+            if (!Files.exists(folderPath)) {
+                Files.createDirectories(folderPath);
             }
+
+            if (!Files.exists(FILE_PATH)) {
+                Files.createFile(FILE_PATH);
+            }
+        } catch (IOException e) {
+            System.out.println("Error while creating directory or file: " + e.getMessage());
         }
     }
 
     /**
-     * Loads tasks from a specified file.
-     * If the file is empty, return an empty ArrayList.
-     * @return ArrayList<Task>
-     * @throws RuntimeException If an I/O error occurs during the retrieval of the directory or file.
+     * Loads tasks from the file, or returns an empty list if the file is empty.
+     *
+     * @return ArrayList<Task> the list of tasks loaded from the file.
      */
     public ArrayList<Task> loadTasksFromFile() {
-        ArrayList<Task> result = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
+
         try (BufferedReader reader = Files.newBufferedReader(FILE_PATH)) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -59,38 +56,55 @@ public class Storage {
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
 
-                Task task = null;
-                switch (type) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    String by = parts[3];
-                    task = new Deadline(description, by);
-                    break;
-                case "E":
-                    String start = parts[3];
-                    String end = parts[4];
-                    task = new Event(description, start, end);
-                    break;
-                }
-
+                Task task = createTaskFromData(type, isDone, description, parts);
                 if (task != null) {
-                    if (isDone) {
-                        task.setMark();
-                    }
-                    result.add(task);
+                    tasks.add(task);
                 }
             }
-            return result;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error while loading tasks from file: " + e.getMessage());
         }
+
+        return tasks;
     }
 
     /**
-     * Update the specified file and save it to the specified directory and folder.
-     * @param list The list to be updated and saved to a specified file.
+     * Creates a task based on the type and the provided data.
+     *
+     * @param type The task type (T, D, E).
+     * @param isDone Boolean indicating if the task is completed.
+     * @param description The task description.
+     * @param parts Additional data required for specific task types.
+     * @return Task The constructed task, or null if an error occurs.
+     */
+    private Task createTaskFromData(String type, boolean isDone, String description, String[] parts) {
+        Task task = null;
+        switch (type) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            String by = parts[3];
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            String start = parts[3];
+            String end = parts[4];
+            task = new Event(description, start, end);
+            break;
+        }
+
+        if (task != null && isDone) {
+            task.setMark();
+        }
+
+        return task;
+    }
+
+    /**
+     * Saves the given TaskList to the file.
+     *
+     * @param list The TaskList to save.
      */
     public void saveTasksToFile(TaskList list) {
         try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
@@ -98,8 +112,7 @@ public class Storage {
                 writer.write(task.changeFormat() + System.lineSeparator());
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
+            System.out.println("Error while saving tasks to file: " + e.getMessage());
         }
     }
-
 }
