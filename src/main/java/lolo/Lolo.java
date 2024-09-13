@@ -22,12 +22,23 @@ public class Lolo {
      * @param filePath The file path to load tasks from.
      */
     public Lolo(String filePath) {
+        // Assert that the filePath is not null
+        assert filePath != null : "File path should not be null";
+
         storage = new Storage(filePath);
+
         try {
+            // Load tasks from storage
             tasks = new TaskList(storage.load());
+
+            // Assert that the tasks list is not null after loading
+            assert tasks != null : "Task list should not be null after loading";
         } catch (LoloException e) {
             tasks = new TaskList(); // Create an empty task list if loading fails
         }
+
+        // Assert that tasks is properly initialized (either from load or new list)
+        assert tasks != null : "Task list should be initialized";
     }
 
     /**
@@ -38,9 +49,23 @@ public class Lolo {
      * @return The response from Lolo based on the command executed.
      */
     public String getResponse(String input) {
+        // Assert that input is not null
+        assert input != null : "Input should not be null";
+
         try {
+            // Parse the user input into a command
             Command command = Parser.parse(input);
-            return command.execute(tasks, storage);  // Execute and return the response
+
+            // Assert that the command is valid (not null)
+            assert command != null : "Parsed command should not be null";
+
+            // Execute the command and get the response
+            String response = command.execute(tasks, storage);
+
+            // Assert that the response is valid (not null)
+            assert response != null : "Response from command execution should not be null";
+
+            return response;
         } catch (LoloException e) {
             return "Error: " + e.getMessage();  // Return error message
         }
@@ -53,9 +78,9 @@ public class Lolo {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Lolo("./data/lolo.txt");  // Initialize Lolo
+        // Initialize Lolo with a file path
+        assert args.length > 0 : "File path should be provided as an argument";
+
+        new Lolo(args[0]);  // Pass the file path to the Lolo constructor
     }
 }
-
-
-
