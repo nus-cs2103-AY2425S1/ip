@@ -135,9 +135,9 @@ public class TaskList {
 
 
     /**
-     * Find the tasks that match the given word (for GUI).
+     * Find the tasks that match the given word (for GUI)
      *
-     * @param word the word user wants to find matching tasks for/
+     * @param word the word user wants to find matching tasks for
      * @return String containing tasks that match the word.
      */
     public String findTask(String word) {
