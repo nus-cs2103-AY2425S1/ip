@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -5,13 +7,13 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a deadline task.
- * A Deadline object corresponds to a task represented by a description and a deadline date.
+ * A tasks.Deadline object corresponds to a task represented by a description and a deadline date.
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructor for Deadline class.
+     * Constructor for tasks.Deadline class.
      *
      * @param description The description of the task.
      * @param by The deadline of the task.
@@ -24,7 +26,7 @@ public class Deadline extends Task {
     /**
      * Returns the deadline of the task.
      *
-     * @return Deadline of the task.
+     * @return tasks.Deadline of the task.
      */
     public String getBy() {
 
