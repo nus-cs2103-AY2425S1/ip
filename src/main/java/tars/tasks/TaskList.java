@@ -6,6 +6,7 @@ import tars.parsers.ToDoParser;
 import tars.parsers.DeadlineParser;
 import tars.parsers.EventParser;
 
+import java.util.Comparator;
 import java.util.List;
 
 import java.util.regex.Matcher;
@@ -80,6 +81,7 @@ public class TaskList {
         }
 
         assert t != null;
+        taskList.sort(Comparator.naturalOrder());
         return t;
     }
 

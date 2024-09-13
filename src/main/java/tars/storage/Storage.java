@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -117,6 +118,8 @@ public class Storage {
             tasks.add(t);
         }
         assert taskString.size() == tasks.size();
+
+        tasks.sort(Comparator.naturalOrder());
         return tasks;
     }
 

@@ -1,5 +1,8 @@
 package tars.tasks;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 /**
  * Represents a task with a name and a completion status.
  *
@@ -8,7 +11,7 @@ package tars.tasks;
  * representation. This class can be extended by other classes to represent specific
  * types of tasks (e.g., ToDo, Deadline, Event).</p>
  */
-public class Task {
+public abstract class Task implements Comparable<Task> {
 
     private final String taskName;
     private boolean completeStatus;
@@ -61,9 +64,14 @@ public class Task {
      * @return A {@link String} representing the serialized task information. This method
      *         is intended to be overridden by subclasses to provide specific task formats.
      */
-    public String saveTask() {
-        return "";
-    }
+    public abstract String saveTask();
+
+    /**
+     * Returns the date of a task to be used to sort tasks.
+     *
+     * @return A {@link Date} representing the date the task needs to be done by
+     */
+    public abstract LocalDate getDate();
 
     /**
      * Returns a string representation of the task, including its completion status.
@@ -83,5 +91,25 @@ public class Task {
         }
 
         return String.format("%s %s", status, taskName);
+    }
+
+    @Override
+    public int compareTo(Task t) {
+
+        LocalDate thisDate = this.getDate();
+        LocalDate compareDate = t.getDate();
+
+        if (thisDate == null) {
+            if (compareDate == null) {
+                return 0;
+            }
+            return 1;
+
+        } else {
+            if (compareDate != null) {
+                return thisDate.compareTo(compareDate);
+            }
+            return -1;
+        }
     }
 }

@@ -134,6 +134,10 @@ public class EventParser extends Parser {
 
         }
 
+        if (startDate.isAfter(endDate)) {
+            throw new TarsException("Start date cannot be after End Date");
+        }
+
         return new LocalDate[]{startDate, endDate};
 
     }
