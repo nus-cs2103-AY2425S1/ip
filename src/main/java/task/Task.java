@@ -1,7 +1,10 @@
 package task;
 
+import exceptions.BuddyException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task with a description and completion status.
@@ -40,6 +43,10 @@ public abstract class Task {
         return String.format("T | %d | %s", isDone ? 1 : 0, description);
     }
 
+    public String toString() {
+        return description;
+    }
+
     /**
      * Returns the status icon representing whether the task is done.
      *
@@ -70,6 +77,10 @@ public abstract class Task {
      */
     public abstract String getTaskType();
 
+    public void updateDesc(String newDesc) {
+        this.description = newDesc;
+    }
+
     static String localDateTimeString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return date.format(formatter);
@@ -79,4 +90,15 @@ public abstract class Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         return date.format(formatter);
     }
+
+    public static LocalDateTime stringToDate(String date) throws BuddyException {
+        assert date != null : "Date cannot be null";
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            throw new BuddyException("You need to state the date in the format 'd/M/yyyy HHmm'");
+        }
+    }
+
 }
