@@ -1,24 +1,27 @@
 package reminderebot;
 
-import reminderebot.task.Task;
-import reminderebot.task.ToDo;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import reminderebot.task.Deadline;
 import reminderebot.task.Event;
-import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import reminderebot.task.Task;
+import reminderebot.task.ToDo;
 
 /**
  * Storage represents the storage manager for Reminderebot.
  */
 public class Storage {
-    static String filePath;
+    private String filePath;
 
     public Storage(String filePath) {
-        Storage.filePath = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -78,17 +81,17 @@ public class Storage {
 
     public void saveData(TaskList tasklist) {
         try {
-//            System.out.println("Added tasklist to" + filePath);
+            // System.out.println("Added tasklist to" + filePath);
             File file = new File(filePath);
-//
-//            // This storage location is relative: If run from .bat script,
-//            // the txt file will be stored at ip/text-ui-test/data/
-//            // On the other hand, if Reminderebot.java is run directly,
-//            // the txt file will be stored at ip/data
+
+            // This storage location is relative: If run from .bat script,
+            // the txt file will be stored at ip/text-ui-test/data/
+            // On the other hand, if Reminderebot.java is run directly,
+            // the txt file will be stored at ip/data
             File dir = new File(file.getParent());
 
             boolean dirCreated = dir.mkdirs();
-//            System.out.println(dirCreated);
+            // System.out.println(dirCreated);
             // @@author david-eom
             // Reused from https://github.com/david-eom/CS2103T-IP
             // with minor modifications
