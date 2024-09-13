@@ -1,6 +1,6 @@
 package myapp.command;
 
-import myapp.core.BingBongException;
+import myapp.exceptions.BingBongException;
 import myapp.core.Storage;
 import myapp.task.TaskList;
 

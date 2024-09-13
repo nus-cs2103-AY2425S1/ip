@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import myapp.exceptions.BingBongException;
+import myapp.exceptions.UnknownTaskTypeException;
 import myapp.task.Deadline;
 import myapp.task.Event;
 import myapp.task.FixedDuration;
@@ -128,7 +130,7 @@ public class Storage {
         case "F":
             return createFixedDurationTask(taskData, description);
         default:
-            throw new BingBongException("Unknown task type in file.");
+            throw new UnknownTaskTypeException("Unknown task type in file.");
         }
     }
 

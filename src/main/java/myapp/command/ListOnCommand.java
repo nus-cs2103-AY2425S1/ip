@@ -3,7 +3,7 @@ package myapp.command;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import myapp.core.BingBongException;
+import myapp.exceptions.BingBongException;
 import myapp.core.DateTimeHandler;
 import myapp.core.Storage;
 import myapp.task.Deadline;

@@ -1,4 +1,4 @@
-package myapp.core;
+package myapp.exceptions;
 
 /**
  * The BingBongException class represents a custom exception used in the BingBong application.
