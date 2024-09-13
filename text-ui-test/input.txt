@@ -1,0 +1,9 @@
+todo read a book
+deadline Finish CS2103 quiz /by Friday 4pm
+event CS2103 lecture /from Friday 4pm /to Friday 6pm
+list
+mark 2
+mark 3
+list
+unmark 2
+list

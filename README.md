@@ -22,3 +22,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+   
+## Acknowledgements 
+
+Images used in the chatbot are generated via Meta AI. All rights reserved.
