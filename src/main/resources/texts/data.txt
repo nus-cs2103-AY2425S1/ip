@@ -1,4 +1,0 @@
-[T][ ] bake a cake
-[E][ ] open house (from: 12:00, 24 Sep 2024 | to: 11:59, 27 Sep 2024)
-[D][ ] finish PC2032 tutorial (by: 12:00, 11 Sep 2024)
-[D][ ] Assignment 1 (by: 11:00, 12 Sep 2024)
