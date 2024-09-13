@@ -5,7 +5,7 @@ import storage.TaskList;
 import ui.UI;
 
 /**
- * Represents a command to exit the Friday application.
+ * Represents a command to exit the Friday.Friday application.
  * The ByeCommand class implements the Command interface and handles terminating the application.
  */
 public class ByeCommand implements Command {

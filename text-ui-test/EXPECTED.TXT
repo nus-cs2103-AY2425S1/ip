@@ -7,7 +7,7 @@ ___________        .__     .___
      \/                     \/      \/  \/     
 
 ----------------------------------------------
-Hello! I'm Friday!
+Hello! I'm friday.friday!
 What would you like to do?
 
 Your input > 

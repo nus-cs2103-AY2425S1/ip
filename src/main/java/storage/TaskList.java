@@ -46,12 +46,12 @@ public class TaskList {
         switch(getInputFromUser(sc, "(1, 2 or 3) > ")) {
         case "1":
             this.parent.add(new Todo(task));
-            System.out.println("Friday > Okay, I've added a todo: " + task);
+            System.out.println("Friday.Friday > Okay, I've added a todo: " + task);
             break;
         case "2":
             System.out.println("What is the deadline? In dd mm yyyy");
             this.parent.add(new Deadline(task, getDate("d", sc)));
-            System.out.println("Friday > Okay, I've added a deadline: " + task);
+            System.out.println("Friday.Friday > Okay, I've added a deadline: " + task);
             break;
         case "3":
             System.out.println("What is the start date? In dd mm yyyy");
@@ -59,7 +59,7 @@ public class TaskList {
             System.out.println("What is the end date? In dd mm yyyy");
             LocalDate end = getDate("ee", sc);
             this.parent.add(new Event(task, start, end));
-            System.out.println("Friday > Okay, I've added an event: " + task);
+            System.out.println("Friday.Friday > Okay, I've added an event: " + task);
             break;
         default:
             System.out.println("Invalid task type! Try adding again.");
@@ -76,8 +76,8 @@ public class TaskList {
         Task temp = parent.get(task);
         this.parent.remove(task);
 
-        System.out.println("Friday > Successfully removed: " + temp.getName());
-        System.out.println("Friday > You now have " + getSize() + " total tasks left.");
+        System.out.println("Friday.Friday > Successfully removed: " + temp.getName());
+        System.out.println("Friday.Friday > You now have " + getSize() + " total tasks left.");
     }
 
     /**
@@ -128,12 +128,12 @@ public class TaskList {
             if (!temp.isDone()) {
                 temp.setDone();
             }
-            System.out.println("Friday > Good job! Marked as done :)");
+            System.out.println("Friday.Friday > Good job! Marked as done :)");
         } else {
             if (temp.isDone()) {
                 this.parent.get(task).setUndone();
             }
-            System.out.println("Friday > Oh man! Marked as undone :(");
+            System.out.println("Friday.Friday > Oh man! Marked as undone :(");
         }
     }
 
@@ -150,7 +150,7 @@ public class TaskList {
             System.out.print(template);
             String str = sc.nextLine();
             if (str.isEmpty()) {
-                System.out.println("Friday > Invalid input! Did you make sure to type something?");
+                System.out.println("Friday.Friday > Invalid input! Did you make sure to type something?");
             } else {
                 return str.trim();
             }
@@ -175,7 +175,7 @@ public class TaskList {
             default -> getDate(type, sc);
             };
         } catch (DateTimeParseException e) {
-            System.out.println("Friday > Invalid date format! Please follow dd mm yyyy format! e.g 26 06 2002");
+            System.out.println("Friday.Friday > Invalid date format! Please follow dd mm yyyy format! e.g 26 06 2002");
         }
         return getDate(type, sc);
     }

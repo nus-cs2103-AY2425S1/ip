@@ -22,7 +22,7 @@ public class ExitCommand implements Command {
      */
     @Override
     public boolean execute(Storage storage, TaskList master, UI ui) {
-        System.out.println("Friday > Type \"bye\" or \"Bye\" to exit");
+        System.out.println("Friday.Friday > Type \"bye\" or \"Bye\" to exit");
         UI.printLine();
         return false;
     }

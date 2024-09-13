@@ -34,7 +34,7 @@ public class UI {
         System.out.println("Loading........\n" + logo);
         printLine();
         System.out.println("""
-                Hello! I'm Friday!
+                Hello! I'm Friday.Friday!
                 What would you like to do?
                 """);
     }
@@ -64,7 +64,7 @@ public class UI {
      * This method is called when the program is about to exit.
      */
     public void terminate() {
-        System.out.println("Friday > Bye! See you soon!");
+        System.out.println("Friday.Friday > Bye! See you soon!");
         printLine();
     }
 }

@@ -22,9 +22,9 @@ public class ListCommand implements Command {
     @Override
     public boolean execute(Storage storage, TaskList master, UI ui) {
         if (master.getSize() <= 0) {
-            System.out.println("Friday > No tasks in here! Try adding something!");
+            System.out.println("Friday.Friday > No tasks in here! Try adding something!");
         } else {
-            System.out.println("Friday > Here's everything!\n" + master);
+            System.out.println("Friday.Friday > Here's everything!\n" + master);
         }
         UI.printLine();
         return false;
