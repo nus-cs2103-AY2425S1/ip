@@ -1,9 +1,12 @@
 package command;
 
-import main.TaskList;
 import main.Storage;
+import main.TaskList;
 import main.Ui;
 
+/**
+ * This class is used to handle search commands
+ */
 public class SearchCommand extends Command {
 
     public SearchCommand(String description) {

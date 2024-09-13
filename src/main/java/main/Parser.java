@@ -25,6 +25,7 @@ public class Parser {
      */
     public static Command parse(String response) throws DukeException {
         String[] splitResponse = response.split(" ", 2);
+        assert splitResponse.length > 0 : "There should be a command";
         switch (splitResponse[0]) {
         case "todo", "event", "deadline":
             return handleAdd(splitResponse);
@@ -56,6 +57,7 @@ public class Parser {
      * @param splitResponse details of the task
      */
     public static Command handleAdd(String[] splitResponse) {
+        assert splitResponse.length == 2 : "There should be a description";
         try {
             switch (splitResponse[0]) {
             case "todo":
