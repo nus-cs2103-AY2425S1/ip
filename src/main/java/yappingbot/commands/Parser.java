@@ -3,6 +3,7 @@ package yappingbot.commands;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import yappingbot.commands.commands.Pair;
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
@@ -103,15 +104,23 @@ public class Parser {
      * Parses the user arguments into the first unflagged argument, and pushes the rest into
      * the given ArrayList as String arrays of the argument flag and its preceeding values.
      *
-     * @param flagMarker Char of the character used to denote a flag.
+     * @param flagMarker String of the character used to denote a flag.
      * @param userInputSlices User input sliced by space, including command verb.
      * @param flattenedFlaggedArguments empty ArrayList to push parsed flagged arguments into.
      * @return First argument value after command verb, that is not flagged.
      */
-    public static String parseFlaggedArguments(char flagMarker,
+    public static String parseFlaggedArguments(String flagMarker,
                                                String[] userInputSlices,
-                                               ArrayList<String[]> flattenedFlaggedArguments) {
+                                               ArrayList<Pair<String, String>> flattenedFlaggedArguments) {
         String firstArg = null;
+        StringBuilder sb = new StringBuilder();
+
+        // skip first item since it's the command verb
+        for (int i = 1; i < userInputSlices.length; i++) {
+            if (!userInputSlices[i].startsWith(flagMarker)) {
+                // add slice to value
+            }
+        }
 
         assert true : "Not all arguments parsed!";
         return firstArg;

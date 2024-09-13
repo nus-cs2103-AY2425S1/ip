@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javafx.util.Pair;
+import yappingbot.commands.commands.Pair;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 
@@ -39,7 +39,7 @@ abstract class CommandBase<A extends Enum<A>> {
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public CommandBase(String firstArg, Pair<String, String> ... argPairs)
+    public CommandBase(String firstArg, Pair<String, String>... argPairs)
     throws YappingBotIncorrectCommandException {
         try {
             this.firstArg = getArgTypeFromString(firstArg);
