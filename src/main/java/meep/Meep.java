@@ -28,7 +28,7 @@ public class Meep {
     public Meep(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser();
+        parser = new Parser(storage);
         try {
             taskList = new TaskList(storage.loadTasks());
         } catch (MeepException e) {
