@@ -47,32 +47,13 @@ public class TaskTracker {
      * @return  This method returns the list of tasks in <code>String</code>.
      */
     public String getList() {
-        branch-A-Streams
         List<Task> newList = this.taskList;
         AtomicInteger numMatch = new AtomicInteger(1);
         return (this.counter == 0) ? "No tasks currently!" : (this.taskList.stream().map(t -> t.getIsDone() == false ? "\n" + numMatch.getAndIncrement() + ". [ ] " + t
                         : "\n" + numMatch.getAndIncrement() + ". [X] " + t)
                 .reduce("Here are your tasks!!! Remember to complete them!!!", (a, b) -> a + b));
-        assert(this.counter >= 0);
-        if (this.counter == 0) {
-            return "No tasks currently!";
-        } else {
-            String result = "";
-            result += "Here are your tasks!!! Remember to complete them!!!" + "\n";
-            for (int i = 0; i < this.counter; i++) {
-                if (this.taskList.get(i).getIsDone() == false) {
-                    result += "" + (i + 1) + ". [ ] " + this.taskList.get(i);
-                } else {
-                    result += "" + (i + 1) + ". [X] " + this.taskList.get(i);
-                }
-                if (i != this.counter - 1) {
-                    result += "\n";
-                }
-            }
-            return result;
-        }
-        master
     }
+
 
     /**
      * Marks a particular task as specified by the user.
