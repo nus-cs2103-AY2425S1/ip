@@ -14,6 +14,11 @@ import jeff.Jeff;
 import jeff.parser.Parser;
 
 /**
+ * This class was taken from JavaFX Tutorial (https://se-education.org/guides/tutorials/javaFx.html).
+ */
+
+ 
+/**
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
@@ -67,6 +72,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         // Exit the application if the user inputs "bye"
+        // This part was written by AI
         if (input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("b")) {
             // Schedule exit after a short delay
             PauseTransition delay = new PauseTransition(Duration.seconds(1));

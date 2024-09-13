@@ -1,5 +1,6 @@
 package jeff.command;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import jeff.exception.JeffException;
@@ -16,6 +17,7 @@ public class AddEventCommand extends AddCommand {
     private static final String WRONG_FORMAT_ERROR = "The format is wrong! "
             + "It should be \"event(or e) xx /from yyyy-mm-dd HH:mm(or hh:mm am/pm) "
             + "/to yyyy-mm--dd HH:mm(or hh:mm am/pm)\"";
+    private static final String INVALID_TIME_ERROR = "Your event cannot start after it ends!";
 
     /**
      * Constructor for AddEventCommand Class.
@@ -57,6 +59,13 @@ public class AddEventCommand extends AddCommand {
 
         // Check if the format is correct
         try {
+            LocalDateTime start = Parser.getLocalDateTime(startPeriod);
+            LocalDateTime end = Parser.getLocalDateTime(endPeriod);
+
+            if (start.isAfter(end)) {
+                throw new JeffException(INVALID_TIME_ERROR);
+            }
+
             return new EventTask(
                     eventContent,
                     Parser.getLocalDateTime(startPeriod),
