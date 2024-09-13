@@ -1,6 +1,7 @@
 package tasklist;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import tasks.Task;
 
@@ -50,6 +51,12 @@ public class TaskList {
 
     public void addTask(Task t) {
         tasks.add(t);
+    }
+
+    public boolean checkIfDuplicate(Task t) {
+        return tasks.stream()
+                .map(Task::getDescription)
+                .anyMatch(description -> Objects.equals(description, t.getDescription()));
     }
 
     /**
