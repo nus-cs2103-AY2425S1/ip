@@ -2,6 +2,7 @@ package gopher.task;
 
 import java.time.LocalDateTime;
 
+import gopher.exception.InvalidTokenException;
 import gopher.parser.Parser;
 
 /**
@@ -20,6 +21,22 @@ public class Deadline extends Task {
     public Deadline(String name, String dueDate) {
         super(name);
         this.dueDate = Parser.parseDateString(dueDate);
+    }
+
+    @Override
+    public void update(String[] tokens) throws InvalidTokenException {
+        String[] parsedResult = Parser.parseUpdateDeadlineTaskCommand(tokens);
+
+        String taskName = parsedResult[0];
+        String dueDateString = parsedResult[1];
+
+        if (!taskName.isEmpty()) {
+            this.name = taskName;
+        }
+
+        if (!dueDateString.isEmpty()) {
+            this.dueDate = Parser.parseDateString(dueDateString);
+        }
     }
 
     @Override

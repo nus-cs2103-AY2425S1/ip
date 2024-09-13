@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import gopher.exception.InvalidTokenException;
 import gopher.storage.TaskManager;
 
 /**
@@ -36,6 +37,18 @@ public class TaskList {
     public void add(Task task) {
         assert task != null : "Added task cannot be null";
         this.tasks.add(task);
+        TaskManager.saveTasks(tasks);
+    }
+
+    /**
+     * Updates the task with the given task number with the relevant information.
+     *
+     * @param tokens tokens from the update command
+     */
+    public void update(String[] tokens)
+            throws InvalidTokenException {
+        int taskNumber = Integer.parseInt(tokens[1]);
+        this.getTask(taskNumber).update(tokens);
         TaskManager.saveTasks(tasks);
     }
 

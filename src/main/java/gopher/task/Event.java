@@ -2,6 +2,7 @@ package gopher.task;
 
 import java.time.LocalDateTime;
 
+import gopher.exception.InvalidTokenException;
 import gopher.parser.Parser;
 
 /**
@@ -23,6 +24,27 @@ public class Event extends Task {
         super(name);
         this.startDate = Parser.parseDateString(startDate);
         this.endDate = Parser.parseDateString(endDate);
+    }
+
+    @Override
+    public void update(String[] tokens) throws InvalidTokenException {
+        String[] parsedResult = Parser.parseUpdateEventTaskCommand(tokens);
+
+        String taskName = parsedResult[0];
+        String startDateString = parsedResult[1];
+        String endDateString = parsedResult[2];
+
+        if (!taskName.isEmpty()) {
+            this.name = taskName;
+        }
+
+        if (!startDateString.isEmpty()) {
+            this.startDate = Parser.parseDateString(startDateString);
+        }
+
+        if (!endDateString.isEmpty()) {
+            this.endDate = Parser.parseDateString(endDateString);
+        }
     }
 
     @Override

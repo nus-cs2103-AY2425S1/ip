@@ -1,5 +1,8 @@
 package gopher.task;
 
+import gopher.exception.InvalidTokenException;
+import gopher.parser.Parser;
+
 /**
  * Represents the todo Task.
  * Only includes task description.
@@ -12,6 +15,15 @@ public class ToDo extends Task {
      */
     public ToDo(String name) {
         super(name);
+    }
+
+    @Override
+    public void update(String[] tokens) throws InvalidTokenException {
+        // Extract task name from the given tokens
+        String taskName = Parser.parseUpdateTodoTaskCommand(tokens);
+        if (!taskName.isEmpty()) {
+            this.name = taskName;
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.parser.Parser;
@@ -134,6 +135,27 @@ public class Gopher {
     }
 
     /**
+     * Executes the relevant actions when user input update task command.
+     *
+     * @param userInput command input by the user
+     * @return response by gopher after successful action
+     */
+    public static String executeUpdateTaskCommand(String userInput) {
+        try {
+            String[] tokens = userInput.split(" ");
+            if (tokens.length < 2) {
+                return "Update command cannot be empty";
+            }
+            taskList.update(tokens);
+            return "Hi I have updated this task for you already!";
+        } catch (DateTimeParseException e) {
+            return UI.getInvalidDateWarning();
+        } catch (InvalidTokenException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
      * Start the main event loop.
      */
     public static String getResponse(String userInput)
@@ -152,6 +174,8 @@ public class Gopher {
             return executeFindTaskCommand(userInput);
         } else if (Parser.isValidTaskType(userInput.split(" ")[0])) {
             return executeCreateTaskCommand(userInput);
+        } else if (userInput.toLowerCase().startsWith("update")) {
+            return executeUpdateTaskCommand(userInput);
         } else {
             throw new UnknownCommandException(userInput);
         }

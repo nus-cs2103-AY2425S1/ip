@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.FileCorruptedException;
+import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.task.Deadline;
@@ -228,6 +229,154 @@ public class Parser {
         } else {
             throw new UnknownCommandException(taskType);
         }
+    }
+
+    /**
+     * Parses update todo task command.
+     *
+     * @param tokens tokens within the given update command
+     * @return new name to be updated
+     */
+    public static String parseUpdateTodoTaskCommand(String[] tokens)
+            throws InvalidTokenException {
+        StringBuilder taskName = new StringBuilder();
+        for (int i = 2; i < tokens.length; i++) {
+            // If other tasks tokens are used, remind user that
+            // he/she may be updating the undesired task
+            if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("todo", tokens[i]);
+            }
+
+            // Append the token if everything is fine
+            taskName.append(tokens[i]);
+            if (i < tokens.length - 1) {
+                taskName.append(" ");
+            }
+        }
+
+        return taskName.toString();
+    }
+
+    /**
+     * Parses update deadline task command.
+     *
+     * @param tokens tokens within the given command
+     * @return a String array of size 2, the first element is the task name,
+     *         the second element is the due date in date input format
+     *         If a certain field is not provided in the given command, the
+     *         corresponding element in the array will be empty String
+     */
+    public static String[] parseUpdateDeadlineTaskCommand(String[] tokens)
+            throws InvalidTokenException {
+        String[] result = new String[]{"", ""};
+        // Determine the position of /by token in update command tokens
+        // Check for any invalid tokens as well
+        int byTokenIndex = -1;
+        for (int i = 2; i < tokens.length; i++) {
+            if (tokens[i].equalsIgnoreCase("/by")) {
+                byTokenIndex = i;
+            } else if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("deadline", tokens[i]);
+            }
+        }
+
+        // Update task name based on the position of /by token
+        StringBuilder taskName = new StringBuilder();
+        int taskNameIndexLimit = byTokenIndex != -1 ? byTokenIndex : tokens.length;
+        for (int i = 2; i < taskNameIndexLimit; i++) {
+            taskName.append(tokens[i]);
+            if (i < taskNameIndexLimit - 1) {
+                taskName.append(" ");
+            }
+        }
+        result[0] = taskName.toString();
+
+        // Update due date if /by token is found in command tokens
+        if (byTokenIndex != -1) {
+            StringBuilder dueDateString = new StringBuilder();
+            for (int i = byTokenIndex + 1; i < tokens.length; i++) {
+                dueDateString.append(tokens[i]);
+                if (i < tokens.length - 1) {
+                    dueDateString.append(" ");
+                }
+            }
+            result[1] = dueDateString.toString();
+        }
+
+        return result;
+    }
+
+    /**
+     * Parses update event task command.
+     *
+     * @param tokens tokens within the given update command
+     * @return a String array of size 3, the first element is the task name,
+     *         the second element is the start date in date input format,
+     *         the third element is the end date in date input format
+     *         If the update command does not contain a certain part, the
+     *         corresponding element would be empty String
+     */
+    public static String[] parseUpdateEventTaskCommand(String[] tokens)
+            throws InvalidTokenException {
+        String[] result = new String[]{"", "", ""};
+
+        // Determine the positions of from & to tokens if they exist in the command tokens
+        // Check for any invalid token as well
+        int fromTokenIndex = -1;
+        int toTokenIndex = -1;
+        for (int i = 2; i < tokens.length; i++) {
+            if (tokens[i].equalsIgnoreCase("/from")) {
+                fromTokenIndex = i;
+            } else if (tokens[i].equalsIgnoreCase("/to")) {
+                toTokenIndex = i;
+            } else if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("event", tokens[i]);
+            }
+        }
+
+        // Update task name based on the position of /from and /to token
+        StringBuilder taskName = new StringBuilder();
+        int taskNameIndexLimit = fromTokenIndex != -1
+                ? fromTokenIndex
+                : toTokenIndex != -1
+                ? toTokenIndex
+                : tokens.length;
+        for (int i = 2; i < taskNameIndexLimit; i++) {
+            taskName.append(tokens[i]);
+            if (i < taskNameIndexLimit - 1) {
+                taskName.append(" ");
+            }
+        }
+        result[0] = taskName.toString();
+
+        // Update start date if /from token exists in the command tokens
+        if (fromTokenIndex != -1) {
+            StringBuilder startDateString = new StringBuilder();
+            int startDateIndexLimit = toTokenIndex != -1
+                    ? toTokenIndex
+                    : tokens.length;
+            for (int i = taskNameIndexLimit + 1; i < startDateIndexLimit; i++) {
+                startDateString.append(tokens[i]);
+                if (i < startDateIndexLimit - 1) {
+                    startDateString.append(" ");
+                }
+            }
+            result[1] = startDateString.toString();
+        }
+
+        // Update end date if /to token exists in the command tokens
+        if (toTokenIndex != -1) {
+            StringBuilder endDateString = new StringBuilder();
+            for (int i = toTokenIndex + 1; i < tokens.length; i++) {
+                endDateString.append(tokens[i]);
+                if (i < tokens.length - 1) {
+                    endDateString.append(" ");
+                }
+            }
+            result[2] = endDateString.toString();
+        }
+
+        return result;
     }
 
     /**
