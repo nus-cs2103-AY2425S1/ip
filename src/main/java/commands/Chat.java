@@ -1,9 +1,9 @@
-package echo;
+package commands;
 
 /**
  * Deals with interactions with the user.
  */
-public class Ui {
+public class Chat {
     private static final String LOGO = "  ______      _           \n"
             + " |  ____|    | |          \n"
             + " | |__   __ _| | ___  ___ \n"
@@ -16,9 +16,12 @@ public class Ui {
     /**
      * Sends a greet message to the user.
      */
-    public void greet() {
-        System.out.println("Hello from\n" + LOGO);
-        System.out.println("Hello! I'm EchoBot");
-        System.out.println("What can I do for you?");
+    public static String greet() {
+        return "Hello! I'm EchoBot.\n" + LOGO + "What can I do for you?";
+    }
+
+    /** Sends goodbye message to user */
+    public static String bye() {
+        return "Bye. Hope to see you again soon!";
     }
 }

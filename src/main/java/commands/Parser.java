@@ -11,11 +11,6 @@ import tasks.TaskList;
  */
 public class Parser {
 
-    /** Sends goodbye message to user */
-    public static String exit() {
-        return "Bye. Hope to see you again soon!";
-    }
-
     /** Lists all tasks in the task list */
     public static String listAllTask(TaskList allTasks) {
         return allTasks.listAllTask();
@@ -110,7 +105,9 @@ public class Parser {
         try {
             switch (Command.valueOf(command)) {
             case BYE:
-                return exit();
+                return Chat.bye();
+            case HI:
+                return Chat.greet();
             case LIST:
                 return listAllTask(allTasks);
             case MARK:

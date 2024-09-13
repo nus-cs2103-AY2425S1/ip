@@ -6,6 +6,7 @@ package commands;
  * or task that the application can perform.
  */
 public enum Command {
+    HI,
     BYE,
     LIST,
     MARK,

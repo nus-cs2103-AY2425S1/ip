@@ -10,7 +10,6 @@ import tasks.TaskList;
  * It handles task storage, user input, and displays task-related information.
  */
 public class EchoBot {
-    private Ui ui = new Ui();
     private TaskList allTasks;
 
     /**
@@ -19,7 +18,6 @@ public class EchoBot {
     public EchoBot() {
         Storage.init();
         this.allTasks = Storage.getData();
-        this.ui.greet();
     }
 
     /**
