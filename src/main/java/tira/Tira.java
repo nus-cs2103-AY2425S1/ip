@@ -70,7 +70,7 @@ public class Tira {
         }
         try {
             storage.save(tasks.getTasks());
-            System.out.println("managed to save");
+            System.out.println("Your tasks have been saved to my cat brain, MIAO!");
         } catch (IOException e) {
             System.out.println("Error while saving tasks. Please try again");
         }

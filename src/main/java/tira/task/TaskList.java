@@ -47,13 +47,13 @@ public class TaskList {
      * Marks the numbered task in the taskList.
      *
      * @param command The main command that the user input
-     * @param commandSplitBySpace Command split using " "
+     * @param  commandSplitBySpace split using " "
      * @throws TiraException Custom Tira exception class
      */
 
-    public void markTask(String command, String[] splitCommand) throws TiraException {
-        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
-        if (splitCommand.length < 2 && command.equals("mark")){
+    public void markTask(String command, String[] commandSplitBySpace) throws TiraException {
+        assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
+        if (commandSplitBySpace.length < 2 && command.equals("mark")){
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
@@ -67,13 +67,13 @@ public class TaskList {
      * Unmarks the numbered task in the taskList.
      *
      * @param command The main command that the user input
-     * @param commandSplitBySpace Command split using " "
+     * @param  command split using " "
      * @throws TiraException Custom Tira exception class
      */
 
-    public void unmarkTask(String command, String[] splitCommand) throws TiraException {
-        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
-        if (splitCommand.length < 2 && command.equals("unmark")) {
+    public void unmarkTask(String command, String[] commandSplitBySpace) throws TiraException {
+        assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
+        if (commandSplitBySpace.length < 2 && command.equals("unmark")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
@@ -87,7 +87,7 @@ public class TaskList {
      * Adds the todo task into the task List.
      *
      * @param command The command inputted by user
-     * @param commandSplitBySpace User command split using " "
+     * @param  commandSplitBySpace command split using " "
      * @throws TiraException Custom Tira Exception
      */
     public void addToDo(String command, String[] commandSplitBySpace) throws TiraException {
@@ -110,7 +110,7 @@ public class TaskList {
      * Adds deadline task to the task list.
      *
      * @param command inputted by the user
-     * @param commandSplitBySpace separated by the space
+     * @param commandSplitBySpace Commandseparated by the space
      * @throws TiraException custom Tira exception
      */
     public void addDeadline(String command, String[] commandSplitBySpace) throws TiraException {
@@ -120,7 +120,7 @@ public class TaskList {
         String[] dateCommands = command.split("/");
         try {
             LocalDate endDate = LocalDate.parse(dateCommands[1].substring(3).trim(), DATE_FORMATTER);
-            Task deadlineTask = new Deadline(dateCommands[0], endDate);
+            Task deadlineTask = new Deadline(dateCommands[0].substring(8).trim(), endDate);
             tasks.add(deadlineTask);
             ui.showAddTask(deadlineTask, tasks.size());
         } catch (DateTimeParseException e) {
@@ -136,7 +136,7 @@ public class TaskList {
      * @param commandSplitBySpace separated by the space
      * @throws TiraException custom Tira exception
      */
-    public void addEvent(String command, String[] commandSplitBySpace) throws TiraException {
+    public void addEvent(String command, String[] commandSplitBySpace ) throws TiraException {
         if (commandSplitBySpace.length < 2 && command.equals("Event")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
@@ -155,12 +155,12 @@ public class TaskList {
       /**
      * Deletes task of specific number in the task list.
      *
-     * @param commandSplitBySpace separated by the space
+     * @param  commandSplitBySpace separated by the space
      * @throws TiraException custom Tira exception
      */
-    public void delete(String[] splitCommand) throws TiraException{
-        assert Integer.valueOf(splitCommand[1]) > 0 : "Task number should be more than 0";
-        if (splitCommand.length < 2) {
+    public void delete(String[] commandSplitBySpace) throws TiraException{
+        assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
+        if (commandSplitBySpace.length < 2) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int taskNumberToDelete = Integer.parseInt(commandSplitBySpace[1]);
@@ -174,7 +174,7 @@ public class TaskList {
      * Finds a specific task.
      *
      * @param command user command.
-     * @param commandSplitBySpace User command split by " ".
+     * @param  commandSplitBySpace User command split by " ".
      * @throws TiraException Custom Tira exception
      */
     public void findTask(String command, String[] commandSplitBySpace) throws TiraException {
