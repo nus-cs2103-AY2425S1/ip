@@ -47,8 +47,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "citadel"
     archiveClassifier = null
+    archiveFileName = 'citadel.jar'
 }
 
 run{
