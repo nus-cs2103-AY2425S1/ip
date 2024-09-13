@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 public abstract class Task {
     private String info;
     private TaskStatus isDone;
@@ -19,5 +20,5 @@ public abstract class Task {
 
     public abstract String toString();
 
-    public abstract String toFileFormat();
+    public abstract String toFileFormat(DateTimeFormatter formatter);
 }

@@ -1,4 +1,5 @@
 import java.nio.charset.StandardCharsets;
+import java.time.format.DateTimeFormatter;
 
 public class ToDo extends Task {
 
@@ -12,7 +13,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toFileFormat() {
+    public String toFileFormat(DateTimeFormatter formatter) {
         return "T | " + (getStatus() == TaskStatus.DONE ? "1" : "0") + " | " + getInfo();
     }
 }
