@@ -55,7 +55,7 @@ public class Ui {
     public static String updateUserOnError(Exception e) {
         String message = "";
 
-        message += "Some error has occured, please try again.";
+        message += "The following error has occured, please try again. ";
         message += e.getMessage();
 
         return message;

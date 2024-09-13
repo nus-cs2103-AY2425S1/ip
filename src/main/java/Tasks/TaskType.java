@@ -1,13 +1,13 @@
 package tasks;
 
-public enum TaskTypes {
-    TODO("todos"),
-    DEADLINE("deadlines"),
+public enum TaskType {
+    TODO("todo"),
+    DEADLINE("deadline"),
     EVENT("event");
 
     private final String description;
 
-    TaskTypes(String description) {
+    TaskType(String description) {
         this.description = description;
     }
 
