@@ -1,5 +1,6 @@
 package ekud.ui;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import javafx.scene.image.Image;
@@ -11,6 +12,9 @@ import javafx.scene.layout.VBox;
  * @author uniqly
  */
 public class GraphicalUi extends Ui {
+    private static final String EKUD_IMAGE_PATH = "/images/upside-down.png";
+    private static final String USER_IMAGE_PATH = "/images/flushed.png";
+
     /** A supplier that returns input from user */
     private final Supplier<String> inputFunction;
 
@@ -21,10 +25,12 @@ public class GraphicalUi extends Ui {
     private boolean isInput = false;
 
     /** The image representing ekud */
-    private Image ekudImage = new Image(this.getClass().getResourceAsStream("/images/upside-down.png"));
+    private final Image ekudImage =
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(EKUD_IMAGE_PATH)));
 
     /** The image representing the user */
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/flushed.png"));
+    private final Image userImage =
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(USER_IMAGE_PATH)));
 
     /**
      * Creates the gui for EKuD with the input function and output container.
@@ -51,15 +57,13 @@ public class GraphicalUi extends Ui {
 
     @Override
     public void printGreeting() {
-        String greeting = "Hey! My name is EkuD!!\nYou can call me Eku-Chan!";
-        addToBuffer(greeting);
+        addToBuffer(GREETING_MESSAGE);
         printOutput();
     }
 
     @Override
     public void printGoodbye() {
-        String goodbye = "I hope you enjoyed your stay!\nSee you next time! NOT!!";
-        addToBuffer(goodbye);
+        addToBuffer(GOODBYE_MESSAGE);
         printOutput();
     }
 

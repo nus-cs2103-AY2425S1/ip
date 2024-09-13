@@ -38,23 +38,22 @@ public class TextUi extends Ui {
     @Override
     public void printGreeting() {
         printLineSeparator();
-        String greeting = "Hey! My name is EkuD!!\nYou can call me Eku-Chan!";
-        addToBuffer(greeting);
+        addToBuffer(GREETING_MESSAGE);
         printOutput();
     }
 
     @Override
     public void printGoodbye() {
-        String goodbye = "I hope you enjoyed your stay!\nSee you next time! NOT!!";
-        addToBuffer(goodbye);
+        addToBuffer(GOODBYE_MESSAGE);
         printOutput();
     }
 
     @Override
     public void printOutput() {
+        String printLineFormat = "%s%s\n";
         String output = collectBuffer();
         Stream<String> lines = output.lines();
-        lines.forEach(line -> System.out.printf("%s%s%n", PREFIX, line));
+        lines.forEach(line -> System.out.printf(printLineFormat, PREFIX, line));
         printLineSeparator();
     }
 

@@ -7,6 +7,11 @@ package ekud.ui;
  * @see ekud.Ekud
  */
 public abstract class Ui {
+    protected static final String GREETING_MESSAGE =
+            "Hey! My name is EkuD!!\nYou can call me Eku-Chan!";
+    protected static final String GOODBYE_MESSAGE =
+            "I hope you enjoyed your stay!\nSee you next time! NOT!!";
+
     /** Buffer of Strings to print as one output */
     private final StringBuilder bufferedOutputs = new StringBuilder();
 

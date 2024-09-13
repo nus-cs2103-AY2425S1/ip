@@ -15,20 +15,27 @@ import javafx.stage.Stage;
  * @author uniqly
  */
 public class Main extends Application {
+    private static final String XML_SOURCE_PATH = "/view/MainWindow.fxml";
+    private static final String ICON_IMAGE_PATH = "/images/upside-down.png";
+    private static final String TITLE = "EKuD";
+    /** Minimum height of the app window */
+    private static final int MIN_HEIGHT = 220;
+    /** Minimum width of the app window */
+    private static final int MIN_WIDTH = 417;
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(XML_SOURCE_PATH));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(MIN_HEIGHT);
+            stage.setMinWidth(MIN_WIDTH);
 
             // set title and icon
-            stage.setTitle("EKuD");
-            stage.getIcons().add(new Image("/images/upside-down.png"));
+            stage.setTitle(TITLE);
+            stage.getIcons().add(new Image(ICON_IMAGE_PATH));
 
             // inject the Duke instance
             fxmlLoader.<MainWindow>getController().setEkud();

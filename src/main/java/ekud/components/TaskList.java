@@ -93,15 +93,13 @@ public class TaskList implements Iterable<Task> {
     public void checkTask(int index) throws EkudException {
         // checks if there is a task at the given index
         if (index < 0 || index >= tasks.size()) {
-            String message = String.format(
-                    """
-                            Whats this? You tried an invalid list index!?
-                            Pfft... That's so hilarious!
-                            Lemme spell it out for ya.
-                            Your number must be between 1 and %d and clearly %d isn't""",
-                    tasks.size(),
-                    index + 1);
-            throw new EkudException(message);
+            String errorMessageFormat = """
+                    Whats this? You tried an invalid list index!?
+                    Pfft... That's so hilarious!
+                    Lemme spell it out for ya.
+                    Your number must be between 1 and %d and clearly %d isn't""";
+            String errorMessage = String.format(errorMessageFormat, tasks.size(), index + 1);
+            throw new EkudException(errorMessage);
         }
     }
 

@@ -14,12 +14,26 @@ import ekud.exceptions.EkudException;
  */
 public class EventTask extends Task {
     /** The {@link LocalDateTime} format when parsing input date Strings */
-    public static final DateTimeFormatter READ_FORMAT =
+    private static final DateTimeFormatter READ_DATE_FORMAT =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
 
     /** The {@link LocalDateTime} format when outputting date Strings */
-    public static final DateTimeFormatter PRINT_FORMAT =
+    private static final DateTimeFormatter PRINT_DATE_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a", Locale.ENGLISH);
+
+    private static final String EMPTY_DESCRIPTION_MESSAGE =
+        "Did you forget your EVENT?\nBecause you tried to make an event of nothing!";
+    private static final String EMPTY_FROM_MESSAGE = """
+            Woah Woah! Calm down buddy!
+            Could you first tell when this event starts using '/from'?""";
+    private static final String EMPTY_TO_MESSAGE = """
+            Dude, stop being overzealous! Surely this event doesn't last forever?
+            Think hard about it and you can tell me when it ends again with '/to'.""";
+    private static final String WRONG_DATE_FORMAT_MESSAGE = """
+            Man... What's wrong with you!!
+            Why can't you just follow the correct 'd/M/yyyy HHmm' date format!""";
+    private static final String SAVE_STRING_FORMAT = "E | %s | %s | %s";
+    private static final String STRING_FORMAT = "[E]%s (from: %s to: %s)";
 
     /** The start date of the event */
     protected LocalDateTime from;
@@ -38,39 +52,33 @@ public class EventTask extends Task {
     public EventTask(String description, String from, String to) throws EkudException {
         super(description);
         if (from == null || from.isEmpty()) {
-            throw new EkudException("""
-                    Woah Woah! Calm down buddy!
-                    Could you first tell when this event starts using '/from'?""");
+            throw new EkudException(EMPTY_FROM_MESSAGE);
         } else if (to == null || to.isEmpty()) {
-            throw new EkudException("""
-                    Dude, stop being overzealous! Surely this event doesn't last forever?
-                    Think hard about it and you can tell me when it ends again with '/to'.""");
+            throw new EkudException(EMPTY_TO_MESSAGE);
         }
 
         try {
-            this.from = LocalDateTime.parse(from, READ_FORMAT);
-            this.to = LocalDateTime.parse(to, READ_FORMAT);
+            this.from = LocalDateTime.parse(from, READ_DATE_FORMAT);
+            this.to = LocalDateTime.parse(to, READ_DATE_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new EkudException("""
-                    Man... What's wrong with you!!
-                    Why can't you just follow the correct 'd/M/yyyy HHmm' date format!""");
+            throw new EkudException(WRONG_DATE_FORMAT_MESSAGE);
         }
     }
 
     @Override
     public String getEmptyDescriptionErrorMessage() {
-        return "Did you forget your EVENT?\nBecause you tried to make an event of nothing!";
+        return EMPTY_DESCRIPTION_MESSAGE;
     }
 
     @Override
     public String getSaveTaskString() {
-        return String.format("E | %s | %s | %s", super.getSaveTaskString(),
-                from.format(READ_FORMAT), to.format(READ_FORMAT));
+        return String.format(SAVE_STRING_FORMAT, super.getSaveTaskString(),
+                from.format(READ_DATE_FORMAT), to.format(READ_DATE_FORMAT));
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                from.format(PRINT_FORMAT), to.format(PRINT_FORMAT));
+        return String.format(STRING_FORMAT, super.toString(),
+                from.format(PRINT_DATE_FORMAT), to.format(PRINT_DATE_FORMAT));
     }
 }

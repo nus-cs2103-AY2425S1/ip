@@ -30,11 +30,10 @@ public class Parser {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            String error = String.format("""
-                            Now look what you've done!!
-                            I thought it was obvious... But '%s' is clearly not an Integer!""",
-                    input);
-            throw new EkudException(error);
+            String errorMessageFormat = """
+                    Now look what you've done!!
+                    I thought it was obvious... But '%s' is clearly not an Integer!""";
+            throw new EkudException(String.format(errorMessageFormat, input));
         }
     }
 
