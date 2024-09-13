@@ -11,6 +11,7 @@ jobs:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
+    timeout-minutes: 15
 
     steps:
       - name: Set up repository
@@ -32,12 +33,21 @@ jobs:
           JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
 
       - name: Test with Gradle
-        run: ./gradlew test --info --stacktrace
+        run: ./gradlew test --info --stacktrace --no-parallel --no-daemon
+        env:
+          JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
+      - name: Run tests individually
+        if: failure()
+        run: |
+          for test in $(find src/test -name "*Test.java"); do
+            echo "Running test: $test"
+            ./gradlew test --tests $(basename $test .java) --info --stacktrace --no-daemon || true
+          done
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
 
       - name: List running processes
-        if: failure()
+        if: always()
         run: ps aux
 
       - name: Upload test results
@@ -46,4 +56,3 @@ jobs:
         with:
           name: test-results
           path: build/reports/tests/test
-
