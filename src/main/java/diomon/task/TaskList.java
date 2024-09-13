@@ -1,4 +1,4 @@
-package diomon;
+package diomon.task;
 
 import java.util.ArrayList;
 

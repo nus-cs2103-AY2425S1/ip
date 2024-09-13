@@ -1,4 +1,6 @@
-package diomon;
+package diomon.task;
+
+import diomon.parser.Parser;
 
 import java.time.LocalDate;
 
