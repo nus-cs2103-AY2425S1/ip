@@ -92,6 +92,14 @@ public class Ui {
     }
 
     /**
+     * Prints tasks that contains the date
+     * @param date date to search
+     */
+    public static String getMatchingDates(String date, TaskList tasks) {
+        return "Here are the matching events and deadlines in your list:\n" + tasks.getMatchingDatesAsString(date);
+    }
+
+    /**
      * returns command from user's input
      *
      * @return String of command
