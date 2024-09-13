@@ -19,6 +19,7 @@ public class TaskList {
 
     protected TaskList() throws IOException, InvalidDateException {
         listOfTasks = TaskDataBase.load();
+        assert listOfTasks != null : "Task list should not be null after loading.";
     }
 
     /**
@@ -56,6 +57,7 @@ public class TaskList {
      * @return Description of task marked returned.
      */
     public String markTask(int index) throws TaskNotFoundException {
+
         Task task = getTaskByIndex(index);
         task.markAsDone();
         String successMessage = "Nice! I've marked this task as done:\n" + "  " + task;

@@ -33,8 +33,8 @@ public class TaskDataBase {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
+        assert file.exists() : "File tasklist.txt should exist after attempting to create it.";
     }
-
     private static List<String> readFile(File file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         List<String> lines = new ArrayList<>();
