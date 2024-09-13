@@ -41,6 +41,7 @@ public class FileManager {
      * @param path Path to the file
      */
     public FileManager(String path){
+        assert path != null;
         this.path = path;
         this.file = new File(path);
         try {
