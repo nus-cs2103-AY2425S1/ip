@@ -42,6 +42,7 @@ public abstract class Task implements Serializable {
     }
 
     public String getDescription() {
+        assert description != null;
         return description;
     }
 
