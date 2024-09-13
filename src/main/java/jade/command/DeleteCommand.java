@@ -1,7 +1,5 @@
 package jade.command;
 
-import static jade.ui.Ui.INDENT;
-
 import jade.exception.JadeException;
 import jade.task.Task;
 import jade.task.TaskManager;
@@ -62,24 +60,23 @@ public class DeleteCommand extends Command {
             StringBuilder message = new StringBuilder();
             message.append("Noted. I've removed this task:\n");
             indentIfNotGui(forGui, message);
-            message.append("  ").append(removedTask);
+            message.append(" ".repeat(2)).append(removedTask);
 
+            message.append("\n");
+            indentIfNotGui(forGui, message);
             if (taskCount <= 1) {
-                message.append("\n");
-                indentIfNotGui(forGui, message);
                 message.append(String.format("Now you have %d task in the list.", taskCount));
             } else {
-                message.append("\n");
-                indentIfNotGui(forGui, message);
                 message.append(String.format("Now you have %d tasks in the list.", taskCount));
             }
 
             return displayMessage(forGui, message.toString());
+
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             StringBuilder message = new StringBuilder();
             message.append("Please specify a valid task number in the format:\n");
             indentIfNotGui(forGui, message);
-            message.append("  delete <index>");
+            message.append(" ".repeat(2)).append("delete <index>");
 
             throw new JadeException(message.toString());
         }

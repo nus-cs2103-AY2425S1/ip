@@ -1,7 +1,5 @@
 package jade.command;
 
-import static jade.ui.Ui.INDENT;
-
 import jade.exception.JadeException;
 import jade.task.TaskManager;
 import jade.ui.Ui;
@@ -65,14 +63,14 @@ public class MarkCommand extends Command {
             StringBuilder message = new StringBuilder();
             message.append(status).append("\n");
             indentIfNotGui(forGui, message);
-            message.append("  ").append(taskManager.getTask(taskIndex));
+            message.append(" ".repeat(2)).append(taskManager.getTask(taskIndex));
 
             return displayMessage(forGui, message.toString());
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             StringBuilder message = new StringBuilder();
             message.append("Please specify a valid task number in the format:\n");
             indentIfNotGui(forGui, message);
-            message.append("  mark <index>");
+            message.append(" ".repeat(2)).append("mark <index>");
 
             throw new JadeException(message.toString());
         }

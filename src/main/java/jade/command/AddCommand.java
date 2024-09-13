@@ -60,15 +60,13 @@ public class AddCommand extends Command {
         StringBuilder message = new StringBuilder();
         message.append("Got it. I've added this task:\n");
         indentIfNotGui(forGui, message);
-        message.append("  ").append(newTask);
+        message.append(" ".repeat(2)).append(newTask);
 
+        message.append("\n");
+        indentIfNotGui(forGui, message);
         if (taskCount == 1) {
-            message.append("\n");
-            indentIfNotGui(forGui, message);
             message.append("Now you have 1 task in the list.");
         } else {
-            message.append("\n");
-            indentIfNotGui(forGui, message);
             message.append(String.format("Now you have %d tasks in the list.", taskCount));
         }
 

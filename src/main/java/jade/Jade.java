@@ -17,7 +17,7 @@ public class Jade {
     private static final String FILE_PATH = "./data/jade.txt";
     private static final Storage STORAGE = new Storage(FILE_PATH);
     private static final TaskManager TASK_MANAGER = new TaskManager(STORAGE);
-    private static final Parser PARSER = new Parser();
+    private static final Parser PARSER = new Parser(TASK_MANAGER);
 
     /**
      * Main method to start the Jade text-based UI application.
@@ -26,10 +26,9 @@ public class Jade {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        assert TASK_MANAGER != null : "TaskManager should be initialised";
         assert PARSER != null : "Parser should be initialised";
 
-        Ui ui = new Ui(TASK_MANAGER, PARSER);
+        Ui ui = new Ui(PARSER);
         ui.run();
     }
 
@@ -41,7 +40,7 @@ public class Jade {
      */
     public String getResponse(String input) {
         try {
-            Command command = PARSER.parse(input, TASK_MANAGER);
+            Command command = PARSER.parseForGui(input);
             return command.runForGui();
         } catch (JadeException e) {
             return e.getMessage();

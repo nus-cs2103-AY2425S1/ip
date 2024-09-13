@@ -32,28 +32,38 @@ import jade.ui.Ui;
 public class Parser {
     private static final String INVALID_TASK_MESSAGE = "Please specify the type of task: todo, deadline, or event.";
     private static final String TIME_FORMAT_MESSAGE = "Please use yyyy-MM-dd HHmm format for time.\n"
-            + INDENT + "  eg. 2024-12-25 2130";
+            + INDENT + " ".repeat(2) + "eg. 2024-12-25 2130";
+
+    private static TaskManager taskManager;
+    private static final Map<String, Function<String, Command>> commandMap = new HashMap<>() {{
+            put("bye", cmd -> new ExitCommand());
+            put("list", cmd -> new ListCommand(taskManager));
+            put("mark", cmd -> new MarkCommand(taskManager, cmd, true));
+            put("unmark", cmd -> new MarkCommand(taskManager, cmd, false));
+            put("delete", cmd -> new DeleteCommand(taskManager, cmd));
+            put("find", cmd -> new FindCommand(taskManager, cmd));
+            put("sort", cmd -> new SortCommand(taskManager, cmd));
+        }};
+
+    /**
+     * Creates a Parser object with the specified task manager.
+     *
+     * @param taskManager A task manager to handle task-related commands.
+     */
+    public Parser(TaskManager taskManager) {
+        assert taskManager != null : "TaskManager should be initialised";
+        Parser.taskManager = taskManager;
+    }
 
     /**
      * Parses a user command from the GUI and returns the appropriate command object to be executed.
      *
      * @param command     The user input command to parse.
-     * @param taskManager The task manager that handles the task operations.
      * @return The Command object corresponding to the user input.
      * @throws JadeException If the command is unrecognised or improperly formatted.
      */
-    public Command parse(String command, TaskManager taskManager) throws JadeException {
+    public Command parseForGui(String command) throws JadeException {
         assert command != null && !command.trim().isEmpty() : "Command should not be null or empty.";
-        assert taskManager != null : "TaskManager should not be null";
-
-        Map<String, Function<String, Command>> commandMap = new HashMap<>();
-        commandMap.put("bye", cmd -> new ExitCommand());
-        commandMap.put("list", cmd -> new ListCommand(taskManager));
-        commandMap.put("mark", cmd -> new MarkCommand(taskManager, cmd, true));
-        commandMap.put("unmark", cmd -> new MarkCommand(taskManager, cmd, false));
-        commandMap.put("delete", cmd -> new DeleteCommand(taskManager, cmd));
-        commandMap.put("find", cmd -> new FindCommand(taskManager, cmd));
-        commandMap.put("sort", cmd -> new SortCommand(taskManager, cmd));
 
         String commandType = command.trim().toLowerCase().split(" ")[0];
         Function<String, Command> commandFunction = commandMap.get(commandType);
@@ -70,30 +80,19 @@ public class Parser {
     /**
      * Parses user input commands from the text-based UI and executes the corresponding actions.
      *
-     * @param sc          The Scanner object for reading user input.
-     * @param taskManager The task manager that handles the task operations.
+     * @param sc    The Scanner object for reading user input.
      */
-    public void parse(Scanner sc, TaskManager taskManager) {
-        assert taskManager != null : "TaskManager should not be null";
-
+    public void parse(Scanner sc) {
         System.out.println(new GreetCommand().run());
-
-        Map<String, Function<String, String>> commandMap = new HashMap<>();
-        commandMap.put("list", cmd -> new ListCommand(taskManager).run());
-        commandMap.put("mark", cmd -> new MarkCommand(taskManager, cmd, true).run());
-        commandMap.put("unmark", cmd -> new MarkCommand(taskManager, cmd, false).run());
-        commandMap.put("delete", cmd -> new DeleteCommand(taskManager, cmd).run());
-        commandMap.put("find", cmd -> new FindCommand(taskManager, cmd).run());
-
         String command = sc.nextLine().trim().toLowerCase();
 
         while (!command.equals("bye")) {
             try {
                 String commandType = command.split(" ")[0];
-                Function<String, String> commandFunction = commandMap.get(commandType);
+                Function<String, Command> commandFunction = commandMap.get(commandType);
 
                 if (commandFunction != null) {
-                    System.out.println(commandFunction.apply(command));
+                    System.out.println(commandFunction.apply(command).run());
                 } else if (isTaskCommand(command)) {
                     System.out.println(new AddCommand(taskManager, this, command).run());
                 } else {

@@ -1,12 +1,12 @@
 package jade.command;
 
+import java.util.ArrayList;
+
 import jade.exception.JadeException;
 import jade.task.Event;
 import jade.task.Task;
 import jade.task.TaskManager;
 import jade.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to sort tasks.
