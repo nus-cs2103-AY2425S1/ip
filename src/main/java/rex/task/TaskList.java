@@ -186,8 +186,8 @@ public class TaskList {
         return tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .map(task -> (tasks.indexOf(task) + 1) + "." + task)
-                .reduce("Here are the matching tasks in your list:\n",
-                        (output, taskDetails) -> output + taskDetails + "\n");
+                .reduce("Here are the matching tasks in your list:\n", (
+                        output, taskDetails) -> output + taskDetails + "\n");
     }
 
     /**

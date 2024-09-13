@@ -166,6 +166,7 @@ public class Parser {
                 String usageMessage = Command.usageMessage(command);
                 throw new InvalidInputException("No keyword entered!\nUsage: " + usageMessage);
             }
+            break;
         case MARK:
         case UNMARK:
         case DELETE:
