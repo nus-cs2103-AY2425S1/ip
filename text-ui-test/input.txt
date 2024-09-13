@@ -1,0 +1,13 @@
+todo brush teeth
+blah
+deadline eat breakfast /by Morning
+deadline oongabonga
+event go school /from Now /to Later
+event oongabonga
+mark 1
+list
+unmark 1
+list
+delete 1
+list
+bye
