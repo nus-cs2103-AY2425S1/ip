@@ -15,6 +15,7 @@ public class Parser {
     /**
      * Returns an ArrayList that parses the User's command.
      * Identifies mainCommand and additional details in the User's input.
+     * This Method uses Streams.
      *
      * @param command User's command / input.
      * @return ArrayList containing parsed command.
