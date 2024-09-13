@@ -14,14 +14,29 @@ import luffy.ui.LuffyUI;
 public class MarkCommand extends Command {
 
     private final int markIndex;
+    private final int[] multipleMarkIndex;
 
+    /**
+     * Constructor to create a command that marks a task as done
+     * @param index the index of the task to be marked done
+     */
     public MarkCommand(int index) {
+        this.multipleMarkIndex = null;
         this.markIndex = index;
     }
 
     /**
+     * Constructor to create a command that marks multiple tasks as done
+     * @param indices the indices of the task to be marked done
+     */
+    public MarkCommand(int[] indices) {
+        this.multipleMarkIndex = indices.clone();
+        this.markIndex = -1;
+    }
+
+    /**
      * This method adds an executable command to mark a
-     * task in the task list at a specific index by the UI
+     * task or tasks in the task list at a specific index by the UI
      *
      * @param ui user interface for Chat Bot
      * @param taskStorage storage location for file
@@ -29,18 +44,34 @@ public class MarkCommand extends Command {
      */
     @Override
     public void executeCmd(LuffyUI ui, Storage taskStorage, TaskList taskList) {
-
-        if (markIndex >= 0 && markIndex < taskList.size()) {
-            Task task = taskList.getTask(markIndex);
-            task.markDone();
-            try {
-                taskStorage.saveToFile(taskList);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+        if (multipleMarkIndex == null) {
+            if (markIndex >= 0 && markIndex < taskList.size()) {
+                Task task = taskList.getTask(markIndex);
+                task.markDone();
+                try {
+                    taskStorage.saveToFile(taskList);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+                ui.showMarkedTask(task);
+            } else {
+                ui.showErrorMessage("Invalid task number.");
             }
-            ui.showMarkedTask(task);
         } else {
-            ui.showErrorMessage("Invalid task number.");
+            for (int index : multipleMarkIndex) {
+                if (index >= 0 && index < taskList.size()) {
+                    Task task = taskList.getTask(index);
+                    task.markDone();
+                    try {
+                        taskStorage.saveToFile(taskList);
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    ui.showMarkedTask(task);
+                } else {
+                    ui.showErrorMessage("Invalid task number.");
+                }
+            }
         }
     }
 }
