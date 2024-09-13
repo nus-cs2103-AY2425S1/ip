@@ -26,6 +26,8 @@ public class Deadline extends Task {
         } catch (DateTimeParseException e) {
             dl = deadline;
         }
+        assert dld != null;
+        this.deadlineDate = dld;
         this.deadline = dl;
     }
 
