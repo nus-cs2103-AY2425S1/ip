@@ -29,6 +29,9 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
+        assert !description.trim().isEmpty() : "Description cannot be empty";
+        assert start != null : "Start date cannot be null";
+        assert end != null : "End date cannot be null";
         try {
             this.start = LocalDateTime.parse(start, Util.FORMATTER);
             this.end = LocalDateTime.parse(end, Util.FORMATTER);

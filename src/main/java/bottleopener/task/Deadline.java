@@ -27,6 +27,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) {
         super(description);
+        assert !description.trim().isEmpty() : "Description cannot be empty";
+        assert !deadline.trim().isEmpty() : "Deadline cannot be empty";
         try {
             this.deadline = LocalDateTime.parse(deadline, Util.FORMATTER);
         } catch (DateTimeParseException e) {
