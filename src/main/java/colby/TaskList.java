@@ -22,6 +22,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
+        assert !tasks.isEmpty();
     }
 
     /**
@@ -30,7 +31,9 @@ public class TaskList {
      * @return task that was just removed from the list
      */
     public Task deleteTask(int index) {
-        return tasks.remove(index);
+        Task removedTask = tasks.remove(index);
+        assert tasks.size() >= 0;
+        return removedTask;
     }
 
     /**
