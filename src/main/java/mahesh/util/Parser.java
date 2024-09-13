@@ -12,6 +12,7 @@ import mahesh.command.MarkCommand;
 import mahesh.command.PrintCommand;
 import mahesh.task.Deadline;
 import mahesh.task.Event;
+import mahesh.task.Recurring;
 import mahesh.task.Todo;
 
 /**
@@ -68,6 +69,8 @@ public class Parser {
             return parseDeleteCommand(tokenizedInput);
         case FIND:
             return parseFindCommand(tokenizedInput);
+        case RECURRING:
+            return parseRecurringCommand(tokenizedInput);
         default:
             return null;
         }
@@ -126,6 +129,15 @@ public class Parser {
             return new FindCommand(list, tokenizedInput.nextToken());
         } catch (NumberFormatException err) {
             return new IncompleteCommand("Please follow the given format: find <search_term>");
+        }
+    }
+
+    private Command parseRecurringCommand(StringTokenizer tokenizedInput) {
+        try {
+            Recurring recurring = Recurring.parseRecurring(tokenizedInput);
+            return new AddCommand(list, store, recurring);
+        } catch (MaheshException err) {
+            return new IncompleteCommand(err.getMessage());
         }
     }
 }

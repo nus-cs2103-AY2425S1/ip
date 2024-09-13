@@ -17,7 +17,7 @@ public class Ui {
     public static String printTaskAdded(Task task, int taskCount) {
         StringBuilder response = new StringBuilder();
         response.append("Got it. I've added this task:");
-        response.append(String.format("  %s", task));
+        response.append(String.format("  %s\n", task));
         response.append(String.format("Now you have %d tasks in the list.", taskCount));
         return response.toString();
     }
