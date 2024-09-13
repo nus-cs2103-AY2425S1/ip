@@ -3,6 +3,8 @@ package meep.task;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import meep.MeepException;
+
 /**
  * The {@code TaskList} class represents a list of tasks.
  * It provides methods to add, delete, and manipulate tasks, as well as retrieve information about the task list.
@@ -42,6 +44,23 @@ public class TaskList {
      */
     public void deleteItem(int index) {
         this.tasks.remove(index);
+    }
+
+    /**
+     * Archives the task at the specified index.
+     *
+     * @param storage The {@code Storage} object to handle the archiving of the task.
+     * @param index   The index of the task to be archived.
+     */
+    public void archiveItem(Storage storage, int index) {
+        assert index >= 0 : "Index should be non-negative";
+        Task task = this.tasks.get(index);
+        this.deleteItem(index);
+        try {
+            storage.archiveTask(task);
+        } catch (MeepException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
