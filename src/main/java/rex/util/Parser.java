@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import rex.command.Command;
+import rex.exception.InvalidCommandException;
 import rex.exception.InvalidInputException;
 import rex.task.TaskList;
 
@@ -27,13 +28,8 @@ public class Parser {
      * @throws InvalidInputException If the input is invalid based on the command.
      */
     public static String[] parseInput(String input) throws InvalidInputException {
-        // Parse command and command argument
         String[] inputTokens = input.split(" ", 2);
-
-
         validateInput(inputTokens);
-
-        // Return command if no error
         return inputTokens;
     }
 
@@ -50,9 +46,7 @@ public class Parser {
         BufferedReader reader = new BufferedReader(r);
         String currentLine;
 
-        // Iterate through each line in save file
         while ((currentLine = reader.readLine()) != null) {
-            // Split line into tokens
             String[] taskTokens = currentLine.split(" \\| ");
             String taskType = taskTokens[0];
             // 1 if marked, 0 if unmarked
@@ -60,7 +54,6 @@ public class Parser {
             boolean isMarked = marked == 1;
             String description = taskTokens[2];
 
-            // Add to task list
             switch (taskType) {
             case "T":
                 list.loadTask(description, isMarked);
@@ -75,6 +68,7 @@ public class Parser {
                 list.loadTask(description, isMarked, from, to);
                 break;
             default:
+                throw new IOException("Error: corrupted file.");
             }
         }
 
@@ -183,6 +177,7 @@ public class Parser {
             }
             break;
         default:
+            throw new InvalidCommandException();
         }
     }
 }
