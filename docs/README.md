@@ -1,30 +1,245 @@
-# Duke User Guide
 
-// Update the title above to match the actual product name
+---
 
-// Product screenshot goes here
+# MentalHealth User Guide
 
-// Product intro goes here
+## Product Image
 
-## Adding deadlines
+![Ui](./Ui.png)
 
-// Describe the action and its outcome.
+## Product Introduction
 
-// Give examples of usage
+**MentalHealth** is a chatbot designed to help users manage their tasks through effective organization. It supports commands for managing todos, deadlines, events, marking tasks as completed, updating existing tasks, and searching tasks. This guide provides an overview of all the supported commands and how to use them.
 
-Example: `keyword (optional arguments)`
+---
 
-// A description of the expected outcome goes here
+## Get Started
 
+### Requirements
+- Ensure you have **Java 17** or above installed on your system.
+
+### Download the JAR File
+- Download the latest version of the **MentalHealth.jar** file [here](https://github.com/thony-ui/ip/releases/v0.2) or navigate to `src/main/java/health/Launcher.java` to run the application directly.
+
+### Running the Application
+
+To run the application via the JAR file, follow these steps:
+
+1. **Open a terminal**.
+2. Navigate to the folder where you saved the `MentalHealth.jar` file.
+3. Execute the following command:
+
+    ```bash
+    java -jar MentalHealth.jar
+    ```
+
+4. The app will greet you with the following message:
+
+    ```bash
+    Hello! I'm your friendly ChatBot assistant called MentalHealth :)
+    
+    What can I do for you?
+    ```
+
+---
+
+Here's the updated version of the **MentalHealth User Guide**, now including the `find` command and a summary table of all the commands:
+
+---
+### Adding Deadlines
+
+Use the `deadline` command to add a deadline to your list. The format is:
+
+```bash
+deadline <task description> /by <date in dd/mm/yyyy> <time in 24-hour format>
 ```
-expected output
+
+#### Example:
+
+```bash
+deadline return book /by 2/12/2019 1800
 ```
 
-## Feature ABC
+#### Expected Output:
 
-// Feature details
+```bash
+Added: [D][ ] return book (by: Dec 2 2019 18:00)
+```
 
+### Todo Tasks
 
-## Feature XYZ
+Use the `todo` command to add a simple task to your list.
 
-// Feature details
+```bash
+todo <task description>
+```
+
+#### Example:
+
+```bash
+todo borrow book
+```
+
+#### Expected Output:
+
+```bash
+Added: [T][ ] borrow book
+```
+
+### Event Scheduling
+
+You can add events with specified start and end times using the `event` command.
+
+```bash
+event <event description> /from <day> <start time> /to <end time>
+```
+
+#### Example:
+
+```bash
+event project meeting /from Mon 2pm /to 4pm
+```
+
+#### Expected Output:
+
+```bash
+Added: [E][ ] project meeting (from: Mon 14:00 to 16:00)
+```
+
+### Marking Tasks as Completed
+
+To mark a task as completed, use the `mark` command followed by the task index.
+
+```bash
+mark <index>
+```
+
+#### Example:
+
+```bash
+mark 1
+```
+
+#### Expected Output:
+
+```bash
+Marked: [T][X] borrow book
+```
+
+### Unmarking Completed Tasks
+
+To unmark a task (i.e., mark it as incomplete), use the `unmark` command followed by the task index.
+
+```bash
+unmark <index>
+```
+
+#### Example:
+
+```bash
+unmark 1
+```
+
+#### Expected Output:
+
+```bash
+Unmarked: [T][ ] borrow book
+```
+
+### Deleting Tasks
+
+To remove a task from your list, use the `delete` command followed by the task index.
+
+```bash
+delete <index>
+```
+
+#### Example:
+
+```bash
+delete 1
+```
+
+#### Expected Output:
+
+```bash
+Deleted: [T][ ] borrow book
+```
+
+### Listing All Tasks
+
+Use the `list` command to see all your todos, deadlines, and events.
+
+```bash
+list
+```
+
+#### Expected Output:
+
+```bash
+1. [T][ ] borrow book  
+2. [D][ ] return book (by: Dec 2 2019 18:00)  
+3. [E][ ] project meeting (from: Mon 14:00 to 16:00)
+```
+
+### Updating Task Descriptions
+
+To update the description of a task, use the `update` command, followed by the task index and the new description.
+
+```bash
+update <index> /description <new description>
+```
+
+#### Example:
+
+```bash
+update 1 /description play
+```
+
+#### Expected Output:
+
+```bash
+Updated: [T][ ] play
+```
+
+### Finding Tasks
+
+You can search for tasks by a keyword using the `find` command. It will return all tasks that match the search term.
+
+```bash
+find <keyword>
+```
+
+#### Example:
+
+```bash
+find book
+```
+
+#### Expected Output:
+
+```bash
+Here are the matching tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Dec 2 2019 18:00)
+```
+
+---
+
+## Command Summary Table
+
+| Command          | Description                                          | Example Usage                            | Expected Output                                                   |
+|------------------|------------------------------------------------------|------------------------------------------|-------------------------------------------------------------------|
+| `todo`           | Adds a todo task.                                    | `todo borrow book`                       | `[T][ ] borrow book`                                              |
+| `deadline`       | Adds a task with a deadline.                         | `deadline return book /by 2/12/2019 1800`| `[D][ ] return book (by: Dec 2 2019 18:00)`                        |
+| `event`          | Adds an event with start and end times.              | `event project meeting /from Mon 2pm /to 4pm`| `[E][ ] project meeting (from: Mon 14:00 to 16:00)`                |
+| `mark`           | Marks a task as completed.                           | `mark 1`                                | `[T][X] borrow book`                                              |
+| `unmark`         | Marks a completed task as incomplete.                | `unmark 1`                              | `[T][ ] borrow book`                                              |
+| `delete`         | Deletes a task at the specified index.               | `delete 1`                              | `Deleted: [T][ ] borrow book`                                      |
+| `list`           | Lists all tasks.                                     | `list`                                  | Displays all tasks in the list.                                    |
+| `update`         | Updates the description of a task.                   | `update 1 /description play`             | `Updated: [T][ ] play`                                             |
+| `find`           | Finds and lists tasks that match the search keyword. | `find book`                             | Lists tasks matching the keyword "book."                           |
+
+--- 
+
+This table summarizes all the available commands for easy reference.
