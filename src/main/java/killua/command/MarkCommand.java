@@ -13,7 +13,7 @@ import killua.util.TaskList;
  * This command updates the status of a specified task to done and saves the changes.
  */
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a MarkCommand with the specified task index.
@@ -38,9 +38,8 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
         tasks.markTaskDone(taskIndex);
-        Task task = tasks.getTasks().get(taskIndex);
-        String message = ui.showTaskMarked(task);
+        Task task = tasks.getTasks().get(taskIndex); // validity of task index is checked above
         storage.save(tasks);
-        return message;
+        return ui.showTaskMarked(task);
     }
 }

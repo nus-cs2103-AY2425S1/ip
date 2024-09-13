@@ -1,12 +1,14 @@
 package killua.storage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 import killua.parser.Parser;
 import killua.task.Task;
+import killua.util.KilluaException;
 import killua.util.TaskList;
 
 /**
@@ -30,20 +32,23 @@ public class Storage {
      * If the file does not exist, an empty TaskList is returned.
      *
      * @return A TaskList containing the tasks read from the file.
-     * @throws IOException If an error occurs while reading the file.
      */
-    public TaskList load() throws IOException {
+    public TaskList load() {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
 
         if (file.exists()) {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                Task task = Parser.parseTaskFromHistory(line);
-                tasks.addTask(task);
+            try (Scanner scanner = new Scanner(file)) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    Task task = Parser.parseTaskFromHistory(line);
+                    if (task != null) {
+                        tasks.addTask(task);
+                    }
+                }
+            } catch (FileNotFoundException | KilluaException e) {
+                throw new RuntimeException(e);
             }
-            scanner.close();
         }
 
         return tasks;
@@ -58,6 +63,7 @@ public class Storage {
      */
     public void save(TaskList tasks) throws IOException {
         File directory = new File("./data");
+        // if file does not exist, create the file
         if (!directory.exists()) {
             directory.mkdirs();
         }

@@ -12,7 +12,7 @@ import killua.util.TaskList;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Creates a DeleteCommand with the specified index of the task to be deleted.
@@ -37,9 +37,8 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
         Task task = tasks.getTasks().get(taskIndex);
         tasks.deleteTask(taskIndex);
-        String message = ui.showTaskDeleted(task);
         storage.save(tasks);
-        return message;
+        return ui.showTaskDeleted(task);
     }
 }
 

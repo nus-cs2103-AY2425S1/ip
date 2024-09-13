@@ -14,7 +14,7 @@ import killua.util.TaskList;
  * saves the updated task list to storage.
  */
 public class UnmarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs an UnmarkCommand with the specified task index.
@@ -39,9 +39,8 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
         tasks.unmarkTask(taskIndex);
-        Task task = tasks.getTasks().get(taskIndex);
-        String message = ui.showTaskUnmarked(task);
+        Task task = tasks.getTasks().get(taskIndex); // validity of task index is checked above
         storage.save(tasks);
-        return message;
+        return ui.showTaskUnmarked(task);
     }
 }

@@ -32,8 +32,15 @@ public class Parser {
     private static final DateTimeFormatter DATE_TIME_FORMATTER_FROM_HISTORY = DateTimeFormatter
             .ofPattern("MMM d yyyy HH:mm");
     private static final DateTimeFormatter DATE_FORMATTER_FROM_HISTORY = DateTimeFormatter.ofPattern("MMM d yyyy");
-
-
+    private static final String ARGUMENT_EMPTY_MESSAGE = "Arguments cannot be empty!";
+    private static final String INVALID_COMMAND_MESSAGE = "Sorry, I don't get what you mean:( ";
+    private static final String INVALID_DEADLINE_MESSAGE = "Please use the correct format for deadlines:\n"
+            + "\tdeadline <description> /by <yyyy-mm-dd> OR \tdeadline <description> /by <yyyy-mm-dd hh:mm>";
+    private static final String INVALID_EVENT_MESSAGE = "Please use the correct format for events:\n"
+            + "\tevent <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR "
+                    + "\tevent <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>";
+    private static final String INVALID_NUMBER_MESSAGE = "Please provide a valid task number!";
+    private static final String INVALID_DATE_FORMAT_FROM_HISTORY = "Invalid date format from history: ";
     /**
      * Parses a command string and returns the corresponding Command object.
      *
@@ -42,6 +49,7 @@ public class Parser {
      * @throws KilluaException If the command string is invalid or unknown.
      */
     public static Command parseCommand(String commandStr) throws KilluaException {
+        // split user input into 2 parts: command and argument
         String[] parts = commandStr.split(" ", 2);
         String commandWord = parts[0];
         String arguments = parts.length > 1 ? parts[1] : "";
@@ -64,17 +72,13 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         case "on":
-            if (arguments.isEmpty()) {
-                throw new KilluaException("Arguments cannot be empty!");
-            }
+            checkEmptyArgument(arguments);
             return new OnCommand(arguments);
         case "find":
-            if (arguments.isEmpty()) {
-                throw new KilluaException("Arguments cannot be empty!");
-            }
+            checkEmptyArgument(arguments);
             return new FindCommand(arguments);
         default:
-            throw new KilluaException("Unknown command: " + commandWord);
+            throw new KilluaException(INVALID_COMMAND_MESSAGE);
         }
     }
 
@@ -86,10 +90,20 @@ public class Parser {
      * @throws KilluaException If the arguments are empty.
      */
     public static Todo parseTodo(String arguments) throws KilluaException {
-        if (arguments.isEmpty()) {
-            throw new KilluaException("Arguments cannot be empty!");
-        }
+        checkEmptyArgument(arguments);
         return new Todo(arguments);
+    }
+
+    /**
+     * Raise an exception if a command has no argument.
+     *
+     * @param arguments The arguments of a command.
+     * @throws KilluaException If the arguments are empty.
+     */
+    private static void checkEmptyArgument(String arguments) throws KilluaException {
+        if (arguments.trim().isEmpty()) {
+            throw new KilluaException(ARGUMENT_EMPTY_MESSAGE);
+        }
     }
 
     /**
@@ -100,25 +114,23 @@ public class Parser {
      * @throws KilluaException If the arguments are empty or in an incorrect format.
      */
     public static Deadline parseDeadline(String arguments) throws KilluaException {
-        if (arguments.isEmpty()) {
-            throw new KilluaException("Arguments cannot be empty!");
-        }
+        checkEmptyArgument(arguments);
 
         try {
             String[] parts = arguments.split(" /by ");
             String description = parts[0].strip();
             String dateTimeString = parts[1].strip();
-
             try {
+                // try parsing yyyy-MM-dd HH:mm
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
                 return new Deadline(description, dateTime);
             } catch (DateTimeParseException e) {
+                // try parsing yyyy-MM-dd
                 LocalDate date = LocalDate.parse(dateTimeString, DATE_FORMATTER);
                 return new Deadline(description, date);
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new KilluaException("Please use the correct format for deadlines: "
-                    + "deadline <description> /by <yyyy-mm-dd> OR deadline <description> /by <yyyy-mm-dd hh:mm>");
+            throw new KilluaException(INVALID_DEADLINE_MESSAGE);
         }
     }
 
@@ -130,9 +142,7 @@ public class Parser {
      * @throws KilluaException If the arguments are empty or in an incorrect format.
      */
     public static Event parseEvent(String arguments) throws KilluaException {
-        if (arguments.isEmpty()) {
-            throw new KilluaException("Arguments cannot be empty!");
-        }
+        checkEmptyArgument(arguments);
 
         try {
             String[] parts = arguments.split(" /from ");
@@ -141,20 +151,19 @@ public class Parser {
 
             String fromDateTimeString = dateStrings[0].strip();
             String toDateTimeString = dateStrings[1].strip();
-
             try {
+                // try parsing yyyy-MM-dd HH:mm
                 LocalDateTime fromDateTime = LocalDateTime.parse(fromDateTimeString, DATE_TIME_FORMATTER);
                 LocalDateTime toDateTime = LocalDateTime.parse(toDateTimeString, DATE_TIME_FORMATTER);
                 return new Event(description, fromDateTime, toDateTime);
             } catch (DateTimeParseException e) {
+                // try parsing yyyy-MM-dd
                 LocalDate fromDate = LocalDate.parse(fromDateTimeString, DATE_FORMATTER);
                 LocalDate toDate = LocalDate.parse(toDateTimeString, DATE_FORMATTER);
                 return new Event(description, fromDate, toDate);
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new KilluaException("Please use the correct format for events: "
-                    + "event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR "
-                            + "event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>");
+            throw new KilluaException(INVALID_EVENT_MESSAGE);
         }
     }
 
@@ -166,16 +175,12 @@ public class Parser {
      * @throws KilluaException If the arguments are empty or not a valid integer.
      */
     public static int parseIndex(String arguments) throws KilluaException {
-        if (arguments.isEmpty()) {
-            throw new KilluaException("Arguments cannot be empty!");
-        }
+        checkEmptyArgument(arguments);
 
         try {
             return Integer.parseInt(arguments.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new KilluaException("Please provide a valid task number!");
-        } catch (IndexOutOfBoundsException e1) {
-            throw new KilluaException("Task " + arguments + " not found!");
+            throw new KilluaException(INVALID_NUMBER_MESSAGE);
         }
     }
 
@@ -184,12 +189,15 @@ public class Parser {
      *
      * @param line The task string from the storage.
      * @return The Task object parsed from the string.
-     * @throws IllegalArgumentException If the task type is unknown.
+     * @throws KilluaException If date(time) format from history is incorrect.
      */
-    public static Task parseTaskFromHistory(String line) {
-        char taskType = line.charAt(0);
-        boolean isDone = line.charAt(4) == '1';
-        String argument = line.substring(8);
+    public static Task parseTaskFromHistory(String line) throws KilluaException {
+        int taskTypeIndex = 0;
+        int taskIsDoneIndex = 4;
+        int argumentStartIndex = 8;
+        char taskType = line.charAt(taskTypeIndex);
+        boolean isDone = line.charAt(taskIsDoneIndex) == '1';
+        String argument = line.substring(argumentStartIndex);
 
         Task task;
 
@@ -206,10 +214,10 @@ public class Parser {
             task = getEventFromHistory(eventParts[0].strip(), eventParts[1].strip(), eventParts[2].strip());
             break;
         default:
-            throw new IllegalArgumentException("Unknown task type: " + taskType);
+            task = null;
         }
 
-        if (isDone) {
+        if (task != null && isDone) {
             task.markAsDone();
         }
 
@@ -222,9 +230,9 @@ public class Parser {
      * @param description The description of the deadline.
      * @param dateTimeString The date string for the deadline.
      * @return The Deadline task created from the given description and date string.
-     * @throws IllegalArgumentException If the date format is invalid.
+     * @throws KilluaException If the date format is invalid.
      */
-    private static Task getDeadlineFromHistory(String description, String dateTimeString) {
+    private static Task getDeadlineFromHistory(String description, String dateTimeString) throws KilluaException {
         try {
             LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER_FROM_HISTORY);
             return new Deadline(description, dateTime);
@@ -233,7 +241,7 @@ public class Parser {
                 LocalDate date = LocalDate.parse(dateTimeString, DATE_FORMATTER_FROM_HISTORY);
                 return new Deadline(description, date);
             } catch (DateTimeParseException e2) {
-                throw new IllegalArgumentException("Invalid date format: " + dateTimeString);
+                throw new KilluaException(INVALID_DATE_FORMAT_FROM_HISTORY + dateTimeString);
             }
         }
     }
@@ -245,9 +253,11 @@ public class Parser {
      * @param dateTimeStringFrom The start date string of the event.
      * @param dateTimeStringTo The end date string of the event.
      * @return The Event task created from the given description and date strings.
-     * @throws IllegalArgumentException If the date format is invalid.
+     * @throws KilluaException If the date format is invalid.
      */
-    private static Task getEventFromHistory(String description, String dateTimeStringFrom, String dateTimeStringTo) {
+    private static Task getEventFromHistory(String description,
+                                            String dateTimeStringFrom,
+                                            String dateTimeStringTo) throws KilluaException {
         try {
             LocalDateTime fromDateTime = LocalDateTime.parse(dateTimeStringFrom, DATE_TIME_FORMATTER_FROM_HISTORY);
             LocalDateTime toDateTime = LocalDateTime.parse(dateTimeStringTo, DATE_TIME_FORMATTER_FROM_HISTORY);
@@ -258,7 +268,7 @@ public class Parser {
                 LocalDate toDate = LocalDate.parse(dateTimeStringTo, DATE_FORMATTER_FROM_HISTORY);
                 return new Event(description, fromDate, toDate);
             } catch (DateTimeParseException e2) {
-                throw new IllegalArgumentException("Invalid date format: from '"
+                throw new KilluaException(INVALID_DATE_FORMAT_FROM_HISTORY + "from '"
                         + dateTimeStringFrom + "' to '" + dateTimeStringTo + "'");
             }
         }
