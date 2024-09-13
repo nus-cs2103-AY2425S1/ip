@@ -27,6 +27,7 @@ public class Ui {
      * @return TaskList Content.
      */
     protected String displayTaskList(TaskList taskList) {
+        assert taskList != null : "TaskList in Ui::displayTaskList should not be null\n";
         if (taskList.getTaskList().isEmpty()) {
             return "Seems like there are no tasks found!\n";
         }
@@ -47,6 +48,7 @@ public class Ui {
      * @return String of Outcome of Marking Task.
      */
     protected String displayMarkedTask(TaskList taskList, ArrayList<String> parsedCommand) {
+        assert taskList != null : "TaskList in Ui::displayMarkedTask should not be null\n";
         try {
             Task task = taskList.markTask(parsedCommand.get(1));
             return "Nice! Sora has marked this task as done:\n" + task;
@@ -65,6 +67,7 @@ public class Ui {
      * @return String of Outcome of Unmarking Task.
      */
     protected String displayUnMarkedTask(TaskList taskList, ArrayList<String> parsedCommand) {
+        assert taskList != null : "TaskList in Ui::displayUnMarkedTask should not be null\n";
         try {
             Task task = taskList.unmarkTask(parsedCommand.get(1));
             return "Nice! Sora has marked this task as not done:\n" + task;
@@ -84,6 +87,7 @@ public class Ui {
      * @return String of Outcome of Adding Task.
      */
     protected String displayAddedTask(TaskList taskList, String mainCommand, ArrayList<String> parsedCommand) {
+        assert taskList != null : "TaskList in Ui::displayAddedTask should not be null\n";
         try {
             Task task = taskList.addTask(mainCommand, parsedCommand);
             return "Got it. Sora has added this task:\n"
@@ -102,6 +106,7 @@ public class Ui {
      * @return String of Outcome of Deleting Task.
      */
     protected String displayDeletedTask(TaskList taskList, ArrayList<String> parsedCommand) {
+        assert taskList != null : "TaskList in Ui::displayDeletedTask should not be null\n";
         try {
             Task deletedTask = taskList.deleteTask(parsedCommand.get(1));
             return "Noted. Sora has removed this task:\n" + deletedTask;
@@ -120,6 +125,7 @@ public class Ui {
      * @return String of Outcome of Finding Task.
      */
     protected String displayFoundTask(TaskList taskList, ArrayList<String> parsedCommand) {
+        assert taskList != null : "TaskList in Ui::displayFoundTask should not be null\n";
         try {
             return taskList.findTask(parsedCommand.get(1)).toString();
         } catch (IndexOutOfBoundsException e) {
