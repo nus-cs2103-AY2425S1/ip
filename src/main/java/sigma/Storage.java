@@ -1,11 +1,12 @@
 package sigma;
-import sigma.task.Task;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
+import sigma.task.Task;
 
 /**
  * Class that deals with loading and saving tasks from the file it is stored in
@@ -37,7 +38,7 @@ public class Storage {
     public static String getItemsFromFile(String path) throws IOException {
         StringBuilder itemsFromFile = new StringBuilder();
         int i = 1;
-        for (String line: Files.readAllLines(Paths.get(path))) {
+        for (String line : Files.readAllLines(Paths.get(path))) {
             itemsFromFile.append(i).append(". ").append(line).append("\n");
             i++;
         }

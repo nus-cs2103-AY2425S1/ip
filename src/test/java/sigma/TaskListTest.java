@@ -1,15 +1,13 @@
 package sigma;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sigma.Parser;
-import sigma.TaskList;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
+
 import sigma.task.Task;
 public class TaskListTest {
-    TaskList taskList;
-    Parser parser;
+    private TaskList taskList;
+    private Parser parser;
 
     @BeforeEach
     public void setup() {

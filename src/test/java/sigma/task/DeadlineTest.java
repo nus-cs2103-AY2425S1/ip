@@ -1,11 +1,14 @@
 package sigma.task;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sigma.Parser;
-import sigma.TaskList;
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.*;
+
+import sigma.Parser;
+import sigma.TaskList;
 
 public class DeadlineTest {
     TaskList taskList;
