@@ -35,15 +35,10 @@ public class Molly {
      * Processes user inputs and manipulates the task array accordingly.
      */
     public String assistUser(String userInput) throws MollyException {
-        //ArrayList<task.Task> botMemory = new ArrayList<>();
-        //Ui.greetUser();
-        //String userInput = "";
-        //Ui.printLine();
         if (userInput.toLowerCase().equals("bye")) {
             storage.saveTasks(taskList);
             return Ui.sayBye();
         }
-
         try {
             return mollyParser.handleUserInput(userInput);
         } catch (MollyException e) {
