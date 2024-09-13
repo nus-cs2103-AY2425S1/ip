@@ -52,6 +52,10 @@ public class Karen {
      */
     public String getKarenResponse(String input) {
         Command c = Parser.parse(input, ui);
+
+        // c should never be null
+        assert c != null;
+
         if (c.isExit()) {
             Platform.exit();
         }
