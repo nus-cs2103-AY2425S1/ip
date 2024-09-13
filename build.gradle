@@ -35,19 +35,19 @@ application {
     mainClass.set("papadom.PapadomApp")
 }
 
-shadowJar {
-    archiveBaseName = "papadom-chatbot"
-    archiveClassifier = null
-    archiveVersion = version
-}
-
-run {
-    standardInput = System.in
-}
-
 javafx {
     version = "20.0.2" // Use the latest stable version
     modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+shadowJar {
+    archiveBaseName.set("ip") // Set the name of the JAR
+    archiveClassifier.set("") // No classifier
+    archiveVersion.set("") // No version in the file name
+    manifest {
+        attributes 'Main-Class': 'papadom.PapadomApp'
+    }
+    mergeServiceFiles() // Ensure any service files are merged correctly
 }
 
 jar {
@@ -58,13 +58,8 @@ jar {
     }
 }
 
-shadowJar {
-    archiveBaseName.set("ip") // Set the name of the JAR
-    archiveClassifier.set("") // No classifier
-    archiveVersion.set("") // No version in the file name
-    manifest {
-        attributes 'Main-Class': 'papadom.PapadomApp'
-    }
+run {
+    standardInput = System.in
 }
 
 tasks.distZip {
