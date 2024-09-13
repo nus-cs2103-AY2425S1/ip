@@ -30,7 +30,7 @@ public class Parser {
             throw new BillException("Please provide a second argument when marking or unmarking a task");
         }
 
-        // ensure task number is within the range of the task list
+        // ensures task number is within the range of the task list
         if (Integer.parseInt(parsedInput[1]) > userList.size() || Integer.parseInt(parsedInput[1]) < 1) {
             throw new BillException("There is no task of that number in the current list");
         }
@@ -78,8 +78,7 @@ public class Parser {
                         + " deadline <task> /by <date> where <> suggest user input");
         }
 
-        // data parsing
-        // remove deadline, trim white spaces and delimit by /by
+        // parse data by remove deadline word, trim white spaces and delimit by /by
         String[] trimmedUserCommand = userCommand.replaceFirst("deadline", "")
                     .trim().split(" /by ");
         String deadlineDescription = trimmedUserCommand[0];
@@ -111,8 +110,7 @@ public class Parser {
                         + " event <task> /from <date1> /to <date2>, where <> suggest user input");
         }
 
-        // data parsing
-        // remove event, trim white spaces and delimit by /from and /to
+        // parse data by remove event keyword, trim white spaces and delimit by /from and /to
         String[] trimmedUserCommand = userCommand.replaceFirst("event", "")
                     .trim().split(" /from ");
         String eventDescription = trimmedUserCommand[0];
@@ -169,13 +167,6 @@ public class Parser {
      * @throws BillException If there is an error handling the parsing of the targeted task.
      */
     public String handleFindParser(String ... parsedInput) throws BillException {
-        // CS2103T Notes, String[] parsedInput is same as String ... parsed input
-        // however by using ... now you allow an additional type of input where a comma operated input can be sent in
-        // I only changed this method, because it has one arg, in java varargs need to be the last param of the method
-        // So the compiler can differentiate between a vararg and other variables, and I did not want to rewrite
-        // the argument orientation for other methods
-        // possible use cases here could be in test cases using "", "", instead of creating an array of strings
-
         // data validation
         if (parsedInput.length < 2) {
             throw new BillException("Please provide a second argument for the find command, such as a keyword,"
