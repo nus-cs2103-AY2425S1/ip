@@ -24,11 +24,6 @@ public class Event extends Task {
         this.fromDuration = fromDuration;
         Task.incrementTaskCount();
     }
-
-    /*@Override
-    public String toDataString() {
-        return "E | " + super.toDataString() + " | " + fromDuration + " | " + toDuration;
-    }*/
     @Override
     public String toDataString() {
         return "E | " + super.toDataString() + " | " + fromDuration + " | " + toDuration + " | "
