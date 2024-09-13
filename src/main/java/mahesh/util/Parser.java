@@ -41,66 +41,91 @@ public class Parser {
      * @throws MaheshException if the input cannot be parsed into a valid command
      */
     public Command parse(String originalInput) throws MaheshException {
+        assert originalInput != null : "Input should not be null";
+        assert !originalInput.trim().isEmpty() : "Input should not be empty";
+
         StringTokenizer tokenizedInput = new StringTokenizer(originalInput);
+        assert tokenizedInput.hasMoreTokens() : "Input should contain at least one token";
+
         String commandString = tokenizedInput.nextToken();
         CommandNames command = CommandNames.fromString(commandString);
+        assert command != null : "Command should not be null";
+
         switch (command) {
         case LIST:
             return new PrintCommand(list);
         case MARK:
-            try {
-                return new MarkCommand(list, store, Integer.parseInt(tokenizedInput.nextToken()) - 1, true);
-            } catch (NumberFormatException err) {
-                Ui.printIncompleteCommandErr(
-                    new MaheshException("Please follow the given format: mark <index>, index must be an integer")
-                );
-                return null;
-            }
+            return parseMarkCommand(tokenizedInput, true);
         case UNMARK:
-            try {
-                return new MarkCommand(list, store, Integer.parseInt(tokenizedInput.nextToken()) - 1, false);
-            } catch (NumberFormatException err) {
-                return new IncompleteCommand(
-                    "Please follow the given format: unmark <index>, index must be an integer"
-                );
-            }
+            return parseMarkCommand(tokenizedInput, false);
         case TODO:
-            try {
-                Todo todo = Todo.parseTodo(tokenizedInput);
-                return new AddCommand(list, store, todo);
-            } catch (MaheshException err) {
-                return new IncompleteCommand(err.getMessage());
-            }
+            return parseTodoCommand(tokenizedInput);
         case DEADLINE:
-            try {
-                Deadline deadline = Deadline.parseDeadline(tokenizedInput);
-                return new AddCommand(list, store, deadline);
-            } catch (MaheshException err) {
-                return new IncompleteCommand(err.getMessage());
-            }
+            return parseDeadlineCommand(tokenizedInput);
         case EVENT:
-            try {
-                Event event = Event.parseEvent(tokenizedInput);
-                return new AddCommand(list, store, event);
-            } catch (MaheshException err) {
-                return new IncompleteCommand(err.getMessage());
-            }
+            return parseEventCommand(tokenizedInput);
         case DELETE:
-            try {
-                return new DeleteCommand(list, store, Integer.parseInt(tokenizedInput.nextToken()) - 1);
-            } catch (NumberFormatException err) {
-                return new IncompleteCommand(
-                    "Please follow the given format: delete <index>, index must be an integer"
-                );
-            }
+            return parseDeleteCommand(tokenizedInput);
         case FIND:
-            try {
-                return new FindCommand(list, tokenizedInput.nextToken());
-            } catch (NumberFormatException err) {
-                return new IncompleteCommand("Please follow the given format: find <search_term>");
-            }
+            return parseFindCommand(tokenizedInput);
         default:
             return null;
+        }
+    }
+
+    private Command parseMarkCommand(StringTokenizer tokenizedInput, boolean isMark) {
+        try {
+            return new MarkCommand(list, store, Integer.parseInt(tokenizedInput.nextToken()) - 1, isMark);
+        } catch (NumberFormatException err) {
+            return new IncompleteCommand(
+                String.format("Please follow the given format: %s <index>, index must be an integer",
+                    isMark ? "mark" : "unmark")
+            );
+        }
+    }
+
+    private Command parseTodoCommand(StringTokenizer tokenizedInput) {
+        try {
+            Todo todo = Todo.parseTodo(tokenizedInput);
+            return new AddCommand(list, store, todo);
+        } catch (MaheshException err) {
+            return new IncompleteCommand(err.getMessage());
+        }
+    }
+
+    private Command parseDeadlineCommand(StringTokenizer tokenizedInput) {
+        try {
+            Deadline deadline = Deadline.parseDeadline(tokenizedInput);
+            return new AddCommand(list, store, deadline);
+        } catch (MaheshException err) {
+            return new IncompleteCommand(err.getMessage());
+        }
+    }
+
+    private Command parseEventCommand(StringTokenizer tokenizedInput) {
+        try {
+            Event event = Event.parseEvent(tokenizedInput);
+            return new AddCommand(list, store, event);
+        } catch (MaheshException err) {
+            return new IncompleteCommand(err.getMessage());
+        }
+    }
+
+    private Command parseDeleteCommand(StringTokenizer tokenizedInput) {
+        try {
+            return new DeleteCommand(list, store, Integer.parseInt(tokenizedInput.nextToken()) - 1);
+        } catch (NumberFormatException err) {
+            return new IncompleteCommand(
+                "Please follow the given format: delete <index>, index must be an integer"
+            );
+        }
+    }
+
+    private Command parseFindCommand(StringTokenizer tokenizedInput) {
+        try {
+            return new FindCommand(list, tokenizedInput.nextToken());
+        } catch (NumberFormatException err) {
+            return new IncompleteCommand("Please follow the given format: find <search_term>");
         }
     }
 }
