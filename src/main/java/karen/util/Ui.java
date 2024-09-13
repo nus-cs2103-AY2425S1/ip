@@ -23,8 +23,7 @@ public class Ui {
      */
     public String readInput() {
         try {
-            String result = this.scanner.nextLine();
-            return result;
+            return this.scanner.nextLine();
         } catch (NoSuchElementException e) {
             System.err.println("Ui readInput: no such element exception");
             return "";

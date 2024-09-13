@@ -8,6 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+
+/**
+ * Main class to run JavaFx
+ */
 public class Main extends Application {
     private Karen karen = new Karen();
 
