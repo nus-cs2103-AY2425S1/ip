@@ -16,6 +16,7 @@ public class TaskList {
      */
     public TaskList() {
         this.list = new ArrayList<>();
+        assert this.list != null : "Task list should be initialized";
     }
 
     /**
@@ -24,7 +25,9 @@ public class TaskList {
      * @param list the list of tasks to initialize the TaskList with
      */
     public TaskList(ArrayList<Task> list) {
+        assert list != null : "Input task list should not be null";
         this.list = list;
+        assert this.list != null : "Task list should be initialized";
     }
 
     /**
@@ -34,6 +37,7 @@ public class TaskList {
      * @return a String response indicating the task was added
      */
     public String addToList(Task task) {
+        assert task != null : "Task to be added should not be null";
         this.list.add(task);
         return Ui.printTaskAdded(task, this.list.size());
     }
@@ -46,6 +50,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public String deleteFromList(int index) {
+        assert index >= 0 && index < this.list.size() : "Index should be within the valid range";
         try {
             Task task = this.list.get(index);
             this.list.remove(index);
@@ -63,6 +68,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public String markTaskAsDone(int index) {
+        assert index >= 0 && index < this.list.size() : "Index should be within the valid range";
         try {
             Task task = this.list.get(index);
             task.markAsDone();
@@ -80,6 +86,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public String unmarkTaskAsDone(int index) {
+        assert index >= 0 && index < this.list.size() : "Index should be within the valid range";
         try {
             Task task = this.list.get(index);
             task.unmarkAsDone();
@@ -96,6 +103,7 @@ public class TaskList {
      * @return a String response with the matching tasks or an error message if no matches are found
      */
     public String findTaskInList(String searchTerm) {
+        assert searchTerm != null && !searchTerm.trim().isEmpty() : "Search term should not be null or empty";
         if (this.list.isEmpty()) {
             return Ui.printEmptyListErr();
         }
