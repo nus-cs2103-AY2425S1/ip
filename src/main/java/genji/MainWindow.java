@@ -45,6 +45,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setGenji(Genji g) {
         genji = g;
+        assert genji != null : "Genji not set successfully";
     }
 
     /**

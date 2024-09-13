@@ -24,11 +24,13 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader
+                    (Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setGenji(genji);  // inject the Genji instance
+            assert stage != null : "Stage not set successfully";
+            fxmlLoader.<MainWindow>getController().setGenji(genji);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

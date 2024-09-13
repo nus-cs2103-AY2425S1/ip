@@ -19,6 +19,7 @@ public class ExitCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
         response = ui.bye();
+        assert response == "Bye. Hope to see you again soon!" : "Response not correct";
     }
 
     /**

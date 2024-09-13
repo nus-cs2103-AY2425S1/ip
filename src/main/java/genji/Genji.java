@@ -56,6 +56,7 @@ public class Genji {
                 ui.showLine();
             }
         }
+        assert isExit == true : "isExit should be true";
     }
 
     /**
