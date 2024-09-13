@@ -57,7 +57,7 @@ public class Ui {
      * Shows the goodbye message.
      */
     public void showGoodbye() {
-        this.response = "Bye. Hope to see you again!";
+        this.response = "Bye Bye! Hope to see you again!";
         printLine();
         System.out.println(response);
         printLine();
