@@ -66,16 +66,26 @@ public class SaveManager {
         try (Scanner sc = new Scanner(saveFilePath.toFile())) {
             TaskList tasks = new TaskList();
             while (sc.hasNextLine()) {
-                try {
-                    Task task = stringToTask(sc.nextLine());
-                    tasks.addTask(task);
-                } catch (StringIndexOutOfBoundsException | IllegalArgumentException | DateTimeParseException e) {
-                    System.out.println("Data is corrupted: " + e.toString());
-                }
+                addTask(sc.nextLine(), tasks);
             }
             return tasks;
         } catch (FileNotFoundException e) {
             return new TaskList();
+        }
+    }
+    
+    /**
+     * Adds a task to the TaskList from the input string.
+     *
+     * @param input The string representation of the task.
+     * @param tasks The TaskList to which the task will be added.
+     */
+    public void addTask(String input, TaskList tasks) {
+        try {
+            Task task = stringToTask(input);
+            tasks.addTask(task);
+        } catch (StringIndexOutOfBoundsException | IllegalArgumentException | DateTimeParseException e) {
+            System.out.println("Data is corrupted: " + e.toString());
         }
     }
 
