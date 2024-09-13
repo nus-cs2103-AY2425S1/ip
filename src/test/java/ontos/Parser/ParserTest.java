@@ -1,13 +1,12 @@
-package ontos.Parser;
-
-import org.junit.jupiter.api.Test;
+package ontos.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 import ontos.commands.Command;
 import ontos.exception.OntosException;
-import ontos.parser.Parser;
 
 public class ParserTest {
     @Test

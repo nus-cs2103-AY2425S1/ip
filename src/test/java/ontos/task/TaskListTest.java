@@ -1,12 +1,12 @@
 package ontos.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.time.LocalDate;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class TaskListTest {
 
@@ -52,9 +52,9 @@ class TaskListTest {
 
     @Test
     void toString_sampleList_listPrinted() {
-        String expected = " 1. [T][ ] Buy groceries\n" +
-                          " 2. [D][ ] Submit report (by: 2024-09-01)\n" +
-                          " 3. [E][ ] Team meeting (from: 2024-09-15 to: 2024-09-16)";
+        String expected = " 1. [T][ ] Buy groceries\n"
+                          + " 2. [D][ ] Submit report (by: 2024-09-01)\n"
+                          + " 3. [E][ ] Team meeting (from: 2024-09-15 to: 2024-09-16)";
         assertEquals(expected, taskList.toString());
     }
 
