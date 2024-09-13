@@ -19,10 +19,10 @@ public class Deadline extends Task {
         return "D | " + super.fileFormat() + " | " + this.by.format(INPUT_FORMATTER);
     }
 
-
-    public String fileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + by.toString();
+    public void updateDeadline(LocalDateTime newDeadline) {
+        this.by = newDeadline;
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(DISPLAY_FORMATTER) + ")";

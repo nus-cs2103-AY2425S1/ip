@@ -96,4 +96,11 @@ public class Ui {
         return response.toString();
     }
 
+    public String showUpdatedTask(Task task) {
+        StringBuilder response = new StringBuilder();
+        response.append("Got it. I've updated this task:\n");
+        response.append("    ").append(task).append("\n");
+        return response.toString();
+    }
+
 }

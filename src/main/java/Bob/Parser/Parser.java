@@ -11,7 +11,7 @@ public class Parser {
         assert inputParts.length > 0 : "There should be at least one part in the input";
 
         String command = inputParts[0].toLowerCase();
-        String taskDescription = (inputParts.length <= 1) ? "" : inputParts[1];
+        String taskDescription = (inputParts.length == 1) ? "" : inputParts[1];
 
         switch (command) {
         case "list":
@@ -30,6 +30,10 @@ public class Parser {
             return new DeleteCommand(parseTaskIndex(taskDescription));
         case "find":
             return new FindCommand(taskDescription);
+        case "update":
+            int index = Integer.parseInt(inputParts[1].split(" ")[0]) - 1;
+            String newDetails = inputParts[1].split(" ", 2)[1];
+            return new UpdateCommand(index, newDetails);
         case "bye":
             return new ExitCommand();
         default:
@@ -39,10 +43,11 @@ public class Parser {
     private int parseTaskIndex(String taskDescription) throws BobException {
         assert taskDescription != null : "Task description should not be null";
         try {
-            return Integer.parseInt(taskDescription.trim()) - 1;  // convert to 0-based index
+            return Integer.parseInt(taskDescription.trim()) - 1;
         } catch (NumberFormatException e) {
             throw new BobException("Invalid task index. Please enter a valid number.");
         }
     }
+
 }
 
