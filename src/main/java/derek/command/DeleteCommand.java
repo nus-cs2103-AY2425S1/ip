@@ -35,7 +35,6 @@ public class DeleteCommand extends Command {
     public String execute() throws IncorrectCommandException {
         String command = this.getCommand();
         String[] words = command.split("\\s+");
-<<<<<<< HEAD
         int taskNumber = this.getTaskNumber(words[1]);
         this.validateTaskNumber(taskNumber);
         Task task = getTask(taskNumber - 1);
