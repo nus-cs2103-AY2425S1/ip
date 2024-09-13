@@ -41,6 +41,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert (responseImage != null) || (userImage != null) : "Missing image resource";
         String input = userInput.getText();
         String response = elara.getResponse(input);
         dialogContainer.getChildren().addAll(

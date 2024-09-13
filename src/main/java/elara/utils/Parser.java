@@ -16,6 +16,7 @@ import elara.task.InvalidInputException;
  */
 public class Parser {
     public static String getCommandType(String input) {
+        assert input != null;
         String[] parts = input.split(" ", 2);
         return parts[0].toLowerCase();
     }

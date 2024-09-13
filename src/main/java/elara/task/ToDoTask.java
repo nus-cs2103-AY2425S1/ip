@@ -27,6 +27,7 @@ public class ToDoTask extends Task {
 
     @Override
     public String toString() {
+        assert !description.isEmpty() : "description should not be empty";
         return "[T]" + super.toString();
     }
 

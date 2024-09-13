@@ -19,10 +19,12 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String desc, LocalDateTime deadline, boolean isDone) {
         super(desc, isDone);
         this.deadline = deadline;
+        assert deadline != null : "date/time should not be empty";
     }
 
     @Override
     public String toString() {
+        assert !description.isEmpty() : "description should not be empty";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
         return String.format("[D]%s (by: %s)", super.toString(), deadline.format(formatter));
     }
