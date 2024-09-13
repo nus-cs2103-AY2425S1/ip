@@ -42,11 +42,11 @@ public class AddCommand extends Command {
      * If an exception is thrown in the process of adding the command, its
      * error message will be displayed to the user.
      *
-     * @param tasklist The TaskList object to which a task will be added.
+     * @param taskList The TaskList object to which a task will be added.
      * @param storage The Storage object used to save the updated task list.
      */
     @Override
-    public String execute(TaskList tasklist, Storage storage) throws TrackieException {
+    public String execute(TaskList taskList, Storage storage) throws TrackieException {
         try {
             switch (arguments[0]) {
             case "todo":
@@ -60,7 +60,8 @@ public class AddCommand extends Command {
                 description = retriever.substring(0, retriever.length() - 1);
 
                 Task todoTask = new Todo(description);
-                tasklist.addTask(todoTask);
+                taskList.addTask(todoTask);
+                assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
                 storage.save();
                 return "Added: " + todoTask.toString();
             case "deadline":
@@ -97,7 +98,8 @@ public class AddCommand extends Command {
                 }
 
                 Task deadlineTask = new Deadline(description, deadline);
-                tasklist.addTask(deadlineTask);
+                taskList.addTask(deadlineTask);
+                assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
                 storage.save();
                 return "Added: " + deadlineTask.toString();
 
@@ -151,7 +153,8 @@ public class AddCommand extends Command {
                     end = retriever.substring(0, retriever.length() - 1);
                 }
                 Task eventTask = new Event(description, start, end);
-                tasklist.addTask(eventTask);
+                taskList.addTask(eventTask);
+                assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
                 storage.save();
                 return "Added: " + eventTask.toString();
             default:
