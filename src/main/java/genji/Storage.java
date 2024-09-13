@@ -27,6 +27,52 @@ public class Storage {
        this.filePath = filePath;
    }
 
+    /**
+     * Loads todo task
+     * @param list Task list where stores tasks
+     * @param input Todo task
+     */
+   public static void loadTodo(TaskList list, String input) {
+       list.add(new ToDo(input.substring(8)));
+       if (input.substring(4).startsWith("1")) {
+           list.get(list.size()- 1).mark();
+       }
+   }
+
+    /**
+     * Loads deadline task
+     * @param list Task list where stores tasks
+     * @param input Deadline task
+     */
+    public static void loadDeadline(TaskList list, String input) {
+        String name = input.substring(8, input.lastIndexOf(" |"));
+        LocalDateTime from = LocalDateTime.parse(input.substring
+                        (input.lastIndexOf(" |") + 3),
+                        DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        list.add(new Deadline(name, from));
+        if (input.substring(4).startsWith("1")) {
+            list.get(list.size() - 1).mark();
+        }
+    }
+
+    /**
+     * Loads event task
+     * @param list Task list where stores tasks
+     * @param input Event task
+     */
+    public static void loadEvent(TaskList list, String input) {
+        String name = input.substring(8, input.lastIndexOf(" |"));
+        LocalDateTime from = LocalDateTime.parse(input.substring
+                        (input.lastIndexOf(" |") + 3, input.lastIndexOf(" to")),
+                        DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        LocalDateTime to = LocalDateTime.parse(input.substring
+                        (input.lastIndexOf(" to") + 4),
+                        DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        list.add(new Event(name, from, to));
+        if (input.substring(4).startsWith("1")) {
+            list.get(list.size()- 1).mark();
+        }
+    }
 
     /**
      * Loads the list in the .txt file
@@ -44,33 +90,13 @@ public class Storage {
             while (s.hasNext()) {
                 String input = s.nextLine();
                 if (input.startsWith("T")) {
-                    list.add(new ToDo(input.substring(8)));
-                    if (input.substring(4).startsWith("1")) {
-                        list.get(list.size()- 1).mark();
-                    }
+                    loadTodo(list, input);
                 } else if (input.startsWith("D")) {
-                    String name = input.substring(8, input.lastIndexOf(" |"));
-                    LocalDateTime from = LocalDateTime.parse(input.substring
-                                    (input.lastIndexOf(" |") + 3),
-                            DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-                    list.add(new Deadline(name, from));
-                    if (input.substring(4).startsWith("1")) {
-                        list.get(list.size() - 1).mark();
-                    }
+                    loadDeadline(list, input);
                 } else {
-                    String name = input.substring(8, input.lastIndexOf(" |"));
-                    LocalDateTime from = LocalDateTime.parse(input.substring
-                            (input.lastIndexOf(" |") + 3, input.lastIndexOf(" to")),
-                            DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-                    LocalDateTime to = LocalDateTime.parse(input.substring
-                                    (input.lastIndexOf(" to") + 4),
-                            DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-                    list.add(new Event(name, from, to));
-                    if (input.substring(4).startsWith("1")) {
-                        list.get(list.size()- 1).mark();
-                    }
+                    loadEvent(list, input);
                 }
-                    System.out.println(input);
+                System.out.println(input);
             }
         } catch (FileNotFoundException e) {
             File directory = new File("./data");
