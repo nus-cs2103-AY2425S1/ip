@@ -23,10 +23,11 @@ public class TrackList {
      * @throws IOException If an I/O error occurs while loading the tasks.
      */
     public TrackList(TrackBotStorage storage) throws IOException {
-        assert storage != null;
+        assert storage != null : "Storage cannot be null";
         this.storage = storage;
         try {
             tasks = storage.loadContents();
+            assert tasks != null;
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Starting with an empty task list.");
         }
@@ -50,6 +51,7 @@ public class TrackList {
      * @param task The task to be added to the list.
      */
     public String addToList(Task task) {
+        assert tasks != null : "Task must not be null";
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (task == null) {
