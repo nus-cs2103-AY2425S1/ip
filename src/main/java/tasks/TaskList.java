@@ -183,5 +183,9 @@ public class TaskList {
 
     }
 
+    public void tagTask(int index, String tag) {
+        userTasks.get(index).addTag(tag);
+    }
+
 
 }

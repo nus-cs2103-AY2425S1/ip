@@ -68,7 +68,7 @@ public class Event extends Task {
                     this.startDateObj.format(parser.Parser.getPrintDateFormatter()),
                     this.endDateObj.format(parser.Parser.getPrintDateFormatter()));
         }
-        return super.getDescription() + String.format(" ( from %s to %s )", this.startDate, this.endDate);
+        return super.getDescription() + String.format(" ( from %s to %s )" + " " + this.getTags(), this.startDate, this.endDate);
     }
 
 

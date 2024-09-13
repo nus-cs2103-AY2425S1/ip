@@ -169,6 +169,12 @@ public class ChatterboxGui {
                 result = guiResponses.getSearchList(matches);
                 break;
 
+            case TAG:
+                // input for tag will be tag /i{index} /t{text}
+                String tagText = parser.parseTagText(input);
+                int tagIndex = parser.parseTagIndex(input) - 1;
+                tasks.tagTask(tagIndex, tagText);
+                break;
             default:
                 result = "Error occuring...";
                 ChatterboxExceptions.checkMessage(input);
