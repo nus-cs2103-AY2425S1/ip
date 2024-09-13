@@ -1,4 +1,4 @@
-# Duke User Guide
+# Bob User Guide
 
 // Update the title above to match the actual product name
 
@@ -10,7 +10,7 @@
 
 // Describe the action and its outcome.
 
-// Give examples of usage
+// Give examples of usage.
 
 Example: `keyword (optional arguments)`
 
