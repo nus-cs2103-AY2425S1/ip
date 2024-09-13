@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import derek.command.*;
+import derek.command.taskcommand.DeadlineCommand;
+import derek.command.taskcommand.EventCommand;
+import derek.command.taskcommand.TodoCommand;
 import derek.exception.IncorrectCommandException;
 
 /**

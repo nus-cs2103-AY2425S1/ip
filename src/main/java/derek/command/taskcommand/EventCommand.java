@@ -1,6 +1,7 @@
-package derek.command;
+package derek.command.taskcommand;
 
 import derek.*;
+import derek.command.taskcommand.TaskCommand;
 import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 

@@ -1,7 +1,8 @@
-package derek.command;
+package derek.command.taskcommand;
 
 import derek.Storage;
 import derek.Ui;
+import derek.command.Command;
 import derek.task.Task;
 import derek.task.TaskList;
 
