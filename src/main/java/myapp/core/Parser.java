@@ -16,6 +16,10 @@ import myapp.command.ListOnCommand;
 import myapp.command.MarkCommand;
 import myapp.command.ToDoCommand;
 import myapp.command.UnMarkCommand;
+import myapp.exceptions.BingBongException;
+import myapp.exceptions.InvalidArgumentException;
+import myapp.exceptions.InvalidFormatException;
+import myapp.exceptions.UnsupportedCommandException;
 import myapp.utils.CommandType;
 
 
@@ -66,7 +70,7 @@ public class Parser {
             return parseEventCommand(input);
         case INVALID:
         default:
-            throw new BingBongException("Command not recognized. Please try again...");
+            throw new UnsupportedCommandException("Command not recognized. Please try again...");
         }
     }
 
@@ -78,7 +82,7 @@ public class Parser {
     private static Command parseFindCommand(String input) throws BingBongException {
         String keyword = input.substring(5).trim();
         if (keyword.isEmpty()) {
-            throw new BingBongException("Please state the keyword clearly.");
+            throw new InvalidArgumentException("Please state the keyword clearly.");
         }
         return new FindCommand(keyword);
     }
@@ -86,7 +90,7 @@ public class Parser {
     private static Command parseFixedDurationCommand(String input) throws BingBongException {
         String[] parts = input.substring(6).trim().split("/period");
         if (parts.length < 2) {
-            throw new BingBongException("Both a description and a duration must be provided.");
+            throw new InvalidArgumentException("Both a description and a duration must be provided.");
         }
 
         String description = parts[0].trim();
@@ -94,17 +98,17 @@ public class Parser {
 
         // Ensure description is not empty
         if (description.isEmpty()) {
-            throw new BingBongException("The description of a fixed duration task cannot be empty.");
+            throw new InvalidArgumentException("The description of a fixed duration task cannot be empty.");
         }
 
         int hours;
         try {
             hours = Integer.parseInt(periodString);
             if (hours <= 0) {
-                throw new BingBongException("The duration must be a positive number of hours.");
+                throw new InvalidArgumentException("The duration must be a positive number of hours.");
             }
         } catch (NumberFormatException e) {
-            throw new BingBongException("The duration must be a valid number of hours.");
+            throw new InvalidArgumentException("The duration must be a valid number of hours.");
         }
         return new FixedDurationCommand(description, hours);
     }
@@ -127,7 +131,7 @@ public class Parser {
     private static Command parseTodoCommand(String input) throws BingBongException {
         String description = parseDescription(input, CommandType.TODO);
         if (description.isEmpty()) {
-            throw new BingBongException("The description of a todo cannot be empty.");
+            throw new InvalidArgumentException("The description of a todo cannot be empty.");
         }
         return new ToDoCommand(description);
     }
@@ -136,7 +140,7 @@ public class Parser {
         String description = parseDescription(input, CommandType.DEADLINE);
         LocalDateTime byDateTime = parseDeadlineDateTime(input);
         if (description.isEmpty()) {
-            throw new BingBongException("The description of a deadline cannot be empty.");
+            throw new InvalidArgumentException("The description of a deadline cannot be empty.");
         }
         return new DeadlineCommand(description, byDateTime);
     }
@@ -145,7 +149,7 @@ public class Parser {
         String description = parseDescription(input, CommandType.EVENT);
         LocalDateTime[] dateTimes = parseEventDateTime(input);
         if (description.isEmpty()) {
-            throw new BingBongException("The description of an event cannot be empty.");
+            throw new InvalidArgumentException("The description of an event cannot be empty.");
         }
         return new EventCommand(description, dateTimes[0], dateTimes[1]);
     }
@@ -170,7 +174,7 @@ public class Parser {
         case EVENT:
             return input.substring(6).trim().split(" /from ")[0].trim();
         default:
-            throw new BingBongException("Invalid command type for description parsing.");
+            throw new UnsupportedCommandException("Invalid command type for description parsing.");
         }
     }
 
@@ -186,7 +190,7 @@ public class Parser {
             String by = input.substring(9).trim().split(" /by ")[1].trim();
             return DateTimeHandler.parse(by);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            throw new BingBongException("The deadline format is incorrect. Use: deadline <task> /by <time>");
+            throw new InvalidFormatException("The deadline format is incorrect. Use: deadline <task> /by <time>");
         }
     }
 
@@ -203,14 +207,19 @@ public class Parser {
         try {
             String[] parts = input.substring(6).trim().split(" /from | /to ");
             if (parts.length < 3) {
-                throw new BingBongException("The event format is incorrect. "
+                throw new InvalidFormatException("The event format is incorrect. "
                         + "Use: event <task> /from <start time> /to <end time>");
             }
             LocalDateTime fromDateTime = DateTimeHandler.parse(parts[1].trim());
             LocalDateTime toDateTime = DateTimeHandler.parse(parts[2].trim());
+
+            if (toDateTime.isBefore(fromDateTime)) {
+                throw new InvalidFormatException("The end date/time cannot be earlier than the start date/time.");
+            }
+
             return new LocalDateTime[]{fromDateTime, toDateTime};
         } catch (DateTimeParseException e) {
-            throw new BingBongException("Invalid date/time format. Please use the format: d/M/yyyy HHmm");
+            throw new InvalidFormatException("Invalid date/time format. Please use the format: d/M/yyyy HHmm");
         }
     }
 }
