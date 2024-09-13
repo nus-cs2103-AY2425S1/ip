@@ -43,7 +43,7 @@ To run the application via the JAR file, follow these steps:
 
 ---
 
-Here's the updated version of the **MentalHealth User Guide**, now including the `find` command and a summary table of all the commands:
+# Commands
 
 ---
 ### Adding Deadlines
