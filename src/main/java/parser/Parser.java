@@ -24,7 +24,6 @@ public class Parser {
 
     public String handleUserInput(String userInput) throws MollyException {
         StringBuilder mollyResponse = new StringBuilder();
-
         if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
             String[] markParts = userInput.split(" ");
             if (markParts.length == 2) {
