@@ -1,15 +1,6 @@
 package utils;
 
-import commands.AddDeadlineCommand;
-import commands.AddEventCommand;
-import commands.AddTodoCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.FindCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.ReminderCommand;
-import commands.UnmarkCommand;
+import commands.*;
 import exception.DiegoException;
 import exception.NoDescriptionException;
 import exception.NoIndexException;
@@ -46,6 +37,8 @@ public class Parser {
             return new FindCommand(input.substring(5).trim());
         } else if (input.startsWith("remind")) {
             return parseReminderCommand(input);
+        } else if (input.equals("help")) {
+            return new HelpCommand();
         } else {
             throw new UnknownCommandException();
         }

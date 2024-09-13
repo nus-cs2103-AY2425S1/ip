@@ -126,4 +126,23 @@ public class Ui {
         }
         return sb.toString();
     }
+    /**
+     * Returns the help message that lists available commands and their usage.
+     *
+     * @return The help message as a String.
+     */
+    public String showHelpMessage() {
+        return "Here are the available commands:\n"
+                + "1. list - List all tasks\n"
+                + "2. todo <description> - Add a to-do task\n"
+                + "3. event <description> /from <start time> /to <end time> - Add an event task\n"
+                + "4. deadline <description> /by <due date> - Add a deadline task\n"
+                + "5. mark <task number> - Mark a task as done\n"
+                + "6. unmark <task number> - Unmark a task as not done\n"
+                + "7. delete <task number> - Delete a task\n"
+                + "8. find <keyword> - Find tasks containing a keyword\n"
+                + "9. remind <days> - Show tasks due within the specified number of days\n"
+                + "10. help - Show this help message\n"
+                + "11. bye - Exit the application";
+    }
 }
