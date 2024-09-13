@@ -3,6 +3,7 @@ package parser;
 import java.time.format.DateTimeParseException;
 
 import command.AddCommand;
+import command.ArchiveCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.ExitCommand;
@@ -45,7 +46,7 @@ public class Parser {
                 return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
             } catch (DateTimeParseException e) {
                 return new InvalidCommand(
-                    "Invalid date format! Please use yyyy-MM-dd HHmm format.\nExample: 2021-09-30 1800"
+                        "Invalid date format! Please use yyyy-MM-dd HHmm format.\nExample: 2021-09-30 1800"
                 );
             }
         case "event":
@@ -59,7 +60,7 @@ public class Parser {
                 return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
             } catch (DateTimeParseException e) {
                 return new InvalidCommand(
-                    "Invalid date format! Please use yyyy-MM-dd HHmm format.\nExample: 2021-09-30 1800"
+                        "Invalid date format! Please use yyyy-MM-dd HHmm format.\nExample: 2021-09-30 1800"
                 );
             }
         case "mark":
@@ -70,9 +71,11 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(arguments));
         case "bye":
             return new ExitCommand();
+        case "archive":
+            return new ArchiveCommand();
         default:
             return new InvalidCommand(
-                "OOPS!!! I'm sorry, but I don't know what that means :-(\nPlease enter a valid command!"
+                    "OOPS!!! I'm sorry, but I don't know what that means :-(\nPlease enter a valid command!"
             );
         }
     }
