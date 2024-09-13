@@ -18,6 +18,7 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+
         assert !description.isEmpty() : "All Events should have a string description and not be blank";
         assert !from.isEmpty() : "All Events should have a string from field and not be blank";
         assert !to.isEmpty() : "All Events should have a string to field and not be blank";
