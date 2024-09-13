@@ -89,10 +89,15 @@ public class Storage {
             // this line potentially throws IOException.
             FileWriter writer = new FileWriter(filePath);
 
-            for (Task t: tasks.getAllTasks()) {
-                writer.write(t.serialize());
-                writer.write("\n");
-            }
+            tasks.getAllTasks()
+                    .forEach(t -> {
+                        try {
+                            writer.write(t.serialize() + "\n");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the text file: " + e.getMessage());
