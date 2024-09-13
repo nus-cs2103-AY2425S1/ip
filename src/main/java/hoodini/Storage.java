@@ -81,7 +81,7 @@ public class Storage {
                 + "that needs to be completed: \n");
         ArrayList<Input> unique = new ArrayList<>();
 
-        for (int i = 0; i < counter; i++) {
+        for (int i = 0; i < inputs.size(); i++) {
             if (unique.contains(this.inputs.get(i))) {
                 continue;
             } else {
@@ -124,7 +124,7 @@ public class Storage {
             Input input1 = inputs.get(i - 1);
             inputs.remove(i - 1);
             counter--;
-            return ui.delete(input1, counter);
+            return ui.delete(input1, inputs.size());
 
         }
     }

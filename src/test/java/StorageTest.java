@@ -30,5 +30,24 @@ public class StorageTest {
                 + "1. [T] [ ] read book\n2. [D] [ ] return book (by: Dec 12 2020)\n", storage.output());
     }
 
+    @Test
+    public void testStore() {
+        outputStreamCaptor.reset();
+        Storage storage = new Storage(new UiStub());
+        assertEquals("Noted. " + "I have added this task:\n"
+                + "[T] [ ] read book\n"
+                + "You have 1 tasks in the list.", storage.store(new InputStub("[T] [ ] read book")));
+    }
+
+    @Test
+    public void testDelete() {
+        outputStreamCaptor.reset();
+        Storage storage = new Storage(new UiStub());
+        storage.store(new InputStub("[T] [ ] read book"));
+        assertEquals("Noted. " + "I have deleted this task:\n"
+                + "[T] [ ] read book\n"
+                + "You have 0 tasks in the list.", storage.delete("delete 1"));
+    }
+
 }
 
