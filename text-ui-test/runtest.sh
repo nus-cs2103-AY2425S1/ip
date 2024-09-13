@@ -1,35 +1,30 @@
 #!/usr/bin/env bash
 
-# create bin directory if it doesn't exist
-if [ ! -d "../bin" ]
-then
-    mkdir ../bin
+# Absolute paths
+SRC_PATH="/Users/junlongling/Downloads/NUS/Year 3/CS2103T/ip/src/main/java"
+BIN_PATH="/Users/junlongling/Downloads/NUS/Year 3/CS2103T/ip/bin"
+
+# Create bin directory if it doesn't exist
+if [ ! -d "$BIN_PATH" ]; then
+    mkdir -p "$BIN_PATH"
 fi
 
-# delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
+# Delete output from previous run
+if [ -e "./ACTUAL.TXT" ]; then
     rm ACTUAL.TXT
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
+# Compile the code into the bin folder, terminates if an error occurred
+if ! javac -cp "$SRC_PATH" -Xlint:none -d "$BIN_PATH" "$SRC_PATH"/*.java; then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+# Run the program, feed commands from input.txt file and redirect the output to ACTUAL.TXT
+java -classpath "$BIN_PATH" GPT < input.txt > ACTUAL.TXT
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
-
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
+# Compare the output to the expected output
+if diff ACTUAL.TXT EXPECTED.TXT; then
     echo "Test result: PASSED"
     exit 0
 else
