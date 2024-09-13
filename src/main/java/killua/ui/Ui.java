@@ -1,9 +1,6 @@
 package killua.ui;
 
-import java.io.InputStream;
-import java.io.PrintStream;
 import java.time.LocalDate;
-import java.util.Scanner;
 
 import killua.task.Task;
 import killua.util.TaskList;
@@ -14,30 +11,7 @@ import killua.util.TaskList;
  */
 public class Ui {
 
-    private final Scanner in;
-
-    /**
-     * Constructs a Ui instance with default input and output streams.
-     */
-    public Ui() {
-        this(System.in, System.out);
-    }
-
-    /**
-     * Constructs a Ui instance with specified input and output streams.
-     *
-     * @param in The input stream to read user input from.
-     * @param out The output stream to print messages to.
-     */
-    public Ui(InputStream in, PrintStream out) {
-        this.in = new Scanner(in);
-    }
-
-    /**
-     * Displays a welcome message and a list of available commands.
-     */
-    public String welcomeUser() {
-        return """
+    private static final String WELCOME_MESSAGE = """
         Welcome to Killua Task Manager!
         Here are some commands you can use:
             bye - Exit the application
@@ -50,6 +24,26 @@ public class Ui {
             deadline <description> /by <yyyy-mm-dd hh:mm> - Add a new deadline task
             event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR
             event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task""";
+    private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n";
+    private static final String DELETE_TASK_MESSAGE = "OK, I've deleted this task:\n";
+    private static final String EXIT_MESSAGE = "See you later!";
+    private static final String TASK_EMPTY_MESSAGE = "Your task list is empty.";
+    private static final String SHOW_TASK_MESSAGE = "Here are the tasks in your list:\n";
+    private static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:\n";
+    private static final String UNMARK_TASK_MESSAGE = "OK, I've marked this task as not done yet:\n";
+    private static final String TASK_NOT_FOUND_MESSAGE = "No tasks found for this date.\n";
+    private static final String NO_MATCHING_TASK_MESSAGE = "No matching task in your list!";
+    private static final String SHOW_MATCHED_TASK_MESSAGE = "Here are the Matching tasks in your list:";
+    /**
+     * Constructs Ui instance.
+     */
+    public Ui() {}
+
+    /**
+     * Displays a welcome message and a list of available commands.
+     */
+    public String welcomeUser() {
+        return WELCOME_MESSAGE;
     }
 
     /**
@@ -59,13 +53,7 @@ public class Ui {
      * @param taskCount The total number of tasks in the list after the addition.
      */
     public String showTaskAdded(Task task, int taskCount) {
-        return "Got it. I've added this task:\n  " + task + "\nNow you have "
-                + taskCount + " tasks in the list.";
-//        printLine();
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println("  " + task);
-//        System.out.println("Now you have " + taskCount + " tasks in the list.");
-//        printLine();
+        return ADD_TASK_MESSAGE + task + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
@@ -74,14 +62,14 @@ public class Ui {
      * @param task The task that was deleted.
      */
     public String showTaskDeleted(Task task) {
-        return "OK, I've deleted this task:\n" + task;
+        return DELETE_TASK_MESSAGE + task;
     }
 
     /**
      * Displays a farewell message when the application is exiting.
      */
-    public String showBye() {
-        return "Bye!";
+    public String showExitMessage() {
+        return EXIT_MESSAGE;
     }
 
     /**
@@ -92,9 +80,9 @@ public class Ui {
     public String showTaskList(TaskList tasks) {
         String message;
         if (tasks.isEmpty()) {
-            message = "Your task list is empty.";
+            message = TASK_EMPTY_MESSAGE;
         } else {
-            message = "Here are the tasks in your list:\n" + tasks.getTasksString();
+            message = SHOW_TASK_MESSAGE + tasks.getTasksString();
         }
         return message;
     }
@@ -105,7 +93,7 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public String showTaskMarked(Task task) {
-        return "Nice! I've marked this task as done:\n" + task;
+        return MARK_TASK_MESSAGE + task;
     }
 
     /**
@@ -114,7 +102,7 @@ public class Ui {
      * @param task The task that was marked as not done yet.
      */
     public String showTaskUnmarked(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + task;
+        return UNMARK_TASK_MESSAGE + task;
     }
 
     /**
@@ -134,19 +122,10 @@ public class Ui {
         }
 
         if (!hasTasks) {
-            sb.append("No tasks found for this date.\n");
+            sb.append(TASK_NOT_FOUND_MESSAGE);
         }
 
         return sb.toString();
-    }
-
-    /**
-     * Reads and returns a command from user input.
-     *
-     * @return The command entered by the user.
-     */
-    public String readCommand() {
-        return in.nextLine().trim();
     }
 
     /**
@@ -160,9 +139,9 @@ public class Ui {
     public String showMatchedTask(TaskList tasks) {
         String message;
         if (tasks.isEmpty()) {
-            message = "No matching task in your list!";
+            message = NO_MATCHING_TASK_MESSAGE;
         } else {
-            message = "Here are the Matching tasks in your list:" + tasks.getTasksString();
+            message = SHOW_MATCHED_TASK_MESSAGE + tasks.getTasksString();
         }
         return message;
     }

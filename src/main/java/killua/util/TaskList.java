@@ -14,6 +14,7 @@ import killua.task.Task;
  * as well as to retrieve tasks based on specific criteria.
  */
 public class TaskList {
+    private static final String INVALID_TASK_INDEX_MESSAGE = "You don't have this task!";
     private final ArrayList<Task> tasks;
 
     /**
@@ -54,27 +55,42 @@ public class TaskList {
      * Deletes a task from the task list at the specified index.
      *
      * @param index The index of the task to be deleted.
+     * @throws KilluaException invalid index is given.
      */
-    public void deleteTask(int index) {
-        tasks.remove(index);
+    public void deleteTask(int index) throws KilluaException {
+        try {
+            tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KilluaException(INVALID_TASK_INDEX_MESSAGE);
+        }
     }
 
     /**
      * Marks a task as done at the specified index.
      *
      * @param index The index of the task to be marked as done.
+     * @throws KilluaException invalid index is given.
      */
-    public void markTaskDone(int index) {
-        tasks.get(index).markAsDone();
+    public void markTaskDone(int index) throws KilluaException {
+        try {
+            tasks.get(index).markAsDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new KilluaException(INVALID_TASK_INDEX_MESSAGE);
+        }
     }
 
     /**
      * Unmarks a task as not done yet at the specified index.
      *
      * @param index The index of the task to be unmarked.
+     * @throws KilluaException invalid index is given.
      */
-    public void unmarkTask(int index) {
-        tasks.get(index).unmark();
+    public void unmarkTask(int index) throws KilluaException {
+        try {
+            tasks.get(index).unmark();
+        } catch (IndexOutOfBoundsException e) {
+            throw new KilluaException(INVALID_TASK_INDEX_MESSAGE);
+        }
     }
 
     /**

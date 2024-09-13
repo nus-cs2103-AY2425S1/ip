@@ -12,7 +12,7 @@ import killua.util.TaskList;
  * Represents a command to add a task to the task list.
  */
 public class AddCommand extends Command {
-    private Task task;
+    private final Task task;
 
     /**
      * Creates an AddCommand with the specified task to be added.
@@ -36,8 +36,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
         tasks.addTask(task);
-        String message = ui.showTaskAdded(task, tasks.getTasks().size());
         storage.save(tasks);
-        return message;
+        return ui.showTaskAdded(task, tasks.getTasks().size());
     }
 }

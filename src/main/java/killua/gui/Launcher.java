@@ -1,3 +1,5 @@
+package killua.gui;
+
 import javafx.application.Application;
 
 /**
