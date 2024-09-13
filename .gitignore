@@ -18,3 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # task data text file
 /src/main/resources/texts/data.txt
+src/main/resources/texts/data.txt
