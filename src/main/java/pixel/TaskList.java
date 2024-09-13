@@ -1,5 +1,6 @@
 package pixel;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 /**
@@ -50,6 +51,25 @@ public class TaskList {
         for (Task currentTask : tasks) {
             if (currentTask.getDescription().contains(searchKey)) {
                 matchingTasks.addTask(currentTask);
+            }
+        }
+        if (matchingTasks.getSize() > 0) {
+            return matchingTasks.getTasksAsString();
+        } else {
+            return "No tasks match your search key. Try another search key.";
+        }
+    }
+
+    public String getMatchingDatesAsString(String searchDate) {
+        TaskList matchingTasks = new TaskList(new ArrayList<>());
+        for (Task currentTask : tasks) {
+            if (currentTask instanceof Deadline) {
+                Deadline currentDeadline = (Deadline) currentTask;
+                String dateTime = currentDeadline.getBy();
+                String date = dateTime.split(" ")[0];
+                if (date.equals(searchDate)) {
+                    matchingTasks.addTask(currentTask);
+                }
             }
         }
         if (matchingTasks.getSize() > 0) {

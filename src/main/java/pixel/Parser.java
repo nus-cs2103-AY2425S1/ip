@@ -123,12 +123,18 @@ public class Parser {
      *
      * @param command command obtained from Ui
      * @param tasks TaskList for processing of tasks
-     * @param storage Storage for processing of files
      * @return String for Ui to display all tasks that matches the keywords
      */
-    public static String findTask(String command, TaskList tasks, Storage storage) {
+    public static String findTaskByKeyword(String command, TaskList tasks) {
         String searchKey = command.replace("find ", "").trim();
         return Ui.getMatchingTasks(searchKey, tasks);
+    }
+
+    public static String findTaskByDate(String command, TaskList tasks) {
+        String[] stringArray = command.split(" ", 0);
+        assert stringArray.length == 2;
+        String date = stringArray[1].trim();
+        return Ui.getMatchingDates(date, tasks);
     }
 
     /**
@@ -154,7 +160,9 @@ public class Parser {
         } else if (command.startsWith("delete")) {
             return deleteTask(command, tasks, storage);
         } else if (command.startsWith("find")) {
-            return findTask(command, tasks, storage);
+            return findTaskByKeyword(command, tasks);
+        } else if (command.startsWith("view")) {
+            return findTaskByDate(command, tasks);
         } else if (command.equals("bye")) {
             return Ui.getExit();
         } else {
