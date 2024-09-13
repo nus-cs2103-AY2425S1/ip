@@ -25,7 +25,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    private void createFileIfEmpty(File f) {
+    /**
+     * Opens a file at a given file directory.
+     * It should create a new empty file if the file does not exist, or open an existing file at the directory.
+     * @param f The file directory of a file which may or may not exist.
+     */
+    public void openFile(File f) {
         try {
             // this creates a file only if it does not already exist - so running it un-conditionally is OK.
             // the only thing which changes is that it will return false if the file already exists.
@@ -42,7 +47,6 @@ public class Storage {
 
     private Task initializeTaskFromInputLine(String inputLine) {
         String[] components = inputLine.split(" \\| ");
-
         try {
             switch (inputLine.substring(0, 1)) {
             case "T":
@@ -62,7 +66,7 @@ public class Storage {
             return null;
         }
     }
-    
+
     private Scanner createScannerAtFile(File f) {
         Scanner sc = null;
         try {
@@ -81,7 +85,7 @@ public class Storage {
      */
     public ArrayList<Task> parseTextStorage() {
         File file = new File(filePath);
-        createFileIfEmpty(file);
+        openFile(file);
 
         ArrayList<Task> items = new ArrayList<>();
         Scanner sc = createScannerAtFile(file);
@@ -104,10 +108,15 @@ public class Storage {
             // this line potentially throws IOException.
             FileWriter writer = new FileWriter(filePath);
 
-            for (Task t: tasks.getAllTasks()) {
-                writer.write(t.serialize());
-                writer.write("\n");
-            }
+            tasks.getAllTasks()
+                    .forEach(t -> {
+                        try {
+                            writer.write(t.serialize() + "\n");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the text file: " + e.getMessage());
