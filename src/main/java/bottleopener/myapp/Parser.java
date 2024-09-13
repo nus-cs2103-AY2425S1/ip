@@ -53,68 +53,89 @@ public class Parser {
     }
 
     /**
-     * Checks whether the 'exit' command has been called.
+     * Parses and returns the keyword from the user input.
+     * This method expects the user input array to contain at least two elements,
+     * with the second element being the keyword to be used. If the keyword is missing
+     * or incorrectly formatted, it will return an error message via the UI.
      *
-     * @return {@code true} if the exit command has been issued, otherwise {@code false}.
+     * @return the parsed keyword in lowercase if present, otherwise returns an error message.
+     * @throws IllegalArgumentException if the input is invalid.
+     */
+    private String parseKeyword() throws IllegalArgumentException {
+        try {
+            return this.userInput[1].trim().toLowerCase();
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new IllegalArgumentException(Ui.showMissingInfoError());
+        }
+    }
+
+    /**
+     * Parses and returns the task information from the user input.
+     * This method expects the user input array to contain at least two elements,
+     * with the second element being the task information. If the task information
+     * is missing or the array is not properly indexed, it will throw an
+     * {@code IllegalArgumentException} with an error message from the UI.
+     *
+     * @return the task information as a {@code String} if present.
+     * @throws IllegalArgumentException if the task information is missing or the input format is incorrect.
+     */
+    private String parseTaskInformation() throws IllegalArgumentException {
+        try {
+            return this.userInput[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(Ui.showMissingInfoError());
+        }
+    }
+
+    /**
+     * Checks whether the "exit" command has been called.
+     * This method is used to determine if the chatbot should terminate.
+     *
+     * @return {@code true} if the "exit" command was called, otherwise {@code false}.
      */
     public boolean checkExit() {
         return this.isExitCalled;
     }
 
     /**
-     * Processes the parsed user input and executes the appropriate command
-     * based on the instruction. Commands like "bye", "list", "mark", "unmark",
-     * "delete", "find", and task creation commands ("todo", "deadline", "event")
-     * are handled here.
+     * Parses the user input and executes the corresponding command.
+     * This method processes various commands such as "bye", "list", "mark", "unmark",
+     * "delete", "find", "todo", "deadline", and "event". It calls the appropriate command
+     * and returns the result. If an unknown or incorrectly formatted command is provided,
+     * an error message is returned.
      *
-     * @return A string containing the result of the executed command or an error message.
+     * @return the result of the executed command or an error message if the input is invalid.
      */
     public String runParser() {
-        switch (instruction) {
-        case "bye":
-            this.isExitCalled = true;
-            return new ByeCommand().runCommand();
-        case "list":
-            return new ListCommand(tasklist).runCommand();
-        case "mark":
-            try {
-                int taskIndex = parseTaskIndex();
-                return new MarkCommand(tasklist, taskIndex, true).runCommand();
-            } catch (IllegalArgumentException e) {
-                return e.getMessage();
-            }
-        case "unmark":
-            try {
-                int taskIndex = parseTaskIndex();
-                return new MarkCommand(tasklist, taskIndex, false).runCommand();
-            } catch (IllegalArgumentException e) {
-                return e.getMessage();
-            }
-        case "delete":
-            try {
-                int taskIndex = parseTaskIndex();
-                return new DeleteCommand(tasklist, taskIndex).runCommand();
-            } catch (IllegalArgumentException e) {
-                return e.getMessage();
-            }
-        case "find":
-            try {
-                String keyword = this.userInput[1].trim().toLowerCase();
+        try {
+            switch (instruction) {
+            case "bye":
+                this.isExitCalled = true;
+                return new ByeCommand().runCommand();
+            case "list":
+                return new ListCommand(tasklist).runCommand();
+            case "mark":
+                int markIndex = parseTaskIndex();
+                return new MarkCommand(tasklist, markIndex, true).runCommand();
+            case "unmark":
+                int unmarkIndex = parseTaskIndex();
+                return new MarkCommand(tasklist, unmarkIndex, false).runCommand();
+            case "delete":
+                int deleteIndex = parseTaskIndex();
+                return new DeleteCommand(tasklist, deleteIndex).runCommand();
+            case "find":
+                String keyword = parseKeyword();
                 return new FindCommand(tasklist, keyword).runCommand();
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                return Ui.showMissingInfoError();
-            }
-        case "todo":
-        case "deadline":
-        case "event":
-            try {
-                String taskInformation = this.userInput[1];
+            case "todo":
+            case "deadline":
+            case "event":
+                String taskInformation = parseTaskInformation();
                 return new AddCommand(tasklist, instruction, taskInformation).runCommand();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return Ui.showMissingInfoError();
+            default:
+                return Ui.showCommandFormatError();
             }
-        default:
-            return Ui.showCommandFormatError();
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
     }
 
