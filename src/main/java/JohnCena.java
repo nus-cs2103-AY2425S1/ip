@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import parser.InputHandler;
+import commands.HelloCommand;
 
 
 public class JohnCena {
@@ -31,8 +32,8 @@ public class JohnCena {
         } else {
             scanner = new Scanner(System.in);
         }
-
-        InputHandler.hello();
+        HelloCommand helloCommand = new HelloCommand();
+        helloCommand.execute();
 
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
