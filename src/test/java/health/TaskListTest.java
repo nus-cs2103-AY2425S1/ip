@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import java.util.ArrayList;
 

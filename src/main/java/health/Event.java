@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 /**
  * Represents an event task in the task management system.

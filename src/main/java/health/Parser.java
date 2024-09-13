@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 /**
  * The {@code Parser} class is responsible for interpreting and parsing user commands.

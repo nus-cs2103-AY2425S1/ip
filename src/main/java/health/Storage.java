@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import java.io.File;
 import java.io.FileNotFoundException;

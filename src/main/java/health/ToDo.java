@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 /**
  * The duke.ToDo class represents a task that only has a description and

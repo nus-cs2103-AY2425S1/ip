@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import static org.mockito.Mockito.mock;
 
@@ -86,7 +86,6 @@ public class CommandTest {
     @Test
     public void testIsExitCommand() {
         Command command = new Command("bye", "");
-
         Assertions.assertTrue(command.isExit());
     }
 }

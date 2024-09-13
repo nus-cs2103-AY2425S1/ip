@@ -34,11 +34,11 @@
 
 .scroll-bar {
     -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+    -fx-background-color: transparent;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: white;
+    -fx-background-color: #C08DFF;
     -fx-background-radius: 1em;
 }
 
@@ -48,3 +48,5 @@
     -fx-pref-height: 0;
     -fx-opacity: 0;
 }
+
+

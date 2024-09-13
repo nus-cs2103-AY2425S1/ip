@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import javafx.application.Application;
 

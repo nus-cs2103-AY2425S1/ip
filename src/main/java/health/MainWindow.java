@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +11,9 @@ import javafx.scene.layout.VBox;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    private static final String GREETING_MESSAGE = "Hello! "
+            + "I'm your friendly ChatBot assistant called MentalHealth :)\n\n"
+            + "What can I do for you?";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -26,10 +29,18 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(
             this.getClass().getResourceAsStream("/images/mental_health_robot_and_human.png")
     );
-
+    /**
+     * Initializes the main window. This method is automatically called after the FXML file has been loaded.
+     * It sets up the scroll pane to auto-scroll to the bottom whenever the dialog container's height changes,
+     * ensuring that the latest messages are always visible. Additionally, it displays an initial greeting message
+     * from the chatbot to welcome the user as soon as the application starts.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(GREETING_MESSAGE, dukeImage)
+        );
     }
 
     /** Injects the Duke instance */

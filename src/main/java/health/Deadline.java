@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

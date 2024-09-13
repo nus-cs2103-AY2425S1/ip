@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 /**
  * Represents the types of commands that can be issued by the user.

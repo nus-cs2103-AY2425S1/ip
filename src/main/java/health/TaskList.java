@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
  * as well as to retrieve the list of tasks.
  */
 public class TaskList {
+    private static final String MENTAL_HEALTH = "MentalHealth bot replies: \n\nYour TODO's \n\n";
 
     private ArrayList<IndividualTask> tasks = new ArrayList<IndividualTask>();
     /**
@@ -35,7 +36,7 @@ public class TaskList {
      * The tasks are printed with indentation and separated by a visual separator.
      */
     public String getTasks(ArrayList<IndividualTask> tasks) {
-        return IntStream.range(0, tasks.size())
+        return MENTAL_HEALTH + IntStream.range(0, tasks.size())
                 .mapToObj(i -> formatListMessage(String.valueOf(i + 1), tasks.get(i)))
                 .collect(Collectors.joining("\n"));
     }

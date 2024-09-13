@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 /**
  * Represents an abstract task with a description and a status indicating whether the task is done.

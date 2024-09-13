@@ -9,7 +9,7 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = 'duke.Launcher'
+mainClassName = 'health.Launcher'
 dependencies {
     String javaFxVersion = '17.0.7'
 
@@ -52,11 +52,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("health.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "MentalHealth"
     archiveClassifier = null
 }
 

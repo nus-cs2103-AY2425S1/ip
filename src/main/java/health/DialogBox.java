@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import java.io.IOException;
 import java.util.Collections;

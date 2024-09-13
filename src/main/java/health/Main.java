@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private MentalHealth mentalHealth = new MentalHealth("./data/duke.txt");
+    private MentalHealth mentalHealth = new MentalHealth("./data/health.txt");
 
     @Override
     public void start(Stage stage) {

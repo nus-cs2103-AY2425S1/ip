@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 
 /**
@@ -6,13 +6,8 @@ package duke;
  * It is responsible for displaying messages and reading input from the user.
  */
 public class Ui {
-    private static final String SEPARATOR = "------------------------------";
-    private static final String GREETING_MESSAGE = "Hello! "
-            + "I'm your friendly ChatBot assistant called duke.MentalHealth :)\n"
-            + "What can I do for you?";
-    private static final String GOODBYE_MESSAGE = "Bye. "
-            + "Hope to see you again soon! "
-            + "If you ever need help don't forget to reach out :)";
+
+    private static final String MENTAL_HEALTH = "MentalHealth bot replies: \n\n";
 
 
     /**
@@ -31,20 +26,13 @@ public class Ui {
     }
 
     /**
-     * Displays a greeting message to the user.
-     */
-    public void greeting() {
-        System.out.println(formatMessage(GREETING_MESSAGE));
-    }
-
-    /**
      * Formats a message by surrounding it with separator lines.
      *
      * @param msg The message to be formatted.
      * @return The formatted message with separators.
      */
     public String formatMessage(String msg) {
-        return SEPARATOR + "\n" + msg + "\n" + SEPARATOR;
+        return MENTAL_HEALTH + msg;
     }
 
     /**

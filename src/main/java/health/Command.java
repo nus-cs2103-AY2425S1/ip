@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
  */
 public class Command {
 
+    private static final String MENTAL_HEALTH = "MentalHealth bot replies: \n\n";
     private static final String ERROR_MESSAGE_UNKNOWN_COMMAND = "I'm sorry, but I don't know what that means :-(";
     private final String command;
     private final String message;
@@ -50,7 +51,7 @@ public class Command {
 
         switch (this.command) {
         case "bye":
-            return "Goodbye";
+            return MENTAL_HEALTH + "Goodbye";
         case "list":
             return tasks.getTasks(tasks.getListTask());
         case "mark":
@@ -103,16 +104,16 @@ public class Command {
         switch (checkMarkOrUnmark) {
         case "mark":
             currentTask.setMarkStatus("mark");
-            result.append("Okays! I've marked this task as done:\n")
+            result.append(MENTAL_HEALTH + "Okays! I've marked this task as done:\n")
                     .append(formatMessage(currentTask, tasks.getListTask().size()));
             break;
         case "unmark":
             currentTask.setMarkStatus("unmark");
-            result.append("Okay! I've marked this task as not done:\n")
+            result.append(MENTAL_HEALTH + "Okay! I've marked this task as not done:\n")
                     .append(formatMessage(currentTask, tasks.getListTask().size()));
             break;
         default:
-            result.append("Not a valid command.");
+            result.append(MENTAL_HEALTH + "Not a valid command.");
         }
         storage.saveTasksToFile(tasks.getListTask());
         return result.toString();
@@ -137,7 +138,9 @@ public class Command {
         IndividualTask currentTask = tasks.getListTask().get(number - 1);
         tasks.deleteTask(number - 1);
         storage.saveTasksToFile(tasks.getListTask());
-        return "Alrighty! I will remove the task:\n" + formatMessage(currentTask, tasks.getListTask().size());
+        return MENTAL_HEALTH
+                + "Alrighty! I will remove the task:\n"
+                + formatMessage(currentTask, tasks.getListTask().size());
     }
 
     private String handleUpdateCommand(String[] parts, TaskList tasks, Storage storage) throws MentalHealthException {
@@ -160,7 +163,9 @@ public class Command {
 
         storage.saveTasksToFile(tasks.getListTask());
 
-        return "Alrighty! I have updated this task:\n" + formatMessage(currentTask, tasks.getListTask().size());
+        return MENTAL_HEALTH
+                + "Alrighty! I have updated this task:\n"
+                + formatMessage(currentTask, tasks.getListTask().size());
     }
 
     private void handleUpdateTask(IndividualTask currentTask, String fieldToUpdate, String newValue)
@@ -227,7 +232,7 @@ public class Command {
             return "No matching tasks found.";
         }
 
-        return "Here are your matching tasks!\n" + tasks.getTasks(matchingTasks);
+        return MENTAL_HEALTH + "Here are your matching tasks!\n" + tasks.getTasks(matchingTasks);
     }
 
     /**
@@ -270,7 +275,7 @@ public class Command {
         if (!this.message.isEmpty()) {
             return processCustomCommand(tasks, storage);
         }
-        return "Unknown message";
+        return MENTAL_HEALTH + "Unknown message";
     }
 
 
@@ -327,7 +332,7 @@ public class Command {
         String todo = this.message.substring(type.length()).trim();
         ToDo newTodo = new ToDo(todo);
         tasks.addTask(newTodo);
-        result.append("Okays! I've added this task:\n")
+        result.append(MENTAL_HEALTH + "Okays! I've added this task:\n")
                 .append(formatMessage(newTodo, tasks.getListTask().size()));
 
         return result.toString();
@@ -350,7 +355,7 @@ public class Command {
             String by = parts[1].trim();
             Deadline newDeadline = new Deadline(description, by);
             tasks.addTask(newDeadline);
-            result.append("Okays! I've added this task:\n")
+            result.append(MENTAL_HEALTH + "Okays! I've added this task:\n")
                     .append(formatMessage(newDeadline, tasks.getListTask().size()));
         } else {
             throw new MentalHealthException("The string doesn't contain the expected format for a deadline.");
@@ -383,7 +388,7 @@ public class Command {
         Event newEvent = new Event(description, from, to);
         tasks.addTask(newEvent);
 
-        return "Okays! I've added this task:\n" + formatMessage(newEvent, tasks.getListTask().size());
+        return MENTAL_HEALTH + "Okays! I've added this task:\n" + formatMessage(newEvent, tasks.getListTask().size());
     }
 
     /**

@@ -1,4 +1,4 @@
-package duke;
+package health;
 
 /**
  * The {@code MentalHealthException} class represents an exception specific to the
