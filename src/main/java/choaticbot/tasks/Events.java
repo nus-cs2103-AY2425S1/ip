@@ -1,5 +1,7 @@
 package choaticbot.tasks;
 
+import choaticbot.exceptions.WrongInputFormatException;
+
 /**
  * The {@code Events} class represents a task that occurs during a specific time frame, with a start and end time.
  * It extends the {@link Task} class and includes the start and end times as additional fields.
@@ -59,6 +61,24 @@ public class Events extends Task {
     @Override
     public String toFileString() {
         return getType() + "|" + getName() + "|" + isComplete() + "|" + getAdditionalInfo();
+    }
+
+    /**
+     * Updates information about the task, such as description or times.
+     *
+     * @param details A string containing task information to update.
+     * @throws WrongInputFormatException If the user input is of wrong format.
+     */
+    @Override
+    public void update(String details) throws WrongInputFormatException {
+        String[] eventDetails = details.split("/");
+        if (eventDetails.length != 3) {
+            throw new WrongInputFormatException("Expected format example: Buy a kite event /from Monday /to Saturday");
+        }
+
+        super.changeName(eventDetails[0]);
+        this.start = eventDetails[1];
+        this.end = eventDetails[2];
     }
 
     /**

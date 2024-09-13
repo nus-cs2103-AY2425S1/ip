@@ -5,6 +5,7 @@ import static choaticbot.ui.Ui.printLine;
 import java.util.ArrayList;
 
 import choaticbot.exceptions.ChoaticBotException;
+import choaticbot.exceptions.WrongInputFormatException;
 
 /**
  * Represents a list of tasks. Provides methods to manage and manipulate tasks, including adding, deleting,
@@ -115,5 +116,22 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return this.tasklist;
+    }
+
+    /**
+     * Updates the task at the specified index with the new details provided.
+     * This method delegates the task update logic to the individual task's {@code update} method.
+     *
+     * @param index The index of the task to be updated (1-based index).
+     * @param details The new details to update the task with. The format of the details
+     *                depends on the type of task (e.g., deadline tasks need a date).
+     * @throws WrongInputFormatException If the details provided do not match the expected format for the task type.
+     */
+    public void updateTask(int index, String details) throws WrongInputFormatException {
+        this.tasklist.get(index - 1).update(details);
+
+        printLine();
+        System.out.println("Updated task " + index + " to: " + this.tasklist.get(index - 1));
+        printLine();
     }
 }

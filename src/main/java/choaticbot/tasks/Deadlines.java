@@ -1,7 +1,10 @@
 package choaticbot.tasks;
 
+import choaticbot.exceptions.WrongInputFormatException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The {@code Deadlines} class represents a task with a specific deadline.
@@ -31,9 +34,13 @@ public class Deadlines extends Task {
      * @param name The name of the task.
      * @param deadlineString The deadline string in the format {@code yyyy-MM-dd HH:mm}.
      */
-    public Deadlines(String name, String deadlineString) {
+    public Deadlines(String name, String deadlineString) throws WrongInputFormatException{
         super(name);
-        this.deadline = LocalDateTime.parse(deadlineString, INPUT_FORMAT);
+        try {
+            this.deadline = LocalDateTime.parse(deadlineString, INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new WrongInputFormatException("Expected format example: Read a book /by 2024-01-31 18:00");
+        }
     }
 
     /**
@@ -65,6 +72,27 @@ public class Deadlines extends Task {
     @Override
     public String toFileString() {
         return getType() + "|" + getName() + "|" + isComplete() + "|" + getAdditionalInfo();
+    }
+
+    /**
+     * Updates information about the task, such as description or times.
+     *
+     * @param details A string containing task information to update.
+     * @throws WrongInputFormatException If the user input is of wrong format.
+     */
+    @Override
+    public void update(String details) throws WrongInputFormatException {
+        String[] deadlineDetails = details.split("/by ");
+        if (deadlineDetails.length != 2) {
+            throw new WrongInputFormatException("Expected format example: Read a book /by 2024-01-31 18:00");
+        }
+
+        try {
+            this.deadline = LocalDateTime.parse(deadlineDetails[1], INPUT_FORMAT);
+            super.changeName(deadlineDetails[0]);
+        } catch (DateTimeParseException e) {
+            throw new WrongInputFormatException("Expected format example: Read a book /by 2024-01-31 18:00");
+        }
     }
 
     /**

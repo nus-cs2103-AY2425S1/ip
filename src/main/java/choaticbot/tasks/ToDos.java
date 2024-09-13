@@ -1,5 +1,7 @@
 package choaticbot.tasks;
 
+import choaticbot.exceptions.WrongInputFormatException;
+
 /**
  * Represents a To-Do task. This class extends the {@code Task} class and implements
  * the specifics for To-Do tasks, including how to represent them in string format for storage.
@@ -45,6 +47,17 @@ public class ToDos extends Task {
     @Override
     public String toFileString() {
         return getType() + "|" + getName() + "|" + isComplete();
+    }
+
+    /**
+     * Updates information about the task, such as description or times.
+     *
+     * @param details A string containing task information to update.
+     * @throws WrongInputFormatException If the user input is of wrong format.
+     */
+    @Override
+    public void update(String details) throws WrongInputFormatException {
+        super.changeName(details);
     }
 
     /**
