@@ -107,7 +107,10 @@ public class Parser {
      * @return the int in the input string
      */
     public int extractNum(String input) {
+        assert input != null;
+
         int length = input.length();
+        assert length > 0;
         StringBuilder numberBuild = new StringBuilder();
         for (int i = length - 1; i >= 0; i--) {
             char currentChar = input.charAt(i);
@@ -156,7 +159,6 @@ public class Parser {
                     if (!commandEncountered) {
                         i += 2;
                         commandEncountered = true;
-                        continue;
 
                     }
 

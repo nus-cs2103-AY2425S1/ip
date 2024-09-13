@@ -52,10 +52,13 @@ public class Storage {
         checkDirectory();
 
         File file = new File(HIST_FILE);
+
         try {
             if (!file.exists()) {
                 file.createNewFile();
             }
+
+
             FileWriter writer = new FileWriter(file);
 
             StringBuilder history = new StringBuilder();

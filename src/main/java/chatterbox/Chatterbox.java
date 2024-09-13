@@ -88,6 +88,7 @@ public class Chatterbox {
          * @return returns the task that was marked
          */
         public Task markTask(int index) {
+            assert index  >= 0;
             userTasks.get(index).setStatus(true);
             return userTasks.get(index);
         }
@@ -98,6 +99,7 @@ public class Chatterbox {
          * @return the task that was unmarked
          */
         public Task unmarkTask(int index) {
+            assert index >= 0;
             userTasks.get(index).setStatus(false);
             return userTasks.get(index);
         }
