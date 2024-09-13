@@ -39,7 +39,7 @@ public class InputHandler {
         } else if (input.equals("list")) {
             StringBuilder res = new StringBuilder();
             for (int i = 0; i < data.size(); i++) {
-                res.append((i + 1)).append(".").append(data.get(i).toString() + "\n");
+                res.append((i + 1)).append(".").append(data.get(i).toString()).append("\n");
             }
             return res.toString();
         } else if (input.startsWith("todo")) {
@@ -149,7 +149,8 @@ public class InputHandler {
         if (parts.length < 3 || parts[0].length() <= 6) {
             throw new BuzzException("OOPS!!! The description of an event cannot be empty.");
         }
-        Task task = new Event(parts[0].substring(6), parts[1].substring(5), parts[2].substring(3));
+        Task task = new Event(parts[0].substring(6), parts[1].substring(5),
+                parts[2].substring(3));
         data.add(task);
         return "Understood boss. Added!\n" + task.toString() + "\n"
                 + "You currently have " + data.size() + " missions available *reeeee*";
@@ -171,7 +172,7 @@ public class InputHandler {
         for (int i = 0; i < data.size(); i++) {
             Task task = data.get(i);
             if (task.description.contains(wordSearch)) {
-                result.append(tasks).append(".").append(task.toString() + "\n");
+                result.append(tasks).append(".").append(task.toString()).append("\n");
                 tasks++;
             }
         }

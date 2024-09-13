@@ -49,53 +49,107 @@ public class Storage {
         ArrayList<Task> database = new ArrayList<>();
         File file = new File(this.file);
         File directory = new File(file.getParent());
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        checkFile(file);
+        checkDirectory(directory);
+        loader(file, database);
+        return database;
+    }
 
-        if (!file.exists()) {
+    /**
+     * Checks if the file provided exists so that the loading of the tasks can be done
+     *
+     * @param f File to load the tasks into
+     */
+    private void checkFile(File f) {
+        if (!f.exists()) {
             try {
-                file.createNewFile();
+                f.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
+                System.out.println("ERROR: " + e.getMessage());
             }
         }
+    }
 
+    /**
+     * Checks if the file provided exists so that the loading of tasks can be done to
+     * the directory
+     *
+     * @param d File path provided for the directory
+     */
+    private void checkDirectory(File d) {
+        if (!d.exists()) {
+            d.mkdirs();
+        }
+    }
+
+    /**
+     * Loads the data collected from the user to the output file path
+     *
+     * @param f File to store the data provided by the user
+     * @param database to keep track of the tasks provided by the user
+     */
+    private void loader(File f, ArrayList<Task> database) {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                Task task = null;
-                try {
-                    switch (parts[0]) {
-                        case "T":
-                            task = new Todo(parts[2]);
-                            assert task.description != null : "task description cannot be empty";
-                            break;
-                        case "D":
-                            task = new Deadline(parts[2], parts[3]);
-                            assert task.description != null : "task description cannot be empty";
-                            break;
-                        case "E":
-                            task = new Event(parts[2], parts[3], parts[4]);
-                            assert task.description != null : "task description cannot be empty";
-                            break;
-                        default:
-                            task = task;
-                            break;
-                    }
-                    if (task != null) {
-                        task.setDone(parts[1].equals("1")); // Set the task's done status
-                        database.add(task); // Add task to the database
-                    }
-                } catch (BuzzException e) {
-                    System.out.println("ERROR!: " + e.getMessage());
-                }
-            }
+            String line = "";
+            fileParser(f, line, reader, database);
+
         } catch (IOException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
-        return database;
     }
+
+    /**
+     * Parses through the file and adds the tasks to the to do list in the output file
+     *
+     * @param f File path to have the output to do list
+     * @param line each line in the output file to read one by one
+     * @param reader reads the next line as it goes
+     * @param database to keep track of the tasks provided by the user
+     * @throws IOException if the reading of the file has an issue
+     */
+    private void fileParser(File f, String line, BufferedReader reader, ArrayList<Task> database)
+            throws IOException {
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(" \\| ");
+            Task task = null;
+            try {
+                parserHandle(task, parts, database);
+            } catch (BuzzException e) {
+                System.out.println("ERROR: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Handles the different types of commands provided by the user to load the
+     * tasks afterward into the output file
+     *
+     * @param task the current task being read by the program
+     * @param parts breakdown of the text provided by the user
+     * @param database to keep track of the tasks in the todo list currently
+     * @throws BuzzException if any of the creation of the tasks lead to an error regarding
+     * descriptions and formatting
+     */
+    private void parserHandle(Task task, String[] parts, ArrayList<Task> database) throws BuzzException {
+        switch (parts[0]) {
+            case "T":
+                task = new Todo(parts[2]);
+                break;
+            case "D":
+                task = new Deadline(parts[2], parts[3]);
+                break;
+            case "E":
+                task = new Event(parts[2], parts[3], parts[4]);
+                break;
+            default:
+                task = task;
+                break;
+        }
+        if (task != null) {
+            task.setDone(parts[1].equals("1")); // Set the task's done status
+            database.add(task); // Add task to the database
+        }
+    }
+
 
 }
