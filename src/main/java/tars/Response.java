@@ -46,43 +46,49 @@ public class Response {
      * @param tasks The {@link TaskList} object containing the tasks to be modified or accessed.
      */
     public String generateResponse(String input, TaskList tasks) {
-        if (input.contains("mark")) {
-            try {
-                return markCommand.execute(input, tasks);
-            } catch (TarsException e) {
-                return e.getMessage();
+
+        String command = input.split(" ", 2)[0].trim();
+
+        switch (command) {
+            case "mark", "unmark" -> {
+                try {
+                    return markCommand.execute(input, tasks);
+                } catch (TarsException e) {
+                    return e.getMessage();
+                }
             }
 
-        } else if (input.contains("delete")) {
-            try {
-                return deleteCommand.execute(input, tasks);
-            } catch (TarsException e) {
-                return e.getMessage();
+            case "delete" -> {
+                try {
+                    return deleteCommand.execute(input, tasks);
+                } catch (TarsException e) {
+                    return e.getMessage();
+                }
             }
 
-        } else if (input.contains("find")){
-            try {
-                return findCommand.execute(input, tasks);
-            } catch (TarsException e) {
-                return e.getMessage();
+            case "find" -> {
+                try {
+                    return findCommand.execute(input, tasks);
+                } catch (TarsException e) {
+                    return e.getMessage();
+                }
             }
 
-        } else {
-            try {
-                return addCommand.execute(input, tasks);
-            } catch (TarsException e) {
-                return e.getMessage();
+            default -> {
+                try {
+                    return addCommand.execute(input, tasks);
+                } catch (TarsException e) {
+                    return e.getMessage();
 
+                }
             }
         }
-
     }
 
     /**
      * Displays the introductory message when the TARS application starts.
      */
-    public String intro() {
-
+    public String displayIntro() {
         return ("""
                 \nGreetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
                 Let's get this chat started! Just remember, my humor setting is at 75%, so things might get a bit cheeky.""");
@@ -91,7 +97,7 @@ public class Response {
     /**
      * Displays the outro message when the TARS application is about to exit.
      */
-    public String outro() {
+    public String displayOutro() {
 
         return """
                 Well, that's a wrap! If you need anything else, just holler.

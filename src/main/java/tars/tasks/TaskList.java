@@ -90,6 +90,12 @@ public class TaskList {
      * @throws TarsException if the index is out of range or if the input format is invalid.
      */
     public Task findTask(String input) {
+
+        String[] inputSplit = input.split(" ");
+        if (inputSplit.length > 2) {
+            throw new TarsException("Too many arguments");
+        }
+
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(input);
 
