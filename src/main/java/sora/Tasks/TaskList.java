@@ -97,6 +97,7 @@ public class TaskList {
      * @throws SoraException If parsedCommand is invalid.
      */
     public Task addTask(String mainCommand, ArrayList<String> parsedCommand) throws SoraException {
+        assert !mainCommand.isEmpty() : "MainCommand in TaskList::addTask should not be Empty\n";
         switch (mainCommand) {
         case "todo":
             try {
@@ -107,6 +108,7 @@ public class TaskList {
             }
         case "deadline":
             try {
+                // Obtain by or byDate
                 String by = parsedCommand.get(2).substring(3);
                 LocalDateTime byDate = Parser.parseDate(by);
                 if (byDate == null) {
@@ -120,8 +122,10 @@ public class TaskList {
             }
         case "event":
             try {
+                // Obtain from or fromDate
                 String from = parsedCommand.get(2).substring(5);
                 LocalDateTime fromDate = Parser.parseDate(from);
+                // Obtain to or toDate
                 String to = parsedCommand.get(3).substring(3);
                 LocalDateTime toDate = Parser.parseDate(to);
                 if (fromDate != null && toDate != null) {
@@ -173,6 +177,7 @@ public class TaskList {
      * @return Stringbuilder containing the Tasks in String Format.
      */
     public StringBuilder findTask(String s) {
+        assert !s.isEmpty() : "Substring in TaskList::findTask should not be Empty!\n";
         HashMap<Integer, Task> taskListFound = new HashMap<>();
         int index = 1;
         for (Task t : this.taskList) {
