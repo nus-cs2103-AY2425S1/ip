@@ -12,6 +12,7 @@ import lict.LictException;
  * the {@code toString} and {@code toData} methods.
  */
 public class Event extends Task {
+    private static final String TIME_ONLY_REGEX = "\\d{4}";
     protected DateTime from;
     protected DateTime to;
 
@@ -28,8 +29,8 @@ public class Event extends Task {
         try {
             this.from = new DateTime(from);
             //If 'to' only contains time, assume that it has the same date as from
-            if (to.matches("\\d{4}")) {
-                String date = this.from.getData().split(" ")[0];
+            if (to.matches(TIME_ONLY_REGEX)) {
+                String date = this.from.getData().split(WHITESPACE_DELIMITER)[0];
                 this.to = new DateTime(date + " " + to);
             } else {
                 this.to = new DateTime(to);
@@ -66,7 +67,7 @@ public class Event extends Task {
      * @throws LictException If the data string is invalid or the date/time format is incorrect.
      */
     public static Event loadTask(String dataMessage) throws LictException {
-        String[] messageParts = dataMessage.split("\\|", 3);
+        String[] messageParts = dataMessage.split(PIPE_DELIMITER, 3);
         String description = messageParts[0].trim();
         if (description.isEmpty() || messageParts.length != 3) {
             throw new LictException("Data is faulty. Discarding...");

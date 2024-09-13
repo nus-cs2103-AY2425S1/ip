@@ -22,6 +22,7 @@ import lict.command.UnmarkCommand;
  * creating the corresponding command.
  */
 public class Parser {
+    protected static final String WHITESPACE_DELIMITER = "\\s+";
 
     /**
      * The {@code Parser} class is responsible for interpreting and converting user input strings into
@@ -50,7 +51,7 @@ public class Parser {
      * @throws LictException If the input does not match any known command types.
      */
     public static Command parse(String command) throws LictException {
-        String[] commandParts = command.split("\\s+", 2);
+        String[] commandParts = command.split(WHITESPACE_DELIMITER, 2);
         Command c = null;
         try {
             String commandWord = commandParts[0].trim().toUpperCase();

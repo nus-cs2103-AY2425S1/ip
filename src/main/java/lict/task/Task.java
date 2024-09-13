@@ -10,6 +10,8 @@ import lict.LictException;
  */
 
 public abstract class Task {
+    protected static final String PIPE_DELIMITER = "\\|";
+    protected static final String WHITESPACE_DELIMITER = "\\s+";
     protected String description;
     protected boolean isDone;
 
@@ -79,7 +81,7 @@ public abstract class Task {
      * @return The {@code Task} object created from the data string, or {@code null} if the data is invalid.
      */
     public static Task convertData(String data) {
-        String[] dataParts = data.split("\\|", 3);
+        String[] dataParts = data.split(PIPE_DELIMITER, 3);
         if (dataParts.length < 3) {
             return null;
         }

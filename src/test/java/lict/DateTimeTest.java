@@ -1,9 +1,11 @@
 package lict;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.time.DateTimeException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class DateTimeTest {
 
@@ -38,7 +40,8 @@ public class DateTimeTest {
             new DateTime("2024-09-54 2612");
             fail("DateTimeException was not thrown");
         } catch (DateTimeException e) {
-            assertEquals("Text '2024-09-54 2612' could not be parsed: Invalid value for DayOfMonth (valid values 1 - 28/31): 54", e.getMessage());
+            assertEquals("Text '2024-09-54 2612' could not be parsed: "
+                    + "Invalid value for DayOfMonth (valid values 1 - 28/31): 54", e.getMessage());
         }
     }
 
