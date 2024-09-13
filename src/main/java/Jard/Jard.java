@@ -94,15 +94,15 @@ public class Jard {
         return response;
     }
 
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
+    }
+
     /**
      * The main method serves as the entry point for the application.
      *
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        Jard jard = new Jard("./data/duke.txt");
-        String welcomeMessage = jard.ui.showWelcome();
-        // Pass welcomeMessage to GUI
-        // Set up JavaFX GUI components and bind them to Jard methods
     }
 }

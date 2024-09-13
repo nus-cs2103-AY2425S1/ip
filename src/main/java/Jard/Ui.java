@@ -20,12 +20,7 @@ public class Ui {
      */
     public String showWelcome() {
         output.setLength(0);  // Clear previous output
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        output.append("Hello from\n").append(logo)
+        output.append("Hello from Jardaloon\n")
                 .append("Hello! I'm Jard.\n")
                 .append("What can I do for you?");
         return output.toString();

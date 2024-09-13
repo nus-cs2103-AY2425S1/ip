@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.application.Platform;
+
 /**
  * Controller for the main GUI.
  */
@@ -31,9 +33,13 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setJard(Jard j) {
+    public void setJard(Jard j, String welcomeMessage) {
         assert j != null : "Jard! Instance should not be null.";
         jard = j;
+
+        dialogContainer.getChildren().add(
+                DialogBox.getJardResponse(welcomeMessage, dukeImage)
+        );
     }
 
     /**
@@ -44,10 +50,19 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jard.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJardResponse(response, dukeImage)
-        );
+
+        if (input.equals("bye")) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getJardResponse(response, dukeImage)
+            );
+            Platform.exit();
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getJardResponse(response, dukeImage)
+            );
+        }
+
         userInput.clear();
     }
 }
