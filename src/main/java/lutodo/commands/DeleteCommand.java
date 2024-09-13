@@ -31,6 +31,7 @@ public class DeleteCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {
+        assert fullCommand != null : "task message cannot be null";
         if (Parser.splitTaskInfo(fullCommand).length <= 1) {
             System.out.println("You are not telling me which task should I delete :-(");
         }
@@ -53,6 +54,7 @@ public class DeleteCommand extends Command{
      */
     @Override
     public String executeAndRespond(TaskList tasks, Storage storage) {
+        assert fullCommand != null : "task message cannot be null";
         if (Parser.splitTaskInfo(fullCommand).length <= 1) {
             return  "You are not telling me which task should I delete :-(";
         }
