@@ -1,49 +1,25 @@
 package flychat.core;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 /**
  * Contains methods dealing with user interaction, such as scanning for user input and
  * managing output to System.out.
  */
 public class Ui {
-    private static final String lineBreak = "\n--------------------\n";
-    private Scanner userInput = new Scanner(System.in);
+    private static final String lineBreak = "--------------------\n";
 
 
     /**
      * Outputs the application start-up text to the user.
      */
-    public void greetUser() {
-        System.out.println(lineBreak);
-        System.out.println("Hello! I'm FlyChat\nWhat can I do for you?");
-        System.out.println(lineBreak);
+    public static String greetUser() {
+        return lineBreak + "Hello! I'm FlyChat\nWhat can I do for you?\n" + lineBreak;
     }
 
     /**
      * Outputs the application closing text to the user.
      */
-    public void bye() {
-        System.out.println(lineBreak);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(lineBreak);
-        userInput.close();
-    }
-
-    /**
-     * Scans for user input and returns the scanned input to the system.
-     *
-     * @return Scanned user input.
-     * @throws IOException If no input is detected.
-     */
-    public String getNextLine() throws IOException {
-        if (userInput.hasNextLine()) {
-            String inputString = userInput.nextLine();
-            return inputString;
-        } else {
-            throw new IOException("Scanner is unable to scan any input");
-        }
+    public String bye() {
+        return lineBreak + "Bye. Hope to see you again soon!\n" + lineBreak;
     }
 
     /**
@@ -51,9 +27,7 @@ public class Ui {
      *
      * @param str String to be announced.
      */
-    public void announceString(String str) {
-        System.out.println(lineBreak);
-        System.out.println(str);
-        System.out.println(lineBreak);
+    public String announceString(String str) {
+        return lineBreak + str + "\n" + lineBreak;
     }
 }

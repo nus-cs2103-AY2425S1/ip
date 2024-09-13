@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("FlyChat.Core.FlyChat")
+    mainClass.set("flychat.javafx.Launcher")
 }
 
 shadowJar {

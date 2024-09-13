@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
-import flychat.tasks.Deadline;
+import flychat.Deadline;
 import flychat.tasks.Event;
 import flychat.tasks.Task;
 import flychat.tasks.Todo;
@@ -73,10 +73,10 @@ public class TaskList {
     public String announceItems() {
         String finalString = "";
         //i is used to print out the index of each item so it has to be incremented
-        for (int i = 0; i < storageList.size(); i++) {
+        for (int i = 0; i < storageList.size() - 1; i++) {
             finalString += ((i + 1) + ". " + storageList.get(i) + "\n");
         }
-        return finalString;
+        return finalString + storageList.size() + ". " + storageList.get(storageList.size() - 1);
     }
 
     /**

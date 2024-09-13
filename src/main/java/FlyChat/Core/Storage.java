@@ -17,6 +17,11 @@ public class Storage {
      * new save file.
      */
     public void findSaveFile(String filePath) {
+        File storageFolder = new File("./data");
+        if (!storageFolder.exists()) {
+            storageFolder.mkdirs();
+        }
+
         try {
             saveFile = new File(filePath);
             saveFile.createNewFile();

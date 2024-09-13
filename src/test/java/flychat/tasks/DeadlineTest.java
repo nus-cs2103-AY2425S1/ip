@@ -7,6 +7,8 @@ import java.util.InputMismatchException;
 
 import org.junit.jupiter.api.Test;
 
+import flychat.Deadline;
+
 public class DeadlineTest {
 
     @Test

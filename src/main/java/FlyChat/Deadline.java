@@ -1,9 +1,11 @@
-package flychat.tasks;
+package flychat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
+
+import flychat.tasks.Task;
 
 /**
  * Represents the deadline task type.
