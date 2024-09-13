@@ -59,7 +59,11 @@ public abstract class Command {
      * @param storage The {@link Storage} which may be required for the command.
      * @throws EkudException If the command execution cannot be completed.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException;
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+        assert tasks != null : "tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "storage should not be null";
+    }
 
     /**
      * Returns {@code true} if the command is a terminating command.

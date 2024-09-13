@@ -43,6 +43,10 @@ public abstract class Task {
      * @see ekud.components.Storage#loadTasks(TaskList, Ui)
      */
     public static Task getTaskFromSave(String taskSaveString, Ui ui) {
+        boolean isNonEmptySaveString = (taskSaveString != null && !taskSaveString.isEmpty());
+        assert isNonEmptySaveString : "taskSaveString should be non-empty";
+        assert ui != null : "ui should not be null";
+
         try {
             taskSaveString = taskSaveString.trim(); // removes extra new lines
             String[] args = taskSaveString.split("(\\s\\|\\s)"); // splits string along < | > delimiter
@@ -83,6 +87,8 @@ public abstract class Task {
      * @see EkudException
      */
     public static Task getTaskFromTokens(HashMap<String, String> tokens) throws EkudException {
+        assert tokens != null : "tokens should not be null";
+
         String type = tokens.get("command").toLowerCase();
         String argument = tokens.get("argument");
 
