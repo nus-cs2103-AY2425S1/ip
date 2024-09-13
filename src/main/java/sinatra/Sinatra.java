@@ -2,6 +2,7 @@ package sinatra;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -81,6 +82,21 @@ public class Sinatra {
     }
 
     /**
+     * Checks if the task is already in the this.tasks.
+     *
+     * @param testTask
+     * @return
+     */
+    private boolean isTaskInTasksMemory(Task testTask) {
+        for (Task task : tasks) {
+            if (Objects.equals(task.getContent(), testTask.getContent())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Handles the user inputs and performs the corresponding actions.
      *
      * @param message the user input message
@@ -120,6 +136,10 @@ public class Sinatra {
                     throw new SinatraException(TODO_EXCEPTION_MESSAGE);
                 }
                 ToDo toDo = new ToDo(commandContents, false);
+                if (isTaskInTasksMemory(toDo)) {
+                    output.add("Task already exists and was not added");
+                    break;
+                }
                 toDo.appendToStorage(FILE_PATH);
                 tasks.add(toDo);
                 output.add(ADDED_TASK_MESSAGE);
@@ -134,6 +154,10 @@ public class Sinatra {
                 String content = parts[0];
                 String dateTimeString = parts[1];
                 Deadline deadline = new Deadline(content, false, dateTimeString);
+                if (isTaskInTasksMemory(deadline)) {
+                    output.add("Task already exists and was not added");
+                    break;
+                }
                 deadline.appendToStorage(FILE_PATH);
                 tasks.add(deadline);
                 output.add(ADDED_TASK_MESSAGE);
@@ -150,6 +174,10 @@ public class Sinatra {
                 String from = timeParts[0];
                 String to = timeParts[1];
                 Event event = new Event(eventContent, false, from, to);
+                if (isTaskInTasksMemory(event)) {
+                    output.add("Task already exists and was not added");
+                    break;
+                }
                 event.appendToStorage(FILE_PATH);
                 tasks.add(event);
                 output.add(ADDED_TASK_MESSAGE);

@@ -11,7 +11,7 @@ public class Task {
     /**
      * Constructs a new Task with the specified content and status.
      *
-     * @param content the content of the task
+     * @param content  the content of the task
      * @param isStatus the status of the task
      */
     public Task(String content, Boolean isStatus) {
@@ -26,7 +26,11 @@ public class Task {
      */
     public void appendToStorage(String filename) {
         Storage storage = new Storage(filename);
-        storage.appendLineToTxtFile(getDataForStorage());
+        try {
+            storage.appendLineToTxtFile(getDataForStorage());
+        } catch (SinatraException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
 
     /**

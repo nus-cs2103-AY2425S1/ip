@@ -24,11 +24,46 @@ public class Storage {
     }
 
     /**
+     * Checks if a line is in the storage.
+     *
+     * @param line the line to check
+     * @return true if the line is in the storage, false otherwise
+     */
+
+    public boolean isLineInStorage(String line) {
+        try {
+            File file = new File(this.fileName);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                if (data.equals(line)) {
+                    scanner.close();
+                    return true;
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("file not created");
+            File file = new File(this.fileName);
+            try {
+                file.createNewFile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
      * Appends a line to the text file.
      *
      * @param line the line to append to the file
+     * @return
      */
-    public void appendLineToTxtFile(String line) {
+    public void appendLineToTxtFile(String line) throws SinatraException {
+        if (isLineInStorage(line)) {
+            throw new SinatraException("Line already in storage");
+        }
         System.out.println("appending line");
         File f = new File(this.fileName);
         assert f.exists() : this.fileName + " does not exist";
