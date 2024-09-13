@@ -133,4 +133,22 @@ public class Ui {
         }
         return builder.toString();
     }
+
+    /**
+     * Displays the list of tasks that are due within a specified number of days.
+     *
+     * @param tasks The list of tasks that were found to be due soon.
+     */
+    public String showTasksDueSoon(ArrayList<Task> tasks, int daysFromNow) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Here are the tasks in your list that are due in " + daysFromNow + " days:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            builder.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
+        }
+        return builder.toString();
+    }
+
+    public String showNoTasksDue(int daysFromNow) {
+        return "There are no tasks due in " + daysFromNow + " days";
+    }
 }

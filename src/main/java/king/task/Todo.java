@@ -1,5 +1,7 @@
 package king.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task that is a to-do item.
  */
@@ -43,5 +45,10 @@ public class Todo extends Task {
     @Override
     public String toFileString() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
+    @Override
+    public LocalDateTime getDueDateTime() {
+        return LocalDateTime.now();
     }
 }

@@ -1,16 +1,6 @@
 package king;
 
-import king.commands.Command;
-import king.commands.DeadlineCommand;
-import king.commands.DeleteCommand;
-import king.commands.EventCommand;
-import king.commands.ExitCommand;
-import king.commands.FindCommand;
-import king.commands.InvalidCommand;
-import king.commands.ListCommand;
-import king.commands.MarkCommand;
-import king.commands.TodoCommand;
-import king.commands.UnmarkCommand;
+import king.commands.*;
 
 /**
  * The Parser class interprets the user's input command and returns the corresponding Command object.
@@ -46,6 +36,8 @@ public class Parser {
             return new ExitCommand();
         case "find":
             return new FindCommand(parts[1]);
+        case "remind":
+            return new ReminderCommand(parts[1]);
         default:
             return new InvalidCommand();
         }

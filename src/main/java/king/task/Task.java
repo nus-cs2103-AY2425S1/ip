@@ -23,6 +23,10 @@ public abstract class Task {
         return this.description;
     }
 
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
     /**
      * Returns the status icon of the task.
      *
@@ -99,4 +103,6 @@ public abstract class Task {
      * @return A string representing the task in a file format.
      */
     public abstract String toFileString();
+
+    public abstract LocalDateTime getDueDateTime();
 }

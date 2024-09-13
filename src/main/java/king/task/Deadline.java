@@ -54,4 +54,9 @@ public class Deadline extends Task {
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
     }
+
+    @Override
+    public LocalDateTime getDueDateTime() {
+        return this.by;
+    }
 }
