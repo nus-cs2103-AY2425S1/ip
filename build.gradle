@@ -63,7 +63,7 @@ run{
 }
 
 checkstyle {
-    toolVersion = '10.2'
+    toolVersion = '10.18'
 }
 
 java {
