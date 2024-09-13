@@ -25,9 +25,12 @@ public class Event extends Task {
      */
     public Event(String description, String eventStart, String eventEnd) throws ToothlessExceptions {
         super(description);
+        assert eventStart != null : "Event start should not be null";
+        assert eventEnd != null : "Event end should not be null";
         try {
             this.eventStart = LocalDateTime.parse(eventStart.trim().replace("-", "/"), INPUT_FORMATTER);
             this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-", "/"), INPUT_FORMATTER);
+            assert this.eventStart.isBefore(this.eventEnd) : "The start date and time should be before the end date and time";
         } catch (Exception e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
                     + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");
@@ -45,6 +48,8 @@ public class Event extends Task {
      */
     public Event(String description, String eventStart, String eventEnd, boolean isDone) throws ToothlessExceptions {
         super(description, isDone);
+        assert eventStart != null : "Event start should not be null";
+        assert eventEnd != null : "Event end should not be null";
         try {
             this.eventStart = LocalDateTime.parse(eventStart.trim().replace("-", "/"), INPUT_FORMATTER);
             this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-", "/"), INPUT_FORMATTER);

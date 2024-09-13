@@ -45,6 +45,8 @@ public class Ui {
      * @param size The size of the task list.
      */
     public String addTaskMessage(Task task, int size) {
+        assert task != null : "Task should not be null";
+        assert size >= 0 : "Size should not be negative";
         return "Your task\n\t\t"
                 + task + "\nadded to the quest board!\n\n"
                 + "Now there is " + size + " quests in your quest board.\n\n";
@@ -64,6 +66,7 @@ public class Ui {
      * @param task The task that is marked as done.
      */
     public String markDoneMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "Good job! You had completed this quest!\n"
                 + task + "\n\n";
     }
@@ -74,6 +77,7 @@ public class Ui {
      * @param task The task that is marked as undone.
      */
     public String markUndoneMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "Oops! Quest is back in play!\n"
                 + task + "\n\n";
     }

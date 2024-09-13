@@ -16,6 +16,7 @@ public class FindCommand extends Command {
 
     @Override
     public String executeCommand(TaskList taskList, Ui ui, Storage storage) {
+        assert keyword != null : "Description cannot be null";
         return taskList.findTask(keyword);
     }
 }

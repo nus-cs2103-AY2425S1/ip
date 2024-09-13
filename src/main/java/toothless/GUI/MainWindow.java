@@ -47,6 +47,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "Input should not be null";
         boolean isExit = false;
         if (input.equalsIgnoreCase("bye")) {
             isExit = true;

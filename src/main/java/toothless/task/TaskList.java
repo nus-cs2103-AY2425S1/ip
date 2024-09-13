@@ -38,6 +38,7 @@ public class TaskList {
      * @param taskList The task list.
      */
     public String addTask(Task task, Ui ui, TaskList taskList) {
+        assert task != null : "Task should not be null";
         list.add(task);
         return ui.addTaskMessage(task, taskList.getList().size());
     }
@@ -70,6 +71,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public String markDone(int index, Ui ui) throws ToothlessExceptions {
+        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
@@ -85,6 +87,7 @@ public class TaskList {
      * @param index The index of the task to be marked as undone.
      */
     public String markUndone(int index, Ui ui) throws ToothlessExceptions {
+        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
@@ -101,6 +104,7 @@ public class TaskList {
      * @throws ToothlessExceptions If the index is out of range.
      */
     public String deleteTask(int index) throws ToothlessExceptions {
+        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
@@ -120,6 +124,7 @@ public class TaskList {
      * @param keyword The keyword to be searched.
      */
     public String findTask(String... keyword) {
+        assert keyword != null : "Keyword should not be null";
         StringBuilder response = new StringBuilder("Here are the quests that match your keyword:\n");
         int taskCount = 0;
         for (Task task : list) {
