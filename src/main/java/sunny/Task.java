@@ -1,5 +1,7 @@
 package sunny;
 
+import java.time.LocalDate;
+
 /**
  * Represents information of tasks specified by user
  */
@@ -27,17 +29,20 @@ public class Task {
         this.isDone = false;
     }
 
-    public void setter (boolean x) {
+    public void setter(boolean x) {
         this.isDone = x;
     }
 
     public String getDescription() {
         return description;
     }
-
+    public void changeTimeline(LocalDate d) {
+        System.out.println("This command is only applicable to deadline tasks");
+    }
     public String getTimeline() {
         return null;
     }
+    @Override
     public String toString() {
         if (isDone) {
             return String.format("[X] %s", description);

@@ -10,7 +10,7 @@ public abstract class Command {
 
     /**
      * Builds string, read and write to hard drive, depends on the subclass
-     * @param ls
+     * @param ls pass by reference list of clsses
      */
     public abstract String runCommand(List<Task> ls, String m);
 

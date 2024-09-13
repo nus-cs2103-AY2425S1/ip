@@ -22,7 +22,7 @@ public class Ui {
 
     /**
      * Generates welcome message, load in previous files
-     * @return
+     * @return Welcome message
      */
     public String welcome() {
         ls = store.read();
@@ -58,6 +58,9 @@ public class Ui {
             return c.runCommand(ls, p.getSecondHalf());
         } else if (Objects.equals(command, "delete")) {
             Command c = new DeleteCommand();
+            return c.runCommand(ls, p.getSecondHalf());
+        } else if (Objects.equals(command, "snooze")) {
+            Command c = new SnoozeCommand();
             return c.runCommand(ls, p.getSecondHalf());
         } else {
             try {
