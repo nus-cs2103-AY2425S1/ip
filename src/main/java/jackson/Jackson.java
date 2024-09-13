@@ -158,11 +158,7 @@ public class Jackson {
                 this.commandType = Commands.CommandType.LIST;
                 break;
             case SORT:
-                if (matcher.group(2) == null) {
-                    isAscending = true;
-                } else {
-                    isAscending = matcher.group(2).equals("/a");
-                }
+                isAscending = matcher.group(2) == null || matcher.group(2).equals("/a");
                 this.taskList.sort(matcher.group(1), isAscending);
                 output = this.ui.printSortedList(this.taskList);
                 this.commandType = Commands.CommandType.LIST;
@@ -189,6 +185,10 @@ public class Jackson {
                 output = "Unknown error! Contact the developer...\n";
                 break;
             }
+
+            // save task list to storage after every command
+            this.storage.save(this.taskList);
+
         } catch (UnsupportedCommandException e) {
             // if user input not recognised, print command list
             output = this.ui.printUnrecognizedMessage();
@@ -208,6 +208,9 @@ public class Jackson {
         } catch (InvalidArgumentException e) {
             output = this.ui.printInvalidDates();
             this.commandType = Commands.CommandType.ERROR;
+        } catch (IOException e) {
+            output = this.ui.printFileIssue();
+
         } catch (Exception e) {
             // some other error unaccounted for, print generic warning
             // here we pass an error so the stack trace can be extracted
@@ -215,8 +218,6 @@ public class Jackson {
             this.commandType = Commands.CommandType.ERROR;
         }
 
-        // save task list to storage after every command
-        this.storage.save(this.taskList);
         return output;
     }
 

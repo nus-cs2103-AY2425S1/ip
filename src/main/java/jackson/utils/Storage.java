@@ -36,28 +36,22 @@ public class Storage {
      * if IOException raised, will print error statement.
      * @param taskList {@code TaskList} object that the tasks are written from.
      */
-    public String save(TaskList taskList) {
+    public String save(TaskList taskList) throws IOException {
         File f = new File(this.path); // new file from path
         String output = "";
-        try {
-            f.createNewFile();
-            FileWriter fw = new FileWriter(f);
-            for (int i = 0; i < taskList.getSize(); i++) {
-                fw.write(taskList.getTask(i).toString()); // write each task
-                if (i < taskList.getSize() - 1) {
-                    fw.write("\n"); // add newline if not last task
-                }
-            }
-            fw.close();
-            output += "Task list saved successfully!\n";
-        } catch (IOException e) {
-            // when file cannot be accessed/written to
-            output += "Error! Please check your file permissions!\n";
+
+        f.createNewFile();
+        FileWriter fw = new FileWriter(f);
+        for (int i = 0; i < taskList.getSize(); i++) {
+            fw.write(taskList.getTask(i).toString()); // write each task
+            fw.write("\n"); // add newline if not last task
         }
+        fw.close();
+        output += "Task list saved successfully!\n";
 
         // confirm file has been created either way
         assert f.exists() : "Error processing file! Please check your directory and debug from there!\n";
-        return output;
+        return output.strip();
     }
 
     /**

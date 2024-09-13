@@ -200,7 +200,8 @@ public class Ui {
      * @return String response.
      */
     public String printUnknownError(Exception e) {
-        return String.format("Oops! Something went wrong!\n    --> %s\n", Arrays.toString(e.getStackTrace()));
+        System.out.println(e.toString());
+        return "Oops! Something went wrong! Check System.out!";
     }
 
     /**
@@ -290,5 +291,13 @@ public class Ui {
      */
     public String printSortedList(TaskList taskList) {
         return "Super troublesome but sort your list liao!\n" + taskList.toString();
+    }
+
+    /**
+     * Returns chatbot response when save file cannot be saved to.
+     * @return String response.
+     */
+    public String printFileIssue() {
+        return "File error! Please exit the chatbot and check your file permissions and format!\n";
     }
 }

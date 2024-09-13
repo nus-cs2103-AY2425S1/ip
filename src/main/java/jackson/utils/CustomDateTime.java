@@ -69,14 +69,10 @@ public class CustomDateTime implements Comparable<CustomDateTime> {
                     : this.localDate.compareTo(other.localDate);
         } else if (other.hasTime()) {
             LocalDate otherDate = other.localDateTime.toLocalDate();
-            return this.localDate.equals(otherDate)
-                    ? 1
-                    : this.localDate.compareTo(otherDate);
+            return this.localDate.compareTo(otherDate);
         } else {
             LocalDate thisDate = this.localDateTime.toLocalDate();
-            return thisDate.equals(other.localDate)
-                    ? -1
-                    : thisDate.compareTo(other.localDate);
+            return thisDate.compareTo(other.localDate);
         }
     }
 

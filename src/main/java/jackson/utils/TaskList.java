@@ -3,6 +3,8 @@ package jackson.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import jackson.exceptions.DuplicatedTaskException;
 import jackson.exceptions.OutOfListException;
@@ -15,19 +17,18 @@ public class TaskList {
     /**
      * Comparators to sort tasks by.
      * Sorting by time alone does not make sense because dates can be out of order.
-     * Reverse the status comparator as unmarked status ([ ]) is placed before marked status [X] usually.
      */
     private static Comparator<Task> defaultComparator = (task1, task2) -> 0;
     private static Comparator<Task> comparatorByName =
             Comparator.comparing(Task::getName, Comparator.nullsLast(Comparator.naturalOrder()));
     private static Comparator<Task> comparatorByStartDateTime =
-            Comparator.comparing(Task::getStartDateTime, Comparator.nullsLast(Comparator.naturalOrder()));;
+            Comparator.comparing(Task::getStartDateTime, Comparator.nullsLast(Comparator.naturalOrder()));
     private static Comparator<Task> comparatorByEndDateTime =
-            Comparator.comparing(Task::getEndDateTime, Comparator.nullsLast(Comparator.naturalOrder()));;
+            Comparator.comparing(Task::getEndDateTime, Comparator.nullsLast(Comparator.naturalOrder()));
     private static Comparator<Task> comparatorByTaskType =
-            Comparator.comparing(Task::getTaskType, Comparator.nullsLast(Comparator.naturalOrder()));;
+            Comparator.comparing(Task::getTaskType, Comparator.nullsLast(Comparator.naturalOrder()));
     private static Comparator<Task> comparatorByMarkedUnmarked =
-            Comparator.comparing(Task::getStatus, Comparator.nullsLast(Comparator.naturalOrder()));;
+            Comparator.comparing(Task::getStatus, Comparator.nullsLast(Comparator.naturalOrder()));
 
     // ArrayList to store tasks and their names
     private ArrayList<Task> tasks;
@@ -149,35 +150,25 @@ public class TaskList {
      * @param ascending true if sorting by ascending order, otherwise false.
      */
     public void sort(String by, boolean ascending) {
-        if (this.tasks.size() >= 2) {
-            Comparator<Task> selectedComparator;
-            switch (by) {
-            case "name":
-                selectedComparator = comparatorByName;
-                break;
-            case "startdatetime":
-                selectedComparator = comparatorByStartDateTime;
-                break;
-            case "enddatetime":
-                selectedComparator = comparatorByEndDateTime;
-                break;
-            case "status":
-                selectedComparator = comparatorByMarkedUnmarked;
-                break;
-            case "tasktype":
-                selectedComparator = comparatorByTaskType;
-                break;
-            default:
-                selectedComparator = defaultComparator;
-            }
-
-            // since comparators naturally sort by descending order, reverse the comparator
-            // if descending order is specified.
-            if (!ascending) {
-                selectedComparator = selectedComparator.reversed();
-            }
-            this.tasks.sort(selectedComparator);
+        if (this.tasks.size() < 2) {
+            return;
         }
+
+        Comparator<Task> selectedComparator = switch (by) {
+            case "name" -> comparatorByName;
+            case "startdate" -> comparatorByStartDateTime;
+            case "enddate" -> comparatorByEndDateTime;
+            case "status" -> comparatorByMarkedUnmarked;
+            case "tasktype" -> comparatorByTaskType;
+            default -> defaultComparator;
+        };
+
+        // since comparators naturally sort by descending order, reverse the comparator
+        // if descending order is specified.
+        if (!ascending) {
+            selectedComparator = selectedComparator.reversed();
+        }
+        this.tasks.sort(selectedComparator);
     }
 
     /**

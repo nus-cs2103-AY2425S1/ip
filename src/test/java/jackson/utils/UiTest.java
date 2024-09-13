@@ -46,14 +46,15 @@ public class UiTest {
 
         assertEquals("""
                     More about event:
-                        --> event [task-name] /from [start-date] /to [end-date]
+                        --> event [task-name] /from [from-date] /to [to-date]
                     Creates an event class.
-                    All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""",
+                    All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)
+                    [from-date] must be after [to-date]""",
                 ui.printFormatGuide("event"));
 
         assertEquals("""
                     More about deadline:
-                        --> deadline [task-name] /by [due-date]
+                        --> deadline [task-name] /by [by-date]
                     Creates a deadline task.
                     All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""",
                 ui.printFormatGuide("deadline"));
@@ -67,7 +68,7 @@ public class UiTest {
         assertEquals("""
                     More about sort:
                         --> sort [attribute] [/a or /d]
-                    where attribute is one of: 'name', 'startdatetime', 'enddatetime', 'tasktype', 'status'""" + """
+                    where attribute is one of: 'name', 'startdate', 'enddate', 'tasktype', 'status'""" + """
                     and /a is ascending, whilst /d is for descending""", ui.printFormatGuide("sort"));
     }
 
