@@ -21,11 +21,8 @@ public class R2D2 {
     public String getResponse(String input) {
         String response = "";
         try {
-            if (input.equals("bye")) {
-                response = "Bye. Hope to see you again soon! *bzzzt*\n";
-            } else {
-                response = c3po.overallHandler(input);
-            }
+            response = input.equals("bye") ? "Bye. Hope to see you again soon! *bzzzt*\n"
+                    : c3po.overallHandler(input);
         } catch (BuzzException e) {
             response = " " + e.getMessage() + "\n";
         }
