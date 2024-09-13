@@ -84,8 +84,41 @@ public abstract class Task implements Serializable {
         return tags;
     }
 
+    /**
+     * Adds a tag to this task.
+     *
+     * @param tag The tag to be added.
+     */
     public void addTag(String tag) {
         tags.add(tag);
+    }
+
+    /**
+     * Removes a tag from this task.
+     *
+     * @param tag The tag to be removed.
+     */
+    public void removeTag(String tag) {
+        tags.remove(tag);
+    }
+
+    /**
+     * Checks if this task has a tag.
+     *
+     * @param tag The tag to be checked.
+     * @return True if this task has the tag, false otherwise.
+     */
+    public boolean hasTag(String tag) {
+        return tags.contains(tag);
+    }
+
+    /**
+     * Checks if this task has any of the tags.
+     * @param tags The tags to be checked.
+     * @return True if this task has any of the tags, false otherwise.
+     */
+    public boolean hasAnyTag(List<String> tags) {
+        return tags.stream().anyMatch(this::hasTag);
     }
 
     /**

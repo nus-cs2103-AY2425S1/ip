@@ -11,6 +11,7 @@ import bocchi.task.Todo;
 
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Represents a chatbot that can manage tasks.
@@ -55,14 +56,14 @@ public class Bocchi {
             "I have removed the task!";
     private static final String COMMAND_SUMMARY = """
             - bye: ends the conversation;
-            - list: lists out all tasks;
-            - mark [index]: mark the task in the specified index as done;
-            - unmark [index]: mark the task in the specified index as not done;
-            - todo [description]: adds a new todo with the specified description;
-            - ddl/deadline [description] /by [dueDateTime]: adds a new deadline with the given description and due date/time;
-            - event [description] /from [fromDateTime] /to [toDateTime]: adds a new event with the specified description,
+            - list [/type <type>+] [/tag <tag>+]: lists out all tasks, optionally filtered by task type and/or tag;
+            - mark <index>: mark the task in the specified index as done;
+            - unmark <index>: mark the task in the specified index as not done;
+            - todo <description>: adds a new todo with the specified description;
+            - ddl/deadline <description> /by <dueDateTime>: adds a new deadline with the given description and due date/time;
+            - event <description> /from <fromDateTime> /to <toDateTime>: adds a new event with the specified description,
                  start date/time and end date/time;
-            - del/delete [index]: delete the task in the specified index.""";
+            - del/delete <index>: delete the task in the specified index.""";
     private static final String GREET_MESSAGE = """
             Hi! I'm Bocchi! Nice to see you!");
             Here are the things I can do for you! o(*//▽//*)q""";
@@ -89,11 +90,12 @@ public class Bocchi {
      *
      * @return The response to the command.
      */
-    private String list() {
+    private String list(String taskTypeString, String tagString) {
+        System.out.println(taskTypeString + " " + tagString);
 
         class TaskStringBuilder {
             private int index = 1;
-            private final StringBuilder stringBuilder = new StringBuilder("No problem! This is your task list! (/▽＼)\n");
+            private final StringBuilder stringBuilder = new StringBuilder(LIST_MESSAGE);
 
             public void addTask(Task task) {
                 stringBuilder.append(index)
@@ -102,6 +104,7 @@ public class Bocchi {
                         .append("\n");
                 index++;
             }
+
             public String build() {
                 return stringBuilder.toString();
             }
@@ -111,6 +114,10 @@ public class Bocchi {
 
         taskList.stream()
                 .sequential()
+                .filter(task -> taskTypeString == null ||
+                        List.of(taskTypeString.toLowerCase().split(" +"))
+                                .contains(task.getClass().getSimpleName().toLowerCase()))
+                .filter(task -> tagString == null || task.hasAnyTag(List.of(tagString.split(" +"))))
                 .forEach(response::addTask);
 
         return response.build();
@@ -119,7 +126,8 @@ public class Bocchi {
     /**
      * Adds a task to the list.
      *
-     * @param task The task to be added.
+     * @param task      The task to be added.
+     * @param tagString The specified tag(s) as a string.
      * @return The response to the command.
      */
     private String task(Task task, String tagString) {
@@ -213,16 +221,17 @@ public class Bocchi {
         try {
             return switch (command.getName()) {
                 case "bye" -> exit();
-                case "list" -> list();
+                case "list" -> list(command.getKeywordParam("type"), command.getKeywordParam("tag"));
                 case "mark" -> mark(Integer.parseInt(command.getParam()));
                 case "unmark" -> unmark(Integer.parseInt(command.getParam()));
-                case "todo" -> task(new Todo(command.getParam()), command.getKeywordParams("tag"));
-                case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParams("by")), command.getKeywordParams("tag"));
+                case "todo" -> task(new Todo(command.getParam()), command.getKeywordParam("tag"));
+                case "ddl", "deadline" ->
+                        task(new Deadline(command.getParam(), command.getKeywordParam("by")), command.getKeywordParam("tag"));
                 case "event" -> task(new Event(
                         command.getParam(),
-                        command.getKeywordParams("from"),
-                        command.getKeywordParams("to")
-                        ), command.getKeywordParams("tag"));
+                        command.getKeywordParam("from"),
+                        command.getKeywordParam("to")
+                ), command.getKeywordParam("tag"));
                 case "del", "delete" -> delete(Integer.parseInt(command.getParam()));
                 case "" -> throw new BocchiException(EMPTY_COMMAND_ERROR_MESSAGE);
                 default -> throw new BocchiException(INVALID_COMMAND_ERROR_MESSAGE);
