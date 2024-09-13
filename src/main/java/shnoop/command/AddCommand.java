@@ -47,6 +47,7 @@ public class AddCommand extends Command {
         default:
             throw new IOException();
         }
+        assert (task != null);
         tasks.add(task);
         String result = ui.addTask(task, tasks.size());
         storage.save(tasks, task);

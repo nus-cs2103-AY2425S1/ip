@@ -40,6 +40,10 @@ public class Shnoop {
             ui.showError(efile.getMessage());
             throw new RuntimeException();
         }
+
+        assert storage != null;
+        assert ui != null;
+        assert tasks != null;
     }
 
     public Shnoop() {
@@ -59,7 +63,9 @@ public class Shnoop {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                assert fullCommand != null;
                 Command c = Parser.parse(fullCommand);
+                assert (c != null);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (ShnoopException e) {
