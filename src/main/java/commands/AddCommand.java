@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.GrokInvalidUserInputException;
 import storage.Storage;
 import tasklist.TaskList;
 import tasks.Task;
@@ -22,12 +23,19 @@ public class AddCommand extends Command {
 
     /**
      * Execution actions:
+     * - Ensure that task description is unique before adding
      * - Add task to the task list
      * - Write updated task list to storage
      * - Print new task and inform user on total tasks
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        boolean isDuplicate = tasks.checkIfDuplicate(task);
+
+        if (isDuplicate) {
+            return "Duplicate task description detected - task not saved.";
+        }
+
         tasks.addTask(task);
         storage.writeToTextStorage(tasks);
         return "Got it. I've added this task:\n  "
