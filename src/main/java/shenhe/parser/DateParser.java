@@ -25,13 +25,23 @@ public class DateParser {
      *         string does not match the expected format.
      */
     public static LocalDateTime parseDateTimeFromUserInput(String dateTimeStr) {
+        // Assert that the input string is not null and is not empty
+        assert dateTimeStr != null : "Input dateTimeStr should not be null";
+        assert !dateTimeStr.trim().isEmpty() : "Input dateTimeStr should not be empty";
+
         try {
-            return LocalDateTime.parse(dateTimeStr, INPUT_FORMATTER);
+            LocalDateTime parsedDate = LocalDateTime.parse(dateTimeStr, INPUT_FORMATTER);
+
+            // Assert that parsing was successful
+            assert parsedDate != null : "Parsing failed, resulting in a null LocalDateTime object";
+
+            return parsedDate;
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date/time format.");
             return null;
         }
     }
+
 
     /**
      * Parses a date and time string from the file format ("MM-dd-yyyy HH:mm") into a {@code LocalDateTime} object.
@@ -41,13 +51,23 @@ public class DateParser {
      *         string does not match the expected format.
      */
     public static LocalDateTime parseDateTimeFromFile(String dateTimeStr) {
+        // Assert that the input string is not null and is not empty
+        assert dateTimeStr != null : "Input dateTimeStr should not be null";
+        assert !dateTimeStr.trim().isEmpty() : "Input dateTimeStr should not be empty";
+
         try {
-            return LocalDateTime.parse(dateTimeStr, OUTPUT_FORMATTER);
+            LocalDateTime parsedDate = LocalDateTime.parse(dateTimeStr, OUTPUT_FORMATTER);
+
+            // Assert that parsing was successful
+            assert parsedDate != null : "Parsing failed, resulting in a null LocalDateTime object";
+
+            return parsedDate;
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date/time format.");
             return null;
         }
     }
+
 
     /**
      * Formats a {@code LocalDateTime} object into a string in the output format ("MM-dd-yyyy HH:mm").
@@ -56,6 +76,14 @@ public class DateParser {
      * @return A formatted date and time string in "MM-dd-yyyy HH:mm" format.
      */
     public static String format(LocalDateTime dateTime) {
-        return dateTime.format(OUTPUT_FORMATTER);
+        // Assert that the dateTime object is not null
+        assert dateTime != null : "LocalDateTime object should not be null";
+
+        String formattedDate = dateTime.format(OUTPUT_FORMATTER);
+
+        // Assert that the formatted string is not null or empty
+        assert formattedDate != null && !formattedDate.isEmpty() : "Formatted date should not be null or empty";
+
+        return formattedDate;
     }
 }
