@@ -54,6 +54,12 @@ public abstract class Task {
     public String getDescription() {
         return description;
     }
+
+    /**
+     * Returns the string representation of the task.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         if (tags.isEmpty()) {
@@ -86,4 +92,21 @@ public abstract class Task {
      * @return The task in the file format.
      */
     public abstract String toFileFormat();
+
+    /**
+     * Returns the tags of the task in String format.
+     *
+     * @return The tags of the task.
+     */
+    public String getTags() {
+        if (tags.isEmpty()) {
+            return "";
+        }
+        StringBuilder tagsString = new StringBuilder();
+        for (Tag tag : tags) {
+            tagsString.append(tag.getName()).append(",");
+        }
+        tagsString.setLength(tagsString.length() - 1); // Remove trailing comma
+        return tagsString.toString();
+    }
 }

@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
         try {
             String trimmedInput = input.substring(7).trim();
             return Integer.parseInt(trimmedInput) - 1; // Convert 1-based to 0-based index
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new SkibidiException("OOPS!!! The index provided for deletion is invalid.");
         }
     }
