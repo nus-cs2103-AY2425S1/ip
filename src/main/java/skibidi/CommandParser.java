@@ -109,7 +109,7 @@ public class CommandParser {
                 throw new CommandParseException(String.format("INVALID COMMAND %s", args[0]));
             }
         } catch (NumberFormatException e) {
-            throw new CommandParseException(String.format("ERROR: INVALID NUMBER GIVEN FOR COMMAND: %s", args[0]));
+            throw new CommandParseException(String.format("INVALID NUMBER GIVEN FOR COMMAND: %s", args[0]));
         } catch (IllegalArgumentException e) {
             throw new CommandParseException(String.format("INVALID COMMAND %s", args[0]));
         }
