@@ -6,11 +6,12 @@ import tars.parsers.ToDoParser;
 import tars.parsers.DeadlineParser;
 import tars.parsers.EventParser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Manages a list of tasks and provides operations to add, find, delete, and display tasks.
@@ -131,17 +132,12 @@ public class TaskList {
             throw new TarsException("Tell me what you are searching for");
         }
 
-        List<String> tasksFound = new ArrayList<>();
         String searchString = search[1];
 
-        for (int i = 0; i < taskList.size(); i++) {
-            Task t = taskList.get(i);
-            if (t.toString().contains(searchString)) {
-                tasksFound.add(String.format("%s. %s", i+1, t));
-            }
-        }
-
-        return tasksFound;
+        return IntStream.range(0, taskList.size())
+                .filter(i -> taskList.get(i).toString().contains(searchString))
+                .mapToObj(i -> String.format("%s. %s", i+1, taskList.get(i)))
+                .collect(Collectors.toList());
     }
 
     /**
