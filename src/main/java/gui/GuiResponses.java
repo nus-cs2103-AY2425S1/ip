@@ -98,7 +98,7 @@ public class GuiResponses {
     /**
      * returns message for deleting a task
      * @param task Task that is deleted
-     * @param size size of the TaskList object task is removed from
+     * @param size size of the tasks.TaskList object task is removed from
      * @return Deleted task message
      */
     public String delTaskMsg(Task task, int size) {

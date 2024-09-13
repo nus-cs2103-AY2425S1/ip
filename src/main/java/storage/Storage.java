@@ -65,8 +65,7 @@ public class Storage {
             for (int i = 0; i < userList.size(); i++) {
 
                 Task currentTask = userList.get(i);
-                String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(),
-                        currentTask.getStatus() ? "X" : " ", currentTask.getDescription());
+                String taskStr = getStoredString(currentTask);
                 history.append(taskStr);
                 history.append(System.lineSeparator());
             }
@@ -78,6 +77,17 @@ public class Storage {
             System.out.println("Error has occurred " + e.getMessage());
 
         }
+    }
+
+    /**
+     * Gets the string representation of a task
+     * @param currentTask
+     * @return string representation of task
+     */
+    private static String getStoredString(Task currentTask) {
+        String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(),
+                currentTask.getStatus() ? "X" : " ", currentTask.getDescription());
+        return taskStr;
     }
 
     /**
@@ -94,59 +104,7 @@ public class Storage {
             while (s.hasNext()) {
                 String nextLine = s.nextLine();
                 //parse the Line for task
-                char type = nextLine.charAt(0);
-                boolean status = nextLine.charAt(4) == 'X';
-
-                //rest includes text ( deadline/event )
-                String rest = nextLine.substring(8);
-
-                if (type == 'T') {
-                    Todo currTodo = new Todo(rest.trim());
-                    if (status) {
-                        currTodo.setStatus(true);
-                    }
-                    loadedTasks.add(new Todo(rest.trim()));
-                } else if (type == 'D') {
-                    int startBracket = rest.indexOf("( by");
-                    String desc = rest.substring(0, startBracket).trim();
-                    String deadline = rest.substring(startBracket + 5, rest.length() - 2);
-                    LocalDateTime deadlineObj = parser.parseDateTime(deadline);
-                    Deadline newDead;
-
-                    if (deadlineObj == null) {
-                        newDead = new Deadline(desc, deadline);
-
-                    } else {
-                        newDead = new Deadline(desc, deadlineObj);
-                    }
-                    if (status) {
-                        newDead.setStatus(true);
-                    }
-                    loadedTasks.add(newDead);
-
-                } else {
-                    int startBracket = rest.indexOf("( from");
-                    int toStart = rest.indexOf("to");
-                    String desc = rest.substring(0, startBracket).trim();
-                    String startDate = rest.substring(startBracket + 7, toStart).trim();
-                    LocalDateTime startDateObj = parser.parseDateTime(startDate);
-                    String endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
-                    LocalDateTime endDateObj = parser.parseDateTime(endDate);
-
-                    Event nextEvent;
-                    if (startDateObj != null && endDateObj != null) {
-                        nextEvent = new Event(desc, startDateObj, endDateObj);
-                    } else {
-                        nextEvent = new Event(desc, "from " + startDate, "to " + endDate);
-                    }
-
-                    if (status) {
-                        nextEvent.setStatus(true);
-                    }
-
-                    loadedTasks.add(nextEvent);
-
-                }
+                parseTask(parser, nextLine, loadedTasks);
 
 
             }
@@ -155,6 +113,69 @@ public class Storage {
         }
         System.out.println(String.format("Previous Task list of size: %d Loaded", loadedTasks.size()));
         return loadedTasks;
+    }
+
+    /**
+     * Parses the task from the input string
+     * @param parser
+     * @param nextLine
+     * @param loadedTasks
+     * @throws ChatterboxExceptions.ChatterBoxNoInput
+     */
+    private static void parseTask(Parser parser, String nextLine, ArrayList<Task> loadedTasks) throws ChatterboxExceptions.ChatterBoxNoInput {
+        char type = nextLine.charAt(0);
+        boolean status = nextLine.charAt(4) == 'X';
+
+        //rest includes text ( deadline/event )
+        String rest = nextLine.substring(8);
+
+        if (type == 'T') {
+            Todo currTodo = new Todo(rest.trim());
+            if (status) {
+                currTodo.setStatus(true);
+            }
+            loadedTasks.add(new Todo(rest.trim()));
+        } else if (type == 'D') {
+            int startBracket = rest.indexOf("( by");
+            String desc = rest.substring(0, startBracket).trim();
+            String deadline = rest.substring(startBracket + 5, rest.length() - 2);
+            LocalDateTime deadlineObj = parser.parseDateTime(deadline);
+            Deadline newDead;
+
+            if (deadlineObj == null) {
+                newDead = new Deadline(desc, deadline);
+
+            } else {
+                newDead = new Deadline(desc, deadlineObj);
+            }
+            if (status) {
+                newDead.setStatus(true);
+            }
+            loadedTasks.add(newDead);
+
+        } else {
+            int startBracket = rest.indexOf("( from");
+            int toStart = rest.indexOf("to");
+            String desc = rest.substring(0, startBracket).trim();
+            String startDate = rest.substring(startBracket + 7, toStart).trim();
+            LocalDateTime startDateObj = parser.parseDateTime(startDate);
+            String endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
+            LocalDateTime endDateObj = parser.parseDateTime(endDate);
+
+            Event nextEvent;
+            if (startDateObj != null && endDateObj != null) {
+                nextEvent = new Event(desc, startDateObj, endDateObj);
+            } else {
+                nextEvent = new Event(desc, "from " + startDate, "to " + endDate);
+            }
+
+            if (status) {
+                nextEvent.setStatus(true);
+            }
+
+            loadedTasks.add(nextEvent);
+
+        }
     }
 
 

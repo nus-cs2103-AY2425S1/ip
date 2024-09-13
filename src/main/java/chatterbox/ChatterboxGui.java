@@ -4,16 +4,13 @@ import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import gui.GuiResponses;
 import parser.Parser;
 import storage.Storage;
-import tasks.Deadline;
-import tasks.Event;
 import tasks.Task;
-import tasks.Todo;
+import tasks.TaskList;
 
 /**
  * main class that encapsulates all gui chatbot functionality
@@ -80,141 +77,6 @@ public class ChatterboxGui {
     }
 
     /**
-     * Class UI used to handle the printing and formatting of text in the UI
-     */
-
-    protected static class TaskList {
-        private final ArrayList<Task> userTasks;
-
-        public TaskList(ArrayList <Task> userTasks) {
-            this.userTasks = userTasks;
-        }
-
-        /**
-         * gets the userTasks of TaskList object
-         * @return an ArrayList userTasks
-         */
-        public ArrayList<Task> getTasks() {
-            assert userTasks != null;
-            return userTasks;
-        }
-
-
-        /**
-         * Marks task at index to be complete
-         * @param index of task to be marked complete
-         * @return returns the task that was marked
-         */
-        public Task markTask(int index) {
-            assert index >= 0;
-            userTasks.get(index).setStatus(true);
-            return userTasks.get(index);
-        }
-
-        /**
-         * Marks task at index to be not complete
-         * @param index to be mark incomplete
-         * @return the task that was unmarked
-         */
-        public Task unmarkTask(int index) {
-            userTasks.get(index).setStatus(false);
-            return userTasks.get(index);
-        }
-
-        public Todo addTodo(String desc) throws ChatterboxExceptions.ChatterBoxNoInput {
-            Todo nextTodo = new Todo(desc);
-            userTasks.add(nextTodo);
-            return nextTodo;
-        }
-
-        public Deadline addDeadline(String desc, String endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
-            Deadline nextDead = new Deadline(desc, endDate);
-            userTasks.add(nextDead);
-            return nextDead;
-        }
-
-        public Deadline addDeadline(String desc, LocalDateTime endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
-            Deadline nextDead = new Deadline(desc, endDate);
-            userTasks.add(nextDead);
-            return nextDead;
-        }
-
-        public Event addEvent(String desc, String startDate, String endDate)
-                throws ChatterboxExceptions.ChatterBoxNoInput {
-            Event nextEve = new Event(desc, startDate, endDate);
-            assert nextEve != null;
-            userTasks.add(nextEve);
-            return nextEve;
-        }
-
-        /**
-         * Adds an Event to the Tasklist
-         * @param desc description of event
-         * @param startDate start date of event
-         * @param endDate end date of event
-         * @return the created event
-         * @throws ChatterboxExceptions.ChatterBoxNoInput if no description was found
-         */
-        public Event addEvent(String desc, LocalDateTime startDate, LocalDateTime endDate)
-                throws ChatterboxExceptions.ChatterBoxNoInput {
-            Event nextEve = new Event(desc, startDate, endDate);
-            userTasks.add(nextEve);
-            return nextEve;
-        }
-
-        /**
-         * Gets the task at index
-         * @param index
-         * @return Task at index
-         */
-        public Task getTask(int index) {
-            return userTasks.get(index);
-        }
-
-        /**
-         * Deletes task and index and returns it
-         * @param index of task to be deleted
-         * @return delted Task
-         */
-        public Task deleteTask(int index) {
-            return userTasks.remove(index);
-        }
-
-        /**
-         * returns the description of a task
-         * @param index
-         * @return
-         */
-        public String getTaskDescription(int index) {
-            assert index >= 0;
-            return userTasks.get(index).getDescription();
-        }
-
-        /**
-         * Get size of task list
-         * @return size of task list
-         */
-        public int size() {
-            return userTasks.size();
-        }
-
-        /**
-         * returns an ArrayList
-         * @param keywords is a string of keywords that should appear
-         * @return ArrayList with only tasks that have the keywords
-         */
-        public ArrayList<Task> findTasks(String keywords) {
-            assert userTasks != null;
-
-            return userTasks.stream()
-                    .filter(task -> task.getDescription().contains(keywords))
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-        }
-
-    }
-
-    /**
      * Process input
      * @param input userinput from gui
      * @return Chatterbox response to the input
@@ -223,7 +85,7 @@ public class ChatterboxGui {
 
 
         String result;
-
+        input = input.trim();
         try {
             Parser.ValidCommand command = parser.parseCommand(input);
 
@@ -239,14 +101,14 @@ public class ChatterboxGui {
                 break;
 
             case MARK:
-                input = input.trim();
+
                 index = parser.extractNum(input) - 1; // -1 as the display  start from 1
                 result = guiResponses.markMsg(tasks.markTask(index));
                 break;
 
 
             case UNMARK:
-                input = input.trim();
+
                 index = parser.extractNum(input) - 1; // -1 as the display  start from 1
                 result = guiResponses.unmarkMsg(tasks.unmarkTask(index));
                 break;
@@ -255,7 +117,7 @@ public class ChatterboxGui {
             case TODO:
 
 
-                tasks.addTodo(parser.parseTodo(input.trim()));
+                tasks.addTodo(parser.parseTodo(input));
                 result = guiResponses.addTaskMsg("Todo", tasks.size());
                 break;
 
@@ -296,7 +158,6 @@ public class ChatterboxGui {
                 break;
 
             case DELETE:
-                input = input.trim();
                 int delIndex = parser.extractNum(input) - 1;
                 result = guiResponses.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
                 break;
