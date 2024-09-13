@@ -32,51 +32,76 @@ public class Storage {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line = reader.readLine();
             while (line != null) {
-                char taskType = line.charAt(1);
-                boolean isDone = line.charAt(4) == 'X';
-                String remainder = line.substring(7).trim();
+                char taskType = taskType(line);
+                boolean isDone = isDone(line);
+                String remainder = remainder(line);
 
                 switch (taskType) {
                     case ('T'):
-                        Task tempToDo = new Todo(remainder);
-                        if (isDone) {
-                            tempToDo.markDone();
-                        }
-                        taskList.add(tempToDo);
+                        Task tempTodo = createTodo(remainder, isDone);
+                        taskList.add(tempTodo);
                         break;
                     case ('D'):
-                        String[] deadlineParts = remainder.split(" \\(by: ");
-                        String deadlineDescription = deadlineParts[0].trim();
-                        String by = deadlineParts[1].replace(")", "").trim();
-                        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-                        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                        LocalDateTime dateTime = LocalDateTime.parse(by, inputFormat);
-                        String dueDate = dateTime.format(outputFormat);
-                        Task tempDeadline = new Deadline(deadlineDescription, dueDate);
-                        if (isDone) {
-                            tempDeadline.markDone();
-                        }
+                        Task tempDeadline = createDeadline(remainder, isDone);
                         taskList.add(tempDeadline);
                         break;
                     case ('E'):
-                        String[] eventParts = remainder.split(" \\(from: | to: ");
-                        String eventDescription = eventParts[0].trim();
-                        String from = eventParts[1].trim();
-                        String to = eventParts[2].replace(")", "").trim();
-                        Task tempEvent = new Event(eventDescription, from, to);
-                        if (isDone) {
-                            tempEvent.markDone();
-                        }
+                        Task tempEvent = createEvent(remainder, isDone);
                         taskList.add(tempEvent);
                         break;
                 }
-
                 line = reader.readLine();
-
             }
             reader.close();
         }
         return taskList;
+    }
+
+    public Deadline createDeadline(String remainder, boolean isDone) {
+        String[] deadlineParts = remainder.split(" \\(by: ");
+        String deadlineDescription = deadlineParts[0].trim();
+        String by = deadlineParts[1].replace(")", "").trim();
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(by, inputFormat);
+        String dueDate = dateTime.format(outputFormat);
+        Deadline newTask = new Deadline(deadlineDescription, dueDate);
+        if (isDone) {
+            newTask.markDone();
+        }
+        return newTask;
+    }
+
+    public Event createEvent(String remainder, boolean isDone) {
+        String[] eventParts = remainder.split(" \\(from: | to: ");
+        String eventDescription = eventParts[0].trim();
+        String from = eventParts[1].trim();
+        String to = eventParts[2].replace(")", "").trim();
+        Event newEvent = new Event(eventDescription, from, to);
+        if (isDone) {
+            newEvent.markDone();
+        }
+        return newEvent;
+    }
+
+    public Todo createTodo(String remainder, boolean isDone) {
+        Todo newTodo = new Todo(remainder);
+        if (isDone) {
+            newTodo.markDone();
+        }
+        return newTodo;
+    }
+
+    public boolean isDone(String input) {
+        return input.charAt(4) == 'X';
+    }
+
+    public char taskType(String input) {
+        return input.charAt(1);
+    }
+
+    public String remainder(String input) {
+        return input.substring(7).trim();
     }
 
     public void save(TaskList taskList) throws IOException{
