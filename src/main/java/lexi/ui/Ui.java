@@ -132,6 +132,17 @@ public class Ui {
         // Precondition: Ensure message is not null or empty
         assert message != null && !message.isEmpty() : "Error message cannot be null or empty.";
 
-        return "Error: " + message;
+        return message;
+    }
+
+    /**
+     * Displays update message to user of task updated
+     * @param taskNumber
+     * @param task
+     * @return
+     */
+    public String showUpdateMessage(int taskNumber, Task task) {
+        return "Your task has been updated as follows:\n"
+                + taskNumber + ". " + task;
     }
 }

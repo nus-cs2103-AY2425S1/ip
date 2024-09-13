@@ -68,6 +68,7 @@ public class DialogBox extends HBox {
         case "AddCommand" -> dialog.getStyleClass().add("add-label");
         case "MarkCommand" -> dialog.getStyleClass().add("marked-label");
         case "DeleteCommand" -> dialog.getStyleClass().add("delete-label");
+        case "Error" -> dialog.getStyleClass().add("error-label");
         default -> {
             // Do nothing
         }
