@@ -2,6 +2,9 @@ package tasks;
 
 import exceptions.GrokInvalidUserInputException;
 
+/**
+ * A Todo class denotes a base Task with nothing else besides its description and completion status.
+ */
 public class Todo extends Task {
     public Todo(String description) throws GrokInvalidUserInputException {
         super(description);

@@ -1,12 +1,19 @@
-package taskList;
-
-import tasks.Task;
+package tasklist;
 
 import java.util.ArrayList;
 
+import tasks.Task;
+
+/**
+ * A wrapper class to hold a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Initializes a task list with existing tasks if any.
+     * @param tasks an ArrayList of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         if (tasks == null) {
             this.tasks = new ArrayList<>();
@@ -16,16 +23,18 @@ public class TaskList {
     }
 
     public int length() {
+        assert tasks != null;
         return tasks.size();
     }
 
     /**
      * Retrieve and obtain the desired task index
-     * NOTE: It is the caller's responsibility to ensure that an OOB exception is not triggered here - hence no error handling
+     * NOTE: No error handling -  It is the caller's responsibility to ensure that an OOB exception is not triggered.
      * @param idx the zero-indexed task index.
      * @return the task at that index.
      */
     public Task getTaskAt(int idx) {
+        assert idx >= 0 && idx < tasks.size();
         return tasks.get(idx);
     }
 
@@ -35,10 +44,13 @@ public class TaskList {
      * @return the task that has just been deleted.
      */
     public Task deleteTaskAt(int idx) {
+        assert idx >= 0 && idx < tasks.size();
         return tasks.remove(idx);
     }
 
-    public void addTask(Task t) { tasks.add(t); }
+    public void addTask(Task t) {
+        tasks.add(t);
+    }
 
     /**
      * Get all tasks as an ArrayList.

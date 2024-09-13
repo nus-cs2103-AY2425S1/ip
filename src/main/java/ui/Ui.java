@@ -1,13 +1,31 @@
 package ui;
 
-import tasks.Task;
+import grok.DialogBox;
+import grok.Grok;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
+/**
+ * Encapsulates the application and the means to communicate with users using messages.
+ */
+public class Ui extends AnchorPane {
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaBot.png"));
 
-public class Ui {
-    public Ui() {
-
-    }
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+    private Grok grok;
 
     /**
      * Pad a provided message with horizontal lines and indentation to separate bot input from user input
@@ -25,19 +43,40 @@ public class Ui {
         return indentSpaces.concat(msgWithHLines.replace("\n", "\n".concat(indentSpaces)));
     }
 
-    public void printGenericMessage(String s) {
-        System.out.println(padMessage(s));
+    /**
+     * Generates a response by the bot that is visible in the GUI.
+     * @param response - response (as a string) that the bot should return.
+     */
+    @FXML
+    public void printGenericFeedback(String response) {
+        dialogContainer.getChildren().add(
+                DialogBox.getGrokDialog(response, botImage)
+        );
     }
 
-    public void printWelcomeMessage() {
-        printGenericMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?");
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void printByeMessage() {
-        printGenericMessage("Bye. Hope to see you again soon!");
+    /** Injects the Grok instance */
+    public void setGrok(Grok g) {
+        grok = g;
     }
 
-    public void printErrorMessage(String s) {
-        printGenericMessage("Error! " + s);
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        dialogContainer.getChildren().add(
+                DialogBox.getUserDialog(input, userImage)
+        );
+
+        printGenericFeedback(grok.processResponse(input));
+
+        userInput.clear();
     }
 }

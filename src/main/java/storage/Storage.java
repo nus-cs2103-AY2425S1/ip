@@ -1,12 +1,5 @@
 package storage;
 
-import exceptions.GrokInvalidUserInputException;
-import taskList.TaskList;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,13 +7,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.GrokInvalidUserInputException;
+import tasklist.TaskList;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
+/**
+ * Persistent storage reader/writer, such as with a plaintext text file.
+ * Other persistent media like databases could be explored at a later date.
+ */
 public class Storage {
     private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
 
     /**
      * Opens a file at a given file directory.
@@ -41,14 +44,16 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Converts a compliant text string from a text file into a list of tasks.
+     * @return an ArrayList of tasks.
+     */
     public ArrayList<Task> parseTextStorage() {
         File file = new File(filePath);
         openFile(file);
 
         ArrayList<Task> items = new ArrayList<>();
-
-
-
         try {
             // this line potentially throws FileNotFoundException.
             Scanner sc = new Scanner(file);
@@ -56,6 +61,7 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String s = sc.nextLine();
                 String[] components = s.split(" \\| ");
+                assert !s.isEmpty();
 
                 // this may trigger an invalid input exception - but this is not to be expected at all.
                 switch (s.substring(0, 1)) {
@@ -81,6 +87,11 @@ public class Storage {
         return items;
     }
 
+    /**
+     * Converts a compliant task list into persistent text storage.
+     * Danger: Overwrites previous data.
+     * @param tasks the taskList in use
+     */
     public void writeToTextStorage(TaskList tasks) {
         try {
             // this line potentially throws IOException.

@@ -1,19 +1,24 @@
 package commands;
 
 import storage.Storage;
-import taskList.TaskList;
-import tasks.Task;
+import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * The caller must ensure to exit the program when they encounter this command using isExit().
+ */
 public class ExitCommand extends Command {
 
-    public ExitCommand() {
-        super(true);
-    }
+    public ExitCommand() {}
 
+    /**
+     * Execution actions:
+     * - Says goodbye :)
+     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printByeMessage();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        System.exit(0);
+        return "";
     }
 
     @Override

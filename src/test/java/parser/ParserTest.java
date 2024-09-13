@@ -1,14 +1,16 @@
 package parser;
 
-import commands.ExitCommand;
-import exceptions.GrokInvalidUserInputException;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import taskList.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import commands.ExitCommand;
+import exceptions.GrokInvalidUserInputException;
+import tasklist.TaskList;
 
 public class ParserTest {
     private static Parser parser;
@@ -33,7 +35,9 @@ public class ParserTest {
         try {
             parser.parseUserInput("todo hello | world", tasks);
             fail("An invalid user input was not caught.");
-        } catch (GrokInvalidUserInputException e) {}
+        } catch (GrokInvalidUserInputException e) {
+            return;
+        }
     }
 
     @Test
@@ -41,6 +45,8 @@ public class ParserTest {
         try {
             parser.parseUserInput("deadline something s/o/met/hing / / ww", tasks);
             fail("An invalid user input was not caught.");
-        } catch (GrokInvalidUserInputException e) {}
+        } catch (GrokInvalidUserInputException e) {
+            return;
+        }
     }
 }

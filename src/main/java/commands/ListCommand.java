@@ -1,20 +1,27 @@
 package commands;
 
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Provides user input, listing available tasks and their state.
+ */
 public class ListCommand extends Command {
 
     public ListCommand() {
         super();
     }
 
+    /**
+     * Execution actions:
+     * - Convert all tasks to their string representations
+     * - Print to user
+     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.length() == 0) {
-            ui.printGenericMessage("There are no tasks in the list.");
-            return;
+            return "There are no tasks in the list.";
         }
 
         StringBuilder listOfTasks = new StringBuilder();
@@ -27,8 +34,6 @@ public class ListCommand extends Command {
         }
 
         // remove the last character, which is a new line.
-        ui.printGenericMessage(
-                listOfTasks.substring(0, Math.max(0, listOfTasks.length() - 1))
-        );
+        return listOfTasks.substring(0, Math.max(0, listOfTasks.length() - 1));
     }
 }

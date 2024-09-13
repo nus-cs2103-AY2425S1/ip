@@ -1,29 +1,46 @@
 package tasks;
 
-import exceptions.GrokInvalidUserInputException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task {
-    protected LocalDate due;
+import exceptions.GrokInvalidUserInputException;
+import exceptions.InvalidIsoFormatException;
 
+/**
+ * A Deadline stores an additional deadline field in ISO date format.
+ */
+public class Deadline extends Task {
+    private LocalDate due;
+
+    /**
+     * Initializes a deadline with the following inputs, assuming a deadline that is not yet done:
+     * @param description title, or name, of deadline
+     * @param due deadline of date which MUST be in ISO yyyy-mm-dd format
+     * @throws GrokInvalidUserInputException if user input is invalid - empty description, or non-ISO dates
+     */
     public Deadline(String description, String due) throws GrokInvalidUserInputException {
         super(description);
         try {
             this.due = LocalDate.parse(due);
         } catch (DateTimeParseException e) {
-            throw new GrokInvalidUserInputException("Invalid date format. Please declare your date in the ISO format yyyy-mm-dd.");
+            throw new InvalidIsoFormatException();
         }
     }
 
+    /**
+     * Initializes a deadline with the following inputs:
+     * @param description title, or name, of deadline
+     * @param due deadline of date which MUST be in ISO yyyy-mm-dd format
+     * @param isDone whether the deadline has been met or not
+     * @throws GrokInvalidUserInputException if user input is invalid - empty description, or non-ISO dates
+     */
     public Deadline(String description, String due, Boolean isDone) throws GrokInvalidUserInputException {
         super(description, isDone);
         try {
             this.due = LocalDate.parse(due);
         } catch (DateTimeParseException e) {
-            throw new GrokInvalidUserInputException("Invalid date format. Please declare your date in the ISO format yyyy-mm-dd.");
+            throw new InvalidIsoFormatException();
         }
     }
 
