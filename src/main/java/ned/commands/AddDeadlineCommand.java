@@ -17,7 +17,7 @@ public class AddDeadlineCommand implements Command {
             + "deadline task with no description";
     private static final String DEADLINE_MISSING_DUE_DATE_ERROR_MESSAGE = "M'lord, you cannot create a deadline task "
             + "with no due date";
-    private final String REGEX = "^deadline.*";
+    private static final String REGEX = "^deadline.*";
 
     /**
      * This method carries out the adding of a new Deadline object with information parsed from the command to the

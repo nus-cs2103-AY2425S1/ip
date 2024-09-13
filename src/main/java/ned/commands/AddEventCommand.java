@@ -4,11 +4,11 @@ import java.util.regex.Pattern;
 
 import ned.Storage;
 import ned.TaskList;
+import ned.Ui;
 import ned.exceptions.MissingTaskDescriptionException;
 import ned.exceptions.MissingTaskFromDateException;
 import ned.exceptions.MissingTaskToDateException;
 import ned.exceptions.NedException;
-import ned.Ui;
 import ned.tasks.Event;
 import ned.tasks.Task;
 
@@ -18,9 +18,9 @@ import ned.tasks.Task;
 public class AddEventCommand implements Command {
     private static final String EVENT_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE = "M'lord, you cannot create an event "
             + "task with no description";
-    private static final String EVENT_MISSING_TO_DATE_ERROR_MESSAGE = "M'lord, you cannot create an event task with no 'to' date."
-            + " Gods be good, fill both up!";
-    private final String REGEX = "^event.*";
+    private static final String EVENT_MISSING_TO_DATE_ERROR_MESSAGE = "M'lord, you cannot create an event task with no "
+            + "'to' date. Gods be good, fill both up!";
+    private static final String REGEX = "^event.*";
     private String eventRegexWithoutTo = "^event (.+) /from (.+)";
     private String eventRegexWithEmptyTo = "^event (.+) /from (.+) /to\\s";
     private String eventRegexWithoutFrom = "^event (.+) /to (.+)";
@@ -45,12 +45,12 @@ public class AddEventCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput)
             throws NedException {
-        String[] parsed_inputs = userInput.split("event|/from|/to", 4);
-        int parsed_inputs_len = Task.checkSizeOfInput(parsed_inputs);
-        if (parsed_inputs[1].strip().isBlank()) {
-            throw new MissingTaskDescriptionException(EVENT_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE
+        String[] parsedInputs = userInput.split("event|/from|/to", 4);
+        int parsedInputsLen = Task.checkSizeOfInput(parsedInputs);
+        if (parsedInputs[1].strip().isBlank()) {
+            throw new MissingTaskDescriptionException("M'lord, you cannot create an event task with no description"
                     + uiInstance.getCommandMessage());
-        } else if (parsed_inputs_len <= 2) {
+        } else if (parsedInputsLen <= 2) {
             if (Pattern.matches(eventRegexWithoutTo, userInput) || Pattern.matches(eventRegexWithEmptyTo, userInput)) {
                 throw new MissingTaskToDateException(EVENT_MISSING_TO_DATE_ERROR_MESSAGE
                         + uiInstance.getCommandMessage());
@@ -59,11 +59,11 @@ public class AddEventCommand implements Command {
                 throw new MissingTaskFromDateException("M'lord, you cannot create an event task with no 'from' date."
                         + " Gods be good, fill both up!" + uiInstance.getCommandMessage());
             } else {
-                throw new MissingTaskToDateException("M'lord, you cannot create an event task with no 'from' date " +
-                        "or no 'to' date. Gods be good, fill both up!" + uiInstance.getCommandMessage());
+                throw new MissingTaskToDateException("M'lord, you cannot create an event task with no 'from' date "
+                        + "or no 'to' date. Gods be good, fill both up!" + uiInstance.getCommandMessage());
             }
         }
-        Task newTask = Event.createEvent(parsed_inputs[1].strip(), parsed_inputs[2].strip(), parsed_inputs[3].strip(),
+        Task newTask = Event.createEvent(parsedInputs[1].strip(), parsedInputs[2].strip(), parsedInputs[3].strip(),
                 false);
         taskList.addTask(newTask, uiInstance);
         storageInstance.save(taskList);

@@ -52,7 +52,7 @@ public class Parser {
     public static Task parseSavedTask(String savedLine) throws NedException {
         // uses CSV
         String[] splitLine = savedLine.split("\\|");
-        assert splitLine.length >= 1: "Task command should have matched at least 1 word!";
+        assert splitLine.length >= 1 : "Task command should have matched at least 1 word!";
         String taskType = splitLine[0];
         try {
             int taskStatus = Integer.parseInt(splitLine[1]);
@@ -73,8 +73,8 @@ public class Parser {
                     + "wrong format.", savedLine));
         } catch (NumberFormatException e) {
             throw new InvalidCacheLineException(
-                    String.format("M'lord, it appears that this line: %s is saved with an invalid status number."
-                            , savedLine));
+                    String.format("M'lord, it appears that this line: %s is saved with an invalid status number.",
+                            savedLine));
         }
     }
 }

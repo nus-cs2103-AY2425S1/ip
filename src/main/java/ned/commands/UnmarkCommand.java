@@ -14,11 +14,11 @@ import ned.exceptions.NedException;
 public class UnmarkCommand implements Command {
     private static final String UNMARK_MISSING_INDEX_ERROR_MESSAGE = "Sorry m'lord, you must give me a list index with "
             + "the mark command. No more, no less";
-    private static final String UNMARK_INDEX_NOT_NUMBER_ERROR_MESSAGE = "Sorry m'lord, your command must specify " +
-            "a valid number";
-    private static final String UNMARK_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Sorry m'lord, seems the item number you " +
-            "specified is not valid";
-    private final String REGEX = "^unmark.*";
+    private static final String UNMARK_INDEX_NOT_NUMBER_ERROR_MESSAGE = "Sorry m'lord, your command must specify "
+            + "a valid number";
+    private static final String UNMARK_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Sorry m'lord, seems the item number you "
+            + "specified is not valid";
+    private static final String REGEX = "^unmark.*";
 
     public UnmarkCommand() {
     }

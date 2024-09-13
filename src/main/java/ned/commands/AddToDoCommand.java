@@ -2,9 +2,9 @@ package ned.commands;
 
 import ned.Storage;
 import ned.TaskList;
+import ned.Ui;
 import ned.exceptions.MissingTaskDescriptionException;
 import ned.exceptions.NedException;
-import ned.Ui;
 import ned.tasks.Task;
 import ned.tasks.ToDo;
 
@@ -12,8 +12,9 @@ import ned.tasks.ToDo;
  * Represents the todo command, which when executed, adds a new todo task to the list of tasks.
  */
 public class AddToDoCommand implements Command {
-    private static final String TODO_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE = "M'lord, you cannot create a todo task with no description";
-    private final String REGEX = "^todo.*";
+    private static final String TODO_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE = "M'lord, you cannot create a todo task "
+            + "with no description";
+    private static final String REGEX = "^todo.*";
 
     /**
      * This method creates a new ToDo object and then adds it to the taskList instance belonging to the Ned instance

@@ -17,7 +17,7 @@ public class DeleteCommand implements Command {
             + "valid number";
     private static final String DELETE_INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Sorry m'lord, your command must specify an "
             + "index within the bounds of the list size";
-    private final String REGEX = "^delete.*";
+    private static final String REGEX = "^delete.*";
 
     /**
      * Returns an instance of the delete command
