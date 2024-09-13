@@ -2,23 +2,17 @@ package papadom;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import papadom.utils.Papadom;
 import papadom.utils.Ui;
 
-
-
-
 public class MainController {
 
-    public static final String USER_MESSAGE_COLOR = "#DCF8C6";
-    public static final String BOT_MESSAGE_COLOR = "#FFFFFF";
     public static final String BYE = "bye";
+
     @FXML
     private VBox chatArea;
 
@@ -29,6 +23,8 @@ public class MainController {
     private TextField inputField;
 
     private Papadom chatbot;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     // Constructor initializes the Papadom chatbot
     public MainController() {
@@ -38,8 +34,10 @@ public class MainController {
     // Called automatically when the controller is initialized (after FXML is loaded)
     @FXML
     public void initialize() {
-        // Display welcome message on the left
-        addMessage(Ui.welcomeMessage(), Pos.CENTER_LEFT, BOT_MESSAGE_COLOR);
+        // Display bot's welcome message (aligned to the left)
+        DialogBox botDialog = new DialogBox(Ui.welcomeMessage(), botImage);
+        botDialog.flip(); // Flip bot's message to the left (text on the right, image on the left)
+        chatArea.getChildren().add(botDialog);
 
         // Scroll to the bottom whenever the chat area changes its height (new messages added)
         chatArea.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -52,12 +50,15 @@ public class MainController {
     private void handleSendAction() {
         String userInput = inputField.getText().trim();
         if (!userInput.isEmpty()) {
-            // Add the user's message to the chat area (on the right side)
-            addMessage(userInput, Pos.CENTER_RIGHT, USER_MESSAGE_COLOR); // User message on the right
+            // Add user's message (text on the left, image on the right)
+            DialogBox userDialog = new DialogBox(userInput, userImage);
+            chatArea.getChildren().add(userDialog);
 
-            // Get the chatbot's response and add it to the chat area (on the left side)
+            // Get bot's response and display (text on the right, image on the left)
             String response = Papadom.getResponse(userInput);
-            addMessage(response, Pos.CENTER_LEFT, BOT_MESSAGE_COLOR); // Bot message on the left
+            DialogBox botDialog = new DialogBox(response, botImage);
+            botDialog.flip(); // Flip bot's dialog to align on the left
+            chatArea.getChildren().add(botDialog);
 
             // Clear the input field after sending
             inputField.clear();
@@ -67,19 +68,5 @@ public class MainController {
                 inputField.setDisable(true); // Disable further input
             }
         }
-    }
-
-    // Adds a message (either user or bot) to the chat area
-    private void addMessage(String message, Pos alignment, String backgroundColor) {
-        Label messageLabel = new Label(message);
-        messageLabel.setWrapText(true);
-        messageLabel.setMinHeight(Region.USE_PREF_SIZE); // Allow label to grow vertically
-        messageLabel.setStyle("-fx-background-color: " + backgroundColor + "; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5;");
-
-        HBox messageBox = new HBox();
-        messageBox.setAlignment(alignment);
-        messageBox.getChildren().add(messageLabel);
-
-        chatArea.getChildren().add(messageBox);
     }
 }

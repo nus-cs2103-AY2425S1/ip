@@ -13,6 +13,7 @@
         <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS">
             <VBox fx:id="chatArea" spacing="10">
                 <padding>
+                    <!-- Use four values for Insets -->
                     <Insets top="10" right="10" bottom="10" left="10"/>
                 </padding>
             </VBox>
@@ -21,6 +22,7 @@
     <bottom>
         <HBox spacing="10">
             <padding>
+                <!-- Use four values for Insets -->
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
             <TextField fx:id="inputField" HBox.hgrow="ALWAYS" promptText="Enter your message..."

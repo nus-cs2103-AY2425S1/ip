@@ -40,3 +40,15 @@
 [T][ ] hellojind
 [T][ ] borrow
 [T][ ] hi
+[T][ ] find book
+[T][ ] go home
+[E][ ] class (from: now to: one hour later)
+[T][ ] go homw
+[T][ ] go home
+[T][ ] go homw
+[D][ ] assignment 1 (by: Aug 9 2024)
+[E][ ] part (from: 28th aug to: 29th aug)
+[T][ ] finish homework 1
+[D][ ] assignment 2 (by: Aug 20 2024)
+[E][ ] holiday @ JB (from: 29th Aug to: 30th Aug)
+[E][ ] Bali holiday (from: 3th Dec to: 10th Dec)
