@@ -168,14 +168,20 @@ public abstract class Command {
             try {
                 if (isMarkCorrect) {
                     tasks.completeTaskAt(index);
-                    return ui.mark(tasks, index);
                 } else {
                     tasks.uncompleteTaskAt(index);
-                    return ui.unmark(tasks, index);
                 }
             } catch (IndexOutOfBoundsException e) {
                 return ui.taskDoesNotExist();
             }
+
+            try {
+                saveManager.writeToSave(tasks);
+            } catch (IOException e) {
+                System.out.println("Failed to save: " + e.getMessage());
+            }
+
+            return isMarkCorrect ? ui.mark(tasks, index) : ui.unmark(tasks, index);
         }
     }
 
@@ -207,12 +213,20 @@ public abstract class Command {
             assert tasks != null : "TaskList cannot be null";
             assert index >= 0 && index < tasks.getSize() : "Index out of bounds for TaskList";
 
+            Task task = null;
             try {
-                Task task = tasks.removeTaskAt(index);
-                return ui.delete(task);
+                task = tasks.removeTaskAt(index);
             } catch (IndexOutOfBoundsException e) {
                 return ui.taskDoesNotExist();
             }
+
+            try {
+                saveManager.writeToSave(tasks);
+            } catch (IOException e) {
+                System.out.println("Failed to save: " + e.getMessage());
+            }
+
+            return ui.delete(task);
         }
     }
 
@@ -243,6 +257,13 @@ public abstract class Command {
         public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
             assert tasks != null : "TaskList cannot be null";
             tasks.addTask(task);
+
+            try {
+                saveManager.writeToSave(tasks);
+            } catch (IOException e) {
+                System.out.println("Failed to save: " + e.getMessage());
+            }
+
             return ui.taskAdded(task, tasks);
         }
     }

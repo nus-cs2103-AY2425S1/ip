@@ -5,14 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import ontos.Ontos;
 
 /**
  * A GUI for Ontos using FXML.
  */
 public class Main extends Application {
-
-    private Ontos ontos = new Ontos("Ontos");
 
     @Override
     public void start(Stage stage) {
@@ -21,7 +18,6 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setOntos(ontos);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

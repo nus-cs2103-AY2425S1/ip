@@ -32,7 +32,7 @@ class TaskListTest {
         try {
             taskList.completeTaskAt(0);
             fail();
-        } catch (IndexOutOfBoundsException e ) {
+        } catch (IndexOutOfBoundsException e) {
             assertEquals("Index -1 out of bounds for length 3", e.getMessage());
         } catch (AssertionError e) {
             assertEquals("Index out of bounds for TaskList", e.getMessage());

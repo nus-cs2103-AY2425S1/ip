@@ -42,7 +42,7 @@ public abstract class Task {
      */
     public static Task toDo(String description) {
         assert description != null : "Description cannot be null";
-        
+
         return new ToDo(description);
     }
 
@@ -174,9 +174,15 @@ public abstract class Task {
         return "[" + statusIcon + "] " + this.description;
     }
 
+    /**
+     * Returns a boolean representing if this Task contains the searchCriteria.
+     *
+     * @param searchCriteria The string to search for in the task description.
+     * @return A boolean representing if this task contains the searchCriteria.
+     */
     public boolean containsString(String searchCriteria) {
         assert searchCriteria != null : "Search criteria cannot be null";
-        
+
         return this.description.indexOf(searchCriteria) != -1;
     }
 

@@ -91,7 +91,7 @@ public class SaveManager {
      */
     private Task stringToTask(String input) throws StringIndexOutOfBoundsException,
             NumberFormatException, IllegalArgumentException, DateTimeParseException {
-        
+
         assert input != null : "Input cannot be null";
 
         Boolean isDone = isDoneHashMap.get(input.charAt(2));
@@ -132,7 +132,7 @@ public class SaveManager {
      */
     public void writeToSave(TaskList tasks) throws IOException {
         assert tasks != null : "TaskList cannot be null";
-        
+
         FileWriter fw = new FileWriter(saveFilePath.toString());
         String[] tasksToAdd = tasks.toSave();
         for (String task : tasksToAdd) {

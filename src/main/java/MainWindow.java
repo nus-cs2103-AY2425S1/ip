@@ -23,16 +23,20 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image ontosImage = new Image(this.getClass().getResourceAsStream("/images/chatbot.jpg"));
+    private boolean isFirstInteraction = true;
 
+    /**
+     * Initializes the MainWindow.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        askForSaveLocation();
     }
 
     /** Injects the Ontos instance */
-    public void setOntos(Ontos o) {
-        ontos = o;
-        this.greetUser();
+    public void setOntos(String saveLocation) {
+        ontos = new Ontos(saveLocation);
     }
 
     /**
@@ -42,7 +46,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = ontos.getResponse(input);
+        String response;
+
+        if (isFirstInteraction) {
+            setOntos(input);
+            response = "Save location set to: " + input + "\n" + ontos.getGreeting();
+            isFirstInteraction = false;
+        } else {
+            response = ontos.getResponse(input);
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getOntosDialog(response, ontosImage)
@@ -51,10 +64,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Greets the user when the chatbot is launched.
+     * Asks for a save location from the user when the chatbot is launched.
      */
     @FXML
-    private void greetUser() {
-        dialogContainer.getChildren().add(DialogBox.getOntosDialog(ontos.getGreeting(), ontosImage));
+    private void askForSaveLocation() {
+        dialogContainer.getChildren().add(DialogBox.getOntosDialog("Please enter a save location.", ontosImage));
     }
 }
