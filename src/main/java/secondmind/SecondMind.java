@@ -37,6 +37,7 @@ public class SecondMind {
 
     public String getResponse(String userInput) {
         String[] instruction = parser.processInput(userInput);
+        assert instruction != null;
         String command = instruction[0];
         if (command.equals("bye")) {
             return "$$$EXIT_PROGRAM$$$";
