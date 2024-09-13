@@ -63,9 +63,11 @@ public class Rex {
             System.out.println("An error has occurred.");
             throw new RuntimeException(e);
         } catch (DateTimeParseException e) {
+            assert command != null : "command should not be null";
             String usageMessage = Command.usageMessage(command);
             return ui.errorMessage("Wrong date/time format!\nUsage: " + usageMessage);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            assert command != null : "command should not be null";
             String usageMessage = Command.usageMessage(command);
             return ui.errorMessage("Invalid task number!\nUsage: " + usageMessage);
         }

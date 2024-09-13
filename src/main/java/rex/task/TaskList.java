@@ -23,6 +23,7 @@ public class TaskList {
      * @throws IOException If an I/O error occurs during loading.
      */
     public TaskList(Storage storage) throws IOException {
+        assert storage != null : "Storage should not be null";
         this.storage = storage;
         this.tasks = new ArrayList<>();
         loadList();
@@ -76,6 +77,7 @@ public class TaskList {
         String description = argumentTokens[0];
         LocalDateTime from = Parser.parseDateTime(argumentTokens[1]);
         LocalDateTime to = Parser.parseDateTime(argumentTokens[2]);
+        assert from.isBefore(to) : "from datetime should be before to datetime";
 
         Event event = new Event(description, false, from, to);
         tasks.add(event);

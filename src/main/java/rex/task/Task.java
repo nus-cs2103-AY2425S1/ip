@@ -62,6 +62,7 @@ public class Task {
      * This method should be called when a task is removed.
      */
     public static void removeTask() {
+        assert numberOfTasks >= 0 : "total number of tasks should not be less than 0";
         numberOfTasks--;
     }
 
