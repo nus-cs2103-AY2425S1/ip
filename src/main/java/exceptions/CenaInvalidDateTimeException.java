@@ -1,3 +1,4 @@
+package exceptions;
 
 import java.time.format.DateTimeParseException;
 
@@ -7,7 +8,7 @@ import java.time.format.DateTimeParseException;
 public class CenaInvalidDateTimeException extends Exception {
 
     /**
-     * Constructs a new CenaInvalidDateTimeException with the specified detail message.
+     * Constructs a new exceptions.CenaInvalidDateTimeException with the specified detail message.
      *
      * @param message the detail message. The detail message is saved for later retrieval by the Throwable.getMessage() method.
      */
@@ -16,7 +17,7 @@ public class CenaInvalidDateTimeException extends Exception {
     }
 
     /**
-     * Constructs a new CenaInvalidDateTimeException with the specified detail message and cause.
+     * Constructs a new exceptions.CenaInvalidDateTimeException with the specified detail message and cause.
      *
      * @param message the detail message. The detail message is saved for later retrieval by the Throwable.getMessage() method.
      * @param cause the cause of the exception (which is saved for later retrieval by the Throwable.getCause() method).
