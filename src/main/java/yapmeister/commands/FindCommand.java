@@ -31,6 +31,9 @@ public class FindCommand implements Command {
         if (inputs.length < 2) {
             throw new InvalidInputException("Insufficient arguments for Find");
         }
+
+        assert inputs.length >= 2;
+
         this.searchTerm = inputs[1];
         return this;
     }
