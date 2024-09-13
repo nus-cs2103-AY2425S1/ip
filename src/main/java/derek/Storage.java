@@ -52,7 +52,7 @@ public class Storage {
                 String task = getList.nextLine();
                 taskList.populateTaskList(task);
             }
-            this.overrideFile();
+            this.overwriteFile();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
@@ -67,7 +67,7 @@ public class Storage {
      *
      * @throws IOException if an I/O error occurs during file writing
      */
-    public void overrideFile() throws IOException {
+    public void overwriteFile() throws IOException {
         FileWriter writer = new FileWriter(dataFilePathName);
         writer.write("");
         writer.close();
