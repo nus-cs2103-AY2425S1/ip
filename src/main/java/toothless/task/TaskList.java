@@ -36,6 +36,7 @@ public class TaskList {
      * @param task     The task to be added.
      * @param ui       The user interface.
      * @param taskList The task list.
+     * @return The message to be displayed after adding the task.
      */
     public String addTask(Task task, Ui ui, TaskList taskList) {
         assert task != null : "Task should not be null";
@@ -45,6 +46,8 @@ public class TaskList {
 
     /**
      * Prints the tasks in the task list.
+     *
+     * @return The tasks in the task list.
      */
     public String printTask() {
         StringBuilder response = new StringBuilder("""
@@ -69,6 +72,8 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param index The index of the task to be marked as done.
+     * @return The message to be displayed after marking the task as done.
+     * @throws ToothlessExceptions If the index is out of range.
      */
     public String markDone(int index, Ui ui) throws ToothlessExceptions {
         assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
@@ -85,6 +90,8 @@ public class TaskList {
      * Mark a task as undone.
      *
      * @param index The index of the task to be marked as undone.
+     * @return The message to be displayed after marking the task as undone.
+     * @throws ToothlessExceptions If the index is out of range.
      */
     public String markUndone(int index, Ui ui) throws ToothlessExceptions {
         assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
@@ -101,6 +108,7 @@ public class TaskList {
      * Deletes a task from the task list.
      *
      * @param index The index of the task to be deleted.
+     * @return The message to be displayed after deleting the task.
      * @throws ToothlessExceptions If the index is out of range.
      */
     public String deleteTask(int index) throws ToothlessExceptions {
@@ -122,6 +130,7 @@ public class TaskList {
      * Finds a task that matches the keyword.
      *
      * @param keyword The keyword to be searched.
+     * @return The message to be displayed after finding the task.
      */
     public String findTask(String... keyword) {
         assert keyword != null : "Keyword should not be null";
