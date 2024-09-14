@@ -30,7 +30,7 @@ public class Parser {
     private static final int SEC_DATE_IDX = 3;
 
     /**
-     * Method to read the items in the Storage class.
+     * Reads the items in the Storage class and puts it in a new list of tasks.
      *
      * @param storage The Storage object being used.
      * @return A List of the tasks stored in the Storage.
@@ -80,7 +80,7 @@ public class Parser {
     }
 
     /**
-     * Utility method to parse and clean the user input.
+     * Parses and cleans the user input.
      *
      * @param inputString The input from the scanner.
      * @return The parsed string as an array of size 4 where:
@@ -100,8 +100,6 @@ public class Parser {
         parsedParts[CMD_IDX] = parts[CMD_IDX].toLowerCase();
 
         if (parsedParts[CMD_IDX].equals("mark") || parsedParts[CMD_IDX].equals("unmark")) {
-            // Validator.verifyMarkUnmark(parts);
-            // parsedParts[DESCRIPTION_IDX] = parts[DESCRIPTION_IDX];
             Parser.parseMark(parts, parsedParts);
             return parsedParts;
         }
@@ -138,7 +136,7 @@ public class Parser {
     }
 
     /**
-     * Helper method to parse a todo command.
+     * Parses a todo command.
      *
      * @param parts Split input string.
      * @param parsedParts Extra details inside the input string.
@@ -153,7 +151,7 @@ public class Parser {
     }
 
     /**
-     * Helper method to parse a delete command.
+     * Parses a delete command.
      *
      * @param parts Split input string.
      * @param parsedParts Extra details inside the input string.
@@ -169,7 +167,7 @@ public class Parser {
     }
 
     /**
-     * Helper method to parse a mark command.
+     * Parses a mark command.
      *
      * @param parts Split input string.
      * @param parsedParts Extra details inside the input string.

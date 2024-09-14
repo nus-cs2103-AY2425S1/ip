@@ -11,7 +11,7 @@ public class Utility {
     public static final String NEW_LINE = System.lineSeparator();
 
     /**
-     * Method to wrap the msg between two horizontal lines.
+     * Wraps the msg between two horizontal lines and prints it to std::out.
      *
      * @param msg The msg to be wrapped.
      */

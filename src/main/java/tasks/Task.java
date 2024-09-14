@@ -18,21 +18,21 @@ public class Task {
     }
 
     /**
-     * Method to mark the task as done.
+     * Marks the task as done.
      */
     public void markDone() {
         this.isDone = true;
     }
 
     /**
-     * Methd to mark the task as undone.
+     * Marks the task as undone.
      */
     public void markUndone() {
         this.isDone = false;
     }
 
     /**
-     * Method to check the status of the task.
+     * Checks the status of the task.
      *
      * @return true if the task is done else false.
      */

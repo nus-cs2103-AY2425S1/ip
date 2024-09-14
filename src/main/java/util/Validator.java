@@ -26,7 +26,7 @@ public class Validator {
     }
 
     /**
-     * Method to validate the deadline command.
+     * Validates the deadline command.
      *
      * @param details The full split input from the user.
      * @param byIdx The idx of "/by" in details.
@@ -49,7 +49,7 @@ public class Validator {
     }
 
     /**
-     * Method to validate the event command.
+     * Validates the event command.
      *
      * @param details The full split input from the user.
      * @param fromIdx The idx of "/from" in details.
@@ -81,7 +81,7 @@ public class Validator {
     }
 
     /**
-     * Method to validate the mark or unmark command.
+     * Validates the mark or unmark command.
      *
      * @param details The full split input from the user.
      * @throws UpdateMarkedException if the input is malformed.
@@ -104,7 +104,7 @@ public class Validator {
     }
 
     /**
-     * Method to validate the delete command.
+     * Validates the delete command.
      *
      * @param details The split input from the user.
      * @throws DeleteException if missing details.
@@ -127,7 +127,7 @@ public class Validator {
     }
 
     /**
-     * Method to validate the find command.
+     * Validates the find command.
      *
      * @param details The split input from the user.
      * @throws FindException if missing details.

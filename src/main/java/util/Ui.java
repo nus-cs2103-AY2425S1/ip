@@ -45,14 +45,14 @@ public class Ui {
     }
 
     /**
-     * Print the stored response.
+     * Prints the stored response.
      */
     public void printResponse() {
         prettyPrint(this.response);
     }
 
     /**
-     * Utility method to get input from std::in.
+     * Gets input from std::in.
      *
      * @return Input from std::in.
      */
@@ -61,7 +61,7 @@ public class Ui {
     }
 
     /**
-     * Setter for the stored reponse.
+     * Sets the stored reponse.
      *
      * @param strArr An array of strings to set as the response.
      * @return The new response.
@@ -82,7 +82,7 @@ public class Ui {
     }
 
     /**
-     * Getter for the stored response.
+     * Gets the stored response.
      *
      * @return The stored response.
      */
