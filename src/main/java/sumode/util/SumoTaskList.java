@@ -7,6 +7,7 @@ import java.util.List;
 
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
+import sumode.exception.DuplicateTaskException;
 import sumode.exception.LatestSaveException;
 import sumode.exception.NonExistentTaskException;
 import sumode.exception.SumoDException;
@@ -104,7 +105,7 @@ public class SumoTaskList {
         case DEADLINE:
         case EVENT:
             Task newlyAdded = Task.of(command, item);
-            tasks.add(newlyAdded); // used factory method to be more neat and OOP
+            this.addIfNoDuplicate(newlyAdded); // used factory method to be more neat and OOP
             ui.printTaskAdded(newlyAdded, tasks.size());
             tryToSave();
             break;
@@ -112,6 +113,24 @@ public class SumoTaskList {
             throw new UnknownCommandException(command);
         }
         return false;
+    }
+
+    /**
+     * Adds task to taskList if there is no duplicate.
+     *
+     * @param newlyAdded task to be added
+     * @throws DuplicateTaskException due duplicate task existing
+     */
+    private void addIfNoDuplicate(Task newlyAdded) throws DuplicateTaskException {
+        String newTaskString = newlyAdded.getName();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String currentString = task.getName();
+            if (currentString.equals(newTaskString)) {
+                throw new DuplicateTaskException(task, i + 1);
+            }
+        }
+        tasks.add(newlyAdded);
     }
 
     /**
