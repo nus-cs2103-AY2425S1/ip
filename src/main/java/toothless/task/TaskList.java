@@ -1,6 +1,9 @@
 package toothless.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import toothless.exceptions.ToothlessExceptions;
 import toothless.ui.Ui;
@@ -129,30 +132,24 @@ public class TaskList {
     /**
      * Finds a task that matches the keyword.
      *
-     * @param keyword The keyword to be searched.
+     * @param keywords The keyword to be searched.
      * @return The message to be displayed after finding the task.
      */
-    public String findTask(String... keyword) {
-        assert keyword != null : "Keyword should not be null";
-        StringBuilder response = new StringBuilder("Here are the quests that match your keyword:\n");
-        int taskCount = 0;
-        for (Task task : list) {
-            for (String key : keyword) {
-                String[] splitKey = key.split("\\s+");
-                for (String k : splitKey) {
-                    if (task.getDescription().contains(k)) {
-                        response.append(String.format("%d. %s\n", list.indexOf(task) + 1, task));
-                        taskCount++;
-                        break;
-                    }
-                }
-            }
-        }
+    public String findTask(String... keywords) {
+        List<String> keywordList = Arrays.stream(keywords)
+                .flatMap(keyword -> Arrays.stream(keyword.split("\\s+")))
+                .collect(Collectors.toList());
 
-        if (taskCount == 0) {
+        String response = list.stream()
+                              .filter(task -> keywordList.stream()
+                              .anyMatch(keyword -> task.getDescription().contains(keyword)))
+                              .map(task -> String.format("%d. %s\n", list.indexOf(task) + 1, task))
+                              .collect(Collectors.joining());
+
+        if (response.isEmpty()) {
             return "Oopsie! Seems like there are no quests that match your keyword!\n\n";
         }
 
-        return response.toString();
+        return "Here are the quests that match your keyword:\n\n" + response;
     }
 }
