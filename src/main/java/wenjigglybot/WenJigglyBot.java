@@ -16,6 +16,7 @@ public class WenJigglyBot {
      */
     public WenJigglyBot() {
         tasks = new TaskList();
+
         ui = new Ui();
         try {
             Storage storage = new Storage("./data/data.txt");
@@ -56,7 +57,74 @@ public class WenJigglyBot {
                 System.out.println(e);
                 continue;
             }
-            return handleCommand(command, task);
+            String[] strings;
+            String action;
+            int idx;
+            String taskName;
+
+            switch (Objects.requireNonNull(command)) {
+            case LIST:
+                ui.displayTasks(tasks);
+                break;
+            case MARK:
+                strings = task.split(" ");
+                action = "mark";
+                idx = Integer.parseInt(strings[1].trim()) - 1;
+                toggleTask(action, idx);
+                break;
+            case UNMARK:
+                action = "unmark";
+                strings = task.split(" ");
+                idx = Integer.parseInt(strings[1].trim()) - 1;
+                toggleTask(action, idx);
+                break;
+            case TODO:
+                taskName = task.replaceFirst("todo", "").trim();
+                addTask(new ToDoTask(taskName));
+                break;
+            case DEADLINE:
+                try {
+                    String[] parts = Parser.processDeadlineTask(task);
+                    assert parts.length == 2 : "Deadline task should have a task name and deadline";
+                    taskName = parts[0].trim();
+                    String deadline = parts[1].trim();
+                    LocalDate date;
+                    try {
+                        date = LocalDate.parse(deadline);
+                        addTask(new DeadlineTask(taskName, date));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Incorrect date format, please input in yyyy-mm-dd format!");
+                    }
+                } catch (DeadlineException deadlineException) {
+                    System.out.println(deadlineException);
+                }
+                break;
+            case EVENT:
+                // Split the string by "/from" and "/to"
+                try {
+                    String[] processedEvent = Parser.processEventTask(task);
+                    addTask(new EventTask(processedEvent[0], processedEvent[1], processedEvent[2]));
+                } catch (EventException eventException) {
+                    System.out.println(eventException);
+                }
+                break;
+            case FIND:
+                strings = task.split(" ");
+                String title = strings[1];
+                List<Task> matchingTasks = tasks.searchAndListTasks(title);
+                ui.displayTasks(new TaskList(matchingTasks));
+                break;
+            case DELETE:
+                strings = task.split(" ");
+                idx = Integer.parseInt(strings[1].trim()) - 1;
+                deleteTask(idx);
+                break;
+            case BYE:
+                flag = false;
+                break;
+            default:
+                System.out.println("Invalid command!");
+            }
         }
         System.out.println("Goodbye!");
         return "";
@@ -200,6 +268,7 @@ public class WenJigglyBot {
      * @param task The task to add.
      */
     private String addTask(Task task) {
+        assert task != null : "Task to add cannot be null";
         StringBuilder response = new StringBuilder("");
         tasks.addTask(task);
         Storage.saveTasksToFile(tasks);
