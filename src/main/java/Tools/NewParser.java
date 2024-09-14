@@ -22,32 +22,24 @@ public class NewParser {
                 storage.saveTasks(tasks);
                 return "Bye. Hope to see you again soon!";
             } else if (input.startsWith("delete")) {
-                int size = tasks.size();
                 String s = tasks.deleteTask(Integer.parseInt(input.substring(7)) - 1);
                 storage.saveTasks(tasks);
-                assert (tasks.size() == size-1);
                 return s;
             } else if (input.startsWith("update")) {
                 String command_message = tasks.updateTask(input);
                 storage.saveTasks(tasks);
                 return command_message;
             } else if (input.startsWith("todo")) {
-                int size = tasks.size();
                 String s = tasks.addTodoTask(input);
                 storage.saveTasks(tasks);
-                assert (tasks.size() == size+1);
                 return s;
             } else if (input.startsWith("deadline")) {
-                int size = tasks.size();
                 String s = tasks.addDeadlineTask(input);
                 storage.saveTasks(tasks);
-                assert (tasks.size() == size+1);
                 return s;
             } else if (input.startsWith("event")) {
-                int size = tasks.size();
                 String s = tasks.addEventTask(input);
                 storage.saveTasks(tasks);
-                assert (tasks.size() == size+1);
                 return s;
             } else if (input.equals("list")) {
                 String s = tasks.listTasks();
