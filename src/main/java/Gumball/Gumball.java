@@ -6,11 +6,9 @@ public class Gumball {
     private TaskList list;
     private FileManager fileManager;
 
-    private UI ui;
 
     public Gumball() {
         try {
-            ui = new UI();
             fileManager = new FileManager("./gumball.txt");
             list = fileManager.loadFile();
         } catch (IOException | InputErrorException e) {
@@ -21,7 +19,7 @@ public class Gumball {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(list, ui, fileManager);
+            return c.execute(list, fileManager);
         } catch (InputErrorException | IOException e) {
             return e.getMessage();
         }

@@ -15,20 +15,29 @@ public class Parser {
         if (input.equals("list")) {
             return new ListCommand();
         } else if (input.startsWith("mark ")) {
-            int num = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+            int num = getNumFromString(input);
             return new MarkCommand(num);
         } else if (input.startsWith("delete ")) {
-            int num = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+            int num = getNumFromString(input);
             return new DeleteCommand(num);
-        } else if (input.startsWith("todo")
-                || input.startsWith("deadline") || input.startsWith("event")) {
+        } else if (isATask(input)) {
             return new AddCommand(input);
         } else if(input.startsWith("find ")) {
-            return new FindCommand(input.substring(5));
+            return new FindCommand(input);
         } else if(input.equals("bye")) {
             return new ExitCommand();
         } else {
             throw (new InputErrorException("Sorry I don't know how to do that"));
         }
+    }
+
+    private static boolean isATask(String input) {
+        return input.startsWith("todo")
+                || input.startsWith("deadline")
+                || input.startsWith("event");
+    }
+
+    private static int getNumFromString(String input) {
+        return Integer.parseInt(input.replaceAll("[^0-9]", ""));
     }
 }

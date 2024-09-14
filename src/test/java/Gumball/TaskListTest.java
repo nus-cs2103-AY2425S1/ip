@@ -50,32 +50,32 @@ public class TaskListTest {
     }
 
     @Test
-    public void getSpecific_simpleToDo_Success() throws InputErrorException {
+    public void getTaskString_simpleToDo_Success() throws InputErrorException {
         ToDo temp = new ToDo("todo test");
         TaskList list = new TaskList();
         list.add(temp);
-        assertEquals(list.getSpecific(1), "[T][ ] test");
+        assertEquals(list.getTaskString(1), "[T][ ] test");
     }
 
     @Test
-    public void getSpecific_notEnoughtTasks_throwsException() throws InputErrorException {
+    public void getTaskString_notEnoughtTasks_throwsException() throws InputErrorException {
         ToDo temp = new ToDo("todo test");
         TaskList list = new TaskList();
         list.add(temp);
         try {
-            list.getSpecific(3);
+            list.getTaskString(3);
             fail();
         } catch (InputErrorException e) {
             assertEquals("Sorry you do not have that many Tasks in your list", e.getMessage());
         }
     }
     @Test
-    public void getSpecific_zeroInput_throwsException() throws InputErrorException {
+    public void getTaskString_zeroInput_throwsException() throws InputErrorException {
         ToDo temp = new ToDo("todo test");
         TaskList list = new TaskList();
         list.add(temp);
         try {
-            list.getSpecific(0);
+            list.getTaskString(0);
             fail();
         } catch (InputErrorException e) {
             assertEquals("Invalid input task number cannot be zero or less", e.getMessage());

@@ -31,12 +31,11 @@ public class FileManager {
      */
     public void updateFile(TaskList taskList) throws IOException, InputErrorException {
         FileWriter writer = new FileWriter(path);
-        for (int i = 0; i < taskList.getN(); i++) {
+        for (int i = 0; i < taskList.getNumOfTasks(); i++) {
             Task task = taskList.getTask(i + 1);
             try {
                 String temp = "";
-                temp = temp + task.getStatusIcon() + " ";
-                temp = temp + task.getOriginalInput();
+                temp = temp + task.getStatusIcon() + " " + task.getOriginalInput();
                 writer.write(temp + "\n");
             } catch (Exception e) {
                 System.out.println("Something went wrong: " + e.getMessage());
@@ -65,7 +64,7 @@ public class FileManager {
                 taskList.add(new Event(command));
             }
             if (input.startsWith("[X]")) {
-                taskList.mark(taskList.getN());
+                taskList.mark(taskList.getNumOfTasks());
             }
         }
         return taskList;
