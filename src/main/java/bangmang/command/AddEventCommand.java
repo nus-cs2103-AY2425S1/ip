@@ -1,14 +1,14 @@
-package LittleMissHelpful.Command;
+package bangmang.command;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import LittleMissHelpful.Storage.Storage;
-import LittleMissHelpful.Tasks.TaskList;
-import LittleMissHelpful.Ui.Ui;
-import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Tasks.Event;
+import bangmang.storage.Storage;
+import bangmang.tasks.TaskList;
+import bangmang.ui.Ui;
+import bangmang.exception.InvalidCommandException;
+import bangmang.tasks.Event;
 
 public class AddEventCommand extends Command {
     private final String description;

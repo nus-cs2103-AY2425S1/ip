@@ -1,7 +1,7 @@
-package LittleMissHelpful.Tasks;
+package bangmang.tasks;
 import java.util.ArrayList;
 
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
+import bangmang.exception.InvalidTaskFormatException;
 
 public class TaskList {
     private ArrayList<Task> tasks;

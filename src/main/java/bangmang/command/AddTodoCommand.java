@@ -1,10 +1,10 @@
-package LittleMissHelpful.Command;
+package bangmang.command;
 
-import LittleMissHelpful.Storage.Storage;
-import LittleMissHelpful.Tasks.TaskList;
-import LittleMissHelpful.Ui.Ui;
-import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Tasks.Todo;
+import bangmang.storage.Storage;
+import bangmang.tasks.TaskList;
+import bangmang.ui.Ui;
+import bangmang.exception.InvalidCommandException;
+import bangmang.tasks.Todo;
 
 public class AddTodoCommand extends Command {
     private String description;

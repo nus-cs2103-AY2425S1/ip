@@ -1,7 +1,8 @@
 package bangmang.gui;
 
-import bangmang.bangmang;
-import bangmang.ui.ui;
+import bangmang.BangMang;
+import bangmang.ui.Ui;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,7 +23,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private LittleMissHelpful littleMissHelpful;
+    private BangMang bangMang;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
     private Image chatbotImage = new Image(this.getClass().getResourceAsStream("/images/ChatbotImage.png"));
@@ -33,8 +34,8 @@ public class MainWindow extends AnchorPane {
         showGreeting();
     }
 
-    public void setLittleMissHelpful(LittleMissHelpful littleMissHelpful) {
-        this.littleMissHelpful = littleMissHelpful;
+    public void setBangMang(BangMang bangMang) {
+        this.bangMang = bangMang;
     }
     
     /**
@@ -54,7 +55,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = littleMissHelpful.getResponse(input);
+        String response = bangMang.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLmhDialog(response, chatbotImage)

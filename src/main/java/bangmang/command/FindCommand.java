@@ -1,11 +1,11 @@
-package LittleMissHelpful.Command;
+package bangmang.command;
 
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Tasks.Task;
-import LittleMissHelpful.Tasks.TaskList;
-import LittleMissHelpful.Ui.Ui;
-import LittleMissHelpful.Storage.Storage;
+import bangmang.exception.InvalidTaskFormatException;
+import bangmang.exception.InvalidCommandException;
+import bangmang.tasks.Task;
+import bangmang.tasks.TaskList;
+import bangmang.ui.Ui;
+import bangmang.storage.Storage;
 
 import java.util.ArrayList;
 

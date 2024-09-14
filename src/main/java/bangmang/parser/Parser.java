@@ -1,7 +1,7 @@
-package LittleMissHelpful.Parser;
+package bangmang.parser;
 
-import LittleMissHelpful.Command.*;
-import LittleMissHelpful.Exception.InvalidCommandException;
+import bangmang.command.*;
+import bangmang.exception.InvalidCommandException;
 
 public class Parser {
     public static Command parse(String fullCommand) throws InvalidCommandException {

@@ -1,11 +1,11 @@
-package LittleMissHelpful.Command;
+package bangmang.command;
 
-import LittleMissHelpful.Storage.Storage;
-import LittleMissHelpful.Tasks.TaskList;
-import LittleMissHelpful.Ui.Ui;
-import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Tasks.Task;
+import bangmang.storage.Storage;
+import bangmang.tasks.TaskList;
+import bangmang.ui.Ui;
+import bangmang.exception.InvalidCommandException;
+import bangmang.exception.InvalidTaskFormatException;
+import bangmang.tasks.Task;
 
 public class MarkTaskCommand extends Command {
     private final int taskIndex;

@@ -1,8 +1,8 @@
-package LittleMissHelpful;
+package bangmang;
 
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Tasks.Task;
-import LittleMissHelpful.Tasks.TaskList;
+import bangmang.exception.InvalidTaskFormatException;
+import bangmang.tasks.Task;
+import bangmang.tasks.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

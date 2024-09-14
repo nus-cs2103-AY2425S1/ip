@@ -57,7 +57,7 @@ run {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'LittleMissHelpful.Launcher'
+        attributes 'Main-Class': 'bangmang.gui.Launcher'
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }

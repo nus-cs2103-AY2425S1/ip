@@ -5,8 +5,8 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import LittleMissHelpful.Tasks.Task;
-import LittleMissHelpful.Tasks.TaskList;
+import bangmang.tasks.Task;
+import bangmang.tasks.TaskList;
 
 public class Ui {
     private static final String LINE_BREAK = "---------------------------------";

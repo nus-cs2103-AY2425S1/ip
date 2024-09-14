@@ -1,9 +1,9 @@
-package LittleMissHelpful.Command;
+package bangmang.command;
 
-import LittleMissHelpful.Storage.Storage;
-import LittleMissHelpful.Tasks.TaskList;
-import LittleMissHelpful.Ui.Ui;
-import LittleMissHelpful.Exception.InvalidCommandException;
+import bangmang.storage.Storage;
+import bangmang.tasks.TaskList;
+import bangmang.ui.Ui;
+import bangmang.exception.InvalidCommandException;
 
 public abstract class Command {
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException;

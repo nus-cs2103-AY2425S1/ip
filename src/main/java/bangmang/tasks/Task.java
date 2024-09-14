@@ -1,8 +1,8 @@
-package LittleMissHelpful.Tasks;
+package bangmang.tasks;
 
 import java.time.LocalDateTime;
 
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
+import bangmang.exception.InvalidTaskFormatException;
 
 public class Task {
     protected String description;

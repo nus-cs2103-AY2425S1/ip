@@ -1,4 +1,4 @@
-package LittleMissHelpful.Storage;
+package bangmang.storage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
@@ -7,9 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Tasks.Task;
+import bangmang.exception.InvalidCommandException;
+import bangmang.exception.InvalidTaskFormatException;
+import bangmang.tasks.Task;
 
 public class Storage {
     private String filePath;

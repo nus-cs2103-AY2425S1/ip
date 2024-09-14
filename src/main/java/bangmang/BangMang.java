@@ -1,18 +1,18 @@
-package LittleMissHelpful;
+package bangmang;
 
-import LittleMissHelpful.Command.Command;
-import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Parser.Parser;
-import LittleMissHelpful.Storage.Storage;
-import LittleMissHelpful.Tasks.TaskList;
-import LittleMissHelpful.Ui.Ui;
+import bangmang.command.Command;
+import bangmang.exception.InvalidCommandException;
+import bangmang.parser.Parser;
+import bangmang.storage.Storage;
+import bangmang.tasks.TaskList;
+import bangmang.ui.Ui;
 
-public class LittleMissHelpful {
+public class BangMang {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public LittleMissHelpful(String filePath) {
+    public BangMang(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
