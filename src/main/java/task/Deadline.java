@@ -4,6 +4,7 @@ package task;
  * The Deadline class represents a task with a deadline
  */
 public class Deadline extends Task {
+    public static final String TASK_TYPE = "D";
     private String by;
 
     /**
@@ -12,7 +13,7 @@ public class Deadline extends Task {
      * @param by String representing the deadline
      */
     public Deadline(String description, String by) {
-        super(description);
+        super(description, Deadline.TASK_TYPE);
         this.by = by;
     }
 
