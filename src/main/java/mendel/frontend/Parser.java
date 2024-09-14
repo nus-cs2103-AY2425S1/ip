@@ -1,5 +1,6 @@
 package mendel.frontend;
 
+import mendel.constructutil.Conditional;
 import mendel.dbmanager.Storage;
 import mendel.discretetask.Deadline;
 import mendel.discretetask.Event;
@@ -34,17 +35,13 @@ public class Parser {
      * @throws MendelException If the command is invalid or if there is an error processing it.
      */
     public String manage(String currAction) throws MendelException {
-        if (currAction.equals("bye")) {
-            return new LeaveCommand().speak();
-        } else if (currAction.equals("list")) {
-            return this.taskStorage.speak();
-        } else {
-            String[] segments = currAction.split(" ");
-            return handleMultiWordCommands(segments, currAction);
-        }
+        return Conditional.ifBlock(() -> currAction.equals("bye"), new LeaveCommand()::speak)
+                .elifBlock(() -> currAction.equals("list"), this.taskStorage::speak)
+                .elseBlock(() -> this.handleMultiWordCommands(currAction));
     }
 
-    private String handleMultiWordCommands(String[] segments, String currAction) {
+    private String handleMultiWordCommands(String currAction) {
+        String[] segments = currAction.split(" ");
         String message;
         if (segments[0].equals("mark")) {
             handleSequenceNumberSizeError(segments);
