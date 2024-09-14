@@ -10,10 +10,11 @@ public class Ui {
             + "  - deadline (desc) /by (deadline)\n"
             + "  - event (desc) /from (start) /to (end)\n"
             + "  - list\n"
+            + "  - find (desc)\n"
             + "  - delete (task number)\n"
             + "  - mark (task number)\n"
             + "  - unmark (task number)\n"
-            + "  - exit\n";
+            + "  - bye\n";
     private static final String EXIT = "Bye. Hope to see you again soon!";
 
     /**

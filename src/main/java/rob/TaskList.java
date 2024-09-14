@@ -65,4 +65,26 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    /**
+     * Searches for the exact tasks that matches the specified keyword.
+     * Returns a list of tasks that matches the keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks that matches the specified keyword in their descriptions.
+     * @throws RobException If an error occurs while processing the tasks.
+     */
+    public List<Task> searchExactTasks(String keyword) throws RobException {
+        List<Task> exactMatchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            String line = task.toSaveString();
+            String[] parts = line.split(" \\| ", 5);
+            String desc = parts[2].trim();
+
+            if (desc.equals(keyword)) {
+                exactMatchingTasks.add(task);
+            }
+        }
+        return exactMatchingTasks;
+    }
 }
