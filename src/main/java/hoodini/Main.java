@@ -27,6 +27,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HoodiniMainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("HoodiniBot");
             stage.setScene(scene);
             fxmlLoader.<HoodiniMainWindow>getController().setHoodini(hoodini);
             stage.show();
