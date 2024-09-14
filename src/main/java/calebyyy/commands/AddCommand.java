@@ -87,17 +87,23 @@ public class AddCommand extends Command {
         }
     }
 
-    private Deadline createDeadline(String taskDetails) throws InvalidDateException {
+    private Deadline createDeadline(String taskDetails) throws CalebyyyException {
         String[] details = taskDetails.split(" /by ");
-        if (details.length < 2 || !isValidDate(details[1])) {
+        if (details.length < 2) {
+            throw new InvalidArgumentException();
+        }
+        if (!isValidDate(details[1])) {
             throw new InvalidDateException();
         }
         return new Deadline(details[0], details[1]);
     }
 
-    private Event createEvent(String taskDetails) throws InvalidDateException {
+    private Event createEvent(String taskDetails) throws CalebyyyException {
         String[] details = taskDetails.split(" /from | /to ");
-        if (details.length < 3 || !isValidDate(details[1]) || !isValidDate(details[2])) {
+        if (details.length < 3) {
+            throw new InvalidArgumentException();
+        }
+        if (!isValidDate(details[1]) || !isValidDate(details[2])) {
             throw new InvalidDateException();
         }
         return new Event(details[0], details[1], details[2]);

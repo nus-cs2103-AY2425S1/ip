@@ -125,41 +125,43 @@ public class Parser {
      */
     public void executeCommand(String input) throws CalebyyyException {
         assert input != null && !input.trim().isEmpty() : "Input cannot be null or empty";
-        String[] parts = input.split(" ", 2);
-        String commandName = parts[0];
-
-        CommandType commandType;
-        switch (commandName) {
-        case "list":
-            commandType = CommandType.LIST;
-            break;
-        case "mark":
-            commandType = CommandType.MARK;
-            break;
-        case "unmark":
-            commandType = CommandType.UNMARK;
-            break;
-        case "todo":
-        case "deadline":
-        case "event":
-            commandType = CommandType.ADD;
-            break;
-        case "delete":
-            commandType = CommandType.DELETE;
-            break;
-        case "bye":
-            commandType = CommandType.BYE;
-            break;
-        case "find":
-            commandType = CommandType.FIND;
-            break;
-        default:
-            throw new InvalidCommandException();
-        }
-
+        CommandType commandType = parseCommandType(input);
         Command command = getCommand(commandType);
         assert command != null : "Command cannot be null";
         command.execute(input);
         storage.saveTasks(taskList);
+    }
+
+    /**
+     * Parses the command type from the user input.
+     *
+     * @param input The user input.
+     * @return The command type.
+     * @throws InvalidCommandException If the command is invalid.
+     */
+    private CommandType parseCommandType(String input) throws InvalidCommandException {
+        String[] parts = input.split(" ", 2);
+        String commandName = parts[0];
+
+        switch (commandName) {
+        case "list":
+            return CommandType.LIST;
+        case "mark":
+            return CommandType.MARK;
+        case "unmark":
+            return CommandType.UNMARK;
+        case "todo":
+        case "deadline":
+        case "event":
+            return CommandType.ADD;
+        case "delete":
+            return CommandType.DELETE;
+        case "bye":
+            return CommandType.BYE;
+        case "find":
+            return CommandType.FIND;
+        default:
+            throw new InvalidCommandException();
+        }
     }
 }

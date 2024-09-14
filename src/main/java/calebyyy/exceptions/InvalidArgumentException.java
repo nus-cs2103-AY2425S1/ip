@@ -8,7 +8,7 @@ public class InvalidArgumentException extends CalebyyyException {
      * Constructor for InvalidArgumentException.
      */
     public InvalidArgumentException() {
-        super("Your argument can't be empty!!!");
+        super("Wrong number of arguments provided!!!");
     }
 
     /**
