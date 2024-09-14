@@ -91,7 +91,7 @@ public class FindStringInTasksCommand
     }
 
     private void printUserList(TaskList newFilteredView) {
-        assert false;
+        new PrintUserTaskListCommand().setEnvironment(ui, newFilteredView).run();
     }
 
     @Override

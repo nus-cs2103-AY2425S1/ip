@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
 import yappingbot.commands.commands.FindStringInTasksCommand;
+import yappingbot.commands.commands.PrintUserTaskListCommand;
 import yappingbot.commands.commands.ResetViewCommand;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotExceptionList;
@@ -98,7 +99,7 @@ public class YappingBot {
                     break;
                 case LIST:
                     // lists out all tasks that fits current filter (if any)
-                    commandDispatch.printUserList(userList);
+                    new PrintUserTaskListCommand().setEnvironment(ui, userList).runCommand();
                     break;
                 case MARK:
                     // marks a task as Done, given the index

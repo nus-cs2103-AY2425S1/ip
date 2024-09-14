@@ -29,43 +29,6 @@ public class CommandDispatcher {
     }
 
     /**
-     * Prints the contents of the task list in a human-friendly format.
-     * Example: [T][X] Marked To-do task
-     *
-     * @param userList TaskList to be printed
-     */
-    public void printUserList(TaskList userList) {
-        assert userList != null;
-        if (userList.isEmpty()) {
-            ui.println("List is empty!");
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(ReplyTextMessages.LIST_TEXT);
-        if (userList instanceof TaskListFilterView) {
-            sb.append(String.format("\n(Filter: '%s')",
-                                     ((TaskListFilterView) userList).getFilterString()));
-        }
-        sb.append("\n");
-        for (int i = 0; i < userList.size(); i++) {
-            Task t = userList.get(i);
-            sb.append(
-                    String.format(
-                            "\n%2d.%s",
-                            i + 1,
-                            String.format(
-                                    ReplyTextMessages.TASK_PRINT_TEXT_3s,
-                                    t.getTaskTypeSymbol(),
-                                    t.getTaskDoneCheckmark(),
-                                    t
-                            )
-                    )
-            );
-        }
-        ui.print(sb.toString());
-    }
-
-    /**
      * Marks or Unmarks a task in a task list.
      *
      * @param i integer index of task in list.
