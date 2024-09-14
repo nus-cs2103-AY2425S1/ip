@@ -57,6 +57,7 @@ public class Parser {
      */
 	public static void parseFile(File file, TaskList taskList) {
         try {
+            assert file.exists() : "File does not exist";
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
@@ -65,13 +66,17 @@ public class Parser {
                 String[] parts = line.split(" \\| ");
                 String taskType = parts[0];
                 String isDone = parts[1];
+
                 
                 //Todo task
                 if (taskType.equals("T")) {
+                    assert parts.length == 3 : "Todo task has wrong input format";
                     parseFileTodo(parts, isDone.equals("1"), taskList);
                 } else if (taskType.equals("D")) {
+                    assert parts.length == 4 : "Deadline task has wrong input format";
                     parseFileDeadline(parts, isDone.equals("1"), taskList);
                 } else if (taskType.equals("E")) {  
+                    assert parts.length == 4 : "Event task has wrong input format";
                     parseFileEvent(parts, isDone.equals("1"), taskList);
                 }
             }
@@ -145,14 +150,14 @@ public class Parser {
     public static void parseFileEvent(String[] input, boolean isDone, TaskList taskList) {
         String description = input[2];
 
-        String[] dateTime = input[3].split(" ");
-
-        String[] dates = dateTime[0].split("-");
-        String month = String.format("%02d", monthConverter(dates[0]));
-        String day = String.format("%02d", Integer.parseInt(dates[1]));
-        String year = dates[2];
-
-        LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
+                    String[] dateTime = parts[3].split(" ");
+                   
+                    String[] dates = dateTime[0].split("-");
+                    String month = String.format("%02d", monthConverter(dates[0]));
+                    String day = String.format("%02d", Integer.parseInt(dates[1]));
+                    String year = dates[2];
+                    
+                    LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
 
         String[] times = dateTime[1].split("-");
 
