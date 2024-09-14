@@ -1,4 +1,4 @@
-package fred;
+package fred.Exceptions;
 
 public class EmptyInputException extends FredException {
     public EmptyInputException() {

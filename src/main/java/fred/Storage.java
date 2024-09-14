@@ -1,5 +1,10 @@
 package fred;
 
+import fred.Tasks.Deadline;
+import fred.Tasks.Event;
+import fred.Tasks.Task;
+import fred.Tasks.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

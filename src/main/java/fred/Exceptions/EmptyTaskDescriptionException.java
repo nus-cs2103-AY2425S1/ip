@@ -1,4 +1,4 @@
-package fred;
+package fred.Exceptions;
 
 public class EmptyTaskDescriptionException extends FredException {
     public EmptyTaskDescriptionException() {

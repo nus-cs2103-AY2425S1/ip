@@ -1,4 +1,4 @@
-package fred;
+package fred.Tasks;
 
 /**
  * The Todo class represents a basic task without any specific time or deadline.
