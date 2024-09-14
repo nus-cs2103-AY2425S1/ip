@@ -12,7 +12,22 @@ import espresso.command.InvalidCommandException;
 import java.text.ParseException;
 import java.io.IOException;
 
+/**
+ * This class is responsible for parsing user inputs and executing the appropriate
+ * commands on the task list. The class interprets the input and is responsible for performing
+ * tasks such as adding and removing tasks as well as marking and unmarking tasks.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's input and executes the corresponding actions
+     *
+     * @param input    The string input by user containing the command.
+     * @param taskList The current task list where tasks are being stored.
+     * @param ui       The UI object displayed to interact with the user.
+     * @throws InvalidCommandException If the command format is invalid.
+     * @throws ParseException          If there is an error in parsing task data.
+     */
     public static void parse(String input, TaskList taskList, Ui ui) throws InvalidCommandException, ParseException {
 
         if (input.equals("list")) {
@@ -53,6 +68,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Helper method to check if the input starts with the specific command prefix.
+     *
+     * @param a The full input string input by the user.
+     * @param b The expected command prefix to check for.
+     * @return True if the input starts with the prefix, false otherwise.
+     */
     private static boolean checkInput(String a, String b) {
         return a.length() >= b.length() && a.substring(0, b.length()).equals(b);
     }

@@ -4,6 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents a task which has a deadline.
+ * Extends the {@link Task} class to include a deadline date.
+ */
 public class DeadlineTask extends Task {
     private Date dl;
     private static final SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");

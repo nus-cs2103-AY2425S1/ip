@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import espresso.command.InvalidCommandException;
 
+/**
+ * Represents a task which is an event.
+ * Extends the {@link Task} class to include an event date.
+ */
 public class EventTask extends Task {
     private Date starts;
     private Date ends;

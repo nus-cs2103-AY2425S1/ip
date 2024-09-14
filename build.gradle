@@ -1,11 +1,28 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'com.example'
 version '1.0-SNAPSHOT'
 
+application {
+    mainClass = 'espresso.Espresso'  // Replace with your actual main class path
+}
+
 sourceCompatibility = '11'
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    archiveFileName = "Espresso.jar" // Name of the output JAR file
+}
 
 repositories {
     mavenCentral()
