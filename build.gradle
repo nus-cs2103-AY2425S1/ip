@@ -68,3 +68,6 @@ tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+run {
+    enableAssertions = true
+}
