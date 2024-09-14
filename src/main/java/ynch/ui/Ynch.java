@@ -33,7 +33,7 @@ public class Ynch {
     }
 
     public String greet() {
-        return ui.greet();
+        return ui.greet() + "\n" + taskList.getTasksToRemind().list();
     }
 
     public String getResponse(String userInput) {
