@@ -5,6 +5,16 @@
 **BobbyBot** is a task management chatbot designed for desktop use. It combines the speed and efficiency of a Command Line Interface (CLI) with the advantages of a Graphical User Interface (GUI).
 
 ## Features
+1. [Adding a todo task](#adding-a-todo-task-todo)
+2. [Adding a deadline task](#adding-a-deadline-task-deadline)
+3. [Adding an event task](#adding-an-event-task-event)
+4. [Listing all tasks](#listing-all-tasks-list)
+5. [Marking a task as done](#marking-a-task-as-done-mark)
+6. [Unmark a task as done](#unmark-a-task-as-done-unmark)
+7. [Deleting a task](#deleting-a-task-delete)
+8. [Finding tasks by keyword](#finding-tasks-by-keyword-find)
+9. [Undo the last command](#undo-the-last-command-undo)
+10. [Stop the program](#stop-the-program-bye)
 > **_NOTE:_** Words in UPPER_CASE are the parameters to be supplied by the user.
 e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo Study`.
 
