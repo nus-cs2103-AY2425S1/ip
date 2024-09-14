@@ -164,3 +164,13 @@ Terminates the application and saves all tasks in the task list to a specified t
 ```
 Bye. Hope to see you again soon!
 ```
+
+### Detect duplicate tasks
+Detects if you are trying to add a task that is already in the task list.
+
+**Example:** `todo sleep`
+
+**Expected Output:** 
+```
+OOPS!!! Brother you already have this task!!!
+```
