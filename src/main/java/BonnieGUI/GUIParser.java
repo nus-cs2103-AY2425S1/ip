@@ -67,6 +67,7 @@ public class GUIParser {
                 Task currTask = GUITaskList.getTasks().get(i - 1);
                 if (currTask instanceof Deadline) {
                     Deadline d = (Deadline) currTask;
+                    // Gets deadline tasks that are due within withinDays
                     if (ChronoUnit.DAYS.between(LocalDate.now(), d.getDeadline()) <= withinDays)
                         list += String.format("%d. %s\n", i, d.toStringFormatted());
                 } else {

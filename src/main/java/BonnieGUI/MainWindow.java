@@ -52,7 +52,8 @@ public class MainWindow extends AnchorPane {
                         "4. deadline {task name} /by {YYYY-MM-DD}: Bonnie adds a task with a deadline to your task list.\n" +
                         "5. event {task name} /from {start} /to {end}: Bonnie adds an event with a start/end time to your task list.\n" +
                         "6. delete {task number}: Bonnie deletes the task with that number from your task list.\n" +
-                        "7. find {keyword}: Bonnie find all tasks containing that keyword from your task list.\n" +
+                        "7. find {keyword}: Bonnie finds all tasks containing that keyword from your task list.\n" +
+                        "8. remind {number of days}: Bonnie reminds you of your deadline tasks due within this number of days.\n" +
                         "Bonnie wants to remind you that you should substitute items with curly braces with the actual information.\n" +
                         "Also, do remember to use the forward slashes! \"/from\" is valid but \"from\" is NOT valid!\n" +
                         "Example: \"event clean floor /from 18th September 5pm /to 18th September 6pm\" is a valid command\n", dukeImage)
