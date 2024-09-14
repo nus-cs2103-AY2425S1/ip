@@ -110,6 +110,14 @@ public class Task {
         return (this.isCompleted ? "1" : "0") + " | " + this.name;
     }
 
+    /**
+     * Returns task name.
+     * @return task name
+     */
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         return (isCompleted ? DONE : UNDONE) + this.name;
