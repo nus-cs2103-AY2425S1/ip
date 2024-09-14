@@ -1,28 +1,6 @@
-# Hoshi User Guide
+# Hoshi - Your Task Assistant
 
-
-// Product screenshot goes here
-
-```
-__    __    ______        _______. __    __   __  
-|  |  |  |  /  __  \      /       ||  |  |  | |  |
-|  |__|  | |  |  |  |    |   (----`|  |__|  | |  |
-|   __   | |  |  |  |     \   \    |   __   | |  |
-|  |  |  | |  `--'  | .----)   |   |  |  |  | |  |
-|__|  |__|  \______/  |_______/    |__|  |__| |__|
-
-
-____________________________________________________________
-Hello! Im Hoshi!
-What can I do for you?
-____________________________________________________________
-
-```
-
-## About Hoshi - Your Task Assistant
-
-Hoshi is a user-friendly chatbot that keeps tracks of your todos, events and deadlines! 
-It is currently still in development and features are yet to be finalized.
+Hoshi is a user-friendly assistant that aids you in keeping track of your tasks so you will remain on top of things!
 
 ## Features
 
@@ -31,29 +9,105 @@ It is currently still in development and features are yet to be finalized.
 3. Delete Tasks
 4. Find Tasks
 5. Graphical User Interface
+6. Help Window
 
-## Adding deadlines
+## Setting up in Intellij
 
-// Describe the action and its outcome.
+Prerequisites: JDK 17, update Intellij to the most recent version.
 
-// Give examples of usage
+1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+2. Open the project into Intellij as follows:
+    - Click `Open`.
+    - Select the project directory, and click `OK`.
+    - If there are any further prompts, accept the defaults.
+3. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+   In the same dialog, set the **Project language level** field to the `SDK default` option.
+4. Ensure Gradle is installed
+5. After that, run gradle either by CLI `gradle run` or inbuilt Gradle GUI in IntelliJ. Running `gradle build` is optional but recommended
 
-Example: `keyword (optional arguments)`
+## Running JAR File (Quick Start)
 
-// A description of the expected outcome goes here
+1. Ensure JDK-17.0.12 or equivalent is installed locally
+2. Download the latest JAR file [here](https://github.com/ITLimJiaWei/ip/releases)
+3. Open a command terminal `cd` into folder the jar file was placed in and use `java -jar hoshi.jar` command to run the application
 
-```
-expected output
-```
+A GUI similar to the below should appear
 
-## Feature ABC
+![Ui](Ui.png)
 
-// Feature details
+4. Type a command in the text input at the bottom and press Enter to execute it.
+5. There is a help button located at the top right for more information on available commands.
 
 
-## Feature XYZ
+## Features
 
-// Feature details
+Below is a summary of commands and corresponding examples to utilize Hoshi.
+
+1. Add todo/deadline/event - `Add deadline 2022-12-1`
+2. Mark/Unmark - `Mark 1`
+3. Delete - `Delete 1`
+4. Find - `Find ASG`
+5. List - `List`
+6. Bye - `Bye`
+
+More detailed breakdowns are included below.
+
+### Adding a task: `add`
+
+Adds a todo, deadline or event to Hoshi.
+
+Format: `add EVENT DESCRIPTION STARTDATE ENDDATE`
+
+Examples:
+- `add todo ASG1`
+- `add deadline ASG1 2022-12-12`
+- `add event ASG1 2022-12-12 2022-12-22`
+
+### Marking/Unmarking a task: `mark`/`unmark`
+
+Marks or unmarks an added task(task numbers start from 1...).
+
+Format: `mark TASKNUMBER`
+
+Examples:
+- `mark 1`
+- `mark 2`
+
+### Deleting a task: `delete`
+
+Deletes a task.
+
+Format: `delete TASKNUMBER`
+
+Examples:
+- `delete 1`
+- `delete 2`
+
+### Locating task by description: `find`
+
+Finds a task which contains the given keyword in its description
+
+Format: `find KEYWORD`
+
+Examples:
+- `find ASG`
+- `find CS2103`
+
+### Listing all tasks: `list`
+
+Displays a list of all tasks in Hoshi.
+
+Format: `list`
+
+### Exiting the program: `bye`
+
+Exits the program.
+
+Format: `bye`
+
+### Saving the data
+
+Hoshi data is saved automatically after any command that changes the data. There is no need to manually save
 
 
 ## Acknowledgements

@@ -27,7 +27,7 @@ public class AddCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
 
         try {
-            String taskType = splitInput[1];
+            String taskType = splitInput[1].toLowerCase();
             String desc = getDescription(splitInput);
 
             switch (taskType) {
@@ -59,7 +59,7 @@ public class AddCommand implements Command {
     private String handleAddTask(Task task, TaskList tasks, Ui ui, Storage storage, String desc) {
         tasks.add(task);
         CommandUtils.handleSave(tasks, storage, ui);
-        return ui.displayTaskAdded(desc);
+        return ui.displayTaskAdded(desc, task.getClass().getSimpleName());
     }
 
     /**
