@@ -1,5 +1,6 @@
 package bob;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +40,21 @@ public class TaskList {
     public String toText() {
         StringBuilder text = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-
             text.append(list.get(i).toText()).append("\n");
         }
         return text.toString();
     }
+
+    public TaskList getCompleted() {
+        return new TaskList(list.stream().filter(x -> x.getCompletedAt() != null).toList());
+    }
+
+    public TaskList getCompleted(LocalDateTime from, LocalDateTime to) {
+        return new TaskList(list.stream().filter(x -> x.getCompletedAt() != null &&
+                x.getCompletedAt().isAfter(from) &&
+                x.getCompletedAt().isBefore(to)).toList());
+    }
+
 
     @Override
     public String toString() {

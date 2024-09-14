@@ -52,7 +52,7 @@ public class Bob {
             return "Field(s) may not be blank.\n"
                     + Bob.HELP_MESSAGE;
         } catch (DateTimeParseException e) {
-            return "Sorry, I only accept datetime inputs of yyyy-MM-dd HHmm\n"
+            return "Sorry, I only accept datetime inputs of dd/MM/yy HHmm\n"
                     + Bob.HELP_MESSAGE;
         }
     }
