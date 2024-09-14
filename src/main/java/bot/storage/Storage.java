@@ -80,7 +80,7 @@ public class Storage {
     }
 
     /**
-     * Load tasks from data file
+     * Load tasks from data file.
      *
      * @param tasks <code>TaskList</code> to add the tasks to.
      * @throws FileNotFoundException If data file is not found.

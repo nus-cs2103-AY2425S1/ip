@@ -22,9 +22,10 @@ public class TaskList {
     }
 
     /**
-     * Add a <code>Task</code> to the <code>TaskList</code>.
+     * Adds a <code>Task</code> to the <code>TaskList</code>.
+     *
      * @param task <code>Task</code> to be added.
-     * @return Index of the newly added <code>Task</code>.
+     * @return index of the newly added <code>Task</code>.
      */
     public int add(Task task) {
         tasks.add(task);
@@ -32,10 +33,10 @@ public class TaskList {
     }
 
     /**
-     * Delete a task in the <code>TaskList</code>.
+     * Deletes a task in the <code>TaskList</code>.
      *
      * @param index Index of the <code>Task</code> to be deleted.
-     * @return The deleted <code>Task</code>.
+     * @return the deleted <code>Task</code>.
      */
     public Task remove(int index) {
         return tasks.remove(index);
