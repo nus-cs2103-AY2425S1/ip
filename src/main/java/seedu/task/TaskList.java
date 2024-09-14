@@ -115,11 +115,16 @@ public class TaskList {
 
     public String findTasks(String name) {
         ArrayList<Task> temp = new ArrayList<>();
-        for (Task t: this.tasks) {
-            if (t.getDescription().toLowerCase().contains(name.toLowerCase())) {
-                temp.add(t);
-            }
-        }
+        this.tasks
+                .stream()
+                .filter((t) -> containsName(t, name))
+                .forEach(temp::add);
         return formatter.listTaskUi(temp);
+    }
+
+    public boolean containsName(Task t, String name) {
+        String taskLowerDescription = t.getDescription().toLowerCase();
+        String nameLower = name.toLowerCase();
+        return taskLowerDescription.contains(nameLower);
     }
 }
