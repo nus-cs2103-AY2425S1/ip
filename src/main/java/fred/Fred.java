@@ -62,62 +62,59 @@ public class Fred {
      * @param action A String array containing the action and its parameters.
      * @throws FredException If the action is invalid or cannot be executed.
      */
-    String executeAction(String[] action) throws FredException {
-        String message = null;
-        int taskNumber;
+    String executeAction(Action action) throws FredException {
+        String message;
         Task task;
-        switch (action[0]) {
-        case "sayFarewell":
-            message = "Bye. Hope to see you again soon!";
-            break;
-        case "printTaskList":
-            String taskListString = tasks.getTaskListString();
-            message = taskListString;
-            break;
-        case "markTaskAsDone":
-            taskNumber = Integer.parseInt(action[1]);
-            task = tasks.markTaskAsDone(taskNumber);
-            message = String.format("Nice! I've marked this task as done:\n" +
-                    "   %s", task);
-            break;
-        case "markTaskAsNotDone":
-            taskNumber = Integer.parseInt(action[1]);
-            task = tasks.markTaskAsNotDone(taskNumber);
-            message = String.format("OK, I've marked this task as not done yet:\n" +
-                    "   %s", task);
-            break;
-        case "deleteFromTaskList":
-            taskNumber = Integer.parseInt(action[1]);
-            task = tasks.deleteFromTaskList(taskNumber);
-            storage.deleteFromDataFile(taskNumber);
-            message = String.format("Noted. I've removed this task:\n" +
-                    "   %s", task);
-            break;
-        case "addToTaskList":
-            task = tasks.createTask(action[1], action[2]);
-            tasks.addToTaskList(task);
-            storage.appendToDataFile(task);
-            message = String.format("Got it. I've added this task:\n" +
-                    "   %s\n" +
-                    "Now you have %d tasks in the list.", task, tasks.getTaskListSize());
-            break;
-        case "findTaskInTaskList":
-            String tasksWithKeyword = tasks.findTasksInTaskList(action[1]);
-            message = "Here are the matching tasks in your list:\n" + tasksWithKeyword;
-            break;
+        switch (action.getCommand()) {
+            case EXIT:
+                message = "Bye. Hope to see you again soon!";
+                break;
+            case LIST_TASKS:
+                message = tasks.getTasksAsString();
+                break;
+            case MARK_TASK:
+                task = tasks.markTaskAsDone(action.getTaskNumber());
+                message = String.format("Nice! I've marked this task as done:\n" +
+                        "   %s", task);
+                break;
+            case UNMARK_TASK:
+                task = tasks.markTaskAsNotDone(action.getTaskNumber());
+                message = String.format("OK, I've marked this task as not done yet:\n" +
+                        "   %s", task);
+                break;
+            case DELETE_TASK:
+                task = tasks.deleteFromTaskList(action.getTaskNumber());
+                storage.deleteFromDataFile(action.getTaskNumber());
+                message = String.format("Noted. I've removed this task:\n" +
+                        "   %s", task);
+                break;
+            case ADD_TODO_TASK:
+            case ADD_EVENT_TASK:
+            case ADD_DEADLINE_TASK:
+                task = tasks.createTask(action.getTaskType(), action.getTaskDetails());
+                tasks.addToTaskList(task);
+                storage.appendToDataFile(task);
+                message = String.format("Got it. I've added this task:\n" +
+                        "   %s\n" +
+                        "Now you have %d tasks in the list.", task, tasks.getTaskListSize());
+                break;
+            case FIND_TASK:
+                String tasksWithKeyword = tasks.findTasksInTaskList(action.getKeyword());
+                message = "Here are the matching tasks in your list:\n" + tasksWithKeyword;
+                break;
+            default:
+                return null;
         }
-        ui.say(message);
         return message;
     }
 
     String getResponse(String input) {
         try {
-            String[] action = parser.parseInput(input);
-            String[] commands = new String[] {"sayFarewell", "printTaskList", "markTaskAsDone", "markTaskAsNotDone", "deleteFromTaskList", "addToTaskList", "findTaskInTaskList"};
-            assert Arrays.asList(commands).contains(action[0]) : "Invalid command";
+            Action action = parser.parseInput(input);
             return executeAction(action);
         } catch (FredException e) {
             return e.getMessage();
         }
     }
 }
+

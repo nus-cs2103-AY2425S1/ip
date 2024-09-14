@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * and load tasks from an external data source.
  */
 public class TaskList {
-    ArrayList<Task> taskList = new ArrayList<>();
+    ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Creates a new task based on the type and details provided by the user.
@@ -26,26 +26,25 @@ public class TaskList {
      * @param taskDetails The details of the task, including description and any time-related information.
      * @return The created Task object.
      */
-    Task createTask(String taskType, String taskDetails) {
-        Task task;
+    Task createTask(TaskType taskType, String taskDetails) {
+        Task task = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
 
-        if (taskType.equals("todo")) {
+        if (taskType == TaskType.TODO) {
             task = new Todo(description);
-        } else if (taskType.equals("deadline")) {
+        } else if (taskType == TaskType.DEADLINE) {
             String byStr = taskDetailsArr[1].substring(3);
             LocalDateTime by = LocalDateTime.parse(byStr, formatter);
             task = new Deadline(description, by);
-        } else { // Assuming "event"
+        } else if (taskType == TaskType.EVENT) { // Assuming "event"
             String fromStr = taskDetailsArr[1].substring(5);
             String toStr = taskDetailsArr[2].substring(3);
             LocalDateTime from = LocalDateTime.parse(fromStr, formatter);
             LocalDateTime to = LocalDateTime.parse(toStr, formatter);
             task = new Event(description, from, to);
         }
-
         return task;
     }
 
@@ -55,7 +54,7 @@ public class TaskList {
      * @param task The task to be added to the list.
      */
     void addToTaskList(Task task) {
-        taskList.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -67,7 +66,7 @@ public class TaskList {
      */
     Task markTaskAsDone(int taskNumber) throws FredException {
         try {
-            Task task = taskList.get(taskNumber);
+            Task task = tasks.get(taskNumber);
             task.markAsDone();
             return task;
         } catch (IndexOutOfBoundsException e) {
@@ -84,7 +83,7 @@ public class TaskList {
      */
     Task markTaskAsNotDone(int taskNumber) throws FredException {
         try {
-            Task task = taskList.get(taskNumber);
+            Task task = tasks.get(taskNumber);
             task.markAsNotDone();
             return task;
         } catch (IndexOutOfBoundsException e) {
@@ -101,7 +100,7 @@ public class TaskList {
      */
     Task deleteFromTaskList(int taskNumber) throws FredException {
         try {
-            Task task = taskList.remove(taskNumber);
+            Task task = tasks.remove(taskNumber);
             return task;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskNumberException();
@@ -125,7 +124,7 @@ public class TaskList {
      * @return The size of the task list.
      */
     int getTaskListSize() {
-        return taskList.size();
+        return tasks.size();
     }
 
     /**
@@ -133,10 +132,10 @@ public class TaskList {
      *
      * @return An ArrayList containing all tasks.
      */
-    String getTaskListString() {
+    String getTasksAsString() {
         StringBuilder taskListSb = new StringBuilder();
         int index = 1;
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             taskListSb.append(String.format("%s.%s", index++, task));
             taskListSb.append("\n");
         }
@@ -145,12 +144,13 @@ public class TaskList {
 
     String findTasksInTaskList(String keyword) {
         StringBuilder tasksWithKeyword = new StringBuilder();
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             if (task.checkForKeyword(keyword)) {
-                tasksWithKeyword.append(task.toString());
+                tasksWithKeyword.append(task);
                 tasksWithKeyword.append("\n");
             }
         }
         return tasksWithKeyword.toString();
     }
 }
+
