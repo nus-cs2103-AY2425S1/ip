@@ -31,24 +31,24 @@ Examples:
 ### Adding a _deadline_ task: `deadline`
 Adds a deadline task to the task list.
 
-Format: `deadline DESCRIPTION \by DATE`
+Format: `deadline DESCRIPTION /by DATE`
 
 - The `DATE` should be in the format `YYYY-MM-DD`.
 
 Examples:
-- `deadline Group Project \by 2021-09-17`
-- `deadline Submit Assignment \by 2021-09-20`
+- `deadline Group Project /by 2021-09-17`
+- `deadline Submit Assignment /by 2021-09-20`
 
 ### Adding an _event_ task: `event`
 Adds an event task to the task list.
 
-Format: `event DESCRIPTION \from DATE \to DATE`
+Format: `event DESCRIPTION /from DATE /to DATE`
 
 - The `DATE` should be in the format `YYYY-MM-DD`.
 
 Examples:
-- `event Group Meeting \from 2021-09-17 \to 2021-09-18`
-- `event Concert \from 2021-09-20 \to 2021-09-21`
+- `event Group Meeting /from 2021-09-17 /to 2021-09-18`
+- `event Concert /from 2021-09-20 /to 2021-09-21`
 
 ### Listing all tasks: `list`
 Shows a list of all tasks in the task list.
