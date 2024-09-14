@@ -16,10 +16,18 @@ public class UnmarkCommand extends Command {
     /**
      * Constructor for UnmarkCommand class.
      */
-    public UnmarkCommand(String taskNumber) throws InvalidInputException {
+    public UnmarkCommand(int taskNumber) throws InvalidInputException {
+        super("unmark");
+        this.taskNumber = taskNumber;
+    }
+
+    /**
+     * Constructor for UnmarkCommand class.
+     */
+    public UnmarkCommand(String taskNumberString) throws InvalidInputException {
         super("unmark");
         try {
-            this.taskNumber = Integer.parseInt(taskNumber);
+            this.taskNumber = Integer.parseInt(taskNumberString);
         } catch (NumberFormatException e) {
             throw new InvalidInputException("A task must be selected.");
         }

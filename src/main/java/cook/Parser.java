@@ -26,12 +26,26 @@ public class Parser {
      *
      * @param commandArgs Stores commands and their expected number of arguments.
      */
-    public Parser(HashMap<String, Integer> commandArgs) {
-        this.commandArgs = commandArgs;
+    public Parser() {
+        this.commandArgs = this.createCommandArgs();
     }
 
-    private Command createCommand(HashMap<String, String> argumentsHashMap) throws InvalidInputException,
-            InvalidCommandException {
+    private HashMap<String, Integer> createCommandArgs() {
+        HashMap<String, Integer> validCommandArgs = new HashMap<>();
+        validCommandArgs.put("bye", 1);
+        validCommandArgs.put("list", 1);
+        validCommandArgs.put("mark", 2);
+        validCommandArgs.put("unmark", 2);
+        validCommandArgs.put("delete", 2);
+        validCommandArgs.put("find", 2);
+        validCommandArgs.put("todo", 2);
+        validCommandArgs.put("deadline", 4);
+        validCommandArgs.put("event", 6);
+        return validCommandArgs;
+    }
+
+    private Command createCommand(HashMap<String, String> argumentsHashMap)
+            throws InvalidInputException, InvalidCommandException {
         String command = argumentsHashMap.get("command");
         switch (command) {
         case "bye" -> {

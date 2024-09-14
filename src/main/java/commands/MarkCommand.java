@@ -16,10 +16,18 @@ public class MarkCommand extends Command {
     /**
      * Constructor for MarkCommand class.
      */
-    public MarkCommand(String taskNumber) throws InvalidInputException {
+    public MarkCommand(int taskNumber) {
+        super("mark");
+        this.taskNumber = taskNumber;
+    }
+
+    /**
+     * Constructor for MarkCommand class.
+     */
+    public MarkCommand(String taskNumberString) throws InvalidInputException {
         super("mark");
         try {
-            this.taskNumber = Integer.parseInt(taskNumber);
+            this.taskNumber = Integer.parseInt(taskNumberString);
         } catch (NumberFormatException e) {
             throw new InvalidInputException("A task must be selected.");
         }

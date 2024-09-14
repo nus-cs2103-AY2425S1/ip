@@ -16,10 +16,18 @@ public class DeleteCommand extends Command {
     /**
      * Constructor for DeleteCommand class.
      */
-    public DeleteCommand(String taskNumber) throws InvalidInputException {
+    public DeleteCommand(int taskNumber) throws InvalidInputException {
+        super("delete");
+        this.taskNumber = taskNumber;
+    }
+
+    /**
+     * Constructor for DeleteCommand class.
+     */
+    public DeleteCommand(String taskNumberString) throws InvalidInputException {
         super("delete");
         try {
-            this.taskNumber = Integer.parseInt(taskNumber);
+            this.taskNumber = Integer.parseInt(taskNumberString);
         } catch (NumberFormatException e) {
             throw new InvalidInputException("A task must be selected.");
         }

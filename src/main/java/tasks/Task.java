@@ -59,6 +59,7 @@ public abstract class Task implements Serializable {
         }
         return false;
     }
+
     /**
      * @inheritDoc.
      */

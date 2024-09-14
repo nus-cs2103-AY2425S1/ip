@@ -2,7 +2,6 @@ package cook;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 import commands.Command;
 import exceptions.InvalidCommandException;
@@ -12,11 +11,10 @@ import exceptions.InvalidInputException;
  * Cook class to store main logic and program.
  */
 public class Cook {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
-    private Parser parser;
-    //private String[] validCommands = {"bye", "list", "mark", "unmark", "delete", "find", "todo", "deadline", "event"};
+    private final Ui ui;
+    private final Parser parser;
 
     /**
      * Constructor for Cook class.
@@ -29,20 +27,7 @@ public class Cook {
             this.tasks = new TaskList();
         }
         this.ui = new Ui();
-
-        HashMap<String, Integer> validCommandArgs = new HashMap<>();
-
-        validCommandArgs.put("bye", 1);
-        validCommandArgs.put("list", 1);
-        validCommandArgs.put("mark", 2);
-        validCommandArgs.put("unmark", 2);
-        validCommandArgs.put("delete", 2);
-        validCommandArgs.put("find", 2);
-        validCommandArgs.put("todo", 2);
-        validCommandArgs.put("deadline", 4);
-        validCommandArgs.put("event", 6);
-
-        this.parser = new Parser(validCommandArgs);
+        this.parser = new Parser();
     }
 
     /**
