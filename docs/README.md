@@ -33,8 +33,8 @@ Calebyyy is a task management application that helps you keep track of your dail
 | Index |   Command to Use    |                   Format                    |                        examples                        |
 |:-----:|:-------------------:|:-------------------------------------------:|:------------------------------------------------------:|
 |   1   |   Add a Todo task   |            `todo <description>`             |                    `todo sleep`                    |
-|   2   | Add a Deadline task |   `deadline <description> /by <d/M/yyyy HHmm>`   |           `deadline exam /by 11/11/2024 1111`            |
-|   3   |  Add an Event task  | `event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>` | `event birthday /from 11/11/2024 00:00 /to 11/11/2024 23:59` |
+|   2   | Add a Deadline task |   `deadline <description> /by d/M/yyyy HHmm`   |           `deadline exam /by 11/11/2024 1111`            |
+|   3   |  Add an Event task  | `event <description> /from d/M/yyyy HHmm /to d/M/yyyy HHmm` | `event birthday /from 11/11/2024 0000 /to 11/11/2024 2359` |
 |   4   |    Delete a task by number (1-indexed)   |               `delete <task>`               |                       `delete 1`                       |
 |   5   |    Find task(s) by keywords     |              `find <keyword>`               |                       `find exam`                        |
 |   6   |     List tasks      |                   `list`                    |                         `list`                         |
@@ -56,23 +56,23 @@ Adds a Todo task to your task list.
 
 **Expected Outcome:**
 ```
-Ayy, task added to the grindset! Check it out:
-  [T][ ] Plan holiday trip
-You are now dripping with rizz: 1 tasks in your epic collection.
+Got it. I've added this task:
+   [T][] sleep
+Now you have 1 tasks in the list.
 ```
 
 ### Add Deadline task
 Adds a Deadline task to your task list.
 
-**Format:** `deadline <description> /by DD/MM/YY HH:MM`
+**Format:** `deadline <description> /by d/M/yyyy HHmm`
 
-**Example:** `deadline Submit CS2100 Assignment /by 16/09/24 13:00`
+**Example:** `deadline exam /by 11/11/2024 1111`
 
 **Expected Outcome:**
 ```
-Ayy, task added to the grindset! Check it out:
-  [D][ ] Submit CS2100 Assignment (by: 16 Sep 24 13:00)
-You are now dripping with rizz: 2 tasks in your epic collection.
+Got it. I've added this task:
+   [D][] exam (by: Nov 11 2024, 11:11am)
+Now you have 2 tasks in the list.
 ```
 
 ### Add Event task
@@ -80,13 +80,13 @@ Adds an Event task to your task list.
 
 **Format:** `event <description> /from DD/MM/YY HH:MM /to DD/MM/YY HH:MM`
 
-**Example:** `event CS2103T Finals /from 26/11/24 17:00 /to 26/11/24 18:30`
+**Example:** `event birthday /from 11/11/2024 0000 /to 11/11/2024 2359`
 
 **Expected Outcome:**
 ```
-Ayy, task added to the grindset! Check it out:
-  [E][ ] CS2103T Finals (from: 26 Nov 24 17:00 to: 26 Nov 24 18:30)
-You are now dripping with rizz: 3 tasks in your epic collection.
+Got it. I've added this task:
+   [E][] birthday (from: Nov 11 2024, 12:00am to: Nov 11 2024, 11:59pm)
+Now you have 3 tasks in the list.
 ```
 
 ### List tasks
@@ -96,11 +96,10 @@ Displays all tasks currently in your task list, including their status.
 
 **Expected Output:**
 ```
-Yo, here's the list of your goon cave missions, king:
-1. [T][ ] Plan holiday trip
-2. [D][ ] Submit CS2100 Assignment (by: 16 Sep 24 13:00)
-3. [E][ ] CS2103T Finals (from: 26 Nov 24 17:00 to: 26 Nov 24 18:30)
-Get that grind on, fam!
+Here are the tasks in your list:
+1. [T][ ] sleep
+2. [D][ ] exam (by: Nov 11 2024, 11:11am)
+3. [E][ ] birthday (from: Nov 11 2024, 12:00am to: Nov 11 2024, 11:59pm)
 ```
 
 ### Mark task
@@ -112,8 +111,8 @@ Marks a task as done in your task list.
 
 **Expected Output:**
 ```
-Rizzed up and ready to go! Task has been marked as done like a true sigma:
-  [T][X] Plan holiday trip
+Nice! I've marked this task as done:
+  [T][X] sleep
 ```
 
 ### Unmark task
@@ -125,8 +124,8 @@ Unmarks a task that you previously marked as done.
 
 **Expected Output:**
 ```
-L, blud. I've marked this task as not done yet:
-  [T][ ] Plan holiday trip
+OK, I've marked this task as not done yet:
+  [T][ ] sleep
 ```
 
 ### Delete task
@@ -138,9 +137,9 @@ Deletes a task in your task list.
 
 **Expected Output:**
 ```
-Alright, I have yeeted this task out of your list:
-  [T][ ] Plan holiday trip
-You are down to 2 tasks now. Keep hustling, champ!
+Noted. I've removed this task:
+  [T][ ] sleep
+Now you have 2 tasks in the list.
 ```
 
 ### Find task
@@ -148,41 +147,12 @@ Finds all tasks in your task list whose description contains the keyword provide
 
 **Format:** `find <keyword>`
 
-**Example:** `find assignment`
+**Example:** `find sleep`
 
 **Expected Output:**
 ```
-Boom! Check out these epic tasks that match your search quest:
-1. [D][ ] Submit CS2100 Assignment (by: 16 Sep 24 13:00)
-```
-
-### Help
-Displays a list of all available commands with brief descriptions.
-
-**Format:** `help`
-
-**Expected Output:**
-```
-List of Commands:
-1. bye: Exits the program. Use this command when you want to end your session.
-
-2. list: Displays all tasks currently in your task list, including their status (completed or not completed).
-
-3. mark <task number>: Marks the specified task as completed. Replace <task number> with the number of the task you wish to mark.
-
-4. unmark <task number>: Unmarks the specified task, setting it back to not completed. Replace <task number> with the number of the task you wish to unmark.
-
-5. todo <description>: Creates a new todo task with the given description. This command is used to add simple tasks without deadlines.
-
-6. deadline <description> /by <date>: Creates a deadline task with the specified description and a due date. Use /by followed by the date to set when the task should be completed (e.g., deadline Finish report /by 2024-08-31).
-
-7. event <description> /from <date> /to <date>: Creates an event task with the given description and a time frame. Use /from to indicate the start date and /to to indicate the end date (e.g., event Team meeting /from 2024-09-01 /to 2024-09-02).
-
-8. delete <task number>: Removes the specified task from your list. Replace <task number> with the number of the task you want to delete.
-
-9. find <keyword>: Searches your task list for tasks that contain the specified keyword and displays matching tasks.
-
-10. help: Displays a list of all available commands with brief descriptions. Use this command whenever you need a quick reminder of what commands are available.
+Here are the matching tasks in your list:
+1. [T][ ] sleep
 ```
 
 ### Bye
@@ -192,6 +162,5 @@ Terminates the application and saves all tasks in the task list to a specified t
 
 **Expected Output:**
 ```
-Skedaddling outta here, my dude! See you in the Matrix or when baby Gronk rizzes up Livvy Dunne!
-Exiting in 3...2...1...
+Bye. Hope to see you again soon!
 ```
