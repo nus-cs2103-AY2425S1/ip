@@ -35,6 +35,7 @@ public class Main extends Application {
             scene.getStylesheets().add(Objects.requireNonNull(
                     this.getClass().getResource("/css/application.css")).toExternalForm());
             stage.setScene(scene);
+            stage.setTitle("Thanos");
             fxmlLoader.<MainWindow>getController().setThanos(thanos);
             stage.show();
         } catch (IOException e) {
