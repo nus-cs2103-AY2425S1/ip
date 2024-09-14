@@ -2,6 +2,7 @@ package tayoo.command;
 
 import tayoo.Storage;
 import tayoo.Tasklist;
+import tayoo.Tayoo;
 import tayoo.Ui;
 import tayoo.exception.TayooException;
 import tayoo.tasks.Task;
@@ -57,6 +58,7 @@ public class AddTaskCommand extends Command {
     @Override
     public String toString() {
         return this.taskToAdd.toString();
+
     }
 
     @Override

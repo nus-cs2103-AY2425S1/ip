@@ -8,7 +8,6 @@ import tayoo.exception.TayooException;
 public class ListCommand extends Command {
 
     public ListCommand() {
-        System.out.println("Created new list command");
     }
     @Override
     public void execute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {

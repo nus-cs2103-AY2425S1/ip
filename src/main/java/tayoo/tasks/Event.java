@@ -1,26 +1,19 @@
 package tayoo.tasks;
 
+import tayoo.Tayoo;
+import tayoo.Parser;
+import tayoo.exception.TayooException;
+
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.Objects;
 
 public class Event extends Task {
 
-    private String eventStartStr;
-    private String eventEndStr;
-    private TemporalAccessor eventStart;
-    private TemporalAccessor eventEnd;
-
-    public Event(String title, TemporalAccessor start, TemporalAccessor end, boolean completed) {
-        super(title, completed);
-        this.eventStart = start;
-        this.eventEnd = end;
-    }
-
-    public Event(String title, TemporalAccessor start, TemporalAccessor end) {
-        super(title);
-        this.eventStart = start;
-        this.eventEnd = end;
-    }
+    private final String eventStartStr;
+    private final String eventEndStr;
+    private final TemporalAccessor eventStart;
+    private final TemporalAccessor eventEnd;
 
     /**
      * Constructs a new 'Event' object which can be added to Tayoo's list. Event is defined as a task
@@ -32,36 +25,41 @@ public class Event extends Task {
      */
     public Event(String title, String start, String end, boolean completed) {
         super(title, completed);
+        this.eventStart = Parser.parseDateTime(start);
+        this.eventEnd = Parser.parseDateTime(end);
         this.eventStartStr = start;
         this.eventEndStr = end;
     }
 
-    /**
-     * Constructs a new 'Event' object which can be added to Tayoo's list. Event is defined as a task
-     * with a start and end date/time. Assumes new Event is not completed.
-     *
-     * @param title title of the event
-     * @param start start date/time of the event
-     * @param end end date/time of the event
-     */
     public Event(String title, String start, String end) {
         super(title);
+        this.eventStart = Parser.parseDateTime(start);
+        this.eventEnd = Parser.parseDateTime(end);
         this.eventStartStr = start;
         this.eventEndStr = end;
     }
 
     @Override
-    public String toString() {
+    public String toString(){
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        String startString, endString;
 
-        if (eventStart != null && eventEnd != null) {
-            return "[E]" + super.toString() + " (from: " + dateFormatter.format(eventStart) + " to: "
-                    + dateFormatter.format(eventEnd) + " )";
+
+        if (eventStart != null) {
+            startString = dateFormatter.format(eventStart);
+        } else {
+            startString = Objects.requireNonNullElse(eventStartStr, "");
+        }
+
+        if (eventEnd != null) {
+            endString = dateFormatter.format(eventEnd);
+        } else {
+            endString = Objects.requireNonNullElse(eventEndStr, "");
         }
 
 
-        return "[E]" + super.toString() + " (from: " + eventStartStr + " to: " + eventEndStr + " )";
+        return "[E]" + super.toString() + " (from: " + startString + " to: " + endString + " )";
     }
 
     /**
@@ -71,11 +69,27 @@ public class Event extends Task {
      *
      * @return string representation of Event in command form
      */
-    public String toTxt() {
-        if (this.isCompleted()) {
-            return "Event | true | " + this.getTitle() + " | " + this.eventStartStr + " | " + this.eventEndStr;
+    public String toTxt() throws TayooException {
+
+        String startTxtString, endTxtString;
+
+        if (eventStart != null) {
+            startTxtString = eventStart.toString();
+        } else if (eventStartStr != null){
+            startTxtString = eventStartStr;
         } else {
-            return "Event | false | " + this.getTitle() + " | " + this.eventStartStr + " | " + this.eventEndStr;
+            throw new TayooException("No event start string");
         }
+
+        if (eventEnd != null) {
+            endTxtString = eventEnd.toString();
+        } else if (eventEndStr != null){
+            endTxtString = eventEndStr;
+        } else {
+            throw new TayooException("No event end string");
+        }
+
+
+        return "Event | " + isCompleted() + "  | " + this.getTitle() + " | " + startTxtString + " | " + endTxtString;
     }
 }
