@@ -4,6 +4,7 @@ import fred.Exceptions.FredException;
 import fred.Tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The Fred class serves as the main class for a task management application.
@@ -112,6 +113,8 @@ public class Fred {
     String getResponse(String input) {
         try {
             String[] action = parser.parseInput(input);
+            String[] commands = new String[] {"sayFarewell", "printTaskList", "markTaskAsDone", "markTaskAsNotDone", "deleteFromTaskList", "addToTaskList", "findTaskInTaskList"};
+            assert Arrays.asList(commands).contains(action[0]) : "Invalid command";
             return executeAction(action);
         } catch (FredException e) {
             return e.getMessage();
