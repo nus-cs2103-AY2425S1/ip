@@ -16,6 +16,11 @@ public class ExitCommand extends Command {
     }
 
     @Override
+    public String guiExecute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {
+        return ui.getExitMessage();
+    }
+
+    @Override
     public boolean isExit() {
         return true;
     }

@@ -72,5 +72,13 @@ public class Tayoo {
         System.exit(0);
     }
 
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            return c.guiExecute(tasks, ui, storage);
+        } catch (TayooException e) {
+            return e.getMessage();
+        }
+    }
 
 }

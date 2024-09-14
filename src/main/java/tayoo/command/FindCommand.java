@@ -18,6 +18,11 @@ public class FindCommand extends Command {
     }
 
     @Override
+    public String guiExecute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {
+        return tasklist.find(toSearch);
+    }
+
+    @Override
     public boolean isExit() {
         return false;
     }

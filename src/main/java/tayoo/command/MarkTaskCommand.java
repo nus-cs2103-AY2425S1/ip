@@ -58,6 +58,52 @@ public class MarkTaskCommand extends Command {
         }
     }
 
+    public String guiExecute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {
+        StringBuilder toReturn = new StringBuilder();
+        if (isComplete) {
+            try {
+                if (tasklist.markTask(taskToMark)) {
+                    storage.updateTxt(taskToMark, isComplete);
+                    toReturn.append("Nice! I've marked this task as done:\n").append(tasklist.getTaskStr(taskToMark));
+                } else {
+                    toReturn.append("Hey! You've done that one already!\n").append(tasklist.getTaskStr(taskToMark));
+                }
+            } catch (IndexOutOfBoundsException e) {
+                if (taskToMark < 0) {
+                    throw new TayooException("Expected task number > 0");
+                } else if (taskToMark > 100) {
+                    throw new TayooException("Expected 0 < Task number < 100");
+                } else {
+                    throw new TayooException("Task number not found");
+                }
+            } catch (NumberFormatException e) {
+                throw new TayooException("Integer expected");
+            }
+        } else {
+            try {
+                if (tasklist.unmarkTask(taskToMark)) {
+                    storage.updateTxt(taskToMark, isComplete);
+                    toReturn.append("OK, I've marked this task as not done yet:\n")
+                            .append(tasklist.getTaskStr(taskToMark));
+                } else {
+                    toReturn.append("Hey! You haven't even done that one yet!\n")
+                            .append(tasklist.getTaskStr(taskToMark));
+                }
+            } catch (IndexOutOfBoundsException e) {
+                if (taskToMark <= 0) {
+                    throw new TayooException("Expected task number > 0");
+                } else if (taskToMark > 100) {
+                    throw new TayooException("Expected 0 < Task number < 100");
+                } else {
+                    throw new TayooException("Task number not found");
+                }
+            } catch (NumberFormatException e) {
+                throw new TayooException("Integer expected");
+            }
+        }
+        return toReturn.toString();
+    }
+
     @Override
     public boolean isExit() {
         return false;

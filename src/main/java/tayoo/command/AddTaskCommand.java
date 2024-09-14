@@ -37,6 +37,24 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
+    public String guiExecute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {
+        if (tasklist.addTask(this.taskToAdd)) {
+            storage.addToTxt(this.taskToAdd);
+
+            String toPrint = "Got it. I've added this task: \n" + this.taskToAdd.toString();
+            int tasklistSize = tasklist.getSize();
+            if (tasklistSize > 1) {
+                toPrint += "\n Now you have " + tasklistSize + " tasks in your list";
+            } else {
+                toPrint += "\n Now you have " + tasklistSize + " task in your list";
+            }
+            return toPrint;
+        } else {
+            throw new TayooException("You have too many tasks in your tasklist!");
+        }
+    }
+
+    @Override
     public String toString() {
         return this.taskToAdd.toString();
     }

@@ -13,6 +13,14 @@ public class Ui {
         this.botname = name;
     }
 
+    public String getExitMessage() {
+        return "\tBye. Hope to see you again soon!\n";
+    }
+
+    public String getWelcomeMessage() {
+        return "Hello! I'm " + this.botname + "\nAt your service! O7";
+    }
+
 
     /**
      * Prints out the welcome default message of the chatbot.
@@ -20,14 +28,14 @@ public class Ui {
      */
     public void showWelcome() {
         //Introduce self
-        printText("Hello! I'm " + this.botname + "\nAt your service! O7");
+        printText(getWelcomeMessage());
     }
 
     /**
      * Prints out the standard chatbot message when exiting the bot
      */
     public void showExit() {
-        printText("\tBye. Hope to see you again soon!\n");
+        printText(getExitMessage());
     }
 
     private void showLine() {
