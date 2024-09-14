@@ -17,8 +17,8 @@ import spike.tasks.ToDo;
  * Represents a storage object that handles reading and writing to a file.
  */
 public class Storage {
-    private String filePath;
-    private File file;
+    private final String filePath;
+    private final File file;
 
     /**
      * Constructor for a storage object.
@@ -71,27 +71,7 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split(" \\| ");
-                Task task;
-                switch (parts[0]) {
-                case "T":
-                    task = new ToDo(parts[2]);
-                    break;
-                case "D":
-                    LocalDateTime deadline = LocalDateTime.parse(parts[3]);
-                    task = new Deadline(parts[2], deadline);
-                    break;
-                case "E":
-                    LocalDateTime from = LocalDateTime.parse(parts[3]);
-                    LocalDateTime to = LocalDateTime.parse(parts[4]);
-                    task = new Event(parts[2], from, to);
-                    break;
-                default:
-                    throw new SpikeException("An error occurred while reading from file");
-                }
-                if (parts[1].equals("1")) {
-                    task.markAsDone();
-                }
+                Task task = getTask(line);
                 loadedTasks.add(task);
             }
             scanner.close();
@@ -99,6 +79,31 @@ public class Storage {
             throw new SpikeException("An error occurred while reading from file");
         }
         return loadedTasks;
+    }
+
+    private static Task getTask(String line) throws SpikeException {
+        String[] parts = line.split(" \\| ");
+        Task task;
+        switch (parts[0]) {
+        case "T":
+            task = new ToDo(parts[2]);
+            break;
+        case "D":
+            LocalDateTime deadline = LocalDateTime.parse(parts[3]);
+            task = new Deadline(parts[2], deadline);
+            break;
+        case "E":
+            LocalDateTime from = LocalDateTime.parse(parts[3]);
+            LocalDateTime to = LocalDateTime.parse(parts[4]);
+            task = new Event(parts[2], from, to);
+            break;
+        default:
+            throw new SpikeException("An error occurred while reading from file");
+        }
+        if (parts[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
     }
 
     /**
