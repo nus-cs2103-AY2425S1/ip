@@ -13,6 +13,15 @@ import yappingbot.stringconstants.ReplyTextMessages;
 public class Parser {
 
     /**
+     * Valid commands that are implemented.
+     *
+     * @see <a href="https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016"> Uses for enum </a>
+     */
+    public enum CommandTypes {
+        FIND, LIST, MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, EXIT, RESET_LIST, UNKNOWN
+    }
+
+    /**
      * HashMap to map text (in any locale) to the respective CommandTypes.
      *
      * @see <a href="https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016"> Uses for enum </a>
