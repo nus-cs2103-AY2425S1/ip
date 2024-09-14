@@ -47,153 +47,140 @@ public class Parser {
     public static Command parse(String fullCommand) {
         String firstWord = fullCommand.split(" ")[0];
         boolean hasSecondWord = fullCommand.split(" ").length > 1;
-        Command command = null;
 
-        if (commands.contains(firstWord)) {
-            switch (firstWord) {
-            case "bye": {
-                command = new ByeCommand();
-                break;
+        try {
+            if (commands.contains(firstWord)) {
+                return parseSystemCommand(firstWord, fullCommand, hasSecondWord);
+            } else if (taskTypes.contains(firstWord)) {
+                return parseTaskCommand(firstWord, fullCommand, hasSecondWord);
+            } else {
+                throw new UnknownCommandException(UNEXPECTED_VALUE_ERROR_MESSAGE + firstWord);
             }
-            case "list": {
-                command = new ListCommand();
-                break;
-            }
-            case "mark": {
-                try {
-                    if (!hasSecondWord) {
-                        throw new ParseException();
-                    }
-                    int taskNum = Integer.parseInt(fullCommand.split("mark ")[1]) - INDEX_OFFSET;
-                    command = new MarkCommand(taskNum);
-                    break;
-                } catch (ParseException pe) {
-                    command = new UnknownCommand(new ParseException());
-                    break;
-                } catch (NumberFormatException nfe) {
-                    command = new UnknownCommand(new ParseException(NUMBER_FORMAT_ERROR_MESSAGE));
-                }
-                break;
-            }
-            case "unmark": {
-                try {
-                    if (!hasSecondWord) {
-                        throw new ParseException();
-                    }
-                    int taskNum = Integer.parseInt(fullCommand.split("unmark ")[1]) - INDEX_OFFSET;
-                    command = new UnmarkCommand(taskNum);
-                } catch (ParseException pe) {
-                    command = new UnknownCommand(new ParseException(MISSING_ARGUMENT_ERROR_MESSAGE));
-                    break;
-                } catch (NumberFormatException nfe) {
-                    command = new UnknownCommand(new ParseException(NUMBER_FORMAT_ERROR_MESSAGE));
-                }
-                break;
-            }
-            case "/commands": {
-                command = new GuideCommand();
-                break;
-            }
-            case "delete": {
-                try {
-                    if (!hasSecondWord) {
-                        throw new ParseException();
-                    }
-                    int taskNum = Integer.parseInt(fullCommand.split("delete ")[1]) - INDEX_OFFSET;
-                    command = new DeleteCommand(taskNum);
-                } catch (ParseException pe) {
-                    command = new UnknownCommand(new ParseException(MISSING_ARGUMENT_ERROR_MESSAGE));
-                    break;
-                } catch (NumberFormatException nfe) {
-                    command = new UnknownCommand(new ParseException(NUMBER_FORMAT_ERROR_MESSAGE));
-                }
-                break;
-            }
-            case "find": {
-                try {
-                    if (!hasSecondWord) {
-                        throw new ParseException();
-                    }
-                    String[] searchKeys = fullCommand.split("find ")[1].split(" ");
-                    command = new FindCommand(searchKeys);
-                } catch (ParseException pe) {
-                    command = new UnknownCommand(new ParseException(MISSING_SEARCH_KEYS_ERROR_MESSAGE));
-                }
-            }
-            break;
-            default:
-                command = new UnknownCommand(new UnknownCommandException(UNEXPECTED_VALUE_ERROR_MESSAGE + firstWord));
-            }
-        } else if (taskTypes.contains(firstWord)) {
-            //add to taskList
-            switch (firstWord) {
-            case "todo": {
-                try {
-                    String[] words = fullCommand.split(" ");
-                    if (words.length <= 1) {
-                        throw new ParseException();
-                    }
-                    assert words.length >= 1;
-                    String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                    Task taskToAdd = new ToDo(description);
-                    command = new AddCommand(taskToAdd);
-                } catch (ParseException pe) {
-                    command = new UnknownCommand(new ParseException(MISSING_DESCRIPTION_ERROR_MESSAGE));
-                }
-                break;
-            }
-            case "deadline": {
-                try {
-                    String[] parts = fullCommand.split("/by");
-                    if (parts.length <= 1) {
-                        throw new ParseException();
-                    }
-                    String byString = parts[1].trim();
-                    LocalDateTime by = DateParser.getDateTimeString(byString);
-                    String[] commandAndDescription = parts[0].trim().split(" ", 2);
-                    String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
-                    Task taskToAdd = new Deadline(description, false, by, DateParser.hasTime(byString));
-                    command = new AddCommand(taskToAdd);
-                } catch (ParseException pe) {
-                    command = new UnknownCommand(new ParseException(INVALID_DEADLINE_FORMAT_ERROR_MESSAGE));
-                    break;
-                } catch (IllegalDateFormatException idee) {
-                    command = new UnknownCommand(new IllegalDateFormatException());
-                }
-                break;
-            }
-            case "event": {
-                try {
-                    String[] fromSplit = fullCommand.split("/from");
-                    if (fromSplit.length != 2) {
-                        throw new ParseException();
-                    }
-                    String[] toSplit = fromSplit[1].split("/to");
-                    if (toSplit.length != 2) {
-                        throw new ParseException();
-                    }
-                    String[] commandAndDescription = fromSplit[0].trim().split(" ", 2);
-                    String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
-                    String fromDateString = toSplit[0].trim();
-                    LocalDateTime fromDate = DateParser.getDateTimeString(fromDateString);
-                    String toDateString = toSplit[1].trim();
-                    LocalDateTime toDate = DateParser.getDateTimeString(toDateString);
-                    Task taskToAdd = new Event(description, false, fromDate, toDate,
-                            DateParser.hasTime(fromDateString));
-                    command = new AddCommand(taskToAdd);
-                    break;
-                } catch (ParseException pe) {
-                    command = new UnknownCommand(new ParseException(INVALID_EVENT_FORMAT_ERROR_MESSAGE));
-                } catch (IllegalDateFormatException idee) {
-                    command = new UnknownCommand(new IllegalDateFormatException());
-                }
-            }
-            break;
-            default:
-                command = new UnknownCommand(new UnknownCommandException(UNEXPECTED_VALUE_ERROR_MESSAGE + firstWord));
-            }
+        } catch (ParseException | IllegalDateFormatException | UnknownCommandException e) {
+            return new UnknownCommand(e);
         }
-        return command != null ? command : new UnknownCommand();
     }
+    private static Command parseSystemCommand(String firstWord,
+                                              String fullCommand, boolean hasSecondWord)
+            throws ParseException, UnknownCommandException {
+        switch (firstWord) {
+        case "bye":
+            return new ByeCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return parseMarkCommand(fullCommand, hasSecondWord);
+        case "unmark":
+            return parseUnmarkCommand(fullCommand, hasSecondWord);
+        case "/commands":
+            return new GuideCommand();
+        case "delete":
+            return parseDeleteCommand(fullCommand, hasSecondWord);
+        case "find":
+            return parseFindCommand(fullCommand, hasSecondWord);
+        default:
+            throw new UnknownCommandException(UNEXPECTED_VALUE_ERROR_MESSAGE + firstWord);
+        }
+    }
+
+    private static Command parseMarkCommand(String fullCommand, boolean hasSecondWord) throws ParseException {
+        if (!hasSecondWord) {
+            throw new ParseException(MISSING_ARGUMENT_ERROR_MESSAGE);
+        }
+        try {
+            int taskNum = Integer.parseInt(fullCommand.split("mark ")[1]) - INDEX_OFFSET;
+            return new MarkCommand(taskNum);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(NUMBER_FORMAT_ERROR_MESSAGE);
+        }
+    }
+    private static Command parseUnmarkCommand(String fullCommand, boolean hasSecondWord) throws ParseException {
+        if (!hasSecondWord) {
+            throw new ParseException(MISSING_ARGUMENT_ERROR_MESSAGE);
+        }
+        try {
+            int taskNum = Integer.parseInt(fullCommand.split("unmark ")[1]) - INDEX_OFFSET;
+            return new UnmarkCommand(taskNum);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(NUMBER_FORMAT_ERROR_MESSAGE);
+        }
+    }
+
+    private static Command parseDeleteCommand(String fullCommand, boolean hasSecondWord) throws ParseException {
+        if (!hasSecondWord) {
+            throw new ParseException(MISSING_ARGUMENT_ERROR_MESSAGE);
+        }
+        try {
+            int taskNum = Integer.parseInt(fullCommand.split("delete ")[1]) - INDEX_OFFSET;
+            return new DeleteCommand(taskNum);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(NUMBER_FORMAT_ERROR_MESSAGE);
+        }
+    }
+
+    private static Command parseFindCommand(String fullCommand, boolean hasSecondWord) throws ParseException {
+        if (!hasSecondWord) {
+            throw new ParseException(MISSING_SEARCH_KEYS_ERROR_MESSAGE);
+        }
+        String[] searchKeys = fullCommand.split("find ")[1].split(" ");
+        return new FindCommand(searchKeys);
+    }
+    private static Command parseTaskCommand(String firstWord,
+                                            String fullCommand, boolean hasSecondWord)
+            throws ParseException, IllegalDateFormatException, UnknownCommandException {
+        switch (firstWord) {
+        case "todo":
+            return parseTodoCommand(fullCommand, hasSecondWord);
+        case "deadline":
+            return parseDeadlineCommand(fullCommand);
+        case "event":
+            return parseEventCommand(fullCommand);
+        default:
+            throw new UnknownCommandException(UNEXPECTED_VALUE_ERROR_MESSAGE + firstWord);
+        }
+    }
+
+    private static Command parseTodoCommand(String fullCommand, boolean hasSecondWord) throws ParseException {
+        if (!hasSecondWord) {
+            throw new ParseException(MISSING_DESCRIPTION_ERROR_MESSAGE);
+        }
+        String description = String.join(" ", Arrays.copyOfRange(fullCommand.split(" "),
+                1, fullCommand.split(" ").length));
+        Task taskToAdd = new ToDo(description);
+        return new AddCommand(taskToAdd);
+    }
+
+    private static Command parseDeadlineCommand(String fullCommand) throws ParseException, IllegalDateFormatException {
+        String[] parts = fullCommand.split("/by");
+        if (parts.length <= 1) {
+            throw new ParseException(INVALID_DEADLINE_FORMAT_ERROR_MESSAGE);
+        }
+        String byString = parts[1].trim();
+        LocalDateTime by = DateParser.getDateTimeString(byString);
+        String[] commandAndDescription = parts[0].trim().split(" ", 2);
+        String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
+        Task taskToAdd = new Deadline(description, false, by, DateParser.hasTime(byString));
+        return new AddCommand(taskToAdd);
+    }
+
+    private static Command parseEventCommand(String fullCommand) throws ParseException, IllegalDateFormatException {
+        String[] fromSplit = fullCommand.split("/from");
+        if (fromSplit.length != 2) {
+            throw new ParseException(INVALID_EVENT_FORMAT_ERROR_MESSAGE);
+        }
+        String[] toSplit = fromSplit[1].split("/to");
+        if (toSplit.length != 2) {
+            throw new ParseException(INVALID_EVENT_FORMAT_ERROR_MESSAGE);
+        }
+        String[] commandAndDescription = fromSplit[0].trim().split(" ", 2);
+        String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
+        String fromDateString = toSplit[0].trim();
+        LocalDateTime fromDate = DateParser.getDateTimeString(fromDateString);
+        String toDateString = toSplit[1].trim();
+        LocalDateTime toDate = DateParser.getDateTimeString(toDateString);
+        Task taskToAdd = new Event(description, false, fromDate, toDate, DateParser.hasTime(fromDateString));
+        return new AddCommand(taskToAdd);
+    }
+
 }
 

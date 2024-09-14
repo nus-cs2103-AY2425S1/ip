@@ -293,66 +293,93 @@ public class DateParser {
      */
     public static LocalTime parseTime(String timeString) throws IllegalDateFormatException {
         try {
-            // Remove spaces and make it lower case for consistent parsing
-            timeString = timeString.trim().toLowerCase();
+            // Clean up the input string
+            timeString = sanitizeTimeString(timeString);
 
-            if (timeString.matches("\\d{4}\\s?(am|pm)")) {
-                //strip spaces
-                timeString = timeString.replaceAll("\\s+", "");
-                String formattedTime = timeString.substring(0, 2) + ":" + timeString.substring(2, 4) + " "
-                                       + timeString.substring(4);
-                // Define formatter for 12-hour format with AM/PM
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:m a");
-                return LocalTime.parse(formattedTime, formatter);
+            if (is12HourWithAmPmNoMinutes(timeString)) {
+                return parse12HourNoMinutes(timeString);
+            } else if (is12HourWithColonAmPm(timeString)) {
+                return parse12HourWithColon(timeString);
+            } else if (is12HourWithoutColonAmPm(timeString)) {
+                return parse12HourWithoutColon(timeString);
+            } else if (is12HourWithoutColonFourDigitAmPm(timeString)) {
+                return parse12HourWithoutColonFourDigit(timeString);
+            } else if (is24HourSingleDigitWithColon(timeString)) {
+                return parse24HourSingleDigitWithColon(timeString);
+            } else if (is24HourWithoutColon(timeString)) {
+                return parse24HourWithoutColon(timeString);
+            } else if (is24HourWithColon(timeString)) {
+                return parse24HourWithColon(timeString);
             }
 
-            // Handle 12-hour format without minutes (e.g., 6am, 10am)
-            if (timeString.matches("\\d{1,2}\\s?(am|pm)")) {
-                timeString = timeString.trim().toLowerCase().replaceAll("\\s+", "");
-                return LocalTime.parse(timeString, FORMAT_12_HOUR_NO_MINUTES);
-            }
-
-            // Handle 12-hour format with AM/PM with colon
-            if (timeString.matches("\\d{1,2}:\\d{2}\\s?(am|pm)")) {
-                timeString = timeString.trim().toLowerCase().replaceAll("\\s+", "");
-                return LocalTime.parse(timeString, FORMAT_12_HOUR);
-            }
-
-            // Handle 12-hour format with AM/PM without colon
-            if (timeString.matches("\\d{3}(am|pm)")) {
-                // Add colon after the first digit (e.g., 745am -> 7:45am)
-                String formattedTime = timeString.substring(0, 1) + ":" + timeString.substring(1, 3)
-                                       + timeString.substring(3);
-                return LocalTime.parse(formattedTime, FORMAT_12_HOUR);
-            }
-
-
-            // Handle 12-hour format with AM/PM
-            if (timeString.matches("\\d{1}:?\\d{2}\\s?(am|pm)")) {
-                timeString = timeString.trim().toLowerCase().replaceAll("\\s+", "");
-                return LocalTime.parse(timeString, FORMAT_12_HOUR_3_DIGIT_NO_COLON);
-            }
-
-            // Handle 24-hour format without colon
-            if (timeString.matches("\\d{4}")) {
-                return LocalTime.parse(timeString, FORMAT_24_HOUR);
-            }
-
-            // Handle 24-hour format with colon
-            if (timeString.matches("\\d{1}:\\d{2}")) {
-                timeString = "0" + timeString;
-                return LocalTime.parse(timeString, FORMAT_24_HOUR_COLON);
-            }
-
-            // Handle 24-hour format with colon
-            if (timeString.matches("\\d{2}:\\d{2}")) {
-                return LocalTime.parse(timeString, FORMAT_24_HOUR_COLON);
-            }
-
-            // If none of the formats match, throw an exception
+            // If no format matched, throw an exception
             throw new IllegalDateFormatException();
         } catch (DateTimeParseException e) {
             throw new IllegalDateFormatException();
         }
     }
+
+    private static String sanitizeTimeString(String timeString) {
+        return timeString.trim().toLowerCase().replaceAll("\\s+", "");
+    }
+
+    private static boolean is12HourWithAmPmNoMinutes(String timeString) {
+        return timeString.matches("\\d{1,2}\\s?(am|pm)");
+    }
+
+    private static LocalTime parse12HourNoMinutes(String timeString) {
+        return LocalTime.parse(timeString, FORMAT_12_HOUR_NO_MINUTES);
+    }
+
+    private static boolean is12HourWithColonAmPm(String timeString) {
+        return timeString.matches("\\d{1,2}:\\d{2}\\s?(am|pm)");
+    }
+
+    private static LocalTime parse12HourWithColon(String timeString) {
+        return LocalTime.parse(timeString, FORMAT_12_HOUR);
+    }
+
+    private static boolean is12HourWithoutColonAmPm(String timeString) {
+        return timeString.matches("\\d{3}(am|pm)");
+    }
+
+    private static LocalTime parse12HourWithoutColon(String timeString) {
+        String formattedTime = timeString.substring(0, 1) + ":" + timeString.substring(1, 3) + timeString.substring(3);
+        return LocalTime.parse(formattedTime, FORMAT_12_HOUR);
+    }
+
+    private static boolean is24HourWithoutColon(String timeString) {
+        return timeString.matches("\\d{4}");
+    }
+
+    private static LocalTime parse24HourWithoutColon(String timeString) {
+        return LocalTime.parse(timeString, FORMAT_24_HOUR);
+    }
+
+    private static boolean is24HourWithColon(String timeString) {
+        return timeString.matches("\\d{2}:\\d{2}");
+    }
+
+    private static LocalTime parse24HourWithColon(String timeString) {
+        return LocalTime.parse(timeString, FORMAT_24_HOUR_COLON);
+    }
+
+    // New helper for 24-hour single-digit hour with colon (e.g., 8:30)
+    private static boolean is24HourSingleDigitWithColon(String timeString) {
+        return timeString.matches("\\d{1}:\\d{2}");
+    }
+    private static LocalTime parse24HourSingleDigitWithColon(String timeString) {
+        timeString = "0" + timeString; // Add leading zero (e.g., "8:30" -> "08:30")
+        return LocalTime.parse(timeString, FORMAT_24_HOUR_COLON);
+    }
+    // Update for 12-hour format without colon and PM (e.g., 1115pm)
+    private static boolean is12HourWithoutColonFourDigitAmPm(String timeString) {
+        return timeString.matches("\\d{4}(am|pm)");
+    }
+
+    private static LocalTime parse12HourWithoutColonFourDigit(String timeString) {
+        String formattedTime = timeString.substring(0, 2) + ":" + timeString.substring(2, 4) + timeString.substring(4);
+        return LocalTime.parse(formattedTime, FORMAT_12_HOUR);
+    }
+
 }

@@ -67,6 +67,20 @@ public class DateParserTest {
 
     @Test
     void testGetDateString() throws IllegalDateFormatException {
+        // Test for standard date-time formats
+        testStandardDateFormats();
+
+        // Test for day abbreviations and full day names
+        testDayAbbreviations();
+
+        // Test for variations of 'tomorrow'
+        testTomorrowVariations();
+
+        // Test for edge cases and mixed cases
+        testEdgeAndMixedCases();
+    }
+
+    private void testStandardDateFormats() throws IllegalDateFormatException {
         assertEquals("11/9/2024", DateParser.getDateString("11/9/2024 17:00"));
         assertEquals("11/9/2024", DateParser.getDateString("11/9/2024 6pm"));
         assertEquals("11/9/2024", DateParser.getDateString("11/9/2024 10am"));
@@ -86,16 +100,14 @@ public class DateParserTest {
         assertEquals("1-9-2024", DateParser.getDateString("1-9-2024 17:00"));
         assertEquals("1-12-2024", DateParser.getDateString("1-12-2024 6pm"));
         assertEquals("01-09-2024", DateParser.getDateString("01-09-2024 10am"));
+    }
 
-
+    private void testDayAbbreviations() throws IllegalDateFormatException {
         assertEquals("mon", DateParser.getDateString("mon 1700"));
         assertEquals("Monday", DateParser.getDateString("Monday 17:00"));
         assertEquals("tue", DateParser.getDateString("tue 6pm"));
         assertEquals("Tuesday", DateParser.getDateString("Tuesday 10am"));
-        assertEquals("tomorrow", DateParser.getDateString("tomorrow 1115am"));
-        assertEquals("Tomorrow", DateParser.getDateString("Tomorrow 1115am"));
 
-        // Test cases for day abbreviations and full day names
         assertEquals("wed", DateParser.getDateString("wed 1530"));
         assertEquals("Wednesday", DateParser.getDateString("Wednesday 15:30"));
         assertEquals("thu", DateParser.getDateString("thu 8pm"));
@@ -106,19 +118,26 @@ public class DateParserTest {
         assertEquals("Saturday", DateParser.getDateString("Saturday 9am"));
         assertEquals("sun", DateParser.getDateString("sun 7pm"));
         assertEquals("Sunday", DateParser.getDateString("Sunday 7pm"));
+    }
 
-        // Additional variations of "tomorrow"
+    private void testTomorrowVariations() throws IllegalDateFormatException {
+        assertEquals("tomorrow", DateParser.getDateString("tomorrow 1115am"));
+        assertEquals("Tomorrow", DateParser.getDateString("Tomorrow 1115am"));
+
         assertEquals("tomorrow", DateParser.getDateString("tomorrow 7pm"));
         assertEquals("Tomorrow", DateParser.getDateString("Tomorrow 7pm"));
 
-        // Testing edge cases and mixed cases
+        assertEquals("TOMORROW", DateParser.getDateString("TOMORROW 1145pm"));
+        assertEquals("ToMoRRoW", DateParser.getDateString("ToMoRRoW 1145PM"));
+    }
+
+    private void testEdgeAndMixedCases() throws IllegalDateFormatException {
         assertEquals("Mon", DateParser.getDateString("Mon 1800"));
         assertEquals("MON", DateParser.getDateString("MON 18:00"));
         assertEquals("tue", DateParser.getDateString("tue 7 am"));
         assertEquals("TUE", DateParser.getDateString("TUE 7am"));
-        assertEquals("TOMORROW", DateParser.getDateString("TOMORROW 1145pm"));
-        assertEquals("ToMoRRoW", DateParser.getDateString("ToMoRRoW 1145PM"));
     }
+
 
     @Test
     void testParseDateValidSlashFormat() throws IllegalDateFormatException {
@@ -143,7 +162,7 @@ public class DateParserTest {
     void testParseDateEdgeCases() throws IllegalDateFormatException {
         // Testing with leading zeros
         assertEquals(LocalDate.of(2024, 11, 9), DateParser.parseDate("11/09/2024"));
-        assertEquals(LocalDate.of(2024, 01, 31), DateParser.parseDate("01/31/2024"));
+        assertEquals(LocalDate.of(2024, 1, 31), DateParser.parseDate("01/31/2024"));
 
         // Testing single digit months and days
         assertEquals(LocalDate.of(2024, 2, 5), DateParser.parseDate("2/5/2024"));
@@ -421,7 +440,6 @@ public class DateParserTest {
     @Test
     public void testGetDateTimeStringWithDayOfWeekOnly() throws IllegalDateFormatException {
         String input = "Monday";
-        LocalDate today = LocalDate.now();
         LocalDate expected = getNextDateOfWeek(java.time.DayOfWeek.MONDAY);
         LocalDateTime expectedDateTime = LocalDateTime.of(expected, LocalTime.MIDNIGHT);
         assertEquals(expectedDateTime, getDateTimeString(input));

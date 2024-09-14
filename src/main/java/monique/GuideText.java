@@ -73,5 +73,4 @@ public class GuideText {
             + "   To exit the application, type:\n"
             + "   \"bye\"\n"
             + "   This will save your progress and close the application.";
-
 }

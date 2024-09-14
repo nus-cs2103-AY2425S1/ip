@@ -14,9 +14,6 @@ import monique.task.Deadline;
 import monique.task.Event;
 import monique.task.ToDo;
 
-
-
-
 public class ParserTest {
 
     @Test
