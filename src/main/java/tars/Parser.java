@@ -25,6 +25,10 @@ public class Parser {
      */
     public String checkEntry(String[] entryParts, String entry, TaskList tasks) {
         String result = "";
+
+        assert tasks != null : "Task list is empty!";
+        assert entryParts.length > 0 : "Invalid input of task!";
+
         try {
             if (entry.equals("todo") || entry.equals("deadLINE") || entry.equals("event")) {
                 throw new TarsException(LINE + "\n" + "    OOPS! Describe the task/event/deadLINE/todo or list"
@@ -50,6 +54,8 @@ public class Parser {
         String result = "";
         StringBuilder strBuild = new StringBuilder();
 
+        assert tasks != null : "Task list is empty!";
+
         if (tasks.getList().size() == 0) {
             result = "No tasks added to list. Please add3 events/deadLINE/todos!";
         } else {
@@ -70,6 +76,10 @@ public class Parser {
      */
     public String findTask(String[] entryParts, TaskList tasks) {
         String result = "";
+
+        assert tasks != null : "Task list is empty!";
+        assert entryParts.length > 0 : "Invalid input of task!";
+
         StringBuilder strBuild = new StringBuilder();
         ArrayList<Task> resultList = new ArrayList<>();
         String taskPrefix = entryParts[1];

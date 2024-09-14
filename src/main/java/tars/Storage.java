@@ -40,6 +40,9 @@ public class Storage {
      */
     public static void writeFile(String filePath, ArrayList<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
+
+        assert !filePath.isEmpty() : "File path cannot be empty!";
+        assert tasks != null : "Task list cannot be empty!";
         for (Task task : tasks) {
             fileWriter.write(task.toFileFormat() + System.lineSeparator());
         }
@@ -53,7 +56,8 @@ public class Storage {
      * @throws IOException
      */
     public static ArrayList<Task> readFile() throws IOException {
-        Scanner s = new Scanner(taskFile); // create a Scanner using the File as the source
+        assert taskFile.exists() : "Task file does not exist!";
+        Scanner s = new Scanner(taskFile); // create a Scanner using the File as source
         ArrayList<Task> itemsList = new ArrayList<>();
 
         while (s.hasNext()) {
