@@ -9,6 +9,7 @@ import dave.command.ExitCommand;
 import dave.command.FindCommand;
 import dave.command.ListCommand;
 import dave.command.MarkCommand;
+import dave.command.ReminderCommand;
 import dave.command.UnmarkCommand;
 import dave.exceptions.InvalidCommandException;
 import dave.exceptions.InvalidDateTimeFormatException;
@@ -27,7 +28,7 @@ public class Parser {
      * Enum representing different task types or commands that the parser can handle.
      */
     public enum TaskType {
-        bye, list, mark, unmark, todo, deadline, event, delete, find
+        bye, list, mark, unmark, todo, deadline, event, delete, find, reminder
     }
 
 
@@ -91,6 +92,8 @@ public class Parser {
             return new ListCommand();
         case bye:
             return new ExitCommand();
+        case reminder:
+            return new ReminderCommand(commandArgs);
         default:
             throw new InvalidCommandException("Unsupported command type.");
         }
@@ -106,7 +109,7 @@ public class Parser {
     private static Command handleDeadline(String commandArgs) throws InvalidDescriptionException {
         try {
             return new AddCommand(new Deadline(commandArgs));
-        } catch (InvalidDateTimeFormatException e) {
+        } catch (InvalidDescriptionException e) {
             throw new InvalidDescriptionException(e.getMessage());
         }
     }
@@ -138,7 +141,7 @@ public class Parser {
             return TaskType.valueOf(commandWord);
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException(
-                    "Are you joking? Here are the missions I accept: todo, deadline, event, list, mark, unmark, delete, find, bye);
+                    "Are you joking? Here are the missions I accept: todo, deadline, event, list, mark, unmark, delete, find, bye");
         }
     }
 

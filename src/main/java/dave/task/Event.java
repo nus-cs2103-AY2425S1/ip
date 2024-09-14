@@ -1,6 +1,7 @@
 package dave.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -73,6 +74,11 @@ public class Event extends Task {
         }
     }
 
+    public LocalDateTime getFromDateTime() {
+        // If dueTime is null, we assume the deadline is at midnight (00:00).
+        LocalTime time = (fromTime != null) ? fromTime : LocalTime.MIDNIGHT;
+        return LocalDateTime.of(fromDate, time);
+    }
     /**
      * Returns the start date of the event.
      *

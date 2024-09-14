@@ -93,7 +93,9 @@ public class MainWindow extends AnchorPane {
                 + "- unmark <task number>: Unmark a task\n"
                 + "- delete <task number>: Delete a task\n"
                 + "- find <keyword>: Find tasks that match the keyword\n"
-                + "- bye: Exit the program\n";
+                + "- bye: Exit the program\n"
+                + "- reminder all: Check undone task\n"
+                + "- reminder overdue: Check undone overdue task\n";
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(welcomeMessage, dukeImage)

@@ -1,95 +1,63 @@
 package dave.task;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
 
 /**
- * Represents a deadline task. A deadline task contains a description, a due date, and a due time.
+ * Represents a deadline task. A deadline task contains a description and a due date/time.
  * It inherits from the Task class.
  */
 public class Deadline extends Task {
 
-    /** The due date of the task */
-    private LocalDate dueDate;
-
-    /** The due time of the task */
-    private LocalTime dueTime;
+    /** The due date and time of the task */
+    private LocalDateTime dueDateTime;
 
     /**
      * Constructs a Deadline task with the specified description and due date/time.
      *
      * @param description The description of the deadline task, which includes the due date and time.
      * @throws InvalidDescriptionException If the format of the description is invalid.
-     * @throws InvalidDateTimeFormatException If the date or time is not in the required format.
      */
-    public Deadline(String description) throws InvalidDescriptionException, InvalidDateTimeFormatException {
+    public Deadline(String description) throws InvalidDescriptionException {
         super(description.split("/by ")[0].trim());
         String[] arguments = description.split("/by ");
 
         if (arguments.length < 2 || arguments[1].trim().isEmpty()) {
-            throw new InvalidDescriptionException("Huh! Please provide a deadline task "
-                    + "in the format: <task> /by <date>");
+            throw new InvalidDescriptionException("Huh! Please provide a deadline task in the format: <task> /by yyyy-MM-dd HHmm");
         }
 
-        String[] due = arguments[1].trim().split(" ");
-        this.dueDate = parseDate(due[0]);
-        this.dueTime = due.length > 1 ? parseTime(due[1]) : null;
+        // Try parsing the dueDateTime directly in yyyy-MM-dd HHmm format
+        this.dueDateTime = parseDateTime(arguments[1].trim());
     }
 
     /**
-     * Parses the provided date string into a LocalDate.
+     * Parses the provided date and time string into a LocalDateTime.
      *
-     * @param date The date string in yyyy-MM-dd format.
-     * @return The parsed LocalDate.
-     * @throws InvalidDateTimeFormatException If the date is in an incorrect format.
+     * @param dateTime The date and time string in yyyy-MM-dd HHmm format.
+     * @return The parsed LocalDateTime.
+     * @throws InvalidDescriptionException If the date and time format is incorrect.
      */
-    private LocalDate parseDate(String date) throws InvalidDateTimeFormatException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private LocalDateTime parseDateTime(String dateTime) throws InvalidDescriptionException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            return LocalDate.parse(date, formatter);
+            return LocalDateTime.parse(dateTime, formatter);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeFormatException("Invalid date format. Please use yyyy-mm-dd");
+            throw new InvalidDescriptionException("Invalid date/time format. Please use yyyy-MM-dd HHmm (e.g., 2024-09-14 1800)");
         }
     }
 
     /**
-     * Parses the provided time string into a LocalTime.
+     * Returns the due date and time of the task.
      *
-     * @param time The time string in HHmm format.
-     * @return The parsed LocalTime.
-     * @throws InvalidDateTimeFormatException If the time is in an incorrect format.
+     * @return The due date and time as a {@code LocalDateTime}.
      */
-    private LocalTime parseTime(String time) throws InvalidDateTimeFormatException {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
-        try {
-            return LocalTime.parse(time, timeFormatter);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeFormatException("Invalid time format. Please use HHmm (e.g., 1800 for 6:00 PM)");
-        }
+    public LocalDateTime getDueDateTime() {
+        return dueDateTime;
     }
 
-    /**
-     * Returns the due date of the task.
-     *
-     * @return The due date as a {@code LocalDate}.
-     */
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    /**
-     * Returns the due time of the task.
-     *
-     * @return The due time as a {@code LocalTime}.
-     */
-    public LocalTime getDueTime() {
-        return dueTime;
-    }
     /**
      * Converts the deadline into a string format that is suitable for saving to a file.
      *
@@ -97,12 +65,10 @@ public class Deadline extends Task {
      */
     @Override
     public String write() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
-        String formattedDate = dueDate != null ? dueDate.format(dateFormatter) : "unknown date";
-        String formattedTime = dueTime != null ? dueTime.format(timeFormatter) : "no specific time";
-        return String.format("D | %d | %s | %s %s\n", this.getIsDone() ? 1 : 0,
-                this.getDescription(), formattedDate, formattedTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        String formattedDateTime = dueDateTime != null ? dueDateTime.format(formatter) : "unknown date";
+        return String.format("D | %d | %s | %s\n", this.getIsDone() ? 1 : 0,
+                this.getDescription(), formattedDateTime);
     }
 
     /**
@@ -112,10 +78,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        String formattedDate = dueDate != null ? dueDate.format(dateFormatter) : "unknown date";
-        String formattedTime = dueTime != null ? dueTime.format(timeFormatter) : "";
-        return "[D]" + super.toString() + " (by: " + formattedDate + (dueTime != null ? " " + formattedTime : "") + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        String formattedDateTime = dueDateTime != null ? dueDateTime.format(formatter) : "unknown date";
+        return "[D]" + super.toString() + " (by: " + formattedDateTime + ")";
     }
 }
