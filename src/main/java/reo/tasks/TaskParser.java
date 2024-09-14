@@ -215,7 +215,6 @@ public class TaskParser {
     public String handleEvent() {
         final String EVENT_CONFIRMATION = "I've added this event:\n";
         final String EVENT_ERROR = "Please enter a valid task name and to & from dates.\n";
-        final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
         try {
             String name = parseEvent(input)[0];
             String from = parseEvent(input)[1];
@@ -224,6 +223,7 @@ public class TaskParser {
             Event eventToPush = new Event(name, false, to, from);
             tasks.addEvent(eventToPush);
             storage.writeFile(eventToPush);
+            final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
             return EVENT_CONFIRMATION + eventToPush.toString() + "\n"
                     + TASKS_LEFT_CONFIRMATION;
         } catch (ArrayIndexOutOfBoundsException e) {

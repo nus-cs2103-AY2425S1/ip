@@ -1,6 +1,4 @@
-T | 1 | sajbds
-T | 0 | shbf
-E | 0 | Tutorial 3  | 1pm | 3pm
-T | 0 | lab 1
-T | 0 | lab 2
-T | 0 | lab 3
+E | 0 | Training  | 9pm | 11pm
+T | 0 | Lab 5
+D | 1 | proposal  | Sep 19 2024
+D | 1 | proposal  | Sep 29 2024

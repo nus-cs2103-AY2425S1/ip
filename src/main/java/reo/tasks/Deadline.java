@@ -64,6 +64,6 @@ public class Deadline extends Task {
      * @return The string representation of the deadline to be written to memory.
      */
     public String toFileString() {
-        return "T | " + super.toFileString() + " | " + dateToString();
+        return "D | " + super.toFileString() + " | " + dateToString();
     }
 }

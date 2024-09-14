@@ -39,7 +39,6 @@ public class Ui extends Application {
                 tasklist = new TaskList(new ArrayList<Task>());
             }
 
-            // TODO: ADD FILE READING
             ContactStorage contactStorage = new ContactStorage("./data/contacts.txt");
             ContactList contactList;
 

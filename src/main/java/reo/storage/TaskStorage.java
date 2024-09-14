@@ -1,9 +1,9 @@
 package reo.storage;
 
-import reo.tasks.Todo;
 import reo.tasks.Deadline;
 import reo.tasks.Event;
 import reo.tasks.Task;
+import reo.tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -79,7 +81,11 @@ public class TaskStorage {
                     case "D":
                         boolean isDoneD = convertIntToBool(Integer.parseInt(split[1].trim()));
                         String nameD = split[2].trim();
-                        String deadline = split[3].trim();
+                        String dateString = split[3].trim();
+                        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+                        LocalDate date = LocalDate.parse(dateString, inputFormatter);
+                        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String deadline = date.format(outputFormatter);
                         tasks.add(new Deadline(nameD, isDoneD, deadline));
                         break;
                     default:

@@ -29,7 +29,6 @@ public class TaskList {
      * @param taskNumber The task to be marked as done.
      */
     public void markTask(int taskNumber) {
-        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for marking";
         Task toMark = tasks.get(taskNumber);
         toMark.mark();
     }
@@ -40,7 +39,6 @@ public class TaskList {
      * @param taskNumber The task to be marked as undone.
      */
     public void unmarkTask(int taskNumber) {
-        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for unmarking";
         Task toUnmark = tasks.get(taskNumber);
         toUnmark.unmark();
     }
