@@ -1,5 +1,6 @@
 package jeff.command;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import jeff.exception.JeffException;
@@ -15,6 +16,8 @@ import jeff.task.TaskList;
 public class AddDeadlineCommand extends AddCommand {
     private static final String WRONG_FORMAT_ERROR =
             "The format is wrong! It should be \"deadline(or dl) xx /by yyyy-mm-dd HH:mm(or hh:mm AM/PM)\"!";
+    private static final String PAST_DEADLINE_ERROR = "Your deadline cannot be in the past!";
+    private static final String NO_DESCRIPTION_ERROR = "Your deadline task cannot have no description!";
 
     /**
      * Constructor for AddDeadlineCommand Class.
@@ -48,11 +51,18 @@ public class AddDeadlineCommand extends AddCommand {
 
         String[] deadlineParts = taskDescription.split(" /by ", 2);
         String deadlineContent = deadlineParts[0];
+        if (deadlineContent.trim().isEmpty()) {
+            throw new JeffException(NO_DESCRIPTION_ERROR);
+        }
         String deadlinePeriod = deadlineParts.length > 1 ? deadlineParts[1] : "";
 
         // Check if the format is correct
         try {
-            return new DeadlineTask(deadlineContent, Parser.getLocalDateTime(deadlinePeriod));
+            LocalDateTime deadline = Parser.getLocalDateTime(deadlinePeriod);
+            if (deadline.isBefore(LocalDateTime.now())) {
+                throw new JeffException(PAST_DEADLINE_ERROR);
+            }
+            return new DeadlineTask(deadlineContent, deadline);
         } catch (DateTimeParseException e) {
             throw new JeffException(WRONG_FORMAT_ERROR);
         }

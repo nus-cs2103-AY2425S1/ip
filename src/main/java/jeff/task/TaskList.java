@@ -53,52 +53,7 @@ public class TaskList {
                     throw new FileCorruptException();
                 }
 
-                // Split the task parts into their respective parts
-                String taskType = taskParts[0];
-                boolean isDone = taskParts[1].equals("1");
-                String taskDescription = taskParts[2];
-
-                // Initialise the current task
-                Task currentTask = null;
-
-                // Categorise and initialise the task based on its task type
-                try {
-                    switch (taskType) {
-                    case "T":
-                        // To Do Task
-                        currentTask = new ToDoTask(taskDescription, isDone);
-                        break;
-
-                    case "D":
-                        // Deadline Task
-                        if (taskParts.length >= 4) {
-                            currentTask = new DeadlineTask(
-                                    taskDescription,
-                                    Parser.getLocalDateTime(taskParts[3]),
-                                    isDone
-                            );
-                        }
-                        break;
-
-                    case "E":
-                        // Event Task
-                        if (taskParts.length >= 5) {
-                            currentTask = new EventTask(
-                                    taskDescription,
-                                    Parser.getLocalDateTime(taskParts[3]),
-                                    Parser.getLocalDateTime(taskParts[4]),
-                                    isDone
-                            );
-                        }
-                        break;
-
-                    default:
-                        break;
-                    }
-                } catch (DateTimeParseException e) {
-                    throw new FileCorruptException();
-                }
-
+                Task currentTask = TaskList.categoriseTask(taskParts);
 
                 if (currentTask == null) {
                     throw new FileCorruptException();
@@ -112,6 +67,54 @@ public class TaskList {
 
         } catch (FileCorruptException e) {
             throw new JeffException("Sorry! The task file is corrupted!");
+        }
+    }
+
+    /**
+     * Returns a new task whose type and description is based on the given task parts.
+     *
+     * @param taskParts Task parts from the tasks data file.
+     * @return Categorised task.
+     * @throws FileCorruptException if the file is corrupt.
+     */
+    private static Task categoriseTask(String[] taskParts) throws FileCorruptException {
+        // Split the task parts into their respective parts
+        String taskType = taskParts[0];
+        boolean isDone = taskParts[1].equals("1");
+        String taskDescription = taskParts[2];
+        Task currentTask = null;
+
+        // Categorise and initialise the task based on its task type
+        try {
+            switch (taskType) {
+            case "T":
+                currentTask = new ToDoTask(taskDescription, isDone);
+                break;
+            case "D":
+                if (taskParts.length >= 4) {
+                    currentTask = new DeadlineTask(
+                            taskDescription,
+                            Parser.getLocalDateTime(taskParts[3]),
+                            isDone
+                    );
+                }
+                break;
+            case "E":
+                if (taskParts.length >= 5) {
+                    currentTask = new EventTask(
+                            taskDescription,
+                            Parser.getLocalDateTime(taskParts[3]),
+                            Parser.getLocalDateTime(taskParts[4]),
+                            isDone
+                    );
+                }
+                break;
+            default:
+                break;
+            }
+            return currentTask;
+        } catch (DateTimeParseException e) {
+            throw new FileCorruptException();
         }
     }
 

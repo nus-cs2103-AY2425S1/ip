@@ -16,8 +16,10 @@ import jeff.task.TaskList;
 public class AddEventCommand extends AddCommand {
     private static final String WRONG_FORMAT_ERROR = "The format is wrong! "
             + "It should be \"event(or e) xx /from yyyy-mm-dd HH:mm(or hh:mm am/pm) "
-            + "/to yyyy-mm--dd HH:mm(or hh:mm am/pm)\"";
+            + "/to yyyy-mm-dd HH:mm(or hh:mm am/pm)\"";
     private static final String INVALID_TIME_ERROR = "Your event cannot start after it ends!";
+    private static final String PAST_EVENT_ERROR = "Your event cannot be in the past!";
+    private static final String NO_DESCRIPTION_ERROR = "Your event cannot have no description!";
 
     /**
      * Constructor for AddEventCommand Class.
@@ -51,6 +53,9 @@ public class AddEventCommand extends AddCommand {
 
         String[] eventParts = taskDescription.split(" /from ", 2);
         String eventContent = eventParts[0];
+        if (eventContent.trim().isEmpty()) {
+            throw new JeffException(NO_DESCRIPTION_ERROR);
+        }
         String eventPeriod = eventParts.length > 1 ? eventParts[1] : "";
 
         String[] eventPeriodParts = eventPeriod.split(" /to ", 2);
@@ -65,12 +70,11 @@ public class AddEventCommand extends AddCommand {
             if (start.isAfter(end)) {
                 throw new JeffException(INVALID_TIME_ERROR);
             }
+            if (end.isBefore(LocalDateTime.now())) {
+                throw new JeffException(PAST_EVENT_ERROR);
+            }
 
-            return new EventTask(
-                    eventContent,
-                    Parser.getLocalDateTime(startPeriod),
-                    Parser.getLocalDateTime(endPeriod)
-            );
+            return new EventTask(eventContent, start, end);
         } catch (DateTimeParseException e) {
             throw new JeffException(WRONG_FORMAT_ERROR);
         }
