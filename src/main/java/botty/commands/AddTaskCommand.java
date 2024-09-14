@@ -1,6 +1,7 @@
 package botty.commands;
 
 import botty.tasks.Task;
+import botty.tasks.TaskData;
 import botty.tasks.TaskManager;
 
 /**
@@ -13,7 +14,7 @@ public abstract class AddTaskCommand extends Command {
      * @param task
      * @return the success message
      */
-    protected String addToTaskList(TaskManager taskManager, Task task) {
+    protected String addToTaskList(TaskManager taskManager, Task<? extends TaskData> task) {
         taskManager.addTask(task);
 
         return "I have added the following task to the list!\n"

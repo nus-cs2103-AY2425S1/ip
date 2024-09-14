@@ -12,55 +12,51 @@ import botty.exceptions.IncorrectDateFormatException;
 /**
  * A task with a start date and an end date
  */
-public class Event extends Task {
+public class Event extends Task<EventData> {
     // The start date of the task
-    private final LocalDate startDate;
+    private LocalDate startDate;
     // The end date of the task
-    private final LocalDate endDate;
+    private LocalDate endDate;
 
     /**
      * Constructs an {@code Event} with the given arguments
      * @param isCompleted if the {@code Event} is completed
-     * @param description the description of the {@code Event}
-     * @param startDate the start date of the {@code Event}
-     * @param endDate the end date of the {@code Event}
+     * @param data the data involved in generating the {@code Event}
      * @throws EmptyArgumentException if description, start date or end date is empty
      * @throws IncorrectDateFormatException if start date or end date is in the incorrect date format
      */
-    public Event(boolean isCompleted, String description, String startDate, String endDate)
+    public Event(boolean isCompleted, EventData data)
             throws EmptyArgumentException, IncorrectDateFormatException {
-        super(isCompleted, description);
-        if (description.isEmpty()) {
+        super(isCompleted, data);
+        if (!data.hasDescription()) {
             throw new EmptyArgumentException("description");
         }
-        if (startDate.isEmpty()) {
+        if (!data.hasStartDate()) {
             throw new EmptyArgumentException("start date");
         }
-        if (endDate.isEmpty()) {
+        if (!data.hasEndDate()) {
             throw new EmptyArgumentException("end date");
         }
         try {
-            this.startDate = LocalDate.parse(startDate);
+            this.startDate = LocalDate.parse(data.getStartDate());
         } catch (DateTimeParseException ex) {
             throw new IncorrectDateFormatException("start date needs to be in format yyyy-mm-dd");
         }
         try {
-            this.endDate = LocalDate.parse(endDate);
+            this.endDate = LocalDate.parse(data.getEndDate());
         } catch (DateTimeParseException ex) {
             throw new IncorrectDateFormatException("end date needs to be in format yyyy-mm-dd");
         }
     }
     /**
      * Constructs an {@code Event} with the given arguments, set to not completed
-     * @param description the description of the {@code Event}
-     * @param startDate the start date of the {@code Event}
-     * @param endDate the end date of the {@code Event}
+     * @param data the data involved in generating the {@code Event}
      * @throws EmptyArgumentException if description, start date or end date is empty
      * @throws IncorrectDateFormatException if start date or end date is in the incorrect date format
      */
-    public Event(String description, String startDate, String endDate)
+    public Event(EventData data)
             throws EmptyArgumentException, IncorrectDateFormatException {
-        this(false, description, startDate, endDate);
+        this(false, data);
     }
 
     /**
@@ -90,7 +86,7 @@ public class Event extends Task {
         String startDate = arguments[3];
         String endDate = arguments[4];
 
-        return new Event(completed, description, startDate, endDate);
+        return new Event(completed, new EventData(description, startDate, endDate));
     }
 
     /**
@@ -100,4 +96,27 @@ public class Event extends Task {
     public String toDataString() {
         return "E | " + getCompletedAndDescription() + " | " + startDate + " | " + endDate;
     }
+
+    /**
+     * Returns the task type of the task
+     */
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.EVENT;
+    }
+
+    /**
+     * Updates the task with the given data
+     */
+    @Override
+    public void update(EventData data) throws BottyException {
+        try {
+            super.update(data);
+            startDate = data.hasStartDate() ? LocalDate.parse(data.getStartDate()) : startDate;
+            endDate = data.hasEndDate() ? LocalDate.parse(data.getEndDate()) : endDate;
+        } catch (DateTimeParseException e) {
+            throw new IncorrectDateFormatException("end date needs to be in format yyyy-mm-dd");
+        }
+    }
+
 }

@@ -9,7 +9,7 @@ import botty.exceptions.BottyException;
 import botty.exceptions.EmptyCommandException;
 
 /**
- * Defines the behaviour of a ParsedInput
+ * Holds the data involved in a user input
  */
 public class ParsedInput {
     // The arguments of the input
@@ -48,6 +48,18 @@ public class ParsedInput {
     }
 
     /**
+     * Returns the argument based on the given flag or null if not found
+     * @param flag the flag of the argument.
+     * @return the argument associated with the given flag or null if not found
+     */
+    public String getArgumentOrNull(String flag) {
+        if (!arguments.containsKey(flag)) {
+            return null;
+        }
+        return arguments.get(flag);
+    }
+
+    /**
      * Parses the given input string to return a {@code ParsedInput} with the appropriate command and arguments.
      * @param input the string input.
      * @return a {@code ParsedInput} with the given command and arguments.
@@ -74,21 +86,21 @@ public class ParsedInput {
         Map<String, String> argumentMap = new HashMap<>();
 
 
-        ArrayList<String> currentArgumentWordList = new ArrayList<>();
+        ArrayList<String> currentArgumentValueAsWordList = new ArrayList<>();
         String currentArgumentFlag = "main";
 
         for (int i = 1; i < splitInput.length; i++) {
             if (isFlag(splitInput[i])) {
-                String argument = String.join(" ", currentArgumentWordList);
+                String argument = String.join(" ", currentArgumentValueAsWordList);
                 argumentMap.put(currentArgumentFlag, argument);
                 currentArgumentFlag = getFlag(splitInput[i]);
 
-                currentArgumentWordList = new ArrayList<>();
+                currentArgumentValueAsWordList = new ArrayList<>();
             } else {
-                currentArgumentWordList.add(splitInput[i]);
+                currentArgumentValueAsWordList.add(splitInput[i]);
             }
         }
-        String argument = String.join(" ", currentArgumentWordList);
+        String argument = String.join(" ", currentArgumentValueAsWordList);
         argumentMap.put(currentArgumentFlag, argument);
 
         return new ParsedInput(command, argumentMap);
@@ -110,5 +122,13 @@ public class ParsedInput {
      */
     private static String getFlag(String word) {
         return word.replaceAll("/(.*)", "$1");
+    }
+
+    /**
+     * Renames the main flag to the given flag name
+     * @param newFlag the name to rename the main flag to
+     */
+    public void changeMainFlag(String newFlag) {
+        arguments.put(newFlag, arguments.get("main"));
     }
 }

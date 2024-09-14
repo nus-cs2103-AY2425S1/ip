@@ -12,29 +12,28 @@ import botty.exceptions.IncorrectDateFormatException;
 /**
  * A task with an end date
  */
-public class Deadline extends Task {
+public class Deadline extends Task<DeadlineData> {
     // The end date of the task
-    private final LocalDate endDate;
+    private LocalDate endDate;
 
     /**
      * Constructs a {@code Deadline} with the given inputs
      * @param isCompleted whether the task is completed
-     * @param description the description
-     * @param endDate the end date
+     * @param data the data involved in generating the {@code Deadline}
      * @throws EmptyArgumentException if the description or end date is empty
      * @throws IncorrectDateFormatException if the end date is formatted incorrectly
      */
-    public Deadline(boolean isCompleted, String description, String endDate)
+    public Deadline(boolean isCompleted, DeadlineData data)
             throws EmptyArgumentException, IncorrectDateFormatException {
-        super(isCompleted, description);
-        if (description.isEmpty()) {
+        super(isCompleted, data);
+        if (!data.hasDescription()) {
             throw new EmptyArgumentException("description");
         }
-        if (endDate.isEmpty()) {
+        if (!data.hasEndDate()) {
             throw new EmptyArgumentException("end date");
         }
         try {
-            this.endDate = LocalDate.parse(endDate);
+            this.endDate = LocalDate.parse(data.getEndDate());
         } catch (DateTimeParseException ex) {
             throw new IncorrectDateFormatException("end date needs to be in format yyyy-mm-dd");
         }
@@ -42,13 +41,12 @@ public class Deadline extends Task {
 
     /**
      * Constructs a {@code Deadline} with the given inputs, set to not completed
-     * @param description the description
-     * @param endDate the end date
+     * @param data the data involved in generating the {@code Deadline}
      * @throws EmptyArgumentException if the description or end date is empty
      * @throws IncorrectDateFormatException if the end date is formatted incorrectly
      */
-    public Deadline(String description, String endDate) throws EmptyArgumentException, IncorrectDateFormatException {
-        this(false, description, endDate);
+    public Deadline(DeadlineData data) throws EmptyArgumentException, IncorrectDateFormatException {
+        this(false, data);
     }
 
     /**
@@ -76,7 +74,7 @@ public class Deadline extends Task {
         String description = arguments[2];
         String endDate = arguments[3];
 
-        return new Deadline(isCompleted, description, endDate);
+        return new Deadline(isCompleted, new DeadlineData(description, endDate));
     }
 
     /**
@@ -85,5 +83,26 @@ public class Deadline extends Task {
     @Override
     public String toDataString() {
         return "D | " + getCompletedAndDescription() + " | " + endDate;
+    }
+
+    /**
+     * Returns the task type of the task
+     */
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.DEADLINE;
+    }
+
+    /**
+     * Updates the task with the given data
+     */
+    @Override
+    public void update(DeadlineData data) throws BottyException {
+        try {
+            super.update(data);
+            endDate = data.hasEndDate() ? LocalDate.parse(data.getEndDate()) : endDate;
+        } catch (DateTimeParseException e) {
+            throw new IncorrectDateFormatException("end date needs to be in format yyyy-mm-dd");
+        }
     }
 }
