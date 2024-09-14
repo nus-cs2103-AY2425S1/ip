@@ -73,6 +73,8 @@ public class TaskList extends ArrayList<Task> {
      *     an error occurs while interacting with the storage system.
      */
     public void deleteTask(int index, Storage storage) throws DuckException {
+        assert storage != null : "Storage not yet initialized";
+
         try {
             System.out.println(MESSAGE_REMOVE_TASK + this.get(index));
             this.remove(index);

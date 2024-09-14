@@ -75,6 +75,6 @@ public class Deadline extends Task implements Datable {
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + "(by: " + getDisplayDateString(by) + ")";
+                + " (by: " + getDisplayDateString(by) + ")";
     }
 }

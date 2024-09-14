@@ -98,7 +98,7 @@ public class Event extends Task implements Datable {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + "(from: " + getDisplayDateString(from) + " "
+                + " (from: " + getDisplayDateString(from) + " "
                 + "to: " + getDisplayDateString(to) + ")";
     }
 }

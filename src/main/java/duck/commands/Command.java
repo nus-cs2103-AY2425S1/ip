@@ -34,6 +34,10 @@ public abstract class Command {
      * @throws DuckException If an error occurs during the execution of the command.
      */
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
+        if (tasks == null || storage == null || ui == null) {
+            throw new DuckException("Quack! Command not initialized properly.");
+        }
+
         // assertions are done in the abstract class so that subclasses will not need to check for them again.
         assert tasks != null;
         assert storage != null;
