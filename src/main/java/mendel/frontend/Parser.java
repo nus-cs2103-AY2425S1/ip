@@ -39,12 +39,12 @@ public class Parser {
         } else if (currAction.equals("list")) {
             return this.taskStorage.speak();
         } else {
-            String[] segments = currAction.split(" ");
-            return handleMultiWordCommands(segments, currAction);
+            return this.handleMultiWordCommands(currAction);
         }
     }
 
-    private String handleMultiWordCommands(String[] segments, String currAction) {
+    private String handleMultiWordCommands(String currAction) {
+        String[] segments = currAction.split(" ");
         String message;
         if (segments[0].equals("mark")) {
             handleSequenceNumberSizeError(segments);

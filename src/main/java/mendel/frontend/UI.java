@@ -21,12 +21,8 @@ public class UI {
      */
     public void showWelcome(Parser taskManager) {
         String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        String message = "Hello! I'm Mendel \n"
-                + "What can I do for you?\n"
-                + "\n"
-                + "Pssssssst..... BTW\n"
-                + "\n"
-                + taskManager.manage("remind " + date);
+        String message = String.format("Hello! I'm Mendel\nWhat can I do for you?\n\nPssssssst..... BTW\n\n%s",
+                taskManager.manage("remind " + date));
         System.out.println(this.wrapLines(message));
     }
 
