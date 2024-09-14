@@ -24,13 +24,7 @@ public class AddCommand extends Command {
     public String execute(TaskList list, FileManager fileManager)
             throws InputErrorException, IOException {
         Task task = null;
-        if (input.startsWith("todo")) {
-            task = new ToDo(input);
-        } else if (input.startsWith("deadline")) {
-            task = new Deadline(input);
-        } else if (input.startsWith("event")) {
-            task = new Event(input);
-        }
+        task = checkTaskType(input);
         String output = addToList(task, list, fileManager);
         return output;
 
@@ -47,6 +41,18 @@ public class AddCommand extends Command {
                 String.format("\nNow you have %d tasks in the list.", list.getNumOfTasks());
         fileManager.updateFile(list);
         return str;
+    }
+
+    private Task checkTaskType(String input) throws TaskException {
+        Task task = null;
+        if (input.startsWith("todo")) {
+            task = new ToDo(input);
+        } else if (input.startsWith("deadline")) {
+            task = new Deadline(input);
+        } else if (input.startsWith("event")) {
+            task = new Event(input);
+        }
+        return task;
     }
 
 }

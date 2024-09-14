@@ -3,5 +3,5 @@
 [ ] todo smth
 [ ] todo buy book
 [ ] deadline test /by 2002-07-07
-[ ] todo a
-[ ] todo a
+[ ] todo stuff
+[ ] todo check

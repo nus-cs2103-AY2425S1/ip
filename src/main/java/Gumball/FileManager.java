@@ -34,8 +34,7 @@ public class FileManager {
         for (int i = 0; i < taskList.getNumOfTasks(); i++) {
             Task task = taskList.getTask(i + 1);
             try {
-                String temp = "";
-                temp = temp + task.getStatusIcon() + " " + task.getOriginalInput();
+                String temp = task.getStatusIcon() + " " + task.getOriginalInput();
                 writer.write(temp + "\n");
             } catch (Exception e) {
                 System.out.println("Something went wrong: " + e.getMessage());
@@ -56,18 +55,28 @@ public class FileManager {
         while (s.hasNext()) {
             String input = s.nextLine();
             String command = input.substring(4);
-            if (command.startsWith("todo")) {
-                taskList.add(new ToDo(command));
-            } else if (command.startsWith("deadline")) {
-                taskList.add(new Deadline(command));
-            } else if (command.startsWith("event")) {
-                taskList.add(new Event(command));
-            }
-            if (input.startsWith("[X]")) {
-                taskList.mark(taskList.getNumOfTasks());
-            }
+            Task task = checkTaskType(command);
+            taskList.add(task);
+            checkIfMarked(taskList, input);
         }
         return taskList;
     }
 
+    private Task checkTaskType(String input) throws TaskException {
+        Task task = null;
+        if (input.startsWith("todo")) {
+            task = new ToDo(input);
+        } else if (input.startsWith("deadline")) {
+            task = new Deadline(input);
+        } else if (input.startsWith("event")) {
+            task = new Event(input);
+        }
+        return task;
+    }
+
+    private void checkIfMarked(TaskList taskList, String input) throws InputErrorException {
+        if (input.startsWith("[X]")) {
+            taskList.mark(taskList.getNumOfTasks());
+        }
+    }
 }
