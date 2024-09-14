@@ -3,6 +3,7 @@ package alfred.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,11 +36,11 @@ public class Deadlines extends Task {
      * @param description The description of the deadline task.
      * @param deadline    The deadline date in yyyy-MM-dd format.
      * @param isDone      The completion status of the task.
+     * @param tags        A list of tags associated with the task.
      * @throws AlfredException If the deadline date is not in the correct format.
      */
-    public Deadlines(String description, String deadline, boolean isDone) throws AlfredException {
-        super(description);
-        this.isDone = isDone;
+    public Deadlines(String description, String deadline, boolean isDone, List<String> tags) throws AlfredException {
+        super(description, isDone, tags);
         this.deadline = parseDeadline(deadline);
     }
 
@@ -78,6 +79,26 @@ public class Deadlines extends Task {
     }
 
     /**
+     * Creates a Deadline task based on the provided task data and completion status.
+     * It verifies that the input data matches the expected format for a Deadline task.
+     *
+     * @param taskData A String array containing the task details.
+     * @param isDone A boolean indicating whether the task is completed.
+     * @param tags A list that contains tags task is associated with.
+     * @return A <code>Deadlines</code> object created from the provided task data.
+     * @throws AlfredException If the task data is corrupted or does not match the expected Deadline format.
+     */
+    public static Deadlines createTaskFromData(String[] taskData, boolean isDone,
+                                               List<String> tags) throws AlfredException {
+        if (taskData.length != 5) {
+            throw new AlfredException("Corrupted save: Invalid deadline format");
+        }
+        String description = taskData[3];
+        String deadline = taskData[4];
+        return new Deadlines(description, deadline, isDone, tags);
+    }
+
+    /**
      * Creates a Deadlines task from the input string.
      * The input should be in the format: deadline task /by yyyy-mm-dd.
      *
@@ -85,7 +106,7 @@ public class Deadlines extends Task {
      * @return A Deadlines object with the specified description and deadline date.
      * @throws AlfredException If the input string does not match the expected format.
      */
-    public static Task createTask(String input) throws AlfredException {
+    public static Task createTaskFromInput(String input) throws AlfredException {
         String[] parsedInput = parseInputForDeadline(input);
         String description = parsedInput[0];
         String deadline = parsedInput[1];
@@ -121,6 +142,6 @@ public class Deadlines extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " + getStatusIcon() + " | " + description + " | " + deadline;
+        return "D | " + getStatusIcon() + " | " + getTagsAsString() + " | " + description + " | " + deadline;
     }
 }

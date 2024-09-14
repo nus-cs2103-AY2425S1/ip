@@ -3,6 +3,7 @@ package alfred.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,13 +46,14 @@ public class Events extends Task {
      * @param from Start date of the event in yyyy-mm-dd format.
      * @param to End date of the event in yyyy-mm-dd format.
      * @param isDone Completion status of the task.
+     * @param tags A list of tags associated with the task.
      * @throws AlfredException If the date format is invalid.
      */
-    public Events(String description, String from, String to, boolean isDone) throws AlfredException {
-        super(description);
+    public Events(String description, String from, String to,
+                  boolean isDone, List<String> tags) throws AlfredException {
+        super(description, isDone, tags);
         this.from = parseDate(from);
         this.to = parseDate(to);
-        this.isDone = isDone;
     }
 
     /**
@@ -90,6 +92,27 @@ public class Events extends Task {
     }
 
     /**
+     * Creates an Event task based on the provided task data and completion status.
+     * It verifies that the input data matches the expected format for an Event task.
+     *
+     * @param taskData A String array containing the task details.
+     * @param isDone A boolean indicating whether the task is completed.
+     * @param tags A list that contains tags task is associated with
+     * @return An <code>Events</code> object created from the provided task data.
+     * @throws AlfredException If the task data is corrupted or does not match the expected Event format.
+     */
+    public static Events createTaskFromData(String[] taskData, boolean isDone,
+                                             List<String> tags) throws AlfredException {
+        if (taskData.length != 6) {
+            throw new AlfredException("Corrupted save: Invalid event format");
+        }
+        String description = taskData[3];
+        String from = taskData[4];
+        String to = taskData[5];
+        return new Events(description, from, to, isDone, tags);
+    }
+
+    /**
      * Creates an <code>Events</code> task from the given input string.
      * The input must match the format: event description /from yyyy-mm-dd /to yyyy-mm-dd.
      * If the input is not in the correct format,
@@ -99,7 +122,7 @@ public class Events extends Task {
      * @return An <code>Events</code> task created from the input string.
      * @throws AlfredException If the input string does not match the expected format.
      */
-    public static Task createTask(String input) throws AlfredException {
+    public static Task createTaskFromInput(String input) throws AlfredException {
         String[] parsedInput = parseInputForEvent(input);
         String description = parsedInput[0];
         String from = parsedInput[1];
@@ -137,6 +160,7 @@ public class Events extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E | " + getStatusIcon() + " | " + description + " | " + from + " | " + to;
+        return "E | " + getStatusIcon() + " | " + getTagsAsString() + " | " + description
+                + " | " + from + " | " + to;
     }
 }
