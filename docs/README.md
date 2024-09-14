@@ -197,8 +197,14 @@ Find tasks that contain a specific keyword.
 ### Usage
 
 ```
-find KEYWORD
+find KEYWORD [-full] [-desc] [-help]
 ```
+
+### Options
+
+- `-full`: Find tasks that contain the keyword in their full description.
+- `-desc`: Find tasks that contain the keyword in their description.
+- `-help`: Display help message for the find command.
 
 ### Example
 
