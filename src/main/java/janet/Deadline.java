@@ -11,6 +11,10 @@ import java.util.Arrays;
 public class Deadline extends ScheduledTask {
     private final LocalDateTime dueDate;
 
+    /**
+     * @param inputLine A String input from the user.
+     * @throws JanetException If keywords are missing, incorrect date and time format, or due date is invalid.
+     */
     Deadline(String inputLine) throws JanetException {
         // inside the program this will be called
         this(createDeadlineFromUser(inputLine).getDescription(),
@@ -18,12 +22,20 @@ public class Deadline extends ScheduledTask {
                 createDeadlineFromUser(inputLine).getDueDateInDateTime());
     }
 
+    /**
+     * @param description The description of the deadline.
+     * @param symbol The deadline symbol, D.
+     * @param dueDate The due date of the deadline, in LocalDateTime.
+     */
     Deadline(String description, String symbol, LocalDateTime dueDate) {
         // this is used inside the static method: createDeadlineCommand
         super(description, symbol, dueDate);    // dueDate is the scheduledDate
         this.dueDate = dueDate;
     }
 
+    /**
+     * @param textLine A String of text from the text file to create deadline.
+     */
     Deadline(String[] textLine) {
         this(createDeadlineFromTxt(textLine).getDescription(),
                 createDeadlineFromTxt(textLine).getSymbol(),

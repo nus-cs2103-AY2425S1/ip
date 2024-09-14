@@ -7,17 +7,27 @@ import java.util.Arrays;
  */
 public class ToDo extends Task {
 
+    /**
+     * @param inputLine A String input from the user.
+     */
     ToDo(String inputLine) {
         // inside the program this will be called
         this(createToDoFromUser(inputLine).getDescription(),
                 createToDoFromUser(inputLine).getSymbol());
     }
 
+    /**
+     * @param description The description of the todo.
+     * @param symbol The todo symbol, T.
+     */
     ToDo(String description, String symbol) {
         // this is used inside the static method: createToDo
         super(description, symbol);
     }
 
+    /**
+     * @param textLine A String of text from the text file to create todo.
+     */
     ToDo(String[] textLine) {
         // this is used inside Storage to create ToDo object from .txt file
         this(createToDoFromTxt(textLine).getDescription(),
