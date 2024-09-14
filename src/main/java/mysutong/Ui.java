@@ -1,5 +1,8 @@
 package mysutong;
 
+import mysutong.TaskList;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -64,11 +67,19 @@ public class Ui {
         showLine();
     }
 
-    /**
-     * Displays a message to the user.
-     *
-     * @param message the message to be displayed.
-     */
+    public void showSearchResults(List<Task> tasks) {
+        showLine();
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+        showLine();
+    }
+
     public void showMessage(String message) {
         System.out.println(message);
     }

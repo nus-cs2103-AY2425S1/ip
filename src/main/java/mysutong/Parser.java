@@ -2,6 +2,7 @@ package mysutong;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * The {@code Parser} class interprets and executes user commands within the MySutong application.
@@ -126,8 +127,16 @@ public class Parser {
                 storage.save(tasks);
                 break;
 
-            default:
-                throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
+                case "find":
+                    if (inputs.length < 2 || inputs[1].trim().isEmpty()) {
+                        throw new NoDescriptionException("Find command requires a keyword.");
+                    }
+                    List<Task> foundTasks = tasks.findTasksByKeyword(inputs[1].trim());
+                    ui.showSearchResults(foundTasks);
+                    break;
+
+                default:
+                    throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
             }
         } catch (NumberFormatException e) {
             ui.showError("Invalid number format. Please enter a valid task index.");
