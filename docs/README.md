@@ -93,6 +93,7 @@ Format: `event <description> /from <dd-MM-yy HHmm> /to <dd-MM-yy HHmm>`
 
 Example: `event party /from 14-09-2024 1200 /to 14-09-2024 1400`
 
+Expected output:
 ```
 Got it! I've added this task:
 [E][] party (from: 14 Sep 2024, 12:00:00 pm
