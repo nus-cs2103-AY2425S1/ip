@@ -81,9 +81,9 @@ public class Storage {
     }
 
     /**
-     * Completely rewrites the database file and replaces all data with tasks solely from its argument.
+     * Rewrites the database file and replaces all data with tasks from its argument.
      * @param database ArrayList containing tasks.
-     * @throws IOException if there exists an error with regards to writing to the database.
+     * @throws IOException if there exists an error related to writing to the database.
      */
     public void updateFileContents(ArrayList<Task> database) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);

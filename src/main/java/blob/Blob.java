@@ -32,10 +32,4 @@ public class Blob {
     public String reply(VBox dialogContainer, String humanInput) {
         return this.ui.converse(dialogContainer, humanInput);
     }
-
-
-
-//    public static void main(String[] args) {
-//        new Blob("./src/main/java/database.csv").run();
-//    }
 }
