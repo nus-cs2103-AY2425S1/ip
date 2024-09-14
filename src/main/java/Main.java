@@ -19,6 +19,7 @@ public class Main extends Application {
         try {
             stage.setMinHeight(500);
             stage.setMinWidth(350);
+            stage.setTitle("Luna");
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
@@ -27,7 +28,6 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
