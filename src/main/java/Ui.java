@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
     private static final String DIVIDER = "---------------------------------------------------";
@@ -31,7 +32,7 @@ public class Ui {
      * @return A string containing the goodbye message
      */
     public String goodbye() {
-        return DIVIDER + "\n" + GOODBYE + "\n" + DIVIDER;
+        return DIVIDER + "\n" + GOODBYE;
     }
 
     /**
@@ -43,7 +44,7 @@ public class Ui {
     public String displayAddedTask(Task task) {
         return DIVIDER + "\n" + "Got it! I've added this task:" + "\n"
                 + "  " + task.toString() + "\n" + "Now you have " + TaskList.getTaskListLength()
-                + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ") + "in the list." + "\n" + DIVIDER;
+                + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ") + "in the list.";
     }
 
     /**
@@ -56,13 +57,12 @@ public class Ui {
         int taskLength = TaskList.getTaskListLength();
         ArrayList<Task> list = TaskList.getTaskList();
         if(taskLength == 0) {
-            return DIVIDER + "\n" + "Your task list is empty!" + "\n" + DIVIDER;
+            return DIVIDER + "\n" + "Your task list is empty!";
         }
         for (int i = 0; i < taskLength; i++) {
-            displayList += (i + 1) + ". " + list.get(i).toString() + "\n";
-            if(i == taskLength - 1) {
-                displayList += DIVIDER;
-                break;
+            displayList += (i + 1) + ". " + list.get(i).toString();
+            if(i < taskLength - 1) {
+                displayList += "\n";
             }
         }
         return displayList;
@@ -75,7 +75,7 @@ public class Ui {
      * @return A string containing the message "marked" along with the task description and its status icon
      */
     public String displayMarkedTask(Task task) {
-        return DIVIDER + "\n" + MARKED + "\n" + "  " + task.toString() + "\n" + DIVIDER;
+        return DIVIDER + "\n" + MARKED + "\n" + "  " + task.toString();
     }
 
     /**
@@ -84,7 +84,7 @@ public class Ui {
      * @return A string containing a message indicating that the task was already marked
      */
     public String displayAlreadyMarkedTask() {
-        return DIVIDER + "\n" + ALREADY_MARKED + "\n" + DIVIDER;
+        return DIVIDER + "\n" + ALREADY_MARKED;
     }
 
     /**
@@ -94,7 +94,7 @@ public class Ui {
      * @return A string containing the message "unmarked" along with the task description and its status icon
      */
     public String displayUnmarkedTask(Task task) {
-        return DIVIDER + "\n" + UNMARKED + "\n" + "  " + task.toString() + "\n" + DIVIDER;
+        return DIVIDER + "\n" + UNMARKED + "\n" + "  " + task.toString();
     }
 
     /**
@@ -103,21 +103,21 @@ public class Ui {
      * @return A string containing a message indicating that the task was already unmarked
      */
     public String displayAlreadyUnmarkedTask() {
-        return DIVIDER + "\n" + ALREADY_UNMARKED + "\n" + DIVIDER;
+        return DIVIDER + "\n" + ALREADY_UNMARKED;
     }
 
     public String displayDeletedTask(Task task) {
         return DIVIDER + "\n" + "Noted. I've removed this task:" + "\n" + " " + task.toString()
                 + "\n" + "Now you have " + TaskList.getTaskListLength()
-                + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ") + "in the list." + "\n" + DIVIDER;
+                + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ") + "in the list.";
     }
 
     public String displayUnknownCommandException() {
-        return DIVIDER + "\n" + UNKNOWN_COMMAND + "\n" + DIVIDER;
+        return DIVIDER + "\n" + UNKNOWN_COMMAND;
     }
 
     public String displayUnknownTaskNumberException() {
-        return DIVIDER + "\n" + UNKNOWN_TASK_NUMBER + "\n" + DIVIDER;
+        return DIVIDER + "\n" + UNKNOWN_TASK_NUMBER;
     }
 
     public String displayNonexistentTaskNumberException() {
@@ -125,14 +125,28 @@ public class Ui {
     }
 
     public String displayUnknownMessageException() {
-        return DIVIDER + "\n" + UNKNOWN_DESCRIPTION + "\n" + DIVIDER;
+        return DIVIDER + "\n" + UNKNOWN_DESCRIPTION;
     }
 
     public String displayUnknownDeadlineException() {
-        return DIVIDER + "\n" + UNKNOWN_DEADLINE + "\n" + DIVIDER;
+        return DIVIDER + "\n" + UNKNOWN_DEADLINE;
     }
 
     public String displayUnknownEventTimingException() {
-        return DIVIDER + "\n" + UNKNOWN_EVENT_TIMING + "\n" + DIVIDER;
+        return DIVIDER + "\n" + UNKNOWN_EVENT_TIMING;
+    }
+
+    public String readCommand() {
+        Scanner sc = new Scanner(System.in);
+        String command = sc.nextLine();
+        return command;
+    }
+
+    public void showLine() {
+        System.out.println(DIVIDER);
+    }
+
+    public void showError(String errorMessage) {
+        System.out.println(errorMessage);
     }
 }

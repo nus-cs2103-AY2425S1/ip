@@ -17,6 +17,7 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> listOfTasks) {
         taskList = listOfTasks;
+        this.ui = new Ui();
     }
 
     /**
