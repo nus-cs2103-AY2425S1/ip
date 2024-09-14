@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alfred.exception.AlfredException;
+import alfred.factory.TaskFactory;
 import alfred.task.Task;
 
 /**
@@ -46,7 +47,7 @@ public class Storage {
         BufferedReader reader = Files.newBufferedReader(filePath);
         String line;
         while ((line = reader.readLine()) != null) {
-            Task task = Task.fromFileFormat(line);
+            Task task = TaskFactory.fromFileFormat(line);
             taskList.add(task);
         }
         reader.close();
