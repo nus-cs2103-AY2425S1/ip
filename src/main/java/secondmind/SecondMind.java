@@ -52,8 +52,9 @@ public class SecondMind {
             throws InvalidTaskNumberException {
         if (!isDone) {
             taskList.markAsUndone(taskNumber);
+        } else {
+            taskList.markAsDone(taskNumber);
         }
-        taskList.markAsDone(taskNumber);
     }
 
     private void modifyStatusInStorage(int taskNumber, boolean isDone)
