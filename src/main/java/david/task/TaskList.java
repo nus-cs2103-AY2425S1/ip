@@ -112,7 +112,7 @@ public class TaskList {
             return "All is good :) There is no tasks for the time being.";
         }
 
-        String str = "";
+        String str = "Here is a list of tasks that you have:\n";
         for (int i = 0; i < tasks.size(); i++) {
             str += i + 1 + ": " + tasks.get(i) + "\n";
         }

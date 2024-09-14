@@ -9,10 +9,11 @@ import david.task.TaskList;
  * Ui class for I/O operations
  */
 public class Ui {
-    private static final String INTRO = " Hello! I'm David.\n"
+    private static final String BUNNY_EMOJI = new String(Character.toChars(0x1F430));
+    private static final String INTRO = " Hello! I'm David. Your bunny assistant " + BUNNY_EMOJI + "\n"
             + " What can I do for you?\n";
 
-    private static final String OUTRO = "Bye. Hope to see you again soon!\n";
+    private static final String OUTRO = "Bye! Hope to see you again soon!\n";
 
 
     private Scanner sc;
