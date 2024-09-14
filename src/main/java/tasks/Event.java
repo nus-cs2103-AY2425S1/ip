@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+import exceptions.EchoException;
+
 /**
  * Represents a task with a start time and an end time that needs to be completed.
  * This class extends the Task class and implements Serializable for object serialization.
@@ -23,11 +25,22 @@ public class Event extends Task implements Serializable {
      * @param startTime start time of the event.
      * @param endTime end time of the event.
      */
-    public Event(String task, String startTime, String endTime) throws DateTimeParseException {
+    public Event(String task, String startTime, String endTime) throws EchoException {
         this.task = task;
+
+        // Create a DateTimeFormatter and parse the time strings into LocalDateTime objects
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.US);
-        this.startTime = LocalDateTime.from(LocalDateTime.parse(startTime, format));
-        this.endTime = LocalDateTime.from(LocalDateTime.parse(endTime, format));
+        try {
+            this.startTime = LocalDateTime.from(LocalDateTime.parse(startTime, format));
+            this.endTime = LocalDateTime.from(LocalDateTime.parse(endTime, format));
+        } catch (DateTimeParseException e) {
+            throw new EchoException("Oops! Your input time is in invalid format.");
+        }
+
+        // If start time is later than end time throw an exception
+        if (!this.startTime.isBefore(this.endTime)) {
+            throw new EchoException("Oops! Your start time is later than end time.");
+        }
     }
 
     /**
