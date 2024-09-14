@@ -1,7 +1,132 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+___________________________________________
+ Hello! I'm Hana
+ What can I do for you?
+___________________________________________
+___________________________________________
+Unknown command! Use help to see list of available commands
+___________________________________________
+___________________________________________
+Here are some examples of what you can do:
+1. List all tasks: list
+2. Mark a task as done: mark [task number]
+3. Unmark a task: unmark [task number]
+4. Add a todo: todo [description]
+5. Add a deadline: deadline [description] /by [d/M/yyyy HHmm]
+6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
+7. Delete a task: delete [task number]
+8. Find By Date: findByDate [d/M/yyyy]
+___________________________________________
+___________________________________________
+No tasks added yet. Add a task first!
+___________________________________________
+___________________________________________
+No tasks added yet. Add a task first!
+___________________________________________
+___________________________________________
+No tasks added yet. Add a task first!
+___________________________________________
+___________________________________________
+ToDo task must have a description.
+___________________________________________
+___________________________________________
+Got it. I've added this task:
+    [T][ ] borrow book
+Now you have 1 tasks in the list.
+___________________________________________
+___________________________________________
+Deadline task must have a description and a due date.
+___________________________________________
+___________________________________________
+Deadline task must have a description and a due date.
+___________________________________________
+___________________________________________
+Please provide a valid deadline command in the format: deadline [description] /by [d/M/yyyy HHmm]
+___________________________________________
+___________________________________________
+Got it. I've added this task:
+    [D][ ] return book (by: Dec 02 2019, 6:00 pm)
+Now you have 2 tasks in the list.
+___________________________________________
+___________________________________________
+Event task must have a description, start time, and end time.
+___________________________________________
+___________________________________________
+Event task must have a description, start time, and end time.
+___________________________________________
+___________________________________________
+Event task must have a description, start time, and end time.
+___________________________________________
+___________________________________________
+Please provide a valid deadline command in the format: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
+___________________________________________
+___________________________________________
+Got it. I've added this task:
+    [E][ ] project meeting (from: Dec 02 2019, 2:00 pm to: Dec 02 2019, 2:00 pm)
+Now you have 3 tasks in the list.
+___________________________________________
+___________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Dec 02 2019, 6:00 pm)
+3. [E][ ] project meeting (from: Dec 02 2019, 2:00 pm to: Dec 02 2019, 2:00 pm)
+___________________________________________
+___________________________________________
+Task number cannot be empty.
+___________________________________________
+___________________________________________
+Invalid task number! Task number must be between 1 and 3.
+___________________________________________
+___________________________________________
+Nice! I've marked this task as done:
+  [D][X] return book (by: Dec 02 2019, 6:00 pm)
+___________________________________________
+___________________________________________
+1. [T][ ] borrow book
+2. [D][X] return book (by: Dec 02 2019, 6:00 pm)
+3. [E][ ] project meeting (from: Dec 02 2019, 2:00 pm to: Dec 02 2019, 2:00 pm)
+___________________________________________
+___________________________________________
+Task number cannot be empty.
+___________________________________________
+___________________________________________
+Invalid task number! Task number must be between 1 and 3.
+___________________________________________
+___________________________________________
+OK, I've marked this task as not done yet:
+  [D][ ] return book (by: Dec 02 2019, 6:00 pm)
+___________________________________________
+___________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Dec 02 2019, 6:00 pm)
+3. [E][ ] project meeting (from: Dec 02 2019, 2:00 pm to: Dec 02 2019, 2:00 pm)
+___________________________________________
+___________________________________________
+Please specify a date.
+___________________________________________
+___________________________________________
+Tasks occurring on Dec 02 2019:
+[D][ ] return book (by: Dec 02 2019, 6:00 pm)
+[E][ ] project meeting (from: Dec 02 2019, 2:00 pm to: Dec 02 2019, 2:00 pm)
+___________________________________________
+___________________________________________
+Invalid task number! Task number must be between 1 and 3.
+___________________________________________
+___________________________________________
+Noted. I've removed this task:
+    [T][ ] borrow book
+Now you have 2 tasks in the list.
+___________________________________________
+___________________________________________
+Noted. I've removed this task:
+    [D][ ] return book (by: Dec 02 2019, 6:00 pm)
+Now you have 1 tasks in the list.
+___________________________________________
+___________________________________________
+Noted. I've removed this task:
+    [E][ ] project meeting (from: Dec 02 2019, 2:00 pm to: Dec 02 2019, 2:00 pm)
+Now you have 0 tasks in the list.
+___________________________________________
+___________________________________________
+___________________________________________
+___________________________________________
+ Bye. Hope to see you again soon!
+___________________________________________

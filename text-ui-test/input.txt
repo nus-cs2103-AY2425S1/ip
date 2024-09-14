@@ -1,0 +1,33 @@
+blah
+help
+mark 1
+unmark 1
+delete 1
+todo
+todo borrow book
+deadline
+deadline return book
+deadline return book /by Sunday
+deadline return book /by 2/12/2019 1800
+event
+event project meeting
+event project meeting /from Mon 2pm
+event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2/12/2019 1400 /to 3/12/2019 1400
+list
+mark
+mark 0
+mark 2
+list
+unmark
+unmark 0
+unmark 2
+list
+findByDate
+findByDate 2/12/2019
+delete 0
+delete 1
+delete 1
+delete 1
+list
+bye
