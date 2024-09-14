@@ -23,7 +23,8 @@ public class Deadline extends Task {
         return this.getTaskSymbol() + " " + super.toString() + "(by: " + this.deadline + ")";
     }
 
+    @Override
     public String getTaskSymbol() {
-        return "[D]";
+        return super.getTaskSymbol() + "[D]";
     }
 }
