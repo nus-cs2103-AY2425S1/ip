@@ -47,7 +47,7 @@ public class Ui {
     }
 
     /**
-     * Reply by SumoDE.
+     * Adds reply by SumoDE.
      * @param response response given by SumoDE.
      */
     @FXML
@@ -56,7 +56,7 @@ public class Ui {
     }
 
     /**
-     * Angry reply by SumoDE - usually used when errors are made.
+     * Adds angry reply by SumoDE - usually used when errors are made.
      * @param response response given by SumoDE
      */
     @FXML
@@ -65,7 +65,7 @@ public class Ui {
     }
 
     /**
-     * Print Message by user for record.
+     * Prints Message by user for record.
      * @param input input from user
      */
     @FXML

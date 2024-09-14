@@ -83,7 +83,7 @@ public class Task {
     }
 
     /**
-     * Mark the task.
+     * Marks the task.
      */
     public void mark() throws AlreadyMarkedException {
         if (isCompleted) {
@@ -93,7 +93,7 @@ public class Task {
     }
 
     /**
-     * Unmark the task.
+     * Unmarks the task.
      */
     public void unmark() throws AlreadyUnmarkedException {
         if (!isCompleted) {

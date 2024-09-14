@@ -47,12 +47,12 @@ test {
 }
 
 application {
-    mainClass.set("sumode.Launcher") //remember to change back
+    mainClass.set("sumode.Launcher")
 }
 
 shadowJar {
     archiveFileName = "SumoDE.jar"
-    archiveBaseName = "duke"
+    archiveBaseName = "sumode"
     archiveClassifier = null
 }
 

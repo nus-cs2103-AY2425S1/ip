@@ -44,7 +44,7 @@ public class Storage {
     }
 
     /**
-     * Save the tasks onto the file path provided on initialisation.
+     * Saves the tasks onto the file path provided on initialisation.
      * <p>
      * Takes o(number of tasks) time as each task is re-analysed and put into the file.
      * @param tasks List of tasks to be save in file path.
