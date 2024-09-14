@@ -1,4 +1,4 @@
-package alexer.gui;
+package alexer.ui;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

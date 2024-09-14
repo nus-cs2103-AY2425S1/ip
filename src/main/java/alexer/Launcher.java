@@ -1,6 +1,6 @@
 package alexer;
 
-import alexer.gui.Gui;
+import alexer.ui.Gui;
 import javafx.application.Application;
 
 public class Launcher {

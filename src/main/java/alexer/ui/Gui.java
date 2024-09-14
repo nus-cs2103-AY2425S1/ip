@@ -1,4 +1,4 @@
-package alexer.gui;
+package alexer.ui;
 
 import alexer.Alexer;
 import javafx.application.Application;
@@ -62,5 +62,8 @@ public class Gui extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        // ensure view is always scrolled bottom
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 }
