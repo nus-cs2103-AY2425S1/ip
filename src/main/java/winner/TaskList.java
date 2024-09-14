@@ -45,7 +45,7 @@ public class TaskList {
     public String addTaskToString() {
         return """
                 I have added this task into the list for you and
-                that brings your total number of tasks to""" + " " + String.valueOf(Task.getTaskCount());
+                that brings your total number of tasks to""" + " " + getNoOfTasks();
     }
 
     /**

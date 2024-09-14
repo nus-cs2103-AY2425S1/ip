@@ -4,7 +4,6 @@ package winner;
  * Represents a Task which includes the description of the task, the completion status and total number of tasks.
  */
 public class Task {
-    private static int taskCount = 0;
     protected String description;
     protected boolean isDone;
 
@@ -17,16 +16,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        taskCount++;
-    }
-
-    /**
-     * Returns the number of tasks created.
-     *
-     * @return Number of tasks created.
-     */
-    public static int getTaskCount() {
-        return taskCount;
     }
 
     /**
@@ -71,8 +60,6 @@ public class Task {
      * @return A String indicating that the task has been deleted.
      */
     public String deleteTask() {
-        taskCount--;
-        return "Alright! I have removed this task for you." + "\n"
-                + "You now have " + taskCount + " tasks left in your list.";
+        return "Alright! I have removed this task for you.";
     }
 }
