@@ -31,10 +31,10 @@ public class Strand {
     }
 
     /**
-     * The main method to run the Strand application. Creates an instance of the
-     * {@code Strand} class and starts the application loop.
+     * Starts the Strand application by creating an instance of the {@code Strand}
+     * class and running the application loop.
      *
-     * @param args Command-line arguments.
+     * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
         new Strand(FILENAME).run();
