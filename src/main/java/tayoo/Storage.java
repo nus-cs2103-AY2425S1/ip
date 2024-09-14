@@ -173,8 +173,11 @@ public class Storage {
         } catch (IOException e) {
             throw new AddTxtException("An error occurred while reading the file");
         }
-
-        lines.add(taskToAdd.toTxt());
+        try {
+            lines.add(taskToAdd.toTxt());
+        } catch (TayooException e) {
+            throw new AddTxtException(e.getMessage());
+        }
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
             for (String updatedLine : lines) {

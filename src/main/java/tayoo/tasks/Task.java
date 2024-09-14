@@ -1,5 +1,7 @@
 package tayoo.tasks;
 
+import tayoo.exception.TayooException;
+
 public class Task {
     private boolean completed;
     private String title;
@@ -67,7 +69,7 @@ public class Task {
      *
      * @return string representation of task in command form
      */
-    public String toTxt() {
+    public String toTxt() throws TayooException {
         if (completed) {
             return "Task | true | " + this.title;
         } else {

@@ -1,5 +1,7 @@
 package tayoo.tasks;
 
+import tayoo.exception.TayooException;
+
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
@@ -75,19 +77,18 @@ public class Deadline extends Task {
      *
      * @return string representation of Deadline in command form
      */
-    public String toTxt() {
-        if (this.deadline != null) {
-            if (this.isCompleted()) {
-                return "Deadline | true | " + this.getTitle() + " | " + this.deadline;
-            } else {
-                return "Deadline | false | " + this.getTitle() + " | " + this.deadline;
-            }
+    public String toTxt() throws TayooException {
+
+        String deadlineTxtStr;
+
+        if (deadline != null) {
+            deadlineTxtStr = deadline.toString();
+        } else if (deadlineStr != null){
+            deadlineTxtStr = deadlineStr;
         } else {
-            if (this.isCompleted()) {
-                return "Deadline | true | " + this.getTitle() + " | " + this.deadlineStr;
-            } else {
-                return "Deadline | false | " + this.getTitle() + " | " + this.deadlineStr;
-            }
+            throw new TayooException("No deadline string");
         }
+
+        return "Deadline | " + isCompleted() + "  | " + this.getTitle() + " | " + deadlineTxtStr;
     }
 }

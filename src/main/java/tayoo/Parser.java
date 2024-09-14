@@ -104,14 +104,7 @@ public class Parser {
                 String parsedEnd = command.substring(endIndex + 4).trim();
                 String eventTitle = command.substring(6, startIndex - 1);
 
-                TemporalAccessor eventStart = parseDateTime(parsedStart);
-                TemporalAccessor eventEnd = parseDateTime(parsedEnd);
-
-                if (eventStart != null && eventEnd != null) {
-                    return new AddTaskCommand(new Event(eventTitle, eventStart, eventEnd));
-                } else {
-                    return new AddTaskCommand(new Event(eventTitle, eventStart, eventEnd));
-                }
+                return new AddTaskCommand(new Event(eventTitle, parsedStart, parsedEnd));
             } catch (IndexOutOfBoundsException e) {
                 throw new ParserException("Event format incorrect. Format: \"Event [taskName] /from [start] "
                         + "/to [end]\". Try again please");
@@ -204,7 +197,7 @@ public class Parser {
      * @param dateTime The string input that represents the time
      * @return An instance that implements TemporalAccessor
      */
-    private static TemporalAccessor parseDateTime(String dateTime) {
+    public static TemporalAccessor parseDateTime(String dateTime) {
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
@@ -255,7 +248,7 @@ public class Parser {
         List<Task> toReturn = new ArrayList<>();
         int length = tasklist.size();
         for (int i = 0; i < length; i++) {
-            if (tasklist.get(i).getTitle().toUpperCase().contains(input)) {
+            if (tasklist.get(i).getTitle().toUpperCase().contains(toCheck)) {
                 toReturn.add(tasklist.get(i));
             }
         }

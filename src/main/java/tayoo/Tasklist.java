@@ -59,6 +59,9 @@ public class Tasklist {
         if (taskNumber < 0) {
             return false;
         }
+        if (taskNumber >= tasklistArray.size()) {
+            return false;
+        }
         Task task = tasklistArray.get(taskNumber);
         return tasklistArray.remove(task);
     }
@@ -136,6 +139,9 @@ public class Tasklist {
 
 
     public String getTaskStr(int taskNumber) {
+        if (taskNumber >= tasklistArray.size()) {
+            return null;
+        }
         if (taskNumber < 0) {
             return null;
         }
