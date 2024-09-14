@@ -59,7 +59,7 @@ public class AddCommand implements Command {
     private String handleAddTask(Task task, TaskList tasks, Ui ui, Storage storage, String desc) {
         tasks.add(task);
         CommandUtils.handleSave(tasks, storage, ui);
-        return ui.displayTaskAdded(desc);
+        return ui.displayTaskAdded(desc, task.getClass().getSimpleName());
     }
 
     /**

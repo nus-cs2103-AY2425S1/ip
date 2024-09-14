@@ -64,8 +64,8 @@ public class Ui {
     /**
      * Displays text indicating task has been added
      */
-    public String displayTaskAdded(String input) {
-        return "added: " + input;
+    public String displayTaskAdded(String desc, String taskType) {
+        return "Hoshi has added " + taskType + ": " + desc;
     }
 
     /**

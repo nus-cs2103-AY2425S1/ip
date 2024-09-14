@@ -19,14 +19,13 @@ import hoshi.utils.Storage;
 
 
 /**
- * Parser test class for JUnit testing of Parser class
+ * Handles JUnit testing of AddCommand class
  */
 public class AddCommandTest {
 
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
-
 
     /**
      * Set up mocked objects for use in JUnit testing
@@ -43,12 +42,12 @@ public class AddCommandTest {
      */
     @Test
     public void executeTest_addTodo_success() throws IOException {
-
         // prepare mocked objects/behaviour and input
-        String[] splitInput = {"add", "todo", "Finish ASG1"};
+        String[] splitInput = {"add", "Todo", "Finish ASG1"};
         AddCommand addCommand = spy(new AddCommand(splitInput));
 
-        when(ui.displayTaskAdded("Finish ASG1")).thenReturn("added: Finish ASG1");
+        when(ui.displayTaskAdded("Finish ASG1", splitInput[1]))
+                .thenReturn("Hoshi has added Todo: Finish ASG1");
 
         // Mock storage so save is not called
         doNothing().when(storage).save(any(TaskList.class));
@@ -57,19 +56,18 @@ public class AddCommandTest {
         String response = addCommand.execute(taskList, ui, storage);
 
         // assert
-        verify(ui).displayTaskAdded("Finish ASG1");
+        verify(ui).displayTaskAdded("Finish ASG1", splitInput[1]);
         assertEquals("added: Finish ASG1", response);
-
     }
 
     @Test
     public void executeTest_addDeadline_success() throws IOException {
-
         // prepare mocked objects/behaviour and input
-        String[] splitInput = {"add", "deadline", "Finish ASG1", "2023-12-05"};
+        String[] splitInput = {"add", "Deadline", "Finish ASG1", "2023-12-05"};
         AddCommand addCommand = spy(new AddCommand(splitInput));
 
-        when(ui.displayTaskAdded("Finish ASG1")).thenReturn("added: Finish ASG1");
+        when(ui.displayTaskAdded("Finish ASG1", splitInput[1]))
+                .thenReturn("Hoshi has added Deadline: Finish ASG1");
 
         // Mock storage so save is not called
         doNothing().when(storage).save(any(TaskList.class));
@@ -78,19 +76,18 @@ public class AddCommandTest {
         String response = addCommand.execute(taskList, ui, storage);
 
         // assert
-        verify(ui).displayTaskAdded("Finish ASG1");
+        verify(ui).displayTaskAdded("Finish ASG1", splitInput[1]);
         assertEquals("added: Finish ASG1", response);
-
     }
 
     @Test
     public void executeTest_addEvent_success() throws IOException {
-
         // prepare mocked objects/behaviour and input
-        String[] splitInput = {"add", "event", "Finish ASG1", "2023-12-05", "2023-12-22"};
+        String[] splitInput = {"add", "Event", "Finish ASG1", "2023-12-05", "2023-12-22"};
         AddCommand addCommand = spy(new AddCommand(splitInput));
 
-        when(ui.displayTaskAdded("Finish ASG1")).thenReturn("added: Finish ASG1");
+        when(ui.displayTaskAdded("Finish ASG1", splitInput[1]))
+                .thenReturn("Hoshi has added Event: Finish ASG1");
 
         // Mock storage so save is not called
         doNothing().when(storage).save(any(TaskList.class));
@@ -99,9 +96,8 @@ public class AddCommandTest {
         String response = addCommand.execute(taskList, ui, storage);
 
         // assert
-        verify(ui).displayTaskAdded("Finish ASG1");
+        verify(ui).displayTaskAdded("Finish ASG1", splitInput[1]);
         assertEquals("added: Finish ASG1", response);
-
     }
 
     /**
@@ -109,7 +105,6 @@ public class AddCommandTest {
      */
     @Test
     public void executeTest_todoEmptyDescription_failure() {
-
         // prepare mocked objects/behaviour and input
         String[] splitInput = {"add", "todo", ""};
         AddCommand addCommand = spy(new AddCommand(splitInput));
@@ -122,7 +117,6 @@ public class AddCommandTest {
 
         // assert
         assertEquals("Hoshi needs a task description!", response);
-
     }
 
     /**
@@ -130,7 +124,6 @@ public class AddCommandTest {
      */
     @Test
     public void executeTest_deadlineInvalidDate_failure() {
-
         // prepare mocked objects/behaviour and input
         String[] splitInput = {"add", "deadline", "Finish ASG1", "25th January"};
         AddCommand addCommand = spy(new AddCommand(splitInput));
@@ -143,7 +136,6 @@ public class AddCommandTest {
 
         // assert
         assertEquals("Hoshi doesn't understand! Try YYYY-MM-DD format for the deadline.", response);
-
     }
 
 
