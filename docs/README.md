@@ -8,17 +8,17 @@ Mel is a simple chatbot helper to assist you with
 remembering and managing your tasks.
 
 ## <g>Command Summary</g>
-| Action                  | Command                                        |
-|-------------------------|------------------------------------------------|
-| Add to-do task          | `todo TASK`                                    |
-| Add deadline task       | `deadline TASK /by DATE [TIME]`                |
-| Add event task          | `event TASK /from DATE [TIME] /to DATE [TIME]` |
-| Delete task             | `delete INDEX [MORE_INDICES]`                  |
-| List all tasks          | `list`                                         |
-| Mark task as complete   | `mark INDEX [MORE_INDICES]`                    |
-| Mark task as incomplete | `unmark INDEX [MORE_INDICES]`                  |
-| Find all matching tasks | `find KEYPHRASE`                               |
-| End session             | `bye`                                          |
+ Action                  | Command                                        
+-------------------------|------------------------------------------------
+ Add to-do task          | `todo TASK`                                    
+ Add deadline task       | `deadline TASK /by DATE [TIME]`                
+ Add event task          | `event TASK /from DATE [TIME] /to DATE [TIME]` 
+ Delete task             | `delete INDEX [MORE_INDICES]`                  
+ List all tasks          | `list`                                         
+ Mark task as complete   | `mark INDEX [MORE_INDICES]`                    
+ Mark task as incomplete | `unmark INDEX [MORE_INDICES]`                  
+ Find all matching tasks | `find KEYPHRASE`                               
+ End session             | `bye`                                          
 
 ## <g>Adding Tasks</g>
 
