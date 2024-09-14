@@ -77,7 +77,7 @@ public class TaskList {
      * @return  String containing all events matching the string specified by the user
      */
     public String findEvent(String s) {
-        String events = "Here are the matching tasks  in your list:\n";
+        String events = "Here are the matching tasks in your list:\n";
 
         for (int i = 0; i < tasks.size(); i++) {
             //Iterates through all tasks and finds tasks containing strings matching the string provided

@@ -40,12 +40,6 @@ public class Ui {
         return OUTRO;
     }
 
-    /**
-     * Waits for user's next input
-     */
-    public String getInput() {
-        return sc.nextLine();
-    }
 
     /**
      * Displays a successful sorting message
