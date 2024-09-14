@@ -67,6 +67,12 @@ public class SecondMind {
         return message;
     }
 
+    private String formatInvalidTaskNumberExceptionMessage(InvalidTaskNumberException e) {
+        String errorMessage = e.toString() + "\nThere are "
+                + taskList.getTaskCount() + " tasks in your task list.";
+        return errorMessage;
+    }
+
     private String executeMarkInstruction(String[] instruction) {
         try {
             int taskNumber = getTaskNumberFromInstruction(instruction);
@@ -75,8 +81,7 @@ public class SecondMind {
             String message = getCompletionMessage(taskNumber);
             return message;
         } catch (InvalidTaskNumberException e) {
-            String errorMessage = e.toString() + "\nThere are "
-                    + taskList.getTaskCount() + " tasks in your task list.";
+            String errorMessage = formatInvalidTaskNumberExceptionMessage(e);
             return errorMessage;
         } catch (FileNotFoundException e) {
             return e.toString();
