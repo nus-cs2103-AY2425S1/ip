@@ -35,8 +35,8 @@ public class FindCommand extends Command {
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         Tasklist tasksWithSearchQuery = tasks.getNameContains(searchQuery);
-        uiCli.showTasksWithSearchQuery(String.valueOf(searchQuery), tasksWithSearchQuery);
+        return uiCli.showTasksWithSearchQuery(String.valueOf(searchQuery), tasksWithSearchQuery);
     }
 }

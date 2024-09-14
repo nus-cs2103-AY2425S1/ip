@@ -1,6 +1,5 @@
 package hypebot.ui;
 
-import static hypebot.common.Messages.DIVIDER_LINE;
 import static hypebot.common.Messages.ERROR_INTRO;
 import static hypebot.common.Messages.LOGO;
 import static hypebot.common.Messages.MESSAGE_ADDED_TASK;
@@ -37,62 +36,33 @@ import hypebot.tasklist.Tasklist;
  */
 public class UiCli {
     private final Scanner in;
-    private final PrintStream out;
 
     /**
      * Creates a new UiCli object that initiates the scanner for user input and output interface.
      */
     public UiCli() {
         in = new Scanner(System.in);
-        out = System.out;
-    }
-
-    /**
-     * Returns message formatted with buffer lines.
-     *
-     * @param message String to be reformatted.
-     * @return Reformatted string with buffer lines.
-     */
-    private String addDividerLine(String message) {
-        return DIVIDER_LINE + message + DIVIDER_LINE;
-    }
-
-    /**
-     * Returns error message formatted with buffer lines.
-     *
-     * @param message Error message to be reformatted.
-     * @return Reformatted string with buffer lines.
-     */
-    private String addDividerLineError(String message) {
-        return DIVIDER_LINE + ERROR_INTRO + message + DIVIDER_LINE;
-    }
-
-    /**
-     * Outputs the divider line to the user interface.
-     */
-    public void showDividerLine() {
-        out.println(DIVIDER_LINE);
     }
 
     /**
      * Outputs message shown when loading tasks from tasks.txt.
      */
-    public void showLoadingTasks() {
-        out.println(addDividerLine(MESSAGE_LOADING_TASKLIST));
+    public String showLoadingTasks() {
+        return MESSAGE_LOADING_TASKLIST;
     }
 
     /**
      * Outputs message shown when saving tasks to tasks.txt.
      */
-    public void showSavingTasks() {
-        out.println(addDividerLine(MESSAGE_SAVING_TASKLIST));
+    public String showSavingTasks() {
+        return MESSAGE_SAVING_TASKLIST;
     }
 
     /**
      * Outputs help message when user enters 'help' command.
      */
-    public void showHelpMessage() {
-        out.println(addDividerLine(MESSAGE_HELP));
+    public String showHelpMessage() {
+        return MESSAGE_HELP;
     }
 
     /**
@@ -100,8 +70,8 @@ public class UiCli {
      *
      * @param tasks Tasks to output to user interface.
      */
-    public void showListingTasks(Tasklist tasks) {
-        out.println(addDividerLine(MESSAGE_LIST + tasks.toString()));
+    public String showListingTasks(Tasklist tasks) {
+        return MESSAGE_LIST + tasks.toString();
     }
 
     /**
@@ -111,9 +81,9 @@ public class UiCli {
      * @param addedTask Task that was added to Tasklist.
      * @param tasks Tasklist with the added Task.
      */
-    public void showAddedTask(Task addedTask, Tasklist tasks) {
-        out.println(addDividerLine(MESSAGE_ADDED_TASK + addedTask
-                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO));
+    public String showAddedTask(Task addedTask, Tasklist tasks) {
+        return MESSAGE_ADDED_TASK + addedTask
+                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO;
     }
 
     /**
@@ -123,13 +93,13 @@ public class UiCli {
      * @param removedTask Task that was deleted from Tasklist.
      * @param tasks Tasklist with corresponding Task removed.
      */
-    public void showDeletedTask(Task removedTask, Tasklist tasks) {
-        out.println(addDividerLine(MESSAGE_DELETED_TASK + removedTask
-                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO));
+    public String showDeletedTask(Task removedTask, Tasklist tasks) {
+        return MESSAGE_DELETED_TASK + removedTask
+                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO;
     }
 
-    public void showDeletedAllTasks() {
-        out.println(addDividerLine(MESSAGE_DELETED_ALL_TASKS));
+    public String showDeletedAllTasks() {
+        return MESSAGE_DELETED_ALL_TASKS;
     }
 
     /**
@@ -137,8 +107,8 @@ public class UiCli {
      *
      * @param taskToMark Task marked complete.
      */
-    public void showMarkedTask(Task taskToMark) {
-        out.println(addDividerLine(MESSAGE_MARKED_TASK + taskToMark + "\n"));
+    public String showMarkedTask(Task taskToMark) {
+        return MESSAGE_MARKED_TASK + taskToMark + "\n";
     }
 
     /**
@@ -146,8 +116,8 @@ public class UiCli {
      *
      * @param taskToUnmark Task marked incomplete.
      */
-    public void showUnmarkedTask(Task taskToUnmark) {
-        out.println(addDividerLine(MESSAGE_UNMARKED_TASK + taskToUnmark + "\n"));
+    public String showUnmarkedTask(Task taskToUnmark) {
+        return MESSAGE_UNMARKED_TASK + taskToUnmark + "\n";
     }
 
     /**
@@ -157,9 +127,9 @@ public class UiCli {
      * @param searchDate Date (shown to user in MMM d yyyy format) user entered to search.
      * @param tasksHappeningOnDate Tasklist containing tasks occurring on corresponding date.
      */
-    public void showTasksHappeningOnDate(LocalDate searchDate, Tasklist tasksHappeningOnDate) {
-        out.println(addDividerLine(MESSAGE_HAPPENING + searchDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + "!\n" + tasksHappeningOnDate.toString()));
+    public String showTasksHappeningOnDate(LocalDate searchDate, Tasklist tasksHappeningOnDate) {
+        return MESSAGE_HAPPENING + searchDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + "!\n" + tasksHappeningOnDate.toString();
     }
 
     /**
@@ -170,9 +140,9 @@ public class UiCli {
      * @param searchQuery Search query containing keywords to find in Task name specified by user.
      * @param tasksWithSearchQuery Tasklist containing Tasks with keyword(s) in their names.
      */
-    public void showTasksWithSearchQuery(String searchQuery, Tasklist tasksWithSearchQuery) {
-        out.println(addDividerLine(MESSAGE_FIND_INTRO + " '" + searchQuery + "': \n"
-                + tasksWithSearchQuery.toString()));
+    public String showTasksWithSearchQuery(String searchQuery, Tasklist tasksWithSearchQuery) {
+        return MESSAGE_FIND_INTRO + " '" + searchQuery + "': \n"
+                + tasksWithSearchQuery.toString();
     }
 
     /**
@@ -180,23 +150,23 @@ public class UiCli {
      *
      * @param command User-entered String that does not correspond to any existing commands.
      */
-    public void showUnknownCommand(String command) {
-        out.println(addDividerLineError(MESSAGE_UNKNOWN_INTRO + command + MESSAGE_UNKNOWN_OUTRO));
+    public String showUnknownCommand(String command) {
+        return showError(MESSAGE_UNKNOWN_INTRO + command + MESSAGE_UNKNOWN_OUTRO);
     }
 
     /**
      * Outputs the greeting message and logo to the user interface.
      */
-    public void showGreeting() {
-        out.println(addDividerLine(MESSAGE_GREET_INTRO + LOGO + MESSAGE_GREET_OUTRO));
+    public String showGreeting() {
+        return MESSAGE_GREET_INTRO + LOGO + MESSAGE_GREET_OUTRO;
     }
 
     /**
      * Outputs the exit message to the user interface.
      */
-    public void showExit() {
+    public String showExit() {
         in.close();
-        out.println(addDividerLine(MESSAGE_EXIT));
+        return MESSAGE_EXIT;
     }
 
     /**
@@ -204,8 +174,8 @@ public class UiCli {
      *
      * @param errorMessage Error message to be outputted.
      */
-    public void showError(String errorMessage) {
-        out.println(addDividerLineError(errorMessage));
+    public String showError(String errorMessage) {
+        return ERROR_INTRO + errorMessage;
     }
 
     /**

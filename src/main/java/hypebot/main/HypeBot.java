@@ -17,6 +17,7 @@ public class HypeBot {
     private StorageManager storage;
     private Tasklist tasks;
     private UiCli uiCli;
+    private String commandType;
 
     /**
      * Creates a new HypeBot.
@@ -27,13 +28,22 @@ public class HypeBot {
         uiCli = new UiCli();
         storage = new StorageManager(filePath);
         try {
-            uiCli.showLoadingTasks();
             tasks = storage.load();
-            uiCli.showGreeting();
         } catch (FileNotFoundException e) {
-            uiCli.showError(e.getMessage());
             tasks = new Tasklist();
         }
+    }
+
+    public StorageManager getStorage() {
+        return storage;
+    }
+
+    public UiCli getUiCli() {
+        return uiCli;
+    }
+
+    public Tasklist getTasks() {
+        return tasks;
     }
 
     /**
@@ -44,12 +54,12 @@ public class HypeBot {
         while (!isExit) {
             try {
                 String fullCommand = uiCli.readCommand();
-                uiCli.showDividerLine();
                 Command c = CommandParser.parse(fullCommand);
-                c.execute(tasks, uiCli, storage);
+                String response = c.execute(tasks, uiCli, storage);
+                System.out.println(response);
                 isExit = c.isExit();
             } catch (Exception e) {
-                uiCli.showError(e.getMessage());
+                System.out.println(uiCli.showError(e.getMessage()));
             }
         }
     }
@@ -61,5 +71,20 @@ public class HypeBot {
      */
     public static void main(String[] args) {
         new HypeBot("./src/main/data/tasks.txt").run();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = CommandParser.parse(input);
+            commandType = c.getClass().getSimpleName();
+            return c.execute(tasks, uiCli, storage);
+        } catch (Exception e) {
+            commandType = "Error";
+            return uiCli.showError(e.getMessage());
+        }
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 }

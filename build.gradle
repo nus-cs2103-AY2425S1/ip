@@ -54,7 +54,7 @@ test {
 }
 
 application {
-    mainClass.set("hypebot.main.HypeBot")
+    mainClass.set("hypebot.ui.UiGuiLauncher")
 }
 
 shadowJar {
