@@ -1,6 +1,8 @@
 package cook;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,7 @@ public class TaskListTest {
 
         tasks.addTask(todo);
 
-        assertEquals(true, tasks.markTask(1));
+        assertTrue(tasks.markTask(1));
     }
 
     @Test
@@ -25,7 +27,7 @@ public class TaskListTest {
 
         tasks.addTask(todo);
 
-        assertEquals(false, tasks.unmarkTask(1));
+        assertFalse(tasks.unmarkTask(1));
     }
 
     @Test
@@ -36,7 +38,7 @@ public class TaskListTest {
 
         tasks.addTask(todo);
 
-        assertEquals(false, tasks.markTask(1));
+        assertFalse(tasks.markTask(1));
     }
 
     @Test
@@ -47,7 +49,7 @@ public class TaskListTest {
 
         tasks.addTask(todo);
 
-        assertEquals(true, tasks.unmarkTask(1));
+        assertTrue(tasks.unmarkTask(1));
     }
 
     @Test

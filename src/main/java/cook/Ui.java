@@ -10,14 +10,14 @@ public class Ui {
     protected Scanner input;
 
     /**
-     * Constructor for Ui class.
+     * Constructs a Ui object.
      */
     public Ui() {
         this.input = new Scanner(System.in);
     }
 
     /**
-     * Welcome screen.
+     * Prints welcome screen.
      */
     public void welcome() {
         //CHECKSTYLE.OFF: RuleName
@@ -43,7 +43,7 @@ public class Ui {
     }
 
     /**
-     * Formats and outputs String to console.
+     * Formats and prints content to console.
      */
     public void say(String content) {
         System.out.println("____________________________________________________________"

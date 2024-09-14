@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import cook.Storage;
 import cook.TaskList;
-import cook.Ui;
 import exceptions.InvalidInputException;
 
 /**
@@ -14,7 +13,9 @@ public class MarkCommand extends Command {
     protected int taskNumber;
 
     /**
-     * Constructor for MarkCommand class.
+     * Constructs MarkCommand object using int.
+     *
+     * @param taskNumber Number of the task to mark.
      */
     public MarkCommand(int taskNumber) {
         super("mark");
@@ -22,7 +23,10 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Constructor for MarkCommand class.
+     * Constructs MarkCommand object using String.
+     *
+     * @param taskNumberString Number of the task to mark in String.
+     * @throws InvalidInputException If input is not understandable.
      */
     public MarkCommand(String taskNumberString) throws InvalidInputException {
         super("mark");
@@ -34,10 +38,13 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Marks task and saves file.
+     * Marks task and saves tasks to file.
+     *
+     * @param tasks List of Task objects.
+     * @param storage Class to save and load tasks on the local drive.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         StringBuilder content = new StringBuilder();
         try {
             tasks.markTask(this.taskNumber);

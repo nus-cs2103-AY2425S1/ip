@@ -2,15 +2,17 @@ package commands;
 
 import cook.Storage;
 import cook.TaskList;
-import cook.Ui;
 
 /**
  * FindCommand class to process find commands.
  */
 public class FindCommand extends Command {
     protected String keyword;
+
     /**
-     * Constructor for FindCommand class.
+     * Constructs FindCommand object.
+     *
+     * @param keyword String to find in task's description.
      */
     public FindCommand(String keyword) {
         super("find");
@@ -19,9 +21,12 @@ public class FindCommand extends Command {
 
     /**
      * Finds task containing the keyword and lists them.
+     *
+     * @param tasks List of Task objects.
+     * @param storage Class to save and load tasks on the local drive.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         TaskList foundTasks = tasks.findTask(this.keyword);
         if (!foundTasks.isEmpty()) {
             return foundTasks.toString();

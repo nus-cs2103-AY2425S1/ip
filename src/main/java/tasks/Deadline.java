@@ -10,7 +10,10 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructor for Deadline class.
+     * Constructs Deadline object.
+     *
+     * @param description Description of the Deadline Task.
+     * @param by When to finish the task by.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
@@ -18,7 +21,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * @inheritDoc.
+     * {inheritDoc}
      */
     @Override
     public String toString() {

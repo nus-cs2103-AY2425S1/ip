@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import cook.Storage;
 import cook.TaskList;
-import cook.Ui;
 import exceptions.InvalidInputException;
 
 /**
@@ -14,15 +13,20 @@ public class DeleteCommand extends Command {
     protected int taskNumber;
 
     /**
-     * Constructor for DeleteCommand class.
+     * Constructs DeleteCommand object using int.
+     *
+     * @param taskNumber Number of the task to delete.
      */
-    public DeleteCommand(int taskNumber) throws InvalidInputException {
+    public DeleteCommand(int taskNumber) {
         super("delete");
         this.taskNumber = taskNumber;
     }
 
     /**
-     * Constructor for DeleteCommand class.
+     * Constructs DeleteCommand object using String.
+     *
+     * @param taskNumberString Number of the task to delete in String.
+     * @throws InvalidInputException If input is not understandable.
      */
     public DeleteCommand(String taskNumberString) throws InvalidInputException {
         super("delete");
@@ -34,10 +38,13 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes task and saves file.
+     * Deletes task and saves tasks to file.
+     *
+     * @param tasks List of Task objects.
+     * @param storage Class to save and load tasks on the local drive.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         StringBuilder content = new StringBuilder();
         try {
             tasks.deleteTask(taskNumber);

@@ -11,7 +11,11 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Constructor for Deadline class.
+     * Constructs Event object.
+     *
+     * @param description Description of the Event Task.
+     * @param from When the event starts.
+     * @param to When the event ends.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
@@ -20,7 +24,7 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDoc.
+     * {inheritDoc}
      */
     @Override
     public String toString() {

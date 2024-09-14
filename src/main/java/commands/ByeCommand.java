@@ -1,8 +1,8 @@
 package commands;
 
+import cook.Cook;
 import cook.Storage;
 import cook.TaskList;
-import cook.Ui;
 
 /**
  * ByeCommand class to process bye commands.
@@ -10,17 +10,21 @@ import cook.Ui;
 public class ByeCommand extends Command {
 
     /**
-     * Constructor for ByeCommand class.
+     * Constructs ByeCommand object.
      */
     public ByeCommand() {
         super("bye");
     }
 
     /**
-     * Returns bye to exit program.
+     * Tells Cook to exit, and returns bye.
+     *
+     * @param tasks List of Task objects.
+     * @param storage Class to save and load tasks on the local drive.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
+        Cook.exit();
         return "Bye.";
     }
 }

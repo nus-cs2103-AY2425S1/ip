@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import cook.Storage;
 import cook.TaskList;
-import cook.Ui;
 import exceptions.InvalidInputException;
 
 /**
@@ -14,15 +13,20 @@ public class UnmarkCommand extends Command {
     protected int taskNumber;
 
     /**
-     * Constructor for UnmarkCommand class.
+     * Constructs UnmarkCommand object using int.
+     *
+     * @param taskNumber Number of the task to mark.
      */
-    public UnmarkCommand(int taskNumber) throws InvalidInputException {
+    public UnmarkCommand(int taskNumber) {
         super("unmark");
         this.taskNumber = taskNumber;
     }
 
     /**
-     * Constructor for UnmarkCommand class.
+     * Constructs UnmarkCommand object using String.
+     *
+     * @param taskNumberString Number of the task to mark in String.
+     * @throws InvalidInputException If input is not understandable.
      */
     public UnmarkCommand(String taskNumberString) throws InvalidInputException {
         super("unmark");
@@ -35,9 +39,12 @@ public class UnmarkCommand extends Command {
 
     /**
      * Unmarks task and saves file.
+     *
+     * @param tasks List of Task objects.
+     * @param storage Class to save and load tasks on the local drive.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         StringBuilder content = new StringBuilder();
         try {
             tasks.unmarkTask(this.taskNumber);

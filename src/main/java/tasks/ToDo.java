@@ -6,14 +6,16 @@ package tasks;
 public class ToDo extends Task {
 
     /**
-     * Constructor for Deadline class.
+     * Constructs ToDo object.
+     *
+     * @param description Description of the ToDo Task.
      */
     public ToDo(String description) {
         super(description);
     }
 
     /**
-     * @inheritDoc.
+     * {inheritDoc}
      */
     @Override
     public String toString() {

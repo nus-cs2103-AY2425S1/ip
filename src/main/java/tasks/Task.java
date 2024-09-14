@@ -3,7 +3,7 @@ package tasks;
 import java.io.Serializable;
 
 /**
- * Abstract Task class to common attributes and methods between concrete tasks.
+ * Abstract Task class to store common attributes and methods between Task objects.
  */
 // Solution below adapted from https://stackoverflow.com
 // /questions/13895867/why-does-writeobject-throw-java-io-notserializableexception-and-how-do-i-fix-it
@@ -12,7 +12,9 @@ public abstract class Task implements Serializable {
     protected boolean isMarked;
 
     /**
-     * Constructor for Task class.
+     * Constructs Task object.
+     *
+     * @param description Description of the Task.
      */
     public Task(String description) {
         this.description = description;
@@ -20,7 +22,7 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Marks or unmarks task.
+     * Marks task.
      *
      * @return Success of marking task.
      */
@@ -50,7 +52,7 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * @inheritDoc.
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object task) {
@@ -61,7 +63,7 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * @inheritDoc.
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

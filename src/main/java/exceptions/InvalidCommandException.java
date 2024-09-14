@@ -7,6 +7,8 @@ package exceptions;
 public class InvalidCommandException extends Exception {
     /**
      * Constructor for InvalidCommandException class.
+     *
+     * @param message Feedback for the user.
      */
     public InvalidCommandException(String message) {
         super(message);

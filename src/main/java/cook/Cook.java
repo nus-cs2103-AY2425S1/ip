@@ -8,16 +8,19 @@ import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
 
 /**
- * Cook class to store main logic and program.
+ * Cook class to store main logic of chatbot.
  */
 public class Cook {
-    private final Storage storage;
+    private static boolean isExit = false;
+    private Storage storage;
     private TaskList tasks;
-    private final Ui ui;
-    private final Parser parser;
+    private Ui ui;
+    private Parser parser;
 
     /**
-     * Constructor for Cook class.
+     * Constructs Cook object.
+     *
+     * @param file Relative file location to store tasks.
      */
     public Cook(File file) {
         this.storage = new Storage(file);
@@ -31,37 +34,42 @@ public class Cook {
     }
 
     /**
-     * Runs main logic.
+     * Returns chatbot's response to the input.
+     *
+     * @param input String input from the user.
+     * @return String response.
      */
     public String getResponse(String input) {
         try {
             Command c = this.parser.readInput(input);
             assert c != null;
-            return c.execute(this.tasks, this.ui, this.storage);
+            return c.execute(this.tasks, this.storage);
         } catch (InvalidCommandException | InvalidInputException e) {
             return e.getMessage();
         }
     }
 
     /**
-     * Prints response of Cook given an input from the user (CLI)
+     * Prints responses from Cook to the CLI.
      */
     public void run() {
-        String response;
         this.ui.welcome();
-        while (true) {
+        while (!isExit) {
             String input = this.ui.getInput();
-            response = this.getResponse(input);
-            if (response.equals("Bye.")) {
-                break;
-            } else {
-                this.ui.say(response);
-            }
+            String response = this.getResponse(input);
+            this.ui.say(response);
         }
     }
 
     /**
-     * Runs main.
+     * Tells Cook to exit.
+     */
+    public static void exit() {
+        isExit = true;
+    }
+
+    /**
+     * Creates a new Cook chatbot and runs it.
      */
     public static void main(String[] args) {
         new Cook(new File("data", "tasks.txt")).run();

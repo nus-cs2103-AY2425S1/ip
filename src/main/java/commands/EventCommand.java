@@ -6,9 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import cook.Storage;
 import cook.TaskList;
-import cook.Ui;
 import exceptions.InvalidInputException;
-import tasks.Deadline;
 import tasks.Event;
 
 /**
@@ -20,7 +18,12 @@ public class EventCommand extends Command {
     protected LocalDateTime to;
 
     /**
-     * Constructor for EventCommand class.
+     * Constructs EventCommand object.
+     *
+     * @param description Description of the Event Task.
+     * @param from When the event starts.
+     * @param to When the event ends.
+     * @throws InvalidInputException If input is not understandable.
      */
     public EventCommand(String description, String from, String to) throws InvalidInputException {
         super("event");
@@ -45,10 +48,13 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Adds Event task and saves file.
+     * Adds Event task and saves tasks to file.
+     *
+     * @param tasks List of Task objects.
+     * @param storage Class to save and load tasks on the local drive.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Event event = new Event(this.description, this.from, this.to);
         if (tasks.detectDuplicate(event)) {
             return "There is already another task with the same description.";

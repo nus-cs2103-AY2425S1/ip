@@ -2,16 +2,17 @@ package commands;
 
 import cook.Storage;
 import cook.TaskList;
-import cook.Ui;
 
 /**
- * Abstract Command class to common attributes and methods between concrete commands.
+ * Abstract Command class to store common attributes and methods between Command objects.
  */
 public abstract class Command {
     protected String commandName;
 
     /**
-     * Constructor for Command class.
+     * Constructs Command object.
+     *
+     * @param commandName Name of the command.
      */
     public Command(String commandName) {
         this.commandName = commandName;
@@ -19,11 +20,14 @@ public abstract class Command {
 
     /**
      * Abstract execute method for Command class.
+     *
+     * @param tasks List of Task objects.
+     * @param storage Class to save and load tasks on the local drive.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Storage storage);
 
     /**
-     * @inheritDoc.
+     * {inheritDoc}
      */
     @Override
     public boolean equals(Object command) {

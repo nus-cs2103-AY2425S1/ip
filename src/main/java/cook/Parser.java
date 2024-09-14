@@ -22,14 +22,15 @@ public class Parser {
     private HashMap<String, Integer> commandArgs;
 
     /**
-     * Constructor for Parser class.
-     *
-     * @param commandArgs Stores commands and their expected number of arguments.
+     * Constructs Parser object
      */
     public Parser() {
         this.commandArgs = this.createCommandArgs();
     }
 
+    /**
+     * Creates commands and their respective minimum number arguments to execute.
+     */
     private HashMap<String, Integer> createCommandArgs() {
         HashMap<String, Integer> validCommandArgs = new HashMap<>();
         validCommandArgs.put("bye", 1);
@@ -44,6 +45,12 @@ public class Parser {
         return validCommandArgs;
     }
 
+    /**
+     * Creates Command object and returns it.
+     *
+     * @param argumentsHashMap Arguments of the command received.
+     * @return Command object.
+     */
     private Command createCommand(HashMap<String, String> argumentsHashMap)
             throws InvalidInputException, InvalidCommandException {
         String command = argumentsHashMap.get("command");
@@ -88,6 +95,7 @@ public class Parser {
      * @param input Input to format.
      * @return HashMap of commands and their corresponding inputs.
      * @throws InvalidCommandException If command is not recognized.
+     * @throws InvalidInputException If input is not understandable.
      */
     public Command readInput(String input) throws InvalidInputException, InvalidCommandException {
         String[] arguments = input.split(" ");

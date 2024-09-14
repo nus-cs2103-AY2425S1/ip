@@ -14,7 +14,7 @@ public class TaskList implements Serializable {
     protected ArrayList<Task> tasks;
 
     /**
-     * Constructor for TaskList class.
+     * Constructs TaskList object.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -30,41 +30,42 @@ public class TaskList implements Serializable {
     /**
      * Marks task.
      *
-     * @param taskNo Task number in tasks.
-     * @return Success of marking or unmarking task.
+     * @param taskNumber Number of the task in tasks.
+     * @return Success of marking task.
      * @throws IndexOutOfBoundsException If task number does not indicate a task in tasks.
      */
-    public boolean markTask(int taskNo) throws IndexOutOfBoundsException {
-        int indexNo = taskNo - 1;
+    public boolean markTask(int taskNumber) throws IndexOutOfBoundsException {
+        int indexNo = taskNumber - 1;
         return this.tasks.get(indexNo).mark();
     }
 
     /**
      * Unmarks task.
      *
-     * @param taskNo Task number in tasks.
-     * @return Success of marking or unmarking task.
+     * @param taskNumber Number of the task in tasks.
+     * @return Success of unmarking task.
      * @throws IndexOutOfBoundsException If task number does not indicate a task in tasks.
      */
-    public boolean unmarkTask(int taskNo) throws IndexOutOfBoundsException {
-        int indexNo = taskNo - 1;
+    public boolean unmarkTask(int taskNumber) throws IndexOutOfBoundsException {
+        int indexNo = taskNumber - 1;
         return this.tasks.get(indexNo).unmark();
     }
 
     /**
      * Deletes task.
      *
-     * @param taskNo Task number in tasks.
+     * @param taskNumber Number of the task in tasks.
      */
-    public void deleteTask(int taskNo) {
-        int indexNo = taskNo - 1;
+    public void deleteTask(int taskNumber) {
+        int indexNo = taskNumber - 1;
         this.tasks.remove(indexNo);
     }
 
     /**
-     * Finds task.
+     * Finds task(s).
      *
-     * @param keyword String to find in task descriptions.
+     * @param keyword String to find in task's description.
+     * @return List of Task objects.
      */
     public TaskList findTask(String keyword) {
         TaskList foundTasks = new TaskList();
@@ -78,6 +79,9 @@ public class TaskList implements Serializable {
 
     /**
      * Checks if there is a duplicate task in tasks.
+     *
+     * @param task Task object to find duplicate of.
+     * @return Success of finding duplicate.
      */
     public boolean detectDuplicate(Task task) {
         return this.tasks.stream().anyMatch(task::equals);
@@ -91,15 +95,15 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * @inheritDoc.
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
         StringBuilder taskStringBuilder = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
-            int taskNo = i + 1;
+            int taskNumber = i + 1;
             Task task = this.tasks.get(i);
-            taskStringBuilder.append(taskNo).append(".").append(task.toString()).append("\n");
+            taskStringBuilder.append(taskNumber).append(".").append(task.toString()).append("\n");
         }
         return taskStringBuilder.toString().strip();
     }

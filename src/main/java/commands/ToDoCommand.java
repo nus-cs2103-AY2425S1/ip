@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import cook.Storage;
 import cook.TaskList;
-import cook.Ui;
-import exceptions.InvalidInputException;
 import tasks.ToDo;
 
 /**
@@ -15,18 +13,23 @@ public class ToDoCommand extends Command {
     protected String description;
 
     /**
-     * Constructor for ToDoCommand class.
+     * Constructs ToDoCommand object.
+     *
+     * @param description Description of the ToDo Task.
      */
-    public ToDoCommand(String description) throws InvalidInputException {
+    public ToDoCommand(String description) {
         super("todo");
         this.description = description;
     }
 
     /**
-     * Adds ToDo task and saves file.
+     * Adds ToDo task and saves tasks to file.
+     *
+     * @param tasks List of Task objects.
+     * @param storage Class to save and load tasks on the local drive.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         ToDo toDo = new ToDo(this.description);
         if (tasks.detectDuplicate(toDo)) {
             return "There is already another task with the same description.";
