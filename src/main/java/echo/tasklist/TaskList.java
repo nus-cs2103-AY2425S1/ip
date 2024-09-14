@@ -87,8 +87,8 @@ public class TaskList {
         int index = Integer.parseInt(taskDescription) - 1;
         int largestIndex = sizeOfTaskList() - 1;
 
-        if (index > largestIndex) {
-            throw new EchoException("There are not enough task. "
+        if (index > largestIndex || index < 0) {
+            throw new EchoException("Index out of range."
                     + "\nPlease add more task or change another index.");
         }
 

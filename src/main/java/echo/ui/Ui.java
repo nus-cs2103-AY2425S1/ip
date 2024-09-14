@@ -161,7 +161,7 @@ public class Ui {
                    - Unmark the task at index to be not completed
                 4. todo --> todo [task description]
                    - Adds a todo task with task description into your tasklist
-                5. deadline --> deadline [task description] /by[dd-MM-yyyy HHmm]
+                5. deadline --> deadline [task description] /by [dd-MM-yyyy HHmm]
                    - Adds a deadline task with task description 
                      and deadline into your tasklist
                 6. event --> event [task description] /from [dd-MM-yyyy HHmm] /to [dd-MM-yyyy HHmm]
