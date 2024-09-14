@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("LittleMissHelpful.GUI.Launcher")
+    mainClass.set("bangmang.gui.Launcher")
 }
 
 shadowJar {
@@ -57,7 +57,7 @@ run {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'LittleMissHelpful.Launcher'
+        attributes 'Main-Class': 'bangmang.gui.Launcher'
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
