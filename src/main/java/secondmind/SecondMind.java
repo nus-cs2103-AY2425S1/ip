@@ -78,7 +78,7 @@ public class SecondMind {
         return errorMessage;
     }
 
-    private String updateTaskStatusInstruction(String[] instruction, boolean isDone) {
+    private String executeTaskStatusUpdateInstruction(String[] instruction, boolean isDone) {
         try {
             int taskNumber = getTaskNumberFromInstruction(instruction);
             modifyStatusInTaskList(taskNumber, isDone);
@@ -135,10 +135,10 @@ public class SecondMind {
         if (command.equals("bye")) {
             return EXIT_INSTRUCTION;
         } else if (command.equals("mark")) {
-            String response = updateTaskStatusInstruction(instruction, true);
+            String response = executeTaskStatusUpdateInstruction(instruction, true);
             return response;
         } else if (command.equals("unmark")) {
-            String response = updateTaskStatusInstruction(instruction, false);
+            String response = executeTaskStatusUpdateInstruction(instruction, false);
             return response;
         } else if (command.equals("delete")) {
             String response = executeDeleteInstruction(instruction);
