@@ -133,15 +133,36 @@ public class Yapper {
      * @return A confirmation message that the Deadline task has been added.
      * @throws YapperException If the deadline description or date is missing.
      */
+/**
+ * Handles the "deadline" command by adding a new Deadline task.
+ *
+ * @param fullCommand The full command string entered by the user.
+ * @return A confirmation message that the Deadline task has been added.
+ * @throws YapperException If the deadline description or date is missing, or the format is incorrect.
+ */
     private String handleDeadline(String fullCommand) throws YapperException {
-        String[] parts = splitAndValidateCommand(fullCommand, "deadline", 2);  
-        String description = parts[0].substring(9).trim();
-        Task task = new Deadline(description, parts[1]);
+        if (!fullCommand.contains("/by")) {
+            throw new YapperException("Boss, you need to specify a deadline using '/by'.");
+        }
+
+        String[] descriptionAndDeadline = fullCommand.split(" /by ");
+        String description = descriptionAndDeadline[0].substring(9).trim(); 
+
+        if (descriptionAndDeadline.length < 2) {
+            throw new YapperException("Boss, you need to provide both the description and the deadline.");
+        }
+
+
+        String deadline = descriptionAndDeadline[1].trim();
+
+        Task task = new Deadline(description, deadline);
         tasks.addTask(task);
+
         assert tasks.getSize() > 0 : "Task should be added to the list";
         return "Roger that, Boss! Deadline task added:\n  "
-               + task + "\nNow you have " + tasks.getSize() + " tasks on the clock.";
+            + task + "\nNow you have " + tasks.getSize() + " tasks on the clock.";
     }
+
 
     /**
      * Handles the "event" command by adding a new Event task.
@@ -151,19 +172,33 @@ public class Yapper {
      * @throws YapperException If the event description, start time, or end time is missing.
      */
     private String handleEvent(String fullCommand) throws YapperException {
-        String[] parts = splitAndValidateCommand(fullCommand, "event", 2);  
-        String[] times = parts[1].split(" /to ");
+        // Validate if the command contains both /from and /to parts
+        if (!fullCommand.contains("/from") || !fullCommand.contains("/to")) {
+            throw new YapperException("Boss, the event command needs both a start and end time.");
+        }
+    
+        String[] descriptionAndTimes = fullCommand.split(" /from ");
+        String description = descriptionAndTimes[0].substring(6).trim();  // Extract the description part
+    
+        if (descriptionAndTimes.length < 2) {
+            throw new YapperException("Boss, the event command needs both a start and end time.");
+        }
+    
+        String[] times = descriptionAndTimes[1].split(" /to ");
         if (times.length < 2) {
             throw new YapperException("Boss, the event command needs both a start and end time.");
         }
-        String description = parts[0].substring(6).trim();
-        Task task = new Event(description, times[0], times[1]);
+    
+        String from = times[0].trim();
+        String to = times[1].trim();
+    
+        Task task = new Event(description, from, to);
         tasks.addTask(task);
+    
         assert tasks.getSize() > 0 : "Task should be added to the list";
         return "Got it, Boss! Event added to your schedule:\n  "
                + task + "\nNow you have " + tasks.getSize() + " tasks to manage!";
     }
-
     /**
      * Handles the "delete" command by removing a task from the list.
      *
@@ -223,6 +258,36 @@ public class Yapper {
     }
 
     /**
+     * Handles the "snooze" command by postponing a task's deadline.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A confirmation message that the task has been snoozed.
+     * @throws YapperException If the task number is invalid or the snooze period is not specified correctly.
+     */
+    private String handleSnooze(String fullCommand) throws YapperException {
+        String[] parts = splitAndValidateCommand(fullCommand, "snooze", 3);
+        int taskIndex = Integer.parseInt(parts[1]) - 1;
+
+        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
+            throw new InvalidTaskNumberException(taskIndex);
+        }
+
+        Task task = tasks.getTask(taskIndex);
+
+        if (!(task instanceof Deadline)) {
+            throw new YapperException("Snooze is only applicable for deadlines.");
+        }
+
+        Deadline deadlineTask = (Deadline) task;
+        String snoozeAmount = parts[2];
+
+        deadlineTask.snoozeDeadline(snoozeAmount);
+
+        return "Task snoozed, Boss! New deadline: " + deadlineTask.toString();
+    }
+
+
+    /**
      * Parses the user's command and executes the appropriate action.
      *
      * @param fullCommand The full command string entered by the user.
@@ -257,6 +322,8 @@ public class Yapper {
             case "bye":
                 storage.save(tasks.getTasks());
                 return exitApplication();
+            case "snooze":
+                return handleSnooze(fullCommand); 
             default:
                 throw new UnknownCommandException(command);
             }

@@ -23,6 +23,7 @@ public class UnknownCommandException extends YapperException {
             + "7. delete <task number> - Delete a task\n"
             + "8. find <keyword> - Search for tasks containing the keyword\n"
             + "9. bye - Exit the application\n"
+            + "10. Snooze a deadline task by entering 'snooze <task number> <snooze amount>'\n"
             + "\nPlease try again with one of the commands above.");
     }
 }
