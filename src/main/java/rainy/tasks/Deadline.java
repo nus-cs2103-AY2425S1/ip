@@ -24,6 +24,14 @@ public class Deadline extends Task {
         return this.endDate;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDate(String date) {
+        this.endDate = date;
+    }
+
     /**
      * Represents the task in a readable format. If the deadline is read from an existing file, it is directly read into
      * name of the deadline. Else, this method does additional formatting to represent the date in a standard format.

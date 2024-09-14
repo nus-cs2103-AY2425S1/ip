@@ -11,6 +11,7 @@ public class Parser {
     private int count;
     private String[] input;
     private String[] splitByTask;
+    private String[] updateParameters;
 
     /**
      * Constructs a new <code>Parser</code> object.
@@ -20,6 +21,7 @@ public class Parser {
         this.count = 0;
         this.input = new String[100000];
         this.splitByTask = new String[100000];
+        this.updateParameters = new String[100000];
     }
 
     public String getMessage() {
@@ -36,6 +38,10 @@ public class Parser {
 
     public String[] getSplitByTask() {
         return this.splitByTask;
+    }
+
+    public String[] getUpdateParameters() {
+        return this.updateParameters;
     }
 
     /**
@@ -57,6 +63,14 @@ public class Parser {
     public void firstInput(String userInput) {
         this.input = userInput.split(" ");
         this.splitByTask = userInput.split("/");
+        this.updateParameters = userInput.split(", ");
+        String[] tempArray = new String[100000];
+        for (int i = 0; i < updateParameters.length; i++)  {
+            if (i != 0) {
+                tempArray[i] = this.updateParameters[i];
+            }
+        }
+        this.updateParameters = tempArray;
         this.message = this.input[0];
         if ((this.message.equals("mark") || this.message.equals("unmark")
                 || this.message.equals("delete")) && this.input.length == 2) {

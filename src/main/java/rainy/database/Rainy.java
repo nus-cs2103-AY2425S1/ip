@@ -50,6 +50,7 @@ public class Rainy {
         ps.firstInput(scanCommand);
         String[] input = ps.getInput();
         String[] splitByTask = ps.getSplitByTask();
+        String[] updateParameters = ps.getUpdateParameters();
         String message = ps.getMessage();
         int validResponse = ps.getCount();
         assert(validResponse >= -1);
@@ -107,6 +108,12 @@ public class Rainy {
             ByeCommand byeCommand = new ByeCommand();
             byeCommand.getResponse();
             break;
+
+
+        case UPDATE:
+            if ()
+
+
 
         case INVALID:
             ui.noCategoryDeclared();

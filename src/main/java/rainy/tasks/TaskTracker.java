@@ -228,6 +228,14 @@ public class TaskTracker {
         }
     }
 
+    public void updateDeadlineName(int taskNumber, String name) {
+        Task currentEdit = this.taskList.get(taskNumber);
+        if (currentEdit instanceof Deadline) {
+            Deadline currentDeadline = currentEdit;
+            currentDeadline.setDate(name);
+        }
+    }
+
     public void receivedFirstInput() {
         this.receivedInputs = true;
     }
