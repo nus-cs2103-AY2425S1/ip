@@ -3,7 +3,8 @@
 	 You can call me Eku-Chan!
 	_____________________________________________________________
 	 Before we start, let me try to find your tasks!!
-	 Found them! I'm going to load them into the system now!
+	 Hmm... It looks like your save doesn't exists!
+	 No worries, I've make one for you!
 	_____________________________________________________________
 
 	_____________________________________________________________

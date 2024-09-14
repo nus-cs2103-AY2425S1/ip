@@ -6,6 +6,12 @@ if not exist ..\bin mkdir ..\bin
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
+REM delete data directory if it doesnt exist
+if exist .\data (
+    del /F /Q .\data\*
+    rmdir /Q .\data
+)
+
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\ekud\*.java
 IF ERRORLEVEL 1 (
