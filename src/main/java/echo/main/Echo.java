@@ -29,14 +29,12 @@ public class Echo {
 
     /**
      * Constructor to create Echo Object
-     *
-     * @param filePath String that contains the file path to store or load the list of task
      */
-    public Echo(String filePath) {
+    public Echo() {
         this.ui = new Ui();
         this.taskList = new TaskList();
         this.parser = new Parser();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage();
     }
 
     /**
@@ -219,6 +217,7 @@ public class Echo {
      * Starts the Chat Bot and load data in text file into taskList
      * Executes input provided by users
      * Saves data in taskList into text file when user types in "bye"
+     * Works for both CLI and GUI
      */
     public void run() {
         try {
@@ -242,8 +241,7 @@ public class Echo {
     }
 
     public static void main(String[] args) {
-        String filePath = "./src/main/data/echo.txt";
-        Echo echo = new Echo(filePath);
+        Echo echo = new Echo();
         echo.run();
     }
 }

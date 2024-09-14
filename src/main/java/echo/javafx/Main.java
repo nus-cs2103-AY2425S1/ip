@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Echo echo = new Echo("./src/main/data/echo.txt");
+    private Echo echo = new Echo();
 
     @Override
     public void start(Stage stage) {

@@ -19,11 +19,9 @@ public class Storage {
     private String filePath;
     /**
      * Constructor to create a Storage object
-     *
-     * @param filePath String representing the file path to the file required to be loaded or saved in
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
+        this.filePath = "./data/echo.txt";
     }
 
     /**
@@ -48,12 +46,36 @@ public class Storage {
      * @throws FileNotFoundException if there is no file present in the file path
      */
     public void loadStorage(Parser parser, TaskList taskList) throws FileNotFoundException {
+        fetchFile();
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String taskStored = scanner.nextLine();
             Task task = parser.parseInputFromTextFile(taskStored);
             taskList.addTask(task);
+        }
+    }
+
+    /**
+     * Creates file if file do not exist in filepath
+     */
+    public void fetchFile() {
+        try {
+            File file = new File(filePath);
+            File directory = new File(file.getParent());
+
+            //Check if directory exists
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            //Check if file exists
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
 }
