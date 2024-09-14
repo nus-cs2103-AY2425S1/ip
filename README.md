@@ -3,6 +3,7 @@
 This is a task management chatbot. Given below are instructions on how to use it.
 
 [Quick Start](https://github.com/FooChao/ip?tab=readme-ov-file#quick-start)
+
 [Features](https://github.com/FooChao/ip?tab=readme-ov-file#features)
 
 ## Quick Start
