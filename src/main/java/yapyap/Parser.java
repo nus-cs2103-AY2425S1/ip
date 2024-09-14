@@ -332,7 +332,7 @@ public class Parser {
                 + "2. mark <task number> - Mark a task as done\n"
                 + "3. unmark <task number> - Mark a task as not done\n"
                 + "4. todo <description> - Add a new todo task\n"
-                + "5. deadline <description> /by <due date> - Add a deadline task\n"
+                + "5. deadline <description> /by <due date> - Add a new deadline task\n"
                 + "6. event <description> /from <start time> /to <end time> - Add an event task\n"
                 + "7. delete <task number> - Delete a task\n"
                 + "8. find <keyword> - Find tasks containing the keyword\n"
