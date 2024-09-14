@@ -68,6 +68,9 @@ public class Parser {
         case "find":
             return handleFindCommand(slicedStrings, taskList);
 
+        case "undo":
+            return handleUndoCommand(slicedStrings, taskList);
+
         default:
             throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
@@ -240,6 +243,24 @@ public class Parser {
                 .filter(task -> task.toString().contains(keyword))
                 .collect(Collectors.toList());
         return getTaskList(matchingTasks);
+    }
+
+    /**
+     * Handles the "Undo" command to find tasks with the same keywords from the task list.
+     * The user is supposed to enter how many times they want to undo their command (max 3)
+     *
+     * @param slicedStrings The user's input sliced Strings into an array.
+     * @param taskList The task list containing all tasks.
+     * @throws InvalidInputException if the user enters an invalid number of input.
+     */
+    private static void handleUndoCommand(
+            String[] slicedStrings, TaskList taskList
+    ) throws InvalidInputException {
+        if (slicedStrings.length < 2) {
+            // handles the default situation
+        } else {
+            
+        }
     }
 
     /**
