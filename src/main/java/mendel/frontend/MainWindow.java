@@ -35,6 +35,15 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setMendel(Mendel d) {
         mendel = d;
+        this.initaliseMessage();
+    }
+
+    private void initaliseMessage() {
+        String response = mendel.showWelcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
+        userInput.clear();
     }
 
     /**

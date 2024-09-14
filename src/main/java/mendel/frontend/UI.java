@@ -19,11 +19,12 @@ public class UI {
     /**
      * Displays first message to the user.
      */
-    public void showWelcome(Parser taskManager) {
+    public String showWelcome(Parser taskManager) {
         String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         String message = String.format("Hello! I'm Mendel\nWhat can I do for you?\n\nPssssssst..... BTW\n\n%s",
                 taskManager.manage("remind " + date));
         System.out.println(this.wrapLines(message));
+        return message;
     }
 
     /**
