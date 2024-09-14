@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class RobTest {
     @Test
-    public void testFindTaskNum() throws DukeException {
+    public void testFindTaskNum() throws RobException {
         Rob rob = new Rob("./data/testFind.txt");
         assertEquals(1, rob.findTaskNum("mark 1"));
         assertEquals(3, rob.findTaskNum("unmark 3"));
@@ -17,8 +17,8 @@ public class RobTest {
     @Test
     public void testInvalidTaskNum() {
         Rob rob = new Rob("./data/testFind.txt");
-        assertThrows(DukeException.class, () -> rob.findTaskNum("mark 6"));
+        assertThrows(RobException.class, () -> rob.findTaskNum("mark 6"));
 
-        assertThrows(DukeException.class, () -> rob.findTaskNum("mark 0"));
+        assertThrows(RobException.class, () -> rob.findTaskNum("mark 0"));
     }
 }

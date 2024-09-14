@@ -39,9 +39,9 @@ public class Rob {
      *
      * @param input The input string that contains the task number.
      * @return The task number extracted from the input string.
-     * @throws DukeException If no number is found in the input string or if the task number is out of range.
+     * @throws RobException If no number is found in the input string or if the task number is out of range.
      */
-    public int findTaskNum(String input) throws DukeException {
+    public int findTaskNum(String input) throws RobException {
         assert input != null && !input.isEmpty();
         String regex = "\\d+";
         Pattern pattern = Pattern.compile(regex);
@@ -53,11 +53,11 @@ public class Rob {
         }
 
         if (lastNum == null) {
-            throw new DukeException("Invalid task number...");
+            throw new RobException("Invalid task number...");
         } else {
             int taskNum = Integer.parseInt(lastNum);
             if (taskNum < 1 || taskNum > tasks.len()) {
-                throw new DukeException("Invalid task number");
+                throw new RobException("Invalid task number");
             } else {
                 return taskNum;
             }
@@ -81,50 +81,23 @@ public class Rob {
             case "list":
                 return ui.showList(tasks);
             case "mark":
-                int markTaskNum = findTaskNum(input);
-                assert markTaskNum > 0 && markTaskNum <= tasks.len();
-                String markedStr = ui.mark(tasks, markTaskNum);
-                tasks.getTask(markTaskNum - 1).markAsDone();
-                storage.saveTasks(tasks);
-                return markedStr;
+                return markTask(input);
             case "unmark":
-                int unmarkTaskNum = findTaskNum(input);
-                assert unmarkTaskNum > 0 && unmarkTaskNum <= tasks.len();
-                String unmarkedStr = ui.unmark(tasks, unmarkTaskNum);
-                tasks.getTask(unmarkTaskNum - 1).unmark();
-                storage.saveTasks(tasks);
-                return unmarkedStr;
+                return unmarkTask(input);
             case "delete":
-                int deleteTaskNum = findTaskNum(input);
-                assert deleteTaskNum > 0 && deleteTaskNum <= tasks.len();
-                String delStr = ui.delete(tasks, deleteTaskNum);
-                tasks.removeTask(deleteTaskNum - 1);
-                storage.saveTasks(tasks);
-                return delStr;
+                return deleteTask(input);
             case "find":
-                String keyword = parser.getFind();
-                List<Task> filteredList = tasks.searchTasks(keyword);
-                TaskList filteredTasks = new TaskList(filteredList);
-                return ui.showList(filteredTasks);
+                return findTask(input);
             case "deadline":
             case "event":
             case "todo":
-                String desc = parser.getDesc();
-                if (!tasks.searchTasks(desc).isEmpty()) {
-                    return ui.showDuplicate();
-                }
-                handleAddTask(command, parser);
-                return ui.printText(tasks);
+                return addTask(input);
             case "force":
-                parser = new Parser(input.split(" ", 2)[1]);
-                parser.checkString();
-                String forcedCommand = parser.getCommand();
-                handleAddTask(forcedCommand, parser);
-                return ui.printText(tasks);
+                return forceTask(input);
             default:
-                throw new DukeException("I'm sorry... I don't seem to understand.");
+                throw new RobException("I'm sorry... I don't seem to understand.");
             }
-        } catch (DukeException e) {
+        } catch (RobException e) {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
@@ -135,9 +108,9 @@ public class Rob {
      *
      * @param command The type of task to add ("deadline", "event", or "todo").
      * @param parser  The parser used to extract task details such as description, dates, and times.
-     * @throws DukeException If an unknown command is provided or there is an error in adding the task.
+     * @throws RobException If an unknown command is provided or there is an error in adding the task.
      */
-    private void handleAddTask(String command, Parser parser) throws DukeException {
+    private void handleAddTask(String command, Parser parser) throws RobException {
         String desc = parser.getDesc();
         switch (command) {
         case "deadline":
@@ -153,9 +126,103 @@ public class Rob {
             tasks.getTasks().add(new Todo(desc));
             break;
         default:
-            throw new DukeException("Unknown task type.");
+            throw new RobException("Unknown task type.");
         }
         storage.saveTasks(tasks);
+    }
+
+    /**
+     * Marks a task as done by the input given by user.
+     *
+     * @param input The user's input containing the command and task number to mark as done.
+     * @return A string confirming the task has been marked as done.
+     * @throws RobException If the task number is invalid.
+     */
+    private String markTask(String input) throws RobException {
+        int markTaskNum = findTaskNum(input);
+        assert markTaskNum > 0 && markTaskNum <= tasks.len();
+        String markedStr = ui.mark(tasks, markTaskNum);
+        tasks.getTask(markTaskNum - 1).markAsDone();
+        storage.saveTasks(tasks);
+        return markedStr;
+    }
+
+    /**
+     * Unmarkes a task by the input given by user.
+     *
+     * @param input The user's input containing the command and task number to unmark.
+     * @return A string confirming the task has been unmarked.
+     * @throws RobException If the task number is invalid.
+     */
+    private String unmarkTask(String input) throws RobException {
+        int unmarkTaskNum = findTaskNum(input);
+        assert unmarkTaskNum > 0 && unmarkTaskNum <= tasks.len();
+        String unmarkedStr = ui.unmark(tasks, unmarkTaskNum);
+        tasks.getTask(unmarkTaskNum - 1).unmark();
+        storage.saveTasks(tasks);
+        return unmarkedStr;
+    }
+
+    /**
+     * Deletes a task by the input given by user.
+     *
+     * @param input The user's input containing the command and task number to be deleted.
+     * @return A string confirming the task has been deleted.
+     * @throws RobException If the task number is invalid.
+     */
+    private String deleteTask(String input) throws RobException {
+        int deleteTaskNum = findTaskNum(input);
+        assert deleteTaskNum > 0 && deleteTaskNum <= tasks.len();
+        String delStr = ui.delete(tasks, deleteTaskNum);
+        tasks.removeTask(deleteTaskNum - 1);
+        storage.saveTasks(tasks);
+        return delStr;
+    }
+
+    /**
+     * Finds tasks by the input given by user.
+     *
+     * @param input The user's input containing the command and task number to be deleted.
+     * @return A string of the list of tasks found.
+     * @throws RobException If the task number is invalid.
+     */
+    private String findTask(String input) throws RobException {
+        String keyword = parser.getFind();
+        List<Task> filteredList = tasks.searchTasks(keyword);
+        TaskList filteredTasks = new TaskList(filteredList);
+        return ui.showList(filteredTasks);
+    }
+
+    /**
+     * Adds a new task to the task list by the input given by user.
+     *
+     * @param input The user's input containing the usual task commands.
+     * @return A string confirming the task has been added.
+     * @throws RobException If the task number is invalid.
+     */
+    private String addTask(String input) throws RobException {
+        String command = parser.getCommand();
+        String desc = parser.getDesc();
+        if (!tasks.searchTasks(desc).isEmpty()) {
+            return ui.showDuplicate();
+        }
+        handleAddTask(command, parser);
+        return ui.printText(tasks);
+    }
+
+    /**
+     * Forces a duplicate task to be added by the input given by user.
+     *
+     * @param input The user's input containing the usual task command prepended by the force command.
+     * @return A string confirming the task has been added.
+     * @throws RobException If the task number is invalid.
+     */
+    private String forceTask(String input) throws RobException {
+        parser = new Parser(input.split(" ", 2)[1]);
+        parser.checkString();
+        String forcedCommand = parser.getCommand();
+        handleAddTask(forcedCommand, parser);
+        return ui.printText(tasks);
     }
 }
 

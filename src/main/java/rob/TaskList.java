@@ -50,9 +50,9 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in task descriptions.
      * @return A list of tasks that contain the specified keyword in their descriptions.
-     * @throws DukeException If an error occurs while processing the tasks.
+     * @throws RobException If an error occurs while processing the tasks.
      */
-    public List<Task> searchTasks(String keyword) throws DukeException {
+    public List<Task> searchTasks(String keyword) throws RobException {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             String line = task.toSaveString();
