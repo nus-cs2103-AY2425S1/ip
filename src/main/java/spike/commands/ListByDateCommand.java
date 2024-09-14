@@ -26,6 +26,8 @@ public class ListByDateCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Task list cannot be null";
+        assert ui != null : "User interface cannot be null";
         ui.showTaskList(tasks.listTasksByDate());
     }
 

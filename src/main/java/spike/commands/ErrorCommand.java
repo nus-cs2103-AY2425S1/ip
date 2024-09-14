@@ -16,6 +16,7 @@ public class ErrorCommand extends Command {
      * @param message The error message.
      */
     public ErrorCommand(String message) {
+        assert message != null : "Error message cannot be null";
         this.message = message;
     }
 
@@ -38,6 +39,7 @@ public class ErrorCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert ui != null : "User interface cannot be null";
         ui.showExceptionMessage(message);
     }
 

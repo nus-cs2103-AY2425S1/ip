@@ -18,6 +18,7 @@ public class FindCommand extends Command {
      * @param keyword Keyword to search for.
      */
     public FindCommand(String keyword) {
+        assert keyword != null : "Keyword cannot be null";
         this.keyword = keyword;
     }
 
@@ -40,8 +41,11 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
+        assert tasks != null : "Task list cannot be null";
         TaskList matchingTasks = tasks.findTask(this.keyword);
+        assert ui != null : "User interface cannot be null";
         ui.showTaskList(matchingTasks.getAllTasks());
+        assert storage != null : "Storage cannot be null";
         storage.writeToFile(tasks);
     }
 

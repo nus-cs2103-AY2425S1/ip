@@ -18,6 +18,7 @@ public class DeleteTaskCommand extends Command {
      * @param taskIndex The index of the task to be deleted.
      */
     public DeleteTaskCommand(int taskIndex) {
+        assert taskIndex >= 0 : "Task index cannot be negative";
         this.taskIndex = taskIndex;
     }
 
@@ -40,8 +41,11 @@ public class DeleteTaskCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
         try {
+            assert tasks != null : "Task list cannot be null";
             Task task = tasks.deleteTask(taskIndex);
+            assert ui != null : "User interface cannot be null";
             ui.showTaskDeleted(task, tasks.getSize());
+            assert storage != null : "Storage cannot be null";
             storage.writeToFile(tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new SpikeException("Please enter a valid task number");
