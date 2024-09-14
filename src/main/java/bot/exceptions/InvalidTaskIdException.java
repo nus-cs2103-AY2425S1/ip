@@ -1,7 +1,7 @@
 package bot.exceptions;
 
 public class InvalidTaskIdException extends BotException {
-    public InvalidTaskIdException(int id) {
+    public InvalidTaskIdException(String id) {
         super(id + " is not a valid task ID");
     }
 }

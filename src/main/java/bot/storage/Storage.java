@@ -66,12 +66,17 @@ public class Storage {
      * Saves the tasks to the data file.
      *
      * @param tasks List of tasks to save.
-     * @throws IOException If file cannot be saved.
      */
-    public void saveTaskList(TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter(TASK_FILE_PATH);
-        fw.write(tasks.toData());
-        fw.close();
+    public String saveTaskList(TaskList tasks) {
+        try {
+            FileWriter fw = new FileWriter(TASK_FILE_PATH);
+            fw.write(tasks.toData());
+            fw.close();
+            return "Synced task list to storage";
+        } catch (IOException e) {
+            return "Failed to save task list to disk: " + e.getMessage();
+        }
+
     }
 
     /**

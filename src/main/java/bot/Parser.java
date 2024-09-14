@@ -4,46 +4,51 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import bot.action.Action;
+import bot.action.AddTaskAction;
+import bot.action.DeleteTaskAction;
+import bot.action.ExitAction;
+import bot.action.ListTaskAction;
+import bot.action.MarkTaskAction;
+import bot.action.SearchTaskAction;
+import bot.action.UndoAction;
+import bot.action.UnmarkTaskAction;
 import bot.enums.Command;
+import bot.exceptions.BotException;
 import bot.exceptions.InvalidCommandException;
 import bot.exceptions.InvalidTaskDescriptionException;
+import bot.exceptions.InvalidTaskIdException;
 import bot.tasks.Deadline;
 import bot.tasks.Event;
+import bot.tasks.Todo;
 
 public class Parser {
-    // TODO: Move this into a Command class
-    public static class ParsedInput {
-        private final Command cmd;
-        private final String args;
-        private ParsedInput(Command cmd, String args) {
-            this.cmd = cmd;
-            this.args = args;
-        }
-
-        public Command getCmd() {
-            return this.cmd;
-        }
-
-        public String getArgs() {
-            return this.args;
-        }
-    }
-
     /**
      * Parses the given string input from user
      *
      * @param input String input from user
-     * @return <code>ParsedInput</code> containing the Command enum and String arguments
+     * @return an executable <code>Command</code>
      * @throws InvalidCommandException Invalid command
      */
-    public ParsedInput parseInput(String input) throws InvalidCommandException {
+    public Action parseInput(String input) throws BotException {
         Pattern regex = Pattern.compile("(\\w+)\\s*(.*)");
         Matcher matcher = regex.matcher(input);
         if (matcher.matches()) {
-            String cmd = matcher.group(1);
-            String args = matcher.group(2);
+            Command cmd = Command.fromString(matcher.group(1));
+            String args = matcher.group(2).strip();
 
-            return new ParsedInput(Command.fromString(cmd), args);
+            return switch (cmd) {
+                case LIST -> new ListTaskAction();
+                case TODO -> new AddTaskAction(new Todo(args));
+                case DEADLINE -> new AddTaskAction(parseDeadlineTask(args));
+                case EVENT -> new AddTaskAction(parseEventTask(args));
+                case DELETE -> new DeleteTaskAction(parseTaskId(args));
+                case MARK -> new MarkTaskAction(parseTaskId(args));
+                case UNMARK -> new UnmarkTaskAction(parseTaskId(args));
+                case FIND -> new SearchTaskAction(args);
+                case UNDO -> new UndoAction();
+                case EXIT -> new ExitAction();
+            };
         } else {
             throw new InvalidCommandException(input);
         }
@@ -85,6 +90,19 @@ public class Parser {
             return new Event(task, LocalDate.parse(from), LocalDate.parse(to));
         } else {
             throw new InvalidTaskDescriptionException(args);
+        }
+    }
+
+    private int parseTaskId(String input) throws BotException {
+        String[] arr = input.split(" ");
+        try {
+            int taskIndex = Integer.parseInt(arr[0]);
+            if (taskIndex <= 0) {
+                throw new InvalidTaskIdException(arr[0]);
+            }
+            return taskIndex;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskIdException(arr[0]);
         }
     }
 }
