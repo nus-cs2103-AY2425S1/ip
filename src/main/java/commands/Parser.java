@@ -121,7 +121,7 @@ public class Parser {
             case FIND:
                 return findTask(commandArray, allTasks);
             case HELP:
-                return HelpCommand.getHelp();
+                return HelpCommand.getHelp(userInput);
             default:
                 Task task = Task.createTask(userInput);
                 return allTasks.add(task);
