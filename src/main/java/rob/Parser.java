@@ -47,7 +47,8 @@ public class Parser {
     }
 
     public String getDesc() throws RobException {
-        if (string.split(" ", 2).length < 2) {
+        if (string.split(" ", 2).length < 2
+            || string.split(" ", 2)[1].trim().isEmpty()) {
             throw new RobException("Invalid format... What task would you like to add?");
         } else {
             String rem = string.split(" ", 2)[1].trim(); // ignore first keyword of input
