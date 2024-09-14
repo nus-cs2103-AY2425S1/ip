@@ -62,17 +62,17 @@ public class TaskList {
      * Marks or unmarks a task based on the provided index.
      *
      * @param index The index of the task to be marked or unmarked (1-based index).
-     * @param mark  {@code true} to mark the task as done, {@code false} to mark it as not done.
+     * @param markTask  {@code true} to mark the task as done, {@code false} to mark it as not done.
      * @return The updated task.
      * @throws StrandException If the index is invalid.
      */
-    public Task mark(Integer index, Boolean mark) throws StrandException {
+    public Task mark(Integer index, Boolean markTask) throws StrandException {
         assert index != null : "Index cannot be null";
         if (index > listOfTasks.size() || index < 1) {
             throw new StrandWrongIndexException(listOfTasks.size());
         }
         Task task = listOfTasks.get(index - 1);
-        if (mark) {
+        if (markTask) {
             task.markAsDone();
         } else {
             task.markAsNotDone();

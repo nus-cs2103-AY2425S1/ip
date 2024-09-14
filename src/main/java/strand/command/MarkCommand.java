@@ -12,18 +12,18 @@ import strand.task.Task;
  */
 public class MarkCommand extends Command {
     private final Integer index;
-    private Boolean mark = false;
+    private Boolean markTask = false;
     private Task.PriorityEnum priority = null;
 
     /**
      * Constructs a new {@code MarkCommand} with the specified task index and mark status.
      *
      * @param index The index of the task to be marked.
-     * @param mark  {@code true} to mark the task as done, {@code false} to mark it as not done.
+     * @param markTask  {@code true} to mark the task as done, {@code false} to mark it as not done.
      */
-    public MarkCommand(Integer index, Boolean mark) {
+    public MarkCommand(Integer index, Boolean markTask) {
         this.index = index;
-        this.mark = mark;
+        this.markTask = markTask;
     }
 
     /**
@@ -58,8 +58,8 @@ public class MarkCommand extends Command {
             task = tasks.mark(this.index, this.priority);
             output = ui.priorityAssigned(task, this.priority);
         } else {
-            task = tasks.mark(this.index, this.mark);
-            output = ui.taskMarked(task, this.mark);
+            task = tasks.mark(this.index, this.markTask);
+            output = ui.taskMarked(task, this.markTask);
         }
         storage.save(tasks.convertToFileFormat());
         return output;
