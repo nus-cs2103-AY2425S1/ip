@@ -95,6 +95,41 @@ public class SecondMind {
         }
     }
 
+    private void deleteTaskFromStorage(int taskNumber, int taskCount)
+            throws InvalidTaskNumberException, FileNotFoundException, IOException {
+        storage.delete(taskNumber, taskList.getTaskCount());
+    }
+
+    private void deleteFromTaskList(int taskNumber)
+            throws InvalidTaskNumberException {
+        taskList.delete(taskNumber);
+    }
+
+    private String getDeletionMessage(Task deletedTask, int taskCount) {
+        String message = "I've removed the following task:\n" + "\t" + deletedTask
+                + "\nYou have a grand total of " + (taskList.getTaskCount()-1) + " task(s)";
+        return message;
+    }
+
+    private String executeDeleteInstruction(String[] instruction) {
+        try {
+            int taskNumber = getTaskNumberFromInstruction(instruction);
+            int taskCount = taskList.getTaskCount();
+            Task currTask = taskList.getTask(taskNumber);
+            deleteTaskFromStorage(taskNumber, taskCount);
+            deleteFromTaskList(taskNumber);
+            String message = getDeletionMessage(currTask, taskCount);
+            return message;
+        } catch (InvalidTaskNumberException e) {
+            String errorMessage = formatInvalidTaskNumberExceptionMessage(e);
+            return errorMessage;
+        } catch (FileNotFoundException e) {
+            return e.toString();
+        } catch (IOException e) {
+            return e.toString();
+        }
+    }
+
     public String execute(String[] instruction) {
         String command = instruction[0];
         if (command.equals("bye")) {
@@ -106,23 +141,8 @@ public class SecondMind {
             String response = updateTaskStatusInstruction(instruction, false);
             return response;
         } else if (command.equals("delete")) {
-            try {
-                int taskNumber = Integer.parseInt(instruction[1]);
-                storage.delete(taskNumber, taskList.getTaskCount());
-                String message = "I've removed the following task:\n"
-                        + "\t" + taskList.getTask(taskNumber)
-                        + "\nYou have a grand total of " + (taskList.getTaskCount()-1) + " task(s)";
-                taskList.delete(taskNumber);
-                return message;
-            } catch (InvalidTaskNumberException e) {
-                String errorMessage = e.toString() + "\nThere are "
-                        + taskList.getTaskCount() + " tasks in your task list.";
-                return errorMessage;
-            } catch (FileNotFoundException e) {
-                return e.toString();
-            } catch (IOException e) {
-                return e.toString();
-            }
+            String response = executeDeleteInstruction(instruction);
+            return response;
         } else if (command.equals("list")) {
             StringBuilder sb = new StringBuilder();
             ArrayList<Task> tl = this.taskList.getTaskList();
