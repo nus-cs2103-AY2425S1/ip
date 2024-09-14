@@ -30,19 +30,19 @@ public class Parser {
     public static Task parseStorageFileLine(String line) throws InvalidStorageFileException {
         try {
             int startIdx = 7;
-            char taskType = line.charAt(1);
+            String taskType = line.substring(1, 2);
             Task t;
             String taskDescription;
 
             switch (taskType) {
-            case 'T':
+            case Todo.TASK_TYPE:
                 taskDescription = line.substring(startIdx);
                 if (taskDescription.equals("")) {
                     throw new InvalidStorageFileException();
                 }
                 t = new Todo(taskDescription);
                 break;
-            case 'D':
+            case Deadline.TASK_TYPE:
                 String byDelimiter = " (by: ";
                 int byIdx = line.indexOf(byDelimiter);
                 if (byIdx == -1) {
@@ -52,7 +52,7 @@ public class Parser {
                 String deadline = line.substring(byIdx + byDelimiter.length(), line.length() - 1);
                 t = new Deadline(taskDescription, deadline);
                 break;
-            case 'E':
+            case Event.TASK_TYPE:
                 String fromDelimiter = " (from: ";
                 String toDelimiter = " to: ";
                 int fromIdx = line.indexOf(fromDelimiter);
