@@ -26,6 +26,7 @@ public class Hoshi {
 
         // initialize required objects to run Hoshi
         initializeComponents();
+
         // get tasks from storage
         loadTaskList();
     }
@@ -34,7 +35,7 @@ public class Hoshi {
      * Runs the main flow of Hoshi
      */
     public String run(String input) {
-
+        // get response after input is handled
         String response = handleCommand(input);
         // save tasks to storage
         saveTaskList();

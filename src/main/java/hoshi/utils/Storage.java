@@ -38,6 +38,7 @@ public class Storage {
      * @param taskList ArrayList of 3 types of tasks to be retrieved from hoshi txt file.
      */
     public void load(TaskList taskList) throws FileNotFoundException {
+        // get file from the file path
         File file = new File(this.filePath);
 
         if (!file.exists()) {
@@ -123,6 +124,7 @@ public class Storage {
         assert tasks != null : "TaskList cannot be null";
         try (FileWriter fileWriter = new FileWriter(this.filePath)) {
             for (int i = 0; i < tasks.size(); i++) {
+
                 // get, format and store task
                 Task task = tasks.get(i);
                 String taskData = formatTask(task);

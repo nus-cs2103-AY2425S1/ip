@@ -14,12 +14,17 @@ public class MarkCommand implements Command {
      * task index of the task to be marked
      */
     private final int taskIndex;
+    /**
+     * boolean indicating whether to mark or unmark a task
+     */
+    private final Boolean isMark;
 
     /**
      * MarkCommand constructor
      */
-    public MarkCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    public MarkCommand(String[] splitInput, Boolean isMark) {
+        this.taskIndex = Integer.parseInt(splitInput[1]) - 1;
+        this.isMark = isMark;
     }
 
     /**
@@ -33,14 +38,25 @@ public class MarkCommand implements Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            // if specified is out of bounds
+            // if index is invalid
             if (taskIndex >= tasks.size()) {
                 throw new HoshiException("Hoshi doesn't have such a task!");
             }
-            // else if not out of bounds
-            tasks.get(taskIndex).setIsDone(true);
+
+            // assert retrieved index is not out of bounds
+            assert taskIndex < tasks.size() && taskIndex >= 0 : "Index is out of bounds for tasks";
+
+            // mark or unmark the specified task
+            Boolean isMark = this.isMark;
+            tasks.get(taskIndex).setIsDone(isMark);
             CommandUtils.handleSave(tasks, storage, ui);
-            return ui.displayTaskMarked(tasks.get(taskIndex));
+
+            // display corresponding UI to mark or unmark command
+            if (isMark) {
+                return ui.displayTaskMarked(tasks.get(taskIndex));
+            } else {
+                return ui.displayTaskUnmarked(tasks.get(taskIndex));
+            }
         } catch (HoshiException e) {
             return ui.displayError(e.getMessage());
         }

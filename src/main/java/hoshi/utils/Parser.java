@@ -8,7 +8,6 @@ import hoshi.command.FindCommand;
 import hoshi.command.InitializeCommand;
 import hoshi.command.ListCommand;
 import hoshi.command.MarkCommand;
-import hoshi.command.UnmarkCommand;
 import hoshi.task.TaskList;
 import hoshi.ui.Ui;
 
@@ -40,42 +39,41 @@ public class Parser {
         if (input.isEmpty()) {
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
+
         String[] splitInput = input.split(" ");
         String commandInput = splitInput[0].toLowerCase();
         Command command;
+
         // switch case for parsing commands
         switch (commandInput) {
         case "initialize":
             command = new InitializeCommand();
             break;
+
         case "bye":
             command = new ByeCommand();
             break;
+
         case "list":
             command = new ListCommand();
             break;
+
         case "mark":
             if (input.trim().length() < MIN_MARK_LENGTH) {
                 return ui.displayTaskToMark();
             }
-            int markIndex = Integer.parseInt(splitInput[1]) - 1;
 
-            // assert retrieved index is not out of bounds
-            assert markIndex < taskList.size() && markIndex >= 0 : "Index is out of bounds for tasks";
-
-            command = new MarkCommand(markIndex);
+            command = new MarkCommand(splitInput, true);
             break;
+
         case "unmark":
             if (input.trim().length() < MIN_UNMARK_LENGTH) {
                 return ui.displayTaskToMark();
             }
-            int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
 
-            // assert retrieved index is not out of bounds
-            assert unmarkIndex < taskList.size() && unmarkIndex >= 0 : "Index is out of bounds for tasks";
-
-            command = new UnmarkCommand(unmarkIndex);
+            command = new MarkCommand(splitInput, false);
             break;
+
         case "delete":
             if (input.trim().length() < MIN_DELETE_LENGTH) {
                 return ui.displayError(INPUT_ERROR_MESSAGE);
@@ -83,18 +81,23 @@ public class Parser {
             int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
             command = new DeleteCommand(deleteIndex);
             break;
+
         case "add":
             command = new AddCommand(splitInput);
             break;
+
         case "find":
             String keyword = splitInput[1];
             command = new FindCommand(keyword);
             break;
+
         default:
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
         return command.execute(taskList, ui, storage);
     }
+
+
 
 
 }
