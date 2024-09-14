@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Distinguishes if it is a bye command
-     * @return Exit
+     * @return Does not Exit
      */
     @Override
     public boolean isExit() {

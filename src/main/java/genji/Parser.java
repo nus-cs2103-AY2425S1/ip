@@ -9,6 +9,7 @@ import genji.command.FindCommand;
 import genji.command.ListCommand;
 import genji.command.MarkCommand;
 import genji.command.UnmarkCommand;
+import genji.command.HelpCommand;
 import genji.task.ToDo;
 import genji.task.Deadline;
 import genji.task.Event;
@@ -24,8 +25,12 @@ public class Parser {
      * Parse command to exit command
      * @return Exit command
      */
-    public static Command parseExit() {
-        return new ExitCommand();
+    public static Command parseExit(String command) throws GenjiException{
+        if (command.length() > 3) {
+            throw new GenjiException("Please don't add things after \"bye\"");
+        } else {
+            return new ExitCommand();
+        }
     }
 
     /**
@@ -34,11 +39,25 @@ public class Parser {
      * @return List command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseList(String command) throws GenjiException{
+    public static Command parseList(String command) throws GenjiException {
         if (command.length() > 4) {
             throw new GenjiException("Please don't add things after \"list\"");
         } else {
             return new ListCommand();
+        }
+    }
+
+    /**
+     * Parse command to help command
+     * @param command User's command to parse
+     * @return Help command
+     * @throws GenjiException When user's command has problem
+     */
+    public static Command parseHelp(String command) throws GenjiException {
+        if (command.length() > 4) {
+            throw new GenjiException("Please don't add things after \"help\"");
+        } else {
+            return new HelpCommand();
         }
     }
 
@@ -48,7 +67,7 @@ public class Parser {
      * @return Mark command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseMark(String command) throws GenjiException{
+    public static Command parseMark(String command) throws GenjiException {
         if (command.length() < 6) {
             throw new GenjiException("No descriptions detected " +
                     "or did not enter space, try again");
@@ -68,7 +87,7 @@ public class Parser {
      * @return Unmark command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseUnmark(String command) throws GenjiException{
+    public static Command parseUnmark(String command) throws GenjiException {
         if (command.length() < 8) {
             throw new GenjiException("No descriptions detected " +
                     "or did not enter space, try again");
@@ -88,7 +107,7 @@ public class Parser {
      * @return Add command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseTodo(String command) throws GenjiException{
+    public static Command parseTodo(String command) throws GenjiException {
         if (command.length() < 6) {
             throw new GenjiException("No descriptions detected " +
                     "or did not enter space, try again");
@@ -104,7 +123,7 @@ public class Parser {
      * @return Add command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseDeadline(String command) throws GenjiException{
+    public static Command parseDeadline(String command) throws GenjiException {
         if (command.length() < 10) {
             throw new GenjiException("No descriptions detected, try again");
         } else {
@@ -127,7 +146,7 @@ public class Parser {
      * @return Add command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseEvent(String command) throws GenjiException{
+    public static Command parseEvent(String command) throws GenjiException {
         if (command.length() < 7) {
             throw new GenjiException("No descriptions detected, try again");
         } else {
@@ -152,7 +171,7 @@ public class Parser {
      * @return Delete command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseDelete(String command) throws GenjiException{
+    public static Command parseDelete(String command) throws GenjiException {
         if (command.length() < 8) {
             throw new GenjiException("No descriptions detected " +
                     "or did not enter space, try again");
@@ -172,7 +191,7 @@ public class Parser {
      * @return Date command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseDate(String command) throws GenjiException{
+    public static Command parseDate(String command) throws GenjiException {
         if (command.length() < 6) {
             throw new GenjiException("No descriptions detected, try again");
         } else {
@@ -191,7 +210,7 @@ public class Parser {
      * @return Find command
      * @throws GenjiException When user's command has problem
      */
-    public static Command parseFind(String command) throws GenjiException{
+    public static Command parseFind(String command) throws GenjiException {
         if (command.length() < 6) {
             throw new GenjiException("No descriptions detected, try again");
         } else {
@@ -208,9 +227,11 @@ public class Parser {
      * @throws GenjiException When user's command is invalid
      */
     public static Command parse(String command) throws GenjiException {
-        if (command.equals("bye")) {
-            return parseExit();
-        } else if (command.equals("list")) {
+        if (command.startsWith("bye")) {
+            return parseExit(command);
+        } else if (command.startsWith("help")) {
+            return parseHelp(command);
+        } else if (command.startsWith("list")) {
             return parseList(command);
         } else if (command.startsWith("mark")) {
             return parseMark(command);
@@ -229,7 +250,6 @@ public class Parser {
         } else if (command.startsWith("find")) {
             return parseFind(command);
         }
-        throw new GenjiException("Invalid command, try to start with \"todo\" \"deadline\"" +
-                " \"event\", type \"list\" \"date\" \"find\", or type \"bye\" to end");
+        throw new GenjiException("Invalid command, please type \"help\"");
     }
 }

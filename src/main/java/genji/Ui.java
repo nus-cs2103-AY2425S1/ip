@@ -36,6 +36,24 @@ public class Ui {
     }
 
     /**
+     * Prints help page
+     * @return Formatted string
+     */
+    public String help() {
+        return "bye : end the program\n" +
+                "list : list out tasks\n" +
+                "todo XXX : add todo task to task list\n" +
+                "deadline XXX /by yyyy-mm-ddThh:mm : add deadline task to task list\n" +
+                "event XXX /from yyyy-mm-ddThh:mm /to yyyy-mm-ddThh:mm : " +
+                "add event task to task list\n" +
+                "mark i : mark the i-th task as done\n" +
+                "unmark i : mark the i-th task as undone\n" +
+                "delete i : delete the i-th task\n" +
+                "date yyyy-mm-dd : check tasks on a specific day\n" +
+                "find XXX : search a task that contains the input\n";
+    }
+
+    /**
      * Prints marking the task
      * @param t The task to be printed
      * @return Formatted string
