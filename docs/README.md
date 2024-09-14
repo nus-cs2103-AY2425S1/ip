@@ -7,7 +7,7 @@ Muke helps you stay organized by keeping track of tasks so you can focus on what
 	•	Simple and quick to master: Get started with minimal learning effort.
 	•	Exceptionally FAST: Handles tasks efficiently, catering to all your organizational needs.
 
-## Adding deadlines
+## Adding Deadlines
 
 Adding deadlines allows you to manage tasks that need to be completed by a specific date or time.
 
