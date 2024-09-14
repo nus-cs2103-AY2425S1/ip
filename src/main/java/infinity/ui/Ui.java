@@ -103,7 +103,7 @@ public class Ui {
     }
 
     /**
-     * List the single task provided.
+     * Lists the single task provided.
      *
      * @param task The task list to list.
      * @param i The index of the task.
@@ -114,7 +114,7 @@ public class Ui {
     }
 
     /**
-     * Invalid command received
+     * Gets the Invalid command message from the bot.
      *
      * @return The message saying that the command was not recognised
      */

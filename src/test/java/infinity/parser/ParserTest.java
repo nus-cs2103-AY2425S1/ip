@@ -10,6 +10,15 @@ import org.junit.jupiter.api.Test;
 
 public class ParserTest {
 
+    private void repeatedInvalidDateTests(String input) {
+        try {
+            assertEquals(Parser.parseDateTime(input), LocalDateTime.of(2024, 12, 1, 0, 59));
+            fail();
+        } catch (DateTimeException e) {
+            assertEquals(e.getMessage(), "Invalid date time format\n");
+        }
+    }
+
     @Test
     public void prependZero_singleDigit_zeroPrepended() {
         assertEquals(Parser.prependZero(1), "01");
@@ -35,48 +44,14 @@ public class ParserTest {
 
     @Test
     public void parseDateTime_invalidDateGiven_exceptionDateTimeExceptionThrown() {
-        try {
-            assertEquals(Parser.parseDateTime("01/12/2024 2459"),
-                    LocalDateTime.of(2024, 12, 1, 0, 59));
-            fail();
-        } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format\n");
-        }
-        try {
-            assertEquals(Parser.parseDateTime("01/12/2024 2360"),
-                    LocalDateTime.of(2024, 12, 1, 0, 59));
-            fail();
-        } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format\n");
-        }
-        try {
-            assertEquals(Parser.parseDateTime("32/12/2024 2459"),
-                    LocalDateTime.of(2024, 12, 1, 0, 59));
-            fail();
-        } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format\n");
-        }
-        try {
-            assertEquals(Parser.parseDateTime("00/12/2024 2459"),
-                    LocalDateTime.of(2024, 12, 1, 0, 59));
-            fail();
-        } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format\n");
-        }
-        try {
-            assertEquals(Parser.parseDateTime("01/13/2024 2459"),
-                    LocalDateTime.of(2024, 12, 1, 0, 59));
-            fail();
-        } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format\n");
-        }
-        try {
-            assertEquals(Parser.parseDateTime("01/00/2024 2459"),
-                    LocalDateTime.of(2024, 12, 1, 0, 59));
-            fail();
-        } catch (DateTimeException e) {
-            assertEquals(e.getMessage(), "Invalid date time format\n");
-        }
+        repeatedInvalidDateTests("01/12/2024 2459");
+        repeatedInvalidDateTests("01/12/2024 2360");
+        repeatedInvalidDateTests("01/12/2024 2459");
+        repeatedInvalidDateTests("01/12/2024 2360");
+        repeatedInvalidDateTests("32/12/2024 2459");
+        repeatedInvalidDateTests("00/12/2024 2459");
+        repeatedInvalidDateTests("01/13/2024 2459");
+        repeatedInvalidDateTests("01/00/2024 2459");
         System.out.println("Test 4: Invalid Dates - passed");
     }
 }

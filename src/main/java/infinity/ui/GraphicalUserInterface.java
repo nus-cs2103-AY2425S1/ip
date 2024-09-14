@@ -21,6 +21,7 @@ public class GraphicalUserInterface extends Application {
                     GraphicsMainWindow.class.getResource("/view/GraphicsMainWindow.fxml"));
             AnchorPane mainLayout = fxmlLoader.load();
             Scene scene = new Scene(mainLayout);
+            stage.setTitle(Ui.BOT_NAME);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
