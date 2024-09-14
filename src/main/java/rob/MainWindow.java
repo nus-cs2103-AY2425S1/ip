@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Rob instance */
     public void setRob(Rob r) {
         rob = r;
     }

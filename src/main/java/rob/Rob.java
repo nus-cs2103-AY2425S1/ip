@@ -203,7 +203,7 @@ public class Rob {
     private String addTask(String input) throws RobException {
         String command = parser.getCommand();
         String desc = parser.getDesc();
-        if (!tasks.searchTasks(desc).isEmpty()) {
+        if (!tasks.searchExactTasks(desc).isEmpty()) {
             return ui.showDuplicate();
         }
         handleAddTask(command, parser);
