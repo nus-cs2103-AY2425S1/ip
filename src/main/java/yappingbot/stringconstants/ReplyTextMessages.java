@@ -100,4 +100,9 @@ public final class ReplyTextMessages {
                                                          + "to return to default view)";
 
     public static final String MULTIPLE_EXCEPTIONS_1d_1s = "%d warnings were generated!:\n%s";
+    // todo: reset usage text
+    public static final String RESET_USAGE = "";
+    public static final String FIND_USAGE = "";
+    public static final String ALIAS_ADDED_TEXT_2s = "Alias added! %s can now be executed with %s.";
+    public static final String ALIAS_USAGE = "";
 }

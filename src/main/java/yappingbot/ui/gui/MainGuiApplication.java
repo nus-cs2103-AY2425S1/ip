@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import yappingbot.Launcher;
 import yappingbot.YappingBot;
+import yappingbot.commands.commands.LauncherCommand;
 import yappingbot.storage.Storage;
 
 /**
@@ -45,7 +46,8 @@ public class MainGuiApplication extends Application {
 
             stage.show();
 
-            YappingBot yp = new YappingBot(ui, new Storage(Launcher.getSavefilePath()));
+            // TODO: get a nicer way to access savefilePath
+            YappingBot yp = new YappingBot(ui, new Storage(LauncherCommand.getSavefilePath()));
             Thread ypLogic = new Thread(() -> {
                 yp.start();
                 ui.setProgramClose(true);

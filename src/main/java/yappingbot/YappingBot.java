@@ -2,8 +2,15 @@ package yappingbot;
 
 import java.util.ArrayList;
 
-import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
+import yappingbot.commands.commands.ChangeTaskListStatusCommand;
+import yappingbot.commands.commands.CreateDeadlineCommand;
+import yappingbot.commands.commands.CreateEventCommand;
+import yappingbot.commands.commands.CreateTodoCommand;
+import yappingbot.commands.commands.DeleteTaskCommand;
+import yappingbot.commands.commands.FindStringInTasksCommand;
+import yappingbot.commands.commands.PrintUserTaskListCommand;
+import yappingbot.commands.commands.ResetViewCommand;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotExceptionList;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
@@ -11,7 +18,6 @@ import yappingbot.exceptions.YappingBotUnknownCommandException;
 import yappingbot.storage.Storage;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.tasklist.TaskList;
-import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.Ui;
 
 
@@ -20,7 +26,6 @@ import yappingbot.ui.Ui;
  */
 public class YappingBot {
 
-    private final CommandDispatcher commandDispatch;
     private final Parser parser;
     private final Storage storage;
     private final Ui ui;
@@ -37,7 +42,6 @@ public class YappingBot {
         this.ui = ui;
         this.storage = storage;
         this.parser = new Parser();
-        this.commandDispatch = new CommandDispatcher(ui);
     }
 
     /**
@@ -61,9 +65,12 @@ public class YappingBot {
      * Saves the task list to disk using the already-created Storage object.
      */
     private void saveAndCleanup() {
-        // REVERT LIST TO MAIN PARENT!
-        userList = commandDispatch.resetView(userList, true);
         try {
+            // REVERT LIST TO MAIN PARENT!
+            userList = new ResetViewCommand()
+                    .setEnvironment(ui, userList, true)
+                    .runCommand()
+                    .getNewUserList();
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
             ui.printError(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage()));
@@ -76,58 +83,83 @@ public class YappingBot {
      */
     private void mainLoop() {
         while (ui.hasInputLines()) {
+
             String userInput = ui.getNextInputLine().trim();
             String[] userInputSlices = userInput.split(" ");
-            int taskListIndexPtr; // task list pointer
 
             try {
                 switch (parser.parseCommand(userInputSlices[0])) {
                 case EXIT:
                     // exits the function, ending the main loop
                     return;
+                case ALIAS:
+                    // creates new alias
+                    // TODO: abstract this out to a Command object
+                    parser.addAlias(userInputSlices[1], userInputSlices[2]);
+                    ui.printf(ReplyTextMessages.ALIAS_ADDED_TEXT_2s,
+                              userInputSlices[1],
+                              userInputSlices[2]);
+                    break;
                 case RESET_LIST:
                     // resets any filter on the list
-                    userList = commandDispatch.resetView(userList, false);
+                    userList = new ResetViewCommand()
+                            .setEnvironment(ui, userList, false)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case LIST:
                     // lists out all tasks that fits current filter (if any)
-                    commandDispatch.printUserList(userList);
+                    new PrintUserTaskListCommand()
+                            .setEnvironment(ui, userList).runCommand();
                     break;
                 case MARK:
                     // marks a task as Done, given the index
-                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
-                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    commandDispatch.changeTaskListStatus(taskListIndexPtr, true, userList);
+                    userList = new ChangeTaskListStatusCommand(userInputSlices)
+                            .setEnvironment(ui, userList, true)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case UNMARK:
                     // unmarks a task as Done, given the index
-                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
-                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    commandDispatch.changeTaskListStatus(taskListIndexPtr, false, userList);
+                    userList = new ChangeTaskListStatusCommand(userInputSlices)
+                            .setEnvironment(ui, userList, false)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case DELETE:
                     // deletes a task from list, given the index
-                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
-                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    commandDispatch.deleteTask(taskListIndexPtr, userList);
+                    userList = new DeleteTaskCommand(userInputSlices)
+                            .setEnvironment(ui, userList)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case TODO:
                     // creates a new to-do task
-                    commandDispatch.createNewTask(userInputSlices, TaskTypes.TODO, userList);
+                    userList = new CreateTodoCommand(userInputSlices)
+                            .setEnvironment(ui, userList)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case EVENT:
                     // creates a new event task
-                    commandDispatch.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
+                    userList = new CreateEventCommand(userInputSlices)
+                            .setEnvironment(ui, userList)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case DEADLINE:
                     // creates a new deadline task
-                    commandDispatch.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
+                    userList = new CreateDeadlineCommand(userInputSlices)
+                            .setEnvironment(ui, userList)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case FIND:
                     // creates a filtered list view with tasks matching the given criteria
-                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
-                    String searchString = userInput.substring(userInput.indexOf(" ") + 1);
-                    userList = commandDispatch.findStringInTasks(searchString, userList);
+                    userList = new FindStringInTasksCommand(userInputSlices)
+                            .setEnvironmen(ui, userList)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case UNKNOWN:
                 default:
