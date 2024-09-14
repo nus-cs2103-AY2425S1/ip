@@ -35,6 +35,10 @@ class Task {
         this.isDone = (status == 1);
     }
 
+    boolean needsReminder() {
+        return false;
+    }
+
     /**
      * Marks the task as done.
      */

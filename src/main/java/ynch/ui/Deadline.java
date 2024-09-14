@@ -46,6 +46,7 @@ class Deadline extends Task {
      * @return {@code true} if the current date is after the date to remind;
      *         {@code false} otherwise.
      */
+    @Override
     boolean needsReminder() {
         LocalDate today = LocalDate.now();
         LocalDate dateToRemind = this.deadline.minusDays(DAYS_FOR_REMINDER);
