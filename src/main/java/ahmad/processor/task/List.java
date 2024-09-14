@@ -32,6 +32,10 @@ public class List {
                         return TaskList::sortAscendingTime;
                     case "deadline":
                         return TaskList.filterList(TaskType.Deadline);
+                    case "todo":
+                        return TaskList.filterList(TaskType.Todo);
+                    case "event":
+                        return TaskList.filterList(TaskType.Event);
                     default:
                         throw new UncheckedIOException(new IOException());
                     }
