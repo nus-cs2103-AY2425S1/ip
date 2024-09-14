@@ -1,6 +1,7 @@
 package ahmad.processor.task;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  * Deadline class that extends from Task
@@ -22,6 +23,11 @@ public class Deadline extends Task {
     private Deadline(Deadline a, boolean state) {
         super(a, state);
         this.deadline = a.deadline;
+    }
+
+    @Override
+    protected long getTime() {
+        return this.deadline.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     @Override
