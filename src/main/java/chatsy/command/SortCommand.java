@@ -12,10 +12,10 @@ public class SortCommand extends Command {
     /**
      * Constructs a {@code SortCommand} with a flag for reverse sorting.
      *
-     * @param reverse True if sorting in reverse order, otherwise false.
+     * @param arguments The sorting order arguments, such as "reverse".
      */
-    public SortCommand(boolean reverse) {
-        this.reverse = reverse;
+    public SortCommand(String arguments) {
+        this.reverse = arguments.equalsIgnoreCase("reverse");
     }
 
     @Override
@@ -28,6 +28,4 @@ public class SortCommand extends Command {
             return "Tasks sorted in chronological order.";
         }
     }
-
 }
-

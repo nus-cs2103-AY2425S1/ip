@@ -49,9 +49,8 @@ public class Parser {
         case "find":
             return new FindCommand(arguments);
         case "sort":
-            boolean reverse = arguments.equalsIgnoreCase("reverse");
-            return new SortCommand(reverse);
-        default:
+            return new SortCommand(arguments);
+            default:
             throw new InvalidCommandException();
         }
     }
