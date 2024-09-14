@@ -50,4 +50,9 @@ public class Event extends Task {
         assert to != null : "empty to time";
         return "E | " + super.save() + " | " + from + " | " + to;
     }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return dateTo; // Sort by the start time of the event
+    }
 }
