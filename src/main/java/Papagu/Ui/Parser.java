@@ -183,11 +183,13 @@ public class Parser {
             storage.save();
             Ui.printDelete(temp);
         } else if (taskType.equals("todo")) {
+            assert typeDetails.length == 2 : "Todo task has wrong input format";
             ToDos newToDo = new ToDos(typeDetails[1]);
             taskList.addTask(newToDo);
             storage.save();
             Ui.printAdded(newToDo);
         } else if (taskType.equals("deadline")) {
+            assert typeDetails.length == 2 : "Deadline task has wrong input format";
             String[] parts = typeDetails[1].split(" /by ");
             String description = parts[0];
             String[] dateTime = parts[1].split(" "); 
@@ -207,6 +209,7 @@ public class Parser {
             storage.save();
             Ui.printAdded(newDeadline);
         } else if (taskType.equals("event")) {
+            assert typeDetails.length == 2 : "Event task has wrong input format";
             String[] parts = typeDetails[1].split(" /from ");
 
             String description = parts[0];
