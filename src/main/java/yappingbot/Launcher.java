@@ -11,8 +11,6 @@ import yappingbot.ui.gui.MainGuiApplication;
  */
 public class Launcher {
 
-    // default savefile path is './savefile'
-    private static String savefilePath = "./savefile";
 
     /**
      * MainGuiApplication entry point. Parses arguments and launches YappingBot appropriately.
@@ -28,37 +26,5 @@ public class Launcher {
         boolean stopTakingInputs = false;
         String[] jfxArgs = new String[0];
 
-        if (isUsingGui) {
-            launchGui(jfxArgs);
-        } else {
-            launchCli();
-        }
-    }
-
-    /**
-     * Static method to launchGui MainGuiApplication without GUI.
-     * Use as fallback method.
-     *
-     * @param args String ArrayList of arguments passed in via CLI when launching this app.
-     */
-    public static void launchGui(String[] args) {
-        MainGuiApplication.launch(MainGuiApplication.class, args);
-    }
-
-    /**
-     * Static method to launchGui MainGuiApplication with JavaFX GUI.
-     */
-    public static void launchCli() {
-        YappingBot yp = new YappingBot(new UiCli(), new Storage(savefilePath));
-        yp.start();
-    }
-
-    /**
-     * Get savefile path captured by launcher.
-     *
-     * @return String of savefile path
-     */
-    public static String getSavefilePath() {
-        return savefilePath;
     }
 }
