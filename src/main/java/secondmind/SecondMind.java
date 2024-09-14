@@ -42,27 +42,32 @@ public class SecondMind {
         return instruction;
     }
 
+    private String executeMarkInstruction(String[] instruction) {
+        try {
+            int taskNumber = Integer.parseInt(instruction[1]);
+            taskList.markAsDone(taskNumber);
+            storage.updateTaskInDataFile(taskNumber, true, taskList.getTaskCount());
+            String message = "Well done! You have completed the following task:\n"
+                    + taskList.getTask(taskNumber).toString();
+            return message;
+        } catch (InvalidTaskNumberException e) {
+            String errorMessage = e.toString() + "\nThere are "
+                    + taskList.getTaskCount() + " tasks in your task list.";
+            return errorMessage;
+        } catch (FileNotFoundException e) {
+            return e.toString();
+        } catch (IOException e) {
+            return e.toString();
+        }
+    }
+
     public String execute(String[] instruction) {
         String command = instruction[0];
         if (command.equals("bye")) {
             return EXIT_INSTRUCTION;
         } else if (command.equals("mark")) {
-            try {
-                int taskNumber = Integer.parseInt(instruction[1]);
-                taskList.markAsDone(taskNumber);
-                storage.updateTaskInDataFile(taskNumber, true, taskList.getTaskCount());
-                String message = "Well done! You have completed the following task:\n"
-                        + taskList.getTask(taskNumber).toString();
-                return message;
-            } catch (InvalidTaskNumberException e) {
-                String errorMessage = e.toString() + "\nThere are "
-                        + taskList.getTaskCount() + " tasks in your task list.";
-                return errorMessage;
-            } catch (FileNotFoundException e) {
-                return e.toString();
-            } catch (IOException e) {
-                return e.toString();
-            }
+            String response = executeMarkInstruction(instruction);
+            return response;
         } else if (command.equals("unmark")) {
             try {
                 int taskNumber = Integer.parseInt(instruction[1]);
