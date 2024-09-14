@@ -17,7 +17,7 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskManagerException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskManagerException {
         String keyword;
         if (input.length() == 4) {
             throw new TaskManagerException("Error: The description of a 'todo' cannot be empty.");
@@ -29,6 +29,6 @@ public class FindCommand extends Command{
         }
 
         List<Task> foundTasks = tasks.findTaskByKeyword(keyword);
-        ui.showFoundTasks(foundTasks);
+        return ui.showFoundTasks(foundTasks);
     }
 }

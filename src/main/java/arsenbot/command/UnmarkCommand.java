@@ -20,13 +20,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskManagerException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskManagerException {
         if (index < 0 || index >= tasks.size()) {
             throw new TaskManagerException("Error: Invalid task number.");
         }
         Task task = tasks.get(index);
         task.markAsUndone();
-        ui.showTaskUnmarked(task);
+        String ret = ui.showTaskUnmarked(task);
         storage.save(tasks.getTasks());
+        return ret;
     }
 }
