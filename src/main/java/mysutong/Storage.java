@@ -17,8 +17,19 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> load() throws FileNotFoundException {
+    public List<Task> load() throws IOException {
         File file = new File(filePath);
+
+        // If the file doesn't exist, create it
+        if (!file.exists()) {
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs(); // Create parent directory if it doesn't exist
+            }
+            file.createNewFile(); // Create the file
+            return new ArrayList<>(); // Return an empty list since there are no tasks yet
+        }
+
         Scanner scanner = new Scanner(file);
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -51,11 +62,17 @@ public class Storage {
             }
             tasks.add(task);
         }
-
+        scanner.close();
         return tasks;
     }
 
     public void save(TaskList tasks) throws IOException {
+        File file = new File(filePath);
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs(); // Create parent directory if it doesn't exist
+        }
+
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         for (Task task : tasks.getTasks()) {
             writer.write(task.toFileString());

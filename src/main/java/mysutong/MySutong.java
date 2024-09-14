@@ -1,6 +1,7 @@
 package mysutong;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class MySutong {
     private Storage storage;
@@ -12,7 +13,7 @@ public class MySutong {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
