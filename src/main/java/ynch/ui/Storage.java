@@ -78,18 +78,13 @@ class Storage {
         // string will be in the format "D1/task description/[deadline or from]/[to]"
         String taskType = String.valueOf(string.charAt(0));
         int status = Integer.parseInt(String.valueOf(string.charAt(1)));
-        // System.out.println(status);
-        // System.out.println(status == 1);
         String[] task = string.split("/");
-        switch (taskType) {
-        case "T":
-            return new Todo(status, task[1]);
-        case "D":
-            return new Deadline(status, task[1], task[2]);
-        case "E":
-            return new Event(status, task[1], task[2], task[3]);
-        }
-        return new Task(string);
+        return switch (taskType) {
+            case "T" -> new Todo(status, task[1]);
+            case "D" -> new Deadline(status, task[1], task[2]);
+            case "E" -> new Event(status, task[1], task[2], task[3]);
+            default -> new Task(string);
+        };
     }
    
 }
