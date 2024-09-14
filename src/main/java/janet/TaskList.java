@@ -137,6 +137,7 @@ public class TaskList {
      * @return A boolean value.
      */
     private boolean isScheduledTask(Task task, LocalDate schedule) {
+        assert !task.getSymbol().equals("T");   // task should not be a ToDo
         return task.getScheduledDate().equals(schedule);
     }
 
