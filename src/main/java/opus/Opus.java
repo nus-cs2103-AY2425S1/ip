@@ -96,6 +96,7 @@ public class Opus {
         String[] words = Parser.parse(input);
         String response = "";
         try {
+            assert words.length > 0 : "Command cannot be empty";
             if (words[0].equals("bye")) {
                 storage.save(taskList.getTasks());
                 return "Bye. Hope to see you again soon!";
@@ -105,25 +106,30 @@ public class Opus {
                 }
             } else if (words[0].equals("mark")) {
                 int i = Integer.parseInt(words[1]) - 1;
+                assert i >= 0 && i < taskList.getSize() : "Index out of bounds: " + i;
                 taskList.getTask(i).markAsDone();
                 response = "Nice! I've marked this task as done:\n" + taskList.getTask(i).toString();
             } else if (words[0].equals("delete")) {
                 int i = Integer.parseInt(words[1]) - 1;
+                assert i >= 0 && i < taskList.getSize() : "Index out of bounds: " + i;
                 response = "Noted. I've removed this task:\n" + taskList.getTask(i).toString() + "\n";
                 taskList.removeTask(i);
                 response += "Now you have " + taskList.getSize() + " tasks in the list.";
             } else {
                 if (words[0].equals("todo")) {
+                    assert words.length > 1 : "The description of a todo cannot be empty";
                     if (words.length <= 1) {
                         throw new OpusEmptyDescriptionException("The description of a todo cannot be empty.");
                     }
                     Task todo = new ToDo(words[1]);
                     taskList.addTask(todo);
                 } else if (words[0].equals("deadline")) {
+                    assert words.length > 1 : "Deadline details are missing";
                     String[] parts = Parser.parseDeadlineDetails(words[1]);
                     Task deadline = new Deadline(parts[0], parts[1]);
                     taskList.addTask(deadline);
                 } else if (words[0].equals("event")) {
+                    assert words.length > 1 : "Event details are missing";
                     String[] parts = Parser.parseEventDetails(words[1]);
                     Task event = new Event(parts[0], parts[1], parts[2]);
                     taskList.addTask(event);
