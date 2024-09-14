@@ -58,8 +58,9 @@ public class Parser {
             return parseTag(words);
         } else if (words[0].equals("untag")) {
             return parseUntag(words);
+        } else {
+            return parseUnknown(words);
         }
-        return new UnknownCommand();
     }
 
     /**

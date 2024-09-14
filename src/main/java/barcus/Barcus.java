@@ -29,6 +29,7 @@ public class Barcus {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }
+        this.commandType = "UnknownCommand";
     }
 
     /**
@@ -59,10 +60,16 @@ public class Barcus {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
             commandType = c.getClass().getSimpleName();
+            System.out.println("Command type: " + commandType);
             return c.getString();
         } catch (BarcusException e) {
             return "Uh oh, " + e.getMessage();
         }
+    }
+
+    public String getWelcome() {
+        return "Beep bop! Hello I am Barcus, ready to be of assistance!\n"
+                + "Write 'bye' to leave!\n";
     }
 
     /**

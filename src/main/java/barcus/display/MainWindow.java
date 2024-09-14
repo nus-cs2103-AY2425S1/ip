@@ -1,6 +1,8 @@
 package barcus.display;
 
 import barcus.Barcus;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 
 /**
@@ -36,6 +39,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setBarcus(Barcus barcus) {
         this.barcus = barcus;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(barcus.getWelcome(), barcusImage, "WelcomeCommand")
+        );
     }
 
     /**
@@ -43,13 +49,20 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    public void handleUserInput() {
         String input = userInput.getText();
         String response = barcus.getResponse(input);
+        String commandType = barcus.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, barcusImage)
+                DialogBox.getDukeDialog(response, barcusImage, commandType)
         );
         userInput.clear();
+
+        if (commandType.equals("ExitCommand")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(e -> Platform.exit());
+            pause.play();
+        }
     }
 }

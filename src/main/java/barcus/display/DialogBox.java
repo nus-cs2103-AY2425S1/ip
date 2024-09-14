@@ -49,13 +49,36 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Changes barcus dialogue style based on command type
+     * @param commandType Command used
+     */
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+        case "AddDeadlineCommand":
+        case "AddEventCommand":
+        case "AddTodoCommand":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "MarkCommand":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "UnmarkCommand":
+            dialog.getStyleClass().add("unmark-label");
+            break;
+        default:
+            // Do nothing
+        }
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getDukeDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
 }
