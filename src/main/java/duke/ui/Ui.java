@@ -35,7 +35,7 @@ public class Ui {
      * Displays the welcome message to the user.
      */
     public void showWelcome() {
-        lastResponse = " Hello! I'm Duke\n What can I do for you?";
+        lastResponse = " Hello! I'm Muke\n What can I do for you?";
         System.out.println("____________________________________________________________");
         System.out.println(lastResponse);
         System.out.println("____________________________________________________________");

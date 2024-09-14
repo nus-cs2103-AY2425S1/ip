@@ -1,9 +1,11 @@
 package duke.ui;
 
-import duke.task.Task;
-import duke.task.ToDo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.ui.Ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -34,7 +36,7 @@ public class UiTest {
     public void testShowWelcome() {
         ui.showWelcome();
         String expectedOutput = "____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
+                " Hello! I'm Muke\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n";
         assertEquals(expectedOutput, outputStream.toString());

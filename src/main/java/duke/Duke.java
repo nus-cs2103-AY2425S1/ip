@@ -86,7 +86,7 @@ public class Duke {
 
     // Add this method to return a greeting message
     public String getGreeting() {
-        return "Hello! I am Duke. How can I assist you today?";
+        return "Hello! I am Muke. How can I assist you today?";
     }
 
     // Add this method to check if Duke is running, adjust logic as necessary
