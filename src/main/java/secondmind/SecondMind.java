@@ -61,13 +61,18 @@ public class SecondMind {
         storage.updateTaskInDataFile(taskNumber, isDone, taskList.getTaskCount());
     }
 
+    private String getCompletionMessage(int taskNumber) {
+        String taskDescription = taskList.getTask(taskNumber).toString();
+        String message = "Well done! You have completed the following task:\n" + taskDescription;
+        return message;
+    }
+
     private String executeMarkInstruction(String[] instruction) {
         try {
             int taskNumber = getTaskNumberFromInstruction(instruction);
             modifyStatusInTaskList(taskNumber, true);
             modifyStatusInStorage(taskNumber, true);
-            String message = "Well done! You have completed the following task:\n"
-                    + taskList.getTask(taskNumber).toString();
+            String message = getCompletionMessage(taskNumber);
             return message;
         } catch (InvalidTaskNumberException e) {
             String errorMessage = e.toString() + "\nThere are "
