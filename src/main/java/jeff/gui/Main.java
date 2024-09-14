@@ -10,11 +10,8 @@ import javafx.stage.Stage;
 import jeff.Jeff;
 
 /**
- * This class was taken from JavaFX Tutorial (https://se-education.org/guides/tutorials/javaFx.html).
- */
-
-/**
  * A GUI for Jeff using FXML.
+ * This class was taken from JavaFX Tutorial (https://se-education.org/guides/tutorials/javaFx.html).
  */
 public class Main extends Application {
 

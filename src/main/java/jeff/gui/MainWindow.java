@@ -14,12 +14,8 @@ import jeff.Jeff;
 import jeff.parser.Parser;
 
 /**
- * This class was taken from JavaFX Tutorial (https://se-education.org/guides/tutorials/javaFx.html).
- */
-
- 
-/**
  * Controller for the main GUI.
+ * This class was taken from JavaFX Tutorial (https://se-education.org/guides/tutorials/javaFx.html).
  */
 public class MainWindow extends AnchorPane {
     @FXML
