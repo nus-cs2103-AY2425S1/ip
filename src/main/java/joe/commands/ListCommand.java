@@ -10,6 +10,7 @@ public class ListCommand extends Command {
 
     /**
      * Constructs a ListCommand object.
+     *
      * @param taskList The task list to list tasks from.
      */
     public ListCommand(TaskList taskList) {

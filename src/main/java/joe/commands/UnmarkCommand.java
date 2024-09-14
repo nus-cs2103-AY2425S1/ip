@@ -12,12 +12,13 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructs an UnmarkCommand object.
+     *
      * @param taskList The task list to unmark the task in.
-     * @param index The index of the task to be unmarked.
+     * @param index    The index of the task to be unmarked.
      */
     public UnmarkCommand(TaskList taskList, int index) {
         this.taskList = taskList;
-        assert(index >= 0);
+        assert (index >= 0);
         this.index = index;
     }
 

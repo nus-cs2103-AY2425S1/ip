@@ -20,7 +20,8 @@ public class InvalidIndexException extends RuntimeException {
      */
     @Override
     public String getMessage() {
-        return String.format("\"%d\" is not a valid index.\n"
-                + "Type <list> to see the list of available indexes.", index);
+        return String.format("""
+                "%d" is not a valid index.
+                Type <list> to see the list of available indexes.""", index);
     }
 }

@@ -27,6 +27,9 @@ public class Joe {
         ui.setTasks(tasks);
     }
 
+    /**
+     * Generates the task list from the file.
+     */
     private void generateTaskList() {
         try {
             tasks = initializeTasks();

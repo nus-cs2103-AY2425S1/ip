@@ -1,9 +1,9 @@
 package joe.tasks;
 
+import joe.utils.Parser;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
-import joe.utils.Parser;
 
 /**
  * Represents an Event task.
@@ -21,7 +21,7 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description.strip());
-        assert(!description.isEmpty());
+        assert (!description.isEmpty());
         this.start = start;
         this.end = end;
     }
@@ -67,9 +67,8 @@ public class Event extends Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Event) {
-            Event other = (Event) obj;
-            return  super.equals(obj)
+        if (obj instanceof Event other) {
+            return super.equals(obj)
                     && this.start.equals(other.start)
                     && this.end.equals(other.end);
         }

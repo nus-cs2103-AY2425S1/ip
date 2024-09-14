@@ -1,12 +1,12 @@
 package joe.main;
 
-import java.util.Scanner;
-
 import joe.commands.*;
 import joe.exceptions.InvalidCommandException;
 import joe.exceptions.InvalidIndexException;
 import joe.tasks.TaskList;
 import joe.utils.Parser;
+
+import java.sql.SQLOutput;
 
 /**
  * Represents the user interface of the programme.
@@ -16,7 +16,6 @@ public class Ui {
             "____________________________________________________________";
 //    private final Scanner reader;
     private TaskList tasks;
-    private Command previousCommand;
 
     /**
      * Constructor for Ui.
@@ -62,25 +61,26 @@ public class Ui {
                 return e.getMessage();
             }
         }
-        previousCommand = c;
         return c.execute();
     }
 
     /**
      * Tells the reader that there is an error reading the saved file and will create a new empty task list.
      */
-    public String showLoadingError(Exception e) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(e).append("\n").append("Creating new task list.\n");
-        return sb.toString();
+    public void showLoadingError(Exception e) {
+        System.out.println(e + "\n" + "Creating new task list.\n");
     }
 
     /**
      * Displays the welcome message when the program starts.
      */
     private static void showWelcome() {
-        System.out.println(LINE);
-        System.out.println("Hello! I'm Joe\nWhat can I do for you?\nType /help to see the list of available commands.");
-        System.out.println(LINE);
+        System.out.println(String.format("""
+                %s
+                Hello! I'm Joe
+                What can I do for you?
+                Type /help to see the list of available commands.
+                %s
+                """, LINE, LINE));
     }
 }

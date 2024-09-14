@@ -12,12 +12,13 @@ public class MarkCommand extends Command {
 
     /**
      * Constructs a MarkCommand object.
+     *
      * @param taskList The task list to mark the task in.
-     * @param index The index of the task to be marked.
+     * @param index    The index of the task to be marked.
      */
     public MarkCommand(TaskList taskList, int index) {
         this.taskList = taskList;
-        assert(index >= 0);
+        assert (index >= 0);
         this.index = index;
     }
 

@@ -13,12 +13,13 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructs a DeleteCommand object.
+     *
      * @param taskList Task list to delete task from.
-     * @param index Index of task to delete.
+     * @param index    Index of task to delete.
      */
     public DeleteCommand(TaskList taskList, int index) {
         this.taskList = taskList;
-        assert(index >= 0);
+        assert (index >= 0);
         this.index = index;
     }
 

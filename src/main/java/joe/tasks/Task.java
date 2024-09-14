@@ -74,19 +74,20 @@ public abstract class Task {
 
     /**
      * Returns the time of the task.
+     *
      * @return a LocalDateTime object representing the time of the task
      */
     public abstract LocalDateTime getTime();
 
     /**
      * Compares the Task object with another object.
+     *
      * @param obj the object to be compared
      * @return a boolean representing whether the Task object is equal to the other object
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Task) {
-            Task other = (Task) obj;
+        if (obj instanceof Task other) {
             return this.description.equals(other.description);
         }
         return false;

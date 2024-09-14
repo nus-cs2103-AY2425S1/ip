@@ -8,13 +8,15 @@ import joe.exceptions.InvalidCommandException;
 public abstract class Command {
     /**
      * Executes the command.
+     *
      * @throws IllegalArgumentException If the command is invalid.
-     * @throws InvalidCommandException If the command is invalid.
+     * @throws InvalidCommandException  If the command is invalid.
      */
     public abstract String execute() throws IllegalArgumentException, InvalidCommandException;
 
     /**
      * Returns true if the command is a bye command.
+     *
      * @return True if the command is a bye command, false otherwise.
      */
     public boolean isBye() {

@@ -1,10 +1,9 @@
 package joe.tasks;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
-
 import joe.utils.Parser;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a Deadline task.
@@ -20,7 +19,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime due) {
         super(description.strip());
-        assert(!description.isEmpty());
+        assert (!description.isEmpty());
         this.due = due;
     }
 
@@ -65,8 +64,7 @@ public class Deadline extends Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Deadline) {
-            Deadline other = (Deadline) obj;
+        if (obj instanceof Deadline other) {
             return super.equals(obj) && this.due.equals(other.due);
         }
         return false;

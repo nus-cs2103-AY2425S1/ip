@@ -12,8 +12,9 @@ public class AddTaskCommand extends Command {
 
     /**
      * Constructs an AddTaskCommand object.
+     *
      * @param taskList The task list to add the task to.
-     * @param task The task to be added.
+     * @param task     The task to be added.
      */
     public AddTaskCommand(TaskList taskList, Task task) {
         this.taskList = taskList;

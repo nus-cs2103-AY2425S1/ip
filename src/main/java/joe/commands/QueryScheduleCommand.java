@@ -12,8 +12,9 @@ public class QueryScheduleCommand extends Command {
 
     /**
      * Constructs a QueryScheduleCommand object.
+     *
      * @param tasks Task list to query tasks from.
-     * @param date Date to query tasks by.
+     * @param date  Date to query tasks by.
      */
     public QueryScheduleCommand(TaskList tasks, String date) {
         this.tasks = tasks;
