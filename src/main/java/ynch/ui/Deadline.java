@@ -33,6 +33,12 @@ class Deadline extends Task {
         this.deadline = super.stringToDate(deadline);
     }
 
+    boolean needsReminder() {
+        LocalDate today = LocalDate.now();
+        LocalDate dateToRemind = this.deadline.minusDays(DAYS_FOR_REMINDER);
+        return today.isAfter(dateToRemind);
+    }
+
     /**
      * Returns a string representation of the Deadline task, including its completion status and deadline.
      *
