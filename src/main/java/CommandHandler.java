@@ -11,7 +11,8 @@ public class CommandHandler {
     private boolean isExit;
 
     /**
-     * Initialize the class with the specified command.
+     * Initializes the class with the specified command.
+     *
      * @param command enum value from Commands class
      */
     public CommandHandler(Commands command) {
@@ -29,12 +30,12 @@ public class CommandHandler {
     }
 
     /**
-     * Execute the command given by the user.
+     * Executes the command given by the user.
      *
-     * @param input The string input given by the user.
-     * @param tasks The TaskList containing all the tasks.
-     * @param storage The storage in charge of saving and loading the TaskList.
-     * @param ui The Ui in charge of user interactions
+     * @param input The string input given by the user, typically a command.
+     * @param tasks The TaskList containing all the tasks managed by the user.
+     * @param storage The storage responsible for saving and loading the TaskList.
+     * @param ui The Ui instance that handles user interactions.
      */
     public void execute(String input, TaskList tasks, Storage storage, Ui ui) {
         switch (command) {

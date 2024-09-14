@@ -24,14 +24,14 @@ public class Task {
     }
 
     /**
-     * Change the task status to DONE.
+     * Changes the task status to DONE.
      */
     public void setMark() {
         this.isDone = true;
     }
 
     /**
-     * Change the task status to UNDONE.
+     * Changes the task status to UNDONE.
      */
     public void setUnmark() {
         this.isDone = true;
