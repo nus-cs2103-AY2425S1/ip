@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for the main GUI window in the Patrick application.
+ * Controls the main GUI window in the Patrick application.
  */
 public class MainWindow extends AnchorPane {
     @FXML

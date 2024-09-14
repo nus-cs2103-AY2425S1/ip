@@ -6,15 +6,14 @@ import patrick.tasklist.*;
 import patrick.ui.Ui;
 
 /**
- * The {@code Parser} class is responsible for parsing user input and determining
- * the appropriate action based on the command. It uses the {@code Type} enum
+ * Parses user input and determining the appropriate action based on the command. It uses the {@code Type} enum
  * to classify different types of commands and executes the corresponding tasks.
  */
 public class Parser {
     private Type inputType;
 
     /**
-     * Enum representing the different types of commands that can be parsed.
+     * Represents the different types of commands that can be parsed.
      */
     public enum Type {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ERROR, FORMATS, FIND
@@ -167,7 +166,7 @@ public class Parser {
     }
 
     /**
-     * Exception class used for handling specific exceptions in the Parser class.
+     * Handles specific exceptions in the Parser class.
      */
     public static class PatrickException extends Exception {
         /**

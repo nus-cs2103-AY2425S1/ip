@@ -13,7 +13,7 @@ import patrick.tasklist.Task;
 import patrick.tasklist.ToDo;
 
 /**
- * The {@code Storage} class handles the reading and writing of task data to and from a file.
+ * Handles the reading and writing of task data to and from a file.
  * It supports loading tasks from a file, adding, deleting, and saving tasks.
  */
 public class Storage {
@@ -160,7 +160,7 @@ public class Storage {
     }
 
     /**
-     * Exception class used for handling storage operation errors.
+     * Handles storage operation errors.
      */
     public static class StorageOperationException extends Exception {
         /**
@@ -174,7 +174,7 @@ public class Storage {
     }
 
     /**
-     * Exception class used for handling illegal values in the task data.
+     * Handles illegal values in the task data.
      */
     public static class IllegalValueException extends Exception {
         /**

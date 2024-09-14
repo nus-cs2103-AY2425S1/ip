@@ -10,7 +10,7 @@ import patrick.storage.Storage;
 import patrick.ui.Ui;
 
 /**
- * The {@code Deadline} class represents a task with a specific deadline.
+ * Represents a task with a specific deadline.
  * It extends the {@code Task} class and includes a {@code LocalDateTime} field to store the deadline.
  */
 public class Deadline extends Task {

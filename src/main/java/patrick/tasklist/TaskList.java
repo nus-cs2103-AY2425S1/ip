@@ -8,7 +8,7 @@ import patrick.storage.Storage;
 import patrick.ui.Ui;
 
 /**
- * The {@code TaskList} class manages a list of tasks, allowing operations such as adding, deleting,
+ * Manages a list of tasks, allowing operations such as adding, deleting,
  * marking as done or undone, and retrieving tasks from storage.
  */
 public class TaskList {

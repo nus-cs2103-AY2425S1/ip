@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * The Main class serves as the entry point for launching the GUI version of
+ * Serves as the entry point for launching the GUI version of
  * the Patrick application using JavaFX and FXML.
  * It initializes the main application window and loads the FXML layout.
  */

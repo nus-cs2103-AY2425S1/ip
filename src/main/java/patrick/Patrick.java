@@ -6,7 +6,7 @@ import patrick.tasklist.TaskList;
 import patrick.ui.Ui;
 
 /**
- * The {@code Patrick} class represents the main entry point for the application.
+ * Represents the main entry point for the application.
  * It initializes the user interface, manages task storage, and controls the main application flow.
  */
 public class Patrick {
@@ -44,7 +44,7 @@ public class Patrick {
     }
 
     /**
-     * The main method to start the application.
+     * Starts the application
      *
      * @param args command-line arguments (not used).
      */

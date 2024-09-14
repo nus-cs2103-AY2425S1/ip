@@ -13,7 +13,7 @@ import patrick.ui.Ui;
 import static patrick.ui.Ui.THERE_IS_AN_ERROR;
 
 /**
- * The {@code Event} class represents a task that occurs at a specific time range.
+ * Represents a task that occurs at a specific time range.
  * It extends the {@code Task} class and includes {@code LocalDateTime} and
  * {@code LocalTime} fields to store the event's start and end times.
  */
@@ -61,6 +61,29 @@ public class Event extends Task {
         String response;
         String newInput = input.replace("event", "").trim();
         Task task;
+        checkInvalidEventInput(newInput);
+
+        String taskDescription = newInput.substring(0, newInput.indexOf("/from") - 1);
+        String from = newInput.substring(newInput.indexOf("/from"),
+                newInput.indexOf("/to") - 1).replace("/from ", "");
+        String to = newInput.substring(newInput.indexOf("/to")).replace("/to ", "");
+
+        task = new Event(taskDescription, from, to);
+        if (Parser.isDuplicate(task)) {
+            return Ui.NO_DUPLICATES;
+        }
+        Storage.addList(task);
+        response = Ui.showUserMsg(task.toString());
+
+        try {
+            Storage.appendToFile("\n" + task);
+        } catch (IOException e) {
+            response = THERE_IS_AN_ERROR + e.getMessage();
+        }
+        return response;
+    }
+
+    private static void checkInvalidEventInput(String newInput) throws Parser.PatrickException {
         if (newInput.isEmpty()) {
             throw new Parser.PatrickException("Event Task Details cannot be empty!!");
         }
@@ -96,21 +119,5 @@ public class Event extends Task {
         if (DateFormatChecker.getTimeFormat(to).equals("Unknown Format")) {
             throw new Parser.PatrickException("Your 'to' format is incorrect.\nFormat of 'to' is HHmm.");
         }
-
-        task = new Event(taskDescription, from, to);
-        if (Parser.isDuplicate(task)) {
-            return Ui.NO_DUPLICATES;
-        }
-        Storage.addList(task);
-        response = Ui.showUserMsg(task.toString());
-
-        try {
-            Storage.appendToFile("\n" + task);
-        } catch (IOException e) {
-            response = THERE_IS_AN_ERROR + e.getMessage();
-        }
-        return response;
-
-
     }
 }

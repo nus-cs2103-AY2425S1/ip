@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code DateFormatChecker} class provides utility methods for checking and validating date and time formats.
+ * Provides utility methods for checking and validating date and time formats.
  * It supports a predefined set of date and time formats and can determine the format of a given date or time string.
  */
 public class DateFormatChecker {

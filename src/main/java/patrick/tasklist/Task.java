@@ -1,7 +1,7 @@
 package patrick.tasklist;
 
 /**
- * The {@code Task} class represents a generic task with a description and a completion status.
+ * Represents a generic task with a description and a completion status.
  * It provides methods to mark the task as done or undone and to retrieve its status and description.
  */
 public class Task extends TaskList {

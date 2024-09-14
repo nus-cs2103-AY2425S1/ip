@@ -8,7 +8,7 @@ import patrick.storage.Storage;
 import patrick.tasklist.Task;
 
 /**
- * The {@code Ui} class handles all user interactions.
+ * Handles all user interactions.
  * It manages input and output operations and displays messages to the user.
  */
 public class Ui {
