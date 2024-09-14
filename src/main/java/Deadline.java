@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
     /**
      * Constructs a Deadline task with the specified description and deadline
@@ -5,10 +10,30 @@ public class Deadline extends Task {
      * @param description The description of the task provided by the user
      * @param deadline The deadline of the task provided by the user
      */
-    private String deadline;
+    private LocalDateTime deadline;
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = parseDateTimeOrDate(deadline);
+    }
+
+    /**
+     * Parses the input date string. If it contains only a date without time,
+     * appends "T00:00" to default the time to midnight.
+     */
+    private LocalDateTime parseDateTimeOrDate(String dateStr) {
+        try {
+            // Try parsing with date and time
+            return LocalDateTime.parse(dateStr, DATE_TIME_FORMAT);
+        } catch (DateTimeParseException e) {
+            try {
+                // If parsing without time, append "T00:00" to default the time to midnight
+                return LocalDateTime.parse(dateStr + " 00:00", DATE_TIME_FORMAT);
+            } catch (DateTimeParseException ex) {
+                throw new IllegalArgumentException("Invalid date format: " + dateStr);
+            }
+        }
     }
 
     /**
