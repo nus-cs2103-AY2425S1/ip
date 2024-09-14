@@ -1,4 +1,3 @@
-
 package espresso.ui;
 import espresso.ui.Ui;
 import espresso.task.TaskList;
