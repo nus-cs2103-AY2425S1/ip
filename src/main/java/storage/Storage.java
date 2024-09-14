@@ -71,34 +71,46 @@ public class Storage {
             boolean markedDone = arr[1].substring(1).equals("X");
             switch (type) {
             case "T":
-                tasks.addTask(new Todo(arr[2].substring(1)));
-                if (markedDone) {
-                    tasks.markDone(tasks.getSize() - 1);
-                }
+                loadTodo(tasks, arr, markedDone);
                 break;
             case "D":
-                String[] deadlineArr = arr[2].split(" \\(by: ");
-                tasks.addTask(new Deadline(deadlineArr[0].substring(1),
-                        LocalDateTime.parse(deadlineArr[1].substring(0, deadlineArr[1].length() - 1), FORMATTER)));
-                if (markedDone) {
-                    tasks.markDone(tasks.getSize() - 1);
-                }
+                loadDeadline(tasks, arr, markedDone);
                 break;
             case "E":
-                String[] eventArr = arr[2].split(" \\(from: ");
-                String[] eventArrDetails = eventArr[1].split(" to: ");
-                tasks.addTask(new Event(eventArr[0].substring(1),
-                        LocalDateTime.parse(eventArrDetails[0], FORMATTER),
-                        LocalDateTime.parse(eventArrDetails[1].substring(0, eventArrDetails[1].length() - 1),
-                                FORMATTER)));
-                if (markedDone) {
-                    tasks.markDone(tasks.getSize() - 1);
-                }
+                loadEvent(tasks, arr, markedDone);
                 break;
             default:
                 throw new DynamikeException("An error occurred while initializing your tasks!");
             }
         }
         return tasks;
+    }
+
+    private void loadTodo(TaskList tasks, String[] arr, boolean markedDone) throws DynamikeException {
+        tasks.addTask(new Todo(arr[2].substring(1)));
+        if (markedDone) {
+            tasks.markDone(tasks.getSize() - 1);
+        }
+    }
+
+    private void loadDeadline(TaskList tasks, String[] arr, boolean markedDone) throws DynamikeException {
+        String[] deadlineArr = arr[2].split(" \\(by: ");
+        tasks.addTask(new Deadline(deadlineArr[0].substring(1),
+                LocalDateTime.parse(deadlineArr[1].substring(0, deadlineArr[1].length() - 1), FORMATTER)));
+        if (markedDone) {
+            tasks.markDone(tasks.getSize() - 1);
+        }
+    }
+
+    private void loadEvent(TaskList tasks, String[] arr, boolean markedDone) throws DynamikeException {
+        String[] eventArr = arr[2].split(" \\(from: ");
+        String[] eventArrDetails = eventArr[1].split(" to: ");
+        tasks.addTask(new Event(eventArr[0].substring(1),
+                LocalDateTime.parse(eventArrDetails[0], FORMATTER),
+                LocalDateTime.parse(eventArrDetails[1].substring(0, eventArrDetails[1].length() - 1),
+                        FORMATTER)));
+        if (markedDone) {
+            tasks.markDone(tasks.getSize() - 1);
+        }
     }
 }

@@ -49,44 +49,13 @@ public class Parser {
             case DELETE:
                 return new DeleteCommand(Integer.parseInt(tokens[1]) - 1);
             case TODO:
-                if (tokens.length == 1 || tokens[1].isEmpty()) {
-                    throw new DynamikeException("The description of a todo cannot be empty.");
-                }
-                return new AddCommand(new Todo(tokens[1]));
+                return createTodo(tokens);
             case DEADLINE:
-                String[] deadlineArgs = tokens[1].split(" /by ", 2);
-                if (deadlineArgs[0].isEmpty()) {
-                    throw new DynamikeException("The description of a deadline cannot be empty!");
-                } else if (deadlineArgs.length < 2) {
-                    throw new DynamikeException("The deadline of a deadline cannot be empty!");
-                }
-                assert deadlineArgs.length == 2 : "The deadlineArgs array should have length 2";
-                try {
-                    LocalDateTime by = LocalDateTime.parse(deadlineArgs[1], FORMATTER);
-                    return new AddCommand(new Deadline(deadlineArgs[0], by));
-                } catch (DateTimeException e) {
-                    throw new DynamikeException("Try using this format for deadline: yyyy-mm-dd HH:mm");
-                }
+                return createDeadline(tokens);
             case EVENT:
-                String[] eventArgs = tokens[1].split(" /from | /to ", 3);
-                if (eventArgs[0].isEmpty()) {
-                    throw new DynamikeException("The description of an event cannot be empty!");
-                } else if (eventArgs.length < 3) {
-                    throw new DynamikeException("The format of timings of the event is wrong!");
-                }
-                assert eventArgs.length == 3 : "The eventArgs array should have length 3";
-                try {
-                    LocalDateTime from = LocalDateTime.parse(eventArgs[1], FORMATTER);
-                    LocalDateTime to = LocalDateTime.parse(eventArgs[2], FORMATTER);
-                    return new AddCommand(new Event(eventArgs[0], from, to));
-                } catch (Exception e) {
-                    throw new DynamikeException("Try using this format for the dates: yyyy-mm-dd HH:mm");
-                }
+                return createEvent(tokens);
             case FIND:
-                if (tokens.length == 1 || tokens[1].isEmpty()) {
-                    throw new DynamikeException("The keyword to find cannot be empty.");
-                }
-                return new FindCommand(tokens[1]);
+                return createFind(tokens);
             default:
                 return new InvalidCommand();
             }
@@ -95,5 +64,51 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             return new InvalidCommand();
         }
+    }
+
+    private static Command createTodo(String[] tokens) throws DynamikeException {
+        if (tokens.length == 1 || tokens[1].isEmpty()) {
+            throw new DynamikeException("The description of a todo cannot be empty.");
+        }
+        return new AddCommand(new Todo(tokens[1]));
+    }
+    private static Command createDeadline(String[] tokens) throws DynamikeException {
+        String[] deadlineArgs = tokens[1].split(" /by ", 2);
+        if (deadlineArgs[0].isEmpty()) {
+            throw new DynamikeException("The description of a deadline cannot be empty!");
+        } else if (deadlineArgs.length < 2) {
+            throw new DynamikeException("The deadline of a deadline cannot be empty!");
+        }
+        assert deadlineArgs.length == 2 : "The deadlineArgs array should have length 2";
+        try {
+            LocalDateTime by = LocalDateTime.parse(deadlineArgs[1], FORMATTER);
+            return new AddCommand(new Deadline(deadlineArgs[0], by));
+        } catch (DateTimeException e) {
+            throw new DynamikeException("Try using this format for deadline: yyyy-mm-dd HH:mm");
+        }
+    }
+
+    private static Command createEvent(String[] tokens) throws DynamikeException {
+        String[] eventArgs = tokens[1].split(" /from | /to ", 3);
+        if (eventArgs[0].isEmpty()) {
+            throw new DynamikeException("The description of an event cannot be empty!");
+        } else if (eventArgs.length < 3) {
+            throw new DynamikeException("The format of timings of the event is wrong!");
+        }
+        assert eventArgs.length == 3 : "The eventArgs array should have length 3";
+        try {
+            LocalDateTime from = LocalDateTime.parse(eventArgs[1], FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(eventArgs[2], FORMATTER);
+            return new AddCommand(new Event(eventArgs[0], from, to));
+        } catch (Exception e) {
+            throw new DynamikeException("Try using this format for the dates: yyyy-mm-dd HH:mm");
+        }
+    }
+
+    private static Command createFind(String[] tokens) throws DynamikeException {
+        if (tokens.length == 1 || tokens[1].isEmpty()) {
+            throw new DynamikeException("The keyword to find cannot be empty.");
+        }
+        return new FindCommand(tokens[1]);
     }
 }
