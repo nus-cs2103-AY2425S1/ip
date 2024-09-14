@@ -104,4 +104,22 @@ public class Ui {
         System.out.println(list);
         printLine();
     }
+
+    /**
+     * Prints out help message
+     */
+    public static void printHelp() {
+        printLine();
+        System.out.println("Here are the commands you can use:");
+        System.out.println("1. todo <description> - Adds a todo task to the list");
+        System.out.println("2. deadline <description> /by <D/MM/YYY> <hhmm> - Adds a deadline task to the list");
+        System.out.println("3. event <description> /from <D/MM/YYY> <hhmm> /to <hhmm> - Adds an event task to the list");
+        System.out.println("4. list - Lists all tasks in the list");
+        System.out.println("5. done <task number> - Marks a task as done");
+        System.out.println("6. delete <task number> - Deletes a task from the list");
+        System.out.println("7. find <keyword> - Finds tasks with the keyword");
+        System.out.println("8. help - Shows the list of commands");
+        System.out.println("9. bye - Exits the program");
+        printLine();
+    }
 }

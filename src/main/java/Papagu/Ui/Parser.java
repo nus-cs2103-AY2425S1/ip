@@ -187,6 +187,8 @@ public class Parser {
         String taskType = typeDetails[0];
         if (taskType.equals("bye")) {
             Ui.printBye();
+        } else if(taskType.equals("help")) {
+            Ui.printHelp();
         } else if (taskType.equals("list")) {
             Ui.printList(taskList);
         } else if (taskType.equals("mark")) {
