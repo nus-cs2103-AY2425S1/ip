@@ -32,7 +32,7 @@ Blue Chatbot is a Java-based application that helps users manage their tasks thr
 
 ## Alternatively, Download the Jar File!
 
-Link to jar file: [Blue.jar]
+Link to jar file: [[Blue.jar]](https://github.com/waihin26/ip/releases/tag/A-Release)
 
 After Downloading the jar file, run the following command in the terminal 
 to execute the program: java -jar blue.jar
