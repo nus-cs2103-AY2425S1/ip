@@ -32,6 +32,7 @@ public class Parser {
      * @throws SpikeException If the user input is invalid.
      */
     public static Command parse(String command) throws SpikeException {
+        assert command != null : "Command should not be null";
         try {
             String[] inputSplit = command.split(" ", 2);
             InputType inputType = parseInput(inputSplit[0]);
@@ -95,6 +96,8 @@ public class Parser {
     }
 
     private static void checkDescription(String[] inputArray, String inputType) throws SpikeException {
+        assert inputArray != null : "Input array should not be null";
+        assert inputType != null : "Input type should not be null";
         if ((inputArray.length == 1) || (inputArray[1].isEmpty())) {
             throw new SpikeException("The description of a " + inputType + " cannot be empty.");
         }
@@ -134,7 +137,7 @@ public class Parser {
 
     private static Command addEvent(String input) throws SpikeException {
         String[] parts = getEventParts(input);
-
+        assert parts.length == 3 : "Event should have a description, start date and end date";
         try {
             LocalDateTime start = LocalDateTime.parse(parts[1].trim());
             LocalDateTime end = LocalDateTime.parse(parts[2].trim());
@@ -171,11 +174,11 @@ public class Parser {
     }
 
     private static Command addDeadline(String input) throws SpikeException {
-        String[] split = getDeadlineParts(input);
-
+        String[] parts = getDeadlineParts(input);
+        assert parts.length == 2 : "Deadline should have a description and a due date";
         try {
-            LocalDateTime deadline = LocalDateTime.parse(split[1].trim());
-            Deadline formattedDeadline = new Deadline(split[0].trim(), deadline);
+            LocalDateTime deadline = LocalDateTime.parse(parts[1].trim());
+            Deadline formattedDeadline = new Deadline(parts[0].trim(), deadline);
             return new AddTaskCommand(formattedDeadline);
         } catch (DateTimeException e) {
             throw new SpikeException("Please enter a deadline with a valid due date and time");
@@ -203,6 +206,7 @@ public class Parser {
         if (input.isEmpty()) {
             throw new SpikeException("Please enter a keyword to search for");
         }
+        assert !input.isEmpty() : "Keyword should not be empty";
         return new FindCommand(input);
     }
 }

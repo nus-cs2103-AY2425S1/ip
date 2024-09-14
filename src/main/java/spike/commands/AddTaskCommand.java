@@ -18,6 +18,7 @@ public class AddTaskCommand extends Command {
      * @param task The task to be added.
      */
     public AddTaskCommand(Task task) {
+        assert task != null : "Task cannot be null";
         this.task = task;
     }
 
@@ -39,8 +40,11 @@ public class AddTaskCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
+        assert tasks != null : "Task list cannot be null";
         tasks.addTask(task);
+        assert ui != null : "User interface cannot be null";
         ui.showTaskAdded(task, tasks.getSize());
+        assert storage != null : "Storage cannot be null";
         storage.writeToFile(tasks);
     }
 

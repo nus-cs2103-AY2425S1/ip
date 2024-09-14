@@ -37,6 +37,7 @@ public class TaskList {
      * @param tasks The tasks to be added to the TaskList.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks cannot be null";
         this.tasks = tasks;
     }
 
@@ -46,6 +47,7 @@ public class TaskList {
      * @param tasks Varargs of tasks to be added to the TaskList.
      */
     public TaskList(Task... tasks) {
+        assert tasks != null : "Tasks cannot be null";
         this.tasks = new ArrayList<>();
         for (Task task : tasks) {
             this.tasks.add(task);
@@ -58,6 +60,7 @@ public class TaskList {
      * @return A copy of the list of tasks.
      */
     public ArrayList<Task> getAllTasks() {
+        assert tasks != null : "Tasks cannot be null";
         return new ArrayList<>(this.tasks);
     }
 
@@ -78,6 +81,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public String getTaskString(int index) throws IndexOutOfBoundsException {
+        assert index >= 0 : "Index cannot be negative";
         return tasks.get(index).toString();
     }
 
@@ -89,6 +93,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public String getTaskStatus(int index) throws IndexOutOfBoundsException {
+        assert index >= 0 : "Index cannot be negative";
         return tasks.get(index).getStatusIcon();
     }
 
@@ -98,6 +103,7 @@ public class TaskList {
      * @param task The task to be added to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 
@@ -109,6 +115,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
+        assert index >= 0 : "Index cannot be negative";
         return tasks.remove(index);
     }
 
@@ -121,6 +128,7 @@ public class TaskList {
      * @throws SpikeException If no tasks match the keyword.
      */
     public TaskList findTask(String keyword) throws SpikeException {
+        assert keyword != null : "Keyword cannot be null";
         TaskList matchingTasks = new TaskList();
         for (Task task : this.tasks) {
             if (task.getDescription().contains(keyword)) {
@@ -141,6 +149,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public void markTaskDone(int index) throws IndexOutOfBoundsException {
+        assert index >= 0 : "Index cannot be negative";
         tasks.get(index).markAsDone();
     }
 
@@ -151,6 +160,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public void markTaskUndone(int index) throws IndexOutOfBoundsException {
+        assert index >= 0 : "Index cannot be negative";
         tasks.get(index).markAsUndone();
     }
 

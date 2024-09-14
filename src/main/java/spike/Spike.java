@@ -36,12 +36,17 @@ public class Spike {
         }
     }
 
+    /**
+     * Constructs a Spike object with the default file path.
+     * Initializes the storage, task list and user interface.
+     */
     public Spike() {
         this(DEFAULT_FILE_PATH);
     }
 
     /**
      * Generates a response for the user's chat message.
+     * Used for GUI applications.
      */
     public String getResponse(String input) {
         try {
@@ -63,6 +68,7 @@ public class Spike {
      * Reads the user input, processes the command and executes it.
      * Shows the result of the command to the user.
      * Stops the interaction when the user exits the application.
+     * Used for CLI applications.
      */
     public void run() {
         ui.showHello();

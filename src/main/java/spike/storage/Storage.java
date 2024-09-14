@@ -27,6 +27,7 @@ public class Storage {
      * @param filePath The file path to read and write tasks to.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
         this.file = new File(this.filePath);
     }
@@ -38,6 +39,7 @@ public class Storage {
      * @throws SpikeException If an error occurs while writing to the file.
      */
     public void writeToFile(TaskList tasks) throws SpikeException {
+        assert tasks != null : "Task list cannot be null";
         try {
             FileWriter writer = new FileWriter(file);
             for (Task task : tasks.getAllTasks()) {
