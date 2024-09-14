@@ -34,4 +34,14 @@ public class TaskList {
     public void removeTask(int index) {
         tasks.remove(index);
     }
+
+    public List<Task> findTasksByKeyword(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
 }

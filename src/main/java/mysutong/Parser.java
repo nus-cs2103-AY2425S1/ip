@@ -5,6 +5,7 @@ import mysutong.Event;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Parser {
     public void executeCommand(String fullCommand, TaskList tasks, Ui ui, Storage storage) {
@@ -80,6 +81,14 @@ public class Parser {
                     ui.showMessage(removedTask.toString());
                     ui.showLine();
                     storage.save(tasks);
+                    break;
+
+                case "find":
+                    if (inputs.length < 2 || inputs[1].trim().isEmpty()) {
+                        throw new NoDescriptionException("Find command requires a keyword.");
+                    }
+                    List<Task> foundTasks = tasks.findTasksByKeyword(inputs[1].trim());
+                    ui.showSearchResults(foundTasks);
                     break;
 
                 default:
