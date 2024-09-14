@@ -21,5 +21,6 @@ public enum Instructions {
     EVENT,
     SORT,
     FIND,
+    UPDATE,
     INVALID
 }

@@ -54,6 +54,7 @@ public class Rainy {
         int validResponse = ps.getCount();
         assert(validResponse >= -1);
         Instructions instruction = ps.enumOperator(message);
+        // I used switch instructions here to handle the various user inputs.
         switch (instruction) {
         case LIST:
             List listCommand = new List(tm);

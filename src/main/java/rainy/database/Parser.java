@@ -65,7 +65,14 @@ public class Parser {
             } catch (Exception e) {
                 this.count = -1;
             }
-        } else {
+        } else if (this.message.equals("update") && this.input.length > 2) {
+            try {
+                this.count = Integer.parseInt(this.input[1].substring(0, this.input[1].length()));
+            } catch (Exception e) {
+                this.count = -1;
+            }
+        }
+        else {
             this.count = -1;
         }
     }
