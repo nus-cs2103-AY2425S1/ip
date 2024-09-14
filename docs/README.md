@@ -1,6 +1,6 @@
 # BobbyBot User Guide
 
-<img src="./Ui.png" width=50% height=50% alt="BobbyBot Ui Image">
+![image info](./Ui.png)
 
 **BobbyBot** is a task management chatbot designed for desktop use. It combines the speed and efficiency of a Command Line Interface (CLI) with the advantages of a Graphical User Interface (GUI).
 
