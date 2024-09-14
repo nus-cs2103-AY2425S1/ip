@@ -92,4 +92,52 @@ public class Opus {
     public static void main(String[] args) {
         new Opus("data/tasks.txt").run();
     }
+
+    public String getResponse(String input) {
+        String[] words = Parser.parse(input);
+        String response = "";
+        try {
+            if (words[0].equals("bye")) {
+                storage.save(taskList.getTasks());
+                return "Bye. Hope to see you again soon!";
+            } else if (words[0].equals("list")) {
+                for (Task task : taskList.getTasks()) {
+                    response += task.toString() + "\n";
+                }
+            } else if (words[0].equals("mark")) {
+                int i = Integer.parseInt(words[1]) - 1;
+                taskList.getTask(i).markAsDone();
+                response = "Nice! I've marked this task as done:\n" + taskList.getTask(i).toString();
+            } else if (words[0].equals("delete")) {
+                int i = Integer.parseInt(words[1]) - 1;
+                response = "Noted. I've removed this task:\n" + taskList.getTask(i).toString() + "\n";
+                taskList.removeTask(i);
+                response += "Now you have " + taskList.getSize() + " tasks in the list.";
+            } else {
+                if (words[0].equals("todo")) {
+                    if (words.length <= 1) {
+                        throw new OpusEmptyDescriptionException("The description of a todo cannot be empty.");
+                    }
+                    Task todo = new ToDo(words[1]);
+                    taskList.addTask(todo);
+                } else if (words[0].equals("deadline")) {
+                    String[] parts = Parser.parseDeadlineDetails(words[1]);
+                    Task deadline = new Deadline(parts[0], parts[1]);
+                    taskList.addTask(deadline);
+                } else if (words[0].equals("event")) {
+                    String[] parts = Parser.parseEventDetails(words[1]);
+                    Task event = new Event(parts[0], parts[1], parts[2]);
+                    taskList.addTask(event);
+                } else {
+                    throw new OpusUnknownCommandException("I'm sorry, but I don't know what that means.");
+                }
+                response = "Got it. I've added this task:\n" + taskList.getTask(taskList.getSize() - 1).toString() + "\n";
+                response += "Now you have " + taskList.getSize() + " tasks in the list.";
+                return response;
+            }
+        } catch (OpusException e) {
+            return e.getMessage();
+        }
+        return response;
+    }
 }
