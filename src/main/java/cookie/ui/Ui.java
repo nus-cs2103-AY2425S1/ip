@@ -60,7 +60,7 @@ public class Ui {
      * @return the message about the deleted task
      */
     public String printDeleteTask(Task task) {
-        return "Cookie has removed the following task from your list:\n" + task.toString();
+        return "Cookie has removed the following task from your list:\n" + task.toString() + "\n";
     }
 
     /**
@@ -110,7 +110,7 @@ public class Ui {
      * @return a formatted success message stating that the alias has been set
      */
     public String setAsAliasSuccess(String command, String alias) {
-        return String.format("You have successfully set %s as %s", command, alias);
+        return String.format("You have successfully set %s as %s", alias, command);
     }
 
     /**
