@@ -25,6 +25,11 @@ public class Bob {
         this.storage = new Storage();
         this.parser = new Parser();
         this.storage.loadTasks(this.tasks);
+
+        assert this.formatter != null;
+        assert this.tasks != null;
+        assert this.storage != null;
+        assert this.parser != null;
     }
 
     public String start() {
@@ -35,7 +40,7 @@ public class Bob {
      * Exits the program. Saves the task into a text file.
      */
     public String exit() {
-        this.tasks.saveTask(this.storage);
+        this.tasks.saveTasks(this.storage);
         return formatter.exitBobUi();
     }
 
@@ -45,32 +50,37 @@ public class Bob {
      * @return Bob's response
      */
     public String getResponse(String message) {
+        assert message != null;
         String command = message.split(" ")[0];
         try {
-            switch (command) {
-            case "bye":
-                return exit();
-            case "list":
-                return this.tasks.listTasks();
-            case "mark":
-                return this.parser.markTaskAsDoneParser(message, this.tasks);
-            case "unmark":
-                return this.parser.unmarkTaskAsDoneParser(message, this.tasks);
-            case "delete":
-                return this.parser.deleteTaskParser(message, this.tasks);
-            case "todo":
-                return this.parser.addToDoParser(message, this.tasks);
-            case "deadline":
-                return this.parser.addDeadlineParser(message, this.tasks);
-            case "event":
-                return this.parser.addEventParser(message, this.tasks);
-            case "find":
-                return this.parser.findParser(message, this.tasks);
-            default:
-                throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
+            return handleCommand(message, command);
         } catch (BobException e) {
             return e.getMessage();
+        }
+    }
+
+    private String handleCommand(String message, String command) throws BobException {
+        switch (command) {
+        case "bye":
+            return exit();
+        case "list":
+            return this.tasks.listTasks();
+        case "mark":
+            return this.parser.markTaskAsDoneParser(message, this.tasks);
+        case "unmark":
+            return this.parser.unmarkTaskAsDoneParser(message, this.tasks);
+        case "delete":
+            return this.parser.deleteTaskParser(message, this.tasks);
+        case "todo":
+            return this.parser.addToDoParser(message, this.tasks);
+        case "deadline":
+            return this.parser.addDeadlineParser(message, this.tasks);
+        case "event":
+            return this.parser.addEventParser(message, this.tasks);
+        case "find":
+            return this.parser.findParser(message, this.tasks);
+        default:
+            throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

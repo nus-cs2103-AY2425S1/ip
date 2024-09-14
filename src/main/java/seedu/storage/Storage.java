@@ -31,36 +31,48 @@ public class Storage {
      * @param tl The {@code TaskList} where tasks will be loaded into.
      */
     public void loadTasks(TaskList tl) {
+        assert tl != null;
         File f = new File(FILE_PATH);
+        assert f != null;
         try {
             Scanner s1 = new Scanner(f);
             while (s1.hasNext()) {
-                String t = s1.nextLine();
-                String[] taskList = t.trim().split(" \\| ");
-                Task x;
-                switch (taskList[0]) {
-                case "T":
-                    x = new ToDo(taskList[2]);
-                    tl.addTask(x);
-                    break;
-                case "D":
-                    x = new Deadline(taskList[2], taskList[3]);
-                    tl.addTask(x);
-                    break;
-                case "E":
-                    x = new Event(taskList[2], taskList[3], taskList[4]);
-                    tl.addTask(x);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + taskList[0]);
-                }
-                if (taskList[1].equals("1")) {
-                    x.markAsDone();
+                String line = s1.nextLine();
+                Task task = parseTask(line);
+                if (task != null) {
+                    tl.addTask(task);
                 }
             }
         } catch (FileNotFoundException ignored) {
             // If the file is not found, simply do nothing
         }
+    }
+
+    private Task parseTask(String line) {
+        String[] taskParts = line.trim().split(" \\| ");
+        Task task;
+        switch (taskParts[0]) {
+        case "T":
+            assert taskParts.length == 3;
+            task = new ToDo(taskParts[2]);
+            break;
+        case "D":
+            assert taskParts.length == 4;
+            task = new Deadline(taskParts[2], taskParts[3]);
+            break;
+        case "E":
+            assert taskParts.length == 5;
+            task = new Event(taskParts[2], taskParts[3], taskParts[4]);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + taskParts[0]);
+        }
+
+        if (taskParts[1].equals("1")) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     /**
@@ -71,6 +83,7 @@ public class Storage {
         try {
             Files.createDirectories(Path.of("data")); // Hard-coded
             FileWriter fw = new FileWriter(FILE_PATH);
+            assert fw != null;
             fw.close(); // Clear the file contents by closing the newly created FileWriter
         } catch (IOException ignored) {
             this.formatter.savingErrorUi();
@@ -86,6 +99,7 @@ public class Storage {
     public void saveTask(String s) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);
+            assert fw != null;
             fw.write(s + System.lineSeparator());
             fw.close();
         } catch (IOException ignored) {
