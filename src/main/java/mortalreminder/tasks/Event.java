@@ -106,13 +106,13 @@ public class Event extends Task implements TimedTask {
         if (descriptionString.length != 3) {
             throw new MortalReminderException(MortalReminderException.getInvalidEventDescriptionErrorMessage());
         }
+
         try {
             getTime(descriptionString[1].trim());
             getTime(descriptionString[2].trim());
         } catch (DateTimeParseException e) {
             throw new MortalReminderException(MortalReminderException.getInvalidDateFormatErrorMessage());
         }
-
     }
 
     /**

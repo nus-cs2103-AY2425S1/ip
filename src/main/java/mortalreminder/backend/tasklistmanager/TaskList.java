@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import mortalreminder.backend.TaskListStorage;
 import mortalreminder.errorhandling.MortalReminderException;
-import mortalreminder.io.FormattedPrinting;
+import mortalreminder.io.FormattedOutput;
 import mortalreminder.tasks.Task;
 
 // The JavaDocs were generated using ChatGPT with minor edits
@@ -61,7 +61,7 @@ public class TaskList {
         if (!Objects.equals(task.getDescription().trim(), "")) {
             TaskListStorage.appendToListFile(task);
             this.taskList.add(task);
-            return FormattedPrinting.addTask(task, this);
+            return FormattedOutput.addTask(task, this);
         } else {
             throw new MortalReminderException(MortalReminderException.getInvalidEventDescriptionErrorMessage());
         }
@@ -97,7 +97,7 @@ public class TaskList {
 
         this.taskList.remove(task);
         TaskListStorage.refreshStorageFile(this);
-        return FormattedPrinting.deleteTask(task, this);
+        return FormattedOutput.deleteTask(task, this);
     }
 
     /**
@@ -118,6 +118,6 @@ public class TaskList {
     public String clearList() throws MortalReminderException {
         this.taskList.clear();
         TaskListStorage.clearListFile();
-        return FormattedPrinting.clearList();
+        return FormattedOutput.clearList();
     }
 }

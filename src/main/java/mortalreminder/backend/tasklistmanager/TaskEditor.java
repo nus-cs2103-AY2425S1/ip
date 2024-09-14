@@ -27,6 +27,7 @@ public class TaskEditor {
         try {
             Task newTask = retrieveTask(commandDetails, taskList);
             String feedback;
+
             if (commandType == CommandType.MARK) {
                 feedback = newTask.markDone();
             } else if (commandType == CommandType.UNMARK) {
@@ -34,6 +35,7 @@ public class TaskEditor {
             } else {
                 throw new MortalReminderException(MortalReminderException.getUnreachableCodeErrorMessage());
             }
+
             TaskListStorage.refreshStorageFile(taskList);
             return feedback;
         } catch (NumberFormatException e) {

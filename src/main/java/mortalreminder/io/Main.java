@@ -14,7 +14,7 @@ import mortalreminder.MortalReminder;
  */
 public class Main extends Application {
 
-    private MortalReminder mortalReminder = new MortalReminder();
+    private final MortalReminder mortalReminder = new MortalReminder();
 
     // this method was slightly modified using chatGPT
     @Override

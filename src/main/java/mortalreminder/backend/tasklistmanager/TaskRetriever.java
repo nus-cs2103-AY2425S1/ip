@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import mortalreminder.errorhandling.MortalReminderException;
-import mortalreminder.io.FormattedPrinting;
+import mortalreminder.io.FormattedOutput;
 import mortalreminder.tasks.Task;
 import mortalreminder.tasks.TimedTask;
 
@@ -41,7 +41,7 @@ public class TaskRetriever {
                 tasks.add(task);
             }
         }
-        return FormattedPrinting.printUpcomingDeadlinesEvents(tasks);
+        return FormattedOutput.printUpcomingDeadlinesEvents(tasks);
     }
 
     /**
@@ -56,10 +56,11 @@ public class TaskRetriever {
         ArrayList<Task> similarTasks = taskList.getTaskList().stream()
                 .filter(x -> filterTask(x, descriptions))
                 .collect(Collectors.toCollection(ArrayList::new));
+
         if (similarTasks.isEmpty()) {
             throw new MortalReminderException(MortalReminderException.getNoSimilarTasksFoundMessage());
         }
-        return FormattedPrinting.printList(taskList);
+        return FormattedOutput.printList(taskList);
     }
 
     private static boolean filterTask(Task task, String... descriptions) {

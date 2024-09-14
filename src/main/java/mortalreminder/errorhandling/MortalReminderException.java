@@ -26,6 +26,11 @@ public class MortalReminderException extends Exception {
         return "Description cannot be empty!";
     }
 
+    public static String getInvalidDeadlineDescriptionErrorMessage() {
+        return "Please input the correct number of details for deadlines!"
+                + " Remember that you need to include '/by' in the command.";
+    }
+
     public static String getInvalidEventDescriptionErrorMessage() {
         return "Please input the correct number of details for deadlines! "
                 + "Remember that you need to include /from and /to in the command.";
@@ -72,5 +77,11 @@ public class MortalReminderException extends Exception {
 
     public static String getNoSimilarTasksFoundMessage() {
         return "No similar tasks found!";
+    }
+
+    public static String getUnknownCommandWordErrorMessage(String commandWord) {
+        return "Unknown command word: "
+                + commandWord
+                + ". Please put in a known recognised command as the second word in the command";
     }
 }

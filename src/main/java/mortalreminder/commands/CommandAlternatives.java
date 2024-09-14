@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import mortalreminder.backend.CommandAlternativesStorage;
 import mortalreminder.errorhandling.MortalReminderException;
-import mortalreminder.io.FormattedPrinting;
+import mortalreminder.io.FormattedOutput;
 import mortalreminder.io.Parser;
 
 /**
@@ -46,14 +46,18 @@ public class CommandAlternatives {
         if (splitInput.length != 2) {
             throw new MortalReminderException(MortalReminderException.getExtraSpaceInAlternativeCommandErrorMessage());
         }
+
         String commandAlternative = splitInput[0];
         CommandType commandType = Parser.parseCommandWord(splitInput[1]);
+
         if (commandType == CommandType.UNKNOWN) {
-            throw new MortalReminderException("Unknown command word: " + splitInput[1]);
+            throw new MortalReminderException(MortalReminderException.getUnknownCommandWordErrorMessage(splitInput[1]));
         }
+
         this.alternativeCommands.put(commandAlternative.toLowerCase(), commandType);
         CommandAlternativesStorage.appendToAlternativeCommandFile(commandAlternative.toLowerCase(), commandType);
-        return FormattedPrinting.printNewAlternativeAdded(commandAlternative.toLowerCase(), commandType);
+
+        return FormattedOutput.printNewAlternativeAdded(commandAlternative.toLowerCase(), commandType);
     }
 
     public CommandType getCommandType(String commandString) {

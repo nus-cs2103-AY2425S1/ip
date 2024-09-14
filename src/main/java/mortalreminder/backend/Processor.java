@@ -10,7 +10,7 @@ import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandAlternatives;
 import mortalreminder.commands.CommandType;
 import mortalreminder.errorhandling.MortalReminderException;
-import mortalreminder.io.FormattedPrinting;
+import mortalreminder.io.FormattedOutput;
 
 // javadocs were generated using ChatGPT with minor edits.
 
@@ -43,30 +43,38 @@ public class Processor {
 
         switch (commandType) {
         case LIST:
-            return FormattedPrinting.printList(taskList);
+            return FormattedOutput.printList(taskList);
+
         case FIND:
             return TaskRetriever.findTasks(taskList, commandDetails);
+
         case MARK:
             // Fallthrough
         case UNMARK:
             return TaskEditor.executeMarkOrUnmark(commandDetails, taskList, commandType);
+
         case DELETE:
             return TaskEditor.executeDeletion(commandDetails, taskList);
+
         case TODO:
             // Fallthrough
         case DEADLINE:
             // Fallthrough
         case EVENT:
             return TaskCreator.createTask(commandDetails, taskList, commandType);
+
         case CLEAR_TASKS:
             return taskList.clearList();
+
         case UPCOMING_TASKS:
             return TaskRetriever.getUpcomingTasks(taskList);
+
         case ADD_COMMAND_ALTERNATIVE:
             CommandAlternatives commandAlternatives = CommandAlternativesStorage.loadCommandsFromFile();
             return commandAlternatives.addCommandAlternative(commandDetails);
         case CLEAR_ALTERNATIVES:
             return CommandAlternativesStorage.clearAlternativesFile();
+
         default:
             return feedbackUnrecognisedCommand();
         }

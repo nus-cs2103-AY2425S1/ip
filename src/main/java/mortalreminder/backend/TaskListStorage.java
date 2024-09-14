@@ -25,7 +25,7 @@ public class TaskListStorage {
     /**
      * Initialises the storage on first start of the App.
      */
-    public static void initialise() throws MortalReminderException {
+    private static void initialise() throws MortalReminderException {
         try {
             File f = new File(STORAGE_LIST_FILE_PATH);
             f.getParentFile().mkdirs();
@@ -69,8 +69,11 @@ public class TaskListStorage {
      */
     public static void clearListFile() throws MortalReminderException {
         try {
+            initialise();
+
             FileWriter fw = new FileWriter(STORAGE_LIST_FILE_PATH);
             fw.write("");
+
             fw.close();
         } catch (IOException e) {
             throw new MortalReminderException(MortalReminderException.getFileNotFoundErrorMessage());

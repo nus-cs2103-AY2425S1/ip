@@ -10,7 +10,7 @@ import mortalreminder.tasks.Task;
 /**
  * This class is just the UI controller to format and ensure consistency of all output messages.
  */
-public class FormattedPrinting {
+public class FormattedOutput {
 
     /**
      * Prints out the formatted output of the chatbot to the user.

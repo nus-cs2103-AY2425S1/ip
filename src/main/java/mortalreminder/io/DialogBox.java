@@ -69,14 +69,17 @@ public class DialogBox extends HBox {
         case EVENT:
             dialog.getStyleClass().add("add-label");
             break;
+
         case MARK:
             // Fallthrough
         case UNMARK:
             dialog.getStyleClass().add("marked-label");
             break;
+
         case DELETE:
             dialog.getStyleClass().add("delete-label");
             break;
+
         default:
             dialog.getStyleClass().add("reply-label");
         }

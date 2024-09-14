@@ -7,7 +7,7 @@ import mortalreminder.backend.tasklistmanager.TaskList;
 import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandAlternatives;
 import mortalreminder.errorhandling.MortalReminderException;
-import mortalreminder.io.FormattedPrinting;
+import mortalreminder.io.FormattedOutput;
 
 /**
  * Main class of the MortalReminder App.
@@ -27,13 +27,12 @@ public class MortalReminder {
      */
     public String welcome() {
         try {
-            TaskListStorage.initialise();
             this.taskList = TaskListStorage.loadTaskListFromFile();
             this.commandAlternatives = CommandAlternativesStorage.loadCommandsFromFile();
         } catch (MortalReminderException e) {
             return e.getMessage();
         }
-        return FormattedPrinting.welcome();
+        return FormattedOutput.welcome();
     }
 
     /**

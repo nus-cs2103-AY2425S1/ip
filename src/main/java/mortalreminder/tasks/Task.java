@@ -2,9 +2,8 @@ package mortalreminder.tasks;
 
 import java.util.Objects;
 
-import mortalreminder.MortalReminder;
 import mortalreminder.errorhandling.MortalReminderException;
-import mortalreminder.io.FormattedPrinting;
+import mortalreminder.io.FormattedOutput;
 
 // solution is adapted from the Course Level 3 extension
 // class and constructor Javadocs were autocompleted using ChatGPT
@@ -80,7 +79,7 @@ public abstract class Task {
             throw new MortalReminderException(MortalReminderException.getAlreadyMarkedErrorMessage());
         }
         this.isDone = true;
-        return FormattedPrinting.printMarked(this);
+        return FormattedOutput.printMarked(this);
     }
 
     /**
@@ -99,7 +98,7 @@ public abstract class Task {
             throw new MortalReminderException(MortalReminderException.getAlreadyNotMarkedErrorMessage());
         }
         this.isDone = false;
-        return FormattedPrinting.printUnmarked(this);
+        return FormattedOutput.printUnmarked(this);
     }
 
     /**

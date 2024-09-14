@@ -29,6 +29,7 @@ public class TaskCreator {
     public static String createTask(String commandDetails, TaskList taskList, CommandType commandType)
             throws MortalReminderException {
         Task newTask;
+
         if (commandType == CommandType.TODO) {
             newTask = new ToDo(commandDetails);
         } else if (commandType == CommandType.DEADLINE) {
@@ -38,6 +39,7 @@ public class TaskCreator {
         } else {
             throw new MortalReminderException(MortalReminderException.getUnreachableCodeErrorMessage());
         }
+
         return taskList.addTask(newTask);
     }
 }
