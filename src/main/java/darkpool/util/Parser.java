@@ -15,18 +15,17 @@ import darkpool.task.Deadline;
 import darkpool.task.Event;
 import darkpool.task.Todo;
 
-
 /**
- * Parses user input and returns the corresponding command.
+ * The Parser class is responsible for parsing user input and returning the appropriate Command object.
  */
 public class Parser {
 
     /**
-     * Parses the user input and returns the corresponding command.
+     * Parses the user input and returns the corresponding Command object.
      *
-     * @param input The user input string.
-     * @return The command corresponding to the user input.
-     * @throws DarkpoolException If the user input is invalid.
+     * @param input The user input to be parsed.
+     * @return The Command object corresponding to the user input.
+     * @throws DarkpoolException If the user input is invalid or cannot be parsed.
      */
     public static Command parse(String input) throws DarkpoolException {
         String[] userInput = input.split(" ", 2);
@@ -114,11 +113,11 @@ public class Parser {
     }
 
     /**
-     * Splits the input string into parts based on the "/to" keyword.
+     * Extracts the parts of the input string related to the "to" keyword.
      *
-     * @param fromParts The input string split by "/from".
-     * @return An array containing the parts split by "/to".
-     * @throws DarkpoolException If the input is invalid.
+     * @param fromParts The parts of the input string related to the "from" keyword.
+     * @return An array containing the parts of the input string related to the "to" keyword.
+     * @throws DarkpoolException If the input string is invalid or cannot be parsed.
      */
     private static String[] getToParts(String[] fromParts) throws DarkpoolException {
         String[] toParts = fromParts[1].split("/to ");
@@ -134,11 +133,11 @@ public class Parser {
     }
 
     /**
-     * Splits the user input into parts based on the "/from" keyword.
+     * Extracts the parts of the input string related to the "from" keyword.
      *
-     * @param userInput The user input string.
-     * @return An array containing the parts split by "/from".
-     * @throws DarkpoolException If the input is invalid.
+     * @param userInput The user input to be parsed.
+     * @return An array containing the parts of the input string related to the "from" keyword.
+     * @throws DarkpoolException If the input string is invalid or cannot be parsed.
      */
     private static String[] getParts(String[] userInput) throws DarkpoolException {
         String[] fromParts = userInput[1].split("/from");
@@ -154,11 +153,11 @@ public class Parser {
     }
 
     /**
-     * Splits the input string into parts based on the "/by" keyword.
+     * Extracts the parts of the input string related to the "by" keyword.
      *
-     * @param input The input string.
-     * @return An array containing the parts split by "/by".
-     * @throws DarkpoolException If the input is invalid.
+     * @param input The input string to be parsed.
+     * @return An array containing the parts of the input string related to the "by" keyword.
+     * @throws DarkpoolException If the input string is invalid or cannot be parsed.
      */
     private static String[] getStrings(String input) throws DarkpoolException {
         if ((input.length() - input.replace("/by", "").length()) / "/by".length() > 1) {
@@ -178,11 +177,11 @@ public class Parser {
     }
 
     /**
-     * Parses the task number from the user input.
+     * Extracts the task number from the user input.
      *
-     * @param userInput The user input string.
-     * @return The task number.
-     * @throws DarkpoolException If the task number is invalid.
+     * @param userInput The user input to be parsed.
+     * @return The task number extracted from the user input.
+     * @throws DarkpoolException If the user input is invalid or cannot be parsed.
      */
     private static int taskAction(String[] userInput) throws DarkpoolException {
         if (userInput.length < 2 || Objects.equals(userInput[1], "")) {

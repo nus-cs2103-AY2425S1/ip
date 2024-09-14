@@ -15,7 +15,7 @@ import darkpool.task.Todo;
 /**
  * Handles the loading and saving of tasks to and from a file.
  */
-@SuppressWarnings("ResultOfMethodCallIgnored")
+
 public class Storage {
 
     private final String filePath;

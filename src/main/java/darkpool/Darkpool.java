@@ -7,10 +7,10 @@ import darkpool.util.Parser;
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
 
-
 /**
- * The main class for the Darkpool application.
- * It initializes the necessary components and handles the main program loop.
+ * The Darkpool class represents the main logic of the application.
+ * It handles the initialization of the storage, task list, and GUI components.
+ * It also processes user input and returns appropriate responses.
  */
 public class Darkpool {
 
@@ -19,7 +19,9 @@ public class Darkpool {
     private final Gui gui;
 
     /**
-     * Constructs a Darkpool object.
+     * Constructs a new Darkpool instance.
+     * Initializes the GUI, storage, and task list.
+     * If loading data from storage fails, an empty task list is created.
      */
     public Darkpool() {
         gui = new Gui();
@@ -34,6 +36,14 @@ public class Darkpool {
         }
     }
 
+    /**
+     * Processes the user input and returns the response.
+     * Parses the input to create a command, executes the command, and returns the response.
+     * If the command indicates an exit, returns the goodbye message from the GUI.
+     *
+     * @param input The user input to be processed.
+     * @return The response after processing the input.
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);

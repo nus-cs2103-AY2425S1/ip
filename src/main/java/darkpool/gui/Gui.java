@@ -24,53 +24,60 @@ public class Gui {
     }
 
     /**
-     * Displays the goodbye message.
+     * Returns the goodbye message.
+     *
+     * @return the goodbye message
      */
     public String goodbye() {
         return bye;
     }
 
     /**
-     * Displays the list of tasks.
+     * Returns the list of tasks.
      *
-     * @param taskList the list of tasks to be displayed
+     * @param taskList the list of tasks
+     * @return the string representation of the task list
      */
     public String list(TaskList taskList) {
         return taskList.toString();
     }
 
     /**
-     * Displays a message indicating a task has been marked.
+     * Returns the message for marking a task.
      *
-     * @param task the task that has been marked
+     * @param task the task to be marked
+     * @return the message for marking the task
      */
     public String mark(String task) {
         return "why do i have to mark this mess\n" + task;
     }
 
     /**
-     * Displays a message indicating a task has been unmarked.
+     * Returns the message for unmarking a task.
      *
-     * @param task the task that has been unmarked
+     * @param task the task to be unmarked
+     * @return the message for unmarking the task
      */
     public String unmark(String task) {
         return "why do i have to unmark this mess\n" + task;
     }
 
     /**
-     * Displays a message indicating a task has been deleted.
+     * Returns the message for deleting a task.
      *
-     * @param task the task that has been deleted
+     * @param task the task to be deleted
+     * @return the message for deleting the task
      */
     public String delete(String task) {
         return "why do i have to delete this mess\n" + task;
     }
 
     /**
-     * Displays a message indicating a task has been added.
+     * Returns the message for adding a task.
      *
-     * @param task the task that has been added
-     * @param size the new size of the task list
+     * @param task the task to be added
+     * @param size the current size of the task list
+     * @return the message for adding the task
      */
     public String add(String task, int size) {
         return "i have dumped this nonsense on the list\n" + task
