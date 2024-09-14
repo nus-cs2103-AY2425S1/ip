@@ -23,7 +23,7 @@ public class Parser {
 
     public boolean validateIndex(TaskList t, int num) throws BobException {
         assert t != null;
-        if (num < 0 || num >= t.getLength()) {
+        if (num <= 0 || num > t.getLength()) {
             throw new BobException("Invalid index value");
         }
         return true;

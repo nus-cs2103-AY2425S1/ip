@@ -2,6 +2,7 @@ package seedu.task;
 
 import java.util.ArrayList;
 
+import seedu.parser.BobException;
 import seedu.storage.Storage;
 import seedu.ui.Formatter;
 
@@ -75,9 +76,12 @@ public class TaskList {
      * @param description The description of the ToDo task.
      * @return The created ToDo task.
      */
-    public String addToDo(String description) {
+    public String addToDo(String description) throws BobException {
         assert description != null && !description.isEmpty() : "ToDo description should not be null or empty";
         Task t = new ToDo(description);
+        if (checkDuplicate(t)) {
+            return "";
+        }
         return this.addTask(t);
     }
 
@@ -88,10 +92,13 @@ public class TaskList {
      * @param end The end date/time of the Deadline task.
      * @return The created Deadline task.
      */
-    public String addDeadline(String description, String end) {
+    public String addDeadline(String description, String end) throws BobException {
         assert description != null && !description.isEmpty() : "Deadline description should not be null or empty";
         assert end != null && !end.isEmpty() : "Deadline end time should not be null or empty";
         Task t = new Deadline(description, end);
+        if (checkDuplicate(t)) {
+            return "";
+        }
         return this.addTask(t);
     }
 
@@ -103,11 +110,14 @@ public class TaskList {
      * @param end The end date/time of the Event.
      * @return The created Event task.
      */
-    public String addEvent(String description, String start, String end) {
+    public String addEvent(String description, String start, String end) throws BobException {
         assert description != null && !description.isEmpty() : "Event description should not be null or empty";
         assert start != null && !start.isEmpty() : "Event start time should not be null or empty";
         assert end != null && !end.isEmpty() : "Event end time should not be null or empty";
         Task t = new Event(description, start, end);
+        if (checkDuplicate(t)) {
+            return "";
+        }
         return this.addTask(t);
     }
 
@@ -143,5 +153,14 @@ public class TaskList {
         String lowerCaseDescription = t.getDescription().toLowerCase();
         String lowerCaseName = name.toLowerCase();
         return lowerCaseDescription.contains(lowerCaseName);
+    }
+
+    public boolean checkDuplicate(Task newTask) throws BobException {
+        for (Task t: this.tasks) {
+            if (t.equals(newTask)) {
+                throw new BobException("Duplicate task found!!");
+            }
+        }
+        return false;
     }
 }

@@ -55,4 +55,7 @@ public abstract class Task {
      * @return String to be saved.
      */
     public abstract String toSave();
+
+    @Override
+    public abstract boolean equals(Object obj);
 }

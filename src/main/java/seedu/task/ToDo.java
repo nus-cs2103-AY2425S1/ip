@@ -34,4 +34,22 @@ public class ToDo extends Task {
     public String toSave() {
         return "T" + " | " + (this.isDone ? 1 : 0) + " | " + this.description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof ToDo) {
+            ToDo t = (ToDo) obj;
+            if (this.description == null || t.description == null) {
+                return false;
+            }
+
+            return this.description.equals(t.description);
+        }
+
+        return false;
+    }
 }

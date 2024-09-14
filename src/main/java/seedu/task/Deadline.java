@@ -32,4 +32,25 @@ public class Deadline extends Task {
     public String toSave() {
         return "D" + " | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + this.end;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Deadline) {
+            Deadline t = (Deadline) obj;
+            if (this.description == null || t.description == null) {
+                return false;
+            }
+            if (this.end == null || t.end == null) {
+                return false;
+            }
+
+            return this.description.equals(t.description) && this.end.equals(t.end);
+        }
+
+        return false;
+    }
 }

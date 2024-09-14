@@ -34,4 +34,30 @@ public class Event extends Task {
     public String toSave() {
         return "E" + " | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + this.start + " | " + this.end;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Event) {
+            Event t = (Event) obj;
+            if (this.description == null || t.description == null) {
+                return false;
+            }
+            if (this.start == null || t.start == null) {
+                return false;
+            }
+            if (this.end == null || t.end == null) {
+                return false;
+            }
+
+            return this.description.equals(t.description)
+                    && this.end.equals(t.end)
+                    && this.start.equals(t.start);
+        }
+
+        return false;
+    }
 }
