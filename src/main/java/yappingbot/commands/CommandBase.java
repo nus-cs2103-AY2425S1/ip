@@ -14,9 +14,8 @@ import yappingbot.exceptions.YappingBotIncorrectCommandException;
  *
  * @param <A> Enum defining the valid Arguments, implementing ArgEnums.
  */
-public abstract class CommandBase<A extends Enum<A> & ArgEnums> {
+public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>> {
     protected HashMap<A, String[]> arguments = new HashMap<>();
-    protected ArrayList<String> firstArg = new ArrayList<>();
     private boolean argumentsLoaded = false;
     protected String argumentSeperator = "/";
 
@@ -24,9 +23,17 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums> {
      * Subclasses must override this, linking it to an Enum of possible Argument Types.
      * Usually <i>return A.class</i>.
      *
+     * @return The Class of th Enums defined in the subclass holding the possible Argument Types.
+     */
+    protected abstract Class<A> getArgumentClass();
+
+    /**
+     * Subclasses must override this, linking it to the value in the Enum referring to the first
+     * Argument (unmarked argument).
+     *
      * @return The Enum defined in the subclass holding the possible Argument Types.
      */
-    protected abstract Class<A> getArgumentTypes();
+    protected abstract A getFirstArgumentType();
 
     /**
      * Gets the Enum that is spevified by its corresponding String type.
@@ -36,7 +43,7 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums> {
      * @throws IllegalArgumentException If there is no Arg Enum matching the given key.
      */
     private A getArgTypeFromString(String key) throws IllegalArgumentException {
-        return Enum.valueOf(getArgumentTypes(), key);
+        return ArgEnums.valueOf(getArgumentClass(), key);
     }
 
     /**
@@ -83,10 +90,26 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums> {
      * @param flagMarker String of the character used to denote a flag.
      * @param userInputSlices User input sliced by space, including command verb.
      */
-    private void parseArguments(String flagMarker, String[] userInputSlices) {
-        boolean firstArgumentCollected = false;
+    private void parseArguments(String flagMarker, String[] userInputSlices)
+    throws IllegalArgumentException {
+        A currentArgument = this.getFirstArgumentType();
+        ArrayList<String> valueCollector = new ArrayList<>();
 
+        for (String slice : userInputSlices) {
+            if (slice.startsWith(flagMarker)) {
+                // Slice starts with flag.
+                // Push valueCollector's values and current flag into arguements hashmap
+                // and start new cycle
+                arguments.put(currentArgument, valueCollector.toArray(String[]::new));
+                currentArgument = getArgTypeFromString(slice);
+                valueCollector.clear();
+            } else {
+                // add value to collector for current arg flag
+                valueCollector.add(slice);
+            }
+        }
 
-        for ()
+        // Check if current arg is pushed, because the last argument might be valueless flag
+        arguments.put(currentArgument, valueCollector.toArray(String[]::new));
     }
 }

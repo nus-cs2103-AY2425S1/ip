@@ -1,8 +1,5 @@
 package yappingbot.commands.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import yappingbot.YappingBot;
 import yappingbot.commands.CommandBase;
 import yappingbot.exceptions.YappingBotException;
@@ -19,7 +16,8 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args> {
     /**
      * Enum for the possible Arguments of this command.
      */
-    protected enum Args implements ArgEnums {
+    protected enum Args implements ArgEnums<Args> {
+        FIRST_ARG(""),
         JAVAFX_ARGS_PASSTHRU("--"),
         SAVE_FILE_PATH("-s"),
         SAVE_FILE_PATH_LONG("--savefile"),
@@ -43,44 +41,47 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args> {
     /**
      * Constructs Command object with arguments to prepare for execution.
      *
-     * @param firstArg String of the first argument passed in that is not demacated by flags.
-     * @param argPairs array of String-String Pairs that is ordered with all given argument flags
-     *                 followed by argument values.
-     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
-     *                                             argument flag given.
+     * @param argSlices ordered array of strings with argument flags followed by argument values.
+     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown argument
+     *                                             flag given.
      */
-    public LauncherCommand(String firstArg, Pair<String, String>[] argPairs)
-    throws YappingBotIncorrectCommandException {
-        super(firstArg, argPairs);
+    public LauncherCommand(String[] argSlices) throws YappingBotIncorrectCommandException {
+        super(argSlices);
     }
 
     @Override
-    protected Class<Args> getArgumentTypes() {
+    protected Class<Args> getArgumentClass() {
         return Args.class;
     }
 
     @Override
-    public void run() throws YappingBotException {
-        boolean isUsingGui = arguments.containsKey(Args.CLI_MODE);
+    protected Args getFirstArgumentType() {
+        return Args.FIRST_ARG;
+    }
+
+    @Override
+    protected void run() throws YappingBotException {
+        boolean isUsingCli = arguments.containsKey(Args.CLI_MODE);
         boolean isUsingAltSavefile = arguments.containsKey(Args.SAVE_FILE_PATH)
                                      || arguments.containsKey(Args.SAVE_FILE_PATH_LONG);
-        String[] javafxArgs = arguments.getOrDefault(Args.JAVAFX_ARGS_PASSTHRU, "").split(" ");
+        String[] javafxArgs = arguments.getOrDefault(Args.JAVAFX_ARGS_PASSTHRU, null);
 
         if (isUsingAltSavefile) {
-            this.savefilePath = arguments.containsKey(Args.SAVE_FILE_PATH)
-                                ? arguments.get(Args.SAVE_FILE_PATH)
-                                : arguments.get(Args.SAVE_FILE_PATH_LONG);
+            savefilePath = arguments.containsKey(Args.SAVE_FILE_PATH)
+                                ? arguments.get(Args.SAVE_FILE_PATH)[0]
+                                : arguments.get(Args.SAVE_FILE_PATH_LONG)[0];
         }
 
-        if (isUsingGui) {
-            launchGui(javafxArgs);
-        } else {
+        if (isUsingCli) {
             launchCli();
+        } else {
+            launchGui(javafxArgs);
         }
     }
 
     @Override
     public String getHelpText() {
+        // TODO: add help text for launcher
         return "";
     }
 

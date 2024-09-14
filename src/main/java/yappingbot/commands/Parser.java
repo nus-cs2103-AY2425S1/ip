@@ -1,9 +1,7 @@
 package yappingbot.commands;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import yappingbot.commands.commands.Pair;
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
@@ -98,54 +96,5 @@ public class Parser {
         if ((userInputSlices.length - 1) < i) {
             throw new YappingBotOobException(ReplyTextMessages.NOT_ENOUGH_ARGUMENTS, i);
         }
-    }
-
-    /**
-     * Parses the user arguments into the first unflagged argument, and pushes the rest into
-     * the given ArrayList as String arrays of the argument flag and its preceeding values.
-     *
-     * @param flagMarker String of the character used to denote a flag.
-     * @param userInputSlices User input sliced by space, including command verb.
-     * @param flaggedArgumentPairs arrayList to push parsed flagged arguments into.
-     * @return First argument value after command verb, that is not flagged.
-     */
-    public static String parseFlaggedArguments(
-            String flagMarker,
-            String[] userInputSlices,
-            ArrayList<Pair<String, String>> flaggedArgumentPairs) {
-
-        final String emptyFlag = "";
-        String firstArg = null;
-        String currentFlag = "";
-        StringBuilder sb = new StringBuilder();
-
-        // skip first item since it's the command verb
-        for (int i = 1; i < userInputSlices.length; i++) {
-            String currentSlice = userInputSlices[i];
-
-            // add slice to value if not a new flag
-            if (!currentSlice.startsWith(flagMarker)) {
-                sb.append(currentSlice).append(" ");
-                // continue by default, except for last slice - add that in
-                if (i != userInputSlices.length - 1) {
-                    continue;
-                }
-            }
-
-
-            // we hit a new flag
-            if (currentFlag.equals(emptyFlag)) {
-                // this is unflagged first argument
-                firstArg = sb.toString().trim();
-            } else {
-                // add to flagged arguments
-                flaggedArgumentPairs.add(new Pair<>(currentFlag, sb.toString()));
-            }
-
-            currentFlag = currentSlice;
-            sb.setLength(0); // clear buffer
-        }
-
-        return firstArg;
     }
 }
