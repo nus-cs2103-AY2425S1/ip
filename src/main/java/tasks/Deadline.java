@@ -39,4 +39,15 @@ public class Deadline extends Task implements Serializable {
         return "[D]" + super.toString() + " (by "
                 + this.deadline.format(outputFormat) + ")";
     }
+
+    /** Sends help information of command 'deadline' to user */
+    public static String getHelpMessage() {
+        return "Deadline is a task that needs to be done before a specific date/time.\n"
+                + "e.g. submit report by 11/10/2019 5pm\n\n"
+                + "Format:\n"
+                + "\t deadline<whitespace>[description]<whitespace>\\by<whitespace>[time] \n"
+                + "- [description] is the details of this task.\n"
+                + "- [time] is the end time of this task in 'yyyy/MM/dd<whitespace>HH:mm' format.\n\n"
+                + "Remark: Please enter time in correct format and do not enter extra whitespace.";
+    }
 }

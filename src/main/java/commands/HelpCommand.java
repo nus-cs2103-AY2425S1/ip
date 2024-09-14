@@ -1,6 +1,9 @@
 package commands;
 
 import exceptions.EchoException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
 
 /**
  * Provides help information for EchoBot commands.
@@ -87,8 +90,14 @@ public class HelpCommand {
                 return DeleteCommand.getHelpMessage();
             case FIND:
                 return FindCommand.getHelpMessage();
+            case TODO:
+                return ToDo.getHelpMessage();
+            case DEADLINE:
+                return Deadline.getHelpMessage();
+            case EVENT:
+                return Event.getHelpMessage();
             default:
-                return "task";
+                throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
             throw new EchoException("Seems you have entered an invalid command.\n" + " "

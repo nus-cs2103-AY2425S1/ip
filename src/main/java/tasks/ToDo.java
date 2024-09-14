@@ -26,4 +26,14 @@ public class ToDo extends Task implements Serializable {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /** Sends help information of command 'todo' to user */
+    public static String getHelpMessage() {
+        return "ToDo is a task without any date/time attached to it.\n"
+                + "e.g. visit new theme park\n\n"
+                + "Format:\n"
+                + "\t todo<whitespace>[description]\n"
+                + "- [description] is the details of this task.\n\n"
+                + "Remark: Please do not enter extra whitespace.";
+    }
 }
