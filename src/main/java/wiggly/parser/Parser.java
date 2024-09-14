@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import wiggly.commands.AddCommand;
+import wiggly.commands.ArchiveCommand;
 import wiggly.commands.Command;
 import wiggly.commands.DeleteCommand;
 import wiggly.commands.ExitCommand;
@@ -78,12 +79,15 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(description.trim()));
             case "find":
                 return new FindCommand(description.trim());
+            case "archive":
+                return new ArchiveCommand();
             default:
                 return new InvalidCommand();
             }
         } catch (NullPointerException e) {
             throw new WigglyException("Failed to parse input: " + input);
         }
+
 
     }
 }
