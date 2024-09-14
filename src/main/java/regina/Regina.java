@@ -283,7 +283,6 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public String mark(int index) throws ReginaException {
-        assert index >= 0 && index < listOfTasks.size() : "Out of bounds index for mark: " + index;
         this.marker.mark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
@@ -432,72 +431,5 @@ public class Regina {
 
 
     public static void main(String[] args) {
-        Regina regina = new Regina(); // Create an instance of the regina.Regina chatbot
-        regina.greet(); // Greet the user
-        String userInput;
-
-        while (true) {
-            try {
-                userInput = regina.ui.readInput(); // Use the ui to read user input
-                if (userInput.equals("bye")) {
-                    regina.ui.exit(); // Exit the program
-                    break;
-                }
-
-                Optional<CommandData> commandData = regina.parser.parse(userInput); // Call the parser
-                if (commandData.isPresent()) {
-                    // Extract command data
-                    CommandData data = commandData.get();
-
-                    switch (data.getCommandType()) {
-                    case "help":
-                        regina.ui.help(); // Provide help information
-                        break;
-                    case "now":
-                        regina.ui.printMessage(ReginaDateAndTime.getCurrentDateAndTime());
-                        break;
-                    case "clear":
-                        regina.clearTaskList(); // Clear all tasks
-                        break;
-                    case "list":
-                        regina.list(); // List current tasks
-                        break;
-                    case "occurring":
-                        // Get tasks occurring at a specific date
-                        regina.occurringOn(data.getRawInput().substring(10));
-                        break;
-                    case "find":
-                        regina.find(data.getRawInput().substring(5));
-                        break;
-                    case "mark":
-                    case "unmark":
-                    case "delete":
-                        String[] parts = data.getRawInput().split(" "); // Split raw input to get parts
-                        if (regina.haveNumber(parts)) { // Validate that there's a task number
-                            int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
-                            switch (data.getCommandType()) {
-                            case "mark":
-                                regina.mark(index);
-                                break;
-                            case "unmark":
-                                regina.unmark(index);
-                                break;
-                            case "delete":
-                                regina.delete(index);
-                                break;
-                            default:
-                                regina.ui.printMessage("Give a proper command lah!");
-                            }
-                        }
-                        break;
-                    default:
-                        regina.add(data.getRawInput()); // Handle adding tasks
-                    }
-                }
-            } catch (ReginaException e) {
-                // Display error messages to users
-                regina.ui.printError(e.getMessage());
-            }
-        }
     }
 }

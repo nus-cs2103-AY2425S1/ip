@@ -149,16 +149,7 @@ public class ReginaDateAndTime {
                 && this.time.isBefore(targetInstance.getTime());
         boolean currentInstanceEqualTargetInstance = this.date.isEqual(targetInstance.getDate())
                 && this.time.equals(targetInstance.getTime());
-        if (currentInstanceEqualTargetInstance) {
-            return false;
-        }
-        if (currentDateBeforeTargetDate) {
-            return false;
-        }
-        if (currentTimeBeforeTargetTime) {
-            return false;
-        }
-        return true;
+        return !currentInstanceEqualTargetInstance && !currentDateBeforeTargetDate && !currentTimeBeforeTargetTime;
     }
 
     /**

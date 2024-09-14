@@ -49,7 +49,7 @@ public class TaskList extends ArrayList<Task> {
     public String toSavedFormatting() {
         // Using streams for building the string representation
         return this.stream()
-                .map(Task::toSavedFormatting) // Calls toSavedFormatting of each task
+                .map(Task::getStringInSavedFormatting) // Calls toSavedFormatting of each task
                 .collect(Collectors.joining("\n")); // Joins each task with new line
     }
 

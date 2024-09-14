@@ -80,7 +80,7 @@ public class Ui {
                 - To add a To-Do task: todo <task_description>
                   Example: todo Finish homework
                 - To add a Deadline task: deadline <task_description> /by <deadline>
-                  Example: deadline Submit report /by 2023-12-01 1600
+                  Example: deadline Submit report /by 1/12/2024 1600
                 - To add an Event task: event <task_description> /from <start_time> /to <end_time>
                   Example: event Team meeting /from 2/12/2024 1600 /to 2/12/2024 1800
                 - To mark a task as done: mark <task_number>
@@ -114,9 +114,8 @@ public class Ui {
      *
      * @param message The error message to display to the user.
      */
-    public String printError(String message) {
+    public void printError(String message) {
         System.out.printf("%s\n%s%s\n%s\n", LINE, INDENT, message, LINE);
-        return String.format("%s\n%s%s\n%s\n", LINE, INDENT, message, LINE);
     }
 
     /**

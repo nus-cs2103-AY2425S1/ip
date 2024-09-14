@@ -96,27 +96,20 @@ public class MainWindow extends AnchorPane {
         taskCheckBox.setSelected(isDone);
 
         taskCheckBox.setOnAction(e -> {
-            if (taskCheckBox.isSelected()) {
-                try {
-                    String response = regina.mark(i); // Mark the task based on its index
-                    dialogContainer.getChildren().addAll(
-                            DialogBox.getReginaDialog(response, reginaImage)
-                    );
-                } catch (ReginaException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            } else {
-                try {
-                    String response = regina.unmark(i); // Unmark the task based on its index
-                    dialogContainer.getChildren().addAll(
-                            DialogBox.getReginaDialog(response, reginaImage)
-                    );
-                } catch (ReginaException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
+            markTaskAndSendResponse(taskCheckBox, i);
         });
         return taskCheckBox;
+    }
+
+    private void markTaskAndSendResponse(CheckBox checkbox, int i) {
+        try {
+            String response = checkbox.isSelected() ? regina.mark(i) : regina.unmark(i);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getReginaDialog(response, reginaImage)
+            );
+        } catch (ReginaException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @FXML

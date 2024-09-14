@@ -53,7 +53,7 @@ public class ToDosTask extends Task {
      * @return A formatted string representing the to-do task for saving purposes.
      */
     @Override
-    public String toSavedFormatting() {
+    public String getStringInSavedFormatting() {
         return String.format("T | %s | %s",
                 this.isDone ? "X" : " ",
                 this.description);

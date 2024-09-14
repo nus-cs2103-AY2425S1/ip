@@ -75,7 +75,7 @@ public class DeadlinesTask extends Task {
      * @return A formatted string representing the event task for saving purposes.
      */
     @Override
-    public String toSavedFormatting() {
+    public String getStringInSavedFormatting() {
         return String.format("D | %s | %s | %s",
                 this.isDone ? "X" : " ",
                 this.description,

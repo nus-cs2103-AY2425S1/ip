@@ -1,5 +1,7 @@
 package gui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import regina.Regina;
 
-import java.io.IOException;
 
 /**
  * A GUI application for the Regina chatbot using FXML.
@@ -25,17 +26,20 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Regina Chatbot"); // Set a title for the window
-
-            // Get the controller for the main window
-            MainWindow mainWindowController = fxmlLoader.getController();
-            mainWindowController.setRegina(regina); // Set the Regina instance
-            regina.setMainWindow(mainWindowController);
-            mainWindowController.initialize();
+            initialiseMainWindow(fxmlLoader);
 
             stage.show(); // Show the main application window
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void initialiseMainWindow(FXMLLoader fxmlLoader) {
+        // Get the controller for the main window
+        MainWindow mainWindowController = fxmlLoader.getController();
+        mainWindowController.setRegina(regina); // Set the Regina instance
+        regina.setMainWindow(mainWindowController);
+        mainWindowController.initialize();
     }
 
     public static void main(String[] args) {

@@ -28,20 +28,7 @@ public class Marker {
      * @throws ReginaException If the index is out of bounds or less than zero.
      */
     public void mark(int index) throws ReginaException {
-        assert listOfTasks != null : "Task list cannot be null";
-        int taskCount = listOfTasks.size();
-        if (index >= taskCount) {
-            String message = String.format("You cannot count ah! There %s only %d task%s!",
-                    taskCount > 1 ? "are" : "is",
-                    taskCount,
-                    taskCount > 1 ? "s" : "");
-            throw new ReginaException(message);
-        }
-        if (index < 0) {
-            throw new ReginaException("Oops! Please choose an index greater than 0.");
-        }
-        Task task = listOfTasks.get(index);
-        task.checkTask();
+        updateListOfTasks(index, true);
     }
 
     /**
@@ -51,6 +38,10 @@ public class Marker {
      * @throws ReginaException If the index is out of bounds or less than zero.
      */
     public void unmark(int index) throws ReginaException {
+        updateListOfTasks(index, false);
+    }
+
+    private void updateListOfTasks(int index, boolean taskIsToBeMarked) throws ReginaException {
         assert listOfTasks != null : "Task list cannot be null";
         int taskCount = listOfTasks.size();
         if (index >= taskCount) {
@@ -64,6 +55,10 @@ public class Marker {
             throw new ReginaException("Oops! Please choose an index greater than 0.");
         }
         Task task = listOfTasks.get(index);
-        task.uncheckTask();
+        if (taskIsToBeMarked) {
+            task.checkTask();
+        } else {
+            task.uncheckTask();
+        }
     }
 }

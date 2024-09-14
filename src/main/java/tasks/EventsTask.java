@@ -82,7 +82,7 @@ public class EventsTask extends Task {
      * @return A formatted string representing the event task for saving purposes.
      */
     @Override
-    public String toSavedFormatting() {
+    public String getStringInSavedFormatting() {
         return String.format("E | %s | %s | %s | %s",
                 this.isDone ? "X" : " ",
                 this.description,

@@ -28,7 +28,7 @@ public abstract class Task {
      *
      * @return A string representing the task in the saved format.
      */
-    public abstract String toSavedFormatting();
+    public abstract String getStringInSavedFormatting();
 
     /**
      * If task has a deadline, will push back the deadline by specified duration.
