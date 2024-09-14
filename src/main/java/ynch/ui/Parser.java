@@ -13,24 +13,16 @@ class Parser {
      */
     ValidCommand processInput(String userInput) {
         String commandKeyword = userInput.split(" ")[0];
-        switch (commandKeyword) {
-            case "list":
-                return ValidCommand.list;
-            case "mark":
-                return ValidCommand.mark;
-            case "unmark":
-                return ValidCommand.unmark;
-            case "todo":
-                return ValidCommand.todo;
-            case "deadline":
-                return ValidCommand.deadline;
-            case "event":
-                return ValidCommand.event;
-            case "delete":
-                return ValidCommand.delete;
-            case "find":
-                return ValidCommand.find;       
-        }
-        return ValidCommand.list;
+        return switch (commandKeyword) {
+            case "list" -> ValidCommand.list;
+            case "mark" -> ValidCommand.mark;
+            case "unmark" -> ValidCommand.unmark;
+            case "todo" -> ValidCommand.todo;
+            case "deadline" -> ValidCommand.deadline;
+            case "event" -> ValidCommand.event;
+            case "delete" -> ValidCommand.delete;
+            case "find" -> ValidCommand.find;
+            default -> ValidCommand.list;
+        };
     }
 }
