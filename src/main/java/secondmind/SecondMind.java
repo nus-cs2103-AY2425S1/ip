@@ -48,11 +48,24 @@ public class SecondMind {
         return taskNumber;
     }
 
+    private void modifyStatusInTaskList(int taskNumber, boolean isDone)
+            throws InvalidTaskNumberException {
+        if (!isDone) {
+            taskList.markAsUndone(taskNumber);
+        }
+        taskList.markAsDone(taskNumber);
+    }
+
+    private void modifyStatusInStorage(int taskNumber, boolean isDone)
+            throws FileNotFoundException, IOException {
+        storage.updateTaskInDataFile(taskNumber, isDone, taskList.getTaskCount());
+    }
+
     private String executeMarkInstruction(String[] instruction) {
         try {
             int taskNumber = getTaskNumberFromInstruction(instruction);
-            taskList.markAsDone(taskNumber);
-            storage.updateTaskInDataFile(taskNumber, true, taskList.getTaskCount());
+            modifyStatusInTaskList(taskNumber, true);
+            modifyStatusInStorage(taskNumber, true);
             String message = "Well done! You have completed the following task:\n"
                     + taskList.getTask(taskNumber).toString();
             return message;
@@ -69,7 +82,7 @@ public class SecondMind {
 
     public String execute(String[] instruction) {
         String command = instruction[0];
-       if (command.equals("bye")) {
+        if (command.equals("bye")) {
             return EXIT_INSTRUCTION;
         } else if (command.equals("mark")) {
             String response = executeMarkInstruction(instruction);
