@@ -27,7 +27,7 @@ Now you have X tasks in the list.
 
 Adds a task of type deadline into the task list.
 
-Format: `deadline [description] by [time]`
+Format: `deadline [description] /by [time]`
 
 Example: `deadline submit homework /by 2024-09-20`
 
@@ -36,6 +36,7 @@ Got it. Cookie has added this task:
 [D][] submit homework (by: Sept 20 2024)
 Now you have X tasks in the list.
 ```
+If the time is not in the format `[yyyy-mm-dd]` it will be treated as a `String`
 
 ## Adding event tasks
 
