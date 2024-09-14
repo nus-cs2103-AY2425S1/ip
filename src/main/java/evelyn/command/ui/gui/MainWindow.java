@@ -59,6 +59,10 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Shows the user the message said by Evelyn
+     * @param input Message to be shown to the user
+     */
     public void addMessage(String input) {
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(input, dukeImage)
