@@ -1,8 +1,0 @@
-E | 1 | project meeting | 10/10/2024 1700 | 10/10/2024 1800
-E | 0 | football | 10/10/2024 1800 | 10/10/2024 1900
-E | 1 | swimming class | 12/3/2024 0800 | 12/3/2024 1200
-T | 0 | go gym
-F | 0 | go cycling | 2
-F | 1 | watch Netflix | 3
-T | 0 | write a guide
-D | 0 | Submit assignment | 10/9/2024 1300

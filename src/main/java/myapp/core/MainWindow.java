@@ -2,6 +2,9 @@ package myapp.core;
 
 import java.io.IOException;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.util.Duration;
 
 
 /**
@@ -102,7 +105,13 @@ public class MainWindow extends AnchorPane {
         );
 
         if (bot.isExit()) {
-            stage.close();
+            this.dialogContainer.getChildren().addAll(
+                    DialogBox.getBingBongDialog("This window will close in 3 seconds", botImage)
+            );
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> Platform.exit()));
+            timeline.play();
         }
 
         userInput.clear();
