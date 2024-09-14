@@ -7,31 +7,41 @@ import botty.exceptions.EmptyArgumentException;
 /**
  * Defines behaviour for tasks
  */
-public abstract class Task {
+public abstract class Task<T extends TaskData> {
     // Whether the task is completed
     private boolean isCompleted;
     // The task's description
-    private final String description;
+    private String description;
+
+    /**
+     * The types of tasks
+     */
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
 
     /**
      * Constructs a {@code Task} with the given completion status and description
      * @param isCompleted whether the {@code Task} is completed
-     * @param description the description
+     * @param data the data involved in generating the {@code Task}
      */
-    public Task(boolean isCompleted, String description) throws EmptyArgumentException {
-        if (description.isEmpty()) {
+    public Task(boolean isCompleted, T data) throws EmptyArgumentException {
+        if (!data.hasDescription()) {
             throw new EmptyArgumentException("description");
         }
+
         this.isCompleted = isCompleted;
-        this.description = description;
+        this.description = data.getDescription();
     }
 
     /**
      * Constructs a {@code Task} with the given description, set as not completed
-     * @param description the description
+     * @param data the data involved in generating the {@code Task}
      */
-    public Task(String description) throws EmptyArgumentException {
-        this(false, description);
+    public Task(T data) throws EmptyArgumentException {
+        this(false, data);
     }
 
     /**
@@ -63,7 +73,7 @@ public abstract class Task {
      * @return the constructed task
      * @throws BottyException if corrupted task string or invalid arguments
      */
-    public static Task fromDataString(String taskString) throws BottyException {
+    public static Task<? extends TaskData> fromDataString(String taskString) throws BottyException {
         switch (taskString.charAt(0)) {
         case 'E':
             return Event.fromDataString(taskString);
@@ -80,4 +90,16 @@ public abstract class Task {
      * Returns a string representation of the {@code Task} that is used for local storage
      */
     public abstract String toDataString();
+
+    /**
+     * Returns the task type of the task
+     */
+    public abstract TaskType getTaskType();
+
+    /**
+     * Updates the task with the given data
+     */
+    public void update(T data) throws BottyException {
+        this.description = data.hasDescription() ? data.getDescription() : this.description;
+    }
 }

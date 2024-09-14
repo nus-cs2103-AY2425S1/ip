@@ -14,6 +14,7 @@ import botty.commands.MarkCommand;
 import botty.commands.ParsedInput;
 import botty.commands.TodoCommand;
 import botty.commands.UnmarkCommand;
+import botty.commands.UpdateCommand;
 import botty.exceptions.BottyException;
 import botty.exceptions.UnknownCommandException;
 import botty.storage.StorageHandler;
@@ -43,6 +44,7 @@ public class Botty {
         commands.put("event", new EventCommand());
         commands.put("delete", new DeleteCommand());
         commands.put("find", new FindCommand());
+        commands.put("update", new UpdateCommand());
         commands.put("bye", new ExitCommand());
 
         taskManager = new TaskManager();

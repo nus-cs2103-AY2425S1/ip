@@ -3,6 +3,7 @@ package botty.tasks;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+import botty.exceptions.BottyException;
 import botty.exceptions.TaskListEmptyException;
 import botty.exceptions.TaskNumberNotFoundException;
 import botty.exceptions.TasksNotFoundException;
@@ -12,7 +13,7 @@ import botty.exceptions.TasksNotFoundException;
  */
 public class TaskManager {
     // The list of tasks
-    private final ArrayList<Task> taskList = new ArrayList<>(100);
+    private final ArrayList<Task<? extends TaskData>> taskList = new ArrayList<>(100);
 
     /**
      * Returns a string representation of the list of tasks
@@ -38,14 +39,14 @@ public class TaskManager {
      * @throws TaskListEmptyException if the task list is empty
      * @throws TaskNumberNotFoundException if the task number is out of range
      */
-    public Task markTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
+    public Task<? extends TaskData> markTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
         if (size() == 0) {
             throw new TaskListEmptyException();
         }
         if (index < 0 || index > size() - 1) {
             throw new TaskNumberNotFoundException(index + 1, size());
         }
-        Task task = taskList.get(index);
+        Task<? extends TaskData> task = taskList.get(index);
         task.setCompleted(true);
         return task;
     }
@@ -56,14 +57,14 @@ public class TaskManager {
      * @throws TaskListEmptyException if the task list is empty
      * @throws TaskNumberNotFoundException if the task number is out of range
      */
-    public Task unmarkTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
+    public Task<? extends TaskData> unmarkTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
         if (size() == 0) {
             throw new TaskListEmptyException();
         }
         if (index < 0 || index > size() - 1) {
             throw new TaskNumberNotFoundException(index + 1, size());
         }
-        Task task = taskList.get(index);
+        Task<? extends TaskData> task = taskList.get(index);
         task.setCompleted(false);
         return task;
     }
@@ -74,14 +75,14 @@ public class TaskManager {
      * @throws TaskListEmptyException if the task list is empty
      * @throws TaskNumberNotFoundException if the index is out of range
      */
-    public Task deleteTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
+    public Task<? extends TaskData> deleteTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
         if (size() == 0) {
             throw new TaskListEmptyException();
         }
         if (index < 0 || index > size() - 1) {
             throw new TaskNumberNotFoundException(index + 1, size());
         }
-        Task task = taskList.get(index);
+        Task<? extends TaskData> task = taskList.get(index);
         taskList.remove(index);
         return task;
     }
@@ -89,7 +90,7 @@ public class TaskManager {
      * Adds the task to the task list
      * @param task the task to be added
      */
-    public void addTask(Task task) {
+    public void addTask(Task<? extends TaskData> task) {
         taskList.add(task);
     }
 
@@ -107,7 +108,7 @@ public class TaskManager {
      * @throws TaskListEmptyException if the task list is empty
      * @throws TaskNumberNotFoundException if the index is out of range
      */
-    public Task getTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
+    public Task<? extends TaskData> getTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
         if (size() == 0) {
             throw new TaskListEmptyException();
         }
@@ -143,5 +144,23 @@ public class TaskManager {
 
         result.deleteCharAt(result.length() - 1); // remove the last new line for nicer formatting
         return result.toString();
+    }
+
+    /**
+     * Updates the task at the given task index with the given data
+     * @param taskIndex the index of the task to be updated
+     * @param data the data of the updated task
+     * @param <T> the type of data
+     * @throws BottyException if an incorrect type is passed in
+     */
+    public <T extends TaskData> void updateTask(int taskIndex, T data) throws BottyException {
+        try {
+            // this cast is necessary to update the task with the appropriate data
+            @SuppressWarnings("unchecked")
+            Task<T> task = (Task<T>) getTask(taskIndex);
+            task.update(data);
+        } catch (ClassCastException e) {
+            throw new BottyException("Incorrect data type was given");
+        }
     }
 }

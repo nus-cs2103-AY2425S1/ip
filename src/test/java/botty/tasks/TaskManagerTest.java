@@ -13,8 +13,8 @@ public class TaskManagerTest {
     public void taskFinding_validInputs_success()
             throws EmptyArgumentException, TasksNotFoundException, TaskListEmptyException {
         TaskManager taskManager = new TaskManager();
-        taskManager.addTask(new Todo("description one"));
-        taskManager.addTask(new Todo("description two"));
+        taskManager.addTask(new Todo(new TodoData("description one")));
+        taskManager.addTask(new Todo(new TodoData("description two")));
         assertEquals("1. [T] [ ] description one\n"
                 + "2. [T] [ ] description two", taskManager.findTasks("description"));
     }

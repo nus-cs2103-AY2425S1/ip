@@ -7,21 +7,21 @@ import botty.exceptions.EmptyArgumentException;
 /**
  * A Todo
  */
-public class Todo extends Task {
+public class Todo extends Task<TodoData> {
     /**
      * Constructs a {@code Todo} with the given completion status and description
      * @param isCompleted whether the task is completed
-     * @param description the description
+     * @param data the data involved in generating the {@code Todo}
      */
-    public Todo(boolean isCompleted, String description) throws EmptyArgumentException {
-        super(isCompleted, description);
+    public Todo(boolean isCompleted, TodoData data) throws EmptyArgumentException {
+        super(isCompleted, data);
     }
     /**
      * Constructs a {@code Todo} with the given description, set as not completed
-     * @param description the description
+     * @param data the data involved in generating the {@code Todo}
      */
-    public Todo(String description) throws EmptyArgumentException {
-        this(false, description);
+    public Todo(TodoData data) throws EmptyArgumentException {
+        this(false, data);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Todo extends Task {
         boolean completed = arguments[1].equals("1");
         String description = arguments[2];
 
-        return new Todo(completed, description);
+        return new Todo(completed, new TodoData(description));
     }
     /**
      * Returns a string representation of the {@code Todo} that is used for local storage
@@ -56,5 +56,21 @@ public class Todo extends Task {
     @Override
     public String toDataString() {
         return "T | " + getCompletedAndDescription();
+    }
+
+    /**
+     * Returns the task type of the task
+     */
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.TODO;
+    }
+
+    /**
+     * Updates the task with the given data
+     */
+    @Override
+    public void update(TodoData data) throws BottyException {
+        super.update(data);
     }
 }
