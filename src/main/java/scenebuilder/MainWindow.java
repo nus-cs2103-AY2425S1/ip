@@ -21,15 +21,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+
     private Blue blue;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/miniPekka.jpg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpeg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/miniPekka.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.setStyle("-fx-font-family: 'Monospaced';");
+
+        // Add welcome message
+        String welcomeMessage = "Hello! I'm Blue! Woof Woof! Yap Yap! What can I do for you?";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
 
     }
 
@@ -37,6 +42,7 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Blue d) {
         blue = d;
     }
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to

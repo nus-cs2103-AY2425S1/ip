@@ -1,28 +1,33 @@
-# Duke User Guide
+# Blue Chatbot User Guide
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
 
-// Product intro goes here
+![Blue Chatbot Screenshot](// Product screenshot goes here)
 
-## Adding deadlines
+Introduction
+Welcome to Blue Chatbot - your personal assistant for managing tasks efficiently. 
+Blue helps you keep track of your to-do items, deadlines, and events with 
+ease. You can add tasks, set deadlines, schedule events, mark tasks as done or undone, 
+delete tasks, and avoid duplicates—all through simple text commands.
 
-// Describe the action and its outcome.
+## Adding Todo Tasks
 
-// Give examples of usage
+Use the **todo** keyword followed by the task description 
 
-Example: `keyword (optional arguments)`
 
-// A description of the expected outcome goes here
+Example: `todo homework`
+
+//add an image here
 
 ```
-expected output
+Task added: todo homework. Now you have 1 task.
 ```
 
-## Feature ABC
+## Adding Deadline Tasks
 
-// Feature details
+Use the **deadline** keyword followed by the task description and a 
+**/by** keyword followed by the deadline in the format **DD-MM-YYYY** format to
+add a task with a deadline
 
 
 ## Feature XYZ
