@@ -15,9 +15,6 @@ public class Todo extends Task {
      */
     public Todo(boolean isCompleted, String description) throws EmptyArgumentException {
         super(isCompleted, description);
-        if (description.isEmpty()) {
-            throw new EmptyArgumentException("description");
-        }
     }
     /**
      * Constructs a {@code Todo} with the given description, set as not completed

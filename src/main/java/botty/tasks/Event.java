@@ -30,9 +30,6 @@ public class Event extends Task {
     public Event(boolean isCompleted, String description, String startDate, String endDate)
             throws EmptyArgumentException, IncorrectDateFormatException {
         super(isCompleted, description);
-        if (description.isEmpty()) {
-            throw new EmptyArgumentException("description");
-        }
         if (startDate.isEmpty()) {
             throw new EmptyArgumentException("start date");
         }

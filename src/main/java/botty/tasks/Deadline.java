@@ -27,9 +27,6 @@ public class Deadline extends Task {
     public Deadline(boolean isCompleted, String description, String endDate)
             throws EmptyArgumentException, IncorrectDateFormatException {
         super(isCompleted, description);
-        if (description.isEmpty()) {
-            throw new EmptyArgumentException("description");
-        }
         if (endDate.isEmpty()) {
             throw new EmptyArgumentException("end date");
         }

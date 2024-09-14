@@ -2,6 +2,7 @@ package botty.tasks;
 
 import botty.exceptions.BottyException;
 import botty.exceptions.CorruptedTaskStringException;
+import botty.exceptions.EmptyArgumentException;
 
 /**
  * Defines behaviour for tasks
@@ -17,7 +18,10 @@ public abstract class Task {
      * @param isCompleted whether the {@code Task} is completed
      * @param description the description
      */
-    public Task(boolean isCompleted, String description) {
+    public Task(boolean isCompleted, String description) throws EmptyArgumentException {
+        if (description.isEmpty()) {
+            throw new EmptyArgumentException("description");
+        }
         this.isCompleted = isCompleted;
         this.description = description;
     }
@@ -26,7 +30,7 @@ public abstract class Task {
      * Constructs a {@code Task} with the given description, set as not completed
      * @param description the description
      */
-    public Task(String description) {
+    public Task(String description) throws EmptyArgumentException {
         this(false, description);
     }
 
