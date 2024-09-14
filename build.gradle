@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("LittleMissHelpful.GUI.Launcher")
+    mainClass.set("bangmang.gui.Launcher")
 }
 
 shadowJar {

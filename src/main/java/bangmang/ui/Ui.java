@@ -28,15 +28,15 @@ public class Ui {
          * Returns help information
          */
         return "These are all the commands you can make ah:\n" +
-                "* List all tasks: \"list\"\n" +
-                "* Add a todo: \"todo {description}\"\n" +
-                "* Add a deadline: \"deadline {description} /by{date-time}\"\n" +
-                "* Add an event: \"event {description} /from{date-time} /to{date-time}\"\n" +
-                "* Mark a task as done: \"mark {task number}\"\n" +
-                "* Mark a task as undone: \"unmark {task number}\"\n" +
-                "* Delete a task: \"delete {task number}\"\n" +
-                "* Find task: \"find {description}\"\n" +
-                "* Exit chatbot: \"bye\"\n";
+                "* List all tasks: list\n" +
+                "* Add a todo: todo {description}\n" +
+                "* Add a deadline: deadline {description} /by{date-time}\n" +
+                "* Add an event: event {description} /from{date-time} /to{date-time}\n" +
+                "* Mark a task as done: mark {task number}\n" +
+                "* Mark a task as undone: unmark {task number}\n" +
+                "* Delete a task: delete {task number}\n" +
+                "* Find task: find {description}\n" +
+                "* Exit chatbot: bye\n";
     }
 
     public String showExit() {
@@ -59,7 +59,7 @@ public class Ui {
          * Returns the task list
          */
         StringBuilder sb = new StringBuilder();
-        sb.append("Siao liao! This your current task list leh...");
+        sb.append("Siao liao! This your current task list leh...\n");
         for (int i = 0; i < tasks.size(); i++) {
             int listNumber = i + 1;
             Task t = tasks.get(i);
