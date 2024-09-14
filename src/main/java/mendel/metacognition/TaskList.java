@@ -140,8 +140,10 @@ public class TaskList extends Command {
      * @return A message listing all tasks with deadlines on the specified date.
      */
     public String find(String inputInformation) {
-        String rawDate = inputInformation.split("remind ")[1];
-        String formattedDate = new DateTimeManager(rawDate).toString();
+        String[] rawDateLst = inputInformation.split("remind ");
+        ConditionalExceptionHandler.of()
+                .conditionTriggerException(rawDateLst.length != 2, "OOPS! I cannot understand the date.");
+        String formattedDate = new DateTimeManager(rawDateLst[1]).toString();
         return String.format("Here are the tasks with deadlines by %s", formattedDate)
                 + draftItemList(formattedDate);
     }
