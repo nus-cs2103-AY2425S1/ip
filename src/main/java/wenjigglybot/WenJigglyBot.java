@@ -39,8 +39,10 @@ public class WenJigglyBot {
     /**
      * Runs the main loop of the WenJigglyBot application.
      * Continuously takes user input, parses commands, and executes the appropriate actions.
+     *
+     * @return
      */
-    public void run() {
+    public String run() {
         Scanner scanner = new Scanner(System.in);
         ui.intro();
         String task;
@@ -123,29 +125,16 @@ public class WenJigglyBot {
             default:
                 System.out.println("Invalid command!");
             }
-
         }
         System.out.println("Goodbye!");
+        return "";
     }
 
-    /**
-     * Parses and processes a task
-     */
-    public String parseAndProcess(String task) {
-        task = task.trim();
-        Command command = null;
-        try {
-            command = Parser.parseCommand(task);
-        } catch (InvalidCommandException e) {
-            System.out.println(e);
-            return "Invalid command!";
-        }
-
+    private String handleCommand(Command command, String task) {
+        int idx;
         String[] strings;
         String action;
-        int idx;
         String taskName;
-
         switch (Objects.requireNonNull(command)) {
         case LIST:
             return ui.displayTasks(tasks);
@@ -205,8 +194,22 @@ public class WenJigglyBot {
         default:
             System.out.println("Invalid command!");
         }
-        System.out.println("Goodbye!");
         return "";
+    }
+
+    /**
+     * Parses and processes a task
+     */
+    public String parseAndProcess(String task) {
+        task = task.trim();
+        Command command = null;
+        try {
+            command = Parser.parseCommand(task);
+        } catch (InvalidCommandException e) {
+            System.out.println(e);
+            return "Invalid command!";
+        }
+        return handleCommand(command, task);
     }
 
     /**
