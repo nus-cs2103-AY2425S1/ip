@@ -11,7 +11,7 @@ public class ListCommand extends Command {
     private String response;
 
     /**
-     * Calling the showList method in task list class
+     * Calls the showList method in task list class
      * @param list Task list to be modified
      * @param ui Ui for display
      * @param s Storage for saving
@@ -31,7 +31,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Get response message for GUI
+     * Gets response message for GUI
      * @return Formatted string
      */
     @Override

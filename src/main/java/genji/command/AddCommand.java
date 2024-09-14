@@ -21,7 +21,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Calling the add method in task list class
+     * Calls the add method in task list class
      * @param list Task list to be modified
      * @param ui Ui for display
      * @param s Storage for saving
@@ -43,7 +43,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Get response message for GUI
+     * Gets response message for GUI
      * @return Formatted string
      */
     @Override

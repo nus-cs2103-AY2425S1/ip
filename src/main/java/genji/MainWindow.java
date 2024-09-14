@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
             getResourceAsStream("/images/DaGenji.png"));
 
     /**
-     * Initialize the program
+     * Initializes the program
      */
     @FXML
     public void initialize() {

@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Calling the findTask method in TaskList class
+     * Calls the findTask method in TaskList class
      * @param list Task list to be modified
      * @param ui Ui for display
      * @param s Storage for saving
@@ -40,7 +40,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Get response message for GUI
+     * Gets response message for GUI
      * @return Formatted string
      */
     @Override

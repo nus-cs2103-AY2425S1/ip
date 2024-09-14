@@ -24,7 +24,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /**
-     * Parse command to exit command
+     * Parses command to exit command
      * @return Exit command
      */
     public static Command parseExit(String command) throws GenjiException{
@@ -36,7 +36,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to list command
+     * Parses command to list command
      * @param command User's command to parse
      * @return List command
      * @throws GenjiException When user's command has problem
@@ -50,7 +50,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to help command
+     * Parses command to help command
      * @param command User's command to parse
      * @return Help command
      * @throws GenjiException When user's command has problem
@@ -64,7 +64,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to mark command
+     * Parses command to mark command
      * @param command User's command to parse
      * @return Mark command
      * @throws GenjiException When user's command has problem
@@ -84,7 +84,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to unmark command
+     * Parses command to unmark command
      * @param command User's command to parse
      * @return Unmark command
      * @throws GenjiException When user's command has problem
@@ -104,7 +104,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to add command
+     * Parses command to add command
      * @param command User's command to parse
      * @return Add command
      * @throws GenjiException When user's command has problem
@@ -120,7 +120,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to add command
+     * Parses command to add command
      * @param command User's command to parse
      * @return Add command
      * @throws GenjiException When user's command has problem
@@ -143,7 +143,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to add command
+     * Parses command to add command
      * @param command User's command to parse
      * @return Add command
      * @throws GenjiException When user's command has problem
@@ -168,7 +168,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to delete command
+     * Parses command to delete command
      * @param command User's command to parse
      * @return Delete command
      * @throws GenjiException When user's command has problem
@@ -188,7 +188,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to date command
+     * Parses command to date command
      * @param command User's command to parse
      * @return Date command
      * @throws GenjiException When user's command has problem
@@ -208,7 +208,7 @@ public class Parser {
     }
 
     /**
-     * Parse command to find command
+     * Parses command to find command
      * @param command User's command to parse
      * @return Find command
      * @throws GenjiException When user's command has problem

@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Calling the unmark method in task list class
+     * Calls the unmark method in task list class
      * @param list Task list to be modified
      * @param ui Ui for display
      * @param s Storage for saving
@@ -48,7 +48,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Get response message for GUI
+     * Gets response message for GUI
      * @return Formatted string
      */
     @Override

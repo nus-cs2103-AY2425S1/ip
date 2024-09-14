@@ -20,7 +20,7 @@ public class DateCommand extends Command {
     }
 
     /**
-     * Calling the checkDate method in task list class
+     * Calls the checkDate method in task list class
      * @param list Task list to be modified
      * @param ui Ui for display
      * @param s Storage for saving
@@ -39,6 +39,10 @@ public class DateCommand extends Command {
         return false;
     }
 
+    /**
+     * Gets response message for GUI
+     * @return Formatted string
+     */
     @Override
     public String getResponse() {
         return response;

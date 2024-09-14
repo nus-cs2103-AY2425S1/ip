@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
     private String response;
 
     /**
-     * Calling the bye method in Ui class
+     * Calls the bye method in Ui class
      * @param list Task list to be modified
      * @param ui Ui for display
      * @param s Storage for saving
@@ -32,7 +32,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Get response message for GUI
+     * Gets response message for GUI
      * @return Formatted string
      */
     @Override

@@ -23,7 +23,7 @@ public class Genji {
     }
 
     /**
-     * Respond to user's command
+     * Responds to user's command
      * @param input User's input
      * @return the related responses
      */

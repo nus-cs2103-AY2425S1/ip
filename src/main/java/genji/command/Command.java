@@ -24,7 +24,7 @@ public abstract class Command {
     public abstract boolean isExit();
 
     /**
-     * Get response message for GUI
+     * Gets response message for GUI
      * @return Formatted string
      */
     public abstract String getResponse();

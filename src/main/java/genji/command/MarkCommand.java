@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Calling the mark method in task list class
+     * Calls the mark method in task list class
      * @param list Task list to be modified
      * @param ui Ui for display
      * @param s Storage for saving
@@ -48,7 +48,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Get response message for GUI
+     * Gets response message for GUI
      * @return Formatted string
      */
     @Override
