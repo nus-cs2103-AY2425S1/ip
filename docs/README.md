@@ -7,6 +7,7 @@
 ## Features
 > **_NOTE:_** Words in UPPER_CASE are the parameters to be supplied by the user.
 e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo Study`.
+
 ### Adding a _todo_ task: `todo`
 Adds a todo task to the task list.
 
@@ -15,6 +16,7 @@ Format: `todo DESCRIPTION`
 Examples: 
 - `todo Do Group Project`
 - `todo Read Book`
+
 ### Adding a _deadline_ task: `deadline`
 Adds a deadline task to the task list.
 
