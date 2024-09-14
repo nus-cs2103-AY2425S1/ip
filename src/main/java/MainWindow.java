@@ -1,3 +1,6 @@
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import ip.derrick.Derrick;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -9,8 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+
 
 /**
  * Controller for the main GUI.
@@ -33,6 +35,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        dialogContainer.getChildren().add(
+                DialogBox.getChatBotDialog(
+                        "Hello! I am Derrick. How can I assist you today?",
+                        chatBotImage
+                )
+        );
     }
 
     public void setChatbot(Derrick d) {
@@ -77,7 +86,7 @@ public class MainWindow extends AnchorPane {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, userImage),
                     DialogBox.getChatBotDialog(chatBotText, chatBotImage)
-                );
+            );
         }
     }
 }
