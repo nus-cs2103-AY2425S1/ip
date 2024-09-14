@@ -31,4 +31,12 @@ public class Event extends Task {
     public String getTaskSymbol() {
         return super.getTaskSymbol() + "[E]";
     }
+
+    public String getStart() {
+        return this.start;
+    }
+
+    public String getEnd() {
+        return this.end;
+    }
 }

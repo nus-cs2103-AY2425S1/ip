@@ -27,4 +27,8 @@ public class Deadline extends Task {
     public String getTaskSymbol() {
         return super.getTaskSymbol() + "[D]";
     }
+
+    public String getDeadline() {
+        return this.deadline;
+    }
 }
