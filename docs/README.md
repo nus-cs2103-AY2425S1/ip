@@ -1,6 +1,6 @@
 # Jeff User Guide
 
-![Screenshot of the chatbot with some commands]()
+![Screenshot of the chatbot with some commands](https://github.com/Nicholaskoh1/ip/blob/master/docs/Ui.png)
 
 Jeff is a chatbot for managing tasks (To-Do, Deadline, Event) using a Command Line Interface.
 
@@ -9,7 +9,7 @@ Jeff is a chatbot for managing tasks (To-Do, Deadline, Event) using a Command Li
 1. Ensure you have Java 17 installed in your computer.
 
 
-2. Download the latest `.jar` file from [here](Insert link here).
+2. Download the latest `.jar` file from [here](https://github.com/Nicholaskoh1/ip/releases/tag/v0.2).
 
 
 3. Copy the file to the folder you want to use as the home folder for your Chatbot.
@@ -22,7 +22,7 @@ and use the `java -jar Jeff.jar` command to run the application.
 5. A GUI similar to the below should appear in a few seconds.
 
 
-![Screenshot of the chatbot that is just opened]()
+![Screenshot of the chatbot that is just opened](https://github.com/Nicholaskoh1/ip/blob/master/docs/EmptyUi.png)
 
 ## Features
 
