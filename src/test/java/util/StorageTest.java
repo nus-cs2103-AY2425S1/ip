@@ -18,7 +18,7 @@ public class StorageTest {
     Path tempDir;
 
     /**
-     * Test that the Storage class correctly reads from a file.
+     * Tests that the Storage class correctly reads from a file.
      */
     @Test
     public void testToArray_readsFileCorrectly() throws IOException {
@@ -34,7 +34,7 @@ public class StorageTest {
     }
 
     /**
-     * Test that the Storage class handles empty files correctly.
+     * Tests that the Storage class handles empty files correctly.
      */
     @Test
     public void testStorage_withEmptyFile() throws IOException {
@@ -48,7 +48,7 @@ public class StorageTest {
     }
 
     /**
-     * Test that the Storage class does not throw an exception for a non-existent file.
+     * Tests that the Storage class does not throw an exception for a non-existent file.
      */
     @Test
     public void testStorage_withNonExistentFile() {

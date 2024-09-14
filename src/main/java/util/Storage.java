@@ -38,7 +38,7 @@ public class Storage {
     }
 
     /**
-     * Method to append data to the file.
+     * Appends data into the file.
      *
      * @param data A string represnting the line to be added.
      */
@@ -52,7 +52,7 @@ public class Storage {
     }
 
     /**
-     * Method to overwrite the file.
+     * Overwrites the data in the file.
      *
      * @param data A string representing the data to overwrite with.
      * @param lineNumber An integer representing the line to be updated.
@@ -73,7 +73,7 @@ public class Storage {
     }
 
     /**
-     * Method to delete a line from the file.
+     * Deletes a line from the file.
      *
      * @param lineNumber An integer representing the line to be deleted.
      */
@@ -93,7 +93,7 @@ public class Storage {
     }
 
     /**
-     * Utility method to represent the data in the form of an array.
+     * Returns the data in the file represented by an array.
      *
      * @return An array of strings where each index corresponds to a line in the stored file.
      */

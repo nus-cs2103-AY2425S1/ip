@@ -19,7 +19,7 @@ public abstract class Command {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, FIND;
 
         /**
-         * Method to convert a string to a commandType.
+         * Returns a commandType from a String.
          *
          * @param type The type in string represetation.
          * @return The corresponding commandtype of the input.
@@ -51,7 +51,7 @@ public abstract class Command {
         }
 
         /**
-         * Method to convert the command type to a command.
+         * Retruns a Command based on the CommandType.
          *
          * @param type The command type to be converted.
          * @return A command to the input type.
@@ -84,7 +84,7 @@ public abstract class Command {
     }
 
     /**
-     * Factory method to create a Command from a string.
+     * Creates a Command from a string. Factory method which returns a Command object.
      *
      * @param type String representing a command.
      * @return The Command represented by the type.
@@ -96,7 +96,7 @@ public abstract class Command {
     }
 
     /**
-     * Method to excute the command.
+     * Executes the Command with the given params.
      *
      * @param tl The tasklist object.
      * @param ui The Ui object.

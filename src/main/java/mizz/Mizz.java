@@ -69,14 +69,14 @@ public class Mizz {
     }
 
     /**
-     * Static method to print greeting.
+     * Prints greeting.
      */
     private void greet() {
         this.ui.printResponse(this.greeting);
     }
 
     /**
-     * Utility method to check if the bot should be exited.
+     * Checks if bot is exited.
      *
      * @return true if cmd == "bye" else false
      */
@@ -84,6 +84,12 @@ public class Mizz {
         return this.cmd.equals("bye");
     }
 
+    /**
+     * Returns the appropriate response for the given input.
+     *
+     * @param input The input by the user.
+     * @return The response for the given input.
+     */
     public String getResponse(String input) {
         try {
             String[] parsedInput = Parser.parseStringInput(input);

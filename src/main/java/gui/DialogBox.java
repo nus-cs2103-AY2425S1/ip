@@ -49,10 +49,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a new DialogBox with the params.
+     *
+     * @param text The text to display.
+     * @param img The img to deisplay.
+     * @return A DialogBox object.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a flipped dialog box for responses.
+     *
+     * @param text The text to display.
+     * @param img The img to display.
+     * @return A flipped DialogBox.
+     */
     public static DialogBox getResponseDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -19,7 +19,7 @@ public class TaskList {
     }
 
     /**
-     * Method to add a new task into the running list.
+     * Adds a new task into the running list.
      *
      * @param task The new task to be added.
      */
@@ -28,7 +28,7 @@ public class TaskList {
     }
 
     /**
-     * Method to add a new task into the running list and the storage file.
+     * Adds a new task into the running list and the storage file.
      *
      * @param task The new task to be added.
      * @param s The storage instance being used.
@@ -42,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * Method to delete a task from the list.
+     * Deletes a task from the list.
      *
      * @param idx The idx of the task to be deleted starting from 1.
      */
@@ -56,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Mark the selected idx as done.
+     * Marks the selected idx as done.
      *
      * @param idx Idx to be edited. Starting from 1.
      */
@@ -75,7 +75,7 @@ public class TaskList {
     }
 
     /**
-     * Mark the selected idx as undone.
+     * Marks the selected idx as undone.
      *
      * @param idx Idx to be edited. Starting from 1.
      */
@@ -94,7 +94,7 @@ public class TaskList {
     }
 
     /**
-     * Utility method to get the size of the current list.
+     * Returns the size of the list.
      *
      * @return Size of the list.
      */
@@ -103,7 +103,7 @@ public class TaskList {
     }
 
     /**
-     * Utility method to convert to an array.
+     * Converts the list to an array.
      *
      * @return The list as a Task array.
      */
@@ -123,7 +123,7 @@ public class TaskList {
     }
 
     /**
-     * Utility method to check if idx is valid.
+     * Checks if idx is valid.
      *
      * @param idx The idx to be checked.
      * @return true if is within range else false.
