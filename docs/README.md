@@ -2,7 +2,7 @@
 ![Description of the screenshot](Ui.png)
 
 Welcome to the Derrick Chatbot! Derrick is designed to help you manage your tasks efficiently. 
-You can add new tasks, and mark tasks as complete through easy-to-use chat commands.
+You can add new tasks, mark tasks as complete as well as find tasks through easy-to-use chat commands.
 
 ## Adding deadlines
 
