@@ -1,7 +1,6 @@
 package tars;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * This class is Chatbot application which handles Task Management, mainly ToDos, Deadline and Event tasks
@@ -36,36 +35,11 @@ public class Tars {
     }
 
     /**
-     * Runs TARS application with using the different objects(eg: Ui, storage, taskList)
-     * Handles scanning the input of user and execute relevant command based on input
+     * Gets response from TARS with using the different objects(eg: Ui, storage, taskList)
+     * Handles the input of user and execute relevant command based on input
      *
      * @throws IOException
      */
-    /*public void run() throws IOException {
-        ui.welcome();
-        Scanner scanner = new Scanner(System.in); //initalising input scanner
-
-        while (true) {
-            String entry = scanner.nextLine();
-            String[] entryParts = entry.split(" ");
-
-            if (entryParts.length < 2) {
-                if (entry.equals("bye")) {
-                    break;
-                } else {
-                    parserHelp.checkEntry(entryParts, entry, taskList);
-                }
-            } else if (entryParts[0].equals("find")) {
-                parserHelp.findTask(entryParts, taskList);
-            } else {
-                taskList.addTask(entryParts, entry);
-            }
-        }
-
-        Storage.writeFile("./data/Tars.txt", taskList.getList());
-        ui.bye();
-    }*/
-
     public String getResponse(String entry) throws IOException {
         String[] entryParts = entry.split(" ");
         String result = "";
@@ -86,12 +60,6 @@ public class Tars {
 
         return result;
     }
-
-    /**
-    * Creates new Tars object with relative path to the list stored in text format of the User's laptop
-    *
-    * @param args
-    */
 
     /*public static void main(String[] args) throws IOException {
         new Tars("./data/Tars.txt").run();

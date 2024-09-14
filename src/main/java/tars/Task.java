@@ -142,9 +142,9 @@ class Deadline extends Task {
     @Override
     public String toFileFormat() {
         if (isDone) {
-            return "D " + "1 " + description + " (by: " + by + " )";
+            return "D " + "1 " + description + " by: " + by;
         } else {
-            return "D " + "0 " + description + " (by: " + by + " )";
+            return "D " + "0 " + description + " by: " + by;
         }
     }
 }
@@ -187,9 +187,9 @@ class Event extends Task {
     @Override
     public String toFileFormat() {
         if (isDone) {
-            return "E " + "1 " + description + "(from: " + from + " to: " + to + " )";
+            return "E " + "1 " + description + "from:" + from + " to: " + to;
         } else {
-            return "E " + "0 " + description + "(from: " + from + " to: " + to + " )";
+            return "E " + "0 " + description + "from: " + from + " to: " + to;
         }
     }
 }

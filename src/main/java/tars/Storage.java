@@ -59,58 +59,79 @@ public class Storage {
         while (s.hasNext()) {
             String entry = s.nextLine(); //Task from each line
             String[] entryParts = entry.split(" ");
+            Task task = writeTask(entryParts);
 
-            if (entryParts[0].equals("T")) {
-                StringBuilder strBuild = new StringBuilder();
-                for (int i = 2; i < entryParts.length; i++) {
-                    strBuild.append(entryParts[i]).append(" ");
-                }
-                ToDos todo = new ToDos(strBuild.toString().trim());
-                if (entryParts[1].equals("1")) {
-                    todo.mark();
-                }
-                itemsList.add(todo);
-            } else if (entryParts[0].equals("D")) {
-                StringBuilder strBuild = new StringBuilder();
-                StringBuilder dateStr = new StringBuilder();
-
-                for (int i = 2; i < entryParts.length - 2; i++) {
-                    if (i < entryParts.length - 3) {
-                        strBuild.append(entryParts[i]).append(" ");
-                    } else {
-                        dateStr.append(entryParts[entryParts.length - 2]);
-                    }
-                }
-                LocalDateTime deadlineDate = LocalDateTime.parse(dateStr.toString());
-                Deadline deadlineTask = new Deadline(strBuild.toString().trim(), deadlineDate);
-                if (entryParts[1].equals("1")) {
-                    deadlineTask.mark();
-                }
-                itemsList.add(deadlineTask);
-            } else if (entryParts[0].equals("E")) {
-                StringBuilder strBuild = new StringBuilder();
-                StringBuilder toStr = new StringBuilder();
-                StringBuilder forStr = new StringBuilder();
-
-                for (int i = 2; i < entryParts.length; i++) {
-                    if (i < entryParts.length - 5) {
-                        strBuild.append(entryParts[i]).append(" ");
-                    } else if (i > entryParts.length - 5 && i < entryParts.length - 3) {
-                        forStr.append(entryParts[i]).append(" ");
-                    } else if (i > entryParts.length - 3 && i < entryParts.length - 1) {
-                        toStr.append(entryParts[i]);
-                    }
-                }
-
-                LocalDateTime fromDate = LocalDateTime.parse(forStr.toString().trim());
-                LocalDateTime toDate = LocalDateTime.parse(toStr.toString());
-                Event eventTask = new Event(strBuild.toString(), fromDate, toDate);
-                if (entryParts[1].equals("1")) {
-                    eventTask.mark();
-                }
-                itemsList.add(eventTask);
+            if (entryParts[1].equals("1")) {
+                task.mark();
             }
+            itemsList.add(task);
         }
         return itemsList;
+    }
+
+    /**
+     * Forms description of task given, based on entry registered im storage file
+     *
+     * @param entryParts and taskType.
+     * @return String (task description)
+     */
+    public static String getTaskDesc(String[] entryParts, String taskType) {
+        StringBuilder strBuild = new StringBuilder();
+        int end = entryParts.length;
+
+        if (taskType.equals("D")) {
+            end = entryParts.length - 3;
+        } else if (taskType.equals("E")) {
+            end = entryParts.length - 5;
+        }
+
+        for (int i = 2; i < end; i++) {
+            strBuild.append(entryParts[i]).append(" ");
+        }
+
+        return strBuild.toString();
+    }
+
+    /**
+     * Writes LocalDateTime date for Deadline or Event based on entry stored
+     *
+     * @param entryParts and keyword
+     * @return LocalDateTime object
+     */
+    public static LocalDateTime getTaskDate(String[] entryParts, String keyword) {
+        StringBuilder dateStr = new StringBuilder();
+
+        for (int i = 2; i < entryParts.length; i++) {
+            if (entryParts[i].equals(keyword)) {
+                dateStr.append(entryParts[i + 1]);
+            }
+        }
+
+        return LocalDateTime.parse(dateStr.toString().trim());
+    }
+
+    /**
+     * Creates task object based on entry read from storage file
+     *
+     * @param entryParts
+     * @return Task
+     */
+    public static Task writeTask(String[] entryParts) {
+        String taskType = entryParts[0];
+        String taskDescript = getTaskDesc(entryParts, taskType);
+
+        switch (taskType) {
+            case "T":
+                return new ToDos(taskDescript.trim());
+            case "D":
+                LocalDateTime deadlineDate = getTaskDate(entryParts, "by:");
+                return new Deadline(taskDescript.trim(), deadlineDate);
+            case "E":
+                LocalDateTime fromDate = getTaskDate(entryParts, "from:");
+                LocalDateTime toDate = getTaskDate(entryParts, "to:");
+                return new Event(taskDescript, fromDate, toDate);
+            default:
+                throw new IllegalArgumentException("Unknown task type: " + taskType);
+        }
     }
 }
