@@ -135,8 +135,7 @@ public class TaskList extends Command {
     /**
      * Finds tasks with deadlines matching the specified date of type String.
      *
-     * @param inputInformation The information containing
-     * date to search for in the format understood by {@code DateTimeManager}.
+     * @param inputInformation The information containing date to search for
      * @return A message listing all tasks with deadlines on the specified date.
      */
     public String find(String inputInformation) {

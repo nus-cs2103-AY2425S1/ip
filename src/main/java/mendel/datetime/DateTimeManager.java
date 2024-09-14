@@ -1,7 +1,8 @@
 package mendel.datetime;
 
-import javax.sound.midi.SysexMessage;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -51,6 +52,9 @@ public class DateTimeManager {
         }
     }
 
+    /**
+     * Checks if input datetime format is valid
+     */
     public boolean isValidFormat() {
         for (int i = 0; i < POSSIBLE_FORMATTED_TIME.length; i++) {
             if (this.isValidFormat(DateTimeFormatter.ofPattern(POSSIBLE_FORMATTED_TIME[i]))) {
@@ -64,6 +68,21 @@ public class DateTimeManager {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if a given date string matches a specific date format.
+     *
+     * @param dateFormatter the regex representing the expected date format.
+     * @return true if the date string matches the format, false otherwise.
+     */
+    private boolean isValidFormat(DateTimeFormatter dateFormatter) {
+        try {
+            LocalDate date = LocalDate.parse(rawDate, dateFormatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     private String parseDate() {
@@ -97,21 +116,10 @@ public class DateTimeManager {
             return this.formattedDate;
         }
     }
-    /**
-     * Checks if a given date string matches a specific date format.
-     *
-     * @param dateFormatter the regex representing the expected date format.
-     * @return true if the date string matches the format, false otherwise.
-     */
-    private boolean isValidFormat(DateTimeFormatter dateFormatter) {
-        try {
-            LocalDate date = LocalDate.parse(rawDate, dateFormatter);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-    }
 
+    /**
+     * Converts DateTime to EpochTime seconds
+     */
     public long toEpochTime() {
         String formatDateNoTime = new DateTimeManager(this.formattedDate).removeTimeStamp();
         LocalDate date = LocalDate.parse(formatDateNoTime, DateTimeFormatter.ofPattern("MMM dd yyyy"));
