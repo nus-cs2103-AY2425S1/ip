@@ -2,7 +2,7 @@
 
 ![Product screenshot](Ui.png)
 
-Cow is a task management application designed to help you keep track of your to-dos, deadlines, and recurring tasks efficiently. With an intuitive interface and powerful features, Cow ensures that you stay organized and productive.
+Cow is a task management application designed to help you keep track of your to-dos, deadlines, and recurring tasks efficiently. With an intuitive interface and powerful features, Cow ensures that you stay organized and productive!
 
 ## Adding todos
 
