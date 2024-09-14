@@ -17,16 +17,27 @@ import duck.data.exception.DuckException;
 public class DuckTest {
 
     private static Duck duck;
+
+    /**
+     * Sets up the test environment.
+     */
     @BeforeAll
     public static void setUp() {
         duck = new Duck("data/testing.txt");
     }
 
+    /**
+     * Tears down the test environment.
+     */
     @AfterAll
     public static void tearDown() {
         assertDoesNotThrow(() -> duck.clearCache());
     }
 
+
+    /**
+     * Tests the processInput method of the Duck with valid deadline command input.
+     */
     @Test
     public void processInput_deadlineCommand_success() {
         String input1 = "deadline test    /by 2021-08-25     1800";
@@ -36,9 +47,11 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input1));
         assertDoesNotThrow(() -> duck.processInput(input2));
         assertDoesNotThrow(() -> duck.processInput(input3));
-
     }
 
+    /**
+     * Tests the processInput method of the Duck with valid delete command input.
+     */
     @AfterAll
     public static void processInput_deleteCommand_success() {
         String input1 = "deLete 1";
@@ -52,6 +65,9 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input4));
     }
 
+    /**
+     * Tests the processInput method of the Duck with valid event command input.
+     */
     @Test
     public void processInput_eventCommand_success() {
         String input1 = "event test /from 2021-08-25 1800 /to       2021-08-25 1900";
@@ -63,6 +79,9 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input3));
     }
 
+    /**
+     * Tests the processInput method of the Duck with valid find command input.
+     */
     @Test
     public void processInput_findCommand_success() {
         String input1 = "find test";
@@ -78,6 +97,10 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input5));
     }
 
+
+    /**
+     * Tests the processInput method of the Duck with valid help command input.
+     */
     @Test
     public void processInput_helpCommand_success() {
         String input1 = "help";
@@ -94,8 +117,9 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input5));
     }
 
-
-
+    /**
+     * Tests the processInput method of the Duck with valid list command input.
+     */
     @Test
     public void processInput_listCommand_success() {
         String input1 = "list";
@@ -111,6 +135,9 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input5));
     }
 
+    /**
+     * Tests the processInput method of the Duck with valid mark command input.
+     */
     @AfterAll
     public static void processInput_markCommand_exceptionThrown() {
         String input1 = "mark 1";
@@ -126,6 +153,9 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input5));
     }
 
+    /**
+     * Tests the processInput method of the Duck with valid on command input.
+     */
     @Test
     public void processInput_onCommand_success() {
         String input1 = "oN   2021-08-25";
@@ -135,37 +165,61 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input2));
     }
 
+    /**
+     * Tests the processInput method of the Duck with valid sort command target all input.
+     */
     @Test
-    public void processInput_sortCommand_exceptionThrown() {
+    public void processInput_sortCommandTargetAll_success() {
         // sorting all tasks
         String targetAllByDescription = "sort   /target  all /by     description";
         String targetAllByType = "sort  /target   all  /by     type";
 
+        assertDoesNotThrow(() -> duck.processInput(targetAllByDescription));
+        assertDoesNotThrow(() -> duck.processInput(targetAllByType));
+    }
+
+    /**
+     * Tests the processInput method of the Duck with valid sort command input target todo input.
+     */
+    @Test
+    public void processInput_sortCommandTargetToDo_success() {
         // sorting todo tasks and place them on top
         String targetToDoByDescription = "   sort    /target todo /by description  ";
 
+        assertDoesNotThrow(() -> duck.processInput(targetToDoByDescription));
+    }
+
+    /**
+     * Tests the processInput method of the Duck with valid sort command input target deadline input.
+     */
+    @Test
+    public void processInput_sortCommandTargetDeadline_success() {
         // sorting deadline tasks and place them on top
         String targetDeadlineByDescription = "sort /target deadline /by    description    ";
         String targetDeadlineByDeadline = "sort /target     deadline /by      deadline";
 
+        assertDoesNotThrow(() -> duck.processInput(targetDeadlineByDescription));
+        assertDoesNotThrow(() -> duck.processInput(targetDeadlineByDeadline));
+    }
+
+    /**
+     * Tests the processInput method of the Duck with valid sort command input target event input.
+     */
+    @Test
+    public void processInput_sortCommandTargetEvent_success() {
         // sorting event tasks and place them on top
         String targetEventByDescription = "sort    /target    event /by description";
         String targetEventByStart = "sort /by start /target event";
         String targetEventByEnd = "sort     /target     event    /by      end";
-
-        assertDoesNotThrow(() -> duck.processInput(targetAllByDescription));
-        assertDoesNotThrow(() -> duck.processInput(targetAllByType));
-
-        assertDoesNotThrow(() -> duck.processInput(targetToDoByDescription));
-
-        assertDoesNotThrow(() -> duck.processInput(targetDeadlineByDescription));
-        assertDoesNotThrow(() -> duck.processInput(targetDeadlineByDeadline));
 
         assertDoesNotThrow(() -> duck.processInput(targetEventByDescription));
         assertDoesNotThrow(() -> duck.processInput(targetEventByStart));
         assertDoesNotThrow(() -> duck.processInput(targetEventByEnd));
     }
 
+    /**
+     * Tests the processInput method of the Duck with valid todo command input.
+     */
     @Test
     public void processInput_toDoCommand_success() {
         String input1 = "todo test";
@@ -181,6 +235,9 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input5));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid unmark command input.
+     */
     @AfterAll
     public static void processInput_unmarkCommand_exceptionThrown() {
         String input1 = "unmark 1";
@@ -195,6 +252,10 @@ public class DuckTest {
         assertDoesNotThrow(() -> duck.processInput(input4));
         assertDoesNotThrow(() -> duck.processInput(input5));
     }
+
+    /**
+     * Tests the processInput method of the Duck with random invalid input.
+     */
     @Test
     public void processInput_randomInvalidInput_exceptionThrown() {
         String input1 = "invalid";
@@ -208,6 +269,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input4));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid deadline command input.
+     */
     @Test
     public void processInput_invalidDeadlineCommand_exceptionThrown() {
         String input1 = "deadline test /by 2021/08-25 1800";
@@ -219,6 +283,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input3));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid delete command input.
+     */
     @Test
     public void processInput_invalidDeleteCommand_exceptionThrown() {
         String input1 = "deLete 0";
@@ -230,6 +297,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input3));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid event command input.
+     */
     @Test
     public void processInput_invalidEventCommand_exceptionThrown() {
         String input1 = "?event test /from 2021/08/25 1800 /to 2021-08-25 1900";
@@ -247,6 +317,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input6));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid find command input.
+     */
     @Test
     public void processInput_invalidFindCommand_exceptionThrown() {
         String input1 = "?find";
@@ -256,6 +329,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input2));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid list command input.
+     */
     @Test
     public void processInput_invalidListCommand_exceptionThrown() {
 
@@ -269,6 +345,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input4));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid mark command input.
+     */
     @Test
     public void processInput_invalidMarkCommand_exceptionThrown() {
         String input1 = "mark 0";
@@ -282,6 +361,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input4));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid on command input.
+     */
     @Test
     public void processInput_invalidOnCommand_exceptionThrown() {
         String input1 = "on 2021/08-25";
@@ -299,6 +381,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input6));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid sort /by parameter for /target all.
+     */
     @Test
     public void processInput_invalidSortCommandTargetAll_exceptionThrown() {
         String input1 = "sort /target all /by deadline";
@@ -310,6 +395,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input3));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid sort /by parameter for /target todo.
+     */
     @Test
     public void processInput_invalidSortCommandTargetToDo_exceptionThrown() {
         String input1 = "sort /target todo /by type";
@@ -323,6 +411,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input4));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid sort /by parameter for /target deadline.
+     */
     @Test
     public void processInput_invalidSortCommandTargetDeadline_exceptionThrown() {
         String input1 = "sort /target deadline /by type";
@@ -334,6 +425,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input3));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid sort /by parameter for /target event.
+     */
     @Test
     public void processInput_invalidSortCommandTargetEvent_exceptionThrown() {
         String input1 = "sort /target event /by type";
@@ -343,6 +437,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input2));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid sort command /target or /by parameters.
+     */
     @Test
     public void processInput_invalidSortCommandInvalidParams_exceptionThrown() {
         String input1 = "sort /target /by";
@@ -359,6 +456,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input5));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid todo command input.
+     */
     @Test
     public void processInput_invalidToDoCommand_exceptionThrown() {
         String input1 = "todo";
@@ -372,6 +472,9 @@ public class DuckTest {
         assertThrows(DuckException.class, () -> duck.processInput(input4));
     }
 
+    /**
+     * Tests the processInput method of the Duck with invalid unmark command input.
+     */
     @Test
     public void processInput_invalidUnmarkCommand_exceptionThrown() {
         String input1 = "unmark 0";
