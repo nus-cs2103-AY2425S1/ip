@@ -9,7 +9,6 @@ public class Ui {
      * Prints the message to the user.
      *
      * @param message The message to be printed.
-     * @deprecated Deprecated since using JavaFX.
      */
     public static void printMessage(String message) {
         System.out.println("\n____________________________________________________________");

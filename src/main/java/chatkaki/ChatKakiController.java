@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 
+
 /**
  * The controller for ChatKaki's GUI.
  */
