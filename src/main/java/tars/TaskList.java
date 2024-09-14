@@ -56,7 +56,7 @@ public class TaskList {
             }
         } else if (task[0].equals("todo")) {
             result = this.addToDos(task, entry);
-        } else if (task[0].equals("deadLINE")) {
+        } else if (task[0].equals("deadline")) {
             result = this.addDeadline(task, entry);
         } else if (task[0].equals("event")) {
             result = this.addEvent(task, entry);
@@ -190,7 +190,6 @@ public class TaskList {
 
             result = LINE + "    Got it. I've added this task:" + eventTask
                     + "    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE;
-
         } else {
             result = LINE + "\n" + "  Please state date and time of from and to of event"
                     + "in YYYY-dd-MM HH:mm format" + "\n" + LINE;
