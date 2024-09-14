@@ -6,12 +6,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Gui extends Application {
+    private final Image userImage = new Image(getClass().getResourceAsStream("/images/aUser.png"));
+    private final Image dukeImage = new Image(getClass().getResourceAsStream("/images/aAlexer.png"));
+
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -26,6 +30,9 @@ public class Gui extends Application {
 
         userInput = new TextField();
         sendButton = new Button("Send");
+
+        MessageBox messageBox = new MessageBox("Hello!", userImage);
+        dialogContainer.getChildren().addAll(messageBox);
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
