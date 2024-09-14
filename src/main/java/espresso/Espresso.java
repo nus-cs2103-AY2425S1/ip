@@ -22,7 +22,7 @@ public class Espresso {
         } catch (IOException e) {
             ui.printError("Error loading tasks from file: " + e.getMessage());
         } catch (ParseException e) {
-            ui.printError("Error in parsing tasks " + e.getMessage());
+            ui.printError("Error in parsing tasks: " + e.getMessage());
         } catch (InvalidCommandException e) {
             ui.printError("Erratic Command: " + e.getMessage());
         }
@@ -42,7 +42,7 @@ public class Espresso {
         try {
             storage.save(taskList.getTasks());
         } catch (IOException e) {
-            ui.printError("Cannot save file due to error :  " + e.getMessage());
+            ui.printError("Cannot save file due to error: " + e.getMessage());
         }
 
         ui.printGoodbye();
