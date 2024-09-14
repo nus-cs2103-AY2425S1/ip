@@ -49,10 +49,8 @@ public class AddCommand extends Command {
             storage.amendFile(task); // Ensure amendFile is accessed via the correct instance
             return output;
         } catch (IOException e) {
-            ui.showLine();
             return "An error occurred while saving the task to the file.";
         } catch (Exception e) {
-            ui.showLine();
             return "An unexpected error occurred while adding the task.";
         }
     }

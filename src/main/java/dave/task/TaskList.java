@@ -1,7 +1,9 @@
 package dave.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
 
 /**
  * Represents a list of tasks. The TaskList class allows for adding, removing,
@@ -91,6 +93,40 @@ public class TaskList {
         assert keyword != null && !keyword.trim().isEmpty() : "Keyword should not be null or empty";
         return tasks.stream()
                 .filter(task -> task.toString().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Finds and returns a list of undone tasks that are deadlines.
+     *
+     * This method filters the tasks by checking if they are marked as deadlines
+     * (denoted by the "[D]" symbol at the start of the task's string representation)
+     * and whether they are not marked as done.
+     * The result is collected into a new ArrayList.
+     *
+     * @return an ArrayList containing tasks that are deadlines and are not completed.
+     */
+    public ArrayList<Task> findUndoneDeadlineTasks() {
+        LocalDateTime now = LocalDateTime.now();
+        return tasks.stream()
+                .filter(task -> task instanceof Deadline)
+                .filter(task -> !task.getIsDone())
+                .filter(task -> ((Deadline) task).getDueDateTime().isBefore(now))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+
+    /**
+     * Finds and returns a list of undone tasks that are deadlines.
+     *
+     * This method filters the tasks by checking if they are not marked as done.
+     * The result is collected into a new ArrayList.
+     *
+     * @return an ArrayList containing tasks that are not completed.
+     */
+    public ArrayList<Task> findUndoneTasks() {
+        return tasks.stream()
+                .filter(task -> !task.getIsDone())
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }
