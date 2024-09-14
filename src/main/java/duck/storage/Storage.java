@@ -215,6 +215,19 @@ public class Storage {
     }
 
     /**
+     * Clears all tasks from the file.
+     *
+     * @throws DuckException If there is an error writing to the file.
+     */
+    public void clearAllTasks() throws DuckException {
+        try (FileWriter fw = new FileWriter(filePath)) {
+            fw.write("");
+        } catch (IOException e) {
+            throw new DuckException(ERROR_WRITING_TO_FILE + e.getMessage());
+        }
+    }
+
+    /**
      * Checks if the task's file format is correct based on the task type.
      *
      * @param words The task details split from the file line.

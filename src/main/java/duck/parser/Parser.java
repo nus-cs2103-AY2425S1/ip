@@ -30,21 +30,23 @@ public class Parser {
      */
     public static Command parse(String message) {
         try {
-            CommandWord instruction = CommandWord.valueOf(getInstruction(message));
+            String trimmedMessage = message.trim();
+            String instructionWord = getInstruction(trimmedMessage);
+            CommandWord instruction = CommandWord.valueOf(instructionWord);
             //CHECKSTYLE.OFF: Indentation
             return switch (instruction) {
-                case HELP -> new HelpCommand(message);
-                case LIST -> new ListCommand(message);
-                case FIND -> new FindCommand(message);
-                case SORT -> new SortCommand(message);
-                case MARK -> new MarkCommand(message);
-                case UNMARK -> new UnmarkCommand(message);
-                case DELETE -> new DeleteCommand(message);
-                case TODO -> new ToDoCommand(message);
-                case DEADLINE -> new DeadlineCommand(message);
-                case EVENT -> new EventCommand(message);
-                case ON -> new OnCommand(message);
-                case BYE -> new ByeCommand(message);
+                case HELP -> new HelpCommand(trimmedMessage);
+                case LIST -> new ListCommand(trimmedMessage);
+                case FIND -> new FindCommand(trimmedMessage);
+                case SORT -> new SortCommand(trimmedMessage);
+                case MARK -> new MarkCommand(trimmedMessage);
+                case UNMARK -> new UnmarkCommand(trimmedMessage);
+                case DELETE -> new DeleteCommand(trimmedMessage);
+                case TODO -> new ToDoCommand(trimmedMessage);
+                case DEADLINE -> new DeadlineCommand(trimmedMessage);
+                case EVENT -> new EventCommand(trimmedMessage);
+                case ON -> new OnCommand(trimmedMessage);
+                case BYE -> new ByeCommand(trimmedMessage);
             };
             //CHECKSTYLE.ON: Indentation
         } catch (IllegalArgumentException e) {
@@ -60,6 +62,7 @@ public class Parser {
      * @return The instruction part of the message in uppercase.
      */
     private static String getInstruction(String message) {
+
         return message.split(" ")[0].toUpperCase();
     }
 }
