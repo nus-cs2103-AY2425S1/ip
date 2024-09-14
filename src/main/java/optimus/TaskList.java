@@ -44,6 +44,7 @@ public class TaskList {
      * @throws OptimusException If the index is out of bounds.
      */
     public void markTaskAsDone(int index) throws OptimusException {
+        assert index >= 0 && index < taskList.size() : "Task index out of bounds";
         // Check if index is within the valid range
         // Asked ChatGPT to advise on error checking
         if (index < 0 || index >= taskList.size()) {
@@ -63,6 +64,7 @@ public class TaskList {
      * @throws OptimusException If the index is out of bounds.
      */
     public void delete(int taskIndex) throws OptimusException {
+        assert taskIndex >= 0 && taskIndex < taskList.size() : "Task index out of bounds";
         // Check if taskIndex is within the valid range
         // Asked ChatGPT to advise on error checking
         if (taskIndex < 0 || taskIndex >= taskList.size()) {
