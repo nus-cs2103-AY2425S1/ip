@@ -68,11 +68,16 @@ public class MainWindow extends AnchorPane {
             PauseTransition pause = new PauseTransition(Duration.seconds(3));
             pause.setOnFinished(event -> Platform.exit());
             pause.play();
+        } else if (userText.equalsIgnoreCase("hi")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, userImage),
+                    DialogBox.getChatBotDialog("Hello, my name is Derrick! What can I do for you?", chatBotImage)
+            );
         } else {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, userImage),
                     DialogBox.getChatBotDialog(chatBotText, chatBotImage)
-            );
+                );
         }
     }
 }
