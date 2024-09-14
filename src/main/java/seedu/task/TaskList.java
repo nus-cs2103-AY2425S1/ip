@@ -116,7 +116,7 @@ public class TaskList {
      *
      * @param s The storage where tasks will be saved.
      */
-    public void saveTask(Storage s) {
+    public void saveTasks(Storage s) {
         assert s != null : "Storage should not be null";
         s.prepareSave();
         for (Task t: this.tasks) {

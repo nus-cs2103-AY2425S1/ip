@@ -31,7 +31,9 @@ public class Storage {
      * @param tl The {@code TaskList} where tasks will be loaded into.
      */
     public void loadTasks(TaskList tl) {
+        assert tl != null;
         File f = new File(FILE_PATH);
+        assert f != null;
         try {
             Scanner s1 = new Scanner(f);
             while (s1.hasNext()) {
@@ -40,14 +42,17 @@ public class Storage {
                 Task x;
                 switch (taskList[0]) {
                 case "T":
+                    assert taskList.length == 3;
                     x = new ToDo(taskList[2]);
                     tl.addTask(x);
                     break;
                 case "D":
+                    assert taskList.length == 4;
                     x = new Deadline(taskList[2], taskList[3]);
                     tl.addTask(x);
                     break;
                 case "E":
+                    assert taskList.length == 5;
                     x = new Event(taskList[2], taskList[3], taskList[4]);
                     tl.addTask(x);
                     break;
@@ -71,6 +76,7 @@ public class Storage {
         try {
             Files.createDirectories(Path.of("data")); // Hard-coded
             FileWriter fw = new FileWriter(FILE_PATH);
+            assert fw != null;
             fw.close(); // Clear the file contents by closing the newly created FileWriter
         } catch (IOException ignored) {
             this.formatter.savingErrorUi();
@@ -86,6 +92,7 @@ public class Storage {
     public void saveTask(String s) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);
+            assert fw != null;
             fw.write(s + System.lineSeparator());
             fw.close();
         } catch (IOException ignored) {

@@ -40,7 +40,7 @@ public class Bob {
      * Exits the program. Saves the task into a text file.
      */
     public String exit() {
-        this.tasks.saveTask(this.storage);
+        this.tasks.saveTasks(this.storage);
         return formatter.exitBobUi();
     }
 
