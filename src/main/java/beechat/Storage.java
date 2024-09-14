@@ -9,20 +9,23 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileHandler {
-    private static final String FILE_PATH = "./data/beechat.txt";
+public class Storage {
+    private final String filePath;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
-    public static List<Task> loadTasks() {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+    public List<Task> loadTasks() throws IOException {
         List<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
 
         try {
             if (!file.exists()) {
-                new File("./data").mkdirs(); // Create the directory if it doesn't exist
+                new File(file.getParent()).mkdirs(); // Create the directory if it doesn't exist
                 file.createNewFile(); // Create the file if it doesn't exist
             } else {
-                BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+                BufferedReader reader = new BufferedReader(new FileReader(filePath));
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split(" \\| ");
@@ -68,12 +71,11 @@ public class FileHandler {
         } catch (IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
-
         return tasks;
     }
 
-    public static void saveTasks(List<Task> tasks) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+    public void saveTasks(List<Task> tasks) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 writer.write(task.toSaveFormat());
                 writer.newLine();
