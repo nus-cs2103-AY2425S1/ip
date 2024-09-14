@@ -19,17 +19,15 @@ import java.util.Scanner;
  * It uses the Items class to store and manage the list of tasks.
  *
  * The main method creates an instance of the Sam class and starts the application.
- *
  */
 public class Sam {
     private Ui ui;
     private Storage storage;
     private Items items;
+    private boolean isExit = false; // Flag to control application exit
 
     /**
      * Constructs a new instance of the Sam class.
-     *
-     * @param filePath The file path to the storage file.
      */
     public Sam() {
         String filePath = "data/Sam.txt";
@@ -48,47 +46,100 @@ public class Sam {
 
     /**
      * Handles a single user input and returns the response as a string.
+     *
      * @param input the input from the user
      * @return the response based on the input
      */
     public String getResponse(String input) {
         StringBuilder response = new StringBuilder();
-        
         try {
-            if (input.equals("bye")) {
-                response.append("Goodbye!\n");
-                if (items.getSize() > 0) {
-                    storage.save(items.getItems());
-                }
+            CommandType commandType = parseCommandType(input);
 
-            } else if (input.equals("list")) {
+            switch (commandType) {
+            case BYE:
+                response.append("Goodbye!\n");
+                isExit = true;
+                saveTasks();
+                break;
+            case LIST:
                 response.append("Here are the tasks in your list:\n");
                 response.append(items.toString()).append("\n");
-            } else if (input.startsWith("mark")) {
+                break;
+            case MARK:
                 response.append(markItemDone(input));
-            } else if (input.startsWith("find")) {
-                response.append(findItem(input));
-            } else if (input.startsWith("unmark")) {
+                saveTasks();
+                break;
+            case UNMARK:
                 response.append(markItemUndone(input));
-            } else if (input.startsWith("delete")) {
+                saveTasks();
+                break;
+            case DELETE:
                 response.append(deleteItem(input));
-            } else {
+                saveTasks();
+                break;
+            case FIND:
+                response.append(findItem(input));
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
                 response.append(addItem(input));
+                saveTasks();
+                break;
+            default:
+                throw new SamException("I'm sorry, but I don't know what that means.");
             }
-            storage.save(items.getItems());
         } catch (SamException e) {
             response.append(e.getMessage()).append("\n");
-        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-            response.append("Invalid input format. Please follow the correct format for tasks.\n");
-        } catch (DateTimeParseException e) {
-            response.append("Invalid date format. Please use dd-MM-yyyy.\n");
         } catch (IOException e) {
             response.append("An error occurred while saving the tasks.\n");
-        } catch (Exception e) {
-            response.append("An error occurred. Please try again.\n");
+        } catch (DateTimeParseException e) {
+            response.append("Invalid date format. Please use dd-MM-yyyy.\n");
         }
-        
         return response.toString();
+    }
+
+    /**
+     * Parses the command type from the user input.
+     *
+     * @param input the user input
+     * @return the CommandType enum representing the command
+     */
+    private CommandType parseCommandType(String input) {
+        String[] parts = input.trim().split(" ", 2);
+        String commandWord = parts[0].toLowerCase();
+
+        switch (commandWord) {
+        case "bye":
+            return CommandType.BYE;
+        case "list":
+            return CommandType.LIST;
+        case "mark":
+            return CommandType.MARK;
+        case "unmark":
+            return CommandType.UNMARK;
+        case "delete":
+            return CommandType.DELETE;
+        case "find":
+            return CommandType.FIND;
+        case "todo":
+            return CommandType.TODO;
+        case "deadline":
+            return CommandType.DEADLINE;
+        case "event":
+            return CommandType.EVENT;
+        default:
+            return CommandType.UNKNOWN;
+        }
+    }
+
+    /**
+     * Saves the current tasks to storage.
+     *
+     * @throws IOException if an I/O error occurs
+     */
+    private void saveTasks() throws IOException {
+        storage.save(items.getItems());
     }
 
     /**
@@ -99,15 +150,10 @@ public class Sam {
      * @throws SamException if the task number is invalid or out of range
      */
     private String markItemDone(String input) throws SamException {
-        try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            items.getItem(index).markAsDone();
-            return "Nice! I've marked this task as done:\n" + items.getItem(index).toString() + "\n";
-        } catch (NumberFormatException e) {
-            throw new SamException("Invalid task number. Please enter a valid task number to mark.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SamException("Task number out of range. Please enter a valid task number to mark.");
-        }
+        int index = parseTaskIndex(input);
+        Item item = items.getItem(index);
+        item.markAsDone();
+        return "Nice! I've marked this task as done:\n" + item.toString() + "\n";
     }
 
     /**
@@ -118,15 +164,10 @@ public class Sam {
      * @throws SamException if the task number is invalid or out of range
      */
     private String markItemUndone(String input) throws SamException {
-        try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            items.getItem(index).markAsUndone();
-            return "OK, I've marked this task as not done yet:\n" + items.getItem(index).toString() + "\n";
-        } catch (NumberFormatException e) {
-            throw new SamException("Invalid task number. Please enter a valid task number to unmark.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SamException("Task number out of range. Please enter a valid task number to unmark.");
-        }
+        int index = parseTaskIndex(input);
+        Item item = items.getItem(index);
+        item.markAsUndone();
+        return "OK, I've marked this task as not done yet:\n" + item.toString() + "\n";
     }
 
     /**
@@ -137,16 +178,32 @@ public class Sam {
      * @throws SamException if the input is not a valid task number or if the task number is out of range
      */
     private String deleteItem(String input) throws SamException {
+        int index = parseTaskIndex(input);
+        Item item = items.getItem(index);
+        items.deleteItem(index);
+        return "Noted. I've removed this task:\n" + item.toString() + "\n";
+    }
+
+    /**
+     * Parses the task index from the user input.
+     *
+     * @param input the user input containing the task number
+     * @return the zero-based index of the task
+     * @throws SamException if the input is invalid or the index is out of range
+     */
+    private int parseTaskIndex(String input) throws SamException {
+        String[] parts = input.trim().split(" ");
+        if (parts.length < 2) {
+            throw new SamException("Please specify the task number.");
+        }
         try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            Item item = items.getItem(index);
-            items.deleteItem(index);
-            return "Noted. I've removed this task:\n" + item.toString() + "\n" +
-                    String.format("Now you have %d tasks in the list.\n", items.getSize());
+            int index = Integer.parseInt(parts[1]) - 1;
+            if (index < 0 || index >= items.getSize()) {
+                throw new SamException("Task number out of range. Please enter a valid task number.");
+            }
+            return index;
         } catch (NumberFormatException e) {
-            throw new SamException("Invalid task number. Please enter a valid task number to delete.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SamException("Task number out of range. Please enter a valid task number to delete.");
+            throw new SamException("Invalid task number. Please enter a valid task number.");
         }
     }
 
@@ -158,35 +215,77 @@ public class Sam {
      * @throws SamException if the input is invalid or incomplete
      */
     private String addItem(String input) throws SamException {
-        String[] parts = input.split(" ");
-        String itemType = parts[0];
+        CommandType commandType = parseCommandType(input);
         String response;
 
-        if ("todo".equals(itemType)) {
-            if (parts.length == 1 || "".equals(input.substring(5).trim())) {
-                throw new SamException("Please include the name of the ToDo task.");
-            }
-            items.addItem(new ToDo(input.substring(5).trim()));
-            response = "Got it. I've added this task:\n" + items.getLastAdded().toString();
-        } else if ("deadline".equals(itemType)) {
-            String[] dParts = input.split(" /by ");
-            if (dParts.length < 2 || "".equals(dParts[1].trim())) {
-                throw new SamException("Please include the date of the Deadline task.");
-            }
-            items.addItem(new Deadline(dParts[0].substring(9).trim(), dParts[1].trim()));
-            response = "Got it. I've added this task:\n" + items.getLastAdded().toString();
-        } else if ("event".equals(itemType)) {
-            String[] eParts = input.split(" /from | /to ");
-            if (eParts.length < 3 || "".equals(eParts[1].trim()) || "".equals(eParts[2].trim())) {
-                throw new SamException("Please include the dates for the Event task.");
-            }
-            items.addItem(new Event(eParts[0].substring(6).trim(), eParts[1].trim(), eParts[2].trim()));
-            response = "Got it. I've added this task:\n" + items.getLastAdded().toString();
-        } else {
+        switch (commandType) {
+        case TODO:
+            response = addTodoItem(input);
+            break;
+        case DEADLINE:
+            response = addDeadlineItem(input);
+            break;
+        case EVENT:
+            response = addEventItem(input);
+            break;
+        default:
             throw new SamException("I'm sorry, but I don't know what that means.");
         }
 
-        return response + String.format("\nNow you have %d tasks in the list.\n", items.getSize());
+        response += String.format("\nNow you have %d tasks in the list.\n", items.getSize());
+        return response;
+    }
+
+    /**
+     * Adds a new ToDo task to the list.
+     *
+     * @param input the user input containing the ToDo task description
+     * @return the message indicating the task has been added
+     * @throws SamException if the description is empty
+     */
+    private String addTodoItem(String input) throws SamException {
+        String description = input.substring(4).trim();
+        if (description.isEmpty()) {
+            throw new SamException("The description of a ToDo cannot be empty.");
+        }
+        Item todo = new ToDo(description);
+        items.addItem(todo);
+        return "Got it. I've added this task:\n" + todo.toString();
+    }
+
+    /**
+     * Adds a new Deadline task to the list.
+     *
+     * @param input the user input containing the Deadline task description and date
+     * @return the message indicating the task has been added
+     * @throws SamException if the description or date is empty
+     */
+    private String addDeadlineItem(String input) throws SamException {
+        String[] parts = input.substring(8).split(" /by ", 2);
+        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+            throw new SamException("The description and date of a Deadline cannot be empty.");
+        }
+        Item deadline = new Deadline(parts[0].trim(), parts[1].trim());
+        items.addItem(deadline);
+        return "Got it. I've added this task:\n" + deadline.toString();
+    }
+
+    /**
+     * Adds a new Event task to the list.
+     *
+     * @param input the user input containing the Event task description and dates
+     * @return the message indicating the task has been added
+     * @throws SamException if the description or dates are empty
+     */
+    private String addEventItem(String input) throws SamException {
+        String[] parts = input.substring(5).split(" /from | /to ", 3);
+        if (parts.length < 3 || parts[0].trim().isEmpty()
+                || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+            throw new SamException("The description and dates of an Event cannot be empty.");
+        }
+        Item event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        items.addItem(event);
+        return "Got it. I've added this task:\n" + event.toString();
     }
 
     /**
@@ -212,19 +311,29 @@ public class Sam {
         return response.toString();
     }
 
+    /**
+     * The main method that starts the application.
+     *
+     * @param args command-line arguments
+     */
     public static void main(String[] args) {
         Sam samApp = new Sam();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Sam Task Manager!");
     
-        while (true) {
+        while (!samApp.isExit) {
             String input = scanner.nextLine();
             assert input != null && !input.isEmpty() : "Input should not be null or empty";
             String response = samApp.getResponse(input);
             System.out.println(response);
-            if (response.equals("Goodbye!\n")) {
-                System.exit(0);
-            }
         }
+        scanner.close();
+    }
+
+    /**
+     * Enum representing the different command types.
+     */
+    private enum CommandType {
+        BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, UNKNOWN
     }
 }
