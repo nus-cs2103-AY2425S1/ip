@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,15 +17,17 @@ public class Nebula {
         TaskList taskList;
         Parser parser = new Parser();
 
-        Path dataFolderPath = Paths.get("../data");
+        Path dataFolderPath = Paths.get("./data");
         Path nebulaTextFile = dataFolderPath.resolve("nebulaTaskList.txt");
+
+        System.out.println("file: " + nebulaTextFile);
+        System.out.println("exists?: " + Files.exists(nebulaTextFile));
+
         if (Files.exists(nebulaTextFile)) {
-            taskList = new TaskList(new ArrayList<Task>());
+            taskList = new TaskList(textFileToArrayList("./data/nebulaTaskList.txt"));
         } else {
             taskList = new TaskList();
         }
-
-        File currentDirectory = new File("./");
 
         System.out.println(ui.greeting());
 
@@ -203,7 +203,7 @@ public class Nebula {
     public static void saveTaskListToTextFile(ArrayList<Task> listOfTasks) throws IOException {
 
         // Create a folder called "data" if it doesn't exist
-        File dataDirectory = new File("../data");
+        File dataDirectory = new File("./data");
         if (!dataDirectory.exists()) {
             dataDirectory.mkdirs();  // Create the "data" directory
         }
@@ -233,6 +233,82 @@ public class Nebula {
 
         fw.close();
     }
+
+    public static ArrayList<Task> textFileToArrayList(String path) {
+        ArrayList<Task> listOfTasks = new ArrayList<>();
+
+        try {
+            FileReader fr = new FileReader(path);
+            BufferedReader br = new BufferedReader(fr);
+
+            String textLine;
+
+            while ((textLine = br.readLine()) != null) {
+                // Split the line by the '|' character
+                String[] parts = textLine.split("\\|");
+
+                // Trim whitespace from each part
+                for (int i = 0; i < parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                }
+                if (parts.length < 3) {
+                    continue; // Skip invalid lines
+                }
+
+                // Get done status and task type
+                boolean isDone = "1".equals(parts[0]);
+                char taskSymbol = parts[1].charAt(1);
+
+                Task task = null;
+                switch (taskSymbol) {
+                    case 'T':
+                        if (parts.length >= 3) {
+                            task = new Todo(parts[2]);
+                            task.setDone(isDone);
+                        }
+                        break;
+
+                    case 'D':
+                        if (parts.length >= 4) {
+                            String deadlineDescription = parts[2];
+                            String dueDate = parts[3];
+                            task = new Deadline(deadlineDescription, dueDate);
+                            task.setDone(isDone);
+                        }
+                        break;
+
+                    case 'E':
+                        if (parts.length >= 4) {
+                            String eventDescription = parts[2];
+                            String startDateEndDate = parts[3];
+                            // Split start and end dates
+                            String[] dates = startDateEndDate.split("-");
+                            if (dates.length == 2) {
+                                String startDate = dates[0].trim();
+                                String endDate = dates[1].trim();
+                                task = new Event(eventDescription, startDate, endDate);
+                                task.setDone(isDone);
+                            }
+                        }
+                        break;
+
+                    default:
+                        System.out.println("Unknown task type: " + taskSymbol);
+                        break;
+                }
+
+                if (task != null) {
+                    listOfTasks.add(task);
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return listOfTasks;
+    }
+
 
 
 
