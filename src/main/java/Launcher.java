@@ -1,4 +1,3 @@
-//import com.sun.tools.javac.Main;
 import javafx.application.Application;
 
 /**

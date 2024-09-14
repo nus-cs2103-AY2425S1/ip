@@ -1,7 +1,7 @@
 import java.io.IOException;
 
-import UI.Delphi;
-import UI.MainWindow;
+import ui.Delphi;
+import ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,8 +26,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
-            //line to help with closing application
             fxmlLoader.<MainWindow>getController().setDelphi(delphi);  // inject the Delphi instance
+            fxmlLoader.<MainWindow>getController().welcomeAndCurrentTasks(); //display welcome and current tasks
 
             stage.show();
         } catch (IOException e) {
@@ -35,9 +35,6 @@ public class Main extends Application {
         }
     }
 }
-
-
-//More code to be added here later
 
 
 

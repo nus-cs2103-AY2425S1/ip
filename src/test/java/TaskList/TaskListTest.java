@@ -1,10 +1,10 @@
 /*
 package TaskList;
 
-import Parser.DateParser;
-import Parser.Parser;
-import Exceptions.DelphiException;
-import Storage.Storage;
+import parser.DateParser;
+import parser.parser;
+import exceptions.DelphiException;
+import storage.storage;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class TaskListTest {
-    class StorageStub extends Storage {
+    class StorageStub extends storage {
          @Override
          public List<String> readFromHardDisk() throws IOException{
              List<String> res = new ArrayList<>();
@@ -23,7 +23,7 @@ public class TaskListTest {
              return res;
         }
     }
-    class ParserStub extends Parser {
+    class ParserStub extends parser {
 
     }
      TaskList testTaskList = new TaskList();

@@ -1,4 +1,4 @@
-Hello! I'm UI.Delphi, the greatest oracle in all of the classical world.
+Hello! I'm ui.Delphi, the greatest oracle in all of the classical world.
 To quote a very famous person who will arrive a bit later, ask and ye shall find
     Got it. I've added this task:
       [T][ ] borrow book

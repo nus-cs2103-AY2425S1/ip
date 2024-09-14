@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.DelphiException;
-import Exceptions.InvalidListItemException;
-import Parser.DateParser;
-import Parser.Parser;
-import Storage.Storage;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+import exceptions.DelphiException;
+import exceptions.HardDriveNotFoundException;
+import exceptions.InvalidListItemException;
+import parser.Parser;
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 /**
  * Represents a list of tasks. The TaskList.TaskList class manages the creation,
@@ -41,73 +41,47 @@ public class TaskList {
     /**
      * Converts all the strings that represent tasks from the hard drive .txt file and adds them to the task list.
      *
-     * @param s The storage object that UI.Delphi uses to interact with the hard disk .txt file.
+     * @param s The storage object that ui.Delphi uses to interact with the hard disk .txt file.
      */
-    public void loadStorageToTasks(Storage s) {
+    public void loadStorageToTasks(Storage s) throws HardDriveNotFoundException {
         Parser helperParser = new Parser();
-        try {
-            List<String> readTasks = s.readFromHardDisk();
-            int counter = 0;
-            while (counter < readTasks.size()) {
-                String line = readTasks.get(counter);
+        List<String> readTasks = new ArrayList<>();
+        readTasks = s.readFromHardDisk();
+        int counter = 0;
+        while (counter < readTasks.size()) {
+            String line = readTasks.get(counter);
 
-                //ensure that the stored tasks are formatted correcly as strings before converting
-                //them to tasks
-                assert line.charAt(0) == '[' : "Task incorrectly formatted";
-                assert line.charAt(2) == ']' : "Task incorrectly formatted";
-                assert line.charAt(3) == '[' : "Task incorrectly formatted";
-                assert line.charAt(5) == ']' : "Task incorrectly formatted";
-                assert (line.charAt(4) == 'X' || line.charAt(4) == ' ') : "Task incorrectly formatted";
-                assert line.charAt(1) == 'T' || line.charAt(1) == 'D' || line.charAt(1) == 'E'
-                        : "Task incorrectly formatted";
+            //ensure that the stored tasks are formatted correcly as strings before converting
+            //them to tasks
+            assert line.charAt(0) == '[' : "Task incorrectly formatted";
+            assert line.charAt(2) == ']' : "Task incorrectly formatted";
+            assert line.charAt(3) == '[' : "Task incorrectly formatted";
+            assert line.charAt(5) == ']' : "Task incorrectly formatted";
+            assert (line.charAt(4) == 'X' || line.charAt(4) == ' ') : "Task incorrectly formatted";
+            assert line.charAt(1) == 'T' || line.charAt(1) == 'D' || line.charAt(1) == 'E'
+                    : "Task incorrectly formatted";
 
+            try {
                 if (helperParser.checkStringPrefix(line, 6, "[T][ ]")) {
-                    try {
-                        tasks.add(new Todo(line.substring(7)));
-                    } catch (DelphiException e) {
-                        //empty because the assertions should make sure that the task is of the correct format
-                    }
+                    tasks.add(new Todo(line.substring(7)));
                 } else if (helperParser.checkStringPrefix(line, 6, "[T][X]")) {
-                    try {
-                        tasks.add(new Todo(line.substring(7)));
-                        markTaskAsDone(tasks.size()); //mark the newly loaded task as done
-                    } catch (DelphiException e) {
-                        //empty because the assertions should make sure that the task is of the correct format
-                    }
+                    tasks.add(new Todo(line.substring(7)));
+                    markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][ ]")) {
-                    try {
-                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperParser));
-                    } catch (DelphiException e) {
-                        //empty because the assertions should make sure that the task is of the correct format
-                    }
+                    tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperParser));
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][X]")) {
-                    try {
-                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperParser));
-                        markTaskAsDone(tasks.size()); //mark the newly loaded task as done
-                    } catch (DelphiException e) {
-                        //empty because the assertions should make sure that the task is of the correct format
-                    }
+                    tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperParser));
+                    markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][ ]")) {
-                    try {
-                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperParser));
-                    } catch (DelphiException e) {
-                        //empty because the assertions should make sure that the task is of the correct format
-                    }
+                    tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperParser));
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][X]")) {
-                    try {
-                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperParser));
-                        markTaskAsDone(tasks.size()); //mark the newly loaded task as done
-                    } catch (DelphiException e) {
-                        //empty because the assertions should make sure that the task is of the correct format
-                    }
+                    tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperParser));
+                    markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                 }
-                counter++;
+            } catch (DelphiException e) {
+                //empty because the assertions should make sure that the task is of the correct format
             }
-            if (readTasks.isEmpty()) {
-                System.out.println("    no tasks in hard drive");
-            }
-        } catch (IOException e) {
-            System.out.println("    could not find hard disk!");
+            counter++;
         }
     }
 
