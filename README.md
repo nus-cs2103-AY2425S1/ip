@@ -1,6 +1,6 @@
 # <img src="/src/main/resources/images/DavidLogo.png" alt="David Logo" width="25"/> David User Guide
 
-![Screenshot of David chatbot](/src/main/resources/images/Ui.png)
+![Screenshot of David chatbot](src/main/resources/images/Ui.png)
 
 
 David is a task list tracker, enhanced and optimised for users who prefer
