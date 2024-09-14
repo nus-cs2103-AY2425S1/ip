@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import bob.task.Task;
+
 /**
  * Represents Bob's storage.
  */

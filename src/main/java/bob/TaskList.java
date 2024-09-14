@@ -3,6 +3,8 @@ package bob;
 import java.util.ArrayList;
 import java.util.List;
 
+import bob.task.Task;
+
 public class TaskList {
 
     private List<Task> list;

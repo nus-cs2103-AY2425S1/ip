@@ -1,4 +1,8 @@
-package bob;
+package bob.command;
+
+import bob.Storage;
+import bob.TaskList;
+import bob.task.Task;
 
 public class FindCommand extends Command {
 
