@@ -140,8 +140,6 @@ public abstract class Task implements Serializable {
             throw new EchoException(msg + "\n" + guide);
         }
 
-        // Send message to user indicate the successful add and return the task created
-        System.out.println("Got it. I've added this task:");
         return newTask;
     }
 

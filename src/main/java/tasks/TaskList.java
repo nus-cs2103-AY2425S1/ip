@@ -41,9 +41,9 @@ public class TaskList implements Serializable {
      */
     public String markTask(int index) throws IndexOutOfBoundsException {
         assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
-        Task t = this.allTasks.get(index);
-        t.setMark();
-        return "Nice! I've marked this task as done:" + "\n" + t.toString();
+        Task task = this.allTasks.get(index);
+        task.setMark();
+        return "Nice! I've marked this task as done:\n\t" + task;
     }
 
     /**
@@ -55,9 +55,9 @@ public class TaskList implements Serializable {
      */
     public String unmarkTask(int index) throws IndexOutOfBoundsException {
         assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
-        Task t = this.allTasks.get(index);
-        t.setUnmark();
-        return "OK, I've marked this task as not done yet:" + "\n" + t.toString();
+        Task task = this.allTasks.get(index);
+        task.setUnmark();
+        return "OK, I've marked this task as not done yet:\n\t" + task;
     }
 
     /**
@@ -69,9 +69,9 @@ public class TaskList implements Serializable {
      */
     public String tagTask(int index, String tag) throws IndexOutOfBoundsException {
         assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
-        Task t = this.allTasks.get(index);
-        t.setTag(tag);
-        return "OK, I've tag this task:" + "\n" + t.toString();
+        Task task = this.allTasks.get(index);
+        task.setTag(tag);
+        return "OK, I've tag this task:\n\t" + task;
     }
 
     /**
@@ -82,7 +82,7 @@ public class TaskList implements Serializable {
      */
     public String add(Task task) {
         this.allTasks.add(task);
-        return task + "\n" + "Now you have "
+        return "Got it. I've added this task:\n\t" + task + "\n" + "Now you have "
                 + this.allTasks.size() + " tasks in the list.";
     }
 

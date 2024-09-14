@@ -16,10 +16,10 @@ public class EchoException extends Exception {
     /**
      * Creates a DukeException with provided specific message.
      *
-     * @param msg specific message of the exception.
+     * @param message specific message of the exception.
      */
-    public EchoException(String msg) {
-        super(msg);
+    public EchoException(String message) {
+        super(message + "\nYou can enter 'help' or 'help [command]' to get more information.");
     }
 
     /**

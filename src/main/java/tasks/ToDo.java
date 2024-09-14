@@ -32,7 +32,7 @@ public class ToDo extends Task implements Serializable {
         return "ToDo is a task without any date/time attached to it.\n"
                 + "e.g. visit new theme park\n\n"
                 + "Format:\n"
-                + "\t todo<whitespace>[description]\n"
+                + "\ttodo<whitespace>[description]\n"
                 + "- [description] is the details of this task.\n\n"
                 + "Remark: Please do not enter extra whitespace.";
     }

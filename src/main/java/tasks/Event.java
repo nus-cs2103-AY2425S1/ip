@@ -47,9 +47,10 @@ public class Event extends Task implements Serializable {
     /** Sends help information of command 'deadline' to user */
     public static String getHelpMessage() {
         return "Event is a task that starts at a specific date/time and ends at a specific date/time.\n"
-                + "e.g. (a) team project meeting 2/10/2019 2-4pm (b) orientation week 4/10/2019 to 11/10/2019\n\n"
+                + "e.g.\n\t(a) team project meeting 2/10/2019 2-4pm\n"
+                + "\t(b) orientation week 4/10/2019 to 11/10/2019\n\n"
                 + "Format:\n"
-                + "\t event<whitespace>[description]<whitespace>\\from<whitespace>[start time]"
+                + "\tevent<whitespace>[description]<whitespace>\\from<whitespace>[start time]"
                 + "<whitespace>\\to<whitespace>[end time]\n"
                 + "- [description] is the details of this task.\n"
                 + "- [start time] is the start time of this task in 'yyyy/MM/dd<whitespace>HH:mm' format.\n"

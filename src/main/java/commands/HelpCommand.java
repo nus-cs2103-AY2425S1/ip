@@ -59,7 +59,7 @@ public class HelpCommand {
         for (Command command : Command.values()) {
             message += "\t" + command.name().toLowerCase() + "\n";
         }
-        return message + "See 'help [command]' to read about a specific command.";
+        return message + "\nSee 'help [command]' to read about a specific command.";
     }
 
     /**
