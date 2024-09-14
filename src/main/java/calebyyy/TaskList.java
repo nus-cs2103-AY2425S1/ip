@@ -95,6 +95,8 @@ public class TaskList {
         assert taskNumber > 0 && taskNumber <= tasks.size() : "Invalid task number";
 
         Task task = tasks.get(taskNumber - 1);
+        String stringTask = task.toSaveFormat();
+        taskSet.remove(stringTask);
         tasks.remove(taskNumber - 1);
         ui.deleteTaskMessage(task, tasks.size());
     }
