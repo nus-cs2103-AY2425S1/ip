@@ -24,8 +24,6 @@ public class Parser {
         assert commandArray.length <= 2 : "Command array should be at most 2 in length";
         String command = commandArray[0].toUpperCase();
 
-        // set isExit flag to indicate bot exit
-        // boolean isExit = false;
         try {
             switch (Command.valueOf(command)) {
             case BYE:
