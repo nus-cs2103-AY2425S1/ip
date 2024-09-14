@@ -82,8 +82,7 @@ public class Event extends Task {
             LocalDateTime start = formatter(dateTimes[0].trim());
             LocalDateTime end = formatter(dateTimes[1].trim());
             return new Event(taskName, taskType, start, end);
-        }
-        catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             System.out.println("Invalid Event format. Expected format: 'task description /by date/time' ");
             throw new TaskCreationException();
         }
