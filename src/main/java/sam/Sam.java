@@ -197,6 +197,7 @@ public class Sam {
      */
     private String findItem(String input) {
         String keyword = input.substring(5).trim();
+        assert !keyword.isEmpty() : "Keyword should not be empty after trimming";
         List<Item> foundItems = items.findItems(keyword);
         StringBuilder response = new StringBuilder();
 
@@ -215,9 +216,10 @@ public class Sam {
         Sam samApp = new Sam();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Sam Task Manager!");
-
+    
         while (true) {
             String input = scanner.nextLine();
+            assert input != null && !input.isEmpty() : "Input should not be null or empty";
             String response = samApp.getResponse(input);
             System.out.println(response);
             if (response.equals("Goodbye!\n")) {
