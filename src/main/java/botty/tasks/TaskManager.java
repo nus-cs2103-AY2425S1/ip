@@ -1,6 +1,7 @@
 package botty.tasks;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import botty.exceptions.TaskListEmptyException;
 import botty.exceptions.TaskNumberNotFoundException;
@@ -22,6 +23,7 @@ public class TaskManager {
             throw new TaskListEmptyException();
         }
         StringBuilder content = new StringBuilder();
+
         for (int i = 0; i < taskList.size() - 1; i++) {
             content.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }
@@ -126,23 +128,20 @@ public class TaskManager {
         if (taskList.isEmpty()) {
             throw new TaskListEmptyException();
         }
-        ArrayList<String> matchedTasks = new ArrayList<>();
 
         String containsKeywordRegex = ".*\\b" + keyword.toLowerCase() + "\\b.*";
-        
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).toString().toLowerCase().matches(containsKeywordRegex)) {
-                matchedTasks.add((i + 1) + ". " + taskList.get(i).toString());
-            }
-        }
-        if (matchedTasks.isEmpty()) {
+
+        StringBuilder result = new StringBuilder();
+        IntStream.range(0, taskList.size())
+                .filter(index -> taskList.get(index).toString().toLowerCase().matches(containsKeywordRegex))
+                .mapToObj(index -> (index + 1) + ". " + taskList.get(index).toString())
+                .forEach(str -> result.append(str).append("\n"));
+
+        if (result.isEmpty()) {
             throw new TasksNotFoundException();
         }
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < matchedTasks.size() - 1; i++) {
-            result.append(matchedTasks.get(i)).append("\n");
-        }
-        result.append(matchedTasks.get(matchedTasks.size() - 1));
+
+        result.deleteCharAt(result.length() - 1); // remove the last new line for nicer formatting
         return result.toString();
     }
 }
