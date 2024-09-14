@@ -21,6 +21,14 @@ public class Parser {
         return num;
     }
 
+    public boolean validateIndex(TaskList t, int num) throws BobException {
+        assert t != null;
+        if (num < 0 || num >= t.getLength()) {
+            throw new BobException("Invalid index value");
+        }
+        return true;
+    }
+
     /**
      * Parses the input message for marking a task as done and applies the command to the given {@code TaskList}.
      *
@@ -29,10 +37,12 @@ public class Parser {
      * @throws BobException If the message format is invalid.
      */
     public String markTaskAsDoneParser(String message, TaskList t) throws BobException {
+        assert t != null && message != null;
         if (!message.matches(MARK_TASK_COMMAND)) {
             throw new BobException("Invalid format");
         }
         final int num = getNum(message);
+        validateIndex(t, num);
         return t.markTaskAsDone(num - 1);
     }
 
@@ -44,10 +54,12 @@ public class Parser {
      * @throws BobException If the message format is invalid.
      */
     public String unmarkTaskAsDoneParser(String message, TaskList t) throws BobException {
+        assert t != null && message != null;
         if (!message.matches(UNMARK_TASK_COMMAND)) {
             throw new BobException("Invalid format");
         }
         final int num = getNum(message);
+        validateIndex(t, num);
         return t.unmarkTaskAsDone(num - 1);
     }
 
@@ -59,10 +71,12 @@ public class Parser {
      * @throws BobException If the message format is invalid.
      */
     public String deleteTaskParser(String message, TaskList t) throws BobException {
+        assert t != null && message != null;
         if (!message.matches(DELETE_TASK_COMMAND)) {
             throw new BobException("Invalid format");
         }
         final int num = getNum(message);
+        validateIndex(t, num);
         return t.deleteTask(num - 1);
     }
 
@@ -74,6 +88,7 @@ public class Parser {
      * @throws BobException If the message format is invalid or the description is empty.
      */
     public String addToDoParser(String message, TaskList t) throws BobException {
+        assert t != null && message != null;
         if (!message.matches(ADD_TODO_COMMAND)) {
             throw new BobException("Invalid format: todo [description]");
         }
@@ -92,6 +107,7 @@ public class Parser {
      * @throws BobException If the message format is invalid or the deadline description or end date is empty.
      */
     public String addDeadlineParser(String message, TaskList t) throws BobException {
+        assert t != null && message != null;
         if (!message.matches(ADD_DEADLINE_COMMAND)) {
             throw new BobException("Invalid format: deadline [description] /by [start time]");
         }
@@ -112,6 +128,7 @@ public class Parser {
      * @throws BobException If the message format is invalid or the event description/start time/end time is empty.
      */
     public String addEventParser(String message, TaskList t) throws BobException {
+        assert t != null && message != null;
         if (!message.matches(ADD_EVENT_FORMAT)) {
             throw new BobException("Invalid format: event [description] /by [start time] /to [end time]");
         }
@@ -125,6 +142,7 @@ public class Parser {
     }
 
     public String findParser(String message, TaskList t) throws BobException {
+        assert t != null && message != null;
         String[] words = message.split(" ", 2);
         if (words.length < 2) {
             throw new BobException("Text after find cannot be empty!");

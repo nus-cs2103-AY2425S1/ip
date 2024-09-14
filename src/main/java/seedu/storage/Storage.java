@@ -31,7 +31,9 @@ public class Storage {
      * @param tl The {@code TaskList} where tasks will be loaded into.
      */
     public void loadTasks(TaskList tl) {
+        assert tl != null;
         File f = new File(FILE_PATH);
+        assert f != null;
         try {
             Scanner s1 = new Scanner(f);
             while (s1.hasNext()) {
@@ -47,23 +49,26 @@ public class Storage {
     }
 
     private Task parseTask(String line) {
-        String[] taskList = line.trim().split(" \\| ");
+        String[] taskParts = line.trim().split(" \\| ");
         Task task;
-        switch (taskList[0]) {
+        switch (taskParts[0]) {
         case "T":
-            task = new ToDo(taskList[2]);
+            assert taskParts.length == 3;
+            task = new ToDo(taskParts[2]);
             break;
         case "D":
-            task = new Deadline(taskList[2], taskList[3]);
+            assert taskParts.length == 4;
+            task = new Deadline(taskParts[2], taskParts[3]);
             break;
         case "E":
-            task = new Event(taskList[2], taskList[3], taskList[4]);
+            assert taskParts.length == 5;
+            task = new Event(taskParts[2], taskParts[3], taskParts[4]);
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + taskList[0]);
+            throw new IllegalStateException("Unexpected value: " + taskParts[0]);
         }
 
-        if (taskList[1].equals("1")) {
+        if (taskParts[1].equals("1")) {
             task.markAsDone();
         }
 
@@ -78,6 +83,7 @@ public class Storage {
         try {
             Files.createDirectories(Path.of("data")); // Hard-coded
             FileWriter fw = new FileWriter(FILE_PATH);
+            assert fw != null;
             fw.close(); // Clear the file contents by closing the newly created FileWriter
         } catch (IOException ignored) {
             this.formatter.savingErrorUi();
@@ -93,6 +99,7 @@ public class Storage {
     public void saveTask(String s) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);
+            assert fw != null;
             fw.write(s + System.lineSeparator());
             fw.close();
         } catch (IOException ignored) {
