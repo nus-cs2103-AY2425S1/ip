@@ -62,7 +62,11 @@ public class SecondMind {
     }
 
     private String getTaskUpdateMessage(int taskNumber, boolean isDone) {
-        String taskDescription = taskList.getTask(taskNumber).toString();
+        String taskDescription = taskList.getTask(taskNumber).getDescription();
+        if (!isDone) {
+            String message = "I've marked the following task as incomplete:\n" + taskDescription;
+            return message;
+        }
         String message = "Well done! You have completed the following task:\n" + taskDescription;
         return message;
     }
@@ -98,22 +102,8 @@ public class SecondMind {
             String response = updateTaskStatusInstruction(instruction, true);
             return response;
         } else if (command.equals("unmark")) {
-            try {
-                int taskNumber = Integer.parseInt(instruction[1]);
-                taskList.markAsUndone(taskNumber);
-                storage.updateTaskInDataFile(taskNumber, false, taskList.getTaskCount());
-                String message = "I've marked the following task as incomplete:\n"
-                        + taskList.getTask(taskNumber).toString();
-                return message;
-            } catch (InvalidTaskNumberException e) {
-                String errorMessage = e.toString() + "\nThere are "
-                        + taskList.getTaskCount() + " tasks in your task list.";
-                return errorMessage;
-            } catch (FileNotFoundException e) {
-                return e.toString();
-            } catch (IOException e) {
-                return e.toString();
-            }
+            String response = updateTaskStatusInstruction(instruction, false);
+            return response;
         } else if (command.equals("delete")) {
             try {
                 int taskNumber = Integer.parseInt(instruction[1]);
