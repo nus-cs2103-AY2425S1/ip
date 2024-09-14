@@ -3,11 +3,11 @@ package taskon;
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues.
+ * Provides a launcher class to work around classpath issues.
  */
 public class Launcher {
     /**
-     * The main method to launch the Taskon application.
+     * Launches the Taskon application.
      *
      * @param args Command-line arguments (not used).
      */

@@ -10,8 +10,11 @@ import taskon.task.TaskList;
 import taskon.ui.Ui;
 
 /**
- * The main class for the Taskon application.
- * This class handles the initialization of the application and the interaction between the components.
+ * Represents the main class for the Taskon application.
+ * <p>
+ * Handles initialization and facilitates interaction between
+ * different components of the Taskon application.
+ * </p>
  */
 public class Taskon {
 
@@ -66,7 +69,7 @@ public class Taskon {
     }
 
     /**
-     * The main method runs the Taskon application.
+     * Runs the Taskon application.
      *
      * @param args Command-line arguments (not used).
      */
