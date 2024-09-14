@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -28,6 +29,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     /** Injects the Ynch instance */
@@ -55,6 +57,11 @@ public class MainWindow extends AnchorPane {
      */
     public void onStartUp() {
         String greeting = ynch.greet();
+
+        // Assert that the images are not null, meaning they are loaded correctly
+        assert userImage != null : "Error: DaUser.jpg could not be loaded.";
+        assert ynchImage != null : "Error: DaYnch.jpg could not be loaded.";
+
         dialogContainer.getChildren()
                 .add(DialogBox.getYnchDialog(greeting, ynchImage));
     }
