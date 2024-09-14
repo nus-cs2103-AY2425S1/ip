@@ -105,4 +105,32 @@ public class ReginaTest {
         // Compare the output with the expected string from the chatbot interaction
         assertEquals(expectedOutput, testList.toString());
     }
+
+
+    /**
+     * Tests the functionality of snoozing invalid and valid tasks in the Regina chatbot.
+     * Verifies that the chatbot outputs the correct response when encountering the two different situations
+     * @throws ReginaException If an error occurs while adding tasks to the Regina instance.
+     */
+    @Test
+    public void testSnoozingTask() throws ReginaException {
+        final String defaultSnoozeType = "minute";
+        final int defaultSnoozeValue = 30;
+        regina.clearTaskList();
+        regina.add("todo Finish homework");
+        regina.add("deadline Submit homework /by 27/8/2024 1700");
+
+        // Call the method being tested
+        String invalidSnoozeMessage = regina.snoozeTask(0, defaultSnoozeType, defaultSnoozeValue);
+        String validSnoozeMessage = regina.snoozeTask(1, defaultSnoozeType, defaultSnoozeValue);
+        String actualOutput = invalidSnoozeMessage + "\n" + validSnoozeMessage;
+
+        // Prepare the expected output based on the interaction you provided
+        String expectedOutput = "The task, Finish homework, has no deadline lah. You can do it whenever you want, "
+                + "don't need to snooze.\n"
+                + "Pushed back deadline of Submit homework by 30 minutes to Aug 27 2024, 5.30 pm";
+
+        // Compare the output with the expected string from the chatbot interaction
+        assertEquals(expectedOutput, actualOutput);
+    }
 }

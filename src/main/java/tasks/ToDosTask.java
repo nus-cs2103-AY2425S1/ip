@@ -30,7 +30,7 @@ public class ToDosTask extends Task {
     public String snoozeTask(String durationType, int durationValue) {
         return "The task, "
                 + this.description
-                + ". has no deadline lah. You can do whenever you want, don't need to snooze.";
+                + ", has no deadline lah. You can do it whenever you want, don't need to snooze.";
     }
 
     /**

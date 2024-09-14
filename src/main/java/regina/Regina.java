@@ -9,7 +9,6 @@ import java.util.stream.IntStream;
 import dateandtime.ReginaDateAndTime;
 import errorhandling.ReginaException;
 import file.Storage;
-import gui.MainWindow;
 import tasks.DeadlinesTask;
 import tasks.EventsTask;
 import tasks.Task;
@@ -30,7 +29,6 @@ public class Regina {
     private final Marker marker;
     private final Ui ui;
     private TaskList listOfTasks;
-    private MainWindow mainWindow;
 
     /**
      * Constructs a regina.Regina instance containing an empty task list and initializes the marker.
@@ -50,8 +48,7 @@ public class Regina {
         return this.listOfTasks;
     }
 
-    public void setMainWindow(MainWindow checkboxController) {
-        this.mainWindow = checkboxController;
+    public void setMainWindow() {
     }
 
     /**
@@ -165,11 +162,23 @@ public class Regina {
     public String add(String input) throws ReginaException {
         String[] parts = input.split(" "); // Split input by spaces
         String taskType = parts[0];
-        boolean taskDescriptionPresent = parts.length >= 2;
-        if (!taskDescriptionPresent && isValidTaskType(taskType)) {
+        boolean isTaskDescriptionPresent = parts.length >= 2;
+        if (!isTaskDescriptionPresent && isValidTaskType(taskType)) {
             String message = String.format("OOPS!!! Add your %s task description lah!", taskType);
             throw new ReginaException(message);
         }
+        Task task = getTask(input, taskType);
+        listOfTasks.add(task);
+        saveFile();
+        int noOfTasks = listOfTasks.size();
+        return ui.printMessage(String.format(
+                "Got it. I've added this task: \n  %s\nNow you have %d task%s in the list.\nJiayous!\n",
+                task,
+                noOfTasks,
+                noOfTasks > 1 ? "s" : ""));
+    }
+
+    private static Task getTask(String input, String taskType) throws ReginaException {
         Task task;
         switch (taskType) {
         case "todo":
@@ -203,14 +212,7 @@ public class Regina {
         default:
             throw new ReginaException("Unknown task type. Use: todo, deadline, or event.");
         }
-        listOfTasks.add(task);
-        saveFile();
-        int noOfTasks = listOfTasks.size();
-        return ui.printMessage(String.format(
-                "Got it. I've added this task: \n  %s\nNow you have %d task%s in the list.\nJiayous!\n",
-                task,
-                noOfTasks,
-                noOfTasks > 1 ? "s" : ""));
+        return task;
     }
 
     private static String[] getEventStringSubparts(String input) throws ReginaException {
@@ -270,9 +272,8 @@ public class Regina {
             throw new ReginaException("HEHE no tasks for now!");
         }
         String taskList = IntStream.range(0, listOfTasks.size())
-                .mapToObj(i -> (i + 1) + "." + listOfTasks.get(i).toString()) // Concatenate the index with the task description
+                .mapToObj(i -> (i + 1) + "." + listOfTasks.get(i).toString())
                 .collect(Collectors.joining("\n"));
-
         return ui.printMessage(taskList);
     }
 
@@ -374,43 +375,51 @@ public class Regina {
         // Check if custom duration is provided
         if (parts.length == 2) {
             // No custom duration: use the default snooze value (30 minutes)
-            int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
-            return snoozeTask(index, DEFAULT_SNOOZE_TYPE, DEFAULT_SNOOZE_VALUE);
+            return snoozeByDefaultValue(parts);
         } else if (parts.length == 5) {
             // Custom duration format: snooze <task_number> /by <duration_value> <duration_type>
-            if (!"/by".equals(parts[2])) {
+            if (!parts[2].equals("/by")) {
                 throw new ReginaException("Invalid format for snooze command. "
                         + "Use: snooze <task_number> /by <duration_value> <duration_type>");
             }
-            int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
-            int durationValue;
-            try {
-                durationValue = Integer.parseInt(parts[3]);
-            } catch (NumberFormatException e) {
-                throw new ReginaException("Invalid duration value. Please enter a number.");
-            }
-            String durationType = getDurationType(parts[4].toLowerCase());
-            if (!isValidDurationType(durationType)) {
-                throw new ReginaException("Invalid duration type. Use: day, hour or minute.");
-            }
-            return snoozeTask(index, durationType, durationValue);
+            return snoozeByCustomValue(parts);
         } else {
             throw new ReginaException("Invalid format for snooze command. "
                     + "Use: snooze <task_number> [ /by <duration_value> <duration_type> ]");
         }
     }
 
+    private String snoozeByCustomValue(String[] parts) throws ReginaException {
+        int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+        int durationValue;
+        try {
+            durationValue = Integer.parseInt(parts[3]);
+        } catch (NumberFormatException e) {
+            throw new ReginaException("Invalid duration value. Please enter a number.");
+        }
+        String durationType = getDurationType(parts[4].toLowerCase());
+        if (!isValidDurationType(durationType)) {
+            throw new ReginaException("Invalid duration type. Use: day, hour or minute.");
+        }
+        return snoozeTask(index, durationType, durationValue);
+    }
+
+    private String snoozeByDefaultValue(String[] parts) throws ReginaException {
+        try {
+            int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+            return snoozeTask(index, DEFAULT_SNOOZE_TYPE, DEFAULT_SNOOZE_VALUE);
+        } catch (NumberFormatException e) {
+            throw new ReginaException("Use task index number lah!");
+        }
+    }
+
     private String getDurationType(String input) {
-        if (input.equals("days")) {
-            return "day";
-        }
-        if (input.equals("hours")) {
-            return "hour";
-        }
-        if (input.equals("minutes") || input.equals("min")) {
-            return "minute";
-        }
-        return input;
+        return switch (input) {
+        case "days" -> "day";
+        case "hours" -> "hour";
+        case "minutes", "min" -> "minute";
+        default -> input;
+        };
     }
 
     private boolean isValidDurationType(String type) {
@@ -428,7 +437,6 @@ public class Regina {
         default -> this.ui.printMessage("Give a proper command lah!");
         };
     }
-
 
     public static void main(String[] args) {
     }
