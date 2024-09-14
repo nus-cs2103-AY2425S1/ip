@@ -1,5 +1,6 @@
 # Hoodini User Guide 🐕:
 
+PS: To save file to your system, use the bye command!
 Update: I changed the background of the chatbot but everything else is the same 🐕
 
 ![Screenshot 2024-09-11 at 10 43 49 AM](https://github.com/user-attachments/assets/b38c673b-9655-4a8d-aa63-42d73ac16fca)
