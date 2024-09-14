@@ -5,7 +5,7 @@ import hoshi.ui.Ui;
 import hoshi.utils.Storage;
 
 /**
- * ListCommand handles the logic for the initialization message
+ * ListCommand handles the logic for the initialization message.
  */
 public class ListCommand implements Command {
 

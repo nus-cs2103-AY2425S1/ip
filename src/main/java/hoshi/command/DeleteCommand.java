@@ -7,17 +7,19 @@ import hoshi.ui.Ui;
 import hoshi.utils.Storage;
 
 /**
- * DeleteCommand where the logic for deleting a task is handled
+ * DeleteCommand where the logic for deleting a task is handled.
  */
 public class DeleteCommand implements Command {
 
     /**
-     * task index of the task to be deleted
+     * Stores the task index of the task to be deleted.
      */
     private final int taskIndex;
 
     /**
-     * MarkCommand constructor
+     * Constructs a new instance of DeleteCommand.
+     *
+     * @param taskIndex the index of the task to be deleted.
      */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;

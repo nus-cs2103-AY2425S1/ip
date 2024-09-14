@@ -7,7 +7,7 @@ import hoshi.ui.Ui;
 import hoshi.utils.Storage;
 
 /**
- * Utility class for command classes
+ * Utility class for command classes.
  */
 public class CommandUtils {
 

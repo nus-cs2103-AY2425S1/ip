@@ -5,7 +5,7 @@ import hoshi.ui.Ui;
 import hoshi.utils.Storage;
 
 /**
- * ByeCommand handles the logic for the initialization message
+ * ByeCommand handles the logic for the initialization message.
  */
 public class ByeCommand implements Command {
 

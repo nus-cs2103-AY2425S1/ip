@@ -7,6 +7,9 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
+    /**
+     * Stores the tasks in an ArrayList.
+     */
     private ArrayList<Task> tasks;
 
     /**
@@ -18,14 +21,23 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Constructs a TaskList with an initial list of tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Adds the given task to the task list.
+     */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Returns the task at the provided index.
+     */
     public Task get(int index) {
         return this.tasks.get(index);
     }
@@ -40,27 +52,34 @@ public class TaskList {
         this.tasks.remove(index);
     }
 
-    public void setMark(int index) {
-        this.tasks.get(index).setIsDone(true);
-    }
-
+    /**
+     * Returns the size of the task list.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Returns true if there are no tasks and false if there is at least 1 task in the list.
+     */
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
+    /**
+     * Returns a string representation of all stored tasks.
+     *
+     * <p>The string includes the status icon and the description of each task.</p>
+     *
+     */
     @Override
     public String toString() {
 
         StringBuilder result = new StringBuilder();
-
         for (int i = 0; i < this.tasks.size(); i++) {
             result.append(i + 1).append(". ").append(this.tasks.get(i).toString()).append("\n");
         }
-
         return result.toString();
     }
 
-    public boolean isEmpty() {
-        return this.tasks.isEmpty();
-    }
 }

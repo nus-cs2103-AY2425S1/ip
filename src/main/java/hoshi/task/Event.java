@@ -11,10 +11,15 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    private LocalDate startDate;
+    /**
+     * Indicates when the event is due to start.
+     */
+    private final LocalDate startDate;
 
-    private LocalDate endDate;
-
+    /**
+     * Indicates when the event is due to end.
+     */
+    private final LocalDate endDate;
 
     /**
      * Constructs a new instance of Event.

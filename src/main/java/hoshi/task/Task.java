@@ -9,9 +9,15 @@ package hoshi.task;
 
 public abstract class Task {
 
-    private String description;
-    private boolean isDone;
+    /**
+     * Stores the description fo the task.
+     */
+    private final String description;
 
+    /**
+     * Indicates whether the task is done or not.
+     */
+    private boolean isDone;
 
     /**
      * Constructs a new instance of Task.

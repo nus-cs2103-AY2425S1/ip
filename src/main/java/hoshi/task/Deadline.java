@@ -11,7 +11,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private LocalDate endDate;
+    /**
+     * Indicates when the deadline is due to end.
+     */
+    private final LocalDate endDate;
 
     /**
      * Constructs a new instance of Deadline.

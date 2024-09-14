@@ -6,17 +6,19 @@ import hoshi.ui.Ui;
 import hoshi.utils.Storage;
 
 /**
- * FindCommand where the logic for finding a task is handled
+ * FindCommand where the logic for finding a task is handled.
  */
 public class FindCommand implements Command {
 
     /**
-     * keyword of the task to be found
+     * Stores the keyword of the task to be found.
      */
     private final String keyword;
 
     /**
-     * FindCommand constructor
+     * Constructs a new instance of FindCommand.
+     *
+     * @param keyword the string to be used in search for a specified task.
      */
     public FindCommand(String keyword) {
         this.keyword = keyword.toLowerCase();

@@ -17,8 +17,16 @@ import hoshi.utils.Storage;
  */
 public class AddCommand implements Command {
 
+    /**
+     * Stores the user input after splitting by empty space
+     */
     private final String[] splitInput;
 
+    /**
+     * Constructs a new instance of AddCommand.
+     *
+     * @param splitInput the user input after splitting by empty space.
+     */
     public AddCommand(String[] splitInput) {
         this.splitInput = splitInput;
     }

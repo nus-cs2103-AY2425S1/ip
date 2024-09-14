@@ -62,7 +62,6 @@ public class Parser {
             if (input.trim().length() < MIN_MARK_LENGTH) {
                 return ui.displayTaskToMark();
             }
-
             command = new MarkCommand(splitInput, true);
             break;
 
@@ -70,7 +69,6 @@ public class Parser {
             if (input.trim().length() < MIN_UNMARK_LENGTH) {
                 return ui.displayTaskToMark();
             }
-
             command = new MarkCommand(splitInput, false);
             break;
 
@@ -96,8 +94,4 @@ public class Parser {
         }
         return command.execute(taskList, ui, storage);
     }
-
-
-
-
 }

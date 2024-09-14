@@ -6,7 +6,7 @@ import hoshi.ui.Ui;
 import hoshi.utils.Storage;
 
 /**
- * MarkCommand where the logic for marking a task is handled
+ * MarkCommand where the logic for marking a task is handled.
  */
 public class MarkCommand implements Command {
 
@@ -14,13 +14,17 @@ public class MarkCommand implements Command {
      * task index of the task to be marked
      */
     private final int taskIndex;
+
     /**
      * boolean indicating whether to mark or unmark a task
      */
     private final Boolean isMark;
 
     /**
-     * MarkCommand constructor
+     * Constructs a new instance of MarkCommand.
+     *
+     * @param splitInput the user input after splitting by empty space.
+     * @param isMark the boolean indicating whether to mark or unmark a task.
      */
     public MarkCommand(String[] splitInput, Boolean isMark) {
         this.taskIndex = Integer.parseInt(splitInput[1]) - 1;
