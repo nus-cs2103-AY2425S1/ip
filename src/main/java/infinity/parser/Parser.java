@@ -116,6 +116,14 @@ public class Parser {
         );
     }
 
+    /**
+     * Sorts an array of String that has integers.
+     *
+     * @param inputs The array of String with integers as Strings.
+     * @param isReversed Whether the array should be sorted in reversed.
+     * @return The String array sorted, ascending by default.
+     * @throws InfinityException If any of the elements in the inputs is not castable to integer type.
+     */
     private static String[] sortIntegerStrings(String[] inputs, boolean isReversed) throws InfinityException {
         int[] integersInput = new int[inputs.length];
         String[] finalInputs = new String[inputs.length];
