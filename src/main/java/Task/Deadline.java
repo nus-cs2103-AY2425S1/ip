@@ -33,6 +33,10 @@ public class Deadline extends Task {
      */
 //    deadline return book /by 2/12/2019 1800
     public static Deadline of(String name, TaskType taskType) throws TaskCreationException {
+        if (!name.contains("by")) {
+            throw new TaskCreationException("Please include a /by");
+        }
+        System.out.println(name);
         try {
             String[] parts = name.split("/by", 2);
             String taskName = parts[0].trim();

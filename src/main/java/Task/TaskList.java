@@ -225,7 +225,12 @@ public class TaskList {
      * @param s index to be marked as done
      */
     public String markAsDone(String s) {
-        int idx = parseInt(s);
+        int idx = 0;
+        try {
+            idx = parseInt(s);
+        } catch (NumberFormatException e) {
+            return "Enter a number after mark";
+        }
         idx -= 1;
         if ((idx < 0) || (idx >= taskListLength)) {
             return "Error marking as done";
@@ -242,11 +247,13 @@ public class TaskList {
      * @param s index to be marked as undone
      */
     public String markAsUndone(String s) {
-        int idx = parseInt(s);
-        idx -= 1;
-        if ((idx < 0) || (idx >= taskListLength)) {
-            return "Error marking as undone";
+        int idx = 0;
+        try {
+            idx = parseInt(s);
+        } catch (NumberFormatException e) {
+            return "Enter a number after unmark";
         }
+        idx -= 1;
         Task currentTask = taskList.get(idx);
         currentTask.markAsUndone();
         String response = "Ok, I've marked this task as not done:" + "[" + currentTask.getStatus() + "] " + currentTask.getTaskName();

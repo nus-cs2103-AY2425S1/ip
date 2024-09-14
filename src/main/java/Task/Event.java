@@ -60,6 +60,7 @@ public class Event extends Task {
      * @throws TaskCreationException if error occurs while creating task
      * @return Event instance
      */
+    //    event class /from 2/12/2019 1600 /to 2/12/2019 1900
     public static Event of(String name, TaskType taskType) throws TaskCreationException {
         try {
             String[] parts = name.split("/from", 2);
@@ -69,8 +70,8 @@ public class Event extends Task {
             assert !dateTimes[0].isEmpty() : "Task start should not be empty";
             assert !dateTimes[1].isEmpty() : "Task end should not be empty";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
-            LocalDateTime start = LocalDateTime.parse(dateTimes[0].trim(), formatter);
-            LocalDateTime end = LocalDateTime.parse(dateTimes[1].trim(), formatter);
+            LocalDateTime start = formatter(dateTimes[0].trim());
+            LocalDateTime end = formatter(dateTimes[1].trim());
             return new Event(taskName, taskType, start, end);
         }
         catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
@@ -79,4 +80,22 @@ public class Event extends Task {
         }
     }
 
+
+    public static LocalDateTime formatter(String s) throws DateTimeParseException {
+        DateTimeFormatter[] formatters = {
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+        };
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDateTime.parse(s, formatter);
+            } catch (DateTimeParseException e) {
+                // Continue to the next formatter
+            }
+        }
+        throw new DateTimeParseException("Date/time format is invalid", s, 0);
+    }
 }
