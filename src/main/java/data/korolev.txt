@@ -1,3 +1,3 @@
-[T][ ] t3          
-[D][ ] finish thesis on Karl Marx  (by 00:00 Jan 1 2024)  #hi 
-[E][ ] finish reports on satellite project  (from: 00:00 Jan 1 1959 to: 00:00 Jan 2 1959)  #hi 
+[T][ ] t1                [tag:hello ]
+[E][X] 2 read Das Kapital  (from: 00:00 Jan 1 2029 to: 00:00 May 6 2034)  [tag:important ]
+[T][ ] t3    [tag:]

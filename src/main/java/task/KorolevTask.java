@@ -52,7 +52,7 @@ public class KorolevTask {
      * @return formatted tag information
      */
     public String showTag() {
-        return tag == null ? "" : "#" + this.tag;
+        return tag == null ? "[tag:]" : "[tag:" + this.tag + "]";
     }
 
     /**
