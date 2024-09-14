@@ -45,7 +45,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return this.getTaskSymbol() + " " + super.toString() + " (by: " + this.deadline + ")";
+        return this.getTaskSymbol() + " " + super.toString() + " (by: " + getDeadline() + ")";
     }
 
     /**
@@ -59,11 +59,17 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the deadline of the Deadline Task
+     * Returns the deadline formatted as "Month Date, Year".
      *
-     * @return The deadline of the Deadline Task
+     * @return The formatted deadline as a {@code String}.
      */
     public String getDeadline() {
-        return this.deadline;
+        if (this.deadline == null) {
+            return "No deadline set";
+        }
+        // Define the desired date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
+        // Format the LocalDate object
+        return this.deadline.format(formatter);
     }
 }
