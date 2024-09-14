@@ -100,8 +100,7 @@ public class HelpCommand {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
-            throw new EchoException("Seems you have entered an invalid command.\n" + " "
-                    + "You can enter 'help' or 'help [command]' to get more information.");
+            throw new EchoException("Seems you have entered an invalid command.");
         }
     }
 }
