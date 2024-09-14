@@ -60,7 +60,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 
-
+    /**
+     * Returns empty string
+     *
+     * @return An empty string
+     */
     public String getTaskSymbol() {
         return "";
     }

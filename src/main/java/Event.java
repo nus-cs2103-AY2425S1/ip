@@ -27,15 +27,30 @@ public class Event extends Task {
         return this.getTaskSymbol() + " " + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
+    /**
+     * Returns the taskSymbol for the Event object
+     *
+     * @return A string with the taskSymbol
+     */
     @Override
     public String getTaskSymbol() {
         return super.getTaskSymbol() + "[E]";
     }
 
+    /**
+     * Returns the start date of the Event Task
+     *
+     * @return The start date of the Event Task
+     */
     public String getStart() {
         return this.start;
     }
 
+    /**
+     * Returns the end date of the Event Task
+     *
+     * @return The end date of the Event Task
+     */
     public String getEnd() {
         return this.end;
     }

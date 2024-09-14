@@ -23,11 +23,21 @@ public class Deadline extends Task {
         return this.getTaskSymbol() + " " + super.toString() + " (by: " + this.deadline + ")";
     }
 
+    /**
+     * Returns the taskSymbol for the Deadline object
+     *
+     * @return A string with the taskSymbol
+     */
     @Override
     public String getTaskSymbol() {
         return super.getTaskSymbol() + "[D]";
     }
 
+    /**
+     * Returns the deadline of the Deadline Task
+     *
+     * @return The deadline of the Deadline Task
+     */
     public String getDeadline() {
         return this.deadline;
     }

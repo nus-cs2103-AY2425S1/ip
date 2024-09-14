@@ -200,6 +200,15 @@ public class Nebula {
         }
     }
 
+    /**
+     * Saves a list of tasks to a text file in the "data" directory. The tasks are saved
+     * in a format where each line contains the task's status, type, and description,
+     * followed by additional details for specific task types. If the "data" directory
+     * does not exist, it will be created.
+     *
+     * @param listOfTasks The list of tasks to be saved to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public static void saveTaskListToTextFile(ArrayList<Task> listOfTasks) throws IOException {
 
         // Create a folder called "data" if it doesn't exist
@@ -234,6 +243,14 @@ public class Nebula {
         fw.close();
     }
 
+    /**
+     * Reads a text file and converts its contents into a list of tasks. The method
+     * parses each line to create the appropriate task objects and adds them to the list.
+     *
+     * @param path The path to the text file containing the tasks.
+     * @return An ArrayList of tasks read from the file.
+     * @throws RuntimeException If an I/O error occurs or if the file format is incorrect.
+     */
     public static ArrayList<Task> textFileToArrayList(String path) {
         ArrayList<Task> listOfTasks = new ArrayList<>();
 
