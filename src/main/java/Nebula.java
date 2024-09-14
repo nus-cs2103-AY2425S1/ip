@@ -194,7 +194,17 @@ public class Nebula {
             String taskDescription = task.getDescription();
 
             String taskData = isMarked + " | " + taskSymbol + " | " + taskDescription;
+
+            if(task instanceof Deadline) {
+                taskData += " | " + ((Deadline) task).getDeadline();
+            } else if (task instanceof Event) {
+                taskData += " | " + ((Event) task).getStart() + "-" + ((Event) task).getEnd();
+            }
+
+            fw.write(taskData + "\n");
         }
+
+        fw.close();
     }
 
 
