@@ -87,6 +87,11 @@ public class Nave {
         case TASK:
             try {
                 Task curr = parser.parseTask(userInput);
+                String clashes = tasks.findClashes(curr);
+                if (clashes != null) {
+                    output = clashes;
+                    break;
+                }
                 tasks.addTask(curr);
                 storage.saveToFile(curr.toFileFormat()); //Add task to local file
                 output = curr.creationResponse() + tasks.countTasks();
