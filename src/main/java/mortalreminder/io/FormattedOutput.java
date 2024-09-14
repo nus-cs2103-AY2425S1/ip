@@ -165,9 +165,9 @@ public class FormattedOutput {
      * Prints a feedback message when a new alternative has been added.
      */
     public static String printNewAlternativeAdded(String commandAlternative, CommandType commandType) {
-        return getResponse(commandAlternative.toLowerCase()
+        return getResponse(commandAlternative
                 + " has been added to the command alternatives for "
-                + commandType);
+                + commandType.toString().toLowerCase());
     }
 
     public static String alternativesCleared() {
