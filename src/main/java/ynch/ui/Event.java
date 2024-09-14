@@ -35,7 +35,7 @@ class Event extends Task {
     Event(int status, String task, String from, String to) {
         super(status, task);
         this.from = super.stringToDate(from);
-        this.to = super.stringToDate(from);
+        this.to = super.stringToDate(to);
     }
 
     /**
@@ -54,7 +54,7 @@ class Event extends Task {
     @Override
     boolean needsReminder() {
         LocalDate today = LocalDate.now();
-        LocalDate dateToRemind = this.to.minusDays(DAYS_FOR_REMINDER);
+        LocalDate dateToRemind = this.from.minusDays(DAYS_FOR_REMINDER);
         return today.isAfter(dateToRemind);
     }
 
