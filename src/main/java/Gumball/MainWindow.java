@@ -7,6 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.util.concurrent.TimeUnit;
+
 /**
  * Controller for the main GUI.
  */
@@ -33,6 +37,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Gumball instance */
     public void setGumball(Gumball gumball) {
          this.gumball = gumball;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getGumballDialog(UI.intro(), gumballImage)
+        );
     }
 
     /**
@@ -43,6 +50,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = gumball.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getGumballDialog(response, gumballImage)

@@ -16,16 +16,17 @@ public class UI {
         return inputScanner.nextLine();
     }
 
-    public void intro() {
+    public static String intro() {
         String str = "Hello! I'm Gumball.Gumball \n"
                 + "What can I do for you?";
         print(str);
+        return str;
     }
 
     public static String outro() {
         String str = "Bye. Hope to see you again soon!";
         print(str);
-        return(str);
+        return str;
     }
 
     public static void print(String out) {

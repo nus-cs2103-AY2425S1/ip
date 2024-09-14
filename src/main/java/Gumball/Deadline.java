@@ -2,6 +2,7 @@ package Gumball;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDate deadlineTime;
@@ -14,15 +15,21 @@ public class Deadline extends Task {
     public Deadline(String desc) throws TaskException {
         super("", desc);
         try {
-            String[] section = desc.substring(9).split("/by ");
-            LocalDate d1 = LocalDate.parse(section[1]);
-            deadlineTime = d1;
-            super.description = section[0] + "(by: "
-                    + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+            super.description = deadlineInputFormatter(desc);
             taskType = "[D]";
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new TaskException("Sorry, the desctiption you " +
-                    "gave does not follow the format for deadlines.");
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException
+                 | StringIndexOutOfBoundsException e) {
+            throw new TaskException("Sorry, the description you " +
+                    "gave does not follow the format for deadlines.\n" +
+                    "\nIt should be ('name' /by 'date' in the format yyyy-mm-dd)" );
         }
+    }
+
+    private String deadlineInputFormatter(String desc) {
+        String[] section = desc.substring(9).split("/by ");
+        deadlineTime = LocalDate.parse(section[1]);
+        String output = section[0] + "(by: " +
+                deadlineTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return output;
     }
 }

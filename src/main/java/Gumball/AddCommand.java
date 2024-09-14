@@ -24,20 +24,17 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList list, UI ui, FileManager fileManager)
             throws InputErrorException, IOException {
+        Task task = null;
         if (input.startsWith("todo")) {
-            String temp = addToList(new ToDo(input), list, ui);
-            fileManager.updateFile(list);
-            return temp;
+            task = new ToDo(input);
         } else if (input.startsWith("deadline")) {
-            String temp = addToList(new Deadline(input), list, ui);
-            fileManager.updateFile(list);
-            return temp;
+            task = new Deadline(input);
         } else if (input.startsWith("event")) {
-            String temp = addToList(new Event(input), list, ui);
-            fileManager.updateFile(list);
-            return temp;
+            task = new Event(input);
         }
-        return null;
+        String output = addToList(task, list, ui, fileManager);
+        return output;
+
     }
 
     /**
@@ -47,10 +44,11 @@ public class AddCommand extends Command {
      * @param ui A class which contains ui functions.
      * @throws InputErrorException
      */
-    public String addToList(Task task, TaskList list, UI ui) throws InputErrorException {
+    private String addToList(Task task, TaskList list, UI ui, FileManager fileManager) throws InputErrorException, IOException {
         String str = "Got it. I've added this task:\n" + list.add(task) +
                 String.format("\nNow you have %d tasks in the list.", list.getN());
         UI.print(str);
+        fileManager.updateFile(list);
         return str;
     }
 
