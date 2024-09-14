@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,10 +11,12 @@ public class Nebula {
      *
      * @param args command-line arguments (not used)
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Ui ui = new Ui();
         TaskList taskList = new TaskList();
         Parser parser = new Parser();
+
+        File currentDirectory = new File("./");
 
         System.out.println(ui.greeting());
 
@@ -23,6 +26,7 @@ public class Nebula {
 
             if(command.equals("bye")) {
                 System.out.println(ui.goodbye());
+                saveTaskListToTextFile(TaskList.getTaskList());
                 break;
             }
 
