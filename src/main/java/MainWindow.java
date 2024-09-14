@@ -1,8 +1,5 @@
-import java.io.IOException;
-
 import hana.Hana;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -30,19 +27,6 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/default.jpg"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/hana.jpg"));
 
-    /**
-     * Constructor for MainWindow.
-     */
-    public MainWindow() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     /**
      * Initialize with greeting message.
      */
