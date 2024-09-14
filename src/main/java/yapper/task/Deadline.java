@@ -11,7 +11,7 @@ import yapper.exception.YapperException;
  * this class stores the date and time by which the task should be completed.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructs a Deadline task with the specified description and deadline.
@@ -49,4 +49,23 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
     }
+
+     /**
+     * Snoozes the deadline by a specified number of days or hours.
+     *
+     * @param snoozeAmount The amount to snooze by, e.g., "2d" for 2 days or "3h" for 3 hours.
+     * @throws YapperException If the snooze format is incorrect.
+     */
+    public void snoozeDeadline(String snoozeAmount) throws YapperException {
+        if (snoozeAmount.endsWith("d")) {
+            int daysToSnooze = Integer.parseInt(snoozeAmount.replace("d", ""));
+            this.by = this.by.plusDays(daysToSnooze);
+        } else if (snoozeAmount.endsWith("h")) {
+            int hoursToSnooze = Integer.parseInt(snoozeAmount.replace("h", ""));
+            this.by = this.by.plusHours(hoursToSnooze);
+        } else {
+            throw new YapperException("Invalid snooze format. Use 'd' for days or 'h' for hours. Example: snooze 1 2d (for 2 days) or snooze 2 3h (for 3 hours).");
+        }
+    }
+
 }
