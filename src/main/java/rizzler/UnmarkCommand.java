@@ -16,7 +16,7 @@ class UnmarkCommand implements Command {
     UnmarkCommand(String[] fullCommand) throws RizzlerException {
         if (fullCommand.length == 1) {
             throw new RizzlerException(
-                    "Please key in the number of the task to unmark\n"
+                    "Stop capping and key in the number of the task to unmark\n"
                     + "Format:\n"
                     + "unmark [number]");
         }
@@ -24,7 +24,7 @@ class UnmarkCommand implements Command {
             this.unmarkIndex = Integer.parseInt(fullCommand[1]) - 1;
         } catch (NumberFormatException e) {
             throw new RizzlerException(
-                    "Please ensure that the argument after unmark is a number\n"
+                    "Stop capping and ensure that the argument after unmark is a number\n"
                     + "Format:\n"
                     + "unmark [number]");
         }

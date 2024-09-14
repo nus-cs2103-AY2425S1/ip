@@ -17,7 +17,7 @@ class DeleteCommand implements Command {
     DeleteCommand(String[] fullCommand) throws RizzlerException {
         if (fullCommand.length == 1) {
             throw new RizzlerException(
-                    "Please key in the number of the task to delete\n"
+                    "Stop capping and key in the number of the task to delete\n"
                     + "Format:\n"
                     + "delete [number]");
         }
@@ -25,7 +25,7 @@ class DeleteCommand implements Command {
             this.deleteIndex = Integer.parseInt(fullCommand[1]) - 1;
         } catch (NumberFormatException e) {
             throw new RizzlerException(
-                    "Please ensure that the argument after delete is a number\n"
+                    "Stop capping and ensure that the argument after delete is a number\n"
                     + "Format:\n"
                     + "delete [number]");
         }

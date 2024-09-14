@@ -42,7 +42,7 @@ class TaskList {
      */
     String delete(int index) throws RizzlerException {
         if (this.tasks.isEmpty()) {
-            throw new RizzlerException("No tasks to delete");
+            throw new RizzlerException("No tasks to fanum tax");
         }
         try {
             Task removedTask = this.tasks.remove(index);
@@ -51,7 +51,7 @@ class TaskList {
                     this.tasks.size());
         } catch (IndexOutOfBoundsException e) {
             throw new RizzlerException(
-                    "Please put task number that is actually in the list");
+                    "Stop capping put task number that is actually in the list");
         }
     }
 
@@ -93,7 +93,7 @@ class TaskList {
             return this.ui.showMarking(this.tasks.get(index));
         } catch (IndexOutOfBoundsException e) {
             throw new RizzlerException(
-                    "Please put task number that is actually in the list");
+                    "Stop capping and put a task number that is actually in the list");
         }
     }
 
@@ -115,7 +115,7 @@ class TaskList {
             return this.ui.showUnmarking(this.tasks.get(index));
         } catch (IndexOutOfBoundsException e) {
             throw new RizzlerException(
-                    "Please put task number that is actually in the list");
+                    "Stop capping and put a task number that is actually in the list");
         }
     }
 

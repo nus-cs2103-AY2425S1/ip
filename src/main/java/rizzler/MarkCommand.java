@@ -17,7 +17,7 @@ class MarkCommand implements Command {
     MarkCommand(String[] fullCommand) throws RizzlerException {
         if (fullCommand.length == 1) {
             throw new RizzlerException(
-                    "Please key in the number of the task to mark\n"
+                    "Stop capping and key in the number of the task to mark\n"
                     + "Format:\n"
                     + "mark [number]");
         }
@@ -25,7 +25,7 @@ class MarkCommand implements Command {
             this.markIndex = Integer.parseInt(fullCommand[1]) - 1;
         } catch (NumberFormatException e) {
             throw new RizzlerException(
-                    "Please ensure that the argument after mark is a number\n"
+                    "Stop capping and ensure that the argument after mark is a number\n"
                     + "Format:\n"
                     + "mark [number]");
         }

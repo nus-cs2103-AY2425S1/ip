@@ -15,7 +15,7 @@ class FindCommand implements Command {
      */
     FindCommand(String[] fullCommand) throws RizzlerException {
         if (fullCommand.length < 2) {
-            throw new RizzlerException("Please enter the string to find");
+            throw new RizzlerException("Stop yapping and enter the string to find");
         }
         this.fullCommand = fullCommand;
     }

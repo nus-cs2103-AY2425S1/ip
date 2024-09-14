@@ -45,7 +45,7 @@ public class AddCommand implements Command {
         case "todo":
             if (this.fullCommand.length == 1) {
                 throw new RizzlerException(
-                        "Please add in the task description\n"
+                        "Stop capping and add in the task description!\n"
                         + "Format:\n"
                         + "todo [task name]");
             } else {
@@ -72,7 +72,7 @@ public class AddCommand implements Command {
                 return output;
             } catch (DateTimeException e) {
                 throw new RizzlerException(
-                        "Please put a valid date-time format\n"
+                        "Stop capping and put a valid date-time format!\n"
                         + "Format:\n"
                         + "deadline [task name] /by [yyyy-mm-dd]");
             }
@@ -97,7 +97,7 @@ public class AddCommand implements Command {
                 return output;
             } catch (DateTimeException e) {
                 throw new RizzlerException(
-                        "Please put a valid date-time format\n"
+                        "Stop capping and put a valid date-time format!\n"
                                 + "Format:\n"
                                 + "event [task name] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
             }
@@ -120,7 +120,7 @@ public class AddCommand implements Command {
         boolean errorInBy = (!byInInput) || (indexOfBy == this.fullCommand.length - 1);
         if (errorInName || errorInBy) {
             throw new RizzlerException(
-                    "This command was entered incorrectly\n"
+                    "You got brainrot? This command was entered incorrectly\n"
                             + "Format:\n"
                             + "deadline [task name] /by [yyyy-mm-dd]");
         }
@@ -148,7 +148,7 @@ public class AddCommand implements Command {
         boolean errorInTo = (!hasTo) || (indexOfTo == this.fullCommand.length - 1);
         if (errorInName || errorInFrom || errorInTo) {
             throw new RizzlerException(
-                    "This command was entered incorrectly\n"
+                    "You got brainrot? This command was entered incorrectly\n"
                             + "Format:\n"
                             + "event [task name] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
         }

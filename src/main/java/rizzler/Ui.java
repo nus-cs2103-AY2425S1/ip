@@ -9,8 +9,6 @@ import java.util.Scanner;
  * output to the user.
  */
 class Ui {
-    private static final String separator =
-            "_______________________________________________________\n";
 
     /**
      * Outputs a greeting to the user.
@@ -41,7 +39,7 @@ class Ui {
     String showAdditionToList(Task task, int size) {
         return "Gotcha! I've added the new task for you:\n"
                 + task + "\n"
-                + "Now you have " + size + " tasks in the list.\n";
+                + "Now you've gyat " + size + " tasks in the list.\n";
     }
 
     /**
@@ -52,7 +50,7 @@ class Ui {
      * @return String detailing the removal.
      */
     String showRemovalFromList(Task task, int size) {
-        return "I have removed this task for you:\n"
+        return "I have fanum taxed this task for you:\n"
                 + task + "\n"
                 + "Now you have " + size + " tasks in the list.\n";
     }
@@ -68,7 +66,7 @@ class Ui {
         if (tasks.isEmpty()) {
             return "No tasks here yet\n";
         } else {
-            String output = "Here are the tasks in your list\n";
+            String output = "You've gyat these tasks in your list\n";
             for (int i = 0; i < tasks.size(); i++) {
                 output += String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
             }
@@ -83,7 +81,7 @@ class Ui {
      * @return String detailing the marking.
      */
     String showMarking(Task task) {
-        return "Hell yeah! You finished your task:\n"
+        return "Skibidi Ohio! You finished your task:\n"
                 + task + "\n";
     }
 
