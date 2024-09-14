@@ -169,7 +169,7 @@ public class KorolevList {
 
         KorolevTask t = this.events.get(index);
         t.untag();
-        System.out.println(tagNotice);
+        System.out.println(untagNotice);
         System.out.println(t);
 
         return untagNotice + "\n" + t;

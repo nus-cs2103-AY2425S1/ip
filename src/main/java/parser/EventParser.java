@@ -39,24 +39,29 @@ public class EventParser {
      * @throws ParseException when the line of record cannot be parsed
      */
     public static KorolevTask parseLoadedRecord(String record) throws ParseException {
+        KorolevTask t;
         char type = record.charAt(1);
-
         switch (type) {
         case 'T' -> {
-            return parseTodoRecord(record);
+            t = parseTodoRecord(record);
         }
         case 'D' -> {
-            return parseDeadlineRecord(record);
+            t = parseDeadlineRecord(record);
         }
         case 'E' -> {
-            return parseEventRecord(record);
+            t = parseEventRecord(record);
         }
         default -> throw new ParseException("Invalid record presented in the hard disk.");
         }
+        String tag = parseTag(record);
+        if (tag != null) {
+            t.tag(tag);
+        }
+        return t;
     }
 
     private static KorolevTodo parseTodoRecord(String record) throws ParseException {
-        Pattern p = Pattern.compile("\\]\\s(.+)");
+        Pattern p = Pattern.compile("\\]\\s(.+)#");
         Matcher m = p.matcher(record);
         String taskDescription;
 
@@ -103,6 +108,17 @@ public class EventParser {
             return new KorolevEvent(taskDescription, from, to);
         } else {
             throw new ParseException("fail to parse the record");
+        }
+    }
+
+    private static String parseTag(String record) {
+        Pattern tagPattern = Pattern.compile("#(.+)");
+        Matcher m1 = tagPattern.matcher(record);
+
+        if (m1.find()) {
+            return m1.group(1);
+        } else {
+            return null;
         }
     }
 }
