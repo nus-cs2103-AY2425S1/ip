@@ -11,7 +11,7 @@ Hoshi is a user-friendly assistant that aids you in keeping track of your tasks 
 5. Graphical User Interface
 6. Help Window
 
-## Setting up in Intellij
+## Setting up in Intellij (For Development, skip to Running JAR File for Quick Start)
 
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
