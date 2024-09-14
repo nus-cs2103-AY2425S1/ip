@@ -18,6 +18,7 @@ public class AddEventCommandTest {
     private static final String WRONG_FORMAT_ERROR = "The format is wrong! "
             + "It should be \"event(or e) xx /from yyyy-mm-dd HH:mm(or hh:mm am/pm) "
             + "/to yyyy-mm--dd HH:mm(or hh:mm am/pm)\"";
+    private static final String INVALID_TIME_ERROR = "Your event cannot start after it ends!";
 
     private TaskList tasks;
     private Storage storage;
@@ -153,5 +154,25 @@ public class AddEventCommandTest {
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
         assertEquals(WRONG_FORMAT_ERROR, exception.toString());
+    }
+
+    @Test
+    public void execute_startAfterEndEventTask_throwsException() throws JeffException {
+        Command c = new AddEventCommand(
+                "event project meeting /from 2024-08-28 08:00 /to 2024-08-27 20:00"
+        );
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(INVALID_TIME_ERROR, exception.toString());
+    }
+
+    @Test
+    public void execute_startAfterEndEventTaskAlias_throwsException() throws JeffException {
+        Command c = new AddEventCommand(
+                "e project meeting /from 2024-08-28 08:00 /to 2024-08-27 20:00"
+        );
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, storage));
+        assertEquals(INVALID_TIME_ERROR, exception.toString());
     }
 }
