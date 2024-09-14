@@ -37,8 +37,13 @@ public class SecondMind {
         this.parser = new Parser();
     }
 
+    public String[] getInstructionsFromInput(String input) {
+        String[] instruction = parser.processInput(input);
+        return instruction;
+    }
+
     public String getResponse(String userInput) {
-        String[] instruction = parser.processInput(userInput);
+        String[] instruction = getInstructionsFromInput(userInput);
         assert instruction != null;
         String command = instruction[0];
         if (command.equals("bye")) {
