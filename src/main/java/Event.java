@@ -48,7 +48,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.getTaskSymbol() + " " + super.toString() + " (from: " + start + " to: " + end + ")";
+        return this.getTaskSymbol() + " " + super.toString() + " (from: " + getStart() + " to: " + getEnd() + ")";
     }
 
     /**
@@ -62,20 +62,32 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the start date of the Event Task
+     * Returns the start date formatted as "Month Date, Year".
      *
-     * @return The start date of the Event Task
+     * @return The formatted start date as a {@code String}.
      */
     public String getStart() {
-        return this.start;
+        if (this.start == null) {
+            return "No start date set";
+        }
+        // Define the desired date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
+        // Format the LocalDate object
+        return this.start.format(formatter);
     }
 
     /**
-     * Returns the end date of the Event Task
+     * Returns the end date formatted as "Month Date, Year".
      *
-     * @return The end date of the Event Task
+     * @return The formatted end date as a {@code String}.
      */
     public String getEnd() {
-        return this.end;
+        if (this.end == null) {
+            return "No deadline set";
+        }
+        // Define the desired date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
+        // Format the LocalDate object
+        return this.end.format(formatter);
     }
 }
