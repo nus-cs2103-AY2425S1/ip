@@ -10,7 +10,7 @@ import yappingbot.ui.Ui;
 /**
  * Resets the currentUserList to default view if it is currently a filter view.
  */
-public class ResetView extends CommandBase<ResetView.Args, ResetView> {
+public class ResetViewCommand extends CommandBase<ResetViewCommand.Args, ResetViewCommand> {
     private TaskList currentUserList;
     private boolean silent;
     private Ui ui;
@@ -33,8 +33,13 @@ public class ResetView extends CommandBase<ResetView.Args, ResetView> {
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public ResetView() throws YappingBotIncorrectCommandException {
+    public ResetViewCommand() throws YappingBotIncorrectCommandException {
         super(new String[]{});
+    }
+
+    @Override
+    protected String getArgumentSeperator() {
+        return "/";
     }
 
     @Override
@@ -53,7 +58,7 @@ public class ResetView extends CommandBase<ResetView.Args, ResetView> {
      * @return this object, useful for chaining.
      */
     @Override
-    protected ResetView run() {
+    protected ResetViewCommand run() {
         assert currentUserList != null;
         // reset the view to main parent
         TaskList userList = currentUserList;
@@ -79,7 +84,7 @@ public class ResetView extends CommandBase<ResetView.Args, ResetView> {
      * @param silent boolean on whether to run this silently
      * @return this object, useful for chainning
      */
-    public ResetView setEnvironment(Ui ui, TaskList currentUserList, boolean silent) {
+    public ResetViewCommand setEnvironment(Ui ui, TaskList currentUserList, boolean silent) {
         this.currentUserList = currentUserList;
         this.silent = silent;
         this.ui = ui;

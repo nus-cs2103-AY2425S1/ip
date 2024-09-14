@@ -249,37 +249,4 @@ public class CommandDispatcher {
         ui.print(sb.toString());
     }
 
-    /**
-     * Returns a TaskList that is either the same userList given should there be no results found,
-     * or a new TaskListFilterView that will act as a TaskList but updates the parent TaskList
-     * that was passed into.
-     *
-     * @param searchString String to be searched in each Task.
-     * @param userList TaskList to be searched.
-     * @return TaskList of given userList if not found, or new TaskListFilterView with filtered
-     *         Tasks.
-     */
-    public TaskList findStringInTasks(String searchString, TaskList userList) {
-        assert searchString != null;
-        assert userList != null;
-
-        StringBuilder sb = new StringBuilder();
-        String searchStringSanitized = searchString.replaceAll("\n", "");
-        sb.append(String.format(ReplyTextMessages.FIND_STRING_INIT_1s, searchStringSanitized));
-        TaskList newFilteredView = TaskListFilterView.createFilter(userList, searchString);
-        sb.append("\n");
-        if (newFilteredView.isEmpty()) {
-            sb.append(String.format(ReplyTextMessages.FIND_STRING_FAIL_1s, searchString));
-            ui.print(sb.toString());
-            return userList;
-        } else {
-            sb.append(String.format(
-                    ReplyTextMessages.FIND_STRING_FOUND_1d_1s,
-                    newFilteredView.size(),
-                    searchString));
-            ui.print(sb.toString());
-            printUserList(newFilteredView);
-            return newFilteredView;
-        }
-    }
 }

@@ -50,6 +50,11 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args, LauncherC
     }
 
     @Override
+    protected String getArgumentSeperator() {
+        return "-";
+    }
+
+    @Override
     protected Class<Args> getArgumentClass() {
         return Args.class;
     }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
-import yappingbot.commands.commands.ResetView;
+import yappingbot.commands.commands.FindStringInTasksCommand;
+import yappingbot.commands.commands.ResetViewCommand;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotExceptionList;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
@@ -64,9 +65,9 @@ public class YappingBot {
     private void saveAndCleanup() {
         try {
             // REVERT LIST TO MAIN PARENT!
-            userList = new ResetView().setEnvironment(ui, userList, true)
-                                      .runCommand()
-                                      .getNewUserList();
+            userList = new ResetViewCommand().setEnvironment(ui, userList, true)
+                                             .runCommand()
+                                             .getNewUserList();
 
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
@@ -91,9 +92,9 @@ public class YappingBot {
                     return;
                 case RESET_LIST:
                     // resets any filter on the list
-                    userList = new ResetView().setEnvironment(ui, userList, false)
-                                              .runCommand()
-                                              .getNewUserList();
+                    userList = new ResetViewCommand().setEnvironment(ui, userList, false)
+                                                     .runCommand()
+                                                     .getNewUserList();
                     break;
                 case LIST:
                     // lists out all tasks that fits current filter (if any)
@@ -132,8 +133,10 @@ public class YappingBot {
                 case FIND:
                     // creates a filtered list view with tasks matching the given criteria
                     Parser.checkMinimumArgsAvailable(userInputSlices, 1);
-                    String searchString = userInput.substring(userInput.indexOf(" ") + 1);
-                    userList = commandDispatch.findStringInTasks(searchString, userList);
+                    userList = new FindStringInTasksCommand(userInputSlices)
+                            .setEnvironmen(ui, userList)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case UNKNOWN:
                 default:

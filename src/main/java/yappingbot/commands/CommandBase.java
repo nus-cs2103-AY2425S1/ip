@@ -18,7 +18,8 @@ import yappingbot.exceptions.YappingBotIncorrectCommandException;
 public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends CommandBase<A, ?>> {
     protected HashMap<A, String[]> arguments = new HashMap<>();
     private boolean argumentsLoaded = false;
-    protected String argumentSeperator = "/";
+
+    protected abstract String getArgumentSeperator();
 
     /**
      * Subclasses must override this, linking it to an Enum of possible Argument Types.
@@ -55,7 +56,7 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
      *                                             argument flag given.
      */
     public CommandBase(String[] argSlices) throws YappingBotIncorrectCommandException {
-        parseArguments(argumentSeperator, argSlices);
+        parseArguments(getArgumentSeperator(), argSlices);
 
         // command id ready to be run
         argumentsLoaded = true;
@@ -96,8 +97,14 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
     throws IllegalArgumentException {
         A currentArgument = this.getFirstArgumentType();
         ArrayList<String> valueCollector = new ArrayList<>();
+        boolean isCommandVerb = true;
 
         for (String slice : userInputSlices) {
+            if (isCommandVerb) {
+                isCommandVerb = false;
+                continue;
+            }
+
             if (slice.startsWith(flagMarker)) {
                 // Slice starts with flag.
                 // Push valueCollector's values and current flag into arguements hashmap
