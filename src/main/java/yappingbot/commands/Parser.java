@@ -36,15 +36,33 @@ public class Parser {
     public Parser() {
         commandsHashMap = new HashMap<>();
         commandsHashMap.put("find", CommandTypes.FIND);
+        commandsHashMap.put("/", CommandTypes.FIND);
+
         commandsHashMap.put("reset", CommandTypes.RESET_LIST);
+
         commandsHashMap.put("list", CommandTypes.LIST);
+        commandsHashMap.put("print", CommandTypes.LIST);
+        commandsHashMap.put("p", CommandTypes.LIST);
+
         commandsHashMap.put("mark", CommandTypes.MARK);
+        commandsHashMap.put("m", CommandTypes.MARK);
         commandsHashMap.put("unmark", CommandTypes.UNMARK);
+        commandsHashMap.put("u", CommandTypes.UNMARK);
+
         commandsHashMap.put("delete", CommandTypes.DELETE);
+        commandsHashMap.put("d", CommandTypes.DELETE);
+
         commandsHashMap.put("todo", CommandTypes.TODO);
+        commandsHashMap.put("t", CommandTypes.TODO);
         commandsHashMap.put("event", CommandTypes.EVENT);
+        commandsHashMap.put("e", CommandTypes.EVENT);
         commandsHashMap.put("deadline", CommandTypes.DEADLINE);
+        commandsHashMap.put("dl", CommandTypes.DEADLINE);
+
         commandsHashMap.put("bye", CommandTypes.EXIT);
+        commandsHashMap.put("exit", CommandTypes.EXIT);
+        commandsHashMap.put(":q", CommandTypes.EXIT);
+
     }
 
     /**
