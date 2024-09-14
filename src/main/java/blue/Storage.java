@@ -29,6 +29,15 @@ public class Storage {
 
         File file = new File(FILE_PATH);
         if (!file.exists()) {
+            try {
+                File directory = new File(file.getParent());
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
             return;
         }
 
@@ -49,14 +58,24 @@ public class Storage {
      * @param myList The list of tasks to save to the file.
      */
     public static void saveToFile(ArrayList<Task> myList) {
-
         // Ensure that myList is not null
         assert myList != null : "Task list (myList) should not be null";
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            for (Task task : myList) {
-                writer.write(task.toFileString());
-                writer.newLine();
+        File file = new File(FILE_PATH);
+        try {
+            File directory = new File(file.getParent());
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+                for (Task task : myList) {
+                    writer.write(task.toFileString());
+                    writer.newLine();
+                }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while saving to file: " + e.getMessage());
