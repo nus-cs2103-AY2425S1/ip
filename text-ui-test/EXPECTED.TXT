@@ -2,9 +2,12 @@
 	 Hey! My name is EkuD!!
 	 You can call me Eku-Chan!
 	_____________________________________________________________
+	 Before we start, let me try to find your tasks!!
+	 Found them! I'm going to load them into the system now!
+	_____________________________________________________________
 
 	_____________________________________________________________
-	 Would Ya look at: No tasks to be found. Shocking ain't it!
+	 Would Ya look at that: No tasks to be found. Shocking ain't it
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -13,20 +16,32 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 added: [D][ ] return book (by: June 6th)
+	 added: [D][ ] return book (by: Jun 06 2024, 12:00 PM)
 	 And another one; 2 out of 2 tasks to complete...
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 added: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 added: [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	 And another one; 3 out of 3 tasks to complete...
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Look at all these tasks:
 	 1. [T][ ] read book
-	 2. [D][ ] return book (by: June 6th)
-	 3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	 3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Urrgh! Why do you bother me with this task!
+	 Fine, fine.... I will go look for them...
+	 Here are the results of my search:
+	 1. [T][ ] read book
+	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Quit yapping buddy, I have no clue what ya saying!
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -44,8 +59,8 @@
 	_____________________________________________________________
 	 Look at all these tasks:
 	 1. [T][X] read book
-	 2. [D][ ] return book (by: June 6th)
-	 3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	 3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -65,8 +80,8 @@
 	_____________________________________________________________
 	 Look at all these tasks:
 	 1. [T][ ] read book
-	 2. [D][ ] return book (by: June 6th)
-	 3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	 3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -76,7 +91,12 @@
 
 	_____________________________________________________________
 	 Whoopsies!! Looks like you forgot your deadline!
-	 I'll say this once: next time mark your deadline with '/deadline'.
+	 I'll say this once: next time mark your deadline with '/by'.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
+	 I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -90,7 +110,7 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 added: [E][ ] interview (from: today 4pm to: 6pm)
+	 added: [E][ ] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
 	 And another one; 4 out of 4 tasks to complete...
 	_____________________________________________________________
 
@@ -103,42 +123,42 @@
 
 	_____________________________________________________________
 	 Great work on completing your task!
-	 Proceeding with task removal directive...
+	 Proceeding with ekud.task removal directive...
 	   deleted: [T][X] read book
 	 Now get a move on, you have 3 out of 3 incomplete tasks remaining!
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 I'm going to assume that task wasn't meant to be there...
-	 Proceeding with task removal directive...
-	   deleted: [D][ ] return book (by: June 6th)
+	 Proceeding with ekud.task removal directive...
+	   deleted: [D][ ] return book (by: Jun 06 2024, 12:00 PM)
 	 Now get a move on, you have 2 out of 2 incomplete tasks remaining!
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Look at all these tasks:
-	 1. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	 2. [E][ ] interview (from: today 4pm to: 6pm)
+	 1. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	 2. [E][ ] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Wowie!! You've completed your task!
 	 I shall mark it as complete in celebration!
-	   [E][X] interview (from: today 4pm to: 6pm)
+	   [E][X] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
 	 Woohoo!! Only 1 out of 2 tasks more to go!
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 I'm going to assume that task wasn't meant to be there...
-	 Proceeding with task removal directive...
-	   deleted: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 Proceeding with ekud.task removal directive...
+	   deleted: [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	 I've ran the numbers, and it says that all 1 tasks are complete!
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Great work on completing your task!
-	 Proceeding with task removal directive...
-	   deleted: [E][X] interview (from: today 4pm to: 6pm)
+	 Proceeding with ekud.task removal directive...
+	   deleted: [E][X] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
 	 Well, looks like there is nothing left for you do!
 	_____________________________________________________________
 

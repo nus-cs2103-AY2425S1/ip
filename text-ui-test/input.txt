@@ -1,8 +1,10 @@
 list
 todo read book
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
+deadline return book /by 6/6/2024 1200
+event project meeting /from 8/8/2024 1200 /to 10/10/2024 1200
 list
+find book
+sing
 mark bleh
 mark 1
 list
@@ -11,9 +13,10 @@ unmark 1
 list
 todo
 deadline homework
+deadline homework /by 8 Aug
 event interview
-event interview /from today 4pm
-event interview /to 6pm /from today 4pm
+event interview /from 8/8/2024 1200
+event interview /to 10/10/2024 1200 /from 10/10/2024 1400
 mark 1
 delete 1
 delete 1
