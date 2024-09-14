@@ -20,7 +20,7 @@ public class Hoshi {
     private Parser parser;
 
     /**
-     * Hoshi method that sets up relevant dependencies for Hoshi chatbot
+     * Sets up relevant dependencies for Hoshi chatbot
      */
     public Hoshi() {
 

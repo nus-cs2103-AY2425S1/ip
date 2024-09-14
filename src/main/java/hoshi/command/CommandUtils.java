@@ -12,7 +12,7 @@ import hoshi.utils.Storage;
 public class CommandUtils {
 
     /**
-     * Utility method for handling save when required in command classes
+     * Handling save when required in command classes
      */
     public static void handleSave(TaskList taskList, Storage storage, Ui ui) {
         try {
