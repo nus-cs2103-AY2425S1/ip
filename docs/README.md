@@ -15,6 +15,8 @@ This is a task management chatbot. Given below are instructions on how to use it
 - [Delete a task `delete`](https://foochao.github.io/ip/#delete-a-task-delete)
 - [Close the app `bye`](https://foochao.github.io/ip/#close-the-app-bye)
 
+[Command Summary](https://foochao.github.io/ip/#command-summary)
+
 ## Quick Start
 
 1. Ensure you have Java 17 or above on your computer.
@@ -78,3 +80,18 @@ Example: delete 1
 ### Close the app `bye`
 
 Format: bye
+
+
+## Command Summary
+
+| Action | Description | Example |
+| --- | --- | --- |
+| `todo` | todo TASKDESCRIPTION | todo study CS1231S |
+| `deadline` | deadline TASKDESCRIPTION /by DEADLINE | deadline Finish CS2103T ip /by 20 Sep 2024 |
+| `event` | event TASKDESCRIPTION /from START /to END | event mug for exam /from 20 Sep 2024 /to 29 Sep 2024 |
+| `list` | list | list |
+| `find` | find STRINGTOMATCH | find study |
+| `mark` | mark INDEX | mark 1 |
+| `unmark` | unmark INDEX | unmark 1 |
+| `delete` | delete INDEX | delete 1 |
+| `bye` | bye | bye |
