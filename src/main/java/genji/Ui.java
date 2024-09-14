@@ -98,6 +98,23 @@ public class Ui {
      * @param list Task list to be printed
      * @return Formatted string
      */
+    public String date(TaskList list) {
+        if (list.size() == 0){
+            return "No matching tasks in your list";
+        } else {
+            String result = "";
+            for (Task t : list.getList()) {
+                result = result + t.toString() +"\n";
+            }
+            return "Here are the matching tasks in your list:\n" + result;
+        }
+    }
+
+    /**
+     * Prints tasks that match the description
+     * @param list Task list to be printed
+     * @return Formatted string
+     */
     public String find(TaskList list) {
         if (list.size() == 0){
             return "No matching tasks in your list";

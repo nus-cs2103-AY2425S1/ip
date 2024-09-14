@@ -13,6 +13,8 @@ import genji.command.HelpCommand;
 import genji.task.ToDo;
 import genji.task.Deadline;
 import genji.task.Event;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -197,6 +199,7 @@ public class Parser {
         } else {
             try {
                 String date = command.substring(5);
+                LocalDate test = LocalDate.parse(date);
                 return new DateCommand(date);
             } catch (DateTimeParseException d) {
                 throw new GenjiException("Please provide date time in this format\"yyyy-mm-dd\"");

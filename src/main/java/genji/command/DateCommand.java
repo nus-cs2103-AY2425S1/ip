@@ -27,7 +27,7 @@ public class DateCommand extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
-        response = list.checkDate(date);
+        response = ui.date(list.checkDate(date));
     }
 
     /**

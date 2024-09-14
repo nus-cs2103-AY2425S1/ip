@@ -96,18 +96,18 @@ public class TaskList {
      * @param date The date concerning which tasks to be printed
      * @return Formatted string
      */
-    public String checkDate(String date) {
-        String result = "";
+    public TaskList checkDate(String date) {
+        TaskList result = new TaskList();
         for (Task t : taskList) {
             if (t instanceof Deadline) {
                 Deadline temp = (Deadline) t;
                 if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
-                    result += t.toString() + "\n";
+                    result.add(t);
                 }
             } else if (t instanceof Event) {
                 Event temp = (Event) t;
                 if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
-                    result += t.toString() + "\n";
+                    result.add(t);
                 }
             }
         }
