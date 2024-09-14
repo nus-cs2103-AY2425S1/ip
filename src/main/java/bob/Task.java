@@ -1,8 +1,11 @@
 package bob;
 
+import java.time.LocalDateTime;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    private LocalDateTime createdAt;
 
     /**
      * Creates a task from text that is correctly formatted.
@@ -33,16 +36,22 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.createdAt = LocalDateTime.now();
 
     }
 
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, LocalDateTime createdAt) {
         this.description = description;
         this.isDone = isDone;
+        this.createdAt = createdAt;
     }
 
     public String getDescription() {
         return this.description;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
     }
 
     public String getStatusIcon() {

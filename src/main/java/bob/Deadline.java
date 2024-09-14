@@ -14,28 +14,30 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public Deadline(String description, LocalDateTime by, boolean isDone) {
-        super(description, isDone);
+    public Deadline(String description, LocalDateTime by, boolean isDone, LocalDateTime createdAt) {
+        super(description, isDone, createdAt);
         this.by = by;
     }
 
     public static Task from(String text) {
         String[] parameters = text.split("\\s\\|\\s");
-        assert parameters.length == 4 : "Number of elements after splitting should be 4.";
+        assert parameters.length == 5 : "Number of elements after splitting should be 5.";
         return new Deadline(
                 parameters[2],
                 LocalDateTime.parse(parameters[3]),
-                parameters[1].equals("1"));
+                parameters[1].equals("1"),
+                LocalDateTime.parse(parameters[4]));
 
     }
 
     @Override
     public String toText() {
         return String.format(
-                "D | %s | %s | %s",
+                "D | %s | %s | %s | %s",
                 super.isDone ? 1 : 0,
                 super.description,
-                this.by);
+                this.by,
+                super.getCreatedAt());
     }
 
     @Override
