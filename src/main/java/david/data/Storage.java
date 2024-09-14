@@ -41,9 +41,9 @@ public class Storage {
     }
 
     /**
-     * Loads the cached list of tasks if it exists.
-     * If it does not exist, a new cache will be created
-     * @return arraylist of tasks
+     * Loads the cached list of tasks if it exists. If it does not exist, a new cache will be created
+     *
+     * @return arraylist of tasks.
      */
     public TaskList loadTasks() {
         List<Task> tasks = new ArrayList<>();
@@ -64,8 +64,9 @@ public class Storage {
 
     /**
      * Parses the input line and returns the task represented by the current line
-     * @param s event name and details of the string input
-     * @return Task corresponding to the input string
+     *
+     * @param s event name and details of the string input.
+     * @return Task corresponding to the input string.
      */
     private Task parseTask(String s) {
         String[] taskInformation = s.split("\\|");
@@ -126,8 +127,9 @@ public class Storage {
 
     /**
      * Overwrites the file with the list of current tasks
+     *
      * @throws DavidCacheException if the named file exists but is a directory rather than a regular file,
-     *     does not exist but cannot be created, or cannot be opened for any other reason
+     *     does not exist but cannot be created, or cannot be opened for any other reason.
      */
     public void saveTask(TaskList tasks) throws DavidCacheException {
         try {

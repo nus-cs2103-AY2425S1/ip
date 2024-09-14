@@ -9,8 +9,9 @@ public class TodoTask extends Task {
 
     /**
      * Contructor for todo task
-     * @param eventName String event name
-     * @param isCompleted
+     *
+     * @param eventName String event name.
+     * @param isCompleted completion state of event.
      */
     public TodoTask(String eventName, boolean isCompleted) {
         super(eventName, isCompleted);

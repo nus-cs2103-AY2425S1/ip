@@ -12,9 +12,10 @@ public class DeadlineTask extends Task {
 
     /**
      * Contructor for Deadline task
-     * @param eventName String event name
-     * @param by LocalDateTime date
-     * @param isCompleted
+     *
+     * @param eventName String event name.
+     * @param by LocalDateTime date.
+     * @param isCompleted completion state of event.
      */
     public DeadlineTask(String eventName, LocalDateTime by, boolean isCompleted) {
         super(eventName, isCompleted);

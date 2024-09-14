@@ -43,8 +43,9 @@ public class Ui {
 
     /**
      * Displays a successful sorting message
-     * @param tasks TaskList of tasks
-     * @return Formatted string response
+     *
+     * @param tasks TaskList of tasks.
+     * @return Formatted string response.
      */
     public String displaySuccessfulSortMessage(TaskList tasks) {
         return "Got it. I have sorted your tasks as specified.\n"
@@ -55,8 +56,9 @@ public class Ui {
 
     /**
      * Displays the task details
-     * @param t Task to display
-     * @param noOfTasks Current size of arraylist
+     *
+     * @param t Task to display.
+     * @param noOfTasks Current size of arraylist.
      */
     public String displayTaskDetails(Task t, int noOfTasks) {
         return "Got it. I've added this task:\n"
@@ -69,8 +71,9 @@ public class Ui {
 
     /**
      * Displays successful delete message
-     * @param t Task to delete
-     * @param noOfTasks Current size of arraylist
+     *
+     * @param t Task to delete.
+     * @param noOfTasks Current size of arraylist.
      */
     public String displaySuccessfulDeleteMessage(Task t, int noOfTasks) {
         return "Alright, I've removed this task from the list:\n"
@@ -83,7 +86,8 @@ public class Ui {
 
     /**
      * Displays successful marking of a task
-     * @param t Task to mark as done
+     *
+     * @param t Task to mark as done.
      */
     public String displayMarkAsDoneMessage(Task t) {
         return "Nice! I've marked this task as done:\n"
@@ -93,7 +97,8 @@ public class Ui {
 
     /**
      * Displays successful unmarking of a task
-     * @param t Task to unmark as done
+     *
+     * @param t Task to unmark as done.
      */
     public String displayMarkAsUnDoneMessage(Task t) {
         return "Okay, I've marked this task as not done yet:\n"
@@ -103,7 +108,8 @@ public class Ui {
 
     /**
      * Displays exception message
-     * @param e exception to handle
+     *
+     * @param e exception to handle.
      */
     public String displayErrorMessage(Exception e) {
         return e.toString();
@@ -111,7 +117,8 @@ public class Ui {
 
     /**
      * Displays exception message
-     * @param s custom string message to display
+     *
+     * @param s custom string message to display.
      */
     public String displayErrorMessage(String s) {
         return s;
@@ -119,7 +126,8 @@ public class Ui {
 
     /**
      * Displays the arraylist of tasks
-     * @param tasks TaskList of tasks
+     *
+     * @param tasks TaskList of tasks.
      */
     public String listTasks(TaskList tasks) {
         return tasks.toString();
@@ -128,8 +136,9 @@ public class Ui {
     /**
      * Calls the findEvent() method of TaskList that returns the String format of all events matching
      * the specified string
-     * @param s specified event String
-     * @param tasks TaskList of all tasks
+     *
+     * @param s specified event String.
+     * @param tasks TaskList of all tasks.
      */
     public String findEvent(String s, TaskList tasks) {
         return tasks.findEvent(s);

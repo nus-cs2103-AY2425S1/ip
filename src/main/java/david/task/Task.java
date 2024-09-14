@@ -20,7 +20,8 @@ public abstract class Task {
 
     /**
      * Returns the name of the event
-     * @return name of the event
+     *
+     * @return name of the event.
      */
     public String getTask() {
         assert taskName.length() != 0 : "No event string provided";
@@ -29,7 +30,8 @@ public abstract class Task {
 
     /**
      * Checks if the task is completed
-     * @return true if task is completed else false
+     *
+     * @return true if task is completed else false.
      */
     public boolean isCompleted() {
         return isCompleted;
@@ -52,9 +54,9 @@ public abstract class Task {
     public abstract LocalDateTime getLocalDateTime();
 
     /**
-     * Converts the task to a string suitable for storing into the
-     * cache
-     * @return Parsed string in the format specified for storage in the cache
+     * Converts the task to a string suitable for storing into the cache
+     *
+     * @return Parsed string in the format specified for storage in the cache.
      */
     public abstract String toCacheString();
 

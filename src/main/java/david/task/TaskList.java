@@ -14,7 +14,8 @@ public class TaskList {
 
     /**
      * Constructor for task list
-     * @param t List of tasks
+     *
+     * @param t List of tasks.
      */
     public TaskList(List<Task> t) {
         this.tasks = t;
@@ -22,7 +23,8 @@ public class TaskList {
 
     /**
      * Adds a task to the array list
-     * @param t task to add
+     *
+     * @param t task to add.
      */
     public void addTask(Task t) {
         this.tasks.add(t);
@@ -30,7 +32,8 @@ public class TaskList {
 
     /**
      * Returns the size of the arraylist
-     * @return size of arraylist
+     *
+     * @return size of arraylist.
      */
     public int getSize() {
         return tasks.size();
@@ -38,7 +41,8 @@ public class TaskList {
 
     /**
      * Removes a task from the array list
-     * @param n index of the task to remove (0-indexed)
+     *
+     * @param n index of the task to remove (0-indexed).
      */
     public void deleteTask(int n) {
         tasks.remove(n);
@@ -46,7 +50,8 @@ public class TaskList {
 
     /**
      * Marks a task in the arraylist as done
-     * @param n index of the task to mark (0-indexed)
+     *
+     * @param n index of the task to mark (0-indexed).
      */
     public void markTaskAsDone(int n) {
         Task t = tasks.get(n);
@@ -55,7 +60,8 @@ public class TaskList {
 
     /**
      * Marks a task in the arraylist as undone
-     * @param n index of the task to mark (0-indexed)
+     *
+     * @param n index of the task to mark (0-indexed).
      */
     public void markTaskAsUndone(int n) {
         Task t = tasks.get(n);
@@ -64,8 +70,9 @@ public class TaskList {
 
     /**
      * Get a task from the arraylist
-     * @param n index of the task to get (0-indexed)
-     * @return Task at the specified index
+     *
+     * @param n index of the task to get (0-indexed).
+     * @return Task at the specified index.
      */
     public Task getTask(int n) {
         return this.tasks.get(n);
@@ -73,8 +80,9 @@ public class TaskList {
 
     /**
      * Finds all events realted to the string specified by the user
-     * @param s String specified by the user
-     * @return  String containing all events matching the string specified by the user
+     *
+     * @param s String specified by the user.
+     * @return  String containing all events matching the string specified by the user.
      */
     public String findEvent(String s) {
         String events = "Here are the matching tasks in your list:\n";

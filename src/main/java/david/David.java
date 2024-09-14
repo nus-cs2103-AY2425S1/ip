@@ -41,7 +41,8 @@ public class David {
 
     /**
      * Returns a start-up message on launch of the appplication
-     * @return Start-up message
+     *
+     * @return Start-up message.
      */
     public String getStartUpMessage() {
         return ui.start();
@@ -89,7 +90,8 @@ public class David {
 
     /**
      * Sorts the existing tasks in increasing or decreasing order
-     * @param s String representing the sort order
+     *
+     * @param s String representing the sort order.
      */
     public String sortEvent(String s) throws DavidInvalidArgumentsException {
         String sortOrder = StringParser.parseStringToArguments(s);
@@ -111,8 +113,9 @@ public class David {
 
     /**
      * Return all events corresponding to the specified event
-     * @param s input string
-     * @throws DavidInvalidArgumentsException
+     *
+     * @param s input string.
+     * @throws DavidInvalidArgumentsException if arguments are invalid.
      */
     public String findEvent(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
@@ -122,8 +125,9 @@ public class David {
 
     /**
      * Adds todo task to tasklist
-     * @param s string task
-     * @throws DavidInvalidArgumentsException
+     *
+     * @param s string task.
+     * @throws DavidInvalidArgumentsException if arguments are invalid.
      */
     public String addTodoTask(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
@@ -136,10 +140,11 @@ public class David {
 
     /**
      * Adds an event task to the arraylist
-     * @param s String event
-     * @throws DavidInvalidArgumentsException
-     * @throws DavidInvalidRangeException
-     * @throws DavidInvalidDateTimeException
+     *
+     * @param s String event.
+     * @throws DavidInvalidArgumentsException if arguments are invalid.
+     * @throws DavidInvalidRangeException if range is invalid.
+     * @throws DavidInvalidDateTimeException if time is invalid.
      */
     public String addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException,
             DavidInvalidDateTimeException {
@@ -171,10 +176,11 @@ public class David {
 
     /**
      * Adds a deadline task to the arraylist
-     * @param s String event
-     * @throws DavidInvalidArgumentsException
-     * @throws DavidInvalidDeadlineException
-     * @throws DavidInvalidDateTimeException
+     *
+     * @param s String event.
+     * @throws DavidInvalidArgumentsException if arguments are invalid.
+     * @throws DavidInvalidRangeException if range is invalid.
+     * @throws DavidInvalidDateTimeException if time is invalid.
      */
     public String addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException,
             DavidInvalidDateTimeException {
@@ -195,9 +201,10 @@ public class David {
 
     /**
      * Deletes a task from the arraylist
-     * @param s String index to delete
-     * @throws DavidInvalidArgumentsException
-     * @throws DavidInvalidTaskException
+     *
+     * @param s String index to delete.
+     * @throws DavidInvalidArgumentsException if arguments are invalid.
+     * @throws DavidInvalidTaskException if task is invalid.
      */
     public String deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException {
         try {
@@ -221,8 +228,9 @@ public class David {
 
     /**
      * Marks a task from the arraylist as done
-     * @param s String index to mark
-     * @throws DavidInvalidArgumentsException
+     *
+     * @param s String index to mark.
+     * @throws DavidInvalidArgumentsException if arguments are invalid.
      */
     public String markTaskAsDone(String s) throws DavidInvalidArgumentsException {
         try {
@@ -240,8 +248,9 @@ public class David {
 
     /**
      * Marks a task from the arraylist as done
-     * @param s String index to mark
-     * @throws DavidInvalidArgumentsException
+     *
+     * @param s String index to mark.
+     * @throws DavidInvalidArgumentsException if arguments are invalid.
      */
     public String markTaskAsUnDone(String s) throws DavidInvalidArgumentsException {
         try {

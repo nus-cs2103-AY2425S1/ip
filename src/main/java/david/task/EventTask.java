@@ -14,10 +14,11 @@ public class EventTask extends Task {
 
     /**
      * Constructor for event task
-     * @param eventName String event name
-     * @param from LocalDateTime date
-     * @param to LocalDateTime date
-     * @param isCompleted
+     *
+     * @param eventName String event name.
+     * @param from LocalDateTime date.
+     * @param to LocalDateTime date.
+     * @param isCompleted completion state of event.
      */
     public EventTask(String eventName, LocalDateTime from, LocalDateTime to, boolean isCompleted) {
         super(eventName, isCompleted);
