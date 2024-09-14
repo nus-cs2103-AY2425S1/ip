@@ -1,7 +1,7 @@
 package commands;
 
 
-import exceptions.DukeException;
+import exceptions.EchoException;
 import tasks.Task;
 import tasks.TaskList;
 
@@ -11,82 +11,6 @@ import tasks.TaskList;
  */
 public class Parser {
 
-    /** Lists all tasks in the task list */
-    public static String listAllTask(TaskList allTasks) {
-        return allTasks.listAllTask();
-    }
-
-    /**
-     * Marks the complete status of a target task from task list.
-     *
-     * @param commandArray command user input.
-     * @param allTasks task list.
-     * @return A string confirming that the task has been marked as done.
-     * @throws IllegalArgumentException If the index is out of bounds.
-     */
-    public static String mark(String[] commandArray, TaskList allTasks)
-            throws IndexOutOfBoundsException {
-        int markIdx = Integer.parseInt(commandArray[1]) - 1;
-        return allTasks.markTask(markIdx);
-    }
-
-    /**
-     * Unmarks the complete status of a target task from task list.
-     *
-     * @param commandArray command user input.
-     * @param allTasks task list.
-     * @return A string confirming that the task has been marked as not done.
-     * @throws IllegalArgumentException If the index is out of bounds.
-     */
-    public static String unmark(String[] commandArray, TaskList allTasks)
-            throws IndexOutOfBoundsException {
-        int unmarkIdx = Integer.parseInt(commandArray[1]) - 1;
-        return allTasks.unmarkTask(unmarkIdx);
-    }
-
-    /**
-     * Tag the complete status of a target task from task list using "tag [index] /t #info" command
-     *
-     * @param commandArray command user input.
-     * @param allTasks task list.
-     * @return A string confirming that the task has been tag.
-     * @throws IllegalArgumentException If the index is out of bounds.
-     */
-    public static String tagTask(String[] commandArray, TaskList allTasks)
-            throws IndexOutOfBoundsException {
-        int index = Integer.parseInt(commandArray[1].split(" ", 2)[0]) - 1;
-        String tag = commandArray[1].split(" ", 2)[1];
-        return allTasks.tagTask(index, tag);
-    }
-
-    /**
-     * Deletes a task from task list.
-     * Deletes the target task from task list according to the index
-     * and print the current list size.
-     *
-     * @param commandArray command user input.
-     * @param allTasks task list.
-     * @return A string confirming that the task has been deleted, along with the updated task list size.
-     * @throws IllegalArgumentException If the index is out of bounds.
-     */
-    public static String deleteTask(String[] commandArray, TaskList allTasks)
-            throws IndexOutOfBoundsException {
-        int deleteIdx = Integer.parseInt(commandArray[1]) - 1;
-        return allTasks.delete(deleteIdx);
-    }
-
-    /**
-     * Prints tasks in the task list with provided keywords.
-     *
-     * @param commandArray command user input.
-     * @param allTasks task list.
-     * @return A string containing the list of tasks that match the search keywords.
-     */
-    public static String findTask(String[] commandArray, TaskList allTasks) {
-        String keywords = commandArray[1];
-        return allTasks.find(keywords);
-    }
-
     /**
      * Parses the user input and performs the corresponding action on the task list.
      *
@@ -94,7 +18,7 @@ public class Parser {
      * @param allTasks the task list to be manipulated based on the command.
      * @return A string response based on the command execution.
      */
-    public static String parse(String userInput, TaskList allTasks) throws DukeException {
+    public static String parse(String userInput, TaskList allTasks) throws EchoException {
         // parse the command
         String[] commandArray = userInput.split(" ", 2);
         assert commandArray.length <= 2 : "Command array should be at most 2 in length";
@@ -105,21 +29,21 @@ public class Parser {
         try {
             switch (Command.valueOf(command)) {
             case BYE:
-                return Chat.bye();
+                return ChatCommand.bye();
             case HI:
-                return Chat.greet();
+                return ChatCommand.greet();
             case LIST:
-                return listAllTask(allTasks);
+                return ListCommand.run(allTasks);
             case MARK:
-                return mark(commandArray, allTasks);
+                return MarkCommand.run(commandArray, allTasks);
             case UNMARK:
-                return unmark(commandArray, allTasks);
+                return UnmarkCommand.run(commandArray, allTasks);
             case TAG:
-                return tagTask(commandArray, allTasks);
+                return TagCommand.run(commandArray, allTasks);
             case DELETE:
-                return deleteTask(commandArray, allTasks);
+                return DeleteCommand.run(commandArray, allTasks);
             case FIND:
-                return findTask(commandArray, allTasks);
+                return FindCommand.run(commandArray, allTasks);
             case HELP:
                 return HelpCommand.getHelp(userInput);
             default:
@@ -127,13 +51,13 @@ public class Parser {
                 return allTasks.add(task);
             }
         } catch (ClassCastException e) {
-            throw new DukeException("Input Error: " + "\n" + e.getMessage());
+            throw new EchoException("Input Error: " + "\n" + e.getMessage());
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Invalid command entered. " + "\n" + e.getMessage());
+            throw new EchoException("Invalid command entered. " + "\n" + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Invalid index entered. " + "\n" + e.getMessage());
+            throw new EchoException("Invalid index entered. " + "\n" + e.getMessage());
         } catch (AssertionError e) {
-            throw new DukeException(e.getMessage());
+            throw new EchoException(e.getMessage());
         }
     }
 }

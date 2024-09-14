@@ -1,29 +1,56 @@
 package commands;
 
-import exceptions.DukeException;
+import exceptions.EchoException;
 
+/**
+ * Provides help information for EchoBot commands.
+ */
 public class HelpCommand {
-    public static String getHelp(String userInput) throws DukeException {
+
+    /**
+     * Retrieves help information based on user input.
+     *
+     * @param userInput The user's input command.
+     * @return A help message corresponding to the input command.
+     * @throws EchoException If the command is invalid or not recognized.
+     */
+    public static String getHelp(String userInput) throws EchoException {
         if (userInput.equals("help")) {
             return getGeneralHelp();
         }
 
         if (!isValidCommand(userInput)) {
-            throw new DukeException("Please enter a valid command if you need help");
+            throw new EchoException("Please enter a valid command if you need help");
         }
 
         return getCommandHelp(userInput);
     }
 
+    /**
+     * Checks if the given user input is a valid command.
+     *
+     * @param userInput The user's input command.
+     * @return True if the command is valid, false otherwise.
+     */
     public static boolean isValidCommand(String userInput) {
         String[] commandArray = userInput.split(" ");
 
         if (commandArray.length != 2) {
             return false;
         }
+
+        if (commandArray.length == 2 && commandArray[1].equals("help")) {
+            return false;
+        }
+
         return true;
     }
 
+    /**
+     * Provides a general help message listing all available commands.
+     *
+     * @return A string containing a list of available commands.
+     */
     public static String getGeneralHelp() {
         String message = "These are common EchoBot commands used:\n";
         for (Command command : Command.values()) {
@@ -32,34 +59,39 @@ public class HelpCommand {
         return message + "See 'help [command]' to read about a specific command.";
     }
 
-    public static String getCommandHelp(String userInput) throws DukeException {
+    /**
+     * Provides a help message for a specific command.
+     *
+     * @param userInput The user's input command.
+     * @return A help message for the specified command.
+     * @throws EchoException If the command is invalid or not recognized.
+     */
+    public static String getCommandHelp(String userInput) throws EchoException {
         String command = userInput.split(" ")[1].toUpperCase();
 
         try {
             switch (Command.valueOf(command)) {
             case BYE:
-                return "bye";
+                return ChatCommand.getHelpMessage();
             case HI:
-                return "hi";
+                return ChatCommand.getHelpMessage();
             case LIST:
-                return "list";
+                return ListCommand.getHelpMessage();
             case MARK:
-                return "mark";
+                return MarkCommand.getHelpMessage();
             case UNMARK:
-                return "unmark";
+                return UnmarkCommand.getHelpMessage();
             case TAG:
-                return "tag";
+                return TagCommand.getHelpMessage();
             case DELETE:
-                return "delete";
+                return DeleteCommand.getHelpMessage();
             case FIND:
-                return "find";
-            case HELP:
-                return "help";
+                return FindCommand.getHelpMessage();
             default:
                 return "task";
             }
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Seems you have entered an invalid command.\n" + " "
+            throw new EchoException("Seems you have entered an invalid command.\n" + " "
                     + "You can enter 'help' or 'help [command]' to get more information.");
         }
     }
