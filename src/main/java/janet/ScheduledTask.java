@@ -6,11 +6,16 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task that has a schedule (date and time)
+ * Represents a task that has a schedule (date and time).
  */
 public class ScheduledTask extends Task {
     private final LocalDateTime scheduledDateAndTime;
 
+    /**
+     * @param description The description of the task.
+     * @param symbol The symbol of the task.
+     * @param scheduledDateAndTime The date and time of the task, in LocalDateTime.
+     */
     public ScheduledTask(String description, String symbol, LocalDateTime scheduledDateAndTime) {
         super(description, symbol);
         this.scheduledDateAndTime = scheduledDateAndTime;
@@ -40,6 +45,9 @@ public class ScheduledTask extends Task {
         return scheduledDateAndTime;
     }
 
+    /**
+     * @return The date portion of the scheduledDateAndTime.
+     */
     @Override
     public LocalDate getScheduledDate() {
         return scheduledDateAndTime.toLocalDate();
