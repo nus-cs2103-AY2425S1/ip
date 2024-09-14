@@ -1,4 +1,4 @@
-package helperbuddy.GUI;
+package quirkbot.GUI;
 
 import java.io.IOException;
 import java.util.Collections;

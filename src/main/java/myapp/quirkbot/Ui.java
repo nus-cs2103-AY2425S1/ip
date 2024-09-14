@@ -1,10 +1,10 @@
-package myapp.helperbuddy;
+package myapp.quirkbot;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import helperbuddy.GUI.MainWindow;
+import quirkbot.GUI.MainWindow;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -37,7 +37,7 @@ public class Ui extends Application {
         taskList = new TaskList();
         storage = initStorage();
         if (storage == null) {
-            System.out.println("Failed to initialize storage");
+            System.out.println("Oops! I couldn't set up storage. Let's try again later!");
             return;
         }
 
@@ -48,8 +48,8 @@ public class Ui extends Application {
             AnchorPane ap = fxmlLoader.load();
             fxmlLoader.<MainWindow>getController().setBuddy(this);
             storage.loadTasks(taskList.getTasks());
-            stage.setTitle("YourHelperBuddy");
-            Image icon = new Image(this.getClass().getResourceAsStream("/images/HelperBuddy.png"));
+            stage.setTitle("QuirkBot - Your Friendly Assistant");
+            Image icon = new Image(this.getClass().getResourceAsStream("/images/QuirkBot.png"));
             stage.getIcons().add(icon);
             Scene scene = new Scene(ap);
             stage.setScene(scene);
@@ -66,7 +66,7 @@ public class Ui extends Application {
     public Storage initStorage() {
         File directory = new File(DIRECTORY_PATH);
         if (!directory.exists() && !directory.mkdirs()) {
-            System.out.println("Failed to create directory: " + DIRECTORY_PATH);
+            System.out.println("Oh no! I couldn’t create the directory. Maybe try again later?");
             return null;
         }
 
@@ -74,11 +74,11 @@ public class Ui extends Application {
         if (!file.exists()) {
             try {
                 if (!file.createNewFile()) {
-                    System.out.println("Failed to create file: " + FILE_PATH);
+                    System.out.println("Oops! Couldn’t create the file. What a pickle!");
                     return null;
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred while creating the file.");
+                System.out.println("A glitch occurred while creating the file. My bad!");
                 e.printStackTrace();
                 return null;
             }
@@ -93,10 +93,11 @@ public class Ui extends Application {
      * @return the response to the command.
      */
     public String processCommand(String command) {
-        assert command != null : "Command should not be null";
+        assert command != null : "Oops! The command shouldn’t be null.";
+
         String response;
         if (command.equals("bye")) {
-            response = "Goodbye. Take care and see you again!";
+            response = "Farewell! I’ll be here when you need me. 🌟";
             handleExit();
         } else if (command.equals("list")) {
             response = getTaskListMessage();
@@ -131,15 +132,15 @@ public class Ui extends Application {
      * @return the message of the deleted task.
      */
     public String handleDeleteTask(String command) {
-        assert command.startsWith("delete") : "Command should start with 'delete'";
+        assert command.startsWith("delete") : "Oh dear! The command should start with 'delete'.";
 
         try {
             int taskIndex = parseTaskIndex(command);
-            assert taskIndex >= 0 && taskIndex < taskList.size() : "Task index out of bounds";
+            assert taskIndex >= 0 && taskIndex < taskList.size() : "The task index seems to be out of bounds!";
             Task removedTask = taskList.deleteTask(taskIndex);
             return showTaskRemoved(removedTask);
         } catch (NumberFormatException e) {
-            return "Invalid task index.";
+            return "Oopsie! That’s not a valid task index.";
         }
     }
 
@@ -149,33 +150,33 @@ public class Ui extends Application {
      * @return the message of the marked task.
      */
     public String handleMarkTask(String command) {
-        assert command.startsWith("mark") : "Command should start with 'mark'";
+        assert command.startsWith("mark") : "Oops! The command should start with 'mark'.";
 
         try {
             int taskIndex = parseTaskIndex(command);
-            assert taskIndex >= 0 && taskIndex < taskList.size() : "Task index out of bounds";
+            assert taskIndex >= 0 && taskIndex < taskList.size() : "Hmm, that task index is not valid.";
             Task currentTask = taskList.getTask(taskIndex);
             return showTaskMarked(currentTask);
         } catch (NumberFormatException e) {
-            return "Invalid task index.";
+            return "Oh dear, that's not a valid task index.";
         }
     }
 
     /**
-     * Marks task as not done and shows the unmarked task to user
-     * @param command entered by the user in the command box
+     * Marks task as not done and shows the unmarked task to user.
+     * @param command entered by the user in the command box.
      * @return the message of the unmarked task.
      */
     public String handleUnmarkTask(String command) {
-        assert command.startsWith("unmark") : "Command should start with 'unmark'";
+        assert command.startsWith("unmark") : "Oops! The command should start with 'unmark'.";
 
         try {
             int taskIndex = parseTaskIndex(command);
-            assert taskIndex >= 0 && taskIndex < taskList.size() : "Task index out of bounds";
+            assert taskIndex >= 0 && taskIndex < taskList.size() : "The task index seems a bit off.";
             Task currentTask = taskList.getTask(taskIndex);
             return showTaskUnmarked(currentTask);
         } catch (NumberFormatException e) {
-            return "Invalid task index.";
+            return "Oopsie daisy! That index doesn’t look right.";
         }
     }
 
@@ -185,11 +186,11 @@ public class Ui extends Application {
      * @return the message of the task to find.
      */
     public String handleFindTask(String command) {
-        assert command.startsWith("find") : "Command should start with 'find'";
+        assert command.startsWith("find") : "Oops! The command should start with 'find'.";
 
         String keyword = command.substring(5).trim();
         if (keyword.isEmpty()) {
-            return "Please enter your search keyword.";
+            return "Oops! You forgot to enter your search keyword. 😅";
         }
 
         List<Task> searchResults = taskList.searchTasks(keyword);
@@ -202,7 +203,7 @@ public class Ui extends Application {
      * @return the message of the added task.
      */
     public String handleAddTask(String command) {
-        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty";
+        assert command != null && !command.trim().isEmpty() : "Oh no! The command can’t be empty.";
 
         Task currentTask = Parser.parseCommand(command);
         if (currentTask == null) {
@@ -232,19 +233,18 @@ public class Ui extends Application {
      * @return the formatted error message.
      */
     public String showErrorMessage(String command) {
-        assert command != null : "Command should not be null";
+        assert command != null : "The command shouldn’t be null!";
+
         if (command.startsWith("todo")) {
-            return "Sorry! The todo task description cannot be empty.";
+            return "Oops! The todo task description can’t be empty. Give me something to work with!";
         } else if (command.startsWith("deadline")) {
-            return "Sorry! The deadline task description cannot be empty.\n"
-                    + "The deadline timing should be in dd/MM/yyyy HHmm format.";
+            return "Oops! Your deadline task description is missing! Also, please use the dd/MM/yyyy HHmm format.";
         } else if (command.startsWith("event")) {
-            return "Sorry! The event task description cannot be empty.\n"
-                    + "The event from and to timings should be in dd/MM/yyyy HHmm format.";
+            return "Oops! Your event task description is missing! Also, use the dd/MM/yyyy HHmm format for the timings.";
         }
 
-        return "Invalid command. Please use 'find', 'todo', 'deadline', 'event', 'delete',"
-                    + " 'mark', 'unmark', 'list' or 'bye'. Thank you for understanding!";
+        return "Oops! That command doesn’t seem right. Please use 'find', 'todo', 'deadline', 'event', 'delete',"
+                + " 'mark', 'unmark', 'list', or 'bye'. Thanks a bunch!";
     }
 
     /**
@@ -268,8 +268,8 @@ public class Ui extends Application {
     public String showTaskAdded(Task task, int tasklistSize) {
         assert task != null : "Task should not be null";
         assert tasklistSize > 0 : "Task list size should be greater than 0";
-        return "Got it. I've added this task: " + task
-                + "\nNow you have " + tasklistSize + " tasks in the list.";
+        return "Great! I’ve added this task: " + task
+                + "\nYou now have " + tasklistSize + " tasks in your list. 🎉";
     }
 
     /**
@@ -280,8 +280,8 @@ public class Ui extends Application {
      */
     public String showTaskRemoved(Task task) {
         assert task != null : "Task should not be null";
-        return "Noted. I've removed this task: " + task
-                + "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Done! I’ve removed this task: " + task
+                + "\nNow you have " + taskList.size() + " tasks left. 📉";
     }
 
     /**
@@ -293,7 +293,7 @@ public class Ui extends Application {
     public String showTaskMarked(Task task) {
         assert task != null : "Task should not be null";
         task.markDone();
-        return "Nice! I've marked this task as done: " + task;
+        return "Hooray! I’ve marked this task as done: " + task;
     }
 
     /**
@@ -305,7 +305,7 @@ public class Ui extends Application {
     public String showTaskUnmarked(Task task) {
         assert task != null : "Task should not be null";
         task.markUndone();
-        return "OK, I've marked this task as not done yet: " + task;
+        return "No worries! I’ve marked this task as not done yet: " + task;
     }
 
     /**
@@ -319,7 +319,7 @@ public class Ui extends Application {
         List<Task> tasks = taskList.getTasks();
         String taskListMessage = tasks.stream()
                 .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
-                .reduce("Here are the tasks in your list:\n", (acc, taskStr) -> acc + taskStr + "\n");
+                .reduce("Here are the fabulous tasks in your list:\n", (acc, taskStr) -> acc + taskStr + "\n");
         return taskListMessage;
     }
 
@@ -332,12 +332,12 @@ public class Ui extends Application {
     public String showSearchResults(List<Task> tasks) {
         assert tasks != null : "Task List should not be null";
         if (tasks.isEmpty()) {
-            return "No tasks found matching the search keyword.";
+            return "No tasks found that match your search. Maybe try a different keyword?";
         }
 
         String searchResults = tasks.stream()
                 .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
-                .reduce("Search results:\n", (acc, taskStr) -> acc + taskStr + "\n");
+                .reduce("Here are the search results for you:\n", (acc, taskStr) -> acc + taskStr + "\n");
         return searchResults;
     }
 }

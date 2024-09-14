@@ -1,4 +1,4 @@
-package myapp.helperbuddy;
+package myapp.quirkbot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

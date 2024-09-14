@@ -1,4 +1,4 @@
-package myapp.helperbuddy;
+package myapp.quirkbot;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
