@@ -29,6 +29,8 @@ public class Parser {
      * @throws DarkpoolException If the user input is invalid.
      */
     public static Command parse(String input) throws DarkpoolException {
+        assert input != null : "Input should not be null";
+
         String[] userInput = input.split(" ", 2);
 
         if (userInput.length == 2) {
@@ -103,6 +105,9 @@ public class Parser {
             String from = toParts[0];
             String to = toParts[1];
             try {
+                assert !desc.isEmpty() : "Description for event cannot be empty";
+                assert !from.isEmpty() : "Start date for event cannot be empty";
+                assert !to.isEmpty() : "End date for event cannot be empty";
                 return new AddCommand(new Event(desc, from.trim(), to.trim(), false));
             } catch (DateTimeParseException e) {
                 throw new DarkpoolException("bro you know what a date time format is?");
@@ -121,6 +126,7 @@ public class Parser {
      * @throws DarkpoolException If the input is invalid.
      */
     private static String[] getToParts(String[] fromParts) throws DarkpoolException {
+        assert fromParts.length == 2 : "fromParts should contain exactly two elements";
         String[] toParts = fromParts[1].split("/to ");
 
         if (toParts.length > 3) {
@@ -141,6 +147,7 @@ public class Parser {
      * @throws DarkpoolException If the input is invalid.
      */
     private static String[] getParts(String[] userInput) throws DarkpoolException {
+        assert userInput.length == 2 : "userInput should contain exactly two elements";
         String[] fromParts = userInput[1].split("/from");
 
         if (fromParts.length > 2) {
@@ -161,6 +168,7 @@ public class Parser {
      * @throws DarkpoolException If the input is invalid.
      */
     private static String[] getStrings(String input) throws DarkpoolException {
+        assert input != null : "Input should not be null";
         if ((input.length() - input.replace("/by", "").length()) / "/by".length() > 1) {
             throw new DarkpoolException("everything good? there cant be multiple deadlines");
         }
