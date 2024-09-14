@@ -16,6 +16,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Returns task description
+     *
+     * @return returns description of task
+     */
+    @Override
+    public String getTaskDescription() {
+        return super.getTaskName();
+    }
+
+    /**
      * Creates a ToDo instance with given string.
      *
      * @param name the string containing information about the task type

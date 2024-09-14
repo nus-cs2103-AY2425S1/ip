@@ -29,7 +29,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         sb.append(task.getTaskTypeAsString()).append(" | ");
         sb.append(task.getStatus().equals("X") ? "1" : "0").append(" | ");
-        sb.append(task.getTaskName());
+        sb.append(task.getTaskDescription());
         if (task instanceof Deadline) {
             sb.append(" | ").append(((Deadline) task).getDeadline());
         } else if (task instanceof Event) {
@@ -41,7 +41,7 @@ public class TaskList {
 
     private void saveTasks() {
         File file = new File(save.getPath());
-
+        list();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task task : taskList) {
                 writer.write(formatTaskForFile(task));
@@ -62,7 +62,6 @@ public class TaskList {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println(line);
                 Task task = parseTask(line);
                 taskList.add(task);
                 taskListLength++;
@@ -78,22 +77,17 @@ public class TaskList {
         for (String part : parts) {
             assert !part.isEmpty() : "Error";
         }
-        Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
+        Task.TaskType taskType = Task.stringToTaskType(parts[0]);
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
         Task task;
-        list();
         switch (taskType) {
         case T:
             task = ToDo.of(description, taskType);
-            this.taskList.add(task);
-            saveTasks();
             break;
         case D:
             try {
                 task = Deadline.of(description + " /by " + parts[3], taskType);
-                this.taskList.add(task);
-                saveTasks();
             } catch (TaskCreationException e) {
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
             }
@@ -101,8 +95,6 @@ public class TaskList {
         case E:
             try {
                 task = Event.of(description + "/from " + parts[3] + " /to " + parts[4], taskType);
-                this.taskList.add(task);
-                saveTasks();
             } catch (TaskCreationException e) {
                 System.out.println("Error occurred while parsing task");
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
@@ -147,13 +139,14 @@ public class TaskList {
                 return "That task is a duplicate, unable to add task";
             }
             this.taskList.add(newTask);
+            saveTasks();
             this.taskListLength += 1;
 
             response.append("Got it. I've added this task:\n")
                     .append("[")
                     .append(newTask.getTaskTypeAsString())
                     .append("][ ] ")
-                    .append(newTask.getTaskName())
+                    .append(newTask.getTaskDescription())
                     .append("\n");
 
             if (this.taskListLength == 1) {
@@ -216,6 +209,8 @@ public class TaskList {
                         .append(" tasks in the list.\n");
             }
         }
+
+        saveTasks();
 
         return response.toString();
     }

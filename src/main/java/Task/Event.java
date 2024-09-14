@@ -30,7 +30,7 @@ public class Event extends Task {
      * @return the start time as a string
      */
     public String getStart() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return this.startTime.format(formatter);
     }
 
@@ -39,8 +39,18 @@ public class Event extends Task {
      * @return the ending time as a string
      */
     public String getEnd() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return this.endTime.format(formatter);
+    }
+
+    /**
+     * Returns task description
+     *
+     * @return returns description of task
+     */
+    @Override
+    public String getTaskDescription() {
+        return super.getTaskName();
     }
 
     /**
@@ -69,7 +79,6 @@ public class Event extends Task {
             String[] dateTimes = parts[1].trim().split(" /to ", 2);
             assert !dateTimes[0].isEmpty() : "Task start should not be empty";
             assert !dateTimes[1].isEmpty() : "Task end should not be empty";
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
             LocalDateTime start = formatter(dateTimes[0].trim());
             LocalDateTime end = formatter(dateTimes[1].trim());
             return new Event(taskName, taskType, start, end);

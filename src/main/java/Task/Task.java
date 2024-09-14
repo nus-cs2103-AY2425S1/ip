@@ -75,4 +75,32 @@ public class Task {
             return "E";
         }
     }
+
+    /**
+     * Returns task description
+     *
+     * @return returns description of task
+     */
+    public String getTaskDescription() {
+        return getTaskName();
+    }
+
+
+    /**
+     * Converts a string to a task type
+     *
+     * @return  the task type
+     */
+    public static TaskType stringToTaskType(String s){
+        if (s.equals("T")) {
+            return Task.TaskType.T;
+        } else if (s.equals("D")) {
+            return Task.TaskType.D;
+        } else if (s.equals("E")) {
+            return Task.TaskType.E;
+        } else {
+            System.out.println("Task type:" + s);
+            throw new IllegalArgumentException();
+        }
+    }
 }

@@ -36,15 +36,12 @@ public class Deadline extends Task {
         if (!name.contains("by")) {
             throw new TaskCreationException("Please include a /by");
         }
-        System.out.println(name);
         try {
             String[] parts = name.split("/by", 2);
             String taskName = parts[0].trim();
             String taskDeadline = parts[1].trim();
             assert !taskName.isEmpty() : "Task name should not be empty";
             assert !taskDeadline.isEmpty() : "Task deadline should not be empty";
-            System.out.println("Deadline is");
-            System.out.println(taskDeadline);
             LocalDateTime deadline = formatter(taskDeadline);
             return new Deadline(taskName, taskType, deadline);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -66,7 +63,7 @@ public class Deadline extends Task {
      * @return the deadline as a string
      */
     public String getDeadline() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return this.deadline.format(formatter);
     }
 
@@ -78,6 +75,16 @@ public class Deadline extends Task {
     @Override
     public String getTaskName() {
         return super.getTaskName() + " (by: " + this.getDeadline() + ")";
+    }
+
+    /**
+     * Returns task description
+     *
+     * @return returns description of task
+     */
+    @Override
+    public String getTaskDescription() {
+        return super.getTaskName();
     }
 
     public static LocalDateTime formatter(String s) throws DateTimeParseException {
