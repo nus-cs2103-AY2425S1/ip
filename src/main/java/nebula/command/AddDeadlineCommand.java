@@ -1,3 +1,12 @@
+package nebula.command;
+
+import nebula.storage.Storage;
+import nebula.task.Deadline;
+import nebula.task.Task;
+import nebula.task.TaskList;
+import nebula.ui.Parser;
+import nebula.ui.Ui;
+
 import java.io.IOException;
 
 public class AddDeadlineCommand extends Command {
