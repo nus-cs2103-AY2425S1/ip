@@ -8,7 +8,7 @@ import jackson.utils.CustomDateTime;
 public abstract class Task {
     // variables to store task information
     private String taskName;
-    private Boolean completed;
+    private Boolean isCompleted;
 
     /**
      * Constructs Task abstract class.
@@ -17,7 +17,7 @@ public abstract class Task {
      */
     public Task(String name) {
         this.taskName = name;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     // Temporal methods to extract dates and times from task
@@ -29,14 +29,14 @@ public abstract class Task {
      * Marks the task as completed.
      */
     public void mark() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Reverts task to incomplete.
      */
     public void unmark() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -44,7 +44,7 @@ public abstract class Task {
      * @return true if completed, false if not.
      */
     public boolean getStatus() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class Task {
      * @return String representation of complete or incomplete.
      */
     public String getStatusRepresentation() {
-        return this.completed ? "X" : " ";
+        return this.isCompleted ? "X" : " ";
     }
 
     /**

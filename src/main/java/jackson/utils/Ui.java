@@ -1,7 +1,6 @@
 package jackson.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import jackson.tasks.Task;
 
@@ -33,7 +32,7 @@ public class Ui {
     }
 
     /**
-     * Display a list of available commands and basic formats.
+     * Returns a list of available commands and basic formats.
      * @return String response.
      */
     public String printCommandList() {

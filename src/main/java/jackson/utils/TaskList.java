@@ -3,8 +3,6 @@ package jackson.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import jackson.exceptions.DuplicatedTaskException;
 import jackson.exceptions.OutOfListException;
@@ -154,13 +152,14 @@ public class TaskList {
             return;
         }
 
+        // modified switch statement
         Comparator<Task> selectedComparator = switch (by) {
-            case "name" -> comparatorByName;
-            case "startdate" -> comparatorByStartDateTime;
-            case "enddate" -> comparatorByEndDateTime;
-            case "status" -> comparatorByMarkedUnmarked;
-            case "tasktype" -> comparatorByTaskType;
-            default -> defaultComparator;
+        case "name" -> comparatorByName;
+        case "startdate" -> comparatorByStartDateTime;
+        case "enddate" -> comparatorByEndDateTime;
+        case "status" -> comparatorByMarkedUnmarked;
+        case "tasktype" -> comparatorByTaskType;
+        default -> defaultComparator;
         };
 
         // since comparators naturally sort by descending order, reverse the comparator

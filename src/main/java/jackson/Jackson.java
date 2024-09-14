@@ -10,12 +10,20 @@ import java.util.stream.Stream;
 
 import jackson.enums.Actions;
 import jackson.enums.Commands;
-import jackson.exceptions.*;
+import jackson.exceptions.DuplicatedTaskException;
+import jackson.exceptions.InvalidArgumentException;
+import jackson.exceptions.OutOfListException;
+import jackson.exceptions.SyntaxException;
+import jackson.exceptions.UnsupportedCommandException;
 import jackson.tasks.Deadline;
 import jackson.tasks.Event;
 import jackson.tasks.Task;
 import jackson.tasks.Todo;
-import jackson.utils.*;
+import jackson.utils.Parser;
+import jackson.utils.Response;
+import jackson.utils.Storage;
+import jackson.utils.TaskList;
+import jackson.utils.Ui;
 
 /**
  * Main class for the chatbot.
@@ -60,21 +68,20 @@ public class Jackson {
     public String readSecret() {
         String output; // variable to store the accumulated text
         File f = new File(SECRET_PATH); // File object for Stream
-        if (secret.isEmpty()) {
-            // load String Stream from File
-            try (Stream<String> secretString = Files.lines(f.toPath())) {
-                // accumulate each line
-                output = secretString.reduce((line, total) -> total + line + "\n").orElse("").strip();
+        if (!secret.isEmpty()) {
+            return secret;
+        }
+        // load String Stream from File
+        try (Stream<String> secretString = Files.lines(f.toPath())) {
+            // accumulate each line
+            output = secretString.reduce((line, total) -> total + line + "\n").orElse("").strip();
 
-                // decode from base64 to utf8
-                byte[] decoded = Base64.getDecoder().decode(output);
-                output = new String(decoded);
-            } catch (IOException e) {
-                // if file path not found
-                output = "Oops! Secret file not found...";
-            }
-        } else {
-            output = secret;
+            // decode from base64 to utf8
+            byte[] decoded = Base64.getDecoder().decode(output);
+            output = new String(decoded);
+        } catch (IOException e) {
+            // if file path not found
+            output = "Oops! Secret file not found...";
         }
         // print secret msg!
         return output;
@@ -90,8 +97,6 @@ public class Jackson {
         Actions.ActionType action;
         Matcher matcher;
         ArrayList<Task> tasks;
-        CustomDateTime from;
-        CustomDateTime to;
 
         int index;
         boolean isAscending;
@@ -124,11 +129,6 @@ public class Jackson {
                 this.commandType = Commands.CommandType.LIST;
                 break;
             case EVENT:
-                from = new CustomDateTime(matcher.group(2));
-                to = new CustomDateTime(matcher.group(3));
-                if (from.compareTo(to) > 0) {
-                    throw new InvalidArgumentException();
-                }
                 task = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
                 this.taskList.addTask(task);
                 output = this.ui.printAfterAddList(task, this.taskList);
@@ -164,11 +164,9 @@ public class Jackson {
                 this.commandType = Commands.CommandType.LIST;
                 break;
             case HELP:
-                if (matcher.group(1) == null) {
-                    output = this.ui.printCommandList();
-                } else {
-                    output = this.ui.printFormatGuide(matcher.group(1));
-                }
+                output = matcher.group(1) == null
+                        ? this.ui.printCommandList()
+                        : this.ui.printFormatGuide(matcher.group(1));
                 this.commandType = Commands.CommandType.NORMAL;
                 break;
             case BYE:
@@ -210,7 +208,7 @@ public class Jackson {
             this.commandType = Commands.CommandType.ERROR;
         } catch (IOException e) {
             output = this.ui.printFileIssue();
-
+            this.commandType = Commands.CommandType.ERROR;
         } catch (Exception e) {
             // some other error unaccounted for, print generic warning
             // here we pass an error so the stack trace can be extracted

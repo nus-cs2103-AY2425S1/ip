@@ -1,5 +1,6 @@
 package jackson.tasks;
 
+import jackson.exceptions.InvalidArgumentException;
 import jackson.utils.CustomDateTime;
 
 /**
@@ -15,10 +16,13 @@ public class Event extends Task {
      * @param from String start date of the task.
      * @param to String end date of the task.
      */
-    public Event(String name, String from, String to) {
+    public Event(String name, String from, String to) throws InvalidArgumentException {
         super(name);
         this.from = new CustomDateTime(from);
         this.to = new CustomDateTime(to);
+        if (from.compareTo(to) > 0) {
+            throw new InvalidArgumentException();
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jackson.exceptions.InvalidArgumentException;
 import jackson.tasks.Deadline;
 import jackson.tasks.Event;
 import jackson.tasks.Task;
@@ -62,7 +63,6 @@ public class Storage {
      */
     public String load(TaskList taskList) {
         File f = new File(this.path); // new file object
-        Matcher m;
         Task t;
         String output = "";
 
@@ -72,38 +72,8 @@ public class Storage {
         try {
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
-                m = TASK_FORMAT.matcher(sc.nextLine()); // take in next task, match to regex
-                if (m.matches()) {
-                    // means task is recognised as valid format
-                    switch (m.group(1)) {
-                    case "T": // todo
-                        t = new Todo(m.group(3));
-                        if (m.group(2).equals("X")) {
-                            t.mark(); // mark if completed
-                        }
-                        taskList.addTask(t);
-                        break;
-                    case "D": // deadline
-                        t = new Deadline(m.group(3), m.group(4));
-                        if (m.group(2).equals("X")) {
-                            t.mark(); // mark if completed
-                        }
-                        taskList.addTask(t);
-                        break;
-                    case "E": // event
-                        t = new Event(m.group(3), m.group(4), m.group(5));
-                        if (m.group(2).equals("X")) {
-                            t.mark(); // mark if completed
-                        }
-                        taskList.addTask(t);
-                        break;
-                    default:
-                        break;
-                    }
-                } else {
-                    // no matches, we do not load the task and skip
-                    output += "Error with loading task, skipping to next one...\n";
-                }
+                t = loadIndividual(sc.nextLine());
+                taskList.addTask(t);
             }
             sc.close(); // close scanner
             output += "Tasks loaded successfully!\n";
@@ -116,5 +86,39 @@ public class Storage {
             output += String.format("Unknown Error! %s! Aborting loading...\n", e);
         }
         return output;
+    }
+
+    /**
+     * Handles loading for each individual line.
+     * @return String response.
+     */
+    public Task loadIndividual(String line) throws InvalidArgumentException {
+        Task t;
+        Matcher m = TASK_FORMAT.matcher(line); // take in next task, match to regex
+        if (!m.matches()) {
+            // no matches, we do not load the task and skip
+            return null;
+        }
+
+        // means task is recognised as valid format
+        switch (m.group(1)) {
+        case "T": // todo
+            t = new Todo(m.group(3));
+            break;
+        case "D": // deadline
+            t = new Deadline(m.group(3), m.group(4));
+            break;
+        case "E": // event
+            t = new Event(m.group(3), m.group(4), m.group(5)); // can throw error if dates are invalid
+            break;
+        default:
+            // task type not recognized, skip task
+            return null;
+        }
+
+        if (m.group(2).equals("X")) {
+            t.mark(); // mark if completed
+        }
+        return t;
     }
 }

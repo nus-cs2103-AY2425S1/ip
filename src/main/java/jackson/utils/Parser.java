@@ -47,6 +47,8 @@ public class Parser {
             1. Match regex with input
             2. if regex doesn't match, throw exception (signifying wrong input format)
             3. if they do match, package action to be taken and parsed user input into Response object
+
+            Unfortunately, the code has to be this long to parse every possible command.
         */
         if (query.startsWith("list")) {
             m = LIST.matcher(query);
