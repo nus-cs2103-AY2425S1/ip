@@ -88,7 +88,7 @@ public class NewTaskList {
 
         for (int i = 0; i < tasks.size(); i++) {
             int index = i+1;
-            tasklist += index + " , " + tasks.get(i).toString() + "\n";
+             tasklist += index + " , " + tasks.get(i).toString() + "\n";
         }
 
         return tasklist;
@@ -108,7 +108,7 @@ public class NewTaskList {
     }
 
     public String addTodoTask(String input) throws EmptyDescriptionException {
-        Todo todo;
+
         if (input.trim().length() <= 5) {
             throw new EmptyDescriptionException("OPS!!! The description of a todo cannot be empty.");
         }
@@ -119,15 +119,13 @@ public class NewTaskList {
             String[] splits = input.split(" p ");
             description = splits[0].substring(5).trim();
             String priority = splits[1];
-            todo = new Todo(description, priority);
-            tasks.add(todo);
+            tasks.add(new Todo(description, priority));
         } else {
             description = input.substring(5).trim();
-            todo = new Todo(description);
-            tasks.add(todo);
+            tasks.add(new Todo(description));
         }
         return "Got it. I've added this task:\n  " +
-                todo + "\nNow you have " +
+                new Todo(description) + "\nNow you have " +
                 tasks.size() + " tasks in the list" + tasks.size() + ".";
 
     }
@@ -182,17 +180,15 @@ public class NewTaskList {
         }
         String start = parts[1].trim();
         String end = parts[2].trim();
-        Event event;
+
         if (parts.length > 3) {
             String priority = parts[3].trim();
-            event = new Event(description, start, end, priority);
-            tasks.add(event);
+            tasks.add(new Event(description, start, end, priority));
         } else {
-            event = new Event(description, start, end);
-            tasks.add(event);
+            tasks.add(new Event(description, start, end));
         }
         return "Got it. I've added this task:\n"
-                + "  " + event + "\n"
+                + "  " + new Event(description, start, end) + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
