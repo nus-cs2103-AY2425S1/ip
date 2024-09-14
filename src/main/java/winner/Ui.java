@@ -59,12 +59,11 @@ public class Ui {
     /**
      * Displays a farewell message when the user exits the application.
      */
-    public static void winnerSaysBye() {
-        System.out.println(("-".repeat(100) + "\n"
-                + "Hope I have been of service!" + "\n"
-                + "Thank you and see you again soon :D" + "\n"
-                + "Remember!!! A WINNER NEVER LOSES!!!" + "\n"
-                + "-".repeat(100)).indent(10));
+    public static String winnerSaysBye() {
+        return """
+                Hope I have been of service!
+                Thank you and see you again soon :D
+                Remember!!! A WINNER NEVER LOSES!!!""";
     }
 
 }

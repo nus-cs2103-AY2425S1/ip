@@ -13,9 +13,11 @@ public class Parser {
      * @param taskList TaskList object that contains and manages the list of tasks.
      * @throws WinnerException If input does not match any known command or if there are issues with the input format.
      */
-    public static void parseInput(String input, TaskList taskList) throws WinnerException {
+    public static String parseInput(String input, TaskList taskList) throws WinnerException {
+        String msg = "";
         if (input.matches("(?i)hi|hello")) {
-            Ui.applyTemplate(Ui.hiAgain());
+            //Ui.applyTemplate(Ui.hiAgain());
+            msg = Ui.hiAgain();
 
         } else if (input.matches("(?i).*\\btodo\\b.*")) {
             String description = input.split("todo", 2)[1].trim().toLowerCase();
@@ -24,8 +26,8 @@ public class Parser {
                         Expected format for adding todo task:
                         todo (task)""");
             }
-            String msg = taskList.addToDo(description);
-            Ui.applyTemplate(msg);
+            msg = taskList.addToDo(description);
+            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bdeadline\\b.*")) {
             String[] parts = input.split("(?i)\\bdeadline\\b | \\bby\\b");
@@ -34,8 +36,8 @@ public class Parser {
                         Expected format for adding deadline task:
                         deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)""");
             }
-            String msg = taskList.addDeadline(parts[1].trim().toLowerCase(), parts[2]);
-            Ui.applyTemplate(msg);
+            msg = taskList.addDeadline(parts[1].trim().toLowerCase(), parts[2]);
+            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bevent\\b.*")) {
             String[] parts = input.split("(?i)\\bevent\\b | \\bfrom\\b | \\bto\\b");
@@ -48,12 +50,12 @@ public class Parser {
             String description = parts[1].trim().toLowerCase(); //TaskList
             String start = parts[2].trim().toLowerCase();
             String end = parts[3].trim().toLowerCase();
-            String msg = taskList.addEvent(description, start, end);
-            Ui.applyTemplate(msg);
+            msg = taskList.addEvent(description, start, end);
+            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\blist\\b.*")) {
-            String msg = taskList.listTasks();
-            Ui.applyTemplate(msg);
+            msg = taskList.listTasks();
+            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bmark\\b.*")) {
             String numberString = input.replaceAll("[^0-9]", "");
@@ -67,8 +69,8 @@ public class Parser {
                         Expected format for marking tasks as done:
                         mark (task number)""");
             }
-            String msg = taskList.markTaskAsDone(taskNumber);
-            Ui.applyTemplate(msg);
+            msg = taskList.markTaskAsDone(taskNumber);
+            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bunmark\\b.*")) {
             String numberString = input.replaceAll("[^0-9]", "");
@@ -82,8 +84,8 @@ public class Parser {
                         Expected format for unmarking done tasks:
                         unmark (task number)""");
             }
-            String msg = taskList.unmarkDoneTask(taskNumber);
-            Ui.applyTemplate(msg);
+            msg = taskList.unmarkDoneTask(taskNumber);
+            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bdelete\\b.*")) {
             String numberString = input.replaceAll("[^0-9]", "");
@@ -97,8 +99,8 @@ public class Parser {
                         Expected format for removing tasks:
                         delete (task number)""");
             }
-            String msg = taskList.deleteTask(taskNumber);
-            Ui.applyTemplate(msg);
+            msg = taskList.deleteTask(taskNumber);
+            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bfind\\b.*")) {
             String keyword = input.split("(?i)\\bfind\\b")[1].trim().toLowerCase();
@@ -107,28 +109,16 @@ public class Parser {
                         Expected format for finding all tasks with keyword:
                         find (keyword)""");
             }
-            String msg = taskList.findTasksWithKeyword(keyword);
-            Ui.applyTemplate(msg);
+            msg = taskList.findTasksWithKeyword(keyword);
+            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*bye.*")) {
-            Ui.winnerSaysBye();
+            //Ui.winnerSaysBye();
+            msg = Ui.winnerSaysBye();
+
         } else {
-            throw new WinnerException("""
-                    Sorry, I do not know what that means
-                    ⡴⠒⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠉⠳⡆⠀
-                    ⣇⠰⠉⢙⡄⠀⠀⣴⠖⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣆⠁⠙⡆
-                    ⠘⡇⢠⠞⠉⠙⣾⠃⢀⡼⠀⠀⠀⠀⠀⠀⠀⢀⣼⡀⠄⢷⣄⣀⠀⠀⠀⠀⠀⠀⠀⠰⠒⠲⡄⠀⣏⣆⣀⡍
-                    ⠀⢠⡏⠀⡤⠒⠃⠀⡜⠀⠀⠀⠀⠀⢀⣴⠾⠛⡁⠀⠀⢀⣈⡉⠙⠳⣤⡀⠀⠀⠀⠘⣆⠀⣇⡼⢋⠀⠀⢱
-                    ⠀⠘⣇⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⡴⢋⡣⠊⡩⠋⠀⠀⠀⠣⡉⠲⣄⠀⠙⢆⠀⠀⠀⣸⠀⢉⠀⢀⠿⠀⢸
-                    ⠀⠀⠸⡄⠀⠈⢳⣄⡇⠀⠀⢀⡞⠀⠈⠀⢀⣴⣾⣿⣿⣿⣿⣦⡀⠀⠀⠀⠈⢧⠀⠀⢳⣰⠁⠀⠀⠀⣠⠃
-                    ⠀⠀⠀⠘⢄⣀⣸⠃⠀⠀⠀⡸⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠈⣇⠀⠀⠙⢄⣀⠤⠚⠁⠀
-                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⢘⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⢰⣿⣿⣿⡿⠛⠁⠀⠉⠛⢿⣿⣿⣿⣧⠀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡀⣸⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⡀⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡇⠹⠿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⡿⠁⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣤⣞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢢⣀⣠⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                    ⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠙⠲⢤⣀⣀⠀⢀⣀⣀⠤⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""");
+            throw new WinnerException("Oops sorry! I do not know what that means :(");
         }
+        return msg;
     }
 }

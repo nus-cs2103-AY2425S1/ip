@@ -25,7 +25,7 @@ class WinnerTest {
     void testGreetUser() {
         // Simulate "hi" input and verify greeting
         simulateUserInput("hi\nbye\n");
-        Winner.winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         assertTrue(outputStreamCaptor.toString().contains("hi"));
     }
 
@@ -33,7 +33,7 @@ class WinnerTest {
     void testAddToDo() {
         // Simulate adding a ToDo task
         simulateUserInput("todo read book\nbye\n");
-        Winner.winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         assertTrue(outputStreamCaptor.toString().contains("[T] [ ] read book"));
         assertEquals(1, taskList.getNoOfTasks());
     }
@@ -42,7 +42,7 @@ class WinnerTest {
     void testAddDeadline() {
         // Simulate adding a Deadline task
         simulateUserInput("deadline submit assignment by 25/12/2024 at 2359\nbye\n");
-        Winner.winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         String expectedOutput = "[D] [ ] submit assignment (by: Wednesday, 25/12/2024 at 2359)";
         assertTrue(outputStreamCaptor.toString().contains(expectedOutput));
         assertEquals(1, taskList.getNoOfTasks());
@@ -52,7 +52,7 @@ class WinnerTest {
     void testAddEvent() {
         // Simulate adding an Event task
         simulateUserInput("event project meeting from 01/12/2024 at 0900 to 01/12/2024 at 1200\nbye\n");
-        Winner.winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         String expectedOutput = "[E] [ ] project meeting (01/12/2024 at 0900 - 01/12/2024 at 1200)";
         assertTrue(outputStreamCaptor.toString().contains(expectedOutput));
         assertEquals(1, taskList.getNoOfTasks());
@@ -62,7 +62,7 @@ class WinnerTest {
     void testMarkTaskAsDone() {
         // Simulate adding and marking a task as done
         simulateUserInput("todo read book\nmark 1\nbye\n");
-        Winner.winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         assertTrue(outputStreamCaptor.toString().contains("[T] [X] read book"));
         assertEquals(1, taskList.getNoOfTasks());
         assertTrue(taskList.getTasks().get(0).isDone);
@@ -72,7 +72,7 @@ class WinnerTest {
     void testInvalidCommand() {
         // Simulate an invalid command and check the error message
         simulateUserInput("invalid command\nbye\n");
-        Winner.winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         assertTrue(outputStreamCaptor.toString().contains("Sorry, I do not know what that means"));
     }
 
@@ -80,7 +80,7 @@ class WinnerTest {
     void testListTasks() {
         // Simulate adding tasks and listing them
         simulateUserInput("todo read book\ntodo write code\nlist\nbye\n");
-        Winner.winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         assertTrue(outputStreamCaptor.toString().contains("1. [T] [ ] read book"));
         assertTrue(outputStreamCaptor.toString().contains("2. [T] [ ] write code"));
         assertEquals(2, taskList.getNoOfTasks());
@@ -90,7 +90,7 @@ class WinnerTest {
     void testSaveAndLoadTasks() {
         // Simulate adding tasks, saving, reloading, and verifying the tasks
         simulateUserInput("todo read book\nbye\n");
-        Winner.winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         Storage.saveTasks(taskList.getTasks());
 
         TaskList reloadedTaskList = new TaskList();

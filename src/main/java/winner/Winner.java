@@ -1,7 +1,5 @@
 package winner;
 
-import java.util.Scanner;
-
 /**
  * Main class of the Winner task tracking bot.
  */
@@ -17,33 +15,23 @@ public class Winner {
         TaskList taskList = new TaskList();
         Storage.checkAndCreateFile();
         Storage.loadTasks(taskList.getTasks());
-        winnerTaskBot(taskList);
+        WinnerTaskBotCLI.winnerTaskBot(taskList);
         Storage.saveTasks(taskList.getTasks());
     }
 
-    /**
-     * Main loop of the Winner task tracking bot.
-     * Uses a Scanner to continuously listen for user inputs, processes commands by parsing them
-     * and interacts with the user.
-     * Exits when the user inputs a command containing "bye".
-     *
-     * @param taskList TaskList object that manages the user's tasks.
-     */
-    static void winnerTaskBot(TaskList taskList) {
-        Scanner scanner = new Scanner(System.in);
+    public String getResponse(String input) {
+        TaskList taskList = new TaskList();
+        Storage.checkAndCreateFile();
+        Storage.loadTasks(taskList.getTasks());
         Ui.winnerSaysHi();
+        String reply = "";
 
-        while (true) {
-            String input = scanner.nextLine();
-            try {
-                Parser.parseInput(input, taskList);
-            } catch (WinnerException e) {
-                Ui.applyTemplate(e.getMessage());
-            }
-            if (input.matches("(?i).*bye.*")) {
-                break;
-            }
+        try {
+            reply = Parser.parseInput(input, taskList);
+        } catch (WinnerException e) {
+            reply = e.getMessage();
         }
-        scanner.close();
+        Storage.saveTasks(taskList.getTasks());
+        return reply;
     }
 }
