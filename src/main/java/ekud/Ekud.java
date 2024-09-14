@@ -132,4 +132,13 @@ public class Ekud {
         // close
         sc.close();
     }
+
+    /**
+     * Runs EKuD in CLI. Used for testing text ui.
+     *
+     * @param args Not used.
+     */
+    public static void main(String[] args) {
+        runTextMode();
+    }
 }

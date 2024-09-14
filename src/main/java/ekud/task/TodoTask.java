@@ -11,7 +11,7 @@ public class TodoTask extends Task {
     private static final String EMPTY_DESCRIPTION_MESSAGE =
         "I think you tried TODO nothing.\nI can only help to remind you of something todo.";
     private static final String SAVE_STRING_FORMAT = "T | %s";
-    private static final String STRING_FORMAT = "[T] %s";
+    private static final String STRING_FORMAT = "[T]%s";
 
     /**
      * Constructs a {@link Task} the user wants to do.
