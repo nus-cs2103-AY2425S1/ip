@@ -7,7 +7,6 @@ import java.util.HashMap;
 import yappingbot.commands.commands.ArgEnums;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
-import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.stringconstants.ReplyTextMessages;
 
 
@@ -41,7 +40,7 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
     protected abstract A getFirstArgumentType();
 
     /**
-     * Gets the Enum that is spevified by its corresponding String type.
+     * Gets the Enum that is specified by its corresponding String type.
      *
      * @param key String representing the Argument enum.
      * @return Enum of the Argument type
@@ -49,6 +48,17 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
      */
     private A getArgTypeFromString(String key) throws IllegalArgumentException {
         return ArgEnums.valueOf(getArgumentClass(), key);
+    }
+
+    /**
+     * Gets the Enum that is spevified by its corresponding String type in the keyword.
+     *
+     * @param key String representing the Argument enum keyword.
+     * @return Enum of the Argument type
+     * @throws IllegalArgumentException If there is no Arg Enum matching the given key.
+     */
+    private A getArgTypeFromKeyword(String key) throws IllegalArgumentException {
+        return ArgEnums.findKeyword(getArgumentClass(), key);
     }
 
     /**
@@ -113,7 +123,7 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
                 // Push valueCollector's values and current flag into arguements hashmap
                 // and start new cycle
                 arguments.put(currentArgument, valueCollector.toArray(String[]::new));
-                currentArgument = getArgTypeFromString(slice);
+                currentArgument = getArgTypeFromKeyword(slice);
                 valueCollector.clear();
             } else {
                 // add value to collector for current arg flag

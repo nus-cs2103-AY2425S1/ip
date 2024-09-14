@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
+import yappingbot.commands.commands.CreateDeadlineCommand;
+import yappingbot.commands.commands.CreateEventCommand;
 import yappingbot.commands.commands.CreateTodoCommand;
 import yappingbot.commands.commands.DeleteTaskCommand;
 import yappingbot.commands.commands.FindStringInTasksCommand;
@@ -128,11 +130,17 @@ public class YappingBot {
                     break;
                 case EVENT:
                     // creates a new event task
-                    //commandDispatch.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
+                    userList = new CreateEventCommand(userInputSlices)
+                            .setEnvironment(ui, userList)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case DEADLINE:
                     // creates a new deadline task
-                    //commandDispatch.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
+                    userList = new CreateDeadlineCommand(userInputSlices)
+                            .setEnvironment(ui, userList)
+                            .runCommand()
+                            .getNewUserList();
                     break;
                 case FIND:
                     // creates a filtered list view with tasks matching the given criteria

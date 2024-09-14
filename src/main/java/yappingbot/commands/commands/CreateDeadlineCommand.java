@@ -3,16 +3,18 @@ package yappingbot.commands.commands;
 import yappingbot.commands.CreateTaskCommandBase;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.Deadline;
 import yappingbot.tasks.Task;
 import yappingbot.tasks.Todo;
 
 /**
- * Creates to-do task.
+ * Creates deadline task.
  */
-public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.Args> {
+public class CreateDeadlineCommand extends CreateTaskCommandBase<CreateDeadlineCommand.Args> {
 
     protected enum Args implements ArgEnums<Args> {
-        TASK_NAME("", true);
+        TASK_NAME("", true),
+        DEADLINE("/by", true);
 
         private final String keyword;
         private final boolean isRequired;
@@ -21,10 +23,12 @@ public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.A
             this.keyword = keyword;
             this.isRequired = isRequired;
         }
+
         @Override
         public String getKeyword() {
             return keyword;
         }
+
         @Override
         public boolean isRequired() {
             return isRequired;
@@ -60,7 +64,7 @@ public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.A
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown argument
      *                                             flag given.
      */
-    public CreateTodoCommand(String[] argSlices) throws YappingBotIncorrectCommandException {
+    public CreateDeadlineCommand(String[] argSlices) throws YappingBotIncorrectCommandException {
         super(argSlices);
     }
 
@@ -71,7 +75,7 @@ public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.A
      */
     @Override
     public String getHelpText() {
-        return ReplyTextMessages.TODO_USAGE;
+        return ReplyTextMessages.DEADLINE_USAGE;
     }
 
     /**
@@ -81,7 +85,9 @@ public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.A
      */
     @Override
     protected Task createNewTask() {
-        assert arguments.containsKey(Args.TASK_NAME);
-        return new Todo(String.join("", arguments.get(Args.TASK_NAME)), false);
+        assert arguments.containsKey(Args.TASK_NAME) && arguments.containsKey(Args.DEADLINE);
+        return new Deadline(String.join("", arguments.get(Args.TASK_NAME)),
+                            false,
+                            String.join("", arguments.get(Args.DEADLINE)));
     }
 }

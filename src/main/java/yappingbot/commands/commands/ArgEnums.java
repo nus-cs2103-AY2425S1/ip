@@ -1,5 +1,7 @@
 package yappingbot.commands.commands;
 
+import java.util.Arrays;
+
 /**
  * Interface to define how Argument Enums should be defined.
  *  Example implementation:
@@ -25,8 +27,31 @@ public interface ArgEnums<T extends Enum<T>> {
 
     boolean isRequired();
 
+    /**
+     * Finds the ArgType that is same name as the value.
+     *
+     * @param enums The class of the Argument Enum
+     * @param value Name to search
+     * @param <T> The Argument Enum itself
+     * @return The Argument in the Enum that matches the criteria
+     */
     static <T extends Enum<T> & ArgEnums<T>> T valueOf(Class<T> enums, String value) {
         return Enum.valueOf(enums, value);
+    }
+
+    /**
+     * Finds the ArgType with the keyword embedded that matches the value given.
+     *
+     * @param enums The class of the Argument Enum
+     * @param value Name to search
+     * @param <T> The Argument Enum itself
+     * @return The Argument in the Enum that matches the criteria
+     */
+    static <T extends Enum<T> & ArgEnums<T>> T findKeyword(Class<T> enums, String value) {
+        return Arrays.stream(enums.getEnumConstants())
+                     .filter(t -> t.getKeyword().equals(value))
+                     .findFirst()
+                     .orElseThrow();
     }
 
 }
