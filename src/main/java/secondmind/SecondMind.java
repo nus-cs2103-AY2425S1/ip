@@ -42,9 +42,7 @@ public class SecondMind {
         return instruction;
     }
 
-    public String getResponse(String userInput) {
-        String[] instruction = getInstructionsFromInput(userInput);
-        assert instruction != null;
+    public String execute(String[] instruction) {
         String command = instruction[0];
         if (command.equals("bye")) {
             return EXIT_INSTRUCTION;
@@ -142,5 +140,12 @@ public class SecondMind {
                 return errorMessage;
             }
         }
+    }
+
+    public String getResponse(String userInput) {
+        String[] instruction = getInstructionsFromInput(userInput);
+        assert instruction != null;
+        String response = execute(instruction);
+        return response;
     }
 }
