@@ -3,6 +3,7 @@ package alexer.command;
 import alexer.Alexer;
 import alexer.task.Task;
 import alexer.task.TaskManager;
+import alexer.ui.Response;
 
 public class DeleteTaskCommand extends Command {
 
@@ -21,6 +22,6 @@ public class DeleteTaskCommand extends Command {
                 String.format("\t%s\n", task) +
                 String.format("\nYou have %d tasks remaining.\n", taskManager.getTaskCount());
 
-        Alexer.getInstance().getPrompter().printResponse(response);
+        new Response(response).printToConsole();
     }
 }
