@@ -1,4 +1,4 @@
-# David User Guide
+# <img src="DavidLogo.png" alt="David Logo" width="25"/> David User Guide
 
 ![Screenshot of David chatbot](/Ui.png)
 
@@ -7,14 +7,14 @@ David is a task list tracker, enhanced and optimised for users who prefer
 typing. 
 
 The features David provides include:
-- [x] Adding tasks (Todo tasks, Deadline tasks and event tasks)
-- [x] Deleting tasks
+- [x] Add tasks (Todo tasks, Deadline tasks and event tasks)
+- [x] Delete tasks
 - [x] Local caching of tasks 
-- [x] Sorting of tasks
-- [x] Finding tasks
-- [x] Marking and unmarking of tasks
+- [x] Sort of tasks
+- [x] Find tasks
+- [x] Mark and unmark of tasks
 
-## Adding todos
+## Add todos
 Task specifier: `todo`
 
 Required arguments: -
@@ -22,7 +22,7 @@ Required arguments: -
 Example: `todo eat`
 
 
-## Adding deadlines
+## Add deadlines
 Task specifier: `deadline`
 
 Required arguments: `/by`
@@ -36,7 +36,7 @@ where
 
 Example: `deadline cs2100 assignment /by 2024-12-12 1230`
 
-## Adding events
+## Add events
 Task specifier: `event`
 
 Required arguments:
@@ -52,7 +52,7 @@ where
 
 Example: `event dance /from 2024-12-12 1230 /to 2024-12-12 1330`
 
-## Listing tasks
+## List tasks
 Task specifier: `list`
 
 Required arguments: -
@@ -70,7 +70,7 @@ mark 1
 unmark 1
 ```
 
-## Finding tasks
+## Find tasks
 Returns all tasks that matches the given event name.
 
 Task specifier: `find`
@@ -79,7 +79,7 @@ Required arguments: `eventName` eventName to find
 
 Example: `find eat`
 
-## Deleting tasks
+## Delet tasks
 
 Task specifier: `delete`
 
@@ -87,7 +87,7 @@ Required arguments: `i` task number to delete
 
 Example: `delete 1`
 
-## Sorts tasks
+## Sort tasks
 Sorts all tasks in the given order.
 
 Task specifier: `sort`
