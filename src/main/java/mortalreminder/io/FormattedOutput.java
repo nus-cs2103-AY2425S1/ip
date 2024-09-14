@@ -9,6 +9,7 @@ import mortalreminder.tasks.Task;
 
 /**
  * This class is just the UI controller to format and ensure consistency of all output messages.
+ * A lot of the starting quips are from League of Legends.
  */
 public class FormattedOutput {
 
@@ -28,8 +29,8 @@ public class FormattedOutput {
      * Returns the welcome message to the user upon program startup.
      */
     public static String welcome() {
-        return "Hello I'm Mortal Reminder!\n"
-                + "What can I do for you?";
+        return getResponse("Oh! HELLO! \n"
+                + "What can I do for you?");
     }
 
     /**
@@ -41,7 +42,7 @@ public class FormattedOutput {
      */
     public static String printList(TaskList taskList) throws MortalReminderException {
         if (taskList.getSize() == 0) {
-            return getResponse("You have no tasks in your list.");
+            return getResponse("You can be so much more! Alas, you have no tasks in your list.");
         } else {
             StringBuilder currentList = new StringBuilder();
             currentList.append("Here are the tasks in your list:\n");
@@ -61,7 +62,7 @@ public class FormattedOutput {
             return getResponse("No matching tasks!");
         } else {
             StringBuilder currentList = new StringBuilder();
-            currentList.append("Here are the matching tasks in your list:\n");
+            currentList.append("Here are the tasks matching your search terms:\n");
             return listPrintingHelperFunction(taskList, currentList);
         }
     }
@@ -98,7 +99,7 @@ public class FormattedOutput {
      * @return string of confirmation message.
      */
     public static String addTask(Task task, TaskList taskList) {
-        String message = "Got it. I've added this task:\n"
+        String message = "You know what? Your life’s already hell so I am gonna leave you be. I've added this task:\n"
                 + printTask(task)
                 + "\n"
                 + "Now you have "
@@ -115,7 +116,7 @@ public class FormattedOutput {
      * @return string confirmation message of a successful deletion of task.
      */
     public static String deleteTask(Task task, TaskList taskList) {
-        String message = "Got it. I've deleted this task:\n"
+        String message = "A futile act. Why do you persist? I've deleted this task:\n"
                 + printTask(task)
                 + "\n"
                 + "Now you have "
@@ -125,15 +126,19 @@ public class FormattedOutput {
     }
 
     public static String clearList() {
-        return getResponse("List has been cleared.");
+        return getResponse("Beauty fades, that's why it is beautiful. List has been cleared.");
     }
 
     public static String printMarked(Task task) {
-        return getResponse("Nice!  I've marked this task as done:\n" + printTask(task));
+        return getResponse("I've marked this task as done:\n"
+                + printTask(task)) + "\n"
+                + "But are you really Ok?";
     }
 
     public static String printUnmarked(Task task) {
-        return getResponse("OK, I've marked this task as not done yet:\n" + printTask(task));
+        return getResponse("Seems like your effort was in Vayne."
+                + "This task has been unmarked:\n"
+                + printTask(task));
     }
 
     /**
@@ -146,7 +151,7 @@ public class FormattedOutput {
      */
     public static String printUpcomingDeadlinesEvents(ArrayList<Task> tasks) throws MortalReminderException {
         if (tasks.isEmpty()) {
-            throw new MortalReminderException("There are no upcoming tasks!");
+            throw new MortalReminderException("You can be so much more! Alas, there are no upcoming tasks.");
         } else {
             StringBuilder output = new StringBuilder("The following tasks are due soon:\n");
             for (Task task : tasks) {

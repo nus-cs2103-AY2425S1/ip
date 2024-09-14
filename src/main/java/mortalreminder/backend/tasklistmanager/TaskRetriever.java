@@ -60,7 +60,7 @@ public class TaskRetriever {
         if (similarTasks.isEmpty()) {
             throw new MortalReminderException(MortalReminderException.getNoSimilarTasksFoundMessage());
         }
-        return FormattedOutput.printList(taskList);
+        return FormattedOutput.printSimilarTasks(taskList);
     }
 
     private static boolean filterTask(Task task, String... descriptions) {
