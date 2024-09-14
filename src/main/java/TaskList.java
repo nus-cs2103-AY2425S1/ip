@@ -15,6 +15,10 @@ public class TaskList {
         this.ui = new Ui();
     }
 
+    public TaskList(ArrayList<Task> listOfTasks) {
+        taskList = listOfTasks;
+    }
+
     /**
      * Returns the list of tasks represented by the TaskList
      *

@@ -18,7 +18,12 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T] " + super.toString();
+        return this.getTaskSymbol() + " " + super.toString();
+    }
+
+    @Override
+    public String getTaskSymbol() {
+        return super.getTaskSymbol() + "[T]";
     }
 
 

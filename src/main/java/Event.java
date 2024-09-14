@@ -24,6 +24,19 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + start + " to: " + end + ")";
+        return this.getTaskSymbol() + " " + super.toString() + " (from: " + start + " to: " + end + ")";
+    }
+
+    @Override
+    public String getTaskSymbol() {
+        return super.getTaskSymbol() + "[E]";
+    }
+
+    public String getStart() {
+        return this.start;
+    }
+
+    public String getEnd() {
+        return this.end;
     }
 }
