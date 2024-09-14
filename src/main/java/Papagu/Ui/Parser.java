@@ -57,6 +57,7 @@ public class Parser {
      */
 	public static void parseFile(File file, TaskList taskList) {
         try {
+            assert file.exists() : "File does not exist";
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
@@ -65,6 +66,7 @@ public class Parser {
                 String[] parts = line.split(" \\| ");
                 String taskType = parts[0];
                 String isDone = parts[1];
+
                 
                 //Todo task
                 if (taskType.equals("T")) {
