@@ -1,4 +1,4 @@
-package myapp.helperbuddy;
+package myapp.quirkbot;
 
 import javafx.application.Application;
 

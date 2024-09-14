@@ -1,4 +1,4 @@
-package myapp.helperbuddy;
+package myapp.quirkbot;
 
 import java.util.ArrayList;
 import java.util.List;

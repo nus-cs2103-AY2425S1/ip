@@ -1,4 +1,4 @@
-package myapp.helperbuddy;
+package myapp.quirkbot;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

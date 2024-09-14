@@ -1,4 +1,4 @@
-package myapp.helperbuddy;
+package myapp.quirkbot;
 
 /**
  * Task abstract class which is inherited from subclasses
