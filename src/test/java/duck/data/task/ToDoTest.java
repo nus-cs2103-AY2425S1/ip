@@ -6,8 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-
-class ToDoTest {
+/**
+ * Tests the ToDo class.
+ */
+public class ToDoTest {
 
     private static final String INCOMPLETE_DESCRIPTION = "incomplete";
     private static final String COMPLETE_DESCRIPTION = "complete";
@@ -22,18 +24,28 @@ class ToDoTest {
 
     private ToDo incompleteToDo;
     private ToDo completeToDo;
+
+    /**
+     * Set up the to-dos for testing.
+     */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         incompleteToDo = new ToDo(INCOMPLETE_DESCRIPTION);
         completeToDo = new ToDo(true, COMPLETE_DESCRIPTION);
     }
 
+    /**
+     * Test if the description of the to-do is correct.
+     */
     @Test
     public void toFileFormat() {
         assertEquals(EXPECTED_FILE_FORMAT_INCOMPLETE_TODO, incompleteToDo.toFileFormat());
         assertEquals(EXPECTED_FILE_FORMAT_COMPLETE_TODO, completeToDo.toFileFormat());
     }
 
+    /**
+     * Test if the to-do is complete.
+     */
     @Test
     public void testToString() {
         assertEquals(EXPECTED_TO_STRING_INCOMPLETE_TODO, incompleteToDo.toString());

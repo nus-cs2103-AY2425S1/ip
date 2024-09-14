@@ -1,6 +1,6 @@
 package duck.data.exception;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,3 +12,4 @@ public class DuckExceptionTest {
         assertEquals("Test error message", de.getMessage(), "Exception message should match.");
     }
 }
+

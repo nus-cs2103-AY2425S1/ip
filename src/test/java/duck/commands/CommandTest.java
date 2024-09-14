@@ -2,8 +2,9 @@ package duck.commands;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import duck.data.exception.DuckException;
 import org.junit.jupiter.api.Test;
+
+import duck.data.exception.DuckException;
 
 
 
@@ -28,3 +29,4 @@ public class CommandTest {
         });
     }
 }
+

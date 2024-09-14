@@ -1,8 +1,6 @@
 package duck.data.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -35,7 +33,7 @@ class DeadlineTest {
      * Set up the deadline for testing.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         incompleteDeadline = new Deadline(INCOMPLETE_DESCRIPTION, INCOMPLETE_BY);
         completeDeadline = new Deadline(true, COMPLETE_DESCRIPTION, COMPLETE_BY);
     }
