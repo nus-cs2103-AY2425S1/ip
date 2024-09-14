@@ -1,6 +1,7 @@
 package barcus.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,7 +32,12 @@ public class Task {
         this.isDone = isDone;
         tags = tags.replace("[", "");
         tags = tags.replace("]", "");
-        this.tags = List.of(tags.split(","));
+        if (tags.equals("")) {
+            this.tags = new ArrayList<>();
+        } else {
+            this.tags = new ArrayList<>(Arrays.asList(tags.split(", ")));
+        }
+        //System.out.println(Arrays.toString(tags.split(", ")));
     }
 
     /**
@@ -79,12 +85,13 @@ public class Task {
      * @param tag String tag
      */
     public void addTag(String tag) {
+        String temp = tag;
         if (!tag.startsWith("#")) {
-            tag = "#" + tag;
+            temp = "#" + temp;
         }
-        tag = tag.toLowerCase();
-        if (!tags.contains(tag)) {
-            tags.add(tag);
+        temp = temp.toLowerCase();
+        if (!tags.contains(temp)) {
+            tags.add(temp);
         }
     }
 
@@ -93,13 +100,18 @@ public class Task {
      * @param tag String tag
      */
     public void removeTag(String tag) {
+        String temp = tag;
         if (!tag.startsWith("#")) {
-            tag = "#" + tag;
+            temp = "#" + temp;
         }
-        tag = tag.toLowerCase();
-        tags.remove(tag);
+        temp = temp.toLowerCase();
+        tags.remove(temp);
     }
 
+    /**
+     * To convert tags into string to display and save
+     * @return String of tags
+     */
     private String getTagsString() {
         return "[" + String.join(", ", tags) + "]";
     }

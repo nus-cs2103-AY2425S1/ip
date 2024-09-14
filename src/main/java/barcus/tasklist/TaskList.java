@@ -138,6 +138,11 @@ public class TaskList {
         this.tasks.get(i).addTag(tag);
     }
 
+    /**
+     * Untags task at index i with tag
+     * @param i int index
+     * @param tag String to tag with
+     */
     public void untagTask(int i, String tag) {
         this.tasks.get(i).removeTag(tag);
     }

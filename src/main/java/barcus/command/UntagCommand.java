@@ -5,28 +5,27 @@ import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 
-public class TagCommand extends Command {
+public class UntagCommand extends Command {
     private int pos;
     private String tag;
 
     /**
      * Constructor
-     * @param pos index of item to tag
+     * @param pos index of item to untag
      */
-    public TagCommand(int pos, String tag) {
+    public UntagCommand(int pos, String tag) {
         this.pos = pos;
         this.tag = tag;
         this.output = "";
     }
-
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException {
         if (!(pos > 0 && pos <= tasks.getLength())) {
             throw new BarcusException("please choose a number between 1 and " + tasks.getLength());
         }
 
-        tasks.tagTask(pos - 1, tag);
-        output += "Cool beans, have tagged task:\n";
+        tasks.untagTask(pos - 1, tag);
+        output += "Sureee, have untagged task:\n";
         output += tasks.getTaskString(pos -1) + "\n";
 
     }
