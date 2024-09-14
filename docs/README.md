@@ -20,6 +20,7 @@ Calebyyy is a task management application that helps you keep track of your dail
     * [Delete Task](#delete-task)
     * [Find Task](#find-task)
     * [Bye](#bye)
+    * [Detect Duplicate Tasks](#detect-duplicate-tasks)
 
 ## Quick Start
 1. Ensure you have Java 17 or above installed in your Computer. Check by running the command `java -version` in your terminal.
