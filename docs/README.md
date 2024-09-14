@@ -2,9 +2,18 @@
 
 This is a task management chatbot. Given below are instructions on how to use it.
 
-[Quick Start](https://github.com/FooChao/ip/blob/master/docs/README.md#quick-start)
+[Quick Start](https://foochao.github.io/ip/#quick-start)
 
-[Features](https://github.com/FooChao/ip/blob/master/docs/README.md#features)
+[Features](https://foochao.github.io/ip/#features)
+- [Adding a todo task `todo`](https://foochao.github.io/ip/#adding-a-todo-task-todo)
+- [Adding a deadline task `deadline`](https://foochao.github.io/ip/#adding-a-deadline-task-deadline)
+- [Adding an event task `event`](https://foochao.github.io/ip/#adding-an-event-task-event)
+- [Listing all stored tasks `list`](https://foochao.github.io/ip/#listing-all-stored-tasks-list)
+- [Listing matching tasks `find`](https://foochao.github.io/ip/#listing-matching-tasks-find)
+- [Mark a task as done `mark`](https://foochao.github.io/ip/#mark-a-task-as-done-mark)
+- [Mark a task as not completed `unmark`](https://foochao.github.io/ip/#mark-a-task-as-not-completed-unmark)
+- [Delete a task `delete`](https://foochao.github.io/ip/#delete-a-task-delete)
+- [Close the app `bye`](https://foochao.github.io/ip/#close-the-app-bye)
 
 ## Quick Start
 
@@ -60,7 +69,7 @@ Format: unmark INDEX
 
 Example: unmark 1
 
-### Delete a task
+### Delete a task `delete`
 
 Format: delete INDEX
 
