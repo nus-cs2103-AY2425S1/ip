@@ -73,8 +73,8 @@ public class Megamind {
      * Finds tasks that contain the keyword.
      *
      * @param command Command entered by the user.
-     * @throws InvalidCommandException If the command is invalid.
      * @return String representation of list of task with the keyword
+     * @throws InvalidCommandException If the command is invalid.
      */
     public static String findTask(String command) throws InvalidCommandException {
         String keyword = parser.parseDescription(command, "find");
@@ -100,9 +100,9 @@ public class Megamind {
      * If the task number is invalid, print an error message.
      *
      * @param command Command entered by the user.
+     * @return String representation of unmarking a task
      * @throws InvalidCommandException If the command is invalid.
      * @throws TaskNotFoundException   If the task is not found.
-     * @return String representation of unmarking a task
      */
     public static String unmark(String command) throws InvalidCommandException,
             TaskNotFoundException {
@@ -120,9 +120,9 @@ public class Megamind {
      * If the task number is invalid, print an error message.
      *
      * @param command Command entered by the user.
+     * @return String representation of marking a task
      * @throws InvalidCommandException If the command is invalid.
      * @throws TaskNotFoundException   If the task is not found.
-     * @return String representation of marking a task
      */
     public static String mark(String command) throws InvalidCommandException,
             TaskNotFoundException {
@@ -138,9 +138,9 @@ public class Megamind {
      * Adds a to do task to the list.
      *
      * @param command Command entered by the user.
+     * @return String representation of to do task that has been added
      * @throws InvalidCommandException If the command is invalid (description
      *                                 is empty).
-     * @return String representation of to do task that has been added
      */
     public static String addTodo(String command) throws InvalidCommandException {
         String description = parser.parseDescription(command, "todo");
@@ -153,10 +153,10 @@ public class Megamind {
      * If the deadline is not specified, print an error message.
      *
      * @param command Command entered by the user.
+     * @return String representation of deadline task that has been added
      * @throws MissingParameterException If the deadline is not specified.
      * @throws InvalidCommandException   If the command is invalid
      *                                   (description and/or deadline is empty).
-     * @return String representation of deadline task that has been added
      */
     public static String addDeadline(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseDeadline(command);
@@ -195,10 +195,10 @@ public class Megamind {
      * If the task number is not specified, print an error message.
      *
      * @param command Command entered by the user.
+     * @return String representation of delete task ui.
      * @throws InvalidCommandException If the command is invalid (task number
      *                                 is missing).
      * @throws TaskNotFoundException   If the task is not found.
-     * @return String representation of delete task ui.
      */
     public static String deleteTask(String command) throws InvalidCommandException, TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
