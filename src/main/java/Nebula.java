@@ -322,7 +322,7 @@ public class Nebula {
                 for (int i = 0; i < parts.length; i++) {
                     parts[i] = parts[i].trim();
                 }
-                if (parts.length < 3) {
+                if (parts.length < 4) {
                     continue; // Skip invalid lines
                 }
 
@@ -343,7 +343,9 @@ public class Nebula {
                         if (parts.length >= 4) {
                             String deadlineDescription = parts[2];
                             String dueDate = parts[3];
-                            task = new Deadline(deadlineDescription, dueDate);
+
+                            String formattedDueDate = convertDate(dueDate);
+                            task = new Deadline(deadlineDescription, formattedDueDate);
                             task.setDone(isDone);
                         }
                         break;
@@ -351,13 +353,17 @@ public class Nebula {
                     case 'E':
                         if (parts.length >= 4) {
                             String eventDescription = parts[2];
-                            String startDateEndDate = parts[3];
+                            String startEndDate = parts[3];
                             // Split start and end dates
-                            String[] dates = startDateEndDate.split("-");
+                            String[] dates = startEndDate.split("-");
                             if (dates.length == 2) {
                                 String startDate = dates[0].trim();
                                 String endDate = dates[1].trim();
-                                task = new Event(eventDescription, startDate, endDate);
+
+                                String formattedStartDate = convertDate(startDate);
+                                String formattedEndDate = convertDate(endDate);
+
+                                task = new Event(eventDescription, formattedStartDate, formattedEndDate);
                                 task.setDone(isDone);
                             }
                         }
@@ -379,6 +385,20 @@ public class Nebula {
         }
         return listOfTasks;
     }
+
+    public static String convertDate(String dateStr) {
+        // Parse the date string using the original format
+        LocalDateTime dateTime;
+        try {
+            dateTime = LocalDateTime.parse(dateStr, OUTPUT_FORMAT);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Date string is not in the expected format: " + dateStr, e);
+        }
+
+        // Format the LocalDateTime object to the target format
+        return dateTime.format(DATE_TIME_FORMAT);
+    }
+
 
 
 
