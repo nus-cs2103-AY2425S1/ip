@@ -27,8 +27,8 @@ public class ListCommand extends Command {
      * The tasks are displayed with their corresponding indices in the list.
      *
      * @param tasks The list of tasks to be displayed.
-     * @param storage The storage system (not used in this command).
-     * @param ui The user interface (not used in this command).
+     * @param storage The storage system .
+     * @param ui The user interface .
      * @throws DuckException If an error occurs during the execution of the command.
      */
     @Override

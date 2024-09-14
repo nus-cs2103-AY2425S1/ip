@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
      *
      * @param tasks The list of tasks from which a task will be marked as done.
      * @param storage The storage system where the updated task list will be saved.
-     * @param ui The user interface (not used in this command).
+     * @param ui The user interface .
      * @throws DuckException If the input format is incorrect, the task index is invalid, or the index is out of bounds.
      */
     @Override

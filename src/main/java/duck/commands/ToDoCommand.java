@@ -32,7 +32,7 @@ public class ToDoCommand extends Command {
      *
      * @param tasks The list of tasks to which the ToDo task will be added.
      * @param storage The storage system for saving the updated list of tasks.
-     * @param ui The user interface for displaying messages to the user (not used in this command).
+     * @param ui The user interface for displaying messages to the user .
      * @throws DuckException If the description of the ToDo task is invalid.
      */
     @Override

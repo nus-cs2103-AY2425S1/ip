@@ -27,14 +27,14 @@ public class InvalidCommand extends Command {
      * Executes the command by notifying the user that the instruction is invalid.
      * This method prints a message to the console.
      *
-     * @param tasks The list of tasks (not used in this command).
-     * @param storage The storage system (not used in this command).
-     * @param ui The user interface (not used in this command).
+     * @param tasks The list of tasks.
+     * @param storage The storage system.
+     * @param ui The user interface.
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DuckException {
         super.execute(tasks, storage, ui);
-        System.out.println(MESSAGE_INVALID_COMMAND);
+        throw new DuckException(MESSAGE_INVALID_COMMAND);
     }
 
     /**

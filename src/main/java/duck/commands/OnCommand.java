@@ -41,7 +41,7 @@ public class OnCommand extends Command {
      * It validates the input format and displays the filtered tasks and events to the user.
      *
      * @param tasks The list of tasks from which tasks and events will be filtered.
-     * @param storage The storage system (not used in this command).
+     * @param storage The storage system .
      * @param ui The user interface for displaying the filtered tasks and events.
      * @throws DuckException If the input format is incorrect.
      */
