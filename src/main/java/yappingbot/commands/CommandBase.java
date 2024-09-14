@@ -1,11 +1,14 @@
 package yappingbot.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import yappingbot.commands.commands.ArgEnums;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
+import yappingbot.exceptions.YappingBotOobException;
+import yappingbot.stringconstants.ReplyTextMessages;
 
 
 /**
@@ -120,5 +123,15 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
 
         // Check if current arg is pushed, because the last argument might be valueless flag
         arguments.put(currentArgument, valueCollector.toArray(String[]::new));
+
+        // check if arguments satisfied
+        boolean areRequiredArgsSatisfied = Arrays.stream(getArgumentClass().getEnumConstants())
+                                                 .filter(ArgEnums::isRequired)
+                                                 .map(arguments::containsKey)
+                                                 .reduce(Boolean::logicalAnd)
+                                                 .orElseThrow();
+        if (!areRequiredArgsSatisfied) {
+            throw new YappingBotException(ReplyTextMessages.NOT_ENOUGH_ARGUMENTS);
+        }
     }
 }
