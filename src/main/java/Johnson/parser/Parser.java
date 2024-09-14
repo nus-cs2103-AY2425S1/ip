@@ -38,13 +38,7 @@ public class Parser {
      * Pattern to match arguments with date and time.
      */
     private static final Pattern DATETIME_COMMAND_PATTERN =
-            Pattern.compile("(?<task>[^/]+)\\s*/\\s*(?<date>\\d{4}[-/]\\d{2}[-/]\\d{2})\\s+(?<time>\\d{2}:\\d{2})");
-
-    /**
-     * Pattern to match arguments with date only.
-     */
-    private static final Pattern DATE_COMMAND_PATTERN =
-            Pattern.compile("(?<task>[^/]+)\\s*/\\s*(?<date>\\d{4}[-/]\\d{2}[-/]\\d{2})\\s");
+            Pattern.compile("^(?<task>.+?)\\s*/\\s*(?<keyword>by|from|on)?\\s*(?<date>\\d{4}-\\d{2}-\\d{2})\\s*(?<time>\\d{1,2}:\\d{2}(\\s?(AM|PM))?)?$");
 
     /**
      * Pattern to match commands with an index.
@@ -79,48 +73,38 @@ public class Parser {
             parsedCommand = new GreetCommand();
             return parsedCommand;
         }
-
-        try {
-            switch (command) {
-            case ToDoCommand.COMMAND_WORD:
-                parsedCommand = prepToDo(arguments);
-                break;
-            case ListCommand.COMMAND_WORD:
-                parsedCommand = new ListCommand();
-                break;
-            case DeadlineCommand.COMMAND_WORD:
-                 parsedCommand = prepDeadline(arguments);
-                 break;
-            case MarkCommand.COMMAND_WORD:
-                parsedCommand = new MarkCommand(prepIndexedCommand(arguments));
-                break;
-            case UnmarkCommand.COMMAND_WORD:
-                parsedCommand = new UnmarkCommand(prepIndexedCommand(arguments));
-                break;
-            case EventCommand.COMMAND_WORD:
-                parsedCommand = prepEvent(arguments);
-                break;
-            case ExitCommand.COMMAND_WORD:
-                parsedCommand = new ExitCommand();
-                break;
-            case DeleteCommand.COMMAND_WORD:
-                parsedCommand = new DeleteCommand(prepIndexedCommand(arguments));
-                break;
-            case FindCommand.COMMAND_WORD:
-                parsedCommand = new FindCommand(arguments);
-                break;
-            default:
-                throw new UnknownCommandException("Unknown command");
-            }
-        } catch (MissingTaskException e) {
-            Utilities.OutlineMessage("Missing a task");
-        } catch (MissingDividerException e) {
-            Utilities.OutlineMessage("Missing a divider");
-        } catch (MissingDateException e) {
-            Utilities.OutlineMessage("Missing a date");
-        } catch (UnknownCommandException e) {
-            Utilities.OutlineMessage("Unknown command");
+        switch (command) {
+        case ToDoCommand.COMMAND_WORD:
+            parsedCommand = prepToDo(arguments);
+            break;
+        case ListCommand.COMMAND_WORD:
+            parsedCommand = new ListCommand();
+            break;
+        case DeadlineCommand.COMMAND_WORD:
+            parsedCommand = prepDeadline(arguments);
+            break;
+        case MarkCommand.COMMAND_WORD:
+            parsedCommand = new MarkCommand(prepIndexedCommand(arguments));
+            break;
+        case UnmarkCommand.COMMAND_WORD:
+            parsedCommand = new UnmarkCommand(prepIndexedCommand(arguments));
+            break;
+        case EventCommand.COMMAND_WORD:
+            parsedCommand = prepEvent(arguments);
+            break;
+        case ExitCommand.COMMAND_WORD:
+            parsedCommand = new ExitCommand();
+            break;
+        case DeleteCommand.COMMAND_WORD:
+            parsedCommand = new DeleteCommand(prepIndexedCommand(arguments));
+            break;
+        case FindCommand.COMMAND_WORD:
+            parsedCommand = new FindCommand(arguments);
+            break;
+        default:
+            throw new UnknownCommandException("Unknown command");
         }
+
         return parsedCommand;
     }
 
@@ -140,21 +124,17 @@ public class Parser {
             throw new MissingDividerException("missing a divider");
         }
 
-        Matcher deadlineMatcher;
+        Matcher deadlineMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
         String task = null;
         String date = null;
         String time = null;
 
-        if (DATETIME_COMMAND_PATTERN.matcher(arguments).matches()) {
-            deadlineMatcher  = DATETIME_COMMAND_PATTERN.matcher(arguments);
+        if (deadlineMatcher.matches()) {
             task = deadlineMatcher.group("task");
             date = deadlineMatcher.group("date");
             time = deadlineMatcher.group("time");
-        } else if (DATE_COMMAND_PATTERN.matcher(arguments).matches()) {
-            deadlineMatcher = DATE_COMMAND_PATTERN.matcher(arguments);
-            task = deadlineMatcher.group("task");
-            date = deadlineMatcher.group("date");
         } else {
+            System.out.println("Unknown command in prep method");
             throw new UnknownCommandException("Unknown command");
         }
 
@@ -184,21 +164,17 @@ public class Parser {
             throw new MissingDividerException("missing a divider");
         }
 
-        Matcher eventMatcher;
+        Matcher eventMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
         String task = null;
         String date = null;
         String time = null;
 
-        if (DATETIME_COMMAND_PATTERN.matcher(arguments).matches()) {
-            eventMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
+        if (eventMatcher.matches()) {
             task = eventMatcher.group("task");
             date = eventMatcher.group("date");
             time = eventMatcher.group("time");
-        } else if (DATE_COMMAND_PATTERN.matcher(arguments).matches()) {
-            eventMatcher = DATE_COMMAND_PATTERN.matcher(arguments);
-            task = eventMatcher.group("task");
-            date = eventMatcher.group("date");
         } else {
+            System.out.println("Unknown command in prep method");
             throw new UnknownCommandException("Unknown command");
         }
 

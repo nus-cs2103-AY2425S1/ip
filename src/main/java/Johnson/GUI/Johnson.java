@@ -1,8 +1,12 @@
 package Johnson.GUI;
 
 import Johnson.command.Command;
-import Johnson.command.ExitCommand;
-import Johnson.exceptions.*;
+
+import Johnson.exceptions.MissingDateException;
+import Johnson.exceptions.MissingDividerException;
+import Johnson.exceptions.MissingTaskException;
+import Johnson.exceptions.UnknownCommandException;
+
 import Johnson.parser.Parser;
 import Johnson.storage.UserData;
 import Johnson.task.TaskList;
@@ -59,7 +63,5 @@ public class Johnson {
         } catch (UnknownCommandException e) {
             return UnknownCommandException.UNKNOWN_COMMAND_MESSAGE;
         }
-
-
     }
 }

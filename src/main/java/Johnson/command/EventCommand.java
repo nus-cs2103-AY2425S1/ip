@@ -24,6 +24,7 @@ public class EventCommand extends Command {
     @Override
     public String executeCommand() {
         Utilities.OutlineMessage(COMMAND_MSG + event);
+        Command.taskList.addTask(event);
         return (COMMAND_MSG + event);
     }
 }

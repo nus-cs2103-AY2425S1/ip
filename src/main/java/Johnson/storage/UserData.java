@@ -49,17 +49,13 @@ public class UserData {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFileDirectory))) {
             for (int i = 0; i < tasks.taskCount(); i++) {
                 Task task = tasks.getTask(i);
-                if (task instanceof Deadline) {
+                if (task instanceof Deadline && ((Deadline) task).getTime() != null) {
                     writer.write("D" + '/' + task.getTaskStatus() + "/" + task.getTaskName() + "/" + ((Deadline) task).getDate().toString());
-                    if (((Deadline) task).getTime() != null) {
-                        writer.write("/" + ((Deadline) task).getTime().toString());
-                    }
+                    writer.write("/" + ((Deadline) task).getTime().toString());
                 }
-                else if (task instanceof Event) {
+                else if (task instanceof Event && ((Event) task).getTime() != null) {
                     writer.write("E" +"/" + task.getTaskStatus() + "/" +task.getTaskName() + "/" + ((Event) task).getDate());
-                    if (((Event) task).getTime() != null) {
-                        writer.write("/" + ((Event) task).getTime().toString());
-                    }
+                    writer.write("/" + ((Event) task).getTime().toString());
                 }
                 else {
                     writer.write("T" + "/" + task.getTaskStatus() + "/" + task.getTaskName());
