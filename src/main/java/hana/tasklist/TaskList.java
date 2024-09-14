@@ -44,7 +44,7 @@ public class TaskList {
     }
 
     /**
-     * Mark task as done or not done.
+     * Sets task as done or not done.
      *
      * @param taskNumber The task number to be marked.
      * @param isDone The status for the task to be marked as.

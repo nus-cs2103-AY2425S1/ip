@@ -48,7 +48,7 @@ public abstract class Task {
     }
 
     /**
-     * Change task completion status.
+     * Changes task completion status.
      *
      * @param isDone Completion status to change to.
      */

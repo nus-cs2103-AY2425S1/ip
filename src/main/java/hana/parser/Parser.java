@@ -23,7 +23,7 @@ public class Parser {
     private static final String COMMAND_LIST_BY_PRIORITY = "listPriority";
 
     /**
-     * Use input and return the command to execute.
+     * Returns the command to execute.
      *
      * @param input
      * @return Command to execute.

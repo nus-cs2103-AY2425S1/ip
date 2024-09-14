@@ -48,14 +48,14 @@ public class FindByDateCommand extends Command {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             LocalDate date = LocalDate.parse(parts[1].trim(), formatter);
             ui.printMessage("Tasks occurring on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
-            boolean found = false;
+            boolean isfound = false;
 
             for (Task task : taskList.getTasks()) {
                 if (task instanceof Deadline) {
                     LocalDateTime taskDate = ((Deadline) task).getDeadline();
                     if (taskDate.toLocalDate().equals(date)) {
                         ui.printMessage(task.toString());
-                        found = true;
+                        isfound = true;
                     }
                 } else if (task instanceof Event) {
                     LocalDateTime taskDateFrom = ((Event) task).getFrom();
@@ -63,11 +63,11 @@ public class FindByDateCommand extends Command {
                     if ((taskDateFrom.toLocalDate().equals(date) || taskDateFrom.toLocalDate().isBefore(date)) && (
                             taskDateTo.toLocalDate().equals(date) || taskDateTo.toLocalDate().isAfter(date))) {
                         ui.printMessage(task.toString());
-                        found = true;
+                        isfound = true;
                     }
                 }
             }
-            if (!found) {
+            if (!isfound) {
                 ui.printMessage("No tasks found for this date.");
             }
         } catch (DateTimeParseException e) {
