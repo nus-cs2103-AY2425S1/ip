@@ -70,6 +70,7 @@ public class Parser {
                 
                 //Todo task
                 if (taskType.equals("T")) {
+                    assert parts.length == 3 : "Todo task has wrong input format";
                     if (isDone.equals("1")) {
                         ToDos newToDo = new ToDos(parts[2]);
                         newToDo.markAsDone();
@@ -78,7 +79,8 @@ public class Parser {
                         ToDos newToDo = new ToDos(parts[2]);
                         taskList.addTask(newToDo);
                     }    
-                } else if (taskType.equals("D")) {          //Deadline task                    
+                } else if (taskType.equals("D")) {
+                    assert parts.length == 4 : "Deadline task has wrong input format";
                     if (isDone.equals("1")) {
                         String[] dateTime = parts[3].split(" "); 
 
@@ -109,7 +111,8 @@ public class Parser {
                         Deadlines newDeadline = new Deadlines(parts[2], date, time);
                         taskList.addTask(newDeadline);
                     }
-                } else if (taskType.equals("E")) {  
+                } else if (taskType.equals("E")) {
+                    assert parts.length == 4 : "Event task has wrong input format";
                     String description = parts[2];
 
                     String[] dateTime = parts[3].split(" ");
