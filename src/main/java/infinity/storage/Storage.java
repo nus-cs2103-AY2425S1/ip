@@ -26,7 +26,7 @@ public class Storage {
     /** Marker for Save file if not done */
     public static final String UNDONE_MARKER = "0";
     /** Filepath Directory for Save file */
-    private static final String FILE_DIR_PATH = "../../../../data";
+    private static final String FILE_DIR_PATH = "infinity_bot_data";
     /** Filename for Save file */
     private static final String FILE_NAME = "save-file.txt";
     /** Filepath for Save file */
