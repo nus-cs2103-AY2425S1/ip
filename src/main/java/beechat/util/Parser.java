@@ -1,4 +1,7 @@
-package beechat;
+package beechat.util;
+
+import beechat.command.*;
+import beechat.exception.BeeException;
 
 public class Parser {
 

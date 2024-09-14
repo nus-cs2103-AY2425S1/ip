@@ -1,4 +1,8 @@
-package beechat;
+package beechat.command;
+
+import beechat.util.Storage;
+import beechat.task.TaskList;
+import beechat.util.Ui;
 
 public class LeaveCommand extends Command {
     @Override
