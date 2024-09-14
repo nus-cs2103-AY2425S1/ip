@@ -33,7 +33,7 @@ public class DateTimeManager {
      * Constructs a DateTimeManager object by attempting to parse a raw date string into a standard format.
      * If the provided date string cannot be parsed, it is stored as is.
      *
-     * @param rawDate the input date string to be parsed and formatted.
+     * @param rawDate the input date string to be parsed and formatted
      */
     public DateTimeManager(String rawDate) {
         this.rawDate = rawDate;
