@@ -14,10 +14,10 @@ public class Event extends ScheduledTask {
 
     Event(String inputLine) throws JanetException {
         // inside the program this will be called
-        this(createEventCommand(inputLine).getDescription(),
-                createEventCommand(inputLine).getSymbol(),
-                createEventCommand(inputLine).getStartDateAndTime(),
-                createEventCommand(inputLine).getEndDateAndTime());
+        this(createEventFromUser(inputLine).getDescription(),
+                createEventFromUser(inputLine).getSymbol(),
+                createEventFromUser(inputLine).getStartDateAndTime(),
+                createEventFromUser(inputLine).getEndDateAndTime());
     }
 
     Event(String description, String symbol, LocalDateTime startDate, LocalDateTime endDate) {
@@ -25,6 +25,13 @@ public class Event extends ScheduledTask {
         super(description, symbol, startDate);  // startDate is the scheduledDate.
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    Event(String[] textLine) {
+        this(createEventFromTxt(textLine).getDescription(),
+                createEventFromTxt(textLine).getSymbol(),
+                createEventFromTxt(textLine).getStartDateAndTime(),
+                createEventFromTxt(textLine).getEndDateAndTime());
     }
 
 
@@ -71,7 +78,7 @@ public class Event extends ScheduledTask {
             endDateAndTime = ScheduledTask.DateAndTimeFormatter(commandDetails[indexOfTo + 1],
                     commandDetails[indexOfTo + 2]);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            throw new JanetException("WHOOPS! Ensure that the start & end date are in the format: yyyy-MM-dd hh:mm (24hr)");
+            throw new JanetException("WHOOPS! Ensure that the start & end date are in the format: yyyy-MM-dd HH:mm (24hr)");
         }
         return new String[]{description, startDateAndTime, endDateAndTime};
     }
@@ -84,16 +91,30 @@ public class Event extends ScheduledTask {
      * @param inputLine User's command that was typed into the command line.
      * @return new Event object.
      */
-    public static Event createEventCommand(String inputLine) throws JanetException {
+    public static Event createEventFromUser(String inputLine) throws JanetException {
         String[] commandDetails = inputLine.split(" ");
         String[] eventDetails = findEventDetails(commandDetails);
-        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");    // format the date and time
+        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");    // format the date and time
         String startDateAndTimeString = eventDetails[1];
         LocalDateTime startDateAndTime = LocalDateTime.parse(startDateAndTimeString, stringToDateTime); // convert String to LocalDateTime
 
         String endDateAndTimeString = eventDetails[2];
         LocalDateTime endDateAndTime = LocalDateTime.parse(endDateAndTimeString, stringToDateTime);
         return new Event(eventDetails[0], "E", startDateAndTime, endDateAndTime);
+    }
+
+    public static Event createEventFromTxt(String[] textLine) {
+        String symbol = textLine[0].trim();
+        String description = textLine[2].trim();
+
+        String[] dates = textLine[3].trim().split("-");
+        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
+        String startDateString = dates[0].trim();
+        LocalDateTime startDate = LocalDateTime.parse(startDateString, stringToDateTime);
+        String endDateString = dates[1].trim();
+        LocalDateTime endDate = LocalDateTime.parse(endDateString, stringToDateTime);
+
+        return new Event(description, symbol, startDate, endDate);
     }
 
 

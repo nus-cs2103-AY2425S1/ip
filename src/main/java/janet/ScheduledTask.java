@@ -31,7 +31,7 @@ public class ScheduledTask extends Task {
         String date = localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
 
         LocalTime localTime = LocalTime.parse(inputTime);
-        String time = localTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        String time = localTime.format(DateTimeFormatter.ofPattern("HH:mm a"));
         return date + " " + time;
     }
 
