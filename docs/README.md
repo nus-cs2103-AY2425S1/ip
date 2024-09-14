@@ -30,7 +30,7 @@ Got it. I've added this task:
 ```
 
 
-## Adding deadlines
+## Adding deadlines: deadline
 Adds a deadline task to the list including a description
 <br/>
 
@@ -44,3 +44,23 @@ Example: `deadline Revise for CS2100 /by 31/09/2024 2359`
 Got it. I've added this task:
 [D][ ] Revise for CS2100 (BY: 31 Sep 2024, 11:59:00 pm)
 ```
+
+## Deleting tasks: delete
+Deletes a task based on its task number
+<br/>
+
+Format: `delete <task number>`
+<br/>
+
+Example: `delete 1`
+<br/>
+
+```
+Task has been deleted sucessfully:
+[T][ ] Revise for CS2100
+```
+
+## Exiting Megamind : bye
+Saves all changes and closes GUI
+<br/>
+Format: `bye`
