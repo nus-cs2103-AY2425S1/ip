@@ -66,7 +66,6 @@ public class Parser {
      *
      * @param input the input string containing the integer
      * @return the integer value
-     * @throws NumberFormatException if the input is not a valid integer
      */
     public int parseInteger(String input) {
         return Integer.parseInt(input);
@@ -83,7 +82,9 @@ public class Parser {
         String[] deadlineDetails = input.split(" /by ", 2);
         if (deadlineDetails.length < 2 || deadlineDetails[0].isEmpty() || deadlineDetails[1].isEmpty()) {
             throw new CookieException("Deadlines must include a task todo and a due date \n"
-                    + "[task] /by [deadline]");
+                    + "[task] /by [deadline]\n "
+                    + "To store in a LocalDate format use (yyyy-mm-dd)\n"
+                    + "Any other input will be stored as a string");
         }
         return deadlineDetails;
     }
@@ -101,7 +102,9 @@ public class Parser {
         if (eventDetails.length < 2 || eventDetails[0].isEmpty()
                 || eventDetails[1].isEmpty() || eventDetails[2].isEmpty()) {
             throw new CookieException("Events must include a task, a start time and an end time \n"
-                    + "[task] /from [start] /to [end]");
+                    + "[task] /from [start] /to [end]\n"
+                    + "To store in a LocalDate format use (yyyy-mm-dd)\n"
+                    + "Any other input will be stored as a string");
         }
 
         return eventDetails;
@@ -195,14 +198,14 @@ public class Parser {
         case "unmark":
             if (description.isEmpty()) {
                 throw new CookieException("Cookie does not know which task to mark.\n "
-                        + "(Please enter an integer after \"mark\")");
+                        + "(Please enter an integer after \"unmark\")");
             }
             int unmarkIndex = parseInteger(description);
             return new UnmarkCommand(unmarkIndex);
 
         case "todo":
             if (description.isEmpty()) {
-                throw new CookieException("Please enter a task for you to do.");
+                throw new CookieException("Please enter a task for you to do.\n" + "todo [task]");
             }
 
             return new ToDoCommand(description);
