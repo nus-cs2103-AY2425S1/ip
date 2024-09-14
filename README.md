@@ -5,7 +5,7 @@ Head to [releases](https://github.com/flyingsalsa/ip/releases/tag/v0.1.1) on how
 
 ## Commands   
 ### Note that all commands are NOT case-sensitive and the very FIRST word before a whitespace will be read as the command. <br> Most commands must be of the form (command) xxx where xxx is follow up text. For example,
-`todo new task`
+`todo task`
 ### where "todo" is the (command) and "new task" is the follow up text xxx.
 
 ## Basic commands
