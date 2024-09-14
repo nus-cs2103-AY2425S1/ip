@@ -60,6 +60,11 @@ public class DialogBox extends HBox {
     }
 
     private void changeDialogStyle(String commandType) {
+        if (commandType == null) {
+            dialog.getStyleClass().add("label");
+            return;
+        }
+
         switch(commandType) {
         case "AddCommand":
             dialog.getStyleClass().add("add-label");
