@@ -40,7 +40,7 @@ public class AddCommand extends Command {
      * @throws TaskManagerException if the user input is invalid or incomplete
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskManagerException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskManagerException {
         Task task;
         if (input.startsWith("todo")) {
             // Check if there is enough length for a description
@@ -80,7 +80,8 @@ public class AddCommand extends Command {
         }
 
         tasks.addTask(task);
-        ui.showTaskAdded(task, tasks.size());
+        String ret = ui.showTaskAdded(task, tasks.size());
         storage.save(tasks.getTasks());
+        return ret;
     }
 }
