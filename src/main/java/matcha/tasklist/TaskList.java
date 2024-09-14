@@ -117,9 +117,10 @@ public class TaskList {
     }
 
     /**
-     * Check if there is any duplicate task of the given task in the list.
+     * Checks if there is a duplicate Task in the list. Returns true if there is a duplicate,
+     * false otherwise.
      *
-     * @param task Task to check for duplicates.
+     * @param task Task used to check for its duplicates.
      * @return True if there is a duplicate, false otherwise.
      */
     public boolean checkDuplicates(Task task) {
