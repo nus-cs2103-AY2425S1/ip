@@ -182,6 +182,50 @@ public class Alexer {
     }
 
     /**
+     * Processes the user input provided, and executes the
+     * relevant commands/operations
+     * @param input the user input string
+     */
+    public void processInput(String input) {
+        List<String> arguments = new ArrayList<>(List.of(input.split(" ")));
+        String command = arguments.remove(0);
+
+        Command cmd = commandHandler.getCommand(command.toLowerCase());
+        if (cmd != null) {
+            cmd.run(arguments.toArray(String[]::new));
+        } else {
+            switch (command) {
+                case "bye":
+                    prompter.buildGoodbye().printToConsole();
+                    System.exit(0);
+                    break;
+                case "mark":
+                    int index = Integer.parseInt(arguments.get(0));
+                    markTaskDone(index);
+                    break;
+                case "unmark":
+                    int taskNum = Integer.parseInt(arguments.get(0));
+                    unmarkTaskDone(taskNum);
+                    break;
+                case "todo":
+                    addTodo(arguments);
+                    break;
+                case "deadline":
+                    addDeadline(arguments);
+                    break;
+                case "event":
+                    addEvent(arguments);
+                    break;
+                default:
+                    System.out.println(BREAK);
+                    System.out.println("Uh-oh, I did not understand what you are trying to do.");
+                    System.out.println(BREAK);
+                    break;
+            }
+        }
+    }
+
+    /**
      * Prompts the user for input (in the form of commands)
      * This function will repeatedly call itself until a
      * terminating command (e.g. bye) is invoked.
@@ -189,48 +233,8 @@ public class Alexer {
     public void promptLoop() {
         String input = scanner.nextLine();
 
-        List<String> arguments = new ArrayList<>(List.of(input.split(" ")));
-        String command = arguments.remove(0);
-
-        Command cmd = commandHandler.getCommand(command.toLowerCase());
-        if (cmd != null) {
-            cmd.run(arguments.toArray(String[]::new));
-            promptLoop();
-        } else {
-            switch (command) {
-            case "bye":
-                prompter.buildGoodbye().printToConsole();
-                break;
-            case "mark":
-                int index = Integer.parseInt(arguments.get(0));
-                markTaskDone(index);
-                promptLoop();
-                break;
-            case "unmark":
-                int taskNum = Integer.parseInt(arguments.get(0));
-                unmarkTaskDone(taskNum);
-                promptLoop();
-                break;
-            case "todo":
-                addTodo(arguments);
-                promptLoop();
-                break;
-            case "deadline":
-                addDeadline(arguments);
-                promptLoop();
-                break;
-            case "event":
-                addEvent(arguments);
-                promptLoop();
-                break;
-            default:
-                System.out.println(BREAK);
-                System.out.println("Uh-oh, I did not understand what you are trying to do.");
-                System.out.println(BREAK);
-                promptLoop();
-                break;
-            }
-        }
+        processInput(input);
+        promptLoop();
     }
 
     /**
