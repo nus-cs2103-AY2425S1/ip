@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.openjfx:javafx-controls:20.0.1'
+    implementation 'org.openjfx:javafx-fxml:20.0.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+application {
+    mainClass.set("shoai.Main")
+}
+
+shadowJar {
+    archiveBaseName.set("ShoAI")
+    archiveClassifier.set("") // Fat JAR without classifier
+    archiveVersion.set("") // Optional: Remove version from JAR file name if desired
+    mergeServiceFiles()
+}
+
+run {
+    standardInput = System.in
+    jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType(JavaExec) {
+    // Ensure JavaFX modules are included in runtime classpath
+    jvmArgs += [
+            '--module-path', sourceSets.main.output.asPath,
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
