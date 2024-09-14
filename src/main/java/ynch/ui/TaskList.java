@@ -160,4 +160,14 @@ class TaskList {
         }
         return output;
     }
+
+    /**
+     * Retrieves the list of tasks from the to-do list.
+     *
+     * @return An ArrayList containing Task objects that represent the current tasks
+     *         in the to-do list. If no tasks are present, an empty list is returned.
+     */
+    ArrayList<Task> getTasks() {
+        return this.todoList;
+    }
 }
