@@ -106,7 +106,7 @@ public class TaskList {
     }
 
     /**
-     * Unmark the task in the task list based on the number.
+     * Unmarks task in the task list based on the number.
      * Note that the number begins from one, unlike an index.
      *
      * @param number A number, starting from 1

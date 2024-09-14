@@ -52,13 +52,13 @@ public class Storage {
         try {
             file.createNewFile();
             writer = new BufferedWriter(new FileWriter(file));
-            boolean first = true;
+            boolean isFirst = true;
             for (Task task : taskList.retrieveTasks()) {
-                if (!first) {
+                if (!isFirst) {
                     writer.newLine();
                 }
                 writer.write(convertTaskToString(task));
-                first = false;
+                isFirst = false;
             }
             writer.close();
         } catch (IOException e) {
