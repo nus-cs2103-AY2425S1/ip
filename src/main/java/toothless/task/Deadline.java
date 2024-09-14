@@ -24,6 +24,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) throws ToothlessExceptions {
         super(description);
+        assert deadline != null : "Deadline should not be null";
         try {
             this.deadline = LocalDateTime.parse(deadline.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
@@ -42,6 +43,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline, boolean isDone) throws ToothlessExceptions {
         super(description, isDone);
+        assert deadline != null : "Deadline should not be null";
         try {
             this.deadline = LocalDateTime.parse(deadline.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (DateTimeParseException e) {

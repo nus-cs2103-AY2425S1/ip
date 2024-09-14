@@ -26,6 +26,12 @@ public class Toothless {
         this.ui = new Ui();
     }
 
+    /**
+     * Gets the response from Toothless.
+     *
+     * @param userInput the input from the user
+     * @return the response from Toothless
+     */
     public String getResponse(String userInput) {
         Command command = Parser.getCommandType(userInput);
 

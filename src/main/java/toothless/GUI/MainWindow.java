@@ -27,6 +27,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Hiccup.png"));
     private Image toothlessImage = new Image(this.getClass().getResourceAsStream("/images/Toothless.png"));
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -47,6 +50,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "Input should not be null";
         boolean isExit = false;
         if (input.equalsIgnoreCase("bye")) {
             isExit = true;

@@ -15,6 +15,11 @@ public class Main extends Application {
 
     private Toothless toothless = new Toothless();
 
+    /**
+     * Starts the GUI.
+     *
+     * @param stage the stage to start the GUI on
+     */
     @Override
     public void start(Stage stage) {
         try {

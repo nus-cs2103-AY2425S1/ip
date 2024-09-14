@@ -23,6 +23,8 @@ public class Ui {
 
     /**
      * Prints the greeting message.
+     *
+     * @return The greeting message.
      */
     public static String greeting() {
         return "Hello! I'm Toothless\nHow can I help today dragon rider?\n\n";
@@ -30,6 +32,8 @@ public class Ui {
 
     /**
      * Prints the goodbye message.
+     *
+     * @return The goodbye message.
      */
     public static String bye() {
         return "Until next time, dragon rider!\n"
@@ -43,15 +47,20 @@ public class Ui {
      *
      * @param task The task that is added.
      * @param size The size of the task list.
+     * @return The message when a task is added.
      */
     public String addTaskMessage(Task task, int size) {
+        assert task != null : "Task should not be null";
+        assert size >= 0 : "Size should not be negative";
         return "Your task\n\t\t"
                 + task + "\nadded to the quest board!\n\n"
                 + "Now there is " + size + " quests in your quest board.\n\n";
     }
 
     /**
-     * Prints the message when an unknown command is entered.
+     * Prints the message when a task is deleted.
+     *
+     * @return The message when an unknown command is entered.
      */
     public String unknownCommand() {
         return "I'm sorry, I do not understand what you mean.\n"
@@ -62,8 +71,10 @@ public class Ui {
      * Prints the message when a task is marked as done.
      *
      * @param task The task that is marked as done.
+     * @return The message when a task is marked as done.
      */
     public String markDoneMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "Good job! You had completed this quest!\n"
                 + task + "\n\n";
     }
@@ -72,8 +83,10 @@ public class Ui {
      * Prints the message when a task is marked as undone.
      *
      * @param task The task that is marked as undone.
+     * @return The message when a task is marked as undone.
      */
     public String markUndoneMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "Oops! Quest is back in play!\n"
                 + task + "\n\n";
     }
