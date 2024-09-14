@@ -21,9 +21,15 @@ public class DeleteTaskAction extends Action {
         this.index = index;
     }
 
+    /**
+     * Creates a new <code>DeleteTaskAction</code>.
+     *
+     * @param index of the <code>Task</code> to be deleted.
+     * @param canUndo indicating if the action can be undone.
+     */
     public DeleteTaskAction(int index, boolean canUndo) {
         this.index = index;
-        super.canUndo = canUndo;
+        super.setCanUndo(canUndo);
     }
 
     /**
@@ -40,7 +46,7 @@ public class DeleteTaskAction extends Action {
         Task deletedTask = taskList.remove(index);
 
         // Add the reverse action to Undo
-        if (canUndo) {
+        if (canUndo()) {
             Undo.add(new AddTaskAction(deletedTask, false));
         }
 

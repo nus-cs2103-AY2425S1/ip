@@ -1,14 +1,28 @@
 package bot.tasks;
 
+/**
+ * Represents a generic completable task.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates a new <code>Task</code> object.
+     *
+     * @param description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Creates a new <code>Task</code> object.
+     *
+     * @param description of the task.
+     * @param isDone indicating if the task is compelted.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

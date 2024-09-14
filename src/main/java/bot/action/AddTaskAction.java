@@ -20,9 +20,15 @@ public class AddTaskAction extends Action {
         this.task = task;
     }
 
+    /**
+     * Creates a new <code>AddTaskAction</code>.
+     *
+     * @param task to be added.
+     * @param canUndo indicating if the action can be undone.
+     */
     public AddTaskAction(Task task, boolean canUndo) {
         this.task = task;
-        super.canUndo = canUndo;
+        super.setCanUndo(canUndo);
     }
 
     /**
@@ -36,7 +42,7 @@ public class AddTaskAction extends Action {
         int newTaskIndex = taskList.add(task);
 
         // Add the reverse action to Undo
-        if (canUndo) {
+        if (canUndo()) {
             Undo.add(new DeleteTaskAction(newTaskIndex, false));
         }
 

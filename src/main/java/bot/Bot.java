@@ -9,11 +9,17 @@ import bot.exceptions.BotException;
 import bot.storage.Storage;
 import bot.tasks.TaskList;
 
+/**
+ * Represents a bot that the user interacts with.
+ */
 public class Bot {
     private final TaskList tasks;
     private final Parser parser;
     private final Storage storage;
 
+    /**
+     * Creates a new <code>Bot</code> object.
+     */
     public Bot() {
         tasks = new TaskList();
         parser = new Parser();
@@ -25,6 +31,12 @@ public class Bot {
         }
     }
 
+    /**
+     * Handles a given user input.
+     *
+     * @param input string keyed in by the user.
+     * @return a string response message that is displayed via the GUI.
+     */
     public String handleInput(String input) {
         try {
             Action action = parser.parseInput(input);
@@ -33,7 +45,7 @@ public class Bot {
             String response = actionResponse + "\n\n" + saveResponse;
 
             // If it is a terminal action, we close the program asynchronously after 3 seconds
-            if (action.isTerminal) {
+            if (action.isTerminal()) {
                 CompletableFuture.delayedExecutor(3, TimeUnit.SECONDS).execute(() -> System.exit(1));
             }
 

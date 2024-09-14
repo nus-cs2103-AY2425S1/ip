@@ -34,6 +34,9 @@ public class MainWindow extends AnchorPane {
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png"))
     );
 
+    /**
+     * Initialize the MainWindow UI and displays an introduction message to user.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

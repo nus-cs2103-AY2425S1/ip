@@ -21,9 +21,15 @@ public class UnmarkTaskAction extends Action {
         this.index = index;
     }
 
+    /**
+     * Creates a new <code>UnmarkTaskAction</code>.
+     *
+     * @param index of the <code>Task</code> to be unmarked.
+     * @param canUndo indicating if the action can be undone.
+     */
     public UnmarkTaskAction(int index, boolean canUndo) {
         this.index = index;
-        super.canUndo = canUndo;
+        super.setCanUndo(canUndo);
     }
 
     /**
@@ -41,7 +47,7 @@ public class UnmarkTaskAction extends Action {
         Task unmarkedTask = taskList.unmark(index);
 
         // Add the reverse action to Undo
-        if (canUndo) {
+        if (canUndo()) {
             Undo.add(new MarkTaskAction(index, false));
         }
 

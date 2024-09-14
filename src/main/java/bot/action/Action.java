@@ -14,13 +14,49 @@ public abstract class Action {
      * The program will exit if action is terminal.
      * Defaults to false.
      */
-    public boolean isTerminal = false;
+    private boolean isTerminal = false;
 
     /**
      * A boolean indicating if the action can be undone.
      * Defaults to true.
      */
-    public boolean canUndo = true;
+    private boolean canUndo = true;
+
+    /**
+     * Gets the terminal status of the action.
+     *
+     * @return a boolean indicating if the action is terminal.
+     */
+    public boolean isTerminal() {
+        return this.isTerminal;
+    }
+
+    /**
+     * Sets the terminal status of the action.
+     *
+     * @param isTerminal indicating if the action is terminal.
+     */
+    public void setIsTerminal(boolean isTerminal) {
+        this.isTerminal = isTerminal;
+    }
+
+    /**
+     * Gets the canUndo status of the action.
+     *
+     * @return canUndo indicating if the action can be undone.
+     */
+    public boolean canUndo() {
+        return this.canUndo;
+    }
+
+    /**
+     * Sets the canUndo status of the action.
+     *
+     * @param canUndo indicating if the action can be undone.
+     */
+    public void setCanUndo(boolean canUndo) {
+        this.canUndo = canUndo;
+    }
 
     /**
      * Executes the action

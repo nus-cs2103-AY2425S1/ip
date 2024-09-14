@@ -3,13 +3,13 @@ package bot.action;
 import bot.tasks.TaskList;
 
 /**
- * Action that exits the current program.
+ * Represents an action that exits the current program.
  *
  * @author mongj
  */
 public class ExitAction extends Action {
     public ExitAction() {
-        super.isTerminal = true;
+        super.setIsTerminal(true);
     }
     /**
      * Exits the current program.

@@ -22,6 +22,10 @@ import bot.tasks.Deadline;
 import bot.tasks.Event;
 import bot.tasks.Todo;
 
+/**
+ * Represents a parser that is used to parse all string inputs
+ * into <code>Action</code> that the bot can execute.
+ */
 public class Parser {
     /**
      * Parses the given string input from user
