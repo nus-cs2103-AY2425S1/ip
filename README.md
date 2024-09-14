@@ -3,7 +3,7 @@
 This is a task management chatbot. Given below are instructions on how to use it.
 
 [Quick Start](https://github.com/FooChao/ip?tab=readme-ov-file#quick-start)
-[Features](https://github.com/FooChao/ip/edit/master/README.md#features)
+[Features](https://github.com/FooChao/ip?tab=readme-ov-file#features)
 
 ## Quick Start
 
@@ -41,4 +41,30 @@ Example: event mug for exam /from 20 Sep 2024 /to 29 Sep 2024
 
 Format: list
 
-### 
+### Listing matching tasks `find`
+
+Format: find STRINGTOMATCH
+
+Example: find study
+
+### Mark a task as done `mark`
+
+Format: mark INDEX
+
+Example: mark 1
+
+### Mark a task as not completed `unmark`
+
+Format: unmark INDEX
+
+Example: unmark 1
+
+### Delete a task
+
+Format: delete INDEX
+
+Example: delete 1
+
+### Close the app `bye`
+
+Format: bye
