@@ -14,9 +14,9 @@ public class TodoTest {
             String input = "todo sleep";
             TaskList tasks = new TaskList();
             new HandleTodo(input, tasks).run();
-            assertEquals("[T][ ] sleep", tasks.get(0).toString());
+            assertEquals("[T][ ] sleep | []", tasks.get(0).toString());
             tasks.get(0).markAsDone();
-            assertEquals("[T][X] sleep", tasks.get(0).toString());
+            assertEquals("[T][X] sleep | []", tasks.get(0).toString());
         } catch (CitadelException e) {
             assertEquals(true, false);
         }
