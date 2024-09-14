@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import commands.Command;
+import exceptions.InvalidPriorityException;
 import exceptions.InvalidTaskException;
 import tasks.Deadline;
 import tasks.Event;
@@ -18,17 +19,22 @@ import tasks.Todo;
 public class TaskListTest {
     @Test
     public void addTask_validTask_success() {
-        // task type TODO
-        Assertions.assertEquals(new Todo("test").toString(),
-                new TaskList().addTask(Command.TODO, "test").toString());
+        try {
+            // task type TODO
+            Assertions.assertEquals(new Todo("test").toString(),
+                    new TaskList().addTask(Command.TODO, "test").toString());
 
-        // task type DEADLINE
-        Assertions.assertEquals(new Deadline("test", "2024-08-30").toString(),
-                new TaskList().addTask(Command.DEADLINE, "test", "2024-08-30").toString());
+            // task type DEADLINE
+            Assertions.assertEquals(new Deadline("test", "2024-08-30").toString(),
+                    new TaskList().addTask(Command.DEADLINE, "test", "2024-08-30").toString());
 
-        // task type EVENT
-        Assertions.assertEquals(new Event("test", "2024-08-29", "2024-08-30").toString(),
-                new TaskList().addTask(Command.EVENT, "test", "2024-08-29", "2024-08-30").toString());
+            // task type EVENT
+            Assertions.assertEquals(new Event("test", "2024-08-29", "2024-08-30").toString(),
+                    new TaskList().addTask(Command.EVENT, "test", "2024-08-29", "2024-08-30").toString());
+        } catch (InvalidPriorityException e) {
+            // code should not reach here.
+            System.out.println(e);
+        }
     }
 
     @Test

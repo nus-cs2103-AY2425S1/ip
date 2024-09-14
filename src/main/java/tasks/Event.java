@@ -3,6 +3,8 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import exceptions.InvalidPriorityException;
+
 /**
  * Represents a task which is an event.
  * Encapsulates the description of a task, with its start and end date.
@@ -32,7 +34,7 @@ public class Event extends Task {
      * @param to end date of the task.
      * @param priority priority of the task.
      */
-    public Event(String description, String from, String to, String priority) {
+    public Event(String description, String from, String to, String priority) throws InvalidPriorityException {
         super(description, priority);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);

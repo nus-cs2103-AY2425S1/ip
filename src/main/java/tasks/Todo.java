@@ -1,5 +1,7 @@
 package tasks;
 
+import exceptions.InvalidPriorityException;
+
 /**
  * Represents a task with no due date.
  * Encapsulates the description of a task.
@@ -21,7 +23,7 @@ public class Todo extends Task {
      * @param description description of the task.
      * @param priority priority of the task.
      */
-    public Todo(String description, String priority) {
+    public Todo(String description, String priority) throws InvalidPriorityException {
         super(description, priority);
     }
 

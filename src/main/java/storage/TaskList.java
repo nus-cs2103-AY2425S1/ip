@@ -3,6 +3,7 @@ package storage;
 import java.util.ArrayList;
 
 import commands.Command;
+import exceptions.InvalidPriorityException;
 import exceptions.InvalidTaskException;
 import tasks.Deadline;
 import tasks.Event;
@@ -27,7 +28,7 @@ public class TaskList {
      * @param params arguments that the task has.
      * @return the task that has been added to TASKS.
      */
-    public Task addTask(Command type, String ... params) {
+    public Task addTask(Command type, String ... params) throws InvalidPriorityException {
         Task task = new Task(params[0]);
         int numOfParams = params.length;
 
@@ -287,7 +288,8 @@ public class TaskList {
      * @return the task which was updated.
      * @throws InvalidTaskException when taskNumber is not within array size.
      */
-    public Task updatePriority(int taskNumber, String priority, String newPriority) throws InvalidTaskException {
+    public Task updatePriority(int taskNumber, String priority, String newPriority)
+            throws InvalidTaskException, InvalidPriorityException {
         checkValidTaskIndex(taskNumber, priority);
         Task updateTask;
 

@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import exceptions.InvalidPriorityException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -90,18 +91,23 @@ public class Storage {
                 : "low";
 
         Task newTask;
-        switch (taskType) {
-        case "todo":
-            newTask = new Todo(taskParams[3], priority);
-            break;
-        case "deadline":
-            newTask = new Deadline(taskParams[3], taskParams[4], priority);
-            break;
-        case "event":
-            newTask = new Event(taskParams[3], taskParams[4], taskParams[5], priority);
-            break;
-        default:
-            newTask = new Task(taskParams[2], priority);
+        try {
+            switch (taskType) {
+            case "todo":
+                newTask = new Todo(taskParams[3], priority);
+                break;
+            case "deadline":
+                newTask = new Deadline(taskParams[3], taskParams[4], priority);
+                break;
+            case "event":
+                newTask = new Event(taskParams[3], taskParams[4], taskParams[5], priority);
+                break;
+            default:
+                newTask = new Task(taskParams[2], priority);
+            }
+        } catch (InvalidPriorityException e) {
+            // should not reach here
+            return;
         }
         if (isDone) {
             newTask.markAsDone();

@@ -28,7 +28,7 @@ public class Task {
      * @param description description of the task.
      * @param priority priority of the task.
      */
-    public Task(String description, String priority) {
+    public Task(String description, String priority) throws InvalidPriorityException {
         this.description = description;
         this.isDone = false;
         setPriority(priority);
@@ -85,12 +85,8 @@ public class Task {
      *
      * @param priority the priority to be set to.
      */
-    public void setPriority(String priority) {
-        try {
-            this.priority = Priority.stringToPriority(priority);
-        } catch (InvalidPriorityException e) {
-            System.out.println(e);
-        }
+    public void setPriority(String priority) throws InvalidPriorityException {
+        this.priority = Priority.stringToPriority(priority);
     }
 
     /**

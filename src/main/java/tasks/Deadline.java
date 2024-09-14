@@ -3,6 +3,8 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import exceptions.InvalidPriorityException;
+
 /**
  * Represents a task with a deadline.
  * Encapsulates the description of a task, with its deadline.
@@ -28,7 +30,7 @@ public class Deadline extends Task {
      * @param deadline due date of the task.
      * @param priority priority of the task.
      */
-    public Deadline(String description, String deadline, String priority) {
+    public Deadline(String description, String deadline, String priority) throws InvalidPriorityException {
         super(description, priority);
         this.deadline = LocalDate.parse(deadline);
     }
