@@ -63,7 +63,9 @@ public class MainWindow extends AnchorPane {
                 );
             }
         } catch (LunaException e) {
-            dialogContainer.getChildren().addAll(DialogBox.getLunaErrorDialog(e.getMessage(), lunaImage));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getLunaErrorDialog(e.getMessage(), lunaImage));
         } finally {
             userInput.clear();
         }
