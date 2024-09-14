@@ -1,6 +1,7 @@
 package alexer.command;
 
 import alexer.Alexer;
+import alexer.Prompter;
 import alexer.task.Task;
 import alexer.task.TaskManager;
 
@@ -27,6 +28,7 @@ public class FindTaskCommand extends Command {
             output.append(String.format("\t%d: %s\n", i, tasks.get(i).toString()));
         }
 
-        Alexer.getInstance().getPrompter().printFilteredTaskList(output.toString());
+        Prompter prompter = Alexer.getInstance().getPrompter();
+        prompter.buildFilteredTaskList(output.toString()).printToConsole();
     }
 }

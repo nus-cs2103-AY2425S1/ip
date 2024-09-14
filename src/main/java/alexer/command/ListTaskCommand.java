@@ -35,6 +35,6 @@ public class ListTaskCommand extends Command {
             response.append(String.format("\t%d: %s\n", i + 1, task));
         }
 
-        prompter.printTaskList(response.toString());
+        prompter.buildTaskList(response.toString()).printToConsole();
     }
 }

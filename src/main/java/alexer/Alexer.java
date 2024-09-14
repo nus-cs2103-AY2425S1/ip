@@ -7,6 +7,7 @@ import alexer.task.Event;
 import alexer.task.Task;
 import alexer.task.TaskManager;
 import alexer.task.Todo;
+import alexer.ui.Response;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -119,7 +120,7 @@ public class Alexer {
         try {
             dateTime = LocalDateTime.parse(by, dateTimeFormat);
         } catch (DateTimeException e) {
-            prompter.printResponse("Uh-oh, I failed to understand what is the task deadline!");
+            new Response("Uh-oh, I failed to understand what is the task deadline!").printToConsole();
             return;
         }
 
@@ -198,7 +199,7 @@ public class Alexer {
         } else {
             switch (command) {
             case "bye":
-                prompter.printGoodbye();
+                prompter.buildGoodbye().printToConsole();
                 break;
             case "mark":
                 int index = Integer.parseInt(arguments.get(0));
