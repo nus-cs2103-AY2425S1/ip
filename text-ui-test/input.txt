@@ -1,0 +1,10 @@
+todo sleep
+event 2101 tutorial /from 9am /to 12pm
+deadline ip week 2 /by friday 4pm
+list
+mark 3
+mark 2
+list
+unmark 2
+list
+bye

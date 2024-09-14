@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="monobot.MainWindow" prefWidth="600" prefHeight="400">
+    <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" spacing="10">
+        <ScrollPane fx:id="scrollPane" VBox.vgrow="ALWAYS" fitToWidth="true" hbarPolicy="NEVER">
+            <VBox fx:id="chatBox" spacing="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+            </VBox>
+        </ScrollPane>
+        <HBox spacing="10">
+            <TextField fx:id="userInput" HBox.hgrow="ALWAYS" onAction="#handleUserInput"/>
+            <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
