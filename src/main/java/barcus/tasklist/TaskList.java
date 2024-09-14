@@ -122,7 +122,7 @@ public class TaskList {
         TaskList tasksSubset = new TaskList();
         for (int i = 0; i < this.length; i++) {
             Task t = tasks.get(i);
-            if (t.containsSubstring(toFind)) {
+            if (t.containsSubstring(toFind) || t.containsTag(toFind)) {
                 tasksSubset.addTask(t);
             }
         }

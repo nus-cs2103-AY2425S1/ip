@@ -81,6 +81,20 @@ public class Task {
     }
 
     /**
+     * Checks if taks is tagged by specific tag
+     * @param tag String to check
+     * @return true if contains the tag
+     */
+    public boolean containsTag(String tag) {
+        String temp = tag;
+        if (!tag.startsWith("#")) {
+            temp = "#" + temp;
+        }
+        temp = temp.toLowerCase();
+        return tags.contains(temp);
+    }
+
+    /**
      * Adds tag to list of tags
      * @param tag String tag
      */
