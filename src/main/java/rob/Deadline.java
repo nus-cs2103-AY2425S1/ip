@@ -35,7 +35,6 @@ public class Deadline extends Task {
             LocalDate date = LocalDate.parse(by, formatter);
             return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         } catch (DateTimeParseException e) {
-            // System.out.println("Invalid date format: " + e.getMessage());
             return by;
         }
     }
