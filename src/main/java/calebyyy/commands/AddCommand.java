@@ -32,6 +32,12 @@ public class AddCommand extends Command {
         super(calebyyy, ui, taskList);
     }
 
+    /**
+     * Checks if the date is valid.
+     *
+     * @param date The date to be checked.
+     * @return True if the date is valid, false otherwise.
+     */
     private Boolean isValidDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
@@ -60,17 +66,33 @@ public class AddCommand extends Command {
             System.out.println(e);
         }
     }
-
+    /**
+     * Parses the user input.
+     *
+     * @param input The user input.
+     * @return An array containing the command type and task details.
+     */
     private String[] parseInput(String input) {
         return input.split(" ", 2);
     }
-
+    /**
+     * Validates the user input.
+     *
+     * @param parts The array containing the command type and task details.
+     * @throws InvalidArgumentException If the user input is invalid.
+     */
     private void validateInput(String[] parts) throws InvalidArgumentException {
         if (parts.length < 2 || parts[1].isBlank()) {
             throw new InvalidArgumentException();
         }
     }
-
+    /**
+     * Creates a task object.
+     *
+     * @param parts The array containing the command type and task details.
+     * @return The task object.
+     * @throws CalebyyyException If the user input is invalid.
+     */
     private Task createTask(String[] parts) throws CalebyyyException {
         String commandType = parts[0];
         String taskDetails = parts[1];
