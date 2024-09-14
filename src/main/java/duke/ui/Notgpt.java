@@ -17,17 +17,8 @@ public class Notgpt {
         System.out.println("___________________________________________________________________________");
     }
 
-    /**
-     * The main method serves as the entry point for the application.
-     * <p>
-     * It initializes the application by printing a logo and a greeting message,
-     * then passes control to the {@code Parser} to process user commands. Any exceptions
-     * that occur during execution are caught, logged to a file, and displayed to the user.
-     * </p>
-     *
-     * @param args command-line arguments (not used in this application)
-     */
     public static void main(String[] args) {
+
         NotgptJavaFX.main(args);
     }
 }
