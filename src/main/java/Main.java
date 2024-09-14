@@ -24,8 +24,6 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setWinner(winner);  // inject the Duke instance
             stage.show();
-            System.out.println("Width: " + stage.getWidth());
-            System.out.println("Height: " + stage.getHeight());
 
         } catch (IOException e) {
             e.printStackTrace();
