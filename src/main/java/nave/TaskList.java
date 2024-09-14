@@ -1,6 +1,9 @@
 package nave;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * The {@code TaskList} class manages a list of {@code Task} objects.
@@ -26,6 +29,49 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    /**
+     * Finds all events in the list that clash with event to be added.
+     * @param task event to be added to list
+     * @return array of events whose date clashes with event to be added.
+     */
+    public String findClashes(Task task) {
+        if (!(task instanceof Event event)) {
+            return null;
+        }
+
+        Stream<Task> events = tasks.stream().filter(t -> t instanceof Event);
+        Predicate<Task> dateClashes = (Task existing) -> {
+            Event existingEvent = (Event) existing;
+            return (event.getStartDate().isBefore(existingEvent.getEndDate())
+                    && event.getEndDate().isAfter(existingEvent.getStartDate()));
+        };
+        events = events.filter(dateClashes);
+
+        List<Task> clashes = events.toList();
+        if (clashes.isEmpty()) {
+            return null;
+        }
+        return listClashes(clashes);
+    }
+
+    /**
+     * Outputs a string listing all the clashes.
+     * @param events stream of clashing tasks
+     * @return string of clashes
+     */
+    public String listClashes(List<Task> events) {
+        StringBuilder sb = new StringBuilder("You have clashing tasks:\n");
+
+        events.forEach(task -> sb.append(tasks.indexOf(task) + 1)
+                .append(". ")
+                .append(task.toString())
+                .append("\n"));
+
+        sb.append("As a result, your task was not added");
+
+        return sb.toString();
     }
 
     /**

@@ -58,7 +58,8 @@ public class TaskStorage {
                     list.addTask(new Deadline(split[0], LocalDate.parse(split[1])));
                     break;
                 case 3:
-                    list.addTask(new Event(split[0], split[1], split[2]));
+                    list.addTask(new Event(split[0],
+                            LocalDate.parse(split[1]), LocalDate.parse(split[2])));
                     break;
                 default:
                     return;

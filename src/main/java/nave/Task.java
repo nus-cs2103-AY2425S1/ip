@@ -1,5 +1,7 @@
 package nave;
 
+import java.time.LocalDate;
+
 /**
  * The {@code Task} class represents a generic task with a name and a status indicating whether it is done.
  * <p>
@@ -59,6 +61,20 @@ public abstract class Task {
             done = false;
             return true;
         }
+    }
+
+    /**
+     * Returns start date of event.
+     */
+    public LocalDate getStartDate() {
+        return null;
+    }
+
+    /**
+     * Returns end date of event.
+     */
+    public LocalDate getEndDate() {
+        return null;
     }
 
     /**

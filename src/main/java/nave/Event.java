@@ -1,5 +1,7 @@
 package nave;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,8 +14,8 @@ import java.util.regex.Pattern;
  * </p>
  */
 public class Event extends Task {
-    private final String startDate;
-    private final String endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     /**
      * Constructs an {@code Event} task with the specified name, start date, and end date.
@@ -22,7 +24,7 @@ public class Event extends Task {
      * @param startDate the start date of the event
      * @param endDate the end date of the event
      */
-    public Event(String name, String startDate, String endDate) {
+    public Event(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -42,7 +44,7 @@ public class Event extends Task {
      */
     public static Event handleInput(String input) throws WrongInputException {
         Pattern correctPattern =
-                Pattern.compile("((\\w+\\s*)+) /from ((\\w+\\s*)+) /to ((\\w+\\s*)+)");
+                Pattern.compile("((\\w+\\s*)+) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2})");
         Matcher correctMatcher = correctPattern.matcher(input);
 
         Pattern wrongPattern1 = Pattern.compile(
@@ -53,8 +55,13 @@ public class Event extends Task {
         Matcher wrongMatcher2 = wrongPattern2.matcher(input);
 
         if (correctMatcher.matches()) {
+            LocalDate fromDate = LocalDate.parse(correctMatcher.group(3));
+            LocalDate toDate = LocalDate.parse(correctMatcher.group(4));
+            if (toDate.isBefore(fromDate)) {
+                throw new WrongInputException("Your end date is earlier than your start date!");
+            }
             return new Event(correctMatcher.group(1),
-                    correctMatcher.group(3), correctMatcher.group(5));
+                    fromDate, toDate);
         } else if (wrongMatcher1.matches()) {
             throw new WrongInputException("Hmmm... This event doesn't have a name!");
         } else if (wrongMatcher2.matches()) {
@@ -63,6 +70,22 @@ public class Event extends Task {
             //Shouldn't reach if all error cases handled
             throw new WrongInputException("Something's wrong!");
         }
+    }
+
+    /**
+     * Returns start date of event.
+     */
+    @Override
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Returns end date of event.
+     */
+    @Override
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
     /**
@@ -103,8 +126,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String dateString = " (from: " + startDate + " to: "
-                + endDate + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLL yyyy EEE");
+        String dateString = " (from: " + startDate.format(formatter) + " to: "
+                + endDate.format(formatter) + ")";
         return "[E]" + super.toString() + dateString;
     }
 }
