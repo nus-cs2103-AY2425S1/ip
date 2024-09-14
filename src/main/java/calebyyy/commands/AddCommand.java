@@ -4,6 +4,7 @@ import calebyyy.Calebyyy;
 import calebyyy.TaskList;
 import calebyyy.Ui;
 import calebyyy.exceptions.CalebyyyException;
+import calebyyy.exceptions.DuplicateTaskException;
 import calebyyy.exceptions.InvalidArgumentException;
 import calebyyy.exceptions.InvalidDateException;
 import calebyyy.tasks.Deadline;
@@ -49,41 +50,68 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(String input) throws CalebyyyException {
-        String[] parts = input.split(" ", 2);
+        String[] parts = parseInput(input);
+        validateInput(parts);
+        Task task = createTask(parts);
+        try {
+            addTaskToList(task);
+            displayAddTaskMessage(task);
+        } catch (DuplicateTaskException e) {
+            System.out.println(e);
+        }
+    }
 
+    private String[] parseInput(String input) {
+        return input.split(" ", 2);
+    }
+
+    private void validateInput(String[] parts) throws InvalidArgumentException {
         if (parts.length < 2 || parts[1].isBlank()) {
             throw new InvalidArgumentException();
         }
+    }
+
+    private Task createTask(String[] parts) throws CalebyyyException {
         String commandType = parts[0];
         String taskDetails = parts[1];
-        
-        Task task = null;
-        if (commandType.equals("todo")) {
-            task = new Todo(taskDetails);
-        } else if (commandType.equals("deadline")) {
-            String[] details = taskDetails.split(" /by ");
-            if (details.length < 2 || !isValidDate(details[1])) {
-                throw new InvalidDateException();
-            }
-            task = new Deadline(details[0], details[1]);
-        } else if (commandType.equals("event")) {
-            String[] details = taskDetails.split(" /from | /to ");
-            if (details.length < 3 || !isValidDate(details[1]) || !isValidDate(details[2])) {
-                throw new InvalidDateException();
-            }
-            task = new Event(details[0], details[1], details[2]);
-        } else {
-            throw new IllegalArgumentException("Unknown task type");
-        }
-        
-        if (task != null) {
-            try {
-                taskList.addTask(task);
-                ui.addTaskMessage(task, taskList.getTaskCount());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+
+        switch (commandType) {
+            case "todo":
+                return new Todo(taskDetails);
+            case "deadline":
+                return createDeadline(taskDetails);
+            case "event":
+                return createEvent(taskDetails);
+            default:
+                throw new InvalidArgumentException();
         }
     }
-}
 
+    private Deadline createDeadline(String taskDetails) throws InvalidDateException {
+        String[] details = taskDetails.split(" /by ");
+        if (details.length < 2 || !isValidDate(details[1])) {
+            throw new InvalidDateException();
+        }
+        return new Deadline(details[0], details[1]);
+    }
+
+    private Event createEvent(String taskDetails) throws InvalidDateException {
+        String[] details = taskDetails.split(" /from | /to ");
+        if (details.length < 3 || !isValidDate(details[1]) || !isValidDate(details[2])) {
+            throw new InvalidDateException();
+        }
+        return new Event(details[0], details[1], details[2]);
+    }
+
+    private void addTaskToList(Task task) throws DuplicateTaskException {
+        try {
+            taskList.addTask(task);
+        } catch (DuplicateTaskException e) {
+            throw e;
+        }
+    }
+
+    private void displayAddTaskMessage(Task task) {
+        ui.addTaskMessage(task, taskList.getTaskCount());
+    }
+}
