@@ -86,6 +86,9 @@ public class Sam {
                 response.append(addItem(input));
                 saveTasks();
                 break;
+            case HELP:
+                response.append(getHelpMessage());
+                break;
             default:
                 throw new SamException("I'm sorry, but I don't know what that means.");
             }
@@ -128,9 +131,30 @@ public class Sam {
             return CommandType.DEADLINE;
         case "event":
             return CommandType.EVENT;
+        case "help":
+            return CommandType.HELP;
         default:
             return CommandType.UNKNOWN;
         }
+    }
+
+    /**
+     * Returns the help message containing the list of available commands.
+     *
+     * @return a string containing the help message
+     */
+    private String getHelpMessage() {
+        return "Here are the available commands:\n"
+                + "1. list - Displays all tasks in your list.\n"
+                + "2. todo <description> - Adds a ToDo task.\n"
+                + "3. deadline <description> /by <date> - Adds a Deadline task.\n"
+                + "4. event <description> /from <start date> /to <end date> - Adds an Event task.\n"
+                + "5. mark <task number> - Marks a task as done.\n"
+                + "6. unmark <task number> - Marks a task as not done.\n"
+                + "7. delete <task number> - Deletes a task from the list.\n"
+                + "8. find <keyword> - Finds tasks containing the keyword.\n"
+                + "9. help - Displays this help message.\n"
+                + "10. bye - Exits the application.\n";
     }
 
     /**
@@ -320,7 +344,7 @@ public class Sam {
         Sam samApp = new Sam();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Sam Task Manager!");
-    
+
         while (!samApp.isExit) {
             String input = scanner.nextLine();
             assert input != null && !input.isEmpty() : "Input should not be null or empty";
@@ -334,6 +358,6 @@ public class Sam {
      * Enum representing the different command types.
      */
     private enum CommandType {
-        BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, UNKNOWN
+        BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, HELP, UNKNOWN
     }
 }

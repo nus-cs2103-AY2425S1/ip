@@ -1,8 +1,9 @@
 T | 1 | read book
 E | 1 | project meeting | 01-08-2024 | 01-08-2024
-T | 0 | join sports club
+T | 1 | join sports club
 T | 1 | run
-D | 1 | assignment | 06-09-2024
-E | 0 | bootcamp | 07-10-2024 | 10-10-2024
-T | 0 | return book
+D | 0 | assignment | 06-09-2024
+E | 1 | bootcamp | 07-10-2024 | 10-10-2024
 E | 0 | interview | 07-10-2024 | 09-10-2024
+T | 0 | run again
+E | 0 | trip | 06-09-2024 | 15-09-2024
