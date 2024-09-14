@@ -1,11 +1,13 @@
-# Matcha User Guide
+# Matcha User Guide 🍵
 
 ![Screenshot of Matcha app](Ui.png)
 
 **Matcha** is a chatbot created to help users to **manage their tasks**. 
 It is a CLI app with a GUI interface that allows users to **add**, **delete**, **mark** and **view** their tasks.
 
-## View all tasks
+## Features
+
+### View all tasks
 
 You can view all your events, todos and deadlines via the `list` command.
 
@@ -21,10 +23,10 @@ Here are your tasks:
     3. [E][ ] project meeting (from: Dec 12 2024 12:12 pm to: Dec 12 2024 12:12 pm)
 ```
 
-## Add New Tasks
+### Add New Tasks
 
 You can add new tasks to the list by using the `todo`, `event` and `deadline` commands.
-*Note: The date and time must be in the format `YYYY-MM-DD HHMM`.*
+>❗ Note: The date and time must be in the format `YYYY-MM-DD HHMM`.
 
 Format:
 1. `todo <description>`
@@ -53,7 +55,7 @@ Alright, I have added this Event:
 You have 3 tasks in the list.
 ```
 
-## Detect duplicate tasks
+### Detect duplicate tasks
 
 Matcha will detect and prevent you from adding duplicate tasks.
 
@@ -66,7 +68,7 @@ Expected Output:
 This task already exists in the list! Task not added.
 ```
 
-## Mark/Unmark Task
+### Mark/Unmark Task
 
 You can mark tasks as done or unmark them by using the `mark` or `unmark` command.
 
@@ -88,7 +90,7 @@ I have successfully mark this task as not done:
     [T][ ] borrow book
 ```
 
-## Delete Task
+### Delete Task
 
 You can delete tasks from the list by using the `delete` command.
 
@@ -103,7 +105,7 @@ Alright, I have removed this task:
 You have 2 tasks in the list.
 ```
 
-## Find Task
+### Find Task
 
 You can find specific tasks by using the `find` command.
 
@@ -124,6 +126,7 @@ Matcha will automatically save your tasks when you exit your app.
 ## Exit App
 
 You can exit the app by using the `bye` command.
+>❗Note: App will close after a few seconds from issuing the command
 
 Format: `bye`
 
@@ -133,4 +136,17 @@ Expected Output:
 ```
 Goodbye! Hope to see you again soon!
 ```
-*Note: App will close after a few seconds from issuing the command*
+
+## Command Summary
+
+| Command        | Format                                                                          | Usage                                                             | Expected Output                    |
+|----------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------|------------------------------------|
+| View all tasks | `list`                                                                          | `list`                                                            | Lists all tasks                    |
+| Add Todo       | `todo <description>`                                                            | `todo borrow book`                                                | Adds a new Todo task               |
+| Add Deadline   | `deadline <description> /by <DATE> <TIME>`                                      | `deadline return book /by 2024-12-12 12:12`                       | Adds a new Deadline task           |
+| Add Event      | `event <description> /from <START DATE> <START TIME> /to <END DATE> <END TIME>` | `event project meeting /from 2024-12-12 1212 /to 2024-12-12 1212` | Adds a new Event task              |
+| Mark Task      | `mark <task number>`                                                            | `mark 1`                                                          | Marks a task as done               |
+| Unmark Task    | `unmark <task number>`                                                          | `unmark 1`                                                        | Marks a task as not done           |
+| Delete Task    | `delete <task number>`                                                          | `delete 1`                                                        | Deletes a task                     |
+| Find Task      | `find <keyword>`                                                                | `find book`                                                       | Finds tasks that match the keyword |
+| Exit App       | `bye`                                                                           | `bye`                                                             | Exits the app                      |
