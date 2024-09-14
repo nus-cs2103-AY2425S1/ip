@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
     public void setRizzler(Rizzler r) {
         this.rizzler = r;
         dialogContainer.getChildren().addAll(
-                DialogBox.getRizzlerDialog(rizzler.startUp(), rizzlerImage));
+                DialogBox.getRizzlerDialog(rizzler.startUp(), rizzlerImage, false));
     }
 
     /**
@@ -46,13 +46,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        Pair<String, Boolean> response = rizzler.getResponse(input);
+        Pair<Pair<String, Boolean>, Boolean> response = rizzler.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getRizzlerDialog(response.getKey(), rizzlerImage)
+                DialogBox.getUserDialog(input, userImage, false),
+                DialogBox.getRizzlerDialog(
+                        response.getKey().getKey(),
+                        rizzlerImage,
+                        response.getValue())
         );
         userInput.clear();
-        if (response.getValue()) {
+        if (response.getKey().getValue()) {
             System.exit(0);
         }
     }

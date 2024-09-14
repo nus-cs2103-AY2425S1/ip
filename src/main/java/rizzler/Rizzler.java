@@ -36,15 +36,15 @@ public class Rizzler {
     /**
      * Initiates the running of Rizzler.
      */
-    public Pair<String, Boolean> getResponse(String input) {
+    public Pair<Pair<String, Boolean>, Boolean> getResponse(String input) {
         try {
             String fullCommand = input;
             Command c = this.parser.parse(fullCommand);
             String response = c.execute(this.tasks, this.ui, this.fileStorage);
             boolean isExit = c.isExit();
-            return new Pair<>(response, isExit);
+            return new Pair<>(new Pair<>(response, isExit), false);
         } catch (RizzlerException e) {
-            return new Pair<>(ui.showError(e.getMessage()), false);
+            return new Pair<>(new Pair<>(ui.showError(e.getMessage()), false), true);
         }
     }
 }

@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -19,12 +21,13 @@ import java.util.Collections;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final double imageCropRadius = 49.5;
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean hasError) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -35,7 +38,11 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        if (hasError) {
+            dialog.setTextFill(Paint.valueOf("red"));
+        }
         displayPicture.setImage(img);
+        displayPicture.setClip(new Circle(imageCropRadius, imageCropRadius, imageCropRadius));
     }
 
     /**
@@ -48,12 +55,12 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(String text, Image img, boolean hasError) {
+        return new DialogBox(text, img, hasError);
     }
 
-    public static DialogBox getRizzlerDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getRizzlerDialog(String text, Image img, boolean hasError) {
+        var db = new DialogBox(text, img, hasError);
         db.flip();
         return db;
     }
