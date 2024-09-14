@@ -161,4 +161,14 @@ public class UtilsTest {
         assertThrows(DuckException.class, () -> Utils.getTaskIndex(invalidIndex4));
     }
 
+    /**
+     * Tests if {@link Utils#trimExtraSpaces(String)} correctly removes extra spaces from a string.
+     */
+    @Test
+    public void trimExtraSpaces_extraSpaces_removed() {
+        String input = "  test  string  ";
+        String expected = "test string";
+        assertEquals(expected, Utils.trimExtraSpaces(input));
+    }
+
 }

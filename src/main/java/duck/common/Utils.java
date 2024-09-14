@@ -80,6 +80,13 @@ public class Utils {
     }
 
 
+    /**
+     * Parses the task index from the given message.
+     *
+     * @param message The message containing the task index.
+     * @return The task index parsed from the message.
+     * @throws DuckException If the task index is not a number or is out of bounds.
+     */
     public static int getTaskIndex(String message) throws DuckException {
         String[] words = message.split(" ");
         try {
@@ -89,5 +96,15 @@ public class Utils {
         } catch (IndexOutOfBoundsException e) {
             throw new DuckException(Message.INDEX_OUT_OF_BOUNDS);
         }
+    }
+
+    /**
+     * Trims extra spaces in the given input string.
+     *
+     * @param input The input string to be trimmed.
+     * @return The input string with extra spaces removed.
+     */
+    public static String trimExtraSpaces(String input) {
+        return input.trim().replaceAll("\\s+", " ");
     }
 }

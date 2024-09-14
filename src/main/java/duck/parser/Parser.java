@@ -15,6 +15,7 @@ import duck.commands.OnCommand;
 import duck.commands.SortCommand;
 import duck.commands.ToDoCommand;
 import duck.commands.UnmarkCommand;
+import duck.common.Utils;
 
 /**
  * Parses user input and creates corresponding Command instances based on the input message.
@@ -30,9 +31,11 @@ public class Parser {
      */
     public static Command parse(String message) {
         try {
-            String trimmedMessage = message.trim();
+            // Trim and get instruction word
+            String trimmedMessage = Utils.trimExtraSpaces(message);
             String instructionWord = getInstruction(trimmedMessage);
             CommandWord instruction = CommandWord.valueOf(instructionWord);
+
             //CHECKSTYLE.OFF: Indentation
             return switch (instruction) {
                 case HELP -> new HelpCommand(trimmedMessage);

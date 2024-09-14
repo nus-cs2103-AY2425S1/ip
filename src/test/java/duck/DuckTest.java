@@ -29,9 +29,9 @@ public class DuckTest {
 
     @Test
     public void processInput_deadlineCommand_success() {
-        String input1 = "deadline test /by 2021-08-25 1800";
-        String input2 = "deADline test /by 2021/08/25 1800";
-        String input3 = "  deadline  test   /by     2021-08-25 1800   ";
+        String input1 = "deadline test    /by 2021-08-25     1800";
+        String input2 = "deADline test /by 2021/08/25    1800";
+        String input3 = "  deadline  test   /by     2021-08-25    1800   ";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
         assertDoesNotThrow(() -> duck.processInput(input2));
@@ -42,9 +42,9 @@ public class DuckTest {
     @AfterAll
     public static void processInput_deleteCommand_success() {
         String input1 = "deLete 1";
-        String input2 = "delEte 1";
-        String input3 = "delete 1  ";
-        String input4 = "   DELETE 1    ";
+        String input2 = "delEte    1";
+        String input3 = "delete    1  ";
+        String input4 = "   DELETE     1    ";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
         assertDoesNotThrow(() -> duck.processInput(input2));
@@ -54,9 +54,9 @@ public class DuckTest {
 
     @Test
     public void processInput_eventCommand_success() {
-        String input1 = "event test /from 2021-08-25 1800 /to 2021-08-25 1900";
-        String input2 = "eVent test /from 2021/08/25 1800 /to 2021/08/25 1900";
-        String input3 = "  event test /from    2021/08/25 1800 /to       2021-08-25 1900   ";
+        String input1 = "event test /from 2021-08-25 1800 /to       2021-08-25 1900";
+        String input2 = "eVent test /from 2021/08/25       1800 /to 2021/08/25      1900";
+        String input3 = "  event test /from      2021/08/25 1800 /to       2021-08-25    1900   ";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
         assertDoesNotThrow(() -> duck.processInput(input2));
@@ -68,7 +68,7 @@ public class DuckTest {
         String input1 = "find test";
         String input2 = "Find test ";
         String input3 = "fInd test  ";
-        String input4 = "find  test  ";
+        String input4 = "find     test  ";
         String input5 = "   FIND    f    ";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
@@ -81,10 +81,10 @@ public class DuckTest {
     @Test
     public void processInput_helpCommand_success() {
         String input1 = "help";
-        String input2 = "Help ";
+        String input2 = "    Help ";
         String input3 = "hElp  ";
         String input4 = "help  ";
-        String input5 = "   HELP  ME ";
+        String input5 = "   HELP        ME ";
         String input6 = "HELP ME";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
@@ -101,7 +101,7 @@ public class DuckTest {
         String input1 = "list";
         String input2 = "List ";
         String input3 = " lIst  ?";
-        String input4 = "list 2 ";
+        String input4 = "list    2 ";
         String input5 = "   LIST  ";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
@@ -115,9 +115,9 @@ public class DuckTest {
     public static void processInput_markCommand_exceptionThrown() {
         String input1 = "mark 1";
         String input2 = "Mark 1 ";
-        String input3 = "mArk 1  ";
+        String input3 = "     mArk     1  ";
         String input4 = "mark 1  ";
-        String input5 = "   MARK 1 ";
+        String input5 = "   MARK     1 ";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
         assertDoesNotThrow(() -> duck.processInput(input2));
@@ -128,8 +128,8 @@ public class DuckTest {
 
     @Test
     public void processInput_onCommand_success() {
-        String input1 = "oN 2021-08-25";
-        String input2 = "    ON 2021-08-25       ";
+        String input1 = "oN   2021-08-25";
+        String input2 = "    ON   2021-08-25       ";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
         assertDoesNotThrow(() -> duck.processInput(input2));
@@ -138,8 +138,8 @@ public class DuckTest {
     @Test
     public void processInput_sortCommand_exceptionThrown() {
         // sorting all tasks
-        String targetAllByDescription = "sort   /target  all /by description";
-        String targetAllByType = "sort  /target   all  /by type";
+        String targetAllByDescription = "sort   /target  all /by     description";
+        String targetAllByType = "sort  /target   all  /by     type";
 
         // sorting todo tasks and place them on top
         String targetToDoByDescription = "   sort    /target todo /by description  ";
@@ -149,7 +149,7 @@ public class DuckTest {
         String targetDeadlineByDeadline = "sort /target     deadline /by      deadline";
 
         // sorting event tasks and place them on top
-        String targetEventByDescription = "sort /target event /by description";
+        String targetEventByDescription = "sort    /target    event /by description";
         String targetEventByStart = "sort /by start /target event";
         String targetEventByEnd = "sort     /target     event    /by      end";
 
@@ -170,7 +170,7 @@ public class DuckTest {
     public void processInput_toDoCommand_success() {
         String input1 = "todo test";
         String input2 = "ToDo test ";
-        String input3 = "tOdo test  ";
+        String input3 = "tOdo     test  ";
         String input4 = "todo  test  ";
         String input5 = "   TODO    test";
 
@@ -185,9 +185,9 @@ public class DuckTest {
     public static void processInput_unmarkCommand_exceptionThrown() {
         String input1 = "unmark 1";
         String input2 = "Unmark 1 ";
-        String input3 = "uNmark 1  ";
+        String input3 = "uNmark     1  ";
         String input4 = "unmark 1  ";
-        String input5 = "   UNMARK 1 ";
+        String input5 = "   UNMARK    1 ";
 
         assertDoesNotThrow(() -> duck.processInput(input1));
         assertDoesNotThrow(() -> duck.processInput(input2));
@@ -223,7 +223,7 @@ public class DuckTest {
     public void processInput_invalidDeleteCommand_exceptionThrown() {
         String input1 = "deLete 0";
         String input2 = "delEte 100000000000000000";
-        String input3 = "delete         1";
+        String input3 = "delete         1 1";
 
         assertThrows(DuckException.class, () -> duck.processInput(input1));
         assertThrows(DuckException.class, () -> duck.processInput(input2));
@@ -273,7 +273,7 @@ public class DuckTest {
     public void processInput_invalidMarkCommand_exceptionThrown() {
         String input1 = "mark 0";
         String input2 = "Mark 100000000000000000";
-        String input3 = "mark         1";
+        String input3 = "mark         1 1";
         String input4 = "mark? 1  ";
 
         assertThrows(DuckException.class, () -> duck.processInput(input1));
@@ -376,13 +376,15 @@ public class DuckTest {
     public void processInput_invalidUnmarkCommand_exceptionThrown() {
         String input1 = "unmark 0";
         String input2 = "Unmark 100000000000000000";
-        String input3 = "unmark         1";
+        String input3 = "unmark         a";
         String input4 = "unmark? 1  ";
+        String input5 = "unmark 1 1";
 
         assertThrows(DuckException.class, () -> duck.processInput(input1));
         assertThrows(DuckException.class, () -> duck.processInput(input2));
         assertThrows(DuckException.class, () -> duck.processInput(input3));
         assertThrows(DuckException.class, () -> duck.processInput(input4));
+        assertThrows(DuckException.class, () -> duck.processInput(input5));
     }
 
 
