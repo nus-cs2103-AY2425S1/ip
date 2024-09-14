@@ -116,7 +116,9 @@ public class TaskList {
     public String findTasks(String name) {
         ArrayList<Task> temp = new ArrayList<>();
         for (Task t: this.tasks) {
-            if (t.getDescription().toLowerCase().contains(name.toLowerCase())) {
+            String lowerCaseDescription = t.getDescription().toLowerCase();
+            String lowerCaseName = name.toLowerCase();
+            if (lowerCaseDescription.contains(lowerCaseName)) {
                 temp.add(t);
             }
         }

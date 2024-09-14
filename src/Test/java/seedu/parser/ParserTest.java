@@ -2,14 +2,10 @@ package seedu.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.task.TaskList;
-import seedu.parser.Parser;
-
 
 public class ParserTest {
     @Test

@@ -21,21 +21,21 @@ public abstract class Task {
     }
 
     /**
-     * Mark as done
+     * Marks task as done
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * mark as not done
+     * Marks task as not done
      */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
     /**
-     * Get description
+     * Gets description
      * @return description
      */
     public String getDescription() {
