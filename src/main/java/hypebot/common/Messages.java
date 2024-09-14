@@ -6,18 +6,12 @@ package hypebot.common;
  * @author Youngseo Park (@youngseopark05)
  */
 public class Messages {
-    public static final String DIVIDER_LINE = "____________________________________________________________________"
-                                               + "____________________________________________________________\n";
     public static final String LOGO = """
-             ('-. .-.               _ (`-.    ('-. .-. .-')                .-') _  \s
-            ( OO )  /              ( (OO  ) _(  OO)\\  ( OO )              (  OO) ) \s
-            ,--. ,--.  ,--.   ,--._.`     \\(,------.;-----.\\  .-'),-----. /     '._\s
-            |  | |  |   \\  `.'  /(__...--'' |  .---'| .-.  | ( OO'  .-.  '|'--...__)
-            |   .|  | .-')     /  |  /  | | |  |    | '-' /_)/   |  | |  |'--.  .--'
-            |       |(OO  \\   /   |  |_.' |(|  '--. | .-. `. \\_) |  |\\|  |   |  |  \s
-            |  .-.  | |   /  /\\_  |  .___.' |  .--' | |  \\  |  \\ |  | |  |   |  |  \s
-            |  | |  | `-./  /.__) |  |      |  `---.| '--'  /   `'  '-'  '   |  |  \s
-            `--' `--'   `--'      `--'      `------'`------'      `-----'    `--'  \s
+            ┏┓┏┓╋╋╋╋╋┏┓╋╋┏┓
+            ┃┗┛┣┳┳━┳━┫┗┳━┫┗┓
+            ┃┏┓┃┃┃╋┃┻┫╋┃╋┃┏┫
+            ┗┛┗╋┓┃┏┻━┻━┻━┻━┛
+            ╋╋╋┗━┻┛
             """;
     public static final String MESSAGE_HELP = """
             YOU CAN LEAN ON ME! Lemme show you around the ropes bro:
@@ -39,7 +33,7 @@ public class Messages {
             """;
     public static final String MESSAGE_GREET_INTRO = "AYO WHAT'S UP IT'S ME YOUR\n\n";
     public static final String MESSAGE_GREET_OUTRO = "\nWhat can I do for you, my wonderful homie?\n";
-    public static final String MESSAGE_LOADING_TASKLIST = "LOADING YOUR TASKS IN /data/tasklist.txt...\n";
+    public static final String MESSAGE_LOADING_TASKLIST = "LOADING YOUR TASKS from your local computer...\n";
     public static final String MESSAGE_DELETING_PAST_DEADLINE = "Deleting past deadline...\n";
     public static final String MESSAGE_DELETING_PAST_EVENT = "Deleting past event...\n";
     public static final String MESSAGE_SAVING_TASKLIST = "Alright homie, saving your tasks to your drive...\n";

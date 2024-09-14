@@ -40,14 +40,12 @@ public class ByeCommand extends Command {
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         try {
-            uiCli.showSavingTasks();
             storageManager.save(tasks);
+            return uiCli.showExit();
         } catch (IOException e) {
-            uiCli.showError(e.getMessage());
-        } finally {
-            uiCli.showExit();
+            return uiCli.showError(e.getMessage());
         }
     }
 }

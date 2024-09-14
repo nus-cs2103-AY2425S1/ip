@@ -25,7 +25,7 @@ public class GreetCommand extends Command {
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
-        uiCli.showGreeting();
+    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+        return uiCli.showGreeting();
     }
 }

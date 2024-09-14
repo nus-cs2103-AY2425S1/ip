@@ -28,5 +28,5 @@ public abstract class Command {
      * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
-    public abstract void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager);
+    public abstract String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager);
 }

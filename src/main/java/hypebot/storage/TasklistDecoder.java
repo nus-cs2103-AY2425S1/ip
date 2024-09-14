@@ -38,9 +38,6 @@ public class TasklistDecoder {
      * @throws FileNotFoundException If file to decode and load Tasks from not found.
      */
     public Tasklist decode() throws FileNotFoundException {
-        if (!tasklistFile.exists()) {
-            throw new FileNotFoundException(ERROR_LOAD_TASKLIST);
-        }
         Scanner scanner = new Scanner(tasklistFile);
         ArrayList<Task> tasks = new ArrayList<>();
         while (scanner.hasNextLine()) {

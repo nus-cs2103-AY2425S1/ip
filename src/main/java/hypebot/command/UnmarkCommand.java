@@ -32,8 +32,8 @@ public class UnmarkCommand extends Command {
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         tasks.unmark(indexOfTaskToUnmark);
-        uiCli.showUnmarkedTask(tasks.getTaskByIndex(indexOfTaskToUnmark));
+        return uiCli.showUnmarkedTask(tasks.getTaskByIndex(indexOfTaskToUnmark));
     }
 }
