@@ -48,7 +48,7 @@ public class UnmarkCommand extends Command {
         StringBuilder content = new StringBuilder();
         try {
             tasks.unmarkTask(this.taskNumber);
-            content.append("Task marked.");
+            content.append("Task unmarked.\n");
         } catch (IndexOutOfBoundsException e) {
             return "The task is not in the list.";
         }

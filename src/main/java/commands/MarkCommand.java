@@ -48,7 +48,7 @@ public class MarkCommand extends Command {
         StringBuilder content = new StringBuilder();
         try {
             tasks.markTask(this.taskNumber);
-            content.append("Task marked.");
+            content.append("Task marked.\n");
         } catch (IndexOutOfBoundsException e) {
             return "The task is not in the list.";
         }

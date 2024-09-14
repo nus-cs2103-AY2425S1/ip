@@ -80,8 +80,8 @@ public class Parser {
             return new DeadlineCommand(argumentsHashMap.get("deadline"), argumentsHashMap.get("/by"));
         }
         case "event" -> {
-            return new EventCommand(argumentsHashMap.get("event"), argumentsHashMap.get("from"),
-                    argumentsHashMap.get("to"));
+            return new EventCommand(argumentsHashMap.get("event"), argumentsHashMap.get("/from"),
+                    argumentsHashMap.get("/to"));
         }
         default -> {
             throw new InvalidCommandException("The command does not match any that I know of.");

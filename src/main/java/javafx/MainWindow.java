@@ -24,21 +24,21 @@ public class MainWindow extends AnchorPane {
 
     private Cook cook;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tadpole.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/axolotl.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/me.png"));
+    private Image cookImage = new Image(this.getClass().getResourceAsStream("/images/cook.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Cook instance */
     public void setCook(Cook c) {
         cook = c;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Cook's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
         String response = cook.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getCookDialog(response, cookImage)
         );
         // Solution below adapted from
         // https://stackoverflow.com/questions/12153622/how-to-close-a-javafx-application-on-window-close

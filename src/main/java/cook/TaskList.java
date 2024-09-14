@@ -64,13 +64,14 @@ public class TaskList implements Serializable {
     /**
      * Finds task(s).
      *
-     * @param keyword String to find in task's description.
+     * @param keyword String to find in tasks' toString().
      * @return List of Task objects.
      */
     public TaskList findTask(String keyword) {
         TaskList foundTasks = new TaskList();
+        keyword = keyword.toLowerCase();
         for (Task task : this.tasks) {
-            if (task.toString().contains(keyword.toLowerCase())) {
+            if (task.toString().toLowerCase().contains(keyword)) {
                 foundTasks.addTask(task);
             }
         }
