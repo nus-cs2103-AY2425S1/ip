@@ -39,6 +39,25 @@ class Event extends Task {
     }
 
     /**
+     * Determines whether a reminder is needed based on the current date
+     *
+     * The method compares the current date with a date calculated by
+     * subtracting a predefined number of days (defined by
+     * {@code DAYS_FOR_REMINDER}) from the start of the event.
+     * If the current date is after the calculated reminder date,
+     * the method returns {@code true}, indicating that a reminder is needed.
+     * Otherwise, it returns {@code false}.
+     *
+     * @return {@code true} if the current date is after the date to remind;
+     *         {@code false} otherwise.
+     */
+    boolean needsReminder() {
+        LocalDate today = LocalDate.now();
+        LocalDate dateToRemind = this.to.minusDays(DAYS_FOR_REMINDER);
+        return today.isAfter(dateToRemind);
+    }
+
+    /**
      * Returns a string representation of the Event task, including its completion status and date range.
      *
      * @return a string indicating the type of task, its status, and the date range
