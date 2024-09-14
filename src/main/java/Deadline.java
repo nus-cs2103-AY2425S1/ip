@@ -20,7 +20,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return this.getTaskSymbol() + " " + super.toString() + "(by: " + this.deadline + ")";
+        return this.getTaskSymbol() + " " + super.toString() + " (by: " + this.deadline + ")";
     }
 
     @Override
