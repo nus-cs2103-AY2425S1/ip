@@ -1,5 +1,5 @@
-<style> g {color: greenyellow} </style>
-<style> gr {color: green} </style>
+<!-- <style> g {color: greenyellow} </style> -->
+<!-- <style> gr {color: green} </style> -->
 # <g>Mel</g> User Guide
 
 ![Screenshot of Mel's GUI](Ui.png)
