@@ -35,30 +35,31 @@ public class TaskList {
      */
     public String addTask(String[] task, String entry) {
         String result = "";
-        if (task[0].equals("mark")) {
-            Integer index = Integer.parseInt(task[task.length - 1]); //convert string format of number to Integer
-            taskList.get(index - 1).mark(); //marking TASK as done
+        if (task[0].equals("mark") || task[0].equals("unmark") || task[0].equals("delete")) {
+            Integer index = Integer.parseInt(task[task.length - 1]);
+            assert index > 0 && index <= taskList.size() : "Task index invalid";
+            if (task[0].equals("mark")) {
+                taskList.get(index - 1).mark();
+                result = LINE + "\n" + "    Nice! I've marked this task as done:"
+                        + taskList.get(index - 1) + "\n" + LINE;
+            } else if (task[0].equals("unmark")) {
+                taskList.get(index - 1).unmark();
+                result = LINE + "    OK, I've marked this task as not done yet:"
+                        + taskList.get(index - 1) + "\n" + LINE;
+            } else if (task[0].equals("delete")) {
+                Task temp = taskList.get(index - 1);
+                taskList.remove(taskList.get(index - 1));
 
-            result = LINE + "\n" + "    Nice! I've marked this task as done:" + taskList.get(index - 1) + "\n" + LINE;
-        } else if (task[0].equals("unmark")) {
-            Integer index = Integer.parseInt(task[task.length - 1]); //convert str format of number to Integer
-            taskList.get(index - 1).unmark(); //unmarking TASK as not done
+                result = LINE + "    Noted. I've removed this task:" + temp + "    Now you have "
+                        + taskList.size() + " tasks in the list" + "\n" + LINE;
 
-            result = LINE + "    OK, I've marked this task as not done yet:" + taskList.get(index - 1) + "\n" + LINE;
+            }
         } else if (task[0].equals("todo")) {
             result = this.addToDos(task, entry);
         } else if (task[0].equals("deadLINE")) {
             result = this.addDeadline(task, entry);
         } else if (task[0].equals("event")) {
             result = this.addEvent(task, entry);
-        } else if (task[0].equals("delete")) {
-            Integer index = Integer.parseInt(task[task.length - 1]);
-            Task temp = taskList.get(index - 1);
-            taskList.remove(taskList.get(index - 1));
-
-            result = LINE + "    Noted. I've removed this task:" + temp + "    Now you have "
-                    + taskList.size() + " tasks in the list" + "\n" + LINE;
-
         } else {
             Task t = new Task(entry);
             taskList.add(t);
@@ -82,6 +83,8 @@ public class TaskList {
         for (int i = 1; i < task.length; i++) {
             strBuild.append(task[i]).append(" ");
         }
+
+        assert !strBuild.isEmpty() : "Description for ToDos cannot be empty";
 
         ToDos todo = new ToDos(strBuild.toString().trim());
         taskList.add(todo);
@@ -119,6 +122,9 @@ public class TaskList {
 
         Deadline deadlineTask = null;
 
+        assert !strBuild.isEmpty() : "Description for Deadline cannot be empty";
+        assert dateStr.toString().length() != 17 : "Deadline date format is invalid";
+
         if (dateStr.toString().length() == 17) {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(dateStr.toString().trim(), format);
@@ -129,10 +135,6 @@ public class TaskList {
             result = LINE + "    Got it. I've added this task:" + deadlineTask + "    Now you have "
                     + taskList.size() + " tasks in the list" + "\n" + LINE;
 
-            /*System.out.println(LINE);
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + deadlineTask);
-            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);*/
         } else {
             result = LINE + "\n" + "  Please state date and time of deadLINE"
                     + "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + LINE;
@@ -174,6 +176,10 @@ public class TaskList {
             }
         }
 
+        assert !strBuild.isEmpty() : "Description for Event cannot be empty";
+        assert toStr.toString().length() != 17 : "Deadline date format is invalid";
+        assert fromStr.toString().length() != 17 : "Deadline date format is invalid";
+
         if (fromStr.toString().length() == 17 && toStr.toString().length() == 17) {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(fromStr.toString().trim(), format);
@@ -185,10 +191,6 @@ public class TaskList {
             result = LINE + "    Got it. I've added this task:" + eventTask
                     + "    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE;
 
-            /*System.out.println(LINE);
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + eventTask);
-            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);*/
         } else {
             result = LINE + "\n" + "  Please state date and time of from and to of event"
                     + "in YYYY-dd-MM HH:mm format" + "\n" + LINE;
