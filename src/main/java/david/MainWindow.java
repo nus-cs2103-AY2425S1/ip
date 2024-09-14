@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
 
     private David david;
 
-    private Image userImage = getImage("/images/user.png");
+    private Image userImage = getImage("/images/User.png");
 
     private Image davidImage = getImage("/images/David.png");
 
