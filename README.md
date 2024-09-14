@@ -82,8 +82,7 @@ Here are the tasks in your list:
 ### Finding tasks
 You can quickly search for tasks using the find function. You can search for different tasks using either, one keyword at a time, or many keywords at once using a comma to separate the search terms. An example is shown below:
 
-<details>
-<summary>One keyword only</summary>
+#### One keyword only
 
 Input Example:
 ```
@@ -95,10 +94,8 @@ Here are the tasks matching your search terms:
 1. [similar 1st task would be printed here]
 2. [similar 2nd task would be printed here]
 ```
-</details>
 
-<details>
-<summary>Multiple search terms</summary>
+#### Multiple search terms
 
 Input Example:
 ```
@@ -110,7 +107,6 @@ Here are the tasks matching your search terms:
 1. [similar 1st task would be printed here]
 2. [similar 2nd task would be printed here]
 ```
-</details>
 
 ### Upcoming tasks
 You can search for all upcoming tasks that have not been marked by calling the `upcoming_tasks` command. This will give you a list of all upcoming tasks as the output.
@@ -119,7 +115,7 @@ You can search for all upcoming tasks that have not been marked by calling the `
 You can mark or unmark items to show if they have been completed or not. Simply do the following with the item index shown in the list:
 
 
-Mark
+#### Mark
 
 Marking Example Input:
 
@@ -135,7 +131,7 @@ I've marked this task as done:
 But are you really Ok?
 ```
 
-Unmark
+#### Unmark
 
 Unmarking Example Input:
 
