@@ -1,5 +1,6 @@
 package alexer.ui;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +13,12 @@ public class MessageBox extends HBox {
     public MessageBox(String message, Image displayPicture) {
         text = new Label(message);
         picture = new ImageView(displayPicture);
+
+        text.setWrapText(true);
+        picture.setFitWidth(100.0);
+        picture.setFitHeight(100.0);
+        this.setAlignment(Pos.TOP_RIGHT);
+
         getChildren().addAll(text, picture);
     }
 }
