@@ -12,6 +12,10 @@ public class Event extends ScheduledTask {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
 
+    /**
+     * @param inputLine A String input from the user.
+     * @throws JanetException If keywords are missing, incorrect date and time format, or start date and end date are invalid.
+     */
     Event(String inputLine) throws JanetException {
         // inside the program this will be called
         this(createEventFromUser(inputLine).getDescription(),
@@ -20,6 +24,12 @@ public class Event extends ScheduledTask {
                 createEventFromUser(inputLine).getEndDateAndTime());
     }
 
+    /**
+     * @param description The description of the event.
+     * @param symbol The event symbol, E.
+     * @param startDate The start date of the event, in LocalDateTime.
+     * @param endDate The end date of the event, in LocalDateTime.
+     */
     Event(String description, String symbol, LocalDateTime startDate, LocalDateTime endDate) {
         // this is used inside the static method: createEventCommand
         super(description, symbol, startDate);  // startDate is the scheduledDate.
@@ -27,6 +37,9 @@ public class Event extends ScheduledTask {
         this.endDate = endDate;
     }
 
+    /**
+     * @param textLine A String of text from the text file to create event.
+     */
     Event(String[] textLine) {
         this(createEventFromTxt(textLine).getDescription(),
                 createEventFromTxt(textLine).getSymbol(),
