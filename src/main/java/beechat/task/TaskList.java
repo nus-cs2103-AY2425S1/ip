@@ -1,4 +1,4 @@
-package beechat;
+package beechat.task;
 
 import java.util.ArrayList;
 import java.util.List;

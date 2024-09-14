@@ -1,9 +1,9 @@
-package beechat;
+package beechat.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-class DeadlineTask extends Task {
+public class DeadlineTask extends Task {
     private LocalDateTime by;
 
     public DeadlineTask(String description, LocalDateTime by) {

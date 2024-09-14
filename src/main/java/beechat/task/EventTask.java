@@ -1,9 +1,9 @@
-package beechat;
+package beechat.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-class EventTask extends Task {
+public class EventTask extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 

@@ -1,4 +1,6 @@
-package beechat;
+package beechat.util;
+
+import beechat.task.TaskList;
 
 import java.util.Scanner;
 

@@ -1,4 +1,11 @@
-package beechat;
+package beechat.command;
+
+import beechat.task.DeadlineTask;
+import beechat.task.EventTask;
+import beechat.task.TaskList;
+import beechat.task.TodoTask;
+import beechat.util.Storage;
+import beechat.util.Ui;
 
 import java.io.*;
 import java.time.LocalDateTime;
