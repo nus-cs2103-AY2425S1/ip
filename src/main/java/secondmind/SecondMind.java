@@ -42,9 +42,15 @@ public class SecondMind {
         return instruction;
     }
 
+    private int getTaskNumberFromInstruction(String[] instruction)
+            throws NumberFormatException {
+        int taskNumber = Integer.parseInt(instruction[1]);
+        return taskNumber;
+    }
+
     private String executeMarkInstruction(String[] instruction) {
         try {
-            int taskNumber = Integer.parseInt(instruction[1]);
+            int taskNumber = getTaskNumberFromInstruction(instruction);
             taskList.markAsDone(taskNumber);
             storage.updateTaskInDataFile(taskNumber, true, taskList.getTaskCount());
             String message = "Well done! You have completed the following task:\n"
@@ -63,7 +69,7 @@ public class SecondMind {
 
     public String execute(String[] instruction) {
         String command = instruction[0];
-        if (command.equals("bye")) {
+       if (command.equals("bye")) {
             return EXIT_INSTRUCTION;
         } else if (command.equals("mark")) {
             String response = executeMarkInstruction(instruction);
