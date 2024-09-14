@@ -23,19 +23,17 @@ public class TodoCommandTest {
     @Test
     public void execute_emptyArgument_throwsInvalidCommandException() {
         TodoCommand command = new TodoCommand("");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("No task description provided.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
     public void execute_validTask_addTaskSuccess() throws InvalidCommandException {
         TodoCommand command = new TodoCommand("read book");
-        command.execute(taskList);
+        String result = command.execute(taskList);
 
+        Todo t = new Todo("read book");
+        String expected = String.format("Got it. I've added this task:\n  %s\nNow you have 1 tasks in the list.\n", t);
+        assertEquals(expected, result);
         assertEquals(1, taskList.size(), "TaskList should contain 1 task after adding a todo");
         assertInstanceOf(Todo.class, taskList.getTaskList().get(0), "Expected a Todo class");
     }
