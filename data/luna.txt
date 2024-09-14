@@ -1,1 +1,2 @@
 D|0|Buy groceries|2024-09-11T00:14:10.424413
+T|0|return book

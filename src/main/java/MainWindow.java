@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import luna.Luna;
+import luna.LunaException;
 
 /**
  * Controller for the main GUI.
@@ -51,17 +52,22 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = luna.run(input);
-
-        if (input.isEmpty()) {
-            dialogContainer.getChildren().addAll(DialogBox.getLunaDialog(response, lunaImage));
-        } else {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getLunaDialog(response, lunaImage)
-            );
+        try {
+            String response = luna.run(input);
+            if (input.isEmpty()) {
+                dialogContainer.getChildren().addAll(DialogBox.getLunaDialog(response, lunaImage));
+            } else {
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getLunaDialog(response, lunaImage)
+                );
+            }
+        } catch (LunaException e) {
+            dialogContainer.getChildren().addAll(DialogBox.getLunaErrorDialog(e.getMessage(), lunaImage));
+        } finally {
+            userInput.clear();
         }
 
-        userInput.clear();
+
     }
 }

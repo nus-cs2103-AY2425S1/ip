@@ -32,8 +32,9 @@ public class Luna {
      *
      * @param input Command entered by user.
      * @return Response to be shown to user.
+     * @throws LunaException If command is invalid.
      */
-    public String run(String input) {
+    public String run(String input) throws LunaException {
         try {
             Command command = Parser.parse(input, previousCommand);
             if (command instanceof UndoCommand) {
@@ -49,11 +50,7 @@ public class Luna {
                 return command.execute(tasks, storage);
             }
         } catch (LunaException e) {
-            return e.getMessage();
+            throw new LunaException(e.getMessage());
         }
-    }
-
-    public static void main(String[] args) {
-        new Luna().run("Luna started");
     }
 }

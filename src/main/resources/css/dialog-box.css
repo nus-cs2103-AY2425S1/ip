@@ -5,11 +5,18 @@
     -fx-background-radius: 1em 1em 1em 1em;
     -fx-border-radius: 1em 1em 1em 1em;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0.5, 1, 1);
-
 }
 
 .reply-label {
     -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+    -fx-line-spacing: 5px;
+}
+
+.error-label {
+    -fx-background-color: #fff2f2;
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-effect: dropshadow(gaussian, rgba(255, 120, 120, 0.5), 2, 0.7, 1, 1);
     -fx-border-radius: 1em 1em 1em 1em;
     -fx-line-spacing: 5px;
 }

@@ -48,6 +48,18 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Formats the dialog box to indicate error.
+     */
+    private void error() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
+
+        dialog.getStyleClass().add("error-label");
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
@@ -55,6 +67,12 @@ public class DialogBox extends HBox {
     public static DialogBox getLunaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        return db;
+    }
+
+    public static DialogBox getLunaErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.error();
         return db;
     }
 }
