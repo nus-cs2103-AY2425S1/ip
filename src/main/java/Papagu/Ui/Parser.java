@@ -68,45 +68,9 @@ public class Parser {
                 
                 //Todo task
                 if (taskType.equals("T")) {
-                    if (isDone.equals("1")) {
-                        ToDos newToDo = new ToDos(parts[2]);
-                        newToDo.markAsDone();
-                        taskList.addTask(newToDo);
-                    } else {
-                        ToDos newToDo = new ToDos(parts[2]);
-                        taskList.addTask(newToDo);
-                    }    
-                } else if (taskType.equals("D")) {          //Deadline task                    
-                    if (isDone.equals("1")) {
-                        String[] dateTime = parts[3].split(" "); 
-
-                        String[] dates = dateTime[0].split("-");
-                        String month = String.format("%02d", monthConverter(dates[0]));
-                        String day = String.format("%02d", Integer.parseInt(dates[1]));
-                        String year = dates[2];
-
-                        LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
-
-                        LocalTime time = LocalTime.parse(dateTime[1]);
-
-                        Deadlines newDeadline = new Deadlines(parts[2], date, time);
-                        newDeadline.markAsDone();
-                        taskList.addTask(newDeadline);
-                    } else {
-                        String[] dateTime = parts[3].split(" "); 
-
-                        String[] dates = dateTime[0].split("-");
-                        String month = String.format("%02d", monthConverter(dates[0]));
-                        String day = String.format("%02d", Integer.parseInt(dates[1]));
-                        String year = dates[2];
-
-                        LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
-
-                        LocalTime time = LocalTime.parse(dateTime[1]);
-
-                        Deadlines newDeadline = new Deadlines(parts[2], date, time);
-                        taskList.addTask(newDeadline);
-                    }
+                    parseFileTodo(parts, isDone.equals("1"), taskList);
+                } else if (taskType.equals("D")) {
+                    parseFileDeadline(parts, isDone.equals("1"), taskList);
                 } else if (taskType.equals("E")) {  
                     String description = parts[2];
 
@@ -137,6 +101,50 @@ public class Parser {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
+        }
+    }
+
+    public static void parseFileTodo(String[] input, boolean isDone, TaskList taskList) {
+        if (isDone) {
+            ToDos newToDo = new ToDos(input[2]);
+            newToDo.markAsDone();
+            taskList.addTask(newToDo);
+        } else {
+            ToDos newToDo = new ToDos(input[2]);
+            taskList.addTask(newToDo);
+        }
+    }
+
+    public static void parseFileDeadline(String[] input, boolean isDone, TaskList taskList) {
+        if (isDone) {
+            String[] dateTime = input[3].split(" ");
+
+            String[] dates = dateTime[0].split("-");
+            String month = String.format("%02d", monthConverter(dates[0]));
+            String day = String.format("%02d", Integer.parseInt(dates[1]));
+            String year = dates[2];
+
+            LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
+
+            LocalTime time = LocalTime.parse(dateTime[1]);
+
+            Deadlines newDeadline = new Deadlines(input[2], date, time);
+            newDeadline.markAsDone();
+            taskList.addTask(newDeadline);
+        } else {
+            String[] dateTime = input[3].split(" ");
+
+            String[] dates = dateTime[0].split("-");
+            String month = String.format("%02d", monthConverter(dates[0]));
+            String day = String.format("%02d", Integer.parseInt(dates[1]));
+            String year = dates[2];
+
+            LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
+
+            LocalTime time = LocalTime.parse(dateTime[1]);
+
+            Deadlines newDeadline = new Deadlines(input[2], date, time);
+            taskList.addTask(newDeadline);
         }
     }
 
