@@ -1,4 +1,4 @@
-# Duke User Guide
+# Korolev User Guide
 
 // Update the title above to match the actual product name
 
@@ -20,11 +20,11 @@ Example: `keyword (optional arguments)`
 expected output
 ```
 
-## Feature ABC
+## Feature find
 
 // Feature details
 
 
-## Feature XYZ
+## Feature delete
 
 // Feature details
