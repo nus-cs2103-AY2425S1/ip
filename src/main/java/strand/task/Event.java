@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import strand.exception.StrandException;
+import strand.exception.StrandIncorrectDateException;
 
 /**
  * The strand.task.Event class represents a task that occurs within a specific time range.
@@ -12,8 +13,6 @@ public class Event extends Task {
 
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
-    protected String stringStartDate;
-    protected String stringEndDate;
 
     /**
      * Constructs a new strand.Tasks.Event task with the specified description, start date, and end date.
@@ -27,12 +26,12 @@ public class Event extends Task {
         try {
             this.startDate = this.parseDate(start);
         } catch (DateTimeParseException e) {
-            this.stringStartDate = start;
+            throw new StrandIncorrectDateException(start);
         }
         try {
             this.endDate = this.parseDate(end);
         } catch (DateTimeParseException e) {
-            this.stringEndDate = end;
+            throw new StrandIncorrectDateException(end);
         }
     }
 
@@ -48,16 +47,16 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String start = this.startDate != null ? this.parseOutputDate(this.startDate) : this.stringStartDate;
-        String end = this.endDate != null ? this.parseOutputDate(this.endDate) : this.stringEndDate;
-        return String.format("%s%s from: %s to: %s)", this.getType(), super.toString(), start, end);
+        return String.format("%s%s from: %s to: %s)", this.getType(), super.toString(),
+                this.parseOutputDate(this.startDate),
+                this.parseOutputDate(this.endDate));
     }
 
     @Override
     public String convertToFileFormat() {
         return String.format("E | %s | %s | %s",
                 super.convertToFileFormat(),
-                this.startDate != null ? this.startDate : this.stringStartDate,
-                this.endDate != null ? this.endDate : this.stringEndDate);
+                this.startDate,
+                this.endDate);
     }
 }

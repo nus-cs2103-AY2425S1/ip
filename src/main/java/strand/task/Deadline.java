@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import strand.exception.StrandException;
+import strand.exception.StrandIncorrectDateException;
 
 /**
  * The strand.task.Deadline class represents a task with a specific deadline.
  */
 public class Deadline extends Task {
     protected LocalDateTime deadline;
-    protected String stringDeadline;
 
     /**
      * Constructs a new strand.Tasks.Deadline task with the specified description and deadline.
@@ -24,7 +24,7 @@ public class Deadline extends Task {
         try {
             this.deadline = this.parseDate(date);
         } catch (DateTimeParseException e) {
-            this.stringDeadline = date;
+            throw new StrandIncorrectDateException(date);
         }
     }
 
@@ -40,16 +40,15 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String deadline = this.deadline != null ? this.parseOutputDate(this.deadline) : this.stringDeadline;
         return String.format("%s%s (by: %s)",
                 this.getType(),
                 super.toString(),
-                deadline);
+                this.parseOutputDate(this.deadline));
     }
 
     @Override
     public String convertToFileFormat() {
         return String.format("D | %s | %s", super.convertToFileFormat(),
-                this.deadline != null ? this.deadline : this.stringDeadline);
+                this.deadline);
     }
 }
