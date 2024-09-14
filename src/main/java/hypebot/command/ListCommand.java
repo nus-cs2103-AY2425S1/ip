@@ -2,7 +2,7 @@ package hypebot.command;
 
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
-import hypebot.ui.Ui;
+import hypebot.ui.UiCli;
 
 /**
  * Represents the UnmarkCommand created when user prompts 'list'.
@@ -18,14 +18,14 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Triggers Ui to list out Tasks in Tasklist in numerical insertion order.
+     * Triggers UiCli to list out Tasks in Tasklist in numerical insertion order.
      *
      * @param tasks Tasklist containing Tasks.
-     * @param ui User interface that user interacts with.
+     * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, Ui ui, StorageManager storageManager) {
-        ui.showListingTasks(tasks);
+    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+        uiCli.showListingTasks(tasks);
     }
 }

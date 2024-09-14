@@ -2,10 +2,10 @@ package hypebot.command;
 
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
-import hypebot.ui.Ui;
+import hypebot.ui.UiCli;
 
 /**
- * Represents the UnmarkCommand created when user prompts 'mark {some index}'.
+ * Represents the MarkCommand created when user prompts 'mark {some index}'.
  *
  * @author Youngseo Park (@youngseopark05)
  */
@@ -25,15 +25,15 @@ public class MarkCommand extends Command {
 
     /**
      * Triggers Tasklist to mark Task in given index,
-     * then prompts Ui to show message informing completion of marking.
+     * then prompts UiCli to show message informing completion of marking.
      *
      * @param tasks Tasklist containing Tasks.
-     * @param ui User interface that user interacts with.
+     * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, Ui ui, StorageManager storageManager) {
+    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         tasks.mark(indexOfTaskToMark);
-        ui.showMarkedTask(tasks.getTaskByIndex(indexOfTaskToMark));
+        uiCli.showMarkedTask(tasks.getTaskByIndex(indexOfTaskToMark));
     }
 }

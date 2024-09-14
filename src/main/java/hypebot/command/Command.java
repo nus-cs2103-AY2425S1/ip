@@ -2,7 +2,7 @@ package hypebot.command;
 
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
-import hypebot.ui.Ui;
+import hypebot.ui.UiCli;
 
 /**
  * Represents the base Command class which all Commands inherit from.
@@ -21,12 +21,12 @@ public abstract class Command {
 
     /**
      * Base method implemented by all children of Command,
-     * specifies manipulations on Tasklist, Ui, or StorageManager
+     * specifies manipulations on Tasklist, UiCli, or StorageManager
      * of HypeBot according to type of Command.
      *
      * @param tasks Tasklist containing Tasks.
-     * @param ui User interface that user interacts with.
+     * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
-    public abstract void execute(Tasklist tasks, Ui ui, StorageManager storageManager);
+    public abstract void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager);
 }

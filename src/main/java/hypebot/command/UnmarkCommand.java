@@ -2,7 +2,7 @@ package hypebot.command;
 
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
-import hypebot.ui.Ui;
+import hypebot.ui.UiCli;
 
 /**
  * Represents the UnmarkCommand created when user prompts 'unmark {some index}'.
@@ -25,15 +25,15 @@ public class UnmarkCommand extends Command {
 
     /**
      * Triggers Tasklist to unmark Task in given index,
-     * then prompts Ui to show message informing completion of unmarking.
+     * then prompts UiCli to show message informing completion of unmarking.
      *
      * @param tasks Tasklist containing Tasks.
-     * @param ui User interface that user interacts with.
+     * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, Ui ui, StorageManager storageManager) {
+    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         tasks.unmark(indexOfTaskToUnmark);
-        ui.showUnmarkedTask(tasks.getTaskByIndex(indexOfTaskToUnmark));
+        uiCli.showUnmarkedTask(tasks.getTaskByIndex(indexOfTaskToUnmark));
     }
 }

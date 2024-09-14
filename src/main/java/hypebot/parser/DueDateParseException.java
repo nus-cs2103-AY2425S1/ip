@@ -1,20 +1,20 @@
-package hypebot.task;
+package hypebot.parser;
 
 /**
- * Represents a DateTimeParseException associated with the initialisation of Event objects.
+ * Represents a DateTimeParseException associated with the initialisation of Deadline objects.
  *
  * @author Youngseo Park (@youngseopark05)
  */
-public class EventDateTimeParseException extends TaskDateTimeParseException {
+public class DueDateParseException extends TaskDateTimeParseException {
     /**
      * Takes in an error message, parsed data that lead to error, and index of user
-     * input that caused error and creates a new EventDateTimeParseException.
+     * input that caused error and creates a new DueDateParseException.
      *
      * @param message Error message to be outputted to user interface.
      * @param parsedData User entered data or tasks.txt data that lead to error.
      * @param errorIndex Index of data where error occurred.
      */
-    public EventDateTimeParseException(String message, CharSequence parsedData, int errorIndex) {
+    public DueDateParseException(String message, CharSequence parsedData, int errorIndex) {
         super(message, parsedData, errorIndex);
     }
 }

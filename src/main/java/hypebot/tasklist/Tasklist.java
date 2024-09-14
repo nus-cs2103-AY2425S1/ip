@@ -1,6 +1,7 @@
 package hypebot.tasklist;
 
 import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS;
+import static hypebot.common.Messages.ERROR_DUPLICATE_TASK;
 import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS;
 import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
 
@@ -8,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import com.sun.jdi.request.DuplicateRequestException;
 
 import hypebot.task.Task;
 
@@ -60,7 +63,10 @@ public class Tasklist {
      *
      * @param task Task to be added to TASKS.
      */
-    public void add(Task task) {
+    public void add(Task task) throws DuplicateRequestException {
+        if (tasks.contains(task)) {
+            throw new DuplicateRequestException(ERROR_DUPLICATE_TASK + (tasks.indexOf(task) + 1) + ".\n");
+        }
         tasks.add(task);
     }
 
@@ -78,6 +84,13 @@ public class Tasklist {
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS);
         }
+    }
+
+    /**
+     * Deletes all Tasks in tasklist.
+     */
+    public void deleteAll() {
+        tasks.clear();
     }
 
     /**
@@ -110,9 +123,9 @@ public class Tasklist {
 
     /**
      * Takes in a LocalDate, returns all Tasks in TASKS that occur on given date.
-     * Uses stream().filter().toList().
+     * <p>Uses stream().filter().toList().</p>
      *
-     * @param date LocalDate object created by Parser from user input.
+     * @param date LocalDate object created by CommandParser from user input.
      * @return Tasklist containing Tasks occurring on given date.
      */
     public Tasklist getHappeningOn(LocalDate date) {
@@ -121,16 +134,14 @@ public class Tasklist {
     }
 
     /**
-     * Takes in a search query from user input parsed by Parser sent to a FindCommand,
+     * Takes in a search query from user input parsed by CommandParser sent to a FindCommand,
      * then returns a Tasklist of Tasks with the keyword in the Task name.
      *
      * @param searchQuery Search query from user to search Tasks with the search query in the name.
      * @return Tasklist of Tasks containing search query in name.
      */
     public Tasklist getNameContains(Pattern searchQuery) {
-        List<Task> tasksWithSearchQuery = tasks.stream().filter(
-                task -> searchQuery.matcher(task.getName().toLowerCase()).find()
-        ).toList();
+        List<Task> tasksWithSearchQuery = tasks.stream().filter(task -> task.nameContains(searchQuery)).toList();
         return new Tasklist(tasksWithSearchQuery);
     }
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
-import hypebot.ui.Ui;
+import hypebot.ui.UiCli;
 
 /**
  * Represents the ByeCommand created when user prompts 'bye'.
@@ -30,24 +30,24 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Triggers Ui to output message that tasks are being saved to user,
+     * Triggers UiCli to output message that tasks are being saved to user,
      * then triggers StorageManager to save the current Tasklist to the user's local computer.
-     * If file to save not found, triggers Ui to show error message.
-     * Finally, triggers Ui to output exit message.
+     * If file to save not found, triggers UiCli to show error message.
+     * Finally, triggers UiCli to output exit message.
      *
      * @param tasks Tasklist containing Tasks.
-     * @param ui User interface that user interacts with.
+     * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, Ui ui, StorageManager storageManager) {
+    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         try {
-            ui.showSavingTasks();
+            uiCli.showSavingTasks();
             storageManager.save(tasks);
         } catch (IOException e) {
-            ui.showError(e.getMessage());
+            uiCli.showError(e.getMessage());
         } finally {
-            ui.showExit();
+            uiCli.showExit();
         }
     }
 }

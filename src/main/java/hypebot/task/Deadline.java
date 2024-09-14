@@ -1,11 +1,7 @@
 package hypebot.task;
 
-import static hypebot.common.Messages.ERROR_DEADLINE_DATE_PASSED;
-import static hypebot.common.Messages.ERROR_DEADLINE_DATE_WRONG_FORMAT;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Deadline type Task with a LocalDateTime type due date.
@@ -13,27 +9,19 @@ import java.time.format.DateTimeParseException;
  * @author Youngseo Park (@youngseopark05)
  */
 public class Deadline extends Task {
+    private static final DateTimeFormatter FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter UI_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
     private LocalDate dueDate;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Creates a Deadline task with the specified name and deadline.
      *
      * @param name The name of the deadline.
-     * @param dueDateString The due date of the deadline in String form.
-     * @throws DueDateParseException
+     * @param dueDate The due date of the deadline in LocalDate form.
      */
-    public Deadline(String name, String dueDateString) throws DueDateParseException, IllegalArgumentException {
+    public Deadline(String name, LocalDate dueDate) {
         super(name);
-        try {
-            LocalDate tempDate = LocalDate.parse(dueDateString, formatter);
-            if (tempDate.isBefore(LocalDate.now())) {
-                throw new IllegalArgumentException(ERROR_DEADLINE_DATE_PASSED);
-            }
-            dueDate = tempDate;
-        } catch (DateTimeParseException e) {
-            throw new DueDateParseException(ERROR_DEADLINE_DATE_WRONG_FORMAT, e.getParsedString(), e.getErrorIndex());
-        }
+        this.dueDate = dueDate;
     }
 
     /**
@@ -56,7 +44,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D , " + (isComplete() ? 1 : 0) + " , " + getName() + " , " + dueDate.format(formatter) + "\n";
+        return "D , " + (isComplete() ? 1 : 0) + " , " + getName() + " , " + dueDate.format(FILE_FORMATTER) + "\n";
     }
 
     /**
@@ -67,7 +55,14 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: "
-                + dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + dueDate.format(UI_FORMATTER) + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline deadline) {
+            return super.equals(deadline) && this.dueDate.isEqual(deadline.dueDate);
+        }
+        return false;
     }
 }

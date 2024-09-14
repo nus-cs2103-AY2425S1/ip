@@ -27,6 +27,7 @@ public class ToDoTest {
 
     @Test
     public void toString_completeToDo_success() throws Exception {
+        // normal complete ToDo shown to user
         ToDo temp = new ToDo("finish iP");
         temp.mark();
         assertEquals("[T][X] finish iP", temp.toString());

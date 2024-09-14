@@ -32,6 +32,7 @@ public class TasklistEncoder {
         this.tasks = tasks;
     }
 
+
     /**
      * Encodes Tasks in the TasklistEncoder's tasks field in the format to save to tasks.txt.
      *

@@ -25,28 +25,30 @@ public class Messages {
             • Type 'todo {Enter name here}' to add a TERRIFIC todo with no date or time associated with it!
             • Type 'deadline {Enter name here} /{Enter deadline in yyyy-MM-dd format here}' \
             to add a DELIGHTFUL deadline task with a due date!
-            • Type 'event {Enter name here} /{Enter start time in yyyy-MM-dd HH:mm format here} \
-            /{Enter end time in yyyy-MM-dd HH:mm format here}'
+            • Type 'event {Enter name here} /{Enter start time in yyyy-MM-dd HHmm format here} \
+            /{Enter end time in yyyy-MM-dd HHmm format here}'
               to add an EXCITING event with start and end times!
             • Type 'list' to see ALL YOUR SWEET TASKS in ADDED ORDER (earliest to latest)!
             • Type 'mark {Enter task number here}' to mark a task as CONQUERED!
             • Type 'unmark {Enter task number here}' to unmark a task and TAKE IT ON AGAIN!
             • Type 'delete {Enter task number here}' to ANNIHILATE a task from your list!
+            • Type 'deleteall' to ANNIHILATE ALL tasks from your list!
             • Type 'happening /{Enter date in yyyy-MM-dd format here}' to search any deadlines or events \
             happening on that day!
             • Type 'bye' if you're all set!
             """;
     public static final String MESSAGE_GREET_INTRO = "AYO WHAT'S UP IT'S ME YOUR\n\n";
     public static final String MESSAGE_GREET_OUTRO = "\nWhat can I do for you, my wonderful homie?\n";
-    public static final String MESSAGE_LOAD_TASKLIST = "LOADING YOUR TASKS IN /data/tasklist.txt...\n";
+    public static final String MESSAGE_LOADING_TASKLIST = "LOADING YOUR TASKS IN /data/tasklist.txt...\n";
     public static final String MESSAGE_DELETING_PAST_DEADLINE = "Deleting past deadline...\n";
     public static final String MESSAGE_DELETING_PAST_EVENT = "Deleting past event...\n";
-    public static final String MESSAGE_SAVE_TASKLIST = "Alright homie, saving your tasks to /data/tasklist.txt...\n";
+    public static final String MESSAGE_SAVING_TASKLIST = "Alright homie, saving your tasks to your drive...\n";
     public static final String MESSAGE_LIST = "ALRIGHT, Here's that list!\n";
     public static final String MESSAGE_HAPPENING = "ALRIGHT, Here's everything that's going down on ";
     public static final String MESSAGE_FIND_INTRO = "Searching every valley low and every mountain high for ";
     public static final String MESSAGE_ADDED_TASK = "HECK YEAH, ADDED:\n  ";
     public static final String MESSAGE_DELETED_TASK = "Say no more, BABY BYE BYE BYE to this task:\n ";
+    public static final String MESSAGE_DELETED_ALL_TASKS = "Say no more, BABY BYE BYE BYE to all your tasks!\n";
     public static final String MESSAGE_MARKED_TASK = "AIGHT, ABSOLUTELY CONQUERED THIS TASK:\n  ";
     public static final String MESSAGE_UNMARKED_TASK = "AIGHT, LET'S GET READY TO CONQUER THIS TASK:\n  ";
     public static final String MESSAGE_TASKS_LEFT_INTRO = "!\nYOU'VE NOW GOT ";
@@ -59,6 +61,7 @@ public class Messages {
             """;
     public static final String ERROR_INTRO = "I might be tripping bro, my bad, my bad - \n";
     public static final String ERROR_LOAD_TASKLIST = "but I couldn't find the file with your saved tasks.\n";
+    public static final String ERROR_LOAD_TASK = "but I couldn't decode a task from your file...\n";
     public static final String ERROR_SAVE_TASKLIST = "but I couldn't find the file to save your tasks.\n";
     public static final String ERROR_TASK_NAME_EMPTY = "drop the name of the task, bro I gotta know!\n";
     public static final String ERROR_MARK_TASK_INDEX_MISSING = "try indicating the index of the task you wanna "
@@ -90,7 +93,7 @@ public class Messages {
             """;
     public static final String ERROR_EVENT_TIME_WRONG_FORMAT = """
             but I couldn't catch the dates you put.
-            Try formatting your dates in this format: yyyy-MM-dd HH:mm
+            Try formatting your dates in this format: yyyy-MM-dd HHmm
             """;
     public static final String ERROR_EVENT_TIME_PASSED = "but you can't enter a past event!\n";
     public static final String ERROR_EVENT_TIMES_INORDERED = "but your start time and end time aren't adding up!\n";
@@ -104,4 +107,6 @@ public class Messages {
             """;
     public static final String ERROR_SEARCH_QUERY_EMPTY = "make sure to enter in some keywords in the name "
             + "of the tasks you're searching for!\n";
+    public static final String ERROR_DUPLICATE_TASK = "but that task has already been hanging around with us! "
+            + "See task number ";
 }

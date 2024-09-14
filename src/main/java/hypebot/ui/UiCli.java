@@ -4,6 +4,7 @@ import static hypebot.common.Messages.DIVIDER_LINE;
 import static hypebot.common.Messages.ERROR_INTRO;
 import static hypebot.common.Messages.LOGO;
 import static hypebot.common.Messages.MESSAGE_ADDED_TASK;
+import static hypebot.common.Messages.MESSAGE_DELETED_ALL_TASKS;
 import static hypebot.common.Messages.MESSAGE_DELETED_TASK;
 import static hypebot.common.Messages.MESSAGE_EXIT;
 import static hypebot.common.Messages.MESSAGE_FIND_INTRO;
@@ -12,9 +13,9 @@ import static hypebot.common.Messages.MESSAGE_GREET_OUTRO;
 import static hypebot.common.Messages.MESSAGE_HAPPENING;
 import static hypebot.common.Messages.MESSAGE_HELP;
 import static hypebot.common.Messages.MESSAGE_LIST;
-import static hypebot.common.Messages.MESSAGE_LOAD_TASKLIST;
+import static hypebot.common.Messages.MESSAGE_LOADING_TASKLIST;
 import static hypebot.common.Messages.MESSAGE_MARKED_TASK;
-import static hypebot.common.Messages.MESSAGE_SAVE_TASKLIST;
+import static hypebot.common.Messages.MESSAGE_SAVING_TASKLIST;
 import static hypebot.common.Messages.MESSAGE_TASKS_LEFT_INTRO;
 import static hypebot.common.Messages.MESSAGE_TASKS_LEFT_OUTRO;
 import static hypebot.common.Messages.MESSAGE_UNKNOWN_INTRO;
@@ -34,14 +35,14 @@ import hypebot.tasklist.Tasklist;
  *
  * @author Youngseo Park (@youngseopark05)
  */
-public class Ui {
+public class UiCli {
     private final Scanner in;
     private final PrintStream out;
 
     /**
-     * Creates a new Ui object that initiates the scanner for user input and output interface.
+     * Creates a new UiCli object that initiates the scanner for user input and output interface.
      */
-    public Ui() {
+    public UiCli() {
         in = new Scanner(System.in);
         out = System.out;
     }
@@ -77,14 +78,14 @@ public class Ui {
      * Outputs message shown when loading tasks from tasks.txt.
      */
     public void showLoadingTasks() {
-        out.println(addDividerLine(MESSAGE_LOAD_TASKLIST));
+        out.println(addDividerLine(MESSAGE_LOADING_TASKLIST));
     }
 
     /**
      * Outputs message shown when saving tasks to tasks.txt.
      */
     public void showSavingTasks() {
-        out.println(addDividerLine(MESSAGE_SAVE_TASKLIST));
+        out.println(addDividerLine(MESSAGE_SAVING_TASKLIST));
     }
 
     /**
@@ -127,6 +128,10 @@ public class Ui {
                 + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO));
     }
 
+    public void showDeletedAllTasks() {
+        out.println(addDividerLine(MESSAGE_DELETED_ALL_TASKS));
+    }
+
     /**
      * Takes in a Task object and outputs that the Task was marked complete.
      *
@@ -158,7 +163,7 @@ public class Ui {
     }
 
     /**
-     * Takes in a String search query from user input parsed by Parser sent to a FindCommand,
+     * Takes in a String search query from user input parsed by CommandParser sent to a FindCommand,
      * a Tasklist with the Tasks containing one or more of the keywords in the search query,
      * then outputs the Tasklist containing the specified keywords.
      *
@@ -207,7 +212,7 @@ public class Ui {
      * Uses the Scanner to read user input to return the full command line entered by user.
      * In the case that the Scanner cannot detect the line, automatically assigns "start" command.
      *
-     * @return String user input to be sent to Parser.
+     * @return String user input to be sent to CommandParser.
      */
     public String readCommand() {
         String userEnteredCommand = "start";

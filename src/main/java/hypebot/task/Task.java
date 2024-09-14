@@ -1,6 +1,7 @@
 package hypebot.task;
 
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 /**
  * Represents a Task which all the different types of tasks inherit from.
@@ -20,8 +21,24 @@ public class Task {
         this.name = name;
     }
 
+    /**
+     * Returns the name of the task as user entered.
+     *
+     * @return The name of the task.
+     */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Takes in a Pattern containing keywords and returns whether
+     * the Task's name contains any of the keywords in the Pattern.
+     *
+     * @param searchQuery Pattern of keywords to search for.
+     * @return Whether the Task's name contains any of the keywords.
+     */
+    public boolean nameContains(Pattern searchQuery) {
+        return searchQuery.matcher(name.toLowerCase()).find();
     }
 
     public boolean isComplete() {
@@ -72,5 +89,13 @@ public class Task {
     @Override
     public String toString() {
         return "[" + (isComplete ? "X" : " ") + "] " + this.name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task task) {
+            return this.name.equals(task.name);
+        }
+        return false;
     }
 }

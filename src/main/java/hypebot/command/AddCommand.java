@@ -3,7 +3,7 @@ package hypebot.command;
 import hypebot.storage.StorageManager;
 import hypebot.task.Task;
 import hypebot.tasklist.Tasklist;
-import hypebot.ui.Ui;
+import hypebot.ui.UiCli;
 
 /**
  * Represents the AddCommand created whenever user prompts to add a Task to the Tasklist.
@@ -24,15 +24,15 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Triggers Tasklist to add Task, then triggers Ui to show message saying task was added.
+     * Triggers Tasklist to add Task, then triggers UiCli to show message saying task was added.
      *
      * @param tasks Tasklist containing Tasks.
-     * @param ui User interface that user interacts with.
+     * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, Ui ui, StorageManager storageManager) {
+    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         tasks.add(taskToAdd);
-        ui.showAddedTask(taskToAdd, tasks);
+        uiCli.showAddedTask(taskToAdd, tasks);
     }
 }

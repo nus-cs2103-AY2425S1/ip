@@ -3,7 +3,7 @@ package hypebot.command;
 import hypebot.storage.StorageManager;
 import hypebot.task.Task;
 import hypebot.tasklist.Tasklist;
-import hypebot.ui.Ui;
+import hypebot.ui.UiCli;
 
 /**
  * Represents the DeleteCommand created when user prompts 'delete {some index}'.
@@ -25,16 +25,16 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Triggers Tasklist to delete Task at given index then triggers Ui to
+     * Triggers Tasklist to delete Task at given index then triggers UiCli to
      * output the deleted task.
      *
      * @param tasks Tasklist containing Tasks.
-     * @param ui User interface that user interacts with.
+     * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, Ui ui, StorageManager storageManager) {
+    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         Task removedTask = tasks.delete(indexOfTaskToDelete);
-        ui.showDeletedTask(removedTask, tasks);
+        uiCli.showDeletedTask(removedTask, tasks);
     }
 }

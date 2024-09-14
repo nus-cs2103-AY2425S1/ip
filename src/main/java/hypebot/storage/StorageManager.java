@@ -3,16 +3,14 @@ package hypebot.storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import hypebot.task.Task;
-import hypebot.task.TaskDateTimeParseException;
+import hypebot.parser.TaskDateTimeParseException;
 import hypebot.tasklist.Tasklist;
 
 /**
  * Represents a StorageManager which HypeBot and Command objects have access to.
- * Triggers loading and saving of Tasks into/from the HypeBot's tasks by allocating
- * these tasks to the TaskListDecoder and TasklistEncoder respectively.
+ * <p>Triggers loading and saving of Tasks into/from the HypeBot's tasks by allocating
+ * these tasks to the TaskListDecoder and TasklistEncoder respectively.</p>
  *
  * @author Youngseo park (@youngseopark05)
  */
@@ -38,14 +36,14 @@ public class StorageManager {
     }
 
     /**
-     * Creates a new TasklistDecoder with the File specified to contain task data.
-     * Receives the ArrayList of Tasks created by TasklistDecoder.decode() process.
+     * Creates a new TasklistDecoder with the File specified to contain task data,
+     * and returns the ArrayList of Tasks created by TasklistDecoder.decode() process.
      *
      * @return ArrayList form of Tasks saved in specified file.
      * @throws FileNotFoundException If specified file not found.
      * @throws TaskDateTimeParseException If date-related data is not in expected format.
      */
-    public ArrayList<Task> load() throws FileNotFoundException, TaskDateTimeParseException {
+    public Tasklist load() throws FileNotFoundException, TaskDateTimeParseException {
         TasklistDecoder decoder = new TasklistDecoder(tasklistFile);
         return decoder.decode();
     }

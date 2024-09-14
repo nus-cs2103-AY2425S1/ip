@@ -1,4 +1,4 @@
-package hypebot.task;
+package hypebot.parser;
 
 import java.time.format.DateTimeParseException;
 

@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
-import hypebot.ui.Ui;
+import hypebot.ui.UiCli;
 
 /**
  * Represents the FindCommand created when user prompts 'find {keywords}'.
@@ -20,25 +20,23 @@ public class FindCommand extends Command {
      *
      * @param searchQuery Search query containing keywords to search for in the Task names.
      */
-    public FindCommand(String searchQuery) {
+    public FindCommand(Pattern searchQuery) {
         super();
-        this.searchQuery = Pattern.compile(
-                searchQuery.replace(" ", "|").substring(0, searchQuery.length() - 1),
-                Pattern.CASE_INSENSITIVE);
+        this.searchQuery = searchQuery;
     }
 
     /**
      * Triggers Tasklist to return a new Tasklist containing Tasks with any of the
-     * keywords in the search query, then triggers Ui to output Tasks in this
+     * keywords in the search query, then triggers UiCli to output Tasks in this
      * Tasklist onto user interface.
      *
      * @param tasks Tasklist containing Tasks.
-     * @param ui User interface that user interacts with.
+     * @param uiCli User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public void execute(Tasklist tasks, Ui ui, StorageManager storageManager) {
+    public void execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         Tasklist tasksWithSearchQuery = tasks.getNameContains(searchQuery);
-        ui.showTasksWithSearchQuery(String.valueOf(searchQuery), tasksWithSearchQuery);
+        uiCli.showTasksWithSearchQuery(String.valueOf(searchQuery), tasksWithSearchQuery);
     }
 }
