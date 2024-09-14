@@ -37,21 +37,17 @@ public class Ynch {
     }
 
     public String getResponse(String userInput) {
+        try {
+            checkForEmpty(userInput);
+            checkForInvalid(userInput);
+        } catch (EmptyTaskException | InvalidCommandException e) {
+            return e.getMessage();
+        }
 
         if (userInput.equals("bye")) {
             storage.save(taskList);
             return ui.exit();
         }
-
-        try {
-            checkForEmpty(userInput);
-            checkForInvalid(userInput);
-        } catch (EmptyTaskException e) {
-            return e.getMessage();
-        } catch (InvalidCommandException e) {
-            return e.getMessage();
-        }
-
         switch (parser.processInput(userInput)) {
             case list: {
                 return taskList.list();
