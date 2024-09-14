@@ -21,7 +21,6 @@ public class MarkCommand extends Command {
     public MarkCommand(Calebyyy calebyyy, Ui ui, TaskList taskList) {
         super(calebyyy, ui, taskList);
     }
-    
     /**
      * Checks if the task number is valid.
      *
@@ -29,9 +28,9 @@ public class MarkCommand extends Command {
      * @return True if the task number is valid, false otherwise.
      */
     private boolean isValidTaskNumber(int taskNumber) {
-        return taskNumber >= 0 && taskNumber < taskList.getTaskCount();
+        return taskNumber > 0 && taskNumber <= taskList.getTaskCount();
     }
-    
+
     /**
      * Marks a task as done.
      *

@@ -1,5 +1,9 @@
 package calebyyy.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import calebyyy.Calebyyy;
 import calebyyy.TaskList;
 import calebyyy.Ui;
@@ -11,10 +15,6 @@ import calebyyy.tasks.Deadline;
 import calebyyy.tasks.Event;
 import calebyyy.tasks.Task;
 import calebyyy.tasks.Todo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command to add a task to the task list.
@@ -76,14 +76,14 @@ public class AddCommand extends Command {
         String taskDetails = parts[1];
 
         switch (commandType) {
-            case "todo":
-                return new Todo(taskDetails);
-            case "deadline":
-                return createDeadline(taskDetails);
-            case "event":
-                return createEvent(taskDetails);
-            default:
-                throw new InvalidArgumentException();
+        case "todo":
+            return new Todo(taskDetails);
+        case "deadline":
+            return createDeadline(taskDetails);
+        case "event":
+            return createEvent(taskDetails);
+        default:
+            throw new InvalidArgumentException();
         }
     }
 

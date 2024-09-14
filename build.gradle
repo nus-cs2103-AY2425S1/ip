@@ -47,9 +47,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "calebyyy"
     archiveClassifier = null
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'calebyyy.jar'
 
 }
 

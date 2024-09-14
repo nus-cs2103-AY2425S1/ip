@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
      * @return True if the task number is valid, false otherwise.
      */
     private boolean isValidTaskNumber(int taskNumber) {
-        return taskNumber >= 0 && taskNumber < taskList.getTaskCount();
+        return taskNumber > 0 && taskNumber <= taskList.getTaskCount();
     }
 
     /**
