@@ -105,9 +105,72 @@ public class Alfred {
             return findTask(input);
         case "bye":
             return farewell();
+        case "tag":
+            return tagTask(input);
+        case "untag":
+            return untagTask(input);
         default:
             return createNewTask(input);
         }
+    }
+
+    /**
+     * Handles the tag command by validating the input and performing the tag operation.
+     * If validation fails, it returns an error message; otherwise, it proceeds with tagging.
+     *
+     * @param input The user input containing the task number and the tag.
+     * @return A response indicating whether the task was successfully tagged or an error message if validation failed.
+     */
+    private String tagTask(String input) {
+        String validationResult = Parser.validateCommand(input, "tag", tasks.getTasksCount());
+        if (!validationResult.isEmpty()) {
+            return validationResult;
+        }
+        return performTaggingTask(input);
+    }
+
+    /**
+     * Handles the untag command by validating the input and performing the untag operation.
+     * If validation fails, it returns an error message; otherwise, it proceeds with untagging.
+     * If tag not present, task is untouched.
+     *
+     * @param input The user input containing the task number and the tag to be removed.
+     * @return A response indicating whether the task was successfully untagged.
+     */
+    private String untagTask(String input) {
+        String validationResult = Parser.validateCommand(input, "untag", tasks.getTasksCount());
+        if (!validationResult.isEmpty()) {
+            return validationResult;
+        }
+        return performUntaggingTask(input);
+    }
+
+    /**
+     * Performs the tagging operation after input validation.
+     * Extracts the task number and tag from the input and adds the tag to the specified task.
+     *
+     * @param input The user input containing the task number and tag.
+     * @return A response confirming that the task was successfully tagged.
+     */
+    private String performTaggingTask(String input) {
+        int taskNumber = Parser.getTaskNumberFromInput(input);
+        String tag = Parser.getTagFromInput(input);
+        Task taggedTask = tasks.tagTask(taskNumber, tag);
+        return AlfredResponse.showTaskTagged(taggedTask);
+    }
+
+    /**
+     * Performs the untagging operation after input validation.
+     * Extracts the task number and tag from the input and removes the tag from the specified task.
+     *
+     * @param input The user input containing the task number and tag to be removed.
+     * @return A response confirming that the task was successfully untagged.
+     */
+    private String performUntaggingTask(String input) {
+        int taskNumber = Parser.getTaskNumberFromInput(input);
+        String tag = Parser.getTagFromInput(input);
+        Task taggedTask = tasks.untagTask(taskNumber, tag);
+        return AlfredResponse.showTaskUntagged(taggedTask);
     }
 
     /**
@@ -163,7 +226,7 @@ public class Alfred {
      */
     private String performUnmarkTask(String input) {
         int taskNumber = Parser.getTaskNumberFromInput(input);
-                assert taskNumber > 0 && taskNumber <= tasks.getTasksCount() : "Invalid task number: " + taskNumber;
+        assert taskNumber > 0 && taskNumber <= tasks.getTasksCount() : "Invalid task number: " + taskNumber;
         Task markedTask = tasks.unmarkTask(taskNumber);
         return AlfredResponse.showTaskUnmarked(markedTask);
     }

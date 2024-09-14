@@ -1,5 +1,6 @@
 package alfred.task;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,14 +24,14 @@ public class ToDos extends Task {
     }
 
     /**
-     * Constructs a new <code>ToDos</code> task with the specified description and completion status.
+     * Constructs a new <code>ToDos</code> task with the specified description, completion status, and tags.
      *
      * @param description Description of the task.
      * @param isDone The completion status of the task.
+     * @param tags The list of tags for the task (a copy of the provided list will be made to avoid reference issues).
      */
-    public ToDos(String description, boolean isDone) {
-        super(description);
-        this.isDone = isDone;
+    public ToDos(String description, boolean isDone, List<String> tags) {
+        super(description, isDone, tags);
     }
 
     /**
@@ -45,6 +46,20 @@ public class ToDos extends Task {
     }
 
     /**
+     * Creates a ToDo task based on the provided task data and completion status.
+     *
+     * @param taskData An array containing the task details.
+     *                 The third element represents the task description.
+     * @param isDone A boolean indicating whether the task is completed.
+     * @param tags   A list of tags associated with the task.
+     * @return A <code>ToDos</code> object created from the provided task data.
+     */
+    public static ToDos createTaskFromData(String[] taskData, boolean isDone, List<String> tags) {
+        String description = taskData[3];
+        return new ToDos(description, isDone, tags);
+    }
+
+    /**
      * Creates a <code>ToDos</code> task from the given input string.
      * The input must match the format: todo description
      * If the input is not in the correct format, an <code>AlfredException</code> is thrown.
@@ -53,7 +68,7 @@ public class ToDos extends Task {
      * @return A <code>ToDos</code> task created from the input string.
      * @throws AlfredException If the input string does not match the expected format.
      */
-    public static Task createTask(String input) throws AlfredException {
+    public static Task createTaskFromInput(String input) throws AlfredException {
         String[] parsedInput = parseInputForTodo(input);
         String description = parsedInput[0];
         return new ToDos(description);
@@ -87,6 +102,6 @@ public class ToDos extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "T | " + getStatusIcon() + " | " + description;
+        return "T | " + getStatusIcon() + " | " + getTagsAsString() + " | " + description;
     }
 }

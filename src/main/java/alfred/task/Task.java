@@ -1,5 +1,6 @@
 package alfred.task;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,9 +16,14 @@ public abstract class Task {
     private static final String TODO_SYMBOL = "T";
     private static final String DEADLINE_SYMBOL = "D";
     private static final String EVENT_SYMBOL = "E";
+    private static final String TODO = "todo";
+    private static final String EVENT = "event";
+    private static final String DEADLINE = "deadline";
+    private static final String NO_TAG = "No Tags";
 
     protected String description;
     protected boolean isDone;
+    private List<String> tags;
 
     /**
      * Constructs a new <code>Task</code> with the specified description.
@@ -28,6 +34,20 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a new <code>Task</code> with the specified description, done status and tags.
+     *
+     * @param description Description of the task.
+     * @param isDone The completion status of the task.
+     * @param tags The list of tags associated with the task
+     */
+    public Task(String description, boolean isDone, List<String> tags) {
+        this.description = description;
+        this.isDone = isDone;
+        this.tags = new ArrayList<>(tags);
     }
 
     /**
@@ -64,13 +84,35 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task, including its status and description.
+     * Adds a tag to the task.
      *
-     * @return A string representation of the task.
+     * @param tag The tag to assign to the task.
      */
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    /**
+     * Removes the tag from the task.
+     * If the tag is not present, the list remains unchanged.
+     *
+     * @param tag The tag to remove from the task.
+     */
+    public void untag(String tag) {
+        tags.remove(tag);
+    }
+
+    /**
+     * Returns the tags formatted as a string.
+     * If the tag list is empty, returns "No Tags".
+     *
+     * @return A string representing the tags, separated by spaces. If no tags exist, returns "No Tags".
+     */
+    public String getTagsAsString() {
+        if (tags.isEmpty()) {
+            return NO_TAG;
+        }
+        return String.join(" ", tags);
     }
 
     /**
@@ -93,8 +135,8 @@ public abstract class Task {
      * @throws AlfredException If the input string does not match any known task type.
      */
     public static Task initialise(String input) throws AlfredException {
-        String[] taskData = input.split(" ");
-        return createTaskFromType(input, taskData);
+        String taskType = input.split(" ")[0];
+        return createTaskFromType(taskType, input);
     }
 
     /**
@@ -102,21 +144,21 @@ public abstract class Task {
      * This method delegates the task creation to the appropriate class depending
      * on whether the task is a "todo", "event", or "deadline".
      *
-     * @param input The input string that contains the full task details.
-     * @param taskData A string array containing the task information
+     * @param input    The input string that contains the full task details.
+     * @param taskType A string array containing the type of task
      * @return A Task object created from the provided input.
      * @throws AlfredException If the task type is invalid or unrecognized.
      */
-    private static Task createTaskFromType(String input, String[] taskData) throws AlfredException {
-        switch (taskData[0]) {
-        case "todo":
-            return ToDos.createTask(input);
-        case "event":
-            return Events.createTask(input);
-        case "deadline":
-            return Deadlines.createTask(input);
+    private static Task createTaskFromType(String taskType, String input) throws AlfredException {
+        switch (taskType) {
+        case TODO:
+            return ToDos.createTaskFromInput(input);
+        case EVENT:
+            return Events.createTaskFromInput(input);
+        case DEADLINE:
+            return Deadlines.createTaskFromInput(input);
         default:
-            throw new AlfredException("Invalid task: " + taskData[0]);
+            throw new AlfredException("Invalid task: " + taskType);
         }
     }
 
@@ -139,18 +181,37 @@ public abstract class Task {
     public static Task fromFileFormat(String fileFormat) throws AlfredException {
         String[] taskData = parseTaskData(fileFormat);
         String taskType = taskData[0];
+        List<String> tags = parseTags(taskData);
         boolean isDone = parseTaskCompletionStatus(taskData);
 
         switch (taskType) {
         case TODO_SYMBOL:
-            return createTodoTask(taskData, isDone);
-        case DEADLINE_SYMBOL:
-            return createDeadlineTask(taskData, isDone);
+            return ToDos.createTaskFromData(taskData, isDone, tags);
         case EVENT_SYMBOL:
-            return createEventTask(taskData, isDone);
+            return Events.createTaskFromData(taskData, isDone, tags);
+        case DEADLINE_SYMBOL:
+            return Deadlines.createTaskFromData(taskData, isDone, tags);
         default:
             throw new AlfredException("Corrupted save: Unknown task type");
         }
+    }
+
+    /**
+     * Parses the third element of the task data array into a list of tags.
+     * If the third element contains "No Tags", returns an empty list.
+     * Otherwise, the tags are expected to be space-separated within the third element.
+     *
+     * @param taskData The array of task data, where the third element contains space-separated tags.
+     * @return A list of tags parsed from the third element of the task data.
+     *         If the element is "No Tags" or no tags are found, the list will be empty.
+     */
+    private static List<String> parseTags(String[] taskData) {
+        String tagsString = taskData[2].trim();
+
+        if (tagsString.equals(NO_TAG)) {
+            return new ArrayList<>();
+        }
+        return Arrays.asList(tagsString.split(" "));
     }
 
     /**
@@ -166,56 +227,6 @@ public abstract class Task {
     }
 
     /**
-     * Creates an Event task based on the provided task data and completion status.
-     * It verifies that the input data matches the expected format for an Event task.
-     *
-     * @param taskData A String array containing the task details.
-     * @param isDone A boolean indicating whether the task is completed.
-     * @return An <code>Events</code> object created from the provided task data.
-     * @throws AlfredException If the task data is corrupted or does not match the expected Event format.
-     */
-    private static Events createEventTask(String[] taskData, boolean isDone) throws AlfredException {
-        if (taskData.length != 5) {
-            throw new AlfredException("Corrupted save: Invalid event format");
-        }
-        String description = taskData[2];
-        String from = taskData[3];
-        String to = taskData[4];
-        return new Events(description, from, to, isDone);
-    }
-
-    /**
-     * Creates a Deadline task based on the provided task data and completion status.
-     * It verifies that the input data matches the expected format for a Deadline task.
-     *
-     * @param taskData A String array containing the task details.
-     * @param isDone A boolean indicating whether the task is completed.
-     * @return A <code>Deadlines</code> object created from the provided task data.
-     * @throws AlfredException If the task data is corrupted or does not match the expected Deadline format.
-     */
-    private static Deadlines createDeadlineTask(String[] taskData, boolean isDone) throws AlfredException {
-        if (taskData.length != 4) {
-            throw new AlfredException("Corrupted save: Invalid deadline format");
-        }
-        String description = taskData[2];
-        String deadline = taskData[3];
-        return new Deadlines(description, deadline, isDone);
-    }
-
-    /**
-     * Creates a ToDo task based on the provided task data and completion status.
-     *
-     * @param taskData An array containing the task details.
-     *                 The third element represents the task description.
-     * @param isDone A boolean indicating whether the task is completed.
-     * @return A <code>ToDos</code> object created from the provided task data.
-     */
-    private static ToDos createTodoTask(String[] taskData, boolean isDone) {
-        String description = taskData[2];
-        return new ToDos(description, isDone);
-    }
-
-    /**
      * Parses and trims the task data from the file format string.
      * It splits the input string into its components (task type, status, description, etc.)
      * and ensures that the data is properly formatted and cleaned.
@@ -226,12 +237,22 @@ public abstract class Task {
      */
     private static String[] parseTaskData(String fileFormat) throws AlfredException {
         String[] taskData = fileFormat.split("\\|");
-        if (taskData.length < 3) {
+        if (taskData.length < 4) {
             throw new AlfredException("Corrupted save: Invalid task format");
         }
         for (int i = 0; i < taskData.length; i++) {
             taskData[i] = taskData[i].trim();
         }
         return taskData;
+    }
+
+    /**
+     * Returns a string representation of the task, including its status and description.
+     *
+     * @return A string representation of the task.
+     */
+    @Override
+    public String toString() {
+        return String.format("[%s][%s] %s", getStatusIcon(), getTagsAsString(), description);
     }
 }

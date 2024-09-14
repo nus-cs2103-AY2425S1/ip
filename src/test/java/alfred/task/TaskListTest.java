@@ -87,4 +87,52 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> taskList.markTask(3));
         assertFalse(task1.isDone);
     }
+
+    @Test
+    void addTagToTask_valid() {
+        taskList.addTask(task1);
+        String tag = "urgent";
+
+        taskList.tagTask(1, tag);
+        assertEquals(tag, task1.getTagsAsString());
+    }
+
+    @Test
+    void addTagToTask_multipleTags() {
+        taskList.addTask(task1);
+        taskList.tagTask(1, "important");
+        taskList.tagTask(1, "urgent");
+
+        assertEquals("important urgent", task1.getTagsAsString());
+    }
+
+    @Test
+    void untagTask_valid() {
+        taskList.addTask(task1);
+        taskList.tagTask(1, "important");
+        taskList.tagTask(1, "urgent");
+
+        taskList.untagTask(1, "important");
+
+        assertEquals("urgent", task1.getTagsAsString());
+    }
+
+    @Test
+    void untagTask_tagNotFound() {
+        taskList.addTask(task1);
+        taskList.tagTask(1, "important");
+
+        // Attempt to untag a tag that does not exist
+        taskList.untagTask(1, "urgent");
+
+        // The existing tag "important" should still be there
+        assertEquals("important", task1.getTagsAsString());
+    }
+
+    @Test
+    void getTagsAsString_noTags() {
+        taskList.addTask(task1);
+
+        assertEquals("No Tags", task1.getTagsAsString());
+    }
 }

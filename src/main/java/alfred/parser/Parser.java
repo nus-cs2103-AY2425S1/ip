@@ -46,6 +46,11 @@ public class Parser {
      * @return A string containing the error message if validation fails, or an empty string if valid.
      */
     public static String validateCommand(String input, String action, int listSize) {
+        boolean isTagRelated = isTagCommand(action);
+        if (isTagRelated && !isValidCommandFormat(input, action)) {
+            return AlfredResponse.showInvalidTagFormat(action);
+        }
+
         if (!isValidCommandFormat(input, action)) {
             return AlfredResponse.showInvalidCommandFormat();
         }
@@ -60,6 +65,10 @@ public class Parser {
         return "";
     }
 
+    private static boolean isTagCommand(String action) {
+        return action.equals("tag") || action.equals("untag");
+    }
+
     /**
      * Validates whether the input string matches the command format.
      *
@@ -68,10 +77,27 @@ public class Parser {
      * @return True if the input matches the expected command format, false otherwise.
      */
     private static boolean isValidCommandFormat(String input, String action) {
-        String regex = "^" + action + " \\d+$";
+        String regex = getCommandFormat(action);
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
+    }
+
+    /**
+     * Returns the regular expression that corresponds to the action command.
+     *
+     * @param action The action for which the command format is retrieved.
+     * @return The regular expression string corresponding to the action.
+     */
+    private static String getCommandFormat(String action) {
+        switch (action) {
+        case "tag":
+            return "^tag\\s+\\d+\\s+(.+?)$";
+        case "untag":
+            return "^untag\\s+\\d+\\s+(.+?)$";
+        default:
+            return "^" + action + " \\d+$";
+        }
     }
 
     /**
@@ -93,5 +119,26 @@ public class Parser {
      */
     public static String getKeyword(String input) {
         return input.substring(input.indexOf(" ") + 1).trim();
+    }
+
+    /**
+     * Extracts the tag from a tag command.
+     * The input must follow the format: tag taskNumber tagString
+     *
+     * @param input The user input string in the form tag taskNumber tagString
+     * @return The extracted tag as a string.
+     * @throws IllegalArgumentException If the input format is invalid.
+     */
+    public static String getTagFromInput(String input) {
+        // Split the input based on spaces
+        String[] inputParts = input.split("\\s+");
+
+        // Validate that the input has at least 3 parts ("tag", task number, and the tag)
+        if (inputParts.length < 3) {
+            throw new IllegalArgumentException("Invalid input format. Expected format: 'tag <taskNumber> <tag>'.");
+        }
+
+        // The tag is the third part of the input (index 2)
+        return inputParts[2];
     }
 }

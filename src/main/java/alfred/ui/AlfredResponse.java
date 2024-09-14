@@ -93,6 +93,14 @@ public class AlfredResponse {
         return messageHeader + formatTasks(foundTasks);
     }
 
+    /**
+     * Formats a list of tasks into a numbered string format.
+     * Each task is displayed on a new line, prefixed by its position in the list.
+     * This method is useful for presenting tasks in a user-friendly format.
+     *
+     * @param foundTasks The list of tasks to format and display.
+     * @return A formatted string containing the task list, with each task numbered.
+     */
     private static String formatTasks(List<Task> foundTasks) {
         StringBuilder response = new StringBuilder();
         for (int i = 0; i < foundTasks.size(); i++) {
@@ -114,7 +122,7 @@ public class AlfredResponse {
      * @return The message indicating task completion.
      */
     public static String showTaskMarked(Task task) {
-        return "Indeed, Sir, the task has been duly completed:\n    " + task;
+        return "Indeed, Sir, the task has been duly completed:\n" + task;
     }
 
     /**
@@ -124,7 +132,7 @@ public class AlfredResponse {
      * @return The message indicating the task remains incomplete.
      */
     public static String showTaskUnmarked(Task task) {
-        return "Very well Sir, the task remains outstanding:\n    " + task
+        return "Very well Sir, the task remains outstanding:\n" + task
                 + "\nA reminder that even small tasks deserve attention.";
     }
 
@@ -136,8 +144,40 @@ public class AlfredResponse {
      * @return The message indicating task deletion.
      */
     public static String showTaskDeleted(Task task, int remainingTasks) {
-        return "Of course Sir, the task has been successfully removed.\n    " + task
+        return "Of course Sir, the task has been successfully removed.\n" + task
                 + "\nYour list now contains " + remainingTasks + " tasks.";
+    }
+
+    /**
+     * Generates a message indicating that a task has been tagged
+     *
+     * @param task The task that was tagged
+     * @return The message indicating the task was tagged
+     */
+    public static String showTaskTagged(Task task) {
+        return "Of course Sir, I have tagged the task.\n" + task;
+    }
+
+    /**
+     * Generates a message indicating that a task has been untagged
+     * Will return task unchanged if tag was not found
+     *
+     * @param task The task that was tagged
+     * @return The message indicating the task was tagged
+     */
+    public static String showTaskUntagged(Task task) {
+        return "Of course Sir, I have untagged the task.\n" + task;
+    }
+
+    /**
+     * Returns an error message indicating that the input format for tagging/untagging
+     * a task is invalid.
+     *
+     * @return A string that informs the user of the correct tag/untag command format.
+     */
+    public static String showInvalidTagFormat(String tagAction) {
+        return String.format("That is the wrong %s format, Sir.%nIt should go: %s <taskNumber> <tag>",
+                tagAction, tagAction);
     }
 
     /**
