@@ -84,10 +84,10 @@ public class Ui {
     public void findTasks(String userInput, TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
         String[] command = Parser.parseCommand(userInput);
-        String keyword = command[1];
+        String keyword = command[1].toLowerCase(); // Add flexibility for searching items
         String result = "";
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDescription().contains(keyword)) {
+            if (tasks.get(i).getDescription().toLowerCase().contains(keyword)) {
                 result = result + "\n" + (i + 1) + "." + tasks.get(i).toString();
             }
         }
