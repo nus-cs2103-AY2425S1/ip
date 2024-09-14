@@ -1,3 +1,8 @@
+package nebula.ui;
+
+import nebula.task.Task;
+import nebula.task.TaskList;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

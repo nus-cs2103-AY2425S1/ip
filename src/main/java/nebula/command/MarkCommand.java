@@ -1,3 +1,10 @@
+package nebula.command;
+
+import nebula.ui.Parser;
+import nebula.storage.Storage;
+import nebula.task.TaskList;
+import nebula.ui.Ui;
+
 import java.io.IOException;
 
 public class MarkCommand extends Command {

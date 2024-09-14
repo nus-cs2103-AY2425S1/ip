@@ -1,3 +1,9 @@
+package nebula.command;
+
+import nebula.storage.Storage;
+import nebula.task.TaskList;
+import nebula.ui.Ui;
+
 import java.io.IOException;
 
 public class ByeCommand extends Command {
