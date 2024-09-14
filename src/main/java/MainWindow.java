@@ -54,18 +54,20 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         try {
             String response = luna.run(input);
+
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getLunaDialog(response, lunaImage)
+            );
+        } catch (LunaException e) {
             if (input.isEmpty()) {
-                dialogContainer.getChildren().addAll(DialogBox.getLunaDialog(response, lunaImage));
+                dialogContainer.getChildren().addAll(DialogBox.getLunaErrorDialog(e.getMessage(), lunaImage));
             } else {
                 dialogContainer.getChildren().addAll(
                         DialogBox.getUserDialog(input, userImage),
-                        DialogBox.getLunaDialog(response, lunaImage)
+                        DialogBox.getLunaErrorDialog(e.getMessage(), lunaImage)
                 );
             }
-        } catch (LunaException e) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getLunaErrorDialog(e.getMessage(), lunaImage));
         } finally {
             userInput.clear();
         }
