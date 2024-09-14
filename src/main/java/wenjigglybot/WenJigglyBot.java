@@ -201,6 +201,8 @@ public class WenJigglyBot {
             return deleteTask(idx);
         case BYE:
             return "Bye bye!";
+        case HELP:
+            return "Test!";
         default:
             System.out.println("Invalid command!");
         }
