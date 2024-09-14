@@ -202,7 +202,16 @@ public class WenJigglyBot {
         case BYE:
             return "Bye bye!";
         case HELP:
-            return "Test!";
+            return """
+                    You can use these commands!
+                    todo (name)
+                    deadline (name) /by (yyyy-mm-dd)
+                    event (name) /from (date) /by (date)
+                    delete (number)
+                    find (name)
+                    list
+                    mark (index)
+                    unmark (index)""";
         default:
             System.out.println("Invalid command!");
         }
