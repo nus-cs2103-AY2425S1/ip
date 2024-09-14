@@ -1,7 +1,7 @@
 package task;
 
 public class KorolevTask {
-    private boolean status = false;
+    private boolean isDone = false;
     private String name;
 
     private String tag;
@@ -18,14 +18,14 @@ public class KorolevTask {
      * Marks the task and change its displayed message.
      */
     public void markTask() {
-        this.status = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task and change its displayed message.
      */
     public void unmarkTask() {
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
@@ -34,7 +34,7 @@ public class KorolevTask {
      * @return the state whether the task is complete
      */
     public boolean isComplete() {
-        return this.status;
+        return this.isDone;
     }
 
     /**
@@ -80,6 +80,6 @@ public class KorolevTask {
      */
     @Override
     public String toString() {
-        return (this.status ? "[X]" : "[ ]") + " " + this.name;
+        return (this.isDone ? "[X]" : "[ ]") + " " + this.name;
     }
 }
