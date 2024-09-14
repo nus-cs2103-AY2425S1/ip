@@ -76,6 +76,7 @@ public class TaskList {
      * @return The created ToDo task.
      */
     public String addToDo(String description) {
+        assert description != null && !description.isEmpty() : "ToDo description should not be null or empty";
         Task t = new ToDo(description);
         return this.addTask(t);
     }
@@ -88,6 +89,8 @@ public class TaskList {
      * @return The created Deadline task.
      */
     public String addDeadline(String description, String end) {
+        assert description != null && !description.isEmpty() : "Deadline description should not be null or empty";
+        assert end != null && !end.isEmpty() : "Deadline end time should not be null or empty";
         Task t = new Deadline(description, end);
         return this.addTask(t);
     }
@@ -101,6 +104,9 @@ public class TaskList {
      * @return The created Event task.
      */
     public String addEvent(String description, String start, String end) {
+        assert description != null && !description.isEmpty() : "Event description should not be null or empty";
+        assert start != null && !start.isEmpty() : "Event start time should not be null or empty";
+        assert end != null && !end.isEmpty() : "Event end time should not be null or empty";
         Task t = new Event(description, start, end);
         return this.addTask(t);
     }
@@ -111,15 +117,19 @@ public class TaskList {
      * @param s The storage where tasks will be saved.
      */
     public void saveTask(Storage s) {
+        assert s != null : "Storage should not be null";
         s.prepareSave();
         for (Task t: this.tasks) {
+            assert t != null : "Task in the task list should not be null";
             s.saveTask(t.toSave());
         }
     }
 
     public String findTasks(String name) {
+        assert name != null && !name.isEmpty() : "Search keyword should not be null or empty";
         ArrayList<Task> temp = new ArrayList<>();
         for (Task t: this.tasks) {
+            assert t != null : "Task in the task list should not be null";
             if (t.getDescription().toLowerCase().contains(name.toLowerCase())) {
                 temp.add(t);
             }
