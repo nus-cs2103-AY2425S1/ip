@@ -1,8 +1,10 @@
 package BonnieGUI;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import Exceptions.*;
 import Tasks.*;
+import java.time.temporal.ChronoUnit;
 
 
 public class GUIParser {
@@ -55,6 +57,21 @@ public class GUIParser {
             String list = "Bonnie has found the matching tasks!\n";
             for (int i = 0; i < foundTasks.size(); i++) {
                 list += String.format("%d. %s\n", i+1, foundTasks.get(i));
+            }
+            output = list;
+        } else if (checkRemindCommand(input)) {
+            String[] arr = input.split(" ", 2);
+            int withinDays = Integer.valueOf(arr[1]);
+            String list = String.format("These deadlines are due within the next %d days\n", withinDays);
+            for (int i = 1; i <= GUITaskList.getSize(); i++) {
+                Task currTask = GUITaskList.getTasks().get(i - 1);
+                if (currTask instanceof Deadline) {
+                    Deadline d = (Deadline) currTask;
+                    if (ChronoUnit.DAYS.between(LocalDate.now(), d.getDeadline()) <= withinDays)
+                        list += String.format("%d. %s\n", i, d.toStringFormatted());
+                } else {
+                    list += String.format("%d. %s\n", i, currTask.toString());
+                }
             }
             output = list;
         }
@@ -149,5 +166,19 @@ public class GUIParser {
 
         return String.format("Hey %s, I have added \"%s\" into your task list!\n" +
                 "You now have %d tasks to complete!\n", MainWindow.username, name, GUITaskList.getSize());
+    }
+
+    private static boolean checkRemindCommand(String targetString) {
+        String[] arr = targetString.split(" ", 2);
+        if (arr[0].equals("remind") && arr.length == 2) {
+            try {
+                Integer remindLimit = Integer.valueOf(arr[1]);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }

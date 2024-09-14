@@ -44,4 +44,8 @@ public class Deadline extends Task implements Comparable<Deadline> {
             return 0;
         }
     }
+
+    public LocalDate getDeadline() {
+        return this.by;
+    }
 }
