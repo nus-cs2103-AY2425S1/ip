@@ -2,6 +2,7 @@ package yappingbot.commands;
 
 import java.util.HashMap;
 
+import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
@@ -18,7 +19,7 @@ public class Parser {
      * @see <a href="https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016"> Uses for enum </a>
      */
     public enum CommandTypes {
-        FIND, LIST, MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, EXIT, RESET_LIST, UNKNOWN
+        FIND, LIST, MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, EXIT, RESET_LIST, ALIAS, UNKNOWN
     }
 
     /**
@@ -63,6 +64,8 @@ public class Parser {
         commandsHashMap.put("exit", CommandTypes.EXIT);
         commandsHashMap.put(":q", CommandTypes.EXIT);
 
+        commandsHashMap.put("alias", CommandTypes.ALIAS);
+
     }
 
     /**
@@ -86,6 +89,25 @@ public class Parser {
                 throw new YappingBotUnknownCommandException(commandString);
             }
         }
+    }
+
+    /**
+     * Adds new aliases for commands.
+     *
+     * @param currentCommand String of the current command to execute
+     * @param newAlias New alias to launch same command
+     */
+    public void addAlias(String currentCommand, String newAlias) {
+        // TODO: persistant settings
+        assert currentCommand != null;
+        assert  newAlias != null;
+        if (!commandsHashMap.containsKey(currentCommand)) {
+            throw new YappingBotIncorrectCommandException(
+                    ReplyTextMessages.ALIAS_USAGE,
+                    currentCommand);
+        }
+
+        commandsHashMap.putIfAbsent(newAlias, commandsHashMap.get(currentCommand));
     }
 
     /**

@@ -92,6 +92,14 @@ public class YappingBot {
                 case EXIT:
                     // exits the function, ending the main loop
                     return;
+                case ALIAS:
+                    // creates new alias
+                    // TODO: abstract this out to a Command object
+                    parser.addAlias(userInputSlices[1], userInputSlices[2]);
+                    ui.printf(ReplyTextMessages.ALIAS_ADDED_TEXT_2s,
+                              userInputSlices[1],
+                              userInputSlices[2]);
+                    break;
                 case RESET_LIST:
                     // resets any filter on the list
                     userList = new ResetViewCommand()
