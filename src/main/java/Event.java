@@ -22,8 +22,12 @@ public class Event extends Task {
     }
 
     /**
-     * Parses the input date string. If it contains only a date without time,
-     * appends "T00:00" to default the time to midnight.
+     * Parses the input date string and returns a LocalDateTime object. If it
+     * contains only a date without time, appends "00:00" to default the
+     * time to midnight.
+     *
+     * @param dateStr The start or end date of the task provided by the user
+     * @return A LocalDateTime object to be assigned to the start and end fields
      */
     private LocalDateTime parseDateTimeOrDate(String dateStr) {
         try {

@@ -60,7 +60,7 @@ public class Nebula {
 
             else if(command.startsWith("mark")) {
                 try {
-                    validateCommand(command, taskList);
+                    validateCommand(command);
                 } catch (NebulaException e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -71,7 +71,7 @@ public class Nebula {
 
             else if(command.startsWith("unmark")) {
                 try {
-                    validateCommand(command, taskList);
+                    validateCommand(command);
                 } catch (NebulaException e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -82,7 +82,7 @@ public class Nebula {
 
             else if(command.startsWith("delete")) {
                 try {
-                    validateCommand(command, taskList);
+                    validateCommand(command);
                 } catch (NebulaException e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -93,7 +93,7 @@ public class Nebula {
 
             else {
                 try {
-                    validateCommand(command, taskList);
+                    validateCommand(command);
                 } catch (NebulaException e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -148,11 +148,9 @@ public class Nebula {
      * Validates the user's input for the correct format and content
      *
      * @param command  the user input command
-     * @param taskList the current list of tasks
      * @throws NebulaException if the command is invalid or improperly formatted
      */
-    public static void validateCommand(String command, TaskList taskList) throws NebulaException {
-        Parser parser = new Parser();
+    public static void validateCommand(String command) throws NebulaException {
         Ui ui = new Ui();
 
         if (command.isEmpty()) {
@@ -220,6 +218,12 @@ public class Nebula {
         }
     }
 
+    /**
+     * Validates if the provided date string is in a valid date format
+     *
+     * @param dateStr the date string to be validated. It can be in either of two formats
+     * @return A boolean representing whether the date string is in a valid format
+     */
     private static boolean isValidDate(String dateStr) {
         try {
             System.out.println("Date str: " + dateStr);
@@ -386,6 +390,16 @@ public class Nebula {
         return listOfTasks;
     }
 
+    /**
+     * Converts a date string from one format to another. This method parses
+     * the provided date string using a predefined input format and then formats it
+     * into a different predefined output format.
+     *
+     * @param dateStr the date string to be converted
+     * @return the date string formatted to the target format
+     * @throws IllegalArgumentException if the provided date string is
+     * not in the expected format
+     */
     public static String convertDate(String dateStr) {
         // Parse the date string using the original format
         LocalDateTime dateTime;
@@ -398,11 +412,4 @@ public class Nebula {
         // Format the LocalDateTime object to the target format
         return dateTime.format(DATE_TIME_FORMAT);
     }
-
-
-
-
-
-
-
 }

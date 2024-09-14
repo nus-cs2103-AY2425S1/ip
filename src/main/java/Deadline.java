@@ -4,23 +4,28 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
+
+    private LocalDateTime deadline;
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     /**
      * Constructs a Deadline task with the specified description and deadline
      *
      * @param description The description of the task provided by the user
      * @param deadline The deadline of the task provided by the user
      */
-    private LocalDateTime deadline;
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     public Deadline(String description, String deadline) {
         super(description);
         this.deadline = parseDateTimeOrDate(deadline);
     }
 
     /**
-     * Parses the input date string. If it contains only a date without time,
-     * appends "T00:00" to default the time to midnight.
+     * Parses the input date string and returns a LocalDateTime object. If it
+     * contains only a date without time, appends "00:00" to default the
+     * time to midnight.
+     *
+     * @param dateStr The deadline of the task provided by the user
+     * @return A LocalDateTime object to be assigned to the deadline field
      */
     private LocalDateTime parseDateTimeOrDate(String dateStr) {
         try {
