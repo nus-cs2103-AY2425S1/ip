@@ -18,7 +18,7 @@ public class Ui {
     }
 
     /**
-     * Print task added message.
+     * Prints a message indicating that a task has been added.
      * @param task
      * @param taskCount
      */
@@ -33,7 +33,7 @@ public class Ui {
     }
 
     /**
-     * Print goodbye message.
+     * Prints a goodbye message to the user.
      */
     public void byeMessage() {
         System.out.println("____________________________________________________________");
@@ -42,7 +42,7 @@ public class Ui {
     }
 
     /**
-     * Print task deleted message.
+     * Prints a message indicating that a task has been deleted.
      * @param task
      * @param taskCount
      */
