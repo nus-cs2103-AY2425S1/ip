@@ -15,6 +15,8 @@ public class HelpCommand extends Command {
                 "6. event <task description> /from <from> /to <to>\n\t- Creates an event\n" +
                 "7. delete <task number>\n\t- deletes the task\n" +
                 "8. find <keyword>\n\t- finds all tasks whose descriptions contain the keyword\n"
-                + "9. (CLI only) bye\n\t- exits the program";
+                + "9. Summarise (/from <date> /to <date>)\n\t- returns the number of tasks completed"
+                + " in the past week (or date range if /from and /to are specified)\n"
+                + "10. (CLI only) bye\n\t- exits the program";
     }
 }

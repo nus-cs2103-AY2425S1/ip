@@ -11,6 +11,9 @@ import bob.command.HelpCommand;
 import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.MatchListCommand;
+import bob.command.SummariseCommand;
+import bob.command.SummariseRangeCommand;
+import bob.command.SummariseWeekCommand;
 import bob.command.UnmarkCommand;
 import bob.exception.EmptyFieldException;
 import bob.exception.InvalidCommandException;
@@ -109,14 +112,28 @@ public class Parser {
             }
             return new AddCommand(task);
         }
+
+        if (input.startsWith("Summarise")) {
+            if (input.equals("Summarise week")) {
+                return new SummariseWeekCommand();
+            }
+            String from = input.substring(
+                    input.indexOf("/from") + "/from".length(),
+                    input.indexOf("/to")).trim();
+            String to = input.substring(input.indexOf("/to") + "/to".length()).trim();
+            if (from.isEmpty() || to.isEmpty()) {
+                throw new EmptyFieldException();
+            }
+            return new SummariseRangeCommand(parseDatetime(from), parseDatetime(to));
+        }
         throw new InvalidCommandException();
     }
 
     /**
-     * Converts input of format "yyyy-MM-dd HHmm" into a LocalDateTime object
+     * Converts input of format "dd/MM/yy HHmm" into a LocalDateTime object
      */
     private LocalDateTime parseDatetime(String input) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
         return LocalDateTime.parse(input, formatter);
     }
 

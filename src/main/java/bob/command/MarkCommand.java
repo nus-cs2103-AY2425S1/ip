@@ -1,6 +1,7 @@
 package bob.command;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import bob.Storage;
 import bob.TaskList;
@@ -22,7 +23,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         try {
             Task task = tasks.getTask(taskIndex);
-            task.mark();
+            task.mark(LocalDateTime.now());
             storage.save(tasks);
             return String.format("Nice! I've marked this task as done:\n\t%s", task);
         } catch (IndexOutOfBoundsException e) {
