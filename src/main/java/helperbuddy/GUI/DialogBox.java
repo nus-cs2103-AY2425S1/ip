@@ -1,4 +1,4 @@
-package myapp.helperbuddy;
+package helperbuddy.GUI;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.scene.layout.HBox;
 
 /**
@@ -23,6 +24,8 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    private static final double PROFILE_PICTURE_RADIUS = 50.0;
+
     /**
      * Constructs a DialogBox object with the specified text and image.
      * This constructor loads the FXML layout for the dialog box and initializes
@@ -33,6 +36,7 @@ public class DialogBox extends HBox {
     private DialogBox(String text, Image img) {
         assert text != null : "Dialog text should not be null";
         assert img != null : "Image should not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -41,8 +45,10 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         dialog.setText(text);
         displayPicture.setImage(img);
+        makeProfilePictureCircular();
     }
 
     /**
@@ -57,18 +63,39 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Changes the dialog colour style for different user commands.
+     * @param commandType the type of the user command.
+     */
+    public void changeDialogStyle(String commandType) {
+        switch (commandType) {
+        case "AddCommand":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "MarkCommand":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "DeleteCommand":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        }
+    }
+
+    /**
      * Creates and returns a DialogBox representing the bot's dialog.
      * The dialog box will display the specified text and image, with the alignment flipped
      * so that the image appears on the left side and the text on the right.
      * @param text to be displayed in the bot's dialog box.
      * @param img  to be displayed alongside the bot's dialog.
+     * @param commandType indicates the type of user command for bot to process.
      * @return DialogBox object containing the bot's dialog.
      */
-    public static DialogBox getBuddyDialog(String text, Image img) {
+    public static DialogBox getBuddyDialog(String text, Image img, String commandType) {
         assert text != null : "Dialog text for buddy should not be null";
         assert img != null : "Image for buddy should not be null";
+
         DialogBox db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
 
@@ -76,18 +103,34 @@ public class DialogBox extends HBox {
      * Flips the dialog box horizontally, reversing the order of the text and image.
      * This method is used to align the bot's dialog differently from the user's dialog.
      */
-    private void flip() {
+    public void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
 
-        // Assert that the alignment is correctly set after flip
         assert getAlignment().equals(Pos.TOP_LEFT) : "Alignment should be TOP_LEFT after flip";
 
-        // Assert that the children are reversed correctly
         ObservableList<Node> reversedChildren = FXCollections.observableArrayList(getChildren());
         Collections.reverse(reversedChildren);
         assert getChildren().equals(reversedChildren) : "Children should be reversed after flip";
+        dialog.getStyleClass().add("reply-label");
+    }
+
+    /**
+     * Makes the profile picture circular.
+     */
+    public void makeProfilePictureCircular() {
+        double diameter = PROFILE_PICTURE_RADIUS * 2;
+        Circle clip = new Circle(PROFILE_PICTURE_RADIUS, PROFILE_PICTURE_RADIUS, PROFILE_PICTURE_RADIUS);
+        displayPicture.setClip(clip);
+
+        displayPicture.setFitWidth(diameter);
+        displayPicture.setFitHeight(diameter);
+        displayPicture.setPreserveRatio(true);
+
+        displayPicture.layoutBoundsProperty().addListener((obs, oldBounds, newBounds) -> {
+            clip.setRadius(Math.min(newBounds.getWidth(), newBounds.getHeight()) / 2.0);
+        });
     }
 }

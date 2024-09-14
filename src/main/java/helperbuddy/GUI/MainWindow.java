@@ -1,4 +1,4 @@
-package myapp.helperbuddy;
+package helperbuddy.GUI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,9 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import myapp.helperbuddy.Ui;
 
 /**
- * MainWindow class which helps to create the visuals for the GUI
+ * MainWindow class which helps to create the visuals for the GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -37,6 +38,7 @@ public class MainWindow extends AnchorPane {
         assert sendButton != null : "SendButton must be initialized.";
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        userInput.setPromptText("Type here...");
     }
 
     /**
@@ -60,9 +62,10 @@ public class MainWindow extends AnchorPane {
         String response = getResponse(input);
         assert response != null : "Buddy response should not be null.";
 
+        String commandType = buddy.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBuddyDialog(response, buddyImage)
+                DialogBox.getBuddyDialog(response, buddyImage, commandType)
         );
         userInput.clear();
     }
@@ -71,7 +74,7 @@ public class MainWindow extends AnchorPane {
      * Handles user input and processes it using the Ui class.
      * @return the buddy response in the dialog container.
      */
-    private String getResponse(String input) {
+    public String getResponse(String input) {
         return buddy.processCommand(input);
     }
 }
