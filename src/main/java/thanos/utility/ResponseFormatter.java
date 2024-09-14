@@ -22,11 +22,6 @@ public class ResponseFormatter {
 
     /**
      * Generates a formatted response displaying the list of tasks.
-     * <p>
-     * This method creates a string representation of the tasks, including a header,
-     * and formats each task with its index. If no tasks are provided, it returns a message
-     * indicating that no tasks were found.
-     * </p>
      *
      * @param header The header to be displayed before listing the tasks.
      * @param taskList Varargs parameter representing the tasks to be displayed.

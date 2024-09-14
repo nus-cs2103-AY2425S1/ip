@@ -23,11 +23,6 @@ public class Main extends Application {
 
     /**
      * The main entry point for the JavaFX application.
-     * <p>
-     * This method sets up the primary stage for the application, loads the FXML layout, applies the CSS stylesheet,
-     * and sets the scene with the main window. It also initializes the {@code Thanos} instance and assigns it to
-     * the controller of the main window.
-     * </p>
      *
      * @param stage the primary stage for this application, onto which the scene will be set.
      */

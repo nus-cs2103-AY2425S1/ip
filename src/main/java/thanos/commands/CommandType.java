@@ -18,10 +18,6 @@ public enum CommandType {
 
     /**
      * Retrieves the {@code CommandType} associated with the given command string.
-     * <p>
-     * This method maps command strings to their corresponding {@code CommandType} enum values.
-     * If the command string does not match any recognized command, {@code INVALID} is returned.
-     * </p>
      *
      * @param command the command string to be mapped to a {@code CommandType}.
      * @return the {@code CommandType} corresponding to the provided command string,

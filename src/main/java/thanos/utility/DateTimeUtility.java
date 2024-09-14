@@ -52,11 +52,6 @@ public class DateTimeUtility {
 
     /**
      * Parses a string into a {@code LocalDateTime} object using multiple date and time formats.
-     * <p>
-     * This method attempts to parse the input string using various date and time format patterns.
-     * If parsing as a {@code LocalDateTime} fails, it attempts to parse the string as a {@code LocalDate} and
-     * convert it to a {@code LocalDateTime} at the start of the day.
-     * </p>
      *
      * @param s the string to parse.
      * @return the parsed {@code LocalDateTime} object, or {@code null} if parsing fails.
@@ -82,10 +77,7 @@ public class DateTimeUtility {
 
     /**
      * Attempts to parse the given string into a {@code LocalDateTime} using predefined
-     * {@code DateTimeFormatter} instances for date-time formats. If the string can be parsed
-     * as a {@code LocalDateTime}, it returns the corresponding value.
-     *
-     * <p>If none of the formatters can parse the string, this method returns {@code null}.
+     * {@code DateTimeFormatter} instances for date-time formats.
      *
      * @param s the string to parse, expected to be in a date-time format.
      * @return the parsed {@code LocalDateTime} or {@code null} if no matching format is found.
@@ -103,11 +95,8 @@ public class DateTimeUtility {
 
     /**
      * Attempts to parse the given string into a {@code LocalDateTime} using predefined
-     * {@code DateTimeFormatter} instances for date formats. If the string can be parsed
-     * as a {@code LocalDate}, it returns the corresponding {@code LocalDateTime} set at
-     * the start of the day.
+     * {@code DateTimeFormatter} instances for date formats.
      *
-     * <p>If none of the formatters can parse the string, this method returns {@code null}.
      *
      * @param s the string to parse, expected to be in a date format.
      * @return the parsed {@code LocalDateTime} representing the start of the day, or {@code null}
@@ -126,10 +115,6 @@ public class DateTimeUtility {
 
     /**
      * Formats a {@code LocalDateTime} object into a string using the output format.
-     * <p>
-     * This method converts a {@code LocalDateTime} to a string representation using the pattern
-     * "MMM dd yyyy HH:mm".
-     * </p>
      *
      * @param date the {@code LocalDateTime} object to format.
      * @return the formatted string representation of the {@code LocalDateTime}.

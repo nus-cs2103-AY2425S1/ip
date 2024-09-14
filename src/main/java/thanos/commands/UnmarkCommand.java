@@ -11,8 +11,7 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs an {@code UnmarkCommand} with the given argument.
      *
-     * @param argument the argument associated with this command, which is expected to be the index of the task to
-     *                 unmark. The index should be provided in a format like 'unmark [task index]'.
+     * @param argument the argument associated with this command.
      */
     public UnmarkCommand(String argument) {
         super(argument);
@@ -20,16 +19,10 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the command to unmark a task in the {@code TaskList}.
-     * <p>
-     * This method parses the task index from the command argument, unmarks the corresponding task in the
-     * {@code TaskList}, and returns a message indicating that the task has been unmarked. If the argument is empty,
-     * incorrectly formatted, or if the index is invalid, an {@code InvalidCommandException} is thrown.
-     * </p>
      *
      * @param taskList The {@code TaskList} from which the specified task will be unmarked.
      * @return A formatted string confirming that the task has been marked as not done yet.
-     * @throws InvalidCommandException If the argument is empty, incorrectly formatted, or if the index is invalid
-     *         (either not an integer or out of range).
+     * @throws InvalidCommandException If the argument is empty, incorrectly formatted, or if the index is invalid.
      */
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {

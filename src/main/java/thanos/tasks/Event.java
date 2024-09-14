@@ -33,10 +33,6 @@ public class Event extends Task {
 
     /**
      * Checks if the given date falls within the event's duration.
-     * <p>
-     * This method returns {@code true} if the provided date is equal to the start time,
-     * end time, or any time in between; otherwise, it returns {@code false}.
-     * </p>
      *
      * @param date the date to check against the event's duration.
      * @return {@code true} if the given date is within the event's duration; {@code false} otherwise.

@@ -20,11 +20,6 @@ import thanos.exceptions.InvalidCommandException;
 public class Parser {
     /**
      * Parses the provided input string and returns the corresponding {@code Command} object.
-     * <p>
-     * The input string is split into a command and its arguments. The command is matched to a {@code CommandType},
-     * and a new instance of the appropriate {@code Command} subclass is created with the given arguments.
-     * If the input is invalid or unrecognized, an {@code InvalidCommandException} is thrown.
-     * </p>
      *
      * @param input the user input string to be parsed. It should contain the command and optional arguments.
      * @return a {@code Command} object corresponding to the input string.

@@ -26,10 +26,6 @@ public class Deadline extends Task {
 
     /**
      * Checks if the given date matches the deadline of this task.
-     * <p>
-     * This method returns {@code true} if the provided date is equal to the deadline
-     * of this task; otherwise, it returns {@code false}.
-     * </p>
      *
      * @param date the date to check against the task's deadline.
      * @return {@code true} if the given date matches the deadline; {@code false} otherwise.

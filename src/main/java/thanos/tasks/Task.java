@@ -4,11 +4,6 @@ import java.time.LocalDateTime;
 
 /**
  * Represents a task with a description and a completion status.
- * <p>
- * The {@code Task} class provides a basic structure for a task, including methods for setting
- * its completion status, checking if it matches a given date, and generating string representations
- * of the task for display and storage.
- * </p>
  */
 public class Task {
     /**
@@ -41,11 +36,6 @@ public class Task {
 
     /**
      * Checks if this task matches the given date.
-     * <p>
-     * This method provides a way to check if the task is associated with the specified date.
-     * By default, this method returns {@code false} as the {@code Task} class does not handle
-     * specific date-based logic.
-     * </p>
      *
      * @param date the date to be checked.
      * @return {@code true} if the task matches the date; {@code false} otherwise.
@@ -56,10 +46,6 @@ public class Task {
 
     /**
      * Returns a string representation of this task for display purposes.
-     * <p>
-     * The string representation includes the task's completion status (marked as "X" if completed,
-     * or a space if not) and its description.
-     * </p>
      *
      * @return a string representation of this task.
      */
@@ -71,10 +57,6 @@ public class Task {
 
     /**
      * Returns a string representation of this task for storage purposes.
-     * <p>
-     * The string representation includes the task's completion status (represented as "1" if completed,
-     * or "0" if not) and its description, formatted for saving to a file or database.
-     * </p>
      *
      * @return a string representation of this task suitable for storage.
      */

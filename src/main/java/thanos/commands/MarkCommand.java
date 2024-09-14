@@ -11,8 +11,7 @@ public class MarkCommand extends Command {
     /**
      * Constructs a {@code MarkCommand} with the given argument.
      *
-     * @param argument the argument associated with this command, which is expected to be the index of the task to mark.
-     *                 The index should be provided in a format like 'mark [task index]'.
+     * @param argument the argument associated with this command.
      */
     public MarkCommand(String argument) {
         super(argument);
@@ -20,16 +19,10 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the command to mark a task as completed.
-     * <p>
-     * This method parses the task index from the command argument, marks the corresponding task in the {@code TaskList}
-     * as completed, and returns a message indicating that the task has been marked as done. If the argument is empty,
-     * incorrectly formatted, or if the index is invalid, an {@code InvalidCommandException} is thrown.
-     * </p>
      *
      * @param taskList The {@code TaskList} containing the task to be marked as completed.
      * @return A formatted string confirming that the task has been marked as done.
-     * @throws InvalidCommandException If the argument is empty, incorrectly formatted, or if the index is invalid
-     *         (either not an integer or out of range).
+     * @throws InvalidCommandException If the argument is empty, incorrectly formatted, or if the index is invalid.
      */
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {

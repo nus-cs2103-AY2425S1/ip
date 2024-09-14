@@ -9,11 +9,6 @@ import thanos.tasks.TaskList;
 
 /**
  * Represents a task management application that handles user commands and manages tasks.
- * <p>
- * The {@code Thanos} class interacts with a {@code TaskList} to execute commands and provide responses
- * based on user input. It handles the initialization of the {@code TaskList} with data storage and processes
- * commands through the {@code Command} class.
- * </p>
  */
 public class Thanos {
     /**
@@ -33,11 +28,6 @@ public class Thanos {
 
     /**
      * Processes the user input command and returns the corresponding response.
-     * <p>
-     * This method parses the user input to create a {@code Command} object, executes the command using the
-     * {@code TaskList}, and returns the result as a {@code String}. If the command is invalid, an error message
-     * is returned.
-     * </p>
      *
      * @param userInput The input command provided by the user. It is parsed and executed to generate a response.
      * @return A {@code String} representing the response from executing the command.

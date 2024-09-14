@@ -5,16 +5,12 @@ import thanos.tasks.TaskList;
 
 /**
  * Represents a command to exit the application.
- * <p>
- * When executed, this command will display a farewell message to the user.
- * It also indicates that the application should terminate.
- * </p>
  */
 public class ByeCommand extends Command {
     /**
      * Constructs a {@code ByeCommand} with the given argument.
      *
-     * @param argument the argument provided to the command. This argument is not used for this command.
+     * @param argument the argument provided to the command.
      */
     public ByeCommand(String argument) {
         super(argument);

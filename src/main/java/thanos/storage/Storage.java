@@ -20,12 +20,8 @@ import thanos.tasks.Todo;
 import thanos.utility.DateTimeUtility;
 
 /**
- * Handles the loading and saving of tasks to and from a file.
- * <p>
- * The {@code Storage} class implements the {@code IStorage} interface to manage
- * reading from and writing to a file, ensuring that task data is preserved
- * across application runs.
- * </p>
+ * Implements the {@code IStorage} interface to manage reading from and writing to a file,
+ * ensuring that task data is preserved across application runs.
  */
 public class Storage implements IStorage {
     /**
@@ -40,10 +36,6 @@ public class Storage implements IStorage {
 
     /**
      * Constructs a {@code Storage} object with the specified file name.
-     * <p>
-     * This constructor initializes the file path for storing task data,
-     * creating a {@code File} object to represent the file.
-     * </p>
      *
      * @param fileName the name of the file to store task data.
      * @throws AssertionError if the fileName provided is empty and assertions are enabled.
@@ -56,11 +48,6 @@ public class Storage implements IStorage {
 
     /**
      * Loads tasks from the file.
-     * <p>
-     * This method reads the file line by line, converting each line to a {@code Task}
-     * object. It returns a list of tasks loaded from the file. If an error occurs,
-     * it returns an empty list.
-     * </p>
      *
      * @return an {@code ArrayList} of {@code Task} objects read from the file.
      */
@@ -72,12 +59,6 @@ public class Storage implements IStorage {
 
     /**
      * Reads tasks from a file and converts them into a list of {@code Task} objects.
-     * <p>
-     * This method reads each line from the file, converts it into a {@code Task} object, and
-     * adds it to the task list. If the file is not found, an empty list is returned. In the
-     * case of an I/O error during reading, the error is printed, and the method returns any
-     * tasks successfully read up to that point.
-     * </p>
      *
      * @return an {@code ArrayList} of {@code Task} objects loaded from the file. If no tasks
      *         are found or the file does not exist, an empty list is returned.
@@ -101,14 +82,9 @@ public class Storage implements IStorage {
     }
 
     /**
-     * Saves the given list of tasks to the file.
-     * <p>
-     * This method writes each task's string representation to the file,
-     * with each task on a new line. If an error occurs during writing,
-     * it prints an error message to the console.
-     * </p>
+     * Saves the given list of tasks to a file.
      *
-     * @param taskList the list of {@code Task} objects to be saved to the file.
+     * @param taskList the {@code ArrayList} of {@code Task} objects to be saved to the file.
      */
     @Override
     public void save(ArrayList<Task> taskList) {
@@ -117,13 +93,7 @@ public class Storage implements IStorage {
     }
 
     /**
-     * Saves the list of tasks to a file.
-     * <p>
-     * This method writes each {@code Task} in the provided task list to the file. Each task
-     * is converted to its string representation using the {@code toFileString()} method
-     * and written to a new line in the file. If an error occurs while writing to the file,
-     * an error message is printed to the console.
-     * </p>
+     * Helper function to save a list of tasks to a file.
      *
      * @param taskList the {@code ArrayList} of {@code Task} objects to be saved to the file.
      */
@@ -139,11 +109,7 @@ public class Storage implements IStorage {
     }
 
     /**
-     * Ensures that the file exists and creates it if necessary.
-     * <p>
-     * This method checks if the file's parent directories exist and creates them if they don't.
-     * It also creates a new file if it does not already exist.
-     * </p>
+     * Ensures that the file exists and creates parent directories or a new file if necessary.
      */
     private void ensureFileExists() {
         try {
@@ -162,10 +128,6 @@ public class Storage implements IStorage {
 
     /**
      * Converts a string representation of a task to a {@code Task} object.
-     * <p>
-     * This method parses a line from the file into a {@code Task} object based on its type and data.
-     * It handles different task types (Todo, Deadline, Event) and validates the data.
-     * </p>
      *
      * @param line the string representation of the task from the file.
      * @return a {@code Task} object if the string is valid; {@code null} otherwise.
@@ -194,8 +156,6 @@ public class Storage implements IStorage {
     /**
      * Creates a task based on the provided parameters.
      *
-     * <p>This method constructs a task of the specified type, using the given description and parts.
-     * It supports creating three types of tasks: Todo, Deadline, and Event.</p>
      *
      * @param line the raw input line used to create the task, which is used for error messages.
      * @param taskType the type of task to create. This should be "T" for Todo, "D" for Deadline, or "E" for Event.

@@ -28,10 +28,6 @@ public class TaskList {
 
     /**
      * Constructs a {@code TaskList} with the specified storage.
-     * <p>
-     * This constructor initializes the {@code TaskList} by loading tasks from
-     * the provided {@code IStorage} instance.
-     * </p>
      *
      * @param storage the {@code IStorage} instance used for loading and saving tasks.
      * @throws AssertionError if the {@code storage} provided is null and assertions are enabled.

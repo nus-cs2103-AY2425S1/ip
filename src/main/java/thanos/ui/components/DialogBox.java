@@ -33,11 +33,6 @@ public class DialogBox extends HBox {
 
     /**
      * Constructs a new {@code DialogBox} with the specified text, image, and style class.
-     * <p>
-     * This constructor initializes the dialog box by loading the FXML layout,
-     * setting the text of the {@code Label}, configuring the {@code ImageView} with the given image,
-     * and applying the specified style class to the {@code Label}. The image is clipped to a circular shape.
-     * </p>
      *
      * @param message the text message to be displayed in the dialog box.
      * @param image the image to be displayed in the dialog box.
@@ -62,9 +57,6 @@ public class DialogBox extends HBox {
 
     /**
      * Reverses the order of the children in the dialog box and aligns it to the top left.
-     * <p>
-     * This method is used to flip the dialog box, typically to switch between user and bot messages.
-     * </p>
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());

@@ -23,11 +23,6 @@ public class FindCommand extends Command {
 
     /**
      * Executes the find command by searching for tasks that contain the specified keyword.
-     * <p>
-     * This method parses the command argument to extract the keyword and searches the {@code TaskList}
-     * for tasks that contain this keyword. It then returns a formatted response with the matching tasks.
-     * If no keyword is provided, an {@code InvalidCommandException} is thrown.
-     * </p>
      *
      * @param taskList The {@code TaskList} containing all tasks to be searched.
      * @return A formatted string listing the matching tasks along with a header.

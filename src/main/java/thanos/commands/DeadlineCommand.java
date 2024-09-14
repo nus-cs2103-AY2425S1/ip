@@ -17,8 +17,7 @@ public class DeadlineCommand extends Command {
     /**
      * Constructs a {@code DeadlineCommand} with the given argument.
      *
-     * @param argument the argument associated with this command. The argument should be a string in the format
-     *                 'deadline [task] /by [due date]'.
+     * @param argument the argument associated with this command.
      */
     public DeadlineCommand(String argument) {
         super(argument);
@@ -26,12 +25,6 @@ public class DeadlineCommand extends Command {
 
     /**
      * Executes the command to add a deadline task to the {@code TaskList}.
-     * <p>
-     * This method parses the command argument to extract the task description and due date. It then creates a new
-     * {@code Deadline} object with these details, adds it to the {@code TaskList}, and returns a formatted string
-     * confirming the addition of the task. If the argument is incorrectly formatted or the date cannot be parsed,
-     * an {@code InvalidCommandException} is thrown.
-     * </p>
      *
      * @param taskList the list of tasks to which the new deadline task will be added.
      * @return a formatted string confirming the addition of the deadline task and displaying the updated task count.

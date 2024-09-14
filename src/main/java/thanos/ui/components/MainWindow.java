@@ -63,11 +63,6 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Handles user input from the text field and updates the dialog container with the user's input and the response.
-     * <p>
-     * This method processes the user's text input, generates a response from the {@code Thanos} instance,
-     * and updates the dialog container with both the user's message and the response. If the response indicates
-     * a farewell, the application will exit after a short delay.
-     * </p>
      */
     @FXML
     private void handleUserInput() {

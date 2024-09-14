@@ -20,8 +20,7 @@ public class DateCommand extends Command {
     /**
      * Constructs a {@code DateCommand} with the given date argument.
      *
-     * @param argument the date argument associated with this command. The argument should be a string representing
-     *                 the date to search for tasks.
+     * @param argument the date argument associated with this command.
      */
     public DateCommand(String argument) {
         super(argument);
@@ -29,11 +28,6 @@ public class DateCommand extends Command {
 
     /**
      * Executes the command to find and display tasks for the specified date.
-     * <p>
-     * This method parses the date from the command's argument, searches the {@code TaskList} for tasks occurring on
-     * that date, and returns a formatted string with the results. If the argument is empty or the date cannot be
-     * parsed, an {@code InvalidCommandException} is thrown.
-     * </p>
      *
      * @param taskList the list of tasks from which the command searches for tasks that match the specified date.
      * @return a formatted string containing the tasks that occur on the specified date, or an empty string if no tasks

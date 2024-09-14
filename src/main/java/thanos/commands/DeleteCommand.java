@@ -12,14 +12,12 @@ import thanos.tasks.TaskList;
 
 /**
  * Represents a command to delete a task from the {@code TaskList}.
- * It expects an index of the task to be deleted, which is used to locate and remove the task from the list.
  */
 public class DeleteCommand extends Command {
     /**
      * Constructs a {@code DeleteCommand} with the given argument.
      *
-     * @param argument the argument associated with this command. The argument should be a string representing
-     *                 the index of the task to be deleted. The index is expected to be an integer value.
+     * @param argument the argument associated with this command.
      */
     public DeleteCommand(String argument) {
         super(argument);
@@ -27,12 +25,6 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the command to delete one or more tasks from the {@code TaskList}.
-     * <p>
-     * This method parses the command argument to obtain one or more task indices, verifies the format and index,
-     * removes the corresponding tasks from the {@code TaskList}, and returns a formatted string confirming the removal
-     * of the tasks and displaying the updated task count. If the argument is empty, incorrectly formatted, contains
-     * duplicate indices, or if any of the indices are invalid, an {@code InvalidCommandException} is thrown.
-     * </p>
      *
      * @param taskList the list of tasks from which the tasks will be removed.
      * @return a formatted string confirming the removal of the tasks and displaying the updated task count.
@@ -54,7 +46,7 @@ public class DeleteCommand extends Command {
     /**
      * Parses the command argument to extract and return a list of task indices.
      *
-     * @return an {@code ArrayList} of valid task indices, adjusted to zero-based indexing.
+     * @return an {@code ArrayList} of valid task indices.
      * @throws InvalidCommandException if the argument is empty, contains non-integer values or duplicate indices.
      */
     private ArrayList<Integer> getTaskIndices() throws InvalidCommandException {
