@@ -12,6 +12,8 @@ import java.time.format.DateTimeParseException;
 public class SecondMind {
     private static final String logo = "SecondMind";
     private static final String DATA_FILE_PATH = "./SecondMind.txt";
+    private static final String EXIT_INSTRUCTION = "$$$EXIT_PROGRAM$$$";
+
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
@@ -40,7 +42,7 @@ public class SecondMind {
         assert instruction != null;
         String command = instruction[0];
         if (command.equals("bye")) {
-            return "$$$EXIT_PROGRAM$$$";
+            return EXIT_INSTRUCTION;
         } else if (command.equals("mark")) {
             try {
                 int taskNumber = Integer.parseInt(instruction[1]);
