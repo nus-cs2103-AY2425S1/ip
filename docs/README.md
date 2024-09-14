@@ -129,3 +129,9 @@ Example: `alias`
 Here are your aliases and their corresponding command:
 Alias: d, Command: delete
 ```
+
+## Exiting
+
+Closes the GUI and saves all the task in the task list.
+
+Format: `bye`
