@@ -27,7 +27,7 @@ public class AddCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
 
         try {
-            String taskType = splitInput[1];
+            String taskType = splitInput[1].toLowerCase();
             String desc = getDescription(splitInput);
 
             switch (taskType) {

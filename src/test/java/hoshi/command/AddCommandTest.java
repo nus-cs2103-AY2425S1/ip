@@ -57,7 +57,7 @@ public class AddCommandTest {
 
         // assert
         verify(ui).displayTaskAdded("Finish ASG1", splitInput[1]);
-        assertEquals("added: Finish ASG1", response);
+        assertEquals("Hoshi has added Todo: Finish ASG1", response);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class AddCommandTest {
 
         // assert
         verify(ui).displayTaskAdded("Finish ASG1", splitInput[1]);
-        assertEquals("added: Finish ASG1", response);
+        assertEquals("Hoshi has added Deadline: Finish ASG1", response);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class AddCommandTest {
 
         // assert
         verify(ui).displayTaskAdded("Finish ASG1", splitInput[1]);
-        assertEquals("added: Finish ASG1", response);
+        assertEquals("Hoshi has added Event: Finish ASG1", response);
     }
 
     /**
