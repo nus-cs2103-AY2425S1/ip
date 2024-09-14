@@ -39,7 +39,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: "
                 + this.formatTime(this.from)
-                + " to: " + this.formatTime(this.to) + ")";
+                + " to: " + this.formatTime(this.to) + ")"
+                + ")"
+                + " | " + this.getTag();
     }
 
     /**
@@ -54,7 +56,7 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.from
                 .format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm"))
                 + " to: " + this.to
-                .format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm")) + ")";
+                .format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm"));
     }
 
     /**

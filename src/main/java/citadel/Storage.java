@@ -64,15 +64,20 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 // Checks the current line in the file
                 String line = scanner.nextLine();
-                String taskType = line.substring(1, 2);
-                String taskString = line.substring(7);
+                String[] parts = line.split("\\|");
+
+                // Create Tags from the string
+                String[] tagLists = getTagLists(parts);
+
+                String taskType = parts[0].substring(1, 2);
+                String taskString = parts[0].substring(7);
                 // Process each tasks differently according to their types
                 if (taskType.equals("T")) {
-                    tasks.add(createTodo(taskString));
+                    tasks.add(createTodo(taskString, tagLists));
                 } else if (taskType.equals("D")) {
-                    tasks.add(createDeadline(taskString));
+                    tasks.add(createDeadline(taskString, tagLists));
                 } else if (taskType.equals("E")) {
-                    tasks.add(createEvent(taskString));
+                    tasks.add(createEvent(taskString, tagLists));
                 }
             }
 
@@ -80,6 +85,18 @@ public class Storage {
             System.out.println(e.getMessage());
         }
         return tasks;
+    }
+
+    private static String[] getTagLists(String[] parts) {
+        try {
+            String tagsString = parts[1].split("\\[")[1]
+                    .split("]")[0];
+            String[] tagLists = tagsString.split(",");
+            return tagLists;
+        } catch (IndexOutOfBoundsException e) {
+            String[] emptyTagList = {};
+            return emptyTagList;
+        }
     }
 
     /**
@@ -115,7 +132,7 @@ public class Storage {
      * @return A {@link Deadline} task created from the input string.
      * @throws CitadelException If the input string is invalid or incomplete.
      */
-    private static Task createDeadline(String input) throws CitadelException {
+    private static Task createDeadline(String input, String[] tagLists) throws CitadelException {
         Task t;
         String[] words = input.split(" \\(by: ");
         if (words.length < 2) {
@@ -130,6 +147,12 @@ public class Storage {
         LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline,
                 DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         t = new Deadline(task, deadlineFormatted);
+
+        for (int i = 0; i < tagLists.length; i++) {
+            String tag = tagLists[i];
+            t.addTag(tag);
+        }
+
         return t;
     }
 
@@ -143,7 +166,7 @@ public class Storage {
      * @return An {@link Event} task created from the input string.
      * @throws CitadelException If the input string is invalid or incomplete.
      */
-    private static Task createEvent(String input) throws CitadelException {
+    private static Task createEvent(String input, String[] tagLists) throws CitadelException {
         // Process the current event line in the ouput
         String[] words = input.split(" \\(from: ");
         if (words.length < 2) {
@@ -167,6 +190,12 @@ public class Storage {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         // Create new Event object
         Task t = new Event(task, fromFormatted, toFormatted);
+
+        for (int i = 0; i < tagLists.length; i++) {
+            String tag = tagLists[i];
+            t.addTag(tag);
+        }
+
         return t;
     }
 
@@ -180,14 +209,20 @@ public class Storage {
      * @return A {@link ToDo} task created from the input string.
      * @throws CitadelException If the input string is invalid or incomplete.
      */
-    private static Task createTodo(String input) throws CitadelException {
-        // Proccess current line
+    private static Task createTodo(String input, String[] tagLists) throws CitadelException {
+        // Process current line
         String todo = input.trim();
         if (todo.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
         //Create new ToDo object
         Task t = new ToDo(todo);
+
+        for (int i = 0; i < tagLists.length; i++) {
+            String tag = tagLists[i];
+            t.addTag(tag);
+        }
+
         return t;
     }
 }

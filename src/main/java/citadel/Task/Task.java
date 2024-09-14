@@ -93,6 +93,10 @@ public abstract class Task {
      * @return the called String Tag from getTag
      */
     public ArrayList<String> getTag() {
+        for (int i = 0; i < this.tagList.size(); i++) {
+            this.tagList.set(i, this.tagList.get(i).trim());
+        }
+
         return this.tagList;
     }
 
