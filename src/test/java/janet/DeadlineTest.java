@@ -74,6 +74,6 @@ public class DeadlineTest {
         JanetException exception = assertThrows(JanetException.class,
                 () -> {new Deadline("deadline return book /by");});
 
-        assertEquals(exception.getMessage(), "WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd hh:mm (24hr)");
+        assertEquals(exception.getMessage(), "WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd HH:mm (24hr)");
     }
 }
