@@ -1,0 +1,11 @@
+todo Read a book
+deadline Submit assignment /by Friday
+event Team meeting /from Monday 10am /to 12pm
+list
+mark 1
+list
+unmark 1
+list
+delete 2
+list
+exit
