@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Bunbun bunbun = new Bunbun("src/main/data");
+    private Bunbun bunbun = new Bunbun("data");
 
     @Override
     public void start(Stage stage) {
