@@ -1,5 +1,5 @@
-<!-- <style> g {color: greenyellow} </style> -->
-<!-- <style> gr {color: green} </style> -->
+<!-- <style> g {color: greenyellow} </style>
+<style> gr {color: green} </style> -->
 # <g>Mel</g> User Guide
 
 ![Screenshot of Mel's GUI](Ui.png)
@@ -7,6 +7,7 @@
 Mel is a simple chatbot helper to assist you with
 remembering and managing your tasks.
 
+<!--
 ## <g>Command Summary</g>
  Action                  | Command                                        
 -------------------------|------------------------------------------------
@@ -19,7 +20,7 @@ remembering and managing your tasks.
  Mark task as incomplete | `unmark INDEX [MORE_INDICES]`                  
  Find all matching tasks | `find KEYPHRASE`                               
  End session             | `bye`                                          
-
+-->
 ## <g>Adding Tasks</g>
 
 Mel categorises tasks into 3 types:
@@ -183,20 +184,11 @@ Ends the active session with Mel and closes the application.
 Format: `bye`
 * Any additional extraneous details will render command invalid
 
-Before closing the application, Mel ends with:
-```
-Buh-bye :)
-```
-
 ## <g>Save File</g>
 
-Mel automatically creates and updates a save file on all task
+Mel automatically loads save file data on startup, if it exists.
+Mel creates and updates the save file on all task
 list commands, storing them in a text file on local hard disk.
-* File is stored as `tasks.txt` in `data/` directory
-* Mel should have permission to write/read to file, otherwise Mel will return
-the error `Mel is stunned! Mel couldn't access your file`
+* The save file is stored in `data/tasks.txt`
+* Mel should have permission to write/read to file
 
-Before closing the application, Mel ends with:
-```
-Buh-bye :)
-```
