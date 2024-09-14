@@ -21,7 +21,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setTitle("Matcha");
-            stage.getIcons().add(new Image("/images/Matcha.png"));
+            stage.getIcons().add(new Image(Main.class.getResourceAsStream("/images/matcha.png")));
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setMatcha(matcha);
             stage.show();
