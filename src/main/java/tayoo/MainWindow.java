@@ -1,5 +1,7 @@
 package tayoo;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 public class MainWindow extends AnchorPane{
     @FXML
     private ScrollPane scrollPane;
@@ -46,6 +50,11 @@ public class MainWindow extends AnchorPane{
                 DialogBox.getDukeDialog(response, tayooImage)
         );
         userInput.clear();
+        if (tayoo.getIsExit()) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(3)); // Delay for 3 seconds
+            delay.setOnFinished(event -> Platform.exit()); // Exit after delay
+            delay.play();
+        }
     }
 
 }

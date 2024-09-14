@@ -15,6 +15,7 @@ public class Tayoo {
     private Ui ui;
     private Storage storage;
     private Tasklist tasks;
+    private boolean isExit = false;
 
     /**
      * Constructs a new Tayoo instance by initializing a new Ui, Storage and Tasklist object.
@@ -53,13 +54,12 @@ public class Tayoo {
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+        while (!this.isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                this.isExit = c.isExit();
             } catch (TayooException e) {
                 ui.printError(e.getMessage());
             }
@@ -75,10 +75,16 @@ public class Tayoo {
     public String getResponse(String input) {
         try {
             Command c = Parser.parseCommand(input);
-            return c.guiExecute(tasks, ui, storage);
+            String toReturn = c.guiExecute(tasks, ui, storage);
+            this.isExit = c.isExit();
+            return toReturn;
         } catch (TayooException e) {
             return e.getMessage();
         }
+    }
+
+    public boolean getIsExit() {
+        return isExit;
     }
 
 }
