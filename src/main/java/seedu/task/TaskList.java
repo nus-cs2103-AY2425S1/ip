@@ -128,18 +128,20 @@ public class TaskList {
     public String findTasks(String name) {
         assert name != null && !name.isEmpty() : "Search keyword should not be null or empty";
         ArrayList<Task> temp = new ArrayList<>();
-        for (Task t: this.tasks) {
-            assert t != null : "Task in the task list should not be null";
-            String lowerCaseDescription = t.getDescription().toLowerCase();
-            String lowerCaseName = name.toLowerCase();
-            if (lowerCaseDescription.contains(lowerCaseName)) {
-                temp.add(t);
-            }
-        }
+        this.tasks
+                .stream()
+                .filter((t) -> containsName(t, name))
+                .forEach(temp::add);
         return formatter.listTaskUi(temp);
     }
 
     public int getLength() {
         return this.tasks.size();
+    }
+
+    public boolean containsName(Task t, String name) {
+        String lowerCaseDescription = t.getDescription().toLowerCase();
+        String lowerCaseName = name.toLowerCase();
+        return lowerCaseDescription.contains(lowerCaseName);
     }
 }
