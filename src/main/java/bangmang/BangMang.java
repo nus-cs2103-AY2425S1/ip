@@ -21,6 +21,9 @@ public class BangMang {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }
+
+        // Assert that tasks should not be null
+        assert tasks != null : "List of tasks should not be null";
     }
 
     public String getGreeting() {
@@ -40,8 +43,16 @@ public class BangMang {
          *
          * @param input refers to user-input in chatbot
          */
+
+        // Assert that input should not be null or empty
+        assert input != null && !input.isEmpty() : "Input should not be null or empty";
+
         try {
             Command command = Parser.parse(input);
+
+            // Assert that command should not be null
+            assert command != null : "Command should not be null";
+
             String response = command.execute(tasks, ui, storage);
             return response;
         } catch (InvalidCommandException e) {
