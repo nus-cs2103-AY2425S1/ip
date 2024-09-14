@@ -11,6 +11,10 @@ public class Task implements Comparable<Task> {
     private final String symbol;
     private boolean done;
 
+    /**
+     * @param description The description of the task.
+     * @param symbol The symbol of the task.
+     */
     public Task(String description, String symbol) {
         this.description = description;
         this.done = false;
@@ -27,7 +31,7 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * For view command, to be used to find Task objects with scheduled date
+     * Find Task objects with scheduled date
      *
      * @return null.
      */

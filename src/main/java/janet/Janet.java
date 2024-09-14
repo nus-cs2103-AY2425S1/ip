@@ -1,6 +1,5 @@
 package janet;
 
-
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -12,6 +11,9 @@ public class Janet {
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * @param filePath A file path that represents the location of janet.txt
+     */
     Janet(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

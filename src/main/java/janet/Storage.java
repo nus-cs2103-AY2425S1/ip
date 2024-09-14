@@ -12,6 +12,9 @@ import java.util.ArrayList;
 public class Storage {
     private final String filePath;  // "./janet.txt"
 
+    /**
+     * @param filePath A file path thar represents the location of janet.txt
+     */
     Storage(String filePath) {
         this.filePath = filePath;
     }
