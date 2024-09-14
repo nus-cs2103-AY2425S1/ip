@@ -57,6 +57,7 @@ public class Parser {
      */
 	public static void parseFile(File file, TaskList taskList) {
         try {
+            assert file.exists() : "File does not exist";
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
@@ -65,9 +66,11 @@ public class Parser {
                 String[] parts = line.split(" \\| ");
                 String taskType = parts[0];
                 String isDone = parts[1];
+
                 
                 //Todo task
                 if (taskType.equals("T")) {
+                    assert parts.length == 3 : "Todo task has wrong input format";
                     if (isDone.equals("1")) {
                         ToDos newToDo = new ToDos(parts[2]);
                         newToDo.markAsDone();
@@ -76,7 +79,8 @@ public class Parser {
                         ToDos newToDo = new ToDos(parts[2]);
                         taskList.addTask(newToDo);
                     }    
-                } else if (taskType.equals("D")) {          //Deadline task                    
+                } else if (taskType.equals("D")) {
+                    assert parts.length == 4 : "Deadline task has wrong input format";
                     if (isDone.equals("1")) {
                         String[] dateTime = parts[3].split(" "); 
 
@@ -107,7 +111,8 @@ public class Parser {
                         Deadlines newDeadline = new Deadlines(parts[2], date, time);
                         taskList.addTask(newDeadline);
                     }
-                } else if (taskType.equals("E")) {  
+                } else if (taskType.equals("E")) {
+                    assert parts.length == 4 : "Event task has wrong input format";
                     String description = parts[2];
 
                     String[] dateTime = parts[3].split(" ");
@@ -178,11 +183,13 @@ public class Parser {
             storage.save();
             Ui.printDelete(temp);
         } else if (taskType.equals("todo")) {
+            assert typeDetails.length == 2 : "Todo task has wrong input format";
             ToDos newToDo = new ToDos(typeDetails[1]);
             taskList.addTask(newToDo);
             storage.save();
             Ui.printAdded(newToDo);
         } else if (taskType.equals("deadline")) {
+            assert typeDetails.length == 2 : "Deadline task has wrong input format";
             String[] parts = typeDetails[1].split(" /by ");
             String description = parts[0];
             String[] dateTime = parts[1].split(" "); 
@@ -202,6 +209,7 @@ public class Parser {
             storage.save();
             Ui.printAdded(newDeadline);
         } else if (taskType.equals("event")) {
+            assert typeDetails.length == 2 : "Event task has wrong input format";
             String[] parts = typeDetails[1].split(" /from ");
 
             String description = parts[0];
