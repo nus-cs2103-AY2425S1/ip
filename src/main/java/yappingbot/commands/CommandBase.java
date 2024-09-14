@@ -13,8 +13,9 @@ import yappingbot.exceptions.YappingBotIncorrectCommandException;
  * the core funtion in the run() method, and help usage text.
  *
  * @param <A> Enum defining the valid Arguments, implementing ArgEnums.
+ * @param <C> The Command class extending this. For casting convenience.
  */
-public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>> {
+public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends CommandBase<A, ?>> {
     protected HashMap<A, String[]> arguments = new HashMap<>();
     private boolean argumentsLoaded = false;
     protected String argumentSeperator = "/";
@@ -65,16 +66,17 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>> {
      *
      * @throws YappingBotException Any Exception that occurs during execution.
      */
-    protected abstract void run();
+    protected abstract C run();
 
     /**
      * Runs the implemented command, after checking if command is ready to run.
      *
+     * @return this object, useful for chainning.
      * @throws YappingBotException Any Exception that occurs during execution.
      */
-    public void runCommand() throws YappingBotException {
+    public C runCommand() throws YappingBotException {
         assert argumentsLoaded : "Arguments Not Loaded!";
-        this.run();
+        return this.run();
     }
 
     /**

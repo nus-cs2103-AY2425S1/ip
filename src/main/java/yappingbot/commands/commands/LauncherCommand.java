@@ -11,7 +11,7 @@ import yappingbot.ui.gui.MainGuiApplication;
 /**
  * Command class for the Launcher of this entire application.
  */
-public class LauncherCommand extends CommandBase<LauncherCommand.Args> {
+public class LauncherCommand extends CommandBase<LauncherCommand.Args, LauncherCommand> {
 
     /**
      * Enum for the possible Arguments of this command.
@@ -60,7 +60,7 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args> {
     }
 
     @Override
-    protected void run() throws YappingBotException {
+    protected LauncherCommand run() throws YappingBotException {
         boolean isUsingCli = arguments.containsKey(Args.CLI_MODE);
         boolean isUsingAltSavefile = arguments.containsKey(Args.SAVE_FILE_PATH)
                                      || arguments.containsKey(Args.SAVE_FILE_PATH_LONG);
@@ -77,6 +77,7 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args> {
         } else {
             launchGui(javafxArgs);
         }
+        return this;
     }
 
     @Override

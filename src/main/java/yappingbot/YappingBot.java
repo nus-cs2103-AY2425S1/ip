@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
+import yappingbot.commands.commands.ResetView;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotExceptionList;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
@@ -61,9 +62,12 @@ public class YappingBot {
      * Saves the task list to disk using the already-created Storage object.
      */
     private void saveAndCleanup() {
-        // REVERT LIST TO MAIN PARENT!
-        userList = commandDispatch.resetView(userList, true);
         try {
+            // REVERT LIST TO MAIN PARENT!
+            userList = new ResetView().setEnvironment(ui, userList, true)
+                                      .runCommand()
+                                      .getNewUserList();
+
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
             ui.printError(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage()));
@@ -87,7 +91,9 @@ public class YappingBot {
                     return;
                 case RESET_LIST:
                     // resets any filter on the list
-                    userList = commandDispatch.resetView(userList, false);
+                    userList = new ResetView().setEnvironment(ui, userList, false)
+                                              .runCommand()
+                                              .getNewUserList();
                     break;
                 case LIST:
                     // lists out all tasks that fits current filter (if any)
