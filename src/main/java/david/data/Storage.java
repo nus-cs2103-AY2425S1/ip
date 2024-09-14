@@ -1,5 +1,6 @@
 package david.data;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -29,15 +30,14 @@ TaskType | completed | eventName | (optional) by/from | (optional) to
  * Defines a Storage class to store Data
  */
 public class Storage {
-    private static final String taskCompleted = "1";
-    private String path;
+    private static final String TASK_COMPLETED = "1";
+    private static final String CACHE_PATH = "./database.txt";
+
 
     /**
      * Constructor to instantiate a new Storage object
-     * @param path pathname of the cache file
      */
-    public Storage(String path) {
-        this.path = path;
+    public Storage() {
     }
 
     /**
@@ -48,7 +48,7 @@ public class Storage {
     public TaskList loadTasks() {
         List<Task> tasks = new ArrayList<>();
         try {
-            File f = new File(this.path);
+            File f = new File(this.CACHE_PATH);
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
                 Task t = parseTask(sc.nextLine());
@@ -73,7 +73,7 @@ public class Storage {
 
         //Checks if the task is completed.
         boolean isCompleted = false;
-        if (taskInformation[1].equals(taskCompleted)) {
+        if (taskInformation[1].equals(TASK_COMPLETED)) {
             isCompleted = true;
         }
 
@@ -113,8 +113,8 @@ public class Storage {
      * Creates a new cache inside Data folder if it does not exist
      */
     private void createNewCache() {
-        assert this.path.length() != 0 : "No path specified";
-        File newFile = new File(this.path);
+        assert this.CACHE_PATH.length() != 0 : "No path specified";
+        File newFile = new File(CACHE_PATH);
 
         // Creates a new file for caching data.
         try {
@@ -131,15 +131,17 @@ public class Storage {
      */
     public void saveTask(TaskList tasks) throws DavidCacheException {
         try {
-            FileWriter writer = new FileWriter(this.path, false);
+            FileWriter writer = new FileWriter(this.CACHE_PATH, false);
+            BufferedWriter bw = new BufferedWriter(writer);
 
             String text = "";
             for (int i = 0; i < tasks.getSize(); i++) {
                 Task t = tasks.getTask(i);
-                text += t.toCacheString() + "\n";
+                text += t.toCacheString();
+                bw.write(text);
+                bw.newLine();
             }
-            writer.write(text);
-
+            bw.close();
             writer.close();
         } catch (IOException e) {
             //Named file is invalid/ unavailable

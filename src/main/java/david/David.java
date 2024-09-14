@@ -33,9 +33,9 @@ public class David {
     /**
      * Constructor for David.David
      */
-    public David(String path) {
+    public David() {
         this.ui = new Ui();
-        this.cache = new Storage(path);
+        this.cache = new Storage();
         this.tasks = cache.loadTasks();
     };
 

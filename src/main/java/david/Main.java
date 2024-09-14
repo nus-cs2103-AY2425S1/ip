@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private David chatbot = new David("./src/main/java/David/Data/database.txt");
+    private David chatbot = new David();
 
     @Override
     public void start(Stage stage) {
