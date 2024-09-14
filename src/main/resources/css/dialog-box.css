@@ -1,9 +1,10 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-background-color: linear-gradient(to bottom right, #596773, #22272B);
+    -fx-border-color: #161A1D #161A1D #161A1D #161A1D;
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #DEE4EA;
 }
 
 .reply-label {
