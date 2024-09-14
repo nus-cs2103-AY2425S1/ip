@@ -153,7 +153,19 @@ public class Parser {
 
         switch (command) {
         case LIST:
-            return new ListCommand();
+            if (commandParts.length >= 2) {
+                try {
+                    return new ListCommand(Integer.parseInt(commandParts[1]));
+                } catch (NumberFormatException e) {
+                    throw new ShnoopException(improperInput);
+                }
+            }
+            if (commandParts[0].toLowerCase().equals("list")
+                    || commandParts[0].toLowerCase().equals("list ")
+                    || (length >= 5 && isEmptyFromIdx(5, input))
+                    || (commandParts.length >= 2 && commandParts[1].isEmpty())) {
+                return new ListCommand();
+            }
         case TODO:
             try {
                 if (!startsWithTodo(input, length) || isEmptyFromIdx(5, input)

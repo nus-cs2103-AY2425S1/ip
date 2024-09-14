@@ -2,6 +2,8 @@ package shnoop.tasks;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Represents the list of Tasks that the user can add.
@@ -88,6 +90,22 @@ public class TaskList {
             result += "\n";
         }
         return result;
+    }
+
+    public String sortedList(int mode) {
+        if (mode == 0) {
+            return list();
+        }
+
+        StringBuilder result = new StringBuilder();
+        AtomicInteger index = new AtomicInteger(1);
+
+        if (mode == 1) {
+            tasks.stream().sorted(Comparator.comparing(Task::getDescription))
+                    .forEach(x -> result.append(index.getAndIncrement() + ". " + x + "\n"));
+        }
+
+        return String.valueOf(result);
     }
 
     /**
