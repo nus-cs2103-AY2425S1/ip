@@ -1,6 +1,12 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs an Event task with the specified description, start time, and end time
@@ -11,8 +17,26 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = parseDateTimeOrDate(start);
+        this.end = parseDateTimeOrDate(end);
+    }
+
+    /**
+     * Parses the input date string. If it contains only a date without time,
+     * appends "T00:00" to default the time to midnight.
+     */
+    private LocalDateTime parseDateTimeOrDate(String dateStr) {
+        try {
+            // Try parsing with date and time
+            return LocalDateTime.parse(dateStr, DATE_TIME_FORMAT);
+        } catch (DateTimeParseException e) {
+            try {
+                // If parsing without time, append "T00:00" to default the time to midnight
+                return LocalDateTime.parse(dateStr + " 00:00", DATE_TIME_FORMAT);
+            } catch (DateTimeParseException ex) {
+                throw new IllegalArgumentException("Invalid date format: " + dateStr);
+            }
+        }
     }
 
     /**
