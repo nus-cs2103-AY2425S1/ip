@@ -1,6 +1,7 @@
 package dave.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks. The TaskList class allows for adding, removing,
@@ -88,12 +89,8 @@ public class TaskList {
      */
     public ArrayList<Task> findTasks(String keyword) {
         assert keyword != null && !keyword.trim().isEmpty() : "Keyword should not be null or empty";
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.toString().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+        return tasks.stream()
+                .filter(task -> task.toString().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
