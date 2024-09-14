@@ -1,16 +1,7 @@
 package LittleMissHelpful.Parser;
 
-import LittleMissHelpful.Command.AddDeadlineCommand;
-import LittleMissHelpful.Command.AddEventCommand;
-import LittleMissHelpful.Command.AddTodoCommand;
-import LittleMissHelpful.Command.Command;
-import LittleMissHelpful.Command.DeleteTaskCommand;
-import LittleMissHelpful.Command.ExitCommand;
-import LittleMissHelpful.Command.ListCommand;
-import LittleMissHelpful.Command.MarkTaskCommand;
-import LittleMissHelpful.Command.UnmarkTaskCommand;
+import LittleMissHelpful.Command.*;
 import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Command.FindCommand;
 
 public class Parser {
     public static Command parse(String fullCommand) throws InvalidCommandException {
@@ -25,6 +16,8 @@ public class Parser {
                 return new ExitCommand();
             } else if (command.equals("list")) {
                 return new ListCommand();
+            } else if (command.equals("help")) {
+                return new HelpCommand();
             } else {
                 throw new InvalidCommandException("Invalid command. Please provide a valid command.");
             }

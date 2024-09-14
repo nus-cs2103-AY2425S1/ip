@@ -1,4 +1,4 @@
-package LittleMissHelpful.Ui;
+package bangmang.ui;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,28 +20,38 @@ public class Ui {
         /**
          * Returns welcome statement
          */
-        return LINE_BREAK + "\nHello! I'm Ah Bang Mang.\nWhat you want sia?\n" + LINE_BREAK;
+        return "\nHello! I'm Ah Bang Mang.\nWhat you want sia?\n";
+    }
+
+    public String showHelp() {
+        /**
+         * Returns help information
+         */
+        return "These are all the commands you can make ah:\n" +
+                "* List all tasks: \"list\"\n" +
+                "* Add a todo: \"todo {description}\"\n" +
+                "* Add a deadline: \"deadline {description} /by{date-time}\"\n" +
+                "* Add an event: \"event {description} /from{date-time} /to{date-time}\"\n" +
+                "* Mark a task as done: \"mark {task number}\"\n" +
+                "* Mark a task as undone: \"unmark {task number}\"\n" +
+                "* Delete a task: \"delete {task number}\"\n" +
+                "* Find task: \"find {description}\"\n" +
+                "* Exit chatbot: \"bye\"\n";
     }
 
     public String showExit() {
         /**
          * Returns exit statement
          */
-        return LINE_BREAK + "\nOk, I zao first then!\n" + LINE_BREAK;
+        return "\nOk, I zao first then!\n";
     }
 
-    public String showLine() {
-        /**
-         * Returns line break
-         */
-        return LINE_BREAK;
-    }
 
     public String showNoTasks() {
         /**
          * Returns message when no tasks in tasklist
          */
-        return LINE_BREAK + "\nWah shiok! No tasks at the moment!\n" + LINE_BREAK;
+        return "Wah shiok! No tasks at the moment!";
     }
 
     public String showAllTasks(ArrayList<Task> tasks) {
@@ -49,13 +59,12 @@ public class Ui {
          * Returns the task list
          */
         StringBuilder sb = new StringBuilder();
-        sb.append(LINE_BREAK).append("\nSiao liao! This your current task list leh...\n");
+        sb.append("Siao liao! This your current task list leh...");
         for (int i = 0; i < tasks.size(); i++) {
             int listNumber = i + 1;
             Task t = tasks.get(i);
             sb.append(listNumber).append(". ").append(t.toString()).append("\n");
         }
-        sb.append(LINE_BREAK);
         return sb.toString();
     }
 
@@ -64,7 +73,6 @@ public class Ui {
          * Returns search results list
          */
         StringBuilder sb = new StringBuilder();
-        sb.append(LINE_BREAK).append("\n");
         if (tasks.size() == 0) {
             sb.append("Aiyo, got no matching tasks leh...\n");
         } else {
@@ -75,7 +83,6 @@ public class Ui {
                 sb.append(listNumber).append(". ").append(t.toString()).append("\n");
             }
         }
-        sb.append(LINE_BREAK);
         return sb.toString();
     }
 
@@ -83,37 +90,37 @@ public class Ui {
         /**
          * Returns message after successfully adding a new task to list
          */
-        return LINE_BREAK + "\nAdded to list liao: " + t.toString() +
-                "\nSian, now got " + tasks.size() + " tasks in your list.\n" + LINE_BREAK;
+        return "Added to list liao: " + t.toString() +
+                "\nSian, now got " + tasks.size() + " tasks in your list.";
     }
 
     public String showMarkedTask(Task t) {
         /**
          * Returns message after successfully marking a task as done
          */
-        return LINE_BREAK + "\nWah upz! You have marked this task as done: " + t.toString() + "\n" + LINE_BREAK;
+        return "Wah upz! You have marked this task as done: " + t.toString();
     }
 
     public String showUnmarkedTask(Task t) {
         /**
          * Returns message after successfully unmarking a task
          */
-        return LINE_BREAK + "\nOk, I see you laze. You have marked this task as not done yet: " + t.toString() + "\n" + LINE_BREAK;
+        return "Ok, I see you laze. You have marked this task as not done yet: " + t.toString();
     }
 
     public String showDeletedTask(Task t, TaskList tasks) {
         /**
          * Returns message after successfully deleting a task
          */
-        return LINE_BREAK + "\nWah shiok! This task no more liao: " + t.toString() +
-                "\nNow got only " + tasks.size() + " tasks left.\n" + LINE_BREAK;
+        return "Wah shiok! This task no more liao: " + t.toString() +
+                "\nNow got only " + tasks.size() + " tasks left.";
     }
 
     public String showError(String message) {
         /**
          * Returns error message
          */
-        return LINE_BREAK + "\nAlamak! " + message + "\n" + LINE_BREAK;
+        return "Alamak! " + message;
     }
 
     public String readCommand() throws IOException {

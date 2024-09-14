@@ -1,7 +1,7 @@
-package LittleMissHelpful.GUI;
+package bangmang.gui;
 
-import LittleMissHelpful.LittleMissHelpful;
-import LittleMissHelpful.Ui.Ui;
+import bangmang.bangmang;
+import bangmang.ui.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

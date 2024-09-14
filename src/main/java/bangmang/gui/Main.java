@@ -1,4 +1,4 @@
-package LittleMissHelpful.GUI;
+package bangmang.gui;
 
 import java.io.IOException;
 
