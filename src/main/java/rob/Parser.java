@@ -1,7 +1,5 @@
 package rob;
 
-import java.util.Objects;
-
 /**
  * Interprets the user input string and splits string for further processing.
  */
@@ -20,11 +18,13 @@ public class Parser {
 
     /**
      * Checks if the input string is empty and prints an error message if it is.
-     *
      */
-    public void checkString() {
+    public void checkString() throws RobException {
         if (string.isEmpty()) {
             System.out.println("Invalid input! Please enter a task.");
+        } else if (string.equals(" ")) {
+            System.out.println("Invalid input! HERER.");
+            throw new RobException("Invalid format... What task would you like to add?");
         }
     }
 
@@ -38,29 +38,35 @@ public class Parser {
     }
 
     /**
-     * Gets the forced command from the input string.
+     * Retrieves the description of a task based on the command in the input string.
      *
-     * @return The forced command extracted from the input string.
+     * @return The description of the task.
+     * @throws RobException If the input string format is invalid or if the command is unknown.
      */
-    public String getForceCommand() {
-        return string.split(" ", 3)[1];
-    }
-
     public String getDesc() throws RobException {
-        if (string.split(" ", 2).length < 2
-            || string.split(" ", 2)[1].trim().isEmpty()) {
+        String[] parts = string.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new RobException("Invalid format... What task would you like to add?");
-        } else {
-            String rem = string.split(" ", 2)[1].trim(); // ignore first keyword of input
-            if (Objects.equals(this.getCommand(), "deadline")) {
-                return rem.split(" /by")[0].trim();
-            } else if (Objects.equals(this.getCommand(), "event")) {
-                return rem.split(" /from")[0].trim();
-            } else if (Objects.equals(this.getCommand(), "todo")) {
-                return rem;
-            }
         }
-        return "";
+        String rem = parts[1].trim();
+        String desc;
+        switch (this.getCommand()) {
+        case "deadline":
+            desc = rem.split("/by", 2)[0].trim();
+            break;
+        case "event":
+            desc = rem.split("/from", 2)[0].trim();
+            break;
+        case "todo":
+            desc = rem;
+            break;
+        default:
+            throw new RobException("Unknown command...");
+        }
+        if (desc.isEmpty()) {
+            throw new RobException("Invalid format... What task would you like to add?");
+        }
+        return desc;
     }
 
     /**
@@ -72,12 +78,15 @@ public class Parser {
      * @throws RobException If "/by" is missing in the input string.
      */
     public String getDay() throws RobException {
-        if (!string.contains(" /by")) {
+        if (!string.contains("/by")) {
             throw new RobException("Missing '/by' in deadline command.");
-        } else {
-            String rem = string.split(" ", 2)[1].trim(); // ignore first keyword of input
-            return rem.split(" /by")[1].trim();
         }
+        String rem = string.split(" ", 2)[1].trim();
+        String[] parts = rem.split("/by", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new RobException("Missing 'deadline' field.");
+        }
+        return parts[1].trim();
     }
 
     /**
@@ -93,8 +102,11 @@ public class Parser {
             throw new RobException("Missing '/from' or '/to' in event command.");
         } else {
             String rem = string.split(" ", 2)[1].trim(); // ignore first keyword of input
-            return rem.split(" /from")[1].split(" /to")[0].trim();
-
+            String from = rem.split(" /from")[1].split(" /to")[0].trim();
+            if (from.isEmpty()) {
+                throw new RobException("Missing 'from' or 'to' fields.");
+            }
+            return from;
         }
     }
 
@@ -111,7 +123,11 @@ public class Parser {
             throw new RobException("Missing '/from' or '/to' in event command.");
         } else {
             String rem = string.split(" ", 2)[1].trim(); // ignore first keyword of input
-            return rem.split(" /from")[1].split(" /to")[1].trim();
+            String to = rem.split(" /from")[1].split(" /to", 2)[1].trim();
+            if (to.isEmpty()) {
+                throw new RobException("Missing 'from' or 'to' fields.");
+            }
+            return to;
         }
     }
 

@@ -69,7 +69,7 @@ public class Rob {
      *
      * @return The string containing the chatbot's response.
      */
-    public String getResponse(String input) {
+    public String getResponse(String input) throws RobException {
         parser = new Parser(input);
         parser.checkString();
         String command = parser.getCommand();

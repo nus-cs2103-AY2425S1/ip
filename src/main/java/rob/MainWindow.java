@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws RobException {
         String input = userInput.getText();
         String response = rob.getResponse(input);
         dialogContainer.getChildren().addAll(
