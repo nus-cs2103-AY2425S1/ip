@@ -1,6 +1,6 @@
 # BobbyBot User Guide
 
-![image info](./Ui.png)
+<img src="./Ui.png" width=50% height=50% alt="BobbyBot Ui Image">
 
 **BobbyBot** is a task management chatbot designed for desktop use. It combines the speed and efficiency of a Command Line Interface (CLI) with the advantages of a Graphical User Interface (GUI).
 
@@ -15,6 +15,7 @@
 8. [Finding tasks by keyword](#finding-tasks-by-keyword-find)
 9. [Undo the last command](#undo-the-last-command-undo)
 10. [Stop the program](#stop-the-program-bye)
+
 > **_NOTE:_** Words in UPPER_CASE are the parameters to be supplied by the user.
 e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo Study`.
 
