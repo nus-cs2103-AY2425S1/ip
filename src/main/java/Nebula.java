@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,8 +16,16 @@ public class Nebula {
      */
     public static void main(String[] args) throws IOException {
         Ui ui = new Ui();
-        TaskList taskList = new TaskList();
+        TaskList taskList;
         Parser parser = new Parser();
+
+        Path dataFolderPath = Paths.get("../data");
+        Path nebulaTextFile = dataFolderPath.resolve("nebulaTaskList.txt");
+        if (Files.exists(nebulaTextFile)) {
+            taskList = new TaskList(new ArrayList<Task>());
+        } else {
+            taskList = new TaskList();
+        }
 
         File currentDirectory = new File("./");
 
@@ -190,7 +201,19 @@ public class Nebula {
     }
 
     public static void saveTaskListToTextFile(ArrayList<Task> listOfTasks) throws IOException {
-        FileWriter fw = new FileWriter("nebulaTaskList.txt");
+
+        // Create a folder called "data" if it doesn't exist
+        File dataDirectory = new File("../data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdirs();  // Create the "data" directory
+        }
+
+        // Define the file path within the "data" directory
+        File taskFile = new File(dataDirectory, "nebulaTaskList.txt");
+
+        // Create FileWriter for the file
+        FileWriter fw = new FileWriter(taskFile);
+
         for (Task task : listOfTasks) {
 
             String isMarked = task.isDone() ? "1" : "0";
