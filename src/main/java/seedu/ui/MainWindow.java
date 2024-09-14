@@ -53,11 +53,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBobeDialog(response, bobImage)
         );
+        checkExitCommand(input);
+        userInput.clear();
+    }
+
+    public void checkExitCommand(String input) {
         if (input.trim().equalsIgnoreCase("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();
         }
-        userInput.clear();
     }
 }

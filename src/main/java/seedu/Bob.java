@@ -53,30 +53,34 @@ public class Bob {
         assert message != null;
         String command = message.split(" ")[0];
         try {
-            switch (command) {
-            case "bye":
-                return exit();
-            case "list":
-                return this.tasks.listTasks();
-            case "mark":
-                return this.parser.markTaskAsDoneParser(message, this.tasks);
-            case "unmark":
-                return this.parser.unmarkTaskAsDoneParser(message, this.tasks);
-            case "delete":
-                return this.parser.deleteTaskParser(message, this.tasks);
-            case "todo":
-                return this.parser.addToDoParser(message, this.tasks);
-            case "deadline":
-                return this.parser.addDeadlineParser(message, this.tasks);
-            case "event":
-                return this.parser.addEventParser(message, this.tasks);
-            case "find":
-                return this.parser.findParser(message, this.tasks);
-            default:
-                throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
+            return handleCommand(message, command);
         } catch (BobException e) {
             return e.getMessage();
+        }
+    }
+
+    private String handleCommand(String message, String command) throws BobException {
+        switch (command) {
+        case "bye":
+            return exit();
+        case "list":
+            return this.tasks.listTasks();
+        case "mark":
+            return this.parser.markTaskAsDoneParser(message, this.tasks);
+        case "unmark":
+            return this.parser.unmarkTaskAsDoneParser(message, this.tasks);
+        case "delete":
+            return this.parser.deleteTaskParser(message, this.tasks);
+        case "todo":
+            return this.parser.addToDoParser(message, this.tasks);
+        case "deadline":
+            return this.parser.addDeadlineParser(message, this.tasks);
+        case "event":
+            return this.parser.addEventParser(message, this.tasks);
+        case "find":
+            return this.parser.findParser(message, this.tasks);
+        default:
+            throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

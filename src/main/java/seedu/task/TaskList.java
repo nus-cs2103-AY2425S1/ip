@@ -130,7 +130,9 @@ public class TaskList {
         ArrayList<Task> temp = new ArrayList<>();
         for (Task t: this.tasks) {
             assert t != null : "Task in the task list should not be null";
-            if (t.getDescription().toLowerCase().contains(name.toLowerCase())) {
+            String lowerCaseDescription = t.getDescription().toLowerCase();
+            String lowerCaseName = name.toLowerCase();
+            if (lowerCaseDescription.contains(lowerCaseName)) {
                 temp.add(t);
             }
         }

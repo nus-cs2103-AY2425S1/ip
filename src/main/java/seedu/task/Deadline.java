@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private LocalDate end;
+
     public Deadline(String description, String end) {
         super(description);
         this.end = LocalDate.parse(end);
