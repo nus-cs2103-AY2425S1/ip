@@ -64,6 +64,7 @@ public class Storage {
             default:
                 throw new RubyException("Invalid task type.");
             }
+            assert task != null : "Task creation failed for line: " + line;
             if (parts[1].equals("1")) {
                 task.markAsDone();
             }
@@ -91,6 +92,7 @@ public class Storage {
                 dateTimeInfo = ((Event) task).getFrom().format(formatter) + " | " +
                         ((Event) task).getTo().format(formatter);
             }
+            assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Invalid task type.";
             writer.write(taskType + " | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() +
                     (taskType.equals("T") ? "" : " | " + dateTimeInfo) + "\n");
         }
