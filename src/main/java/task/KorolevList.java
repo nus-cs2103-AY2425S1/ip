@@ -215,7 +215,7 @@ public class KorolevList {
     }
 
     /**
-     * Generate the message that will be written into local file
+     * Generates the message that will be written into local file
      *
      * @return message to be recorded
      */
@@ -228,7 +228,7 @@ public class KorolevList {
     }
 
     /**
-     * Save the information of task list to the
+     * Saves the information of task list to the
      */
     public void saveEvent() {
         String msg = this.createSaveInfo();
@@ -237,7 +237,7 @@ public class KorolevList {
 
 
     /**
-     * Load records about events from hard disk
+     * Loads records about events from hard disk
      */
     public void loadEvent() {
         storage.readLines(this.events);
