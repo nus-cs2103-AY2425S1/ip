@@ -32,9 +32,9 @@ public class TaskListTest {
     public void markTask_validTask_taskMarked() throws HanaException {
         Task task = new ToDo("Test task");
         taskList.addTask(task);
-        taskList.markTask(1, true);
+        taskList.markTaskAsDone(1, true);
         assertEquals(true, taskList.getTasks().get(0).getIsDone());
-        taskList.markTask(1, false);
+        taskList.markTaskAsDone(1, false);
         assertEquals(false, taskList.getTasks().get(0).getIsDone());
     }
 }
