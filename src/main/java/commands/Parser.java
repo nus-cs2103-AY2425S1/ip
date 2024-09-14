@@ -120,6 +120,8 @@ public class Parser {
                 return deleteTask(commandArray, allTasks);
             case FIND:
                 return findTask(commandArray, allTasks);
+            case HELP:
+                return HelpCommand.getHelp();
             default:
                 Task task = Task.createTask(userInput);
                 return allTasks.add(task);
