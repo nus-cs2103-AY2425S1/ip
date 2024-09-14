@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Main class to access chatbot
+ * Allows access to the chatbot
  */
 public class Main extends Application {
 

@@ -1,7 +1,7 @@
 package hoodini;
 
 /**
- * Exception class to throw exception when
+ * Throws exception when
  * there is an error reading from file
  */
 public class ReadException extends Exception {

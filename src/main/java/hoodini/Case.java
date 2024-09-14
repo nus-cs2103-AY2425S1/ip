@@ -1,8 +1,7 @@
 package hoodini;
 
 /**
- * Enum class to store all cases that
- * user can input
+ * Stores all cases that user can input
  */
 public enum Case {
     BYE,

@@ -25,7 +25,7 @@ public class Deadline extends Input {
     }
 
     /**
-     * Alternative Constructor to handle input read
+     * Handles the input read
      * @param input Handles the task read from file in the OS
      * @param deadline Deadline of the task
      */

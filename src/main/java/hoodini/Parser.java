@@ -28,7 +28,7 @@ public class Parser {
     }
 
     /**
-     * Method to scan for file on desktop and load the file
+     * Scans for file on desktop and load the file
      */
     public void load() {
         String home = System.getProperty("user.home");
@@ -101,7 +101,7 @@ public class Parser {
     }
 
     /**
-     * Method to read from file and input content
+     * Reads from file and input content
      * to the chatbot
      * @param filepath the path of the file
      * @throws ReadException Handles invalid tasks in file
@@ -132,7 +132,7 @@ public class Parser {
 
 
     /**
-     * Method to end the chatbot
+     * Ends the chatbot and writes to file
      */
     private String end() {
         try {
@@ -188,7 +188,7 @@ public class Parser {
     }
 
     /**
-     * Method to handle ToDo tasks by user
+     * Handles ToDo tasks by user
      * @param str Input string from user
      * @throws HandleException Handles invalid tasks
      */
@@ -203,7 +203,7 @@ public class Parser {
     }
 
     /**
-     * Method to handle Deadline tasks by user
+     * Handles Deadline tasks by user
      * @param str Input string from user
      * @throws HandleException Handles invalid tasks
      */
@@ -226,7 +226,7 @@ public class Parser {
     }
 
     /**
-     * Method to handle Event tasks by user
+     * Handles Event tasks by user
      * @param str Input string from user
      * @throws HandleException Handles invalid tasks
      */

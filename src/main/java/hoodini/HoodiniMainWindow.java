@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Class to handle main window of the application
+ * Handles main window of the application
  */
 
 public class HoodiniMainWindow extends Stage {

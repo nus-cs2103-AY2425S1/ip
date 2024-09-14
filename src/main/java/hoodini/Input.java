@@ -10,10 +10,9 @@ public abstract class Input {
     private boolean isDone;
 
     /**
-     * Constructor for Input object
+     * Stores the input string
      * @param input String input
      */
-
     public Input(String input) {
         this.input = input;
         this.isDone = false;
@@ -21,7 +20,7 @@ public abstract class Input {
     }
 
     /**
-     * Allows chatbot to check if the input
+     * Returns boolean representation that allows chatbot to check if the input
      * is empty.
      */
     public boolean empty() {
@@ -37,7 +36,7 @@ public abstract class Input {
     }
 
     /**
-     * Marks the task/input as done
+     * Returns the string representation of marking the task/input as done
      * Used to handle input from user
      */
 
@@ -52,7 +51,7 @@ public abstract class Input {
     }
 
     /**
-     * Marks the task/input as undone
+     * Returns string representation of marking the task/input as undone
      * Used to handle inputs from user.
      */
 
@@ -69,7 +68,7 @@ public abstract class Input {
 
 
     /**
-     * toString method for input object
+     * Returns string representation of input object
      * @return String representation of the input object
      */
 
