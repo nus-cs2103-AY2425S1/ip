@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 
 /**
  * Represents a Event task.
@@ -23,9 +23,9 @@ public class Event extends Task {
      * @param description Description of the event task.
      * @param startDate   Start date of the event task.
      * @param endDate     End date of the event task.
-     * @throws DukeException If the date and time format is invalid.
+     * @throws GravitasException If the date and time format is invalid.
      */
-    public Event(String description, String startDate, String endDate) throws DukeException {
+    public Event(String description, String startDate, String endDate) throws GravitasException {
         super(description, "E");
 
         try {
@@ -42,7 +42,7 @@ public class Event extends Task {
             this.startTime = LocalTime.parse(formattedStartTime);
             this.endTime = LocalTime.parse(formattedEndTime);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter a valid date and time.");
+            throw new GravitasException("Please enter a valid date and time.");
         }
     }
 

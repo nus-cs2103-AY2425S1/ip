@@ -1,6 +1,6 @@
 package gravitas.command;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.storage.Storage;
 import gravitas.tasklist.TaskList;
 
@@ -25,11 +25,11 @@ public class FindCommand extends Command {
      * Executes the command to find tasks in the task list.
      */
     @Override
-    public String executeCommand(TaskList tasklist, Storage storage) throws DukeException {
+    public String executeCommand(TaskList tasklist, Storage storage) throws GravitasException {
         String[] msgFrag = userInput.split(" ", 2);
 
         if (msgFrag.length <= 1) {
-            throw new DukeException(EMPTY_FIND);
+            throw new GravitasException(EMPTY_FIND);
         }
         String keyword = msgFrag[1];
         assert !keyword.isEmpty() : "Keyword should not be empty";

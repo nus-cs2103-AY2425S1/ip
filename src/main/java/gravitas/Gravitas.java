@@ -1,7 +1,7 @@
 package gravitas;
 
 import gravitas.command.Command;
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.parser.Parser;
 import gravitas.storage.Storage;
 import gravitas.tasklist.TaskList;
@@ -24,7 +24,7 @@ public class Gravitas {
         this.storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadTasks());
-        } catch (DukeException e) {
+        } catch (GravitasException e) {
             e.printStackTrace();
         }
     }
@@ -45,7 +45,7 @@ public class Gravitas {
             }
             storage.saveTask(tasks);
             return response;
-        } catch (DukeException e) {
+        } catch (GravitasException e) {
             return e.getMessage();
         }
     }

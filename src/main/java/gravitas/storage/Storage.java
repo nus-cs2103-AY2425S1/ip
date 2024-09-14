@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.parser.Parser;
 import gravitas.task.Task;
 import gravitas.tasklist.TaskList;
@@ -46,9 +46,9 @@ public class Storage {
      * Load the tasks from the storage to the task list.
      *
      * @return ArrayList of tasks
-     * @throws DukeException If there is an error in loading the tasks
+     * @throws GravitasException If there is an error in loading the tasks
      */
-    public ArrayList<Task> loadTasks() throws DukeException {
+    public ArrayList<Task> loadTasks() throws GravitasException {
 
         if (new File(this.filePath.toString()).isFile()) {
             try {
@@ -61,7 +61,7 @@ public class Storage {
                 }
                 return tasks;
             } catch (IOException e) {
-                throw new DukeException("Error in loading tasks!");
+                throw new GravitasException("Error in loading tasks!");
             }
         }
         return new ArrayList<>();
@@ -71,9 +71,9 @@ public class Storage {
      * Save the tasks from the task list to the storage.
      *
      * @param tasklist TaskList object that contains the list of tasks
-     * @throws DukeException If there is an error in saving the tasks
+     * @throws GravitasException If there is an error in saving the tasks
      */
-    public void saveTask(TaskList tasklist) throws DukeException {
+    public void saveTask(TaskList tasklist) throws GravitasException {
 
         try {
             FileWriter fw = new FileWriter(this.filePath.toString());
@@ -83,7 +83,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("Error in saving tasks!");
+            throw new GravitasException("Error in saving tasks!");
         }
     }
 }

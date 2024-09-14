@@ -1,11 +1,6 @@
 package gravitas.ui;
 
 import gravitas.Gravitas;
-import gravitas.command.Command;
-import gravitas.exception.DukeException;
-import gravitas.parser.Parser;
-import gravitas.storage.Storage;
-import gravitas.tasklist.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

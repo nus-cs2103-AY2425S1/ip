@@ -1,6 +1,6 @@
 package gravitas.command;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.storage.Storage;
 import gravitas.task.Task;
 import gravitas.tasklist.TaskList;
@@ -25,17 +25,17 @@ public class DeleteCommand extends Command {
     /**
      * Parses the user input and delete the respective task.
      *
-     * @throws DukeException If the user input is invalid.
+     * @throws GravitasException If the user input is invalid.
      */
     @Override
-    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws GravitasException {
         String[] msgFrag = userInput.split(" ", 2);
         if (msgFrag.length <= 1) {
-            throw new DukeException(EMPTY_DELETE);
+            throw new GravitasException(EMPTY_DELETE);
         }
         int index = Integer.parseInt((msgFrag[1])) - 1;
         if (index >= taskList.size() || index < 0) {
-            throw new DukeException(OUT_OF_BOUND);
+            throw new GravitasException(OUT_OF_BOUND);
         }
 
         Task task = taskList.getTask(index);

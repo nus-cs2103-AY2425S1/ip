@@ -1,6 +1,6 @@
 package gravitas.command;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.storage.Storage;
 import gravitas.task.Task;
 import gravitas.tasklist.TaskList;
@@ -26,15 +26,15 @@ public class UpdateTaskCommand extends Command {
      * Returns a message and mark/unmark the respective task.
      *
      * @return String message to be printed.
-     * @throws DukeException If the user input is invalid.
+     * @throws GravitasException If the user input is invalid.
      */
     @Override
-    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws GravitasException {
         String[] msgFrag = userInput.split(" ", 2);
         int index = Integer.parseInt((msgFrag[1])) - 1;
 
         if (index >= taskList.size() || index < 0) {
-            throw new DukeException(TASK_INVALID_MESSAGE);
+            throw new GravitasException(TASK_INVALID_MESSAGE);
         }
         Task task = taskList.getTask(index);
 

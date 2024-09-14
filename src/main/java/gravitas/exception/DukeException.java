@@ -3,14 +3,14 @@ package gravitas.exception;
 /**
  * Represents the exception class for error handling.
  */
-public class DukeException extends Exception {
+public class GravitasException extends Exception {
 
     /**
      * Constructor for DukeException.
      *
      * @param msg Error message.
      */
-    public DukeException(String msg) {
+    public GravitasException(String msg) {
         super(msg);
     }
 

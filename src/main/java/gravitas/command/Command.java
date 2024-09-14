@@ -1,6 +1,6 @@
 package gravitas.command;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.storage.Storage;
 import gravitas.tasklist.TaskList;
 
@@ -19,5 +19,5 @@ public abstract class Command {
         return isExit;
     }
 
-    public abstract String executeCommand(TaskList taskList, Storage storage) throws DukeException;
+    public abstract String executeCommand(TaskList taskList, Storage storage) throws GravitasException;
 }

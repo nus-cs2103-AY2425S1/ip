@@ -1,6 +1,6 @@
 package gravitas.command;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.storage.Storage;
 import gravitas.tasklist.TaskList;
 
@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
      * Executes the command to exit the program.
      */
     @Override
-    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws GravitasException {
         setExit(true);
         return BYE;
     }

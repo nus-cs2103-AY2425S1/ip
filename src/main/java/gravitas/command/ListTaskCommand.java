@@ -1,6 +1,6 @@
 package gravitas.command;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.storage.Storage;
 import gravitas.tasklist.TaskList;
 
@@ -18,7 +18,7 @@ public class ListTaskCommand extends Command {
      * Executes the command to list all tasks in the task list.
      */
     @Override
-    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws GravitasException {
         return taskList.printTaskList();
     }
 }

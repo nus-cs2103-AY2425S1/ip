@@ -1,25 +1,29 @@
 package gravitas.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import gravitas.command.Command;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import gravitas.task.Task;
 import gravitas.task.Todo;
 import gravitas.tasklist.TaskList;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
     @Test
     public void parseMark_markTask_returnMarkTask() {
         try {
+            String input = "mark 1";
             ArrayList<Task> taskArrayList = new ArrayList<>();
             Todo todoTask = new Todo("Read Book");
             taskArrayList.add(todoTask);
             TaskList tasklist = new TaskList(taskArrayList);
-
-            Parser parse = new Parser();
-            parse.parseMark(tasklist, "mark 1");
+            Command c = Parser.parseCommand(input);
+            c.executeCommand(tasklist, null);
         } catch (Exception e) {
             fail();
         }
@@ -28,14 +32,16 @@ public class ParserTest {
     @Test
     public void parseUnmark_unmarkTask_returnUnmarkTask() {
         try {
+            String mark = "mark 1";
+            String unMark = "unmark 1";
             ArrayList<Task> taskArrayList = new ArrayList<>();
             Todo todoTask = new Todo("Read Book");
             taskArrayList.add(todoTask);
             TaskList tasklist = new TaskList(taskArrayList);
-
-            Parser parse = new Parser();
-            parse.parseMark(tasklist, "mark 1");
-            parse.parseUnmark(tasklist, "unmark 1");
+            Command c = Parser.parseCommand(mark);
+            Command d = Parser.parseCommand(unMark);
+            c.executeCommand(tasklist, null);
+            d.executeCommand(tasklist, null);
         } catch (Exception e) {
             fail();
         }
@@ -44,13 +50,13 @@ public class ParserTest {
     @Test
     public void parseMark_outOfBound_exceptionThrown() {
         try {
+            String mark = "mark 5";
             ArrayList<Task> taskArrayList = new ArrayList<>();
             Todo todoTask = new Todo("Read Book");
             taskArrayList.add(todoTask);
             TaskList tasklist = new TaskList(taskArrayList);
-
-            Parser parse = new Parser();
-            parse.parseMark(tasklist, "mark 5");
+            Command c = Parser.parseCommand(mark);
+            c.executeCommand(tasklist, null);
         } catch (Exception e) {
             assertEquals(e.getMessage(), "The task that you wish to mark is invalid! please try again!");
         }
@@ -59,14 +65,13 @@ public class ParserTest {
     @Test
     public void parseUnmark_outOfBound_exceptionThrown() {
         try {
+            String unMark = "unmark 5";
             ArrayList<Task> taskArrayList = new ArrayList<>();
             Todo todoTask = new Todo("Read Book");
             taskArrayList.add(todoTask);
             TaskList tasklist = new TaskList(taskArrayList);
-
-            Parser parse = new Parser();
-            parse.parseMark(tasklist, "mark 1");
-            parse.parseUnmark(tasklist, "unmark 5");
+            Command c = Parser.parseCommand(unMark);
+            c.executeCommand(tasklist, null);
         } catch (Exception e) {
             assertEquals(e.getMessage(), "The task that you wish to mark is invalid! please try again!");
         }
@@ -77,9 +82,9 @@ public class ParserTest {
         try {
             ArrayList<Task> taskArrayList = new ArrayList<>();
             TaskList tasklist = new TaskList(taskArrayList);
-
-            Parser parse = new Parser();
-            parse.parseTask(tasklist, "todo borrow book");
+            String input = "todo borrow book";
+            Command c = Parser.parseCommand(input);
+            c.executeCommand(tasklist, null);
         } catch (Exception e) {
             fail();
         }
@@ -91,9 +96,12 @@ public class ParserTest {
             ArrayList<Task> taskArrayList = new ArrayList<>();
             TaskList tasklist = new TaskList(taskArrayList);
 
-            Parser parse = new Parser();
-            parse.parseTask(tasklist, "todo borrow book");
-            parse.parseDelete(tasklist, "delete 1");
+            String input = "todo borrow book";
+            String delete = "delete 1";
+            Command c = Parser.parseCommand(input);
+            Command d = Parser.parseCommand(delete);
+            c.executeCommand(tasklist, null);
+            d.executeCommand(tasklist, null);
         } catch (Exception e) {
             fail();
         }
@@ -104,10 +112,9 @@ public class ParserTest {
         try {
             ArrayList<Task> taskArrayList = new ArrayList<>();
             TaskList tasklist = new TaskList(taskArrayList);
-
-            Parser parse = new Parser();
-            parse.parseTask(tasklist, "todo borrow book");
-            parse.parseDelete(tasklist, "delete");
+            String delete = "delete";
+            Command c = Parser.parseCommand(delete);
+            c.executeCommand(tasklist, null);
         } catch (Exception e) {
             assertEquals(e.getMessage(), "OOPS!!! The description of a delete cannot be empty.");
         }

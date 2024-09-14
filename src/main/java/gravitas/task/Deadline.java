@@ -5,8 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import gravitas.exception.DukeException;
-
+import gravitas.exception.GravitasException;
 
 
 /**
@@ -22,9 +21,9 @@ public class Deadline extends Task {
      *
      * @param description Description of the deadline task.
      * @param endDate     End date of the deadline task.
-     * @throws DukeException If the date and time format is invalid.
+     * @throws GravitasException If the date and time format is invalid.
      */
-    public Deadline(String description, String endDate) throws DukeException {
+    public Deadline(String description, String endDate) throws GravitasException {
         super(description, "D");
 
         try {
@@ -36,7 +35,7 @@ public class Deadline extends Task {
             this.endDate = localEndDate;
             this.endTime = LocalTime.parse(formattedEndTime);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter a valid date and time.");
+            throw new GravitasException("Please enter a valid date and time.");
         }
     }
 

@@ -1,6 +1,6 @@
 package gravitas.command;
 
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.storage.Storage;
 import gravitas.task.Deadline;
 import gravitas.task.Event;
@@ -31,15 +31,15 @@ public class AddCommand extends Command {
     /**
      * Parses the user input and save the user task into the tasklist.
      *
-     * @throws DukeException If the user input is invalid.
+     * @throws GravitasException If the user input is invalid.
      */
     @Override
-    public String executeCommand(TaskList taskList, Storage storage) throws DukeException {
+    public String executeCommand(TaskList taskList, Storage storage) throws GravitasException {
         String[] msgFrag = userInput.split(" ", 2);
         Task task;
         if (msgFrag[0].equals("deadline")) {
             if (msgFrag.length <= 1 || !userInput.contains("/by ")) {
-                throw new DukeException(EMPTY_DEADLINE);
+                throw new GravitasException(EMPTY_DEADLINE);
             }
 
             String[] deadline = userInput.split("/by ", 2);
@@ -49,7 +49,7 @@ public class AddCommand extends Command {
             task = new Deadline(description[1], deadline[1]);
         } else if (msgFrag[0].equals("event")) {
             if (msgFrag.length <= 1 || !userInput.contains("/from ") || !userInput.contains("/to ")) {
-                throw new DukeException(EMPTY_EVENT);
+                throw new GravitasException(EMPTY_EVENT);
             }
 
             String[] event = userInput.split("/from ", 2);
@@ -57,7 +57,7 @@ public class AddCommand extends Command {
             task = new Event(event[0], formattedDeadline[0], formattedDeadline[1]);
         } else {
             if (msgFrag.length <= 1) {
-                throw new DukeException(EMPTY_TODO);
+                throw new GravitasException(EMPTY_TODO);
             }
 
             task = new Todo(msgFrag[1]);

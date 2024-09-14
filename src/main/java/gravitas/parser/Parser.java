@@ -8,7 +8,7 @@ import gravitas.command.FindCommand;
 import gravitas.command.HelpCommand;
 import gravitas.command.ListTaskCommand;
 import gravitas.command.UpdateTaskCommand;
-import gravitas.exception.DukeException;
+import gravitas.exception.GravitasException;
 import gravitas.task.Deadline;
 import gravitas.task.Event;
 import gravitas.task.Task;
@@ -24,9 +24,9 @@ public class Parser {
      *
      * @param input User input.
      * @return Command to be executed.
-     * @throws DukeException If the input is invalid.
+     * @throws GravitasException If the input is invalid.
      */
-    public static Command parseCommand(String input) throws DukeException {
+    public static Command parseCommand(String input) throws GravitasException {
         String[] inputArray = input.split(" ", 2);
         String command = inputArray[0];
 
@@ -46,7 +46,7 @@ public class Parser {
         case "help":
             return new HelpCommand();
         default:
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            throw new GravitasException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -55,9 +55,9 @@ public class Parser {
      *
      * @param data String data to be parsed.
      * @return Task to be returned.
-     * @throws DukeException If there is an error in loading the tasks.
+     * @throws GravitasException If there is an error in loading the tasks.
      */
-    public static Task parseStringToTask(String data) throws DukeException {
+    public static Task parseStringToTask(String data) throws GravitasException {
         String[] frags = data.split("\\s*\\|\\s*");
         Task task;
         if (frags[0].equals("T")) {
@@ -85,7 +85,7 @@ public class Parser {
             }
             return task;
         } else {
-            throw new DukeException("Error in loading tasks!");
+            throw new GravitasException("Error in loading tasks!");
         }
     }
 }
