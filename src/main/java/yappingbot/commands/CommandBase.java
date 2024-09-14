@@ -129,7 +129,7 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
                                                  .filter(ArgEnums::isRequired)
                                                  .map(arguments::containsKey)
                                                  .reduce(Boolean::logicalAnd)
-                                                 .orElseThrow();
+                                                 .orElse(true);
         if (!areRequiredArgsSatisfied) {
             throw new YappingBotException(ReplyTextMessages.NOT_ENOUGH_ARGUMENTS);
         }

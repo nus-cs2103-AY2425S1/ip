@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import yappingbot.commands.CommandDispatcher;
 import yappingbot.commands.Parser;
+import yappingbot.commands.commands.DeleteTaskCommand;
 import yappingbot.commands.commands.FindStringInTasksCommand;
 import yappingbot.commands.commands.PrintUserTaskListCommand;
 import yappingbot.commands.commands.ResetViewCommand;
@@ -103,21 +104,19 @@ public class YappingBot {
                     break;
                 case MARK:
                     // marks a task as Done, given the index
-                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                     commandDispatch.changeTaskListStatus(taskListIndexPtr, true, userList);
                     break;
                 case UNMARK:
                     // unmarks a task as Done, given the index
-                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                     commandDispatch.changeTaskListStatus(taskListIndexPtr, false, userList);
                     break;
                 case DELETE:
                     // deletes a task from list, given the index
-                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
-                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    commandDispatch.deleteTask(taskListIndexPtr, userList);
+                    userList = new DeleteTaskCommand(userInputSlices).setEnvironment(ui, userList)
+                                                                     .runCommand()
+                                                                     .getNewUserList();
                     break;
                 case TODO:
                     // creates a new to-do task
@@ -133,7 +132,6 @@ public class YappingBot {
                     break;
                 case FIND:
                     // creates a filtered list view with tasks matching the given criteria
-                    Parser.checkMinimumArgsAvailable(userInputSlices, 1);
                     userList = new FindStringInTasksCommand(userInputSlices)
                             .setEnvironmen(ui, userList)
                             .runCommand()

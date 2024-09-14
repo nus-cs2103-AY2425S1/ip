@@ -28,6 +28,11 @@ public class PrintUserTaskListCommand
         public String getKeyword() {
             return "";
         }
+
+        @Override
+        public boolean isRequired() {
+            return false;
+        }
     }
 
     /**
@@ -47,7 +52,7 @@ public class PrintUserTaskListCommand
 
     @Override
     protected Class<PrintUserTaskListCommand.Args> getArgumentClass() {
-        return null;
+        return Args.class;
     }
 
     @Override

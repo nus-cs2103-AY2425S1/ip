@@ -22,17 +22,24 @@ public class FindStringInTasksCommand
      * Possible Args for this command.
      */
     protected enum Args implements ArgEnums<Args> {
-        SEARCH_STRING("");
+        SEARCH_STRING("", true);
 
         private final String keyword;
+        private final boolean isRequired;
 
-        Args(String keyword) {
+        Args(String keyword, boolean isRequired) {
             this.keyword = keyword;
+            this.isRequired = isRequired;
         }
 
         @Override
         public String getKeyword() {
             return keyword;
+        }
+
+        @Override
+        public boolean isRequired() {
+            return isRequired;
         }
     }
 

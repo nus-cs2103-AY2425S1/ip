@@ -17,21 +17,27 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args, LauncherC
      * Enum for the possible Arguments of this command.
      */
     protected enum Args implements ArgEnums<Args> {
-        FIRST_ARG(""),
-        JAVAFX_ARGS_PASSTHRU("--"),
-        SAVE_FILE_PATH("-s"),
-        SAVE_FILE_PATH_LONG("--savefile"),
-        CLI_MODE("-c");
+        FIRST_ARG("", false),
+        JAVAFX_ARGS_PASSTHRU("--", false),
+        SAVE_FILE_PATH("-s", false),
+        CLI_MODE("-c", false);
 
         private final String keyword;
+        private final boolean isRequired;
 
-        Args(String keyword) {
+        Args(String keyword, boolean isRequired) {
             this.keyword = keyword;
+            this.isRequired = isRequired;
         }
 
         @Override
         public String getKeyword() {
             return keyword;
+        }
+
+        @Override
+        public boolean isRequired() {
+            return isRequired;
         }
     }
 
@@ -67,14 +73,11 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args, LauncherC
     @Override
     protected LauncherCommand run() throws YappingBotException {
         boolean isUsingCli = arguments.containsKey(Args.CLI_MODE);
-        boolean isUsingAltSavefile = arguments.containsKey(Args.SAVE_FILE_PATH)
-                                     || arguments.containsKey(Args.SAVE_FILE_PATH_LONG);
+        boolean isUsingAltSavefile = arguments.containsKey(Args.SAVE_FILE_PATH);
         String[] javafxArgs = arguments.getOrDefault(Args.JAVAFX_ARGS_PASSTHRU, null);
 
         if (isUsingAltSavefile) {
-            savefilePath = arguments.containsKey(Args.SAVE_FILE_PATH)
-                                ? arguments.get(Args.SAVE_FILE_PATH)[0]
-                                : arguments.get(Args.SAVE_FILE_PATH_LONG)[0];
+            savefilePath = arguments.get(Args.SAVE_FILE_PATH)[0];
         }
 
         if (isUsingCli) {

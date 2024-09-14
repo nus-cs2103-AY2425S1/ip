@@ -1,34 +1,42 @@
 package yappingbot.commands.commands;
 
 import yappingbot.commands.CommandBase;
+import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.Task;
 import yappingbot.tasks.tasklist.TaskList;
-import yappingbot.tasks.tasklist.TaskListFilterView;
 import yappingbot.ui.Ui;
 
 /**
- * Resets the currentUserList to default view if it is currently a filter view.
+ * Deletes a task in the user list, and prints that task out.
  */
-public class ResetViewCommand extends CommandBase<ResetViewCommand.Args, ResetViewCommand> {
-    private TaskList currentUserList;
-    private boolean silent;
+public class DeleteTaskCommand extends CommandBase<DeleteTaskCommand.Args, DeleteTaskCommand> {
+    private TaskList userList;
     private Ui ui;
 
     /**
      * Argument Enums - this class excepts no Arguments.
      */
     protected enum Args implements ArgEnums<Args> {
-        ;
+        INDEX("", true);
+
+        private final String keyword;
+        private final boolean isRequired;
+
+        Args(String keyword, boolean isRequired) {
+            this.keyword = keyword;
+            this.isRequired = isRequired;
+        }
 
         @Override
         public String getKeyword() {
-            return "";
+            return keyword;
         }
 
         @Override
         public boolean isRequired() {
-            return false;
+            return isRequired;
         }
     }
 
@@ -38,8 +46,8 @@ public class ResetViewCommand extends CommandBase<ResetViewCommand.Args, ResetVi
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public ResetViewCommand() throws YappingBotIncorrectCommandException {
-        super(new String[]{});
+    public DeleteTaskCommand(String[] userInputSlices) throws YappingBotIncorrectCommandException {
+        super(userInputSlices);
     }
 
     @Override
@@ -54,7 +62,7 @@ public class ResetViewCommand extends CommandBase<ResetViewCommand.Args, ResetVi
 
     @Override
     protected Args getFirstArgumentType() {
-        return null;
+        return Args.INDEX;
     }
 
     /**
@@ -63,17 +71,20 @@ public class ResetViewCommand extends CommandBase<ResetViewCommand.Args, ResetVi
      * @return this object, useful for chaining.
      */
     @Override
-    protected ResetViewCommand run() {
-        assert currentUserList != null;
-        // reset the view to main parent
-        TaskList userList = currentUserList;
-        while (userList instanceof TaskListFilterView) {
-            userList = ((TaskListFilterView) userList).getParent();
-        }
-        if (!silent) {
-            ui.println(ReplyTextMessages.RESET_TEXT);
-        }
-        currentUserList = userList;
+    protected DeleteTaskCommand run() {
+        assert arguments != null;
+        assert userList != null;
+        assert arguments.containsKey(Args.INDEX);
+        int i = Parser.parseTaskNumberSelected(arguments.get(Args.INDEX)[0]);
+        assert userList.size() > i;
+
+        Task t = userList.deleteTask(i);
+        ui.println(ReplyTextMessages.DELETED_TEXT);
+        ui.printf(ReplyTextMessages.TASK_PRINT_TEXT_3s,
+                  t.getTaskTypeSymbol(),
+                  t.getTaskDoneCheckmark(),
+                  t);
+        ui.printf(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size());
         return this;
     }
 
@@ -86,12 +97,10 @@ public class ResetViewCommand extends CommandBase<ResetViewCommand.Args, ResetVi
      * Set the necessary values needed to execute this command.
      *
      * @param currentUserList TaskList that needs to be resetted
-     * @param silent boolean on whether to run this silently
      * @return this object, useful for chainning
      */
-    public ResetViewCommand setEnvironment(Ui ui, TaskList currentUserList, boolean silent) {
-        this.currentUserList = currentUserList;
-        this.silent = silent;
+    public DeleteTaskCommand setEnvironment(Ui ui, TaskList currentUserList) {
+        this.userList = currentUserList;
         this.ui = ui;
         return this;
     }
@@ -102,6 +111,6 @@ public class ResetViewCommand extends CommandBase<ResetViewCommand.Args, ResetVi
      * @return TaskList reflecting the original userlist.
      */
     public TaskList getNewUserList() {
-        return this.currentUserList;
+        return this.userList;
     }
 }

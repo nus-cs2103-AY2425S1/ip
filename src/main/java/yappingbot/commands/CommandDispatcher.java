@@ -60,28 +60,6 @@ public class CommandDispatcher {
     }
 
     /**
-     * Deletes a task in the user list, and prints that task out.
-     *
-     * @param i integer index of task in list.
-     * @param userList TaskList to be searched.
-     */
-    public void deleteTask(int i, TaskList userList) {
-        assert userList != null;
-        assert userList.size() > i;
-        Task t = userList.deleteTask(i);
-        ui.print(ReplyTextMessages.DELETED_TEXT
-                 + "\n"
-                 + String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
-                                 t.getTaskTypeSymbol(),
-                                 t.getTaskDoneCheckmark(),
-                                 t)
-                 + "\n"
-                 + String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d,
-                                 userList.size()));
-    }
-
-
-    /**
      * Creates a new task and inserts it into the task list.
      *
      * @param userInputSpliced String Array to be interpreted as the task to be created
