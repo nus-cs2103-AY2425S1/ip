@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nebula {
@@ -179,6 +182,18 @@ public class Nebula {
             return TaskType.EVENT;
         } else {
             return TaskType.UNKNOWN;
+        }
+    }
+
+    public static void saveTaskListToTextFile(ArrayList<Task> listOfTasks) throws IOException {
+        FileWriter fw = new FileWriter("nebulaTaskList.txt");
+        for (Task task : listOfTasks) {
+
+            String isMarked = task.isDone() ? "1" : "0";
+            String taskSymbol = task.getTaskSymbol();
+            String taskDescription = task.getDescription();
+
+            String taskData = isMarked + " | " + taskSymbol + " | " + taskDescription;
         }
     }
 
