@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import helperbuddy.GUI.MainWindow;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -23,6 +25,7 @@ public class Ui extends Application {
 
     private TaskList taskList;
     private Storage storage;
+    private String commandType = "";
 
     /**
      * Constructs a new GUI for the user.
@@ -39,13 +42,17 @@ public class Ui extends Application {
         }
 
         try {
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            fxmlLoader.<MainWindow>getController().setBuddy(this);
+            storage.loadTasks(taskList.getTasks());
+            stage.setTitle("YourHelperBuddy");
+            Image icon = new Image(this.getClass().getResourceAsStream("/images/HelperBuddy.png"));
+            stage.getIcons().add(icon);
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBuddy(this);
-            stage.setTitle("Hello! I'm YourHelperBuddy.");
-            storage.loadTasks(taskList.getTasks());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,17 +101,28 @@ public class Ui extends Application {
         } else if (command.equals("list")) {
             response = getTaskListMessage();
         } else if (command.startsWith("delete")) {
+            commandType = "DeleteCommand";
             response = handleDeleteTask(command);
         } else if (command.startsWith("mark")) {
+            commandType = "MarkCommand";
             response = handleMarkTask(command);
         } else if (command.startsWith("unmark")) {
             response = handleUnmarkTask(command);
         } else if (command.startsWith("find")) {
             response = handleFindTask(command);
         } else {
+            commandType = "AddCommand";
             response = handleAddTask(command);
         }
         return response;
+    }
+
+    /**
+     * Checks the type of the command entered by the user.
+     * @return the command type.
+     */
+    public String getCommandType() {
+        return commandType;
     }
 
     /**
