@@ -18,8 +18,8 @@ public class Todo extends Task {
      * @param description of task
      * @param isDone status of task
      */
-    public Todo(String description, boolean isDone) {
-        super(description, isDone);
+    public Todo(String description, boolean isDone, String tags) {
+        super(description, isDone, tags);
     }
 
     /**

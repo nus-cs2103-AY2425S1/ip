@@ -122,10 +122,28 @@ public class TaskList {
         TaskList tasksSubset = new TaskList();
         for (int i = 0; i < this.length; i++) {
             Task t = tasks.get(i);
-            if (t.containsSubstring(toFind)) {
+            if (t.containsSubstring(toFind) || t.containsTag(toFind)) {
                 tasksSubset.addTask(t);
             }
         }
         return tasksSubset;
+    }
+
+    /**
+     * Tags task at index i with tag
+     * @param i int index
+     * @param tag String to tag with
+     */
+    public void tagTask(int i, String tag) {
+        this.tasks.get(i).addTag(tag);
+    }
+
+    /**
+     * Untags task at index i with tag
+     * @param i int index
+     * @param tag String to tag with
+     */
+    public void untagTask(int i, String tag) {
+        this.tasks.get(i).removeTag(tag);
     }
 }

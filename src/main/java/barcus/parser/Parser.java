@@ -13,8 +13,10 @@ import barcus.command.ExitCommand;
 import barcus.command.FindCommand;
 import barcus.command.ListCommand;
 import barcus.command.MarkCommand;
+import barcus.command.TagCommand;
 import barcus.command.UnknownCommand;
 import barcus.command.UnmarkCommand;
+import barcus.command.UntagCommand;
 import barcus.exception.BarcusException;
 
 /**
@@ -52,6 +54,10 @@ public class Parser {
             return parseDelete(words);
         } else if (words[0].equals("find")) {
             return parseFind(words);
+        } else if (words[0].equals("tag")) {
+            return parseTag(words);
+        } else if (words[0].equals("untag")) {
+            return parseUntag(words);
         }
         return new UnknownCommand();
     }
@@ -207,5 +213,41 @@ public class Parser {
             throw new BarcusException("please include what word(s) you want to find after 'find'");
         }
         return new FindCommand(String.join(" ", Arrays.copyOfRange(words, 1, words.length)));
+    }
+
+    /**
+     * Parses words for tag command
+     * @param words String array of user input
+     * @return Tag command
+     * @throws BarcusException When index and tag are not given
+     */
+    private static Command parseTag(String[] words) throws BarcusException {
+        if (words.length != 3) {
+            throw new BarcusException("please have an integer and a single word tag after 'tag'");
+        }
+        try {
+            int pos = Integer.parseInt(words[1]);
+            return new TagCommand(pos, words[2]);
+        } catch (NumberFormatException e) {
+            throw new BarcusException("please have an integer and a single word tag after 'tag'");
+        }
+    }
+
+    /**
+     * Parses words for untag command
+     * @param words String array of user input
+     * @return Untag command
+     * @throws BarcusException When index and tag are not given
+     */
+    private static Command parseUntag(String[] words) throws BarcusException {
+        if (words.length != 3) {
+            throw new BarcusException("please have an integer and a single word tag after 'untag'");
+        }
+        try {
+            int pos = Integer.parseInt(words[1]);
+            return new UntagCommand(pos, words[2]);
+        } catch (NumberFormatException e) {
+            throw new BarcusException("please have an integer and a single word tag after 'untag'");
+        }
     }
 }
