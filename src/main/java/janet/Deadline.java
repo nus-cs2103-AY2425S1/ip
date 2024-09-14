@@ -85,6 +85,12 @@ public class Deadline extends ScheduledTask {
         return new Deadline(deadlineDetails[0], "D", dateAndTime);
     }
 
+    /**
+     * Returns a Deadline object that was created from the line of text, in .txt file saved.
+     *
+     * @param textLine A line of text from the .txt file saved.
+     * @return A Deadline object.
+     */
     public static Deadline createDeadlineFromTxt(String[] textLine) {
         String symbol = textLine[0].trim();
         String description = textLine[2].trim();
@@ -92,7 +98,6 @@ public class Deadline extends ScheduledTask {
         LocalDateTime dueDate = LocalDateTime.parse(textLine[3].trim(), stringToDateTime);
         return new Deadline(description, symbol, dueDate);
     }
-
 
     /**
      * @return task's dueDate (deadline) as a String

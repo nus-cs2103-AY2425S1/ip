@@ -103,6 +103,12 @@ public class Event extends ScheduledTask {
         return new Event(eventDetails[0], "E", startDateAndTime, endDateAndTime);
     }
 
+    /**
+     * Returns an Event object that was created from the line of text, in .txt file saved.
+     *
+     * @param textLine A line of text from the .txt file saved.
+     * @return An Event object.
+     */
     public static Event createEventFromTxt(String[] textLine) {
         String symbol = textLine[0].trim();
         String description = textLine[2].trim();

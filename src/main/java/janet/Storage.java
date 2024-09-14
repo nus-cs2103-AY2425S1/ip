@@ -1,9 +1,6 @@
 package janet;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -53,51 +50,44 @@ public class Storage {
      *
      * @return an ArrayList<janet.Task> listOfTasks, that contains janet.Task objects
      */
-    public ArrayList<Task> textFileToArrayList() throws JanetException {
+    public ArrayList<Task> textFileToArrayList() throws IOException {
         ArrayList<Task> listOfTasks = new ArrayList<>();
-        try {
-            FileReader fileReader = new FileReader(this.filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
 
-            while ((line = bufferedReader.readLine()) != null) {
-                Task task = null;
-                char taskSymbol = line.charAt(0);   // get task symbol
-                String done = String.valueOf(line.charAt(4));   // get mark/unmark value
-                boolean isDone = (done.equals("1"));
+        FileReader fileReader = new FileReader(this.filePath);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line;
 
-                switch (taskSymbol) {
-                case 'T' :
-                    // todo object
-                    task = new ToDo(line.split("\\|"));
-                    break;
-                case 'D' :
-                    // deadline object
-                    task = new Deadline(line.split("\\|"));
-                    break;
-                case 'E' :
-                    // event object
-                    task = new Event(line.split("\\|"));
-                    break;
-                default:
-                    // invalid
-                    continue;
-                }
-                task.setDone(isDone);
-                listOfTasks.add(task);
+        while ((line = bufferedReader.readLine()) != null) {
+            Task task = null;
+            if (line.isEmpty()) {
+                continue;
             }
-            fileReader.close();
-            bufferedReader.close();
-        } catch (IOException e) {
-            // exception will be thrown when fileReader cannot find the file.
-            throw new JanetException("");
-        }
-        return listOfTasks;
-    }
+            char taskSymbol = line.charAt(0);   // get task symbol
+            String done = String.valueOf(line.charAt(4));   // get mark/unmark value
+            boolean isDone = (done.equals("1"));
 
-    public void validLineChecker(String line) throws JanetException {
-        if (line.trim().isEmpty()) {
-            throw new JanetException("");
+            switch (taskSymbol) {
+            case 'T' :
+                // todo object
+                task = new ToDo(line.split("\\|"));
+                break;
+            case 'D' :
+                // deadline object
+                task = new Deadline(line.split("\\|"));
+                break;
+            case 'E' :
+                // event object
+                task = new Event(line.split("\\|"));
+                break;
+            default:
+                // invalid
+                continue;
+            }
+            task.setDone(isDone);
+            listOfTasks.add(task);
         }
+        fileReader.close();
+        bufferedReader.close();
+        return listOfTasks;
     }
 }

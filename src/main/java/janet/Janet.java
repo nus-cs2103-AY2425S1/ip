@@ -1,6 +1,10 @@
 package janet;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 /**
@@ -36,9 +40,11 @@ public class Janet {
     public String startMessage() {
         // if janet.txt cannot be found, ui.showLoadingError() is appended to the message.
         String message = ui.showWelcome();
+        // Path pathToJanetTxt = Paths.get("./janet.txt");
+
         try {
             tasks = new TaskList(storage.textFileToArrayList());
-        } catch (JanetException e) {
+        } catch (IOException e) {
             message += ui.showLoadingError();
         }
         return message;
