@@ -42,6 +42,22 @@ public class Deadline extends Task {
         by = super.parseDateTime(input);
     }
 
+    /**
+     * Provides task string in save file format.
+     * @return task string.
+     */
+    @Override
+    public String toSaveString() {
+        assert !task.isEmpty() : "task field should not be empty";
+        String mark = super.toSaveString();
+        String deadline = by.format(DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm"));
+        return "D|" + mark + "|" + task + "|" + deadline;
+    }
+
+    /**
+     * Provides task string for user response.
+     * @return task string.
+     */
     @Override
     public String toString() {
         assert !task.isEmpty() : "task field should not be empty";

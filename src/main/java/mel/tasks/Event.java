@@ -54,6 +54,23 @@ public class Event extends Task {
         to = super.parseDateTime(input[1].trim());
     }
 
+    /**
+     * Provides task string in save file format.
+     * @return task string.
+     */
+    @Override
+    public String toSaveString() {
+        assert !task.isEmpty() : "task field should not be empty";
+        String mark = super.toSaveString();
+        String start = from.format(DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm"));
+        String end = to.format(DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm"));
+        return "E|" + mark + "|" + task + "|" + start + "|" + end;
+    }
+
+    /**
+     * Provides task string for user response.
+     * @return task string.
+     */
     @Override
     public String toString() {
         assert !task.isEmpty() : "task field should not be empty";

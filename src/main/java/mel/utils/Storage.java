@@ -2,10 +2,14 @@ package mel.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import mel.exceptions.MelException;
+import mel.exceptions.TaskException;
 
 /**
  * Storage class that handles a
@@ -47,6 +51,21 @@ public class Storage {
         }
         writer.flush();
         writer.close();
+    }
+
+    /**
+     * Loads save file of task list if save file exists.
+     * @return String array representing list of tasks.
+     * @throws FileNotFoundException if I/O error occurs when reading save file.
+     */
+    public ArrayList<String> loadTasks() throws FileNotFoundException {
+        ArrayList<String> taskList = new ArrayList<>();
+        Scanner scanner = new Scanner(pathTask);
+        while (scanner.hasNextLine()) {
+            taskList.add(scanner.nextLine());
+        }
+        scanner.close();
+        return taskList;
     }
 
 }

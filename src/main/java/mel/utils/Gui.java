@@ -30,15 +30,19 @@ public class Gui {
     /**
      * Reads user input to Mel chatbot.
      * @param input user input string.
+     * @return boolean indicator to end session.
      */
-    public void read(String input) {
+    public boolean read(String input) {
+        boolean isBye = false;
         if (input.length() > 100) {
             mel.println("Mel's eyes explode "
                     + "reading your many words XD");
         } else if (Objects.equals(input, "bye")) {
             mel.println("Buh-bye :)");
+            isBye = true;
         } else {
             mel.executeTask(input);
         }
+        return isBye;
     }
 }

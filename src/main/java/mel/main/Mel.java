@@ -66,6 +66,7 @@ public class Mel {
      */
     public void run() {
         isUsingGui = false;
+        taskList.loadTasks();
         ui.hello();
         Scanner scanner = new Scanner(System.in);
         boolean isBye = false;
@@ -84,10 +85,12 @@ public class Mel {
      */
     public String[] getResponse(String input) {
         isUsingGui = true;
-        gui.read(input);
+        boolean isBye = gui.read(input);
         String[] s = {"", response};
         response = "";
-        if (hasException) {
+        if (isBye) {
+            s[0] = "bye";
+        } else if (hasException) {
             s[0] = "exception";
             hasException = false;
         } else {
@@ -108,11 +111,13 @@ public class Mel {
      * @return String introductory message.
      */
     public String hello() {
-        return gui.hello();
+        String s = gui.hello();
+        taskList.loadTasks();
+        return s + "\n" + response;
     }
 
     /**
-     * Main method to start up Mel chatbot.
+     * Starts up Mel chatbot.
      * Not used in GUI.
      */
     public static void main(String[] args) {

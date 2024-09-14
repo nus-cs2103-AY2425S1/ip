@@ -2,6 +2,7 @@ package mel.tasks;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 import mel.exceptions.MelException;
@@ -41,13 +42,16 @@ public class TaskList {
             printAll();
         } else if (cmd.contains("mark")) {
             handleTaskMarking(input);
+            updateTasks();
         } else if (cmd.equals("delete")) {
             handleTaskDeletion(input);
+            updateTasks();
         } else if (cmd.equals("find")) {
             findTask(input);
         } else {
             mel.println("Mel remembers...");
             createTask(input);
+            updateTasks();
         }
     }
 
@@ -74,7 +78,6 @@ public class TaskList {
                     + "Mel doesn't understand you :((");
         }
         tasks.add(task);
-        updateTasks();
 
         mel.println("  " + task);
         mel.println("Mel counts " + tasks.size()
@@ -100,7 +103,6 @@ public class TaskList {
                 }
             }
             deleteTasks(indices);
-            updateTasks();
             mel.println("Mel counts " + tasks.size()
                     + " stuffs memorized XD");
         } catch (IndexOutOfBoundsException e) {
@@ -130,6 +132,59 @@ public class TaskList {
     }
 
     /**
+     * Loads tasks from save file.
+     */
+    public void loadTasks() {
+        try {
+            ArrayList<String> taskList = storage.loadTasks();
+            for (String s : taskList) {
+                loadTask(s);
+            }
+        } catch (IOException e) {
+            /* Fallthrough: No save file to load from,
+            new task list and save file are created instead*/
+        } catch (TaskException | MelException e) {
+            mel.println(e.getMessage());
+            mel.setHasException();
+        }
+    }
+
+    /**
+     * Loads individual tasks to task list.
+     * @param str task string in save file format.
+     */
+    private void loadTask(String str) throws TaskException, MelException {
+        String[] s = str.split("\\|");
+        mel.println(Arrays.toString(s));
+        String t;
+        switch (s[0]) {
+        case "T":
+            t = "todo " + s[2];
+            createTask(t);
+            break;
+        case "D":
+            t = "deadline " + s[2] + " /by " + s[3];
+            createTask(t);
+            break;
+        case "E":
+            t = "event " + s[2] + " /from " + s[3] + " /to " + s[4];
+            createTask(t);
+            break;
+        default:
+            throw new TaskException("Mel is stunned!\n"
+                    + "Mel couldn't understand your save file?!");
+        }
+        if (Objects.equals(s[1], "X")) {
+            tasks.get(tasks.size() - 1).markTaskAsDone();
+        } else if (Objects.equals(s[1], " ")) {
+            //Fallthrough: task is marked incomplete by default.
+        } else {
+            throw new TaskException("Mel is stunned!\n"
+                    + "Mel couldn't understand your save file?!");
+        }
+    }
+
+    /**
      * Handles marking of tasks completion based on input.
      * @param input user input string.
      * @throws MelException on unexpected user input.
@@ -151,7 +206,6 @@ public class TaskList {
                 throw new MelException("Mel is confused... \n"
                         + "Mel doesn't understand you :((");
             }
-            updateTasks();
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?!\n"
                     + "Mel recalls only " + tasks.size() + " things");
@@ -231,7 +285,7 @@ public class TaskList {
         int i = 0;
         String[] s = new String[tasks.size()];
         for (Task t : tasks) {
-            s[i] = t.toString();
+            s[i] = t.toSaveString();
             i++;
         }
         try {

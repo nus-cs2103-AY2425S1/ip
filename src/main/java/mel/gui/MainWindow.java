@@ -1,5 +1,8 @@
 package mel.gui;
 
+import java.util.Objects;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mel.main.Mel;
+
 
 /**
  * Controller for Mel main GUI.
@@ -61,6 +65,9 @@ public class MainWindow extends AnchorPane {
                 melDialogBox
         );
         userInput.clear();
+        if (Objects.equals(response[0], "bye")) {
+            Platform.exit();
+        }
     }
 
     /**

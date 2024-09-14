@@ -52,9 +52,18 @@ public class Task {
     }
 
     /**
-     * Returns status of task as string.
-     * @return String status of task as string.
+     * Returns status of task as string in save file format.
+     * @return Status of task as string.
      */
+    public String toSaveString() {
+        return isDone ? "X" : " ";
+    }
+
+    /**
+     * Returns status of task as string.
+     * @return Status of task as string.
+     */
+    @Override
     public String toString() {
         String s = isDone ? "X" : " ";
         return "[" + s + "] ";
