@@ -1,3 +1,3 @@
-E | 0 | Attend meeting | 02/12/2019 1600 | 02/12/2019 1900
-T | 0 | buy book
-D | 0 | new project | 02/12/2019 1800
+T | 0 | return another book
+D | 0 | finish project | 02/12/2019 1800
+E | 0 | class | 02/12/2019 1600 | 02/12/2019 1900

@@ -1,6 +1,6 @@
 # NotAGPT User Guide
 
-// Ui.png
+[Ui.png](Ui.png)
 
 Welcome to NotAGPT! It's a chatbot that helps you keep track of your tasks.
 
