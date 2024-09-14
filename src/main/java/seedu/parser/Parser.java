@@ -8,7 +8,14 @@ import seedu.task.TaskList;
  */
 public class Parser {
 
-    /**
+    public boolean validIndex(TaskList t, int num) throws BobException {
+        if (num < 0 || num >= t.getLength()) {
+            throw new BobException("Invalid index value");
+        }
+        return true;
+    }
+
+    /**:uuuuu
      * Parses the input message for marking a task as done and applies the command to the given {@code TaskList}.
      *
      * @param message The input message to be parsed (e.g., "mark 1").
@@ -20,6 +27,7 @@ public class Parser {
             throw new BobException("Invalid format");
         }
         int num = Integer.parseInt(message.replaceAll("[^0-9]", ""));
+        validIndex(t, num);
         return t.markTaskAsDone(num - 1);
     }
 
@@ -35,6 +43,7 @@ public class Parser {
             throw new BobException("Invalid format");
         }
         int num = Integer.parseInt(message.replaceAll("[^0-9]", ""));
+        validIndex(t, num);
         return t.unmarkTaskAsDone(num - 1);
     }
 
@@ -50,6 +59,7 @@ public class Parser {
             throw new BobException("Invalid format");
         }
         int num = Integer.parseInt(message.replaceAll("[^0-9]", ""));
+        validIndex(t, num);
         return t.deleteTask(num - 1);
     }
 

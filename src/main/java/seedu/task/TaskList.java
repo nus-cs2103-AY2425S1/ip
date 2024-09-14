@@ -19,6 +19,7 @@ public class TaskList {
      * @param t The task to be added.
      */
     public String addTask(Task t) {
+        assert t != null : "Task should not be null";
         this.tasks.add(t);
         return this.formatter.addTaskUi(t, this.tasks.size());
     }
@@ -37,6 +38,7 @@ public class TaskList {
      * @param num The index of the task to be marked as done (0-based index).
      */
     public String markTaskAsDone(int num) {
+        assert num >= 0 && num < this.tasks.size() : "Index out of bounds";
         Task t = this.tasks.get(num);
         t.markAsDone();
         return this.formatter.markTaskAsDoneUi(t);
@@ -49,6 +51,7 @@ public class TaskList {
      * @param num The index of the task to be unmarked as not done (0-based index).
      */
     public String unmarkTaskAsDone(int num) {
+        assert num >= 0 && num < this.tasks.size() : "Index out of bounds";
         Task t = this.tasks.get(num);
         t.markAsNotDone();
         return this.formatter.unmarkTaskAsDoneUi(t);
@@ -60,6 +63,7 @@ public class TaskList {
      * @param num The index of the task to be deleted (0-based index).
      */
     public String deleteTask(int num) {
+        assert num >= 0 && num < this.tasks.size() : "Index out of bounds";
         Task t = this.tasks.get(num);
         this.tasks.remove(num);
         return this.formatter.deleteTaskUi(t, this.tasks.size());
@@ -121,5 +125,9 @@ public class TaskList {
             }
         }
         return formatter.listTaskUi(temp);
+    }
+
+    public int getLength() {
+        return this.tasks.size();
     }
 }

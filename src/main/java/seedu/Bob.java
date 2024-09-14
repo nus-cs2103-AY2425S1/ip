@@ -25,6 +25,11 @@ public class Bob {
         this.storage = new Storage();
         this.parser = new Parser();
         this.storage.loadTasks(this.tasks);
+
+        assert this.formatter != null;
+        assert this.tasks != null;
+        assert this.storage != null;
+        assert this.parser != null;
     }
 
     public String start() {
@@ -45,6 +50,7 @@ public class Bob {
      * @return Bob's response
      */
     public String getResponse(String message) {
+        assert message != null;
         String command = message.split(" ")[0];
         try {
             switch (command) {
