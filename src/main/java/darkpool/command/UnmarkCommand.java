@@ -1,7 +1,7 @@
 package darkpool.command;
 
-import darkpool.util.DarkpoolException;
-import darkpool.util.Storage;
+import darkpool.DarkpoolException;
+import darkpool.storage.Storage;
 import darkpool.tasklist.TaskList;
 import darkpool.gui.Gui;
 

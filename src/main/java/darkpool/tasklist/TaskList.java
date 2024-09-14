@@ -3,7 +3,7 @@ package darkpool.tasklist;
 import java.util.ArrayList;
 
 import darkpool.task.Task;
-import darkpool.util.DarkpoolException;
+import darkpool.DarkpoolException;
 
 public class TaskList {
 

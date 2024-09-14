@@ -1,4 +1,4 @@
-package darkpool.util;
+package darkpool;
 
 /**
  * Custom exception class for Darkpool application.

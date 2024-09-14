@@ -2,7 +2,7 @@ package darkpool.parser;
 
 import darkpool.command.Command;
 import darkpool.command.UnmarkCommand;
-import darkpool.util.DarkpoolException;
+import darkpool.DarkpoolException;
 
 
 public class UnmarkParser {

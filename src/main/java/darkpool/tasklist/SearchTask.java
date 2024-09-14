@@ -1,7 +1,7 @@
 package darkpool.tasklist;
 
 import darkpool.task.Task;
-import darkpool.util.DarkpoolException;
+import darkpool.DarkpoolException;
 
 import java.util.ArrayList;
 

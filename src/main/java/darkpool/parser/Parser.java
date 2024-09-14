@@ -1,7 +1,7 @@
 package darkpool.parser;
 
 import darkpool.command.Command;
-import darkpool.util.DarkpoolException;
+import darkpool.DarkpoolException;
 
 /**
  * The Parser class is responsible for parsing user input and returning the appropriate Command object.

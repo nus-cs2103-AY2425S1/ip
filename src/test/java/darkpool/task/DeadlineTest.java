@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import darkpool.util.DarkpoolException;
+import darkpool.DarkpoolException;
 
 
 class DeadlineTest {

@@ -2,9 +2,8 @@ package darkpool;
 
 import darkpool.command.Command;
 import darkpool.gui.Gui;
-import darkpool.util.DarkpoolException;
 import darkpool.parser.Parser;
-import darkpool.util.Storage;
+import darkpool.storage.Storage;
 import darkpool.tasklist.TaskList;
 
 public class Darkpool {

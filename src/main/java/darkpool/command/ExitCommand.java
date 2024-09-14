@@ -2,8 +2,8 @@ package darkpool.command;
 
 import darkpool.gui.Gui;
 import darkpool.tasklist.TaskList;
-import darkpool.util.DarkpoolException;
-import darkpool.util.Storage;
+import darkpool.DarkpoolException;
+import darkpool.storage.Storage;
 
 public class ExitCommand extends Command {
 

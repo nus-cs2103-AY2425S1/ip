@@ -2,7 +2,7 @@ package darkpool.command;
 
 import darkpool.gui.Gui;
 import darkpool.task.Task;
-import darkpool.util.Storage;
+import darkpool.storage.Storage;
 import darkpool.tasklist.TaskList;
 
 public class AddCommand extends Command {

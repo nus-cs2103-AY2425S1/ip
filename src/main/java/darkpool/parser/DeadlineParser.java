@@ -3,7 +3,7 @@ package darkpool.parser;
 import darkpool.command.AddCommand;
 import darkpool.command.Command;
 import darkpool.task.Deadline;
-import darkpool.util.DarkpoolException;
+import darkpool.DarkpoolException;
 
 
 public class DeadlineParser {

@@ -3,7 +3,7 @@ package darkpool.parser;
 import darkpool.task.Deadline;
 import darkpool.task.Event;
 import darkpool.task.Todo;
-import darkpool.util.DarkpoolException;
+import darkpool.DarkpoolException;
 
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
