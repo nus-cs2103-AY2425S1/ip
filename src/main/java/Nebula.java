@@ -186,16 +186,57 @@ public class Nebula {
             if (command.startsWith("deadline")) {
                 if (!description.contains("/by")) {
                     throw new NebulaException(ui.displayUnknownDeadlineException());
+                } else {
+                    // Extract the date after "/by"
+                    String[] parts2 = description.split("/by");
+                    String dueDate = parts2[1].trim();
+
+                    // Validate the due date format
+                    if (!isValidDate(dueDate)) {
+                        throw new NebulaException("Warning: Deadline date is not in the correct format (M/d/yyyy HHmm).");
+                    }
                 }
             } else if (command.startsWith("event")) {
                 if (!description.contains("/from") || !description.contains("/to")) {
                     throw new NebulaException(ui.displayUnknownEventTimingException());
+                } else {
+                    // Extract dates from the description
+                    String[] parts2 = description.split("/from");
+                    String timingPart = parts2[1].trim();
+                    String[] dates = timingPart.split("/to");
+
+                    if (dates.length < 2) {
+                        throw new NebulaException(ui.displayUnknownEventTimingException());
+                    }
+                    String startDate = dates[0].trim();
+                    String endDate = dates[1].trim();
+
+                    // Validate the start and end dates
+                    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+                        throw new NebulaException("Warning: Event dates must be in yyyy-mm-dd format.");
+                    }
                 }
             }
         }
     }
 
-    /**
+    private static boolean isValidDate(String dateStr) {
+        try {
+            System.out.println("Date str: " + dateStr);
+            LocalDateTime.parse(dateStr, DATE_TIME_FORMAT); // Attempt to parse the date with time
+            return true;
+        } catch (DateTimeParseException e) {
+            try {
+                System.out.println("Date second str: " + dateStr);
+                LocalDate.parse(dateStr, DATE_FORMAT); // Attempt to parse the date without time
+                return true;
+            } catch (DateTimeParseException ex) {
+                return false;
+            }
+        }
+    }
+
+/**
      * Determines the TaskType based on the command prefix
      *
      * @param command the input command string
