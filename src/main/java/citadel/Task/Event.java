@@ -40,7 +40,6 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: "
                 + this.formatTime(this.from)
                 + " to: " + this.formatTime(this.to) + ")"
-                + ")"
                 + " | " + this.getTag();
     }
 

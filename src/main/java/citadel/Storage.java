@@ -71,6 +71,7 @@ public class Storage {
 
                 String taskType = parts[0].substring(1, 2);
                 String taskString = parts[0].substring(7);
+
                 // Process each tasks differently according to their types
                 if (taskType.equals("T")) {
                     tasks.add(createTodo(taskString, tagLists));
@@ -139,7 +140,8 @@ public class Storage {
             throw new CitadelTaskNoInput();
         }
         String task = words[0].trim();
-        String deadline = words[1].substring(0, words[1].length() - 1).trim();
+        String deadline = words[1].substring(0, words[1].length() - 2).trim();
+
         if (task.isEmpty() || deadline.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
@@ -178,7 +180,7 @@ public class Storage {
             throw new CitadelTaskNoInput();
         }
         String from = timeline[0].trim();
-        String to = timeline[1].substring(0, timeline[1].length() - 1).trim();
+        String to = timeline[1].substring(0, timeline[1].length() - 2).trim();
         if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
