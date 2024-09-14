@@ -140,6 +140,37 @@ public class SecondMind {
         return sb.toString();
     }
 
+    private String[] getInstructionCopy(String[] instruction) {
+        String[] copy = new String[instruction.length];
+        for (int i = 0; i < instruction.length; i++) {
+            copy[i] = instruction[i];
+        }
+        return copy;
+    }
+
+    private String getMatchFromInstruction(String[] instruction) {
+        String[] instructionCopy = getInstructionCopy(instruction);
+        instructionCopy[0] = "";
+        String match = String.join(" ", instructionCopy);
+        return match;
+    }
+
+    private String getMatchingTasks(String match) {
+        ArrayList<Task> filteredTaskList = this.taskList.getMatchingTasks(match);
+        StringBuilder sb = new StringBuilder();
+        for (Task task : filteredTaskList) {
+            sb.append(task.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    private String executeFindInstruction(String[] instruction) {
+        String match = getMatchFromInstruction(instruction);
+        String matchingTasks = getMatchingTasks(match);
+        return matchingTasks;
+    }
+
     public String execute(String[] instruction) {
         String command = instruction[0];
         if (command.equals("bye")) {
@@ -157,15 +188,8 @@ public class SecondMind {
             String response = executeListInstruction();
             return response;
         } else if (command.equals("find")) {
-            instruction[0] = "";
-            String match = String.join(" ", instruction);
-            ArrayList<Task> filteredTaskList = this.taskList.getMatchingTasks(match);
-            StringBuilder sb = new StringBuilder();
-            for (Task task : filteredTaskList) {
-                sb.append(task.toString());
-                sb.append("\n");
-            }
-            return sb.toString();
+            String response = executeFindInstruction(instruction);
+            return response;
         } else {
             try {
                 Task curr = taskList.addToTaskList(instruction[1]);
