@@ -21,7 +21,7 @@ class Event extends Task {
     Event(String task, String from, String to) {
         super(task);
         this.from = super.stringToDate(from);
-        this.to = super.stringToDate(from);
+        this.to = super.stringToDate(to);
     }
 
     /**
