@@ -118,40 +118,38 @@ You can search for all upcoming tasks that have not been marked by calling the `
 ### Marking or Unmarking
 You can mark or unmark items to show if they have been completed or not. Simply do the following with the item index shown in the list:
 
-<details>
-<summary> Mark</summary>
+
+Mark
 
 Marking Example Input:
 
-```angular2html
+```
 mark 1
 ```
 
 Marking Example Output:
 
-```angular2html
+```
 I've marked this task as done:
 [specified task based on the item number]
 But are you really Ok?
 ```
-</details>
 
-<details>
-<summary>Unmark</summary>
+Unmark
 
 Unmarking Example Input:
 
-```angular2html
+```
 unmark 1
 ```
 
 Unmarking Example Output:
 
-```angular2html
+```
 Seems like your effort was in Vayne. This task has been unmarked:
 [specified task here]
 ```
-</details>
+
 
 ### Deletion of tasks
 You can delete tasks you no longer want to track using the following:
