@@ -150,7 +150,7 @@ public class Parser {
     public static void parseFileEvent(String[] input, boolean isDone, TaskList taskList) {
         String description = input[2];
 
-                    String[] dateTime = parts[3].split(" ");
+                    String[] dateTime = input[3].split(" ");
                    
                     String[] dates = dateTime[0].split("-");
                     String month = String.format("%02d", monthConverter(dates[0]));
