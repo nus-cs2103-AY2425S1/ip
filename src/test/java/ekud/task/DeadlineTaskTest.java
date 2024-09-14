@@ -11,9 +11,11 @@ import ekud.exceptions.EkudException;
 public class DeadlineTaskTest {
     @Test
     public void constructor_emptyDescription_exceptionThrown() {
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException emptyDescription = assertThrows(
                 EkudException.class,
                 () -> new DeadlineTask("", "1/1/2024 0000"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(
                 "I'm sorry, but, nothing does not have a DEADLINE.\nTry giving me an actual task.",
                 emptyDescription.getMessage());
@@ -22,9 +24,11 @@ public class DeadlineTaskTest {
 
     @Test
     public void constructor_emptyDeadline_exceptionThrown() {
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException emptyDeadline = assertThrows(
                 EkudException.class,
                 () -> new DeadlineTask("task name", ""));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(
                 """
                         Whoopsies!! Looks like you forgot your deadline!
@@ -38,14 +42,18 @@ public class DeadlineTaskTest {
                 Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
                 I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...""";
 
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException wrongDeadlineFormat = assertThrows(
                 EkudException.class,
                 () -> new DeadlineTask("task name", "1 Jan 2024 12 AM"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(expected, wrongDeadlineFormat.getMessage());
 
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException correctFormatInvalidDate = assertThrows(
                 EkudException.class,
                 () -> new DeadlineTask("task name", "1/13/2024 2200"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(expected, correctFormatInvalidDate.getMessage());
     }
 

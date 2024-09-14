@@ -11,9 +11,11 @@ import ekud.exceptions.EkudException;
 public class EventTaskTest {
     @Test
     public void constructor_emptyDescription_exceptionThrown() {
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException emptyDescription = assertThrows(
                 EkudException.class,
                 () -> new EventTask("", "1/1/2024 0000", "31/12/2024 1159"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(
                 "Did you forget your EVENT?\nBecause you tried to make an event of nothing!",
                 emptyDescription.getMessage());
@@ -30,14 +32,18 @@ public class EventTaskTest {
                 Dude, stop being overzealous! Surely this event doesn't last forever?
                 Think hard about it and you can tell me when it ends again with '/to'.""";
 
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException emptyFrom = assertThrows(
                 EkudException.class,
                 () -> new EventTask("task name", "", "31/12/2024 1159"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(fromExpected, emptyFrom.getMessage());
 
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException emptyTo = assertThrows(
                 EkudException.class,
                 () -> new EventTask("task name", "1/1/2024 0000", ""));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(toExpected, emptyTo.getMessage());
     }
 
@@ -47,24 +53,32 @@ public class EventTaskTest {
                 Man... What's wrong with you!!
                 Why can't you just follow the correct 'd/M/yyyy HHmm' date format!""";
 
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException wrongFromFormat = assertThrows(
                 EkudException.class,
                 () -> new EventTask("task name", "1 Jan 2024 12:00 AM", "31/12/2024 1159"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(expected, wrongFromFormat.getMessage());
 
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException correctFromFormatInvalidDate = assertThrows(
                 EkudException.class,
                 () -> new EventTask("task name", "1/1/2024 3000", "31/12/2024 1159"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(expected, correctFromFormatInvalidDate.getMessage());
 
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException wrongToFormat = assertThrows(
                 EkudException.class,
                 () -> new EventTask("task name", "1/1/2024 0000", "31 December 2024 1159"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(expected, wrongToFormat.getMessage());
 
+        // CHECKSTYLE.OFF: SeparatorWrap
         EkudException correctToFormatInvalidDate = assertThrows(
                 EkudException.class,
                 () -> new EventTask("task name", "1/1/2024 0000", "32/12/2024 1159"));
+        // CHECKSTYLE.ON: SeparatorWrap
         assertEquals(expected, correctToFormatInvalidDate.getMessage());
     }
 
