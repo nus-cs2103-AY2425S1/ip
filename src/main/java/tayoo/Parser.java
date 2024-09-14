@@ -84,13 +84,8 @@ public class Parser {
 
                 String taskTitle = command.substring(9, deadlineIndex - 1).trim();
                 String deadlineStr = command.substring(deadlineIndex + 4).trim();
-                TemporalAccessor deadline = parseDateTime(deadlineStr);
 
-                if (deadline != null) {
-                    return new AddTaskCommand(new Deadline(taskTitle, deadline));
-                } else {
-                    return new AddTaskCommand(new Deadline(taskTitle, deadlineStr));
-                }
+                return new AddTaskCommand(new Deadline(taskTitle, deadlineStr));
 
             } catch (IndexOutOfBoundsException e) {
                 throw new ParserException("You've made a fatal error! Report it to the developer or"
@@ -170,13 +165,8 @@ public class Parser {
             isComplete = Boolean.parseBoolean(scanner.next().trim());
             title = scanner.next().trim();
             String deadlineStr = scanner.next().trim();
-            TemporalAccessor deadline = parseDateTime(deadlineStr);
             scanner.close();
-            if (deadline != null) {
-                return new Deadline(title, deadline, isComplete);
-            } else {
-                return new Deadline(title, deadlineStr, isComplete);
-            }
+            return new Deadline(title, deadlineStr, isComplete);
         default:
             //should not ever reach here
             scanner.close();
