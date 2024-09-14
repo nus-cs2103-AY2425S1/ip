@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("src/main/java/bunbun/gui/Launcher.java")
+    mainClass.set("bunbun.gui.Launcher")
 }
 
 shadowJar {
