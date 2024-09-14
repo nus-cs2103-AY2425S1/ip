@@ -23,7 +23,7 @@ Mortal Reminder is a funny little app used to manage your **todos, deadlines and
 ## Quick Start
 
 1. Ensure you have Java 17 or above installed in your Computer. 
-2. Download the latest .jar file from (to be updated after release).
+2. Download the latest .jar file from [MortalReminder.jar].
 3. Double click to open the app, it should immediately open the app for you to use.
 
 ## Features and their examples
@@ -122,11 +122,14 @@ You can mark or unmark items to show if they have been completed or not. Simply 
 <summary> Mark</summary>
 
 Marking Example Input:
-```
+
+```angular2html
 mark 1
 ```
+
 Marking Example Output:
-```
+
+```angular2html
 I've marked this task as done:
 [specified task based on the item number]
 But are you really Ok?
@@ -137,11 +140,14 @@ But are you really Ok?
 <summary>Unmark</summary>
 
 Unmarking Example Input:
-```
+
+```angular2html
 unmark 1
 ```
+
 Unmarking Example Output:
-```
+
+```angular2html
 Seems like your effort was in Vayne. This task has been unmarked:
 [specified task here]
 ```

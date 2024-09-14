@@ -99,7 +99,7 @@ public class FormattedOutput {
      * @return string of confirmation message.
      */
     public static String addTask(Task task, TaskList taskList) {
-        String message = "You know what? Your life’s already hell so I am gonna leave you be. I've added this task:\n"
+        String message = "You know what? Your life's already hell so I am gonna leave you be. I've added this task:\n"
                 + printTask(task)
                 + "\n"
                 + "Now you have "
