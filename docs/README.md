@@ -1,6 +1,6 @@
 # Rob User Guide
 
-![Screenshot of product showing chatbot in action.](/docs/Ui.png)
+![Screenshot of product showing chatbot in action.](https://linette-g.github.io/ip/Ui.png)
 
 
 Rob is here to streamline your task management and make your life easier!
