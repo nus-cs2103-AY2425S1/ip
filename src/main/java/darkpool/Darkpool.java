@@ -3,7 +3,7 @@ package darkpool;
 import darkpool.command.Command;
 import darkpool.gui.Gui;
 import darkpool.util.DarkpoolException;
-import darkpool.util.Parser;
+import darkpool.parser.Parser;
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
 
