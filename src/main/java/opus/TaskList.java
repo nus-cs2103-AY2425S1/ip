@@ -81,6 +81,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done.
+     *
+     */
     public void findTasks(String keyword) {
         int count = 0;
         System.out.println("Here are the matching tasks in your list:");

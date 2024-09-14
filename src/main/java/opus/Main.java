@@ -2,7 +2,6 @@ package opus;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +12,10 @@ import javafx.scene.image.Image;
 
 
 
+/**
+ * Represents the main class of the application. The main class is responsible for
+ * setting up the user interface and handling user input.
+ */
 public class Main extends Application {
 
     private static final String DEFAULT_FILE_PATH = "data/tasks.txt";
@@ -31,7 +34,6 @@ public class Main extends Application {
     }
 
     public Main(String defaultFilePath) {
-        
     }
 
     @Override

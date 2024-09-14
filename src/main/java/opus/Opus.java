@@ -2,7 +2,7 @@ package opus;
 
 /**
  * The Opus class is the main entry point of the Duke task manager application.
- * It initializes the necessary components (UI, storage, task list) and runs 
+ * It initializes the necessary components (UI, storage, task list) and runs
  * the main loop to interact with the user, handle commands, and manage tasks.
  */
 public class Opus {
@@ -53,10 +53,10 @@ public class Opus {
                     ui.showMessage(taskList.getTask(i).toString());
                     taskList.removeTask(i);
                     ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
-                } else if (words[0].equals("find")){
+                } else if (words[0].equals("find")) {
                     String keyword = words[1];
                     taskList.findTasks(keyword);
-                }else {
+                } else {
                     if (words[0].equals("todo")) {
                         if (words.length <= 1) {
                             throw new OpusEmptyDescriptionException("The description of a todo cannot be empty.");
@@ -86,7 +86,6 @@ public class Opus {
 
     /**
      * Main method to launch the Opus application.
-     * 
      * @param args Command-line arguments, not used.
      */
     public static void main(String[] args) {
@@ -131,7 +130,8 @@ public class Opus {
                 } else {
                     throw new OpusUnknownCommandException("I'm sorry, but I don't know what that means.");
                 }
-                response = "Got it. I've added this task:\n" + taskList.getTask(taskList.getSize() - 1).toString() + "\n";
+                response = "Got it. I've added this task:\n";
+                response += taskList.getTask(taskList.getSize() - 1).toString() + "\n";
                 response += "Now you have " + taskList.getSize() + " tasks in the list.";
                 return response;
             }

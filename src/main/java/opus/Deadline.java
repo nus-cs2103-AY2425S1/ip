@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a task with a deadline. 
- */
+ * Represents a task with a deadline.
+ **/
 public class Deadline extends Task {
     protected LocalDate byDateTime;
     protected String byString;
@@ -27,7 +27,7 @@ public class Deadline extends Task {
             this.byString = by;
         }
     }
-    private String getBy(){
+    private String getBy() {
         if (byDateTime != null) {
             DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
             return byDateTime.format(outputFormat);

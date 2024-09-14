@@ -63,14 +63,14 @@ public abstract class Task {
         }
 
         switch (parts[0]) {
-            case "T":
-                return ToDo.fromFileFormat(fullLine);
-            case "D":
-                return Deadline.fromFileFormat(fullLine);
-            case "E":
-                return Event.fromFileFormat(fullLine);
-            default:
-                return null;
+        case "T":
+            return ToDo.fromFileFormat(fullLine);
+        case "D":
+            return Deadline.fromFileFormat(fullLine);
+        case "E":
+            return Event.fromFileFormat(fullLine);
+        default:
+            return null;
         }
     }
 

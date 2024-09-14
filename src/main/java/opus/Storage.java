@@ -41,15 +41,17 @@ public class Storage {
                 String taskType = parts[0];
                 boolean isDone = parts[1].equals("1");
                 switch (taskType) {
-                    case "T":
-                        tasks.add(new ToDo(parts[2]));
-                        break;
-                    case "D":
-                        tasks.add(new Deadline(parts[2], parts[3]));
-                        break;
-                    case "E":
-                        tasks.add(new Event(parts[2], parts[3], parts[4]));
-                        break;
+                case "T":
+                    tasks.add(new ToDo(parts[2]));
+                    break;
+                case "D":
+                    tasks.add(new Deadline(parts[2], parts[3]));
+                    break;
+                case "E":
+                    tasks.add(new Event(parts[2], parts[3], parts[4]));
+                    break;
+                default:
+                    break;
                 }
                 if (isDone) {
                     tasks.get(tasks.size() - 1).markAsDone();
