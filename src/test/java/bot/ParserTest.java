@@ -1,13 +1,16 @@
 package bot;
 
-import bot.exceptions.InvalidTaskDescriptionException;
-import bot.tasks.Deadline;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import bot.exceptions.InvalidTaskDescriptionException;
+import bot.tasks.Deadline;
 
 public class ParserTest {
     @Test
@@ -25,8 +28,7 @@ public class ParserTest {
     @Test
     public void parseDeadlineTask_noDeadline_exceptionThrown() {
         InvalidTaskDescriptionException e = assertThrows(
-                InvalidTaskDescriptionException.class,
-                () -> new Parser().parseDeadlineTask("return book")
+                InvalidTaskDescriptionException.class, () -> new Parser().parseDeadlineTask("return book")
         );
 
         assertEquals(
@@ -38,8 +40,7 @@ public class ParserTest {
     @Test
     public void parseDeadlineTask_invalidDate_exceptionThrown() {
         DateTimeParseException e = assertThrows(
-                DateTimeParseException.class,
-                () -> new Parser().parseDeadlineTask("return book /by 2024-99-99")
+                DateTimeParseException.class, () -> new Parser().parseDeadlineTask("return book /by 2024-99-99")
         );
         assertEquals(
                 "Text '2024-99-99' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 99",

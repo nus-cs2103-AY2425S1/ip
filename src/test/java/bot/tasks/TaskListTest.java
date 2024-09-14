@@ -1,13 +1,11 @@
 package bot.tasks;
 
-import bot.Parser;
-import bot.exceptions.InvalidTaskDescriptionException;
-import bot.storage.Storage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
     @Test
@@ -36,15 +34,9 @@ public class TaskListTest {
 
     @Test
     public void taskList_deleteInvalidIndex_exceptionThrown() {
-        IndexOutOfBoundsException e = assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> new TaskList().remove(0)
-        );
+        IndexOutOfBoundsException e = assertThrows(IndexOutOfBoundsException.class, () -> new TaskList().remove(0));
 
-        assertEquals(
-                new IndexOutOfBoundsException("Index 0 out of bounds for length 0").getMessage(),
-                e.getMessage()
-        );
+        assertEquals(new IndexOutOfBoundsException("Index 0 out of bounds for length 0").getMessage(), e.getMessage());
     }
 
     @Test
@@ -56,15 +48,9 @@ public class TaskListTest {
 
     @Test
     public void taskList_getInvalidIndex_exceptionThrown() {
-        IndexOutOfBoundsException e = assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> new TaskList().get(0)
-        );
+        IndexOutOfBoundsException e = assertThrows(IndexOutOfBoundsException.class, () -> new TaskList().get(0));
 
-        assertEquals(
-                new IndexOutOfBoundsException("Index 0 out of bounds for length 0").getMessage(),
-                e.getMessage()
-        );
+        assertEquals(new IndexOutOfBoundsException("Index 0 out of bounds for length 0").getMessage(), e.getMessage());
     }
 
     @Test
