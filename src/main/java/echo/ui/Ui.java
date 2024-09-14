@@ -96,7 +96,7 @@ public class Ui {
      */
     public String printDeleteMessage(Task task, TaskList taskList) {
         int numOfTask = taskList.sizeOfTaskList();
-        String output = "Got it!. I've removed this task:";
+        String output = "Got it! I've removed this task:\n";
         output += (task.toString() + "\n");
         output += ("Now you have " + numOfTask + " tasks in the list.\n");
         return output;
@@ -122,7 +122,7 @@ public class Ui {
     }
 
     /**
-     * Return string of error message of the respective exceptions being caught
+     * Returns string of error message of the respective exceptions being caught
      *
      * @param exception exceptions that are caught while running the program
      * @return string of error message of the respective exceptions being caught

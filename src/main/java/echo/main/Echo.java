@@ -40,7 +40,7 @@ public class Echo {
     }
 
     /**
-     * Initialise the chatbot by loading the list of task in the txt file into the chatbot and
+     * Initialises the chatbot by loading the list of task in the txt file into the chatbot and
      * returning a string of greeting message
      *
      * @return a string of greeting message
