@@ -107,7 +107,9 @@ public class TaskParser {
             Todo toPush = new Todo(parts[1], false);
             tasks.addTodo(toPush);
             storage.writeFile(toPush);
-            return TODO_CONFIRMATION + toPush.toString() + "\n";
+            final String TASKS_LEFT_CONFIRMATION = "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+            return TODO_CONFIRMATION + toPush.toString() + "\n"
+                    + TASKS_LEFT_CONFIRMATION;
         } catch (ArrayIndexOutOfBoundsException e) {
             return TODO_ERROR;
         }

@@ -1,8 +1,7 @@
 # Reo User Guide
 
-// Product screenshot goes here
+![Product Screenshot](./Ui.png)
 
-// Product intro goes here
 Meet Reo, the smart and intuitive chatbot designed to help you stay organized and on top of your tasks. 
 Whether you're managing your daily to-dos, tracking deadlines, managing your schedule or your contacts, 
 Reo makes it effortless. With its user-friendly interface, 
