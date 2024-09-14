@@ -32,8 +32,8 @@ public class Deadline extends Task {
      * @param by date
      * @throws DateTimeParseException if date cannot be parsed
      */
-    public Deadline(String description, boolean isDone, String by) throws DateTimeParseException {
-        super(description, isDone);
+    public Deadline(String description, boolean isDone, String tags, String by) throws DateTimeParseException {
+        super(description, isDone, tags);
         this.by = LocalDateTime.parse(by, fromFormatter);
     }
 

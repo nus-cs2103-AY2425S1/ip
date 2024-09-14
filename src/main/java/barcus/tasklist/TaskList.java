@@ -128,4 +128,17 @@ public class TaskList {
         }
         return tasksSubset;
     }
+
+    /**
+     * Tags task at index i with tag
+     * @param i int index
+     * @param tag String to tag with
+     */
+    public void tagTask(int i, String tag) {
+        this.tasks.get(i).addTag(tag);
+    }
+
+    public void untagTask(int i, String tag) {
+        this.tasks.get(i).removeTag(tag);
+    }
 }

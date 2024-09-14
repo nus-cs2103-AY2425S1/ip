@@ -60,20 +60,22 @@ public class Storage {
                 String[] lineSplit = s.nextLine().split(" \\| ");
 
                 if (lineSplit[0].equals("T")) {
-                    tasks.addTask(new Todo(lineSplit[2], lineSplit[1].equals("1")));
+                    tasks.addTask(new Todo(lineSplit[2], lineSplit[1].equals("1"), lineSplit[3]));
                     //System.out.println("added");
                 } else if (lineSplit[0].equals("D")) {
                     tasks.addTask(new Deadline(
                             lineSplit[2],
                             lineSplit[1].equals("1"),
-                            lineSplit[3]
+                            lineSplit[3],
+                            lineSplit[4]
                     ));
                 } else if (lineSplit[0].equals("E")) {
                     tasks.addTask(new Event(
                             lineSplit[2],
                             lineSplit[1].equals("1"),
                             lineSplit[3],
-                            lineSplit[4]
+                            lineSplit[4],
+                            lineSplit[5]
                     ));
                 }
             }
