@@ -8,12 +8,12 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 import tayoo.command.AddTaskCommand;
 import tayoo.command.Command;
+import tayoo.command.CommandType;
 import tayoo.command.DeleteAllCommand;
 import tayoo.command.DeleteTaskCommand;
 import tayoo.command.ExitCommand;
@@ -21,6 +21,7 @@ import tayoo.command.FindCommand;
 import tayoo.command.ListCommand;
 import tayoo.command.MarkTaskCommand;
 import tayoo.exception.ParserException;
+import tayoo.exception.TayooException;
 import tayoo.tasks.Deadline;
 import tayoo.tasks.Event;
 import tayoo.tasks.Task;
@@ -31,11 +32,6 @@ import tayoo.tasks.ToDo;
  * text input. All methods within this class should be static.
  */
 public class Parser {
-
-    /**
-     * Contains all the commands which can be used to exit the Tayoo chatbot.
-     */
-    private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE", "QUIT"};
 
     /**
      * Parses the user's input. Currently utilises a series of if-else checks to correlate the user's input with any
@@ -49,77 +45,92 @@ public class Parser {
      * @throws ParserException if there is an error when parsing a command, either because the command is not supported,
      * or the format of the command is wrong
      */
-    public static Command parseCommand(String command) throws ParserException {
-        String input = command.toUpperCase();
+    public static Command parseCommand(String command) throws TayooException {
 
-        if (Arrays.asList(exitCodes).contains(input)) {
-            return new ExitCommand();
-        } else if (input.startsWith("FIND")) {
-            String toFind = input.substring(5).trim();
-            return new FindCommand(toFind);
-        } else if (input.equals("LIST")) {
+        String[] inputParts = command.split(" ", 2);
+        CommandType commandType = parseCommandType(inputParts[0]);
+
+        switch (commandType) {
+        case TODO:
+            return new AddTaskCommand(new ToDo(inputParts[1]));
+        case DEADLINE:
+            return parseDeadline(inputParts[1].trim());
+        case EVENT:
+            return parseEvent(inputParts[1].trim());
+        case MARK:
+            return parseMark(inputParts[1].trim(), true);
+        case UNMARK:
+            return parseMark(inputParts[1].trim(), false);
+        case FIND:
+            return new FindCommand(inputParts[1].trim());
+        case DELETE:
+            return parseDelete(inputParts[1].trim());
+        case LIST:
             return new ListCommand();
-        } else if (input.startsWith("MARK ")) {
-            int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
-            return new MarkTaskCommand(taskNumber, true);
-        } else if (input.startsWith("UNMARK ")) {
-            int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
-            return new MarkTaskCommand(taskNumber, false);
-        } else if (input.startsWith("TODO")) {
-            try {
-                return new AddTaskCommand(new ToDo(command.substring(5).trim()));
-            } catch (IndexOutOfBoundsException e) {
-                throw new ParserException("Add a description to your todo!");
-            }
-        } else if (input.startsWith("DEADLINE")) {
-            try {
-                int deadlineIndex = input.indexOf("/BY ");
-                if (deadlineIndex < 9) {
-                    throw new ParserException("Deadline format incorrect. Format: \"deadline [taskName] /by "
-                            + "[deadline]\"." + " Try again please");
-                }
-                if (deadlineIndex == 9) {
-                    throw new ParserException("I see the deadline but no task :(");
-                }
-
-                String taskTitle = command.substring(9, deadlineIndex - 1).trim();
-                String deadlineStr = command.substring(deadlineIndex + 4).trim();
-
-                return new AddTaskCommand(new Deadline(taskTitle, deadlineStr));
-
-            } catch (IndexOutOfBoundsException e) {
-                throw new ParserException("You've made a fatal error! Report it to the developer or"
-                        + " face eternal DOOM!!");
-            }
-        } else if (input.startsWith("EVENT")) {
-            try {
-                int startIndex = input.indexOf("/FROM ");
-                int endIndex = input.indexOf("/TO ");
-                String parsedStart = command.substring(startIndex + 5, endIndex - 1).trim();
-                String parsedEnd = command.substring(endIndex + 4).trim();
-                String eventTitle = command.substring(6, startIndex - 1);
-
-                return new AddTaskCommand(new Event(eventTitle, parsedStart, parsedEnd));
-            } catch (IndexOutOfBoundsException e) {
-                throw new ParserException("Event format incorrect. Format: \"Event [taskName] /from [start] "
-                        + "/to [end]\". Try again please");
-            }
-        } else if (input.startsWith("DELETE") || input.startsWith("REMOVE")) {
-            try {
-                if (input.substring(7).trim().equals("ALL")) {
-                    return new DeleteAllCommand();
-                }
-
-                int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
-                return new DeleteTaskCommand(taskNumber);
-            } catch (IndexOutOfBoundsException e) {
-                throw new ParserException("Hey, that task doesn't exist for me to delete!");
-            } catch (NumberFormatException e) {
-                throw new ParserException("Hey, that's not a task number! Give me a number please!");
-            }
-        } else {
-            throw new ParserException("I'm not sure what that means :(");
+        case EXIT:
+            return new ExitCommand();
+        default:
+            throw new TayooException("Invalid task type");
         }
+    }
+
+    private static Command parseDeadline(String inputPart) {
+        String[] deadlineParts = inputPart.split("(?i)/by", 2);
+
+        assert deadlineParts.length == 2 : "Input should have title and deadline";
+
+        String title = deadlineParts[0].trim();
+        String deadline = deadlineParts[1].trim();
+        return new AddTaskCommand(new Deadline(title, deadline));
+    }
+
+    private static Command parseEvent(String inputPart) {
+        String[] eventParts = inputPart.split("(?i)/to|/from", 3);
+
+        assert eventParts.length == 3 : "Input should have title, start and end";
+
+        String title = eventParts[0].trim();
+        String start = eventParts[1].trim();
+        String end = eventParts[2].trim();
+        return new AddTaskCommand(new Event(title, start, end));
+    }
+
+    private static Command parseDelete(String inputPart) throws TayooException{
+        String[] deleteIndicesArray = inputPart.split("\\s");
+
+        if (deleteIndicesArray[0].equalsIgnoreCase("ALL")) {
+            if (deleteIndicesArray.length == 1) {
+                return new DeleteAllCommand();
+            } else {
+                throw new TayooException("Unexpected input after Delete All command");
+            }
+        }
+
+        List<Integer> deleteIndicesList= new ArrayList<>();
+
+        for (String index : deleteIndicesArray) {
+            try {
+                deleteIndicesList.add(Integer.parseInt(index));
+            } catch (NumberFormatException e) {
+                throw new TayooException("Please provide only integers to delete command");
+            }
+        }
+
+        return new DeleteTaskCommand(deleteIndicesList);
+    }
+    private static Command parseMark(String inputPart, boolean isComplete) throws TayooException{
+        String[] markIndicesArray = inputPart.split("\\s");
+        List<Integer> markIndicesList= new ArrayList<>();
+
+        for (String index : markIndicesArray) {
+            try {
+                markIndicesList.add(Integer.parseInt(index));
+            } catch (NumberFormatException e) {
+                throw new TayooException("Please provide only integers to mark command");
+            }
+        }
+
+        return new MarkTaskCommand(markIndicesList, isComplete);
     }
 
 
@@ -233,7 +244,7 @@ public class Parser {
      * @param tasklist The tasklist to be iterated through
      * @return A list of tasks which contains the input string as a substring in the title
      */
-    static List<Task> parseFind(String input, List<? extends Task> tasklist) {
+    static List<Task> findTaskInTasklist(String input, List<? extends Task> tasklist) {
         String toCheck = input.toUpperCase();
         List<Task> toReturn = new ArrayList<>();
         int length = tasklist.size();
@@ -244,4 +255,37 @@ public class Parser {
         }
         return toReturn;
     }
+
+    private static CommandType parseCommandType(String command) throws TayooException {
+        command = command.toUpperCase();
+
+        switch(command) {
+        case "LIST":
+            return CommandType.LIST;
+        case "MARK":
+            return CommandType.MARK;
+        case "UNMARK":
+            return CommandType.UNMARK;
+        case "TODO":
+            return CommandType.TODO;
+        case "DEADLINE":
+            return CommandType.DEADLINE;
+        case "EVENT":
+            return CommandType.EVENT;
+        case "DELETE":
+        case "REMOVE":
+            return CommandType.DELETE;
+        case "QUIT":
+        case "BYE":
+        case "EXIT":
+        case "GOODBYE":
+        case "CLOSE":
+            return CommandType.EXIT;
+        case "FIND":
+            return CommandType.FIND;
+        default:
+            throw new TayooException("Invalid task type");
+        }
+    }
+
 }

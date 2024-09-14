@@ -8,11 +8,12 @@ import tayoo.tasks.Task;
 //Contains the digital tasklist that is used by the Tayoo chatbot while the bot is running.
 public class Tasklist {
 
+    public static final int MAXIMUM_CAPACITY = 100;
     /**
      * The list of tasks in the task manager. Variable is final because it should not be reassigned to another value.
      * The capacity of the tasklist should not exceed 100 tasks.
      */
-    private final ArrayList<Task> tasklistArray = new ArrayList<>(100);
+    private final ArrayList<Task> tasklistArray = new ArrayList<>(MAXIMUM_CAPACITY);
 
     /**
      * Constructs a new Tasklist object from a list of Tasks. It runs a loop to access each method of the list of Tasks
@@ -39,7 +40,7 @@ public class Tasklist {
      *  added because the TASKLIST is at full capacity
      */
     public boolean addTask(Task task) {
-        if (tasklistArray.size() >= 100) {
+        if (tasklistArray.size() >= MAXIMUM_CAPACITY) {
             return false;
         } else {
             tasklistArray.add(task);
@@ -56,10 +57,7 @@ public class Tasklist {
      * @throws IndexOutOfBoundsException if the index is out of bounds for the TASKLIST
      */
     public boolean deleteTask(int taskNumber) {
-        if (taskNumber < 0) {
-            return false;
-        }
-        if (taskNumber >= tasklistArray.size()) {
+        if (taskNumber < 0 || taskNumber >= tasklistArray.size()) {
             return false;
         }
         Task task = tasklistArray.get(taskNumber);
@@ -108,7 +106,7 @@ public class Tasklist {
      *  task or the taskNumber was negative
      */
     public boolean markTask(int taskNumber) {
-        if (taskNumber < 0) {
+        if (taskNumber < 0 || taskNumber >= tasklistArray.size()) {
             return false;
         }
         return tasklistArray.get(taskNumber).markAsDone();
@@ -123,7 +121,7 @@ public class Tasklist {
      *  task or the taskNumber was negative
      */
     public boolean unmarkTask(int taskNumber) {
-        if (taskNumber < 0) {
+        if (taskNumber < 0  || taskNumber >= tasklistArray.size()) {
             return false;
         }
         return tasklistArray.get(taskNumber).unmark();
@@ -149,7 +147,7 @@ public class Tasklist {
     }
 
     public String find(String input) {
-        List<Task> foundList = Parser.parseFind(input, this.tasklistArray);
+        List<Task> foundList = Parser.findTaskInTasklist(input, this.tasklistArray);
 
         if (!foundList.isEmpty()) {
             int length = foundList.size();

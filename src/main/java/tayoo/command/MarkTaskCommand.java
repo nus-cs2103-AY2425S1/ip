@@ -5,102 +5,100 @@ import tayoo.Tasklist;
 import tayoo.Ui;
 import tayoo.exception.TayooException;
 
+import java.util.Collections;
+import java.util.List;
+
 public class MarkTaskCommand extends Command {
 
     private final boolean isComplete;
-    private final int taskToMark;
+    private final List<Integer> tasksToMark;
 
-    public MarkTaskCommand(int taskToMark, Boolean isComplete) {
-        this.taskToMark = taskToMark;
+
+    public MarkTaskCommand(List<Integer> markIndicesList, boolean isComplete) {
         this.isComplete = isComplete;
+        this.tasksToMark = markIndicesList;
+        Collections.sort(tasksToMark);
+
+        tasksToMark.replaceAll(x -> x - 1);
     }
+
+    private String markTaskHelper(int taskToMark, Tasklist tasklist, Storage storage) throws TayooException {
+        if (tasklist.markTask(taskToMark)) {
+            storage.updateTxt(taskToMark, isComplete);
+            return "Marked: " + tasklist.getTaskStr(taskToMark) + "\n";
+        } else {
+            return "Already marked: " + tasklist.getTaskStr(taskToMark) + "\n";
+        }
+    }
+    private String unmarkTaskHelper(int taskToMark, Tasklist tasklist, Storage storage) throws TayooException {
+        if (tasklist.unmarkTask(taskToMark)) {
+            storage.updateTxt(taskToMark, isComplete);
+            return "Unmarked: " + tasklist.getTaskStr(taskToMark) + "\n";
+        } else {
+            return "Already unmarked: " + tasklist.getTaskStr(taskToMark) + "\n";
+        }
+    }
+
 
     @Override
     public void execute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {
+
+        StringBuilder toPrint = new StringBuilder();
+
         if (isComplete) {
-            try {
-                if (tasklist.markTask(taskToMark)) {
-                    storage.updateTxt(taskToMark, isComplete);
-                    ui.printText("Nice! I've marked this task as done:\n" + tasklist.getTaskStr(taskToMark));
-                } else {
-                    ui.printText("Hey! You've done that one already!\n" + tasklist.getTaskStr(taskToMark));
-                }
-            } catch (IndexOutOfBoundsException e) {
-                if (taskToMark < 0) {
-                    throw new TayooException("Expected task number > 0");
-                } else if (taskToMark > 100) {
-                    throw new TayooException("Expected 0 < Task number < 100");
-                } else {
-                    throw new TayooException("Task number not found");
-                }
-            } catch (NumberFormatException e) {
-                throw new TayooException("Integer expected");
-            }
+            toPrint.append("Okay! I've marked these tasks:\n");
         } else {
-            try {
-                if (tasklist.unmarkTask(taskToMark)) {
-                    storage.updateTxt(taskToMark, isComplete);
-                    ui.printText("OK, I've marked this task as not done yet:\n" + tasklist.getTaskStr(taskToMark));
-                } else {
-                    ui.printText("Hey! You haven't even done that one yet!\n" + tasklist.getTaskStr(taskToMark));
-                }
-            } catch (IndexOutOfBoundsException e) {
-                if (taskToMark <= 0) {
-                    throw new TayooException("Expected task number > 0");
-                } else if (taskToMark > 100) {
-                    throw new TayooException("Expected 0 < Task number < 100");
-                } else {
-                    throw new TayooException("Task number not found");
-                }
-            } catch (NumberFormatException e) {
-                throw new TayooException("Integer expected");
+            toPrint.append("Okay! I've unmarked these tasks:\n");
+        }
+
+        for (int taskToMark : tasksToMark) {
+            if (taskToMark < 0) {
+                throw new TayooException("Expected task number > 0");
+            } else if (taskToMark > Tasklist.MAXIMUM_CAPACITY) {
+                throw new TayooException("Expected task number < " + Tasklist.MAXIMUM_CAPACITY);
+            } else if (taskToMark >= tasklist.getSize()) {
+                toPrint.append("Could not find task number ").append(taskToMark + 1).append("\n");
+                continue;
+            }
+
+            if (isComplete) {
+                toPrint.append(markTaskHelper(taskToMark, tasklist, storage));
+            } else {
+                toPrint.append(unmarkTaskHelper(taskToMark, tasklist, storage));
             }
         }
+
+        ui.printText(toPrint.toString());
     }
 
     public String guiExecute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {
+
         StringBuilder toReturn = new StringBuilder();
+
         if (isComplete) {
-            try {
-                if (tasklist.markTask(taskToMark)) {
-                    storage.updateTxt(taskToMark, isComplete);
-                    toReturn.append("Nice! I've marked this task as done:\n").append(tasklist.getTaskStr(taskToMark));
-                } else {
-                    toReturn.append("Hey! You've done that one already!\n").append(tasklist.getTaskStr(taskToMark));
-                }
-            } catch (IndexOutOfBoundsException e) {
-                if (taskToMark < 0) {
-                    throw new TayooException("Expected task number > 0");
-                } else if (taskToMark > 100) {
-                    throw new TayooException("Expected 0 < Task number < 100");
-                } else {
-                    throw new TayooException("Task number not found");
-                }
-            } catch (NumberFormatException e) {
-                throw new TayooException("Integer expected");
-            }
+            toReturn.append("Okay! I've marked these tasks:\n");
         } else {
-            try {
-                if (tasklist.unmarkTask(taskToMark)) {
-                    storage.updateTxt(taskToMark, isComplete);
-                    toReturn.append("OK, I've marked this task as not done yet:\n")
-                            .append(tasklist.getTaskStr(taskToMark));
-                } else {
-                    toReturn.append("Hey! You haven't even done that one yet!\n")
-                            .append(tasklist.getTaskStr(taskToMark));
-                }
-            } catch (IndexOutOfBoundsException e) {
-                if (taskToMark <= 0) {
-                    throw new TayooException("Expected task number > 0");
-                } else if (taskToMark > 100) {
-                    throw new TayooException("Expected 0 < Task number < 100");
-                } else {
-                    throw new TayooException("Task number not found");
-                }
-            } catch (NumberFormatException e) {
-                throw new TayooException("Integer expected");
+            toReturn.append("Okay! I've unmarked these tasks:\n");
+        }
+
+
+        for (int taskToMark : tasksToMark) {
+            if (taskToMark < 0) {
+                throw new TayooException("Expected task number > 0");
+            } else if (taskToMark > Tasklist.MAXIMUM_CAPACITY) {
+                throw new TayooException("Expected task number < " + Tasklist.MAXIMUM_CAPACITY);
+            } else if (taskToMark >= tasklist.getSize()) {
+                toReturn.append("Could not find task number ").append(taskToMark + 1).append("\n");
+                continue;
+            }
+
+            if (isComplete) {
+                toReturn.append(markTaskHelper(taskToMark, tasklist, storage));
+            } else {
+                toReturn.append(unmarkTaskHelper(taskToMark, tasklist, storage));
             }
         }
+
         return toReturn.toString();
     }
 
