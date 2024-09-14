@@ -1,15 +1,11 @@
 # Blue Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Blue Chatbot is a Java-based application that helps users manage their tasks through simple text commands. It supports adding, listing, marking, unmarking, deleting, finding tasks, and avoiding duplicate entries.
 
 ## Setting up in Intellij & Prerequisites
 
 - JDK 17
 - IntelliJ IDEA (most recent version)
-
-# Blue Chatbot
-
-Blue Chatbot is a Java-based application that helps users manage their tasks through simple text commands. It supports adding, listing, marking, unmarking, deleting, finding tasks, and avoiding duplicate entries.
 
 ## Features
 
@@ -37,6 +33,7 @@ Blue Chatbot is a Java-based application that helps users manage their tasks thr
 ## Alternatively, Download the Jar File!
 
 Link to jar file: [Blue.jar]
+
 After Downloading the jar file, run the following command in the terminal 
 to execute the program: java -jar blue.jar
 ```
