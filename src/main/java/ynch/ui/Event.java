@@ -21,7 +21,7 @@ class Event extends Task {
     Event(String task, String from, String to) {
         super(task);
         this.from = super.stringToDate(from);
-        this.to = super.stringToDate(from);
+        this.to = super.stringToDate(to);
     }
 
     /**
@@ -36,6 +36,26 @@ class Event extends Task {
         super(status, task);
         this.from = super.stringToDate(from);
         this.to = super.stringToDate(from);
+    }
+
+    /**
+     * Determines whether a reminder is needed based on the current date
+     *
+     * The method compares the current date with a date calculated by
+     * subtracting a predefined number of days (defined by
+     * {@code DAYS_FOR_REMINDER}) from the start of the event.
+     * If the current date is after the calculated reminder date,
+     * the method returns {@code true}, indicating that a reminder is needed.
+     * Otherwise, it returns {@code false}.
+     *
+     * @return {@code true} if the current date is after the date to remind;
+     *         {@code false} otherwise.
+     */
+    @Override
+    boolean needsReminder() {
+        LocalDate today = LocalDate.now();
+        LocalDate dateToRemind = this.to.minusDays(DAYS_FOR_REMINDER);
+        return today.isAfter(dateToRemind);
     }
 
     /**

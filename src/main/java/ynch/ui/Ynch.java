@@ -33,7 +33,13 @@ public class Ynch {
     }
 
     public String greet() {
-        return ui.greet();
+        if (taskList.getTasksToRemind().isEmpty()) {
+            return ui.greet();
+        } else {
+            return ui.greet() + "\n"
+                    + "Just so that you don't forget, here are some tasks you have to do soon: \n"
+                    + taskList.getTasksToRemind().list();
+        }
     }
 
     public String getResponse(String userInput) {

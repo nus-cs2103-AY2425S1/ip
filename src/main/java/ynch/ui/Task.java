@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 class Task {
     String task;
     boolean isDone;
+    static int DAYS_FOR_REMINDER = 5;
 
     /**
      * Constructs a new Task with the specified description.
@@ -32,6 +33,10 @@ class Task {
     Task(int status, String task) {
         this.task = task;
         this.isDone = (status == 1);
+    }
+
+    boolean needsReminder() {
+        return false;
     }
 
     /**

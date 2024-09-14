@@ -132,6 +132,16 @@ class TaskList {
         }
         return matchingTasks;
     }
+
+    TaskList getTasksToRemind() {
+        TaskList remindTasks = new TaskList();
+        for (Task t : this.todoList) {
+            if (t.needsReminder()) {
+                remindTasks.add(t);
+            }
+        }
+        return remindTasks;
+    }
     
     /**
      * Returns a string representation of all tasks in the TaskList.
