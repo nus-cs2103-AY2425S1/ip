@@ -1,7 +1,7 @@
-import ip.derrick.*;
 import ip.derrick.EmptyListException;
 import ip.derrick.InvalidDescriptionException;
 import ip.derrick.MissingItemException;
+import ip.derrick.MissingPositionException;
 import ip.derrick.Task;
 import ip.derrick.TaskList;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +37,24 @@ public class TaskListTest {
         });
 
         assertEquals("Item does not exist in the list. Please try again.", exception.getMessage());
+    }
+
+    @Test
+    public void markAnInvalidInput() {
+        MissingPositionException exception = assertThrows(MissingPositionException.class, () -> {
+            tasks.markItem("mark ''''");
+        });
+
+        assertEquals("Position must be an integer. Please try again.", exception.getMessage());
+    }
+
+    @Test
+    public void markAnInvalidInput2() {
+        MissingPositionException exception = assertThrows(MissingPositionException.class, () -> {
+            tasks.markItem("mark hello");
+        });
+
+        assertEquals("Position must be an integer. Please try again.", exception.getMessage());
     }
 
     @Test
