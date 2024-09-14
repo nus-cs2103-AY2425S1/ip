@@ -1,30 +1,71 @@
-# Duke User Guide
+# SumoDE
 
-// Update the title above to match the actual product name
+This is a task management chatbot. Given below are instructions on how to use it.
 
-// Product screenshot goes here
+[Quick Start](https://github.com/FooChao/ip?tab=readme-ov-file#quick-start)
 
-// Product intro goes here
+[Features](https://github.com/FooChao/ip?tab=readme-ov-file#features)
 
-## Adding deadlines
+## Quick Start
 
-// Describe the action and its outcome.
+1. Ensure you have Java 17 or above on your computer.
+2. Download the latest `.jar` file from [here](https://github.com/FooChao/ip/releases/tag/A-Release)
+3. Copy the file to the folder you want to use as the home folder for your chatbot.
+4. Double click the .jar file to run it.
 
-// Give examples of usage
+## Features
 
-Example: `keyword (optional arguments)`
+### Adding a todo task `todo` 
 
-// A description of the expected outcome goes here
+Format: todo TASKDESCRIPTION
 
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+Example: todo study CS1231S
 
 
-## Feature XYZ
+### Adding a deadline task `deadline`
 
-// Feature details
+Format: deadline TASKDESCRIPTION /by DEADLINE
+
+Example: deadline Finish CS2103T ip /by 20 Sep 2024
+
+
+### Adding an event task `event`
+
+Format: event TASKDESCRIPTION /from START /to END
+
+Example: event mug for exam /from 20 Sep 2024 /to 29 Sep 2024
+
+> [!NOTE]
+> To prevent errors, task with exact same name are not allowed.
+
+### Listing all stored tasks `list`
+
+Format: list
+
+### Listing matching tasks `find`
+
+Format: find STRINGTOMATCH
+
+Example: find study
+
+### Mark a task as done `mark`
+
+Format: mark INDEX
+
+Example: mark 1
+
+### Mark a task as not completed `unmark`
+
+Format: unmark INDEX
+
+Example: unmark 1
+
+### Delete a task
+
+Format: delete INDEX
+
+Example: delete 1
+
+### Close the app `bye`
+
+Format: bye
