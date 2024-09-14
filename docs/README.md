@@ -204,7 +204,7 @@ Click on each command to view the relevant section.
 |:--------------------------------------------------:|:----------------------------------------------:|
 |         [`help`](#help-with-commands-help)         |                     `help`                     |
 |         [`todo`](#adding-todo-tasks-todo)          |                 `todo [TASK]`                  |
-|      [`deadline`](#adding-deadlines-deadline)      |        `deadline [TASK] /by [BY-DATE]`         |
+|   [`deadline`](#adding-deadlines-deadline)         |        `deadline [TASK] /by [BY-DATE]`         |
 |          [`event`](#adding-events-event)           | `event [TASK] /from [FROM-DATE] /to [TO-DATE]` |
 |   [`fixed`](#adding-fixed-duration-tasks-fixed)    |      `fixed [TASK] /period [TIMEINHOURS]`      |
 |           [`list`](#view-all-tasks-list)           |                     `list`                     |
