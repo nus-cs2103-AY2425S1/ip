@@ -1,11 +1,9 @@
 package yappingbot.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import yappingbot.commands.commands.ArgEnums;
-import yappingbot.commands.commands.Pair;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 
@@ -17,9 +15,10 @@ import yappingbot.exceptions.YappingBotIncorrectCommandException;
  * @param <A> Enum defining the valid Arguments, implementing ArgEnums.
  */
 public abstract class CommandBase<A extends Enum<A> & ArgEnums> {
-    protected HashMap<A, String> arguments = new HashMap<>();
-    protected A firstArg;
+    protected HashMap<A, String[]> arguments = new HashMap<>();
+    protected ArrayList<String> firstArg = new ArrayList<>();
     private boolean argumentsLoaded = false;
+    protected String argumentSeperator = "/";
 
     /**
      * Subclasses must override this, linking it to an Enum of possible Argument Types.
@@ -43,25 +42,12 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums> {
     /**
      * Constructs Command object with arguments to prepare for execution.
      *
-     * @param firstArg String of the first argument passed in that is not demacated by flags.
-     * @param argPairs array of String-String Pairs that is ordered with all given
-     *                                  argument flags followed by argument values.
+     * @param argSlices ordered array of strings with argument flags followed by argument values.
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public CommandBase(String firstArg, Pair<String, String>[] argPairs)
-    throws YappingBotIncorrectCommandException {
-        try {
-            this.firstArg = getArgTypeFromString(firstArg);
-
-            for (Pair<String, String> argPair : argPairs) {
-                A argFlag = getArgTypeFromString(argPair.getKey());
-                arguments.put(argFlag, argPair.getValue());
-            }
-
-        } catch (Exception e) {
-            throw new YappingBotIncorrectCommandException(getHelpText(), e.getMessage());
-        }
+    public CommandBase(String[] argSlices) throws YappingBotIncorrectCommandException {
+        parseArguments(argumentSeperator, argSlices);
 
         // command id ready to be run
         argumentsLoaded = true;
@@ -91,4 +77,16 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums> {
      */
     public abstract String getHelpText();
 
+    /**
+     * Parses the userInputSlices into Argument Type and value, and store in hashmap.
+     *
+     * @param flagMarker String of the character used to denote a flag.
+     * @param userInputSlices User input sliced by space, including command verb.
+     */
+    private void parseArguments(String flagMarker, String[] userInputSlices) {
+        boolean firstArgumentCollected = false;
+
+
+        for ()
+    }
 }
