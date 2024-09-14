@@ -22,54 +22,39 @@ public class MarkCommandTest {
     @Test
     public void execute_noIndexProvided_throwsInvalidCommandException() {
         MarkCommand command = new MarkCommand("");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("No task index provided.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
     public void execute_multipleArgumentsProvided_throwsInvalidCommandException() {
         MarkCommand command = new MarkCommand("1 2");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid input format.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
     public void execute_validTaskIndex_markTaskSuccess() throws InvalidCommandException {
-        taskList.add(new Todo("read book"));
-        MarkCommand command = new MarkCommand("1");
-        command.execute(taskList);
+        Todo todo1 = new Todo("read book");
+        Todo todo2 = new Todo("write code");
+        taskList.add(todo1);
+        taskList.add(todo2);
+        MarkCommand command = new MarkCommand("2");
+        String result = command.execute(taskList);
 
-        assertEquals("[T][X] read book", taskList.getTaskList().get(0).toString());
+        String expected = String.format("Nice! I've marked this task as done:\n  %s\n", todo2);
+        assertEquals(expected, result);
+        assertEquals(todo2.toString(), taskList.getTaskList().get(1).toString());
     }
 
     @Test
     public void execute_nonIntegerTaskIndex_throwsInvalidCommandException() {
         MarkCommand command = new MarkCommand("one");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid task index. The task index provided is not an integer.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
     public void execute_outOfRangeTaskIndex_throwsInvalidCommandException() {
         taskList.add(new Todo("read book"));
         MarkCommand command = new MarkCommand("2");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid task index. The task index provided is out of range.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 }

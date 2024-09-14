@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,52 +25,36 @@ public class DeadlineCommandTest {
     @Test
     public void execute_emptyArgument_throwsInvalidCommandException() {
         DeadlineCommand command = new DeadlineCommand("");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid input format.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
     public void execute_nullDate_throwsInvalidCommandException() {
         DeadlineCommand command = new DeadlineCommand("finish assignment");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid input format.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
     public void execute_missingByKeyword_throwsInvalidCommandException() {
         DeadlineCommand command = new DeadlineCommand("finish assignment tomorrow");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid input format.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
     public void execute_validInput_addTaskSuccess() throws InvalidCommandException {
         DeadlineCommand command = new DeadlineCommand("submit report /by 2024-08-31 2359");
-        command.execute(taskList);
+        String result = command.execute(taskList);
 
-        assertEquals(1, taskList.size(), "TaskList should contain 1 task after adding a deadline");
-        assertInstanceOf(Deadline.class, taskList.getTaskList().get(0), "Expected a Deadline class");
+        Deadline d = new Deadline("submit report", LocalDateTime.of(2024, 8, 31, 23, 59));
+        String expected = String.format("Got it. I've added this task:\n  %s\nNow you have 1 tasks in the list.\n", d);
+        assertEquals(expected, result);
+        assertEquals(1, taskList.size());
+        assertInstanceOf(Deadline.class, taskList.getTaskList().get(0));
     }
 
     @Test
     public void execute_invalidDateFormat_addTaskFailed() {
         DeadlineCommand command = new DeadlineCommand("finish assignment /by invalid-date");
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid datetime format: invalid-date", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 }

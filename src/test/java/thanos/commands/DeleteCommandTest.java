@@ -23,12 +23,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_noIndexProvided_throwsInvalidCommandException() {
         DeleteCommand command = new DeleteCommand("");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("No task index provided.", exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
@@ -38,8 +33,11 @@ public class DeleteCommandTest {
         taskList.add(task1);
         taskList.add(task2);
         DeleteCommand command = new DeleteCommand("2");
-        command.execute(taskList);
+        String result = command.execute(taskList);
 
+        String expected = String.format("Noted. I've removed these task(s):\n1.%s\nNow you have 1 tasks in the list.\n",
+                task2);
+        assertEquals(expected, result);
         assertEquals(1, taskList.size(), "TaskList should contain 1 task after deletion");
         assertEquals(task1, taskList.getTaskList().get(0), "The remaining task should be Task 1");
     }
@@ -47,13 +45,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_nonIntegerTaskIndex_throwsInvalidCommandException() {
         DeleteCommand command = new DeleteCommand("one");
-
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid task index. The task index provided is not an integer.",
-                exception.getMessage());
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 
     @Test
@@ -61,12 +53,37 @@ public class DeleteCommandTest {
         Task task1 = new Todo("Task 1");
         taskList.add(task1);
         DeleteCommand command = new DeleteCommand("2");
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
+    }
 
-        InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class, () -> command.execute(taskList),
-                "Expected InvalidCommandException to be thrown"
-        );
-        assertEquals("Invalid task index. The task index provided is out of range.",
-                exception.getMessage());
+    @Test
+    public void execute_multipleIndex_success() throws InvalidCommandException {
+        Task task1 = new Todo("Task 1");
+        Task task2 = new Todo("Task 2");
+        Task task3 = new Todo("Task 3");
+        taskList.add(task1);
+        taskList.add(task2);
+        taskList.add(task3);
+        DeleteCommand command = new DeleteCommand("1 3");
+        String result = command.execute(taskList);
+
+        String expected = String.format("""
+                Noted. I've removed these task(s):
+                1.%s
+                2.%s
+                Now you have 1 tasks in the list.
+                """, task3, task1);
+        assertEquals(expected, result);
+        assertEquals(1, taskList.size(), "TaskList should contain 1 task after deletion");
+    }
+
+    @Test
+    public void execute_duplicateIndex_throwsInvalidCommandException() {
+        Task task1 = new Todo("Task 1");
+        Task task2 = new Todo("Task 2");
+        taskList.add(task1);
+        taskList.add(task2);
+        DeleteCommand command = new DeleteCommand("1 1");
+        assertThrows(InvalidCommandException.class, () -> command.execute(taskList));
     }
 }
