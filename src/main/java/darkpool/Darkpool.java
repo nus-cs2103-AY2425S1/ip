@@ -42,7 +42,7 @@ public class Darkpool {
             Command command = Parser.parse(input);
             String response = command.execute(taskList, gui, storage);
             assert response != null : "Response should not be null after command execution";
-            
+
             if (command.isExit()) {
                 return gui.goodbye();
             }
