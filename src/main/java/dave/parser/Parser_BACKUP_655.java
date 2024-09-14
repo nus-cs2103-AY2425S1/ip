@@ -37,11 +37,27 @@ public class Parser {
      * @param fullCommand The full string command input provided by the user.
      * @return The corresponding {@code Command} object for the input command.
      * @throws InvalidCommandException if the command is not recognized.
+<<<<<<< HEAD
+<<<<<<< HEAD
+     * @throws InvalidDescriptionException if the command arguments are invalid.
+     */
+    public static Command parse(String fullCommand) throws InvalidCommandException, InvalidDescriptionException {
+        String[] commandParts = splitCommand(fullCommand);
+=======
+     * @throws InvalidDescriptionException if the task description is invalid.
+     */
+    public static Command parse(String fullCommand) throws InvalidCommandException, InvalidDescriptionException {
+        assert fullCommand != null && !fullCommand.isEmpty() : "User input should not be null or empty";
+
+        String[] commandParts = fullCommand.split(" ", 2);
+>>>>>>> master
+=======
      * @throws InvalidDescriptionException if the command arguments are invalid.
      */
     public static Command parse(String fullCommand) throws InvalidCommandException, InvalidDescriptionException {
         assert fullCommand != null && !fullCommand.isEmpty() : "User input should not be null or empty";
         String[] commandParts = splitCommand(fullCommand);
+>>>>>>> 55f5fd5cf7915b0378cc5d5588f10dcceca9e183
         String commandWord = commandParts[0];
         String commandArgs = commandParts[1]; // Now properly extracted even if empty
 
@@ -62,6 +78,10 @@ public class Parser {
         return new String[]{commandParts[0], commandArgs}; // Ensure both parts are always present
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 55f5fd5cf7915b0378cc5d5588f10dcceca9e183
     /**
      * Handles the task type processing based on the provided task type.
      *
@@ -93,9 +113,26 @@ public class Parser {
             return new ExitCommand();
         default:
             throw new InvalidCommandException("Unsupported command type.");
+<<<<<<< HEAD
+=======
+        TaskType taskType;
+        try {
+            taskType = TaskType.valueOf(commandWord);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidCommandException(
+                    "Are you joking? Here are the missions "
+                            + "I accept: todo, deadline, event, list, mark, unmark, delete, find, bye"
+            );
+>>>>>>> master
         }
     }
 
+<<<<<<< HEAD
+=======
+        }
+    }
+
+>>>>>>> 55f5fd5cf7915b0378cc5d5588f10dcceca9e183
     /**
      * Handles the deadline command and wraps potential date-time parsing exceptions.
      *
@@ -156,6 +193,74 @@ public class Parser {
             return constructor.apply(Integer.parseInt(commandArgs));
         } catch (NumberFormatException e) {
             throw new InvalidDescriptionException("Please provide a valid number.");
+<<<<<<< HEAD
+=======
+        assert taskType != null : "TaskType should not be null at this point";
+
+        switch (taskType) {
+        case todo:
+            if (commandArgs.isEmpty()) {
+                throw new InvalidDescriptionException("Description for a todo task cannot be empty.");
+            }
+            return new AddCommand(new Todo(commandArgs));
+
+        case deadline:
+            try {
+                if (commandArgs.isEmpty()) {
+                    throw new InvalidDescriptionException("Deadline task must include a date and time.");
+                }
+                return new AddCommand(new Deadline(commandArgs));
+            } catch (InvalidDateTimeFormatException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
+
+        case event:
+            try {
+                if (commandArgs.isEmpty()) {
+                    throw new InvalidDescriptionException("Event task must include a start and end time.");
+                }
+                return new AddCommand(new Event(commandArgs));
+            } catch (InvalidDateTimeFormatException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
+
+        case delete:
+            if (commandArgs.isEmpty()) {
+                throw new InvalidDescriptionException("Please provide the task number to delete.");
+            }
+            return new DeleteCommand(Integer.parseInt(commandArgs));
+
+        case mark:
+            if (commandArgs.isEmpty()) {
+                throw new InvalidDescriptionException("Please provide the task number to mark as done.");
+            }
+            return new MarkCommand(Integer.parseInt(commandArgs));
+
+        case unmark:
+            if (commandArgs.isEmpty()) {
+                throw new InvalidDescriptionException("Please provide the task number to unmark.");
+            }
+            return new UnmarkCommand(Integer.parseInt(commandArgs));
+
+        case find:
+            if (commandArgs.isEmpty()) {
+                throw new InvalidDescriptionException("Please provide a keyword to search.");
+            }
+            return new FindCommand(commandArgs);
+
+        case list:
+            return new ListCommand();
+
+        case bye:
+            return new ExitCommand();
+
+        default:
+            return null;
+>>>>>>> master
+=======
+>>>>>>> 55f5fd5cf7915b0378cc5d5588f10dcceca9e183
         }
     }
 }
