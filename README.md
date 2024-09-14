@@ -1,24 +1,213 @@
-# david.david project template
+# <img src="DavidLogo.png" alt="David Logo" width="25"/> David User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Screenshot of David chatbot](/Ui.png)
 
-## Setting up in Intellij
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+David is a task list tracker, enhanced and optimised for users who prefer
+typing.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/david.david.java` file, right-click it, and choose `Run david.david.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+The features David provides include:
+- [x] Add tasks (Todo tasks, Deadline tasks and event tasks)
+- [x] Delete tasks
+- [x] Local caching of tasks
+- [x] Sort of tasks
+- [x] Find tasks
+- [x] Mark and unmark of tasks
+
+## Command summary
+<table>
+  <tr>
+    <th>Command</th><th>Arguments</th><th>Action</th>
+  </tr>
+  <tr>
+    <td>
+
+`todo`
+</td>
+<td>
+
+`TASK_NAME`
+</td>
+<td>Adds todo task</td>
+
+<tr>
+    <td>
+
+`deadline`
+</td>
+<td>
+
+`/by YYYY-MM-DD HHHH`
+</td>
+<td>Adds deadline task</td>
+  </tr>
+
+  <tr>
+    <td>
+
+`event`
+</td>
+<td>
+
+`/from YYYY-MM-DD HHHH`
+
+`/to YYYY-MM-DD HHHH`
+</td>
+<td>Adds event task</td>
+  </tr>
+
+  <tr>
+    <td>
+
+`mark` and `unmark`
+</td>
+<td>
+
+`INDEX`
+
+</td>
+<td>Marks and unmarks a task</td>
+  </tr>
+
+
+  <tr>
+    <td>
+
+`delete`
+</td>
+<td>
+
+`INDEX`
+
+</td>
+<td>Deletes a task</td>
+  </tr>
+
+
+  <tr>
+    <td>
+
+`list`
+</td>
+<td> - 
+</td>
+<td>Lists all task</td>
+  </tr>
+
+
+  <tr>
+    <td>
+
+`find`
+</td>
+<td> 
+
+`TASK_NAME`
+</td>
+<td>Finds all task corresponding to the specified string</td>
+  </tr>
+
+
+  <tr>
+    <td>
+
+`sort`
+</td>
+<td> 
+
+`ORDER_BY`
+</td>
+<td>Sorts tasks in the order specified</td>
+  </tr>
+</table>
+
+
+## Features
+> [!NOTE]
+> - Words in `UPPER_CASE` are required parameters supplied by the user.
+> - Words in `lower_case` are action specifiers for commands
+
+
+### Add todos
+Adds a todo task to the list of tasks.
+
+Format: `todo TASK_NAME`
+
+Example: `todo eat`
+
+
+### Add deadlines
+Adds a deadline task to the list of tasks.
+
+Format: `deadline TASK_NAME /by YYYY-MM-DD HHHH`
+
+Deadlines should be appended with an input in the format of "YYYY-MM-DD HHHH"
+where
+- "Y" reprsents the year
+- "M" represents the month
+- "D" represents the day of the month
+- "H" represents the 24-hour time
+
+Example: `deadline cs2100 assignment /by 2024-12-12 1230`
+
+### Add events
+Adds an event task to the list of tasks.
+
+Format: `event TASK_NAME /from YYYY-MM-DD HHHH /to YYYY-MM-DD HHHH`
+
+`/from` and `/to` should be appended with an input in the format of "YYYY-MM-DD HHHH"
+where
+- "Y" reprsents the year
+- "M" represents the month
+- "D" represents the day of the month
+- "H" represents the 24-hour time
+
+Example: `event dance /from 2024-12-12 1230 /to 2024-12-12 1330`
+
+### List tasks
+Lists all tasks that have been added
+
+Format: `list`
+
+Example: `list`
+
+### Mark and unmark tasks
+Marks or unmarks tasks selected
+
+Format: `mark INDEX` or `unmark INDEX`
+
+
+Example:
+```
+mark 1
+unmark 1
+```
+
+### Find tasks
+Returns all tasks that matches the given event name.
+
+Format: `find TASK_NAME`
+
+Example: `find eat`
+
+### Delete tasks
+Deletes the specified task corresponding to the number in the list
+
+Format: `delete INDEX`
+
+Required arguments: `i` task number to delete
+
+Example: `delete 1`
+
+### Sort tasks
+Sorts all tasks in the given order.
+
+Format: `sort ORDER`
+
+Parameters accepted:
+- `asc` - ascending order
+- `desc` - descending order
+
+Example: `sort asc`
+
+
