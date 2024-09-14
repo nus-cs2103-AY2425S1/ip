@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import exceptions.DukeException;
+import exceptions.EchoException;
 
 public class EventTest {
     @Test
@@ -13,7 +13,7 @@ public class EventTest {
             Task eventA = new Event("eA", "2023/03/02 08:00", "2023/03/02 20:00");
             Task eventB = Task.createTask("event eA /from 2023/03/02 08:00 /to 2023/03/02 20:00");
             assertEquals(eventA.toString(), eventB.toString());
-        } catch (DukeException e) {
+        } catch (EchoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -26,7 +26,7 @@ public class EventTest {
             Task eventB = Task.createTask("event eA /from 2023/03/02 08:00 /to 2023/03/02 20:00");
             eventA.setUnmark();
             assertEquals(eventA.toString(), eventB.toString());
-        } catch (DukeException e) {
+        } catch (EchoException e) {
             System.out.println(e.getMessage());
         }
     }

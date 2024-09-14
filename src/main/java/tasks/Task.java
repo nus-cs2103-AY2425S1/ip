@@ -3,7 +3,7 @@ package tasks;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
-import exceptions.DukeException;
+import exceptions.EchoException;
 
 /**
  * Abstract base class representing a task.
@@ -21,13 +21,13 @@ public abstract class Task implements Serializable {
      *
      * @param taskInfoArray user's input split by " ".
      * @param type task type.
-     * @throws DukeException if user input invalid command.
+     * @throws EchoException if user input invalid command.
      */
-    public static void checkValidCommand(String[] taskInfoArray, TaskType type) throws DukeException {
+    public static void checkValidCommand(String[] taskInfoArray, TaskType type) throws EchoException {
         // Return incorrect input message when the length of input less or equal to 1
         if (taskInfoArray.length <= 1 || taskInfoArray[1].isEmpty()) {
             String msg = "Oops! The description of a " + type + " cannot be empty.";
-            throw new DukeException(msg);
+            throw new EchoException(msg);
         }
 
         // If input length is greater than 1, check each part
@@ -38,19 +38,19 @@ public abstract class Task implements Serializable {
             // Check whether user inputs the keyword '/by'
             if (!description.contains("/by")) {
                 String msg = "Oops! The description of a deadline should contain a '/by' keywords";
-                throw new DukeException(msg);
+                throw new EchoException(msg);
             }
 
             // Check whether user inputs a valid description of the task
             if (taskInfoArray[1].indexOf("/by") <= 1) {
                 String msg = "Oops! Please give me more information about your task.";
-                throw new DukeException(msg);
+                throw new EchoException(msg);
             }
 
             // Check whether user inputs a valid end time of a deadline task
             if (taskInfoArray[1].split("/by ").length <= 1) {
                 String msg = "Oops! The end time of a deadline cannot be empty.";
-                throw new DukeException(msg);
+                throw new EchoException(msg);
             }
 
             String deadline = taskInfoArray[1].split(" /by ")[1];
@@ -58,7 +58,7 @@ public abstract class Task implements Serializable {
             // Check whether user input a valid end time format
             if (!Pattern.matches(dateTimePattern, deadline)) {
                 String msg = "Please input a valid deadline format i.e. \"yyyy/MM/dd HH:mm\".";
-                throw new DukeException(msg);
+                throw new EchoException(msg);
             }
         }
 
@@ -68,13 +68,13 @@ public abstract class Task implements Serializable {
             if (!taskInfoArray[1].contains("/from") || !taskInfoArray[1].contains("/to")) {
                 String msg = "Oops! The description of an event should"
                         + " contain a '/from' and '/to' keywords";
-                throw new DukeException(msg);
+                throw new EchoException(msg);
             }
 
             // Check whether user inputs a valid description of the task
             if (taskInfoArray[1].indexOf("/from") <= 1) {
                 String msg = "Please give me more information about your task.";
-                throw new DukeException(msg);
+                throw new EchoException(msg);
             }
 
             // Get the time information by splitting the string
@@ -83,13 +83,13 @@ public abstract class Task implements Serializable {
             // Check whether user inputs a valid start time of a event task
             if (timeInfo.indexOf("/to") <= 1) {
                 String msg = "Oops! The start time of an event cannot be empty.";
-                throw new DukeException(msg);
+                throw new EchoException(msg);
             }
 
             // Check whether user inputs a valid end time of a event task
             if (timeInfo.split("/to ").length <= 1) {
                 String msg = "Oops! The end time of an event cannot be empty.";
-                throw new DukeException(msg);
+                throw new EchoException(msg);
             }
         }
     }
@@ -101,7 +101,7 @@ public abstract class Task implements Serializable {
      *                 information and important time information of the task.
      * @return task created according to the task information user entered.
      */
-    public static Task createTask(String taskInfo) throws DukeException {
+    public static Task createTask(String taskInfo) throws EchoException {
         // Split the user input and get the task type
         String[] taskInfoArray = taskInfo.split(" ", 2);
         String type = taskInfoArray[0].toUpperCase();
@@ -132,12 +132,12 @@ public abstract class Task implements Serializable {
                 newTask = new Event(eventInfo, startTime, endTime);
                 break;
             default:
-                throw new DukeException();
+                throw new EchoException();
             }
         } catch (IllegalArgumentException e) {
             String msg = "Oops! It seems you enter a invalid type.";
             String guide = "Please enter a valid task type: todo/deadline/event";
-            throw new DukeException(msg + "\n" + guide);
+            throw new EchoException(msg + "\n" + guide);
         }
 
         // Send message to user indicate the successful add and return the task created

@@ -1,7 +1,7 @@
 package echo;
 
 import commands.Parser;
-import exceptions.DukeException;
+import exceptions.EchoException;
 import storage.Storage;
 import tasks.TaskList;
 
@@ -44,7 +44,7 @@ public class EchoBot {
         try {
             botOutput = Parser.parse(userInput, allTasks);
             Storage.setData(allTasks);
-        } catch (DukeException e) {
+        } catch (EchoException e) {
             botOutput = e.getMessage();
         } finally {
             return botOutput;

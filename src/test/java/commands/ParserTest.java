@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import exceptions.DukeException;
+import exceptions.EchoException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -20,7 +20,7 @@ public class ParserTest {
         TaskList allTask = new TaskList();
         try {
             Parser.parse("deadline write essay /by 2023/03/23 23:59", allTask);
-        } catch (DukeException e) {
+        } catch (EchoException e) {
             System.out.println(e.getMessage());
         }
         ArrayList<Task> list = new ArrayList<>();
@@ -37,7 +37,7 @@ public class ParserTest {
             Parser.parse("deadline write essay /by 2023/03/23 23:59", allTask);
             Parser.parse("event read book /from 2023/03/02 08:00 /to 2023/03/02 20:00", allTask);
             Parser.parse("delete 1", allTask);
-        } catch (DukeException e) {
+        } catch (EchoException e) {
             System.out.println(e.getMessage());
         }
         ArrayList<Task> list = new ArrayList<>();

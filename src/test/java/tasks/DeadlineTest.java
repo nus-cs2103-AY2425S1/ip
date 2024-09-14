@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import exceptions.DukeException;
+import exceptions.EchoException;
 
 public class DeadlineTest {
     @Test
@@ -13,7 +13,7 @@ public class DeadlineTest {
             Task deadlineA = new Deadline("dA", "2023/03/23 23:59");
             Task deadlineB = Task.createTask("deadline dA /by 2023/03/23 23:59");
             assertEquals(deadlineA.toString(), deadlineB.toString());
-        } catch (DukeException e) {
+        } catch (EchoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -26,7 +26,7 @@ public class DeadlineTest {
             deadlineA.setMark();
             deadlineB.setMark();
             assertEquals(deadlineA.toString(), deadlineB.toString());
-        } catch (DukeException e) {
+        } catch (EchoException e) {
             System.out.println(e.getMessage());
         }
     }

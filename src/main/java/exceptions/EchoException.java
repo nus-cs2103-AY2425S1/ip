@@ -5,12 +5,12 @@ package exceptions;
  * This exception is thrown when an error occurs that is unique
  * to the operations of Duke.
  */
-public class DukeException extends Exception {
+public class EchoException extends Exception {
     /**
      * Create a DukeException without specific message.
      *
      */
-    public DukeException() {
+    public EchoException() {
         super("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
@@ -19,7 +19,7 @@ public class DukeException extends Exception {
      *
      * @param msg specific message of the exception.
      */
-    public DukeException(String msg) {
+    public EchoException(String msg) {
         super(msg);
     }
 
@@ -30,6 +30,6 @@ public class DukeException extends Exception {
      */
     @Override
     public String toString() {
-        return "DukeException:" + this.getMessage();
+        return "EchoException:" + this.getMessage();
     }
 }
