@@ -176,4 +176,33 @@ public class TaskList {
                 "I have put this task at the top of your task list:\n" + task;
     }
 
+    public String sortTasksByDeadline() {
+        ArrayList<Deadline> deadlineTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.hasDeadline()) {
+                deadlineTasks.add((Deadline) task);
+            }
+        }
+        if (deadlineTasks.isEmpty()) {
+            return "You currently have no deadlines to meet! Keep waffling!";
+        }
+        for (int i = 0; i < deadlineTasks.size() - 1; i++) {
+            for (int j = i + 1; j < deadlineTasks.size(); j++) {
+                if (deadlineTasks.get(i).compareTo(deadlineTasks.get(j)) > 0) {
+                    Deadline temp1 = deadlineTasks.get(i);
+                    Deadline temp2 = deadlineTasks.get(j);
+                    deadlineTasks.remove(temp1);
+                    deadlineTasks.remove(temp2);
+                    deadlineTasks.add(i, temp2);
+                    deadlineTasks.add(j, temp1);
+                }
+            }
+        }
+        StringBuilder msg = new StringBuilder("Here are all your tasks with deadlines, sorted by their deadlines:\n");
+        for (int i = 0; i < deadlineTasks.size(); i++) {
+            msg.append(i + 1).append(". ").append(deadlineTasks.get(i).toString()).append("\n");
+        }
+        return msg.toString();
+    }
+
 }

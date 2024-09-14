@@ -57,4 +57,8 @@ public abstract class Task {
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
     }
+
+    public boolean hasDeadline() {
+        return false;
+    }
 }

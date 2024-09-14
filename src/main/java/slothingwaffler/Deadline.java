@@ -2,7 +2,7 @@ package slothingwaffler;
 
 import java.time.LocalDate;
 
-public class Deadline extends Task {
+public class Deadline extends Task implements Comparable<Deadline> {
 
     private final LocalDate by;
 
@@ -19,6 +19,16 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(Task.DTF4) + ")";
+    }
+
+    @Override
+    public boolean hasDeadline() {
+        return true;
+    }
+
+    @Override
+    public int compareTo(Deadline deadline) {
+        return this.by.compareTo(deadline.by);
     }
 
 }
