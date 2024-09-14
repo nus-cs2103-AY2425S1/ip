@@ -1,4 +1,4 @@
-package quirkbot.GUI;
+package quirkbot.gui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -12,8 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * DialogBox class which represents the dialog boxes for User and Duke
@@ -24,7 +24,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private static final double PROFILE_PICTURE_RADIUS = 50.0;
+    private double radius = 50.0;
 
     /**
      * Constructs a DialogBox object with the specified text and image.
@@ -77,6 +77,8 @@ public class DialogBox extends HBox {
         case "DeleteCommand":
             dialog.getStyleClass().add("delete-label");
             break;
+        default:
+            break;
         }
     }
 
@@ -121,8 +123,8 @@ public class DialogBox extends HBox {
      * Makes the profile picture circular.
      */
     public void makeProfilePictureCircular() {
-        double diameter = PROFILE_PICTURE_RADIUS * 2;
-        Circle clip = new Circle(PROFILE_PICTURE_RADIUS, PROFILE_PICTURE_RADIUS, PROFILE_PICTURE_RADIUS);
+        double diameter = radius * 2;
+        Circle clip = new Circle(radius, radius, radius);
         displayPicture.setClip(clip);
 
         displayPicture.setFitWidth(diameter);

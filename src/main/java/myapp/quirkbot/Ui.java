@@ -4,16 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import quirkbot.GUI.MainWindow;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import quirkbot.gui.MainWindow;
 
 /**
  * Main class which represents the JavaFX GUI for the chatbot.
@@ -240,11 +240,13 @@ public class Ui extends Application {
         } else if (command.startsWith("deadline")) {
             return "Oops! Your deadline task description is missing! Also, please use the dd/MM/yyyy HHmm format.";
         } else if (command.startsWith("event")) {
-            return "Oops! Your event task description is missing! Also, use the dd/MM/yyyy HHmm format for the timings.";
+            return "Oops! Your event task description is missing! "
+                    + "Also, use the dd/MM/yyyy HHmm format for the timings.";
         }
 
-        return "Oops! That command doesn’t seem right. Please use 'find', 'todo', 'deadline', 'event', 'delete',"
-                + " 'mark', 'unmark', 'list', or 'bye'. Thanks a bunch!";
+        return "Oops! That command doesn’t seem right. "
+                + "Please use 'find', 'todo', 'deadline', 'event', 'delete', 'mark', 'unmark', 'list', or 'bye'."
+                + "Thanks a bunch!";
     }
 
     /**
