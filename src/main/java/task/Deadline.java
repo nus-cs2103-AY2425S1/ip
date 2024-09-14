@@ -55,4 +55,17 @@ public class Deadline extends Task {
         output += " deadline " + description + " /by " + deadline + "\n";
         return output;
     }
+
+    public void setDeadline(String deadline) {
+        String trimmedDeadline = deadline.trim();
+        if (trimmedDeadline.isEmpty() || trimmedDeadline.equals("deadline")) {
+            return;
+        }
+        this.deadline = trimmedDeadline;
+        try {
+            formattedDeadline = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            formattedDeadline = null;
+        }
+    }
 }

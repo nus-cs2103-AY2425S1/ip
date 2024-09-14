@@ -8,6 +8,7 @@ import command.MarkCommand;
 import command.MiscCommand;
 import command.SearchCommand;
 import command.UnMarkCommand;
+import command.UpdateCommand;
 import exception.DukeException;
 
 
@@ -41,6 +42,8 @@ public class Parser {
             return handleSearch(splitResponse[1]);
         case "bye":
             return handleBye();
+        case "update":
+            return handleUpdate(splitResponse[1]);
         default: {
             try {
                 throw new DukeException("I dont understand what you are trying to say :(");
@@ -113,6 +116,16 @@ public class Parser {
     public static Command handleDelete(String description) {
         int index = Integer.parseInt(description) - 1;
         return new DeleteCommand(index);
+    }
+
+    public static Command handleUpdate(String description) {
+        String[] splitResponse = description.split(" ", 3);
+        int index = Integer.parseInt(splitResponse[0]) - 1;
+        if (splitResponse.length == 3) {
+            return new UpdateCommand(index, splitResponse[1], splitResponse[2]);
+        } else {
+            return new UpdateCommand(index, splitResponse[1]);
+        }
     }
 
     /**

@@ -187,6 +187,47 @@ public class TaskList {
         }
     }
 
+    public Task updateTask(int index, String deadline) {
+        assert index >= 0 : "Index should be greater than 0";
+        try {
+            if (index < 0 || index >= taskList.size()) {
+                throw new DukeException("Invalid position!");
+            }
+            Task currentTask = taskList.get(index);
+            if (currentTask instanceof Deadline) {
+                ((Deadline) currentTask).setDeadline(deadline);
+                return currentTask;
+            } else {
+                throw new DukeException("Task is not a deadline!");
+            }
+        } catch (DukeException e) {
+            System.out.println("________________________________");
+            System.out.println(e.getMessage() + "\n________________________________");
+            return null;
+        }
+    }
+
+    public Task updateTask(int index, String startDate, String endDate) {
+        assert index >= 0 : "Index should be greater than 0";
+        try {
+            if (index < 0 || index >= taskList.size()) {
+                throw new DukeException("Invalid position!");
+            }
+            Task currentTask = taskList.get(index);
+            if (currentTask instanceof Event) {
+                ((Event) currentTask).setFrom(startDate);
+                ((Event) currentTask).setTo(endDate);
+                return currentTask;
+            } else {
+                throw new DukeException("Task is not an event!");
+            }
+        } catch (DukeException e) {
+            System.out.println("________________________________");
+            System.out.println(e.getMessage() + "\n________________________________");
+            return null;
+        }
+    }
+
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }

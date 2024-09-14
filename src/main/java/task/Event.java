@@ -56,4 +56,22 @@ public class Event extends Task {
         output += " event " + description + " /from " + this.from + " /to " + this.to + "\n";
         return output;
     }
+
+    public void setFrom(String from) {
+        String trimmedFrom = from.trim();
+        if (trimmedFrom.isEmpty()) {
+            return;
+        }
+        this.from = from;
+        this.formattedFrom = LocalDate.parse(from);
+    }
+
+    public void setTo(String To) {
+        String trimmedTo = To.trim();
+        if (trimmedTo.isEmpty()) {
+            return;
+        }
+        this.from = To;
+        this.formattedFrom = LocalDate.parse(To);
+    }
 }

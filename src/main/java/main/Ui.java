@@ -72,4 +72,10 @@ public class Ui {
         System.out.println("________________________________");
         return output;
     }
+
+    public String displayUpdatedMessage(Task task) {
+        assert task != null : "Task should not be null";
+        String output = "Noted. Task have been updated to the following:\n" + task.getString() + "\n";
+        return output;
+    }
 }
