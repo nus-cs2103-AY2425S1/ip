@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+import exceptions.EchoException;
+
 /**
  * Represents a task with a deadline that needs to be completed before a specific date and time.
  * This class extends the Task class and implements Serializable for object serialization.
@@ -21,10 +23,16 @@ public class Deadline extends Task implements Serializable {
      *                 in the format "yyyy/MM/dd HH:mm".
      * @throws DateTimeParseException if the deadline string is not in the correct format.
      */
-    public Deadline(String task, String deadline) throws DateTimeParseException {
+    public Deadline(String task, String deadline) throws EchoException {
         this.task = task;
-        this.deadline = LocalDateTime.from(LocalDateTime.parse(deadline,
-                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.US)));
+
+        // Parse the time strings into LocalDateTime objects
+        try {
+            this.deadline = LocalDateTime.from(LocalDateTime.parse(deadline,
+                    DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.US)));
+        } catch (DateTimeParseException e) {
+            throw new EchoException("Oops! Your input time is in invalid format.");
+        }
     }
 
     /**
