@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Bunbun");
             fxmlLoader.<MainWindow>getController().setBunbun(bunbun);  // inject the Bunbun instance
             stage.setOnCloseRequest(e -> bunbun.close());
             stage.show();
