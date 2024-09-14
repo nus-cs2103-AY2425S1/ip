@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 /**
  * Thrown when command is invalid.

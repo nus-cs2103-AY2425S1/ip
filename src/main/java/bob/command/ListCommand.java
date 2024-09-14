@@ -1,4 +1,7 @@
-package bob;
+package bob.command;
+
+import bob.Storage;
+import bob.TaskList;
 
 public class ListCommand extends Command {
     @Override

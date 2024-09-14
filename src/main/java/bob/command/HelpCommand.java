@@ -1,4 +1,7 @@
-package bob;
+package bob.command;
+
+import bob.Storage;
+import bob.TaskList;
 
 public class HelpCommand extends Command {
     @Override

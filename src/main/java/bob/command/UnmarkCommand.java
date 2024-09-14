@@ -1,8 +1,12 @@
-package bob;
+package bob.command;
 
 import java.io.IOException;
 
-public class DeleteCommand extends Command {
+import bob.Storage;
+import bob.TaskList;
+import bob.task.Task;
+
+public class UnmarkCommand extends Command {
     private int taskIndex;
 
     /**
@@ -10,22 +14,19 @@ public class DeleteCommand extends Command {
      *
      * @param taskIndex index of task.
      */
-    public DeleteCommand(int taskIndex) {
+    public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
         try {
-            Task task = tasks.remove(taskIndex);
+            Task task = tasks.getTask(taskIndex);
+            task.unmark();
             storage.save(tasks);
-            return String.format("""
-                    Oof. I have removed the requested task:
-                    \t%s
-                    Now you have %s tasks in the list""", task, tasks.size());
-
+            return String.format("Oh well, this task has been marked undone:\n\t%s", task);
         } catch (IndexOutOfBoundsException e) {
-            return "Hm, you don't seem to have that task";
+            return "There's no such task!";
         } catch (IOException e) {
             return "I can't remember that for some reason T T";
         }
