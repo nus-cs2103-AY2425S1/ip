@@ -2,6 +2,7 @@ package wiggly.commands;
 
 import java.time.LocalDate;
 
+import wiggly.exception.WigglyException;
 import wiggly.task.Deadline;
 import wiggly.task.Event;
 import wiggly.task.Task;
@@ -49,7 +50,7 @@ public class AddCommand extends Command {
      * @param storage  The storage file to save and load from
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws WigglyException {
 
         Task task;
         String s;
@@ -68,7 +69,7 @@ public class AddCommand extends Command {
             s = taskList.addTask(task);
             break;
         default:
-            throw new RuntimeException("Unknown task type");
+            throw new WigglyException("Unknown task type");
         }
 
         storage.save(taskList);

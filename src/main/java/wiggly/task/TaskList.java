@@ -138,6 +138,15 @@ public class TaskList {
     }
 
     /**
+     * Clears all tasks from the task list.
+     *
+     * This method removes all elements from the {@link #tasks} collection, effectively emptying the task list.
+     */
+    public void clearTasks() {
+        this.tasks.clear();
+    }
+
+    /**
      * Returns a String representation of a filtered task list with tasks that passed {@code task.contains(keyword)}
      *
      * @param keyword The string to check

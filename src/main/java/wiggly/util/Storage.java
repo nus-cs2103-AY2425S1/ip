@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,8 +27,6 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.file = new File(filePath);
-
-        File file = new File(filePath);
 
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
@@ -84,6 +84,16 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    /**
+     * Reads the contents of the file associated with this {@link Storage} instance and returns it as a string.
+     *
+     * @return The contents of the file as a {@code String}.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
+    public String contentsToString() throws IOException {
+        return new String(Files.readAllBytes(Paths.get(this.file.getPath())));
     }
 
 }
