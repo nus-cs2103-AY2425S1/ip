@@ -19,11 +19,14 @@ public class Winner {
         Storage.saveTasks(taskList.getTasks());
     }
 
+    public String getHelloMessage() {
+        return Ui.winnerSaysHi();
+    }
+
     public String getResponse(String input) {
         TaskList taskList = new TaskList();
         Storage.checkAndCreateFile();
         Storage.loadTasks(taskList.getTasks());
-        Ui.winnerSaysHi();
         String reply = "";
 
         try {

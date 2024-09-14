@@ -33,6 +33,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Winner instance */
     public void setWinner(Winner w) {
         winner = w;
+        sendHello();
     }
 
     /**
@@ -47,5 +48,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getWinnerDialog(winnerText, winnnerImage));
         userInput.clear();
+    }
+
+    private void sendHello() {
+        String helloMessage = winner.getHelloMessage();
+        dialogContainer.getChildren().add(DialogBox.getWinnerDialog(helloMessage, winnnerImage));
     }
 }

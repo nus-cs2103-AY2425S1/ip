@@ -36,24 +36,20 @@ public class Ui {
      * Displays initial greeting message when the application starts.
      * It also provides some help on the commands the user can use.
      */
-    public static void winnerSaysHi() {
-        System.out.println(("-".repeat(100) + "\n"
-                + "Hello! I am Winner, your personal task trackBOT!" + "\n"
-                + "You can send me these commands in the form shown below so I can help you keep track of your tasks :"
-                + "\n"
-                + " ".repeat(5) + "- todo (task) --> tasks without any date/time attached" + "\n"
-                + " ".repeat(5) + "- deadline (task) by (date) at (time) --> tasks with a deadline" + "\n"
-                + " ".repeat(5) + "- event (task) from (start) to (end) --> tasks with a start and end date/time"
-                + "\n"
-                + "\n"
-                + "You can also use these additional commands:" + "\n"
-                + " ".repeat(5) + "- list --> shows you your list of tasks" + "\n"
-                + " ".repeat(5) + "- mark (task number) --> mark the task number that you input as done" + "\n"
-                + " ".repeat(5) + "- unmark (task number) --> mark the task number that you input as undone"
-                + "\n"
-                + " ".repeat(5) + "- delete (task number) --> remove the task number that you input from your "
-                + "list of tasks" + "\n"
-                + "-".repeat(100)).indent(10));
+    public static String winnerSaysHi() {
+        return """
+                Hello! I am Winner, your personal task trackBOT!
+                You can send me these commands in the form shown below so I can help you keep track of your tasks :
+                     - todo (task) --> tasks without any date/time attached
+                     - deadline (task) by (date) at (time) --> tasks with a deadline
+                     - event (task) from (start) to (end) --> tasks with a start and end date/time
+                     
+                You can also use these additional commands:
+                     - list --> shows you your list of tasks
+                     - mark (task number) --> mark the task number that you input as done
+                     - unmark (task number) --> mark the task number that you input as undone
+                     - delete (task number) --> remove the task number that you input from your list of tasks
+                """;
     }
 
     /**

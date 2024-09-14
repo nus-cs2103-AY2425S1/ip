@@ -20,10 +20,13 @@ public class Main extends Application {
             stage.setMaxHeight(524);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            Scene scene = new Scene(ap, 800, 524);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setWinner(winner);  // inject the Duke instance
             stage.show();
+            System.out.println("Width: " + stage.getWidth());
+            System.out.println("Height: " + stage.getHeight());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
