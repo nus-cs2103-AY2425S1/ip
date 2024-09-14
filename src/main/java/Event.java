@@ -1,6 +1,12 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs an Event task with the specified description, start time, and end time
@@ -11,8 +17,30 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = parseDateTimeOrDate(start);
+        this.end = parseDateTimeOrDate(end);
+    }
+
+    /**
+     * Parses the input date string and returns a LocalDateTime object. If it
+     * contains only a date without time, appends "00:00" to default the
+     * time to midnight.
+     *
+     * @param dateStr The start or end date of the task provided by the user
+     * @return A LocalDateTime object to be assigned to the start and end fields
+     */
+    private LocalDateTime parseDateTimeOrDate(String dateStr) {
+        try {
+            // Try parsing with date and time
+            return LocalDateTime.parse(dateStr, DATE_TIME_FORMAT);
+        } catch (DateTimeParseException e) {
+            try {
+                // If parsing without time, append "T00:00" to default the time to midnight
+                return LocalDateTime.parse(dateStr + " 00:00", DATE_TIME_FORMAT);
+            } catch (DateTimeParseException ex) {
+                throw new IllegalArgumentException("Invalid date format: " + dateStr);
+            }
+        }
     }
 
     /**
@@ -24,7 +52,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.getTaskSymbol() + " " + super.toString() + " (from: " + start + " to: " + end + ")";
+        return this.getTaskSymbol() + " " + super.toString() + " (from: " + getStart() + " to: " + getEnd() + ")";
     }
 
     /**
@@ -38,20 +66,32 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the start date of the Event Task
+     * Returns the start date formatted as "Month Date, Year".
      *
-     * @return The start date of the Event Task
+     * @return The formatted start date as a {@code String}.
      */
     public String getStart() {
-        return this.start;
+        if (this.start == null) {
+            return "No start date set";
+        }
+        // Define the desired date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
+        // Format the LocalDate object
+        return this.start.format(formatter);
     }
 
     /**
-     * Returns the end date of the Event Task
+     * Returns the end date formatted as "Month Date, Year".
      *
-     * @return The end date of the Event Task
+     * @return The formatted end date as a {@code String}.
      */
     public String getEnd() {
-        return this.end;
+        if (this.end == null) {
+            return "No deadline set";
+        }
+        // Define the desired date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
+        // Format the LocalDate object
+        return this.end.format(formatter);
     }
 }

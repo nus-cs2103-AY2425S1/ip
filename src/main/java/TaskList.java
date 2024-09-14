@@ -77,6 +77,11 @@ public class TaskList {
         return ui.displayUnmarkedTask(t);
     }
 
+    /**
+     * Deletes the specified task from the TaskList
+     *
+     * @param taskNum The task number of the Task Object to be deleted from the TaskList
+     */
     public String deleteTask(int taskNum) {
         System.out.println(taskNum);
         Task t = taskList.get(taskNum - 1);

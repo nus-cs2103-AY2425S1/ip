@@ -2,10 +2,23 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.util.regex.Pattern;
+import java.text.ParseException;
+
 public class Nebula {
+
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
+
+
     /**
      * Entry point of the application. Initializes the UI, task list, and parser,
      * then processes user commands in a loop until "bye" is entered
@@ -47,7 +60,7 @@ public class Nebula {
 
             else if(command.startsWith("mark")) {
                 try {
-                    validateCommand(command, taskList);
+                    validateCommand(command);
                 } catch (NebulaException e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -58,7 +71,7 @@ public class Nebula {
 
             else if(command.startsWith("unmark")) {
                 try {
-                    validateCommand(command, taskList);
+                    validateCommand(command);
                 } catch (NebulaException e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -69,7 +82,7 @@ public class Nebula {
 
             else if(command.startsWith("delete")) {
                 try {
-                    validateCommand(command, taskList);
+                    validateCommand(command);
                 } catch (NebulaException e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -80,7 +93,7 @@ public class Nebula {
 
             else {
                 try {
-                    validateCommand(command, taskList);
+                    validateCommand(command);
                 } catch (NebulaException e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -135,11 +148,9 @@ public class Nebula {
      * Validates the user's input for the correct format and content
      *
      * @param command  the user input command
-     * @param taskList the current list of tasks
      * @throws NebulaException if the command is invalid or improperly formatted
      */
-    public static void validateCommand(String command, TaskList taskList) throws NebulaException {
-        Parser parser = new Parser();
+    public static void validateCommand(String command) throws NebulaException {
         Ui ui = new Ui();
 
         if (command.isEmpty()) {
@@ -173,16 +184,63 @@ public class Nebula {
             if (command.startsWith("deadline")) {
                 if (!description.contains("/by")) {
                     throw new NebulaException(ui.displayUnknownDeadlineException());
+                } else {
+                    // Extract the date after "/by"
+                    String[] parts2 = description.split("/by");
+                    String dueDate = parts2[1].trim();
+
+                    // Validate the due date format
+                    if (!isValidDate(dueDate)) {
+                        throw new NebulaException("Warning: Deadline date is not in the correct format (M/d/yyyy HHmm).");
+                    }
                 }
             } else if (command.startsWith("event")) {
                 if (!description.contains("/from") || !description.contains("/to")) {
                     throw new NebulaException(ui.displayUnknownEventTimingException());
+                } else {
+                    // Extract dates from the description
+                    String[] parts2 = description.split("/from");
+                    String timingPart = parts2[1].trim();
+                    String[] dates = timingPart.split("/to");
+
+                    if (dates.length < 2) {
+                        throw new NebulaException(ui.displayUnknownEventTimingException());
+                    }
+                    String startDate = dates[0].trim();
+                    String endDate = dates[1].trim();
+
+                    // Validate the start and end dates
+                    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+                        throw new NebulaException("Warning: Event dates must be in yyyy-mm-dd format.");
+                    }
                 }
             }
         }
     }
 
     /**
+     * Validates if the provided date string is in a valid date format
+     *
+     * @param dateStr the date string to be validated. It can be in either of two formats
+     * @return A boolean representing whether the date string is in a valid format
+     */
+    private static boolean isValidDate(String dateStr) {
+        try {
+            System.out.println("Date str: " + dateStr);
+            LocalDateTime.parse(dateStr, DATE_TIME_FORMAT); // Attempt to parse the date with time
+            return true;
+        } catch (DateTimeParseException e) {
+            try {
+                System.out.println("Date second str: " + dateStr);
+                LocalDate.parse(dateStr, DATE_FORMAT); // Attempt to parse the date without time
+                return true;
+            } catch (DateTimeParseException ex) {
+                return false;
+            }
+        }
+    }
+
+/**
      * Determines the TaskType based on the command prefix
      *
      * @param command the input command string
@@ -268,7 +326,7 @@ public class Nebula {
                 for (int i = 0; i < parts.length; i++) {
                     parts[i] = parts[i].trim();
                 }
-                if (parts.length < 3) {
+                if (parts.length < 4) {
                     continue; // Skip invalid lines
                 }
 
@@ -289,7 +347,9 @@ public class Nebula {
                         if (parts.length >= 4) {
                             String deadlineDescription = parts[2];
                             String dueDate = parts[3];
-                            task = new Deadline(deadlineDescription, dueDate);
+
+                            String formattedDueDate = convertDate(dueDate);
+                            task = new Deadline(deadlineDescription, formattedDueDate);
                             task.setDone(isDone);
                         }
                         break;
@@ -297,13 +357,17 @@ public class Nebula {
                     case 'E':
                         if (parts.length >= 4) {
                             String eventDescription = parts[2];
-                            String startDateEndDate = parts[3];
+                            String startEndDate = parts[3];
                             // Split start and end dates
-                            String[] dates = startDateEndDate.split("-");
+                            String[] dates = startEndDate.split("-");
                             if (dates.length == 2) {
                                 String startDate = dates[0].trim();
                                 String endDate = dates[1].trim();
-                                task = new Event(eventDescription, startDate, endDate);
+
+                                String formattedStartDate = convertDate(startDate);
+                                String formattedEndDate = convertDate(endDate);
+
+                                task = new Event(eventDescription, formattedStartDate, formattedEndDate);
                                 task.setDone(isDone);
                             }
                         }
@@ -326,9 +390,26 @@ public class Nebula {
         return listOfTasks;
     }
 
+    /**
+     * Converts a date string from one format to another. This method parses
+     * the provided date string using a predefined input format and then formats it
+     * into a different predefined output format.
+     *
+     * @param dateStr the date string to be converted
+     * @return the date string formatted to the target format
+     * @throws IllegalArgumentException if the provided date string is
+     * not in the expected format
+     */
+    public static String convertDate(String dateStr) {
+        // Parse the date string using the original format
+        LocalDateTime dateTime;
+        try {
+            dateTime = LocalDateTime.parse(dateStr, OUTPUT_FORMAT);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Date string is not in the expected format: " + dateStr, e);
+        }
 
-
-
-
-
+        // Format the LocalDateTime object to the target format
+        return dateTime.format(DATE_TIME_FORMAT);
+    }
 }
