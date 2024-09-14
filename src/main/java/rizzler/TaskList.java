@@ -51,7 +51,7 @@ class TaskList {
                     this.tasks.size());
         } catch (IndexOutOfBoundsException e) {
             throw new RizzlerException(
-                    "Stop capping put task number that is actually in the list");
+                    "Stop capping and put a task number that is actually in the list");
         }
     }
 

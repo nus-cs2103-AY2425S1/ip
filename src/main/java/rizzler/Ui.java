@@ -52,7 +52,7 @@ class Ui {
     String showRemovalFromList(Task task, int size) {
         return "I have fanum taxed this task for you:\n"
                 + task + "\n"
-                + "Now you have " + size + " tasks in the list.\n";
+                + "Now you've gyat " + size + " tasks in the list.\n";
     }
 
     /**

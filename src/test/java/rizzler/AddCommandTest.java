@@ -1,43 +1,22 @@
 package rizzler;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class AddCommandTest {
-    private static final ByteArrayOutputStream testOut = new ByteArrayOutputStream();
-    private static final PrintStream originalOut = System.out;
-
-    @BeforeEach
-    public void setStreams() {
-        System.setOut(new PrintStream(testOut));
-    }
-
-    @AfterEach
-    public void restoreStreams() {
-        System.setOut(originalOut);
-    }
-
     @Test
     public void executeCommand_success() throws Exception {
         Ui ui = new Ui();
         FileStorage fileStorage = new FileStorage("data/test.txt");
         TaskList taskList = new TaskList(new ArrayList<>());
         String[] fullCommand = {"todo", "test", "1"};
-        new AddCommand(fullCommand).execute(taskList, ui, fileStorage);
-        assertEquals(testOut.toString(),
-                "_______________________________________________________\n"
-                        + "Gotcha! I've added the new task for you:\n"
+        String testOutput = new AddCommand(fullCommand).execute(taskList, ui, fileStorage);
+        assertEquals(testOutput,
+                "Gotcha! I've added the new task for you:\n"
                         + "[T][ ] test 1\n"
-                        + "Now you have 1 tasks in the list.\n"
-                        + "_______________________________________________________\n"
-                        + "\r\n");
-        testOut.reset();
+                        + "Now you've gyat 1 tasks in the list.\n");
     }
 
     @Test
@@ -52,7 +31,7 @@ public class AddCommandTest {
             fail(); // this should never be reached
         } catch (RizzlerException e) {
             assertEquals(e.getMessage(),
-                    "Please add in the task description\n"
+                    "Stop capping and add in the task description!\n"
                     + "Format:\n"
                     + "todo [task name]");
         }
@@ -66,7 +45,7 @@ public class AddCommandTest {
             fail(); // this should never be reached
         } catch (RizzlerException e) {
             assertEquals(e.getMessage(),
-                    "This command was entered incorrectly\n"
+                    "You got brainrot? This command was entered incorrectly\n"
                     + "Format:\n"
                     + "deadline [task name] /by [yyyy-mm-dd]");
         }
@@ -80,7 +59,7 @@ public class AddCommandTest {
             fail(); // this should never be reached
         } catch (RizzlerException e) {
             assertEquals(e.getMessage(),
-                    "Please put a valid date-time format\n"
+                    "Stop capping and put a valid date-time format!\n"
                             + "Format:\n"
                             + "deadline [task name] /by [yyyy-mm-dd]");
         }
