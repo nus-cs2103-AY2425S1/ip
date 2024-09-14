@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import alfred.exception.AlfredException;
+import alfred.factory.TaskFactory;
 import alfred.parser.Parser;
 import alfred.storage.Storage;
 import alfred.task.Task;
@@ -295,7 +296,7 @@ public class Alfred {
      * @return A string containing the success message for task creation or any error messages.
      */
     public String createNewTask(String input) {
-        if (!Task.isCreateTaskCommand(input)) {
+        if (!TaskFactory.isCreateTaskCommand(input)) {
             return AlfredResponse.showInvalidCommand();
         }
         return handleTaskCreation(input);
@@ -311,7 +312,7 @@ public class Alfred {
      */
     private String handleTaskCreation(String input) {
         try {
-            Task task = Task.initialise(input);
+            Task task = TaskFactory.initialise(input);
             tasks.addTask(task);
             return AlfredResponse.showAddedTaskMessage(task, tasks.getTasksCount());
         } catch (AlfredException e) {
