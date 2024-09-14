@@ -1,6 +1,8 @@
 package yappingbot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import yappingbot.commands.Parser;
 import yappingbot.commands.commands.LauncherCommand;
@@ -23,6 +25,9 @@ public class Launcher {
      */
     public static void main(String[] args) {
         // NOTE: args DOES NOT INCLUDE FILENAME AT ARGS[0]
-        new LauncherCommand(args).runCommand();
+        ArrayList<String> argsWtihVerb = new ArrayList<>();
+        argsWtihVerb.add("run");
+        argsWtihVerb.addAll(List.of(args));
+        new LauncherCommand(argsWtihVerb.toArray(String[]::new)).runCommand();
     }
 }
