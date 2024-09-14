@@ -5,14 +5,18 @@ package task;
  */
 public abstract class Task {
     private String description;
+    private String taskType;
     private boolean isDone;
+
 
     /**
      * Constructor for a Task
      * @param description String representing the task
+     * @param taskType String representing the task type
      */
-    public Task(String description) {
+    public Task(String description, String taskType) {
         this.description = description;
+        this.taskType = taskType;
         this.isDone = false;
     }
 
@@ -41,6 +45,14 @@ public abstract class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Gets task type
+     * @return String representing the task type
+     */
+    public String getTaskType() {
+        return this.taskType;
     }
 
     @Override

@@ -2,6 +2,9 @@ package utility;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import command.UserCommand;
 import exception.InvalidCommandException;
@@ -27,19 +30,19 @@ public class Parser {
     public static Task parseStorageFileLine(String line) throws InvalidStorageFileException {
         try {
             int startIdx = 7;
-            char taskType = line.charAt(1);
+            String taskType = line.substring(1, 2);
             Task t;
             String taskDescription;
 
             switch (taskType) {
-            case 'T':
+            case Todo.TASK_TYPE:
                 taskDescription = line.substring(startIdx);
                 if (taskDescription.equals("")) {
                     throw new InvalidStorageFileException();
                 }
                 t = new Todo(taskDescription);
                 break;
-            case 'D':
+            case Deadline.TASK_TYPE:
                 String byDelimiter = " (by: ";
                 int byIdx = line.indexOf(byDelimiter);
                 if (byIdx == -1) {
@@ -49,7 +52,7 @@ public class Parser {
                 String deadline = line.substring(byIdx + byDelimiter.length(), line.length() - 1);
                 t = new Deadline(taskDescription, deadline);
                 break;
-            case 'E':
+            case Event.TASK_TYPE:
                 String fromDelimiter = " (from: ";
                 String toDelimiter = " to: ";
                 int fromIdx = line.indexOf(fromDelimiter);
@@ -102,5 +105,38 @@ public class Parser {
 
         LocalDateTime ldt = LocalDateTime.parse(date, inputFormatter);
         return ldt.format(outputFormatter);
+    }
+
+    /**
+     * Splits user input sentence into substrings by tokens
+     *
+     * @param userInput String representing user input
+     * @param tokens Array of tokens to split user input by
+     * @return Array of substrings that corresponds to each token's value
+     */
+    public static String[] parseInputByTokens(String userInput, String[] tokens) {
+        String[] words = userInput.split(" ");
+        List<String> wordList = Arrays.asList(words);
+        List<Integer> indices = Arrays
+                .stream(tokens)
+                .map(token -> wordList.indexOf(token))
+                .collect(Collectors.toList());
+
+        String[] tokenValues = new String[tokens.length + 1];
+        int lastTokenIdx = 0;
+        int prev = 1;
+        for (int i = 0; i < indices.size(); i++) {
+            int currIdx = indices.get(i);
+            if (currIdx == -1 || currIdx < prev) {
+                tokenValues[i + 1] = "";
+            } else {
+                tokenValues[lastTokenIdx] = String.join(" ", Arrays.copyOfRange(words, prev, currIdx));
+                prev = currIdx + 1;
+                lastTokenIdx = i + 1;
+            }
+        }
+        tokenValues[lastTokenIdx] = String.join(" ", Arrays.copyOfRange(words, prev, words.length));
+
+        return tokenValues;
     }
 }
