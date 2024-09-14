@@ -130,6 +130,16 @@ public class SecondMind {
         }
     }
 
+    private String executeListInstruction() {
+        StringBuilder sb = new StringBuilder();
+        ArrayList<Task> tl = this.taskList.getTaskList();
+        for (Task task : tl) {
+            sb.append(task.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
     public String execute(String[] instruction) {
         String command = instruction[0];
         if (command.equals("bye")) {
@@ -144,13 +154,8 @@ public class SecondMind {
             String response = executeDeleteInstruction(instruction);
             return response;
         } else if (command.equals("list")) {
-            StringBuilder sb = new StringBuilder();
-            ArrayList<Task> tl = this.taskList.getTaskList();
-            for (Task task : tl) {
-                sb.append(task.toString());
-                sb.append("\n");
-            }
-            return sb.toString();
+            String response = executeListInstruction();
+            return response;
         } else if (command.equals("find")) {
             instruction[0] = "";
             String match = String.join(" ", instruction);
