@@ -1,52 +1,34 @@
+import Kira.Kira;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
+
+    private Kira kira = new Kira("data/kira.txt");
     @Override
     public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        DialogBox dialogBox = new DialogBox("Hello!", null);
-        dialogContainer.getChildren().addAll(dialogBox);
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        stage.setScene(scene);
-        stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setKira(kira);  // inject the Duke instance
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    /**
-     * Creates a dialog box containing user input, and appends it to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), null));
-        userInput.clear();
-    }
+
 }
