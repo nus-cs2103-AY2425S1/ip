@@ -1,7 +1,7 @@
 ## to run
 cd to java
-javac duke/Duke.java
-java duke/Duke
+javac muke/Muke.java
+java muke/Muke
 
 ## to run test:
 cd text-ui-test
@@ -53,7 +53,7 @@ find cook
 ./gradlew build
 
 (cd to libs in build)
-java -jar duke.jar
+java -jar muke.jar
 
 # checkstyle
 after running gradle build
