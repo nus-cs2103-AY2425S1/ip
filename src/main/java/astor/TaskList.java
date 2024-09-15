@@ -161,7 +161,9 @@ public class TaskList {
 
         storage.appendToFile(task.dataDescription());
         taskList.add(task);
-        return task.toString();
+        return "Got it. I've added this task:\n  "
+                + task.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
+
     }
 
     /**

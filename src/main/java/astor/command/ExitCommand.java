@@ -21,9 +21,9 @@ public class ExitCommand extends Command {
         assert storage != null: "storage must not be null";
 
         storage.completeModification();
-        String output = "Bye. Hope to see you again!";
-        ui.showOutput(output);
-        return output;
+        ui.showBye();
+        String byeStatement = "Bye. Hope to see you again!";
+        return byeStatement;
     }
 
     @Override

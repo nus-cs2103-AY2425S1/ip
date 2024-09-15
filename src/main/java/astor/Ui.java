@@ -61,5 +61,9 @@ public class Ui {
         System.out.println(output);
     }
 
+    public void showBye() {
+        System.out.println("Bye. Hope to see you again!");
+    }
+
 
 }

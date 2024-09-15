@@ -45,9 +45,7 @@ public class EventCommand extends Command {
                 throw new EmptyTimeException();
             }
             Task task = new Event(stringArr[0].trim(), stringArr2[0].trim(), stringArr2[1].trim());
-            String s3 = taskList.addTask(task, storage);
-            String output = "Got it. I've added this astor.task:\n  "
-                    + s3 + "\nNow you have " + taskList.size() + " tasks in the list.";
+            String output = taskList.addTask(task, storage);
             ui.showOutput(output);
             return output;
         }
