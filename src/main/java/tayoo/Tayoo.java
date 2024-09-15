@@ -3,8 +3,6 @@ package tayoo;
 import tayoo.command.Command;
 import tayoo.exception.TayooException;
 
-//this is a minor change in a bid to get the iP dashboard to update. I messed up my branching and the dashboard won't
-// update
 
 /**
  * The Tayoo class is the main class of the Tayoo chatbot, it initialises a new Ui, Storage and Tasklist per instannce
