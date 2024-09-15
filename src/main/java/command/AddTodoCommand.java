@@ -4,7 +4,6 @@ import exception.KukiShinobuException;
 import storage.Storage;
 import task.TaskList;
 import task.Todo;
-import ui.Ui;
 
 /**
  * Represents a command to add a <code>Todo</code> <code>Task</code> to the <code>TaskList</code>.
@@ -32,11 +31,10 @@ public class AddTodoCommand extends Command {
      * Executes the command by adding the todo task to the task list.
      *
      * @param taskList The TaskList where the todo task will be added.
-     * @param ui       The Ui instance for user interaction.
      * @param storage  The Storage instance to save the updated task list.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         return taskList.addTask(this.todo);
     }
 }

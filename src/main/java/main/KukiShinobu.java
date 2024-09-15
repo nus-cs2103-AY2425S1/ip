@@ -5,9 +5,6 @@ import parser.Parser;
 import storage.Storage;
 import task.TaskList;
 import command.Command;
-import ui.Ui;
-
-import java.time.temporal.TemporalUnit;
 
 /**
  * The main class for the Kuki Shinobu application.
@@ -28,23 +25,8 @@ public class KukiShinobu {
 
     private boolean isExit = false;
 
-    /**
-     * The entry point of the Kuki Shinobu application.
-     * <p>
-     * Initializes the application with the specified file path for storage and starts
-     * listening for user commands.
-     * </p>
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        KukiShinobu kukiShinobu = new KukiShinobu(FILE_PATH);
-        kukiShinobu.listen();
-    }
-
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructs a {@code KukiShinobu} instance with the specified file path for storage.
@@ -56,14 +38,11 @@ public class KukiShinobu {
      * @param filePath The path to the file where tasks are stored.
      */
     public KukiShinobu(String filePath) {
-        // TODO: Create constructor that takes in a filePath and then self instantiates everything else needed
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.load());
         } catch (KukiShinobuException e) {
             //TODO: Show more informative error message depending on the error that was thrown
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
@@ -83,34 +62,6 @@ public class KukiShinobu {
         return i != 0;
     }
 
-    /**
-     * Starts the command listening loop for the application.
-     * <p>
-     * Displays a welcome message, reads and executes user commands in a loop,
-     * and updates the task list and storage. The loop continues until an exit
-     * command is received. Displays a goodbye message when the application exits.
-     * </p>
-     */
-    public void listen() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                this.ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (KukiShinobuException e) {
-                this.ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-                this.storage.write(this.tasks.getTasks());
-            }
-        }
-        ui.showGoodbye();
-    }
-
     public boolean isExit() {
         return this.isExit;
     }
@@ -122,16 +73,14 @@ public class KukiShinobu {
     }
 
     public String getResponse(String input) {
-        //TODO: Update this code to actually query for the response\
         String response;
         try {
             Command c = Parser.parse(input);
             this.isExit = c.isExit();
-            response = c.execute(tasks, ui, storage);
+            response = c.execute(tasks, storage);
         } catch (KukiShinobuException e) {
             response = e.getMessage();
         } finally {
-            ui.showLine();
             this.storage.write(this.tasks.getTasks());
         }
 

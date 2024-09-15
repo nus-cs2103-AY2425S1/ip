@@ -2,5 +2,5 @@ E | 1 | Natlan Livestream | 2024-10-11 | 2024-10-11
 T | 1 | pay Hu Tao a visit
 T | 1 | claim primogems! 
 D | 0 | return book to Lisa else she'll electrocute me to death | 2024-10-01
-T | 0 | something
-T | 0 | something else
+T | 1 | daily commisions
+T | 0 | finish IP
