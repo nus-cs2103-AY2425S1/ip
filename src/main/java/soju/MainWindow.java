@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
             System.out.println(e);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getSojuDialog(e.getMessage(), sojuImage)
+                    DialogBox.getErrorDialog(e, sojuImage)
             );
         } finally {
             userInput.clear();
