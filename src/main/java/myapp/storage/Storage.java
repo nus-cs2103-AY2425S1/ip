@@ -61,7 +61,9 @@ public class Storage {
         for (String line : lines) {
             String[] parts = line.split(" \\| ");
             Task task = createTask(parts);
+            assert task != null : "Task creation failed for line: " + line;
             if (isTaskDone(parts[1])) {
+
                 task.markAsDone();
             }
             tasks.add(task);
@@ -115,6 +117,9 @@ public class Storage {
                 String taskString = formatTask(task);
                 writer.write(taskString + "\n");
             }
+            assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Invalid task type.";
+            writer.write(taskType + " | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() +
+                    (taskType.equals("T") ? "" : " | " + dateTimeInfo) + "\n");
         }
     }
 

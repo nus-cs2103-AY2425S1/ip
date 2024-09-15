@@ -24,6 +24,9 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        assert from != null : "Event 'from' cannot be null";
+        assert to != null : "Event 'to' cannot be null";
+        assert !to.isBefore(from) : "Event end time cannot be before start time";
     }
 
     /**
@@ -53,9 +56,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        if (from == null || to == null) {
-            return "[E]" + super.toString() + " (from: Invalid Date to: Invalid Date)";
-        }
+        assert this.from != null : "Event 'from' cannot be null";
+        assert this.to != null : "Event 'to' cannot be null";
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) +
                 " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
     }
