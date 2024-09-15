@@ -39,6 +39,7 @@ public class MainWindow extends AnchorPane {
             this.getClass().getResourceAsStream("/images/Thanos.jpg")));
     private final String greeting = "Greetings, mortal!\nI'm Thanos, your ever-watchful task management assistant.\n"
             + "Ready to snap away your worries?\nLet's get started!";
+    private final String farewellMessage = "Bye. Hope to see you again soon!\n";
 
     /**
      * Initializes the main window to ensure that the scroll pane scrolls automatically to show the
@@ -75,7 +76,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (response.equals("Bye. Hope to see you again soon!\n")) {
+        if (response.equals(farewellMessage)) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
             pause.setOnFinished(event -> Platform.exit());
             pause.play();
