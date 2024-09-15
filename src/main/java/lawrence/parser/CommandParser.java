@@ -37,6 +37,7 @@ public class CommandParser {
         }
 
         String[] inputComponents = getInputComponents(input);
+        assert !inputComponents[0].isEmpty();
         CommandType type = determineCommandType(inputComponents[0]);
 
         Command c;

@@ -44,6 +44,8 @@ public class Lawrence {
             // initialise with no tasks instead
             tasks = new TaskList();
         }
+
+        assert tasks != null; // the task object will always be initialised
     }
 
     /**
@@ -76,6 +78,8 @@ public class Lawrence {
                 ui.showMessage(String.format("%s Please try again.", e.getMessage()));
             }
         }
+
+        assert shouldContinue == false; // program should only exit once shouldContinue is false
     }
 
     /**

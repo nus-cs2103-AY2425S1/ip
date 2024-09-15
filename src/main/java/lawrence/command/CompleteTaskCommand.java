@@ -47,6 +47,8 @@ public class CompleteTaskCommand extends Command {
             return "Please specify the task you want to mark as complete.";
         }
 
+        assert inputComponents.length == 2;
+
         String rawTaskNumber = inputComponents[1];
         try {
             int taskNumber = Integer.parseInt(rawTaskNumber);

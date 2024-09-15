@@ -34,6 +34,7 @@ public class DisplayTasksCommand extends Command {
             return "You have no tasks at the moment.";
         }
 
+        assert tasks.getSize() >= 0;
         return String.format("Here's your laundry list:%n%s", tasks);
     }
 }
