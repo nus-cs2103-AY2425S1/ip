@@ -1,9 +1,10 @@
 package seanbot;
 
 import java.util.List;
-import java.util.ArrayList;
 
-import seanbot.Tasks.Task;
+import seanbot.tasks.Task;
+
+import java.util.ArrayList;
 
 /**
  * The UI class for words and decoration to the chat

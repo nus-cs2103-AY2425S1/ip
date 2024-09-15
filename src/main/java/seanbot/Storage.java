@@ -4,10 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import seanbot.Tasks.Deadline;
-import seanbot.Tasks.Event;
-import seanbot.Tasks.Task;
-import seanbot.Tasks.Todo;
+import seanbot.tasks.Deadline;
+import seanbot.tasks.Event;
+import seanbot.tasks.Task;
+import seanbot.tasks.Todo;
 
 /**
  * The storage class for storing tasks

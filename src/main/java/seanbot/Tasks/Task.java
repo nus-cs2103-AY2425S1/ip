@@ -1,4 +1,4 @@
-package seanbot.Tasks;
+package seanbot.tasks;
 
 /**
  * A Task has a description and a status indicating whether it is done.

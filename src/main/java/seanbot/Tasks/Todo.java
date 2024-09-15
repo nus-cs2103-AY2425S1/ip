@@ -1,4 +1,4 @@
-package seanbot.Tasks;
+package seanbot.tasks;
 
 /**
  * Represents a todo task in the SeanBot application.

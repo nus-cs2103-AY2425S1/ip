@@ -3,7 +3,7 @@ package seanbot;
 import java.util.ArrayList;
 import java.util.List;
 
-import seanbot.Tasks.Task;
+import seanbot.tasks.Task;
 
 /**
  * The TaskList class for keeping track of current tasks

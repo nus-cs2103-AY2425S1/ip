@@ -1,4 +1,4 @@
-package seanbot.Tasks;
+package seanbot.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

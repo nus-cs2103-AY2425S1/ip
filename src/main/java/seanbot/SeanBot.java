@@ -55,9 +55,6 @@ public class SeanBot {
         scanner.close();
     }
 
-    /**
-     * The main method of the SeanBot application.
-     */
     public static void main(String[] args) {
         new SeanBot().run();
     }

@@ -1,8 +1,10 @@
 package seanbot;
 
 import org.junit.jupiter.api.Test;
+
+import seanbot.tasks.*;
+
 import static org.junit.jupiter.api.Assertions.*;
-import seanbot.Tasks.*;
 
 public class TaskListTest {
 
