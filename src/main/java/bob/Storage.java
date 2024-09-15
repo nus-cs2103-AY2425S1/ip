@@ -49,6 +49,7 @@ public class Storage {
      * @throws BobException If file is not found.
      */
     public List<Task> load() throws BobException {
+        assert filePath != null : "filePath should not be null";
         try {
             List<Task> taskList = new ArrayList<>();
             File file = new File(filePath);
@@ -73,6 +74,7 @@ public class Storage {
      * @throws BobException If an error occurs while saving the tasks.
      */
     public void saveTasks(TaskList taskList) throws BobException {
+        assert taskList != null : "Task List should not be null";
         try {
             ensureDataDirectoryExists();
             FileWriter fw = new FileWriter(filePath);

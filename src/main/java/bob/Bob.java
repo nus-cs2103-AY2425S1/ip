@@ -34,6 +34,7 @@ public class Bob {
             tasks = new TaskList();
             loadStatusMessage = ui.showError(e);
         }
+        assert tasks != null : "tasks should always be initialised";
     }
 
     /**
