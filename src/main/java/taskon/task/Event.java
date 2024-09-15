@@ -1,11 +1,11 @@
 package taskon.task;
 
-import taskon.exception.TaskonException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
+
+import taskon.exception.TaskonException;
 
 /**
  * The Event class represents a task that occurs during a specific time frame.

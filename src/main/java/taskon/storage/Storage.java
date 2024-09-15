@@ -96,7 +96,7 @@ public class Storage {
      * @return The Task object created from the line.
      * @throws TaskonException If the line cannot be parsed into a valid Task.
      */
-    private static Task parseTask(String line) throws TaskonException {
+    static Task parseTask(String line) throws TaskonException {
         Task task = null;
         String[] taskDescription = line.trim().split("\\s*\\" + SEPARATOR + "\\s*");
         String taskType = taskDescription[0];
