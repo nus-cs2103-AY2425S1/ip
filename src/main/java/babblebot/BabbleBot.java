@@ -65,85 +65,156 @@ public class BabbleBot {
                 return ui.getTaskListString(storedTasks);
 
             case "todo":
-                try {
-                    String content = parser.parseTodoContent(input);
-                    storedTasks.addTask(new Todo(content));
-                    assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
-                    saveTasksToFile();
-                    return ui.getTaskAddedString(storedTasks);
-                } catch (IndexOutOfBoundsException e) {
-                    return ui.getTodoErrorString();
-                }
+                return handleTodoCommand(input);
 
             case "deadline":
-                try {
-                    String[] parsedDeadline = parser.parseDeadlineContent(input);
-                    storedTasks.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
-                    assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
-                    saveTasksToFile();
-                    return ui.getTaskAddedString(storedTasks);
-                } catch (IndexOutOfBoundsException e) {
-                    return ui.getIoErrorString() + "\nPlease provide a valid deadline.";
-                }
+                return handleDeadlineCommand(input);
 
             case "event":
-                try {
-                    String[] parsedEvent = parser.parseEventContent(input);
-                    storedTasks.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
-                    assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
-                    saveTasksToFile();
-                    return ui.getTaskAddedString(storedTasks);
-                } catch (IndexOutOfBoundsException e) {
-                    return ui.getIoErrorString() + "\nPlease provide a valid event.";
-                }
+                return handleEventCommand(input);
 
             case "delete":
-                try {
-                    int index = parser.parseIndex(input);
-                    assert index >= 0 && index < storedTasks.size() : "Invalid task index";
-                    Task taskToDelete = storedTasks.get(index);
-                    storedTasks.deleteTask(index);
-                    assert !storedTasks.contains(taskToDelete) : "Task was not deleted";
-                    saveTasksToFile();
-                    return ui.getRemoveMessageString(storedTasks, index);
-                } catch (IndexOutOfBoundsException e) {
-                    return ui.getIoErrorString() + "\nOops! Please provide a valid task number to delete.";
-                }
+                return handleDeleteCommand(input);
 
             case "mark":
-                try {
-                    int markIndex = parser.parseIndex(input);
-                    storedTasks.get(markIndex).markAsDone();
-                    saveTasksToFile();
-                    return ui.getMarkMessageString(storedTasks, markIndex);
-                } catch (IndexOutOfBoundsException e) {
-                    return ui.getIoErrorString() + "\nPlease provide a valid task number to mark as done.";
-                }
+                return handleMarkCommand(input);
 
             case "unmark":
-                try {
-                    int unmarkIndex = parser.parseIndex(input);
-                    storedTasks.get(unmarkIndex).markAsUndone();
-                    saveTasksToFile();
-                    return ui.getUnmarkMessageString(storedTasks, unmarkIndex);
-                } catch (IndexOutOfBoundsException e) {
-                    return ui.getIoErrorString() + "\nPlease provide a valid task number to unmark.";
-                }
+                return handleUnmarkCommand(input);
 
             case "find":
-                try {
-                    String keyword = parser.parseKeyword(input);
-                    TaskList matchingTasks = new TaskList(storedTasks.getMatchingTasks(keyword));
-                    return ui.getTaskListString(matchingTasks);
-                } catch (IndexOutOfBoundsException e) {
-                    return ui.getIoErrorString() + "\nPlease provide a valid keyword to search for.";
-                }
+                return handleFindCommand(input);
 
             default:
                 throw new BabbleBotException();
             }
         } catch (BabbleBotException e) {
             return ui.getBabbleBotErrorString();
+        }
+    }
+
+    /**
+     * Handles the tasklist manipulation for finding task with a matching keyword
+     *
+     * @param input The user's input string, which is the keyword
+     * @return The message resulting from finding a task with a matching keyword
+     */
+    private String handleFindCommand(String input) {
+        try {
+            String keyword = parser.parseKeyword(input);
+            TaskList matchingTasks = new TaskList(storedTasks.getMatchingTasks(keyword));
+            return ui.getTaskListString(matchingTasks);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getIoErrorString() + "\nPlease provide a valid keyword to search for.";
+        }
+    }
+
+    /**
+     * Handles the tasklist manipulation for unmarking a task
+     *
+     * @param input The user's input string
+     * @return The message resulting from unmarking a task
+     */
+    private String handleUnmarkCommand(String input) {
+        try {
+            int unmarkIndex = parser.parseIndex(input);
+            storedTasks.get(unmarkIndex).markAsUndone();
+            saveTasksToFile();
+            return ui.getUnmarkMessageString(storedTasks, unmarkIndex);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getIoErrorString() + "\nPlease provide a valid task number to unmark.";
+        }
+    }
+
+    /**
+     * Handles the tasklist manipulation for marking a task
+     *
+     * @param input The user's input string
+     * @return The message resulting from marking a task
+     */
+    private String handleMarkCommand(String input) {
+        try {
+            int markIndex = parser.parseIndex(input);
+            storedTasks.get(markIndex).markAsDone();
+            saveTasksToFile();
+            return ui.getMarkMessageString(storedTasks, markIndex);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getIoErrorString() + "\nPlease provide a valid task number to mark as done.";
+        }
+    }
+
+    /**
+     * Handles the tasklist manipulation for deleting a task
+     *
+     * @param input The user's input string
+     * @return The message resulting from deleting a task
+     */
+    private String handleDeleteCommand(String input) {
+        try {
+            int index = parser.parseIndex(input);
+            assert index >= 0 && index < storedTasks.size() : "Invalid task index";
+            Task taskToDelete = storedTasks.get(index);
+            String returnMessage = ui.getRemoveMessageString(storedTasks, index);
+            storedTasks.deleteTask(index);
+            assert !storedTasks.contains(taskToDelete) : "Task was not deleted";
+            saveTasksToFile();
+            return returnMessage;
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getIoErrorString() + "\nOops! Please provide a valid task number to delete.";
+        }
+    }
+
+    /**
+     * Handles the tasklist manipulation for adding a Event task
+     *
+     * @param input The user's input string
+     * @return The message resulting from adding the Event task
+     */
+    private String handleEventCommand(String input) {
+        try {
+            String[] parsedEvent = parser.parseEventContent(input);
+            storedTasks.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
+            assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
+            saveTasksToFile();
+            return ui.getTaskAddedString(storedTasks);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getIoErrorString() + "\nPlease provide a valid event.";
+        }
+    }
+
+    /**
+     * Handles the tasklist manipulation for adding a Deadline task
+     *
+     * @param input The user's input string
+     * @return The message resulting from adding the Deadline task
+     */
+    private String handleDeadlineCommand(String input) {
+        try {
+            String[] parsedDeadline = parser.parseDeadlineContent(input);
+            storedTasks.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
+            assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
+            saveTasksToFile();
+            return ui.getTaskAddedString(storedTasks);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getIoErrorString() + "\nPlease provide a valid deadline.";
+        }
+    }
+
+    /**
+     * Handles the tasklist manipulation for adding a Todo task
+     *
+     * @param input The user's input string
+     * @return The message resulting from adding the todo task
+     */
+    private String handleTodoCommand(String input) {
+        try {
+            String content = parser.parseTodoContent(input);
+            storedTasks.addTask(new Todo(content));
+            assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
+            saveTasksToFile();
+            return ui.getTaskAddedString(storedTasks);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getTodoErrorString();
         }
     }
 
@@ -159,121 +230,6 @@ public class BabbleBot {
         } catch (IOException e) {
             ui.showIoError();
         }
-    }
-    /**
-     * Runs the BabbleBot application, processing user commands
-     * until the "bye" command is received.
-     */
-    public void run() {
-        ui.sayWelcome();
-        boolean notBye = true;
-
-        while (notBye) {
-            String userInp = ui.readCommand();
-            String command = parser.parseCommand(userInp);
-
-            try {
-                switch (command) {
-                case "bye":
-                    notBye = false;
-                    ui.sayGoodbye();
-                    break;
-
-                case "list":
-                    ui.showTaskList(storedTasks);
-                    break;
-
-                case "todo":
-                    try {
-                        String content = parser.parseTodoContent(userInp);
-                        storedTasks.addTask(new Todo(content));
-                        ui.showTaskAdded(storedTasks);
-                        saveTasksToFile();
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.showTodoError();
-                    }
-                    break;
-
-                case "deadline":
-                    try {
-                        String[] parsedDeadline = parser.parseDeadlineContent(userInp);
-                        storedTasks.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
-                        ui.showTaskAdded(storedTasks);
-                        saveTasksToFile();
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.showIoError();
-                    }
-                    break;
-
-                case "event":
-                    try {
-                        String[] parsedEvent = parser.parseEventContent(userInp);
-                        storedTasks.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
-                        ui.showTaskAdded(storedTasks);
-                        saveTasksToFile();
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.showIoError();
-                    }
-                    break;
-
-                case "delete":
-                    try {
-                        int index = parser.parseIndex(userInp);
-                        ui.showRemoveMessage(storedTasks, index);
-                        saveTasksToFile();
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.showIoError();
-                    }
-                    break;
-
-                case "mark":
-                    try {
-                        int markIndex = parser.parseIndex(userInp);
-                        storedTasks.get(markIndex).markAsDone();
-                        ui.showMarkMessage(storedTasks, markIndex);
-                        saveTasksToFile();
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.showTodoError();
-                    }
-                    break;
-
-                case "unmark":
-                    try {
-                        int unmarkIndex = parser.parseIndex(userInp);
-                        storedTasks.get(unmarkIndex).markAsUndone();
-                        ui.showUnmarkMessage(storedTasks, unmarkIndex);
-                        saveTasksToFile();
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.showIoError();
-                    }
-                    break;
-
-                case "find":
-                    try {
-                        String keyword = parser.parseKeyword(userInp);
-                        TaskList matchingTasks = new TaskList(storedTasks.getMatchingTasks(keyword));
-                        ui.showTaskList(matchingTasks);
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.showIoError();
-                    }
-                    break;
-
-                default:
-                    throw new BabbleBotException();
-                }
-            } catch (BabbleBotException e) {
-                ui.showBabbleBotError();
-            }
-        }
-    }
-    /**
-     * The main entry point of the BabbleBot application.
-     * Initializes and runs a new instance of BabbleBot.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new BabbleBot(TASK_LIST_PATH).run();
     }
 }
 
