@@ -25,6 +25,9 @@ public class Parser {
     public static Command checkCommand(String in, int size) throws InvalidCommandException {
         String test = in.toLowerCase().split(" ")[0];
         switch (test) {
+        case "tag":
+            handleIntInput(in, size);
+            return Command.Tag;
         case "list":
             return Command.List;
         case "todo":
@@ -96,6 +99,9 @@ public class Parser {
         }
 
         switch (cmd) {
+        case Tag -> {
+            return handleTag(in);
+        }
         case List -> {
             return handleList();
         }
@@ -218,6 +224,19 @@ public class Parser {
         return date;
     }
 
+    private String handleTag(String in) {
+        try {
+            String[] tags = in.split(" ", 3);
+            int i = Integer.parseInt(tags[1]) + 1;
+            list.setTag(i, tags[2]);
+            return "Added tag " + tags[2] + " to " + list.get(i).toString();
+        } catch (Exception e) {
+            System.out.println("Tag format not correct. Must be in format: tag 1 XXX");
+            return "Tag format not correct. Must be in format: tag 1 XXX";
+        }
+
+    }
+
     enum Command {
         List,
         Todo,
@@ -228,7 +247,8 @@ public class Parser {
         Delete,
         Find,
         Error,
-        Unknown
+        Unknown,
+        Tag
     }
 
 
