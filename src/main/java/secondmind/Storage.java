@@ -12,6 +12,10 @@ import java.util.ArrayList;
  * Provides methods to append, update, and delete tasks in the file.
  */
 public class Storage {
+    private final static String TODO_INDICATOR = "T";
+    private final static String DEADLINE_INDICATOR = "D";
+    private final static String TEMPORARY_DATA_FILE_PATH = "../tempDataFile.txt";
+
     private final String DATA_FILE_PATH;
 
     /**
@@ -21,7 +25,6 @@ public class Storage {
      */
     public Storage(String DATA_FILE_PATH) {
         this.DATA_FILE_PATH = DATA_FILE_PATH;
-        System.out.println("Data file path: " + DATA_FILE_PATH);
     }
 
     /**
@@ -72,8 +75,8 @@ public class Storage {
     public void updateTaskInDataFile(int taskNumber, boolean isDone, int taskCount) throws FileNotFoundException, IOException {
         int lineNumber = 1;
         File oldFile = new File(DATA_FILE_PATH);
-        File newFile = new File("../tempDataFile.txt");
-        FileWriter fw = new FileWriter("../tempDataFile.txt", true);
+        File newFile = new File(TEMPORARY_DATA_FILE_PATH);
+        FileWriter fw = new FileWriter(TEMPORARY_DATA_FILE_PATH, true);
         Scanner s = new Scanner(oldFile);
         while (s.hasNext()) {
             String currentLine = s.nextLine();
@@ -104,8 +107,8 @@ public class Storage {
         //Remove line "taskNumber" from data file
         int lineNumber = 1;
         File oldFile = new File(DATA_FILE_PATH);
-        File newFile = new File("../tempDataFile.txt");
-        FileWriter fw = new FileWriter("../tempDataFile.txt", true);
+        File newFile = new File(TEMPORARY_DATA_FILE_PATH);
+        FileWriter fw = new FileWriter(TEMPORARY_DATA_FILE_PATH, true);
         Scanner s = new Scanner(oldFile);
         while (s.hasNext()) {
             String currentLine = s.nextLine();
@@ -125,9 +128,9 @@ public class Storage {
         String[] taskInfo = text.split("\\|");
         String taskType = taskInfo[0];
         Task curr;
-        if (taskType.equals("T")) {
+        if (taskType.equals(TODO_INDICATOR)) {
             curr = new ToDoTask(taskInfo[2]);
-        } else if (taskType.equals("D")) {
+        } else if (taskType.equals(DEADLINE_INDICATOR)) {
             curr = new DeadlineTask(taskInfo[2], taskInfo[3]);
         } else {
             curr = new EventTask(taskInfo[2], taskInfo[3], taskInfo[4]);
