@@ -1,6 +1,8 @@
 # Taskon User Guide
 
-![User Interface of Taskon](Ui.png)
+<p align="center">
+  <img src="Ui.png" width="600">
+</p>
 
 ## Meet Taskon 🎉
 Welcome to Taskon, your **_ultimate_** task management companion!
