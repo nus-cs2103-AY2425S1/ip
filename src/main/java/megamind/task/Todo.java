@@ -20,11 +20,6 @@ public class Todo extends Task {
         super(description);
     }
 
-    /**
-     * Returns the String representation of the task.
-     *
-     * @return String representation of the task.
-     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
