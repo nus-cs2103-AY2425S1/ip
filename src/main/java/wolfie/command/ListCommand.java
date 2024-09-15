@@ -25,6 +25,10 @@ public class ListCommand extends Command {
         String taskListString = tasks.getTasks().stream()
                 .map(Task::toString)
                 .collect(Collectors.joining("\n"));
+        if (taskListString.isEmpty()) {
+            return "The task list is empty!\n"
+                    + "Looks like you're free for now! :)";
+        }
         return ui.showTaskList(taskListString);
     }
 }

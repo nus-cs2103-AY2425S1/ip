@@ -59,9 +59,7 @@ public class MainWindow extends AnchorPane {
                                \\ V  V /  __/ | |  _|_|
                                 \\_/\\_/ \\___|_|_|_| (_)
                             """;
-            String welcomeMessage = "____________________________________________________________\n"
-                    + wolfieArt
-                    + "\n"
+            String welcomeMessage = wolfieArt
                     + " Hello Dean's Lister! I'm Wolfie, your Personal Assistant!!!\n"
                     + " How can I help you?\n"
                     + "____________________________________________________________";
