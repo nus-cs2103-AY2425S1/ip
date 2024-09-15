@@ -17,6 +17,9 @@ import myapp.exception.RubyException;
  * It allows tasks to be loaded into the application at startup and saved back to the file on updates.
  */
 public class Storage {
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     private final String filePath;
 
     /**
@@ -33,44 +36,72 @@ public class Storage {
      * If the file does not exist, an empty list of tasks is returned.
      *
      * @return A list of tasks read from the file.
-     * @throws IOException    If an I/O error occurs while reading from the file.
-     * @throws RubyException  If the file contains an invalid task type or format.
+     * @throws IOException   If an I/O error occurs while reading from the file.
+     * @throws RubyException If the file contains an invalid task type or format.
      */
     public List<Task> load() throws IOException, RubyException {
-        List<Task> tasks = new ArrayList<>();
         Path path = Paths.get(filePath);
         if (!Files.exists(path)) {
-            return tasks;
+            return new ArrayList<>();
         }
 
         List<String> lines = Files.readAllLines(path);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return parseTasks(lines);
+    }
+
+    /**
+     * Parses a list of lines from the file into tasks.
+     *
+     * @param lines The lines to be parsed into tasks.
+     * @return A list of tasks parsed from the file.
+     * @throws RubyException If the file contains an invalid task type or format.
+     */
+    private List<Task> parseTasks(List<String> lines) throws RubyException {
+        List<Task> tasks = new ArrayList<>();
         for (String line : lines) {
             String[] parts = line.split(" \\| ");
-            Task task;
-            switch (parts[0]) {
-            case "T":
-                task = new Todo(parts[2]);
-                break;
-            case "D":
-                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
-                task = new Deadline(parts[2], by);
-                break;
-            case "E":
-                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
-                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
-                task = new Event(parts[2], from, to);
-                break;
-            default:
-                throw new RubyException("Invalid task type.");
-            }
+            Task task = createTask(parts);
             assert task != null : "Task creation failed for line: " + line;
-            if (parts[1].equals("1")) {
+            if (isTaskDone(parts[1])) {
+
                 task.markAsDone();
             }
             tasks.add(task);
         }
         return tasks;
+    }
+
+    /**
+     * Creates a task object based on the task type and description in the file.
+     *
+     * @param parts The parts of a task string split by delimiters.
+     * @return The created task.
+     * @throws RubyException If the task type is invalid.
+     */
+    private Task createTask(String[] parts) throws RubyException {
+        switch (parts[0]) {
+        case "T":
+            return new Todo(parts[2]);
+        case "D":
+            LocalDateTime by = LocalDateTime.parse(parts[3], FORMATTER);
+            return new Deadline(parts[2], by);
+        case "E":
+            LocalDateTime from = LocalDateTime.parse(parts[3], FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(parts[4], FORMATTER);
+            return new Event(parts[2], from, to);
+        default:
+            throw new RubyException("Invalid task type.");
+        }
+    }
+
+    /**
+     * Checks if a task is marked as done.
+     *
+     * @param status The status part of the task string.
+     * @return True if the task is marked as done, false otherwise.
+     */
+    private boolean isTaskDone(String status) {
+        return status.equals("1");
     }
 
     /**
@@ -81,21 +112,64 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void save(List<Task> tasks) throws IOException {
-        FileWriter writer = new FileWriter(filePath);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        for (Task task : tasks) {
-            String taskType = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
-            String dateTimeInfo = "";
-            if (task instanceof Deadline) {
-                dateTimeInfo = ((Deadline) task).getBy().format(formatter);
-            } else if (task instanceof Event) {
-                dateTimeInfo = ((Event) task).getFrom().format(formatter) + " | " +
-                        ((Event) task).getTo().format(formatter);
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (Task task : tasks) {
+                String taskString = formatTask(task);
+                writer.write(taskString + "\n");
             }
             assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Invalid task type.";
             writer.write(taskType + " | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() +
                     (taskType.equals("T") ? "" : " | " + dateTimeInfo) + "\n");
         }
-        writer.close();
+    }
+
+    /**
+     * Formats a task into a string to be saved to the file.
+     *
+     * @param task The task to be formatted.
+     * @return The formatted task string.
+     */
+    private String formatTask(Task task) {
+        String taskType = getTaskType(task);
+        String dateTimeInfo = getDateTimeInfo(task);
+        return String.format("%s | %s | %s%s",
+                taskType,
+                task.isDone() ? "1" : "0",
+                task.getDescription(),
+                dateTimeInfo.isEmpty() ? "" : " | " + dateTimeInfo
+        );
+    }
+
+    /**
+     * Returns the task type as a string based on the task instance.
+     *
+     * @param task The task object.
+     * @return "T" for Todo, "D" for Deadline, "E" for Event.
+     */
+    private String getTaskType(Task task) {
+        if (task instanceof Todo) {
+            return "T";
+        } else if (task instanceof Deadline) {
+            return "D";
+        } else if (task instanceof Event) {
+            return "E";
+        } else {
+            throw new IllegalArgumentException("Unknown task type.");
+        }
+    }
+
+    /**
+     * Returns the date and time information for Deadline and Event tasks.
+     *
+     * @param task The task object.
+     * @return A formatted string with date/time information for Deadline and Event tasks.
+     */
+    private String getDateTimeInfo(Task task) {
+        if (task instanceof Deadline) {
+            return ((Deadline) task).getBy().format(FORMATTER);
+        } else if (task instanceof Event) {
+            return ((Event) task).getFrom().format(FORMATTER) + " | " + ((Event) task).getTo().format(FORMATTER);
+        }
+        return "";
     }
 }

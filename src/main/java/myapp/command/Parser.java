@@ -10,13 +10,13 @@ import myapp.ui.Ui;
 import myapp.exception.RubyException;
 
 /**
- * The {@code Parser} class is responsible for parsing user input commands
- * and executing the appropriate actions based on the command keyword.
- * It interacts with the {@code TaskList}, {@code Storage}, and {@code Ui} classes
- * to perform various operations on tasks.
+ * The {@code Parser} class parses user input commands and executes the appropriate actions.
+ * It interacts with the {@code TaskList}, {@code Storage}, and {@code Ui} classes.
  */
 public class Parser {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final String EMPTY_DESCRIPTION_ERROR = "OOPS!!! The description cannot be empty.";
+    private static final String INVALID_DATE_FORMAT_ERROR = "OOPS!!! The date/time format should be 'yyyy-MM-dd HH:mm'.";
 
     /**
      * Parses the given command and executes the appropriate action.
@@ -30,7 +30,6 @@ public class Parser {
      * @throws IOException   If an I/O error occurs while saving tasks.
      */
     public String parse(String command, TaskList taskList, Ui ui, Storage storage) throws RubyException, IOException {
-
         String[] words = command.split(" ", 2);
         String keyword = words[0];
 
@@ -53,20 +52,16 @@ public class Parser {
      *
      * @param taskList The current list of tasks.
      * @param storage  The storage object to save the updated tasks.
-     * @param words    The command split into words.
+     * @param words    The command split into words, where the second word represents the task number.
      * @return A string response indicating the task is marked as done.
      * @throws RubyException If the task number is not specified or invalid.
      * @throws IOException   If an I/O error occurs while saving tasks.
      */
     private String handleMark(TaskList taskList, Storage storage, String[] words) throws RubyException, IOException {
-
-        if (words.length < 2) {
-            throw new RubyException("Please specify the task number to mark.");
-        }
-
-        int markIndex = Integer.parseInt(words[1]) - 1;
+        validateCommand(words, 2, "Please specify the task number to mark.");
+        int markIndex = parseTaskIndex(words[1]);
         taskList.getTask(markIndex).markAsDone();
-        storage.save(taskList.getTasks());
+        saveTasks(storage, taskList);
         return "Nice! I've marked this task as done:\n     " + taskList.getTask(markIndex);
     }
 
@@ -75,20 +70,16 @@ public class Parser {
      *
      * @param taskList The current list of tasks.
      * @param storage  The storage object to save the updated tasks.
-     * @param words    The command split into words.
+     * @param words    The command split into words, where the second word represents the task number.
      * @return A string response indicating the task is marked as not done.
      * @throws RubyException If the task number is not specified or invalid.
      * @throws IOException   If an I/O error occurs while saving tasks.
      */
     private String handleUnmark(TaskList taskList, Storage storage, String[] words) throws RubyException, IOException {
-
-        if (words.length < 2) {
-            throw new RubyException("Please specify the task number to unmark.");
-        }
-
-        int unmarkIndex = Integer.parseInt(words[1]) - 1;
+        validateCommand(words, 2, "Please specify the task number to unmark.");
+        int unmarkIndex = parseTaskIndex(words[1]);
         taskList.getTask(unmarkIndex).markAsNotDone();
-        storage.save(taskList.getTasks());
+        saveTasks(storage, taskList);
         return "OK, I've marked this task as not done yet:\n     " + taskList.getTask(unmarkIndex);
     }
 
@@ -97,20 +88,16 @@ public class Parser {
      *
      * @param taskList The current list of tasks.
      * @param storage  The storage object to save the updated tasks.
-     * @param words    The command split into words.
+     * @param words    The command split into words, where the second word represents the task description.
      * @return A string response indicating the todo task is added.
      * @throws RubyException If the description of the todo is empty.
      * @throws IOException   If an I/O error occurs while saving tasks.
      */
     private String handleTodo(TaskList taskList, Storage storage, String[] words) throws RubyException, IOException {
-
-        if (words.length < 2 || words[1].trim().isEmpty()) {
-            throw new RubyException("OOPS!!! The description of a todo cannot be empty.");
-        }
-
+        validateDescription(words);
         Task todo = new Todo(words[1].trim());
         taskList.addTask(todo);
-        storage.save(taskList.getTasks());
+        saveTasks(storage, taskList);
         return "Got it. I've added this task:\n     " + todo + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
@@ -119,31 +106,19 @@ public class Parser {
      *
      * @param taskList The current list of tasks.
      * @param storage  The storage object to save the updated tasks.
-     * @param words    The command split into words.
+     * @param words    The command split into words, where the second word represents the task description and deadline.
      * @return A string response indicating the deadline task is added.
      * @throws RubyException If the description or date/time of the deadline is invalid.
+     * @throws IOException   If an I/O error occurs while saving tasks.
      */
-    private String handleDeadline(TaskList taskList, Storage storage, String[] words) throws RubyException {
-
-        if (words.length < 2 || words[1].trim().isEmpty()) {
-            throw new RubyException("OOPS!!! The description of a deadline cannot be empty.");
-        }
-
-        String[] deadlineParts = words[1].split(" /by ");
-
-        if (deadlineParts.length < 2) {
-            throw new RubyException("OOPS!!! The description of a deadline must include a date/time.");
-        }
-
-        try {
-            LocalDateTime deadlineDate = LocalDateTime.parse(deadlineParts[1].trim(), DATE_FORMAT);
-            Task deadline = new Deadline(deadlineParts[0].trim(), deadlineDate);
-            taskList.addTask(deadline);
-            storage.save(taskList.getTasks());
-            return "Got it. I've added this task:\n     " + deadline + "\nNow you have " + taskList.size() + " tasks in the list.";
-        } catch (DateTimeParseException | IOException e) {
-            throw new RubyException("OOPS!!! The date/time format should be 'yyyy-MM-dd HH:mm'.");
-        }
+    private String handleDeadline(TaskList taskList, Storage storage, String[] words) throws RubyException, IOException {
+        validateDescription(words);
+        String[] deadlineParts = splitCommand(words[1], " /by ");
+        LocalDateTime deadlineDate = parseDateTime(deadlineParts[1]);
+        Task deadline = new Deadline(deadlineParts[0].trim(), deadlineDate);
+        taskList.addTask(deadline);
+        saveTasks(storage, taskList);
+        return "Got it. I've added this task:\n     " + deadline + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -151,35 +126,21 @@ public class Parser {
      *
      * @param taskList The current list of tasks.
      * @param storage  The storage object to save the updated tasks.
-     * @param words    The command split into words.
+     * @param words    The command split into words, where the second word represents the task description, start time, and end time.
      * @return A string response indicating the event task is added.
      * @throws RubyException If the description, start time, or end time of the event is invalid.
+     * @throws IOException   If an I/O error occurs while saving tasks.
      */
-    private String handleEvent(TaskList taskList, Storage storage, String[] words) throws RubyException {
-
-        if (words.length < 2 || words[1].trim().isEmpty()) {
-            throw new RubyException("OOPS!!! The description of an event cannot be empty.");
-        }
-
-        String[] eventParts = words[1].split(" /from ");
-
-        if (eventParts.length < 2 || !eventParts[1].contains(" /to ")) {
-            throw new RubyException("OOPS!!! The description of an event must include start and end times.");
-        }
-
-        String[] times = eventParts[1].split(" /to ");
-
-        try {
-            LocalDateTime startTime = LocalDateTime.parse(times[0].trim(), DATE_FORMAT);
-            LocalDateTime endTime = LocalDateTime.parse(times[1].trim(), DATE_FORMAT);
-
-            Task event = new Event(eventParts[0].trim(), startTime, endTime);
-            taskList.addTask(event);
-            storage.save(taskList.getTasks());
-            return "Got it. I've added this task:\n     " + event + "\nNow you have " + taskList.size() + " tasks in the list.";
-        } catch (DateTimeParseException | IOException e) {
-            throw new RubyException("OOPS!!! The date/time format should be 'yyyy-MM-dd HH:mm'.");
-        }
+    private String handleEvent(TaskList taskList, Storage storage, String[] words) throws RubyException, IOException {
+        validateDescription(words);
+        String[] eventParts = splitCommand(words[1], " /from ");
+        String[] times = splitCommand(eventParts[1], " /to ");
+        LocalDateTime startTime = parseDateTime(times[0]);
+        LocalDateTime endTime = parseDateTime(times[1]);
+        Task event = new Event(eventParts[0].trim(), startTime, endTime);
+        taskList.addTask(event);
+        saveTasks(storage, taskList);
+        return "Got it. I've added this task:\n     " + event + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -187,37 +148,115 @@ public class Parser {
      *
      * @param taskList The current list of tasks.
      * @param storage  The storage object to save the updated tasks.
-     * @param words    The command split into words.
+     * @param words    The command split into words, where the second word represents the task number.
      * @return A string response indicating the task is deleted.
      * @throws RubyException If the task number is not specified or invalid.
      * @throws IOException   If an I/O error occurs while saving tasks.
      */
     private String handleDelete(TaskList taskList, Storage storage, String[] words) throws RubyException, IOException {
-
-        if (words.length < 2) {
-            throw new RubyException("Please specify the task number to delete.");
-        }
-
-        int deleteIndex = Integer.parseInt(words[1]) - 1;
+        validateCommand(words, 2, "Please specify the task number to delete.");
+        int deleteIndex = parseTaskIndex(words[1]);
         Task deletedTask = taskList.getTask(deleteIndex);
         taskList.removeTask(deleteIndex);
-        storage.save(taskList.getTasks());
+        saveTasks(storage, taskList);
         return "Noted. I've removed this task:\n     " + deletedTask + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
-     * Handles the 'find' command by searching for tasks that contain the specified keyword in their description.
+     * Handles the "find" command to search for tasks that contain the specified keyword in their description.
      *
      * @param taskList The list of tasks to search within.
-     * @param words The keywords to search for in task descriptions.
+     * @param words    The command split into words, where the second word represents the search keyword.
      * @return A string containing the matching tasks found in the task list.
+     * @throws RubyException If no keyword is specified for the search.
      */
     private String handleFind(TaskList taskList, String[] words) throws RubyException {
-        if (words.length < 2) {
-            throw new RubyException("Please specify a keyword to find tasks.");
-        }
+        validateCommand(words, 2, "Please specify a keyword to find tasks.");
         String keyword = words[1];
         return taskList.findTasks(keyword);
+    }
+
+    /**
+     * Validates that the command array has the expected number of elements.
+     *
+     * @param words        The command split into words.
+     * @param expectedLength The expected length of the command array.
+     * @param errorMessage The error message to throw if validation fails.
+     * @throws RubyException If the command array does not meet the expected length.
+     */
+    private void validateCommand(String[] words, int expectedLength, String errorMessage) throws RubyException {
+        if (words.length < expectedLength) {
+            throw new RubyException(errorMessage);
+        }
+    }
+
+    /**
+     * Validates that the description of a task is not empty.
+     *
+     * @param words The command split into words, where the second word represents the task description.
+     * @throws RubyException If the description of the task is empty.
+     */
+    private void validateDescription(String[] words) throws RubyException {
+        if (words.length < 2 || words[1].trim().isEmpty()) {
+            throw new RubyException(EMPTY_DESCRIPTION_ERROR);
+        }
+    }
+
+    /**
+     * Parses the task index from the command words.
+     *
+     * @param taskIndexStr The task index as a string.
+     * @return The task index as an integer.
+     * @throws RubyException If the task index is invalid.
+     */
+    private int parseTaskIndex(String taskIndexStr) throws RubyException {
+        try {
+            return Integer.parseInt(taskIndexStr) - 1;
+        } catch (NumberFormatException e) {
+            throw new RubyException("OOPS!!! The task number is invalid.");
+        }
+    }
+
+    /**
+     * Parses a date/time string into a {@code LocalDateTime} object.
+     *
+     * @param dateTimeStr The date/time string to parse.
+     * @return The parsed {@code LocalDateTime} object.
+     * @throws RubyException If the date/time format is invalid.
+     */
+    private LocalDateTime parseDateTime(String dateTimeStr) throws RubyException {
+        try {
+            return LocalDateTime.parse(dateTimeStr.trim(), DATE_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new RubyException(INVALID_DATE_FORMAT_ERROR);
+        }
+    }
+
+    /**
+     * Splits a command string using the specified delimiter and checks the validity of the split result.
+     *
+     * @param command   The command string to split.
+     * @param delimiter The delimiter to use for splitting the command.
+     * @return An array of strings resulting from the split operation.
+     * @throws RubyException If the split result does not meet the expected format.
+     */
+    private String[] splitCommand(String command, String delimiter) throws RubyException {
+        String[] parts = command.split(delimiter);
+        if (parts.length < 2) {
+            throw new RubyException("OOPS!!! The command format is incorrect.");
+        }
+        return parts;
+    }
+
+    /**
+     * Saves the current list of tasks using the specified storage object.
+     *
+     * @param storage  The storage object to save the tasks.
+     * @param taskList The current list of tasks to save.
+     * @throws IOException If an I/O error occurs while saving tasks.
+     */
+    private void saveTasks(Storage storage, TaskList taskList) throws IOException {
+        storage.save(taskList.getTasks());
     }
 
     /**
@@ -230,4 +269,3 @@ public class Parser {
         return command.equals("bye");
     }
 }
-
