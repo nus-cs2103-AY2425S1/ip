@@ -5,7 +5,6 @@ package simon;
  */
 public class Task {
     private String name;
-    //public Integer number;
     private Boolean isComplete;
     /**
      * Creates a Task with the specified name and number.
