@@ -1,12 +1,12 @@
-package duke;
+package sadcat;
 
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
-import duke.gui.Launcher;
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.ui.Ui;
+import sadcat.exceptions.DukeException;
+import sadcat.gui.Launcher;
+import sadcat.parser.Parser;
+import sadcat.storage.Storage;
+import sadcat.ui.Ui;
 
 /**
  * The Duke class is the main class of the Duke application.

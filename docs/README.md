@@ -1,15 +1,15 @@
-# Duke User Guide
+# SadCat User Guide
 
-Duke is a personal task management application that helps you keep track of your todos, deadlines, and events. With Duke, you can easily add, update, and manage your tasks through a simple command-line interface. Manage your tasks without removing your hands from the keyboard!
+SadCat is a personal task management application that helps you keep track of your todos, deadlines, and events. With SadCat, you can easily add, update, and manage your tasks through a simple command-line interface. Manage your tasks without removing your hands from the keyboard!
 
-![Duke UI](./Ui.png)
+![SadCat UI](./Ui.png)
 
 ## Additional features
 As programmers, we probably hate looking at bright things. The "Toggle Dark Mode" button allows users to toggle between a screen brighter than their future and a comfy dark interface.
 
 ## Adding tasks
 
-Duke supports three types of tasks: todos, deadlines, and events.
+SadCat supports three types of tasks: todos, deadlines, and events.
 
 ### Adding a todo
 
@@ -176,7 +176,7 @@ This will display a comprehensive list of all commands and their usage.
 
 ## Exiting the application
 
-To exit Duke, use the following command:
+To exit SadCat, use the following command:
 
 `bye`
 
