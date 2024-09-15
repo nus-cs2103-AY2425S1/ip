@@ -139,6 +139,7 @@ public class Storage {
      * @throws OrionSaveTaskListException If the tasks cannot be saved to the file.
      */
     public void saveTasks(List<String> saveTaskDescriptions) throws OrionSaveTaskListException {
+        assert saveTaskDescriptions != null : "saveTaskDescriptions cannot be null";
         try {
             FileWriter fw = new FileWriter(DATA_PATHNAME);
             for (String s : saveTaskDescriptions) {
