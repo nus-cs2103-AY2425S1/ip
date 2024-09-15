@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Ui {
     static final String HOR_LINE = "\t____________________________________________________________\n";
-    static final String WLC_MSG = " Hello! I'm simon.Simon \n"
+    static final String WLC_MSG = " Hello! I'm Simon \n"
             + " What can I do for you?\n";
     static final String EXT_MSG = "Bye. Hope to see you again soon!";
 
