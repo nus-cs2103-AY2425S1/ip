@@ -17,6 +17,10 @@ This is a task management chatbot. Given below are instructions on how to use it
 
 [Command Summary](https://foochao.github.io/ip/#command-summary)
 
+
+![](/docs/Ui.png)
+
+
 ## Quick Start
 
 1. Ensure you have Java 17 or above on your computer.
