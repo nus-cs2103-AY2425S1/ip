@@ -12,7 +12,7 @@ import ekud.exceptions.EkudException;
  *
  * @author uniqly
  */
-public class DeadlineTask extends Task implements IHasDeadline{
+public class DeadlineTask extends Task implements IHasDeadline {
     public static final String BY_TOKEN = "/by";
 
     /** The {@link LocalDateTime} format when parsing input date Strings */

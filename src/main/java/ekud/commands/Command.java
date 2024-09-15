@@ -20,7 +20,7 @@ public abstract class Command {
      * Represents the types of commands the user can make.
      */
     public enum Type {
-        LIST, ADD, DELETE, MARK, UNMARK, EXIT, FIND, SET;
+        LIST, ADD, DELETE, MARK, UNMARK, EXIT, FIND, SET, SORT;
 
         /** A set of aliases for the different {@link Type Types} of {@link Command} */
         private static final HashMap<String, Type> aliases;
@@ -38,6 +38,7 @@ public abstract class Command {
             aliases.put("exit", EXIT);
             aliases.put("find", FIND);
             aliases.put("set", SET);
+            aliases.put("sort", SORT);
         }
 
         /**

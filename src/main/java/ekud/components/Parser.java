@@ -10,6 +10,7 @@ import ekud.commands.FindCommand;
 import ekud.commands.ListCommand;
 import ekud.commands.MarkCommand;
 import ekud.commands.SetPriorityCommand;
+import ekud.commands.SortCommand;
 import ekud.commands.UnmarkCommand;
 import ekud.exceptions.EkudException;
 import ekud.task.Task;
@@ -96,6 +97,8 @@ public class Parser {
             case UNMARK -> new UnmarkCommand(parseInt(argument) - 1);
             case SET -> new SetPriorityCommand(parseInt(argument) - 1,
                     tokenMap.get(SetPriorityCommand.PRIORITY_TOKEN));
+            case SORT -> new SortCommand(tokenMap.get(SortCommand.BY_TOKEN),
+                    tokenMap.get(SortCommand.ORDER_TOKEN));
             case LIST -> new ListCommand();
             case FIND -> new FindCommand(argument);
             case EXIT -> new ExitCommand();
