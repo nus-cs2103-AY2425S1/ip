@@ -27,8 +27,8 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
-        super.assertionTest(tasks, ui, storage);
-        if (commandInputs.length < 2) {
+        CommandUtil.assertionTest(tasks, ui, storage);
+        if (CommandUtil.isInputComplete(commandInputs)) {
             throw new MullerException(taskType.equals("T") ? "Todo what?"
                     : taskType.equals("D") ? "Deadline for what?" : "Event for what?");
         }
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
      */
     private Task parseDeadline(String details) throws MullerException {
         String[] detailParts = details.split("/by", 2);
-        if (detailParts.length < 2) {
+        if (CommandUtil.isInputComplete(detailParts)) {
             throw new MullerException("Oops, you didn't specify the deadline!");
         }
         Task task = new Task(detailParts[0].trim());
@@ -83,12 +83,12 @@ public class AddCommand extends Command {
      * @throws MullerException If the date format is invalid.
      */
     private Task parseEvent(String details) throws MullerException {
-        String[] detailParts = details.split("/from", 2);
-        if (detailParts.length < 2) {
+        String[] detailParts = details.split("/from", 2); //A String array that separates event name and relevant dates.
+        if (CommandUtil.isInputComplete(detailParts)) { //Checks if dates are specified.
             throw new MullerException("Oops, you didn't specify the start date!");
         }
-        String[] dateParts = detailParts[1].split("/to", 2);
-        if (dateParts.length < 2) {
+        String[] dateParts = detailParts[1].split("/to", 2); // A String array that separates start date and end date.
+        if (CommandUtil.isInputComplete(dateParts)) { //Checks if end date/start date is specified.
             throw new MullerException("You missed out either the start or end date!");
         }
         Task task = new Task(detailParts[0].trim());

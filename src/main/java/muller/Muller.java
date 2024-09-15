@@ -37,7 +37,6 @@ public class Muller {
         // Programmer-level assumption: input should not be null or empty
         assert input != null : "Input should not be null";
         assert !input.trim().isEmpty() : "Input should not be empty";
-        
         Parser parser = new Parser();
         try {
             Command command = parser.parse(input);

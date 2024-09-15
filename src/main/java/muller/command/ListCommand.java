@@ -10,7 +10,7 @@ import muller.ui.Ui;
 public class ListCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        super.assertionTest(tasks, ui, storage);
+        CommandUtil.assertionTest(tasks, ui, storage);
         return ui.showTaskList(tasks);
     }
 }
