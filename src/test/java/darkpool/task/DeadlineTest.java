@@ -39,7 +39,7 @@ class DeadlineTest {
     void testDeadlineCreationInvalidTimeFormat() {
         DarkpoolException exception = assertThrows(DarkpoolException.class, () ->
                 new Deadline(description, invalidTime, false));
-        assertEquals("know what a date is?", exception.getMessage());
+        assertEquals("know what a date is? (dd-mm-yyyy hh:mm)", exception.getMessage());
     }
 
     @Test

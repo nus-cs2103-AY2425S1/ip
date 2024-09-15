@@ -1,8 +1,9 @@
 package darkpool.storage;
 
-import darkpool.task.Deadline;
-import darkpool.task.Event;
 import darkpool.task.Task;
+import darkpool.task.Event;
+import darkpool.task.Deadline;
+import darkpool.task.After;
 import darkpool.task.Todo;
 import darkpool.DarkpoolException;
 
@@ -25,6 +26,10 @@ class ParseTask {
         case "D" -> {
             by = taskParts[3];
             return new Deadline(description, by, isDone);
+        }
+        case "A" -> {
+            from = taskParts[3];
+            return new After(description, from, isDone);
         }
         case "T" -> {
             return new Todo(description, isDone);

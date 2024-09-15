@@ -20,6 +20,7 @@ public class Parser {
             case "find" -> FindParser.parse(userInput);
             case "todo" -> TodoParser.parse(userInput);
             case "deadline" -> DeadlineParser.parse(userInput);
+            case "after" -> AfterParser.parse(userInput);
             case "event" -> EventParser.parse(userInput);
             default -> throw new DarkpoolException("what???");
         };

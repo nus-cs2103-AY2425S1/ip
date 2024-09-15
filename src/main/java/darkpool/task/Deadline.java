@@ -15,7 +15,7 @@ public class Deadline extends Task {
         try {
             this.byTime = LocalDateTime.parse(byTime, FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DarkpoolException("know what a date is?");
+            throw new DarkpoolException("know what a date is? (dd-mm-yyyy hh:mm)");
         }
     }
 

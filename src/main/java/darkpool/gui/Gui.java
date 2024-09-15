@@ -2,8 +2,6 @@ package darkpool.gui;
 
 import darkpool.tasklist.TaskList;
 
-import java.util.Scanner;
-
 public class Gui {
 
     final String bye = "contact me again and you'll regret it.";
