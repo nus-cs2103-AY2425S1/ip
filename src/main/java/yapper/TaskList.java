@@ -1,6 +1,7 @@
 package yapper;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,57 @@ public class TaskList {
     public TaskList(ArrayList<Task> listOfTask, Storage storage) {
         this.listOfTask = listOfTask;
         this.storage = storage;
+    }
+
+    /**
+     * Postpones a Task to the given Date and Time
+     *
+     * @param command "postpone" followed by the String a number corresponding to the task number to be deleted,
+     *                followed by the String representing the date and time to postpone to.
+     * @throws YapperException If the Task Number is not within the limits of the Arraylist of Tasks.
+     */
+    public String postpone(String command) throws YapperException {
+        if (command.length() == 8) {
+            throw new YapperException("Task Number cannot be empty!");
+        }
+        String split = command.substring(9); // split = 1 1 date time
+        String taskNumberStr = split.substring(0, 1);
+        String startOrEndTime = split.substring(2, 3);
+        String dateTime = split.substring(4);
+        int taskNumber = Integer.parseInt(taskNumberStr);
+        LocalDateTime localDateTime = convertStringToDateTime(dateTime, 1);
+        if (taskNumber <= 0) {
+            throw new YapperException("Task Number should be more than 0");
+        } else if (taskNumber > this.listOfTask.size()) {
+            throw new YapperException("Task Number should be less than the size of list");
+        } else if (!startOrEndTime.equals("0") && !startOrEndTime.equals("1")) {
+            throw new YapperException("Start or End field should be 0 for Start or 1 for end!");
+        } else {
+            Task task = listOfTask.get(taskNumber - 1);
+            assert localDateTime != null : "Date Time is null";
+            String dateTimeToString = localDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+            if (startOrEndTime.equals("0") && task.getTaskTag().equals("todo")) {
+                throw new YapperException("ToDo Task does not have a start time");
+            } else if (startOrEndTime.equals("1") && task.getTaskTag().equals("todo")) {
+                throw new YapperException("ToDo Task does not have a end time");
+            } else if (startOrEndTime.equals("0") && task.getTaskTag().equals("deadline")) {
+                throw new YapperException("Deadline Task does not have a start time");
+            } else if (startOrEndTime.equals("1") && task.getTaskTag().equals("deadline")) {
+                Deadline deadline = (Deadline) task;
+                deadline.setByDateTime(localDateTime);
+                return String.format("Changed %s end time to %s", deadline.getName() , dateTimeToString);
+            } else if (startOrEndTime.equals("0") && task.getTaskTag().equals("event")) {
+                Event event = (Event) task;
+                event.setFromDateTime(localDateTime);
+                return String.format("Changed %s start time to %s", event.getName() , dateTimeToString);
+            } else if (startOrEndTime.equals("1") && task.getTaskTag().equals("event")) {
+                Event event = (Event) task;
+                event.setToDateTime(localDateTime);
+                return String.format("Changed %s end time to %s", event.getName() , dateTimeToString);
+            } else {
+                throw new YapperException("Sorry, unable to execute postpone command");
+            }
+        }
     }
 
     /**

@@ -42,6 +42,8 @@ public class Parser {
                 return this.taskList.deleteTask(command);
             } else if (command.startsWith("find")) {
                 return this.taskList.findTask(command);
+            } else if (command.startsWith("postpone")) {
+                return this.taskList.postpone(command);
             } else {
                 throw new YapperException("Yapper don't know this command :(");
             }

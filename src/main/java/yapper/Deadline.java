@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline Task, which is a task with a LocalDateTime byDateTime to finish by.
  */
 public class Deadline extends Task {
-    private final LocalDateTime byDateTime;
+    private LocalDateTime byDateTime;
 
     /**
      * Creates an instance of Deadline.
@@ -18,6 +18,7 @@ public class Deadline extends Task {
     public Deadline(String taskName, LocalDateTime byDateTime) {
         super(taskName);
         this.byDateTime = byDateTime;
+        super.setTaskTag("deadline");
     }
 
     /**
@@ -40,5 +41,9 @@ public class Deadline extends Task {
     public String toFile() {
         String fileDoneSymbol = super.getIsDone() ? "D" : "N";
         return String.format("D %s--%s--%s", fileDoneSymbol, super.getName(), this.byDateTime);
+    }
+
+    public void setByDateTime(LocalDateTime localDateTime) {
+        this.byDateTime = localDateTime;
     }
 }

@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * LocalDateTime toDateTime in which the event ends.
  */
 public class Event extends Task {
-    private final LocalDateTime fromDateTime;
-    private final LocalDateTime toDateTime;
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
 
     /**
      * Creates an instance of Event.
@@ -22,6 +22,15 @@ public class Event extends Task {
         super(taskName);
         this.fromDateTime = fromDateTime;
         this.toDateTime = toDateTime;
+        super.setTaskTag("event");
+    }
+
+    public void setFromDateTime(LocalDateTime localDateTime) {
+        this.fromDateTime = localDateTime;
+    }
+
+    public void setToDateTime(LocalDateTime localDateTime) {
+        this.toDateTime = localDateTime;
     }
 
     /**

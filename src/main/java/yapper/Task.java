@@ -10,6 +10,7 @@ public abstract class Task {
     public static final String FILE_UNDONE_SYMBOL = "N";
     private final String name;
     private boolean isDone;
+    private String taskTag;
 
     /**
      * Creates an instance of a Task.
@@ -20,6 +21,12 @@ public abstract class Task {
         this.name = taskName;
     }
 
+    public String getTaskTag() {
+        return this.taskTag;
+    }
+    public void setTaskTag(String taskTag) {
+        this.taskTag = taskTag;
+    }
     public void setIsDone(boolean bool) {
         this.isDone = bool;
     }
