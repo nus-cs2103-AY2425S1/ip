@@ -14,10 +14,10 @@ public class Gray {
     }
 
     /**
-     * Respond for chatbot
+     * Response from the chatbot
      *
      * @param text
-     * @return
+     * @return response from chatbot
      */
     public String respond(String text) {
         try {

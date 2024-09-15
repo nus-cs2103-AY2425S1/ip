@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,15 +17,18 @@ public class DialogBox extends GridPane {
     @FXML
     private ImageView imageView;
     @FXML
-    private Label label;
+    private Label nameLabel;
+    @FXML
+    private Label messageLabel;
 
     /**
      * Constructs a dialog box for the GUI.
+     *
      * @param image
-     * @param text
+     * @param message
      * @throws IOException
      */
-    public DialogBox(Image image, String text) {
+    public DialogBox(Image image, String name, String message) {
         FXMLLoader fxmlLoader = new FXMLLoader((MainWindow.class.getResource("/view/DialogBox.fxml")));
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(this);
@@ -34,6 +38,22 @@ public class DialogBox extends GridPane {
             throw new RuntimeException(e);
         }
         imageView.setImage(image);
-        label.setText(text);
+        nameLabel.setText(name);
+        messageLabel.setText(message);
+    }
+
+    /**
+     * Constructs a dialog for the GUI.
+     *
+     * @param image
+     * @param name
+     * @param message
+     * @param rightToLeft
+     */
+    public DialogBox(Image image, String name, String message, boolean rightToLeft) {
+        this(image, name, message);
+        if (rightToLeft) {
+            setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        }
     }
 }

@@ -69,15 +69,15 @@ public class MainWindow extends AnchorPane {
     }
 
     public void addUserDialog(String text) {
-        addDialog(userImage, String.format("User:\n%s", text));
+        addDialog(userImage, "User", text, true);
     }
 
     public void addGrayDialog(String text) {
-        addDialog(grayImage, String.format("Gray:\n%s", text));
+        addDialog(grayImage, "Gray", text, false);
     }
 
-    private void addDialog(Image image, String text) {
-        DialogBox dialog = new DialogBox(image, text);
+    private void addDialog(Image image, String name, String message, boolean rightToLeft) {
+        DialogBox dialog = new DialogBox(image, name, message, rightToLeft);
         dialogVBox.getChildren().add(dialog);
     }
 }
