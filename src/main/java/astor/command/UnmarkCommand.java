@@ -32,7 +32,7 @@ public class UnmarkCommand extends Command {
         } catch (NumberFormatException e) {
             throw new MarkingTaskNotANumberException();
         }
-        String output = taskList.unMarkTaskDone(index, storage);
+        String output = taskList.unmarkTaskDone(index, storage);
         ui.showOutput(output);
         return output;
     }
