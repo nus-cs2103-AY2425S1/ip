@@ -111,7 +111,7 @@ Nice! I've marked this task as done:
 
 ### Unmark task
 
-Writes a simple reminder note
+Marks a task syntatically as not done
 
 `unmark <serial>`
 
@@ -129,7 +129,7 @@ OK, I've marked this task as not done yet:
 
 ### Delete task
 
-Writes a simple reminder note
+Removes task from list
 
 `delete <serial>`
 
@@ -185,7 +185,7 @@ Here are the tasks with deadlines by Dec 05 2024
 
 ### List tasks
 
-Writes a simple reminder note
+Lists out all tasks curently in list
 
 `list`
 
