@@ -72,6 +72,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toData() {
+        assert this.dueDate != null : "Due Date should not be null";
         return super.toData() + "|" + dueDate;
     }
 

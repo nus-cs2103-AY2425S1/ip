@@ -51,6 +51,8 @@ public class Event extends Task {
     @Override
     public String toData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'/at 'HH:mm");
+        assert start != null : "Start should not be null";
+        assert end != null : "End should not be null";
         return super.toData() + "|" + start.format(formatter) + "|" + end.format(formatter);
     }
 

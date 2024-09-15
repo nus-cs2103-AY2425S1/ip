@@ -76,11 +76,12 @@ public abstract class Task {
      * @return Task data in the format "Type|completion status|description".
      */
     public String toData() {
+        assert !this.description.isEmpty() : "Description should not be empty";
         return String.format("%s|%b|%s", this.getTypeIcon(), this.isCompleted, this.description);
     }
 
     /**
-     * Returns<code>true</code>if task's description contains the keyword.
+     * Returns <code>true</code> if task's description contains the keyword.
      *
      * @param keyword Keyword to check for.
      * @return <code>true</code>if task's description contains the keyword.
