@@ -43,7 +43,6 @@ public class Ui {
                      - todo (task) --> tasks without any date/time attached
                      - deadline (task) by (date) at (time) --> tasks with a deadline
                      - event (task) from (start) to (end) --> tasks with a start and end date/time
-                     
                 You can also use these additional commands:
                      - list --> shows you your list of tasks
                      - mark (task number) --> mark the task number that you input as done
