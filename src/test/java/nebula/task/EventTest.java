@@ -1,9 +1,6 @@
 package nebula.task;  //same package as the class being tested
 
-import nebula.exception.NebulaException;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
