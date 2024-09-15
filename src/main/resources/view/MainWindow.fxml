@@ -38,6 +38,6 @@
                 AnchorPane.rightAnchor="0.0">
         <VBox fx:id="dialogContainer"
               spacing="10.0"
-              style="-fx-background-color: #90EE90; -fx-padding: 10;"/>
+              style="-fx-background-color: #1f515a; -fx-padding: 10;"/>
     </ScrollPane>
 </AnchorPane>

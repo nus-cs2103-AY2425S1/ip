@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
 
     private Wolfie wolfie;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/img.png"));
     private final Image wolfieImage = new Image(this.getClass().getResourceAsStream("/images/Wolfie.png"));
 
     /**
