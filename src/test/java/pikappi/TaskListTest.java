@@ -86,6 +86,18 @@ public class TaskListTest {
     }
 
     @Test
+    public void addTask_duplicatedTasks_success() throws PikappiException {
+        try {
+            TaskList tasks = new TaskList();
+            tasks.addTask(new TodoTask("test"));
+            assertEquals("none", tasks.addTask(new TodoTask("test")));
+            fail();
+        } catch (PikappiException e) {
+            assertEquals("Pi-ka..?? Task already exists..", e.getMessage());
+        }
+    }
+
+    @Test
     public void sortTask_byDescription_success() throws PikappiException {
         TaskList tasks = new TaskList();
         tasks.addTask(new TodoTask("test"));
