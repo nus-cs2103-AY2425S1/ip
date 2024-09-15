@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Displays the messenger profile picture and the message.
@@ -38,12 +39,17 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2,
+                displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
+        displayPicture.setClip(clip);
     }
 
     /**

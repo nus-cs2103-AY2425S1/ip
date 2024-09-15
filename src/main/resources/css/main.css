@@ -2,10 +2,15 @@
     chat-background-color: rgb(245, 245, 245);
     btn-color: rgb(243, 188, 115);
     -fx-background-color: chat-background-color;
+    -fx-background-image: url("../images/chat-wallpaper.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-attachment: fixed;
+    -fx-background-size: cover;
 }
 
 .text-field {
-    -fx-background-color: derive(chat-background-color -0.05);
+    -fx-background-color: derive(chat-background-color, -0.05);
 }
 
 .button {
@@ -28,7 +33,7 @@
 .scroll-bar {
     /* Change width of scroll bar. */
     -fx-font-size: 10px;
-    -fx-background-color: main-color;
+    -fx-background-color: chat-background-color;
 }
 
 .scroll-bar .thumb {
