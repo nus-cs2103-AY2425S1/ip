@@ -35,30 +35,29 @@ public class Alpha {
         } else if (input.equalsIgnoreCase(Commands.LIST.getCommand())) {
             response.append(ui.listTask(tasks));
         } else if (inputCommand.equalsIgnoreCase(Commands.FIND.getCommand())) {
-            String searchParam = input.split(" ")[1];
+            String searchParam = Parser.excludeFirstWord(input);
             ArrayList<Task> searchResult = tasks.findLists(searchParam);
             response.append(ui.searchTask(searchResult));
         } else if (inputCommand.equalsIgnoreCase(Commands.MARK.getCommand())) {
             try {
-                Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
+                Integer indexInvolved = Parser.extractIntegerInvolved(input);
                 response.append(ui.doneMessage(tasks.modifyOperation(indexInvolved, true)));
             } catch (ArrayIndexOutOfBoundsException e) {
                 response.append("OOPS!!! Must specify which task to mark\n");
             }
         } else if (inputCommand.equalsIgnoreCase(Commands.UNMARK.getCommand())) {
             try {
-                Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
+                Integer indexInvolved = Parser.extractIntegerInvolved(input);
                 response.append(ui.undoneMessage(tasks.modifyOperation(indexInvolved, false)));
             } catch (ArrayIndexOutOfBoundsException e) {
                 response.append("OOPS!!! Must specify which task to unmark\n");
             }
         } else if (inputCommand.equalsIgnoreCase(Commands.DELETE.getCommand())) {
             try {
-                Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
-                response.append("____________________________________________________________\n")
-                        .append("Noted. I've removed this task:\n ").append(tasks.deleteOperation(indexInvolved))
-                        .append("\n").append(tasks.getLength())
-                        .append("\n____________________________________________________________\n");
+                Integer indexInvolved = Parser.extractIntegerInvolved(input);
+                String deletedTaskNotice = tasks.deleteOperation(indexInvolved);
+                String numberOfTasks = tasks.getLength();
+                response.append(ui.deleteTaskMessage(deletedTaskNotice, numberOfTasks));
             } catch (ArrayIndexOutOfBoundsException e) {
                 response.append("OOPS!!! Must specify which task to delete\n");
             }
@@ -72,8 +71,8 @@ public class Alpha {
             }
         } else if (inputCommand.equalsIgnoreCase(Commands.DEADLINE.getCommand())) {
             try {
-                String[] splitArray = input.split(" ");
-                String description = Parser.extractDescription(String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length)));
+                String processedString = Parser.excludeFirstWord(input);
+                String description = Parser.extractDescription(processedString);
                 LocalDate byDate = LocalDate.parse(Parser.extractFirstDate(input));
                 tasks.storeTask(new Deadline(description, byDate));
                 response.append(ui.addTaskMessage(tasks));
@@ -84,8 +83,8 @@ public class Alpha {
             }
         } else if (inputCommand.equalsIgnoreCase(Commands.EVENT.getCommand())) {
             try {
-                String[] splitArray = input.split(" ");
-                String description = Parser.extractDescription(String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length)));
+                String processedString = Parser.excludeFirstWord(input);
+                String description = Parser.extractDescription(processedString);
                 LocalDate startDate = LocalDate.parse(Parser.extractFirstDate(input));
                 LocalDate endDate = LocalDate.parse(Parser.extractSecondDate(input));
                 tasks.storeTask(new Event(description, startDate, endDate));
