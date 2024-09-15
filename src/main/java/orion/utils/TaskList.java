@@ -30,6 +30,7 @@ public class TaskList {
      * @param tasks The initial list of tasks.
      */
     public TaskList(List<Task> tasks) {
+        assert tasks != null : "tasks cannot be null";
         this.tasks = tasks;
         noTasks = tasks.size();
     }
@@ -41,6 +42,7 @@ public class TaskList {
      * @return A list of task descriptions.
      */
     public List<String> getTaskDescriptions() {
+        assert tasks != null : "tasks cannot be null";
         List<String> taskDescriptions = new ArrayList<>();
         for (int i = 0; i < noTasks; i++) {
             String task = String.format("%d. %s", i + 1, tasks.get(i));
@@ -64,6 +66,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
+        assert task != null : "task cannot be null";
         tasks.add(task);
         noTasks++;
     }
@@ -73,9 +76,10 @@ public class TaskList {
      *
      * @param taskNo The index of the task to mark as done.
      * @return The task that was marked.
-     * @throws OrionInputException If the task number is invalid.
+     * @throws OrionInputException If the task is already marked as completed.
      */
     public Task markTask(int taskNo) throws OrionInputException {
+        assert taskNo >= 0 && taskNo < getNoTasks() : "invalid task number";
         Task task = tasks.get(taskNo);
         task.setDone();
         return task;
@@ -86,9 +90,10 @@ public class TaskList {
      *
      * @param taskNo The index of the task to unmark.
      * @return The task that was unmarked.
-     * @throws OrionInputException If the task number is invalid.
+     * @throws OrionInputException If the task is already marked as uncompleted.
      */
     public Task unmarkTask(int taskNo) throws OrionInputException {
+        assert taskNo >= 0 && taskNo < getNoTasks() : "invalid task number";
         Task task = tasks.get(taskNo);
         task.setUndone();
         return task;
@@ -101,6 +106,7 @@ public class TaskList {
      * @return The task that was deleted.
      */
     public Task deleteTask(int taskNo) {
+        assert taskNo >= 0 && taskNo < getNoTasks() : "invalid task number";
         Task task = tasks.get(taskNo);
         tasks.remove(task);
         noTasks--;
@@ -114,6 +120,7 @@ public class TaskList {
      * @return A list of saved task descriptions.
      */
     public List<String> getSavedTaskDescriptions() {
+        assert tasks != null : "tasks cannot be null";
         List<String> savedTaskDescriptions = new ArrayList<>();
         for (Task task : tasks) {
             savedTaskDescriptions.add(task.saveString() + "\n");
@@ -129,6 +136,8 @@ public class TaskList {
      * @return a list of {@link Task} objects whose body contains the keyword
      */
     public List<String> getMatchingTasks(String keyword) {
+        assert tasks != null : "tasks cannot be null";
+        assert keyword != null : "keyword cannoy be null";
         List<String> matchingTasks = new ArrayList<>();
         int counter = 0;
         for (Task task : this.tasks) {

@@ -50,6 +50,7 @@ public class Parser {
      * @throws OrionException if the input is invalid or cannot be parsed into a valid command
      */
     public static Command parse(String input) throws OrionException {
+        assert input != null : "input must not be null";
         String[] inputArray = input.split(" ");
         String command = inputArray[0].toLowerCase();
         String[] parsedInputArray = input.split("/");
