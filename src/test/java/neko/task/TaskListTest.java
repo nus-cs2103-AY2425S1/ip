@@ -1,138 +1,149 @@
 package neko.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import neko.NekoException;
-import neko.Storage;
-import neko.ui.Ui;
 
 public class TaskListTest {
 
-    @TempDir
-    File tempDir;
     private TaskList tasks;
-    private Ui ui;
-    private Storage storage;
-    private ByteArrayOutputStream outputStream;
-    private ByteArrayInputStream inputStream;
-    private PrintStream printStream;
 
     @BeforeEach
     public void setUp() {
-        tasks = new TaskList(new ArrayList<>(100));
-        File tempFile = new File(tempDir, "neko.txt");
-        storage = new Storage(tempFile.getAbsolutePath());
-        outputStream = new ByteArrayOutputStream();
-        printStream = new PrintStream(outputStream);
+        tasks = new TaskList(new ArrayList<>());
     }
 
     @Test
-    public void testAddTodoTask() throws IOException, NekoException {
-        String simulatedUserInput = "Sample Todo Task\n";
-        inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
-
-        ui = new Ui(inputStream, printStream);
-        tasks.addTask("1", ui, storage);
-
+    public void testAddTask_validTodoTask_success() throws NekoException {
+        Task todo = new Todo("Sample Todo");
+        tasks.addTask(todo);
         assertEquals(1, tasks.size());
-        assertTrue(tasks.getTask(0) instanceof Todo);
-
-        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n "
-                + tasks.getTask(0) + "\nNow you have 1 tasks in your list meow";
-        assertTrue(outputStream.toString().contains(expectedOutput));
+        assertEquals(todo, tasks.getTask(0));
     }
 
     @Test
-    public void testAddDeadlineTask() throws IOException, NekoException {
-        String simulatedUserInput = "Sample Deadline\n2024-01-01T13:00";
-        inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
-
-        ui = new Ui(inputStream, printStream);
-        tasks.addTask("2", ui, storage);
-
-        assertEquals(1, tasks.size());
-        assertTrue(tasks.getTask(0) instanceof Deadline);
-
-        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n"
-                + " [D][ ] Sample Deadline (by: Mon, 1 Jan 2024 1:00pm)\n"
-                + "Now you have 1 tasks in your list meow";
-        assertTrue(outputStream.toString().contains(expectedOutput));
+    public void testAddTask_nullTask_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> tasks.addTask(null));
     }
 
     @Test
-    public void testAddEventTask() throws IOException, NekoException {
-        String simulatedUSerInput = "Sample Event\n2024-01-01T13:00\n2024-01-02T13:00";
-        inputStream = new ByteArrayInputStream(simulatedUSerInput.getBytes());
-
-        ui = new Ui(inputStream, printStream);
-        tasks.addTask("3", ui, storage);
-
-        assertEquals(1, tasks.size());
-        assertTrue(tasks.getTask(0) instanceof Event);
-
-        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n"
-                + " [E][ ] Sample Event (from: Mon, 1 Jan 2024 1:00pm to: Tue, 2 Jan 2024 1:00pm)\n"
-                + "Now you have 1 tasks in your list meow";
-        assertTrue(outputStream.toString().contains(expectedOutput));
+    public void testGetTask_validIndex_success() throws NekoException {
+        Task todo = new Todo("Sample Todo");
+        tasks.addTask(todo);
+        assertEquals(todo, tasks.getTask(0));
     }
 
     @Test
-    public void testAddTaskInvalidInput() throws IOException {
-        inputStream = new ByteArrayInputStream("".getBytes());
-
-        ui = new Ui(inputStream, printStream);
-        tasks.addTask("4", ui, storage);
-
-        String expectedOutput = "Oops /ᐠ > ˕ <マ, that's not a valid option meow! Please enter 1, 2, or 3 meow!";
-        assertTrue(outputStream.toString().contains(expectedOutput));
+    public void testGetTask_invalidIndex_throwsException() {
+        assertThrows(NekoException.class, () -> tasks.getTask(1));
     }
 
     @Test
-    public void testGetTask() throws NekoException, IOException {
-        String simulatedUserInput = "Sample Todo Task\n";
-        inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
-
-        ui = new Ui(inputStream, printStream);
-        tasks.addTask("1", ui, storage);
-
-        assertEquals("[T][ ] Sample Todo Task", tasks.getTask(0).toString());
+    public void testListTasks_emptyList_returnsMessage() {
+        String expectedMessage = "You don't have any tasks yet meow!";
+        assertEquals(expectedMessage, tasks.listTasks());
     }
 
     @Test
-    public void testCheckValidIndexWithInvalidIndex() {
-        try {
-            tasks.checkValidIndex(-1);
-            fail();
-        } catch (NekoException e) {
-            assertEquals("Meow /ᐠ > ˕ <マ Invalid task number meow!", e.getMessage());
-        }
+    public void testListTasks_nonEmptyList_returnsTaskList() {
+        Task todo = new Todo("Sample Todo");
+        tasks.addTask(todo);
+        String expectedMessage = "Here are the tasks in your list meow:\n1. [T][ ] Sample Todo";
+        assertEquals(expectedMessage, tasks.listTasks());
     }
 
     @Test
-    public void testCheckValidIndexWhenListIsEmpty() {
-        try {
-            tasks.checkValidIndex(1);
-            fail();
-        } catch (NekoException e) {
-            assertEquals("Meow /ᐠ > ˕ <マ You don't have any tasks yet meow!", e.getMessage());
-        }
+    public void testMarkTask_validIndices_marksAsDone() throws NekoException {
+        Task todo1 = new Todo("Task 1");
+        Task todo2 = new Todo("Task 2");
+        tasks.addTask(todo1);
+        tasks.addTask(todo2);
+
+        Task[] markedTasks = tasks.markTask(0, 1);
+        assertTrue(markedTasks[0].isDone());
+        assertTrue(markedTasks[1].isDone());
     }
 
+    @Test
+    public void testMarkTask_invalidIndex_throwsException() {
+        assertThrows(NekoException.class, () -> tasks.markTask(1));
+    }
 
+    @Test
+    public void testUnmarkTask_validIndices_marksAsNotDone() throws NekoException {
+        Task todo = new Todo("Task 1");
+        todo.markAsDone();
+        tasks.addTask(todo);
 
+        Task[] unmarkedTasks = tasks.unmarkTask(0);
+        assertTrue(!unmarkedTasks[0].isDone());
+    }
 
+    @Test
+    public void testUnmarkTask_invalidIndex_throwsException() {
+        assertThrows(NekoException.class, () -> tasks.unmarkTask(1));
+    }
 
+    @Test
+    public void testDeleteTask_validIndices_deletesTasks() throws NekoException {
+        Task todo1 = new Todo("Task 1");
+        Task todo2 = new Todo("Task 2");
+        tasks.addTask(todo1);
+        tasks.addTask(todo2);
+
+        Task[] deletedTasks = tasks.deleteTask(0, 1);
+        assertEquals(0, tasks.size());
+        assertEquals(todo2, deletedTasks[0]); // delete the task with greater index first
+        assertEquals(todo1, deletedTasks[1]);
+    }
+
+    @Test
+    public void testDeleteTask_invalidIndex_throwsException() {
+        assertThrows(NekoException.class, () -> tasks.deleteTask(1));
+    }
+
+    @Test
+    public void testFindTasks_validKey_findsMatchingTasks() throws NekoException {
+        Task todo1 = new Todo("Buy milk");
+        Task todo2 = new Todo("Do homework");
+        tasks.addTask(todo1);
+        tasks.addTask(todo2);
+
+        String result = tasks.findTasks("milk");
+        String expected = "1.[T][ ] Buy milk";
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testFindTasks_noMatchingTasks_returnsEmptyString() throws NekoException {
+        Task todo1 = new Todo("Buy milk");
+        tasks.addTask(todo1);
+
+        String result = tasks.findTasks("bread");
+        assertEquals("", result);
+    }
+
+    @Test
+    public void testFindTasks_emptyKeyword_throwsException() {
+        assertThrows(NekoException.class, () -> tasks.findTasks(""));
+    }
+
+    @Test
+    public void testCheckValidIndex_validIndex_doesNotThrow() throws NekoException {
+        Task todo = new Todo("Task 1");
+        tasks.addTask(todo);
+        tasks.checkValidIndex(0); // Should not throw any exceptions
+    }
+
+    @Test
+    public void testCheckValidIndex_invalidIndex_throwsException() {
+        assertThrows(NekoException.class, () -> tasks.checkValidIndex(1));
+    }
 }
