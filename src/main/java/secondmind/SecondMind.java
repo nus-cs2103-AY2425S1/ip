@@ -111,7 +111,7 @@ public class SecondMind {
 
     private String getDeletionMessage(Task deletedTask, int taskCount) {
         String message = "I've removed the following task:\n" + "\t" + deletedTask
-                + "\nYou have a grand total of " + (taskList.getTaskCount()-1) + " task(s)";
+                + "\nYou have a grand total of " + taskCount + " task(s)";
         return message;
     }
 
@@ -122,7 +122,7 @@ public class SecondMind {
             Task currTask = taskList.getTask(taskNumber);
             deleteTaskFromStorage(taskNumber, taskCount);
             deleteFromTaskList(taskNumber);
-            String message = getDeletionMessage(currTask, taskCount);
+            String message = getDeletionMessage(currTask, taskCount-1);
             return message;
         } catch (InvalidTaskNumberException e) {
             String errorMessage = formatInvalidTaskNumberExceptionMessage(e);
