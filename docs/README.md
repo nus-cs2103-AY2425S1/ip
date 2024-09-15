@@ -12,7 +12,7 @@ upcoming deadlines.
 3. Open your terminal in this directory
 4. Execute the command 
     ```
-    java -jar Mendel.jar
+    java -jar Mendel-3.jar
     ```
 ---
 ## Feature summary
