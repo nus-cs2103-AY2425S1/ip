@@ -22,6 +22,8 @@ public class Storage {
      * Checks if the Winner folder and tasklist file exist. If not, it creates them.
      */
     public static void checkAndCreateFile() { //Storage
+        assert FOLDER_PATH != null;
+        assert TASKLIST_PATH != null;
         try {
             if (Files.exists(FOLDER_PATH)) {
                 Files.createFile(TASKLIST_PATH);
@@ -65,6 +67,7 @@ public class Storage {
                 default:
                     break;
                 }
+                assert line == null;
                 if (task != null) {
                     if (isDone) {
                         task.markDone();
