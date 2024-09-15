@@ -36,14 +36,12 @@ public class Storage {
         try {
             if (!file.exists()) {
                 file.createNewFile();
-                return file;
-            } else {
-                loadFile(file);
-                return file;
             }
-        } catch (IOException | CookieException e) {
-            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+            System.exit(1);
         }
+
         return file;
     }
 
@@ -53,15 +51,19 @@ public class Storage {
      * @param file the {@code File} to be loaded
      * @return an {@code ArrayList} of {@code Task} objects parsed from the file
      * @throws FileNotFoundException if the specified file is not found
-     * @throws CookieException if the file contains commands or formats that are not implemented
      */
-    public ArrayList<Task> loadFile(File file) throws FileNotFoundException, CookieException {
+    public ArrayList<Task> loadFile(File file) throws FileNotFoundException {
         Scanner fileScanner = new Scanner(file);
         ArrayList<Task> taskArrayList = new ArrayList<>();
 
         while (fileScanner.hasNextLine()) {
-            String line = fileScanner.nextLine();;
-            taskArrayList.add(parseFileContent(line));
+            String line = fileScanner.nextLine();
+            try {
+                taskArrayList.add(parseFileContent(line));
+            } catch (CookieException e) {
+                System.out.println("File is corrupted at line: " + line);
+                System.exit(1);
+            }
         }
 
         return taskArrayList;
@@ -76,21 +78,36 @@ public class Storage {
      */
     public Task parseFileContent(String string) throws CookieException {
         String[] parts = string.split(" \\| ");
+
+        if (parts.length < 3) {
+            throw new CookieException("File is corrupted");
+        }
+
         String command = parts[0];
         boolean isDone = parts[1].equals("1");
         String task = parts[2];
-        String details = parts.length > 3 ? parts[3] : "";
 
         switch (command) {
         case "T":
             return new ToDo(isDone, task);
+
         case "D":
-            return new Deadline(isDone, task, details);
+            if (parts.length < 4) {
+                throw new CookieException("File is corrupted");
+            }
+            String deadlineDate = parts[3];
+            return new Deadline(isDone, task, deadlineDate);
+
         case "E":
-            String[] eventDetails = details.split("-");
-            return new Event(isDone, task, eventDetails[0], eventDetails[1]);
+            if (parts.length < 5) {
+                throw new CookieException("File is corrupted");
+            }
+            String eventStartDate = parts[3];
+            String eventEndDate = parts[4];
+            return new Event(isDone, task, eventStartDate, eventEndDate);
+
         default:
-            throw new CookieException("File contains unknown command");
+            throw new CookieException("File is corrupted");
         }
     }
 
@@ -121,7 +138,7 @@ public class Storage {
                     saveIntoFile.append(" | ").append(((Deadline) task).getBy());
                 } else if (task instanceof Event) {
                     saveIntoFile.append(" | ").append(((Event) task).getFrom())
-                            .append("-").append(((Event) task).getTo());
+                            .append(" | ").append(((Event) task).getTo());
                 }
 
                 writer.write(saveIntoFile.toString());

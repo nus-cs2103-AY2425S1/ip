@@ -30,7 +30,7 @@ public class Cookie {
     private void loadTaskList() {
         try {
             taskList = new TaskList(storage.loadFile(storage.fetchFile()));
-        } catch (FileNotFoundException | CookieException e) {
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
