@@ -1,6 +1,5 @@
 package patrick.parser;
 
-import javafx.scene.control.TableColumn;
 import patrick.storage.Storage;
 import patrick.tasklist.*;
 import patrick.ui.Ui;
@@ -107,7 +106,7 @@ public class Parser {
             }
 
         default:
-            response = "What are you trying to say man. Re-enter your command \n";
+            response = "Watch your words SpongeBob!\nNOW TELL ME WHAT DO YOU WANT!";
             break;
         }
         assert response != null : "Response cannot be null";

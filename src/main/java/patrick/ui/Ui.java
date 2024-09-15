@@ -90,4 +90,8 @@ public class Ui {
     public static String showErrorMsg(String message) {
         return message;
     }
+
+    public static String showWelcomeMsg() {
+        return "We should take Bikini Bottom, and push it somewhere else!\nOh Hello Spongebob!\nHow may I help you today?";
+    }
 }
