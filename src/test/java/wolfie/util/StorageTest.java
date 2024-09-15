@@ -2,11 +2,8 @@
 package wolfie.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -62,7 +59,8 @@ class StorageTest {
     void testLoadAndSave() throws IOException {
         tasks.add(new Todo("Test Todo", false));
         tasks.add(new Deadline("Test Deadline", LocalDateTime.of(2023, 10, 1, 12, 0), false));
-        tasks.add(new Event("Test Event", LocalDateTime.of(2023, 10, 1, 10, 0), LocalDateTime.of(2023, 10, 1, 12, 0), false));
+        tasks.add(new Event("Test Event", LocalDateTime.of(2023, 10, 1, 10, 0),
+                LocalDateTime.of(2023, 10, 1, 12, 0), false));
 
         storage.save(tasks);
         List<Task> loadedTasks = storage.load();
@@ -71,5 +69,11 @@ class StorageTest {
         assertEquals("Test Todo", loadedTasks.get(0).getDescription());
         assertEquals("Test Deadline", loadedTasks.get(1).getDescription());
         assertEquals("Test Event", loadedTasks.get(2).getDescription());
+    }
+    @Test
+    void testLoadWithEmptyFile() throws IOException {
+        Storage emptyStorage = new Storage("data/emptyFile.txt");
+        List<Task> tasks = emptyStorage.load();
+        assertEquals(0, tasks.size());
     }
 }

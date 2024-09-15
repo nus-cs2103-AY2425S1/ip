@@ -41,7 +41,6 @@ public class FindCommand extends Command {
         List<Task> matchingTasks = tasks.getTasks().stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .toList();
-        //System.out.println(matchingTasks);
         if (matchingTasks.isEmpty()) {
             throw new WolfieException("No tasks found matching the keyword.");
         } else {
