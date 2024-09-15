@@ -70,7 +70,7 @@ public class AddCommand extends Command {
      * @return A summary of the task added.
      */
     private static String getTaskAddedConfirmation(TaskList taskList, int numOfTasks) {
-        return "\nGot it. I've added this task:\n"
+        return "Got it. I've added this task:\n"
                 + taskList.getTasks().get(numOfTasks).toString()
                 + "\nNow you have "
                 + (numOfTasks + 1)

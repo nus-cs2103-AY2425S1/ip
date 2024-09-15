@@ -23,7 +23,7 @@ public class PrintCommand extends Command {
         if (numOfTasks == 0) {
             throw new HenryException("You do not have any tasks!");
         }
-        StringBuilder string = new StringBuilder("\nHere are the tasks in your list:\n");
+        StringBuilder string = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < numOfTasks; i++) {
             string.append(i + 1).append(".").append(taskList.getTasks().get(i)
                     .toString()).append("\n");

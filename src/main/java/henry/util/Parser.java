@@ -33,9 +33,9 @@ public class Parser {
         if (command.equals("mark") || command.equals("unmark")) {
             return new ChangeStatusCommand(words);
         } else if (command.equals("delete")) {
-            return new DeleteCommand(words[1]);
+            return new DeleteCommand(words);
         } else if (command.equals("find")) {
-            return new FindCommand(words[1]);
+            return new FindCommand(input);
         } else {
             return new AddCommand(input);
         }

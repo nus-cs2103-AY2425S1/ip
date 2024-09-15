@@ -32,13 +32,13 @@ public class ChangeStatusCommand extends Command {
             Task task = getTask(taskList, numOfTasks);
             if ((this.inputList)[0].equals("mark")) {
                 markTask(task);
-                return "\nNice! I've marked this task as done:\n"
+                return "Nice! I've marked this task as done:\n"
                         + task
                         + "\n";
             } else {
                 assert (this.inputList)[0].equals("unmark");
                 unmarkTask(task);
-                return "\nOK, I've marked this task as not done yet:\n"
+                return "OK, I've marked this task as not done yet:\n"
                         + task
                         + "\n";
             }
