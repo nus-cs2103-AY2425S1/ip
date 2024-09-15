@@ -119,3 +119,8 @@ Format: `delete <task_index>`
       1.[T][ ] read book
       Now you have 2 tasks in your list.
       ```
+
+### Exit the program: `bye`
+Exit the program and close the chatbot.
+
+Format: `bye`
