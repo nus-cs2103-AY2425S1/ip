@@ -19,7 +19,7 @@
 - Ensure you have **Java 17** or above installed on your system.
 
 ### Download the JAR File
-- Download the latest version of the **MentalHealth.jar** file [here](https://github.com/thony-ui/ip/releases/v0.2) or navigate to `src/main/java/health/Launcher.java` to run the application directly.
+- Download the latest version of the **MentalHealth.jar** file [here](https://github.com/thony-ui/ip/releases/tag/A-Release) or navigate to `src/main/java/health/Launcher.java` to run the application directly.
 
 ### Running the Application
 
