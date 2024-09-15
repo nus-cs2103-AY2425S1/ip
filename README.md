@@ -21,7 +21,7 @@ PandaBot frees your mind from remembering tasks and lets you focus on what truly
    A GUI similar to the below should appear in a few seconds.
    ![Initial GUI upon running the PandaBot](./docs/initial.png)
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
-6. Refer to the [documentation]() for a complete user guide for PandaBot
+6. Refer to the [documentation](https://adipanda2002.github.io/ip/) for a complete user guide for PandaBot
 
 Here is sample interaction with the PandaBot:
 ![PandaBot Sample Interaction](./docs/Ui.png)
