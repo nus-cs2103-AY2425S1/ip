@@ -133,6 +133,4 @@ And a happy new year!
 
 ---
 
-Let Rudolf guide you through a stress-free Christmas season so you can enjoy the holidays without a hitch! 🎄✨
-```
 Whether it's wrapping presents, sending out cards, or hosting a Christmas dinner, let Rudolf and the helpful elves keep track of everything so you can enjoy the magic of Christmas without a hitch. 🎅
