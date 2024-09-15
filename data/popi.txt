@@ -1,0 +1,4 @@
+T | 1 | read book
+D | 0 | return book | 2022-02-02T00:00
+T | 0 | sleep
+T | 0 | buy groceries
