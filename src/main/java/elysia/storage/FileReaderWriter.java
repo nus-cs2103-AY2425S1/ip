@@ -1,4 +1,4 @@
-package elysia.ui;
+package elysia.storage;
 
 import elysia.tasks.Deadline;
 import elysia.tasks.Event;
@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Manages reading from and writing to a file for the Elysia application.
+ * Manages reading from and writing to a file for the elysia.ui.Elysia application.
  * Supports creating a file, saving the current task list to a file, and loading tasks from a file.
  */
 public class FileReaderWriter {

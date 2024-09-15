@@ -1,7 +1,7 @@
-package elysia.ui;
+package elysia.exceptions;
 
 /**
- * Represents a custom exception for the Elysia application.
+ * Represents a custom exception for the elysia.ui.Elysia application.
  * Extends the Exception class and provides a way to signal errors specific to the application.
  */
 public class ElysiaException extends Exception{
