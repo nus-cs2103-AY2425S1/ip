@@ -39,6 +39,7 @@ public class Storage {
      * @param filePath path to the txt file containing task list
      */
     private void initializeFile(String filePath) {
+        assert (filePath != null);
         File file = new File(filePath);
         if (file.exists()) {
             return;
