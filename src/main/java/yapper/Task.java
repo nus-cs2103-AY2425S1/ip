@@ -24,6 +24,10 @@ public abstract class Task {
         this.isDone = bool;
     }
 
+    public void setIsDone(boolean bool) {
+        this.isDone = bool;
+    }
+
     public boolean hasDone() {
         return this.isDone;
     }
