@@ -18,6 +18,20 @@ public class UnmarkCommand extends Command {
         super(command);
     }
 
+    private void updateSaveFile(Storage storage, TaskList tasks) throws BrockException {
+        String tasksString = tasks.listTasks();
+        storage.writeToFile("", false);
+        storage.writeToFile(tasksString, true);
+    }
+
+    private String getResponse(TaskList tasks, int taskIndex, boolean isSuccessful) {
+        if (!isSuccessful) {
+            return "Task has not been marked yet!";
+        }
+        return "OK, I've marked this task as not done yet:\n"
+                + "  " + tasks.getTaskDetails(taskIndex);
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -33,20 +47,10 @@ public class UnmarkCommand extends Command {
     public String execute(Storage storage, TaskList tasks) throws BrockException {
         String command = super.getCommand();
         CommandUtility.validateStatus(command, CommandUtility.Action.UNMARK, tasks);
-
         int taskIndex = CommandUtility.getTaskIndex(command);
         boolean isSuccessful = tasks.unmarkTask(taskIndex);
 
-        // Update the save file
-        String tasksString = tasks.listTasks();
-        storage.writeToFile("", false);
-        storage.writeToFile(tasksString, true);
-
-        if (!isSuccessful) {
-            return "Task has not been marked yet!";
-        }
-
-        return "OK, I've marked this task as not done yet:\n"
-                + "  " + tasks.getTaskDetails(taskIndex);
+        this.updateSaveFile(storage, tasks);
+        return this.getResponse(tasks, taskIndex, isSuccessful);
     }
 }

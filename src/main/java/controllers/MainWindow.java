@@ -48,18 +48,25 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         // Ensures scroll is always to the very end
+        // For better UI
         this.scrollPane.vvalueProperty()
                 .bind(this.dialogContainer.heightProperty());
 
         // Set text input placeholder
+        // For better UI
         this.userInput.setPromptText("Enter your command here!");
 
-        ImageView imageView = new ImageView(getClass().getResource("/images/SendIcon.jpg").toExternalForm());
+        // Approach was adopted from https://edencoding.com/how-to-add-an-image-to-a-button/
+        // To add an icon within the send button
+        ImageView imageView = new ImageView(Objects.requireNonNull(getClass()
+                .getResource("/images/SendIcon.jpg")).toExternalForm());
         sendButton.setGraphic(imageView);
         sendButton.setContentDisplay(ContentDisplay.TOP);
-        imageView.fitWidthProperty().bind(sendButton.widthProperty().divide(10));
+        imageView.fitWidthProperty()
+                .bind(sendButton.widthProperty().divide(10));
         imageView.setPreserveRatio(true);
-        //Important otherwise button will wrap to text + graphic size (no resizing on scaling).
+
+        // Prevent button from wrap to text + graphic size
         sendButton.setMaxWidth(Double.MAX_VALUE);
     }
 
@@ -106,6 +113,14 @@ public class MainWindow extends AnchorPane {
                 .replaceAll(" +", " ");
     }
 
+    private void showBothDialog(String rawCommand, String brockResponse) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(rawCommand, userImage),
+                DialogBox.getBrockDialog(brockResponse, brockImage)
+        );
+        this.userInput.clear();
+    }
+
     /**
      * Creates two dialog boxes, one showing user input and the other containing Brock's reply
      *      and then appends them to the dialog container.
@@ -118,14 +133,11 @@ public class MainWindow extends AnchorPane {
 
         Pair<Boolean, String> responseResult = this.brock
                 .respondToCommand(processedCommand, this.tasks);
-        boolean isExit = responseResult.getFirst();
-        String brockResponse = responseResult.getSecond();
+        this.showBothDialog(rawCommand, responseResult.getSecond());
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(rawCommand, userImage),
-                DialogBox.getBrockDialog(brockResponse, brockImage)
-        );
-        this.userInput.clear();
+        // Exit after displaying the dialog boxes
+        // So that user can see the input + response first
+        boolean isExit = responseResult.getFirst();
         if (isExit) {
             this.exitProgram();
         }

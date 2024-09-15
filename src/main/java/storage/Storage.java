@@ -67,6 +67,9 @@ public class Storage {
                     .toString();
         } catch (DateTimeParseException e) {
             this.resetSaveFile("Invalid deadline/event entry - date format is wrong!");
+
+            // This will never be reached
+            // Since the above line always throw BrockException
             return null;
         }
     }
@@ -74,37 +77,29 @@ public class Storage {
     /**
      * Creates a {@code ToDo} object corresponding to a todo task.
      *
-     * @param taskBody   String storing task description.
-     * @param taskStatus Character representing task status.
+     * @param todoBody   String storing todo description.
+     * @param todoStatus Character representing todo status.
      * @return {@code ToDo} object created.
      */
-    private Task handleToDo(String taskBody, char taskStatus) {
-        Task todoTask = new ToDo(taskBody);
-
-        assert taskStatus == 'X' | taskStatus == ' ' : "Invalid task status extracted.";
-        if (taskStatus == 'X') {
+    private Task handleToDo(String todoBody, char todoStatus) {
+        Task todoTask = new ToDo(todoBody);
+        assert todoStatus == 'X' | todoStatus == ' ' : "Invalid todo status extracted.";
+        if (todoStatus == 'X') {
             todoTask.markAsDone();
         }
         return todoTask;
     }
 
-    /**
-     * Creates a {@code Deadline} object corresponding to a deadline task.
-     *
-     * @param taskBody   String storing task description and due datetime.
-     * @param taskStatus Character representing task status.
-     * @return {@code Deadline} object created.
-     * @throws BrockException If date and time are invalid when constructing object.
-     *                        (They should already be validated)
-     */
-    private Task handleDeadline(String taskBody, char taskStatus) throws BrockException {
-        String[] parts = taskBody.split("\\(by: ", 2);
+    private String[] processDeadlineBody(String deadlineBody) throws BrockException {
+        String[] parts = deadlineBody.split("\\(by: ", 2);
         if (parts.length < 2) {
             this.resetSaveFile("Invalid deadline entry - missing due date!");
         }
+        return parts;
+    }
 
-        String description = parts[0];
-        String dateTime = parts[1];
+    private String[] processDueDateTime(String dateTime) throws BrockException {
+
         String[] dateTimeParts = dateTime.split(", ");
 
         String dueDateString = dateTimeParts.length == 1
@@ -115,53 +110,64 @@ public class Storage {
                 : this.removeCloseBracket(dateTimeParts[1])
                 .replace(":", "");
 
+        return new String[]{dueDateString, dueTimeString};
+    }
+
+    /**
+     * Creates a {@code Deadline} object corresponding to a deadline task.
+     *
+     * @param deadlineBody   String storing deadline description and due datetime.
+     * @param deadlineStatus Character representing deadline status.
+     * @return {@code Deadline} object created.
+     * @throws BrockException If date and time are invalid when constructing object.
+     *                        (They should already be validated)
+     */
+    private Task handleDeadline(String deadlineBody, char deadlineStatus) throws BrockException {
+        String[] parts = this.processDeadlineBody(deadlineBody);
+
+        String description = parts[0];
+        String dateTime = parts[1];
+        String[] dueValues = this.processDueDateTime(dateTime);
+
         Task deadlineTask;
-        if (dueTimeString.isEmpty()) {
-            deadlineTask = new Deadline(description, dueDateString);
+        if (dueValues[1].isEmpty()) {
+            // Due time is empty
+            // Create deadline with no time
+            deadlineTask = new Deadline(description, dueValues[0]);
         } else {
-            deadlineTask = new Deadline(description, dueDateString, dueTimeString);
+            // Due time is not empty
+            // Create deadline with time
+            deadlineTask = new Deadline(description, dueValues[0], dueValues[1]);
         }
 
-        assert taskStatus == 'X' | taskStatus == ' ' : "Invalid task status extracted.";
-        if (taskStatus == 'X') {
+        assert deadlineStatus == 'X' | deadlineStatus == ' ' : "Invalid deadline status extracted.";
+        if (deadlineStatus == 'X') {
             deadlineTask.markAsDone();
         }
         return deadlineTask;
     }
 
-    /**
-     * Creates an {code Event} object corresponding to an event task.
-     *
-     * @param taskBody   String storing task description, as well as start and end datetime.
-     * @param taskStatus Character representing task status.
-     * @return {@code Event} object created.
-     * @throws BrockException If date and time are invalid when constructing object.
-     *                        (They should already be validated)
-     */
-    private Task handleEvent(String taskBody, char taskStatus) throws BrockException {
-        String[] parts = taskBody.split("\\(from: ", 2);
+    private String[] processEventBody(String eventBody) throws BrockException {
+        String[] parts = eventBody.split("\\(from: ", 2);
         if (parts.length < 2) {
             this.resetSaveFile("Invalid event entry - missing start date!");
         }
+        return parts;
+    }
 
-        String description = parts[0];
-        String dateTime = parts[1];
-        String[] dateTimeParts = dateTime.split(" \\| ", 2);
-        if (dateTimeParts.length < 2) {
-            this.resetSaveFile("Invalid event entry - missing date separator!");
-        }
-
-        String startDateTime = dateTimeParts[0];
-        String endDateTime = dateTimeParts[1];
-
+    private String[] processStartDateTime(String startDateTime) throws BrockException {
         String[] startDateTimeParts = startDateTime.split(", ");
-        String[] endDateTimeParts = endDateTime.substring(4)
-                .split(", ");
-
         String startDateString = this.parseDate(startDateTimeParts[0]);
         String startTimeString = startDateTimeParts.length == 1
                 ? ""
                 : startDateTimeParts[1].replace(":", "");
+
+        return new String[]{startDateString, startTimeString};
+    }
+
+    private String[] processEndDateTime(String endDateTime) throws BrockException {
+        String[] endDateTimeParts = endDateTime.substring(4)
+                .split(", ");
         String endDateString = endDateTimeParts.length == 1
                 ? this.parseDate(this.removeCloseBracket(endDateTimeParts[0]))
                 : this.parseDate(endDateTimeParts[0]);
@@ -170,19 +176,56 @@ public class Storage {
                 : this.removeCloseBracket(endDateTimeParts[1])
                 .replace(":", "");
 
-        Task eventTask;
-        if (startTimeString.isEmpty()) {
-            eventTask = new Event(description, startDateString, endDateString);
-        } else {
-            eventTask = new Event(description, startDateString, startTimeString,
-                    endDateString, endTimeString);
+        return new String[]{endDateString, endTimeString};
+    }
+
+    /**
+     * Creates an {code Event} object corresponding to an event task.
+     *
+     * @param eventBody   String storing event description, as well as start and end datetime.
+     * @param eventStatus Character representing event status.
+     * @return {@code Event} object created.
+     * @throws BrockException If date and time are invalid when constructing object.
+     *                        (They should already be validated)
+     */
+    private Task handleEvent(String eventBody, char eventStatus) throws BrockException {
+        String[] parts = this.processEventBody(eventBody);
+
+        String description = parts[0];
+        String dateTime = parts[1];
+        String[] dateTimeParts = dateTime.split(" \\| ", 2);
+        if (dateTimeParts.length < 2) {
+            this.resetSaveFile("Invalid event entry - missing start end date separator!");
         }
 
-        assert taskStatus == 'X' | taskStatus == ' ' : "Invalid task status extracted.";
-        if (taskStatus == 'X') {
+        String[] startValues = this.processStartDateTime(dateTimeParts[0]);
+        String[] endValues = this.processEndDateTime(dateTimeParts[1]);
+
+        Task eventTask;
+        if (startValues[1].isEmpty()) {
+            // Start time is empty
+            // Create event with no time
+            eventTask = new Event(description, startValues[0], endValues[0]);
+        } else {
+            // Start time is not empty
+            // Create event with time
+            eventTask = new Event(description, startValues[0], startValues[1],
+                    endValues[0], endValues[1]);
+        }
+
+        assert eventStatus == 'X' | eventStatus == ' ' : "Invalid event status extracted.";
+        if (eventStatus == 'X') {
             eventTask.markAsDone();
         }
         return eventTask;
+    }
+
+    private String[] processTaskString(String taskString) throws BrockException {
+        String[] taskComponents = taskString.split("\\. ", 2);
+        if (taskComponents.length < 2) {
+            this.resetSaveFile("Invalid task entry - missing task number!");
+        }
+        return taskComponents;
     }
 
     /**
@@ -193,16 +236,13 @@ public class Storage {
      * @throws BrockException If task string is invalid.
      */
     private Task convertToTaskObject(String taskString) throws BrockException {
-        // Split by ". "
-        String[] taskComponents = taskString.split("\\. ", 2);
-        if (taskComponents.length < 2) {
-            this.resetSaveFile("Invalid task entry - missing task number!");
-        }
+        String[] taskComponents = processTaskString(taskString);
 
         String taskDetails = taskComponents[1];
         char taskType = taskDetails.charAt(1);
         char taskStatus = taskDetails.charAt(4);
         // Remove the [<type>][<status>]
+        // As we only want the task body
         String taskBody = taskDetails.substring(7);
 
         return switch (taskType) {
@@ -233,6 +273,38 @@ public class Storage {
         return tasks;
     }
 
+    private String handleDirectory() {
+        StringBuilder dirResult = new StringBuilder();
+
+        String dirStatus;
+        boolean isDirectoryMissing = SAVE_FILE.getParentFile().mkdirs();
+        if (!isDirectoryMissing) {
+            dirStatus = "Parent directories already exists!";
+        } else {
+            dirStatus = "Parent directories successfully created!";
+        }
+
+        dirResult.append("Creating parent directories for save file...\n")
+                .append(dirStatus);
+        return dirResult.toString();
+    }
+
+    private String handleFile() throws IOException {
+        StringBuilder fileResult = new StringBuilder();
+
+        String fileStatus;
+        boolean isFileMissing = SAVE_FILE.createNewFile();
+        if (!isFileMissing) {
+            fileStatus = "Save file already exists!";
+        } else {
+            fileStatus = "Save file successfully created";
+        }
+
+        fileResult.append("Creating save file for tasks...\n")
+                .append(fileStatus);
+        return fileResult.toString();
+    }
+
     /**
      * Checks if the save file and parent directories are present.
      * If they are not, create them accordingly.
@@ -242,30 +314,9 @@ public class Storage {
      * @throws IOException If there were issues creating the files and folders.
      */
     public String[] createFile() throws IOException {
-        StringBuilder dirResult = new StringBuilder();
-        String dirStatus;
-        boolean isDirectoryMissing = SAVE_FILE.getParentFile().mkdirs();
-        if (!isDirectoryMissing) {
-            dirStatus = "Parent directories already exists!";
-        } else {
-            dirStatus = "Parent directories successfully created!";
-        }
-        dirResult.append("Creating parent directories for save file...\n")
-                .append(dirStatus);
-
-        StringBuilder fileResult = new StringBuilder();
-        String fileStatus;
-        boolean isFileMissing = SAVE_FILE.createNewFile();
-        if (!isFileMissing) {
-            fileStatus = "Save file already exists!";
-        } else {
-            fileStatus = "Save file successfully created";
-        }
-        fileResult.append("Creating save file for tasks...\n")
-                .append(fileStatus);
-
-        return new String[]{dirResult.toString(),
-                fileResult.toString()};
+        String dirResultString = this.handleDirectory();
+        String fileResultString = this.handleFile();
+        return new String[]{dirResultString, fileResultString};
     }
 
     /**
