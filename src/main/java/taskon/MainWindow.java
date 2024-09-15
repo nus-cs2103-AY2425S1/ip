@@ -1,18 +1,21 @@
 package taskon;
 
+import static taskon.common.Messages.MESSAGE_EXIT;
 import static taskon.common.Messages.MESSAGE_GREETING;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
- * Controller for the main GUI.
+ * Controls the main GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -57,5 +60,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getTaskonDialog(response, taskonImage)
         );
         userInput.clear();
+
+        if (response.equals(MESSAGE_EXIT)) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 }

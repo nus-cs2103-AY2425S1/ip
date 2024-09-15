@@ -1,7 +1,5 @@
 package taskon;
 
-import static taskon.common.Messages.MESSAGE_EXIT;
-
 import taskon.commands.Command;
 import taskon.exception.TaskonException;
 import taskon.parser.Parser;
@@ -58,11 +56,7 @@ public class Taskon {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            String response = c.execute(tasks, ui, storage);
-            if (response == MESSAGE_EXIT) {
-                System.exit(0);
-            }
-            return response;
+            return c.execute(tasks, ui, storage);
         } catch (TaskonException e) {
             return ui.showError(e.getMessage());
         }

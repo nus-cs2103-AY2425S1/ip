@@ -12,7 +12,7 @@
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: #08fdc0;
     -fx-font: italic bold 16px "Arial";
 }
 
@@ -40,7 +40,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #c9c9c9;
+    -fx-background-color: #f6ee9a;
     -fx-background-radius: 1em;
 }
 
