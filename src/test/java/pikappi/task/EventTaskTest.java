@@ -1,6 +1,7 @@
 package pikappi.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,5 +18,16 @@ public class EventTaskTest {
     public void getFrom_invalidDateTimeFormat_success() throws PikappiException {
         assertEquals("today",
                 new EventTask("test", "today", "tomorrow").getFrom());
+    }
+
+    @Test
+    public void toString_tooManyKeywords_exceptionThrown() {
+        try {
+            assertEquals("[E][ ] test (from: Mar 2 2023 6:00PM to: 2024-09-09)",
+                    new EventTask("test", "2024-03-02 1800", "2023-09-09").toString());
+            fail();
+        } catch (PikappiException e) {
+            assertEquals("Pika..? Start time cannot be after end time..", e.getMessage());
+        }
     }
 }

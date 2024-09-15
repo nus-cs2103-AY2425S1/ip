@@ -10,9 +10,9 @@ import pikappi.task.EventTask;
  * Represents a command by user to add an event task.
  */
 public class EventCommand extends Command {
-    private String description;
-    private String from;
-    private String to;
+    protected String description;
+    protected String from;
+    protected String to;
 
     /**
      * Creates a new EventCommand object.

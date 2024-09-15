@@ -1,12 +1,11 @@
 package pikappi.task;
 
-import pikappi.exception.PikappiException;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import pikappi.exception.PikappiException;
 
 /**
  * Represents a task with a start and end time.
