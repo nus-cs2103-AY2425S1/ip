@@ -20,6 +20,7 @@ public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -42,6 +43,7 @@ public class Storage {
             while (scanner.hasNext()) {
                 String taskString = scanner.nextLine();
                 Task task = TaskDecoder.parseTask(taskString);
+                assert task != null : "Parsed task should not be null";
                 tasks.add(task);
             }
             scanner.close();
@@ -71,6 +73,7 @@ public class Storage {
             Iterator<Task> taskIterator = taskList.getTasksIterator();
             for (int i = 0; taskIterator.hasNext(); i++) {
                 Task task = taskIterator.next();
+                assert task != null : "Task should not be null";
                 fileWriter.write(String.format("%s%n", task.toDataString()));
             }
             fileWriter.close();

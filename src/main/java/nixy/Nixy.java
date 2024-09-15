@@ -72,7 +72,9 @@ public class Nixy {
         Command c;
         try {
             p = Parser.parse(userInput);
+            assert p != null: "Parsed object should not be null";
             c = p.getCommand();
+            assert c != null: "Parsed command should not be null";
         } catch (NixyException e) {
             ui.showNixyException(e);
             return;
@@ -127,6 +129,7 @@ public class Nixy {
         case EVENT:
             try {
                 Task task = p.getTask();
+                assert task != null: "Task should not be null";
                 tasks.addTask(task);
                 ui.showAddedTask(task, tasks.getTaskCount());
                 storage.save(tasks);
@@ -139,6 +142,7 @@ public class Nixy {
             break;
         default:
             // Should not reach here
+            assert false : "Default case should not be reached.";
             break;
         }
     }
