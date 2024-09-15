@@ -1,5 +1,6 @@
 package taskon.commands;
 
+import taskon.exception.TaskonException;
 import taskon.storage.Storage;
 import taskon.task.Event;
 import taskon.task.Task;
@@ -29,7 +30,7 @@ public class EventCommand extends Command {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public EventCommand(String description, String from, String to) {
+    public EventCommand(String description, String from, String to) throws TaskonException {
         this.task = new Event(description, from, to);
     }
 

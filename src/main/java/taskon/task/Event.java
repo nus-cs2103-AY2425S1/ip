@@ -1,5 +1,7 @@
 package taskon.task;
 
+import taskon.exception.TaskonException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
@@ -20,10 +22,14 @@ public class Event extends Task {
      * @param start The start time of the event.
      * @param end The end time of the event.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws TaskonException {
         super(description);
         this.start = getLocalDateTime(start);
         this.end = getLocalDateTime(end);
+        if (this.start.isAfter(this.end)) {
+            throw new TaskonException("Ah, barnacles! "
+                    + "Looks like your start date is after the end date! We can't go back in time, buddy.");
+        }
     }
 
     /**

@@ -44,12 +44,12 @@ public class EditCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task task = taskList.getTask(index);
-            if (task instanceof Deadline && fieldToEdit.equals("deadline")) {
-                ((Deadline) task).editTask("", newValue);
-            } else if (task instanceof Event && fieldToEdit.equals("start")) {
-                ((Event) task).editTask("", newValue, "");
-            } else if (task instanceof Event && fieldToEdit.equals("end")) {
-                ((Event) task).editTask("", "", newValue);
+            if (task instanceof Deadline d && fieldToEdit.equals("deadline")) {
+                d.editTask("", newValue);
+            } else if (task instanceof Event e && fieldToEdit.equals("start")) {
+                e.editTask("", newValue, "");
+            } else if (task instanceof Event e && fieldToEdit.equals("end")) {
+                e.editTask("", "", newValue);
             } else if (fieldToEdit.equals("description")) {
                 task.editDescription(newValue);
             } else {

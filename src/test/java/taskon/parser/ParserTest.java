@@ -62,7 +62,7 @@ public class ParserTest {
     void parse_validDeadlineCommand_parsedCorrectly() throws TaskonException {
         Command command = Parser.parse("deadline submit assignment /by 2024-09-01 1800");
         assertTrue(command instanceof DeadlineCommand);
-        assertEquals("[D][ ] submit assignment (by: Sep 1 2024, 6:00 pm)", ((DeadlineCommand) command)
+        assertEquals("[D][ ] submit assignment (by: Sep 1 2024, 6:00 PM)", ((DeadlineCommand) command)
                 .getTask().toString());
     }
 
@@ -79,7 +79,7 @@ public class ParserTest {
         Command command = Parser.parse("event project meeting /from 2024-09-01 1400 /to 2024-09-01 1600");
         assertTrue(command instanceof EventCommand);
         assertEquals(
-                "[E][ ] project meeting (from: Sep 1 2024, 2:00 pm to: Sep 1 2024, 4:00 pm)", ((EventCommand) command)
+                "[E][ ] project meeting (from: Sep 1 2024, 2:00 PM to: Sep 1 2024, 4:00 PM)", ((EventCommand) command)
                 .getTask().toString());
     }
 
