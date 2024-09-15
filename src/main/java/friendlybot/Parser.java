@@ -2,6 +2,8 @@ package friendlybot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import friendlybot.command.AddCommand;
 import friendlybot.command.BadCommand;
@@ -19,13 +21,14 @@ import friendlybot.command.MarkCommand;
  */
 public class Parser {
     /**
-     * Takes in a full command input from the user and returns an executable Command.
+     * Takes in a full command input from the user and returns an executable
+     * Command.
      *
      * @param fullCommand The raw input from the user.
      * @return A Command that can be executed.
      */
     public static Command parse(String fullCommand) {
-        String[] parts = fullCommand.split(" ", 2);
+        String[] parts = fullCommand.trim().split(" ", 2);
         String command = parts[0];
         String arguments = parts.length > 1 ? parts[1] : "";
 
@@ -77,6 +80,15 @@ public class Parser {
     }
 
     private static Command parseDeadlineCommand(String arguments) {
+        // Check for exactly one "/by"
+        if (arguments.indexOf("/by") != arguments.lastIndexOf("/by")) {
+            Ui.print("Please follow this format: deadline {task_description} /by {date}");
+            Ui.print("There should be exactly one '/by' in the input.");
+            return new BadCommand("""
+                    Please follow this format:
+                    deadline {task_description} /by {date}
+                    There should be exactly one '/by' in the input.""");
+        }
         try {
             String[] descriptions = arguments.split(" /by ");
             LocalDate date;
@@ -99,26 +111,39 @@ public class Parser {
     }
 
     private static Command parseEventCommand(String arguments) {
-        try {
-            String[] descriptions = arguments.split(" /from | /to ");
-            LocalDate from;
-            LocalDate to;
-            try {
-                from = LocalDate.parse(descriptions[1]);
-                to = LocalDate.parse(descriptions[2]);
-            } catch (DateTimeParseException e) {
-                Ui.print("Please enter a valid date! (YYYY-MM-DD)");
-                return new BadCommand("Please enter a valid date! (YYYY-MM-DD)");
-            }
-            String taskDescription = descriptions[0];
-            return new AddCommand("event", taskDescription, from, to);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        // Check for exactly one "/from" and one "/to"
+        if (arguments.indexOf("/from") != arguments.lastIndexOf("/from")
+                || arguments.indexOf("/to") != arguments.lastIndexOf("/to")) {
+            Ui.print("Please follow this format: event {task_description} /from {date} /to {date}");
+            Ui.print("There should be exactly one '/from' and one '/to' in the input.");
+            return new BadCommand("""
+                    Please follow this format:
+                    event {task_description} /from {date} /to {date}
+                    There should be exactly one '/from' and one '/to' in the input.""");
+        }
+
+        // Regular expression to match the format "description /from date /to date"
+        String regex = "^(.*) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2})$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(arguments);
+
+        if (!matcher.matches()) {
             Ui.print("Please follow this format: event {task_description} /from {date} /to {date}");
             Ui.print("Date must be in YYYY-MM-DD format!");
             return new BadCommand("""
                     Please follow this format:
                     event {task_description} /from {date} /to {date}
                     Date must be in YYYY-MM-DD format!""");
+        }
+
+        try {
+            String taskDescription = matcher.group(1);
+            LocalDate from = LocalDate.parse(matcher.group(2));
+            LocalDate to = LocalDate.parse(matcher.group(3));
+            return new AddCommand("event", taskDescription, from, to);
+        } catch (DateTimeParseException e) {
+            Ui.print("Please enter a valid date! (YYYY-MM-DD)");
+            return new BadCommand("Please enter a valid date! (YYYY-MM-DD)");
         }
     }
 
