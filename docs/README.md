@@ -7,8 +7,8 @@
 // Product intro goes here
 Welcome to QuirkBot - Your Friendly Assistant. QuirkBot helps you
 to efficiently manage all your tasks in a convenient location. 
-Consequently, QuirkBot ensures you will not forget any outstanding 
-tasks and tasks already completed.
+QuirkBot ensures that task management becomes a breeze by
+keeping track of all your tasks.
 
 ## Show list of commands
 // Feature details
