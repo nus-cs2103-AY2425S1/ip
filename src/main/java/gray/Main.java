@@ -17,14 +17,14 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     private final Image userImage = new Image(Main.class.getResourceAsStream(FILEPATH_IMAGE_USER));
-    private final Image dukeImage = new Image(Main.class.getResourceAsStream(FILEPATH_IMAGE_GRAY));
+    private final Image grayImage = new Image(Main.class.getResourceAsStream(FILEPATH_IMAGE_GRAY));
     private final Tasks tasks = new Tasks(new File(FILEPATH_DATA_TASKS));
     private final Gray gray = new Gray(tasks);
 
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Gray");
-        MainWindow mainWindow = new MainWindow(userImage, dukeImage, gray::respond);
+        MainWindow mainWindow = new MainWindow(userImage, grayImage, gray::respond);
         Scene scene = new Scene(mainWindow);
         stage.setScene(scene);
         stage.show();
