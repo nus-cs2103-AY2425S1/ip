@@ -16,6 +16,9 @@ public class EventTest {
 
         assertEquals(new Event("math lecture", "2024-10-12", "2024-10-12").toString(),
                 "[E] [ ] math lecture (from: October 12, 2024 00:00 to: October 12, 2024 00:00)");
+
+        assertEquals(new Event("bus tour", "2024-10-09", "2024-10-09 22:00").toString(),
+                "[E] [ ] bus tour (from: October 9, 2024 00:00 to: October 9, 2024 22:00)");
     }
 
     @Test
