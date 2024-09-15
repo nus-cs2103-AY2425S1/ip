@@ -3,6 +3,7 @@ package myapp.task;
 import myapp.exception.RubyException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * It provides methods to add, remove, retrieve, and list tasks.
  */
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Constructs an empty {@code TaskList}.
@@ -119,5 +120,12 @@ public class TaskList {
             sb.append("     No matching tasks found.");
         }
         return sb.toString();
+    }
+
+    /**
+     * Sorts the tasks alphabetically by their description.
+     */
+    public void sortTasksAlphabetically() {
+        tasks.sort(Comparator.comparing(Task::getDescription));
     }
 }

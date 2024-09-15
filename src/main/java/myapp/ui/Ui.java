@@ -1,4 +1,8 @@
 package myapp.ui;
+
+import myapp.task.Task;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -6,7 +10,7 @@ import java.util.Scanner;
  * It provides methods to read user input and show responses, errors, and other messages.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructs a new {@code Ui} instance and initializes the {@code Scanner} for reading user input.
@@ -59,5 +63,19 @@ public class Ui {
      */
     public void showLoadingError() {
         System.out.println("An error occurred while loading tasks from the file.");
+    }
+
+    /**
+     * Displays the sorted tasks to the user.
+     *
+     * @param tasks The list of sorted tasks.
+     * @return The message to be shown to the user.
+     */
+    public String showSortedTasks(List<Task> tasks) {
+        StringBuilder response = new StringBuilder("Here are your sorted tasks:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            response.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return response.toString();
     }
 }
