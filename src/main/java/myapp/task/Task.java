@@ -26,7 +26,7 @@ public class Task {
      * @return A {@code String} representing the task's status icon.
      */
     public String getStatusIcon() {
-        return (this.isDone ? "[X]" : "[ ]");
+        return this.isDone ? "[X]" : "[ ]";
     }
 
     /**
