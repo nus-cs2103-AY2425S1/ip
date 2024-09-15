@@ -55,6 +55,7 @@ public class TaskList {
      */
     public static LocalDateTime convertStringToDateTime(String dateTime, int type) {
         try {
+            assert type == 0 || type == 1 : "Type can only be 0 or 1";
             String[] splitDateTime = dateTime.split(" ");
             String date = splitDateTime[0];
             String[] splitYearMonthDay = date.split("/");
@@ -99,6 +100,7 @@ public class TaskList {
         } else {
             String input = command.substring(7);
             int order = Integer.parseInt(input);
+            assert order >= 0 && order < this.listOfTask.size() : "Task Number should be between 0 and size of list";
             if (order <= 0) {
                 throw new YapperException("Task Number cannot be less than 1!");
             } else if (order > this.listOfTask.size()) {
@@ -106,7 +108,8 @@ public class TaskList {
             } else {
                 Task task = this.listOfTask.get(order - 1);
                 this.listOfTask.remove(order - 1);
-                String toReturn = "Noted. I've removed this task: \n" + task + "\n" + "Now you have " + this.listOfTask.size() + " tasks in the list";
+                String toReturn = "Noted. I've removed this task: \n" + task + "\n" + "Now you have "
+                        + this.listOfTask.size() + " tasks in the list";
                 System.out.println(toReturn);
                 this.storage.writeHistory(this.listOfTask);
                 return toReturn;
@@ -121,6 +124,7 @@ public class TaskList {
      * @throws YapperException If the string following "todo" is empty.
      */
     public String addToDo(String command) throws YapperException {
+        assert command.startsWith("todo") : "Command should start with todo";
         if (command.equals("todo") || command.equals("todo ")) {
             throw new YapperException("Description for ToDo cannot be empty!");
         } else {
@@ -139,6 +143,7 @@ public class TaskList {
      * @throws YapperException If the ending time is empty.
      */
     public String addDeadline(String command) throws YapperException {
+        assert command.startsWith("deadline") : "Command should start with deadline";
         if (command.startsWith("deadline /by ")) {
             throw new YapperException("Name for Deadline cannot be empty!");
         } else {
@@ -168,6 +173,7 @@ public class TaskList {
      * @throws YapperException If ending time is empty.
      */
     public String addEvent(String command) throws YapperException {
+        assert command.startsWith("event") : "Command should start with event";
         if (command.equals("event /from ")) {
             throw new YapperException("Name for Event cannot be empty!");
         } else {
@@ -198,7 +204,8 @@ public class TaskList {
      */
     public String addTask(Task task) {
         this.listOfTask.add(task);
-        String toReturn = "Got it. I've added this task:\n" + task + "\nNow you have " + this.listOfTask.size() + " tasks in the list";
+        String toReturn = "Got it. I've added this task:\n" + task + "\nNow you have " + this.listOfTask.size()
+                + " tasks in the list";
         System.out.println(toReturn);
         this.storage.writeHistory(this.listOfTask);
         return toReturn;
@@ -216,6 +223,7 @@ public class TaskList {
         } else {
             String input = command.substring(5);
             int order = Integer.parseInt(input);
+            assert order >= 0 && order < this.listOfTask.size() : "Order should be between 0 and size of list";
             if (order <= 0) {
                 throw new YapperException("Task Number cannot be less than 1!");
             } else if (order > this.listOfTask.size()) {
@@ -243,6 +251,7 @@ public class TaskList {
         } else {
             String input = command.substring(7);
             int order = Integer.parseInt(input);
+            assert order >= 0 && order < this.listOfTask.size() : "Order should be between 0 and size of list";
             if (order <= 0) {
                 throw new YapperException("Task Number cannot be less than 1!");
             } else if (order > this.listOfTask.size()) {
