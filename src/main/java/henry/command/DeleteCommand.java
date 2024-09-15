@@ -9,9 +9,9 @@ import henry.util.Ui;
  * Deals with deleting task for TaskList.
  */
 public class DeleteCommand extends Command {
-    private String input;
+    private String[] input;
 
-    public DeleteCommand(String input) {
+    public DeleteCommand(String[] input) {
         this.input = input;
     }
 
@@ -28,16 +28,23 @@ public class DeleteCommand extends Command {
         int numOfTasks = taskList.getTasks().size();
         //check for invalid number
         try {
-            if (this.input.equals("all")) {
+            if (this.input.length == 1) {
+                throw new HenryException("The delete description is wrong!! "
+                        + "Ensure that you include the number you want to delete "
+                        + "or write \"delete all\" if you want to clear the list. "
+                        + "Example: delete 2");
+            }
+
+            if (this.input[1].equals("all")) {
                 taskList.getTasks().clear();
-                return "\nNoted. I've removed all the tasks.\n"
+                return "Noted. I've removed all the tasks.\n"
                         + "Now you have 0 task in the list.\n";
             }
 
             int number = getNumber(numOfTasks);
             Task task = taskList.getTasks().get(number - 1);
             taskList.getTasks().remove(number - 1);
-            return "\nNoted. I've removed this task:\n"
+            return "Noted. I've removed this task:\n"
                     + task.toString()
                     + "\nNow you have "
                     + (numOfTasks - 1)
@@ -56,7 +63,7 @@ public class DeleteCommand extends Command {
      * @throws HenryException If number is below 1 or higher than the number of tasks in taskList.
      */
     private int getNumber(int numOfTasks) throws HenryException {
-        int number = Integer.parseInt(this.input);
+        int number = Integer.parseInt(this.input[1]);
         //check if number is out of range
         if (number > numOfTasks) {
             throw new HenryException("There "
