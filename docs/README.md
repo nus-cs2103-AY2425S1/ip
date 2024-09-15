@@ -3,7 +3,7 @@
 
 Muke helps you stay organized by keeping track of tasks so you can focus on what truly matters. It’s:
 
-	•	User-friendly and text-based: Muke is easy to interact with using simple text commands.
+	•	User-friendly and text-based: Muke is easy to interact with using simple text commands
 	•	Simple and quick to master: Get started with minimal learning effort.
 	•	Exceptionally FAST: Handles tasks efficiently, catering to all your organizational needs.
 
