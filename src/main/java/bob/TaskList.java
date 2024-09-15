@@ -21,14 +21,6 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    /**
-     * Constructs a TaskList with an existing list of tasks.
-     *
-     * @param tasks The list of tasks to initialize the TaskList with.
-     */
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
 
     /**
      * Sets the tasks in the TaskList to the provided list.
