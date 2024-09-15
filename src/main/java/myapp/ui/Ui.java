@@ -21,6 +21,7 @@ public class Ui {
      * @return A {@code String} representing the user's input command, trimmed of leading and trailing whitespace.
      */
     public String readCommand() {
+        assert scanner != null : "Scanner should be initialized";
         return scanner.nextLine().trim();
     }
 
@@ -38,6 +39,7 @@ public class Ui {
      * @param response A {@code String} representing the message to be displayed to the user.
      */
     public void showResponse(String response) {
+        assert response != null : "Message cannot be null";
         System.out.println(response);
     }
 
@@ -47,6 +49,7 @@ public class Ui {
      * @param error A {@code String} representing the error message to be displayed to the user.
      */
     public void showError(String error) {
+        assert error != null : "Error cannot be null";
         System.out.println(error);
     }
 

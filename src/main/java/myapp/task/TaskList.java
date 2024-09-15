@@ -34,6 +34,7 @@ public class TaskList {
      * @param task The {@code Task} object to be added to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Cannot add null task";
         this.tasks.add(task);
     }
 
@@ -41,9 +42,10 @@ public class TaskList {
      * Removes a task from the task list at the specified index.
      *
      * @param index The index of the task to be removed.
-     * @throws RubyException If the index is out of bounds (less than 0 or greater than or equal to the list size).
+     *              @throws RubyException If the index is out of bounds (less than 0 or greater than or equal to the list size).
      */
     public void removeTask(int index) throws RubyException {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         if (index < 0 || index >= this.tasks.size()) {
             throw new RubyException("Invalid task number.");
         }
@@ -58,6 +60,7 @@ public class TaskList {
      * @throws RubyException If the index is out of bounds (less than 0 or greater than or equal to the list size).
      */
     public Task getTask(int index) throws RubyException {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         if (index < 0 || index >= this.tasks.size()) {
             throw new RubyException("Invalid task number.");
         }

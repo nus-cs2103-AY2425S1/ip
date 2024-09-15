@@ -17,6 +17,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        assert description != null : "Task description cannot be empty";
     }
 
     /**
@@ -26,7 +27,7 @@ public class Task {
      * @return A {@code String} representing the task's status icon.
      */
     public String getStatusIcon() {
-        return (this.isDone ? "[X]" : "[ ]");
+        return this.isDone ? "[X]" : "[ ]";
     }
 
     /**
