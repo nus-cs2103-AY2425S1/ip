@@ -1,6 +1,6 @@
 # Taskon User Guide
 
-![User Interface of Patrick The Star](Ui.png)
+![User Interface of Taskon](Ui.png)
 
 ## Meet Taskon 🎉
 Welcome to Taskon, your **_ultimate_** task management companion!
