@@ -52,7 +52,6 @@ public class Storage {
             System.out.println("File not found!");
         }
 
-
         for (String line : this.data) {
 
             try {
@@ -60,7 +59,6 @@ public class Storage {
                 System.out.println(args);
 
                 switch (args.get(0)) {
-
                 case "TODO":
                     newTask = new Todo(args.get(2));
                     if (args.get(1).equals("true")) {

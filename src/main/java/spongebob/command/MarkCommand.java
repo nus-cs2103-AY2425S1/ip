@@ -35,7 +35,6 @@ public class MarkCommand extends Command {
         if (arguments[1].equals(" ") || arguments[1].isEmpty()) {
             if (this.arguments[0].equals("mark")) {
                 return ui.showMarkedError();
-
             } else {
                 return ui.showUnmarkedError();
             }
@@ -44,7 +43,6 @@ public class MarkCommand extends Command {
         // set index of task to mark / unmark.
         try {
             this.index = Integer.parseInt(arguments[1]) - 1;
-
         } catch (NumberFormatException e) {
             return ui.showException(e);
         }
@@ -55,15 +53,14 @@ public class MarkCommand extends Command {
                 task.markAsDone();
                 taskList.update(this.index, task);
                 storage.update(this.index, task);
-
                 return ui.showMarked(task);
 
             } else if (this.arguments[0].equals("unmark")) {
                 task.unmarkAsDone();
-
                 taskList.update(this.index, task);
                 storage.update(this.index, task);
                 return ui.showUnmarked(task);
+
             } else {
                 // should not happen
                 return ui.unknownCommand();

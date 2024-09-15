@@ -14,30 +14,60 @@ public class TaskList {
 
     private List<Task> cache;
 
+    /**
+     * Constructs a new empty tasklist
+     */
     public TaskList() {
         this.cache = new ArrayList<>();
     }
 
+    /**
+     * Constructs a tasklist using a storage module
+     * @param storage Data obtained from text file
+     * @throws SpongebobException text file is not found
+     */
     public TaskList(Storage storage) throws SpongebobException {
         this.cache = storage.load();
     }
 
+    /**
+     * Returns a list of tasks currently loaded
+     * @return list of tasks
+     */
     public List<Task> getCache() {
         return this.cache;
     }
 
+    /**
+     * Updates a task by replacing it with a new task
+     * @param index the index of task to be updated
+     * @param task  The new task to replace the original tasj
+     * @throws IndexOutOfBoundsException Index given is not within range of the tasklist.
+     */
     public void update(int index, Task task) throws IndexOutOfBoundsException {
         cache.set(index, task);
     }
 
+    /**
+     * Adds a task to the end of tasklist
+     * @param task  new task to be added.
+     */
     public void add(Task task) {
         this.cache.add(task);
     }
 
+    /**
+     * Deletes the task in tasklist in given index
+     * @param index index of task to be deleted
+     */
     public void delete(int index) {
         this.cache.remove(index);
     }
 
+    /**
+     * Returns the length of the tasklist
+     * @return length of tasklist
+     */
     public int size() {
         return this.cache.size();
     }
