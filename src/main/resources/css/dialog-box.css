@@ -73,3 +73,32 @@
 .delete-label {
     -fx-background-color: lightpink;
 }
+
+.list-label {
+    -fx-background-color: lightblue;
+}
+
+.bye-label {
+    -fx-background-color: lightcoral;
+}
+
+.find-label {
+    -fx-background-color: lightcyan;
+}
+
+.help-label {
+    -fx-background-color: lightgoldenrodyellow;
+}
+
+.query-label {
+    -fx-background-color: lightgray;
+}
+
+.save-label {
+    -fx-background-color: lightgreen;
+}
+
+.unmark-label {
+    -fx-background-color: lightpink;
+}
+

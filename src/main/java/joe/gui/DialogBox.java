@@ -55,6 +55,60 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Changes the label color based on the command.
+     * @param userInput the command to determine the label color
+     */
+    private void changeLabelColor(String userInput) {
+        String command = userInput.split(" ")[0];
+        removeCurrentDialogBoxStyle();
+        switch (command) {
+        case "bye":
+            dialog.getStyleClass().add("bye-label");
+            break;
+        case "delete":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        case "find":
+            dialog.getStyleClass().add("find-label");
+            break;
+        case "help":
+            dialog.getStyleClass().add("help-label");
+            break;
+        case "list":
+            dialog.getStyleClass().add("list-label");
+            break;
+        case "mark":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "query":
+            dialog.getStyleClass().add("query-label");
+            break;
+        case "save":
+            dialog.getStyleClass().add("save-label");
+            break;
+        case "unmark":
+            dialog.getStyleClass().add("unmark-label");
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            dialog.getStyleClass().add("add-label");
+            break;
+        default:
+            dialog.getStyleClass().add("label");
+            break;
+        }
+    }
+
+    /**
+     * Removes the current dialog box style.
+     */
+    private void removeCurrentDialogBoxStyle() {
+        dialog.getStyleClass().removeAll("label", "add-label", "bye-label", "delete-label", "find-label",
+                "help-label", "list-label", "marked-label", "query-label", "save-label", "unmark-label");
+    }
+
+    /**
      * Returns a DialogBox object representing the user's dialog.
      * @param text the text to be displayed in the dialog box
      * @param img the image to be displayed in the dialog box
@@ -66,12 +120,14 @@ public class DialogBox extends HBox {
 
     /**
      * Returns a DialogBox object representing Joe's dialog.
+     * It changes the label color based on the command.
      * @param text the text to be displayed in the dialog box
      * @param img the image to be displayed in the dialog box
      * @return a DialogBox object representing Joe's response
      */
-    public static DialogBox getJoeDialog(String text, Image img) {
+    public static DialogBox getJoeDialog(String input, String text, Image img) {
         var db = new DialogBox(text, img);
+        db.changeLabelColor(input);
         db.flip();
         return db;
     }

@@ -29,7 +29,7 @@ public class MainWindow extends AnchorPane {
     private Joe joe;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/Trump.png"));
-    private final Image joeImage = new Image(this.getClass().getResourceAsStream("/images/Joe.jpg"));
+    private final Image joeImage = new Image(this.getClass().getResourceAsStream("/images/Joe.png"));
 
     @FXML
     public void initialize() {
@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = joe.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJoeDialog(response, joeImage)
+                DialogBox.getJoeDialog(input, response, joeImage)
         );
         userInput.clear();
 

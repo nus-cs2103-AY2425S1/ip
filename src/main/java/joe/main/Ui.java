@@ -14,14 +14,12 @@ import java.sql.SQLOutput;
 public class Ui {
     private static final String LINE =
             "____________________________________________________________";
-//    private final Scanner reader;
     private TaskList tasks;
 
     /**
      * Constructor for Ui.
      */
     public Ui() {
-//        reader = new Scanner(System.in);
         showWelcome();
     }
 
