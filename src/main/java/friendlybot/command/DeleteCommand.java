@@ -53,8 +53,8 @@ public class DeleteCommand extends Command {
             Ui.print("Now you have 1 task in the list.");
             sb.append("Now you have 1 task in the list.");
         } else if (numTasks == 0) {
-            Ui.print("You have no more tasks!");
-            sb.append("You have no more tasks!");
+            Ui.print("YAY! You have no more tasks!");
+            sb.append("YAY! You have no more tasks!");
         } else {
             Ui.print("Now you have " + numTasks + " tasks in the list.");
             sb.append("Now you have ").append(numTasks).append(" tasks in the list.");
