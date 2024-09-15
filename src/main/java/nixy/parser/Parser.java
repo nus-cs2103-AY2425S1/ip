@@ -3,6 +3,7 @@ package nixy.parse;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import nixy.Storage;
 import nixy.command.AddTaskCommand;
 import nixy.command.ByeCommand;
 import nixy.command.Command;
@@ -12,17 +13,17 @@ import nixy.command.FindCommand;
 import nixy.command.InvalidCommand;
 import nixy.command.ListCommand;
 import nixy.command.MarkCommand;
-import nixy.task.TaskList;
-import nixy.ui.Ui;
 import nixy.exceptions.NixyException;
 import nixy.task.DeadlineTask;
 import nixy.task.EventTask;
 import nixy.task.Task;
+import nixy.task.TaskList;
 import nixy.task.TodoTask;
-import nixy.Storage;
+import nixy.ui.Ui;
 
 /**
- * Parser holds the static method that parses the user input.
+ * Parser responsible for method that parses the user input.
+ * The parser will return the appropriate Command object based on the user input.
  */
 public class Parser {
     private Storage storage;
@@ -115,7 +116,8 @@ public class Parser {
                 task = new DeadlineTask(deadlineTokens[0].trim(),
                     LocalDate.parse(deadlineTokens[1].trim()));
             } catch (DateTimeParseException e) {
-                throw new NixyException("BLAHH!!! The deadline of a deadline task must be a valid date. (e.g. 2024-12-31)");
+                throw new NixyException(
+                    "BLAHH!!! The deadline of a deadline task must be a valid date. (e.g. 2024-12-31)");
             }
             return new AddTaskCommand(ui, tasks, storage, CommandType.DEADLINE, task);
         case "event":
@@ -139,7 +141,8 @@ public class Parser {
                     LocalDate.parse(eventTimeTokens[1].trim())
                 );
             } catch (DateTimeParseException e) {
-                throw new NixyException("BLAHH!!! The start and end times of an event task must be valid dates. (e.g. 2024-12-31)");
+                throw new NixyException(
+                    "BLAHH!!! The start and end times of an event task must be valid dates. (e.g. 2024-12-31)");
             }
             return new AddTaskCommand(ui, tasks, storage, CommandType.EVENT, task);
         case "find":

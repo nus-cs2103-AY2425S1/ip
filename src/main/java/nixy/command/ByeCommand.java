@@ -6,7 +6,7 @@ import nixy.ui.Ui;
  * Class representing the command to exit the application.
  */
 public class ByeCommand implements Command {
-    Ui ui;
+    private Ui ui;
 
     /**
      * Constructor for ByeCommand.

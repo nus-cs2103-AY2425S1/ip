@@ -1,9 +1,9 @@
 package nixy.command;
 
-import nixy.ui.Ui;
+import nixy.Storage;
 import nixy.task.Task;
 import nixy.task.TaskList;
-import nixy.Storage;
+import nixy.ui.Ui;
 
 /**
  * Class representing the command to add a task.
@@ -31,6 +31,15 @@ public class AddTaskCommand implements Command {
         this.storage = storage;
         this.taskType = taskType;
         this.task = task;
+    }
+
+    /**
+     * Returns the task to add.
+     *
+     * @return The task to add.
+     */
+    public Task getTask() {
+        return task;
     }
 
     /**

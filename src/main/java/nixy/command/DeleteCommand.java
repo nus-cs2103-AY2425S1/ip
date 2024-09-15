@@ -1,8 +1,8 @@
 package nixy.command;
 
-import nixy.ui.Ui;
-import nixy.task.TaskList;
 import nixy.Storage;
+import nixy.task.TaskList;
+import nixy.ui.Ui;
 
 /**
  * Class representing the command to delete a task.
@@ -25,6 +25,15 @@ public class DeleteCommand implements Command {
         this.tasks = tasks;
         this.taskNumber = taskNumber;
         this.storage = storage;
+    }
+
+    /**
+     * Returns the task number to delete.
+     *
+     * @return The task number to delete.
+     */
+    public int getTaskNumber() {
+        return taskNumber;
     }
 
     /**
