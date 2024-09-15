@@ -10,11 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 /**
@@ -23,8 +21,9 @@ import javafx.scene.shape.Circle;
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
+
     @FXML
-    private ImageView displayPicture;
+    private Circle circle;
 
     /**
      * Constructs a new DialogBox element.
@@ -45,11 +44,10 @@ public class DialogBox extends HBox {
 
         this.dialog.setText(text);
 
-        // Approach was adapted from https://stackoverflow.com/questions/42116313/how-to-set-an-image-in-a-circle
-        Circle circle = new Circle(49, 49, 47);
-        circle.setEffect(new DropShadow(+5d, +0d, +3d, Color.SLATEGREY));
-        displayPicture.setImage(img);
-        displayPicture.setClip(circle);
+        // Approach was adopted from https://www.youtube.com/watch?v=54fEFYx34vk
+        // To display images as circles
+        this.circle.setFill(new ImagePattern(img));
+        this.circle.getStyleClass().add("styled-circle");
     }
 
     /**
@@ -74,7 +72,6 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
-
 
     /**
      * Constructs a Brock dialog box.

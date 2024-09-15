@@ -7,9 +7,11 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -51,6 +53,14 @@ public class MainWindow extends AnchorPane {
 
         // Set text input placeholder
         this.userInput.setPromptText("Enter your command here!");
+
+        ImageView imageView = new ImageView(getClass().getResource("/images/SendIcon.jpg").toExternalForm());
+        sendButton.setGraphic(imageView);
+        sendButton.setContentDisplay(ContentDisplay.TOP);
+        imageView.fitWidthProperty().bind(sendButton.widthProperty().divide(10));
+        imageView.setPreserveRatio(true);
+        //Important otherwise button will wrap to text + graphic size (no resizing on scaling).
+        sendButton.setMaxWidth(Double.MAX_VALUE);
     }
 
     /**

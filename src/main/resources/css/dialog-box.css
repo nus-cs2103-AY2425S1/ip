@@ -15,12 +15,8 @@
     -fx-background-insets: 2px 8px 2px 10px;
 }
 
-#displayPicture {
-    /* Change size of image. */
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
-
-    /* Rotate image clockwise by degrees. */
-    -fx-rotate: 0;
+.styled-circle {
+    -fx-stroke: skyblue;
+    -fx-stroke-width: 1.5;
+    -fx-effect: dropshadow(gaussian, skyblue, 15, 0, 0, 2);
 }
-

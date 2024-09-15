@@ -12,6 +12,8 @@
 
 .button {
     -fx-font: bold 16px "Arial";
+    -fx-graphic: url(../images/SendIcon.jpg);
+     -fx-content-display: right;
 }
 
 .button:hover,
