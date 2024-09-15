@@ -52,7 +52,7 @@ public class TaskList {
         //["deadline", description, /by, {deadline}]
         taskInfo[0] = "";
         String[] newTaskInfo = String.join(" ", taskInfo).split(" /by ");
-        String taskDescription = newTaskInfo[0];
+        String taskDescription = newTaskInfo[0].trim();
         String taskDeadline = formatDateTime(newTaskInfo[1]);
         return new DeadlineTask(taskDescription, taskDeadline);
     }
