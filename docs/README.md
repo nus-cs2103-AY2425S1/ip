@@ -1,7 +1,7 @@
 # Duck User Guide
 
 ---
-![Duck Screenshot](docs/Ui.png)
+![Duck Screenshot](Ui.png)
 
 Duck is a personal assistant application for managing tasks. It allows you to keep track of to-do lists, deadlines, and events through simple text commands. Duck supports a range of commands to help you manage and sort your tasks effectively, and can also save and load your tasks from a file.
 
