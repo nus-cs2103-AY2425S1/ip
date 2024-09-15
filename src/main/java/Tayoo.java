@@ -1,3 +1,9 @@
+import tayoo.exception.TayooException;
+import tayoo.tasks.Deadline;
+import tayoo.tasks.Event;
+import tayoo.tasks.Task;
+import tayoo.tasks.ToDo;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +24,11 @@ public class Tayoo {
         printText("Hello! I'm " + name + "\nAt your service! O7");
 
         //Initialise bot
-        botInit(scanner);
+        try {
+            botInit(scanner);
+        } catch (Exception e) {
+            System.exit(1);
+        }
 
 
 
@@ -27,7 +37,7 @@ public class Tayoo {
         System.exit(0);
     }
 
-    private static void botInit(Scanner scanner) {
+    private static void botInit(Scanner scanner) throws TayooException{
         //contains all initialisation
         File f = new File(TASKLIST_FILEPATH);
         try {
@@ -60,7 +70,7 @@ public class Tayoo {
         System.exit(0);
     }
 
-    private static void awaitCommand(Scanner scanner) {
+    private static void awaitCommand(Scanner scanner) throws TayooException{
         while(true) {
             String command = scanner.nextLine().trim();
             String input = command.toUpperCase();
@@ -131,7 +141,7 @@ public class Tayoo {
         }
     }
 
-    private static void addTask(Task task) {
+    private static void addTask(Task task) throws TayooException {
         if (tasklist.size() >= 100) {
             printText("Too many tasks! Complete some first! >:( ");
             return;
@@ -360,5 +370,6 @@ public class Tayoo {
         } catch (IOException e) {
             logger.warning("An error occurred while deleting the task");
         }
+    }
 
 }

@@ -1,4 +1,6 @@
-public class ToDo extends Task{
+package tayoo.tasks;
+
+public class ToDo extends Task {
 
 
     /**
@@ -8,7 +10,7 @@ public class ToDo extends Task{
      * @param title title of the Todo.
      */
     public ToDo (String title, boolean completed) {
-        super(title, completed);
+        super (title, completed);
     }
 
     /**
@@ -18,7 +20,7 @@ public class ToDo extends Task{
      * @param title title of the Todo.
      */
     public ToDo (String title) {
-        super(title);
+        super (title);
     }
 
     @Override
