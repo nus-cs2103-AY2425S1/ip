@@ -57,6 +57,15 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Checks if the KukiShinobu instance is null.
+     *
+     * @return true if kukiShinobu is null, false otherwise
+     */
+    public boolean isKukiShinobuNull() {
+        return kukiShinobu == null;
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
