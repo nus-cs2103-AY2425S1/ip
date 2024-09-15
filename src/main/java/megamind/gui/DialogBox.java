@@ -25,7 +25,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Constructs a `DialogBox` with the specified text and image.
+     * Constructs a `DialogBox` with the specified text and image
      *
      * @param text The text to be displayed in the dialog.
      * @param img  The image to be displayed alongside the dialog.
