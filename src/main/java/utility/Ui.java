@@ -113,4 +113,15 @@ public class Ui {
             + deleteTaskNotice + "\n" + numberOfTasks;
         return echoResponse;
     }
+    
+    public String sortTaskMessage() {
+        String echoResponse = "Tasks sorted based on decreasing urgency!";
+        return echoResponse;
+    }
+    
+    public String reminderMessage(String listTasks) {
+        String echoResponse = "These are the Tasks that are due this week: \n" +
+            listTasks + "\n" + "Try your best! :)";
+        return echoResponse;
+    }
 }

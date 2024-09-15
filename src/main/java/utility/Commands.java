@@ -9,7 +9,8 @@ public enum Commands {
     TODO("todo"),
     DEADLINE("deadline"),
     EVENT("event"),
-    FIND("find");
+    FIND("find"),
+    SORT("sort");
     
     private String command;
     

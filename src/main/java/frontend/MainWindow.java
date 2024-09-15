@@ -32,11 +32,16 @@ public class MainWindow extends AnchorPane {
     public void setAlpha(Alpha d) {
         alpha = d;
         Ui ui = new Ui();
+        
         String welcomeMessage = ui.welcomeMessage();
-        dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(welcomeMessage, alphaImage)
+        String reminderMessages = d.taskReminder();
+        
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcomeMessage, alphaImage),
+                DialogBox.getDukeDialog(reminderMessages, alphaImage)
         );
     }
+    
     
     @FXML
     public void initialize() {
