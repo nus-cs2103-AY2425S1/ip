@@ -23,7 +23,14 @@ public class Parser {
      * @throws MullerException If the command is not recognized.
      */
     public Command parse(String fullCommand) throws MullerException {
+        // Programmer-level assumption: fullCommand should be non-null and non-empty
+        assert fullCommand != null : "Command should not be null";
+        assert !fullCommand.trim().isEmpty() : "Command should not be empty";
+
         String[] inputs = fullCommand.split(" ", 2);
+
+        // Programmer-level assumption: inputs should always have at least one element (the command itself)
+        assert inputs.length > 0 : "Command should have at least one token";
         String commandWord = inputs[0].toLowerCase();
 
         switch (commandWord) {

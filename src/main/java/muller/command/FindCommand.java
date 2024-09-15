@@ -28,6 +28,7 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.assertionTest(tasks, ui, storage);
         List<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
         return ui.showMatchingTasks(matchingTasks);
     }

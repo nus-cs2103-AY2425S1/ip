@@ -35,6 +35,9 @@ public class Ui {
      * @param index The index of the respective task.
      */
     public String showTaskDeleted(TaskList tasks, Task deletedTask, int index) {
+        // Programmer-level assumption: tasks should not be null
+        assert tasks != null : "TaskList should not be null";
+        assert deletedTask != null : "Task to delete should not be null";
         return ("Noted. I've removed this task:\n"
                 + "  " + deletedTask
                 + "\nNow you have " + tasks.getSize()
@@ -46,6 +49,8 @@ public class Ui {
      * @param index The index of the respective task to mark.
      */
     public String showTaskMarked(TaskList tasks, int index) {
+        // Programmer-level assumption: tasks should not be null
+        assert tasks != null : "TaskList should not be null";
         try {
             return ("Nice! I've marked this task as done:\n"
                     + "  " + tasks.get(index));
@@ -59,6 +64,8 @@ public class Ui {
      * @param index The index of the respective task to unmark.
      */
     public String showTaskUnMarked(TaskList tasks, int index) {
+        // Programmer-level assumption: tasks should not be null
+        assert tasks != null : "TaskList should not be null";
         try {
             return ("OK, I've marked this task as not done yet:\n"
                     + "  " + tasks.get(index));
@@ -72,6 +79,9 @@ public class Ui {
      * @param date The date of the task to search.
      */
     public String showTaskOnDate(TaskList tasks, LocalDate date) {
+        // Programmer-level assumption: tasks should not be null
+        assert tasks != null : "TaskList should not be null";
+
         StringBuilder sb = new StringBuilder();
         sb.append("Tasks on " + date.format(Task.OUTPUT_DATE_FORMATTER) + ":");
         boolean isFound = false;
@@ -106,6 +116,8 @@ public class Ui {
      * @param tasks The TaskList containing the tasks to display.
      */
     public String showTaskList(TaskList tasks) {
+        // Programmer-level assumption: tasks and task should not be null
+        assert tasks != null : "TaskList should not be null";
         try {
             if (tasks.isEmpty()) {
                 return "No tasks found.";
@@ -128,6 +140,7 @@ public class Ui {
      * @param matchingTasks The list of matching tasks.
      */
     public String showMatchingTasks(List<Task> matchingTasks) {
+        assert matchingTasks != null : "TaskList should not be null";
         if (matchingTasks.isEmpty()) {
             return "No matching tasks found.";
         } else {
