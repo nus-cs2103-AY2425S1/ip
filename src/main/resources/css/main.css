@@ -5,12 +5,12 @@
 
 .text-field {
     -fx-background-color: #d9ffe2;
-    -fx-font: 20px "Comic Mono";
+    -fx-font: 25px "Comic Mono";
 }
 
 .button {
     -fx-background-color: mediumspringgreen;
-    -fx-font: bold 16px "Arial";
+    -fx-font: bold 20px "Arial";
 }
 
 .button:hover {
@@ -29,7 +29,7 @@
 }
 
 .scroll-bar {
-    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-font-size: 15px;  /* Change width of scroll bar. */
     -fx-background-color: main-color;
 }
 

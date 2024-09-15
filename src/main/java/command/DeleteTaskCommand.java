@@ -7,7 +7,7 @@ public class DeleteTaskCommand extends Command {
         "O-Okay, deleting task now.\n",
         "Alright, task removed.\n",
         "Whatever you say! Task deleted.\n",
-        "Ctrl-alt-del\n",
+        "Ctrl-alt-delete!\n",
         "Watch me make this task disappear!\n"
     };
 
