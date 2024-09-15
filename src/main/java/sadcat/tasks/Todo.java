@@ -1,4 +1,4 @@
-package duke.tasks;
+package sadcat.tasks;
 
 /**
  * Represents a todo task.

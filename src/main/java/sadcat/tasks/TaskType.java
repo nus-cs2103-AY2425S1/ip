@@ -1,4 +1,4 @@
-package duke.tasks;
+package sadcat.tasks;
 
 /**
  * Enum representing the types of tasks.

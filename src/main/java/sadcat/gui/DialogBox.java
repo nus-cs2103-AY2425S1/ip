@@ -1,4 +1,4 @@
-package duke.gui;
+package sadcat.gui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -60,14 +60,14 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a DialogBox for Duke's introduction.
+     * Creates a DialogBox for SadCat's introduction.
      *
      * @param text The introduction text.
-     * @param img Duke's profile picture.
-     * @return A DialogBox instance for Duke's introduction.
+     * @param img SadCat's profile picture.
+     * @return A DialogBox instance for SadCat's introduction.
      */
 
-    public static DialogBox getDukeIntro(String text, Image img) {
+    public static DialogBox getSadCatIntro(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
@@ -86,13 +86,13 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a DialogBox for Duke's message.
+     * Creates a DialogBox for SadCat's message.
      *
-     * @param text Duke's message.
-     * @param img Duke's profile picture.
-     * @return A DialogBox instance for Duke's message.
+     * @param text SadCat's message.
+     * @param img SadCat's profile picture.
+     * @return A DialogBox instance for SadCat's message.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getSadCatDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

@@ -1,4 +1,4 @@
-package duke.tasks;
+package sadcat.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import duke.exceptions.DukeException;
-import duke.storage.Storage;
+import sadcat.exceptions.SadCatException;
+import sadcat.storage.Storage;
 
 /**
  * The TaskList class manages a list of tasks.
@@ -57,13 +57,13 @@ public class TaskList {
                         case "D" -> new Deadline(parts[2], LocalDateTime.parse(parts[3].trim(), dtf));
                         case "E" -> new Event(parts[2], LocalDateTime.parse(parts[3].trim(), dtf),
                                 LocalDateTime.parse(parts[4].trim(), dtf));
-                        default -> throw new DukeException("Invalid Task type provided.");
+                        default -> throw new SadCatException("Invalid Task type provided.");
                         };
                         if (parts[1].equals("1")) {
                             task.markAsDoneNonVerbose();
                         }
                         this.taskStore.add(task);
-                    } catch (DukeException e) {
+                    } catch (SadCatException e) {
                         System.out.println(e.getMessage());
                     }
                 });
@@ -130,12 +130,12 @@ public class TaskList {
      *
      * @param type Type of the task (todo, deadline, or event)
      * @param input Description of the task
-     * @throws DukeException If the input is invalid
+     * @throws SadCatException If the input is invalid
      */
-    public void createTask(String type, String input) throws DukeException {
+    public void createTask(String type, String input) throws SadCatException {
         try {
             if (input.isEmpty()) {
-                throw new DukeException("Empty Task description provided.");
+                throw new SadCatException("Empty Task description provided.");
             }
             System.out.println("Got it. I've added this task:");
             Task task;
@@ -145,7 +145,7 @@ public class TaskList {
                 break;
             case "deadline":
                 if (!input.contains("/by") || input.indexOf("/by") == input.length() - 3) {
-                    throw new DukeException("Invalid deadline description provided.");
+                    throw new SadCatException("Invalid deadline description provided.");
                 }
                 String[] deadlineInput = input.split("/by", 2);
                 task = new Deadline(deadlineInput[0].trim(),
@@ -158,7 +158,7 @@ public class TaskList {
                                 || input.indexOf("/from") == input.length() - 5
                                 || input.indexOf("/to") == input.length() - 2
                 ) {
-                    throw new DukeException("Invalid event description provided.");
+                    throw new SadCatException("Invalid event description provided.");
                 }
                 String[] eventInput = input.split("/from", 2);
                 String[] eventTimeInput = eventInput[1].trim().split("/to", 2);
@@ -168,7 +168,7 @@ public class TaskList {
                 );
                 break;
             default:
-                throw new DukeException("Invalid Task type.");
+                throw new SadCatException("Invalid Task type.");
             }
             this.taskStore.add(task);
             Storage.saveData();
@@ -177,7 +177,7 @@ public class TaskList {
                     "Now you have %d tasks in the list.\n",
                     this.taskStore.size()
             );
-        } catch (DateTimeParseException | DukeException e) {
+        } catch (DateTimeParseException | SadCatException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -186,22 +186,22 @@ public class TaskList {
      * Deletes a task from the list.
      *
      * @param input Index of the task to delete
-     * @throws DukeException If the index is invalid or the list is empty
+     * @throws SadCatException If the index is invalid or the list is empty
      */
-    public void deleteTask(String input) throws DukeException {
+    public void deleteTask(String input) throws SadCatException {
         if (this.taskStore.isEmpty()) {
-            throw new DukeException("Task list is already empty.");
+            throw new SadCatException("Task list is already empty.");
         }
         if (input.isEmpty()) {
-            throw new DukeException("No Task index provided.");
+            throw new SadCatException("No Task index provided.");
         }
         String reg = input.replaceAll("\\D+", "");
         if (reg.isEmpty()) {
-            throw new DukeException("No index provided.");
+            throw new SadCatException("No index provided.");
         }
         int id = Integer.parseInt(reg);
         if (id > this.taskStore.size() || id < 1) {
-            throw new DukeException("Invalid index provided.");
+            throw new SadCatException("Invalid index provided.");
         }
         Task task = this.taskStore.get(id - 1);
         this.taskStore.remove(id - 1);
@@ -218,15 +218,15 @@ public class TaskList {
      * Updates an existing task in the list.
      *
      * @param input The user input containing the index and new task details
-     * @throws DukeException If the input is invalid or the index is out of range
+     * @throws SadCatException If the input is invalid or the index is out of range
      */
-    public void updateTask(String input) throws DukeException {
+    public void updateTask(String input) throws SadCatException {
         if (this.taskStore.isEmpty()) {
-            throw new DukeException("Task list is empty. Nothing to update.");
+            throw new SadCatException("Task list is empty. Nothing to update.");
         }
         String[] parts = input.trim().split("\\s+", 3);
         if (parts.length < 3) {
-            throw new DukeException(
+            throw new SadCatException(
                     "Invalid update format.");
         }
 
@@ -234,11 +234,11 @@ public class TaskList {
         try {
             index = Integer.parseInt(parts[0]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid index provided.");
+            throw new SadCatException("Invalid index provided.");
         }
 
         if (index < 0 || index >= this.taskStore.size()) {
-            throw new DukeException("Task index out of range.");
+            throw new SadCatException("Task index out of range.");
         }
 
         String type = parts[1].toLowerCase();
@@ -252,7 +252,7 @@ public class TaskList {
                 break;
             case "deadline":
                 if (!description.contains("/by")) {
-                    throw new DukeException("Invalid deadline format.");
+                    throw new SadCatException("Invalid deadline format.");
                 }
                 String[] deadlineParts = description.split("/by", 2);
                 newTask = new Deadline(deadlineParts[0].trim(),
@@ -260,7 +260,7 @@ public class TaskList {
                 break;
             case "event":
                 if (!description.contains("/from") || !description.contains("/to")) {
-                    throw new DukeException("Invalid event format.");
+                    throw new SadCatException("Invalid event format.");
                 }
                 String[] eventParts = description.split("/from", 2);
                 String[] eventTimeParts = eventParts[1].split("/to", 2);
@@ -269,10 +269,10 @@ public class TaskList {
                         LocalDateTime.parse(eventTimeParts[1].trim(), formatter));
                 break;
             default:
-                throw new DukeException("Invalid task type.");
+                throw new SadCatException("Invalid task type.");
             }
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format.");
+            throw new SadCatException("Invalid date format.");
         }
 
         if (this.taskStore.get(index).isDone) {
@@ -289,22 +289,22 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param input Index of the task to mark as done
-     * @throws DukeException If the index is invalid or the list is empty
+     * @throws SadCatException If the index is invalid or the list is empty
      */
-    public void mark(String input) throws DukeException {
+    public void mark(String input) throws SadCatException {
         if (this.taskStore.isEmpty()) {
-            throw new DukeException("List is empty, no tasks to mark.");
+            throw new SadCatException("List is empty, no tasks to mark.");
         }
         if (input == null) {
-            throw new DukeException("No input provided.");
+            throw new SadCatException("No input provided.");
         }
         String reg = input.replaceAll("\\D+", "");
         if (reg.isEmpty()) {
-            throw new DukeException("No index provided.");
+            throw new SadCatException("No index provided.");
         }
         int id = Integer.parseInt(reg);
         if (id > this.taskStore.size() || id < 1) {
-            throw new DukeException("Invalid index provided.");
+            throw new SadCatException("Invalid index provided.");
         }
         this.taskStore.get(id - 1).markAsDone();
         Storage.saveData();
@@ -314,22 +314,22 @@ public class TaskList {
      * Marks a task as not done.
      *
      * @param input Index of the task to mark as not done
-     * @throws DukeException If the index is invalid or the list is empty
+     * @throws SadCatException If the index is invalid or the list is empty
      */
-    public void unmark(String input) throws DukeException {
+    public void unmark(String input) throws SadCatException {
         if (this.taskStore.isEmpty()) {
-            throw new DukeException("List is empty, no tasks to unmark.");
+            throw new SadCatException("List is empty, no tasks to unmark.");
         }
         if (input == null) {
-            throw new DukeException("No input provided.");
+            throw new SadCatException("No input provided.");
         }
         String reg = input.replaceAll("\\D+", "");
         if (reg.isEmpty()) {
-            throw new DukeException("No index provided.");
+            throw new SadCatException("No index provided.");
         }
         int id = Integer.parseInt(reg);
         if (id > this.taskStore.size() || id < 1) {
-            throw new DukeException("Invalid index provided.");
+            throw new SadCatException("Invalid index provided.");
         }
         this.taskStore.get(id - 1).markAsNotDone();
         Storage.saveData();

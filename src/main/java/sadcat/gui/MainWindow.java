@@ -1,6 +1,5 @@
-package duke.gui;
+package sadcat.gui;
 
-import duke.Duke;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,9 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sadcat.SadCat;
 
 /**
- * Represents the main window of the Duke application.
+ * Represents the main window of the SadCat application.
  * This class extends AnchorPane and controls the primary user interface.
  */
 public class MainWindow extends AnchorPane {
@@ -27,11 +27,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private AnchorPane mainPane;
 
-    private Duke duke;
+    private SadCat sadcat;
     private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
+    private Image sadCatImage = new Image(this.getClass().getResourceAsStream("/images/sadcat.png"));
     private boolean isDarkMode = false;
 
     /**
@@ -45,13 +45,13 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sends the introduction message from Duke.
-     * This method adds Duke's greeting to the dialog container.
+     * Sends the introduction message from SadCat.
+     * This method adds SadCat's greeting to the dialog container.
      */
     @FXML
     public void sendIntro() {
-        dialogContainer.getChildren().add(DialogBox.getDukeIntro(
-                duke.getGreeting(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getSadCatIntro(
+                sadcat.getGreeting(), sadCatImage));
     }
 
     /**
@@ -68,12 +68,12 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets the Duke instance for this window.
+     * Sets the SadCat instance for this window.
      *
-     * @param d The Duke instance to be used
+     * @param d The SadCat instance to be used
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setSadCat(SadCat d) {
+        sadcat = d;
     }
 
     /**
@@ -88,19 +88,19 @@ public class MainWindow extends AnchorPane {
     /**
      * Handles user input.
      * This method is called when the user sends a message. It processes the input,
-     * gets a response from Duke, and updates the dialog container.
+     * gets a response from SadCat, and updates the dialog container.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = sadcat.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getSadCatDialog(response, sadCatImage)
         );
         userInput.clear();
 
-        if (!duke.isRunning()) {
+        if (!sadcat.isRunning()) {
             Platform.runLater(() -> {
                 try {
                     Thread.sleep(2000);

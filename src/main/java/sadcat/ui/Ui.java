@@ -1,7 +1,7 @@
-package duke.ui;
+package sadcat.ui;
 
 /**
- * The Ui class handles the user interface for the Duke application.
+ * The Ui class handles the user interface for the SadCat application.
  * It provides methods for displaying startup and shutdown messages.
  */
 public class Ui {
@@ -22,7 +22,7 @@ public class Ui {
     public Ui() {}
 
     /**
-     * Displays the startup message, including the Duke logo.
+     * Displays the startup message, including the SadCat logo.
      */
     public void startup() {
         System.out.println(greeting);
