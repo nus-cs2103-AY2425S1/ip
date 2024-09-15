@@ -32,6 +32,7 @@ public class BabbleBot {
      * @param filePath The file path to load the task list from.
      */
     public BabbleBot(String filePath) {
+        assert filePath != null : "File path cannot be null";
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
@@ -67,6 +68,7 @@ public class BabbleBot {
                 try {
                     String content = parser.parseTodoContent(input);
                     storedTasks.addTask(new Todo(content));
+                    assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
                     saveTasksToFile();
                     return ui.getTaskAddedString(storedTasks);
                 } catch (IndexOutOfBoundsException e) {
@@ -77,6 +79,7 @@ public class BabbleBot {
                 try {
                     String[] parsedDeadline = parser.parseDeadlineContent(input);
                     storedTasks.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
+                    assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
                     saveTasksToFile();
                     return ui.getTaskAddedString(storedTasks);
                 } catch (IndexOutOfBoundsException e) {
@@ -87,6 +90,7 @@ public class BabbleBot {
                 try {
                     String[] parsedEvent = parser.parseEventContent(input);
                     storedTasks.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
+                    assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
                     saveTasksToFile();
                     return ui.getTaskAddedString(storedTasks);
                 } catch (IndexOutOfBoundsException e) {
@@ -96,8 +100,10 @@ public class BabbleBot {
             case "delete":
                 try {
                     int index = parser.parseIndex(input);
+                    assert index >= 0 && index < storedTasks.size() : "Invalid task index";
                     Task taskToDelete = storedTasks.get(index);
                     storedTasks.deleteTask(index);
+                    assert !storedTasks.contains(taskToDelete) : "Task was not deleted";
                     saveTasksToFile();
                     return ui.getRemoveMessageString(storedTasks, index);
                 } catch (IndexOutOfBoundsException e) {
@@ -146,7 +152,10 @@ public class BabbleBot {
      */
     private void saveTasksToFile() {
         try {
+            int initialSize = storedTasks.size();
             storage.save(storedTasks);
+            TaskList loadedTasks = new TaskList(storage.load());
+            assert loadedTasks.size() == initialSize : "Mismatch between saved and loaded tasks";
         } catch (IOException e) {
             ui.showIoError();
         }
