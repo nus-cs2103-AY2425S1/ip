@@ -2,6 +2,7 @@ package struggling;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,13 @@ public class Ui {
     private final String name = "struggling";
     private final Scanner sc;
     private final StringBuilder message = new StringBuilder();
+
+    private final Random rand = new Random();
+    private final String[] replies = {"This change will make my life impossible, but FINE...",
+                                      "This change will destroy performance...",
+                                      "I think this change is bad and will ruin everything...",
+                                      "Why not simply frob the gnozzle?",
+                                      "This stupid code is written by a stupid person..."};
 
     public Ui() {
         sc = new Scanner(System.in);
@@ -49,10 +57,17 @@ public class Ui {
     }
 
     /**
+     * Displays message to inform user the command is invalid.
+     */
+    public void showInvalid() {
+        showError("Can't you see that this is obviously wrong?");
+    }
+
+    /**
      * Displays greeting when the program terminates.
      */
     public void showGoodBye() {
-        show("Bye. Hope to see you again soon!");
+        show("Bye. Are you sure that software engineering is the right career path for you?");
     }
 
     /**
@@ -111,15 +126,15 @@ public class Ui {
      * Displays the message after a Task is added to TaskList.
      */
     public void showAddTask(Task task, int size) {
-        show(String.format("Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.", task,
-                size));
+        showChange(
+                String.format("I've added this task:\n\t%s\nNow you have %d tasks in the list.", task, size));
     }
 
     /**
      * Displays the message after a Task is removed to TaskList.
      */
     public void showDeleteTask(Task task, int size) {
-        show(String.format("Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.", task,
+        showChange(String.format("I've removed this task:\n\t%s\nNow you have %d tasks in the list.", task,
                 size));
     }
 
@@ -127,30 +142,33 @@ public class Ui {
      * Displays message after a Task has been marked.
      */
     public void showMarkTask(Task task) {
-        show(String.format("Nice! I've marked this task as done:\n\t%s", task));
+        showChange(String.format("I've marked this task as done:\n\t%s", task));
     }
 
     /**
      * Displays message after a Task has been unmarked.
      */
     public void showUnmarkTask(Task task) {
-        show(String.format("OK, I've marked this task as not done yet:\n\t%s", task));
+        showChange(String.format("I've marked this task as not done yet:\n\t%s", task));
     }
 
     /**
      * Displays message after a Task has been unmarked.
      */
     public void showSetTaskPriorityHigh(Task task) {
-        show(String.format("OK, I've set this task as high priority:\n\t%s", task));
+        showChange(String.format("I've set this task as high priority:\n\t%s", task));
     }
 
     /**
      * Displays message after a Task has been unmarked.
      */
     public void showSetTaskPriorityLow(Task task) {
-        show(String.format("OK, I've set this task as low priority:\n\t%s", task));
+        showChange(String.format("I've set this task as low priority:\n\t%s", task));
     }
 
+    /**
+     * Returns the output message without formatting.
+     */
     public String getMessage() {
         String msgBlock = this.message.toString();
         this.message.setLength(0);
@@ -160,5 +178,11 @@ public class Ui {
                 .filter(l -> !l.contains("________"))
                 .map(String::trim)
                 .collect(Collectors.joining("\n"));
+    }
+
+    private void showChange(String str) {
+        int index = rand.nextInt(this.replies.length);
+        String msg = replies[index] + "\n" + str;
+        show(msg);
     }
 }

@@ -50,7 +50,7 @@ public class Struggling {
             assert ui != null : "Invalid ui object";
             ui.showWelcome();
         } catch (IllegalArgumentException e) {
-            ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            ui.showInvalid();
         } catch (StrugglingException e) {
             ui.showError(e.getMessage());
         }
@@ -70,7 +70,7 @@ public class Struggling {
                     .getClass()
                     .getSimpleName();
         } catch (IllegalArgumentException e) {
-            ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            ui.showInvalid();
         } catch (StrugglingException e) {
             ui.showError(e.getMessage());
         } catch (IOException e) {
