@@ -38,6 +38,12 @@ public class MainWindow extends AnchorPane {
         );
     }
     
+    @FXML
+    public void initialize() {
+        // Bind the vertical value of the scrollPane to the height of the dialogContainer
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+    
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
