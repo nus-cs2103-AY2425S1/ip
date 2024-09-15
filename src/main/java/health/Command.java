@@ -76,13 +76,16 @@ public class Command {
      * @param tasks    The {@code TaskList} object that contains all the tasks.
      * @param storage  The {@code Storage} object for saving the task list to a file.
      * @return A message indicating the result of the mark/unmark command.
+     * @throws MentalHealthException If the index out of bounds.
      */
-    private String handleMarkCommand(String[] parts, TaskList tasks, Storage storage) {
+    private String handleMarkCommand(String[] parts, TaskList tasks, Storage storage) throws MentalHealthException {
         if (parts.length <= 1) {
             return "No Task found after 'mark'.";
         }
-
         int index = Integer.parseInt(parts[parts.length - 1]);
+        if (index - 1 < 0 || index - 1 > tasks.getListTask().size() - 1) {
+            throw new MentalHealthException("No task exist at index " + index);
+        }
         String checkMarkOrUnmark = parts[0];
         IndividualTask currentTask = tasks.getListTask().get(index - 1);
 
@@ -126,12 +129,17 @@ public class Command {
      * @param tasks    The {@code TaskList} object that contains all the tasks.
      * @param storage  The {@code Storage} object for saving the task list to a file.
      * @return A message indicating the result of the delete command.
+     * @throws MentalHealthException If the index out of bounds.
      */
-    private String handleDeleteCommand(String[] parts, TaskList tasks, Storage storage) {
-
+    private String handleDeleteCommand(String[] parts, TaskList tasks, Storage storage)
+            throws MentalHealthException {
         assert parts.length > 1 : "Delete command should have at least 2 parts (delete + task number)";
 
         int number = Integer.parseInt(parts[parts.length - 1]);
+
+        if (number - 1 < 0 || number - 1 > tasks.getListTask().size() - 1) {
+            throw new MentalHealthException("No task exist at index " + number);
+        }
 
         // Ensure the task number is valid
         assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
@@ -143,31 +151,64 @@ public class Command {
                 + formatMessage(currentTask, tasks.getListTask().size());
     }
 
-    private String handleUpdateCommand(String[] parts, TaskList tasks, Storage storage) throws MentalHealthException {
+    /**
+     * Handles the update command for modifying an existing task in the task list.
+     *
+     * @param parts An array of strings where:
+     *              - parts[1] is the task number to update.
+     *              - parts[2] is the field to update (e.g., "/description", "/by", "/from", "/to").
+     *              - parts[3] and beyond form the new value for the specified field.
+     * @param tasks The {@code TaskList} containing all the tasks to manage and update.
+     * @param storage The {@code Storage} instance responsible for saving the updated task list.
+     * @return A string confirming the successful update of the task, or an error message if no task is found.
+     * @throws MentalHealthException If there is any error.
+     */
+    private String handleUpdateCommand(String[] parts, TaskList tasks, Storage storage)
+            throws MentalHealthException {
+        // Validate that a task number has been provided
         if (parts.length <= 1) {
             return "No Task found.";
         }
 
+        // Parse and validate the task number
         int number = Integer.parseInt(parts[1]);
+
+        // Check if the task number is within valid bounds
+        if (number - 1 < 0 || number - 1 > tasks.getListTask().size() - 1) {
+            throw new MentalHealthException("No task exists at index " + number);
+        }
 
         // Ensure the task number is valid
         assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
 
+        // Retrieve the task to be updated
         IndividualTask currentTask = tasks.getListTask().get(number - 1);
 
-        // Extract the specific field to update (e.g., "description", "time")
+        // Extract the specific field to update and the new value
         String fieldToUpdate = parts[2]; // Example: "description", "by", "from", "to"
         String newValue = String.join(" ", Arrays.copyOfRange(parts, 3, parts.length));
 
+        // Handle the task update based on the field and new value
         handleUpdateTask(currentTask, fieldToUpdate, newValue);
 
+        // Save the updated task list to storage
         storage.saveTasksToFile(tasks.getListTask());
 
+        // Return confirmation of the task update
         return MENTAL_HEALTH
                 + "Alrighty! I have updated this task:\n"
                 + formatMessage(currentTask, tasks.getListTask().size());
     }
 
+
+    /**
+     * Updates the specified task with the new value for the given field.
+     *
+     * @param currentTask The task to update.
+     * @param fieldToUpdate The field to update, e.g., "/description", "/by", "/from", or "/to".
+     * @param newValue The new value to assign to the specified field.
+     * @throws MentalHealthException If the task type is unknown or the field is invalid for the task type.
+     */
     private void handleUpdateTask(IndividualTask currentTask, String fieldToUpdate, String newValue)
             throws MentalHealthException {
         if (currentTask instanceof ToDo) {
@@ -181,6 +222,14 @@ public class Command {
         }
     }
 
+    /**
+     * Updates a {@code ToDo} task based on the specified field and value.
+     *
+     * @param todoTask The {@code ToDo} task to update.
+     * @param fieldToUpdate The field to update, which must be "/description" for a ToDo task.
+     * @param newValue The new value for the field.
+     * @throws MentalHealthException If the field is invalid for a ToDo task.
+     */
     private void updateToDoTask(ToDo todoTask, String fieldToUpdate, String newValue)
             throws MentalHealthException {
         if ("/description".equalsIgnoreCase(fieldToUpdate)) {
@@ -190,6 +239,14 @@ public class Command {
         }
     }
 
+    /**
+     * Updates a {@code Deadline} task based on the specified field and value.
+     *
+     * @param deadlineTask The {@code Deadline} task to update.
+     * @param fieldToUpdate The field to update, which can be "/description" or "/by".
+     * @param newValue The new value for the field.
+     * @throws MentalHealthException If the field is invalid for a Deadline task.
+     */
     private void updateDeadlineTask(Deadline deadlineTask, String fieldToUpdate, String newValue)
             throws MentalHealthException {
         if ("/description".equalsIgnoreCase(fieldToUpdate)) {
@@ -201,6 +258,14 @@ public class Command {
         }
     }
 
+    /**
+     * Updates an {@code Event} task based on the specified field and value.
+     *
+     * @param eventTask The {@code Event} task to update.
+     * @param fieldToUpdate The field to update, which can be "/description", "/from", or "/to".
+     * @param newValue The new value for the field.
+     * @throws MentalHealthException If the field is invalid for an Event task.
+     */
     private void updateEventTask(Event eventTask, String fieldToUpdate, String newValue)
             throws MentalHealthException {
         if ("/description".equalsIgnoreCase(fieldToUpdate)) {
@@ -214,14 +279,19 @@ public class Command {
         }
     }
 
+
     /**
      * Finds the tasks that contain the specified keyword.
      *
      * @param parts The parts of the command, containing the keyword to search for.
      * @param tasks The {@code TaskList} object that contains all the tasks.
      * @return A message listing the tasks that match the keyword.
+     * @throws MentalHealthException If the index out of bounds.
      */
-    private String handleFindCommand(String[] parts, TaskList tasks) {
+    private String handleFindCommand(String[] parts, TaskList tasks) throws MentalHealthException {
+        if (parts.length <= 1) {
+            throw new MentalHealthException("No keyword. Find command should have at least 2 parts");
+        }
 
         assert parts.length > 1 : "Find command should have at least 2 parts (find + keyword)";
 
@@ -232,7 +302,7 @@ public class Command {
             return "No matching tasks found.";
         }
 
-        return MENTAL_HEALTH + "Here are your matching tasks!\n" + tasks.getTasks(matchingTasks);
+        return "Here are your matching tasks!\n\n" + tasks.getTasks(matchingTasks);
     }
 
     /**
@@ -242,8 +312,13 @@ public class Command {
      * @param tasks   The {@code TaskList} object containing all tasks.
      * @param keyWord The keyword to search for within task descriptions.
      * @return A list of {@code IndividualTask} objects that match the keyword.
+     * @throws MentalHealthException If the index out of bounds.
      */
-    private ArrayList<IndividualTask> findMatchingTasks(TaskList tasks, String keyWord) {
+    private ArrayList<IndividualTask> findMatchingTasks(TaskList tasks, String keyWord)
+            throws MentalHealthException {
+        if (keyWord.isEmpty()) {
+            throw new MentalHealthException("Keyword should not be null or empty");
+        }
         assert keyWord != null && !keyWord.isEmpty() : "Keyword should not be null or empty";
 
         return tasks.getListTask().stream()
@@ -257,6 +332,7 @@ public class Command {
      * @param tasks    The {@code TaskList} object that contains all the tasks.
      * @param storage  The {@code Storage} object for saving the task list to a file.
      * @return The result of processing the custom command as a {@code String}.
+     * @throws MentalHealthException If an error occurs while processing the custom command.
      */
     private String processCustomCommand(TaskList tasks, Storage storage) throws MentalHealthException {
         return processMessage(this.message, tasks, storage);
@@ -347,22 +423,26 @@ public class Command {
      */
     private String processDeadlineCommand(TaskList tasks) throws MentalHealthException {
         StringBuilder result = new StringBuilder();
-
         String[] parts = this.message.split(" /by ", 2);
-        if (parts.length == 2) {
-            String type = "deadline";
-            String description = parts[0].substring(type.length()).trim();
-            String by = parts[1].trim();
-            Deadline newDeadline = new Deadline(description, by);
-            tasks.addTask(newDeadline);
-            result.append(MENTAL_HEALTH + "Okays! I've added this task:\n")
-                    .append(formatMessage(newDeadline, tasks.getListTask().size()));
-        } else {
+        if (parts.length != 2) {
             throw new MentalHealthException("The string doesn't contain the expected format for a deadline.");
         }
 
+        String type = "deadline";
+        String description = parts[0].substring(type.length()).trim();
+        if (description.isEmpty()) {
+            throw new MentalHealthException("The string doesn't contain a description");
+        }
+
+        String by = parts[1].trim();
+        Deadline newDeadline = new Deadline(description, by);
+        tasks.addTask(newDeadline);
+        result.append(MENTAL_HEALTH + "Okays! I've added this task:\n")
+                .append(formatMessage(newDeadline, tasks.getListTask().size()));
+
         return result.toString();
     }
+
 
     /**
      * Processes "event" commands.
@@ -378,6 +458,9 @@ public class Command {
         }
 
         String description = parts[0].substring("event".length()).trim();
+        if (description.isEmpty()) {
+            throw new MentalHealthException("The string doesn't contain a description");
+        }
         String[] secondPart = parts[1].split(" /to ", 2);
         if (secondPart.length != 2) {
             throw new MentalHealthException("The string doesn't contain the '/to' part.");
