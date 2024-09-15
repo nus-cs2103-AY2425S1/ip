@@ -58,6 +58,7 @@ public class Bob {
         DEADLINE,
         EVENT,
         DELETE,
+        SORT,
         UNKNOWN
     }
 
@@ -116,6 +117,8 @@ public class Bob {
             return commandDelete(taskDetails);
         case FIND:
             return commandFind(taskDetails);
+        case SORT:
+            return commandSort(taskDetails);
         case UNKNOWN:
             // Fallthrough
         default:
@@ -287,6 +290,18 @@ public class Bob {
     }
 
     /**
+     * Sorts the task list based on the specified sort option and returns a formatted string of the sorted tasks.
+     *
+     * @param sortOption The sorting option provided by the user (either "description" or "date").
+     * @return A formatted string of tasks sorted according to the specified option.
+     * @throws BobException If the sorting option is invalid (i.e., not "description" or "date").
+     */
+    private static String commandSort(String sortOption) throws BobException {
+        TaskList sortedTasks = getSortedTaskList(sortOption.toLowerCase());
+        return ui.showMessage("Here is your list of tasks sorted by ", sortOption, " :\n", sortedTasks.printTasks());
+    }
+
+    /**
      * Returns the command type of the last user input processed.
      *
      * @return The command type.
@@ -371,6 +386,24 @@ public class Bob {
     private static void validateEventDates(LocalDateTime from, LocalDateTime to) throws BobException {
         if (to.isBefore(from)) {
             throw new BobException("The end date cannot be before the start date. Please try again.");
+        }
+    }
+
+    /**
+     * Retrieves the sorted task list based on the specified sorting option.
+     *
+     * @param sortOption The option for sorting tasks (either "description" or "date").
+     * @return A TaskList object containing the sorted tasks.
+     * @throws BobException If the sort option is invalid (i.e., not "description" or "date").
+     */
+    private static TaskList getSortedTaskList(String sortOption) throws BobException {
+        switch (sortOption) {
+        case "description":
+            return tasks.sortTasksByDescription();
+        case "date":
+            return tasks.sortTasksByDate();
+        default:
+            throw new BobException("Invalid sorting option. Key in either 'sort description' or 'sort date'.");
         }
     }
 }

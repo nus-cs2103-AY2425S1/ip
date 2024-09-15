@@ -1,6 +1,7 @@
 package bob.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Represents a ToDo task.
@@ -29,6 +30,10 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         this(description, false);
+    }
+
+    public LocalDateTime getFirstDatetime() {
+        return LocalDateTime.MAX;
     }
 
     /**
