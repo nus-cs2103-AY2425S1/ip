@@ -110,6 +110,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Task newTask = createTask(line);
+                assert newTask != null: "newTask cannot be null";
                 tasks.add(newTask);
             }
         } catch (FileNotFoundException e) {
@@ -151,12 +152,14 @@ public class Storage {
                 task.markDone();
             }
             return task;
-        } else {
+        } else if (info[0].equals("E")) {
             Task task = new Event(info[2], LocalDateTime.parse(info[3]), LocalDateTime.parse(info[4]));
             if (info[1].equals("1")) {
                 task.markDone();
             }
             return task;
+        } else {
+            return null;
         }
     }
 }

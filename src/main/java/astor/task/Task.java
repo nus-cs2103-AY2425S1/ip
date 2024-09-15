@@ -7,7 +7,7 @@ package astor.task;
  * and retrieve its description.
  */
 public class Task {
-    private boolean status;
+    private boolean isDone;
     private String taskInfo;
 
     /**
@@ -17,20 +17,19 @@ public class Task {
      */
     public Task(String taskInfo) {
         this.taskInfo = taskInfo;
-        this.status = false;
-    }
-
-
-    public void markDone() {
-        this.status = true;
-    }
-
-    public void markUndone() {
-        this.status = false;
+        this.isDone = false;
     }
 
     public boolean isDone() {
-        return this.status;
+        return isDone;
+    }
+
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    public void markUndone() {
+        this.isDone = false;
     }
 
     public String getTaskInfo() {
@@ -48,7 +47,7 @@ public class Task {
     @Override
     public String toString() {
         String s = "";
-        if (this.isDone()) {
+        if (this.isDone) {
             s += "[X] ";
         } else {
             s += "[ ] ";

@@ -33,9 +33,7 @@ public class TodoCommand extends Command {
             throw new EmptyTaskInfoException();
         } else {
             Task task = new Todo(s1);
-            String s = taskList.addTask(task, storage);
-            String output = "Got it. I've added this task:\n  "
-                    + s + "\nNow you have " + taskList.size() + " tasks in the list.";
+            String output = taskList.addTask(task, storage);
             ui.showOutput(output);
             return output;
         }
