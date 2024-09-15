@@ -1,18 +1,12 @@
 package utility;
 
 import tasktypes.Task;
-
 import tasktypes.TaskName;
-
 import exception.AlphaException;
-
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.regex.Pattern;
-
 import java.util.Comparator;
-
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
@@ -77,7 +71,7 @@ public class TaskList {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             result.append(i + 1).append(". ")
-                .append(this.tasks.get(i).toString()).append("\n");
+                    .append(this.tasks.get(i).toString()).append("\n");
         }
         return result.toString();
     }
@@ -152,10 +146,19 @@ public class TaskList {
         return result;
     }
     
+    /**
+     * Sorts the tasks in the list by their start date.
+     */
     public void sortTaskList() {
         tasks.sort(Comparator.comparing(Task::getStartDate));
     }
     
+    /**
+     * Returns a {@code TaskList} containing tasks that start within the next week.
+     *
+     * @return a {@code TaskList} containing tasks with start dates within the next week
+     * @throws AlphaException if no tasks fall within the next week
+     */
     public TaskList giveReminder() throws AlphaException {
         LocalDate today = LocalDate.now();
         LocalDate oneWeekFromNow = today.plusWeeks(1);
@@ -163,6 +166,10 @@ public class TaskList {
         List<Task> reminderTasks = tasks.stream()
                 .filter(task -> task.getStartDate().isBefore(oneWeekFromNow.plusDays(1)))
                 .collect(Collectors.toList());
+        
+        if (reminderTasks.isEmpty()) {
+            throw new AlphaException("No tasks in the next week!");
+        }
         
         return new TaskList(new ArrayList<>(reminderTasks));
     }
