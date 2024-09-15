@@ -59,14 +59,4 @@ public class Bob {
         }
         return response;
     }
-    
-    /**
-     * Returns the chatbot's goodbye message.
-     * This message is displayed when the user exits the application.
-     *
-     * @return The goodbye message as a string.
-     */
-    public String getGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!";
-    }
 }
