@@ -29,6 +29,7 @@ public class Danny {
         return list;
     }
     public String getResponse(String in){
+        assert !in.isEmpty();
         if(in.equalsIgnoreCase("bye")){
             return "Bye. Hope to see you again soon!";
         }

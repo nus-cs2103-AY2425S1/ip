@@ -86,7 +86,8 @@ public class Parser {
      * @return
      */
     public String handleInput(String in) {
-        Command cmd = Command.Error;
+        assert !in.isEmpty();
+        Command cmd;
         try {
             cmd = Parser.checkCommand(in, list.size());
         } catch (Exception e) {

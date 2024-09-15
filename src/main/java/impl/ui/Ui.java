@@ -7,7 +7,7 @@ public class Ui {
                  |,4-  ) )-,_. ,\\ (  `'-'
                 '---''(_/--'  `-'\\_)
             """;
-    static String seperator = "____________________________________________________________";
+    static String seperator = "_______________________________________________________";
     Parser parser;
 
     /**
@@ -27,6 +27,7 @@ public class Ui {
     }
 
     public String running(String in) {
+        assert !in.isEmpty();
         System.out.println(seperator);
         String text = seperator + "\n" + parser.handleInput(in) + "\n" + seperator;
         System.out.println(seperator);
