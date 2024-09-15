@@ -43,6 +43,7 @@ public class Parser {
             case "event" -> handleEvent(taskList, storage, words);
             case "delete" -> handleDelete(taskList, storage, words);
             case "find" -> handleFind(taskList, words);
+            case "sort" -> handleSort(taskList, ui, storage);
             default -> throw new RubyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         };
     }
@@ -174,6 +175,21 @@ public class Parser {
         validateCommand(words, 2, "Please specify a keyword to find tasks.");
         String keyword = words[1];
         return taskList.findTasks(keyword);
+    }
+
+    /**
+     * Handles the sorting of tasks alphabetically.
+     *
+     * @param taskList The task list to be sorted.
+     * @param ui       The UI to show responses.
+     * @param storage  The storage to save sorted tasks.
+     * @return The response message after sorting.
+     * @throws IOException If an I/O error occurs while saving.
+     */
+    private String handleSort(TaskList taskList, Ui ui, Storage storage) throws IOException {
+        taskList.sortTasksAlphabetically();
+        storage.save(taskList.getTasks());
+        return ui.showSortedTasks(taskList.getTasks());
     }
 
     /**
