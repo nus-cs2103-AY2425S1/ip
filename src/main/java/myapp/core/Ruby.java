@@ -22,6 +22,8 @@ public class Ruby {
     private final Ui ui;
     private final Parser parser;
 
+    private static final String DEFAULT_FILE_PATH = "data/tasks.txt";
+
     /**
      * Constructs a new {@code Ruby} instance with the specified file path for storage.
      * Initializes the UI, storage, and parser components. Loads tasks from the storage
@@ -33,7 +35,13 @@ public class Ruby {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
+        initializeTaskList();
+    }
 
+    /**
+     * Initializes the task list by loading tasks from storage. If loading fails, initializes an empty task list.
+     */
+    private void initializeTaskList() {
         try {
             List<Task> tasks = storage.load();
             taskList = new TaskList(tasks);
@@ -42,7 +50,6 @@ public class Ruby {
             taskList = new TaskList();
         }
     }
-
     /**
      * Runs the Ruby chatbot application. Displays the welcome message,
      * then enters a loop to read and execute user commands until an exit command is received.
@@ -60,7 +67,7 @@ public class Ruby {
             } catch (RubyException e) {
                 ui.showError(e.getMessage());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("I/O Error occurred.", e);
             }
         }
     }
@@ -73,7 +80,7 @@ public class Ruby {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Ruby("data/tasks.txt").run();
+        new Ruby(DEFAULT_FILE_PATH).run();
     }
 
     /**
