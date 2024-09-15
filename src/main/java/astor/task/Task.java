@@ -106,4 +106,19 @@ public class Task {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Task otherTask) {
+            return this.taskInfo.equals(otherTask.taskInfo);
+        }
+        return false;
+    }
+
 }

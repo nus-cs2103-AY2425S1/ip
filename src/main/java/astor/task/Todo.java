@@ -43,4 +43,5 @@ public class Todo extends Task {
         int i = isDone() ? 1 : 0;
         return "T | " + i + " | " + this.getTaskInfo();
     }
+
 }
