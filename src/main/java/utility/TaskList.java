@@ -63,8 +63,7 @@ public class TaskList {
     public Task lastTask() {
         if (!this.tasks.isEmpty()) {
             return this.tasks.get(this.tasks.size() - 1);
-        }
-        else {
+        } else {
             return null;
         }
     }
