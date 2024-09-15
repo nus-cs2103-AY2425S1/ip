@@ -1,5 +1,7 @@
 package gui;
 
+import friendlybot.command.Command;
+import friendlybot.command.BadCommand;
 import friendlybot.FriendlyBot;
 import friendlybot.Ui;
 import javafx.animation.PauseTransition;
@@ -37,28 +39,33 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getFriendlyBotDialog("Hello! I am Friendly Bot! How may I assist you today?\n"
-                                + "Use 'help' to get started!",
-                        friendlyBotImage)
-        );
+                        + "Use 'help' to get started!",
+                        friendlyBotImage));
     }
 
     /** Injects the FriendlyBot instance */
-    public void setFriendlyBot(FriendlyBot d) {
-        friendlyBot = d;
+    public void setFriendlyBot(FriendlyBot fb) {
+        friendlyBot = fb;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing FriendlyBot's reply and then appends
+     * Creates two dialog boxes, one echoing user input and the other containing
+     * FriendlyBot's reply and then appends
      * them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = friendlyBot.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getFriendlyBotDialog(response, friendlyBotImage)
-        );
+        Command cmd = friendlyBot.getCommand(input);
+        String response = friendlyBot.getResponse(cmd);
+
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox friendlyBotDialog = DialogBox.getFriendlyBotDialog(response, friendlyBotImage);
+        if (cmd instanceof BadCommand) {
+            friendlyBotDialog.setErrorMessage();
+        }
+
+        dialogContainer.getChildren().addAll(userDialog, friendlyBotDialog);
         userInput.clear();
         if (response.equals(Ui.getExitMessage())) {
             PauseTransition pause = new PauseTransition(Duration.seconds(3));
