@@ -46,6 +46,6 @@ public class Parser {
                 return command;
             }
         }
-        throw new GrayException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        throw new GrayException("OOPS!!! I'm sorry, but I don't know what that means.");
     }
 }

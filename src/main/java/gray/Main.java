@@ -23,6 +23,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setTitle("Gray");
         MainWindow mainWindow = new MainWindow(userImage, dukeImage, gray::respond);
         Scene scene = new Scene(mainWindow);
         stage.setScene(scene);
