@@ -11,7 +11,7 @@ import java.util.Scanner;
 import static darkpool.storage.ValidateData.validateData;
 
 public class LoadData {
-    static public ArrayList<Task> load(String filePath) throws DarkpoolException {
+    public static ArrayList<Task> load(String filePath) throws DarkpoolException {
         ArrayList<Task> taskList = new ArrayList<>();
         String curTask;
         File dataFile = validateData(filePath);

@@ -15,10 +15,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Gui gui, Storage storage) throws DarkpoolException {
-        if (index < 0 || index >= taskList.getSize()) {
-            throw new DarkpoolException("do you know how to count? the task number is out of range");
-        }
-
+        OutOfRange.check(index, taskList);
         return gui.mark(taskList.markTask(index));
     }
 

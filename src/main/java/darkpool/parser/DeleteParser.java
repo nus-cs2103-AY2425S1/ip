@@ -4,15 +4,15 @@ import darkpool.command.Command;
 import darkpool.command.DeleteCommand;
 import darkpool.DarkpoolException;
 
+import static darkpool.parser.validator.ValidateMarkUnmarkDelete.validate;
+import static darkpool.parser.validator.ValidateMarkUnmarkDelete.validateNumber;
+
 
 public class DeleteParser {
 
-    static public Command parse(String[] userInput) throws DarkpoolException {
-        return new DeleteCommand(taskAction(userInput));
-    }
-
-    private static int taskAction(String[] userInput) throws DarkpoolException {
-        return checkCommand.markUnmarkDeleteChecker(userInput);
+    public static Command parse(String[] userInput) throws DarkpoolException {
+        validate(userInput);
+        return new DeleteCommand(validateNumber(userInput));
     }
 
 }

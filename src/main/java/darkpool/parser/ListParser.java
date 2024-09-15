@@ -6,7 +6,7 @@ import darkpool.DarkpoolException;
 
 public class ListParser {
 
-    static public Command parse() throws DarkpoolException {
+    public static Command parse() throws DarkpoolException {
         return new ListCommand();
     }
 

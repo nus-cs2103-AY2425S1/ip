@@ -13,11 +13,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Gui gui, Storage storage) throws DarkpoolException {
-        if (index < 0 || index >= tasks.getSize()) {
-            throw new DarkpoolException("do you know how to count? the task number is out of range");
-        }
-        String delString = tasks.deleteTask(index);
+    public String execute(TaskList taskList, Gui gui, Storage storage) throws DarkpoolException {
+        OutOfRange.check(index, taskList);
+        String delString = taskList.deleteTask(index);
         return gui.delete(delString);
     }
 

@@ -5,8 +5,8 @@ import darkpool.DarkpoolException;
 
 import java.util.ArrayList;
 
-public class SearchTask {
-    static public String searchTask(ArrayList<Task> taskList, String searchQuery) throws DarkpoolException {
+class SearchTask {
+    static String searchTask(ArrayList<Task> taskList, String searchQuery) throws DarkpoolException {
         if (taskList.isEmpty()) {
             throw new DarkpoolException("bozo you got no tasks");
         } else if (searchQuery.isEmpty()) {

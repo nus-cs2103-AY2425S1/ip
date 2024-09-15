@@ -6,8 +6,8 @@ import darkpool.task.Task;
 import darkpool.task.Todo;
 import darkpool.DarkpoolException;
 
-public class ParseTask {
-    public static Task parse(String task) throws DarkpoolException {
+class ParseTask {
+    static Task parse(String task) throws DarkpoolException {
         String[] taskParts = task.split(" \\| ");
         String type = taskParts[0];
         boolean isDone = taskParts[1].equals("1");

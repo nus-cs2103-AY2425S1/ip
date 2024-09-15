@@ -6,7 +6,7 @@ import darkpool.DarkpoolException;
 
 public class ExitParser {
 
-    static public Command parse() throws DarkpoolException {
+    public static Command parse() throws DarkpoolException {
         return new ExitCommand();
     }
 

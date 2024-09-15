@@ -8,11 +8,6 @@ public class Gui {
 
     final String bye = "contact me again and you'll regret it.";
 
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
     public String goodbye() {
         return bye;
     }
@@ -34,8 +29,7 @@ public class Gui {
     }
 
     public String add(String task, int size) {
-        return "i have dumped this nonsense on the list\n" + task
-                + "\nnow you are stuck with " + size + " goddamn tasks";
+        return "i have dumped this nonsense on the list\n" + task + "\nnow you are stuck with " + size + " goddamn tasks";
     }
 
 }

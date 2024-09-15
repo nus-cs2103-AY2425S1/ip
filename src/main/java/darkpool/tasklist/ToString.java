@@ -4,8 +4,8 @@ import darkpool.task.Task;
 
 import java.util.ArrayList;
 
-public class ToString {
-    static public String toString(ArrayList<Task> taskList) {
+class ToString {
+    static String toString(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {
             return "bozo you got no tasks";
         }

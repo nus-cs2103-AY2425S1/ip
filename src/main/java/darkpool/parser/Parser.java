@@ -3,29 +3,14 @@ package darkpool.parser;
 import darkpool.command.Command;
 import darkpool.DarkpoolException;
 
-/**
- * The Parser class is responsible for parsing user input and returning the appropriate Command object.
- */
 public class Parser {
 
-    public enum CommandType {
-        Bye, List, Mark, Unmark, Delete, Find, Todo, Deadline, Event
+    public static Command parse(String input) throws DarkpoolException {
+        String[] userInput = prepareUserInput(input);
+        return parseCommand(userInput);
     }
 
-    /**
-     * Parses the user input and returns the corresponding Command object.
-     *
-     * @param input The user input to be parsed.
-     * @return The Command object corresponding to the user input.
-     * @throws DarkpoolException If the user input is invalid or cannot be parsed.
-     */
-    public static Command parse(String input) throws DarkpoolException {
-        String[] userInput = input.split(" ", 2);
-
-        if (userInput.length == 2) {
-            userInput[1] = userInput[1].trim();
-        }
-
+    private static Command parseCommand(String[] userInput) throws DarkpoolException {
         return switch (userInput[0]) {
             case "bye" -> ExitParser.parse();
             case "list" -> ListParser.parse();
@@ -38,6 +23,18 @@ public class Parser {
             case "event" -> EventParser.parse(userInput);
             default -> throw new DarkpoolException("what???");
         };
+    }
+
+    private static String[] prepare(String input) {
+        String[] userInput = input.split(" ", 2);
+        if (userInput.length == 2) {
+            userInput[1] = userInput[1].trim();
+        }
+        return userInput;
+    }
+
+    private static String[] prepareUserInput(String input) {
+        return prepare(input);
     }
 
 }
