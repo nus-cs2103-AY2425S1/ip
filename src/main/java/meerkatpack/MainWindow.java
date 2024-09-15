@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 import taskpack.TaskList;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +33,10 @@ public class MainWindow extends AnchorPane {
 
     private Meerkat meerkat;
 
+    private Storage storage = new Storage();
+    private static final String STORAGE_FILE_PATH = "meerkat.txt";
+
+
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/yilongma.png"));
     private final Image meerkatImage = new Image(this.getClass().getResourceAsStream("/images/meerkat.png"));
 
@@ -43,6 +48,11 @@ public class MainWindow extends AnchorPane {
     /** Injects the Meerkat instance */
     public void setMeerkat(Meerkat meerkat) {
         this.meerkat = meerkat;
+        try {
+            storage.readFromFile(STORAGE_FILE_PATH);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
     }
 
     /**

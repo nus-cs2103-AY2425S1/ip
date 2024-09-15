@@ -13,25 +13,25 @@ import java.util.Scanner; // Import the Scanner class
  */
 public class Meerkat {
 
-    private static final String STORAGE_FILE_PATH = "Meerkat.txt";
+    private static final String STORAGE_FILE_PATH = "meerkat.txt";
     private static Storage storage = new Storage();
     private static Parser parser = new Parser();
+    private Ui ui = new Ui();
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in); // Create a Scanner object
-
-        try {
-            storage.readFromFile(STORAGE_FILE_PATH);
-        } catch (FileNotFoundException e) {
-            return;
-        }
+    public void run() {
+        ui.showGreetingMessage();
+        Scanner scanner = new Scanner(System.in); // Create a Scanner object
 
         while (true) {
             // scans the new text for new info
-            String taskName = sc.nextLine();
+            String taskName = scanner.nextLine();
             // splits string based on space
             parser.parse(taskName);
         }
+    }
+
+    public static void main(String[] args) {
+        new Meerkat().run();
     }
 
     /**

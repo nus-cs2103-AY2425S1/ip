@@ -1,0 +1,3 @@
+t,u,eat lunch
+t,m,eat dinner
+t,u,eat supper
