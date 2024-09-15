@@ -16,13 +16,9 @@ public class Pikappi {
         tasks = storage.load();
     }
 
-    public String getResponse(String input) {
-        try {
-            storage.save(tasks);
-            Command c = parser.parse(input);
-            return c.execute(tasks, ui, storage);
-        } catch (PikappiException e) {
-            return ui.showErrorMessage(e.getMessage());
-        }
+    public String getResponse(String input) throws PikappiException {
+        storage.save(tasks);
+        Command c = parser.parse(input);
+        return c.execute(tasks, ui, storage);
     }
 }

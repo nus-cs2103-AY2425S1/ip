@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getPikappiDialog("Hello! I'm Pikappi\nWhat can I do for you?\n"
-                        + "Type 'help' to see what I can do!", pikappiImage)
+                        + "Type 'help' to see what I can do!", pikappiImage, false)
         );
     }
 
@@ -45,20 +45,28 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Pikappi's reply and then appends them
+     * to the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws PikappiException {
-        String input = userInput.getText();
-        String response = pikappi.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPikappiDialog(response, pikappiImage)
-        );
-        userInput.clear();
-        if (response.equals("Pi-kapi! See you again~\n")) {
-            System.exit(0);
+    private void handleUserInput() {
+        try {
+            String input = userInput.getText();
+            String response = pikappi.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getPikappiDialog(response, pikappiImage, false)
+            );
+            if (response.equals("Pi-kapi! See you again~\n")) {
+                System.exit(0);
+            }
+        } catch (PikappiException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userInput.getText(), userImage),
+                    DialogBox.getPikappiDialog(e.getMessage(), pikappiImage, true)
+            );
+            dialogContainer.getStyleClass().add("error-dialog");
         }
+        userInput.clear();
     }
 }

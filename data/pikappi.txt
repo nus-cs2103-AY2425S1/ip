@@ -1,10 +1,4 @@
-T | 0 | byebye
-T | 0 | haha
-E | 0 | nice | now | later
-D | 0 | ok | Sep 1 2021
-T | 1 | taskone
-E | 0 | taskthree | 2023-01-01 | 2025-09-09
-D | 1 | tasktwo | Sep 3 2024 5:21PM
-D | 1 | wow | yesterday
-D | 0 | zzaa | aaaa
-D | 1 | zzz | tmr
+T | 0 | todo task one
+D | 1 | task two | Sep 1 2024
+E | 0 | task three | 2024-01-01 | 2025-02-02
+E | 0 | task test | Jan 2 2025 6:22PM | Apr 4 2025 9:20PM

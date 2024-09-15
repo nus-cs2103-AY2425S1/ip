@@ -41,21 +41,25 @@ public class DialogBox extends HBox {
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
-    private void flip() {
+    private void flip(Boolean hasError) {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.getStyleClass().add("reply-label");
+        if (hasError) {
+            dialog.getStyleClass().add("error-label");
+        } else {
+            dialog.getStyleClass().add("reply-label");
+        }
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getPikappiDialog(String text, Image img) {
+    public static DialogBox getPikappiDialog(String text, Image img, Boolean hasError) {
         var db = new DialogBox(text, img);
-        db.flip();
+        db.flip(hasError);
         return db;
     }
 }
