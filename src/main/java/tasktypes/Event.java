@@ -27,4 +27,8 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + " (from: " + dateFormatPrintVersion(start)  + " to: " + dateFormatPrintVersion(end) + ")" + "\n";
     }
+    
+    public String getClassName() {
+        return TaskName.EVENT.getName();
+    }
 }

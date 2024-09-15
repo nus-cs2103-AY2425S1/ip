@@ -97,4 +97,8 @@ public class Task {
     public String toString() {
         return this.getStatusIcon() + " " + this.getDescription();
     }
+    
+    public String getClassName() {
+        return "";
+    }
 }
