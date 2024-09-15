@@ -14,10 +14,8 @@ public class Ui {
      * Displays the welcome message to the user when the application starts.
      */
     public String welcomeMessage() {
-        String initialResponse = "____________________________________________________________\n"
-                + "Hello! I'm Alpha\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n";
+        String initialResponse = "Hello! I'm Alpha\n"
+                + "What can I do for you?\n";
         return initialResponse;
     }
     
@@ -27,10 +25,8 @@ public class Ui {
      * @param taskList the {@code TaskList} containing the tasks to be displayed
      */
     public String listTask(TaskList taskList) {
-        String echoResponse = "____________________________________________________________\n"
-                + "Here are the tasks in your list:\n"
-                + taskList.listWord() + "\n"
-                + "____________________________________________________________\n";
+        String echoResponse = "Here are the tasks in your list:\n"
+                + taskList.listWord() + "\n";
         return echoResponse;
     }
     
@@ -45,9 +41,7 @@ public class Ui {
      * Displays a farewell message to the user when they exit the application.
      */
     public String byeMessage() {
-        String echoResponse = "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!" + "\n"
-                + "____________________________________________________________\n";
+        String echoResponse = "Bye. Hope to see you again soon!" + "\n";
         return echoResponse;
     }
     
@@ -58,11 +52,9 @@ public class Ui {
      */
     public String addTaskMessage(TaskList taskList) {
         System.out.println(taskList.getTaskLists());
-        String echoResponse = "____________________________________________________________ \n"
-                + "Got it. I've added this task: \n"
+        String echoResponse = "Got it. I've added this task: \n"
                 + taskList.lastTask().toString()
-                + taskList.getLength() + "\n"
-                + "____________________________________________________________ \n";
+                + taskList.getLength() + "\n";
         return echoResponse;
     }
     
@@ -72,10 +64,8 @@ public class Ui {
      * @param modifiedRecord a string representing the task that was marked as not done
      */
     public String undoneMessage(String modifiedRecord) {
-        String echoResponse = "____________________________________________________________\n"
-                + "OK, I've marked this task as not done yet:\n "
-                + modifiedRecord + "\n"
-                + "____________________________________________________________\n";
+        String echoResponse = "OK, I've marked this task as not done yet:\n "
+                + modifiedRecord + "\n";
         return echoResponse;
     }
     
@@ -85,10 +75,8 @@ public class Ui {
      * @param modifiedRecord a string representing the task that was marked as done
      */
     public String doneMessage(String modifiedRecord) {
-        String echoResponse = "____________________________________________________________\n"
-                + "Nice! I've marked this task as done:\n"
-                + modifiedRecord + "\n"
-                + "____________________________________________________________\n";
+        String echoResponse = "Nice! I've marked this task as done:\n"
+                + modifiedRecord + "\n";
         return echoResponse;
     }
     
@@ -115,10 +103,14 @@ public class Ui {
      * @param taskList the list of tasks that match the search criteria
      */
     public String searchTask(ArrayList<Task> taskList) {
-        String echoResponse = "____________________________________________________________\n"
-            + "Here are the matching tasks in your list:\n"
-            + listSearchResult(taskList) + "\n"
-            + "____________________________________________________________\n";
+        String echoResponse = "Here are the matching tasks in your list:\n"
+            + listSearchResult(taskList) + "\n";
+        return echoResponse;
+    }
+    
+    public String deleteTaskMessage(String deleteTaskNotice, String numberOfTasks) {
+        String echoResponse =  "Noted. I've removed this task:\n "
+                + deleteTaskNotice + "\n" + numberOfTasks;
         return echoResponse;
     }
 }

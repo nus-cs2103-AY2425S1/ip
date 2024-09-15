@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import utility.Ui;
 
 import alpha.Alpha;
 /**
@@ -30,6 +31,11 @@ public class MainWindow extends AnchorPane {
     /** Injects the Alpha instance */
     public void setAlpha(Alpha d) {
         alpha = d;
+        Ui ui = new Ui();
+        String welcomeMessage = ui.welcomeMessage();
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(welcomeMessage, alphaImage)
+        );
     }
     
     /**
