@@ -97,10 +97,12 @@ public class Papadom {
 
 
     /**
-     * Main entry point for the Papadom application.
+     * Launches the Papadom application, initializing the required
+     * components and starting the user interaction loop.
      *
-     * @param args Command-line arguments (not used).
+     * @param args Command-line arguments passed to the application (currently not used).
      */
+
     public static void main(String[] args) {
         Papadom.run();
     }
