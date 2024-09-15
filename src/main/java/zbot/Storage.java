@@ -94,17 +94,21 @@ public class Storage {
                     .append(",").append(task.getDescription());
 
             if (taskType == 'D') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getDueDate()))
-                        .append("\n");
+                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getDueDate()));
             } else if (taskType == 'E') {
                 sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).getStartDate()))
-                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).getEndDate()))
-                        .append("\n");
+                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).getEndDate()));
             } else if (taskType == 'T') {
-                sb.append("\n");
+                // Do nothing
             }
 
             assert taskType == 'T' || taskType == 'D' || taskType == 'E';
+
+            if (!task.getNote().isEmpty()) {
+                sb.append(",").append(task.getNote().getContent());
+            }
+
+            sb.append("\n");
         }
 
         writeToTextFile(sb.toString());
@@ -130,16 +134,24 @@ public class Storage {
 
                 Task task = null;
                 if (taskComponents[0].equals("T")) {
-                    assert taskComponents.length == 3;
-                    task = new ToDo(taskComponents[2]);
+                    assert taskComponents.length == 3 || taskComponents.length == 4;
+                    task = taskComponents.length == 3
+                            ? new ToDo(taskComponents[2])
+                            : new ToDo(taskComponents[2], taskComponents[3]);
                 } else if (taskComponents[0].equals("D")) {
-                    assert taskComponents.length == 4;
-                    task = new Deadline(taskComponents[2], Parser.parseDateTime(taskComponents[3]));
+                    assert taskComponents.length == 4 || taskComponents.length == 5;
+                    task = taskComponents.length == 4
+                            ? new Deadline(taskComponents[2], Parser.parseDateTime(taskComponents[3]))
+                            : new Deadline(taskComponents[2], Parser.parseDateTime(taskComponents[3]),
+                                    taskComponents[4]);
                 } else if (taskComponents[0].equals("E")) {
-                    assert taskComponents.length == 5;
-                    task = new Event(taskComponents[2],
-                            Parser.parseDateTime(taskComponents[3]),
-                            Parser.parseDateTime(taskComponents[4]));
+                    assert taskComponents.length == 5 || taskComponents.length == 6;
+                    task = taskComponents.length == 5
+                            ? new Event(taskComponents[2], Parser.parseDateTime(taskComponents[3]),
+                                    Parser.parseDateTime(taskComponents[4]))
+                            : new Event(taskComponents[2], Parser.parseDateTime(taskComponents[3]),
+                                    Parser.parseDateTime(taskComponents[4]),
+                                    taskComponents[5]);
                 }
 
                 assert task != null : "Task should not be null.";

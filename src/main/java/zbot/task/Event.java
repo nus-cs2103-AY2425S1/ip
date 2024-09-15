@@ -25,6 +25,34 @@ public class Event extends Task {
     }
 
     /**
+     * Constructor for Event with note.
+     *
+     * @param description Description of the event.
+     * @param startDate   Start datetime of the event.
+     * @param endDate     End datetime of the event.
+     * @param note        Note of the event.
+     */
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate, Note note) {
+        super(description, note);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
+     * Constructor for Event with note content.
+     *
+     * @param description Description of the event.
+     * @param startDate   Start datetime of the event.
+     * @param endDate     End datetime of the event.
+     * @param note        Note content of the event.
+     */
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate, String note) {
+        super(description, note);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
      * Returns the start datetime of the event.
      *
      * @return Start datetime of the event.
