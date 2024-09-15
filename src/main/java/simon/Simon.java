@@ -56,11 +56,9 @@ public class Simon {
         ui.showExit();
     }
     /**
-     * The main entry point of the Simon application.
-     * Initializes and starts the Simon application with the specified file path.
-     *
-     * @param args command-line arguments (not used)
-     */
+     * Our main method.
+     * @param args The command line arguments.
+     **/
     public static void main(String[] args) {
         new Simon("tasks.txt").run();
     }
