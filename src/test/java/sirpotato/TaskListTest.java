@@ -11,7 +11,6 @@ public class TaskListTest {
     @Test
     public void delete_validIndex_taskRemoved() {
         
-        //Create any random tasklist, the tasks are irrelevant here
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("Task 1"));
         tasks.add(new Todo("Task 2"));
@@ -26,18 +25,19 @@ public class TaskListTest {
     }
 
     @Test
-    public void delete_invalidIndex_throwsException() {
+    public void sortByDescription_tasksSortedCorrectly() {
 
         ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(new Todo("Task 1"));
-        tasks.add(new Todo("Task 2"));
-        tasks.add(new Todo("Task 3"));
-        TaskList toDoList = new TaskList(tasks);
+        tasks.add(new Todo("Walk dog"));
+        tasks.add(new Todo("Read book"));
+        tasks.add(new Todo("Ace Exam"));
+        
+        TaskList taskList = new TaskList(tasks);
 
-        // Since the arraylist is only of size 3, using the item number as 10
-        // should throw an error
-        assertThrows(DukeException.class, () -> {
-            toDoList.delete(10, tasks); 
-        });
+        TaskList sortedList = taskList.sortBy("description");
+
+        assertEquals("Ace Exam", sortedList.getTask(0).displayDescription());
+        assertEquals("Read book", sortedList.getTask(1).displayDescription());
+        assertEquals("Walk dog", sortedList.getTask(2).displayDescription());
     }
 }
