@@ -16,7 +16,7 @@ Here's how you can include a link to the repository in the setup section:
 
 To run **Rudolf: Your Christmas Task Companion**, follow these simple steps:
 
-1. **Download the JAR file**: Obtain the JAR file containing the latest version from [here](https://github.com/your-repo-link-here).
+1. **Download the JAR file**: Obtain the JAR file containing the latest version from [here](https://github.com/jolwnn/ip/releases/tag/A-Release).
 
 2. **Open a command window**:
     - Navigate to the folder where the JAR file is stored.
@@ -25,7 +25,7 @@ To run **Rudolf: Your Christmas Task Companion**, follow these simple steps:
 3. **Run the JAR file**:
     - Use the following command in your terminal or command window:
       ```bash
-      java -jar "Rudolf.jar"
+      java -jar "rudolf.jar"
       ```
 4. **Start managing your tasks**: Once the command is run, Rudolf will launch, and you can begin adding your Christmas tasks! 🎄
 
