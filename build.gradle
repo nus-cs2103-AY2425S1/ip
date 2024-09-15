@@ -48,7 +48,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "Pikappi"
+    archiveBaseName = "pikappi"
     archiveClassifier = null
 }
 

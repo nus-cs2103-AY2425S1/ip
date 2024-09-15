@@ -3,7 +3,7 @@
 ## Installation
 
 1. Ensure you have Java 17 or above installed in your computer.
-2. Download the latest `pikappi.jar` from [here]().
+2. Download the latest `pikappi.jar` from [here](https://github.com/xqtann/ip/releases/tag/A-Release).
 3. Locate to the jar file using a command terminal, and execute `java -jar pikappi.jar` command to run the application.
 
 ## Features
