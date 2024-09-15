@@ -1,0 +1,17 @@
+todo read book
+deadline return book /by 2024-08-29 0100
+event project meeting /from 2024-08-29 0600 /to 2024-08-29 1000
+list
+mark 1
+mark 2
+unmark 2
+list
+todo
+deadline return assignment
+event team lunch /from
+list
+mark 5
+delete 1
+list
+delete 3
+bye
