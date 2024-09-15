@@ -37,32 +37,35 @@ public class TaskList {
      */
     public void addTask(String task) {
         Scanner sc = new Scanner(System.in);
+        if (isDuplicate(sc, task)) {
+            return;
+        }
         System.out.println("""
                 Choose a task type (1, 2 or 3):
                 1. Todo - No end date
                 2. Deadline - Has end date
                 3. Event - Has start and end date
                 """);
-        switch(getInputFromUser(sc, "(1, 2 or 3) > ")) {
-        case "1":
-            this.tasks.add(new Todo(task));
-            System.out.println("Friday > Okay, I've added a todo: " + task);
-            break;
-        case "2":
-            System.out.println("What is the deadline? In dd mm yyyy");
-            this.tasks.add(new Deadline(task, getDate("d", sc)));
-            System.out.println("Friday > Okay, I've added a deadline: " + task);
-            break;
-        case "3":
-            System.out.println("What is the start date? In dd mm yyyy");
-            LocalDate start = getDate("es", sc);
-            System.out.println("What is the end date? In dd mm yyyy");
-            LocalDate end = getDate("ee", sc);
-            this.tasks.add(new Event(task, start, end));
-            System.out.println("Friday > Okay, I've added an event: " + task);
-            break;
-        default:
-            System.out.println("Invalid task type! Try adding again.");
+        switch (getInputFromUser(sc, "(1, 2 or 3) > ")) {
+            case "1":
+                this.tasks.add(new Todo(task));
+                System.out.println("Friday > Okay, I've added a todo: " + task);
+                break;
+            case "2":
+                System.out.println("What is the deadline? In dd mm yyyy");
+                this.tasks.add(new Deadline(task, getDate("d", sc)));
+                System.out.println("Friday > Okay, I've added a deadline: " + task);
+                break;
+            case "3":
+                System.out.println("What is the start date? In dd mm yyyy");
+                LocalDate start = getDate("es", sc);
+                System.out.println("What is the end date? In dd mm yyyy");
+                LocalDate end = getDate("ee", sc);
+                this.tasks.add(new Event(task, start, end));
+                System.out.println("Friday > Okay, I've added an event: " + task);
+                break;
+            default:
+                System.out.println("Invalid task type! Try adding again.");
         }
     }
 
@@ -121,7 +124,7 @@ public class TaskList {
      * The user can choose to mark a task as done or undone, and a confirmation message is displayed.
      *
      * @param action the action to perform ("mark" for done, any other value for undone)
-     * @param task the index of the task to be marked
+     * @param task   the index of the task to be marked
      */
     public void setTaskCompletion(String action, int task) {
         Task temp = tasks.get(task);
@@ -142,7 +145,7 @@ public class TaskList {
      * Prompts the user for input with a given template and returns the user's response.
      * The method continues to prompt until valid input is provided.
      *
-     * @param sc the Scanner object used to read user input
+     * @param sc       the Scanner object used to read user input
      * @param template the prompt template to display to the user
      * @return the user's input as a trimmed string
      */
@@ -163,17 +166,17 @@ public class TaskList {
      * The date format is validated, and the method continues to prompt until a valid date is provided.
      *
      * @param type the type of date expected ("d" for deadline, "es" for event start, "ee" for event end)
-     * @param sc the Scanner object used to read user input
+     * @param sc   the Scanner object used to read user input
      * @return the user's input as a LocalDate object
      */
     public LocalDate getDate(String type, Scanner sc) {
         try {
             return switch (type) {
-            case "d" -> LocalDate.parse(getInputFromUser(sc, "Deadline (in dd mm yyyy) > "), this.inputFormatter);
-            case "es" ->
-                    LocalDate.parse(getInputFromUser(sc, "Start Date (in dd mm yyyy) > "), this.inputFormatter);
-            case "ee" -> LocalDate.parse(getInputFromUser(sc, "End Date (in dd mm yyyy) > "), this.inputFormatter);
-            default -> getDate(type, sc);
+                case "d" -> LocalDate.parse(getInputFromUser(sc, "Deadline (in dd mm yyyy) > "), this.inputFormatter);
+                case "es" ->
+                        LocalDate.parse(getInputFromUser(sc, "Start Date (in dd mm yyyy) > "), this.inputFormatter);
+                case "ee" -> LocalDate.parse(getInputFromUser(sc, "End Date (in dd mm yyyy) > "), this.inputFormatter);
+                default -> getDate(type, sc);
             };
         } catch (DateTimeParseException e) {
             System.out.println("Friday > Invalid date format! Please follow dd mm yyyy format! e.g 26 06 2002");
@@ -204,5 +207,27 @@ public class TaskList {
         }
         assert count >= 0 : "Invalid number of completed tasks";
         return count;
+    }
+
+    /**
+     * Checks if a task with the specified name already exists in the task list.
+     * If a duplicate task is found, the user is prompted to decide whether to proceed or not.
+     * The method returns true if the user chooses not to proceed, and false if there are no duplicates or
+     * if the user chooses to proceed despite the duplicate.
+     *
+     * @param sc     the Scanner object used to read user input
+     * @param target the name of the task to check for duplicates
+     * @return true if a duplicate is found and the user chooses not to proceed, false otherwise
+     */
+    public boolean isDuplicate(Scanner sc, String target) {
+        for (Task task : this.tasks) {
+            if (task.equals(target)) {
+                System.out.println("Friday > There is already a task with the same name: " + target);
+                System.out.println("Friday > Do you still want to proceed? (Y/N)");
+                String ans = getInputFromUser(sc, "Y/N: ");
+                return !ans.equalsIgnoreCase("y");
+            }
+        }
+        return false;
     }
 }
