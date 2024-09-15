@@ -23,7 +23,7 @@ public class Ui {
     }
 
     /**
-     * Greets the user.
+     * Prints the greeting message.
      */
     public void greet() {
         String msg = """
@@ -34,7 +34,7 @@ public class Ui {
     }
 
     /**
-     * Say goodbye to the user.
+     * Prints the goodbye message.
      */
     public void printGoodbye() {
         String msg = " Bye. Hope to see you again soon!\n";

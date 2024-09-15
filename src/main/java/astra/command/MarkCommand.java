@@ -11,24 +11,24 @@ import astra.task.Task;
  */
 public class MarkCommand extends Command {
     private final int index;
-    private final boolean asDone;
+    private final boolean isDone;
 
     /**
      * Constructor for MarkCommand.
      *
      * @param index The index of the task to mark.
-     * @param asDone Whether to mark the task as done or not done.
+     * @param isDone Whether to mark the task as done or not done.
      */
-    public MarkCommand(int index, boolean asDone) {
+    public MarkCommand(int index, boolean isDone) {
         this.index = index;
-        this.asDone = asDone;
+        this.isDone = isDone;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AstraException {
-        Task t = tasks.markAsDone(index, asDone);
+        Task t = tasks.markAsDone(index, isDone);
         storage.save(tasks);
-        String msg = asDone
+        String msg = isDone
                 ? " Nice! I've marked this task as done: \n  " + t + "\n"
                 : " OK, I've marked this task as not done yet: \n  " + t + "\n";
         ui.display(msg);
@@ -36,9 +36,9 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws AstraException {
-        Task t = tasks.markAsDone(index, asDone);
+        Task t = tasks.markAsDone(index, isDone);
         storage.save(tasks);
-        return asDone
+        return isDone
                 ? " Nice! I've marked this task as done: \n  " + t + "\n"
                 : " OK, I've marked this task as not done yet: \n  " + t + "\n";
     }
