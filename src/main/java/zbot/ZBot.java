@@ -230,7 +230,7 @@ public class ZBot {
                 continue;
             }
 
-            response.append(String.format("%d. %s\n", i, tasks.get(i)));
+            response.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
             tasksFound++;
         }
 
