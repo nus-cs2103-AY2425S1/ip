@@ -9,6 +9,18 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private String endDate;
+    private static String DATE_FORMAT = "MMM d yyyy";
+    private static String TIME_FORMAT = "HH:mm";
+    private static int START_TASK_TIME = 0;
+    private static int END_TASK_TIME = 10;
+    private static int HOUR_START = 11;
+    private static int HOUR_END = 13;
+    private static int MINUTE_START = 13;
+    private static int MINUTE_END = 15;
+    private static int COMPARE_DATE_START = 3;
+    private static int COMPARE_DATE_END = 13;
+    private static int SECOND_DATE_START = 14;
+    private static int SECOND_DATE_END = 19;
 
     /**
      * Constructs a new <code>Deadline</code> object.
@@ -47,23 +59,23 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         try {
-            this.compareDate = LocalDate.parse(this.endDate.substring(0, 10));
-            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            String newTime = LocalTime.parse(this.endDate.substring(11, 13) + ":"
-                    + this.endDate.substring(13, 15)).format(DateTimeFormatter.ofPattern("HH:mm"));
+            this.compareDate = LocalDate.parse(this.endDate.substring(START_TASK_TIME, END_TASK_TIME));
+            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+            String newTime = LocalTime.parse(this.endDate.substring(HOUR_START, HOUR_END) + ":"
+                    + this.endDate.substring(MINUTE_START, MINUTE_END)).format(DateTimeFormatter.ofPattern(TIME_FORMAT));
             return "[D] " + super.getName() + "(by " + newDate + " " + newTime + ")";
         } catch (Exception e) {
             String secondDate = "";
             try {
-                this.compareDate = LocalDate.parse(this.endDate.substring(3, 13),
-                        DateTimeFormatter.ofPattern("MMM d yyyy"));
-                secondDate = this.endDate.substring(14, 19);
+                this.compareDate = LocalDate.parse(this.endDate.substring(COMPARE_DATE_START, COMPARE_DATE_END),
+                        DateTimeFormatter.ofPattern(DATE_FORMAT));
+                secondDate = this.endDate.substring(SECOND_DATE_START, SECOND_DATE_END);
             } catch (Exception d) {
-                this.compareDate = LocalDate.parse(this.endDate.substring(3, 14),
-                        DateTimeFormatter.ofPattern("MMM d yyyy"));
-                secondDate = this.endDate.substring(15, 20);
+                this.compareDate = LocalDate.parse(this.endDate.substring(COMPARE_DATE_START, COMPARE_DATE_END + 1),
+                        DateTimeFormatter.ofPattern(DATE_FORMAT));
+                secondDate = this.endDate.substring(SECOND_DATE_START + 1, SECOND_DATE_END + 1);
             }
-            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
             return "[D] " + super.getName() + "(" + "by " + newDate + " " + secondDate + ")";
         }
     }

@@ -27,6 +27,11 @@ public class Rainy {
      *
      * @param args  Command-line arguments passed to the program as an array of {@code String} objects.
      */
+    private static int INVALID_RESPONSE = -1;
+    private static int TASK_INDEX = 0;
+    private static int START_INDEX = 5;
+    private static String END_OF_OUTPUT = "^";
+
     public static void main(String[] args) {
         Application.launch(Main.class, args);
     }
@@ -57,7 +62,7 @@ public class Rainy {
         String[] updateParameters = ps.getUpdateParameters();
         String message = ps.getMessage();
         int validResponse = ps.getCount();
-        assert(validResponse >= -1);
+        assert(validResponse >= INVALID_RESPONSE);
         Instructions instruction = ps.enumOperator(message);
         // I used switch instructions here to handle the various user inputs.
         switch (instruction) {
@@ -82,7 +87,7 @@ public class Rainy {
             break;
 
         case TODO:
-            String taskName = splitByTask[0].substring(5);
+            String taskName = splitByTask[TASK_INDEX].substring(START_INDEX);
             ToDoCommand toDoCommand = new ToDoCommand(input, taskName, tm);
             tm = toDoCommand.getResponse();
             break;
@@ -127,7 +132,7 @@ public class Rainy {
         }
         File f = new File("src/main/java/rainy.txt");
         storage.writeOverFile(f, tm);
-        System.out.print("^");
+        System.out.print(END_OF_OUTPUT);
     }
 }
 

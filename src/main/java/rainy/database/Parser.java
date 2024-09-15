@@ -12,6 +12,12 @@ public class Parser {
     private String[] input;
     private String[] splitByTask;
     private String[] updateParameters;
+    private static int MAX_LENGTH = 100000;
+    private static int MINIMUM_INPUT_LENGTH = 2;
+    private static int INVALID_RESPONSE = -1;
+    private static String SPLIT_SPACE = " ";
+    private static String SPLIT_SLASH = "/";
+    private static String SPLIT_COMMA = ", ";
 
     /**
      * Constructs a new <code>Parser</code> object.
@@ -19,9 +25,9 @@ public class Parser {
     public Parser() {
         this.message = "";
         this.count = 0;
-        this.input = new String[100000];
-        this.splitByTask = new String[100000];
-        this.updateParameters = new String[100000];
+        this.input = new String[MAX_LENGTH];
+        this.splitByTask = new String[MAX_LENGTH];
+        this.updateParameters = new String[MAX_LENGTH];
     }
 
     public String getMessage() {
@@ -61,9 +67,9 @@ public class Parser {
      *                                converted into an <code>Integer</code>.
      */
     public void firstInput(String userInput) {
-        this.input = userInput.split(" ");
-        this.splitByTask = userInput.split("/");
-        this.updateParameters = userInput.split(", ");
+        this.input = userInput.split(SPLIT_SPACE);
+        this.splitByTask = userInput.split(SPLIT_SLASH);
+        this.updateParameters = userInput.split(SPLIT_COMMA);
         String[] tempArray = new String[updateParameters.length - 1];
         for (int i = 0; i < updateParameters.length - 1; i++)  {
             tempArray[i] = updateParameters[i + 1];
@@ -71,21 +77,21 @@ public class Parser {
         this.updateParameters = tempArray;
         this.message = this.input[0];
         if ((this.message.equals("mark") || this.message.equals("unmark")
-                || this.message.equals("delete")) && this.input.length == 2) {
+                || this.message.equals("delete")) && this.input.length == MINIMUM_INPUT_LENGTH) {
             try {
                 this.count = Integer.parseInt(this.input[1]);
             } catch (Exception e) {
-                this.count = -1;
+                this.count = INVALID_RESPONSE;
             }
-        } else if (this.message.equals("update") && this.input.length >= 2) {
+        } else if (this.message.equals("update") && this.input.length >= MINIMUM_INPUT_LENGTH) {
             try {
                 this.count = Integer.parseInt(this.input[1].substring(0, this.input[1].length() - 1));
             } catch (Exception e) {
-                this.count = -1;
+                this.count = INVALID_RESPONSE;
             }
         }
         else {
-            this.count = -1;
+            this.count = INVALID_RESPONSE;
         }
     }
 

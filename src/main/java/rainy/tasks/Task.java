@@ -14,6 +14,7 @@ public class Task implements Comparable<Task> {
     protected LocalDate compareDate;
     private boolean isDone;
     private UI ui;
+    private static char END_OF_OUTPUT = '^';
 
     /**
      * Constructs a <code>Task</code> object. The date of the object is initially set to MAX.
@@ -46,7 +47,7 @@ public class Task implements Comparable<Task> {
      */
     public void mark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == true) {
-            System.out.println(this.ui.taskDone() + '^');
+            System.out.println(this.ui.taskDone() + END_OF_OUTPUT);
             throw new InvalidMarkAndUnmarkException(this.ui.taskDone());
         } else {
             this.isDone = true;
@@ -59,7 +60,7 @@ public class Task implements Comparable<Task> {
      */
     public void unmark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == false) {
-            System.out.println(this.ui.taskNotDone() + '^');
+            System.out.println(this.ui.taskNotDone() + END_OF_OUTPUT);
             throw new InvalidMarkAndUnmarkException(this.ui.taskNotDone());
         } else {
             this.isDone = false;

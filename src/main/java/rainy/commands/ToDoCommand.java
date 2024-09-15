@@ -6,6 +6,7 @@ public class ToDoCommand extends Command {
     private String[] userInput;
     private String taskName;
     private TaskTracker taskTracker;
+    private static int NO_DESCRIPTION = 1;
 
     public ToDoCommand(String[] userInput, String taskName, TaskTracker taskTracker) {
         this.userInput = userInput;
@@ -14,7 +15,7 @@ public class ToDoCommand extends Command {
     }
 
     public TaskTracker getResponse() {
-        if (userInput.length == 1) {
+        if (userInput.length == NO_DESCRIPTION) {
             this.ui.noToDoDescription();
         } else {
             this.taskTracker.addListToDo(taskName);

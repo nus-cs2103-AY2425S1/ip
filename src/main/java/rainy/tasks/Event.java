@@ -10,6 +10,14 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private String date;
     private String time;
+    private static String DATE_FORMAT = "MMM d yyyy";
+    private static String TIME_FORMAT = "HH:mm";
+    private static int FIRST_TIME_HOUR_START = 0;
+    private static int FIRST_TIME_HOUR_END = 2;
+    private static int FIRST_TIME_MIN_START = 2;
+    private static int FIRST_TIME_MIN_END = 4;
+    private static int FIRST_TIME_START = 2;
+    private static int SECOND_TIME_START = 10;
 
     /**
      * Constructs a new <code>Event</code> object.
@@ -59,23 +67,26 @@ public class Event extends Task {
     public String toString() {
         try {
             this.compareDate = LocalDate.parse(this.date);
-            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            String firstTime = LocalTime.parse(this.time.substring(0, 2) + ":"
-                    + this.time.substring(2, 4)).format(DateTimeFormatter.ofPattern("HH:mm"));
+            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+            String firstTime = LocalTime.parse(this.time.substring(FIRST_TIME_HOUR_START, FIRST_TIME_HOUR_END)
+                            + ":" + this.time.substring(FIRST_TIME_MIN_START, FIRST_TIME_MIN_END))
+                                .format(DateTimeFormatter.ofPattern(TIME_FORMAT));
             String secondTime = LocalTime.parse(this.time.substring(8, 10) + ":"
-                    + this.time.substring(10, 12)).format(DateTimeFormatter.ofPattern("HH:mm"));
+                    + this.time.substring(10, 12)).format(DateTimeFormatter.ofPattern(TIME_FORMAT));
             return "[E] " + super.getName() + "(" + newDate + " from "
                     + firstTime + " to " + secondTime + ")";
         } catch (Exception e) {
             try {
-                this.compareDate = LocalDate.parse(this.date, DateTimeFormatter.ofPattern("MMM d yyyy"));
+                this.compareDate = LocalDate.parse(this.date, DateTimeFormatter.ofPattern(DATE_FORMAT));
             } catch (Exception d) {
                 this.compareDate = LocalDate.parse(this.date);
             }
-            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
             return this.time.contains(":") ? "[E] " + super.getName() + "(" + newDate + " from " + this.time + ")"
-                    : "[E] " + super.getName() + "(" + newDate + " from " + this.time.substring(0, 2) + ":"
-                        + this.time.substring(2, 10) + ":" + this.time.substring(10) + ")";
+                    : "[E] " + super.getName() + "(" + newDate + " from "
+                        + this.time.substring(FIRST_TIME_HOUR_START, FIRST_TIME_HOUR_END) + ":"
+                            + this.time.substring(FIRST_TIME_START, SECOND_TIME_START) + ":"
+                                + this.time.substring(SECOND_TIME_START) + ")";
         }
     }
 }

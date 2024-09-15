@@ -18,6 +18,8 @@ public class TaskTracker {
     private int counter;
     private boolean receivedInputs;
     private UI ui;
+    private static int START_DESC = 4;
+    private static char END_OF_OUTPUT = '^';
 
     /**
      * Constructs a new <code>TaskTracker</code> object.
@@ -74,7 +76,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (z < 0 || z >= this.counter) {
-            System.out.println(this.ui.invalidTask() + '^');
+            System.out.println(this.ui.invalidTask() + END_OF_OUTPUT);
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             Task newTask = this.taskList.get(z);
@@ -204,7 +206,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksBeforeDelete();
         } else if (i < 0 || i >= this.counter) {
-            System.out.println(this.ui.invalidTask() + '^');
+            System.out.println(this.ui.invalidTask() + END_OF_OUTPUT);
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             this.ui.removedTask();
@@ -225,7 +227,7 @@ public class TaskTracker {
         AtomicInteger numMatch = new AtomicInteger(1);
         List<Task> newList = this.taskList;
         String output = newList.stream()
-                .filter(t -> t.toString().substring(4).split("\\(")[0].toUpperCase().contains(compareTask.toUpperCase()))
+                .filter(t -> t.toString().substring(START_DESC).split("\\(")[0].toUpperCase().contains(compareTask.toUpperCase()))
                 .map(x -> ((x.getIsDone()) ? "\n" + (numMatch.getAndIncrement()) + ". [X] " + x
                         : "\n" + (numMatch.getAndIncrement()) + ". [ ] " + x))
                 .reduce("Here are some tasks matching your description: ", (a, b) -> a + b);

@@ -9,6 +9,7 @@ import rainy.tasks.TaskTracker;
 public class Unmark extends Command {
     private int validResponse;
     private TaskTracker taskTracker;
+    private static int INVALID_RESPONSE = -1;
 
     public Unmark(int validResponse, TaskTracker taskTracker) {
         this.validResponse = validResponse;
@@ -16,7 +17,7 @@ public class Unmark extends Command {
     }
 
     public TaskTracker getResponse() throws InvalidIndexException, InvalidMarkAndUnmarkException {
-        if (validResponse != -1) {
+        if (validResponse != INVALID_RESPONSE) {
             this.taskTracker.unmarkDone(validResponse - 1);
         } else {
             this.ui.noCategoryDeclared();

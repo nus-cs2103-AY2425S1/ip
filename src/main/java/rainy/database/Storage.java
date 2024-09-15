@@ -18,6 +18,13 @@ public class Storage {
     /**
      * Constructs a new <code>Storage</code> object.
      */
+    private static int START_INDEX = 0;
+    private static int TASK_TYPE = 8;
+    private static int MARKED_TASK = 4;
+    private static int SKIP_FIRST = 1;
+    private static int START_TASK_DESC = 11;
+    private static char MARKED_LABEL = 'X';
+
     public Storage() {
 
     }
@@ -40,7 +47,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             newTask = new TaskTracker();
         }
-        assert(newTask.getCounter() >= 0);
+        assert(newTask.getCounter() >= START_INDEX);
         newTask.toggleReceivedInputs();
         return newTask;
     }
@@ -48,10 +55,10 @@ public class Storage {
     public TaskTracker processFile(File newFile) throws IOException {
         TaskTracker newTask = new TaskTracker();
         TaskTracker[] taskHolder = new TaskTracker[]{newTask};
-        AtomicInteger trace = new AtomicInteger(0);
-        AtomicInteger nextCounter = new AtomicInteger(8);
-        AtomicInteger markedCounter = new AtomicInteger(4);
-        Files.lines(newFile.toPath()).skip(1).forEach(x -> {
+        AtomicInteger trace = new AtomicInteger(START_INDEX);
+        AtomicInteger nextCounter = new AtomicInteger(TASK_TYPE);
+        AtomicInteger markedCounter = new AtomicInteger(MARKED_TASK);
+        Files.lines(newFile.toPath()).skip(SKIP_FIRST).forEach(x -> {
             int charLabel, markedLabel = 0;
             if ((trace.get() + 1) % 10 == 0) {
                 charLabel = nextCounter.incrementAndGet();
@@ -61,24 +68,24 @@ public class Storage {
                 markedLabel = markedCounter.get();
             }
             if (x.charAt(charLabel) == 'T') {
-                taskHolder[0] = this.updateToDo(taskHolder[0], x);
+                taskHolder[START_INDEX] = this.updateToDo(taskHolder[START_INDEX], x);
             } else if (x.charAt(charLabel) == 'D') {
-                taskHolder[0] = this.updateDeadline(taskHolder[0], x);
+                taskHolder[START_INDEX] = this.updateDeadline(taskHolder[START_INDEX], x);
             } else {
-                taskHolder[0] = this.updateEvent(taskHolder[0], x);
+                taskHolder[START_INDEX] = this.updateEvent(taskHolder[START_INDEX], x);
             }
             int taskCount = trace.getAndIncrement();
             try {
-                taskHolder[0] = this.markSavedTask(taskHolder[0], x, taskCount, markedLabel);
+                taskHolder[START_INDEX] = this.markSavedTask(taskHolder[START_INDEX], x, taskCount, markedLabel);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-        return taskHolder[0];
+        return taskHolder[START_INDEX];
     }
 
     public TaskTracker markSavedTask(TaskTracker taskTracker, String userInput, int taskCount, int markedLabel) throws InvalidIndexException, InvalidMarkAndUnmarkException {
-        if (userInput.charAt(markedLabel) == 'X') {
+        if (userInput.charAt(markedLabel) == MARKED_LABEL) {
             try {
                 taskTracker.markDone(taskCount);
             } catch (Exception e) {
@@ -89,23 +96,23 @@ public class Storage {
     }
 
     public TaskTracker updateToDo(TaskTracker taskTracker, String userInput) {
-        taskTracker.addListToDo(userInput.substring(11));
+        taskTracker.addListToDo(userInput.substring(START_TASK_DESC));
         return taskTracker;
     }
 
     public TaskTracker updateDeadline(TaskTracker taskTracker, String userInput) {
-        String updatedOldData = userInput.substring(11, userInput.length() - 1);
+        String updatedOldData = userInput.substring(START_TASK_DESC, userInput.length() - 1);
         String[] deadlineSplit = updatedOldData.split(" \\(");
-        taskTracker.addListDeadline(deadlineSplit[0] + " ", deadlineSplit[1]);
+        taskTracker.addListDeadline(deadlineSplit[START_INDEX] + " ", deadlineSplit[SKIP_FIRST]);
         return taskTracker;
     }
 
     public TaskTracker updateEvent(TaskTracker taskTracker, String userInput) {
-        String updatedOldData = userInput.substring(11, userInput.length() - 1);
+        String updatedOldData = userInput.substring(START_TASK_DESC, userInput.length() - 1);
         String[] eventSplit = updatedOldData.split(" \\(");
-        String newDate = eventSplit[1].split(" from ")[0];
-        String newTime = eventSplit[1].split(" from ")[1];
-        taskTracker.addListEvent(eventSplit[0] + " ", newDate, newTime);
+        String newDate = eventSplit[SKIP_FIRST].split(" from ")[START_INDEX];
+        String newTime = eventSplit[SKIP_FIRST].split(" from ")[SKIP_FIRST];
+        taskTracker.addListEvent(eventSplit[START_INDEX] + " ", newDate, newTime);
         return taskTracker;
     }
 
