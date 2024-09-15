@@ -1,6 +1,6 @@
 # Bob User Guide
 
-// Product screenshot goes here
+![Screenshot of Bob Chatbot Ui](/Ui.png)
 
 Welcome to **Bob**, your personal task management chatbot! 
 Bob helps you keep track of tasks, mark them as done, and 
