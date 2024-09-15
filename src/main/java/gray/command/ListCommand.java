@@ -18,6 +18,9 @@ public class ListCommand implements Command {
      */
     @Override
     public String execute(Tasks tasks) {
+        if (tasks.size() == 0) {
+            return "Task list is empty.";
+        }
         return IntStream.range(0, tasks.size())
                 .mapToObj(i -> String.format("%d. %s", i + 1, tasks.get(i)))
                 .collect(Collectors.joining("\n"));
