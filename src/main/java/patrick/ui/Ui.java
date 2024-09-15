@@ -67,11 +67,16 @@ public class Ui {
      * Prints the contents of the task list to the user.
      */
     public static String printFileContents() {
-        String list = "Here are the tasks in your list:" + "\n";
+        String list;
+        if (Storage.getList().size() == 0) {
+            list = "Spongebob, your list is currently empty";
+        } else {
+            list = "Here are the tasks in your list:" + "\n";
 
-        for (int i = 1; i <= Storage.getList().size(); i++) {
-            Task curr = Storage.getList().get(i - 1);
-            list += i + ". " + curr.toString() + "\n";
+            for (int i = 1; i <= Storage.getList().size(); i++) {
+                Task curr = Storage.getList().get(i - 1);
+                list += i + ". " + curr.toString() + "\n";
+            }
         }
 
         return list;

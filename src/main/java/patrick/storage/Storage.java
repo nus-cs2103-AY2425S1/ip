@@ -44,13 +44,8 @@ public class Storage {
         try {
             readTasks(filePath);
         } catch (FileNotFoundException e) {
-            File newFile = new File(filePath);
-            try {
-                newFile.createNewFile();
-            } catch (IOException ex) {
-                throw new StorageOperationException(ex.getMessage());
-            }
-        } catch (IllegalValueException e) {
+            throw new StorageOperationException(e.getMessage());
+        } catch (IllegalValueException | IOException e) {
             throw new StorageOperationException(e.getMessage());
         }
         return list;
@@ -91,8 +86,17 @@ public class Storage {
      * @throws FileNotFoundException if the file is not found.
      * @throws IllegalValueException if the file contains invalid data.
      */
-    private static void readTasks(String filePath) throws FileNotFoundException, IllegalValueException {
+    private static void readTasks(String filePath) throws IOException, IllegalValueException {
         File file = new File(filePath);
+
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
         Scanner s = new Scanner(file);
         Task currTask;
         while (s.hasNext()) {
