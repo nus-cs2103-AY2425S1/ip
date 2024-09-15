@@ -1,0 +1,4 @@
+T | O | work
+D | O | CS2103 | Aug 3 2024 1200
+T | O | more work
+E | X | work | Aug 29 2024 1600-1600
