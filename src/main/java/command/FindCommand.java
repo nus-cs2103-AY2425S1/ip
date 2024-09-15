@@ -10,7 +10,7 @@ public class FindCommand extends Command {
     private String keyword;
 
     /**
-     * Constructor for<code>FindCommand</code>.
+     * Constructor for <code>FindCommand</code>.
      *
      * @param keyword Keyword to search for.
      */

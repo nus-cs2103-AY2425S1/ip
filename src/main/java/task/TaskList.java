@@ -15,7 +15,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructor for<code>TaskList</code>.
+     * Constructor for <code>TaskList</code>.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -60,9 +60,9 @@ public class TaskList {
     }
 
     /**
-     * Returns<code>true</code>if task list is empty.
+     * Returns< code>true</code> if task list is empty.
      *
-     * @return <code>true/code>if list has no elements.
+     * @return <code>true/code> if list has no elements.
      */
     public boolean isEmpty() {
         return tasks.isEmpty();

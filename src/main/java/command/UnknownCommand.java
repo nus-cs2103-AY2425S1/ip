@@ -12,7 +12,7 @@ public class UnknownCommand extends Command {
     String command;
 
     /**
-     * Constructor for<code>UnknownCommand</code>
+     * Constructor for <code>UnknownCommand</code>
      *
      * @param command Unrecognized command
      */

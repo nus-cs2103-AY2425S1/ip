@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
     private int index;
 
     /**
-     * Constructor for<code>MarkCommand</code>.
+     * Constructor for <code>MarkCommand</code>.
      *
      * @param index Index of task to be marked.
      */

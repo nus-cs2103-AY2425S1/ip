@@ -8,7 +8,7 @@ package exceptions;
 public class InvalidFindFormatException extends HimException {
 
     /**
-     * Constructor for<code>InvalidFindFormatException</code>.
+     * Constructor for <code>InvalidFindFormatException</code>.
      */
     public InvalidFindFormatException() {
         super("Find requires a single keyword!");

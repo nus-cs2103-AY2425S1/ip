@@ -1,7 +1,5 @@
 package task;
 
-import exceptions.AlreadyCompletedException;
-
 /**
  * A todo task.
  *
@@ -14,28 +12,32 @@ public class ToDo extends Task {
      *
      * @param description Description of the task.
      */
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, boolean isCompleted) {
+        super(description, isCompleted);
     }
 
+    /**
+     * Constructor for an incomplete <code>ToDo</code>.
+     *
+     * @param description Description of the task.
+     */
+    public ToDo(String description) {
+        this(description, false);
+    }
 
     /**
-     * Factory method which creates a<code>ToDo</code>from a string containing data of the todo.
+     * Factory method which creates a <code>ToDo</code> from a string containing data of the todo.
      *
      * @param data Data of the ToDo in form "completion status|description".
-     * @return <code>ToDo</code>from data.
+     * @return <code>ToDo</code> from data.
      */
     public static ToDo of(String data) {
         String[] args = data.split("\\|");
-        ToDo todo = new ToDo(args[1]);
-        if (Boolean.parseBoolean(args[0])) {
-            try {
-                todo.complete();
-            } catch (AlreadyCompletedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return todo;
+
+        boolean isCompleted = Boolean.parseBoolean(args[0]);
+        String description = args[1];
+
+        return new ToDo(description, isCompleted);
     }
 
     @Override
