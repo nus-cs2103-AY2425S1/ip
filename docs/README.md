@@ -1,30 +1,196 @@
-# mendel.main.Mendel User Guide
+# Mendel User Guide
+![Demo screenshot of Mendel chatbot](Ui.png)
 
-// Update the title above to match the actual product name
+## Product Overview
+Mendel is a chatbot application that helps users to remind themselves of various events including Todo, Event 
+and Deadlines. It also supports additional utility features namely finding tasks by keyword and reminding users of
+upcoming deadlines.
 
-// Product screenshot goes here
+## Setup guide
 
-// Product intro goes here
+## Feature summary
+Feature | Command                                       | Description                       
+--- |-----------------------------------------------|-----------------------------------
+todo | `todo <description>`                          | Writes a simple reminder note     
+deadline | `deadline <description> /by <date>`           | Writes dealine note with due date 
+event | `event <description> /from <date> /to <date>` | Writes event note from start to end date
+mark | `mark <serial>`                               | Ticks task of corresponding serial number 
+unmark | `unmark <serial>`                             | Un-ticks task of corresponding serial number 
+delete | `delete <serial>`                             | Removes task of corresponding serial number 
+find | `find <keyword>`                              | Finds tasks whose description sub-matches the given expression
+remind | `remind <date>`                               | Finds tasks whose date is before given date and unmarked
+list | `list`                                        | Lists all tasks
+bye | `bye`                                         | Program exits
 
-## Adding deadlines
+### Adding todo
 
-// Describe the action and its outcome.
+Writes a simple reminder note
 
-// Give examples of usage
+`todo <description>`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+**Example:**
 
 ```
-expected output
+todo complete CS2103T assignment
 ```
 
-## Feature ABC
+**Expected Output:**
+```
+Got it. I've added this task:
+     [T][ ] test
+Now you have 5 tasks in the list.
+```
 
-// Feature details
+### Adding deadline
+
+Writes a deadline with date the task is to be completed by.
+
+`todo <description> /by <date>`
+
+**Example:**
+
+```
+deadline CS2103T IP /by Sep 20 2024
+```
+
+**Expected Output:**
+```
+Got it. I've added this task:
+   [D][ ] CS2103T IP (by: Sep 20 2024)
+Now you have 6 tasks in the list.
+```
 
 
-## Feature XYZ
+### Adding event
 
-// Feature details
+Writes a event encapsulated within a start to end date range
+
+`event <description> /from <date> /to <date>`
+
+**Example:**
+
+```
+event CS2103T course /from Aug 10 2024 /to Dec 15 2024
+```
+
+**Expected Output:**
+```
+Got it. I've added this task:
+   [E][ ] CS2103T course (from: Aug 10 2024 to Dec 15 2024)
+Now you have 7 tasks in the list.
+```
+
+### Mark task
+
+Marks a task syntatically as done
+
+`mark <serial>`
+
+**Example:**
+
+```
+mark 6
+```
+
+**Expected Output:**
+```
+Nice! I've marked this task as done:
+   [D][X] CS2103T IP (by: Sep 20 2024)
+```
+
+### Unmark task
+
+Writes a simple reminder note
+
+`unmark <serial>`
+
+**Example:**
+
+```
+unmark 6
+```
+
+**Expected Output:**
+```
+OK, I've marked this task as not done yet:
+   [D][ ] CS2103T IP (by: Sep 20 2024)
+```
+
+### Delete task
+
+Writes a simple reminder note
+
+`delete <serial>`
+
+**Example:**
+
+```
+delete 7
+```
+
+**Expected Output:**
+```
+Noted. I've removed this task:
+   [E][ ] CS2103T course (from: Aug 10 2024 to Dec 15 2024)
+Now you have 6 tasks in the list.
+```
+
+### Find task
+
+Finds a task based on given keyword
+
+`find <keyword>`
+
+**Example:**
+
+```
+find CS2103T
+```
+
+**Expected Output:**
+```
+Here are the matching tasks in your list
+   1.[D][ ] CS2103T IP (by: Sep 20 2024)
+   2.[T][X] CS2103T assignment
+```
+
+### Remind task
+
+Finds tasks whose deadline is before given date and task is unmarked
+
+`remind <date>`
+
+**Example:**
+
+```
+remind Dec 05 2024
+```
+
+**Expected Output:**
+```
+Here are the tasks with deadlines by Dec 05 2024
+   1.[D][ ] CS2103T IP (by: Sep 20 2024)
+```
+
+### List tasks
+
+Writes a simple reminder note
+
+`list`
+
+**Example:**
+
+```
+list
+```
+
+**Expected Output:**
+```
+Here are the tasks in your list:
+   1.[T][ ] read book
+   2.[D][X] return book (by: Jun 6 2024)
+   3.[E][X] project meeting (from: Aug 6 2024 to Aug 7 2024)
+   4.[T][ ] join sports club
+   5.[D][ ] CS2103T IP (by: Sep 20 2024)
+   6.[T][X] CS2103T assignment
+```

@@ -33,6 +33,7 @@ public class Deadline extends Task {
      */
     public static Deadline of(String rawDescription) {
         String[] descriptionLst = parseDescription(rawDescription);
+        assert descriptionLst.length == 2 : "Description has wrong format";
         return new Deadline(descriptionLst[0], descriptionLst[1]);
     }
 
@@ -64,8 +65,14 @@ public class Deadline extends Task {
     private static String[] parseDescription(String rawDescription) {
         handleError(rawDescription);
         String[] slashSegments = rawDescription.split(" /by ");
+        assert slashSegments.length > 1 : "Description has wrong format";
         String[] mainMessage = slashSegments[0].split(" ");
         String endMsg = new DateTimeManager(slashSegments[1]).toString();
+        String reformattedMsg = parseArrayToFullString(mainMessage);
+        return new String[]{reformattedMsg, endMsg};
+    }
+
+    private static String parseArrayToFullString(String[] mainMessage) {
         String reformattedMsg = "";
         for (int i = 1; i < mainMessage.length; i++) {
             if (i == mainMessage.length - 1) {
@@ -74,7 +81,7 @@ public class Deadline extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-        return new String[]{reformattedMsg, endMsg};
+        return reformattedMsg;
     }
 
     /**
@@ -113,6 +120,22 @@ public class Deadline extends Task {
     public boolean isTargetDueDate(String formattedDate) {
         return new DateTimeManager(formattedDate).removeTimeStamp()
                 .equals(new DateTimeManager(this.by).removeTimeStamp());
+    }
+
+    @Override
+    public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
+        DateTimeManager inputDate = new DateTimeManager(formattedDate);
+        DateTimeManager toDate = new DateTimeManager(this.by);
+        if (!inputDate.isValidFormat()) {
+            throw new MendelException("Invalid due date. Write in form Month Day Year such as Aug 09 2024");
+        }
+        if (!toDate.isValidFormat()) {
+            return false;
+        }
+        long timeDeadline = inputDate.toEpochTime();
+        long timeTo = new DateTimeManager(toDate.removeTimeStamp()).toEpochTime();
+        boolean isTaskInRange = timeDeadline > timeTo;
+        return isTaskInRange && !super.getStatus();
     }
 
     /**

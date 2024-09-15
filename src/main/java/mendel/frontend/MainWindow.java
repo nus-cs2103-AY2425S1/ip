@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import mendel.main.Mendel;
 
 /**
@@ -36,6 +35,15 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setMendel(Mendel d) {
         mendel = d;
+        this.initaliseMessage();
+    }
+
+    private void initaliseMessage() {
+        String response = mendel.showWelcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
+        userInput.clear();
     }
 
     /**

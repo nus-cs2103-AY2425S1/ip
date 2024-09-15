@@ -29,6 +29,7 @@ public class Todo extends Task {
      */
     public static Todo of(String rawDescription) {
         String[] descriptionLst = parseDescription(rawDescription);
+        assert descriptionLst.length == 1 : "Description has wrong format";
         return new Todo(descriptionLst[0]);
     }
 
@@ -58,16 +59,21 @@ public class Todo extends Task {
      */
     private static String[] parseDescription(String rawDescription) {
         handleError(rawDescription);
-        String[] segments = rawDescription.split(" ");
+        String[] mainMessage = rawDescription.split(" ");
+        String reformattedMsg = parseArrayToFullString(mainMessage);
+        return new String[]{reformattedMsg};
+    }
+
+    private static String parseArrayToFullString(String[] mainMessage) {
         String reformattedMsg = "";
-        for (int i = 1; i < segments.length; i++) {
-            if (i == segments.length - 1) {
-                reformattedMsg += segments[i];
+        for (int i = 1; i < mainMessage.length; i++) {
+            if (i == mainMessage.length - 1) {
+                reformattedMsg += mainMessage[i];
             } else {
-                reformattedMsg += segments[i] + " ";
+                reformattedMsg += mainMessage[i] + " ";
             }
         }
-        return new String[]{reformattedMsg};
+        return reformattedMsg;
     }
 
     /**
@@ -79,7 +85,7 @@ public class Todo extends Task {
     private static void handleError(String rawDescription) throws MendelException {
         String[] segments = rawDescription.split(" ");
         ConditionalExceptionHandler.of()
-                .conditionTriggerException(segments.length == 1,
+                .conditionTriggerException(segments.length == 1 || !segments[0].equals("todo"),
                         "OOPS! todo description cannot be empty.\nAdd description.");
     }
 
@@ -92,6 +98,11 @@ public class Todo extends Task {
      */
     @Override
     public boolean isTargetDueDate(String formattedDate) {
+        return false;
+    }
+
+    @Override
+    public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         return false;
     }
 

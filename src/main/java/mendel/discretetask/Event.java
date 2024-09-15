@@ -37,6 +37,7 @@ public class Event extends Task {
      */
     public static Event of(String rawDescription) {
         String[] description = parseDescription(rawDescription);
+        assert description.length == 3 : "Description has wrong format";
         return new Event(description[0], description[1], description[2]);
     }
 
@@ -71,8 +72,14 @@ public class Event extends Task {
         handleError(rawDescription);
         String[] slashSegments = rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
+        assert slashSegments.length > 1 : "Description has wrong format";
         String startMsg = new DateTimeManager(slashSegments[1].split(" /to ")[0]).toString();
         String endMsg = new DateTimeManager(slashSegments[1].split(" /to ")[1]).toString();
+        String reformattedMsg = parseArrayToFullString(mainMessage);
+        return new String[]{reformattedMsg, startMsg, endMsg};
+    }
+
+    private static String parseArrayToFullString(String[] mainMessage) {
         String reformattedMsg = "";
         for (int i = 1; i < mainMessage.length; i++) {
             if (i == mainMessage.length - 1) {
@@ -81,7 +88,7 @@ public class Event extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-        return new String[]{reformattedMsg, startMsg, endMsg};
+        return reformattedMsg;
     }
 
     /**
@@ -133,6 +140,22 @@ public class Event extends Task {
     public boolean isTargetDueDate(String formattedDate) {
         return new DateTimeManager(formattedDate).removeTimeStamp()
                 .equals(new DateTimeManager(this.to).removeTimeStamp());
+    }
+
+    @Override
+    public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
+        DateTimeManager inputDate = new DateTimeManager(formattedDate);
+        DateTimeManager toDate = new DateTimeManager(this.to);
+        if (!inputDate.isValidFormat()) {
+            throw new MendelException("Invalid due date. Write in form Month Day Year such as Aug 09 2024");
+        }
+        if (!toDate.isValidFormat()) {
+            return false;
+        }
+        long timeDeadline = new DateTimeManager(inputDate.removeTimeStamp()).toEpochTime();
+        long timeTo = new DateTimeManager(toDate.removeTimeStamp()).toEpochTime();
+        boolean isTaskInRange = timeDeadline > timeTo;
+        return isTaskInRange && !super.getStatus();
     }
 
     /**

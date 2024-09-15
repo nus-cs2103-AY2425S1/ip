@@ -68,6 +68,8 @@ public abstract class Task {
      */
     public abstract boolean isTargetDueDate(String formattedDate);
 
+    public abstract boolean isIncompleteWithinTargetDueDate(String formattedDate);
+
     public abstract boolean isMatchingDescription(String matchingString);
 
     /**

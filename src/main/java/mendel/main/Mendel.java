@@ -33,7 +33,7 @@ public class Mendel {
         Scanner sc = new Scanner(System.in);
         String currAction = "hello";
 
-        ui.showWelcome();
+        this.showWelcome();
         while (!currAction.equals("bye")) {
             currAction = sc.nextLine().trim();
             try {
@@ -46,6 +46,10 @@ public class Mendel {
                 currAction = "bye";
             }
         }
+    }
+
+    public String showWelcome() {
+        return ui.showWelcome(this.taskManager);
     }
 
     /**
