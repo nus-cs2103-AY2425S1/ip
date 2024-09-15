@@ -42,7 +42,7 @@ public class Nerf {
     }
 
     /**
-     * Main loop
+     * Runs main program logic.
      */
     public void run() {
         Ui.printGreetings();

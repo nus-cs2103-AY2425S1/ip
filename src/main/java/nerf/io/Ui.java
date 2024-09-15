@@ -21,7 +21,7 @@ public class Ui {
     }
 
     /**
-     * Print initial welcome banner.
+     * Prints initial welcome banner.
      */
     public static void printGreetings() {
         System.out.println("Hello there! I am Nerf, your personal chatbot assistant.");
