@@ -27,6 +27,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
+        super.assertionTest(tasks, ui, storage);
         try {
             if (index < 0 || index >= tasks.getSize()) {
                 throw new MullerException("Invalid task number!");

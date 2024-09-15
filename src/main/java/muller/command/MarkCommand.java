@@ -25,6 +25,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
+        super.assertionTest(tasks, ui, storage);
         tasks.get(index).markAsDone();
         storage.saveTasks(tasks);
         return ui.showTaskMarked(tasks, index);

@@ -22,6 +22,10 @@ public class Task {
      * @param name The name of the task.
      */
     public Task(String name) {
+        // Programmer-level assumption: description should never be null or empty
+        assert name != null : "Task description should not be null";
+        assert !name.trim().isEmpty() : "Task description should not be empty";
+
         this.name = name;
         this.isDone = false;
     }
