@@ -19,7 +19,7 @@ import ahmad.exceptions.todo.TodoEmptyNameException;
  */
 public abstract class Task {
     private final String name;
-    private final boolean state;
+    private final boolean isCompleted;
 
     /**
      * Constructs abstract task instance based on name.
@@ -29,18 +29,96 @@ public abstract class Task {
      */
     protected Task(String name) {
         this.name = name;
-        this.state = false;
+        this.isCompleted = false;
     }
 
     /**
      * Constructs abstract task instance based on an old copy.
      *
-     * @param oldTask Old task to be copied from.
-     * @param state   New state of task.
+     * @param oldTask     Old task to be copied from.
+     * @param isCompleted New state of task.
      */
-    protected Task(Task oldTask, boolean state) {
+    protected Task(Task oldTask, boolean isCompleted) {
         this.name = oldTask.name;
-        this.state = state;
+        this.isCompleted = isCompleted;
+    }
+
+    private static Todo createTodo(String arg) throws TodoEmptyNameException {
+        if (arg.replaceAll("\\s+", "").isEmpty()) {
+            throw new TodoEmptyNameException();
+        }
+        return new Todo(arg);
+    }
+
+    private static Deadline createDeadline(String arg) throws DeadlineEmptyNameException,
+            DeadlineInvalidArgsException, DeadlineInvalidTimeException {
+        final List<String> deadlineArgs = Arrays.asList(arg.split("/by "));
+        if (deadlineArgs.get(0).replaceAll("\\s+", "").isEmpty()) {
+            throw new DeadlineEmptyNameException();
+        }
+        if (deadlineArgs.size() != 2 || deadlineArgs.get(1).replaceAll("\\s+", "").isEmpty()) {
+            throw new DeadlineInvalidArgsException();
+        }
+
+        final LocalDateTime deadline;
+
+        try {
+            deadline = LocalDateTime.parse(deadlineArgs.get(1));
+        } catch (DateTimeParseException e) {
+            throw new DeadlineInvalidTimeException(deadlineArgs.get(1));
+        }
+
+        return new Deadline(deadlineArgs.get(0), deadline);
+    }
+
+    private static Event createEvent(String arg) throws EventEmptyNameException, EventInvalidArgsException, EventInvalidTimeException {
+
+        final List<String> eventArgs = Arrays.asList(arg.split("/"));
+        if (eventArgs.get(0).replaceAll("\\s+", "").isEmpty()) {
+            throw new EventEmptyNameException();
+        }
+        if (eventArgs.size() != 3) {
+            throw new EventInvalidArgsException();
+        }
+
+        final String from;
+        final String to;
+        if (eventArgs.get(1).startsWith("to")) {
+            if (!eventArgs.get(2).startsWith("from")
+                    || eventArgs.get(1).replaceAll("\\s+", "").length() == 2
+                    || eventArgs.get(2).replaceAll("\\s+", "").length() == 4) {
+                throw new EventInvalidArgsException();
+            }
+            to = eventArgs.get(1).substring(3);
+            from = eventArgs.get(2).substring(5);
+        } else if (eventArgs.get(1).startsWith("from")) {
+            if (!eventArgs.get(2).startsWith("to")
+                    || eventArgs.get(2).replaceAll("\\s+", "").length() == 2
+                    || eventArgs.get(1).replaceAll("\\s+", "").length() == 4) {
+                throw new EventInvalidArgsException();
+            }
+            from = eventArgs.get(1).substring(5);
+            to = eventArgs.get(2).substring(3);
+        } else {
+            throw new EventInvalidArgsException();
+        }
+
+        final LocalDateTime fromDate;
+        final LocalDateTime toDate;
+
+        try {
+            fromDate = LocalDateTime.parse(from.replaceAll("\\s+", ""));
+        } catch (DateTimeParseException e) {
+            throw new EventInvalidTimeException(from);
+        }
+
+        try {
+            toDate = LocalDateTime.parse(to.replaceAll("\\s+", ""));
+        } catch (DateTimeParseException e) {
+            throw new EventInvalidTimeException(to);
+        }
+
+        return new Event(eventArgs.get(0), fromDate, toDate);
     }
 
     /**
@@ -62,75 +140,11 @@ public abstract class Task {
             DeadlineInvalidTimeException, EventInvalidTimeException {
         switch (type) {
         case Todo:
-            if (arg.replaceAll("\\s+", "").isEmpty()) {
-                throw new TodoEmptyNameException();
-            }
-            return new Todo(arg);
+            return createTodo(arg);
         case Deadline:
-            final List<String> deadlineArgs = Arrays.asList(arg.split("/by "));
-            if (deadlineArgs.get(0).replaceAll("\\s+", "").isEmpty()) {
-                throw new DeadlineEmptyNameException();
-            }
-            if (deadlineArgs.size() != 2 || deadlineArgs.get(1).replaceAll("\\s+", "").isEmpty()) {
-                throw new DeadlineInvalidArgsException();
-            }
-
-            final LocalDateTime deadline;
-
-            try {
-                deadline = LocalDateTime.parse(deadlineArgs.get(1));
-            } catch (DateTimeParseException e) {
-                throw new DeadlineInvalidTimeException(deadlineArgs.get(1));
-            }
-
-            return new Deadline(deadlineArgs.get(0), deadline);
+            return createDeadline(arg);
         case Event:
-            final List<String> eventArgs = Arrays.asList(arg.split("/"));
-            if (eventArgs.get(0).replaceAll("\\s+", "").isEmpty()) {
-                throw new EventEmptyNameException();
-            }
-            if (eventArgs.size() != 3) {
-                throw new EventInvalidArgsException();
-            }
-
-            final String from;
-            final String to;
-            if (eventArgs.get(1).startsWith("to")) {
-                if (!eventArgs.get(2).startsWith("from")
-                        || eventArgs.get(1).replaceAll("\\s+", "").length() == 2
-                        || eventArgs.get(2).replaceAll("\\s+", "").length() == 4) {
-                    throw new EventInvalidArgsException();
-                }
-                to = eventArgs.get(1).substring(3);
-                from = eventArgs.get(2).substring(5);
-            } else if (eventArgs.get(1).startsWith("from")) {
-                if (!eventArgs.get(2).startsWith("to")
-                        || eventArgs.get(2).replaceAll("\\s+", "").length() == 2
-                        || eventArgs.get(1).replaceAll("\\s+", "").length() == 4) {
-                    throw new EventInvalidArgsException();
-                }
-                from = eventArgs.get(1).substring(5);
-                to = eventArgs.get(2).substring(3);
-            } else {
-                throw new EventInvalidArgsException();
-            }
-
-            final LocalDateTime fromDate;
-            final LocalDateTime toDate;
-
-            try {
-                fromDate = LocalDateTime.parse(from.replaceAll("\\s+", ""));
-            } catch (DateTimeParseException e) {
-                throw new EventInvalidTimeException(from);
-            }
-
-            try {
-                toDate = LocalDateTime.parse(to.replaceAll("\\s+", ""));
-            } catch (DateTimeParseException e) {
-                throw new EventInvalidTimeException(to);
-            }
-
-            return new Event(eventArgs.get(0), fromDate, toDate);
+            return createEvent(arg);
         default:
             assert false : "Illegal new task state";
             throw new IllegalStateException();
@@ -187,6 +201,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return this.getSymbol() + "[" + (state ? "X" : " ") + "] " + name + this.getExtraInformation();
+        return this.getSymbol() + "[" + (isCompleted ? "X" : " ") + "] " + name + this.getExtraInformation();
     }
 }
