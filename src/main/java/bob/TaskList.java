@@ -2,7 +2,6 @@ package bob;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +14,11 @@ import bob.task.Task;
  * such as adding and deleting tasks, retrieving tasks, and printing the list of tasks.
  */
 public class TaskList {
+
+    /**
+     * A DateTimeFormatter to format dates in a readable format for the user.
+     */
+    private static final DateTimeFormatter FRIENDLY_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
     private final List<Task> tasks;
 
     /**
@@ -47,7 +51,6 @@ public class TaskList {
      *
      * @return A List of Task objects.
      */
-
     List<Task> getTasks() {
         return tasks;
     }
@@ -62,26 +65,12 @@ public class TaskList {
     }
 
     /**
-     * Gets a Task in the task list using task number.
-     *
-     * @param taskNum The 1-based index of the task to retrieve.
-     * @return Task object at the specified index.
-     * @throws IndexOutOfBoundsException If the index is out of range.
-     */
-    Task getTask(int taskNum) throws BobException {
-        try {
-            return tasks.get(taskNum - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new BobException("The task number provided is invalid.");
-        }
-    }
-
-    /**
      * Adds a task to the task list.
      *
      * @param task The task to be added to the task list.
      */
     void addTask(Task task) {
+        assert task != null : "Task to be added should not be null";
         tasks.add(task);
     }
 
@@ -100,22 +89,41 @@ public class TaskList {
     }
 
     /**
+     * Gets a Task in the task list using task number.
+     *
+     * @param taskNum The 1-based index of the task to retrieve.
+     * @return Task object at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
+    Task getTask(int taskNum) throws BobException {
+        try {
+            return tasks.get(taskNum - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("The task number provided is invalid.");
+        }
+    }
+
+    /**
+     * Builds a formatted string of tasks from a given list of Task objects.
+     *
+     * @param tasks The list of Task objects to format.
+     * @return A formatted string representation of the tasks.
+     */
+    private String buildTaskListString(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    /**
      * Prints all tasks in the task list.
      *
      * @return A formatted string of all tasks.
      */
     String printTasks() {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 1; i <= getNumTasks(); i++) {
-            Task currTask = tasks.get(i - 1);
-            if (i == getNumTasks()) {
-                sb.append(i).append(". ").append(currTask);
-                continue;
-            }
-            sb.append(i).append(". ").append(currTask).append("\n");
-        }
-        return sb.toString();
+        return buildTaskListString(tasks);
     }
 
     /**
@@ -126,23 +134,17 @@ public class TaskList {
      * @throws BobException If the date format is invalid.
      */
     String printRelevantTasksByDate(String dateStr) throws BobException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate date = LocalDate.parse(dateStr, formatter);
+        LocalDate date = Parser.parseDate(dateStr);
 
-            List<Task> relevantTasks = tasks.stream()
-                    .filter(task -> task.isRelevant(date))
-                    .collect(Collectors.toList());
+        List<Task> relevantTasks = tasks.stream()
+                .filter(task -> task.isRelevant(date))
+                .collect(Collectors.toList());
 
-            String taskListStr = buildTaskListString(relevantTasks);
-            DateTimeFormatter formatterWords = DateTimeFormatter.ofPattern("MMM dd yyyy");
-            String summary = "Total number of relevant tasks for " + date.format(formatterWords) + ": "
-                    + relevantTasks.size();
+        String taskListStr = buildTaskListString(relevantTasks);
+        String summary = "Total number of relevant tasks for " + date.format(FRIENDLY_DATE_FORMATTER) + ": "
+                + relevantTasks.size();
 
-            return taskListStr + summary;
-        } catch (DateTimeParseException e) {
-            throw new BobException("Invalid date format. Required format: relevant yyyy-MM-dd");
-        }
+        return taskListStr + summary;
     }
 
     /**
@@ -162,24 +164,9 @@ public class TaskList {
                 .collect(Collectors.toList());
 
         String taskListStr = buildTaskListString(matchingTasks);
-        String summary = "Total number of tasks containing \"" + keyword.toLowerCase() + "\": "
-                + matchingTasks.size();
+        String summary = "Total number of tasks containing \"" + keyword.toLowerCase() + "\": " + matchingTasks.size();
 
         return taskListStr + summary;
-    }
-
-    /**
-     * Builds a formatted string of tasks from a given list of Task objects.
-     *
-     * @param tasks The list of Task objects to format.
-     * @return A formatted string representation of the tasks.
-     */
-    private String buildTaskListString(List<Task> tasks) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
-        }
-        return sb.toString();
     }
 }
 
