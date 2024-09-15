@@ -140,4 +140,4 @@ Example: `bye`
 Goodbye. Hope to see you again soon!
 ```
 
-Thank you for using FriendlyBot! Feel free to leave me some comments on my GitHub: https://github.com/limyixiang/ip
+Thank you for using FriendlyBot! Feel free to leave me some comments on my [GitHub](https://github.com/limyixiang/ip).
