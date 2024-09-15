@@ -29,11 +29,6 @@ public class Task implements Serializable {
         this.isDone = false;
     }
 
-    /**
-     * Returns the String representation of the task.
-     *
-     * @return String representation of the task.
-     */
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
