@@ -207,25 +207,27 @@ public class SecondMind {
 
     public String execute(String[] instruction) {
         String command = instruction[0];
-        if (command.equals("bye")) {
+        String response;
+        switch (command) {
+        case "bye":
             return EXIT_INSTRUCTION;
-        } else if (command.equals("mark")) {
-            String response = executeTaskStatusUpdateInstruction(instruction, true);
+        case "mark":
+            response = executeTaskStatusUpdateInstruction(instruction, true);
             return response;
-        } else if (command.equals("unmark")) {
-            String response = executeTaskStatusUpdateInstruction(instruction, false);
+        case "unmark":
+            response = executeTaskStatusUpdateInstruction(instruction, false);
             return response;
-        } else if (command.equals("delete")) {
-            String response = executeDeleteInstruction(instruction);
+        case "delete":
+            response = executeDeleteInstruction(instruction);
             return response;
-        } else if (command.equals("list")) {
-            String response = executeListInstruction();
+        case "list":
+            response = executeListInstruction();
             return response;
-        } else if (command.equals("find")) {
-            String response = executeFindInstruction(instruction);
+        case "find":
+            response = executeFindInstruction(instruction);
             return response;
-        } else {
-            String response = executeTaskCreationInstruction(instruction);
+        default:
+            response = executeTaskCreationInstruction(instruction);
             return response;
         }
     }
