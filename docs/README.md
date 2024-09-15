@@ -1,12 +1,13 @@
 # Jar User Guide
 
-Jar frees your mind from having to remember things you need to do. It's:
+_Jar frees your mind from having to remember things you need to do._ 
 
+It's:
 text-based
 easy to learn
 FAST SUPER FAST to use
 
-All you need to do is:
+## All you need to do is:
 
 1. You can download the latest release of Jar Bot [here](https://github.com/jarrellc1/ip/releases).
 2. Double-click it.
