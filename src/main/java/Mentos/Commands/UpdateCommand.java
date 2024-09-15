@@ -29,7 +29,7 @@ public class UpdateCommand extends Command {
         this.index = Integer.parseInt(extracted);
     }
 
-    public boolean updateHandler(Task task) {
+    public boolean updateHandler(Task task) throws MentosException {
         boolean hasUpdated = false;
         Matcher descriptionMatch = super.regexHandler(this.fieldsToUpdate, this.descriptionRegex);
         if (descriptionMatch != null) {

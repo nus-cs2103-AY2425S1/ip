@@ -71,7 +71,7 @@ public class Storage {
      * @param isDone The status of the task, "X" if the task is done, otherwise empty.
      * @return An Event task object with the provided description, start date, and end date, or null if the input format is invalid.
      */
-    public Task eventHandler(String line, String isDone) {
+    public Task eventHandler(String line, String isDone) throws MentosException {
         Matcher eventMatcher = regexHandler(line, "^\\[(?:[E])\\] \\[(?:.)\\] (.*) \\(from: (.*) to: (.*)\\)$");
         if (eventMatcher == null) {
             return null;
@@ -148,7 +148,7 @@ public class Storage {
      * @param line The input line representing a task in the format: "[T|E|D] [X| ] description".
      * @return A Task object (ToDo, Event, or Deadline) based on the input, or null if the format is invalid or unrecognized.
      */
-    public Task taskFileHandler(String line) {
+    public Task taskFileHandler(String line) throws MentosException {
         Matcher matcher = regexHandler(line, "^\\[([T|E|D])\\] \\[(.)\\] (?:.*)$");
         if (matcher == null) {
             System.out.println("Content not in the right format! Skipping....");

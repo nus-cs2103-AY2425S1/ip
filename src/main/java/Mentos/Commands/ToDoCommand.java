@@ -8,7 +8,7 @@ import Mentos.task.ToDo;
 import java.util.regex.Matcher;
 
 public class ToDoCommand extends Command {
-    private final String regex = "todo (.+)";
+    private final String regex = "todo\\s*(.+[^ ])$";
     private final Task task;
 
 
