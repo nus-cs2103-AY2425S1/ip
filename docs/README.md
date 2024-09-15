@@ -6,6 +6,14 @@
 Duck is a personal assistant application for managing tasks. It allows you to keep track of to-do lists, deadlines, and events through simple text commands. Duck supports a range of commands to help you manage and sort your tasks effectively, and can also save and load your tasks from a file.
 
 ---
+## Notes about command format:
+- Words in `UPPER_CASE` are the parameters to be supplied by the user. 
+<br>e.g., in `todo DESCRIPTION`, `DESCRIPTION` is a parameter that can be used as `todo read book`.
+
+
+- Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.
+  <br>e.g., if the command specifies `list 123`, Duck will still execute the `list` command.
+---
 ## Getting help with commands: `help`
 
 The `help` command provides a list of all available commands and their descriptions. This can help you learn how to use Duck effectively.
@@ -33,7 +41,7 @@ Here are the commands you can use:
 ## Listing all tasks: `list`
 
 The `list` command allows you to view all tasks currently stored in Duck's task list, including to-do items, deadlines, and events.
-
+![2139.png](..%2F..%2F..%2F..%2F..%2FAppData%2FLocal%2FTemp%2F2139.png)
 **Format:** `list`
 
 **Expected outcome**
@@ -231,6 +239,25 @@ You can exit Duck by using the `bye` command.
 Quack! Duck is going to sleep now. Goodbye!
 ```
 
+## Saving the data
+There is no need to save the data manually. Duck automatically saves your tasks to a file named `duck.txt` in a folder named data, in the user's home directory. 
+The data will be loaded automatically the next time you run Duck.
+
+## Editing the data file
+Duck data are saved automatically as a txt file in the data folder of the user's home directory. 
+Advanced users can edit the data file directly to make changes to the tasks.
+
+```dtd
+For Windows: C:\Users\<username>\data\duck.txt
+For Mac: /Users/<username>/data/duck.txt
+For Linux: /home/<username>/data/duck.txt
+```
+
+```dtd
+    
+Caution: Editing the data file directly with invalid formats may cause Duck to behave unexpectedly.
+Duck will only load the lines of data that are in the correct format.
+```
 ## Command Summary
 
 | Action  | Format, Example |
