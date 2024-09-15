@@ -106,6 +106,12 @@ public class Storage {
     private Task parseData(String data) throws InvalidTaskEnumException {
         String[] args = data.split(" \\| ");
         TaskSymbol sym = TaskSymbol.fromString(args[0]);
+
+        // We disable checkstyle for indentation here because checkstyle
+        // does not recognise the arrow-notation by default.
+        // See issue: https://github.com/nus-cs2103-AY2425S1/forum/issues/184
+
+        // CHECKSTYLE.OFF: Indentation
         return switch (sym) {
             case TODO -> {
                 assert args.length == 3;
@@ -125,5 +131,6 @@ public class Storage {
                 );
             }
         };
+        // CHECKSTYLE.ON: Indentation
     }
 }

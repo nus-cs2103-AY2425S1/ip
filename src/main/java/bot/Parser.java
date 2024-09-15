@@ -41,6 +41,11 @@ public class Parser {
             Command cmd = Command.fromString(matcher.group(1));
             String args = matcher.group(2).strip();
 
+            // We disable checkstyle for indentation here because checkstyle
+            // does not recognise the arrow-notation by default.
+            // See issue: https://github.com/nus-cs2103-AY2425S1/forum/issues/184
+
+            // CHECKSTYLE.OFF: Indentation
             return switch (cmd) {
                 case LIST -> new ListTaskAction();
                 case TODO -> new AddTaskAction(new Todo(args));
@@ -53,6 +58,7 @@ public class Parser {
                 case UNDO -> new UndoAction();
                 case EXIT -> new ExitAction();
             };
+            // CHECKSTYLE.ON: Indentation
         } else {
             throw new InvalidCommandException(input);
         }
