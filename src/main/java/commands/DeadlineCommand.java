@@ -1,5 +1,6 @@
 package commands;
 
+import core.Brock;
 import exceptions.BrockException;
 import storage.Storage;
 import task.Deadline;
@@ -20,17 +21,14 @@ public class DeadlineCommand extends Command {
         super(command);
     }
 
-    /**
-     * Creates a {@code Deadline} object encapsulating details about the deadline task.
-     *
-     * @return {@code Deadline} object.
-     * @throws BrockException If deadline missing description or due date.
-     */
-    private Task createDeadline() throws BrockException {
-        String command = super.getCommand();
-        String[] commandWords = command.split(" ");
-        int commandLength = commandWords.length;
 
+    private String[] processCommand() {
+        String command = super.getCommand();
+        return command.split(" ");
+    }
+
+    private String getDescription(String[] commandWords) throws BrockException {
+        int commandLength = commandWords.length;
         StringBuilder description = new StringBuilder();
         for (int i = 1; i < commandLength; i++) {
             if (commandWords[i].equalsIgnoreCase("/by")) {
@@ -40,12 +38,17 @@ public class DeadlineCommand extends Command {
                     .append(" ");
         }
 
+        if (description.isEmpty()) {
+            throw new BrockException("Description is missing!");
+        }
+        return description.toString();
+    }
+
+    private String getDueDateTime(String[] commandWords) throws BrockException {
         StringBuilder dateTime = new StringBuilder();
         boolean isSeeingDateTime = false;
-        int dateTimeWords = 0;
         for (String word : commandWords) {
             if (isSeeingDateTime) {
-                dateTimeWords += 1;
                 dateTime.append(word)
                         .append(" ");
             }
@@ -54,23 +57,45 @@ public class DeadlineCommand extends Command {
             }
         }
 
-        if (description.isEmpty()) {
-            throw new BrockException("Description is missing!");
-        }
         if (dateTime.isEmpty()) {
             throw new BrockException("Missing due date! Remember it is specified after /by!");
         }
+        return dateTime.toString();
+    }
 
-        String[] dateTimeValues = CommandUtility.validateDateTime(dateTime.toString(),
-                dateTimeWords, CommandUtility.Context.DUE);
-        if (dateTimeWords == 1) {
-            return new Deadline(description.toString(),
+    /**
+     * Creates a {@code Deadline} object encapsulating details about the deadline task.
+     *
+     * @return {@code Deadline} object.
+     * @throws BrockException If deadline missing description or due date.
+     */
+    private Task createDeadline() throws BrockException {
+        String[] commandWords = this.processCommand();
+        String description = this.getDescription(commandWords);
+        String dueDateTime = this.getDueDateTime(commandWords);
+
+        String[] dateTimeValues = CommandUtility.validateDateTime(dueDateTime,
+                CommandUtility.Context.DUE);
+        if (dateTimeValues.length == 1) {
+            return new Deadline(description,
                     dateTimeValues[0]);
         } else {
-            return new Deadline(description.toString(),
+            return new Deadline(description,
                     dateTimeValues[0],
                     dateTimeValues[1]);
         }
+    }
+
+    private void updateSaveFile(Storage storage, TaskList tasks, Task deadlineTask) throws BrockException {
+        storage.writeToFile(tasks.numTasks() + ". "
+                        + tasks.getTaskDetails(deadlineTask) + '\n',
+                true);
+    }
+
+    private String getResponse(TaskList tasks, Task deadlineTask) {
+        return "Got it. I've added this task:\n"
+                + "  " + tasks.getTaskDetails(deadlineTask) + '\n'
+                + tasks.getTasksSummary();
     }
 
     /**
@@ -90,13 +115,7 @@ public class DeadlineCommand extends Command {
         Task deadlineTask = this.createDeadline();
         tasks.addToList(deadlineTask);
 
-        // Update the save file
-        storage.writeToFile(tasks.numTasks() + ". "
-                + tasks.getTaskDetails(deadlineTask) + '\n',
-                true);
-
-        return "Got it. I've added this task:\n"
-                + "  " + tasks.getTaskDetails(deadlineTask) + '\n'
-                + tasks.getTasksSummary();
+        this.updateSaveFile(storage, tasks, deadlineTask);
+        return this.getResponse(tasks, deadlineTask);
     }
 }

@@ -8,7 +8,7 @@ import task.TaskList;
 
 /**
  * Class with commonly used utility functions for commands
- *      to reduce code duplication
+ * to reduce code duplication
  */
 public class CommandUtility {
     /**
@@ -60,12 +60,11 @@ public class CommandUtility {
     /**
      * Gets the label to be used in validating date and time.
      *
-     * @param dateTimeWords Number of dateTime words. 1 means only date, 2 means both date and time.
-     * @param context Indicates if method is looking at due dateTime, start dateTime or end dateTime.
+     * @param context       Indicates if method is looking at due dateTime, start dateTime or end dateTime.
      * @return Label based on context.
      * @throws BrockException If more than 2 words.
      */
-    private static String getLabel(int dateTimeWords, Context context) throws BrockException {
+    private static String getLabel(Context context) throws BrockException {
         String label;
         // Can ignore style error for this enhanced switch statement
         label = switch (context) {
@@ -73,66 +72,69 @@ public class CommandUtility {
             case START -> "Start ";
             case END -> "End ";
         };
-
-        if (dateTimeWords > 2) {
-            throw new BrockException(String.format("Valid %s date & time must follow one of the below formats:\n",
-                    label.toLowerCase())
-                    + "<yyyy-mm-dd> OR\n"
-                    + "<yyyy-mm-dd> <24hr-time>");
-        }
         return label;
     }
+
+    private static String[] processDateTimeString(String dateTimeString) {
+        return dateTimeString.trim()
+                .split(" ");
+    }
+
+    private static void validateDate(String dateString, String label) throws BrockException {
+        String[] dateParts = dateString.split("-");
+        if (dateParts.length != 3) {
+            throw new BrockException(label + "date & time following <yyyy-mm-dd> format:\n"
+                    + label + "date is not in the <yyyy-mm-dd> format!");
+        }
+    }
+
+    private static void validateTime(String timeString, String label) throws BrockException {
+        if (CommandUtility.isNotInteger(timeString)) {
+            throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
+                    + label + "time is not a number!");
+        } else {
+            try {
+                LocalTime.parse(timeString,
+                        java.time.format.DateTimeFormatter.ofPattern("HHmm"));
+            } catch (DateTimeParseException e) {
+                throw new BrockException("Time must be in HHmm format and between 0000 and 2359!");
+            }
+        }
+    }
+
 
     /**
      * Checks if the dateTime string given is valid or not.
      *
      * @param dateTimeString String representing dateTime.
-     * @param dateTimeWords Number of words in the string. 1 means only date, 2 means both date and time.
-     * @param context Indicates if method is looking at due dateTime, start dateTime or end dateTime.
+     * @param context        Indicates if method is looking at due dateTime, start dateTime or end dateTime.
      * @return Formatted date and time strings separately.
      * @throws BrockException If dateTime string is invalid.
      */
-    public static String[] validateDateTime(String dateTimeString, int dateTimeWords, Context context)
+    public static String[] validateDateTime(String dateTimeString, Context context)
             throws BrockException {
-        String label = CommandUtility.getLabel(dateTimeWords, context);
 
-        String dateStringFinal = "";
+        String label = getLabel(context);
+        String[] dateTimeParts = processDateTimeString(dateTimeString);
+
+        String dateStringFinal;
         String timeStringFinal = "";
-        if (dateTimeWords == 1) {
-            String dateString = dateTimeString.trim();
-            String[] dateParts = dateString.split("-");
-
-            if (dateParts.length != 3) {
-                throw new BrockException(label + "date & time following <yyyy-mm-dd> format:\n"
-                        + label + "date is not in the <yyyy-mm-dd> format!");
-            }
-            dateStringFinal = dateString;
+        if (dateTimeParts.length > 2) {
+            throw new BrockException(String.format("Valid %s date & time must follow one of the below formats:\n",
+                    label.toLowerCase())
+                    + "<yyyy-mm-dd> OR\n"
+                    + "<yyyy-mm-dd> <24hr-time>");
         }
-        if (dateTimeWords == 2) {
-            String[] dateTimeParts = dateTimeString.trim()
-                    .split(" ");
-            String dateString = dateTimeParts[0];
+
+        if (dateTimeParts.length == 2) {
             String timeString = dateTimeParts[1];
-            String[] dateParts = dateString.split("-");
-
-            if (dateParts.length != 3) {
-                throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
-                        + label + "date is not in the <yyyy-mm-dd> format!");
-            }
-            if (CommandUtility.isNotInteger(timeString)) {
-                throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
-                        + label + "time is not a number!");
-            } else {
-                try {
-                    LocalTime time = LocalTime.parse(timeString,
-                            java.time.format.DateTimeFormatter.ofPattern("HHmm"));
-                } catch (DateTimeParseException e) {
-                    throw new BrockException("Time must be in HHmm format and between 0000 and 2359!");
-                }
-                timeStringFinal = timeString;
-            }
-            dateStringFinal = dateString;
+            validateTime(timeString, label);
+            timeStringFinal = timeString;
         }
+
+        String dateString = dateTimeParts[0];
+        validateDate(dateString, label);
+        dateStringFinal = dateString;
 
         if (timeStringFinal.isEmpty()) {
             return new String[]{dateStringFinal};
@@ -145,8 +147,8 @@ public class CommandUtility {
      * Checks if the mark or unmark command is valid.
      *
      * @param command Either the mark or unmark command.
-     * @param action Specifying which command type.
-     * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
+     * @param action  Specifying which command type.
+     * @param tasks   {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
      * @throws BrockException If the command is invalid.
      */
     public static void validateStatus(String command, Action action, TaskList tasks) throws BrockException {

@@ -19,17 +19,13 @@ public class TodoCommand extends Command {
         super(command);
     }
 
-    /**
-     * Creates an {@code ToDo} object encapsulating details about the todo task.
-     *
-     * @return {@code ToDo} object.
-     * @throws BrockException If todo missing description.
-     */
-    private Task createTodo() throws BrockException {
+    private String[] processCommand() {
         String command = super.getCommand();
-        String[] commandWords = command.split(" ");
-        int commandLength = commandWords.length;
+        return command.split(" ");
+    }
 
+    private String getDescription(String[] commandWords) throws BrockException {
+        int commandLength = commandWords.length;
         StringBuilder description = new StringBuilder();
         for (int i = 1; i < commandLength; i++) {
             description.append(commandWords[i])
@@ -39,7 +35,32 @@ public class TodoCommand extends Command {
         if (description.isEmpty()) {
             throw new BrockException("Description is missing!");
         }
-        return new ToDo(description.toString());
+        return description.toString();
+    }
+
+
+    /**
+     * Creates an {@code ToDo} object encapsulating details about the todo task.
+     *
+     * @return {@code ToDo} object.
+     * @throws BrockException If todo missing description.
+     */
+    private Task createTodo() throws BrockException {
+        String[] commandWords = this.processCommand();
+        String description = this.getDescription(commandWords);
+        return new ToDo(description);
+    }
+
+    private void updateSaveFile(Storage storage, TaskList tasks, Task todoTask) throws BrockException {
+        storage.writeToFile(tasks.numTasks() + ". "
+                        + tasks.getTaskDetails(todoTask) + '\n',
+                true);
+    }
+
+    private String getResponse(TaskList tasks, Task todoTask) {
+        return "Got it. I've added this task:\n"
+                + "  " + tasks.getTaskDetails(todoTask) + '\n'
+                + tasks.getTasksSummary();
     }
 
     /**
@@ -59,13 +80,7 @@ public class TodoCommand extends Command {
         Task todoTask = this.createTodo();
         tasks.addToList(todoTask);
 
-        // Update the save file
-        storage.writeToFile(tasks.numTasks() + ". "
-                + tasks.getTaskDetails(todoTask) + '\n',
-                true);
-
-        return "Got it. I've added this task:\n"
-                + "  " + tasks.getTaskDetails(todoTask) + '\n'
-                + tasks.getTasksSummary();
+        this.updateSaveFile(storage, tasks, todoTask);
+        return this.getResponse(tasks, todoTask);
     }
 }
