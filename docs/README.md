@@ -9,7 +9,7 @@ Jeff is a chatbot for managing tasks (To-Do, Deadline, Event) using a Command Li
 1. Ensure you have Java 17 installed in your computer.
 
 
-2. Download the latest `.jar` file from [here](https://github.com/Nicholaskoh1/ip/releases/download/v0.2/Jeff.jar).
+2. Download the latest `.jar` file from [here](https://github.com/Nicholaskoh1/ip/releases/download/A-Release/Jeff.jar).
 
 
 3. Copy the file to the folder you want to use as the home folder for your Chatbot.
