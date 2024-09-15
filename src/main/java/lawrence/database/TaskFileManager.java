@@ -60,7 +60,7 @@ public class TaskFileManager {
                 String taskString = sc.nextLine();
                 tasks.add(TaskParser.createTask(taskString, InputSource.FILE));
             } catch (IllegalArgumentException | DateTimeParseException e) {
-                // Task contains faulty information in file, just skip
+                // task contains faulty information in file, just skip the line
             }
         }
 

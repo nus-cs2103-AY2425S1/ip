@@ -68,13 +68,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBotDialog(response, botImage)
         );
 
-        if (!lawrence.shouldContinue()) {
+        if (!response.shouldContinue()) {
             Platform.exit();
         }
 
         userInput.clear();
-
-        // scroll to the bottom after adding new messages
         scrollToBottom();
     }
 

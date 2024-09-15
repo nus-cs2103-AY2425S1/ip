@@ -39,7 +39,7 @@ public class TaskParser {
             creator = new UserTaskCreator();
             break;
         default:
-            // This case should never be reached
+            // this case should never be reached
             throw new IllegalStateException("Unexpected source: " + source);
         }
         return creator.createTask(input);

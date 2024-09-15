@@ -4,7 +4,7 @@ package lawrence.ui;
  * Represents the interface where messages can be displayed to the user in the console.
  */
 public class UserInterface {
-    private String name;
+    private final String name;
 
     /**
      * Constructor. The name of the bot can be specified for

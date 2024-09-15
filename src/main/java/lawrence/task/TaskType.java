@@ -8,7 +8,7 @@ public enum TaskType {
     EVENT("event"),
     TODO("todo");
 
-    private String taskType;
+    private final String taskType;
 
     /**
      * Default constructor.

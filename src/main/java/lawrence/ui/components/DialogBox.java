@@ -30,9 +30,9 @@ public class DialogBox extends HBox {
      * Constructor.
      *
      * @param text the text to be displayed in the dialog box
-     * @param img the image to be displayed in the dialog box
+     * @param image the image to be displayed in the dialog box
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image image) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -43,7 +43,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        displayPicture.setImage(image);
     }
 
     /**
@@ -88,10 +88,6 @@ public class DialogBox extends HBox {
      * @param type the type of command issued to the bot
      */
     private void changeDialogStyle(CommandType type) {
-        if (type == null) {
-            // do nothing
-            return;
-        }
         switch(type) {
         case ADD_EVENT:
             // Fallthrough

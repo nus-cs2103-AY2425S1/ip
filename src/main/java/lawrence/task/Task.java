@@ -5,7 +5,7 @@ package lawrence.task;
  */
 public abstract class Task {
     private boolean isComplete;
-    private String description;
+    private final String description;
 
     /**
      * Constructor. Creates a {@link Task} object with the specified

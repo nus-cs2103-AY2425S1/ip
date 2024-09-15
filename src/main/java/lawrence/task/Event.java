@@ -8,8 +8,8 @@ import lawrence.utils.DateParser;
  * Represents a task that has a start time and an end time.
  */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructor. Creates an {@link Event} object with the specified

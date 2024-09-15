@@ -55,7 +55,7 @@ public class AddTaskCommand extends Command {
             tasks.addTask(t);
             saveTasks(tasks, manager);
 
-            // Format components of message to display
+            // format components of message to display
             int numberOfTasks = tasks.getSize();
             String verb = numberOfTasks == 1 ? "is" : "are";
             String plural = numberOfTasks == 1 ? "" : "s";

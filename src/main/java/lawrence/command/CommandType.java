@@ -41,7 +41,7 @@ public enum CommandType {
      */
     public static CommandType fromString(String input) {
         for (CommandType type : CommandType.values()) {
-            // do not attempt to match with type INVALID as it is used to signify a failed parse
+            // do not attempt to match with type INVALID as it is reserved to signify a failed parse
             if (type == INVALID) {
                 continue;
             }

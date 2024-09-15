@@ -42,9 +42,9 @@ public class CommandParser {
         Command c;
         switch(type) {
         case ADD_EVENT:
-            // Fallthrough
+            // fallthrough
         case ADD_DEADLINE:
-            // Fallthrough
+            // fallthrough
         case ADD_TODO:
             c = new AddTaskCommand(type, input);
             break;

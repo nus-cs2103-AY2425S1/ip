@@ -8,7 +8,7 @@ import lawrence.utils.DateParser;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     /**
      * Constructor. Creates a {@link Deadline} object with the specified

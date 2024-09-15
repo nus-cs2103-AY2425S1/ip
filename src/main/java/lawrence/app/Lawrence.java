@@ -31,8 +31,6 @@ public class Lawrence {
     private TaskList tasks;
     private final UserInterface ui;
 
-    private Command previousCommand;
-
     /**
      * Default constructor.
      */
@@ -44,7 +42,7 @@ public class Lawrence {
             tasks = new TaskList(existingTasks);
         } catch (IOException e) {
             // initialise with no tasks instead
-            tasks = new TaskList(new Task[0]);
+            tasks = new TaskList();
         }
     }
 
@@ -69,7 +67,7 @@ public class Lawrence {
         String userInput;
         boolean shouldContinue = true;
         while (shouldContinue) {
-            userInput = sc.nextLine(); // Get next user input
+            userInput = sc.nextLine();
             try {
                 Command c = CommandParser.createCommand(userInput);
                 c.execute(tasks, manager, ui);
@@ -95,21 +93,5 @@ public class Lawrence {
             String message = String.format("%s Please try again.", e.getMessage());
             return new Response(CommandType.INVALID, message, true);
         }
-    }
-
-    /**
-     * Returns a boolean indicating whether the program should continue running.
-     * <p>
-     * Changes with the execution of different commands.
-     * </p>
-     *
-     * @return a boolean indicating whether the program should continue running
-     */
-    public boolean shouldContinue() {
-        if (previousCommand == null) {
-            return true;
-        }
-
-        return previousCommand.shouldContinue();
     }
 }

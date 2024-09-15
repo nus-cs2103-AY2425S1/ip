@@ -7,7 +7,7 @@ import java.util.List;
  * Represents the list of tasks the user has specified to be tracked by the chatbot.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Default constructor. The number of items in the list will be
