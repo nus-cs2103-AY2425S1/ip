@@ -20,18 +20,13 @@ public class EventCommand extends Command {
         super(command);
     }
 
-    /**
-     * Creates an {@code Event} object encapsulating details about the event task.
-     *
-     * @return {@code Event} object.
-     * @throws BrockException If event missing description, start date or end date.
-     *      Or, if start and end dates are invalid.
-     */
-    private Task createEvent() throws BrockException {
+    private String[] processCommand() {
         String command = super.getCommand();
-        String[] commandWords = command.split(" ");
-        int commandLength = commandWords.length;
+        return command.split(" ");
+    }
 
+    private String getDescription(String[] commandWords) throws BrockException {
+        int commandLength = commandWords.length;
         StringBuilder description = new StringBuilder();
         for (int i = 1; i < commandLength; i++) {
             if (commandWords[i].equalsIgnoreCase("/from")) {
@@ -41,12 +36,33 @@ public class EventCommand extends Command {
                     .append(" ");
         }
 
+        if (description.isEmpty()) {
+            throw new BrockException("Description is missing!");
+        }
+        return description.toString();
+    }
+
+    private void validateDateTimes(String startDateTime, String endDateTime) throws BrockException {
+        if (startDateTime.isEmpty()) {
+            throw new BrockException("Missing start date! Remember it is specified after /from!");
+        }
+        if (endDateTime.isEmpty()) {
+            throw new BrockException("Missing end date! Remember it is specified after /to!");
+        }
+        if (this.countWords(startDateTime) != this.countWords(endDateTime)) {
+            throw new BrockException("Both start and end dates must either include or exclude a time!");
+        }
+    }
+
+    private int countWords(String dateTime) {
+        return dateTime.isEmpty() ? 0 : dateTime.split("\\s+").length;
+    }
+
+    private String[] getStartEndDateTimes(String[] commandWords) throws BrockException {
         StringBuilder startDateTime = new StringBuilder();
         StringBuilder endDateTime = new StringBuilder();
         boolean isSeeingStartDateTime = false;
         boolean isSeeingEndDateTime = false;
-        int startDateTimeWords = 0;
-        int endDateTimeWords = 0;
         for (String word : commandWords) {
             if (word.equalsIgnoreCase("/from")) {
                 isSeeingStartDateTime = true;
@@ -58,45 +74,61 @@ public class EventCommand extends Command {
                 continue;
             }
             if (isSeeingStartDateTime) {
-                startDateTimeWords += 1;
                 startDateTime.append(word)
                         .append(" ");
             }
             if (isSeeingEndDateTime) {
-                endDateTimeWords += 1;
                 endDateTime.append(word)
                         .append(" ");
             }
         }
+        this.validateDateTimes(startDateTime.toString(),
+                endDateTime.toString());
 
-        if (description.isEmpty()) {
-            throw new BrockException("Description is missing!");
-        }
-        if (startDateTime.isEmpty()) {
-            throw new BrockException("Missing start date! Remember it is specified after /from!");
-        }
-        if (endDateTime.isEmpty()) {
-            throw new BrockException("Missing end date! Remember it is specified after /to!");
-        }
-        if (startDateTimeWords != endDateTimeWords) {
-            throw new BrockException("Both start and end dates must either include or exclude a time!");
-        }
+        return new String[]{startDateTime.toString(),
+                endDateTime.toString()};
+    }
 
-        String[] startDateTimeValues = CommandUtility.validateDateTime(startDateTime.toString(),
-                startDateTimeWords, CommandUtility.Context.START);
-        String[] endDateTimeValues = CommandUtility.validateDateTime(endDateTime.toString(),
-                endDateTimeWords, CommandUtility.Context.END);
-        if (startDateTimeWords == 1) {
-            return new Event(description.toString(),
-                    startDateTimeValues[0],
-                    endDateTimeValues[0]);
+    /**
+     * Creates an {@code Event} object encapsulating details about the event task.
+     *
+     * @return {@code Event} object.
+     * @throws BrockException If event missing description, start date or end date.
+     *      Or, if start and end dates are invalid.
+     */
+    private Task createEvent() throws BrockException {
+        String[] commandWords = this.processCommand();
+        String description = this.getDescription(commandWords);
+        String[] startEndDateTimes = this.getStartEndDateTimes(commandWords);
+        String[] startValues = CommandUtility.validateDateTime(startEndDateTimes[0],
+                CommandUtility.Context.START);
+        String[] endValues = CommandUtility.validateDateTime(startEndDateTimes[1],
+                CommandUtility.Context.END);
+
+        assert startValues.length == endValues.length : "Both start and end values must be of the same length.";
+        if (startValues.length == 1) {
+            return new Event(description,
+                    startValues[0],
+                    endValues[0]);
         } else {
-            return new Event(description.toString(),
-                    startDateTimeValues[0],
-                    startDateTimeValues[1],
-                    endDateTimeValues[0],
-                    endDateTimeValues[1]);
+            return new Event(description,
+                    startValues[0],
+                    startValues[1],
+                    endValues[0],
+                    endValues[1]);
         }
+    }
+
+    private void updateSaveFile(Storage storage, TaskList tasks, Task eventTask) throws BrockException {
+        storage.writeToFile(tasks.numTasks() + ". "
+                        + tasks.getTaskDetails(eventTask) + '\n',
+                true);
+    }
+
+    private String getResponse(TaskList tasks, Task eventTask) {
+        return "Got it. I've added this task:\n"
+                + "  " + tasks.getTaskDetails(eventTask) + '\n'
+                + tasks.getTasksSummary();
     }
 
     /**
@@ -116,13 +148,7 @@ public class EventCommand extends Command {
         Task eventTask = this.createEvent();
         tasks.addToList(eventTask);
 
-        // Update the save file
-        storage.writeToFile(tasks.numTasks() + ". "
-                + tasks.getTaskDetails(eventTask) + '\n',
-                true);
-
-        return "Got it. I've added this task:\n"
-                + "  " + tasks.getTaskDetails(eventTask) + '\n'
-                + tasks.getTasksSummary();
+        this.updateSaveFile(storage, tasks, eventTask);
+        return this.getResponse(tasks, eventTask);
     }
 }

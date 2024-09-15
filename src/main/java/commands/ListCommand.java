@@ -17,15 +17,7 @@ public class ListCommand extends Command {
         super(command);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>
-     * Chatbot reads from task list, returns all the existing tasks.
-     * </p>
-     */
-    @Override
-    public String execute(Storage storage, TaskList tasks) {
+    private String getResponse(TaskList tasks) {
         String tasksString = tasks.listTasks();
         int totalTasks = tasks.numTasks();
 
@@ -40,5 +32,17 @@ public class ListCommand extends Command {
                 ? "Here is the task in your list:\n"
                 : "Here are the tasks in your list:\n")
                 + responseBody;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * Chatbot reads from task list, returns all the existing tasks.
+     * </p>
+     */
+    @Override
+    public String execute(Storage storage, TaskList tasks) {
+        return this.getResponse(tasks);
     }
 }

@@ -38,5 +38,4 @@ public abstract class Command {
      * @throws BrockException If there are any issues with running the command.
      */
     public abstract String execute(Storage storage, TaskList tasks) throws BrockException;
-
 }

@@ -19,6 +19,29 @@ public class DeleteCommand extends Command {
     }
 
 
+    private String[] processCommand() {
+        String command = super.getCommand();
+        return command.split(" ");
+    }
+
+    private void checkLength(String[] commandWords) throws BrockException {
+        int commandLength = commandWords.length;
+        if (commandLength == 1) {
+            throw new BrockException("Missing task number!");
+        }
+        if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
+            throw new BrockException("Delete command is in the form delete <task-number>!");
+        }
+    }
+
+    private void checkTaskNumber(String[] commandWords, TaskList tasks) throws BrockException {
+        int taskNumber = Integer.parseInt(commandWords[1]);
+        int totalTasks = tasks.numTasks();
+        if (taskNumber > totalTasks || taskNumber < 1) {
+            throw new BrockException("Task number does not exist!");
+        }
+    }
+
     /**
      * Checks if the delete command is valid.
      *
@@ -27,22 +50,21 @@ public class DeleteCommand extends Command {
      *      Or, it is in the wrong format altogether.
      */
     private void validateDelete(TaskList tasks) throws BrockException {
-        String command = super.getCommand();
-        String[] commandWords = command.split(" ");
-        int commandLength = commandWords.length;
+        String[] commandWords = this.processCommand();
+        checkLength(commandWords);
+        checkTaskNumber(commandWords, tasks);
+    }
 
-        if (commandLength == 1) {
-            throw new BrockException("Missing task number!");
-        }
-        if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
-            throw new BrockException("Delete command is in the form delete <task-number>!");
-        }
+    private void updateSaveFile(Storage storage, TaskList tasks) throws BrockException {
+        String remainingTasks = tasks.listTasks();
+        storage.writeToFile("", false);
+        storage.writeToFile(remainingTasks, true);
+    }
 
-        int taskNumber = Integer.parseInt(commandWords[1]);
-        int totalTasks = tasks.numTasks();
-        if (taskNumber > totalTasks || taskNumber < 1) {
-            throw new BrockException("Task number does not exist!");
-        }
+    private String getResponse(TaskList tasks, String deletedTaskDetails) {
+        return "Noted. I've removed this task:\n"
+                + "  " + deletedTaskDetails + '\n'
+                + tasks.getTasksSummary();
     }
 
     /**
@@ -65,13 +87,7 @@ public class DeleteCommand extends Command {
         String deletedTaskDetails = tasks.getTaskDetails(taskIndex);
         tasks.removeFromList(taskIndex);
 
-        // Update the save file
-        String remainingTasks = tasks.listTasks();
-        storage.writeToFile("", false);
-        storage.writeToFile(remainingTasks, true);
-
-        return "Noted. I've removed this task:\n"
-                + "  " + deletedTaskDetails + '\n'
-                + tasks.getTasksSummary();
+        this.updateSaveFile(storage, tasks);
+        return this.getResponse(tasks, deletedTaskDetails);
     }
 }

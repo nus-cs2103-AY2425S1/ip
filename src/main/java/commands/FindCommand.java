@@ -18,6 +18,22 @@ public class FindCommand extends Command {
         super(command);
     }
 
+    private String[] processCommand() {
+        String command = super.getCommand();
+        return command.split(" ");
+    }
+
+    private String checkLength(String[] commandWords) throws BrockException {
+        int commandLength = commandWords.length;
+        if (commandLength == 1) {
+            throw new BrockException("Missing keyword!");
+        }
+        if (commandLength > 2) {
+            throw new BrockException("Please only specify a single keyword!");
+        }
+        return commandWords[1];
+    }
+
     /**
      * Checks if the find command is valid.
      *
@@ -25,15 +41,22 @@ public class FindCommand extends Command {
      * @throws BrockException If it is missing a keyword or has multiple keywords.
      */
     private String validateFindCommand() throws BrockException {
-        String command = super.getCommand();
-        String[] parts = command.split(" ");
-        if (parts.length == 1) {
-            throw new BrockException("Missing keyword!");
-        }
-        if (parts.length > 2) {
-            throw new BrockException("Please only specify a single keyword!");
-        }
-        return parts[1];
+        String[] commandWords = this.processCommand();
+        return checkLength(commandWords);
+    }
+
+    private String getResponse(String[] findResult) {
+        String resultString = findResult[0];
+        int numMatching = Integer.parseInt(findResult[1]);
+
+        String responseHeader = numMatching == 1
+                ? "Here is the matching task in your list:\n"
+                : "Here are the matching tasks in your list:\n";
+        String responseBody = numMatching == 0
+                ? "No matching tasks!"
+                : resultString;
+
+        return responseHeader + responseBody;
     }
 
     /**
@@ -49,17 +72,8 @@ public class FindCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList tasks) throws BrockException {
         String keyword = this.validateFindCommand();
+        String[] findResult = tasks.findMatchingTasks(keyword);
 
-        String[] result = tasks.findMatchingTasks(keyword);
-        String resultString = result[0];
-        int numMatching = Integer.parseInt(result[1]);
-
-        String responseHeader = numMatching == 1
-                ? "Here is the matching task in your list:\n"
-                : "Here are the matching tasks in your list:\n";
-        String responseBody = numMatching == 0
-                ? "No matching tasks!"
-                : resultString;
-        return responseHeader + responseBody;
+        return this.getResponse(findResult);
     }
 }

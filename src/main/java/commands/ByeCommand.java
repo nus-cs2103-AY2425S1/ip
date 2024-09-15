@@ -16,6 +16,11 @@ public class ByeCommand extends Command {
         super(command);
     }
 
+    private String getResponse() {
+        return "Bye. Hope to see you again soon!\n"
+                + "Program will close now ...";
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -25,7 +30,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(Storage storage, TaskList tasks) {
-        return "Bye. Hope to see you again soon!\n"
-                + "Program will close now ...";
+        return this.getResponse();
     }
 }
