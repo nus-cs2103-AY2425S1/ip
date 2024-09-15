@@ -55,10 +55,11 @@ public class UiTest {
     @Test
     public void testPrintError() {
         ui.printError("This is an error message.");
-        String expectedOutput = String.format(
-                "    ********************************************************************\n"
-                        + "    This is an error message.\n"
-                        + "    ********************************************************************\n");
+        String expectedOutput = """
+                    ********************************************************************
+                    This is an error message.
+                    ********************************************************************
+                """;
 
         assertEquals(expectedOutput.trim(), outContent.toString().trim());
     }
@@ -74,10 +75,11 @@ public class UiTest {
     @Test
     public void testExitMessage() {
         ui.exit();
-        String expectedOutput = String.format(
-                "    ********************************************************************\n"
-                        + "    Bye. Hope to see you again soon!\n"
-                        + "    ********************************************************************\n");
+        String expectedOutput = """
+                    ********************************************************************
+                    Bye. Hope to see you again soon!
+                    ********************************************************************
+                """;
 
         assertEquals(expectedOutput.trim(), outContent.toString().trim());
     }

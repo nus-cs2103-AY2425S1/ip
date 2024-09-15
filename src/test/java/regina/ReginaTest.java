@@ -66,7 +66,7 @@ public class ReginaTest {
                 """;
 
         // Compare the output with the expected string from the chatbot interaction
-        assertEquals(expectedOutput, testList.toString());
+        assertEquals(expectedOutput, testList);
     }
 
     /**

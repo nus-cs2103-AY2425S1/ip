@@ -13,7 +13,7 @@ public class EventsTask extends Task {
     protected ReginaDateAndTime endTime;
 
     /**
-     * Constructs an tasks.EventsTask with the specified description, start time, and end time.
+     * Constructs a tasks.EventsTask with the specified description, start time, and end time.
      *
      * @param description The description of the event task.
      * @param startTime The starting time of the event.
@@ -38,20 +38,14 @@ public class EventsTask extends Task {
         String plural = durationValue > 1 ? "s" : "";
         int quantityOfUnitsPushedBack = durationValue;
         switch (durationType) {
-        case "day" -> {
-            this.endTime.pushBackDate(durationValue);
-        }
-        case "hour" -> {
-            this.endTime.pushBackTime(hoursToMinutes(durationValue));
-        }
-        case "minute" -> {
-            this.endTime.pushBackTime(durationValue);
-        }
+        case "day" -> this.endTime.pushBackDate(durationValue);
+        case "hour" -> this.endTime.pushBackTime(hoursToMinutes(durationValue));
+        case "minute" -> this.endTime.pushBackTime(durationValue);
         default -> {
             this.endTime.pushBackTime(30);
             quantityOfUnitsPushedBack = 30;
         }
-        };
+        }
         return String.format("Pushed back deadline of %s by %d %s%s to %s",
                 this.description, quantityOfUnitsPushedBack, durationType, plural, this.endTime.toString());
     }

@@ -1,5 +1,5 @@
 .label {
-    -fx-background-color: #efbbff; /* linear-gradient(to bottom right, #efbbff,#be29ec) */
+    -fx-background-color: #efbbff;
     /* -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2; */
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 1em 1em;
