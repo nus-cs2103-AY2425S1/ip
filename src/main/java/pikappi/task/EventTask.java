@@ -1,6 +1,9 @@
 package pikappi.task;
 
+import pikappi.exception.PikappiException;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -19,7 +22,7 @@ public class EventTask extends Task {
      * @param from The start time of the task.
      * @param to The end time of the task.
      */
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, String from, String to) throws PikappiException {
         super(description, "E");
         try {
             LocalDate fromDate = LocalDate.parse(from.split(" ")[0]);
@@ -40,6 +43,15 @@ public class EventTask extends Task {
             this.to += toTime.format(DateTimeFormatter.ofPattern(" h:mma"));
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             this.to = to;
+        }
+        try {
+            LocalDate fromDate = LocalDate.parse(from.split(" ")[0]);
+            LocalDate toDate = LocalDate.parse(to.split(" ")[0]);
+            if (fromDate.isAfter(toDate)) {
+                throw new PikappiException("Pika..? Start time cannot be after end time..");
+            }
+        } catch (DateTimeParseException e) {
+            // Do nothing since the from and to are not dates
         }
     }
 
