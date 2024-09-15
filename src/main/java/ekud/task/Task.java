@@ -51,7 +51,8 @@ public abstract class Task {
         }
     }
 
-    private static final String PRINT_FORMAT = "[%s] %s %s";
+    private static final String PRINT_FORMAT_LOW_PRIORITY = "[%s] %s";
+    private static final String PRINT_FORMAT_HIGH_PRIORITY = "[%s] %s *HIGH PRIORITY*";
     private static final String SAVE_FORMAT = "%d | %s | %s";
 
     /** The description of the task */
@@ -170,7 +171,7 @@ public abstract class Task {
      */
     public String getSaveTaskString() {
         int statusInt = (isDone ? 1 : 0);
-        return String.format(SAVE_FORMAT, statusInt, description, priority.toString());
+        return String.format(SAVE_FORMAT, statusInt, priority.toString(), description);
     }
 
     /**
@@ -191,6 +192,16 @@ public abstract class Task {
     public boolean isDone() {
         return isDone;
     }
+
+    /**
+     * Returns {@code true} if {@link #priority} is {@link Priority#HIGH}.
+     *
+     * @return if the task is high priority.
+     */
+    public boolean isHighPriority() {
+        return priority == Priority.HIGH;
+    }
+
 
     /**
      * Returns the status icon for the task; "X" if completed, else " ".
@@ -254,6 +265,10 @@ public abstract class Task {
     @Override
     public String toString() {
         // formats ekud.task as "[statusIcon] description"
-        return String.format(PRINT_FORMAT, getStatusIcon(), description, getPriorityLabel());
+        if (isHighPriority()) {
+            return String.format(PRINT_FORMAT_HIGH_PRIORITY, getStatusIcon(), description);
+        } else {
+            return String.format(PRINT_FORMAT_LOW_PRIORITY, getStatusIcon(), description);
+        }
     }
 }

@@ -86,6 +86,48 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
+	 Now look what you've done!!
+	 I thought it was obvious... But '' is clearly not an Integer!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Thank me later! I've changed the priority of your task:
+	   [T][ ] read book *HIGH PRIORITY*
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	 1. [T][ ] read book *HIGH PRIORITY*
+	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	 3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at mister smarty pants over here telling me "I want 'bye' priority".
+	 Do you realise how insane you sound? Just to let you know there is only
+	 'high' or 'low' priority.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whats this? You tried an invalid list index!?
+	 Pfft... That's so hilarious!
+	 Lemme spell it out for ya.
+	 Your number must be between 1 and 3 and clearly 100 isn't
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Thank me later! I've changed the priority of your task:
+	   [T][ ] read book
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	 1. [T][ ] read book
+	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	 3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
 	 I think you tried TODO nothing.
 	 I can only help to remind you of something todo.
 	_____________________________________________________________
@@ -161,6 +203,28 @@
 	 Proceeding with ekud.task removal directive...
 	   deleted: [E][X] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
 	 Well, looks like there is nothing left for you do!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 added: [E][ ] test app (from: Jan 01 2024, 12:00 AM to: Dec 12 2024, 11:59 PM)
+	 And another one; 1 out of 1 tasks to complete...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 added: [T][ ] check save
+	 And another one; 2 out of 2 tasks to complete...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Thank me later! I've changed the priority of your task:
+	   [T][ ] check save *HIGH PRIORITY*
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Wowie!! You've completed your task!
+	 I shall mark it as complete in celebration!
+	   [E][X] test app (from: Jan 01 2024, 12:00 AM to: Dec 12 2024, 11:59 PM)
+	 Woohoo!! Only 1 out of 2 tasks more to go!
 	_____________________________________________________________
 
 	_____________________________________________________________

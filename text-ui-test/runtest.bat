@@ -25,3 +25,4 @@ java -classpath ..\bin ekud.Ekud < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+FC .\data\tasks.txt TASKS-EXPECTED.TXT
