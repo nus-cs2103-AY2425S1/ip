@@ -1,5 +1,6 @@
 package tina.gui;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import tina.Tina;
 
 /**
@@ -57,7 +59,13 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         if (input.equals("bye")) {
-            Main.exit();
+            String farewellMessage = "Goodbye! The app will close shortly.";
+            dialogContainer.getChildren().add(
+                    DialogBox.getTinaDialog(farewellMessage, dukeImage)
+            );
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Main.exit());
+            delay.play();
         } else {
             String response = tina.getResponse(input);
             dialogContainer.getChildren().addAll(
