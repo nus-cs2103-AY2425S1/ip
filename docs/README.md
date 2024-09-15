@@ -7,6 +7,13 @@ and Deadlines. It also supports additional utility features namely finding tasks
 upcoming deadlines.
 
 ## Setup guide
+1. Download Mendel-3.jar file from [here](https://github.com/Virusrwj223/ip/releases/tag/A-Release)
+2. Move the downloaded file in your preferred directory
+3. Open your terminal in this directory
+4. Execute the command 
+    ```
+    java -jar Mendel.jar
+    ```
 
 ## Feature summary
 Feature | Command                                       | Description                       
