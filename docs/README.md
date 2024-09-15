@@ -22,12 +22,13 @@ YihuiBot is friendly todo list app for managing your every day tasks. Supported 
 Creates a new Todo task. A Todo task is simply a task with a description.
 
 Format: `todo <task description>`
-- where `<task description>` can be replaced by the description of the task. The description can contain multiple words (do not have to be only one word).
+
+* where `<task description>` can be replaced by the description of the task. The description can contain multiple words (do not have to be only one word).
 
 Examples:
 
-- `todo assignment`
-- `todo read book`
+* `todo assignment`
+* `todo read book`
 
 ### Create Deadline task: `deadline`
 
@@ -35,13 +36,13 @@ Creates a new Deadline task. A Deadline task is a task with a description and a 
 
 Format: `deadline <task description> /by <date and time>`
 
-- where `<task description>` can be replaced by the description of the task. The description can contain multiple words (do not have to be only one word),
-- and `<date and time>` can be replaced by the deadline of the task specified using yyyy-MM-dd HH:mm.
+* where `<task description>` can be replaced by the description of the task. The description can contain multiple words (do not have to be only one word),
+* and `<date and time>` can be replaced by the deadline of the task specified using yyyy-MM-dd HH:mm.
 
 Examples:
 
-- `deadline return book /by 2024-09-17 16:30`
-- `deadline report /by 2024-12-26 06:30`
+* `deadline return book /by 2024-09-17 16:30`
+* `deadline report /by 2024-12-26 06:30`
 
 ### Create Event task: `event`
 
@@ -49,14 +50,14 @@ Creates a new Event task. An Event task is a task with a description, start time
 
 Format: `event <task description> /from <start date and time> /to <end date and time>`
 
-- where `<task description>` can be replaced by the description of the task. The description can containe multiple words (do not have to be only one word),
-- `<start date and time>` can be replaced by the start time of the task specified using yyyy-MM-dd HH:mm,
-- and `end date and time>` can be replaced by the end time of the task specified using yyyy-MM-dd HH:mm.
+* where `<task description>` can be replaced by the description of the task. The description can containe multiple words (do not have to be only one word),
+* `<start date and time>` can be replaced by the start time of the task specified using yyyy-MM-dd HH:mm,
+* and `end date and time>` can be replaced by the end time of the task specified using yyyy-MM-dd HH:mm.
 
 Examples:
 
-- `event project meeting /from 2024-10-19 20:00 /to 2024-10-19 22:00`
-- `event exam /from 2024-09-12 07:00 /to 2024-09-13 07:00`
+* `event project meeting /from 2024-10-19 20:00 /to 2024-10-19 22:00`
+* `event exam /from 2024-09-12 07:00 /to 2024-09-13 07:00`
 
 ### List out all tasks: `list`
 
@@ -70,11 +71,11 @@ Mark the specified task as completed.
 
 Format: `mark <index>`
 
-- where `<index>` can be replaced by a positive number from 1, 2, 3, ... n, where n is the number of tasks created.
+* where `<index>` can be replaced by a positive number from 1, 2, 3, ... n, where n is the number of tasks created.
 
 Examples:
 
-- `mark 2`
+* `mark 2`
 
 ### Mark incomplete: `unmark`
 
@@ -82,11 +83,11 @@ Mark the specified task as incomplete.
 
 Format: `unmark <index>`
 
-- where `<index>` can be replaced by a positive number from 1, 2, 3, ... n, where n is the number of tasks created.
+* where `<index>` can be replaced by a positive number from 1, 2, 3, ... n, where n is the number of tasks created.
 
 Examples:
 
-- `unmark 2`
+* `unmark 2`
 
 ### Delete task: `delete`
 
@@ -94,11 +95,11 @@ Delete the task at the specified index.
 
 Format: `delete <index>`
 
-- where `<index>` can be replaced by a positive number from 1, 2, 3, ... n, where n is the number of tasks created.
+* where `<index>` can be replaced by a positive number from 1, 2, 3, ... n, where n is the number of tasks created.
 
 Examples:
 
-- `delete 2`
+* `delete 2`
 
 ### Filter task: `find`
 
@@ -106,12 +107,12 @@ Filter the tasks by task description. Listing out all tasks with matching task d
 
 Format: `find <filter>`
 
-- where `<filter>` can be replaced by any query.
+* where `<filter>` can be replaced by any query.
 
 Examples:
 
-- `find book`
-- `find CS2013 assignment`
+* `find book`
+* `find CS2013 assignment`
 
 ### Save tasks: `bye`
 
