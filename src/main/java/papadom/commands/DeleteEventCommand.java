@@ -32,6 +32,6 @@ public class DeleteEventCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage)
             throws WrongTaskNumberException, NoTaskNumberException {
-        return ui.output(taskList.deleteEvent(TEXT));
+        return ui.output(taskList.deleteTask(TEXT));
     }
 }

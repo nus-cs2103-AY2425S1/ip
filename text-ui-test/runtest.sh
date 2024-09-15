@@ -20,6 +20,7 @@ then
     exit 1
 fi
 
+
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin papadom.utils.Papadom < input.txt > ACTUAL.TXT
 

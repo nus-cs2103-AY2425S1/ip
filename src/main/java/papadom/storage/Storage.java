@@ -1,20 +1,16 @@
 package papadom.storage;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import papadom.tasks.Task;
+import papadom.utils.Parser;
 
 /**
  * Manages the storage of tasks in a file.
  */
 public class Storage {
-    protected static final ArrayList<Task> TASK_LIST = new ArrayList<>();
-    public ArrayList<Task> getTasks() {
-        return Storage.TASK_LIST;
-    }
-    private final String FILE_PATH;
+    protected final String FILE_PATH;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -24,6 +20,25 @@ public class Storage {
     public Storage(String filePath) {
         assert !filePath.isEmpty() : "File path cannot be empty";
         this.FILE_PATH = filePath;
+    }
+
+    // Load all tasks from the file
+    public List<Task> loadTasks() {
+        List<Task> tasks = new ArrayList<>();
+        File file = new File(this.FILE_PATH);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Parser.retrieveTask(line);
+                tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            createFileIfNotPresent(); // Create the file if it doesn't exist
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading the file: " + e.getMessage());
+        }
+        return tasks;
     }
 
     /**
@@ -48,20 +63,21 @@ public class Storage {
     public void createFileIfNotPresent() {
         File file = new File(FILE_PATH);
         try {
-            // Check if the file exists
+            // Check if the file exists, and if not, create it
             if (!file.exists()) {
-                // If the file doesn't exist, create it along with any necessary directories
-                file.getParentFile().mkdirs(); // Create directories if they don't exist
                 file.createNewFile();
             }
         } catch (IOException e) {
             System.err.println("An error occurred while creating the file: " + e.getMessage());
         }
     }
+
     public String findTaskBySearching(String searchText) {
+        List<Task> tasks = loadTasks(); // Load tasks from the file
         String searchResult = " Here are the matching tasks in your list:";
         int count = 1;
-        for (Task task : Storage.TASK_LIST) {
+
+        for (Task task : tasks) {
             // Perform operations with each task
             String description = task.getDescription();
             if (description.contains(searchText)) {
@@ -78,6 +94,24 @@ public class Storage {
     }
 
     public void clearTasks() {
-        TASK_LIST.clear(); // Clear all tasks from the list
+        try {
+            new FileWriter(this.FILE_PATH, false).close(); // Open the file in write mode, which clears it
+        } catch (IOException e) {
+            System.err.println("An error occurred while clearing tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Updates the tasks.txt file with the current list of tasks.
+     */
+    public void updateTasksInFile(TaskList taskList) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.FILE_PATH))) {
+            for (Task task : taskList.TASK_LIST) {
+                writer.write(task.toString());
+                writer.newLine();  // Write each task in a new line
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while updating the tasks file: " + e.getMessage());
+        }
     }
 }
