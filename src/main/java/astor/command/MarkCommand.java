@@ -26,15 +26,18 @@ public class MarkCommand extends Command {
         assert taskList != null: "taskList must not be null";
         assert ui != null: "ui must not be null";
         assert storage != null: "storage must not be null";
-        
-        int indexB = 0;
-        String formattedString = info.substring(4).trim();
+
+        String[] formattedString = info.substring(4).trim().split("\\s+");
+        int[] indexList = new int[formattedString.length];
         try {
-            indexB = Integer.parseInt(formattedString);
+            for (int i = 0; i < formattedString.length; i++) {
+                int index = Integer.parseInt(formattedString[i]);
+                indexList[i] = index;
+            }
         } catch (NumberFormatException e) {
             throw new MarkingTaskNotANumberException();
         }
-        String output = taskList.markTaskDone(indexB, storage);
+        String output = taskList.markListDone(storage, indexList);
         ui.showOutput(output);
         return output;
     }
