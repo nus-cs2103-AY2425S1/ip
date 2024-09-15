@@ -1,8 +1,8 @@
-T|1|read book
-D|0|return book|2024-09-01 1800
-E|0|project meeting|2024-09-01 1400|2024-09-01 1600
-T|1|testing
+T|1|read books
+D|1|return books|2024-09-29 1800
+E|0|project meeting|2024-09-25 1400|2024-09-25 1600
 D|0|2103|2024-08-30 2359
-D|0|eat|2040-11-25 2359
-T|0|sleep
-T|0|memorise script
+T|1|memorise script
+E|0|marathon|2024-10-02 0800|2024-10-02 1800
+T|0|buy milk
+E|0|Team meeting|2024-09-29 1400|2024-09-29 1600

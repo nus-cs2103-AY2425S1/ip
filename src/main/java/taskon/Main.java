@@ -27,6 +27,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Taskon");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setTaskon(taskon); // inject the Taskon instance
             stage.show();

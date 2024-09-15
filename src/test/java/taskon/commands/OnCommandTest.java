@@ -36,7 +36,7 @@ public class OnCommandTest {
 
         String expected = "Tasks on 2024-09-30 :\n"
                 + "[D][ ] Test deadline (by: Sep 30 2024, 2:00 PM)\n"
-                + "[E][ ] Test event (from: Sep 30 2024, 9:00 am to: Sep 30 2024, 5:00 PM)\n";
+                + "[E][ ] Test event (from: Sep 30 2024, 9:00 AM to: Sep 30 2024, 5:00 PM)\n";
 
         assertEquals(expected, result);
     }
