@@ -1,6 +1,7 @@
 package Majima.gui;
 
 import Majima.Majima;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -38,7 +39,7 @@ public class MainWindow extends AnchorPane {
         this.majimabot = majimabot;
 
         String greeting = majimabot.getUi().userGreet();
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greeting, majimabotImage));
+        dialogContainer.getChildren().add(DialogBox.getMajimaDialog(greeting, majimabotImage));
     }
 
     /**
@@ -52,9 +53,12 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, majimabotImage)
+                DialogBox.getMajimaDialog(response, majimabotImage)
         );
         userInput.clear();
-    }
 
+        if (input.equals("bye")) {
+            Platform.exit();
+        }
+    }
 }
