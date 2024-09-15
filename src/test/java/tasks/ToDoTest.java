@@ -26,8 +26,6 @@ public class ToDoTest {
         } catch (InvalidTaskNameException ex) {
             assertEquals(ex.getMessage(), "Error: Please provide a name!");
         }
-
-
     }
 
     @Test

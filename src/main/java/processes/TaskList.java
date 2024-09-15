@@ -3,7 +3,6 @@ package processes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -60,55 +59,63 @@ public class TaskList {
     }
 
     /**
-     * Does not return anything.
-     * Taking in the user input from an Ui object, create a ToDo class and add it to the current list of tasks
+     * Taking in the user input, create a ToDo class and add it to the current list of tasks.
      *
-     * @param arg The string received from the Ui object to create a ToDo object.
+     * @param arg The string received from the user.
+     * @return The ToDo that was created.
      * @throws InvalidTaskNameException If no task name is provided.
      */
     public Task addToDo(String arg) throws InvalidTaskNameException {
-        ToDo newToDo = new ToDo(arg);
+        String input = arg.substring(5).trim();
+        ToDo newToDo = new ToDo(input);
         taskList.add(newToDo);
         return newToDo;
     }
 
     /**
-     * Does not return anything.
-     * Taking in the user input from an Ui object, create a DeadLine class and add it to the current list of tasks
+     * Taking in the user input, create a DeadLine object and add it to the current list of tasks.
      *
-     * @param arg The string received from the Ui object to create a DeadLine object.
+     * @param arg The string received from the user.
+     * @return The DeadLine that was created
      * @throws InvalidTaskNameException If no task name is provided.
      * @throws InvalidDateException If invalid date/no date is provided.
      */
     public Task addDeadline(String arg) throws InvalidTaskNameException, InvalidDateException {
-        Task newDeadline = new DeadLine(arg);
+        String input = arg.substring(9).trim();
+        Task newDeadline = new DeadLine(input);
         taskList.add(newDeadline);
         return newDeadline;
     }
 
 
     /**
-     * Does not return anything.
-     * Taking in the user input from an Ui object, create an Event class and add it to the current list of tasks
+     * Taking in the user input, create an Event object and add it to the current list of tasks.
      *
-     * @param arg The string received from the Ui object to create an Event object.
+     * @param arg The string received from the user.
+     * @return The Event object that was created.
      * @throws InvalidTaskNameException If no task name is provided.
      * @throws InvalidDateException If invalid date/no date is provided.
      */
     public Task addEvent(String arg) throws InvalidDateException, InvalidTaskNameException {
-        Task newEvent = new Event(arg);
+        String input = arg.substring(6).trim();
+        Task newEvent = new Event(input);
         taskList.add(newEvent);
         return newEvent;
     }
 
+
+
     /**
-     * Does not return anything.
-     * Removes the task at the specified index from the current list of tasks
+     * Removes the task at the specified index from the current list of tasks.
      *
-     * @param index The index of the object to be removed.
-     *
+     * @param command The user's delete command.
+     * @return The task that was deleted.
+     * @throws TaskOutOfBoundsError If the index provided was outside of the taskList bounds.
+     * @throws NumberFormatException If the user command provided does not contain a valid index.
      */
-    public Task deleteTask(int index) throws TaskOutOfBoundsError {
+    public Task deleteTask(String command) throws TaskOutOfBoundsError, NumberFormatException {
+        String indexString = command.substring(7).trim();
+        int index = Integer.parseInt(indexString);
         if (index < 1 || index > taskList.size()) {
             throw new TaskOutOfBoundsError(index);
         }
@@ -119,56 +126,79 @@ public class TaskList {
 
     }
 
+
     /**
-     * Does not return anything.
-     * Receive index of task to mark and whether the programme should mark or unmark the task
-     * If isMark is true, the task will be marked, and if isMark is false, the task will be unmarked.
+     * Receives the user's command and decides which task to unmark.
+     * If command is valid, the task at the specified index will be unmarked.
      *
-     * @param index The index of the task to mark/unmark.
-     * @param isMark Determines whether the task should be marked or not.
+     * @param command The user's command.
+     * @return The task that was unmarked
      * @throws TaskOutOfBoundsError If index provided is not within taskList.
+     * @throws NumberFormatException If the command that the user provided does not contain the index
+     * of the task to mark at the correct index.
      */
-    public Task markAndUnmark(int index, boolean isMark) throws TaskOutOfBoundsError {
-        if (index == Integer.MAX_VALUE) {
-            throw new RuntimeException();
-        } else if (index < 1 || index > taskList.size()) {
+    public Task unMark(String command) throws TaskOutOfBoundsError, NumberFormatException {
+        String stringIndex = command.substring(7).trim();
+        int index = Integer.parseInt(stringIndex);
+        if (index < 1 || index > taskList.size()) {
             throw new TaskOutOfBoundsError(index);
-        } else {
-            index--;
-            Task curr = taskList.get(index);
-            if (isMark) {
-                curr.mark();
-            } else {
-                curr.unMark();
-            }
-            return curr;
         }
+        Task curr = taskList.get(--index);
+        curr.unMark();
+        return curr;
     }
 
     /**
-     * Does not return anything.
-     * Receive the prompt from the user and searches the current list of tasks for task names that contain the prompt.
+     * Receives the user's command and decides which task to mark.
+     * If command is valid, the task at the specified index will be marked.
+     *
+     * @param command The user's command.
+     * @return The task that was marked
+     * @throws TaskOutOfBoundsError If index provided is not within taskList.
+     * @throws NumberFormatException If the command that the user provided does not contain the index
+     * of the task to mark at the correct index.
+     */
+    public Task mark(String command) throws TaskOutOfBoundsError, NumberFormatException {
+        String stringIndex = command.substring(5).trim();
+        int index = Integer.parseInt(stringIndex);
+        if (index < 1 || index > taskList.size()) {
+            throw new TaskOutOfBoundsError(index);
+        }
+        Task curr = taskList.get(--index);
+        curr.mark();
+        return curr;
+    }
+
+    /**=
+     * Receive the command from the user and extracts the prompt.
+     * Then, search the current list of tasks for task names that contain the prompt.
      * After getting the list of matching tasks, print them out to the terminal
      *
-     * @param prompt The prompt provided by the user.
+     * @param command The command provided by the user.
      * @return The output array of tasks that contains the prompt in their names.
      *
      */
-    public ArrayList<Task> find(String prompt) {
+    public ArrayList<Task> find(String command) {
+        String prompt = command.substring(5).trim();
         Stream<Task> stream = this.taskList.stream().filter(t -> t.getName().contains(prompt));
         return stream.collect(Collectors.toCollection(ArrayList::new));
     }
 
+
+
+
     /**
      * Receive the prompt from the user and adds tag to the target task.
      *
-     *
-     * @param inputs The String array of prompts provided by the user.
+     * @param command The command provided by the user.
      * Contains index of task to tag, as well as the tags to add.
      *
      * @return The target task that the tags were added to
+     * @throws TaskOutOfBoundsError When the index provided by the user is out of bounds.
+     * @throws NumberFormatException When the user did not provide a valid index.
      */
-    public Task tag(String[] inputs) throws TaskOutOfBoundsError {
+    public Task tag(String command) throws TaskOutOfBoundsError, NumberFormatException {
+        String[] inputs = command.substring(4).split("#");
         for (int i = 0; i < inputs.length; i++) {
             inputs[i] = inputs[i].trim();
         }
@@ -177,8 +207,7 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new TaskOutOfBoundsError(index);
         }
-        index--;
-        Task taskToAddTags = taskList.get(index);
+        Task taskToAddTags = taskList.get(--index);
         taskToAddTags.addTags(Arrays.copyOfRange(inputs, 1, inputs.length));
         return taskToAddTags;
     }
@@ -186,13 +215,13 @@ public class TaskList {
     /**
      * Receive the prompt from the user and removes the tags from the target task.
      *
-     *
-     * @param inputs The String array of prompts provided by the user.
+     * @param command The command provided by the user.
      * Contains index of task to tag, as well as the tags to remove.
      *
      * @return The target task that the tags were removed from
      */
-    public Task removeTags(String[] inputs) throws TaskOutOfBoundsError {
+    public Task removeTags(String command) throws TaskOutOfBoundsError, NumberFormatException {
+        String[] inputs = command.substring(12).split("#");
         for (int i = 0; i < inputs.length; i++) {
             inputs[i] = inputs[i].trim();
         }
@@ -201,8 +230,7 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new TaskOutOfBoundsError(index);
         }
-        index--;
-        Task taskToRemoveTags = taskList.get(index);
+        Task taskToRemoveTags = taskList.get(--index);
         taskToRemoveTags.removeTags(Arrays.copyOfRange(inputs, 1, inputs.length));
         return taskToRemoveTags;
     }

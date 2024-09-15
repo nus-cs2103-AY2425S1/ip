@@ -44,15 +44,12 @@ public class MrTracker {
      * Takes in the user's input and produces the output.
      *
      * @param input The user input.
-     * @return The response by the chatbot
+     * @return The response by the chatbot.
      */
 
     public String getResponse(String input) {
-
         ui.showTaskList(taskList.getTasks());
-
         String res = null;
-
         PrefixString pref = parser.parseCommand(input);
 
         if (pref == null) {
@@ -70,40 +67,32 @@ public class MrTracker {
             break;
 
         case MARK:
-            if (!parser.checkValidIndex(input.substring(5))) {
-                String message = input.substring(5) + " is not a valid index";
-                res = ui.showMessage(message);
-                break;
-            }
-
-            int index = Integer.parseInt(input.substring(5));
             try {
-                Task markedTask = taskList.markAndUnmark(index, true);
+                Task markedTask = taskList.mark(input);
                 res = ui.showMarked(markedTask);
-            } catch (TaskOutOfBoundsError ex) {
-                res = ui.showMessage(ex.getMessage());
+            } catch (TaskOutOfBoundsError e) {
+                res = ui.showMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                res = ui.showMessage("Error: Please provide a valid mark command!\n" +
+                        "Usage: mark<space><index>");
             }
             break;
 
         case UNMARK:
-            if (!parser.checkValidIndex(input.substring(7))) {
-                String message = input.substring(7) + " is not a valid index";
-                res = ui.showMessage(message);
-                break;
-            }
-
-            index = Integer.parseInt(input.substring(7));
             try {
-                Task unMarkedTask = taskList.markAndUnmark(index, false);
+                Task unMarkedTask = taskList.unMark(input);
                 res = ui.showUnmarked(unMarkedTask);
-            } catch (TaskOutOfBoundsError ex) {
-                res = ui.showMessage(ex.getMessage());
+            } catch (TaskOutOfBoundsError e) {
+                res = ui.showMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                res = ui.showMessage("Error: Please provide a valid unmark command!\n" +
+                        "Usage: unmark<space><index>");
             }
             break;
 
         case TODO:
             try {
-                Task newToDo = taskList.addToDo(input.substring(5));
+                Task newToDo = taskList.addToDo(input);
                 res = ui.addedTask(newToDo, taskList.getSize());
             } catch (InvalidTaskNameException e) {
                 res = ui.showMessage(e.getMessage());
@@ -112,7 +101,7 @@ public class MrTracker {
 
         case DEADLINE:
             try {
-                Task newDeadLine = taskList.addDeadline(input.substring(9));
+                Task newDeadLine = taskList.addDeadline(input);
                 res = ui.addedTask(newDeadLine, taskList.getSize());
             } catch (InvalidTaskNameException | InvalidDateException e) {
                 res = ui.showMessage(e.getMessage());
@@ -121,7 +110,7 @@ public class MrTracker {
 
         case EVENT:
             try {
-                Task newEvent = taskList.addEvent(input.substring(6));
+                Task newEvent = taskList.addEvent(input);
                 res = ui.addedTask(newEvent, taskList.getSize());
             } catch (InvalidDateException | InvalidTaskNameException e) {
                 res = ui.showMessage(e.getMessage());
@@ -129,24 +118,20 @@ public class MrTracker {
             break;
 
         case DELETE:
-            if (!parser.checkValidIndex(input.substring(7))) {
-               String message = input.substring(7) + " is not a valid index";
-                res = ui.showMessage(message);
-                break;
-            }
-            index = Integer.parseInt(input.substring(7));
             try {
-                Task deleted = taskList.deleteTask(index);
+                Task deleted = taskList.deleteTask(input);
                 res = ui.deletedTask(deleted, taskList.getSize());
             } catch (TaskOutOfBoundsError e) {
                 res = ui.showMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                res = ui.showMessage("Error: Please provide a valid delete command!\n" +
+                        "Usage: delete<space><index>");
             }
             break;
 
         case FIND:
-            String prompt = input.substring(5).trim();
-            ArrayList<Task> output = taskList.find(prompt);
-            res = ui.showMatchedTasks(output, prompt);
+            ArrayList<Task> output = taskList.find(input);
+            res = ui.showMatchedTasks(output, input);
             break;
 
         case WELCOME:
@@ -154,35 +139,30 @@ public class MrTracker {
             break;
 
         case TAG:
-            String[] inputs = input.substring(4).split("#");
-            if (!parser.checkValidIndex(inputs[0])) {
-                String message = inputs[0] + " is not a valid index";
-                res = ui.showMessage(message);
-                break;
-            }
             try {
-                Task taskToAddTags = taskList.tag(inputs);
+                Task taskToAddTags = taskList.tag(input);
                 res = ui.showTaskTags(taskToAddTags);
             } catch(TaskOutOfBoundsError e) {
                 res = ui.showMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                res = ui.showMessage("Error: Please provide a valid tag command!\n" +
+                        "Usage: tag<space><tags to add, separated by '#'>");
             }
             break;
 
         case REMOVETAGS:
-            inputs = input.substring(12).split("#");
-            if (!parser.checkValidIndex(inputs[0])) {
-                String message = inputs[0] + " is not a valid index";
-                res = ui.showMessage(message);
-                break;
-            }
+
             try {
-                Task taskToRemoveTags = taskList.removeTags(inputs);
-                res = ui.showRemoveTaskTags(taskToRemoveTags, Arrays.copyOfRange(inputs, 1, inputs.length));
+                Task taskToAddTags = taskList.removeTags(input);
+                res = ui.showRemoveTaskTags(taskToAddTags);
             } catch(TaskOutOfBoundsError e) {
                 res = ui.showMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                res = ui.showMessage("Error: Please provide a valid remove tag command!\n" +
+                        "Usage: remove tags<space><tags to delete, separated by '#', " +
+                        "or nothing here to delete all tags>");
             }
             break;
-
 
         default:
             res = ui.showMessage("I am sorry, but I don't know what that means :-(");

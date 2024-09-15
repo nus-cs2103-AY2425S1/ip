@@ -72,8 +72,12 @@ public abstract class Task {
      * @param tagsArr The string array of tags to remove from the task.
      */
     public void removeTags(String[] tagsArr) {
-        for (String s : tagsArr) {
-            tags.remove(s);
+        if (tagsArr.length == 0) {
+            tags.clear();
+        } else {
+            for (String s : tagsArr) {
+                tags.remove(s);
+            }
         }
     }
 }
