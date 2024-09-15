@@ -47,7 +47,7 @@ public class FriendlyBot {
         while (!isExit) {
             response = reader.nextLine();
             friendlyBot.ui.printHorizontalBar();
-            Command cmd = Parser.parse(response);
+            Command cmd = friendlyBot.getCommand(response);
             cmd.execute(friendlyBot.tasks, friendlyBot.ui, friendlyBot.storage);
             isExit = cmd.isExit();
             friendlyBot.ui.printHorizontalBar();
@@ -61,8 +61,14 @@ public class FriendlyBot {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
-        Command cmd = Parser.parse(input);
+    public String getResponse(Command cmd) {
         return cmd.execute(this.tasks, this.ui, this.storage);
+    }
+
+    /**
+     * Returns the Command that corresponds to the user's input.
+     */
+    public Command getCommand(String input) {
+        return Parser.parse(input);
     }
 }
