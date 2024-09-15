@@ -15,7 +15,9 @@ import cloud.exception.UnrecognisedCommandException;
 public class Parser {
 
     public Command parse(String input) throws CloudException {
+        assert input != null : "Input cannot be null";
         String[] split = input.split(" ", 2);
+        assert split.length > 0 : "Input must contain at least a command";
         String command = split[0].strip().toLowerCase();
         String body = "";
         if (split.length > 1) {
@@ -103,12 +105,11 @@ public class Parser {
     }
 
     private int stringToIndex(String s) throws CloudException {
-        int index;
         try {
-            index = Integer.parseInt(s.strip());
+            int index = Integer.parseInt(s.strip());
+            return index;
         } catch (NumberFormatException e) {
             throw new UnrecognisedCommandException();
         }
-        return index;
     }
 }

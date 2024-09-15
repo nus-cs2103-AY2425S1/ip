@@ -50,8 +50,7 @@ public abstract class Task {
     public String formatSave() {
         return (isDone ? "1" : "0")
                 + " | "
-                + this.description
-                + "\n";
+                + this.description;
     }
 
     @Override

@@ -22,6 +22,7 @@ import cloud.task.Todo;
  */
 public class Storage {
     private final String filePath;
+    private final String DELIMITER = "|||$DELIM|||";
 
     /**
      * Constructs a Storage object. Checks if the file exists at the filepath
@@ -46,8 +47,6 @@ public class Storage {
             System.out.println("Error initializing storage!");
         }
     }
-
-
 
     /**
      * Saves the given TaskList to the storage file.
