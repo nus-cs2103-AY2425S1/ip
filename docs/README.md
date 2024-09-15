@@ -65,7 +65,7 @@ Got it. I've added this task:
 ---
 ## Adding deadlines: `deadline`
 
-The `deadline` command allows you to add tasks with a deadline to your task list. You can specify the task description, followed by the `/by` keyword and the deadline. Duck will store and track this task until the deadline.
+The `deadline` command allows you to add tasks with a deadline to your task list. You can specify the task description, followed by the `/by` keyword and the deadline.
 
 **Format:** `deadline DESCRIPTION /by DATE`
 - `DESCRIPTION` is the description of the task you want to add.
@@ -84,7 +84,7 @@ Got it. I've added this task:
 ---
 ## Adding events: `event`
 
-The `event` command allows you to add an event to your task list. You can specify a description, a start time (using the `/from` keyword), and an end time (using the `/to` keyword). Duck will track this event based on its time range.
+The `event` command allows you to add an event to your task list. You can specify a description, a start time (using the `/from` keyword), and an end time (using the `/to` keyword).
 
 **Format:** `event DESCRIPTION /from START_DATE /to END_DATE`
 - `DESCRIPTION` is the description of the event you want to add.
@@ -125,7 +125,7 @@ Nice! I've marked this task as done:
 ---
 ## Marking tasks as not done: `unmark`
 
-The `unmark` command allows you to mark tasks that were previously completed as not done. This is useful if a task is marked as complete by mistake.
+The `unmark` command allows you to mark tasks as not done.
 
 **Format:** `unmark INDEX`
 - `INDEX` is the index of the task you want to mark as not done.
@@ -184,7 +184,7 @@ Quack, I found these related tasks for you!
 ---
 ## Sorting tasks: `sort`
 
-Duck supports sorting your tasks with the `sort` command. You can specify different criteria for sorting, such as by task type or by deadline.
+Duck supports sorting your tasks with the `sort` command. You can specify different criteria for sorting.
 
 **Format:** `sort /target TARGET /by CRITERION`
 - `TARGET` is the target tasks you want to sort (e.g., all, todo, deadline, event).
