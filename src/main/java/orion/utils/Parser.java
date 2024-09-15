@@ -10,6 +10,7 @@ import orion.commands.Command;
 import orion.commands.DeleteTaskCommand;
 import orion.commands.ExitCommand;
 import orion.commands.FindCommand;
+import orion.commands.HelpCommand;
 import orion.commands.MarkTaskCommand;
 import orion.commands.PrintTasksCommand;
 import orion.commands.UnmarkTaskCommand;
@@ -58,6 +59,8 @@ public class Parser {
         switch (command) {
         case "bye":
             return new ExitCommand();
+        case "help":
+            return new HelpCommand();
         case "list":
             return new PrintTasksCommand();
         case "mark":
