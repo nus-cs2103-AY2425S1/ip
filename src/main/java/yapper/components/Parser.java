@@ -131,7 +131,7 @@ public class Parser {
         assert getCommand().equals("todo") || getCommand().equals("t") || getCommand().equals("T");
         String description = this.rawInput.substring(getCommand().length()).trim();
         if (description.isEmpty()) {
-            throw new YapperFormatException("(Format: todo/t/T [DESC]");
+            throw new YapperFormatException("No description! (Format: todo/t/T [DESC])");
         }
         return description;
     }
@@ -150,8 +150,11 @@ public class Parser {
             String description = descriptionAndDeadline[0].substring(getCommand().length()).trim();
             String deadline = descriptionAndDeadline[1].trim();
             // Check for any empty values
-            if (description.isEmpty() || deadline.isEmpty()) {
-                throw new YapperFormatException("(Format: deadline/d/D [DESC] /by [DEADLINE_BY])");
+            if (description.isEmpty()) {
+                throw new YapperFormatException("No description! (Format: deadline/d/D [DESC] /by [DEADLINE_BY])");
+            }
+            if (deadline.isEmpty()) {
+                throw new YapperFormatException("No deadline! (Format: deadline/d/D [DESC] /by [DEADLINE_BY])");
             }
             String[] deadlineArguments = {description, deadline};
             return deadlineArguments;
@@ -176,9 +179,16 @@ public class Parser {
             String fromDate = descriptionAndFromDate[1].trim();
             String toDate = otherArgumentsAndToDate[1].trim();
             // Check for any empty values
-            if (description.isEmpty() || fromDate.isEmpty() || toDate.isEmpty()) {
-                throw new YapperFormatException("(Format: event/e/E [DESC] /from [FROM] /to [TO])");
+            if (description.isEmpty()) {
+                throw new YapperFormatException("No description! (Format: event/e/E [DESC] /from [FROM] /to [TO])");
             }
+            if (fromDate.isEmpty()) {
+                throw new YapperFormatException("No start date! (Format: event/e/E [DESC] /from [FROM] /to [TO])");
+            }
+            if (toDate.isEmpty()) {
+                throw new YapperFormatException("No end date! (Format: event/e/E [DESC] /from [FROM] /to [TO])");
+            }
+
             String[] eventArguments = {description, fromDate, toDate};
             return eventArguments;
         } catch (IndexOutOfBoundsException e) {

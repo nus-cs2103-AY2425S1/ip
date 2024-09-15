@@ -43,7 +43,7 @@ public class Task {
     public Task(String description) {
         assert description != null : "Task description should not be null";
         if (description.isEmpty()) {
-            throw new YapperException("Description cannot be empty");
+            throw new YapperException("Please provide a description");
         }
         this.description = description;
         this.isDone = false;
