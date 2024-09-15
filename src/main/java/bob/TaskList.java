@@ -3,6 +3,7 @@ package bob;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -168,5 +169,37 @@ public class TaskList {
 
         return taskListStr + summary;
     }
+
+    /**
+     * Sorts the task list using the provided comparator.
+     *
+     * @param comparator The comparator to use for sorting.
+     * @return A new sorted TaskList.
+     */
+    public TaskList sort(Comparator<Task> comparator) {
+        // Create a copy of the task list to avoid modifying the original
+        List<Task> sortedTasks = new ArrayList<>(tasks);
+        sortedTasks.sort(comparator);
+        return new TaskList(sortedTasks);
+    }
+
+    /**
+     * Sorts tasks by description in alphabetical order.
+     *
+     * @return A new sorted TaskList by description.
+     */
+    public TaskList sortTasksByDescription() {
+        return sort(BobComparator.DESCRIPTION_COMPARATOR);
+    }
+
+    /**
+     * Sorts tasks by date.
+     *
+     * @return A new sorted TaskList by date.
+     */
+    public TaskList sortTasksByDate() {
+        return sort(BobComparator.DATE_COMPARATOR);
+    }
+
 }
 

@@ -54,7 +54,6 @@ public class Storage {
         List<Task> taskList = new ArrayList<>();
         try {
             Scanner s = new Scanner(file);
-
             // Load each task
             while (s.hasNext()) {
                 String taskLine = s.nextLine();
@@ -64,7 +63,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new BobException("No saved tasks found.");
         }
-
         if (taskList.isEmpty()) {
             throw new BobException("No saved tasks found.");
         }

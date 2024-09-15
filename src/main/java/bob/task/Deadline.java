@@ -39,6 +39,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the deadline of the Deadline task which is used for sorting purposes.
+     *
+     * @return deadline of the task.
+     */
+    public LocalDateTime getFirstDatetime() {
+        return by;
+    }
+
+    /**
      * Returns the symbol indicating Deadline task.
      *
      * @return The symbol "D".

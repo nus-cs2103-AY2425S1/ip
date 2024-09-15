@@ -45,6 +45,15 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the start date of the Event task which is used for sorting purposes.
+     *
+     * @return start date of the task.
+     */
+    public LocalDateTime getFirstDatetime() {
+        return from;
+    }
+
+    /**
      * Returns the symbol indicating Event task.
      *
      * @return The symbol "E".

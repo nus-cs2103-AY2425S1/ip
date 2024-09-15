@@ -1,6 +1,7 @@
 package bob.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Represents an abstract task with a description and completion status to
@@ -42,6 +43,13 @@ public abstract class Task {
      * @return true if the task occurs on the specified date, false otherwise.
      */
     public abstract boolean isRelevant(LocalDate date);
+
+    /**
+     * Returns LocalDateTime.MAX for ToDo task, deadline for Deadline task and start date for Event task.
+     *
+     * @return date that is used for sorting.
+     */
+    public abstract LocalDateTime getFirstDatetime();
 
     /**
      * Returns task description.
