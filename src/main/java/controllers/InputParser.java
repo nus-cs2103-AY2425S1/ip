@@ -34,71 +34,88 @@ public class InputParser {
         if (isByeCommand(cmd)) {
             return new ByeCommand();
         } else if (isMarkCommand(cmd)) {
-            try {
-                String[] parts = cmd.split(" ");
-                int index = Integer.parseInt(parts[1]);
-                return new MarkTaskCommand(index);
-            } catch (Exception e) {
-                throw new InvalidInputError("Invalid input for mark!");
-            }
+            return parseMarkCommand(cmd);
         } else if (isListCommand(cmd)) {
             return new ListCommand();
         } else if (isDeleteCommand(cmd)) {
-            try {
-                String[] parts = cmd.split(" ");
-                int index = Integer.parseInt(parts[1]);
-                return new DeleteTaskCommand(index);
-            } catch (Exception e) {
-                throw new InvalidInputError("Invalid input for delete!");
-            }
-
+            return parseDeleteCommand(cmd);
         } else if (isFindCommand(cmd)) {
-            try {
-                String[] parts = cmd.split(" ");
-                String taskName = parts[1];
-                return new FindCommand(taskName);
-            } catch (Exception e) {
-                throw new InvalidInputError("Invalid input for delete!");
-            }
+            return parseFindCommand(cmd);
         } else if (isUnmarkCommand(cmd)) {
-            try {
-                String[] parts = cmd.split(" ");
-                int index = Integer.parseInt(parts[1]);
-                return new UnmarkTaskCommand(index);
-            } catch (Exception e) {
-                throw new InvalidInputError("Invalid input for unmark!");
-            }
+            return parseUnmarkCommand(cmd);
         } else if (isTodoCommand(cmd)) {
-            try {
-                Todo newTask = new Todo(cmd.substring(5));
-                return new AddTodoCommand(newTask);
-            } catch (Exception e) {
-                throw new InvalidInputError("Invalid input for todo!");
-            }
-
+            return parseTodoCommand(cmd);
         } else if (isDeadlineCommand(cmd)) {
-            try {
-                String description = extractStringBetweenTwoSubStrings(cmd, "deadline", "/by");
-                String by = extractStringFromSubstringToEnd(cmd, "/by");
-                Deadline deadline = new Deadline(description, by);
-                return new AddDeadlineCommand(deadline);
-            } catch (Exception e) {
-                throw new InvalidInputError("Invalid input for deadline!");
-            }
-
+            return parseDeadlineCommand(cmd);
         } else if (isEventCommand(cmd)) {
-            try {
-                String description = extractStringBetweenTwoSubStrings(cmd, "event", "/from");
-                String from = extractStringBetweenTwoSubStrings(cmd, "/from", "/to");
-                String to = extractStringFromSubstringToEnd(cmd, "/to");
-                Event event = new Event(description, from, to);
-                return new AddEventCommand(event);
-            } catch (Exception e) {
-                throw new InvalidInputError("Invalid input for event!");
-            }
+            return parseEventCommand(cmd);
         } else {
-            String errorString = String.format("%s doesn't exist as a command", cmd);
-            throw new InvalidCommandError(errorString);
+            throw new InvalidCommandError(String.format("%s doesn't exist as a command", cmd));
+        }
+    }
+    private Command parseMarkCommand(String cmd) throws InvalidInputError {
+        try {
+            String[] parts = cmd.split(" ");
+            int index = Integer.parseInt(parts[1]);
+            return new MarkTaskCommand(index);
+        } catch (Exception e) {
+            throw new InvalidInputError("Invalid input for mark!");
+        }
+    }
+    private Command parseDeleteCommand(String cmd) throws InvalidInputError {
+        try {
+            String[] parts = cmd.split(" ");
+            int index = Integer.parseInt(parts[1]);
+            return new DeleteTaskCommand(index);
+        } catch (Exception e) {
+            throw new InvalidInputError("Invalid input for delete!");
+        }
+    }
+    private Command parseFindCommand(String cmd) throws InvalidInputError {
+        try {
+            String[] parts = cmd.split(" ");
+            String taskName = parts[1];
+            return new FindCommand(taskName);
+        } catch (Exception e) {
+            throw new InvalidInputError("Invalid input for find!");
+        }
+    }
+    private Command parseUnmarkCommand(String cmd) throws InvalidInputError {
+        try {
+            String[] parts = cmd.split(" ");
+            int index = Integer.parseInt(parts[1]);
+            return new UnmarkTaskCommand(index);
+        } catch (Exception e) {
+            throw new InvalidInputError("Invalid input for unmark!");
+        }
+    }
+    private Command parseTodoCommand(String cmd) throws InvalidInputError {
+        try {
+            Todo newTask = new Todo(cmd.substring(5));
+            return new AddTodoCommand(newTask);
+        } catch (Exception e) {
+            throw new InvalidInputError("Invalid input for todo!");
+        }
+    }
+    private Command parseDeadlineCommand(String cmd) throws InvalidInputError {
+        try {
+            String description = extractStringBetweenTwoSubStrings(cmd, "deadline", "/by");
+            String by = extractStringFromSubstringToEnd(cmd, "/by");
+            Deadline deadline = new Deadline(description, by);
+            return new AddDeadlineCommand(deadline);
+        } catch (Exception e) {
+            throw new InvalidInputError("Invalid input for deadline!");
+        }
+    }
+    private Command parseEventCommand(String cmd) throws InvalidInputError {
+        try {
+            String description = extractStringBetweenTwoSubStrings(cmd, "event", "/from");
+            String from = extractStringBetweenTwoSubStrings(cmd, "/from", "/to");
+            String to = extractStringFromSubstringToEnd(cmd, "/to");
+            Event event = new Event(description, from, to);
+            return new AddEventCommand(event);
+        } catch (Exception e) {
+            throw new InvalidInputError("Invalid input for event!");
         }
     }
     /**
