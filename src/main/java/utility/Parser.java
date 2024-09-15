@@ -1,7 +1,6 @@
 package utility;
 
 import java.util.Arrays;
-
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -55,17 +54,16 @@ public class Parser {
         // Split the input by '/', limit to 2 parts to avoid splitting dates that contain '/'
         String[] parts = input.split("/", 2);
         assert parts.length >= 2 : "Input does not contain '/' for date extraction.";
-    
+        
         String processing = parts[1];
         // Remove 'by' or 'from' prefixes (case-insensitive)
         processing = processing.replaceFirst("(?i)by\\s+", "").replaceFirst("(?i)from\\s+", "").trim();
-    
+        
         // Assert that the date is in yyyy-mm-dd format
         assert isValidDateFormat(processing) : "Date format should be yyyy-mm-dd.";
-    
+        
         return processing;
     }
-    
     
     /**
      * Extracts the second date part of the input string, which is after the second '/'.
@@ -88,6 +86,16 @@ public class Parser {
         return processing;
     }
     
+    /**
+     * Extracts the integer involved from the input string.
+     * <p>
+     * Assumes that the input string is a command followed by an integer argument,
+     * and extracts the integer argument from the second word of the input string.
+     * This method asserts that the input has at least two words, and that the second word is a valid integer.
+     *
+     * @param input the input string containing a command followed by an integer
+     * @return the integer value of the second word in the input string
+     */
     public static Integer extractIntegerInvolved(String input) {
         // Split the input string by spaces
         String[] splitArray = input.split(" ");
@@ -102,6 +110,12 @@ public class Parser {
         return Integer.valueOf(splitArray[1]);
     }
     
+    /**
+     * Checks if the provided string is a valid integer.
+     *
+     * @param str the string to check
+     * @return true if the string can be parsed as an integer, false otherwise
+     */
     private static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
@@ -111,6 +125,15 @@ public class Parser {
         }
     }
     
+    /**
+     * Returns the input string excluding the first word.
+     * <p>
+     * Assumes that the input string contains at least two words.
+     * This method asserts that the input has at least two words.
+     *
+     * @param input the input string
+     * @return a string containing the input without the first word
+     */
     public static String excludeFirstWord(String input) {
         String[] splitArray = input.split(" ");
         assert splitArray.length >= 2 : "Missing Arguments in Input";

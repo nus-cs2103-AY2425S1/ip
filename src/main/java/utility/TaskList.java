@@ -145,8 +145,8 @@ public class TaskList {
         return result;
     }
     
-    public ArrayList<Task> sortTaskList() {
-        this.tasks.filter(TypeO)
-    }
-    
+//    public ArrayList<Task> sortTaskList() {
+//        this.tasks.filter(TypeO)
+//    }
+//
 }
