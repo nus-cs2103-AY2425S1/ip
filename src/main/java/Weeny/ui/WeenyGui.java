@@ -65,6 +65,7 @@ public class WeenyGui extends AnchorPane {
         }
     }
 
+
     /**
      *  Injects weeny into the Application
      *

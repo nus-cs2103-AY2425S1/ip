@@ -47,6 +47,31 @@ public class Event extends Task {
     }
 
     /**
+     * Checks if a particular date lies within the event duration
+     *
+     * @param date Current date to check against
+     * @return True if it does and False otherwise
+     */
+    @Override
+    public boolean isOnDate(String date) {
+        LocalDate testDate = parser.convertDate(date);
+        if (this.startDate.isBefore(testDate) && this.endDate.isBefore(testDate)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Getter for startTime
+     *
+     * @return
+     */
+    public LocalTime getStartTime() {
+        return this.startTime;
+    }
+
+    /**
      * Returns a string representation of the event task for display purposes.
      *
      * @return A formatted string showing the task's status, description, and start/end date/time.

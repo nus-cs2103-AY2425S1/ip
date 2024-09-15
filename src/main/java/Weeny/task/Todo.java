@@ -1,5 +1,7 @@
 package weeny.task;
 
+import java.time.LocalDate;
+
 /**
  * Represents a to-do task with no specific date or time.
  */
@@ -22,6 +24,17 @@ public class Todo extends Task {
     public String toOutput() {
         int checkMark = this.isDone ? 1 : 0;
         return "T | " + checkMark + " | " + this.description;
+    }
+
+    /**
+     * Overides method in Task
+     *
+     * @param date Current date
+     * @return True because date is not relevant
+     */
+    @Override
+    public boolean isOnDate(String date) {
+        return true;
     }
 
     /**

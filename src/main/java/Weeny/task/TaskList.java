@@ -3,6 +3,9 @@ package weeny.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.time.LocalTime;
+
 
 /**
  * Manages a list of tasks, allowing addition, deletion, and status updates.
@@ -66,12 +69,58 @@ public class TaskList {
     }
 
     /**
+     *
+     */
+    public List<Task> getSchedule(String date) {
+        List<Task> schedule = getTimeSortedTasks().stream().filter(task -> task.containsDate(date)).collect(Collectors.toList());
+        return schedule;
+    }
+
+    /**
      * Returns the list of tasks.
      *
      * @return The list of tasks.
      */
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Sorts list of tasks on a particular date by type then time
+     *
+     * @return List of sorted tasks
+     */
+    public List<Task> getTimeSortedTasks() {
+        return tasks.stream()
+                .sorted(Comparator
+                        .comparingInt(task -> getTaskTypeOrder((Task) task))
+                        .thenComparing(task -> {
+                            if (task instanceof Deadline) {
+                                return ((Deadline) task).getDueTime();
+                            } else if (task instanceof Event) {
+                                return ((Event) task).getStartTime();
+                            } else {
+                                return LocalTime.MAX;
+                            }
+                        }))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Helper function to sort tasks
+     *
+     * @param task current task being iterated
+     * @return integer value priority to sort
+     */
+    private int getTaskTypeOrder(Task task) {
+        if (task instanceof Todo) {
+            return 0;
+        } else if (task instanceof Deadline) {
+            return 1;
+        } else if (task instanceof Event) {
+            return 2;
+        }
+        return 3;
     }
 
     /**

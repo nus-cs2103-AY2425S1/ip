@@ -39,6 +39,31 @@ public class Deadline extends Task {
     }
 
     /**
+     * Checks if a particular date lies before the deadline
+     *
+     * @param date Current date to check against
+     * @return True if it does and False otherwise
+     */
+    @Override
+    public boolean isOnDate(String date) {
+        LocalDate testDate = parser.convertDate(date);
+        if (this.endDate.isEqual(testDate)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Getter for endTime
+     *
+     * @return
+     */
+    public LocalTime getDueTime() {
+        return this.endTime;
+    }
+
+    /**
      * Returns a string representation of the deadline task for display purposes.
      *
      * @return A formatted string showing the task's status, description, and due date/time.
