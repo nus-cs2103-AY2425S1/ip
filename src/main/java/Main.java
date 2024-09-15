@@ -25,6 +25,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("SirPotato chatbot");
             fxmlLoader.<MainWindow>getController().setBot(sp);  // inject the Bot instance
             stage.show();
         } catch (IOException e) {

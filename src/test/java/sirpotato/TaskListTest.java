@@ -36,7 +36,7 @@ public class TaskListTest {
 
         // Since the arraylist is only of size 3, using the item number as 10
         // should throw an error
-        assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(DukeException.class, () -> {
             toDoList.delete(10, tasks); 
         });
     }
