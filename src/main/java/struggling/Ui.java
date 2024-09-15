@@ -1,7 +1,9 @@
 package struggling;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import struggling.task.Task;
 
@@ -150,8 +152,13 @@ public class Ui {
     }
 
     public String getMessage() {
-        String msg = this.message.toString();
+        String msgBlock = this.message.toString();
         this.message.setLength(0);
-        return msg;
+
+        return Arrays
+                .stream(msgBlock.split("\\R"))
+                .filter(l -> !l.contains("________"))
+                .map(String::trim)
+                .collect(Collectors.joining("\n"));
     }
 }

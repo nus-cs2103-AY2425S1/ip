@@ -13,8 +13,12 @@ import struggling.Struggling;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.gif"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/struggling.gif"));
+    private final Image userImage = new Image(this
+            .getClass()
+            .getResourceAsStream("/images/user.gif"));
+    private final Image dukeImage = new Image(this
+            .getClass()
+            .getResourceAsStream("/images/struggling.gif"));
 
     @FXML
     private ScrollPane scrollPane;
@@ -26,9 +30,14 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Struggling bot;
 
+    /**
+     * Initialize scrollPane.
+     */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane
+                .vvalueProperty()
+                .bind(dialogContainer.heightProperty());
     }
 
     /**
@@ -36,6 +45,9 @@ public class MainWindow extends AnchorPane {
      */
     public void setBot(Struggling s) {
         bot = s;
+        dialogContainer
+                .getChildren()
+                .addAll(DialogBox.getBotDialog(bot.getGreeting(), dukeImage, "Welcome"));
     }
 
     /**
@@ -47,8 +59,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bot.getResponse(input);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, dukeImage));
+        String commandType = bot.getCommandType();
+        dialogContainer
+                .getChildren()
+                .addAll(DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getBotDialog(response, dukeImage, commandType));
         userInput.clear();
     }
 }

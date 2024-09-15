@@ -17,6 +17,7 @@ public class Struggling {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String commandType;
 
     /**
      * Initializes Struggling object by initializing the
@@ -44,6 +45,19 @@ public class Struggling {
         new Struggling("data/Struggling.txt").run();
     }
 
+    public String getGreeting() {
+        try {
+            assert ui != null : "Invalid ui object";
+            ui.showWelcome();
+        } catch (IllegalArgumentException e) {
+            ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        } catch (StrugglingException e) {
+            ui.showError(e.getMessage());
+        }
+
+        return ui.getMessage();
+    }
+
     public String getResponse(String input) {
         try {
             assert tasks != null : "Invalid tasks object";
@@ -52,6 +66,9 @@ public class Struggling {
 
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
+            commandType = c
+                    .getClass()
+                    .getSimpleName();
         } catch (IllegalArgumentException e) {
             ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
         } catch (StrugglingException e) {
@@ -60,7 +77,15 @@ public class Struggling {
             ui.showError("Fail to save task, please contact developer!");
         }
 
+        if (commandType == null) {
+            commandType = "InvalidCommand";
+        }
+
         return ui.getMessage();
+    }
+
+    public String getCommandType() {
+        return commandType != null ? commandType : "InvalidCommand";
     }
 
     /**

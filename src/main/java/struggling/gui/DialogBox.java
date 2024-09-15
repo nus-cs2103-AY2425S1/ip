@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -36,15 +37,18 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        final Circle clip = new Circle(50, 50, 50);
+        displayPicture.setClip(clip);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getBotDialog(String text, Image img) {
+    public static DialogBox getBotDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
 
@@ -56,5 +60,35 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog
+                .getStyleClass()
+                .add("reply-label");
+    }
+
+    private void changeDialogStyle(String commandType) {
+        switch (commandType) {
+        case "AddCommand":
+            dialog
+                    .getStyleClass()
+                    .add("add-label");
+            break;
+        case "MarkCommand":
+            dialog
+                    .getStyleClass()
+                    .add("marked-label");
+            break;
+        case "DeleteCommand":
+            dialog
+                    .getStyleClass()
+                    .add("delete-label");
+            break;
+        case "InvalidCommand":
+            dialog
+                    .getStyleClass()
+                    .add("invalid-label");
+            break;
+        default:
+            // Do nothing
+        }
     }
 }
