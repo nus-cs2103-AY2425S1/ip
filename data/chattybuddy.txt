@@ -1,4 +1,4 @@
 T | 0 | finish homework
 D | 0 | homework | 2024-09-09
 T | 0 | finish homework
-E | 0 | wedding ceremony | 2024-09-06 0000 | 2024-09-08 0000
+

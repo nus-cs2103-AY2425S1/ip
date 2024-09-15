@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
+import exceptions.InvalidInputException;
+import exceptions.NoLastCommandToUndo;
 import task.Task;
 
 /**
@@ -15,6 +16,7 @@ import task.Task;
 public class Storage {
 
     private final String filePath;
+    private final Map<String, Task> commands = new LinkedHashMap<>();
 
     /**
      * Initializes the Storage object with the specified file path.
@@ -81,5 +83,37 @@ public class Storage {
             fw.write(task.toSavedFormat(separation) + "\n");
         }
         fw.close();
+    }
+
+    public int getCommandsSize() {
+        return commands.size();
+    }
+
+    /**
+     * keeps track of the all commands that the user enters.
+     * @param command the command keyword that the user enters
+     * @param task the task associated with the command
+     */
+    public void saveCommands(String command, Task task) {
+        commands.put(command, task);
+    }
+
+    /**
+     * Removes the last entry of the command arraylist
+     * @throws NoLastCommandToUndo if the user hasn't entered any command
+     * and he tries to undo
+     */
+    public Map<String, Task> lastCommand() throws NoLastCommandToUndo {
+        if (commands.isEmpty()) {
+            throw new NoLastCommandToUndo();
+        }
+        String lastCommand = commands.keySet()
+                .toArray(new String[0])[commands.size() - 1];
+        Task lastTask = commands.get(commands.keySet()
+                .toArray(new String[0])[commands.size() - 1]);
+        commands.remove(lastCommand);
+        Map<String, Task> result = new HashMap<>();
+        result.put(lastCommand, lastTask);
+        return result;
     }
 }
