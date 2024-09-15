@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import neko.task.*;
+import neko.task.Deadline;
+import neko.task.Event;
+import neko.task.Task;
+import neko.task.TaskList;
+import neko.task.Todo;
 import neko.ui.Ui;
 
 /**
@@ -72,7 +76,6 @@ public class Neko {
     public void run() {
 
         ui.showGreeting();
-
         String input = ui.getUserCommand();
         while (!input.equals(COMMAND_EXIT)) {
             try {
@@ -86,6 +89,11 @@ public class Neko {
         ui.showExitMessage();
     }
 
+    /**
+     * Get the greeting message from the Ui class.
+     * @return greeting message as a string
+     */
+
     public String getGreeting() {
         return ui.getGreetingMessage();
     }
@@ -96,56 +104,31 @@ public class Neko {
      * unmarking tasks, deleting tasks, and adding tasks.
      *
      * @param input The full user input string.
-     * @throws NekoException If an unknown command is provided or the task cannot be marked/unmarked.
+     * @return The response string to be displayed to the user.
+     * @throws NekoException If an unknown command is provided or a task-related operation fails.
      * @throws IOException If there is an issue with reading/writing to the tasks file.
      */
-
     public String handleInput(String input) throws NekoException, IOException {
         String command = Parser.parseCommand(input);
-        Task task;
-        Task[] tasksArray;
         String response;
         switch (command) {
         case COMMAND_LIST:
             response = tasks.listTasks();
             break;
         case COMMAND_MARK:
-            Integer[] markIndices = Parser.parseIndices(input);
-            tasksArray = tasks.markTask(markIndices);
-            storage.rewriteFile(tasks);
-            response = formatTaskArrayResponse(tasksArray, "marked as done");
+            response = handleMarkCommand(input);
             break;
         case COMMAND_UNMARK:
-            Integer[] unmarkIndices = Parser.parseIndices(input);
-            tasksArray = tasks.unmarkTask(unmarkIndices);
-            storage.rewriteFile(tasks);
-            response = formatTaskArrayResponse(tasksArray, "marked as not done");
+            response = handleUnmarkCommand(input);
             break;
         case COMMAND_DELETE:
-            Integer[] deleteIndices = Parser.parseIndices(input);
-            tasksArray = tasks.deleteTask(deleteIndices);
-            storage.rewriteFile(tasks);
-            response = formatTaskArrayResponse(tasksArray, "delete");
+            response = handleDeleteCommand(input);
             break;
         case COMMAND_ADD:
-            task = createTask(input);
-            if (task == null) {
-                response = ui.getInvalidInputMessage();
-                break;
-            }
-            tasks.addTask(task);
-            storage.writeFile(task);
-            response = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n "
-                    + task + "\nNow you have " + tasks.size() + " tasks in your list meow";
+            response = handleAddCommand(input);
             break;
         case COMMAND_FIND:
-            String key = input.split(" ")[1].trim();
-            String tasksFound = tasks.findTasks(key);
-            if (tasksFound.isEmpty()) {
-                response = "No tasks found meow!";
-            } else {
-                response = "Here are the matching tasks in your list meow:\n" + tasksFound;
-            }
+            response = handleFindCommand(input);
             break;
         case COMMAND_HELP:
             response = getHelpMessage();
@@ -156,6 +139,15 @@ public class Neko {
         return response;
     }
 
+    /**
+     * Creates a task (Todo, Deadline, or Event) based on the input string provided by the user.
+     * The method first parses the input to determine the task type and description, and then
+     * calls the respective creation method for each task type.
+     *
+     * @param input The user input string containing the task type and details.
+     * @return The created task, either a Todo, Deadline, or Event, based on the user input.
+     * @throws NekoException If the input format is invalid or the task type is not recognized.
+     */
     private Task createTask(String input) throws NekoException {
         String[] parsedInput = Parser.parseAddCommand(input);
         Task task;
@@ -165,25 +157,13 @@ public class Neko {
 
             switch (taskType) {
             case "todo":
-                if (parsedInput.length != 3) {
-                    throw new NekoException("Wrong format meow!");
-                }
-                task = new Todo(taskName);
+                task = createTodoTask(parsedInput, taskName);
                 break;
             case "deadline":
-                if (parsedInput.length != 4) {
-                    throw new NekoException("Wrong format meow!");
-                }
-                LocalDateTime by = Parser.parseTime(parsedInput[3].trim());
-                task = new Deadline(taskName, by);
+                task = createDeadlineTask(parsedInput, taskName);
                 break;
             case "event":
-                if (parsedInput.length != 5) {
-                    throw new NekoException("Wrong format meow!");
-                }
-                LocalDateTime start = Parser.parseTime(parsedInput[3].trim());
-                LocalDateTime end = Parser.parseTime(parsedInput[4].trim());
-                task = new Event(taskName, start, end);
+                task = createEventTask(parsedInput, taskName);
                 break;
             default:
                 throw new NekoException("Invalid input meow");
@@ -194,6 +174,35 @@ public class Neko {
         return task;
     }
 
+    // Private methods to handle individual task types (Todo, Deadline, Event)
+    private Task createTodoTask(String[] parsedInput, String taskName) throws NekoException {
+        if (parsedInput.length != 3) {
+            throw new NekoException("Wrong format meow!");
+        }
+        return new Todo(taskName);
+    }
+
+    private Task createDeadlineTask(String[] parsedInput, String taskName) throws NekoException {
+        if (parsedInput.length != 4) {
+            throw new NekoException("Wrong format meow!");
+        }
+        LocalDateTime by = Parser.parseTime(parsedInput[3].trim());
+        return new Deadline(taskName, by);
+    }
+
+    private Task createEventTask(String[] parsedInput, String taskName) throws NekoException {
+        if (parsedInput.length != 5) {
+            throw new NekoException("Wrong format meow!");
+        }
+        LocalDateTime start = Parser.parseTime(parsedInput[3].trim());
+        LocalDateTime end = Parser.parseTime(parsedInput[4].trim());
+        return new Event(taskName, start, end);
+    }
+
+    /**
+     * Return a list of commands available to serve as a help guide.
+     * @return A list of commands Neko offers.
+     */
     private String getHelpMessage() {
         return "Here are the available commands meow!\n\n"
                 + "1. list - Displays all the tasks in the list\n"
@@ -209,16 +218,100 @@ public class Neko {
                 + "9. help - Shows this list of commands\n";
     }
 
+    /**
+     * Handles the 'mark' command to mark multiple tasks as done.
+     *
+     * @param input The user input containing task numbers to mark as done.
+     * @return A response string showing the tasks that were marked as done.
+     * @throws NekoException If the task numbers are invalid.
+     * @throws IOException If an I/O error occurs while rewriting the tasks file.
+     */
+    private String handleMarkCommand(String input) throws NekoException, IOException {
+        Integer[] markIndices = Parser.parseIndices(input);
+        Task[] tasksArray = tasks.markTask(markIndices);
+        storage.rewriteFile(tasks);
+        return formatTaskArrayResponse(tasksArray, "marked as done");
+    }
+    /**
+     * Handles the 'unmark' command to unmark multiple tasks as done.
+     *
+     * @param input The user input containing task numbers to unmark.
+     * @return A response string showing the tasks that were unmarked.
+     * @throws NekoException If the task numbers are invalid.
+     * @throws IOException If an I/O error occurs while rewriting the tasks file.
+     */
+    private String handleUnmarkCommand(String input) throws NekoException, IOException {
+        Integer[] unmarkIndices = Parser.parseIndices(input);
+        Task[] tasksArray = tasks.unmarkTask(unmarkIndices);
+        storage.rewriteFile(tasks);
+        return formatTaskArrayResponse(tasksArray, "marked as not done");
+    }
+    /**
+     * Handles the 'delete' command to delete multiple tasks.
+     *
+     * @param input The user input containing task numbers to delete.
+     * @return A response string showing the tasks that were deleted.
+     * @throws NekoException If the task numbers are invalid.
+     * @throws IOException If an I/O error occurs while rewriting the tasks file.
+     */
+    private String handleDeleteCommand(String input) throws NekoException, IOException {
+        Integer[] deleteIndices = Parser.parseIndices(input);
+        Task[] tasksArray = tasks.deleteTask(deleteIndices);
+        storage.rewriteFile(tasks);
+        return formatTaskArrayResponse(tasksArray, "delete");
+    }
+
+    /**
+     * Handles the 'add' command to add a new task (Todo, Deadline, Event).
+     *
+     * @param input The user input containing the task details.
+     * @return A response string showing the added task.
+     * @throws NekoException If the input format is invalid or the task cannot be created.
+     * @throws IOException If an I/O error occurs while writing to the tasks file.
+     */
+    private String handleAddCommand(String input) throws NekoException, IOException {
+        Task task = createTask(input);
+        if (task == null) {
+            return ui.getInvalidInputMessage();
+        }
+        tasks.addTask(task);
+        storage.writeFile(task);
+        return "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n "
+                + task + "\nNow you have " + tasks.size() + " tasks in your list meow";
+    }
+
+    /**
+     * Handles the 'find' command to search for tasks containing a specific keyword.
+     *
+     * @param input The user input containing the keyword.
+     * @return A response string showing the tasks that match the keyword.
+     * @throws NekoException If the keyword is invalid.
+     */
+    private String handleFindCommand(String input) throws NekoException {
+        String key = Parser.parseKeyword(input).trim();
+        String tasksFound = tasks.findTasks(key);
+        if (tasksFound.isEmpty()) {
+            return "No tasks found meow!";
+        } else {
+            return "Here are the matching tasks in your list meow:\n" + tasksFound;
+        }
+    }
+
+    /**
+     * Formats the response string for tasks that have been marked, unmarked, or deleted.
+     *
+     * @param tasks The array of tasks that were marked, unmarked, or deleted.
+     * @param action The action performed (e.g., "marked as done", "deleted").
+     * @return A formatted response string.
+     */
     private String formatTaskArrayResponse(Task[] tasks, String action) {
         StringBuilder response = new StringBuilder("Nice meow! I've ");
         response.append(action).append(" the following tasks:\n");
-
         for (Task task : tasks) {
             if (task != null) {
                 response.append(task).append("\n");
             }
         }
-
         return response.toString().trim();
     }
 }

@@ -70,17 +70,17 @@ public class TaskList {
     public String listTasks() {
         if (tasks.isEmpty()) {
             return "You don't have any tasks yet meow!";
-        } else {
-            StringBuilder tasksString = new StringBuilder("Here are the tasks in your list meow:");
-            for (int i = 0; i < tasks.size(); i++) {
-                tasksString.append("\n" + (i + 1)).append(". ").append(tasks.get(i));
-            }
-            return tasksString.toString();
         }
+        StringBuilder tasksString = new StringBuilder("Here are the tasks in your list meow:");
+        for (int i = 0; i < tasks.size(); i++) {
+            tasksString.append("\n" + (i + 1)).append(". ").append(tasks.get(i));
+        }
+        assert !tasksString.isEmpty() : "Return string should not be empty";
+        return tasksString.toString();
     }
 
     /**
-     * Marks the task at the given index as done if it's not marked as done yet.
+     * Marks the tasks at the given indices as done if they were not marked as done yet.
      * Otherwise, simply return null (if the task is already marked as done).
      *
      * @param indices The position where the tasks are stored.
@@ -103,7 +103,7 @@ public class TaskList {
     }
 
     /**
-     * Marks the task at the given index as not done if it's marked as done.
+     * Marks the tasks at the given indices as not done if they were marked as done.
      * Otherwise, simply return null (if the task is already marked as not done).
      *
      * @param indices The position where the tasks are stored.
@@ -153,14 +153,15 @@ public class TaskList {
      * @throws NekoException If the index is invalid.
      */
     public Task[] deleteTask(Integer... indices) throws NekoException {
-        Task[] deletedTask = new Task[indices.length];
+        Task[] deletedTasks = new Task[indices.length];
         int counter = 0;
+        Arrays.sort(indices, (x, y) -> Integer.compare(y, x));
         for (int index : indices) {
             checkValidIndex(index);
-            deletedTask[counter++] = tasks.get(index);
+            deletedTasks[counter++] = tasks.get(index);
             tasks.remove(index);
         }
-        return deletedTask;
+        return deletedTasks;
     }
 
     /**
@@ -170,7 +171,10 @@ public class TaskList {
      * @return A formatted string of the tasks that match the search keyword. If no tasks are found,
      *      an empty string is returned.
      */
-    public String findTasks(String key) {
+    public String findTasks(String key) throws NekoException {
+        if (key.isEmpty()) {
+            throw new NekoException("Keyword cannot be empty");
+        }
         String tasksFound = "";
         int numTasksFound = 0;
         for (Task task : tasks) {
@@ -178,6 +182,7 @@ public class TaskList {
                 tasksFound += ++numTasksFound + "." + task.toString() + "\n";
             }
         }
+
         return tasksFound.trim();
     }
 }
