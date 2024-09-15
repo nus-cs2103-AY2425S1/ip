@@ -30,7 +30,7 @@ public class Soju {
     }
 
     /**
-     * The main entry point of the Soju application.
+     * Runs the main entry point of the Soju application.
      * It creates a Soju instance and starts the chatbot.
      *
      * @param args Command-line arguments (not used).
