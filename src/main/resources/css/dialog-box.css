@@ -1,3 +1,10 @@
+@font-face {
+  src: url('../fonts/FiraSans-Regular.ttf');
+}
+@font-face {
+  src: url('../fonts/RobotoCondensed-VariableFont_wght.ttf');
+}
+
 .label {
   background: white;
   -fx-background-color: background;
@@ -6,11 +13,15 @@
   -fx-background-radius: 1em 1em 0 1em;
   -fx-border-radius: 1em 1em 0 1em;
   -fx-text-fill: ladder(background, white 49%, black 50%);
+  -fx-font-family: 'Fira Sans';
+  -fx-font-size: 15px;
 }
 
 .reply-label {
   -fx-background-radius: 1em 1em 1em 0;
   -fx-border-radius: 1em 1em 1em 0;
+  -fx-font-family: 'Roboto Condensed';
+  -fx-font-size: 15px;
 }
 
 #displayPicture {
