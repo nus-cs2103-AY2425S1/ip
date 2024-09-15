@@ -17,4 +17,13 @@ public class EventTest {
         assertEquals(new Event("math lecture", "2024-10-12", "2024-10-12").toString(),
                 "[E] [ ] math lecture (from: October 12, 2024 00:00 to: October 12, 2024 00:00)");
     }
+
+    @Test
+    public void createEvent_failure(){
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            new Event("birthday party", "2024-09-12 12:30", "2024-09-12 4:30");
+        });
+
+        assertEquals("Invalid date format: 2024-09-12 4:30", thrown.getMessage());
+    }
 }
