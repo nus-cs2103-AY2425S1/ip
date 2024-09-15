@@ -13,9 +13,8 @@ public class Ui {
     /**
      * Prints the welcome message.
      */
-    public void intro() {
-        System.out.println("Hello! I'm ZBot!");
-        System.out.println("What can I do for you?\n");
+    public String intro() {
+        return "Hello! I'm ZBot\n" + "What can I do for you?";
     }
 
     /**
@@ -90,6 +89,16 @@ public class Ui {
      */
     public String readUserInput() {
         return sc.nextLine();
+    }
+
+    /**
+     * Prints additional message after adding a note to task.
+     */
+    public String generateAddNoteMsg(Task task) {
+        StringBuilder response = new StringBuilder();
+        response.append("Got it. I've added a note to this task:\n");
+        response.append("  " + task + "\n");
+        return response.toString();
     }
 
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import zbot.Ui;
 import zbot.ZBot;
 
 /**
@@ -23,17 +24,22 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private ZBot zbot;
+    private Ui ui = new Ui();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/default-avatar.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/zbot-dp.jpg"));
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.intro(), dukeImage));
     }
 
     /** Injects the Duke instance */
-    public void setDuke(ZBot zbot) {
+    public void setZbot(ZBot zbot) {
         this.zbot = zbot;
     }
 
@@ -54,5 +60,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage));
         userInput.clear();
+    }
+
+    /**
+     * Shows the intro message when the chatbot is started.
+     */
+    @FXML
+    public void showIntroMsg() {
+        String introMsg = ui.intro();
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(introMsg, dukeImage));
     }
 }

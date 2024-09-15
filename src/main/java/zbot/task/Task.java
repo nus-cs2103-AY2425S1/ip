@@ -6,6 +6,7 @@ package zbot.task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Note note;
 
     /**
      * Constructor for Task.
@@ -15,6 +16,31 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.note = new Note();
+    }
+
+    /**
+     * Constructor for Task with note.
+     *
+     * @param description Description of the task.
+     * @param note        Note of the task.
+     */
+    public Task(String description, Note note) {
+        this.description = description;
+        this.isDone = false;
+        this.note = note;
+    }
+
+    /**
+     * Constructor for Task with note content.
+     *
+     * @param description Description of the task.
+     * @param note        Note content of the task.
+     */
+    public Task(String description, String note) {
+        this.description = description;
+        this.isDone = false;
+        this.note = new Note(note);
     }
 
     /**
@@ -58,9 +84,27 @@ public class Task {
         return description;
     }
 
+    /**
+     * Adds a note to the task.
+     */
+    public void addNote(String content) {
+        this.note = new Note(content);
+    }
+
+    /**
+     * Returns the note of the task.
+     *
+     * @return Note of the task.
+     */
+    public Note getNote() {
+        return note;
+    }
+
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), description);
+        return note.isEmpty()
+                ? String.format("[%s] %s", getStatusIcon(), description)
+                : String.format("[%s] %s (Note: %s)", getStatusIcon(), description, note);
     }
 
 }

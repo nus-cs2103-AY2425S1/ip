@@ -85,6 +85,9 @@ public class ZBot {
             storage.save(tasks);
         } else if (input.startsWith("find")) {
             response = findTask(input, ui);
+        } else if (input.startsWith("note")) {
+            response = addNoteToTask(input, ui);
+            storage.save(tasks);
         } else {
             response = "Invalid command!";
         }
@@ -236,6 +239,28 @@ public class ZBot {
         }
 
         return response.toString();
+    }
+
+    /**
+     * Adds a note to a task.
+     *
+     * @param input User input.
+     * @param ui    User interface of the chatbot.
+     */
+    public String addNoteToTask(String input, Ui ui) {
+        String response = "";
+        String[] taskNoteSplit = input.split(" ", 2);
+        int taskIndex = Integer.parseInt(taskNoteSplit[1].split(" ", 2)[0]);
+        String noteContent = taskNoteSplit[1].split(" ", 2)[1];
+
+        try {
+            tasks.get(taskIndex - 1).addNote(noteContent);
+            response = ui.generateAddNoteMsg(tasks.get(taskIndex - 1));
+        } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            response = "Please enter a valid task number!\n";
+        }
+
+        return response;
     }
 
 }
