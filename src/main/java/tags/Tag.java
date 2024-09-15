@@ -1,9 +1,9 @@
 package tags;
 
+import java.util.ArrayList;
+
 import tasks.Task;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Represents a tag that can be added to tasks
@@ -50,7 +50,7 @@ public class Tag {
 
     /**
      * Gets string with of all tagged tasks descriptions
-     * @param String of all tagged tasks
+     * @return string of all tagged tasks descriptions
      */
     public String getTaggedTasks() {
         StringBuilder taggedTasksString = new StringBuilder();

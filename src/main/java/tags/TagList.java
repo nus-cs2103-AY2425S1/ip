@@ -1,6 +1,7 @@
 package tags;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Represents a list of tags
@@ -56,5 +57,15 @@ public class TagList {
      */
     public Tag getTag(String tagName) {
         return tags.get(tagName);
+    }
+
+    /**
+     * gets the list of tags
+     *
+     * @return the String with all tags
+     */
+    public Set<String> getAllTags() {
+
+        return tags.keySet();
     }
 }

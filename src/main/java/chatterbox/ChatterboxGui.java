@@ -41,7 +41,7 @@ public class ChatterboxGui {
         try {
             loaded = storage.load(parser);
         } catch (FileNotFoundException e) {
-            System.out.ln("Error: No history file found at path");
+            System.out.println("Error: No history file found at path");
         }
 
 
@@ -64,7 +64,7 @@ public class ChatterboxGui {
         try {
             loaded = storage.load(parser);
         } catch (FileNotFoundException e) {
-            System.out.ln("Error: No history file found at path");
+            System.out.println("Error: No history file found at path");
         }
 
         this.tasks = new TaskList(loaded);
@@ -150,10 +150,10 @@ public class ChatterboxGui {
 
             case EVENT:
                 String[] eventParsed = parser.parseEvent(input);
-
-                LocalDateTime startDate = parser.parseDateTime(eventParsed[1].substring(4)); //from 4
-                LocalDateTime endDate = parser.parseDateTime(eventParsed[2].substring(2));
-
+                System.out.println(eventParsed[1]);
+                System.out.println(eventParsed[2]);
+                LocalDateTime startDate = parser.parseDateTime(eventParsed[1]); //from 4
+                LocalDateTime endDate = parser.parseDateTime(eventParsed[2]);System.out.println("LDT 2 ok");
                 if (startDate == null || endDate == null) {
 
                     tasks.addEvent(eventParsed[0].trim(), eventParsed[1], eventParsed[2]);
@@ -161,6 +161,7 @@ public class ChatterboxGui {
                 } else {
                     tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
                 }
+                System.out.println("Event added");
                 result = guiResponses.addTaskMsg("Event", tasks.size());
                 break;
 
@@ -191,6 +192,11 @@ public class ChatterboxGui {
                 userTags.addTag(tag);
                 tasks.getTask(tagIndex).addTag(new Tag(tagText));
                 result = guiResponses.taggedTasks(tasks.getTask(tagIndex), tagText);
+                break;
+
+            case ALLTAGS:
+
+                result = guiResponses.displayAllTags(userTags.getAllTags());
                 break;
             default:
                 result = "Error occured...";

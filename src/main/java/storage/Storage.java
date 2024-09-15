@@ -125,7 +125,8 @@ public class Storage {
      * @param loadedTasks
      * @throws ChatterboxExceptions.ChatterBoxNoInput
      */
-    private static void parseTask(Parser parser, String nextLine, ArrayList<Task> loadedTasks, TagList loadedTags) throws ChatterboxExceptions.ChatterBoxNoInput {
+    private static void parseTask(Parser parser, String nextLine, ArrayList<Task> loadedTasks, TagList loadedTags)
+            throws ChatterboxExceptions.ChatterBoxNoInput {
         char type = nextLine.charAt(0);
         boolean status = nextLine.charAt(4) == 'X';
 

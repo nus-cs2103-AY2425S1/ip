@@ -40,7 +40,16 @@ public abstract class Task {
         if (tags.size() <= 0) {
             return "";
         }
-        return "|tags: " + tags.toString();
+        StringBuilder tagString = new StringBuilder();
+        for (int i = 0; i < tags.size(); i++) {
+            tagString.append(tags.get(i).toString());
+
+            // Add a space after each string except the last one
+            if (i < tags.size() - 1) {
+                tagString.append(" ");
+            }
+        }
+        return "|tags: " + tagString.toString();
     }
 
     /**
@@ -48,7 +57,7 @@ public abstract class Task {
      * @return string of description
      */
     public String getDescription() {
-        return this.desc + " " + this.getTags();
+        return this.desc + " ";
     }
 
     /**
@@ -77,7 +86,7 @@ public abstract class Task {
 
     /**
      * gets the tags of the task
-     * @return an arraylist of tags
+     * @param tag the tag to task list of tag
      */
     public void addTag(Tag tag) {
         this.tags.add(tag);

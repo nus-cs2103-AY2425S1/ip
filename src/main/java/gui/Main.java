@@ -27,7 +27,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setChatterbox(chatterbox); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
-            e.StackTrace();
+            e.getMessage();
         }
     }
 }

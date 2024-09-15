@@ -96,6 +96,8 @@ public class Parser {
             return ValidCommand.FIND;
         } else if (text.startsWith("tag")) {
             return ValidCommand.TAG;
+        } else if (text.startsWith("alltags")) {
+            return ValidCommand.ALLTAGS;
         } else {
             return ValidCommand.INVALID;
 
@@ -169,6 +171,7 @@ public class Parser {
         return new String[] {plainDesc.toString().trim(), deadline.toString().trim()};
     }
 
+
     /**
      * Parses the event string for the desc, from and to time
      *
@@ -223,15 +226,60 @@ public class Parser {
         return new String[] {plainDesc.toString().trim(), startDate.toString().trim(), endDate.toString().trim()};
     }
 
-    public String parseTagText(String desc) {
+    //    public String[] parseEvent(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
+    //
+    //        int fromStart = desc.indexOf("/from");
+    //        if (fromStart < 0) {
+    //            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Event Start Date");
+    //        }
+    //
+    //        int toStart = desc.indexOf("/to");
+    //        if (toStart < 0) {
+    //            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Event End Date");
+    //        }
+    //
+    //        // Extract the event description
+    //        String plainDesc = desc.substring(desc.indexOf('{') + 1, desc.indexOf('}')).trim();
+    //
+    //        // Extract the start date string after "/from"
+    //        String startDate = desc.substring(fromStart + 5, toStart).trim();
+    //
+    //        // Extract the end date string after "/to"
+    //        String endDate = desc.substring(toStart + 3).trim();
+    //
+    //        // Return the parsed elements
+    //        return new String[] { plainDesc, startDate, endDate };
+    //    }
+
+
+
+    /**
+     * Parses the tag text from a tag command
+     * @param desc of format tag /i{index} /t{text}
+     * @return the text after /t
+     */
+    public String parseTagText(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
+
         int start = desc.indexOf("/t");
+        if (start < 0) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag text missing");
+        }
         return desc.substring(start + 2).trim();
     }
 
+    /**
+     * Parses the tag index from a tag command
+     * @param desc of format tag /i{index} /t{text}
+     * @return the index after /i
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if no index is found
+     */
     public int parseTagIndex(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
         int start = desc.indexOf("/i");
         int end = desc.indexOf("/t");
-        if (start < 0 || end <0) {
+        if (start < 0 || end < 0) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("tag / index missing");
+        }
+        if (start < 0 || end < 0) {
             end = desc.length();
         }
         return Integer.parseInt(desc.substring(start + 2, end).trim());
