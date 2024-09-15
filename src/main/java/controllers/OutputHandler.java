@@ -16,6 +16,7 @@ public class OutputHandler {
 
     // Output method for both GUI and CLI
     public void print(String message) {
+        assert message != null;
         if (chatArea != null) {
             // If TextArea exists, append to it (GUI)
             chatArea.appendText(message + "\n");
