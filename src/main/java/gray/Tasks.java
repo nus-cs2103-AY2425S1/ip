@@ -19,6 +19,7 @@ public class Tasks {
 
     /**
      * Constructs a tasks object
+     *
      * @param saveFile
      */
     public Tasks(File saveFile) {
@@ -26,7 +27,11 @@ public class Tasks {
         load();
     }
 
-    private void save() {
+    /**
+     * Saves the current task list. Required if any task object has been modified.
+     * This function is called automatically when adding or removing tasks.
+     */
+    public void save() {
         saveFile.getParentFile().mkdirs();
         try {
             Utility.serialize(saveFile, tasks);

@@ -38,11 +38,13 @@ public class MarkCommand implements Command {
         Task task = tasks.get(index - 1);
         if (command.equals("mark")) {
             task.mark();
+            tasks.save();
             return String.format(
                     "Nice! I've marked this task as done\n\t%s",
                     task);
         } else {
             task.unmark();
+            tasks.save();
             return String.format(
                     "Ok, I've unmarked this task as not done yet:\n\t%s",
                     task);
