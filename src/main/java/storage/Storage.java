@@ -49,21 +49,33 @@ public class Storage {
      *                                          be accessed.
      */
     public ArrayList<Task> load() throws FileNotFoundKukiShinobuException {
-        // Step 1: Read the file, and throw an error is the file can't be found
+        // Step 1: Read the file content
+        String fileContent = readFileContent();
+
+        // Step 2: Parse the tasks from the file content
+        return parseTasks(fileContent);
+    }
+
+    /**
+     * Reads the file content from the specified file path.
+     *
+     * @return A String containing the file content.
+     * @throws FileNotFoundKukiShinobuException If the file is not found or cannot
+     *                                          be accessed.
+     */
+    private String readFileContent() throws FileNotFoundKukiShinobuException {
         File file = new File(this.filePath);
         // Ensure parent directory exists
         file.getParentFile().mkdirs();
-        ArrayList<String> input = new ArrayList<>();
+        StringBuilder content = new StringBuilder();
         try {
-            System.out.println(file.exists());
-            // Check if the file exists
             if (!file.exists()) {
                 // Create an empty file
                 file.createNewFile();
             }
             try (Scanner scanner = new Scanner(file)) {
                 while (scanner.hasNextLine()) {
-                    input.add(scanner.nextLine());
+                    content.append(scanner.nextLine()).append(System.lineSeparator());
                 }
             }
         } catch (FileNotFoundException e) {
@@ -75,49 +87,103 @@ public class Storage {
             e.printStackTrace();
             throw new FileNotFoundKukiShinobuException();
         }
+        return content.toString();
+    }
 
-        // Step 2: Parse the tasks
+    /**
+     * Parses tasks from the given file content.
+     *
+     * @param fileContent The content of the file as a String.
+     * @return An {@code ArrayList} of tasks parsed from the file content.
+     */
+    private ArrayList<Task> parseTasks(String fileContent) {
         ArrayList<Task> existingTasks = new ArrayList<>();
-        for (String taskString : input) {
-            String[] taskConstituents = taskString.split(DELIMITER);
-            if (taskConstituents.length < 2) {
-                System.err.println("Invalid task format: " + taskString);
-                continue; // Skip to the next line
-            }
-
-            String taskType = taskConstituents[0];
-            boolean isCompleted = taskConstituents[1].equals("1");
-
-            switch (taskType) {
-                case "T":
-                    if (taskConstituents.length >= 3) {
-                        existingTasks.add(new Todo(taskConstituents[2], isCompleted));
-                    } else {
-                        System.err.println("Invalid task.Todo task format: " + taskString);
-                    }
-                    break;
-                case "D":
-                    if (taskConstituents.length >= 4) {
-                        existingTasks.add(new Deadline(taskConstituents[2], taskConstituents[3], isCompleted));
-                    } else {
-                        System.err.println("Invalid task.Deadline task format: " + taskString);
-                    }
-                    break;
-                case "E":
-                    if (taskConstituents.length >= 5) {
-                        existingTasks.add(new Event(taskConstituents[2], taskConstituents[3], taskConstituents[4], isCompleted));
-                    } else {
-                        System.err.println("Invalid task.Event task format: " + taskString);
-                    }
-                    break;
-                default:
-                    System.err.println("Unknown task type: " + taskType);
-                    break;
+        String[] lines = fileContent.split(System.lineSeparator());
+        for (String line : lines) {
+            Task task = parseTask(line);
+            if (task != null) {
+                existingTasks.add(task);
             }
         }
         return existingTasks;
     }
 
+    /**
+     * Parses a single line of text to create a Task object.
+     *
+     * @param taskString A single line of text representing a task.
+     * @return A Task object created from the line of text, or null if the line is invalid.
+     */
+    private Task parseTask(String taskString) {
+        String[] taskConstituents = taskString.split(DELIMITER);
+        if (taskConstituents.length < 2) {
+            System.err.println("Invalid task format: " + taskString);
+            return null; // Skip invalid lines
+        }
+
+        String taskType = taskConstituents[0];
+        boolean isCompleted = taskConstituents[1].equals("1");
+
+        switch (taskType) {
+            case "T":
+                return parseTodo(taskConstituents, isCompleted);
+            case "D":
+                return parseDeadline(taskConstituents, isCompleted);
+            case "E":
+                return parseEvent(taskConstituents, isCompleted);
+            default:
+                System.err.println("Unknown task type: " + taskType);
+                return null;
+        }
+    }
+
+    /**
+     * Parses a Todo task from the constituents array.
+     *
+     * @param taskConstituents The array of task constituents.
+     * @param isCompleted      The completion status of the task.
+     * @return A Todo object or null if the line is invalid.
+     */
+    private Task parseTodo(String[] taskConstituents, boolean isCompleted) {
+        if (taskConstituents.length >= 3) {
+            return new Todo(taskConstituents[2], isCompleted);
+        } else {
+            System.err.println("Invalid task.Todo task format: " + String.join(DELIMITER, taskConstituents));
+            return null;
+        }
+    }
+
+    /**
+     * Parses a Deadline task from the constituents array.
+     *
+     * @param taskConstituents The array of task constituents.
+     * @param isCompleted      The completion status of the task.
+     * @return A Deadline object or null if the line is invalid.
+     */
+    private Task parseDeadline(String[] taskConstituents, boolean isCompleted) {
+        if (taskConstituents.length >= 4) {
+            return new Deadline(taskConstituents[2], taskConstituents[3], isCompleted);
+        } else {
+            System.err.println("Invalid task.Deadline task format: " + String.join(DELIMITER, taskConstituents));
+            return null;
+        }
+    }
+
+    /**
+     * Parses an Event task from the constituents array.
+     *
+     * @param taskConstituents The array of task constituents.
+     * @param isCompleted      The completion status of the task.
+     * @return An Event object or null if the line is invalid.
+     */
+    private Task parseEvent(String[] taskConstituents, boolean isCompleted) {
+        if (taskConstituents.length >= 5) {
+            return new Event(taskConstituents[2], taskConstituents[3], taskConstituents[4], isCompleted);
+        } else {
+            System.err.println("Invalid task.Event task format: " + String.join(DELIMITER, taskConstituents));
+            return null;
+        }
+    }
 
     /**
      * Writes the specified list of tasks to the file.
@@ -129,28 +195,37 @@ public class Storage {
      * @param tasks An {@code ArrayList} of tasks to be written to the file.
      */
     public void write(ArrayList<Task> tasks) {
-        // TODO: Takes this.tasks and write it to the database file
-        StringBuilder stringToBeWritten = new StringBuilder();
-        // Step 1: Parse the file into a single string
-        for (Task task : tasks) {
-            stringToBeWritten.append(task.getDatabaseString()).append(System.lineSeparator());
-        }
+        // Step 1: Convert tasks to a String representation
+        String tasksString = convertTasksToString(tasks);
 
-        // Step 2: Insert the entire text string into the file
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(this.filePath);
-            fileWriter.write(stringToBeWritten.toString());
+        // Step 2: Write the String representation to the file
+        writeStringToFile(tasksString);
+    }
+
+    /**
+     * Converts a list of tasks to a String representation.
+     *
+     * @param tasks An {@code ArrayList} of tasks to be converted.
+     * @return A String representation of the tasks.
+     */
+    private String convertTasksToString(ArrayList<Task> tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Task task : tasks) {
+            stringBuilder.append(task.getDatabaseString()).append(System.lineSeparator());
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Writes a String representation to the file specified by the file path.
+     *
+     * @param content The content to be written to the file.
+     */
+    private void writeStringToFile(String content) {
+        try (FileWriter fileWriter = new FileWriter(this.filePath)) {
+            fileWriter.write(content);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (fileWriter != null) {
-                try {
-                    fileWriter.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }

@@ -2,7 +2,6 @@ package command;
 
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a command that signals the termination of the application.
@@ -16,11 +15,10 @@ public class ExitCommand extends Command {
      * that the application should exit.
      *
      * @param taskList The task list, which is not used in this command.
-     * @param ui       The user interface object, which is not used in this command.
      * @param storage  The storage object, which is not used in this command.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         return "";
     }
 

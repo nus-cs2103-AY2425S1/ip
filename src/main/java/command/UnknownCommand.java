@@ -3,7 +3,6 @@ package command;
 import exception.KukiShinobuException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a command that handles unrecognized or unknown commands.
@@ -18,12 +17,11 @@ public class UnknownCommand extends Command {
      * that the command is not recognized or understood.
      *
      * @param taskList The task list, which is not used in this command.
-     * @param ui       The user interface object, which is not used in this command.
      * @param storage  The storage object, which is not used in this command.
      * @throws KukiShinobuException Always thrown to indicate an unknown command.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws KukiShinobuException {
+    public String execute(TaskList taskList, Storage storage) throws KukiShinobuException {
         throw new KukiShinobuException("Hmm... I don't quite understand what you mean!");
     }
 }
