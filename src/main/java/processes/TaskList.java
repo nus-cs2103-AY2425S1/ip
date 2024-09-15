@@ -214,6 +214,9 @@ public class TaskList {
         ArrayList<String> tags = new ArrayList<>();
         for (int i = 0; i < inputs.length; i++) {
             inputs[i] = inputs[i].trim();
+            if (i == 0) {
+                continue;
+            }
             if (inputs[i].isEmpty()) {
                 throw new EmptyTagException();
             } else if (inputs[i].contains(" ")) {
