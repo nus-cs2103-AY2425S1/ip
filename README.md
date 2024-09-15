@@ -60,7 +60,7 @@ Format: unmark INDEX
 
 Example: unmark 1
 
-### Delete a task `delete`
+### Delete a task
 
 Format: delete INDEX
 
