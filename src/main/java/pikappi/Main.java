@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import pikappi.exception.PikappiException;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Pikappi using FXML.
  */
 public class Main extends Application {
 
