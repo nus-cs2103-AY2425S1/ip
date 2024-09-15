@@ -68,6 +68,15 @@ public class TaskList {
         }
     }
 
+    public String markListDone(Storage storage, int... indexList) throws MarkTaskOutOfRangeException {
+        StringBuilder s = new StringBuilder();
+        for (int i: indexList) {
+            String currentOutput = markTaskDone(i, storage);
+            s.append(currentOutput).append("\n\n");
+        }
+        return s.toString().trim();
+    }
+
 
     /**
      * Marks a task as uncompleted.
@@ -85,6 +94,15 @@ public class TaskList {
         } else {
             throw new MarkTaskOutOfRangeException(this.size());
         }
+    }
+
+    public String unmarkListDone(Storage storage, int... indexList) throws MarkTaskOutOfRangeException {
+        StringBuilder s = new StringBuilder();
+        for (int i: indexList) {
+            String currentOutput = unmarkTaskDone(i, storage);
+            s.append(currentOutput).append("\n\n");
+        }
+        return s.toString().trim();
     }
 
     public boolean isWithinIndexRange(int taskIndex) {
@@ -161,7 +179,7 @@ public class TaskList {
      * @param descriptions a string of keywords to search for
      * @return a string that contains all the tasks that matches the description
      */
-    public String matchesDescriptions(String[] descriptions) {
+    public String matchesDescriptions(String... descriptions) {
         StringBuilder s = new StringBuilder();
         final int[] i = {1};
         taskList.stream()

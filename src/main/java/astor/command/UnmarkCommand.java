@@ -25,14 +25,19 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
-        int index = -1;
-        String formattedString = info.substring(6).trim();
+        // int index = 0;
+        String[] formattedString = info.substring(6).trim().split("\\s+");
+        int[] indexList = new int[formattedString.length];
         try {
-            index = Integer.parseInt(formattedString);
+            for (int i = 0; i < formattedString.length; i++) {
+                int index = Integer.parseInt(formattedString[i]);
+                indexList[i] = index;
+            }
+            // index = Integer.parseInt(formattedString);
         } catch (NumberFormatException e) {
             throw new MarkingTaskNotANumberException();
         }
-        String output = taskList.unmarkTaskDone(index, storage);
+        String output = taskList.unmarkListDone(storage, indexList);
         ui.showOutput(output);
         return output;
     }
