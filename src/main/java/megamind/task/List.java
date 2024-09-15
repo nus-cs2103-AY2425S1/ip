@@ -52,7 +52,7 @@ public class List {
     }
 
     /**
-     * Returns the String representation of the list.
+     * Returns the String representation of the list
      *
      * @return String representation of the list.
      */
