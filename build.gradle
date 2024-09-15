@@ -43,14 +43,14 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("duker.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "duker"
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }

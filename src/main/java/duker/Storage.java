@@ -1,4 +1,4 @@
-package duke;
+package duker;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * The Storage class is responsible for handling file operations such as
  * loading tasks from a file, writing tasks to a file, and modifying the contents
- * of the file as needed by the Duke application.
+ * of the file as needed by the Duker application.
  */
 public class Storage {
 

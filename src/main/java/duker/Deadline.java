@@ -1,4 +1,4 @@
-package duke;
+package duker;
 
 import java.time.LocalDateTime;
 import java.time.Month;

@@ -1,14 +1,14 @@
-package duke;
+package duker;
 
 import javafx.application.Application;
 
 /**
- * The Launcher class serves as the entry point for the Duke application.
+ * The Launcher class serves as the entry point for the Duker application.
  */
 public class Launcher {
 
     /**
-     * The main method is the entry point of the application.
+     * Enters the application.
      *
      * @param args The command-line arguments passed to the application.
      */

@@ -1,4 +1,4 @@
-package duke;
+package duker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -61,10 +61,10 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseEventCommand_emptyCommand_exceptionThrown() {
+    public void testParseEventCommand_noDetails_exceptionThrown() {
         try {
             Parser parser = new Parser();
-            String command = "";
+            String command = "event";
             Event actualEvent = parser.parseEventCommand(command);
             fail();
         } catch (IllegalArgumentException e) {

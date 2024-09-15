@@ -1,4 +1,4 @@
-package duke;
+package duker;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -13,7 +13,7 @@ public class Event extends Task {
     protected LocalDateTime end;
 
     /**
-     * Constructs an {@code Event} task with the specified description,
+     * Constructs an Event task with the specified description,
      * start date and time, and end date and time.
      *
      * @param description the description of the task

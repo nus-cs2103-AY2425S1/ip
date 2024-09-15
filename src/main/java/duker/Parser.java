@@ -1,4 +1,4 @@
-package duke;
+package duker;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +13,45 @@ public class Parser {
     public Parser() {
     }
 
+    private Todo createTodoFromString(String description, boolean isDone, boolean isHighPriority) {
+        Todo todo = new Todo(description);
+        if (isDone) {
+            todo.markAsDone();
+        }
+        if (isHighPriority) {
+            todo.markAsHighPriority();
+        }
+        return todo;
+    }
+
+    private Deadline createDeadlineFromString(
+            String description, String[] parts, boolean isDone, boolean isHighPriority) {
+        String timeToConvert = isolateTimeToConvert(parts[4]);
+        Deadline deadline = new Deadline(description, convertStringToDate(timeToConvert));
+        if (isDone) {
+            deadline.markAsDone();
+        }
+        if (isHighPriority) {
+            deadline.markAsHighPriority();
+        }
+        return deadline;
+    }
+
+    private Event createEventFromString(
+            String description, String[] parts, boolean isDone, boolean isHighPriority) {
+        String timeToConvertFrom = isolateTimeToConvert(parts[4]);
+        String timeToConvertTo = isolateTimeToConvert(parts[5]);
+        Event event = new Event(description, convertStringToDate(timeToConvertFrom),
+                convertStringToDate(timeToConvertTo));
+        if (isDone) {
+            event.markAsDone();
+        }
+        if (isHighPriority) {
+            event.markAsHighPriority();
+        }
+        return event;
+    }
+
     /**
      * Converts a string representation of a task to a Task object.
      *
@@ -23,8 +62,6 @@ public class Parser {
     public Task convertStringToTask(String line) {
         assert line != null : "Input line cannot be null";
 
-        Task task;
-        boolean isHighPriority;
         String[] parts = line.split(" \\| ");
         assert parts.length >= 4 : "Invalid task format";
 
@@ -32,52 +69,19 @@ public class Parser {
         String taskType = parts[1];
         boolean isDone = parts[2].equals("1");
         String description = parts[3];
-
-        if (priority.equals("1")) {
-            isHighPriority = true;
-        } else {
-            isHighPriority = false;
-        }
+        boolean isHighPriority = priority.equals("1");
 
         assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Unknown task type";
 
         if (taskType.equals("T")) {
-            Todo todo = new Todo(description);
-            if (isDone) {
-                todo.markAsDone();
-            }
-            if (isHighPriority) {
-                todo.markAsHighPriority();
-            }
-            task = todo;
+            return createTodoFromString(description, isDone, isHighPriority);
         } else if (taskType.equals("D")) {
             assert parts.length == 5 : "Invalid deadline format";
-
-            String timeToConvert = isolateTimeToConvert(parts[4]);
-            Deadline deadline = new Deadline(description, convertStringToDate(timeToConvert));
-            if (isDone) {
-                deadline.markAsDone();
-            }
-            if (isHighPriority) {
-                deadline.markAsHighPriority();
-            }
-            task = deadline;
+            return createDeadlineFromString(description, parts, isDone, isHighPriority);
         } else {
             assert parts.length == 6 : "Invalid event format";
-
-            String timeToConvertFrom = isolateTimeToConvert(parts[4]);
-            String timeToConvertTo = isolateTimeToConvert(parts[5]);
-            Event event = new Event(description, convertStringToDate(timeToConvertFrom),
-                    convertStringToDate(timeToConvertTo));
-            if (isDone) {
-                event.markAsDone();
-            }
-            if (isHighPriority) {
-                event.markAsHighPriority();
-            }
-            task = event;
+            return createEventFromString(description, parts, isDone, isHighPriority);
         }
-        return task;
     }
 
     private String isolateTimeToConvert(String timeContainingT) {
@@ -181,6 +185,98 @@ public class Parser {
         return index;
     }
 
+    private void executeMark(String[] getInstr, TaskList taskList, Storage storage) {
+        try {
+            int index = parseIndexCommand(getInstr, taskList);
+            taskList.mark(index, storage);
+        } catch (InvalidIndexException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private void executeUnmark(String[] getInstr, TaskList taskList, Storage storage) {
+        try {
+            int index = parseIndexCommand(getInstr, taskList);
+            taskList.unmark(index, storage);
+        } catch (InvalidIndexException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private void executePrioritise(String[] getInstr, TaskList taskList, Storage storage) {
+        try {
+            int index = parseIndexCommand(getInstr, taskList);
+            taskList.prioritise(index, storage);
+        } catch (InvalidIndexException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private void executeDeprioritise(String[] getInstr, TaskList taskList, Storage storage) {
+        try {
+            int index = parseIndexCommand(getInstr, taskList);
+            taskList.deprioritise(index, storage);
+        } catch (InvalidIndexException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private void executeDelete(String[] getInstr, TaskList taskList, Storage storage) {
+        try {
+            int index = parseIndexCommand(getInstr, taskList);
+            taskList.delete(index, storage);
+        } catch (InvalidIndexException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private void executeTodo(String command, TaskList taskList, Storage storage) {
+        try {
+            Task todo = parseTodoCommand(command);
+            taskList.add(todo, storage);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void executeDeadline(String command, TaskList taskList, Storage storage) {
+        try {
+            Task deadline = parseDeadlineCommand(command);
+            taskList.add(deadline, storage);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void executeEvent(String command, TaskList taskList, Storage storage) {
+        try {
+            Task event = parseEventCommand(command);
+            taskList.add(event, storage);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void executeFind(String[] getInstr, TaskList taskList, Ui ui) {
+        try {
+            if (getInstr.length <= 1) {
+                throw new DukerException("Please provide a keyword");
+            }
+            ArrayList<Task> tasksFound = taskList.findTasks(getInstr[1]);
+            ui.printKeywordList(tasksFound);
+        } catch (DukerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void executeDefault() {
+        try {
+            throw new DukerException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        } catch (DukerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * Parses a user command and executes the corresponding operation on the task list.
      *
@@ -192,47 +288,21 @@ public class Parser {
     public void parseCommand(String command, TaskList taskList, Storage storage, Ui ui) {
         String[] getInstr = command.split(" ", 2);
         String instr = getInstr[0];
-        int index;
         switch (instr) {
         case "mark":
-            try {
-                index = parseIndexCommand(getInstr, taskList);
-                taskList.mark(index, storage);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.toString());
-            }
+            executeMark(getInstr, taskList, storage);
             break;
         case "unmark":
-            try {
-                index = parseIndexCommand(getInstr, taskList);
-                taskList.unmark(index, storage);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.toString());
-            }
+            executeUnmark(getInstr, taskList, storage);
             break;
         case "prioritise":
-            try {
-                index = parseIndexCommand(getInstr, taskList);
-                taskList.prioritise(index, storage);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.toString());
-            }
+            executePrioritise(getInstr, taskList, storage);
             break;
         case "deprioritise":
-            try {
-                index = parseIndexCommand(getInstr, taskList);
-                taskList.deprioritise(index, storage);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.toString());
-            }
+            executeDeprioritise(getInstr, taskList, storage);
             break;
         case "delete":
-            try {
-                index = parseIndexCommand(getInstr, taskList);
-                taskList.delete(index, storage);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.toString());
-            }
+            executeDelete(getInstr, taskList, storage);
             break;
         case "list":
             ui.printList(taskList);
@@ -241,49 +311,22 @@ public class Parser {
             ui.bye();
             break;
         case "todo":
-            try {
-                Task todo = parseTodoCommand(command);
-                taskList.add(todo, storage);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
+            executeTodo(command, taskList, storage);
             break;
         case "deadline":
-            try {
-                Task deadline = parseDeadlineCommand(command);
-                taskList.add(deadline, storage);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
+            executeDeadline(command, taskList, storage);
             break;
         case "event":
-            try {
-                Task event = parseEventCommand(command);
-                taskList.add(event, storage);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
+            executeEvent(command, taskList, storage);
             break;
         case "find":
-            try {
-                if (getInstr.length <= 1) {
-                    throw new DukeException("Please provide a keyword");
-                }
-                ArrayList<Task> tasksFound = taskList.findTasks(getInstr[1]);
-                ui.printKeywordList(tasksFound);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+            executeFind(getInstr, taskList, ui);
             break;
         case "priority":
             ui.printPriorityList(taskList);
             break;
         default:
-            try {
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+            executeDefault();
         }
     }
 }

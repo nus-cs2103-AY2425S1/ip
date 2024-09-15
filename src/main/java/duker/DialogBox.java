@@ -1,4 +1,4 @@
-package duke;
+package duker;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
 /**
  * The DialogBox class represents a custom control that displays a dialog
  * box consisting of a text label and an image (e.g., a profile picture). It is used
- * in the Duke application to display user input and Duke's responses.
+ * in the Duker application to display user input and Duker's responses.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -50,13 +50,13 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a flipped DialogBox that represents Duke's greeting message.
+     * Creates a flipped DialogBox that represents Duker's greeting message.
      *
      * @param text The greeting text to be displayed.
-     * @param img  The image representing Duke.
-     * @return A DialogBox containing Duke's greeting message.
+     * @param img  The image representing Duker.
+     * @return A DialogBox containing Duker's greeting message.
      */
-    public static DialogBox getDukeGreeting(String text, Image img) {
+    public static DialogBox getDukerGreeting(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
@@ -74,13 +74,13 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a flipped DialogBox that represents Duke's dialog.
+     * Creates a flipped DialogBox that represents Duker's dialog.
      *
-     * @param text The response text from Duke.
-     * @param img  The image representing Duke.
-     * @return A DialogBox containing Duke's response dialog.
+     * @param text The response text from Duker.
+     * @param img  The image representing Duker.
+     * @return A DialogBox containing Duker's response dialog.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getDukerDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

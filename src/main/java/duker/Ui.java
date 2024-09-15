@@ -1,41 +1,41 @@
-package duke;
+package duker;
 
 import java.util.ArrayList;
 
 /**
- * Represents the user interface of the Duke application.
+ * Represents the user interface of the Duker application.
  * Handles interactions with the user, such as greeting, displaying tasks, and showing search results.
  */
 public class Ui {
 
-    private Duke duke;
+    private Duker duker;
 
     /**
-     * Constructs an Ui instance with the specified Duke instance.
+     * Constructs an Ui instance with the specified Duker instance.
      *
-     * @param duke The Duke instance used to manage application state and interactions.
+     * @param duker The Duker instance used to manage application state and interactions.
      */
-    public Ui(Duke duke) {
-        assert duke != null : "Duke instance should not be null";
+    public Ui(Duker duker) {
+        assert duker != null : "Duker instance should not be null";
 
-        this.duke = duke;
+        this.duker = duker;
     }
 
     /**
-     * Returns a greeting message from Duke.
+     * Returns a greeting message from Duker.
      *
-     * @return A string containing Duke's greeting message.
+     * @return A string containing Duker's greeting message.
      */
     public String greet() {
-        return "Hello! I'm Duke\n" + "What can I do for you?";
+        return "Hello! I'm Duker\n" + "What can I do for you?";
     }
 
     /**
-     * Prints a goodbye message and sets Duke to offline mode.
+     * Prints a goodbye message and sets Duker to offline mode.
      */
     public void bye() {
         System.out.println("Bye. Hope to see you again soon!");
-        this.duke.goOffline();
+        this.duker.goOffline();
     }
 
     /**

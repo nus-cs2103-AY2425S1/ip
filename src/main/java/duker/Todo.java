@@ -1,4 +1,4 @@
-package duke;
+package duker;
 
 /**
  * Represents a to-do task with a description.

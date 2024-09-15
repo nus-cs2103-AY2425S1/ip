@@ -1,4 +1,4 @@
-package duke;
+package duker;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -11,9 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * The MainWindow class serves as the controller for the main user interface of the Duke application.
+ * The MainWindow class serves as the controller for the main user interface of the Duker application.
  * It handles user interactions, including text input and button clicks,
- * and manages the dialog between the user and Duke.
+ * and manages the dialog between the user and Duker.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -25,11 +25,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Duker duker;
     private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dukerImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initializes the main window.
@@ -40,13 +40,13 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sends a greeting from Duke to the dialog container when the application starts.
-     * This method is called to display Duke's initial greeting message.
+     * Sends a greeting from Duker to the dialog container when the application starts.
+     * This method is called to display Duker's initial greeting message.
      */
     @FXML
     public void sendGreeting() {
-        dialogContainer.getChildren().add(DialogBox.getDukeGreeting(
-                duke.getGreeting(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukerGreeting(
+                duker.getGreeting(), dukerImage));
     }
 
     /**
@@ -59,26 +59,26 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets the Duke instance for this window.
-     * This allows the window to interact with the Duke application logic.
+     * Sets the Duker instance for this window.
+     * This allows the window to interact with the Duker application logic.
      *
-     * @param d The Duke instance to set.
+     * @param d The Duker instance to set.
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuker(Duker d) {
+        duker = d;
     }
 
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = duker.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukerDialog(response, dukerImage)
         );
         userInput.clear();
 
-        if (!duke.isOnline()) {
+        if (!duker.isOnline()) {
             Platform.runLater(() -> {
                 try {
                     Thread.sleep(3000);

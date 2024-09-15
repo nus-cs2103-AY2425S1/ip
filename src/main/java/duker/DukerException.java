@@ -1,8 +1,8 @@
-package duke;
+package duker;
 
-public class DukeException extends Exception {
+public class DukerException extends Exception {
 
-    public DukeException(String message) {
+    public DukerException(String message) {
         super(message);
     }
 

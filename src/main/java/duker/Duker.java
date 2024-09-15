@@ -1,13 +1,13 @@
-package duke;
+package duker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 /**
- * The Duke class represents the main entry point for the Duke application.
+ * The Duker class represents the main entry point for the Duker application.
  * It initializes the necessary components and handles the main interaction loop.
  */
-public class Duke {
+public class Duker {
 
     private Ui ui;
     private Storage storage;
@@ -16,12 +16,12 @@ public class Duke {
     private Boolean isOnline;
 
     /**
-     * Constructs a new Duke instance.
+     * Constructs a new Duker instance.
      * Initializes the user interface, storage, parser, and task list.
      */
-    public Duke() {
+    public Duker() {
         this.ui = new Ui(this);
-        this.storage = new Storage("data/", "duke.txt");
+        this.storage = new Storage("data/", "duker.txt");
         this.parser = new Parser();
         this.taskList = new TaskList();
         this.storage.loadFile(this.taskList, this.parser);
@@ -53,9 +53,9 @@ public class Duke {
     }
 
     /**
-     * Checks if Duke is currently online.
+     * Checks if Duker is currently online.
      *
-     * @return true if Duke is online; false otherwise.
+     * @return true if Duker is online; false otherwise.
      */
     public boolean isOnline() {
         return isOnline;
@@ -64,14 +64,14 @@ public class Duke {
     /**
      * Gets the greeting message from the user interface.
      *
-     * @return The greeting message from Duke.
+     * @return The greeting message from Duker.
      */
     public String getGreeting() {
         return this.ui.greet();
     }
 
     /**
-     * Sets Duke to offline mode, indicating that it is no longer active.
+     * Sets Duker to offline mode, indicating that it is no longer active.
      */
     public void goOffline() {
         this.isOnline = false;
