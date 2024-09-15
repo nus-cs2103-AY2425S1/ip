@@ -17,7 +17,7 @@ public class EventParserTest {
 
     @Test
     public void parseTodo_correctInput_success() throws Exception {
-        String msg = "[T][ ] Todo test123";
+        String msg = "[T][ ] Todo test123[tag:]";
         KorolevTodo expected = new KorolevTodo("Todo test123");
         assertEquals(expected.toString(), EventParser.parseLoadedRecord(msg).toString());
     }
@@ -25,7 +25,7 @@ public class EventParserTest {
     @Test
     public void parseTodo_incorrectInput_exceptionThrown() {
         try {
-            String msg = "(T)( ) Todo test123";
+            String msg = "(T)( ) Todo test123  [tag:]";
             KorolevTodo expected = new KorolevTodo("Todo test123");
             assertEquals(expected.toString(), EventParser.parseLoadedRecord(msg).toString());
             fail();
@@ -36,7 +36,7 @@ public class EventParserTest {
 
     @Test
     public void parseDeadline_correctInput_success() throws Exception {
-        String msg = "[D][ ] Todo test123 (by 00:00 Jan 1 2023)";
+        String msg = "[D][ ] Todo test123 (by 00:00 Jan 1 2023)  [tag:]";
         KorolevDeadline expected = new KorolevDeadline("Todo test123", "2023-01-01T00:00");
         assertEquals(expected.toString(),
                 EventParser.parseLoadedRecord(msg).toString());
@@ -45,7 +45,7 @@ public class EventParserTest {
     @Test
     public void parseDeadline_incorrectInput_exceptionThrown() {
         try {
-            String msg = "[D][ ] Todo test123 <by 00:00 Jan 1 2023>";
+            String msg = "[D][ ] Todo test123 <by 00:00 Jan 1 2023>  [tag:]";
             KorolevDeadline expected = new KorolevDeadline("Todo test123", "2023-01-01T00:00");
             assertEquals(expected.toString(),
                     EventParser.parseLoadedRecord(msg).toString());
@@ -58,7 +58,7 @@ public class EventParserTest {
     @Test
     public void parseEvent_correctInput_success() throws Exception {
         String msg = "[E][ ] Todo test123 " +
-                "(from: 00:00 Jan 1 2023 to: 01:01 Jan 2 2023)";
+                "(from: 00:00 Jan 1 2023 to: 01:01 Jan 2 2023)  [tag:]";
         KorolevEvent expected = new KorolevEvent("Todo test123",
                     "2023-01-01T00:00", "2023-01-02T01:01");
         assertEquals(expected.toString(), EventParser.parseLoadedRecord(msg).toString());
@@ -68,7 +68,7 @@ public class EventParserTest {
     public void parseEvent_incorrectInput_exceptionThrown() {
         try {
             String msg = "[E][ ] Todo test123 " +
-                    "(from: 00:00 Jan 1 2023 to: 01:01 Jan 2 2023)";
+                    "(from: 00:00 Jan 1 2023 to: 01:01 Jan 2 2023)  [tag:]";
             KorolevEvent expected = new KorolevEvent("Todo test123",
                     "2023-01-01T00:00", "2023-01-02T01:01");
             assertEquals(expected.toString(), EventParser.parseLoadedRecord(msg).toString());
