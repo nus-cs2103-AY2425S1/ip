@@ -1,6 +1,9 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.List;
 
 /**
  * Represents a list of tasks.
@@ -134,6 +137,7 @@ public class TaskList {
         return this.generateDeletedTaskSummaryMessage(deletedTask);
     }
 
+
     /**
      * Returns a string representation of the task list for display purposes.
      * <p>
@@ -144,27 +148,24 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            output.append((i + 1)).append(".").append(this.tasks.get(i)).append(System.lineSeparator());
-        }
-        return output.toString();
+        return IntStream.range(0, this.tasks.size())
+                .mapToObj(i -> (i + 1) + "." + this.tasks.get(i))
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 
-    // TODO: Add javadocs to this method
-    //Return list of matching tasks in an ArrayList
+    /**
+     * Returns a list of tasks that match the specified keyword.
+     * <p>
+     * This method searches through the tasks and finds those whose descriptions
+     * contain the given keyword. The search is case-sensitive.
+     * </p>
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return An ArrayList of tasks that contain the keyword in their description.
+     */
     public ArrayList<Task> findMatchingTasks(String keyword) {
-        // Initialise an empty list to store matching tasks
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-
-        // Loop through the tasks and find matching tasks
-        for (Task task : this.tasks) {
-            // Note that this is case-sensitive
-            if (task.description.contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-
-        return matchingTasks;
+        return this.tasks.stream()
+                .filter(task -> task.description.contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
