@@ -23,6 +23,7 @@ public class Ui {
      * @return The error message as a string.
      */
     public String showError(Exception e) {
+        assert e != null : "Exception cannot be null when showing error message.";
         return e.getMessage();
     }
 
