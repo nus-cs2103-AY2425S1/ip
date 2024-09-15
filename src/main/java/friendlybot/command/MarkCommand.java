@@ -9,7 +9,7 @@ import friendlybot.task.TaskList;
  * MarkCommand is a Command that can mark / unmark tasks as completed upon execution.
  */
 public class MarkCommand extends Command {
-    private boolean mark;
+    private boolean isMark;
     private int taskNumber;
 
     /**
@@ -18,8 +18,8 @@ public class MarkCommand extends Command {
      * @param mark True if user wishes to mark the task as completed, False otherwise.
      * @param taskNumber The task number of the task to be marked / unmarked, which is one more than its index position.
      */
-    public MarkCommand(boolean mark, int taskNumber) {
-        this.mark = mark;
+    public MarkCommand(boolean isMark, int taskNumber) {
+        this.isMark = isMark;
         this.taskNumber = taskNumber;
     }
 
@@ -27,6 +27,14 @@ public class MarkCommand extends Command {
      * An empty constructor for MarkCommand, used to display the command format.
      */
     public MarkCommand() {};
+
+    public boolean getMarkStatus() {
+        return this.isMark;
+    }
+
+    public int getTaskNumber() {
+        return this.taskNumber;
+    }
 
     /**
      * Marks / Unmarks the Task upon execution.
@@ -46,7 +54,7 @@ public class MarkCommand extends Command {
             return "There's no such task yet!";
         }
         Task task = tasks.getTask(taskNumber);
-        if (mark) {
+        if (isMark) {
             task.markAsDone();
             Ui.print("Nice! I've marked this task as done:");
             sb.append("Nice! I've marked this task as done:\n");

@@ -28,6 +28,10 @@ public class DateCommand extends Command {
      */
     public DateCommand() {};
 
+    public LocalDate getDate() {
+        return this.date;
+    }
+
     /**
      * Prints a list of tasks that happen on the given date upon execution.
      *

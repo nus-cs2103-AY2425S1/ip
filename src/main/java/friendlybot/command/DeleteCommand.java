@@ -25,6 +25,10 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand() {};
 
+    public int getTaskNumber() {
+        return this.taskNumber;
+    }
+
     /**
      * Deletes a task that corresponds to the task number upon execution.
      *
