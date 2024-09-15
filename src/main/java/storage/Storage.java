@@ -80,6 +80,8 @@ public class Storage {
      */
     private Task handleToDo(String taskBody, char taskStatus) {
         Task todoTask = new ToDo(taskBody);
+
+        assert taskStatus == 'X' | taskStatus == ' ' : "Invalid task status extracted.";
         if (taskStatus == 'X') {
             todoTask.markAsDone();
         }
@@ -102,7 +104,6 @@ public class Storage {
         }
 
         String description = parts[0];
-
         String dateTime = parts[1];
         String[] dateTimeParts = dateTime.split(", ");
 
@@ -120,6 +121,8 @@ public class Storage {
         } else {
             deadlineTask = new Deadline(description, dueDateString, dueTimeString);
         }
+
+        assert taskStatus == 'X' | taskStatus == ' ' : "Invalid task status extracted.";
         if (taskStatus == 'X') {
             deadlineTask.markAsDone();
         }
@@ -142,7 +145,6 @@ public class Storage {
         }
 
         String description = parts[0];
-
         String dateTime = parts[1];
         String[] dateTimeParts = dateTime.split(" \\| ", 2);
         if (dateTimeParts.length < 2) {
@@ -175,6 +177,8 @@ public class Storage {
             eventTask = new Event(description, startDateString, startTimeString,
                     endDateString, endTimeString);
         }
+
+        assert taskStatus == 'X' | taskStatus == ' ' : "Invalid task status extracted.";
         if (taskStatus == 'X') {
             eventTask.markAsDone();
         }

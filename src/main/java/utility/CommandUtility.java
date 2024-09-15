@@ -111,6 +111,8 @@ public class CommandUtility {
         if (dateTimeWords == 2) {
             String[] dateTimeParts = dateTimeString.trim()
                     .split(" ");
+            assert dateTimeParts.length == 2 : "DateTimeParts should have exactly two parts at this point.";
+
             String dateString = dateTimeParts[0];
             String timeString = dateTimeParts[1];
             String[] dateParts = dateString.split("-");
@@ -124,7 +126,7 @@ public class CommandUtility {
                         + label + "time is not a number!");
             } else {
                 try {
-                    LocalTime time = LocalTime.parse(timeString,
+                    LocalTime.parse(timeString,
                             java.time.format.DateTimeFormatter.ofPattern("HHmm"));
                 } catch (DateTimeParseException e) {
                     throw new BrockException("Time must be in HHmm format and between 0000 and 2359!");

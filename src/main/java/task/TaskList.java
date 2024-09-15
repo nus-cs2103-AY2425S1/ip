@@ -40,6 +40,7 @@ public class TaskList {
      * @return True if able to mark, false otherwise.
      */
     public boolean markTask(int taskIndex) {
+        assert taskIndex < numTasks() : "Invalid task index supplied for task to be marked.";
         Task task = this.tasks.get(taskIndex);
         boolean isSuccessful;
         if (task.getStatusIcon() == 'X') {
@@ -58,6 +59,7 @@ public class TaskList {
      * @return True if able to unmark, false otherwise.
      */
     public boolean unmarkTask(int taskIndex) {
+        assert taskIndex < numTasks() : "Invalid task index supplied for task to be unmarked.";
         Task task = this.tasks.get(taskIndex);
         boolean isSuccessful;
         if (task.getStatusIcon() == ' ') {
@@ -84,6 +86,7 @@ public class TaskList {
      * @param taskIndex Index of the task to be removed.
      */
     public void removeFromList(int taskIndex) {
+        assert taskIndex < numTasks() : "Invalid task index supplied for task to be removed.";
         this.tasks.remove(taskIndex);
     }
 
@@ -94,6 +97,7 @@ public class TaskList {
      * @return The retrieved task.
      */
     public Task getTask(int taskIndex) {
+        assert taskIndex < numTasks() : "Invalid task index supplied for task to be fetched.";
         return this.tasks.get(taskIndex);
     }
 
@@ -117,6 +121,7 @@ public class TaskList {
      * @return Task details as a single string.
      */
     public String getTaskDetails(int taskIndex) {
+        assert taskIndex < numTasks() : "Invalid task index supplied for task whose details are to be fetched.";
         Task task = this.getTask(taskIndex);
         return this.getTaskDetails(task);
     }
@@ -149,8 +154,8 @@ public class TaskList {
             taskNumber++;
         }
 
-        // If there are existing tasks
-        // Remove last newline from result, to prevent duplicate newline when displaying response
+        // If there are existing tasks, remove last newline from result
+        // So the GUI shows the full response (weird bug)
         if (taskNumber > 1) {
             result.deleteCharAt(result.length() - 1);
         }
@@ -197,8 +202,8 @@ public class TaskList {
             }
         }
 
-        // If there are matching tasks
-        // Remove last newline from result, to prevent duplicate newline when displaying response
+        // If there are existing tasks, remove last newline from result
+        // So the GUI shows the full response (weird bug)
         if (taskNumber > 1) {
             result.deleteCharAt(result.length() - 1);
         }
