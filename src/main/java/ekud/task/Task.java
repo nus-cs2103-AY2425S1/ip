@@ -137,6 +137,9 @@ public abstract class Task {
     public static Task getTaskFromTokens(HashMap<String, String> tokens) throws EkudException {
         assert tokens != null : "tokens should not be null";
 
+        String invalidTypeErrorMessage = "Wow! What is this is type of task?"
+                + "\n I'm not sure how to process this";
+
         String type = tokens.get(Parser.COMMAND_TOKEN).toLowerCase();
         String description = tokens.get(Parser.ARGUMENT_TOKEN);
 
@@ -146,8 +149,7 @@ public abstract class Task {
             case "deadline" -> new DeadlineTask(description, tokens.get(DeadlineTask.BY_TOKEN));
             case "event" -> new EventTask(description, tokens.get(EventTask.FROM_TOKEN),
                     tokens.get(EventTask.TO_TOKEN));
-            default -> throw new EkudException("Wow! What is this type of ekud.task?"
-                    + "\nI'm not sure how to process this");
+            default -> throw new EkudException(invalidTypeErrorMessage);
         };
         // CHECKSTYLE.ON: Indentation
     }
