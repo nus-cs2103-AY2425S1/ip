@@ -6,8 +6,9 @@ public abstract class Task {
 
     private final String NEW_LINE = "\n";
     protected final String OPEN = "[";
-    protected final String CLOSE = "]";
+    protected final String CLOSE = "] ";
     protected final String BAR = " | ";
+    protected final String TAB = "\t";
 
     public abstract String toFileString();
 
@@ -28,14 +29,14 @@ public abstract class Task {
         this.isDone = false;
 
         String UNMARKED = "OK, I've unmarked this task as not done yet:" + NEW_LINE;
-        return UNMARKED + OPEN + this.getStatusIcon() + CLOSE + this.description;
+        return UNMARKED + TAB + this;
     }
 
     public String markTask() {
         this.isDone = true;
 
         String MARKED = "Nice! I've marked this task as done:" + NEW_LINE;
-        return MARKED + OPEN + this.getStatusIcon() + CLOSE + this.description;
+        return MARKED + TAB + this;
     }
 
     @Override
