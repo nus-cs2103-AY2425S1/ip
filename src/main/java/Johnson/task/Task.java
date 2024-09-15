@@ -105,8 +105,7 @@ public abstract class Task {
         String res;
         if (isDone) {
             res = "[X] ";
-        }
-        else {
+        } else {
             res = "[ ] ";
         }
         return res + taskName + " " + tags;

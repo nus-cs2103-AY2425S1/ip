@@ -52,12 +52,10 @@ public class UserData {
                 if (task instanceof Deadline && ((Deadline) task).getTime() != null) {
                     writer.write("D" + '/' + task.getTaskStatus() + "/" + task.getTaskName() + "/" + ((Deadline) task).getDate().toString());
                     writer.write("/" + ((Deadline) task).getTime().toString());
-                }
-                else if (task instanceof Event && ((Event) task).getTime() != null) {
+                } else if (task instanceof Event && ((Event) task).getTime() != null) {
                     writer.write("E" +"/" + task.getTaskStatus() + "/" +task.getTaskName() + "/" + ((Event) task).getDate());
                     writer.write("/" + ((Event) task).getTime().toString());
-                }
-                else {
+                } else {
                     writer.write("T" + "/" + task.getTaskStatus() + "/" + task.getTaskName());
                 }
                 writer.newLine();
