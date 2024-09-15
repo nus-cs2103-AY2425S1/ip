@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if(input.equalsIgnoreCase("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
             danny.end();
             Platform.exit();
         }

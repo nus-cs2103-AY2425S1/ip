@@ -7,9 +7,9 @@ import impl.ui.Ui;
 import java.util.Scanner;
 
 public class Danny {
+    private final TaskList list; // Array to keep all the Tasks
     Ui ui;
     Parser parser;
-    private final TaskList list; // Array to keep all the Tasks
 
     public Danny() {
         list = new TaskList();
@@ -28,17 +28,18 @@ public class Danny {
         ui.end();
         return list;
     }
-    public String getResponse(String in){
-        assert !in.isEmpty();
-        if(in.equalsIgnoreCase("bye")){
+
+    public String getResponse(String in) {
+        if (in.equalsIgnoreCase("bye")) {
             return "Bye. Hope to see you again soon!";
         }
         return ui.running(in);
     }
 
-    public void end(){
+    public void end() {
         ui.end();
     }
+
     public void parseString(String in) {
         parser.handleInput(in);
     }
