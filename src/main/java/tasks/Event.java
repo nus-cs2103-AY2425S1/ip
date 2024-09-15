@@ -43,7 +43,7 @@ public class Event extends Task {
      *
      * @return the start date of the event
      */
-    public LocalDate getStart() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
@@ -52,7 +52,7 @@ public class Event extends Task {
      *
      * @return the end date of the event
      */
-    public LocalDate getEnd() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 }

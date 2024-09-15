@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Friday friday = new Friday("./data/friday.txt");
+    private final Friday friday = new Friday("./data/friday.txt");
 
     @Override
     public void start(Stage stage) {

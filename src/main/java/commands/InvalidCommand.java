@@ -9,15 +9,15 @@ import ui.UI;
  * The InvalidCommand class provides feedback to the user on how to correct their input.
  */
 public class InvalidCommand implements Command {
-    private String desc;
+    private final String description;
 
     /**
      * Constructs an InvalidCommand with the specified invalid or incomplete input.
      *
-     * @param desc the invalid or incomplete input provided by the user
+     * @param description the invalid or incomplete input provided by the user
      */
-    public InvalidCommand(String desc) {
-        this.desc = desc;
+    public InvalidCommand(String description) {
+        this.description = description;
     }
 
     /**
@@ -26,12 +26,11 @@ public class InvalidCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master, UI ui) {
-        switch(desc) {
+    public boolean execute(Storage storage, TaskList master) {
+        switch(description) {
         case "mark":
         case "unmark":
             System.out.println("Friday > Input the task number to mark/unmark the task");

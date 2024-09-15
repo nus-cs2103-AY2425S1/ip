@@ -10,15 +10,15 @@ import ui.UI;
  */
 public class AddCommand implements Command {
 
-    private final String desc;
+    private final String description;
 
     /**
      * Constructs an AddCommand with the specified task description.
      *
-     * @param desc the description of the task to be added
+     * @param description the description of the task to be added
      */
-    public AddCommand(String desc) {
-        this.desc = desc;
+    public AddCommand(String description) {
+        this.description = description;
     }
 
     /**
@@ -27,13 +27,12 @@ public class AddCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master, UI ui) {
-        master.addTask(this.desc);
-        storage.saveList(master.getParent());
+    public boolean execute(Storage storage, TaskList master) {
+        master.addTask(this.description);
+        storage.saveList(master.getTasks());
         UI.printLine();
         return false;
     }

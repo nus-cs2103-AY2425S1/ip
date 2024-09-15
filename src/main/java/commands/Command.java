@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import storage.TaskList;
-import ui.UI;
 
 /**
  * Represents a command that can be executed within the Friday.Friday application.
@@ -15,8 +14,7 @@ public interface Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
      * @return true if the command should terminate the application, false otherwise
      */
-    boolean execute(Storage storage, TaskList master, UI ui);
+    boolean execute(Storage storage, TaskList master);
 }

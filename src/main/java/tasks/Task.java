@@ -7,7 +7,7 @@ package tasks;
  */
 public abstract class Task {
     private final String name;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a Task with the specified name.
@@ -17,7 +17,7 @@ public abstract class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
     /**
      * Returns a string representation of the task, including its completion status.
@@ -27,7 +27,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (done) {
+        if (isDone) {
             return "[x] " + this.name;
         }
         return "[ ] " + this.name;
@@ -39,21 +39,21 @@ public abstract class Task {
      * @return true if the task is done, false otherwise
      */
     public boolean isDone() {
-        return done;
+        return this.isDone;
     }
 
     /**
      * Marks the task as done.
      */
     public void setDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void setUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class Task {
         return this.name;
     }
 
-    public boolean containsWord(String word) {
-        return this.name.contains(word);
+    public boolean containWord(String word) {
+        return this.name.contains(word.toLowerCase());
     }
 }

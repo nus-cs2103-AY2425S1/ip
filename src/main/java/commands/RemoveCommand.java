@@ -9,15 +9,15 @@ import ui.UI;
  * The RemoveCommand class handles the logic for removing tasks based on user input.
  */
 public class RemoveCommand implements Command {
-    private final String desc;
+    private final String description;
 
     /**
      * Constructs a RemoveCommand with the specified task description or index.
      *
-     * @param desc the description or index of the task to be removed
+     * @param description the description or index of the task to be removed
      */
-    public RemoveCommand(String desc) {
-        this.desc = desc;
+    public RemoveCommand(String description) {
+        this.description = description;
     }
 
     /**
@@ -25,17 +25,16 @@ public class RemoveCommand implements Command {
      * If the input is invalid (e.g., not a number or out of range), an error message is displayed.
      *
      * @param storage the Storage object for handling task persistence
-     * @param master the TaskList object containing the list of tasks
-     * @param ui the UI object for interacting with the user
+     * @param master  the TaskList object containing the list of tasks
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master, UI ui) {
+    public boolean execute(Storage storage, TaskList master) {
         try {
-            int index = Integer.parseInt(this.desc);
+            int index = Integer.parseInt(this.description);
 
             master.removeTask(index - 1);
-            storage.saveList(master.getParent());
+            storage.saveList(master.getTasks());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
         }
