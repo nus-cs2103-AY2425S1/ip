@@ -8,7 +8,7 @@ import astor.Ui;
  * Represents the command to find for tasks that matches a specific task description.
  */
 public class FindCommand extends Command {
-    private String info;
+    private final String info;
 
     public FindCommand(String info) {
         this.info = info;
@@ -23,8 +23,8 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        String keyword = info.substring(4).trim();
-        String tasks = taskList.matchesDescription(keyword);
+        String[] keyword = info.substring(4).trim().split("\\s+");
+        String tasks = taskList.matchesDescriptions(keyword);
         String output = "Here are the matching tasks in your list:" + tasks;
         ui.showOutput(output);
         return output;

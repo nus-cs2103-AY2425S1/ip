@@ -2,6 +2,7 @@ package astor;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import astor.exception.AstorException;
@@ -51,7 +52,7 @@ public class TaskList {
      * @throws MarkTaskOutOfRangeException if an invalid taskIndex is given by user
      */
     public String markTaskDone(int taskIndex, Storage storage) throws MarkTaskOutOfRangeException {
-        if (taskIndex >= 1 && taskIndex <= taskList.size()) {
+        if (isWithinIndexRange(taskIndex)) {
             Task task = taskList.get(taskIndex - 1);
             if (task.isDone()) {
                 return "This task is already done:\n" + taskIndex
@@ -67,6 +68,7 @@ public class TaskList {
         }
     }
 
+
     /**
      * Marks a task as uncompleted.
      *
@@ -75,21 +77,44 @@ public class TaskList {
      * @return reply of the chatbot after marking tasks as done
      * @throws MarkTaskOutOfRangeException if an invalid taskIndex is given by user
      */
-    public String unMarkTaskDone(int taskIndex, Storage storage) throws MarkTaskOutOfRangeException {
-        if (taskIndex >= 1 && taskIndex <= taskList.size()) {
-            Task task = taskList.get(taskIndex - 1);
-            if (task.isDone()) {
-                task.markUndone();
-                storage.updateData(taskList);
-                return "OK, I've marked this task as not done yet:\n" + taskIndex
-                        + ". " + task;
-            } else {
-                return "This task is already marked as uncompleted:\n" + taskIndex
-                        + ". " + task;
-            }
+    public String unmarkTaskDone(int taskIndex, Storage storage) throws MarkTaskOutOfRangeException {
+        if (isWithinIndexRange(taskIndex)) {
+            String output = generateOutputUnmarkTask(taskIndex);
+            storage.updateData(taskList);
+            return output;
         } else {
             throw new MarkTaskOutOfRangeException(this.size());
         }
+    }
+
+    public boolean isWithinIndexRange(int taskIndex) {
+        return taskIndex >= 1 && taskIndex <= taskList.size();
+    }
+
+    /**
+     * Generates the output message when unmarking a task as incomplete.
+     * <p>
+     * This method checks whether the task at the specified index is marked as completed.
+     * If the task is completed, it marks the task as incomplete and returns a message
+     * confirming this action. If the task is already marked as incomplete, it returns
+     * a message indicating that no change is necessary.
+     *
+     * @param taskIndex the index of the task in the list (1-based index)
+     * @return a message indicating whether the task was successfully marked as incomplete
+     *         or was already unmarked
+     */
+    public String generateOutputUnmarkTask(int taskIndex) {
+        Task task = taskList.get(taskIndex - 1);
+        String output;
+        if (task.isDone()) {
+            task.markUndone();
+            output = "OK, I've marked this task as not done yet:\n" + taskIndex
+                    + ". " + task;
+        } else {
+            output = "This task is already marked as uncompleted:\n" + taskIndex
+                    + ". " + task;
+        }
+        return output;
     }
 
     /**
@@ -133,18 +158,18 @@ public class TaskList {
     /**
      * Finds the task that matches the description.
      *
-     * @param description a string of keywords to search for
+     * @param descriptions a string of keywords to search for
      * @return a string that contains all the tasks that matches the description
      */
-    public String matchesDescription(String description) {
+    public String matchesDescriptions(String[] descriptions) {
         StringBuilder s = new StringBuilder();
-        int i = 1;
-        for (Task task : taskList) {
-            if (task.isIncluded(description)) {
-                s.append("\n" + i + ". " + task.toString());
-                i++;
-            }
-        }
+        final int[] i = {1};
+        taskList.stream()
+                .filter(task -> Arrays.stream(descriptions).anyMatch(task::isIncluded))
+                .forEach(task -> {
+                    s.append("\n").append(i[0]++).append(". ").append(task.toString());
+                });
+
         return s.toString();
     }
 

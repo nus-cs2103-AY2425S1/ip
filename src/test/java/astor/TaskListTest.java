@@ -34,7 +34,7 @@ public class TaskListTest {
         Storage storage = new StubStorage();
         try {
             taskList.addTask(new Todo("sample"), storage);
-            assertEquals("Nice! I've marked this astor.task as done:\n" + 1 + ". " + "[T] [X] sample",
+            assertEquals("Nice! I've marked this task as done:\n" + 1 + ". " + "[T] [X] sample",
                     taskList.markTaskDone(1, storage));
         } catch (Exception e) {
             Assertions.fail(e);
@@ -62,7 +62,7 @@ public class TaskListTest {
             Task task = new Todo("sample");
             task.markDone();
             taskList.addTask(task, storage);
-            assertEquals("This astor.task is already done:\n" + 1 + ". " + task,
+            assertEquals("This task is already done:\n" + 1 + ". " + task,
                     taskList.markTaskDone(1, storage));
         } catch (Exception e) {
             Assertions.fail(e);
