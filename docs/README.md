@@ -1,6 +1,6 @@
 # Gray User Guide
 
-![An example image of the UI](UI.png)
+![An example image of the UI](Ui.png)
 
 ## Chatbot Gray 👋
 
