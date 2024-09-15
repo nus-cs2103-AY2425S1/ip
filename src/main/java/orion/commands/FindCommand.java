@@ -2,6 +2,8 @@ package orion.commands;
 
 import java.util.List;
 
+import orion.exceptions.OrionInputException;
+import orion.utils.Parser;
 import orion.utils.Storage;
 import orion.utils.TaskList;
 
@@ -21,6 +23,15 @@ public class FindCommand extends Command {
     public FindCommand(String query) {
         super(false);
         this.query = query;
+    }
+
+    public FindCommand(String[] command) throws OrionInputException {
+        super(false);
+        if (command.length < 2) {
+            throw new OrionInputException("Correct syntax: find <search query>");
+        } else {
+            query = Parser.removeFirstWordFromString(String.join(" ", command)).trim();
+        }
     }
 
     /**

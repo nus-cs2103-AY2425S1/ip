@@ -11,7 +11,7 @@ import orion.tasks.Task;
  * updates the user interface to reflect this addition.
  * </p>
  */
-public class AddTaskCommand extends Command {
+public abstract class AddTaskCommand extends Command {
 
     private Task task;
 

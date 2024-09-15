@@ -2,7 +2,10 @@ package orion.utils;
 
 import java.util.Arrays;
 
+import orion.commands.AddDeadlineCommand;
+import orion.commands.AddEventCommand;
 import orion.commands.AddTaskCommand;
+import orion.commands.AddTodoCommand;
 import orion.commands.Command;
 import orion.commands.DeleteTaskCommand;
 import orion.commands.ExitCommand;
@@ -35,7 +38,7 @@ public class Parser {
      * @param str the string from which the first word is to be removed
      * @return the string with the first word removed
      */
-    private static String removeFirstWordFromString(String str) {
+    public static String removeFirstWordFromString(String str) {
         return str.split(" ", 2)[1];
     }
 
@@ -57,73 +60,19 @@ public class Parser {
         case "list":
             return new PrintTasksCommand();
         case "mark":
-            if (inputArray.length != 2) {
-                throw new OrionInputException("Correct syntax: mark <task number>");
-            } else {
-                try {
-                    int taskNo = Integer.parseInt(inputArray[1]);
-                    return new MarkTaskCommand(taskNo);
-                } catch (NumberFormatException e) {
-                    throw new OrionInputException("Correct syntax: mark <task number>");
-                }
-            }
+            return new MarkTaskCommand(inputArray);
         case "unmark":
-            if (inputArray.length != 2) {
-                throw new OrionInputException("Correct syntax: unmark <task number>");
-            } else {
-                try {
-                    int taskNo = Integer.parseInt(inputArray[1]);
-                    return new UnmarkTaskCommand(taskNo);
-                } catch (NumberFormatException e) {
-                    throw new OrionInputException("Correct syntax: unmark <task number>");
-                }
-            }
+            return new UnmarkTaskCommand(inputArray);
         case "todo":
-            if (inputArray.length < 2) {
-                throw new OrionInputException("Correct syntax: todo <task>");
-            } else {
-                Todo todo = new Todo(Parser.removeFirstWordFromString(input).trim());
-                return new AddTaskCommand(todo);
-            }
+            return new AddTodoCommand(inputArray);
         case "deadline":
-            if (parsedInputArray.length != 2 || !parsedInputArray[1].matches("^by.*$")) {
-                throw new OrionInputException("Correct syntax: deadline <task> /by <yyyy-mm-dd>");
-            } else {
-                String[] mapped = Arrays.stream(parsedInputArray)
-                        .map(Parser::removeFirstWordFromString)
-                        .toArray(String[]::new);
-                Deadline deadline = new Deadline(mapped[0].trim(), mapped[1].trim());
-                return new AddTaskCommand(deadline);
-            }
+            return new AddDeadlineCommand(parsedInputArray);
         case "event":
-            if (parsedInputArray.length != 3 || !parsedInputArray[1].matches("^from.*$")
-                    || !parsedInputArray[2].matches("^to.*$")) {
-                throw new OrionInputException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>");
-            } else {
-                String[] mapped = Arrays.stream(parsedInputArray)
-                        .map(Parser::removeFirstWordFromString)
-                        .toArray(String[]::new);
-                Event event = new Event(mapped[0].trim(), mapped[1].trim(), mapped[2].trim());
-                return new AddTaskCommand(event);
-            }
+            return new AddEventCommand(parsedInputArray);
         case "delete":
-            if (inputArray.length != 2) {
-                throw new OrionInputException("Correct syntax: delete <task number>");
-            } else {
-                try {
-                    int taskNo = Integer.parseInt(inputArray[1]);
-                    return new DeleteTaskCommand(taskNo);
-                } catch (NumberFormatException e) {
-                    throw new OrionInputException("Correct syntax: delete <task number>");
-                }
-            }
+            return new DeleteTaskCommand(inputArray);
         case "find":
-            String[] findQuery = input.split(" ", 2);
-            if (inputArray.length < 2) {
-                throw new OrionInputException("Correct syntax: find <search query>");
-            } else {
-                return new FindCommand(findQuery[1].trim());
-            }
+            return new FindCommand(inputArray);
         default:
             throw new OrionInputException("Please provide a supported command!");
         }
