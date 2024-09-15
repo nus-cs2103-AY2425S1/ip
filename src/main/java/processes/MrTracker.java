@@ -3,9 +3,7 @@ package processes;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import exceptions.InvalidDateException;
-import exceptions.InvalidTaskNameException;
-import exceptions.TaskOutOfBoundsError;
+import exceptions.*;
 import tasks.Task;
 
 
@@ -142,7 +140,7 @@ public class MrTracker {
             try {
                 Task taskToAddTags = taskList.tag(input);
                 res = ui.showTaskTags(taskToAddTags);
-            } catch(TaskOutOfBoundsError e) {
+            } catch (TaskOutOfBoundsError | EmptyTagException | SpaceInTagException e) {
                 res = ui.showMessage(e.getMessage());
             } catch (NumberFormatException e) {
                 res = ui.showMessage("Error: Please provide a valid tag command!\n" +
@@ -151,7 +149,6 @@ public class MrTracker {
             break;
 
         case REMOVETAGS:
-
             try {
                 Task taskToAddTags = taskList.removeTags(input);
                 res = ui.showRemoveTaskTags(taskToAddTags);
