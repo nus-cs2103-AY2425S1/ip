@@ -6,6 +6,8 @@ Mendel is a chatbot application that helps users to remind themselves of various
 and Deadlines. It also supports additional utility features namely finding tasks by keyword and reminding users of
 upcoming deadlines.
 
+## Setup guide
+
 ## Feature summary
 Feature | Command                                       | Description                       
 --- |-----------------------------------------------|-----------------------------------
