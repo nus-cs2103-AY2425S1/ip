@@ -13,7 +13,7 @@ public class Main extends Application {
 
     private Image userImg = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image blobImg = new Image(this.getClass().getResourceAsStream("/images/DaBlob.png"));
-    private Blob blob = new Blob("./src/main/java/database.csv", userImg, blobImg);
+    private Blob blob = new Blob("./database.csv", userImg, blobImg);
 
     @Override
     public void start(Stage stage) {
