@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import wolfie.exception.WolfieException;
 import wolfie.task.Deadline;
 import wolfie.task.TaskList;
 import wolfie.util.Storage;
@@ -26,7 +27,7 @@ class OnCommandTest {
     }
 
     @Test
-    void testExecute() {
+    void testExecute() throws WolfieException {
         LocalDateTime by = LocalDateTime.parse("2021-01-25 10:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         tasks.add(new Deadline("Test deadline", by, false));
         OnCommand command = new OnCommand("2021-01-25");

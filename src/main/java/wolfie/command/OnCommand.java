@@ -2,8 +2,10 @@ package wolfie.command;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import wolfie.exception.WolfieException;
 import wolfie.task.Task;
 import wolfie.task.TaskList;
 import wolfie.util.Storage;
@@ -15,8 +17,18 @@ import wolfie.util.Ui;
 public class OnCommand extends Command {
     private final LocalDate date;
 
-    public OnCommand(String arguments) {
-        this.date = LocalDate.parse(arguments.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    /**
+     * Constructs an OnCommand object to list all tasks on a specific date.
+     *
+     * @param arguments the date to list tasks on
+     */
+    public OnCommand(String arguments) throws WolfieException {
+        try {
+            this.date = LocalDate.parse(arguments.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            throw new WolfieException("⚠ Please enter the date in the format:\n"
+                    + "yyyy-MM-dd.");
+        }
     }
 
     /**
