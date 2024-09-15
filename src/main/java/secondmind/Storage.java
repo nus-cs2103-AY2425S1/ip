@@ -2,7 +2,6 @@ package secondmind;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -39,16 +38,38 @@ public class Storage {
         fw.close();
     }
 
+    private String getUpdatedLine(String currentLine, boolean isDone) {
+        StringBuilder sb = new StringBuilder();
+        //Add task type and "|" to stringbuilder
+        sb.append(currentLine.substring(0,2));
+        if (isDone) {
+            sb.append("1");
+        } else {
+            sb.append("0");
+        }
+        //Add rest of line
+        sb.append(currentLine.substring(3));
+        return sb.toString();
+    }
+
+    private void writeNewLine(FileWriter fw, String line, int lineNumber, int taskCount) throws IOException {
+        if (lineNumber < taskCount) {
+            fw.write(line + "\n");
+        } else {
+            fw.write(line);
+        }
+    }
+
     /**
      * Updates the status of a task in the file (e.g., marked as done or undone).
      *
      * @param taskNumber The number of the task to update.
-     * @param done The new status of the task (true if done, false otherwise).
+     * @param isDone The new status of the task (true if done, false otherwise).
      * @param taskCount The number of tasks currently in the list.
      * @throws FileNotFoundException If the file is not found.
      * @throws IOException If an I/O error occurs during file operations.
      */
-    public void updateTaskInDataFile(int taskNumber, boolean done, int taskCount) throws FileNotFoundException, IOException {
+    public void updateTaskInDataFile(int taskNumber, boolean isDone, int taskCount) throws FileNotFoundException, IOException {
         int lineNumber = 1;
         File oldFile = new File(DATA_FILE_PATH);
         File newFile = new File("../tempDataFile.txt");
@@ -57,29 +78,9 @@ public class Storage {
         while (s.hasNext()) {
             String currentLine = s.nextLine();
             if (lineNumber == taskNumber) {
-                StringBuilder sb = new StringBuilder();
-                //Add task type and "|" to stringbuilder
-                sb.append(currentLine.substring(0,2));
-                if (done) {
-                    sb.append("1");
-                } else {
-                    sb.append("0");
-                }
-                //Add rest of line
-                sb.append(currentLine.substring(3));
-                if (lineNumber < taskCount) {
-                    fw.write(sb.toString() + "\n");
-                } else {
-                    fw.write(sb.toString());
-                }
-                lineNumber++;
-                continue;
+                currentLine = getUpdatedLine(currentLine, isDone);
             }
-            if (lineNumber < taskCount) {
-                fw.write(currentLine + "\n");
-            } else {
-                fw.write(currentLine);
-            }
+            writeNewLine(fw, currentLine, lineNumber, taskCount);
             lineNumber++;
         }
         s.close();
@@ -112,11 +113,7 @@ public class Storage {
                 lineNumber++;
                 continue;
             }
-            if (lineNumber < taskCount) {
-                fw.write(currentLine + "\n");
-            } else {
-                fw.write(currentLine);
-            }
+            writeNewLine(fw, currentLine, lineNumber, taskCount);
             lineNumber++;
         }
         s.close();
