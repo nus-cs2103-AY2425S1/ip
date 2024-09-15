@@ -1,3 +1,5 @@
-TODO|true|go to school|
-DEADLINE|false|homework|Math|10/10/1010
-EVENT|false|party|IMPORTANT|10/10/2023|11/10/2023
+EVENT|true|party|IMPORTANT|10/10/2023|11/10/2023
+TODO|false|eat|
+TODO|false|watch CS2103T lecture|
+DEADLINE|false|CS103T Assignment|IMPORTANT|13/10/2024
+EVENT|false|party at my house||13/10/2024|14/10/2024
