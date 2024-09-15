@@ -1,0 +1,5 @@
+[T][ ] do assignment
+[E][ ] concert (from: now to: tomorrow)
+[D][X] hw (by: Oct 10 2024, 10:17 am)
+[D][ ] competition (by: Nov 11 2024, 09:59 pm)
+[D][ ] eat dinner (by: Sept 15 2024, 07:00 pm)
