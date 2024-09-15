@@ -21,7 +21,7 @@ import tasks.ToDosTask;
  * It provides functionalities to add, mark, unmark, delete, and list tasks.
  */
 public class Regina {
-    private static final String NAME = "regina.Regina";
+    private static final String NAME = "Regina";
     private static final String DEFAULT_SNOOZE_TYPE = "minute";
     private static final int DEFAULT_SNOOZE_VALUE = 30;
 

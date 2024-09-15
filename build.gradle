@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("regina.Regina")
+    mainClass.set("gui.Launcher")
 }
 
 run {
