@@ -35,6 +35,12 @@ public abstract class Task {
             return this.toString().equals(upperCase);
         }
 
+        /**
+         * Returns the {@link Priority} that corresponds with the input {@link String}.
+         * @param type The input string that represents type of priority.
+         * @return The {@link Priority} corresponding to the type.
+         * @throws EkudException If the type is invalid.
+         */
         public static Priority getPriority(String type) throws EkudException {
             String errorResponseFormat = """
                     Look at mister smarty pants over here telling me "I want '%s' priority".
@@ -153,6 +159,24 @@ public abstract class Task {
             default -> throw new EkudException(invalidTypeErrorMessage);
         };
         // CHECKSTYLE.ON: Indentation
+    }
+
+    /**
+     * Returns the {@link #description} of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns the {@link #priority} of the task.
+     *
+     * @return The priority of the task.
+     */
+    public Priority getPriority() {
+        return priority;
     }
 
     /**

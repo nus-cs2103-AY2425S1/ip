@@ -12,7 +12,7 @@ import ekud.exceptions.EkudException;
  *
  * @author uniqly
  */
-public class EventTask extends Task {
+public class EventTask extends Task implements IHasDeadline {
     public static final String FROM_TOKEN = "/from";
     public static final String TO_TOKEN = "/to";
 
@@ -66,6 +66,11 @@ public class EventTask extends Task {
         } catch (DateTimeParseException e) {
             throw new EkudException(WRONG_DATE_FORMAT_MESSAGE);
         }
+    }
+
+    @Override
+    public LocalDateTime getDeadline() {
+        return to;
     }
 
     @Override
