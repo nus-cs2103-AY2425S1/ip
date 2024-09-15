@@ -71,6 +71,7 @@ public class Ui {
      * @param userCommand The command inputted by the user.
      */
     public String respond(String userCommand) {
+        assert (userCommand != null);
         String message = "";
         try {
             String command = Parser.parseCommand(userCommand);
