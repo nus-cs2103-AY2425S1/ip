@@ -19,6 +19,7 @@ public abstract class Task {
         this.name = name;
         this.isDone = false;
     }
+
     /**
      * Returns a string representation of the task, including its completion status.
      * The format is "[x] taskName" if the task is done, and "[ ] taskName" if not.
@@ -65,7 +66,31 @@ public abstract class Task {
         return this.name;
     }
 
+    /**
+     * Checks if the task's name contains the specified word (case-insensitive).
+     * The search is performed in a case-insensitive manner, converting both the
+     * task's name and the input word to lowercase before checking.
+     *
+     * @param word the word to search for within the task's name
+     * @return true if the task's name contains the specified word, false otherwise
+     */
     public boolean containWord(String word) {
         return this.name.contains(word.toLowerCase());
+    }
+
+    /**
+     * Compares the task's name to a specified string.
+     * This method overrides the equals method to allow comparison between the
+     * task's name and a string directly. The comparison is case-insensitive.
+     *
+     * @param obj the object to be compared, expected to be a string
+     * @return true if the task's name equals the specified string, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof String str) {
+            return this.name.equals(str.toLowerCase());
+        }
+        return false;
     }
 }
