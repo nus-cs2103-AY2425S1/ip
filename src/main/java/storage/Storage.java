@@ -83,6 +83,7 @@ public class Storage {
      */
     private Task handleToDo(String todoBody, char todoStatus) {
         Task todoTask = new ToDo(todoBody);
+        assert todoStatus == 'X' | todoStatus == ' ' : "Invalid todo status extracted.";
         if (todoStatus == 'X') {
             todoTask.markAsDone();
         }
@@ -98,6 +99,7 @@ public class Storage {
     }
 
     private String[] processDueDateTime(String dateTime) throws BrockException {
+
         String[] dateTimeParts = dateTime.split(", ");
 
         String dueDateString = dateTimeParts.length == 1
@@ -138,6 +140,7 @@ public class Storage {
             deadlineTask = new Deadline(description, dueValues[0], dueValues[1]);
         }
 
+        assert deadlineStatus == 'X' | deadlineStatus == ' ' : "Invalid deadline status extracted.";
         if (deadlineStatus == 'X') {
             deadlineTask.markAsDone();
         }
@@ -210,6 +213,7 @@ public class Storage {
                     endValues[0], endValues[1]);
         }
 
+        assert eventStatus == 'X' | eventStatus == ' ' : "Invalid event status extracted.";
         if (eventStatus == 'X') {
             eventTask.markAsDone();
         }
