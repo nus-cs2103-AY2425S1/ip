@@ -36,7 +36,7 @@ public class AddTodoCommand extends Command {
      * @param storage  The Storage instance to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.addTask(this.todo);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return taskList.addTask(this.todo);
     }
 }

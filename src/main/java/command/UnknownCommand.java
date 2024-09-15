@@ -23,7 +23,7 @@ public class UnknownCommand extends Command {
      * @throws KukiShinobuException Always thrown to indicate an unknown command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws KukiShinobuException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws KukiShinobuException {
         throw new KukiShinobuException("Hmm... I don't quite understand what you mean!");
     }
 }

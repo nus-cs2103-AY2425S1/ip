@@ -19,7 +19,7 @@ public abstract class Command {
      * @param storage  The storage object for saving and loading tasks.
      * @throws KukiShinobuException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws KukiShinobuException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws KukiShinobuException;
 
     /**
      * Returns whether the command is an exit command.

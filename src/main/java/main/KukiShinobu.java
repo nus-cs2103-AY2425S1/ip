@@ -7,6 +7,8 @@ import task.TaskList;
 import command.Command;
 import ui.Ui;
 
+import java.time.temporal.TemporalUnit;
+
 /**
  * The main class for the Kuki Shinobu application.
  * <p>
@@ -24,6 +26,7 @@ public class KukiShinobu {
     // IMPORTANT: Relative Filepath Specified must always be relative to root directory of the entire project
     private static final String FILE_PATH = "./data/database.txt";
 
+    private boolean isExit = false;
 
     /**
      * The entry point of the Kuki Shinobu application.
@@ -65,6 +68,10 @@ public class KukiShinobu {
         }
     }
 
+    public KukiShinobu() {
+        this(KukiShinobu.FILE_PATH);
+    }
+
     /**
      * Converts an integer to a boolean.
      *
@@ -102,5 +109,32 @@ public class KukiShinobu {
             }
         }
         ui.showGoodbye();
+    }
+
+    public boolean isExit() {
+        return this.isExit;
+    }
+
+    public String generateWelcomeMessage() {
+        return "Hey Traveller! I'm Kuki Shinobu, deputy leader of the Arataki Gang."
+                + System.lineSeparator()
+                + "Just let me know if you ever find yourself in a pinch. I can help you out.";
+    }
+
+    public String getResponse(String input) {
+        //TODO: Update this code to actually query for the response\
+        String response;
+        try {
+            Command c = Parser.parse(input);
+            this.isExit = c.isExit();
+            response = c.execute(tasks, ui, storage);
+        } catch (KukiShinobuException e) {
+            response = e.getMessage();
+        } finally {
+            ui.showLine();
+            this.storage.write(this.tasks.getTasks());
+        }
+
+        return response;
     }
 }

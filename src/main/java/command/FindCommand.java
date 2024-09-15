@@ -23,16 +23,21 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        StringBuilder response = new StringBuilder();
+
+        //TODO: Perhaps update findMatchingTasks to return a TaskList instead to we can reuse the toString method
         ArrayList<Task> matchingTasks = taskList.findMatchingTasks(this.keyword);
-//        ui.showLine();
+
         if (matchingTasks.isEmpty()) {
-            ui.print("There are no tasks that contains the keyword!");
+            response.append("There are no tasks that contains the keyword!");
         } else {
-            ui.print("Here are the matching tasks in your list:");
-            for (Task task: matchingTasks) {
-                ui.print(task.toString());
+            response.append("Here are the matching tasks in your list:");
+            response.append(System.lineSeparator());
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                response.append((i + 1)).append(".").append(matchingTasks.get(i)).append(System.lineSeparator());
             }
         }
+        return response.toString();
     }
 }

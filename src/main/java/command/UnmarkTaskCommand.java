@@ -31,7 +31,7 @@ public class UnmarkTaskCommand extends Command {
      * @param storage  The storage object, which is not used in this command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.unmarkAsDone(taskIndex);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return taskList.unmarkAsDone(taskIndex);
     }
 }
