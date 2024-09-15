@@ -7,7 +7,7 @@
 // Product intro goes here
 
 ## Quick Start
-- There is already some tasks inside stored inside the application
+- There is already some tasks stored inside the application
 
 ## Notes
 - 3 types of tasks, explain each type
@@ -39,7 +39,8 @@ Command format: `find [keyword]`
 > Only the first word is considered as keyword. The subsequent ones will be ignored.
 
 Example: both `find magic` and `find magic training` return the same list
-[SCREENSHOT]()
+
+<img src="/src/main/resources/images/UGFindMagic.png" alt="find magic" width="300"/>
 
 ## Mark a task as Done
 Marks a task with the corresponding index number as done.
