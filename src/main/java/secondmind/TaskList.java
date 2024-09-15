@@ -188,4 +188,13 @@ public class TaskList {
     public Task getTask(int taskNumber) {
         return this.taskList.get(taskNumber-1);
     }
+
+    public boolean checkForDuplicate(Task newTask) {
+        for (Task task: this.taskList) {
+            if (task.equals(newTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

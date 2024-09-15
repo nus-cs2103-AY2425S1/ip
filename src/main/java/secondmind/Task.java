@@ -45,6 +45,18 @@ public class Task {
         return "";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        } else if (!(obj instanceof Task)) {
+            return false;
+        }
+        Task otherTask = (Task) obj;
+        String otherDescription = otherTask.getDescription();
+        return this.description.equals(otherDescription);
+    }
+
     /**
      * Returns the string representation of the task, including its status.
      *
