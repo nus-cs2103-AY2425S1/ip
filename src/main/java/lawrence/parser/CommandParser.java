@@ -40,6 +40,7 @@ public class CommandParser {
 
         // determine the type of command
         String commandString = inputComponents[0];
+        assert !commandString.isEmpty();
         CommandType type;
         type = CommandType.fromString(commandString);
 
