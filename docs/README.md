@@ -8,10 +8,6 @@
 
 **Rudolf** is a Java-based chatbot designed to help you manage your Christmas season tasks with a festive twist. With Rudolf, you can manage tasks like `ToDos`, `Deadlines`, and `Events`, all while enjoying Christmas-themed interactions. This task companion ensures that you can focus on the joy of the holidays without worrying about forgetting any important to-do.
 
-Here's how you can include a link to the repository in the setup section:
-
----
-
 ### Setting Up the Project
 
 To run **Rudolf: Your Christmas Task Companion**, follow these simple steps:
@@ -28,10 +24,6 @@ To run **Rudolf: Your Christmas Task Companion**, follow these simple steps:
       java -jar "rudolf.jar"
       ```
 4. **Start managing your tasks**: Once the command is run, Rudolf will launch, and you can begin adding your Christmas tasks! 🎄
-
---- 
-
-Replace the placeholder link with the actual repository link when adding this section to your README.
 
 ---
 
