@@ -14,7 +14,7 @@ import friendlybot.task.ToDo;
  * AddCommand is a Command for adding new Tasks (ToDo, Deadline, Event)
  */
 public class AddCommand extends Command {
-    private String eventType;
+    private String taskType;
     private String taskDescription;
     private LocalDate by;
     private LocalDate from;
@@ -23,23 +23,23 @@ public class AddCommand extends Command {
     /**
      * A constructor for AddCommand, used for adding ToDo tasks.
      *
-     * @param eventType Type of Task to be added.
+     * @param taskType Type of Task to be added.
      * @param taskDescription Description of Task to be added.
      */
-    public AddCommand(String eventType, String taskDescription) {
-        this.eventType = eventType;
+    public AddCommand(String taskType, String taskDescription) {
+        this.taskType = taskType;
         this.taskDescription = taskDescription;
     }
 
     /**
      * A constructor for AddCommand, used for adding Deadline tasks.
      *
-     * @param eventType Type of Task to be added.
+     * @param taskType Type of Task to be added.
      * @param taskDescription Description of Task to be added.
      * @param by Deadline of task.
      */
-    public AddCommand(String eventType, String taskDescription, LocalDate by) {
-        this.eventType = eventType;
+    public AddCommand(String taskType, String taskDescription, LocalDate by) {
+        this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.by = by;
     }
@@ -47,13 +47,13 @@ public class AddCommand extends Command {
     /**
      * A constructor for AddCommand, used for adding Event tasks.
      *
-     * @param eventType Type of Task to be added.
+     * @param taskType Type of Task to be added.
      * @param taskDescription Description of Task to be added.
      * @param from Start date of task.
      * @param to End date of task.
      */
-    public AddCommand(String eventType, String taskDescription, LocalDate from, LocalDate to) {
-        this.eventType = eventType;
+    public AddCommand(String taskType, String taskDescription, LocalDate from, LocalDate to) {
+        this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.from = from;
         this.to = to;
@@ -63,6 +63,26 @@ public class AddCommand extends Command {
      * An empty constructor for AddCommand, used to display the format of the AddCommand.
      */
     public AddCommand() {
+    }
+
+    public String getTaskType() {
+        return this.taskType;
+    }
+
+    public String getTaskDescription() {
+        return this.taskDescription;
+    }
+
+    public LocalDate getDeadlineDate() {
+        return this.by;
+    }
+
+    public LocalDate getEventFromDate() {
+        return this.from;
+    }
+
+    public LocalDate getEventToDate() {
+        return this.to;
     }
 
     /**
@@ -78,9 +98,9 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
         Task newTask;
-        if (eventType.equals("todo")) {
+        if (taskType.equals("todo")) {
             newTask = new ToDo(taskDescription);
-        } else if (eventType.equals("deadline")) {
+        } else if (taskType.equals("deadline")) {
             newTask = new Deadline(taskDescription, by);
         } else {
             if (to.isBefore(from)) {

@@ -28,6 +28,10 @@ public class FindCommand extends Command {
     public FindCommand() {
     }
 
+    public String getKeyword() {
+        return this.keyword;
+    }
+
     /**
      * Prints the corresponding tasks that contains the keyword upon execution.
      *
