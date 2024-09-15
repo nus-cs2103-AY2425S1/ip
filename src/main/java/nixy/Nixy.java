@@ -2,8 +2,9 @@ package nixy;
 
 import java.util.function.Consumer;
 
+import nixy.command.Command;
+import nixy.command.CommandType;
 import nixy.exceptions.NixyException;
-import nixy.parse.Parsed;
 import nixy.parse.Parser;
 import nixy.task.Task;
 import nixy.task.TaskList;
@@ -19,10 +20,11 @@ public class Nixy {
     private TaskList tasks;
     private Ui ui;
     private Runnable onExit = () -> {};
+    private Parser parser;
 
     /**
      * Constructor for Nixy.
-     * Initializes the user interface, storage, and task list.
+     * Initializes the user interface, storage, task list, and parser.
      *
      * @param filePath The file path to store tasks data.
      */
@@ -35,6 +37,7 @@ public class Nixy {
             ui.showNixyException(e);
             tasks = new TaskList();
         }
+        parser = new Parser(storage, tasks, ui);
     }
 
     /**
@@ -68,81 +71,22 @@ public class Nixy {
      * @param userInput The user input to process.
      */
     public void processInput(String userInput) {
-        Parsed p;
         Command c;
         try {
-            p = Parser.parse(userInput);
-            assert p != null: "Parsed object should not be null";
-            c = p.getCommand();
+            c = parser.parse(userInput);
             assert c != null: "Parsed command should not be null";
         } catch (NixyException e) {
             ui.showNixyException(e);
             return;
         }
-        switch (c) {
+        switch (c.getType()) {
         case BYE:
-            ui.showGoodbye();
+            // Special case for BYE command to run onExit method
+            c.execute();
             onExit.run();
             break;
-        case LIST:
-            ui.showList(tasks);
-            break;
-        case MARK:
-            try {
-                String taskStr = tasks.markTaskAsDone(p.getTaskNumber());
-                ui.showMarkedAsDone(taskStr);
-                storage.save(tasks);
-            } catch (NixyException e) {
-                ui.showNixyException(e);
-            }
-            break;
-        case UNMARK:
-            try {
-                String taskStr = tasks.markTaskAsUndone(p.getTaskNumber());
-                ui.showMarkedAsUndone(taskStr);
-                storage.save(tasks);
-            } catch (NixyException e) {
-                ui.showNixyException(e);
-            }
-            break;
-        case DELETE:
-            try {
-                String taskStr = tasks.deleteTask(p.getTaskNumber());
-                ui.showDeletedTask(taskStr, tasks.getTaskCount());
-                storage.save(tasks);
-            } catch (NixyException e) {
-                ui.showNixyException(e);
-            }
-            break;
-        case FIND:
-            try {
-                TaskList foundTasks = tasks.findTasks(p.getStringParam());
-                ui.showMatchingList(foundTasks);
-            } catch (NixyException e) {
-                ui.showNixyException(e);
-            }
-            break;
-        case TODO:
-            // Fallthrough
-        case DEADLINE:
-            // Fallthrough
-        case EVENT:
-            try {
-                Task task = p.getTask();
-                assert task != null: "Task should not be null";
-                tasks.addTask(task);
-                ui.showAddedTask(task, tasks.getTaskCount());
-                storage.save(tasks);
-            } catch (NixyException e) {
-                ui.showNixyException(e);
-            }
-            break;
-        case INVALID:
-            ui.showUnknownWarning();
-            break;
         default:
-            // Should not reach here
-            assert false : "Default case should not be reached.";
+            c.execute();
             break;
         }
     }
