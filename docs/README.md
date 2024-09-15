@@ -1,30 +1,60 @@
-# Duke User Guide
+# Oliver User Guide
 
-// Update the title above to match the actual product name
+![Oliver demo](./Ui.png)
 
-// Product screenshot goes here
+Meet Oliver, your personal chatbot assistant designed to keep you organized and on top of your tasks. 
+Whether it's simple to-dos, important deadlines, or scheduled events, Oliver helps you manage it all with ease. 
+You can quickly add tasks, set reminders for upcoming deadlines, and even mark items as done or undone as your 
+day progresses. Need to check what's on your plate? Oliver can list all your tasks or help you find specific ones 
+in a snap. With Oliver, staying organized has never been easier—your smart, efficient task manager is just a chat away! 
 
-// Product intro goes here
+## Adding todos
+
+Adds a todo task to the list.
+
+Example: `todo finish my homework`
+
+![todo_demo](../src/main/resources/images/todo_demo.png)
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Adds a task with a deadline to the list.
 
-// Give examples of usage
+Example: `deadline submit assignment /by 2024-09-30`
 
-Example: `keyword (optional arguments)`
+## Adding events
 
-// A description of the expected outcome goes here
+Adds an event with a start time and end time to the list.
 
-```
-expected output
-```
+Example: `event party /from 2024-09-25 1800 /to 2024-09-25 2100`
 
-## Feature ABC
+## Listing tasks
 
-// Feature details
+Shows a list of all tasks in the task list.
 
+Format: `list`
 
-## Feature XYZ
+## Marking as done
 
-// Feature details
+Marks a task as completed.
+
+Example: `mark 1`
+
+## Marking as undone
+
+Marks a task as incomplete.
+
+Example: `unmark 1`
+
+## Deleting a task
+
+Deletes the specified task from the task list.
+
+Example: `delete 1`
+
+## Exiting the program
+
+Exits the program.
+
+Format: `bye`
+
