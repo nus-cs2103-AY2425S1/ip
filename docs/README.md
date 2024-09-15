@@ -78,7 +78,7 @@ Format: priority INDEX /priority \[1-3\]
 Example: `priority 1 /priority 1`
 This command sets the task in index 1 to HIGH.
 
-## Saving of data:
+## Saving of data
 
 Tasklist data are saved to hard disk automatically after each command that changes the data. Thus, there is no need to save manually.
 
