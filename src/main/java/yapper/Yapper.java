@@ -38,7 +38,6 @@ public class Yapper {
         taskList.returnList();
         ui.readInput();
     }
-    
 
     public String guiRun(String input) {
         return ui.readGuiInput(input);

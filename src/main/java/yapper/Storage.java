@@ -91,7 +91,7 @@ public class Storage {
             taskName = taskParameter[1];
             boolean isDone = fileDoneSymbol.equals("D");
             ToDo toDo = new ToDo(taskName);
-            toDo.setDone(isDone);
+            toDo.setIsDone(isDone);
             listOfTasks.add(toDo);
         } else {
             String fromString;
@@ -106,7 +106,7 @@ public class Storage {
                 boolean isDone = fileDoneSymbol.equals("D");
                 LocalDateTime byDateTime = LocalDateTime.parse(fromString);
                 Deadline deadline = new Deadline(taskName, byDateTime);
-                deadline.setDone(isDone);
+                deadline.setIsDone(isDone);
                 listOfTasks.add(deadline);
             } else {
                 if (!typeOfTask.equals("E")) {
@@ -125,7 +125,7 @@ public class Storage {
                 LocalDateTime fromDateTime = LocalDateTime.parse(fromString);
                 LocalDateTime toDateTime = LocalDateTime.parse(toString);
                 Event event = new Event(taskName, fromDateTime, toDateTime);
-                event.setDone(isDone);
+                event.setIsDone(isDone);
                 listOfTasks.add(event);
             }
         }
