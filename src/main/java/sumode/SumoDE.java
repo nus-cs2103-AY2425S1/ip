@@ -56,7 +56,7 @@ public class SumoDE extends Application {
     }
 
     /**
-     * Runs a task-management chatbot SumoDE command
+     * Runs a task-management chatbot SumoDE command.
      */
     public void execute(String input) {
         boolean canTerminate = false;
