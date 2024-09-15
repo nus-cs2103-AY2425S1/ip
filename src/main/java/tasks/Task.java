@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import chatterboxexceptions.ChatterboxExceptions;
+import tags.Tag;
 
 
 /**
@@ -12,7 +13,7 @@ import chatterboxexceptions.ChatterboxExceptions;
 public abstract class Task {
     private Boolean status;
     private String desc;
-    private ArrayList<String> tags = new ArrayList<>();
+    private ArrayList<Tag> tags = new ArrayList<>();
 
 
     /**
@@ -39,7 +40,7 @@ public abstract class Task {
         if (tags.size() <= 0) {
             return "";
         }
-        return "tags: " + String.join(" ", this.tags);
+        return "|tags: " + tags.toString();
     }
 
     /**
@@ -78,7 +79,7 @@ public abstract class Task {
      * gets the tags of the task
      * @return an arraylist of tags
      */
-    public void addTag(String tag) {
+    public void addTag(Tag tag) {
         this.tags.add(tag);
     }
     @Override

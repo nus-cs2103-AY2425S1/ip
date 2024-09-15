@@ -38,7 +38,7 @@ public class Chatterbox {
         try {
             loaded = storage.load(parser);
         } catch (FileNotFoundException e) {
-            System.out.println("Error: No history file found at path");
+            System.out.("Error: No history file found at path");
         }
 
 
@@ -63,7 +63,7 @@ public class Chatterbox {
 
 
     /**
-     * Class UI used to handle the printing and formatting of text in the UI
+     * Class UI used to handle the ing and formatting of text in the UI
      */
 
     protected static class TaskList {
@@ -295,7 +295,7 @@ public class Chatterbox {
                     }
                     storage.saveHistory(tasks.getTasks());
                 } catch (ChatterboxExceptions.ChatterBoxError e) {
-                    System.out.println("An error has occurred " + e.getMessage());
+                    System.out.("An error has occurred " + e.getMessage());
                 }
             }
         } finally {

@@ -125,4 +125,14 @@ public class GuiResponses {
 
     }
 
+    /**
+     * Gets String representation of tagged task
+     * @param task Task that is tagged
+     * @param tagName name of tag
+     * @return String representation of tagged task
+     */
+    public String taggedTasks(Task task, String tagName) {
+        return String.format("Tagged Task: %s with tag: %s", task.getDescription(), tagName);
+    }
+
 }

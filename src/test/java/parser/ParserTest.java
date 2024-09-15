@@ -64,7 +64,7 @@ public class ParserTest {
             assertArrayEquals(expected, testParser.parseDeadline("deadline homework /by tmr"));
 
         } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
-            System.out.println("Fail");
+            System.out.ln("Fail");
         }
     }
 
@@ -74,7 +74,7 @@ public class ParserTest {
             assertArrayEquals(new String[]{"deadline text", "/by next year"},
                     testParser.parseDeadline("deadline deadline text /by/by next year"));
         } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
-            System.out.println("error");
+            System.out.ln("error");
         }
     }
 
@@ -84,7 +84,7 @@ public class ParserTest {
             assertArrayEquals(new String[] {"event start", "4pm", "9pm"},
                     testParser.parseEvent("event event start /from 4pm /to 9pm"));
         } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
-            System.out.println("error" + e.getMessage());
+            System.out.ln("error" + e.getMessage());
         }
     }
 
@@ -94,7 +94,7 @@ public class ParserTest {
             assertArrayEquals(new String[] {"first text", "/from abc", "/to end"},
                     testParser.parseEvent("event first text /from/from abc /to /to end"));
         } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
-            System.out.println("error" + e.getMessage());
+            System.out.ln("error" + e.getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ public class ParserTest {
             assertArrayEquals(new String[] {"event text", "/from abc", "/from/to/to asdf"},
                     testParser.parseEvent("event event text /from/from abc /to/from/to/to asdf"));
         } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
-            System.out.println("error" + e.getMessage());
+            System.out.ln("error" + e.getMessage());
         }
     }
 }

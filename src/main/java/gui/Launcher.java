@@ -12,7 +12,7 @@ public class Launcher {
      * @param args for main class
      */
     public static void main(String[] args) {
-        System.out.println("Launching");
+        System.out.ln("Launching");
         Application.launch(Main.class, args);
     }
 

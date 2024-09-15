@@ -17,7 +17,7 @@ public class Parser {
      * Enum contains list of valid commands
      */
     public enum ValidCommand {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, TAG;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, TAG, ALLTAGS;
     }
 
 
@@ -75,8 +75,7 @@ public class Parser {
      */
     public ValidCommand parseCommand(String text) {
 
-        System.out.println(text);
-        System.out.println(text.startsWith("tag"));
+
         if (text.startsWith("bye")) {
             return ValidCommand.BYE;
         } else if (text.startsWith("list")) {

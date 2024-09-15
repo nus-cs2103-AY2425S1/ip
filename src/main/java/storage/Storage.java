@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
+import tags.TagList;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -100,11 +101,12 @@ public class Storage {
         File f = new File(this.HIST_FILE);
         Scanner s = new Scanner(f);
         ArrayList <Task> loadedTasks = new ArrayList<>();
+        TagList loadedTags = new TagList();
         try {
             while (s.hasNext()) {
                 String nextLine = s.nextLine();
                 //parse the Line for task
-                parseTask(parser, nextLine, loadedTasks);
+                parseTask(parser, nextLine, loadedTasks, loadedTags);
 
 
             }
@@ -116,16 +118,27 @@ public class Storage {
     }
 
     /**
-     * Parses the task from the input string
+     * Parses the task from the input string [Symbol] |   | [Text] /tags ...
+     *
      * @param parser
      * @param nextLine
      * @param loadedTasks
      * @throws ChatterboxExceptions.ChatterBoxNoInput
      */
-    private static void parseTask(Parser parser, String nextLine, ArrayList<Task> loadedTasks) throws ChatterboxExceptions.ChatterBoxNoInput {
+    private static void parseTask(Parser parser, String nextLine, ArrayList<Task> loadedTasks, TagList loadedTags) throws ChatterboxExceptions.ChatterBoxNoInput {
         char type = nextLine.charAt(0);
         boolean status = nextLine.charAt(4) == 'X';
 
+        // parse tags if available
+        if (nextLine.contains("/tags")) {
+            int tagStart = nextLine.indexOf("/tags");
+            String tags = nextLine.substring(tagStart + 5);
+            String[] tagList = tags.split(" ");
+            for (String tag : tagList) {
+                loadedTags.addTagFromString(tag);
+            }
+
+        }
         //rest includes text ( deadline/event )
         String rest = nextLine.substring(8);
 

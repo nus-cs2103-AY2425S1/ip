@@ -9,6 +9,8 @@ import chatterboxexceptions.ChatterboxExceptions;
 import gui.GuiResponses;
 import parser.Parser;
 import storage.Storage;
+import tags.Tag;
+import tags.TagList;
 import tasks.Task;
 import tasks.TaskList;
 
@@ -21,6 +23,7 @@ public class ChatterboxGui {
     private final Storage storage;
 
     private final TaskList tasks;
+    private final TagList userTags;
 
     /**
      * initiates Chatterbox with a prior history filepath
@@ -32,11 +35,13 @@ public class ChatterboxGui {
         this.guiResponses = new GuiResponses();
         this.parser = new Parser();
         this.storage = new Storage(filepath);
+        this.userTags = new TagList();
         ArrayList<Task> loaded = new ArrayList<>();
+
         try {
             loaded = storage.load(parser);
         } catch (FileNotFoundException e) {
-            System.out.println("Error: No history file found at path");
+            System.out.ln("Error: No history file found at path");
         }
 
 
@@ -54,10 +59,12 @@ public class ChatterboxGui {
         this.parser = new Parser();
         this.storage = new Storage();
         ArrayList<Task> loaded = new ArrayList<>();
+        this.userTags = new TagList();
+
         try {
             loaded = storage.load(parser);
         } catch (FileNotFoundException e) {
-            System.out.println("Error: No history file found at path");
+            System.out.ln("Error: No history file found at path");
         }
 
         this.tasks = new TaskList(loaded);
@@ -173,7 +180,17 @@ public class ChatterboxGui {
                 // input for tag will be tag /i{index} /t{text}
                 String tagText = parser.parseTagText(input);
                 int tagIndex = parser.parseTagIndex(input) - 1;
-                tasks.tagTask(tagIndex, tagText);
+                Tag tag;
+                if (userTags.containsTag(tagText)) {
+                    tag = userTags.getTag(tagText);
+                    tasks.getTask(tagIndex).addTag(userTags.getTag(tagText));
+
+                    break;
+                }
+                tag = new Tag(tagText);
+                userTags.addTag(tag);
+                tasks.getTask(tagIndex).addTag(new Tag(tagText));
+                result = guiResponses.taggedTasks(tasks.getTask(tagIndex), tagText);
                 break;
             default:
                 result = "Error occured...";

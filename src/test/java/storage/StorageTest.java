@@ -42,7 +42,7 @@ public class StorageTest {
 
 
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
-            System.out.println("error");
+            System.out.ln("error");
         }
     }
 
@@ -66,9 +66,9 @@ public class StorageTest {
 
 
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
-            System.out.println("input error");
+            System.out.ln("input error");
         } catch (FileNotFoundException e) {
-            System.out.println("file not found");
+            System.out.ln("file not found");
         }
 
     }

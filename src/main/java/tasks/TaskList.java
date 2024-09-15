@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import chatterboxexceptions.ChatterboxExceptions;
-
-
+import tags.Tag;
 
 
 /**
@@ -183,7 +182,7 @@ public class TaskList {
 
     }
 
-    public void tagTask(int index, String tag) {
+    public void tagTask(int index, Tag tag) {
         userTasks.get(index).addTag(tag);
     }
 
