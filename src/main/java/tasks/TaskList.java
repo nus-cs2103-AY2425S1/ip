@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class to store TaskList
+ * Represents a class to store TaskList
  */
 public class TaskList {
 
     private List<Task> list;
 
     /**
-     * Initialise tasklist with local data.
+     * Initialises tasklist with local data.
      *
      * @param loadedData List of tasks to store into tasklist.
      */
@@ -20,7 +20,7 @@ public class TaskList {
     }
 
     /**
-     * Initialise empty tasklist.
+     * Initialises empty tasklist.
      */
     public TaskList() {
         this.list = new ArrayList<>();
@@ -32,7 +32,7 @@ public class TaskList {
      * @param task Task to be added.
      * @param saved True if the task to added should be pre-marked as done, otherwise False.
      */
-    public String add(Task task, boolean saved) {
+    public String addTask(Task task, boolean saved) {
         this.list.add(task);
         String reply = "I've added the task: \n" + task
                 + "\n Now you have " + this.list.size() + " tasks in the list";
@@ -82,7 +82,7 @@ public class TaskList {
      *
      * @param index Index of task to be deleted.
      */
-    public String delete(int index) {
+    public String deleteTask(int index) {
         Task deleted = this.list.get(index);
         this.list.remove(index);
         String reply = "Let's go deleting!\nDeleted task " + deleted;
@@ -99,7 +99,7 @@ public class TaskList {
     }
 
     /**
-     * Filter tasklist by keyword.
+     * Filters tasklist by keyword.
      *
      * @param word Keyword to filter by.
      * @return Filtered list.

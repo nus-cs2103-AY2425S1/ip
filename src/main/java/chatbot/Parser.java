@@ -10,7 +10,7 @@ import tasks.TaskList;
 import tasks.Todo;
 
 /**
- * Class for Parser to parse user input.
+ * Represents a class for Parser to parse user input.
  */
 
 public class Parser {
@@ -37,16 +37,16 @@ public class Parser {
             switch (command) {
             case "todo":
                 name = response.substring(response.indexOf(' ') + 1);
-                return taskList.add(new Todo(name), false);
+                return taskList.addTask(new Todo(name), false);
             case "deadline":
                 name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
                 endTime = response.substring(response.indexOf("/by") + 4);
-                return taskList.add(new Deadline(name, LocalDate.parse(endTime)), false);
+                return taskList.addTask(new Deadline(name, LocalDate.parse(endTime)), false);
             case "event":
                 name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
                 startTime = response.substring(response.indexOf("/from") + 6, response.indexOf("/to") - 1);
                 endTime = response.substring(response.indexOf("/to") + 4);
-                return taskList.add(new Event(name, LocalDate.parse(startTime),
+                return taskList.addTask(new Event(name, LocalDate.parse(startTime),
                         LocalDate.parse(endTime)), false);
             case "mark":
                 index = Integer.parseInt(response.substring(response.indexOf(' ') + 1,
@@ -59,7 +59,7 @@ public class Parser {
             case "delete":
                 index = Integer.parseInt(response.substring(response.indexOf(' ') + 1,
                         response.indexOf(' ') + 2)) - 1;
-                return taskList.delete(index);
+                return taskList.deleteTask(index);
             case "list":
                 return taskList.listOut();
             case "find":

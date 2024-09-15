@@ -4,31 +4,21 @@ import storage.Storage;
 import tasks.TaskList;
 
 /**
- * Class for the chatbot Peridot.
+ * Represents a class for the chatbot Peridot.
  */
 public class Peridot {
 
     private Storage storage;
     private TaskList taskList;
-    private Ui ui;
 
     /**
-     * Constructor for the chatbot Peridot.
+     * Represents a constructor for the chatbot Peridot.
      *
      * @param filePath filepath to local todo list storage.
      */
     public Peridot(String filePath) {
         storage = new Storage(filePath);
         this.taskList = new TaskList(storage.load());
-        ui = new Ui(taskList, storage);
-    }
-
-    /**
-     * Starts the chatbot "Peridot"
-     */
-    public void start() {
-        ui.run();
-        storage.write(taskList.getTaskList());
     }
 
     /**

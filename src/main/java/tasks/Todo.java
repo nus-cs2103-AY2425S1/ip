@@ -1,12 +1,12 @@
 package tasks;
 
 /**
- * Class for todo-type task.
+ * Represents a class for todo-type task.
  */
 public class Todo extends Task {
 
     /**
-     * Constructor for a Todo task.
+     * Represents a constructor for a Todo task.
      *
      * @param name Name for the todo.
      */
@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Constructor for a Todo task, marking it as done or undone.
+     * Represents a constructor for a Todo task, marking it as done or undone.
      *
      * @param name Name for the todo.
      * @param done True if the task is marked as done.

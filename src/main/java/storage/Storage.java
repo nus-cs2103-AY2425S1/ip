@@ -15,7 +15,7 @@ import tasks.Task;
 import tasks.Todo;
 
 /**
- * Class for storage to store local data.
+ * Represents a class for storage to store local data.
  */
 public class Storage {
 
@@ -49,24 +49,24 @@ public class Storage {
             while (dataReader.hasNextLine()) {
                 String line = dataReader.nextLine();
                 char taskType = line.charAt(0);
-                boolean done = false;
+                boolean isDone = false;
                 switch (taskType) {
                 case 'T':
-                    done = line.charAt(1) == '1';
-                    loadedData.add(new Todo(line.substring(2), done));
+                    isDone = line.charAt(1) == '1';
+                    loadedData.add(new Todo(line.substring(2), isDone));
                     break;
                 case 'D':
-                    done = line.charAt(1) == '1';
+                    isDone = line.charAt(1) == '1';
                     String deadline = line.substring(line.indexOf('%') + 1);
                     loadedData.add(new Deadline(line.substring(2, line.indexOf('%')),
-                            LocalDate.parse(deadline), done));
+                            LocalDate.parse(deadline), isDone));
                     break;
                 case 'E':
-                    done = line.charAt(1) == '1';
+                    isDone = line.charAt(1) == '1';
                     String start = line.substring(line.indexOf('%') + 1, line.indexOf('|'));
                     String end = line.substring(line.indexOf('|') + 1);
                     loadedData.add(new Event(line.substring(2, line.indexOf('%')),
-                            LocalDate.parse(start), LocalDate.parse(end), done));
+                            LocalDate.parse(start), LocalDate.parse(end), isDone));
                     break;
                 default:
                     break;

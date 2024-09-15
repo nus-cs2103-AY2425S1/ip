@@ -2,35 +2,31 @@ package tasks;
 
 public class Task {
 
-    private boolean done;
+    private boolean isDone;
     private String name;
 
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public Task(String name, boolean done) {
+    public Task(String name, boolean isDone) {
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     /**
-     * Marks the task as done.
+     * Marks the task as isDone.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
-     * Marks the task as not done.
+     * Marks the task as not isDone.
      */
     public void unmark() {
-        this.done = false;
-    }
-
-    public boolean isDone() {
-        return this.done;
+        this.isDone = false;
     }
 
     public boolean containsWord(String word) {
@@ -44,7 +40,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + (this.done ? "X" : " ") + "] " + this.name;
+        return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }
 
     /**
@@ -53,6 +49,6 @@ public class Task {
      * @return Data format of the Task.
      */
     public String toData() {
-        return (this.done ? "1" : "0") + this.name;
+        return (this.isDone ? "1" : "0") + this.name;
     }
 }
