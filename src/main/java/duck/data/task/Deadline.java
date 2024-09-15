@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task implements Datable {
 
-    /** The date and time by which the task must be completed. */
     private LocalDateTime by;
 
     /**

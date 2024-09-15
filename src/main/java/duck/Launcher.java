@@ -3,7 +3,7 @@ package duck;
 import javafx.application.Application;
 
 /**
- * The {@code Launcher} class serves as a workaround to address classpath issues when launching a
+ * Serves as a workaround to address classpath issues when launching a
  * JavaFX application. It delegates the responsibility of starting the application to the
  * {@link Main} class by invoking the {@link javafx.application.Application#launch(Class, String...)}
  * method.

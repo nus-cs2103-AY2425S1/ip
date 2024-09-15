@@ -1,7 +1,7 @@
 package duck.commands;
 
 /**
- * Enum representing the different command words that the Duck application can process.
+ * Represents the different command words that the Duck application can process.
  * Each value corresponds to a specific command type that the application recognizes
  * and handles accordingly.
  */
@@ -58,7 +58,7 @@ public enum CommandWord {
     EVENT,
 
     /**
-     * Command to list tasks due on a specific date.
+     * Command to list tasks on a specific date.
      */
     ON,
 

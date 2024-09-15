@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * An interface that provides methods for formatting date and time representations.
+ * Provides methods for formatting date and time representations.
  * Classes implementing this interface can use the provided default methods to
  * format {@link LocalDateTime} objects for file storage and user display.
  */

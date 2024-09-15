@@ -4,7 +4,7 @@ import duck.common.Message;
 import duck.data.exception.DuckException;
 
 /**
- * Enum representing the valid targets for the sort command.
+ * Represents the valid targets for the sort command.
  */
 public enum Target {
     ALL("all"),

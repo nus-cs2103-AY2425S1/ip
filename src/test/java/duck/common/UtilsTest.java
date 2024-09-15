@@ -13,11 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import duck.data.exception.DuckException;
 
-
-
-
 /**
- * Tests for the {@link Utils} class to verify the conversion of strings to {@link LocalDateTime}.
+ * Tests the {@link Utils} class to verify the conversion of strings to {@link LocalDateTime}.
  */
 public class UtilsTest {
 
@@ -65,7 +62,7 @@ public class UtilsTest {
     }
 
     /**
-     * Tests if {@link Utils#isCorrectUpdateFormat(String)} correctly identifies valid update command formats.
+     * Tests if {@link Utils#isCorrectUpdateFormat(String)} correctly identifies invalid update command formats.
      */
     @Test
     public void isCorrectUpdateFormat_incorrectFormat_returnFalse() {
@@ -82,7 +79,7 @@ public class UtilsTest {
     }
 
     /**
-     * Tests if {@link Utils#isCorrectUpdateFormat(String)} correctly identifies invalid update command formats.
+     * Tests if {@link Utils#isCorrectUpdateFormat(String)} correctly identifies valid update command formats.
      */
     @Test
     public void isCorrectUpdateFormat_correctFormat_returnTrue() {

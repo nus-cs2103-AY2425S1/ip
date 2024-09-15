@@ -9,12 +9,12 @@ import duck.data.exception.DuckException;
  * and reading user input from the console.
  */
 public class Ui {
-    public static final String MESSAGE_START_UP = "Initializing Duck...";
-    public static final String MESSAGE_START_UP_COMPLETE = """
+    private static final String MESSAGE_START_UP = "Initializing Duck...";
+    private static final String MESSAGE_START_UP_COMPLETE = """
             Quack. Duck is up!
             If you need Duck's guidance, type 'help'!
             """;
-    public static final String MESSAGE_LOGO = """
+    private static final String MESSAGE_LOGO = """
                     ,---,                                  ,-.
                   .'  .' `\\                            ,--/ /|
                 ,---.'     \\          ,--,           ,--. :/ |
@@ -29,8 +29,8 @@ public class Ui {
                 |   ,.'       `--`----'     \\   \\  / '--'
                 '---'                        `----'
             """;
-    public static final String MESSAGE_GOODBYE = "Quack! Duck is going to sleep now. Goodbye!";
-    public static final String WORD_BYE = "bye";
+    private static final String MESSAGE_GOODBYE = "Quack! Duck is going to sleep now. Goodbye!";
+    private static final String WORD_BYE = "bye";
     private Scanner in;
 
     /**
@@ -92,6 +92,11 @@ public class Ui {
     }
 
 
+    /**
+     * Displays the help message for the user.
+     *
+     * @param helpString The help message to be displayed.
+     */
     public void showHelpMessage(String helpString) {
         System.out.println(helpString);
     }

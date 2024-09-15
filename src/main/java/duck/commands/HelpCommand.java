@@ -13,7 +13,7 @@ import duck.ui.Ui;
 public class HelpCommand extends Command {
 
     /**
-     * The help string that contains the list of available commands and their usage.
+     * Contains the list of available commands and their usage.
      */
     private static final String MESSAGE_HELP_COMMAND = """
             Quack! Seems like you need Duck's help.

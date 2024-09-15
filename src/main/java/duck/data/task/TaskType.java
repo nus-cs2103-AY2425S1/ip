@@ -1,7 +1,7 @@
 package duck.data.task;
 
 /**
- * Enum representing the different types of tasks in the application.
+ * Represents the different types of tasks in the application.
  * The available task types are TODO, DEADLINE, and EVENT.
  */
 public enum TaskType {

@@ -7,10 +7,8 @@ package duck.data.task;
  */
 public abstract class Task {
 
-    /** The description of the task. */
     protected String description;
 
-    /** The completion status of the task. */
     protected boolean isDone;
 
     /**

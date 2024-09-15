@@ -14,13 +14,16 @@ import duck.data.task.TaskStub;
 import duck.storage.Storage;
 import duck.storage.StorageStub;
 
-
-
-
-
-class TaskListTest {
+/**
+ * Tests the TaskList class.
+ */
+public class TaskListTest {
 
     private Storage storage;
+
+    /**
+     * Sets up the test environment.
+     */
     @BeforeEach
     void setUp() {
         try {
@@ -31,6 +34,9 @@ class TaskListTest {
         }
     }
 
+    /**
+     * Tests the addTask method of the TaskList class with valid arguments.
+     */
     @Test
     public void addTask_taskStub_success() {
         TaskList taskList = new TaskList();
@@ -46,6 +52,9 @@ class TaskListTest {
         assertEquals(initialSize, finalSize - 1);
     }
 
+    /**
+     * Tests the updateTaskStatus method of the TaskList class with invalid index.
+     */
     @Test
     public void updateTaskStatus_invalidIndex_exceptionThrown() {
         TaskList taskList = new TaskList(); // empty task list
@@ -53,6 +62,10 @@ class TaskListTest {
             taskList.updateTaskStatus(1, true);
         });
     }
+
+    /**
+     * Tests the updateTaskStatus method of the TaskList class with valid arguments.
+     */
     @Test
     public void updateTaskStatus_taskStub_success() {
         Task task = new TaskStub();
@@ -67,6 +80,9 @@ class TaskListTest {
     }
 
 
+    /**
+     * Tests the deleteTask method of the TaskList class with invalid index.
+     */
     @Test
     public void deleteTask_invalidIndex_exceptionThrown() {
         TaskList taskList = new TaskList(); // empty task list
@@ -75,6 +91,9 @@ class TaskListTest {
         });
     }
 
+    /**
+     * Tests the deleteTask method of the TaskList class with valid arguments.
+     */
     @Test
     public void deleteTask_taskStub_success() {
 
@@ -91,6 +110,10 @@ class TaskListTest {
         assertEquals(initialSize, finalSize + 1);
     }
 
+
+    /**
+     * Tests the findTasks method of the TaskList class finding correct number of tasks
+     */
     @Test
     public void findTasks() {
         TaskList taskList = new TaskList();
@@ -111,6 +134,9 @@ class TaskListTest {
         assertEquals(3, foundTasks2.size());
     }
 
+    /**
+     * Tests the sortTasks method of the TaskList class with null arguments.
+     */
     @Test
     public void sortTasks_nullComparator_exceptionThrown() {
         TaskList taskList = new TaskList();

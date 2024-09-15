@@ -4,7 +4,7 @@ import duck.common.Message;
 import duck.data.exception.DuckException;
 
 /**
- * Enum representing the valid sorting criteria (/by) for the sort command.
+ * Represents the valid sorting criteria (/by) for the sort command.
  */
 public enum By {
     DESCRIPTION("description"),
@@ -13,7 +13,7 @@ public enum By {
     END("end"),
     DEADLINE("deadline");
 
-    public static final String INVALID_BY_FORMAT = "Unknown sorting criterion: ";
+    private static final String INVALID_BY_FORMAT = "Unknown sorting criterion: ";
     private final String keyword;
 
     /**
@@ -25,6 +25,11 @@ public enum By {
         this.keyword = keyword;
     }
 
+    /**
+     * Returns the keyword associated with the By enum.
+     *
+     * @return The keyword associated with the By enum.
+     */
     public String getKeyword() {
         return keyword;
     }

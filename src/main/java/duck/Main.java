@@ -12,7 +12,7 @@ import duck.components.MainWindow;
 
 
 /**
- * A GUI for Duke using FXML.
+ * Represents a GUI for Duke using FXML.
  */
 public class Main extends Application {
 

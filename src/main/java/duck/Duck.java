@@ -11,12 +11,12 @@ import duck.storage.Storage;
 import duck.ui.Ui;
 
 /**
- * The Duck class serves as the main entry point for the Duck application.
+ * Serves as the main entry point for the Duck application.
  * It handles the initialization of the application, manages the task list,
  * and processes user commands.
  */
 public class Duck {
-    /** The default file path where the task list is stored. */
+    /** Represents the default file path where the task list is stored. */
     private static final String FILE_PATH = "data/duck.txt";
 
     /** Manages the list of tasks. */
@@ -124,6 +124,11 @@ public class Duck {
         command.execute(tasks, storage, ui);
     }
 
+    /**
+     * Clears the cache of the Duck application by removing all tasks from the storage.
+     *
+     * @throws DuckException If an error occurs while clearing the cache.
+     */
     public void clearCache() throws DuckException {
         storage.clearAllTasks();
     }
@@ -148,7 +153,7 @@ public class Duck {
         return baos.toString();
     }
     /**
-     * The main method serves as the entry point of the Duck application.
+     * Serves as the entry point of the Duck application.
      * It creates a new Duck instance and starts the application.
      *
      * @param args Command-line arguments (not used).

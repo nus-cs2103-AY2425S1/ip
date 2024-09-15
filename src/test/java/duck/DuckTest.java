@@ -139,7 +139,7 @@ public class DuckTest {
      * Tests the processInput method of the Duck with valid mark command input.
      */
     @AfterAll
-    public static void processInput_markCommand_exceptionThrown() {
+    public static void processInput_markCommand_success() {
         String input1 = "mark 1";
         String input2 = "Mark 1 ";
         String input3 = "     mArk     1  ";

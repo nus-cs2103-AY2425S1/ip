@@ -6,7 +6,7 @@ import duck.storage.Storage;
 import duck.ui.Ui;
 
 /**
- * The Command class serves as the abstract base class for all command types in the Duck application.
+ * Serves as the abstract base class for all command types in the Duck application.
  * It provides a framework for executing specific commands and determining whether a command signifies
  * an exit operation.
  */

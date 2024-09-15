@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import duck.Duck;
 
 /**
- * Controller for the main GUI.
+ * Represents the controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
     public static final String PATH_DA_USER = "/images/DaUser.png";

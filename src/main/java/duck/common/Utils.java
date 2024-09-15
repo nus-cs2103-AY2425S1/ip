@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import duck.data.exception.DuckException;
 
 /**
- * Utility class providing helper methods for handling date-time conversion and validation.
+ * Provides helper methods for handling date-time conversion and validation.
  */
 public class Utils {
 
@@ -20,7 +20,7 @@ public class Utils {
     private static final String DATE_FORMAT_TWO = "yyyy/MM/dd HHmm";
 
     /**
-     * Private constructor to prevent instantiation.
+     * Prevents instantiation of the utility class.
      */
     private Utils() {
     }

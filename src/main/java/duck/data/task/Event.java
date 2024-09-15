@@ -10,10 +10,8 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task implements Datable {
 
-    /** The date and time when the event starts. */
     private LocalDateTime from;
 
-    /** The date and time when the event ends. */
     private LocalDateTime to;
 
     /**
