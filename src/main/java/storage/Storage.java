@@ -93,15 +93,16 @@ public class Storage {
 
     /**
      * Loads the
-     * @param parser
-     * @return an ArrayList with all tasks found in the storage file
+     *
+     * @param parser parser used to parse input
+     * @param loadedTasks ArrayList to store tasks
+     * @param loadedTags TagList to store tags
      * @throws FileNotFoundException
      */
-    public ArrayList<Task> load(Parser parser) throws FileNotFoundException {
+    public void load(Parser parser, ArrayList<Task> loadedTasks, TagList loadedTags) throws FileNotFoundException {
         File f = new File(this.HIST_FILE);
         Scanner s = new Scanner(f);
-        ArrayList <Task> loadedTasks = new ArrayList<>();
-        TagList loadedTags = new TagList();
+
         try {
             while (s.hasNext()) {
                 String nextLine = s.nextLine();
@@ -114,7 +115,7 @@ public class Storage {
             System.out.println("Error: " + e.getMessage());
         }
         System.out.println(String.format("Previous Task list of size: %d Loaded", loadedTasks.size()));
-        return loadedTasks;
+
     }
 
     /**
@@ -152,7 +153,7 @@ public class Storage {
         } else if (type == 'D') {
             int startBracket = rest.indexOf("( by");
             String desc = rest.substring(0, startBracket).trim();
-            String deadline = rest.substring(startBracket + 5, rest.length() - 2);
+            String deadline = rest.substring(startBracket + 5, rest.length() - 2).trim();
             LocalDateTime deadlineObj = parser.parseDateTime(deadline);
             Deadline newDead;
 
@@ -180,7 +181,7 @@ public class Storage {
             if (startDateObj != null && endDateObj != null) {
                 nextEvent = new Event(desc, startDateObj, endDateObj);
             } else {
-                nextEvent = new Event(desc, "from " + startDate, "to " + endDate);
+                nextEvent = new Event(desc, startDate, endDate);
             }
 
             if (status) {

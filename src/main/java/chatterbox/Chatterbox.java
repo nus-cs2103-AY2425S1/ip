@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
 import storage.Storage;
+import tags.TagList;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -35,8 +36,9 @@ public class Chatterbox {
         this.parser = new Parser();
         this.storage = new Storage(filepath);
         ArrayList<Task> loaded = new ArrayList<>();
+        TagList userTags = new TagList();
         try {
-            loaded = storage.load(parser);
+            storage.load(parser, loaded , userTags);
         } catch (FileNotFoundException e) {
             System.out.println("Error: No history file found at path");
         }

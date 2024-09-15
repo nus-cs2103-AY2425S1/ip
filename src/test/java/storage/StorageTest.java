@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
+import tags.TagList;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -61,7 +62,9 @@ public class StorageTest {
                     LocalDateTime.of(2024, 2, 1, 12, 00, 0)));
             testStorage.saveHistory(input);
 
-            ArrayList<Task> output = testStorage.load(testParser);
+            ArrayList<Task> output = new ArrayList<>();
+            TagList tags = new TagList();
+            testStorage.load(testParser, output, tags);
             assertEquals(input, output);
 
 

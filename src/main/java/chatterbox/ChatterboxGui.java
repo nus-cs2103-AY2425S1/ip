@@ -36,16 +36,16 @@ public class ChatterboxGui {
         this.parser = new Parser();
         this.storage = new Storage(filepath);
         this.userTags = new TagList();
-        ArrayList<Task> loaded = new ArrayList<>();
-
+        ArrayList<Task> loadedTask = new ArrayList<>();
+        TagList loadedTags = new TagList();
         try {
-            loaded = storage.load(parser);
+            storage.load(parser, loadedTask, loadedTags);
         } catch (FileNotFoundException e) {
             System.out.println("Error: No history file found at path");
         }
 
 
-        this.tasks = new TaskList(loaded);
+        this.tasks = new TaskList(loadedTask);
 
 
     }
@@ -59,15 +59,16 @@ public class ChatterboxGui {
         this.parser = new Parser();
         this.storage = new Storage();
         ArrayList<Task> loaded = new ArrayList<>();
-        this.userTags = new TagList();
+        TagList loadedTags = new TagList();
 
         try {
-            loaded = storage.load(parser);
+            storage.load(parser, loaded, loadedTags);
         } catch (FileNotFoundException e) {
             System.out.println("Error: No history file found at path");
         }
 
         this.tasks = new TaskList(loaded);
+        this.userTags = loadedTags;
 
     }
 
@@ -132,7 +133,7 @@ public class ChatterboxGui {
                 String[] parsed = parser.parseDeadline(input);
 
 
-                LocalDateTime deadlineDate = parser.parseDateTime(parsed[1].substring(2));
+                LocalDateTime deadlineDate = parser.parseDateTime(parsed[1]);
 
 
                 if (deadlineDate == null) {
@@ -153,7 +154,7 @@ public class ChatterboxGui {
                 System.out.println(eventParsed[1]);
                 System.out.println(eventParsed[2]);
                 LocalDateTime startDate = parser.parseDateTime(eventParsed[1]); //from 4
-                LocalDateTime endDate = parser.parseDateTime(eventParsed[2]);System.out.println("LDT 2 ok");
+                LocalDateTime endDate = parser.parseDateTime(eventParsed[2]);
                 if (startDate == null || endDate == null) {
 
                     tasks.addEvent(eventParsed[0].trim(), eventParsed[1], eventParsed[2]);
