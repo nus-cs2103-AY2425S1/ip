@@ -1,10 +1,12 @@
 package patrick.storage;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
 import patrick.storage.Storage.StorageOperationException;
+import patrick.tasklist.Task;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class StorageTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageTest";
 
@@ -17,6 +19,14 @@ public class StorageTest {
     public void load_invalidFormat_exceptionThrown() throws Exception {
         Storage storage = getStorage("InvalidData.txt");
         assertThrows(StorageOperationException.class, () -> storage.load());
+    }
+
+    @Test
+    public void testAddList_validTask() {
+        Task task = new Task("Sample Task");
+        Storage.addList(task);
+        assertEquals(1, Storage.getList().size());
+        assertEquals(task, Storage.getList().get(0));
     }
 
     private Storage getStorage(String fileName) throws Exception {

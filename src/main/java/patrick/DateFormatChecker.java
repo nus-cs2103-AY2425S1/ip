@@ -68,4 +68,17 @@ public class DateFormatChecker {
         }
         return "Unknown Format";
     }
+
+    public static boolean isValidDate(String date) {
+        for (String format : FORMATS) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+            try {
+                LocalDateTime.parse(date, formatter);
+                return true;
+            } catch (DateTimeException e) {
+                // Ignore and continue checking other formats
+            }
+        }
+        return false;
+    }
 }

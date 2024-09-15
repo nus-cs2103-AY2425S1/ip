@@ -31,6 +31,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Patrick The Star");
             fxmlLoader.<MainWindow>getController().setPatrick(patrick); // inject the Patrick instance
             stage.show();
         } catch (IOException e) {
