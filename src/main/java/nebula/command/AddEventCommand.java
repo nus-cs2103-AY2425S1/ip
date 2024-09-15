@@ -29,6 +29,7 @@ public class AddEventCommand extends Command {
 
         Task newEvent = new Event(taskDescriptionEvent, taskStart, taskEnd);
         String addedEvent = tasks.addTask(newEvent);
+
         System.out.println(addedEvent);
     }
 

@@ -22,8 +22,10 @@ public class AddDeadlineCommand extends Command {
         String taskInformation = Parser.splitCommandAndTaskDescription(command);
         String taskDescriptionDeadline = Parser.splitDeadlineCommand(taskInformation)[0];
         String taskDeadline = Parser.splitDeadlineCommand(taskInformation)[1];
+
         Task newDeadline = new Deadline(taskDescriptionDeadline, taskDeadline);
         String addedDeadline = tasks.addTask(newDeadline);
+
         System.out.println(addedDeadline);
     }
 
