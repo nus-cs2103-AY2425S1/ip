@@ -14,6 +14,7 @@ public class Parser {
      * @throws WinnerException If input does not match any known command or if there are issues with the input format.
      */
     public static String parseInput(String input, TaskList taskList) throws WinnerException {
+        assert taskList != null : "TaskList should not be null.";
         String msg = "";
         if (input.matches("(?i)hi|hello")) {
             //Ui.applyTemplate(Ui.hiAgain());
@@ -119,6 +120,7 @@ public class Parser {
         } else {
             throw new WinnerException("Oops sorry! I do not know what that means :(");
         }
+        assert msg != null && !msg.isEmpty() : "Message should not be null or empty.";
         return msg;
     }
 }
