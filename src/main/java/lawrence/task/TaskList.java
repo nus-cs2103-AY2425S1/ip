@@ -114,7 +114,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a {@link TaskList} containing tasks that match the given query.
+     * Returns a {@link TaskList} containing tasks with descriptions that match the given query.
      *
      * @param query the string to match task descriptions
      * @return a {@link TaskList} containing hits
