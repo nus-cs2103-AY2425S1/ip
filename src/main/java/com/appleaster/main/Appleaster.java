@@ -6,102 +6,59 @@ import com.appleaster.exception.AppleasterException;
 import com.appleaster.parser.Parser;
 import com.appleaster.storage.Storage;
 import com.appleaster.task.TaskList;
-import com.appleaster.ui.Ui;
-
-/**
- * The main class for the Appleaster application.
- * This class initializes the application and handles the main interaction loop.
- */
+import com.appleaster.task.Task;
 
 public class Appleaster {
-  private final Storage storage;
-  private TaskList tasks;
-  private final Ui ui;
+    private final Storage storage;
+    private TaskList tasks;
 
-    /**
-     * Constructs an Appleaster instance with the specified file path for storage.
-     *
-     * @param filePath The file path where tasks will be stored and loaded from.
-     */
     public Appleaster(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (AppleasterException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-    /**
-     * Starts the main interaction loop of the application.
-     * This method continuously processes user input until the exit command is given.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            ui.showLine();
-            try {
-                Command c = Parser.parseCommand(fullCommand);
-                isExit = executeCommand(c);
-            } catch (AppleasterException e) {
-                ui.showError(e.getMessage());
-            }
-            ui.showLine();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            return executeCommand(c);
+        } catch (AppleasterException e) {
+            return "Oops! " + e.getMessage();
         }
     }
 
-    /**
-     * Executes a command based on the parsed user input.
-     *
-     * @param c The Command object representing the user's input.
-     * @return true if the command is to exit the application, false otherwise.
-     * @throws AppleasterException If there's an error executing the command.
-     */
-    private boolean executeCommand(Command c) {
+    private String executeCommand(Command c) {
         try {
             switch (c.getType()) {
                 case LIST:
-                    tasks.listTasks();
-                    break;
+                    return tasks.getTaskListString();
                 case MARK:
                 case UNMARK:
                     tasks.markTask(c.getTaskIndex(), c.getType() == CommandType.MARK);
-                    break;
+                    return "Task " + (c.getTaskIndex() + 1) + " marked as " + (c.getType() == CommandType.MARK ? "done" : "not done");
                 case TODO:
                 case DEADLINE:
                 case EVENT:
                     tasks.addTask(c.getTask());
-                    break;
+                    return "Added: " + c.getTask().toString();
                 case DELETE:
-                    tasks.deleteTask(c.getTaskIndex());
-                    break;
+                    Task deletedTask = tasks.deleteTask(c.getTaskIndex());
+                    return "Deleted: " + deletedTask.toString();
                 case DATE:
-                    tasks.listTasksOnDate(c.getDate());
-                    break;
+                    return tasks.getTasksOnDateString(c.getDate());
                 case FIND:
-                    tasks.displayMatchingTasks(c.getKeyword());
-                break;                    
+                    return tasks.getMatchingTasksString(c.getKeyword());
                 case BYE:
                     storage.save(tasks.getTasks());
-                    ui.showGoodbye();
-                    return true;
+                    return "Goodbye! Remember, an apple a day keeps the doctor away, but I hope to see you sooner!";
+                default:
+                    return "I'm sorry, I don't understand that command.";
             }
         } catch (AppleasterException e) {
-            ui.showError(e.getMessage());
+            return "Oops! " + e.getMessage();
         }
-        return false;
-    }
-
-    /**
-     * The main entry point of the application.
-     *
-     * @param args Command line arguments (not used).
-     */    
-    public static void main(String[] args) {
-        new Appleaster("data/tasks.txt").run();
     }
 }

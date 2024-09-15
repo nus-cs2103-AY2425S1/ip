@@ -5,17 +5,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.appleaster.exception.AppleasterException;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks in the Appleaster application.
  * This class provides methods to add, delete, mark, and list tasks.
  */
 public class TaskList {
-  private static final DateTimeFormatter DATE_FORMATTER = 
-      DateTimeFormatter.ofPattern("MMM d yyyy");
-  private final List<Task> tasks;
+    private static final DateTimeFormatter DATE_FORMATTER = 
+        DateTimeFormatter.ofPattern("MMM d yyyy");
+    private final List<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -37,133 +36,140 @@ public class TaskList {
      * Adds a new task to the list.
      *
      * @param task The task to be added.
+     * @return A string describing the result of the operation.
      */
-  public void addTask(Task task) {
-    tasks.add(task);
-    System.out.println("Got it. I've added this task:");
-    System.out.println("  " + task);
-    System.out.printf("Now you have %d task%s in the list.%n", 
-        tasks.size(), tasks.size() == 1 ? "" : "s");
-  }
+    public String addTask(Task task) {
+        tasks.add(task);
+        return String.format("Got it. I've added this task:\n  %s\nNow you have %d task%s in the list.",
+            task, tasks.size(), tasks.size() == 1 ? "" : "s");
+    }
 
     /**
-     * Lists all tasks currently in the list.
+     * Gets a string representation of all tasks in the list.
+     *
+     * @return A string containing all tasks, or a message if the list is empty.
      */
-  public void listTasks() {
-    if (tasks.isEmpty()) {
-      System.out.println("Your task list is empty.");
-    } else {
-      System.out.println("Here are the tasks in your list:");
-      for (int i = 0; i < tasks.size(); i++) {
-        System.out.printf("%d.%s%n", i + 1, tasks.get(i));
-      }
-    }
-  }
-
-    public List<Task> findTasks(String keyword) {
-        List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-          if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-            matchingTasks.add(task);
-          }
+    public String getTaskListString() {
+        if (tasks.isEmpty()) {
+            return "Your task list is empty.";
+        } else {
+            StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                sb.append(String.format("%d.%s\n", i + 1, tasks.get(i)));
+            }
+            return sb.toString().trim();
         }
-        return matchingTasks;
+    }
+
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that match the keyword.
+     */
+    public List<Task> findTasks(String keyword) {
+        return tasks.stream()
+            .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+            .collect(Collectors.toList());
     }
     
-  /**
-   * Displays tasks that contain the given keyword in their description.
-   *
-   * @param keyword The keyword to search for.
-   */
-  public void displayMatchingTasks(String keyword) {
-    List<Task> matchingTasks = findTasks(keyword);
-    if (matchingTasks.isEmpty()) {
-      System.out.println("No matching tasks found.");
-    } else {
-      System.out.println("Here are the matching tasks in your list:");
-      for (int i = 0; i < matchingTasks.size(); i++) {
-        System.out.printf("%d.%s%n", i + 1, matchingTasks.get(i));
-      }
-    }
-  }    
+    /**
+     * Gets a string representation of tasks that match the given keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A string containing matching tasks, or a message if no tasks match.
+     */
+    public String getMatchingTasksString(String keyword) {
+        List<Task> matchingTasks = findTasks(keyword);
+        if (matchingTasks.isEmpty()) {
+            return "No matching tasks found.";
+        } else {
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                sb.append(String.format("%d.%s\n", i + 1, matchingTasks.get(i)));
+            }
+            return sb.toString().trim();
+        }
+    }    
 
     /**
      * Marks a task as done or not done.
      *
      * @param index The index of the task to be marked.
      * @param isDone True if the task should be marked as done, false otherwise.
+     * @return A string describing the result of the operation.
      * @throws AppleasterException If the index is invalid.
      */
-  public void markTask(int index, boolean isDone) throws AppleasterException {
-    if (index < 0 || index >= tasks.size()) {
-      throw new AppleasterException("Invalid task number.");
+    public String markTask(int index, boolean isDone) throws AppleasterException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new AppleasterException("Invalid task number.");
+        }
+        Task task = tasks.get(index);
+        task.setCompleted(isDone);
+        return String.format("Nice! I've marked this task as %s:\n  %s",
+            isDone ? "done" : "not done", task);
     }
-    Task task = tasks.get(index);
-    task.setCompleted(isDone);
-    System.out.printf("Nice! I've marked this task as %s:%n", 
-        isDone ? "done" : "not done");
-    System.out.println("  " + task);
-  }
 
     /**
      * Deletes a task from the list.
      *
      * @param index The index of the task to be deleted.
+     * @return The deleted task.
      * @throws AppleasterException If the index is invalid.
      */
-  public void deleteTask(int index) throws AppleasterException {
-    if (index < 0 || index >= tasks.size()) {
-      throw new AppleasterException("Invalid task number.");
+    public Task deleteTask(int index) throws AppleasterException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new AppleasterException("Invalid task number.");
+        }
+        return tasks.remove(index);
     }
-    Task deletedTask = tasks.remove(index);
-    System.out.println("Noted. I've removed this task:");
-    System.out.println("  " + deletedTask);
-    System.out.printf("Now you have %d task%s in the list.%n", 
-        tasks.size(), tasks.size() == 1 ? "" : "s");
-  }
 
     /**
      * Gets the number of tasks in the list.
      *
      * @return The number of tasks.
      */
-  public int getTaskCount() {
-    return tasks.size();
-  }
+    public int getTaskCount() {
+        return tasks.size();
+    }
 
     /**
-     * Lists all tasks scheduled for a specific date.
+     * Gets a string representation of all tasks scheduled for a specific date.
      *
      * @param date The date to filter tasks by.
+     * @return A string containing tasks on the specified date, or a message if no tasks are found.
      */
-  public void listTasksOnDate(LocalDate date) {
-    List<Task> tasksOnDate = new ArrayList<>();
-    for (Task task : tasks) {
-      if (task instanceof Deadline) {
-        Deadline deadline = (Deadline) task;
-        if (deadline.getBy().toLocalDate().equals(date)) {
-          tasksOnDate.add(task);
+    public String getTasksOnDateString(LocalDate date) {
+        List<Task> tasksOnDate = tasks.stream()
+            .filter(task -> {
+                if (task instanceof Deadline) {
+                    return ((Deadline) task).getBy().toLocalDate().equals(date);
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    return event.getFrom().toLocalDate().equals(date) 
+                        || event.getTo().toLocalDate().equals(date);
+                }
+                return false;
+            })
+            .collect(Collectors.toList());
+
+        if (tasksOnDate.isEmpty()) {
+            return "There are no tasks on " + date.format(DATE_FORMATTER);
+        } else {
+            StringBuilder sb = new StringBuilder("Here are the tasks on " + date.format(DATE_FORMATTER) + ":\n");
+            for (int i = 0; i < tasksOnDate.size(); i++) {
+                sb.append(String.format("%d.%s\n", i + 1, tasksOnDate.get(i)));
+            }
+            return sb.toString().trim();
         }
-      } else if (task instanceof Event) {
-        Event event = (Event) task;
-        if (event.getFrom().toLocalDate().equals(date) 
-            || event.getTo().toLocalDate().equals(date)) {
-          tasksOnDate.add(task);
-        }
-      }
     }
 
-    if (tasksOnDate.isEmpty()) {
-      System.out.println("There are no tasks on " + date.format(DATE_FORMATTER));
-    } else {
-      System.out.println("Here are the tasks on " + date.format(DATE_FORMATTER) + ":");
-      for (int i = 0; i < tasksOnDate.size(); i++) {
-        System.out.printf("%d.%s%n", i + 1, tasksOnDate.get(i));
-      }
+    /**
+     * Gets a copy of the task list.
+     *
+     * @return A new ArrayList containing all tasks.
+     */
+    public List<Task> getTasks() {
+        return new ArrayList<>(tasks);
     }
-  }
-
-  public List<Task> getTasks() {
-    return new ArrayList<>(tasks);
-  }
 }
