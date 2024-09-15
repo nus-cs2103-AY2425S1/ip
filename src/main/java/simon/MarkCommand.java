@@ -5,7 +5,7 @@ package simon;
  */
 public class MarkCommand implements Command {
     private int index;
-    private boolean mark;
+    private boolean isMarked;
     /**
      * Constructs a MarkCommand with the specified index and mark status.
      *
@@ -15,7 +15,7 @@ public class MarkCommand implements Command {
     public MarkCommand(boolean mark, int index) {
 
         this.index = index;
-        this.mark = mark;
+        this.isMarked = mark;
     }
     /**
      * Executes the command to mark or unmark a task in the task list.
@@ -27,9 +27,9 @@ public class MarkCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.markTask(mark, index);
+        taskList.markTask(isMarked, index);
         String s;
-        if (mark) {
+        if (isMarked) {
             s = ui.showTaskMarked(taskList.get(index));
         } else {
             s = ui.showTaskUnmarked(taskList.get(index));
