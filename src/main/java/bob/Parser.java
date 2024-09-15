@@ -68,6 +68,7 @@ public class Parser {
         boolean isDone = details[1].equals("1");
         String description = details[2];
 
+        assert type.equals("T") || type.equals("D") || type.equals("E") : "task type should be either T, D or E";
         switch (type) {
         case "T":
             return new ToDo(description, isDone);
@@ -129,7 +130,6 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws BobException {
         try {
-
             LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
             if (dateTime.isBefore(LocalDateTime.now())) {
                 throw new BobException("Oops! The date you provided is in the past. Kindly provide a future date.");
@@ -149,6 +149,7 @@ public class Parser {
      * @return The string representation of the date and time.
      */
     public static String getDateTimeStr(LocalDateTime dateTimeStr) {
+        assert dateTimeStr != null : "DateTime object should not be null.";
         return dateTimeStr.format(DATE_TIME_FORMATTER);
     }
 }
