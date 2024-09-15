@@ -32,8 +32,8 @@ inputting commands.
 
 ## Features
 
-❗ _Take note that all formatting for dates shown in this section
-reflected by <date> is in <yyyy-MM-dd HHmm> format._
+❗ *Take note that all formatting for dates shown in this section
+reflected by <date> is in <yyyy-MM-dd HHmm> format.*
 
 ### Adding Tasks
 
