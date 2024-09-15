@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.EchoException;
 import tasks.TaskList;
 
 /**
@@ -18,10 +19,20 @@ public class DeleteCommand {
      * @return A string confirming that the task has been deleted, along with the updated task list size.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
-    public static String run(String[] commandArray, TaskList allTasks)
-            throws IndexOutOfBoundsException {
-        int deleteIdx = Integer.parseInt(commandArray[1]) - 1;
-        return allTasks.delete(deleteIdx);
+    public static String run(String[] commandArray, TaskList allTasks) throws EchoException {
+        try {
+            int deleteIdx = Integer.parseInt(commandArray[1]) - 1;
+            return allTasks.delete(deleteIdx);
+        } catch (AssertionError e) {
+            String message = "";
+            if (allTasks.getSize() == 0) {
+                message = "Oops! There is no task in the list. ";
+            } else {
+                message = "There is only " + allTasks.getSize() + " tasks in the list. ";
+            }
+
+            throw new EchoException(message + "Please enter a valid index!");
+        }
     }
 
     /** Sends help information of command 'delete' to user */

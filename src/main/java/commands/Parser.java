@@ -52,8 +52,6 @@ public class Parser {
             throw new EchoException("Input Error: " + "\n" + e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new EchoException("Oops! You enter an invalid command.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new EchoException("Invalid index entered. " + "\n" + e.getMessage());
         } catch (AssertionError e) {
             throw new EchoException(e.getMessage());
         }

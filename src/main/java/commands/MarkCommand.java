@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.EchoException;
 import tasks.TaskList;
 
 /**
@@ -17,10 +18,15 @@ public class MarkCommand {
      * @return A string confirming that the task has been marked as done.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
-    public static String run(String[] commandArray, TaskList allTasks)
-            throws IndexOutOfBoundsException {
-        int markIdx = Integer.parseInt(commandArray[1]) - 1;
-        return allTasks.markTask(markIdx);
+    public static String run(String[] commandArray, TaskList allTasks) throws EchoException {
+        try {
+            int markIdx = Integer.parseInt(commandArray[1]) - 1;
+            return allTasks.markTask(markIdx);
+
+        } catch (IllegalArgumentException e) {
+            throw new EchoException("There is only " + allTasks.getSize()
+                    + " tasks in the list. Please enter a valid index.");
+        }
     }
 
     /** Sends help information of command 'mark' to user */

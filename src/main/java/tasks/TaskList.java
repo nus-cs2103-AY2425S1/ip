@@ -37,10 +37,9 @@ public class TaskList implements Serializable {
      *
      * @param index index of target Task object.
      * @return A string confirming that the task has been marked as done.
-     * @throws IndexOutOfBoundsException if index is out of bound.
      */
-    public String markTask(int index) throws IndexOutOfBoundsException {
-        assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
+    public String markTask(int index) {
+        assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         Task task = this.allTasks.get(index);
         task.setMark();
         return "Nice! I've marked this task as done:\n\t" + task;
@@ -51,10 +50,9 @@ public class TaskList implements Serializable {
      *
      * @param index index of target Task object.
      * @return A string confirming that the task has been marked as not done.
-     * @throws IndexOutOfBoundsException if index is out of bound.
      */
-    public String unmarkTask(int index) throws IndexOutOfBoundsException {
-        assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
+    public String unmarkTask(int index) {
+        assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         Task task = this.allTasks.get(index);
         task.setUnmark();
         return "OK, I've marked this task as not done yet:\n\t" + task;
@@ -65,10 +63,9 @@ public class TaskList implements Serializable {
      *
      * @param index index of target Task object.
      * @return A string confirming that the task has been tag as not done.
-     * @throws IndexOutOfBoundsException if index is out of bound.
      */
-    public String tagTask(int index, String tag) throws IndexOutOfBoundsException {
-        assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
+    public String tagTask(int index, String tag) {
+        assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         Task task = this.allTasks.get(index);
         task.setTag(tag);
         return "OK, I've tag this task:\n\t" + task;
@@ -91,10 +88,9 @@ public class TaskList implements Serializable {
      *
      * @param index index of target Task object.
      * @return A string confirming that the task was deleted, along with the number of remaining tasks in the list.
-     * @throws IndexOutOfBoundsException if index is out of bound.
      */
-    public String delete(int index) throws IndexOutOfBoundsException {
-        assert index >= 0 && index <= allTasks.size() - 1 : " Index should be in proper range";
+    public String delete(int index) {
+        assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         String message = "Noted. I've removed this task:" + "\n";
         Task t = allTasks.get(index);
         // Remove the task from list and return the size of list
@@ -119,6 +115,10 @@ public class TaskList implements Serializable {
             }
         }
 
+        if (result.isEmpty()) {
+            return "Sorry, there is no tasks contains keywords '" + keywords + "' in the list.";
+        }
+
         // print search result
         String tasks = "";
         for (int i = 0; i < result.size(); i++) {
@@ -127,6 +127,10 @@ public class TaskList implements Serializable {
         }
 
         return "Here are the matching tasks in your list:" + "\n" + tasks;
+    }
+
+    public int getSize() {
+        return this.allTasks.size();
     }
 
     @Override
