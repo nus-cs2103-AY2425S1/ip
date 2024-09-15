@@ -37,12 +37,10 @@ public class DeleteCommand {
 
     /** Sends help information of command 'delete' to user */
     public static String getHelpMessage() {
-        return "Greet and Bye message from EchoBot: \n"
-                + "\t hi \t\t send greet message to users \n"
-                + "\t bye \t send goodbye message to users and exit\n"
+        return "Delete a task from task list \n\n"
                 + "Format:\n"
-                + "\t hi\n"
-                + "\t bye\n"
-                + "with no whitespace.";
+                + "\t delete<whitespace>[index]\n"
+                + "- [index] is the index of task you want to delete.\n\n"
+                + "Remark: Please enter only one whitespace and correct index.";
     }
 }
