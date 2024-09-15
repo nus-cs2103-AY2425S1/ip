@@ -25,9 +25,10 @@ public abstract class Command {
    * @param tasks   The TaskList containing all tasks.
    * @param ui      The Ui object to handle user interactions.
    * @param storage The Storage object to handle file operations.
+   * @return
    * @throws EliException If any error occurs during command execution.
    */
-  public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EliException;
+  public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws EliException;
 
   /**
    * Returns whether this command is an exit command.

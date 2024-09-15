@@ -11,9 +11,12 @@ public class ListCommand extends Command {
 
   /**
    * Constructor for ListCommand.
+   *
+   * @return
    */
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
+  public String execute(TaskList tasks, Ui ui, Storage storage) {
     tasks.list();
+    return Ui.displayAfterListTask(tasks);
   }
 }

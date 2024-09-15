@@ -41,9 +41,7 @@ public class TaskList {
   public void addTask(Task task) {
     if (tasks.size() < 100) {
       tasks.add(task);
-      System.out.println("____________________________________________________________");
       System.out.println(" added: " + task);
-      System.out.println("____________________________________________________________");
 
     } else {
       System.out.println("Task list is full!!!");
@@ -54,12 +52,14 @@ public class TaskList {
    * Lists a task from the task list.
    */
   public void list() {
-    System.out.println("____________________________________________________________");
     System.out.println(" Here are the tasks in your list:");
     for (int i = 0; i < tasks.size(); i++) {
       System.out.println((i + 1) + ". " + tasks.get(i));
     }
-    System.out.println("____________________________________________________________");
+  }
+
+  public ArrayList getArrayList() {
+    return tasks;
   }
 
   /**
@@ -69,10 +69,8 @@ public class TaskList {
    */
   public void mark(int taskIdx) {
     tasks.get(taskIdx - 1).changeDoneStatus(true);
-    System.out.println("____________________________________________________________");
     System.out.println(" Great job!");
     System.out.println("   " + tasks.get(taskIdx - 1));
-    System.out.println("____________________________________________________________");
   }
 
   /**
@@ -82,10 +80,8 @@ public class TaskList {
    */
   public void unmark(int taskIdx) {
     tasks.get(taskIdx - 1).changeDoneStatus(false);
-    System.out.println("____________________________________________________________");
     System.out.println(" OK, I've marked this task as not done yet:");
     System.out.println("   " + tasks.get(taskIdx - 1));
-    System.out.println("____________________________________________________________");
 
   }
 

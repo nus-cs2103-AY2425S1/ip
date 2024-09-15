@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("eli.Eli")
+    mainClass.set("scenebuilder.Launcher")
 }
 
 shadowJar {

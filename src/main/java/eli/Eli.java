@@ -60,4 +60,9 @@ public class Eli {
     Eli eli = new Eli("data/eli.txt");
     eli.run();
   }
+
+  public String getResponse(String text) throws EliException {
+    Command command = Parser.parse(text);
+    return command.execute(tasks, ui, storage);
+  }
 }

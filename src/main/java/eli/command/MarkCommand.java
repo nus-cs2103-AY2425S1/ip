@@ -17,10 +17,13 @@ public class MarkCommand extends Command {
 
   /**
    * Constructor for MarkCommand.
+   *
+   * @return
    */
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
+  public String execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
     tasks.mark(index);
     storage.save(tasks);
+    return Ui.displayAfterMarkTask(tasks, index);
   }
 }

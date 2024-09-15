@@ -22,8 +22,10 @@ public class AddCommand extends Command {
   }
 
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
+  public String execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
     tasks.addTask(task);
     storage.save(tasks);
+    return Ui.displayAfterAddTask(task);
+
   }
 }
