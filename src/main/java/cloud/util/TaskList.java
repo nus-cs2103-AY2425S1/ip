@@ -4,28 +4,36 @@ import java.util.ArrayList;
 
 import cloud.task.Task;
 
+
+/**
+ * Manages a list of tasks.
+ * Allows adding, removing, marking, and finding of tasks.
+ */
 public class TaskList {
 
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Add a task to the end of the list
+     * Adds a task to the end of the list.
      *
-     * @param task cloud.task.Task object to be added
+     * @param task The task object to be added
      */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
     /**
-     * Remove a task from the list
+     * Removes a task from the list.
      *
-     * @param taskId index of the task
-     * @return the deleted Task
+     * @param taskId The index of the task
+     * @return The deleted Task
      */
     public Task delete(int taskId) {
         Task deletedTask = this.tasks.remove(taskId - 1);
@@ -33,7 +41,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as done
+     * Marks a task as done.
      *
      * @param taskId Index of the task to be marked
      */
@@ -42,7 +50,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as not done
+     * Marks a task as not done.
      *
      * @param taskId Index of the task to be unmarked
      */
@@ -51,7 +59,7 @@ public class TaskList {
     }
 
     /**
-     * Get the current status of a task
+     * Gets the current status of a task.
      *
      * @param taskId index of the task
      * @return a string representation of the task
@@ -61,7 +69,7 @@ public class TaskList {
     }
 
     /**
-     * Get the status of the last added task
+     * Gets the status of the last added task.
      *
      * @return String representation of the task
      */
@@ -73,7 +81,7 @@ public class TaskList {
     }
 
     /**
-     * Get the total number of tasks
+     * Gets the total number of tasks.
      *
      * @return Count of all marked and unmarked tasks
      */
@@ -82,7 +90,7 @@ public class TaskList {
     }
 
     /**
-     * Get a task from the list
+     * Gets a task from the list.
      *
      * @param index index of the task
      * @return the requested task object
@@ -91,23 +99,51 @@ public class TaskList {
         return this.tasks.get(index);
     }
 
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for
+     * @return A TaskList containing the found tasks
+     */
     public TaskList find(String keyword) {
-        TaskList tasks = new TaskList();
+        TaskList matchingTasks = new TaskList();
         for (Task task : this.tasks) {
-            if (task.getDescription().contains(keyword)) {
-                tasks.add(task);
+            if (taskContainsKeyword(task, keyword)) {
+                matchingTasks.add(task);
             }
         }
-        return tasks;
+        return matchingTasks;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        int nTasks = getTaskCount();
-        for (int index = 0; index < nTasks; index++) {
-            sb.append(String.format("%d: %s\n", index + 1, tasks.get(index)));
+        int index = 1;
+        for (Task task : tasks) {
+            sb.append(formatTaskWithIndex(index, task));
         }
         return sb.toString();
+    }
+
+    /**
+     * Checks if a task's description contains the keyword.
+     *
+     * @param task The task to check
+     * @param keyword The keyword to search for
+     * @return True if the task description contains the keyword
+     */
+    private boolean taskContainsKeyword(Task task, String keyword) {
+        return task.getDescription().contains(keyword);
+    }
+
+    /**
+     * Formats a task with its index.
+     *
+     * @param index The index of the task in the list (indexed from 1)
+     * @param task The task to be formatted
+     * @return A formatted string for the task with its index
+     */
+    private String formatTaskWithIndex(int index, Task task) {
+        return String.format("%d: %s\n", index, task.toString());
     }
 }
