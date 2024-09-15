@@ -1,14 +1,23 @@
 package janet;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeadlineTest {
+
+    @BeforeAll
+    public static void setUp() {
+        Locale.setDefault(new Locale("en", "SG"));
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
+    }
 
     public static boolean equals(Deadline d1, Deadline d2) {
         if (d2 == d1) {
