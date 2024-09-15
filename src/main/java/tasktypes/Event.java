@@ -31,4 +31,8 @@ public class Event extends Task{
     public String getClassName() {
         return TaskName.EVENT.getName();
     }
+    
+    public LocalDate getStartDate() {
+        return this.start;
+    }
 }

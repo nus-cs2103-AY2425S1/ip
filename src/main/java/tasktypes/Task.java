@@ -101,4 +101,8 @@ public class Task {
     public String getClassName() {
         return "";
     }
+    
+    public LocalDate getStartDate() {
+        return LocalDate.MAX;
+    }
 }

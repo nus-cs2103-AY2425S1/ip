@@ -2,11 +2,19 @@ package utility;
 
 import tasktypes.Task;
 
+import tasktypes.TaskName;
+
 import exception.AlphaException;
 
 import java.util.ArrayList;
 
+import java.util.List;
 import java.util.regex.Pattern;
+
+import java.util.Comparator;
+
+import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 /**
  * The {@code TaskList} class manages a list of tasks, providing functionality to
@@ -145,8 +153,18 @@ public class TaskList {
         return result;
     }
     
-//    public ArrayList<Task> sortTaskList() {
-//        this.tasks.filter(TypeO)
-//    }
-//
+    public void sortTaskList() {
+        tasks.sort(Comparator.comparing(Task::getStartDate));
+    }
+    
+    public TaskList giveReminder() throws AlphaException {
+        LocalDate today = LocalDate.now();
+        LocalDate oneWeekFromNow = today.plusWeeks(1);
+        
+        List<Task> reminderTasks = tasks.stream()
+                .filter(task -> task.getStartDate().isBefore(oneWeekFromNow.plusDays(1)))
+                .collect(Collectors.toList());
+        
+        return new TaskList(new ArrayList<>(reminderTasks));
+    }
 }

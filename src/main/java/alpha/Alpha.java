@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class Alpha {
     
@@ -34,6 +35,10 @@ public class Alpha {
             response.append(ui.byeMessage());
         } else if (input.equalsIgnoreCase(Commands.LIST.getCommand())) {
             response.append(ui.listTask(tasks));
+        } else if (input.equalsIgnoreCase(Commands.SORT.getCommand())) {
+            this.tasks.sortTaskList();
+            storage.synchronizeTasks(tasks.getTaskLists());
+            response.append(ui.sortTaskMessage());
         } else if (inputCommand.equalsIgnoreCase(Commands.FIND.getCommand())) {
             String searchParam = Parser.excludeFirstWord(input);
             ArrayList<Task> searchResult = tasks.findLists(searchParam);
@@ -102,5 +107,17 @@ public class Alpha {
     
     public String getResponse(String input) {
         return processInput(input);
+    }
+    
+    public String taskReminder() {
+        StringBuilder response = new StringBuilder();
+        try {
+            TaskList reminderTaskList = this.tasks.giveReminder();
+            String reminderMessage = ui.reminderMessage(reminderTaskList.listWord());
+            response.append(reminderMessage);
+        } catch (AlphaException e) {
+            response.append("No Reminders to Give");
+        }
+        return response.toString();
     }
 }

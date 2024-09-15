@@ -27,4 +27,8 @@ public class Deadline extends Task {
     public String getClassName() {
         return TaskName.DEADLINE.getName();
     }
+    
+    public LocalDate getStartDate() {
+        return this.by;
+    }
 }
