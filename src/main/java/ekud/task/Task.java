@@ -1,7 +1,9 @@
 package ekud.task;
 
 import java.util.HashMap;
+import java.util.Locale;
 
+import ekud.components.Parser;
 import ekud.components.TaskList;
 import ekud.exceptions.EkudException;
 import ekud.ui.Ui;
@@ -14,11 +16,59 @@ import ekud.ui.Ui;
  * @author uniqly
  */
 public abstract class Task {
+    /**
+     * Represents the priority of the task.
+     */
+    public enum Priority {
+        HIGH, LOW;
+
+        private boolean isCorrectKeyword(String keyword) throws EkudException {
+            String emptyKeywordResponse = """
+                    You've got to be kidding me! Seriously? You put nothing as the priority.
+                    You could have input 'low' or 'high' but choose to put nothing! wow.""";
+
+            if (keyword == null) {
+                throw new EkudException(emptyKeywordResponse);
+            }
+
+            String upperCase = keyword.toUpperCase(Locale.ENGLISH);
+            return this.toString().equals(upperCase);
+        }
+
+        /**
+         * Returns the {@link Priority} that corresponds with the input {@link String}.
+         * @param type The input string that represents type of priority.
+         * @return The {@link Priority} corresponding to the type.
+         * @throws EkudException If the type is invalid.
+         */
+        public static Priority getPriority(String type) throws EkudException {
+            String errorResponseFormat = """
+                    Look at mister smarty pants over here telling me "I want '%s' priority".
+                    Do you realise how insane you sound? Just to let you know there is only
+                    'high' or 'low' priority.""";
+
+            if (HIGH.isCorrectKeyword(type)) {
+                return HIGH;
+            } else if (LOW.isCorrectKeyword(type)) {
+                return LOW;
+            } else {
+                throw new EkudException(String.format(errorResponseFormat, type));
+            }
+        }
+    }
+
+    private static final String PRINT_FORMAT_LOW_PRIORITY = "[%s] %s";
+    private static final String PRINT_FORMAT_HIGH_PRIORITY = "[%s] %s *HIGH PRIORITY*";
+    private static final String SAVE_FORMAT = "%d | %s | %s";
+
     /** The description of the task */
     protected String description;
 
     /** Boolean flag of the completion status */
     protected boolean isDone;
+
+    /** priority of the task */
+    protected Priority priority;
 
     /**
      * Constructs an abstract Task containing only a description.
@@ -32,6 +82,7 @@ public abstract class Task {
         }
         this.description = description;
         isDone = false;
+        priority = Priority.LOW;
     }
 
     /**
@@ -55,17 +106,19 @@ public abstract class Task {
 
             String type = args[0];
             boolean isDone = args[1].equals("1");
+            Priority priority = Priority.getPriority(args[2]);
             // CHECKSTYLE.OFF: Indentation
             Task task = switch (type) {
-                case "T" -> new TodoTask(args[2]);
-                case "D" -> new DeadlineTask(args[2], args[3]);
-                case "E" -> new EventTask(args[2], args[3], args[4]);
+                case "T" -> new TodoTask(args[3]);
+                case "D" -> new DeadlineTask(args[3], args[4]);
+                case "E" -> new EventTask(args[3], args[4], args[5]);
                 default -> null;
             };
             // CHECKSTYLE.ON: Indentation
 
             if (task != null) {
                 task.isDone = isDone;
+                task.priority = priority;
             }
 
             return task;
@@ -91,18 +144,39 @@ public abstract class Task {
     public static Task getTaskFromTokens(HashMap<String, String> tokens) throws EkudException {
         assert tokens != null : "tokens should not be null";
 
-        String type = tokens.get("command").toLowerCase();
-        String argument = tokens.get("argument");
+        String invalidTypeErrorMessage = "Wow! What is this is type of task?"
+                + "\n I'm not sure how to process this";
+
+        String type = tokens.get(Parser.COMMAND_TOKEN).toLowerCase();
+        String description = tokens.get(Parser.ARGUMENT_TOKEN);
 
         // CHECKSTYLE.OFF: Indentation
         return switch (type) {
-            case "todo" -> new TodoTask(argument);
-            case "deadline" -> new DeadlineTask(argument, tokens.get("/by"));
-            case "event" -> new EventTask(argument, tokens.get("/from"), tokens.get("/to"));
-            default -> throw new EkudException("Wow! What is this type of ekud.task?"
-                    + "\nI'm not sure how to process this");
+            case "todo" -> new TodoTask(description);
+            case "deadline" -> new DeadlineTask(description, tokens.get(DeadlineTask.BY_TOKEN));
+            case "event" -> new EventTask(description, tokens.get(EventTask.FROM_TOKEN),
+                    tokens.get(EventTask.TO_TOKEN));
+            default -> throw new EkudException(invalidTypeErrorMessage);
         };
         // CHECKSTYLE.ON: Indentation
+    }
+
+    /**
+     * Returns the {@link #description} of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns the {@link #priority} of the task.
+     *
+     * @return The priority of the task.
+     */
+    public Priority getPriority() {
+        return priority;
     }
 
     /**
@@ -121,7 +195,17 @@ public abstract class Task {
      */
     public String getSaveTaskString() {
         int statusInt = (isDone ? 1 : 0);
-        return String.format("%d | %s", statusInt, description);
+        return String.format(SAVE_FORMAT, statusInt, priority.toString(), description);
+    }
+
+    /**
+     * Sets {@link #priority} based on a given {@link Priority}.
+     * @param priority the {@link Priority} to set.
+     */
+    public void setPriority(Priority priority) {
+        assert priority != null : "priority should not be null";
+
+        this.priority = priority;
     }
 
     /**
@@ -134,12 +218,39 @@ public abstract class Task {
     }
 
     /**
+     * Returns {@code true} if {@link #priority} is {@link Priority#HIGH}.
+     *
+     * @return if the task is high priority.
+     */
+    public boolean isHighPriority() {
+        return priority == Priority.HIGH;
+    }
+
+
+    /**
      * Returns the status icon for the task; "X" if completed, else " ".
      *
      * @return Status icon {@link String}.
      */
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns a label corresponding to the {@link #priority} of the task. If {@link Priority#LOW} return the
+     * empty String.
+     *
+     * @return a {@link String} label corresponding to the priority of the task.
+     */
+    private String getPriorityLabel() {
+        assert priority != null : "priority should not be null";
+
+        return switch (priority) {
+            // CHECKSTYLE.OFF: Indentation
+            case HIGH -> "(HIGH PRIORITY)";
+            case LOW -> "";
+            // CHECKSTYLE.ON: Indentation
+        };
     }
 
     /**
@@ -178,6 +289,10 @@ public abstract class Task {
     @Override
     public String toString() {
         // formats ekud.task as "[statusIcon] description"
-        return String.format("[%s] %s", getStatusIcon(), description);
+        if (isHighPriority()) {
+            return String.format(PRINT_FORMAT_HIGH_PRIORITY, getStatusIcon(), description);
+        } else {
+            return String.format(PRINT_FORMAT_LOW_PRIORITY, getStatusIcon(), description);
+        }
     }
 }

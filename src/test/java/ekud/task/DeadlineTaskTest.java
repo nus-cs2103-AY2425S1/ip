@@ -62,10 +62,13 @@ public class DeadlineTaskTest {
         try {
             Task t = new DeadlineTask("task name", "1/1/2024 0000");
             // incomplete task
-            assertEquals("D | 0 | task name | 1/1/2024 0000", t.getSaveTaskString());
+            assertEquals("D | 0 | LOW | task name | 1/1/2024 0000", t.getSaveTaskString());
             t.markAsDone();
             // complete task
-            assertEquals("D | 1 | task name | 1/1/2024 0000", t.getSaveTaskString());
+            assertEquals("D | 1 | LOW | task name | 1/1/2024 0000", t.getSaveTaskString());
+            t.setPriority(Task.Priority.HIGH);
+            // set high priority
+            assertEquals("D | 1 | HIGH | task name | 1/1/2024 0000", t.getSaveTaskString());
         } catch (EkudException e) {
             fail("Valid deadline task construction failed");
         }
@@ -80,6 +83,10 @@ public class DeadlineTaskTest {
             t.markAsDone();
             // complete task
             assertEquals("[D][X] task name (by: Jan 01 2024, 12:00 AM)", t.toString());
+            t.setPriority(Task.Priority.HIGH);
+            // complete task
+            assertEquals("[D][X] task name *HIGH PRIORITY* (by: Jan 01 2024, 12:00 AM)",
+                    t.toString());
         } catch (EkudException e) {
             fail("Valid todo task construction failed");
         }

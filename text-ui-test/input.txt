@@ -11,6 +11,24 @@ list
 unmark 400
 unmark 1
 list
+set
+set 1 /priority high
+list
+set 1 /priority bye
+set 100 /priority low
+set 1 /priority low
+list
+sort /by description
+sort /by description /order descending
+mark 1
+mark 2
+set 3 /priority high
+sort /by completion
+sort /by completion /order descending
+sort /by priority
+sort /by priority /order descending
+sort /by deadline
+sort /by deadline /order descending
 todo
 deadline homework
 deadline homework /by 8 Aug
@@ -24,4 +42,10 @@ list
 mark 2
 delete 1
 delete 1
+event test app /from 1/1/2024 0000 /to 12/12/2024 2359
+todo check save
+deadline things to do /by 1/1/2025 0000
+set 2 /priority high
+mark 1
+sort /by description /descending
 bye

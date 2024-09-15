@@ -204,4 +204,28 @@ public class Storage {
             ui.addFormattedToBuffer(updateErrorResponseFormat, e.getMessage());
         }
     }
+
+    /**
+     * Overrides {@link #dataFile} with a new list of tasks.
+     *
+     * @param tasks The new items in the save file.
+     * @param ui The {@link Ui} to print output to.
+     */
+    public void overwriteTasks(TaskList tasks, Ui ui) {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : tasks) {
+            sb.append(task.getSaveTaskString()).append("\n");
+        }
+
+        try {
+            FileWriter writer = new FileWriter(dataFile);
+            writer.write(sb.toString());
+            writer.close();
+        } catch (IOException e) {
+            String errorFormat = """
+                    Ouch! There was an error while trying to overwrite your save!
+                      ERROR: %s""";
+            ui.addFormattedToBuffer(errorFormat, e.getMessage());
+        }
+    }
 }

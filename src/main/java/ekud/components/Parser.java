@@ -9,6 +9,8 @@ import ekud.commands.ExitCommand;
 import ekud.commands.FindCommand;
 import ekud.commands.ListCommand;
 import ekud.commands.MarkCommand;
+import ekud.commands.SetPriorityCommand;
+import ekud.commands.SortCommand;
 import ekud.commands.UnmarkCommand;
 import ekud.exceptions.EkudException;
 import ekud.task.Task;
@@ -17,8 +19,8 @@ import ekud.task.Task;
  * The Parser of user inputs to {@link Command Commands}.
  */
 public class Parser {
-    private static final String COMMAND_TOKEN = "command";
-    private static final String ARGUMENT_TOKEN = "argument";
+    public static final String COMMAND_TOKEN = "command";
+    public static final String ARGUMENT_TOKEN = "argument";
     private static final String TOKEN_PREFIX = "/";
 
     /**
@@ -93,6 +95,10 @@ public class Parser {
             case DELETE -> new DeleteCommand(parseInt(argument) - 1);
             case MARK -> new MarkCommand(parseInt(argument) - 1);
             case UNMARK -> new UnmarkCommand(parseInt(argument) - 1);
+            case SET -> new SetPriorityCommand(parseInt(argument) - 1,
+                    tokenMap.get(SetPriorityCommand.PRIORITY_TOKEN));
+            case SORT -> new SortCommand(tokenMap.get(SortCommand.BY_TOKEN),
+                    tokenMap.get(SortCommand.ORDER_TOKEN));
             case LIST -> new ListCommand();
             case FIND -> new FindCommand(argument);
             case EXIT -> new ExitCommand();

@@ -12,7 +12,9 @@ import ekud.exceptions.EkudException;
  *
  * @author uniqly
  */
-public class DeadlineTask extends Task {
+public class DeadlineTask extends Task implements IHasDeadline {
+    public static final String BY_TOKEN = "/by";
+
     /** The {@link LocalDateTime} format when parsing input date Strings */
     private static final DateTimeFormatter READ_DATE_FORMAT =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
@@ -53,6 +55,11 @@ public class DeadlineTask extends Task {
         } catch (DateTimeParseException e) {
             throw new EkudException(WRONG_DATE_FORMAT_MESSAGE);
         }
+    }
+
+    @Override
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 
     @Override

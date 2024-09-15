@@ -1,10 +1,12 @@
 package ekud.components;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import ekud.exceptions.EkudException;
 import ekud.task.Task;
+import ekud.ui.Ui;
 
 /**
  * Represents a list of {@link Task}.
@@ -105,6 +107,19 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Sorts {@link #tasks} with a given {@link Comparator}.
+     * @param comparator The comparator to sort the list with.
+     * @param isAscending The order in which to sort the list.
+     */
+    public void sortWith(Comparator<Task> comparator, boolean isAscending) {
+        if (!isAscending) {
+            tasks.sort(comparator.reversed());
+            return;
+        }
+        tasks.sort(comparator);
+    }
+
+    /**
      * Adds a task to the list.
      *
      * @param task The {@link Task} to add.
@@ -135,5 +150,20 @@ public class TaskList implements Iterable<Task> {
     public Task getTask(int index) throws EkudException {
         checkTask(index);
         return tasks.get(index);
+    }
+
+    /**
+     * Adds all tasks in order to be displayed by the ui.
+     *
+     * @param ui The {@link Ui} to display the tasks to.
+     */
+    public void outputContentsToUi(Ui ui) {
+        String responseTaskFormat = " %d. %s";
+
+        int i = 1;
+        for (Task task : tasks) {
+            ui.addFormattedToBuffer(responseTaskFormat, i, task.toString());
+            i++;
+        }
     }
 }

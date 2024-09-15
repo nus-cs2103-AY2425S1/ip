@@ -22,10 +22,14 @@ public class TodoTaskTest {
         try {
             Task t = new TodoTask("task name");
             // incomplete task
-            assertEquals("T | 0 | task name", t.getSaveTaskString());
+            assertEquals("T | 0 | LOW | task name", t.getSaveTaskString());
             t.markAsDone();
             // complete task
-            assertEquals("T | 1 | task name", t.getSaveTaskString());
+            assertEquals("T | 1 | LOW | task name", t.getSaveTaskString());
+            t.setPriority(Task.Priority.HIGH);
+            // set priority
+            assertEquals("T | 1 | HIGH | task name", t.getSaveTaskString());
+
         } catch (EkudException e) {
             fail("Valid todo task construction failed");
         }
@@ -40,6 +44,9 @@ public class TodoTaskTest {
             t.markAsDone();
             // complete task
             assertEquals("[T][X] task name", t.toString());
+            t.setPriority(Task.Priority.HIGH);
+            // set high priority
+            assertEquals("[T][X] task name *HIGH PRIORITY*", t.toString());
         } catch (EkudException e) {
             fail("Valid todo task construction failed");
         }

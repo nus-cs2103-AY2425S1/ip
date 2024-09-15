@@ -28,9 +28,9 @@
 
 	_____________________________________________________________
 	 Look at all these tasks:
-	 1. [T][ ] read book
-	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
-	 3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  1. [T][ ] read book
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -59,9 +59,9 @@
 
 	_____________________________________________________________
 	 Look at all these tasks:
-	 1. [T][X] read book
-	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
-	 3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  1. [T][X] read book
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -80,9 +80,126 @@
 
 	_____________________________________________________________
 	 Look at all these tasks:
-	 1. [T][ ] read book
-	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
-	 3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  1. [T][ ] read book
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Now look what you've done!!
+	 I thought it was obvious... But '' is clearly not an Integer!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Thank me later! I've changed the priority of your task:
+	   [T][ ] read book *HIGH PRIORITY*
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [T][ ] read book *HIGH PRIORITY*
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at mister smarty pants over here telling me "I want 'bye' priority".
+	 Do you realise how insane you sound? Just to let you know there is only
+	 'high' or 'low' priority.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whats this? You tried an invalid list index!?
+	 Pfft... That's so hilarious!
+	 Lemme spell it out for ya.
+	 Your number must be between 1 and 3 and clearly 100 isn't
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Thank me later! I've changed the priority of your task:
+	   [T][ ] read book
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [T][ ] read book
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [T][ ] read book
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [T][ ] read book
+	  3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Wowie!! You've completed your task!
+	 I shall mark it as complete in celebration!
+	   [D][X] return book (by: Jun 06 2024, 12:00 PM)
+	 Woohoo!! Only 2 out of 3 tasks more to go!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Wowie!! You've completed your task!
+	 I shall mark it as complete in celebration!
+	   [T][X] read book
+	 Woohoo!! Only 1 out of 3 tasks more to go!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Thank me later! I've changed the priority of your task:
+	   [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [D][X] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [T][X] read book
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [D][X] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [T][X] read book
+	  3. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [D][X] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [T][X] read book
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [D][X] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [T][X] read book
+	  3. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [D][X] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  3. [T][X] read book
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [T][X] read book
+	  2. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  3. [D][X] return book (by: Jun 06 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -112,47 +229,47 @@
 
 	_____________________________________________________________
 	 added: [E][ ] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
-	 And another one; 4 out of 4 tasks to complete...
+	 And another one; 2 out of 4 tasks to complete...
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Wowie!! You've completed your task!
 	 I shall mark it as complete in celebration!
 	   [T][X] read book
-	 Woohoo!! Only 3 out of 4 tasks more to go!
+	 Woohoo!! Only 2 out of 4 tasks more to go!
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Great work on completing your task!
 	 Proceeding with ekud.task removal directive...
 	   deleted: [T][X] read book
-	 Now get a move on, you have 3 out of 3 incomplete tasks remaining!
+	 Now get a move on, you have 2 out of 3 incomplete tasks remaining!
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 I'm going to assume that task wasn't meant to be there...
 	 Proceeding with ekud.task removal directive...
-	   deleted: [D][ ] return book (by: Jun 06 2024, 12:00 PM)
-	 Now get a move on, you have 2 out of 2 incomplete tasks remaining!
+	   deleted: [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	 Now get a move on, you have 1 out of 2 incomplete tasks remaining!
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Look at all these tasks:
-	 1. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	 2. [E][ ] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
+	  1. [D][X] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [E][ ] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Wowie!! You've completed your task!
 	 I shall mark it as complete in celebration!
 	   [E][X] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
-	 Woohoo!! Only 1 out of 2 tasks more to go!
+	 WOOHOO!! YOU DID IT! Everything is complete!! All 2 of them!
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 I'm going to assume that task wasn't meant to be there...
+	 Great work on completing your task!
 	 Proceeding with ekud.task removal directive...
-	   deleted: [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	   deleted: [D][X] return book (by: Jun 06 2024, 12:00 PM)
 	 I've ran the numbers, and it says that all 1 tasks are complete!
 	_____________________________________________________________
 
@@ -161,6 +278,40 @@
 	 Proceeding with ekud.task removal directive...
 	   deleted: [E][X] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
 	 Well, looks like there is nothing left for you do!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 added: [E][ ] test app (from: Jan 01 2024, 12:00 AM to: Dec 12 2024, 11:59 PM)
+	 And another one; 1 out of 1 tasks to complete...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 added: [T][ ] check save
+	 And another one; 2 out of 2 tasks to complete...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 added: [D][ ] things to do (by: Jan 01 2025, 12:00 AM)
+	 And another one; 3 out of 3 tasks to complete...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Thank me later! I've changed the priority of your task:
+	   [T][ ] check save *HIGH PRIORITY*
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Wowie!! You've completed your task!
+	 I shall mark it as complete in celebration!
+	   [E][X] test app (from: Jan 01 2024, 12:00 AM to: Dec 12 2024, 11:59 PM)
+	 Woohoo!! Only 2 out of 3 tasks more to go!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [T][ ] check save *HIGH PRIORITY*
+	  2. [E][X] test app (from: Jan 01 2024, 12:00 AM to: Dec 12 2024, 11:59 PM)
+	  3. [D][ ] things to do (by: Jan 01 2025, 12:00 AM)
 	_____________________________________________________________
 
 	_____________________________________________________________

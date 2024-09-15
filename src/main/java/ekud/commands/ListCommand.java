@@ -15,7 +15,6 @@ public class ListCommand extends Command {
         super.execute(tasks, ui, storage);
         String responseListEmpty = "Would Ya look at that: No tasks to be found. Shocking ain't it";
         String responseAcknowledge = "Look at all these tasks:";
-        String responseTaskFormat = "%d. %s";
 
         if (tasks.isEmpty()) {
             ui.addToBuffer(responseListEmpty);
@@ -25,11 +24,7 @@ public class ListCommand extends Command {
         ui.addToBuffer(responseAcknowledge);
 
         // display tasks
-        int i = 1;
-        for (Task task : tasks) {
-            ui.addFormattedToBuffer(responseTaskFormat, i, task.toString());
-            i++;
-        }
+        tasks.outputContentsToUi(ui);
     }
 
     @Override
