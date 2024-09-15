@@ -2,7 +2,6 @@ package secondmind;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,6 +12,10 @@ import java.util.ArrayList;
  * Provides methods to append, update, and delete tasks in the file.
  */
 public class Storage {
+    private final static String TODO_INDICATOR = "T";
+    private final static String DEADLINE_INDICATOR = "D";
+    private final static String TEMPORARY_DATA_FILE_PATH = "../tempDataFile.txt";
+
     private final String DATA_FILE_PATH;
 
     /**
@@ -22,7 +25,6 @@ public class Storage {
      */
     public Storage(String DATA_FILE_PATH) {
         this.DATA_FILE_PATH = DATA_FILE_PATH;
-        System.out.println("Data file path: " + DATA_FILE_PATH);
     }
 
     /**
@@ -39,47 +41,49 @@ public class Storage {
         fw.close();
     }
 
+    private String getUpdatedLine(String currentLine, boolean isDone) {
+        StringBuilder sb = new StringBuilder();
+        //Add task type and "|" to stringbuilder
+        sb.append(currentLine.substring(0,2));
+        if (isDone) {
+            sb.append("1");
+        } else {
+            sb.append("0");
+        }
+        //Add rest of line
+        sb.append(currentLine.substring(3));
+        return sb.toString();
+    }
+
+    private void writeNewLine(FileWriter fw, String line, int lineNumber, int taskCount) throws IOException {
+        if (lineNumber < taskCount) {
+            fw.write(line + "\n");
+        } else {
+            fw.write(line);
+        }
+    }
+
     /**
      * Updates the status of a task in the file (e.g., marked as done or undone).
      *
      * @param taskNumber The number of the task to update.
-     * @param done The new status of the task (true if done, false otherwise).
+     * @param isDone The new status of the task (true if done, false otherwise).
      * @param taskCount The number of tasks currently in the list.
      * @throws FileNotFoundException If the file is not found.
      * @throws IOException If an I/O error occurs during file operations.
      */
-    public void updateTaskInDataFile(int taskNumber, boolean done, int taskCount) throws FileNotFoundException, IOException {
+    public void updateTaskInDataFile(int taskNumber, boolean isDone, int taskCount) throws FileNotFoundException, IOException {
         int lineNumber = 1;
         File oldFile = new File(DATA_FILE_PATH);
-        File newFile = new File("../tempDataFile.txt");
-        FileWriter fw = new FileWriter("../tempDataFile.txt", true);
+        File newFile = new File(TEMPORARY_DATA_FILE_PATH);
+        FileWriter fw = new FileWriter(TEMPORARY_DATA_FILE_PATH, true);
         Scanner s = new Scanner(oldFile);
         while (s.hasNext()) {
             String currentLine = s.nextLine();
             if (lineNumber == taskNumber) {
-                StringBuilder sb = new StringBuilder();
-                //Add task type and "|" to stringbuilder
-                sb.append(currentLine.substring(0,2));
-                if (done) {
-                    sb.append("1");
-                } else {
-                    sb.append("0");
-                }
-                //Add rest of line
-                sb.append(currentLine.substring(3));
-                if (lineNumber < taskCount) {
-                    fw.write(sb.toString() + "\n");
-                } else {
-                    fw.write(sb.toString());
-                }
-                lineNumber++;
-                continue;
+                currentLine = getUpdatedLine(currentLine, isDone);
             }
-            if (lineNumber < taskCount) {
-                fw.write(currentLine + "\n");
-            } else {
-                fw.write(currentLine);
-            }
+            writeNewLine(fw, currentLine, lineNumber, taskCount);
             lineNumber++;
         }
         s.close();
@@ -103,8 +107,8 @@ public class Storage {
         //Remove line "taskNumber" from data file
         int lineNumber = 1;
         File oldFile = new File(DATA_FILE_PATH);
-        File newFile = new File("../tempDataFile.txt");
-        FileWriter fw = new FileWriter("../tempDataFile.txt", true);
+        File newFile = new File(TEMPORARY_DATA_FILE_PATH);
+        FileWriter fw = new FileWriter(TEMPORARY_DATA_FILE_PATH, true);
         Scanner s = new Scanner(oldFile);
         while (s.hasNext()) {
             String currentLine = s.nextLine();
@@ -112,11 +116,7 @@ public class Storage {
                 lineNumber++;
                 continue;
             }
-            if (lineNumber < taskCount) {
-                fw.write(currentLine + "\n");
-            } else {
-                fw.write(currentLine);
-            }
+            writeNewLine(fw, currentLine, lineNumber, taskCount);
             lineNumber++;
         }
         s.close();
@@ -128,9 +128,9 @@ public class Storage {
         String[] taskInfo = text.split("\\|");
         String taskType = taskInfo[0];
         Task curr;
-        if (taskType.equals("T")) {
+        if (taskType.equals(TODO_INDICATOR)) {
             curr = new ToDoTask(taskInfo[2]);
-        } else if (taskType.equals("D")) {
+        } else if (taskType.equals(DEADLINE_INDICATOR)) {
             curr = new DeadlineTask(taskInfo[2], taskInfo[3]);
         } else {
             curr = new EventTask(taskInfo[2], taskInfo[3], taskInfo[4]);
