@@ -5,7 +5,13 @@
 YihuiBot is friendly todo list app for managing your every day tasks. Supported tasks include a `Todo`, which is a basic task, a `Deadline`, which is a task with a deadline, or an `Event`, which is a task with a start and end time.
 
 ## Table of Contents
-1. [Features](#Features)
+1. [Quick start](#quick-start)
+2. [Features](#Features)
+
+## Quick start
+1. Download the latest `.jar` file [here](https://github.com/yihuididi/ip/releases).
+2. Move the `.jar` file to a suitable folder location to run YihuiBot.
+3. Run `java -jar yihuibot.jar` in your command line. This will start the bot, creating a default file at `data/task.txt`. If you would like to specify another filepath, run `java -jar yihuibot.jar <filepath>` instead.
 
 ## Features
 
