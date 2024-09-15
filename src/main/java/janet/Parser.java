@@ -175,8 +175,7 @@ public class Parser {
      */
     private static boolean notFoundCommand(String[] commandDetails) {
         boolean isFoundCommand = commandDetails[0].equals("find");
-        boolean noKeywordSpecified = commandDetails.length == 1;
-        return isFoundCommand && noKeywordSpecified;
+        return isFoundCommand && noKeywordSpecified(commandDetails);
     }
 
 
@@ -233,20 +232,20 @@ public class Parser {
      * @return A boolean value.
      */
     private static boolean taskNumberInvalidOrAbsent(String[] commandDetails) {
-        boolean taskNumberAbsent = (commandDetails.length == 1);
-        boolean taskNumberInvalid = false;
+        boolean isTaskNumberAbsent = (commandDetails.length == 1);
+        boolean isTaskNumberInvalid = false;
         if (commandDetails.length == 2 && isMarkingOrDeleteCommand(commandDetails)) {
             // task number is present, check for validity
             try {
                 Integer.parseInt(commandDetails[1]);
             } catch (NumberFormatException e) {
-                taskNumberInvalid = true;
+                isTaskNumberInvalid = true;
             }
         } else if (commandDetails.length > 2  && isMarkingOrDeleteCommand(commandDetails)) {
             // more than 1 task number is provided, separated by white space(s).
-            taskNumberInvalid = true;
+            isTaskNumberInvalid = true;
         }
-        return taskNumberAbsent || taskNumberInvalid;  // false
+        return isTaskNumberAbsent || isTaskNumberInvalid;
     }
 
 
