@@ -14,8 +14,6 @@ import pikappi.command.TodoCommand;
 import pikappi.command.UnmarkCommand;
 import pikappi.exception.PikappiException;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * Represents a parser that handles user input.
  */

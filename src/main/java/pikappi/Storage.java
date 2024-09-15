@@ -96,8 +96,8 @@ public class Storage {
         String taskType = task.get(0);
         boolean isDone = task.get(1).equals("1");
         String taskDescription = task.get(2);
-        String taskTime = "";
-        String taskEndTime = "";
+        String taskTime;
+        String taskEndTime;
         switch (taskType) {
         case "T":
             this.tasks.load(new TodoTask(taskDescription, isDone));

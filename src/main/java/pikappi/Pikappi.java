@@ -12,10 +12,20 @@ public class Pikappi {
     protected static TaskList tasks = new TaskList();
     protected static Parser parser = new Parser();
 
+    /**
+     * Creates a new Pikappi object.
+     */
     public void loadTasks() throws PikappiException {
         tasks = storage.load();
     }
 
+    /**
+     * Returns the response from Pikappi to user input.
+     *
+     * @param input User input
+     * @return Response to user input
+     * @throws PikappiException If there is an exception thrown from Pikappi
+     */
     public String getResponse(String input) throws PikappiException {
         storage.save(tasks);
         Command c = parser.parse(input);
