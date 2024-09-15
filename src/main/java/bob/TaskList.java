@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import bob.task.Task;
 
@@ -135,12 +136,9 @@ public class TaskList {
     String printRelevantTasksByDate(String dateStr) throws BobException {
         LocalDate date = Parser.parseDate(dateStr);
 
-        List<Task> relevantTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.isRelevant(date)) {
-                relevantTasks.add(task);
-            }
-        }
+        List<Task> relevantTasks = tasks.stream()
+                .filter(task -> task.isRelevant(date))
+                .collect(Collectors.toList());
 
         String taskListStr = buildTaskListString(relevantTasks);
         String summary = "Total number of relevant tasks for " + date.format(FRIENDLY_DATE_FORMATTER) + ": "
@@ -161,13 +159,9 @@ public class TaskList {
             throw new BobException("Please provide a keyword or a phrase.");
         }
 
-        List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            String description = task.getDescription().toLowerCase();
-            if (description.contains(keyword.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
 
         String taskListStr = buildTaskListString(matchingTasks);
         String summary = "Total number of tasks containing \"" + keyword.toLowerCase() + "\": " + matchingTasks.size();
@@ -175,3 +169,4 @@ public class TaskList {
         return taskListStr + summary;
     }
 }
+
