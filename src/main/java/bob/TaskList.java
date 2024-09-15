@@ -285,18 +285,18 @@ public class TaskList {
         // Split the input phrase to extract the keyword
         String[] tmp = phrase.split(" ", 2);
         String key = tmp[1];
-        boolean found = false;
+        boolean isFound = false;
         ArrayList<Task> tasksWithKey = new ArrayList<>();
 
         // Iterate through tasks to find those that contain the keyword in their description
         for (Task task : tasks) {
             if (task.getDescription().toLowerCase().contains(key.toLowerCase())) {
                 tasksWithKey.add(task);
-                found = true;
+                isFound = true;
             }
         }
 
-        if (found) {
+        if (isFound) {
             return ui.showTasksFound(tasksWithKey.toArray(new Task[0]));
         } else {
             return ui.showError("No tasks found containing the keyword: " + key);
