@@ -68,7 +68,7 @@ public class TaskList {
     public List<Task> getTasksOnDate(LocalDate date) {
         return this.tasks.stream()
                 .filter(task -> (task instanceof Deadline d && checkDateIsOnDeadline(date, d))
-                        || (task instanceof Event e && checkDateIsDuringEvent(date, e)))
+                        || (task instanceof Event e && dateIsDuringEvent(date, e)))
                 .toList();
     }
 
@@ -76,7 +76,7 @@ public class TaskList {
         return deadline.by.equals(date);
     }
 
-    private boolean checkDateIsDuringEvent(LocalDate date, Event event) {
+    private boolean dateIsDuringEvent(LocalDate date, Event event) {
         boolean dateIsStartOfEvent = event.from.equals(date);
         boolean dateIsEndOfEvent = event.to.equals(date);
         boolean dateIsMiddleOfEvent = event.from.isBefore(date) && event.to.isAfter(date);

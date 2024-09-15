@@ -24,6 +24,7 @@ public class Main extends Application {
             fxmlLoader.setRoot(mainWindow);
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Friendly Bot");
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
