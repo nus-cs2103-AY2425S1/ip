@@ -384,7 +384,6 @@
         <!--
         JAVADOC CHECKS
         -->
-
         <!-- Checks that all block-tags are ordered correctly. -->
         <module name="AtclauseOrder"/>
 
@@ -429,6 +428,5 @@
 
         <!-- Checks that every public class, enumeration and interface has a header comment. -->
         <module name="MissingJavadocType"/>
-
     </module>
 </module>

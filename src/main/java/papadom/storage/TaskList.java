@@ -13,7 +13,7 @@ import papadom.utils.Parser;
  */
 public class TaskList {
     private final Storage STORAGE;
-    protected final List<Task> TASK_LIST;  // ArrayList to store tasks
+    protected final List<Task> TASK_LIST; // ArrayList to store tasks
 
     /**
      * Constructs a TaskList with the specified storage.
@@ -23,7 +23,7 @@ public class TaskList {
     public TaskList(Storage storage) {
         assert storage != null : "Storage cannot be null";
         this.STORAGE = storage;
-        this.TASK_LIST = STORAGE.loadTasks();  // Load tasks at the start of the session
+        this.TASK_LIST = STORAGE.loadTasks(); // Load tasks at the start of the session
     }
 
     /**
@@ -40,7 +40,6 @@ public class TaskList {
         for (int i = 0; i < this.TASK_LIST.size(); i++) {
             finalList.append("\n  ").append(i + 1).append(". ").append(this.TASK_LIST.get(i).toString());
         }
-
         return finalList.toString();
     }
 
@@ -53,8 +52,8 @@ public class TaskList {
     public String addToList(Task task) {
         assert task != null : "Task cannot be null";
 
-        this.TASK_LIST.add(task);  // Add task to the ArrayList
-        STORAGE.addTaskToDatabase(task);  // Append the task to the file
+        this.TASK_LIST.add(task); // Add task to the ArrayList
+        STORAGE.addTaskToDatabase(task); // Append the task to the file
 
         return " Got it. I've added this task:\n  " + task.toString() + "\n"
                 + " Now you have " + this.TASK_LIST.size() + " tasks in the list.";
@@ -69,14 +68,14 @@ public class TaskList {
      * @throws WrongTaskNumberException  If the task number does not exist.
      */
     public String deleteTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
-        int taskIndex = Parser.extractTaskIndex(text);  // Get the task index from the input
+        int taskIndex = Parser.extractTaskIndex(text); // Get the task index from the input
 
         if (taskIndex >= this.TASK_LIST.size()) {
             throw new WrongTaskNumberException();
         }
 
-        Task taskToBeDeleted = this.TASK_LIST.remove(taskIndex);  // Remove the task from the list
-        STORAGE.updateTasksInFile(this);  // Update the file with the modified task list
+        Task taskToBeDeleted = this.TASK_LIST.remove(taskIndex); // Remove the task from the list
+        STORAGE.updateTasksInFile(this); // Update the file with the modified task list
 
         return " Noted. I've removed this task:\n  " + taskToBeDeleted
                 + "\n Now you have " + this.TASK_LIST.size() + " tasks in the list.";
@@ -91,15 +90,15 @@ public class TaskList {
      * @throws WrongTaskNumberException  If the task number does not exist.
      */
     public String markTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
-        int taskIndex = Parser.extractTaskIndex(text);  // Get the task index from the input
+        int taskIndex = Parser.extractTaskIndex(text); // Get the task index from the input
 
         if (taskIndex >= this.TASK_LIST.size()) {
             throw new WrongTaskNumberException();
         }
 
         Task task = this.TASK_LIST.get(taskIndex);
-        task.markAsDone();  // Mark the task as done
-        STORAGE.updateTasksInFile(this);  // Update the file with the modified task list
+        task.markAsDone(); // Mark the task as done
+        STORAGE.updateTasksInFile(this); // Update the file with the modified task list
 
         return " Nice! I've marked this task as done:\n  " + task;
     }
@@ -113,15 +112,15 @@ public class TaskList {
      * @throws WrongTaskNumberException  If the task number does not exist.
      */
     public String unmarkTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
-        int taskIndex = Parser.extractTaskIndex(text);  // Get the task index from the input
+        int taskIndex = Parser.extractTaskIndex(text); // Get the task index from the input
 
         if (taskIndex >= this.TASK_LIST.size()) {
             throw new WrongTaskNumberException();
         }
 
         Task task = this.TASK_LIST.get(taskIndex);
-        task.unmark();  // Unmark the task
-        STORAGE.updateTasksInFile(this);  // Update the file with the modified task list
+        task.unmark(); // Unmark the task
+        STORAGE.updateTasksInFile(this); // Update the file with the modified task list
 
         return " OK, I've marked this task as not done yet:\n  " + task;
     }

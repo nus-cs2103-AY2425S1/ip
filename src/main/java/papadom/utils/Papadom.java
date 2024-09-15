@@ -1,11 +1,21 @@
 package papadom.utils;
 
-import papadom.exceptions.*;
+import java.util.Scanner;
+
+import papadom.commands.AddDeadlineCommand;
+import papadom.commands.AddEventCommand;
+import papadom.commands.AddTodoCommand;
+import papadom.commands.Command;
+import papadom.commands.DeleteEventCommand;
+import papadom.commands.ExitCommand;
+import papadom.commands.FindEventCommand;
+import papadom.commands.ListCommand;
+import papadom.commands.MarkCommand;
+import papadom.commands.UnmarkCommand;
+import papadom.exceptions.UnknownCommandException;
 import papadom.storage.Storage;
 import papadom.storage.TaskList;
-import papadom.commands.*;
 
-import java.util.Scanner;
 
 /**
  * Main class for the Papadom chatbot.
@@ -26,23 +36,23 @@ public class Papadom {
         public static CommandType fromString(String command) {
             assert command != null && !command.isEmpty() : "Command cannot be null or empty";
             return switch (command.toLowerCase()) {
-                case "list" -> LIST;
-                case "bye" -> BYE;
-                case "mark" -> MARK;
-                case "unmark" -> UNMARK;
-                case "todo" -> TODO;
-                case "deadline" -> DEADLINE;
-                case "event" -> EVENT;
-                case "delete" -> DELETE;
-                case "find" -> FIND;
-                default -> UNKNOWN;
+            case "list" -> LIST;
+            case "bye" -> BYE;
+            case "mark" -> MARK;
+            case "unmark" -> UNMARK;
+            case "todo" -> TODO;
+            case "deadline" -> DEADLINE;
+            case "event" -> EVENT;
+            case "delete" -> DELETE;
+            case "find" -> FIND;
+            default -> UNKNOWN;
             };
         }
     }
-    private static final Ui UI = new Ui();
-    public static final String STORAGE_PATH = "tasks.txt";
+    private static final String STORAGE_PATH = "tasks.txt";
     private static final Storage STORAGE = new Storage(STORAGE_PATH);
     private static final TaskList TASK_LIST = new TaskList(STORAGE);
+    private static final Ui UI = new Ui();
     private static final Scanner SCANNER = new Scanner(System.in);
 
     /**
@@ -67,16 +77,16 @@ public class Papadom {
             String commandText = input.split(" ")[0];
             CommandType commandType = CommandType.fromString(commandText);
             command = switch (commandType) {
-                case LIST -> new ListCommand();
-                case BYE -> new ExitCommand();
-                case MARK -> new MarkCommand(input);
-                case UNMARK -> new UnmarkCommand(input);
-                case TODO -> new AddTodoCommand(input);
-                case DEADLINE -> new AddDeadlineCommand(input);
-                case EVENT -> new AddEventCommand(input);
-                case DELETE -> new DeleteEventCommand(input);
-                case FIND -> new FindEventCommand(input);
-                default -> throw new UnknownCommandException();
+            case LIST -> new ListCommand();
+            case BYE -> new ExitCommand();
+            case MARK -> new MarkCommand(input);
+            case UNMARK -> new UnmarkCommand(input);
+            case TODO -> new AddTodoCommand(input);
+            case DEADLINE -> new AddDeadlineCommand(input);
+            case EVENT -> new AddEventCommand(input);
+            case DELETE -> new DeleteEventCommand(input);
+            case FIND -> new FindEventCommand(input);
+            default -> throw new UnknownCommandException();
             };
             // Execute the command and capture the output
             return command.execute(TASK_LIST, UI, STORAGE);

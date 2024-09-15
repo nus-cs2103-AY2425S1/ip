@@ -12,7 +12,7 @@ import papadom.utils.Ui;
  */
 public class AddDeadlineCommand extends Command {
     private final String TEXT;
-    private final static Parser PARSER = new Parser();
+    private static final Parser PARSER = new Parser();
 
     /**
      * Constructs an AddDeadlineCommand with the specified text input.

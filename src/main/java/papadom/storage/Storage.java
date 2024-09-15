@@ -1,8 +1,17 @@
 package papadom.storage;
 
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import papadom.tasks.Task;
 import papadom.utils.Parser;
 
@@ -108,7 +117,7 @@ public class Storage {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.FILE_PATH))) {
             for (Task task : taskList.TASK_LIST) {
                 writer.write(task.toString());
-                writer.newLine();  // Write each task in a new line
+                writer.newLine(); // Write each task in a new line
             }
         } catch (IOException e) {
             System.err.println("An error occurred while updating the tasks file: " + e.getMessage());

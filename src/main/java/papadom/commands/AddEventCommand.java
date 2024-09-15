@@ -10,7 +10,7 @@ import papadom.utils.Ui;
 /**
  * Represents a command to add an event task to the task list.
  */
-public class AddEventCommand extends Command{
+public class AddEventCommand extends Command {
     private final String TEXT;
     private static final Parser PARSER = new Parser();
 

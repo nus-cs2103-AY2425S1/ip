@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -63,4 +64,19 @@ shadowJar {
 
 run {
     standardInput = System.in
+}
+
+
+// Checkstyle configuration
+checkstyle {
+    toolVersion = '10.0' // Specify the version of Checkstyle
+    configFile = file('config/checkstyle/checkstyle.xml') // Path to Checkstyle rules file
+}
+
+// Ensure Checkstyle runs on the build task
+tasks.withType(Checkstyle) {
+    reports {
+        html.required.set(true) // Enable HTML report
+        xml.required.set(false) // Disable XML report
+    }
 }

@@ -29,7 +29,8 @@ public class MarkCommand extends Command {
      * @throws NoTaskNumberException If no task number is provided.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws WrongTaskNumberException, NoTaskNumberException {
+    public String execute(TaskList taskList, Ui ui, Storage storage)
+            throws WrongTaskNumberException, NoTaskNumberException {
         return ui.output(taskList.markTask(TEXT));
     }
 }

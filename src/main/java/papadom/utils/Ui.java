@@ -36,7 +36,7 @@ public class Ui {
      * Displays a welcome message when the chatbot starts.
      */
     public static String welcomeMessage() {
-       return HELLO_MESSAGE + HELP_MESSAGE;
+        return HELLO_MESSAGE + HELP_MESSAGE;
     }
     /**
      * Displays a farewell message when the chatbot exits.
