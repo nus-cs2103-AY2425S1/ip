@@ -93,4 +93,9 @@ public class TaskList {
         taskList.remove(taskNum - 1);
         return ui.displayDeletedTask(t);
     }
+
+    public String getTask(int taskNum) {
+        Task t = taskList.get(taskNum);
+        return t.getDescription();
+    }
 }
