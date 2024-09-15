@@ -81,7 +81,7 @@ public class TaskList {
     }
 
     /**
-     * Add a Task into TaskList.
+     * Adds a Task into TaskList.
      *
      * @param task Task to be added to TaskList.
      * @return The Task added.

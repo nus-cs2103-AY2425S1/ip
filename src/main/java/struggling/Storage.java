@@ -28,7 +28,7 @@ public class Storage {
     }
 
     /**
-     * Read the data from save file and returns an ArrayList
+     * Reads the data from save file and returns an ArrayList
      * of string that indicates the state of each task.
      *
      * @return An ArrayList of task state.

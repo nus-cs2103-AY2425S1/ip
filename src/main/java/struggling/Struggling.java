@@ -39,7 +39,7 @@ public class Struggling {
     }
 
     /**
-     * For ui testing purpose.
+     * Creates an instance and run the chatbot for testing.
      */
     public static void main(String[] args) {
         new Struggling("data/Struggling.txt").run();
