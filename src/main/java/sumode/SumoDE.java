@@ -56,7 +56,7 @@ public class SumoDE extends Application {
     }
 
     /**
-     * Runs a task-management chatbot SumoDE
+     * Runs a task-management chatbot SumoDE command
      */
     public void execute(String input) {
         boolean canTerminate = false;
@@ -92,7 +92,7 @@ public class SumoDE extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<Ui>getController().setSumoDE(); // inject the Duke instance
+            fxmlLoader.<Ui>getController().setSumoDE();
             stage.setTitle("SumoDE");
             stage.show();
         } catch (IOException e) {
