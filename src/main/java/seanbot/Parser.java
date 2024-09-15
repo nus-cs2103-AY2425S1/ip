@@ -1,6 +1,9 @@
 package seanbot;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import seanbot.tasks.Deadline;
@@ -23,7 +26,7 @@ public class Parser {
      */
     public void parse(String userInput, TaskList tasks, Ui ui, Storage storage) throws SeanBotException, IOException {
         assert userInput != null : "User Input cannot be null";
-        assert tasks != null : "Tasks  cannot be null";
+        assert tasks != null : "Tasks cannot be null";
         assert ui != null : "Ui object cannot be null";
         assert storage != null : "Storage object cannot be null";
 
@@ -79,12 +82,17 @@ public class Parser {
                 if (specifications.length < 2) {
                     throw new SeanBotException("The description or deadline cannot be empty.");
                 }
-                Task deadline = new Deadline(specifications[0], specifications[1]);
-                tasks.addTask(deadline);
-                storage.save(tasks.getTasks());
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + deadline);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                try {
+                    LocalDate by = LocalDate.parse(specifications[1].trim());
+                    Task deadline = new Deadline(specifications[0], by.toString());
+                    tasks.addTask(deadline);
+                    storage.save(tasks.getTasks());
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + deadline);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (DateTimeParseException e) {
+                    throw new SeanBotException("Invalid date format. Please use the format yyyy-MM-dd.");
+                }
                 break;
             case "e":
                 String[] firstPart = part[1].split(" /from ", 2);
@@ -95,12 +103,23 @@ public class Parser {
                 if (secondPart.length < 2) {
                     throw new SeanBotException("The end time of an event cannot be empty.");
                 }
-                Task event = new Event(firstPart[0].trim(), secondPart[0].trim(), secondPart[1].trim());
-                tasks.addTask(event);
-                storage.save(tasks.getTasks());
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + event);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+                String description = firstPart[0].trim();
+                String from = secondPart[0].trim();
+                String to = secondPart[1].trim();
+
+                try {
+                    LocalDateTime startTime = LocalDateTime.parse(from);
+                    LocalDateTime endTime = LocalDateTime.parse(to);
+                    Task event = new Event(description, startTime.toString(), endTime.toString());
+                    tasks.addTask(event);
+                    storage.save(tasks.getTasks());
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + event);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (DateTimeParseException e) {
+                    throw new SeanBotException("Invalid date and time format. Please use the format yyyy-MM-ddTHH:mm.");
+                }
                 break;
             case "del":
                 int deleteIndex = Integer.parseInt(part[1]) - 1;

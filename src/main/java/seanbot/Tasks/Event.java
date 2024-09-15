@@ -10,18 +10,19 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
      *
      * @param description The description of the event.
-     * @param from The start time of the event in the format yyyy-MM-ddTHH:mm.
-     * @param to The end time of the event in the format yyyy-MM-ddTHH:mm.
+     * @param from The start time of the event in the format yyyy-MM-dd HH:mm.
+     * @param to The end time of the event in the format yyyy-MM-dd HH:mm.
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = LocalDateTime.parse(from);  
-        this.to = LocalDateTime.parse(to);  
+        this.from = LocalDateTime.parse(from, dateTimeFormatter);  
+        this.to = LocalDateTime.parse(to, dateTimeFormatter);  
     }
 
     /**
