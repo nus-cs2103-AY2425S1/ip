@@ -3,7 +3,9 @@
 ![User Interface](UI.png.png)
 
 **Product Introduction:**  
-Regina is a task management chatbot designed to help you efficiently track your tasks. With Regina, you can create, manage, and organize tasks easily through a user-friendly command interface. She supports three main task types:
+Regina is a task management chatbot designed to help you efficiently track your tasks in a way that seems like 
+a conversation with a friend. With Regina, you can create, manage, 
+and organize tasks easily through a user-friendly command interface. She supports three main task types:
 - **ToDo:** Tasks without a deadline, which can be done anytime.
 - **Deadline:** Tasks that need to be completed by a specific time.
 - **Event:** Tasks that have both a start and end time.
@@ -67,7 +69,29 @@ Jiayous!
 
 ## Task List with Checkboxes
 
-On the left side of the chatbot window, you will see a list that updates as you add or delete tasks. You can mark tasks as done or unmark them by simply clicking the checkboxes, rather than typing the commands `mark <task_index>` or `unmark <task_index>`.
+On the left side of the chatbot window, you will see a list that updates as you add or delete tasks. 
+You can mark tasks as done or unmark them by simply clicking the checkboxes, 
+rather than typing the commands `mark <task_index>` or `unmark <task_index>`.
+
+## Finding Tasks Using a Keyword
+
+To easily locate specific tasks, you can use the `find` command followed by the desired **task keyword**. This will return a list of tasks from your current list that contain the specified keyword.
+
+**Format:**
+
+`find <keyword>`  
+
+**Example**:
+`find project`  
+
+**Result**:
+```
+1. [D][ ] Submit project (by: Aug 27 2024, 5.00 pm)
+2. [E][ ] cs2101 project meeting (from: Aug 27 2024, 6.00 pm to: Aug 27 2024, 7.00 pm)
+3. [E][X] cs2103 project meeting (from: Aug 28 2024, 4.00 pm to: Aug 28 2024, 5.00 pm)
+```
+
+As shown, only tasks that include the keyword **project** are returned in the list.
 
 ## Snoozing Tasks
 
@@ -82,7 +106,7 @@ Only **Event** and **Deadline** type tasks can be snoozed. There are three main 
 **Example:**  
 `snooze 2 /by 2 days`
 
-If you do not specify a specific snooze value, Regina will apply a default snooze period of 30 minutes.
+If you do not specify a specific snooze value, Regina will apply a **default** snooze period of **30 minutes**.
 
 **Example:**  
 `snooze 2`
@@ -94,7 +118,7 @@ Pushed back the deadline of <task_description> by <snoozed_value> to <updated_da
 
 ## Delete Tasks
 
-To delete tasks, just follow the format:  
+To delete tasks, use the following format:  
 `delete <task_index>`
 
 Regina chatbot will then send you a confirmation message:
@@ -103,3 +127,13 @@ Wah shiok!
 Can forget about <task> liao!
 List now has <number_of_tasks_left> tasks!
 ```
+
+Alternatively, to delete all tasks in your list, you can use the command:  
+`clear`
+
+You will then receive the reply:
+```
+Cleared all tasks!
+```
+
+### Happy Task Tracking!

@@ -344,15 +344,20 @@ public class Regina {
                 case "list":
                     return list(); // Create a method that returns the list of tasks as a string
                 case "occurring":
-                    return occurringOn(data.getRawInput().substring(10)); // Convert to string if necessary
+                    return occurringOn(data.getRawInput().substring(10));
                 case "find":
-                    return find(data.getRawInput().substring(5)).toString(); // Convert to string if necessary
+                    String[] parts1 = data.getRawInput().split(" ");
+                    if (parts1.length >= 2) {
+                        return find(data.getRawInput().substring(5)).toString();
+                    } else {
+                        throw new ReginaException("Find what lah!");
+                    }
                 case "mark":
                 case "unmark":
                 case "delete":
-                    String[] parts = data.getRawInput().split(" "); // Split raw input to get parts
-                    if (haveNumber(parts)) {
-                        return getReplyForNumberedCommand(parts, data);
+                    String[] parts2 = data.getRawInput().split(" "); // Split raw input to get parts
+                    if (haveNumber(parts2)) {
+                        return getReplyForNumberedCommand(parts2, data);
                     } else {
                         throw new ReginaException("Use the task index in the list lah!");
                     }
