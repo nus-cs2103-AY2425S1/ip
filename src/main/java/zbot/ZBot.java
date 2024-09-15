@@ -255,7 +255,7 @@ public class ZBot {
 
         try {
             tasks.get(taskIndex - 1).addNote(noteContent);
-            response = "Note added to task " + taskIndex + "!\n";
+            response = ui.generateAddNoteMsg(tasks.get(taskIndex - 1));
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             response = "Please enter a valid task number!\n";
         }

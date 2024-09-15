@@ -91,4 +91,14 @@ public class Ui {
         return sc.nextLine();
     }
 
+    /**
+     * Prints additional message after adding a note to task.
+     */
+    public String generateAddNoteMsg(Task task) {
+        StringBuilder response = new StringBuilder();
+        response.append("Got it. I've added a note to this task:\n");
+        response.append("  " + task + "\n");
+        return response.toString();
+    }
+
 }
