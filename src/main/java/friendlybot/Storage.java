@@ -49,8 +49,6 @@ public class Storage {
             }
             Scanner fileReader = new Scanner(f);
             while (fileReader.hasNext()) {
-                // task is in format {type of task} | {0 if not completed, else 1} | {name of task}
-                // | {other task attributes}
                 String task = fileReader.nextLine();
                 try {
                     Task newTask = Storage.getTask(task);

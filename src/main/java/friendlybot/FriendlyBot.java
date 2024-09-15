@@ -31,7 +31,7 @@ public class FriendlyBot {
     }
 
     /**
-     * The main method to run FriendlyBot.
+     * Runs FriendlyBot.
      *
      * @param args friendlybot.command.Command line arguments.
      */

@@ -16,6 +16,15 @@ public class HelpCommand extends Command {
 
     public HelpCommand() {}
 
+    /**
+     * Prints all the tasks stored in tasks upon execution.
+     *
+     * @param tasks An instance of TaskList where the new task is added to.
+     * @param ui An instance of Ui (User Interface) that handles the interactions between FriendlyBot and user.
+     * @param storage An instance of Storage that loads tasks and saves tasks in a file.
+     *
+     * @return Returns a response String from FriendlyBot to the User.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder helpMessage = new StringBuilder();

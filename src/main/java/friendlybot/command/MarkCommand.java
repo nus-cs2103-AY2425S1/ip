@@ -15,7 +15,7 @@ public class MarkCommand extends Command {
     /**
      * A constructor for MarkCommand.
      *
-     * @param mark True if user wishes to mark the task as completed, False otherwise.
+     * @param isMark True if user wishes to mark the task as completed, False otherwise.
      * @param taskNumber The task number of the task to be marked / unmarked, which is one more than its index position.
      */
     public MarkCommand(boolean isMark, int taskNumber) {
