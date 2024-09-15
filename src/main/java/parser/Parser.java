@@ -1,12 +1,13 @@
 package parser;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import exceptions.EmptyTaskException;
 import exceptions.InvalidInputException;
+import exceptions.NoLastCommandToUndo;
 import exceptions.TaskIndexOutOfBound;
 import storage.Storage;
 import task.Deadline;
@@ -68,6 +69,9 @@ public class Parser {
         case "find":
             return handleFindCommand(slicedStrings, taskList);
 
+        case "undo":
+            return handleUndoCommand(slicedStrings, taskList, storage);
+
         default:
             throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
@@ -95,12 +99,14 @@ public class Parser {
 
         if (isMarking) {
             taskList.markTask(taskIndex);
+            storage.saveCommands("mark", taskList.getTask(taskIndex));
             saveTasksWithHandling(taskList, storage);
             return String.format("OK, I've marked this task as done:\n[%s][%s] %s",
                     taskList.getTask(taskIndex).getType(),
                     taskList.getTask(taskIndex).getStatusIcon(), taskList.getTask(taskIndex));
         } else {
             taskList.unmarkTask(taskIndex);
+            storage.saveCommands("unmark", taskList.getTask(taskIndex));
             saveTasksWithHandling(taskList, storage);
             return String.format("OK, I've marked this task as not done yet:\n[%s][%s] %s",
                     taskList.getTask(taskIndex).getType(),
@@ -130,6 +136,7 @@ public class Parser {
         Todo newTodo = new Todo();
         newTodo.convertStringToTask(slicedStrings);
         taskList.addTask(newTodo);
+        storage.saveCommands("todo", newTodo);
         saveTasksWithHandling(taskList, storage);
         return String.format("Got it. I've added this task:\n[%s][%s] %s\nNow you have %d tasks in the list",
                 newTodo.getType(), newTodo.getStatusIcon(), newTodo, taskList.getTasks().size());
@@ -155,6 +162,7 @@ public class Parser {
             Deadline newDeadline = new Deadline();
             newDeadline.convertStringToTask(slicedStrings);
             taskList.addTask(newDeadline);
+            storage.saveCommands("deadline", newDeadline);
             saveTasksWithHandling(taskList, storage);
             return String.format("Got it. I've added this task:\n[%s][%s] %s\nNow you have %d tasks in the list",
                     newDeadline.getType(), newDeadline.getStatusIcon(), newDeadline, taskList.getTasks().size());
@@ -185,6 +193,7 @@ public class Parser {
             Event newEvent = new Event();
             newEvent.convertStringToTask(slicedStrings);
             taskList.addTask(newEvent);
+            storage.saveCommands("event", newEvent);
             saveTasksWithHandling(taskList, storage);
             return String.format("Got it. I've added this task:\n[%s][%s] %s\nNow you have %d tasks in the list",
                     newEvent.getType(), newEvent.getStatusIcon(), newEvent, taskList.getTasks().size());
@@ -215,6 +224,7 @@ public class Parser {
         int taskIndex = getTaskIndex(slicedStrings);
         Task deletedTask = taskList.getTask(taskIndex);
         taskList.deleteTask(taskIndex);
+        storage.saveCommands("delete", deletedTask);
         saveTasksWithHandling(taskList, storage);
         return String.format("Noted. I've removed this task:\n[%s][%s] %s\nNow you have %d tasks in the list",
                 deletedTask.getType(), deletedTask.getStatusIcon(), deletedTask, taskList.getTasks().size());
@@ -240,6 +250,82 @@ public class Parser {
                 .filter(task -> task.toString().contains(keyword))
                 .collect(Collectors.toList());
         return getTaskList(matchingTasks);
+    }
+
+    /**
+     * Handles the "Undo" command to find tasks with the same keywords from the task list.
+     * The user is supposed to enter how many times they want to undo their command (max 3)
+     *
+     * @param slicedStrings The user's input sliced Strings into an array.
+     * @param taskList The task list containing all tasks.
+     */
+    private static String handleUndoCommand(
+            String[] slicedStrings, TaskList taskList, Storage storage
+    ) throws InvalidInputException{
+        if (slicedStrings.length > 2) {
+            throw new InvalidInputException("The format for undo command is undo or undo [number]!");
+        }
+
+        if (slicedStrings.length < 2) {
+            // handles the default situation
+            try {
+                Map<String, Task> lastCommand =  storage.lastCommand();
+                handleSingleUndoCommand(taskList, storage, lastCommand);
+                return "The previous command has been undone";
+            } catch (NoLastCommandToUndo | TaskIndexOutOfBound e) {
+                return e.getMessage();
+            }
+        }
+
+        int numberOfTimesToUndo = Integer.parseInt(slicedStrings[1]);
+        if (numberOfTimesToUndo > storage.getCommandsSize()) {
+            throw new InvalidInputException("The number of times " +
+                    "you want to undo exceeds the total number of command entries!");
+        }
+        if (numberOfTimesToUndo <= 0) {
+            throw new InvalidInputException("The number of times " +
+                    "you want to undo is invalid!");
+        }
+        for (int i = 1; i <= numberOfTimesToUndo; i++) {
+            try {
+                Map<String, Task> lastCommand =  storage.lastCommand();
+                handleSingleUndoCommand(taskList, storage, lastCommand);
+            } catch (NoLastCommandToUndo | TaskIndexOutOfBound e) {
+                return e.getMessage();
+            }
+        }
+        return "The previous commands have been undone";
+    }
+
+    private static void handleSingleUndoCommand(
+            TaskList taskList, Storage storage, Map<String, Task> lastCommand)
+            throws TaskIndexOutOfBound {
+        String keyword = lastCommand.keySet()
+                .toArray(new String[0])[lastCommand.size() - 1].trim();
+        Task task = lastCommand.get(lastCommand.keySet()
+                .toArray(new String[0])[lastCommand.size() - 1]);
+        int index = taskList.getTasks().indexOf(task);
+        switch(keyword) {
+        case("mark"):
+            taskList.unmarkTask(index);
+            saveTasksWithHandling(taskList, storage);
+            break;
+        case("unmark"):
+            taskList.markTask(index);
+            saveTasksWithHandling(taskList, storage);
+            break;
+        case("todo"):
+        case("deadline"):
+        case("event"):
+            taskList.deleteTask(index);
+            saveTasksWithHandling(taskList, storage);
+            break;
+        case("delete"):
+            taskList.addTask(task);
+            saveTasksWithHandling(taskList, storage);
+            break;
+        default:
+        }
     }
 
     /**
