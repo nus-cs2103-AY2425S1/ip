@@ -3,6 +3,7 @@ package seanbot;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -138,9 +139,12 @@ public class Parser {
         String from = secondPart[0].trim();
         String to = secondPart[1].trim();
 
+        // Define a custom DateTimeFormatter for parsing "yyyy-MM-dd HH:mm"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
-            LocalDateTime startTime = LocalDateTime.parse(from);
-            LocalDateTime endTime = LocalDateTime.parse(to);
+            LocalDateTime startTime = LocalDateTime.parse(from, formatter);
+            LocalDateTime endTime = LocalDateTime.parse(to, formatter);
             Task event = new Event(description, startTime.toString(), endTime.toString());
             tasks.addTask(event);
             storage.save(tasks.getTasks());
@@ -148,7 +152,7 @@ public class Parser {
             System.out.println("  " + event);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch (DateTimeParseException e) {
-            throw new SeanBotException("Invalid date and time format. Please use the format yyyy-MM-ddTHH:mm.");
+            throw new SeanBotException("Invalid date and time format. Please use the format yyyy-MM-dd HH:mm.");
         }
     }
 
