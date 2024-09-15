@@ -1,4 +1,4 @@
 T | 0 | 3 | running 2 
-T | 0 | 2 | Buy groceries2 
-T | 0 | 3 | Buy groceries3 
-T | 0 | 2 | bake cookies4 
+T | 0 | 2 | Buy groceries 
+T | 0 | 3 | Buy groceries 
+T | 0 | 2 | bake cookies 
