@@ -31,6 +31,9 @@ public class DeleteTaskCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, OutputHandler outputHandler) {
+        assert taskList != null : "taskList must not be null";
+        assert outputHandler != null : "outputHandler must not be null";
+
         Task task = taskList.removeTask(this.index);
         outputHandler.print("____________________________________________________________\n" +
                 "Removed: " + task.getDescription() + "\n" +

@@ -32,6 +32,8 @@ public class MarkTaskCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, OutputHandler outputHandler) {
+        assert taskList != null : "taskList must not be null";
+        assert outputHandler != null : "outputHandler must not be null";
         try {
             taskList.markTask(index - 1);
             outputHandler.print("____________________________________________________________");
