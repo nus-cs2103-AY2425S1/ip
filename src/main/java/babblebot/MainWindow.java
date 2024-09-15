@@ -23,15 +23,17 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private BabbleBot babbleBot;
-
+    private boolean isFirstInteraction = true;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /** Initializes the scrollPane */
     @FXML
     public void initialize() {
+        assert isFirstInteraction : "First interaction should only happen at startup";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         displayWelcomeMessage();
+        isFirstInteraction = false;
     }
 
     /** Injects the BabbleBot instance */
