@@ -35,7 +35,7 @@ public class TaskList {
      *
      * @param task extracted from the user input
      */
-    public String addItem(Task task) throws TaskDuplicateException {
+    public void addItem(Task task) throws TaskDuplicateException {
         assert task != null;
 
         if (isDuplicate(task)) {
@@ -44,12 +44,6 @@ public class TaskList {
 
         this.tasks.add(task);
         ++this.size;
-        StringBuilder sb = new StringBuilder("Sure! I've added this tasks:\n");
-        sb.append(task + "\n");
-        sb.append(">> Now you have " + this.size + (size > 1 ? " tasks" : " task") + " in the list.\n");
-        String response = sb.toString();
-        System.out.println(response);
-        return response;
     }
 
     public boolean isDuplicate(Task task) {

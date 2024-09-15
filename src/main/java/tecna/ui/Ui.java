@@ -73,11 +73,12 @@ public class Ui {
     }
 
     public String printAddItemMsg(TaskList tasks, Task item) {
-        try {
-            return tasks.addItem(item);
-        } catch (TaskDuplicateException e) {
-            return printTaskDuplicateError(item);
-        }
+        StringBuilder sb = new StringBuilder("Sure! I've added this tasks:\n");
+        sb.append(item + "\n");
+        sb.append(">> Now you have " + tasks.getSize() + (tasks.getSize() > 1 ? " tasks" : " task") + " in the list.\n");
+        String response = sb.toString();
+        System.out.println(response);
+        return response;
     }
 
     public String printInvalidCmdError() {
