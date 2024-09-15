@@ -21,12 +21,12 @@ DailyTasks is a simple desktop application that allows you to manage and track y
 
 ## Quick Start
 1. Ensure that you have Java 17 or above installed on your computer.
-2. Download the latest `.jar` file from the releases page.
+2. Download the latest `.jar` file from the [latest release page](https://github.com/yongkheehou/ip/releases/tag/v0.3) or by directly clicking [this link](https://github.com/yongkheehou/ip/releases/download/v0.3/DailyTasks-all.jar).
 3. Move the `.jar` file to a folder where you want to store your tasks.
 4. Open a command terminal and navigate to the folder containing the `.jar` file.
 5. Run the following command to start the application:
    ```bash
-   java -jar dailytasks.jar
+   java -jar Dailytasks-all.jar
    ```
 6. Start entering tasks by using the available commands (see the list below for details).
 
