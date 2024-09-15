@@ -5,7 +5,7 @@ Thanos is a one-stop task management companion that allows users to manage their
 
 ## Quick Start
 1. Ensure your device has Java 17 or above installed.
-2. Download the `.jar` file from [here](https://github.com/yxtan02/ip/releases/tag/A-UserGuide)
+2. Download the `.jar` file from [here](https://github.com/yxtan02/ip/releases/tag/A-Release)
 3. Copy the `.jar` file to the folder you wish to use as the home folder for your chatbot.
 4. Open a command terminal, `cd` into the folder that the `.jar` file is located in.
 5. Run `java -jar thanos.jar` command to run the chatbot.
