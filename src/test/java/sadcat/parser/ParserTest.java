@@ -1,4 +1,4 @@
-package duke.parser;
+package sadcat.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,9 +13,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.DukeException;
-import duke.storage.Storage;
-import duke.tasks.TaskList;
+import sadcat.exceptions.SadCatException;
+import sadcat.storage.Storage;
+import sadcat.tasks.TaskList;
 
 /**
  * Test class for the Parser class.
@@ -174,7 +174,7 @@ class ParserTest {
      * Tests the parser's handling of GUI input for a todo command.
      */
     @Test
-    void testHandleGuiInputTodo() throws DukeException {
+    void testHandleGuiInputTodo() throws SadCatException {
         Parser parser = new Parser(new Scanner(System.in));
         String response = parser.handleGuiInput("todo Read a book");
         String expected = "Got it. I've added this task:\n"
@@ -187,7 +187,7 @@ class ParserTest {
      * Tests the parser's handling of GUI input for an invalid command.
      */
     @Test
-    void testHandleGuiInputInvalid() throws DukeException {
+    void testHandleGuiInputInvalid() throws SadCatException {
         Parser parser = new Parser(new Scanner(System.in));
         String response = parser.handleGuiInput("invalid command");
         assertEquals("Invalid command provided.", response.trim());
@@ -222,7 +222,7 @@ class ParserTest {
      * Tests the parser's handling of GUI input for the help command.
      */
     @Test
-    void testHandleGuiInputHelp() throws DukeException {
+    void testHandleGuiInputHelp() throws SadCatException {
         Parser parser = new Parser(new Scanner(System.in));
         String response = parser.handleGuiInput("help");
         assertTrue(response.contains("Available commands:"));
@@ -232,7 +232,7 @@ class ParserTest {
     }
 
     @Test
-    void testArchiveCommand() throws DukeException {
+    void testArchiveCommand() throws SadCatException {
         // Add some tasks
         Parser parser1 = new Parser(new Scanner(new ByteArrayInputStream("todo Test task 1".getBytes())));
         parser1.handleUserInput();
@@ -256,7 +256,7 @@ class ParserTest {
     }
 
     @Test
-    void testHandleGuiInputArchive() throws DukeException {
+    void testHandleGuiInputArchive() throws SadCatException {
         Parser parser = new Parser(new Scanner(System.in));
 
         // Add some tasks
