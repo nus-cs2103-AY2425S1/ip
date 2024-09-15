@@ -47,30 +47,45 @@ public class TaskList {
         return new ToDoTask(taskDescription);
     }
 
-    private Task createDeadline(String task) {
-        String[] taskInfo = task.split(" /by ");
-        //Prefix of taskInfo[0] is "deadline "
-        String taskDescription = taskInfo[0].substring(9);
-        String taskDeadline = formatDateTime(taskInfo[1]);
+    private Task createDeadline(String[] taskInfo) {
+        //Format of taskInfo:
+        //["deadline", description, /by, {deadline}]
+        taskInfo[0] = "";
+        String[] newTaskInfo = String.join(" ", taskInfo).split(" /by ");
+        String taskDescription = newTaskInfo[0];
+        String taskDeadline = formatDateTime(newTaskInfo[1]);
         return new DeadlineTask(taskDescription, taskDeadline);
     }
 
-    private Task createEvent(String task) {
-        String[] taskInfo = task.split(" /", 3);
+    private Task createEvent(String[] taskInfo) {
+        //Format of taskInfo:
+        //["event", {description}, /from, {taskStart}, /to, {eventEnd}]
+        String[] newTaskInfo = String.join(" ", taskInfo).split(" /");
+        //Format of newTaskInfo:
+        //["event {description}", "from {taskStart}", "to {eventEnd}"]
         //Prefix of taskInfo[0] is "event "
-        String taskDescription = taskInfo[0].substring(6);
+        String taskDescription = newTaskInfo[0].substring(6);
         //Prefix of taskInfo[1] is "from "
-        String taskStart = formatDateTime(taskInfo[1].substring(5));
+        String taskStart = formatDateTime(newTaskInfo[1].substring(5));
         //Prefix of taskInfo[2] is "to "
-        String taskEnd = formatDateTime(taskInfo[2].substring(3));
+        String taskEnd = formatDateTime(newTaskInfo[2].substring(3));
         return new EventTask(taskDescription, taskStart, taskEnd);
     }
 
-    private Task createTask(String task) 
-            throws EmptyCommandException, EmptyToDoException, UnknownCommandException {
-        String[] taskInfo = task.split(" ");
+    /**
+     * Create a Task object from a single String[] instruction.
+     *
+     * @param instruction The instruction to be converted to a Task object.
+     * @throws EmptyCommandException If the command is empty.
+     * @throws EmptyToDoException If the ToDo task description is empty.
+     * @throws UnknownCommandException If the command is unknown.
+     * @throws DateTimeParseException If the date-time format is invalid.
+     */
+    public Task createTask(String[] instruction)
+            throws EmptyCommandException, EmptyToDoException, UnknownCommandException, DateTimeParseException {
+        String[] taskInfo = instruction[1].split(" ");
         String taskType = taskInfo[0];
-        if (taskInfo[0].equals("")) {
+        if (instruction[0].equals("")) {
             throw new EmptyCommandException();
         } else if (taskType.equals("todo")) {
             try {
@@ -79,9 +94,9 @@ public class TaskList {
                 throw e;
             }
         } else if (taskType.equals("deadline")) {
-            return createDeadline(task);
+            return createDeadline(taskInfo);
         } else if (taskType.equals("event")) {
-            return createEvent(task);
+            return createEvent(taskInfo);
         } else {
             throw new UnknownCommandException();
         }
@@ -90,18 +105,14 @@ public class TaskList {
     /**
      * Adds a new task to the list.
      *
-     * @param task The task description to be added.
-     * @return The created Task object.
+     * @param task The task object to be added.
      * @throws EmptyCommandException If the command is empty.
      * @throws EmptyToDoException If the ToDo task description is empty.
      * @throws UnknownCommandException If the command is unknown.
      * @throws DateTimeParseException If the date-time format is invalid.
      */
-    public Task addToTaskList(String task)
-            throws EmptyCommandException, EmptyToDoException,  UnknownCommandException, DateTimeParseException  {
-        Task curr = createTask(task);
-        taskList.add(curr);
-        return curr;
+    public void addToTaskList(Task task) {
+        taskList.add(task);
     }
 
     /**

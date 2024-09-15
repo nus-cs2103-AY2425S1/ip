@@ -12,6 +12,10 @@ import java.time.format.DateTimeParseException;
 public class SecondMind {
     private static final String logo = "SecondMind";
     private static final String DATA_FILE_PATH = "./SecondMind.txt";
+    private static final String DATE_TIME_PARSE_EXCEPTION_MESSAGE =
+            "Warning! Invalid dateTime format detected!\n"
+            + "Please use the following representation for dateTime strings:\n"
+            + "\tyyyy-MM-ddTHH:mm:ss";
     private static final String EXIT_INSTRUCTION = "$$$EXIT_PROGRAM$$$";
 
     private Storage storage;
@@ -171,6 +175,36 @@ public class SecondMind {
         return matchingTasks;
     }
 
+    private void addTaskToList(Task task)
+            throws EmptyCommandException, EmptyToDoException, UnknownCommandException, DateTimeParseException {
+        taskList.addToTaskList(task);
+    }
+
+    private void addTaskToStorage(Task task) throws IOException {
+        String storageRepresentation = task.getStorageRepresentation();
+        int taskCount = taskList.getTaskCount();
+        storage.appendToFile(storageRepresentation, taskCount);
+    }
+
+    private String getTaskCreationMessage(Task currentTask) {
+        String message = "Got it. I have added the following task:\n\t" + currentTask + "\n"
+                + "You have a grand total of " + this.taskList.getTaskCount() + " task(s)";
+        return message;
+    }
+
+    private String executeTaskCreationInstruction(String[] instruction) {
+        try {
+            Task curr = taskList.createTask(instruction);
+            addTaskToList(curr);
+            addTaskToStorage(curr);
+            return getTaskCreationMessage(curr);
+        } catch (EmptyCommandException | EmptyToDoException | UnknownCommandException | IOException e) {
+            return e.toString();
+        } catch (DateTimeParseException e) {
+            return DATE_TIME_PARSE_EXCEPTION_MESSAGE;
+        }
+    }
+
     public String execute(String[] instruction) {
         String command = instruction[0];
         if (command.equals("bye")) {
@@ -191,28 +225,8 @@ public class SecondMind {
             String response = executeFindInstruction(instruction);
             return response;
         } else {
-            try {
-                Task curr = taskList.addToTaskList(instruction[1]);
-                if (curr == null) {
-                    return "";
-                } else {
-                    try {
-                        storage.appendToFile(curr.getStorageRepresentation(), taskList.getTaskCount());
-                        String message = "Got it. I have added the following task:\n\t" + curr + "\n"
-                                + "You have a grand total of " + this.taskList.getTaskCount() + " task(s)";
-                        return message;
-                    } catch (IOException e) {
-                        return e.toString();
-                    }
-                }
-            } catch (EmptyCommandException | EmptyToDoException | UnknownCommandException e) {
-                return e.toString();
-            } catch (DateTimeParseException e) {
-                String errorMessage = "Warning! Invalid dateTime format detected!\n"
-                        + "Please use the following representation for dateTime strings:\n"
-                        + "\tyyyy-MM-ddTHH:mm:ss";
-                return errorMessage;
-            }
+            String response = executeTaskCreationInstruction(instruction);
+            return response;
         }
     }
 
