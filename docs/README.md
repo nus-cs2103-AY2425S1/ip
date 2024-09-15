@@ -14,6 +14,7 @@ Duck is a personal assistant application for managing tasks. It allows you to ke
 - Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.
   <br>e.g., if the command specifies `list 123`, Duck will still execute the `list` command.
 ---
+
 ## Getting help with commands: `help`
 
 The `help` command provides a list of all available commands and their descriptions. This can help you learn how to use Duck effectively.
