@@ -70,7 +70,7 @@ public class Megamind {
     }
 
     /**
-     * Finds tasks that contain the keyword.
+     * Finds tasks that contain the keyword
      *
      * @param command Command entered by the user.
      * @return String representation of list of task with the keyword
