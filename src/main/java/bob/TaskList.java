@@ -147,7 +147,10 @@ public class TaskList {
      * @throws ChatBotException If the description is empty or if there is an error in the input.
      */
     public String addToDo(String phrase, Ui ui) throws ChatBotException {
-        assert phrase.length() > 5 : "To-do description cannot be empty";
+        // Validate that the description is not empty
+        if (phrase.length() <= 5) {
+            throw new ChatBotException("To-do description cannot be empty. Correct format: todo <description>");
+        }
 
         int oldSize = tasks.size();
         String description = phrase.substring(5);
@@ -168,11 +171,16 @@ public class TaskList {
      */
     public String addDeadline(String phrase, Ui ui) throws ChatBotException {
         try {
+            int oldSize = tasks.size();
+
             String[] parts = phrase.split(" /by ");
             String description = parts[0].substring(9);
             String by = parts[1];
+
             Task newTask = new Deadline(description, by, TaskType.DEADLINE);
             tasks.add(newTask);
+
+            assert tasks.size() == oldSize + 1 : "TaskList size should increase by 1 after adding a task";
             return ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new ChatBotException("Invalid format for deadline. "
@@ -190,12 +198,17 @@ public class TaskList {
      */
     public String addEvent(String phrase, Ui ui) throws ChatBotException {
         try {
+            int oldSize = tasks.size();
+
             String[] parts = phrase.split(" /from | /to ");
             String description = parts[0].substring(6);
             String from = parts[1];
             String to = parts[2];
+
             Task newTask = new Event(description, from, to, TaskType.EVENT);
             tasks.add(newTask);
+
+            assert tasks.size() == oldSize + 1 : "TaskList size should increase by 1 after adding a task";
             return ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new ChatBotException("Invalid format for event. "
@@ -213,11 +226,16 @@ public class TaskList {
      */
     public String addFixed(String phrase, Ui ui) throws ChatBotException {
         try {
+            int oldSize = tasks.size();
+
             String[] parts = phrase.split(" /hours ");
             String description = parts[0].substring(6);
             int duration = Integer.parseInt(parts[1]);
+
             Task newTask = new Fixed(description, duration, TaskType.FIXED);
             tasks.add(newTask);
+
+            assert tasks.size() == oldSize + 1 : "TaskList size should increase by 1 after adding a task";
             return ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new ChatBotException("Invalid format for fixed task. "
