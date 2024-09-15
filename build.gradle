@@ -45,11 +45,11 @@ test {
 }
 
 application {
-    mainClass.set("myapp.helperbuddy.Main")
+    mainClass.set("myapp.quirkbot.Main")
 }
 
 shadowJar {
-    archiveFileName = 'YourHelperBuddy.jar'
+    archiveFileName = 'QuirkBot.jar'
 }
 
 run {
