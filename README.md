@@ -16,19 +16,12 @@ PandaBot frees your mind from remembering tasks and lets you focus on what truly
 
 1. Ensure you have Java `17` or above installed in your Computer.
 2. Download the latest PandaBot.jar file from [here](https://github.com/adipanda2002/ip/releases).
-3. Place the file into the folder you want to use as the **home folder** for PandaBot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar PandaBot.jar` command to run the application
-A GUI similar to the below should appear in a few seconds.
-![Sample GUI interaction after some tasks have already been added](/docs/UI.png)
+3. Place the file into the folder you want to use as the _home folder_ for PandaBot.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar PandaBot.jar` command to run the application.
+   A GUI similar to the below should appear in a few seconds.
+   ![Initial GUI upon running the PandaBot](./docs/initial.png)
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
-Some sample commands you can try:
+6. Refer to the [documentation]() for a complete user guide for PandaBot
 
-
-
-
-### Features:
-
-- [x] Managing tasks, deadlines, and events
-- [x] Finding tasks by keywords
-- [ ] Reminders (coming soon)
-
+Here is sample interaction with the PandaBot:
+![PandaBot Sample Interaction](./docs/Ui.png)
