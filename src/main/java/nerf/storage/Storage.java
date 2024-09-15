@@ -45,7 +45,7 @@ public class Storage {
      * @throws FilePermissionsException If unable to read file.
      */
     public List<String> load() throws FilePermissionsException {
-        checkSafeFileExist();
+        generateSaveFile();
         try {
             List<String> fileContent = Files.readAllLines(Paths.get(getFullPath()));
             return fileContent;
@@ -54,7 +54,7 @@ public class Storage {
         }
     }
 
-    private void checkSafeFileExist() throws FilePermissionsException {
+    private void generateSaveFile() throws FilePermissionsException {
         File directory = new File(this.saveDirectory);
         File saveFile = new File(getFullPath());
         if (!directory.exists()) {
