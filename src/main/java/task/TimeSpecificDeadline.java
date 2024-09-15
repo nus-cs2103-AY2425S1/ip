@@ -31,6 +31,7 @@ public class TimeSpecificDeadline extends Deadline {
      */
     @Override
     public String toData() {
+        assert this.dueTime != null : "Due time should not be null";
         return super.toData() + "/at " + dueTime;
     }
 
