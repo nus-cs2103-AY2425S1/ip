@@ -78,7 +78,7 @@ public class Ui {
     public String showGoodbye() {
         return """
                 GOODBYE MY POOKIE BEAR! I'll be here if you need me.
-                The program will exit in 5 seconds.
+                The program will exit in 3 seconds.
                 """; // Print the goodbye message
     }
     /**
@@ -161,6 +161,6 @@ public class Ui {
      * @return the tasks in the list
      */
     public String showTaskList(String taskListString) {
-        return "Here are the tasks in your list:\n" + taskListString;
+        return "Here are the tasks in your list:\n" + "Don't stress yourself over these uWu~~~\n" + taskListString;
     }
 }

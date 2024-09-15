@@ -40,7 +40,10 @@ public class AddEventCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         String[] parts = arguments.split(" /from | /to ");
         if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-            throw new WolfieException("The description, start time, and end time of an event cannot be empty.");
+            throw new WolfieException("""
+                    ⚠ The description, start time, and end time of an event cannot be empty.
+                    Please enter the description, start time, and end time in the format:
+                    event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>""");
         }
         String description = parts[0].trim();
         LocalDateTime from = LocalDateTime.parse(parts[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));

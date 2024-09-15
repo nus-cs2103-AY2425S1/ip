@@ -38,6 +38,7 @@ class ListCommandTest {
 
         String expectedOutput = """
                 Here are the tasks in your list:
+                Don't stress yourself over these uWu~~~
                 [T][ ] Test task
                 [D][ ] Test deadline (by: Jan 25 2021, 10:00 am)""";
         assertEquals(result, expectedOutput);

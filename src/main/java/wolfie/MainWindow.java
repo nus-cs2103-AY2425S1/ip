@@ -62,12 +62,12 @@ public class MainWindow extends AnchorPane {
             String welcomeMessage = "____________________________________________________________\n"
                     + wolfieArt
                     + "\n"
-                    + " Hello Dean's Lister! I'm Wolfie\n"
-                    + " What can I do for you?\n"
+                    + " Hello Dean's Lister! I'm Wolfie, your Personal Assistant!!!\n"
+                    + " How can I help you?\n"
                     + "____________________________________________________________";
             dialogContainer.getChildren().add(DialogBox.getWolfieDialog(welcomeMessage, wolfieImage));
         } catch (Exception e) {
-            System.err.println("Welcome Message Error: " + e.getMessage());
+            System.err.println("⚠ Welcome Message Error: " + e.getMessage());
         }
     }
     @FXML
@@ -75,20 +75,14 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         System.out.println("User input: " + input); // Debugging statement
         String response;
-        boolean isError = !isValidCommand(input);
 
         try {
-            response = wolfie.getResponse(input);
+            response = wolfie.getResponse(input); // Get response from Wolfie
         } catch (Exception e) {
-            isError = true;
-            response = "Error: " + e.getMessage();
+            response = "⚠ " + e.getMessage();
         }
         System.out.println("Wolfie response: " + response); // Debugging statement
-        DialogBox dialogBox = isError ? DialogBox.getErrorDialog(response, wolfieImage)
-                : DialogBox.getWolfieDialog(response, wolfieImage);
-        if (isError) {
-            dialogBox.getStyleClass().add("error-text");
-        }
+        DialogBox dialogBox = DialogBox.getWolfieDialog(response, wolfieImage);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 dialogBox
@@ -97,25 +91,13 @@ public class MainWindow extends AnchorPane {
         if (input.trim().equalsIgnoreCase("bye")) {
             new Thread(() -> {
                 try {
-                    Thread.sleep(5000); // Wait for 5 seconds before exiting
+                    Thread.sleep(3000); // Wait for 3 seconds before exiting
                 } catch (InterruptedException e) {
-                    System.err.println("Error: " + e.getMessage());
+                    System.err.println("⚠ Error: " + e.getMessage());
                 }
                 Platform.exit();
             }).start();
         }
-    }
-    private boolean isValidCommand(String input) {
-        return input.trim().equalsIgnoreCase("bye")
-                || input.trim().equalsIgnoreCase("list")
-                || input.trim().equalsIgnoreCase("todo")
-                || input.trim().equalsIgnoreCase("deadline")
-                || input.trim().equalsIgnoreCase("event")
-                || input.trim().equalsIgnoreCase("delete")
-                || input.trim().equalsIgnoreCase("find")
-                || input.trim().equalsIgnoreCase("mark")
-                || input.trim().equalsIgnoreCase("unmark")
-                || input.trim().equalsIgnoreCase("on");
     }
 }
 

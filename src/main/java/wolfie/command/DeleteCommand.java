@@ -19,9 +19,14 @@ public class DeleteCommand extends Command {
      *
      * @param arguments The arguments passed to the command.
      */
-    public DeleteCommand(String arguments) {
-        this.index = Integer.parseInt(arguments) - 1;
+    public DeleteCommand(String arguments) throws WolfieException {
+        try {
+            this.index = Integer.parseInt(arguments) - 1;
+        } catch (NumberFormatException e) {
+            throw new WolfieException("⚠ Please enter a valid task number, not the description.");
+        }
     }
+
 
     /**
      * Executes the delete command to delete a task from the task list.
@@ -36,7 +41,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         if (index < 0 || index >= tasks.size()) {
-            throw new WolfieException("Invalid task number. Please use existing numbers and not the description.");
+            throw new WolfieException("⚠ Invalid task number. Please use existing numbers and not the description.");
         }
         Task removedTask = tasks.remove(index);
         storage.save(tasks);

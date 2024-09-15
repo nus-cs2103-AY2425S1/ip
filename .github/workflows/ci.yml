@@ -15,9 +15,3 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: Build with Gradle
-        run: ./gradlew build

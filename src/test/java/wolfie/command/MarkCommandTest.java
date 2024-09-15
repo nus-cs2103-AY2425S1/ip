@@ -39,7 +39,7 @@ class MarkCommandTest {
     }
 
     @Test
-    void testExecute_invalidIndex() {
+    void testExecute_invalidIndex() throws WolfieException {
         MarkCommand command = new MarkCommand("1");
         assertThrows(WolfieException.class, () -> command.execute(tasks, ui, storage));
     }

@@ -36,7 +36,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    void testExecute_invalidIndex() {
+    void testExecute_invalidIndex() throws WolfieException {
         DeleteCommand command = new DeleteCommand("1");
         assertThrows(WolfieException.class, () -> command.execute(tasks, ui, storage));
     }

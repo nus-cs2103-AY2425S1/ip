@@ -40,7 +40,10 @@ public class AddDeadlineCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         String[] parts = arguments.split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new WolfieException("The description and deadline of a deadline task cannot be empty.");
+            throw new WolfieException("""
+                    ⚠ The description and deadline of a deadline task cannot be empty.
+                    Please enter the description and deadline in the format:
+                    deadline <description> /by <yyyy-MM-dd HHmm>""");
         }
         String description = parts[0].trim();
         LocalDateTime by = LocalDateTime.parse(parts[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
@@ -50,7 +53,7 @@ public class AddDeadlineCommand extends Command {
             storage.save(tasks);
             return ui.showTaskAdded(task, tasks.size());
         } else {
-            return "Task already exists in the list. " + task.getDescription();
+            return "⚠ Task already exists in the list. " + task.getDescription();
         }
     }
 }

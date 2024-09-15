@@ -2,7 +2,6 @@ package wolfie.command;
 
 import java.io.IOException;
 
-import wolfie.exception.WolfieException;
 import wolfie.task.Task;
 import wolfie.task.TaskList;
 import wolfie.task.Todo;
@@ -32,13 +31,9 @@ public class AddTodoCommand extends Command {
      * @param storage The storage to save the task list to.
      * @return The message to show the user.
      * @throws IOException If there is an error saving the task list.
-     * @throws WolfieException If the description is empty.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
-        if (description.isEmpty()) {
-            throw new WolfieException("The description of a todo cannot be empty.");
-        }
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task task = new Todo(description, false);
         boolean isAdded = tasks.add(task);
         if (isAdded) {

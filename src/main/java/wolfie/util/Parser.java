@@ -29,8 +29,18 @@ public class Parser {
         String arguments = parts.length > 1 ? parts[1] : ""; // Second part is the arguments
 
         return switch (commandWord) {
-        case "bye" -> new ExitCommand();
-        case "list" -> new ListCommand();
+        case "bye" -> {
+            if (!arguments.isEmpty()) {
+                throw new WolfieException("⚠ The 'bye' command should not have any arguments.");
+            }
+            yield new ExitCommand();
+        }
+        case "list" -> {
+            if (!arguments.isEmpty()) {
+                throw new WolfieException("⚠ The 'list' command should not have any arguments.");
+            }
+            yield new ListCommand();
+        }
         case "mark" -> new MarkCommand(arguments);
         case "unmark" -> new UnmarkCommand(arguments);
         case "todo" -> new AddTodoCommand(arguments);
@@ -39,7 +49,20 @@ public class Parser {
         case "delete" -> new DeleteCommand(arguments);
         case "on" -> new OnCommand(arguments);
         case "find" -> new FindCommand(arguments);
-        default -> throw new WolfieException("I'm sorry Dean's Lister, but I don't know what that means :-(");
+        default -> throw new WolfieException("""
+                I'm sorry Dean's Lister, but I don't know what that means :-(
+                These are the commands I understand:
+                1. todo
+                2. deadline
+                3. event
+                4. mark
+                5. unmark
+                6. delete
+                7. find
+                8. on
+                9. list
+                10. bye
+                """);
         };
     }
 }

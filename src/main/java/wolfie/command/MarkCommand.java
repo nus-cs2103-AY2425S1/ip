@@ -14,10 +14,19 @@ import wolfie.util.Ui;
 public class MarkCommand extends Command {
     private final int index;
 
-    public MarkCommand(String arguments) {
-        this.index = Integer.parseInt(arguments) - 1;
+    /**
+     * Creates a new mark command with the given arguments.
+     *
+     * @param arguments The arguments for the command.
+     * @throws WolfieException If the argument is not a number.
+     */
+    public MarkCommand(String arguments) throws WolfieException {
+        try {
+            this.index = Integer.parseInt(arguments) - 1;
+        } catch (NumberFormatException e) {
+            throw new WolfieException("⚠ Please enter a valid task number and not the description.");
+        }
     }
-
     /**
      * Executes the mark command to mark a task as done.
      *
@@ -31,7 +40,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         if (index < 0 || index >= tasks.size()) {
-            throw new WolfieException("Invalid task number. Please use existing numbers and not the description.");
+            throw new WolfieException("⚠ Invalid task number. Please use existing numbers.");
         }
         Task task = tasks.get(index);
         task.markAsDone();

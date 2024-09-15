@@ -36,7 +36,7 @@ class UnmarkCommandTest {
     }
 
     @Test
-    void testExecute_invalidIndex() {
+    void testExecute_invalidIndex() throws WolfieException {
         UnmarkCommand command = new UnmarkCommand("1");
         assertThrows(WolfieException.class, () -> command.execute(tasks, ui, storage));
     }
