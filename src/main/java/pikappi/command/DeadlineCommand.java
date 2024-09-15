@@ -22,6 +22,9 @@ public class DeadlineCommand extends Command {
     public DeadlineCommand(String fullCommand) throws PikappiException {
         try {
             String[] splitCommand = fullCommand.split(" /by ");
+            if (splitCommand.length > 2) {
+                throw new PikappiException("Pika..? Too many '/by' keywords..");
+            }
             this.description = splitCommand[0];
             this.by = splitCommand[1];
         } catch (ArrayIndexOutOfBoundsException e) {

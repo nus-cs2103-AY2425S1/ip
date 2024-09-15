@@ -58,6 +58,9 @@ public class TaskList {
         if (task == null) {
             throw new PikappiException("Pi-ka..?? What is the task..?");
         }
+        if (tasks.contains(task)) {
+            throw new PikappiException("Pi-ka..?? Task already exists..");
+        }
         tasks.add(task);
         return ui.showAddedTask(task, tasks.size());
     }

@@ -14,6 +14,8 @@ import pikappi.command.TodoCommand;
 import pikappi.command.UnmarkCommand;
 import pikappi.exception.PikappiException;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * Represents a parser that handles user input.
  */
@@ -35,13 +37,17 @@ public class Parser {
             c = new ListCommand();
             break;
         case "MARK":
-            c = new MarkCommand(Integer.parseInt(command.split(" ")[1]));
+            try {
+                c = new MarkCommand(Integer.parseInt(command.split(" ")[1]));
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                throw new PikappiException("Pika..? Invalid task number..");
+            }
             break;
         case "UNMARK":
             try {
                 c = new UnmarkCommand(Integer.parseInt(command.split(" ")[1]));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new PikappiException("Pika..? Task does not exist..");
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                throw new PikappiException("Pika..? Invalid task number..");
             }
             break;
         case "TODO":
@@ -68,7 +74,7 @@ public class Parser {
         case "DELETE":
             try {
                 c = new DeleteCommand(Integer.parseInt(command.split("delete ")[1]));
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 throw new PikappiException("Pika..? Which task do you want to delete?");
             }
             break;

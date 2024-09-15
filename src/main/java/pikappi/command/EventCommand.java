@@ -23,8 +23,14 @@ public class EventCommand extends Command {
     public EventCommand(String fullCommand) throws PikappiException {
         try {
             String[] splitCommand = fullCommand.split(" /from ");
+            if (splitCommand.length > 2) {
+                throw new PikappiException("Pika..? Too many '/from' keywords..");
+            }
             this.description = splitCommand[0];
             String[] splitFrom = splitCommand[1].split(" /to ");
+            if (splitFrom.length > 2) {
+                throw new PikappiException("Pika..? Too many '/to' keywords..");
+            }
             this.from = splitFrom[0];
             this.to = splitFrom[1];
         } catch (ArrayIndexOutOfBoundsException e) {
