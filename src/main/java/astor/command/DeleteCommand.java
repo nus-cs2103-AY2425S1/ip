@@ -23,6 +23,10 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
+        assert taskList != null: "taskList must not be null";
+        assert ui != null: "ui must not be null";
+        assert storage != null: "storage must not be null";
+
         String formattedString = info.substring(6).trim();
         int indexC = -1;
         try {

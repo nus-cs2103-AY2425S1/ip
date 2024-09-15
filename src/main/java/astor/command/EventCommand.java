@@ -28,6 +28,10 @@ public class EventCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException {
+        assert taskList != null: "taskList must not be null";
+        assert ui != null: "ui must not be null";
+        assert storage != null: "storage must not be null";
+
         String s2 = info.substring(5).trim();
         if (s2.isEmpty()) {
             throw new EmptyTaskInfoException();
