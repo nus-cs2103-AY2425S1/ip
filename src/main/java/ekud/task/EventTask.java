@@ -13,6 +13,9 @@ import ekud.exceptions.EkudException;
  * @author uniqly
  */
 public class EventTask extends Task {
+    public static final String FROM_TOKEN = "/from";
+    public static final String TO_TOKEN = "/to";
+
     /** The {@link LocalDateTime} format when parsing input date Strings */
     private static final DateTimeFormatter READ_DATE_FORMAT =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);

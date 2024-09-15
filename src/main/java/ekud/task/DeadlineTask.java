@@ -13,6 +13,8 @@ import ekud.exceptions.EkudException;
  * @author uniqly
  */
 public class DeadlineTask extends Task {
+    public static final String BY_TOKEN = "/by";
+
     /** The {@link LocalDateTime} format when parsing input date Strings */
     private static final DateTimeFormatter READ_DATE_FORMAT =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
