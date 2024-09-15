@@ -16,7 +16,6 @@ public class Parser {
     public static String parseInput(String input, TaskList taskList) throws WinnerException {
         String msg = "";
         if (input.matches("(?i)hi|hello")) {
-            //Ui.applyTemplate(Ui.hiAgain());
             msg = Ui.hiAgain();
 
         } else if (input.matches("(?i).*\\btodo\\b.*")) {
@@ -27,7 +26,6 @@ public class Parser {
                         todo (task)""");
             }
             msg = taskList.addToDo(description);
-            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bdeadline\\b.*")) {
             String[] parts = input.split("(?i)\\bdeadline\\b | \\bby\\b");
@@ -37,7 +35,6 @@ public class Parser {
                         deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)""");
             }
             msg = taskList.addDeadline(parts[1].trim().toLowerCase(), parts[2]);
-            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bevent\\b.*")) {
             String[] parts = input.split("(?i)\\bevent\\b | \\bfrom\\b | \\bto\\b");
@@ -51,18 +48,12 @@ public class Parser {
             String start = parts[2].trim().toLowerCase();
             String end = parts[3].trim().toLowerCase();
             msg = taskList.addEvent(description, start, end);
-            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\blist\\b.*")) {
             msg = taskList.listTasks();
-            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bmark\\b.*")) {
-            String numberString = input.replaceAll("[^0-9]", "");
-            if (numberString.isEmpty()) {
-                throw new WinnerException("Please input a task number instead.");
-            }
-            int taskNumber = Integer.parseInt(numberString);
+            int taskNumber = getTaskNumber(input);
             if (taskNumber < 1 || taskNumber > taskList.getNoOfTasks()) {
                 throw new WinnerException("""
                         Oh no! I cannot mark this task as done because the number is invalid.
@@ -70,14 +61,9 @@ public class Parser {
                         mark (task number)""");
             }
             msg = taskList.markTaskAsDone(taskNumber);
-            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bunmark\\b.*")) {
-            String numberString = input.replaceAll("[^0-9]", "");
-            if (numberString.isEmpty()) {
-                throw new WinnerException("Please input a task number instead.");
-            }
-            int taskNumber = Integer.parseInt(numberString);
+            int taskNumber = getTaskNumber(input);
             if (taskNumber < 1 || taskNumber > taskList.getNoOfTasks()) {
                 throw new WinnerException("""
                         Oh no! I cannot unmark this done task because the number is invalid.
@@ -85,14 +71,9 @@ public class Parser {
                         unmark (task number)""");
             }
             msg = taskList.unmarkDoneTask(taskNumber);
-            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bdelete\\b.*")) {
-            String numberString = input.replaceAll("[^0-9]", "");
-            if (numberString.isEmpty()) {
-                throw new WinnerException("Please input a task number instead.");
-            }
-            int taskNumber = Integer.parseInt(numberString);
+            int taskNumber = getTaskNumber(input);
             if (taskNumber < 1 || taskNumber > taskList.getNoOfTasks()) {
                 throw new WinnerException("""
                         Oh no! I cannot remove this task from the list because the number is invalid.
@@ -100,7 +81,6 @@ public class Parser {
                         delete (task number)""");
             }
             msg = taskList.deleteTask(taskNumber);
-            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\bfind\\b.*")) {
             String keyword = input.split("(?i)\\bfind\\b")[1].trim().toLowerCase();
@@ -110,15 +90,21 @@ public class Parser {
                         find (keyword)""");
             }
             msg = taskList.findTasksWithKeyword(keyword);
-            //Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*bye.*")) {
-            //Ui.winnerSaysBye();
             msg = Ui.winnerSaysBye();
 
         } else {
             throw new WinnerException("Oops sorry! I do not know what that means :(");
         }
         return msg;
+    }
+
+    public static int getTaskNumber(String input) throws WinnerException {
+        String numberString = input.replaceAll("[^0-9]", "");
+        if (numberString.isEmpty()) {
+            throw new WinnerException("Please input a task number instead.");
+        }
+        return Integer.parseInt(numberString);
     }
 }
