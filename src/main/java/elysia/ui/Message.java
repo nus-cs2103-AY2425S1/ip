@@ -1,7 +1,7 @@
 package elysia.ui;
 
 /**
- * Provides utility methods for displaying formatted messages in the Elysia application.
+ * Provides utility methods for displaying formatted messages in the elysia.ui.Elysia application.
  * Each message is enclosed within a divider for clear visual separation in the console output.
  */
 public class Message {
