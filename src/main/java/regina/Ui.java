@@ -101,15 +101,6 @@ public class Ui {
     }
 
     /**
-     * Reads a line of input from the user.
-     *
-     * @return The input string entered by the user.
-     */
-    public String readInput() {
-        return this.scanner.nextLine();
-    }
-
-    /**
      * Prints an error message contained within the provided string.
      *
      * @param message The error message to display to the user.

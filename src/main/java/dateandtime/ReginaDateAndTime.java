@@ -32,10 +32,12 @@ public class ReginaDateAndTime {
         if (dateTime.length < 2) {
             throw new ReginaException("Ehh you need to write BOTH the date and time");
         }
-
         String dateString = dateTime[0];
         String timeString = dateTime[1];
+        parseInDateAndTime(dateString, timeString);
+    }
 
+    private void parseInDateAndTime(String dateString, String timeString) throws ReginaException {
         try {
             this.date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(INPUT_DATE_PATTERN));
             this.time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern(INPUT_TIME_PATTERN));
@@ -157,7 +159,7 @@ public class ReginaDateAndTime {
      *
      * @return A formatted string representing the date.
      */
-    private String formattedDate() {
+    private String getFormattedDate() {
         return this.date.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_PATTERN));
     }
 
@@ -166,7 +168,7 @@ public class ReginaDateAndTime {
      *
      * @return A formatted string representing the time.
      */
-    private String formattedTime() {
+    private String getFormattedTime() {
         return this.time.format(DateTimeFormatter.ofPattern(OUTPUT_TIME_PATTERN));
     }
 
@@ -182,12 +184,12 @@ public class ReginaDateAndTime {
     /**
      * Returns a string representation of the date and time.
      *
-     * @return A string in the format: "MMM dd yyyy hh:mm a" or "MMM dd yyyy" if time is not provided.
+     * @return A string in the format: "MMM dd yyyy hh:mm" or "MMM dd yyyy" if time is not provided.
      */
     @Override
     public String toString() {
         // Combine formatted date and time
-        String formattedTimeIfExist = this.time != null ? " " + formattedTime() : "";
-        return formattedDate() + "," + formattedTimeIfExist;
+        String formattedTimeIfExist = this.time != null ? " " + getFormattedTime() : "";
+        return getFormattedDate() + "," + formattedTimeIfExist;
     }
 }

@@ -24,7 +24,6 @@ public class DeadlinesTask extends Task {
 
     /**
      * Checks if the deadline for this task is occurring at the specified date and time.
-     *
      * This method determines if the provided date and time is equal to or before
      * the deadline of the task. It considers the deadline to be occurring if
      * the specified date and time is at or before the deadline.
@@ -48,22 +47,14 @@ public class DeadlinesTask extends Task {
      */
     @Override
     public String snoozeTask(String durationType, int durationValue) {
-        String message = "";
+        String message;
         String plural = durationValue > 1 ? "s" : "";
         switch (durationType) {
-        case "day" -> {
-            this.deadline.pushBackDate(durationValue);
+        case "day" -> this.deadline.pushBackDate(durationValue);
+        case "hour" -> this.deadline.pushBackTime(hoursToMinutes(durationValue));
+        case "minute" -> this.deadline.pushBackTime(durationValue);
+        default -> this.deadline.pushBackTime(30);
         }
-        case "hour" -> {
-            this.deadline.pushBackTime(hoursToMinutes(durationValue));
-        }
-        case "minute" -> {
-            this.deadline.pushBackTime(durationValue);
-        }
-        default -> {
-            this.deadline.pushBackTime(30);
-        }
-        };
         message = String.format("Pushed back deadline of %s by %d %s%s to %s",
                 this.description, durationValue, durationType, plural, this.deadline.toString());
         return message;

@@ -199,7 +199,7 @@ public class Regina {
             task = new DeadlinesTask(deadlineDescription, deadline);
             break;
         case "event":
-            String[] eventParts = getEventStringSubparts(input);
+            String[] eventParts = getEventStringSubpart(input);
             String eventDescription = eventParts[0];
             if (!eventParts[1].contains(" ")) {
                 throw new ReginaException("NEITHER the start-time OR end-time can be left blank!\n"
@@ -215,7 +215,7 @@ public class Regina {
         return task;
     }
 
-    private static String[] getEventStringSubparts(String input) throws ReginaException {
+    private static String[] getEventStringSubpart(String input) throws ReginaException {
         String[] eventParts = input.substring(6).trim().split(" /");
         int length = eventParts.length;
         // check if there is the expected number of sub-parts
