@@ -44,7 +44,7 @@ public class Henry {
             c.save(tasks, storage);
             return response;
         } catch (HenryException e) {
-            return "\nSorry! " + e.getMessage() + "\n";
+            return "Sorry! " + e.getMessage() + "\n";
         }
     }
 
