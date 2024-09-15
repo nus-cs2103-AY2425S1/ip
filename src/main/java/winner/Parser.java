@@ -19,6 +19,9 @@ public class Parser {
         if (input.matches("(?i)hi|hello")) {
             msg = Ui.hiAgain();
 
+        } else if (input.matches("(?i)\\bhelp\\b")) {
+            msg = Ui.winnerGivesHelp();
+
         } else if (input.matches("(?i).*\\btodo\\b.*")) {
             String description = input.split("todo", 2)[1].trim().toLowerCase();
             if (description.isEmpty()) {

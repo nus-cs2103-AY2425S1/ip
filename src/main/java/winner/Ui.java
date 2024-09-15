@@ -39,7 +39,13 @@ public class Ui {
     public static String winnerSaysHi() {
         return """
                 Hello! I am Winner, your personal task trackBOT!
-                You can send me these commands in the form shown below so I can help you keep track of your tasks :
+                Type "help" if you need help with commands!
+                """;
+    }
+
+    public static String winnerGivesHelp() {
+        return """
+                Use these commands for me to add tasks:
                      - todo (task) --> tasks without any date/time attached
                      - deadline (task) by (date) at (time) --> tasks with a deadline
                      - event (task) from (start) to (end) --> tasks with a start and end date/time
@@ -48,6 +54,7 @@ public class Ui {
                      - mark (task number) --> mark the task number that you input as done
                      - unmark (task number) --> mark the task number that you input as undone
                      - delete (task number) --> remove the task number that you input from your list of tasks
+                     - find (keyword) --> shows you all your tasks with the keyword
                 """;
     }
 
