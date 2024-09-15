@@ -192,12 +192,21 @@ public class SecondMind {
         return message;
     }
 
+    private String getDuplicateTaskMessage(Task task) {
+        String message = "The following task already exists:\n\t" + task;
+        return message;
+    }
+
     private String executeTaskCreationInstruction(String[] instruction) {
         try {
-            Task curr = taskList.createTask(instruction);
-            addTaskToList(curr);
-            addTaskToStorage(curr);
-            return getTaskCreationMessage(curr);
+            Task newTask = taskList.createTask(instruction);
+            boolean containsDuplicates = taskList.checkForDuplicate(newTask);
+            if (containsDuplicates) {
+                return getDuplicateTaskMessage(newTask);
+            }
+            addTaskToList(newTask);
+            addTaskToStorage(newTask);
+            return getTaskCreationMessage(newTask);
         } catch (EmptyCommandException | EmptyToDoException | UnknownCommandException | IOException e) {
             return e.toString();
         } catch (DateTimeParseException e) {
