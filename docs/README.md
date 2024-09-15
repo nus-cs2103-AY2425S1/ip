@@ -185,13 +185,13 @@ Format: `bye`
 ZBot data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ## Command summary
-| Action | Format | Examples |
-| --- | --- | --- |
-| Add | `todo TASK` | `todo try zbot` |
-| Add | `deadline TASK /by DATE [TIME]` | `deadline try zbot /by 20/09/2024` |
-| Add | `event TASK /from DATE TIME /to DATE TIME` | `event try zbot /from 19/09/2024 2330 /to 20/09/2024 0030` |
-| List | `list` | |
-| Mark | `mark INDEX` | `mark 1` |
-| Unmark | `unmark INDEX` | `unmark 1` |
-| Delete | `delete INDEX` | `delete 1` |
-| Find | `find KEYWORD` | `find look at` |
+Action | Format | Examples
+--- | --- | ---
+Add | `todo TASK` | `todo try zbot`
+Add | `deadline TASK /by DATE [TIME]` | `deadline try zbot /by 20/09/2024`
+Add | `event TASK /from DATE TIME /to DATE TIME` | `event try zbot /from 19/09/2024 2330 /to 20/09/2024 0030`
+List | `list`
+Mark | `mark INDEX` | `mark 1`
+Unmark | `unmark INDEX` | `unmark 1`
+Delete | `delete INDEX` | `delete 1`
+Find | `find KEYWORD` | `find look at`
