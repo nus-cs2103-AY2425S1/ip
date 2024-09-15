@@ -3,10 +3,8 @@ package nixy;
 import java.util.function.Consumer;
 
 import nixy.command.Command;
-import nixy.command.CommandType;
 import nixy.exceptions.NixyException;
 import nixy.parse.Parser;
-import nixy.task.Task;
 import nixy.task.TaskList;
 import nixy.ui.Ui;
 
@@ -74,7 +72,7 @@ public class Nixy {
         Command c;
         try {
             c = parser.parse(userInput);
-            assert c != null: "Parsed command should not be null";
+            assert c != null : "Parsed command should not be null";
         } catch (NixyException e) {
             ui.showNixyException(e);
             return;

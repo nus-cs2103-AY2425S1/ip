@@ -19,6 +19,11 @@ import nixy.task.TaskList;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath The file path to store tasks data.
+     */
     public Storage(String filePath) {
         assert filePath != null : "File path should not be null";
         this.filePath = filePath;
@@ -63,12 +68,19 @@ public class Storage {
     public void save(TaskList taskList) throws NixyException {
         try {
             File file = new File(filePath);
+
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+
             if (!file.exists()) {
                 file.createNewFile();
             } else {
                 file.delete();
                 file.createNewFile();
             }
+
             FileWriter fileWriter = new FileWriter(filePath);
             Iterator<Task> taskIterator = taskList.getTasksIterator();
             for (int i = 0; taskIterator.hasNext(); i++) {

@@ -1,7 +1,7 @@
 package nixy.command;
 
-import nixy.ui.Ui;
 import nixy.task.TaskList;
+import nixy.ui.Ui;
 
 /**
  * Class representing the command to find tasks.

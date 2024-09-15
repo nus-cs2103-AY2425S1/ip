@@ -1,8 +1,8 @@
 package nixy.command;
 
-import nixy.ui.Ui;
-import nixy.task.TaskList;
 import nixy.Storage;
+import nixy.task.TaskList;
+import nixy.ui.Ui;
 
 /**
  * Class representing the command to mark/unmark a task as done.
@@ -29,6 +29,15 @@ public class MarkCommand implements Command {
         this.storage = storage;
         this.taskNumber = taskNumber;
         this.isMark = isMark;
+    }
+
+    /**
+     * Returns the task number to mark/unmark as done.
+     *
+     * @return The task number to mark/unmark as done.
+     */
+    public int getTaskNumber() {
+        return taskNumber;
     }
 
     /**
