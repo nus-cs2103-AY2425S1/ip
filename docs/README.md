@@ -226,3 +226,6 @@ Returns a response displaying the goodbye message.
 ```
 Bye. Hope to see you again soon!
 ```
+
+## Acknowledgements
+- Close a stage after a certain amount of time JavaFX [Source](https://stackoverflow.com/a/27334614)

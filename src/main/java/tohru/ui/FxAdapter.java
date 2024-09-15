@@ -80,10 +80,13 @@ public class FxAdapter implements Ui {
      * Closes the chatbot application.
      */
     public void closeInput() {
+        // @@author rollingpencil-reused
+        // Reused from https://stackoverflow.com/a/27334614
+        // with minor modifications.
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(e -> Platform.exit());
         delay.play();
-
+        // @@author
     }
 
     /**
