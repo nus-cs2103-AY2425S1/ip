@@ -1,4 +1,4 @@
-# PandaBot
+# PandaBot User Guide
 
 > "_Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning, and focused effort._" – Paul J. Meyer [(source)](https://dansilvestre.com/productivity-quotes/)
 
@@ -14,13 +14,17 @@ PandaBot frees your mind from remembering tasks and lets you focus on what truly
 
 ### Getting Started
 
-1. Download the PandaBot.jar file from [here](https://github.com/adipanda2002/ip/releases).
-2. Place the file into an appropriate directory on your device
-3. Navigate to the directory from your CLI
-4. Run the `PandaBot.jar` file: `java -jar PandaBot.jar`
-5. Start managing your tasks like a pro 😉
+1. Ensure you have Java `17` or above installed in your Computer.
+2. Download the latest PandaBot.jar file from [here](https://github.com/adipanda2002/ip/releases).
+3. Place the file into the folder you want to use as the **home folder** for PandaBot.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar PandaBot.jar` command to run the application
+A GUI similar to the below should appear in a few seconds.
+![Sample GUI interaction after some tasks have already been added](/docs/UI.png)
+5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
+Some sample commands you can try:
 
-And guess what? It's **FREE**!
+
+
 
 ### Features:
 
