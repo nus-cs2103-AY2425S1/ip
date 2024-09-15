@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import patrick.parser.Parser;
+import patrick.ui.Ui;
 
 /**
  * Controls the main GUI window in the Patrick application.
@@ -25,6 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image patrickThinkingImage = new Image(this.getClass().getResourceAsStream("/images/patrickThinking.png"));
+    private Image angryPatrickImage = new Image(this.getClass().getResourceAsStream("/images/AngryPatrick.png"));
 
     /**
      * Initializes the MainWindow by binding the scroll pane's vertical value to the height of the dialog container.
@@ -33,6 +37,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.showWelcomeMsg(), dukeImage));
     }
 
     /**
@@ -49,13 +54,13 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
         String response = patrick.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog("Hang on Spongebob! Let me check", patrickThinkingImage));
+        Image currentPatrick = response.startsWith("Watch your words") ? angryPatrickImage : dukeImage;
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(response, currentPatrick));
         userInput.clear();
     }
 }
