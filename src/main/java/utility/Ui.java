@@ -15,7 +15,7 @@ public class Ui {
      */
     public String welcomeMessage() {
         String initialResponse = "Hello! I'm Alpha\n"
-                + "What can I do for you?\n";
+            + "What can I do for you?\n";
         return initialResponse;
     }
     
@@ -26,7 +26,7 @@ public class Ui {
      */
     public String listTask(TaskList taskList) {
         String echoResponse = "Here are the tasks in your list:\n"
-                + taskList.listWord() + "\n";
+            + taskList.listWord() + "\n";
         return echoResponse;
     }
     
@@ -53,8 +53,8 @@ public class Ui {
     public String addTaskMessage(TaskList taskList) {
         System.out.println(taskList.getTaskLists());
         String echoResponse = "Got it. I've added this task: \n"
-                + taskList.lastTask().toString()
-                + taskList.getLength() + "\n";
+            + taskList.lastTask().toString()
+            + taskList.getLength() + "\n";
         return echoResponse;
     }
     
@@ -65,7 +65,7 @@ public class Ui {
      */
     public String undoneMessage(String modifiedRecord) {
         String echoResponse = "OK, I've marked this task as not done yet:\n "
-                + modifiedRecord + "\n";
+            + modifiedRecord + "\n";
         return echoResponse;
     }
     
@@ -76,7 +76,7 @@ public class Ui {
      */
     public String doneMessage(String modifiedRecord) {
         String echoResponse = "Nice! I've marked this task as done:\n"
-                + modifiedRecord + "\n";
+            + modifiedRecord + "\n";
         return echoResponse;
     }
     
@@ -110,7 +110,7 @@ public class Ui {
     
     public String deleteTaskMessage(String deleteTaskNotice, String numberOfTasks) {
         String echoResponse =  "Noted. I've removed this task:\n "
-                + deleteTaskNotice + "\n" + numberOfTasks;
+            + deleteTaskNotice + "\n" + numberOfTasks;
         return echoResponse;
     }
 }
