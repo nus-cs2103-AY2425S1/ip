@@ -50,6 +50,9 @@ public class Event extends Task {
             String description = details[0].trim();
             LocalDateTime from = parseDateTime(details[1].trim());
             LocalDateTime to = parseDateTime(details[2].trim());
+            if (from.isEqual(to) || from.isAfter(to)) {
+                throw new InputException("The start time for an event must be before the end time.");
+            }
             if (description.isEmpty()) {
                 throw new InputException("You need to describe your tasks.Event!");
             }
