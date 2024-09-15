@@ -31,7 +31,7 @@ public class Ui {
     }
 
     /**
-     * Show the message printed when a task is added.
+     * Shows the message printed when a task is added.
      */
     public String showAddTask(TaskList tasks) {
         return NEW_LINE + SHOW_ADD_TASK
@@ -40,7 +40,7 @@ public class Ui {
     }
 
     /**
-     * Show the message printed when a task is deleted.
+     * Shows the message printed when a task is deleted.
      */
     public String showDeleteTask(TaskList tasks, int index) throws DukeException {
         Task task = tasks.get(index);
@@ -52,7 +52,7 @@ public class Ui {
     }
 
     /**
-     * Show the entire list when user input "list".
+     * Shows the entire list when user input "list".
      */
     public String showList(TaskList tasks) {
         StringBuilder sb = new StringBuilder(NEW_LINE + "Here are the tasks in your list:");
@@ -66,14 +66,14 @@ public class Ui {
     }
 
     /**
-     * Show the message printed when a task is marked.
+     * Shows the message printed when a task is marked.
      */
     public String showMarkTask(TaskList tasks, int index) {
         return NEW_LINE + tasks.get(index).markTask() + "\n" + NEW_LINE;
     }
 
     /**
-     * Show the message printed when a task is unmarked.
+     * Shows the message printed when a task is unmarked.
      */
     public String showUnmarkTask(TaskList tasks, int index) {
         return NEW_LINE + tasks.get(index).unMarkTask() + NEW_LINE;

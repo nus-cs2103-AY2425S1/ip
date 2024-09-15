@@ -7,6 +7,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
@@ -43,7 +44,7 @@ public class Nameless {
     }
 
     /**
-     * Run the program until user input "bye"
+     * Runs the program until user input "bye"
      */
     public void run() {
         ui.greetings();
@@ -58,6 +59,7 @@ public class Nameless {
     private String bye() throws DukeException {
         storage.writeFile(tasks.getTasks());
         isRunning = false;
+        Platform.runLater(Platform::exit);
         return ui.goodbye();
     }
 
@@ -69,10 +71,11 @@ public class Nameless {
         assert input != null : "Input should not be null";
         String words = Parser.splitGetWords(input);
 
-        if (words.isEmpty()) {
-            exception.todoFormatError();
+        try {
+            tasks.addTask(new Todo(words));
+        } catch (DateTimeParseException e) {
+            return exception.todoFormatError();
         }
-        tasks.addTask(new Todo(words));
 
         return ui.showAddTask(tasks);
     }
