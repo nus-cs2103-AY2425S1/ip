@@ -54,6 +54,16 @@ public class TaskList {
     }
 
     /**
+     * Determines if a task is in the TaskList.
+     *
+     * @param task The task that should be checked if it is in the Tasklist.
+     * @return The presence of the task in the tasklist
+     */
+    public Boolean contains(Task task) {
+        return tasks.contains(task);
+    }
+
+    /**
      * Retrieves a task from the TaskList by index.
      *
      * @param index The index of the task to retrieve.
