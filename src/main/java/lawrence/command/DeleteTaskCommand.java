@@ -38,13 +38,13 @@ public class DeleteTaskCommand extends Command {
      *                made
      * @param ui a {@link UserInterface} instance to display
      *           possible messages to the user
+     * @return a string representing the bot's response after execution of the command
      */
     @Override
-    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
+    public String execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         String[] inputComponents = input.split(" ", 2);
         if (inputComponents.length < 2) {
-            this.response = "Please specify the task you want to delete.";
-            return;
+            return "Please specify the task you want to delete.";
         }
 
         String rawTaskNumber = inputComponents[1];
@@ -53,13 +53,13 @@ public class DeleteTaskCommand extends Command {
             Task deletedTask = tasks.deleteTask(taskNumber);
             saveTasks(tasks, manager);
 
-            this.response = String.format("Task:%n%s%nhas been deleted.", deletedTask);
+            return String.format("Task:%n%s%nhas been deleted.", deletedTask);
         } catch (NumberFormatException e) {
-            this.response = "Please specify an integer to select a task.";
+            return "Please specify an integer to select a task.";
         } catch (IllegalArgumentException | IllegalStateException e) {
-            this.response = String.format("%s Please try again.", e.getMessage());
+            return String.format("%s Please try again.", e.getMessage());
         } catch (IOException e) {
-            this.response = String.format("Failed to delete task %s from the list. Please try again.", rawTaskNumber);
+            return String.format("Failed to delete task %s from the list. Please try again.", rawTaskNumber);
         }
     }
 

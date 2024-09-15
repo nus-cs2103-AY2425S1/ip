@@ -11,6 +11,7 @@ public enum CommandType {
     DISPLAY("list"),
     EXIT("bye"),
     FIND_MATCHING("find"),
+    INVALID("invalid"),
     MARK_COMPLETE("mark"),
     MARK_INCOMPLETE("unmark");
 
@@ -30,18 +31,26 @@ public enum CommandType {
 
     /**
      * Converts a text string into its relevant enum counterpart.
+     * <p>
+     * If input does not match any known types, the {@link #INVALID} type
+     * is returned.
+     * </p>
      *
      * @param input the text containing an enum value
      * @return an enum type matching the input
-     * @throws IllegalArgumentException if the input string does not match any enum values
      */
-    public static CommandType fromString(String input) throws IllegalArgumentException {
+    public static CommandType fromString(String input) {
         for (CommandType type : CommandType.values()) {
+            // do not attempt to match with type INVALID as it is reserved to signify a failed parse
+            if (type == INVALID) {
+                continue;
+            }
+
             if (type.getCommandType().equalsIgnoreCase(input)) {
                 return type;
             }
         }
-        throw new IllegalArgumentException(String.format("No command type found for: %s.", input));
+        return INVALID;
     }
 
     /**

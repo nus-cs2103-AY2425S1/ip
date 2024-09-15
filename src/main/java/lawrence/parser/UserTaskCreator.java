@@ -31,7 +31,7 @@ public class UserTaskCreator implements TaskCreator {
             throw new IllegalArgumentException("Cannot create task from empty input!");
         }
 
-        // separate the string containing information about the task type into index 0
+        // separates the string containing information about the task type into index 0
         String[] inputComponents = input.split(" ", 2);
 
         if (inputComponents.length != 2) {

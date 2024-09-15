@@ -36,31 +36,28 @@ public class FindTasksCommand extends Command {
      *                made
      * @param ui a {@link UserInterface} instance to display
      *           possible messages to the user
+     * @return a string representing the bot's response after execution of the command
      */
     @Override
-    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
+    public String execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         if (input.isEmpty()) {
-            this.response = "Match query cannot be empty!";
-            return;
+            return "Match query cannot be empty!";
         }
 
         String[] inputComponents = input.split(" ", 2);
         if (inputComponents.length < 2) {
-            this.response = "Please include a phrase for your query.";
-            return;
+            return "Please include a phrase for your query.";
         }
 
         String query = inputComponents[1].trim();
         if (query.isEmpty()) {
-            this.response = "Please include a phrase for your query.";
-            return;
+            return "Please include a phrase for your query.";
         }
         TaskList results = tasks.findTasks(query);
         if (results.getSize() < 1) {
-            this.response = "No matches were found for your query: " + query;
-            return;
+            return "No matches were found for your query: " + query;
         }
 
-        this.response = String.format("Here are the matching tasks in your list:%n%s", results);
+        return String.format("Here are the matching tasks in your list:%n%s", results);
     }
 }
