@@ -50,9 +50,10 @@ public class DateCommand extends Command {
             Ui.print("I couldn't find any tasks on this date!");
             return "I couldn't find any tasks on this date!";
         }
+        sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < numTasks; i++) {
             Task task = taskList.get(i);
-            sb.append(task.toString());
+            sb.append(i + 1).append(".").append(task.toString());
             if (i != numTasks - 1) {
                 sb.append("\n");
             }
