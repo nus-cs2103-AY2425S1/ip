@@ -7,7 +7,8 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMAT
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs an Event task with the specified description, start time, and end time
@@ -53,7 +54,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.getTaskSymbol() + " " + super.toString() + " (from: " + getStart() + " to: " + getEnd() + ")";
+        return this.getTaskSymbol() + " " + super.toString()
+                + " (from: " + getStart() + " to: " + getEnd() + ")";
     }
 
     /**

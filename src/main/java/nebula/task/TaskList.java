@@ -12,7 +12,8 @@ public class TaskList {
 
     /**
      * Constructs a TaskList with an initial capacity of 100 tasks
-     * The TaskList is initialized with an empty array of Tasks, a length of 0, and a new Ui instance
+     * The TaskList is initialized with an empty array of Tasks,
+     * a length of 0, and a new Ui instance
      */
     public TaskList() {
         taskList = new ArrayList<>(100);

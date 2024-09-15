@@ -17,8 +17,10 @@ import java.util.ArrayList;
 public class Storage {
     String path;
 
-    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter OUTPUT_FORMAT
+            = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMAT
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Storage(String filePath) {
         this.path = filePath;
@@ -88,7 +90,8 @@ public class Storage {
                                 String formattedStartDate = convertDate(startDate);
                                 String formattedEndDate = convertDate(endDate);
 
-                                task = new Event(eventDescription, formattedStartDate, formattedEndDate);
+                                task = new Event(eventDescription,
+                                        formattedStartDate, formattedEndDate);
                                 task.setDone(isDone);
                             }
                         }
