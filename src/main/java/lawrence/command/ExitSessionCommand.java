@@ -25,10 +25,11 @@ public class ExitSessionCommand extends Command {
      *                made
      * @param ui a {@link UserInterface} instance to display
      *           possible messages to the user
+     * @return a string representing the bot's response after execution of the command
      */
     @Override
-    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
-        this.response = "That's all folks! Hope to see you again soon!";
+    public String execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
+        return "That's all folks! Hope to see you again soon!";
     }
 
     /**

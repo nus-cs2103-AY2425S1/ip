@@ -35,13 +35,9 @@ public class CommandParser {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("Command input cannot be empty!");
         }
-        // Parse command at start of the line
-        String[] inputComponents = input.split(" ", 2);
 
-        // determine the type of command
-        String commandString = inputComponents[0];
-        CommandType type;
-        type = CommandType.fromString(commandString);
+        String[] inputComponents = getInputComponents(input);
+        CommandType type = determineCommandType(inputComponents[0]);
 
         Command c;
         switch(type) {
@@ -70,10 +66,32 @@ public class CommandParser {
         case MARK_INCOMPLETE:
             c = new UncompleteTaskCommand(type, input);
             break;
+        case INVALID:
+            throw new IllegalArgumentException(String.format("Unknown command: %s.", inputComponents[0]));
         default:
-            // This case should never be reached
-            throw new IllegalStateException("Unexpected command: " + type);
+            throw new IllegalStateException(String.format("Unknown command type: %s", type));
         }
         return c;
+    }
+
+    /**
+     * Returns the components of a command from an input.
+     *
+     * @param input the full command input
+     * @return an array of length 2 containing the split input
+     */
+    private static String[] getInputComponents(String input) {
+        return input.split(" ", 2);
+    }
+
+    /**
+     * Returns a {@link CommandType} corresponding to the given input.
+     *
+     * @param input the input string containing information about a {@link CommandType}
+     * @return the {@link CommandType} corresponding to the input
+     * @throws IllegalArgumentException if input string does not match any command type
+     */
+    private static CommandType determineCommandType(String input) throws IllegalArgumentException {
+        return CommandType.fromString(input);
     }
 }

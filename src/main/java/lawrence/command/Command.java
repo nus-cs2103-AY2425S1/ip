@@ -15,7 +15,6 @@ import lawrence.ui.UserInterface;
  * </p>
  */
 public abstract class Command {
-    protected String response = "";
     private final CommandType type;
 
     protected Command(CommandType type) {
@@ -31,8 +30,9 @@ public abstract class Command {
      *                made
      * @param ui a {@link UserInterface} instance to display
      *           possible messages to the user
+     * @return a string representing the bot's response after execution of the command
      */
-    public abstract void execute(TaskList tasks, TaskFileManager manager, UserInterface ui);
+    public abstract String execute(TaskList tasks, TaskFileManager manager, UserInterface ui);
 
     /**
      * Returns a boolean indicating whether the program should
@@ -58,18 +58,6 @@ public abstract class Command {
      */
     protected void saveTasks(TaskList tasks, TaskFileManager manager) throws IOException {
         manager.saveTasksToFile(tasks.getTasks());
-    }
-
-    /**
-     * Returns the generated response after executing the command.
-     * <p>
-     * If {@link #execute(TaskList, TaskFileManager, UserInterface)} has not been called prior,
-     * an empty string is returned.
-     * </p>
-     * @return a string containing the response after the execution of the command
-     */
-    public String getResponse() {
-        return response;
     }
 
     /**

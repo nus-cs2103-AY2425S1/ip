@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import lawrence.app.Response;
 import lawrence.command.CommandType;
 
 /**
@@ -46,27 +47,27 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Method to create a dialog box originating from the user.
+     * Returns a dialog box originating from the user.
      *
      * @param text the text to be displayed in the dialog box
-     * @param img the image associated with the user
+     * @param image the image associated with the user
      * @return a dialog box for the user
      */
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(String text, Image image) {
+        return new DialogBox(text, image);
     }
 
     /**
-     * Method to create a dialog box originating from the bot.
+     * Returns a dialog box originating from the bot.
      *
-     * @param text the text to be displayed in the dialog box
-     * @param img the image associated with the bot
+     * @param response a {@link Response} object from the bot
+     * @param image the image associated with the bot
      * @return a dialog box for the bot
      */
-    public static DialogBox getBotDialog(String text, Image img, CommandType type) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getBotDialog(Response response, Image image) {
+        var db = new DialogBox(response.message(), image);
         db.flip();
-        db.changeDialogStyle(type);
+        db.changeDialogStyle(response.commandType());
         return db;
     }
 
@@ -107,6 +108,8 @@ public class DialogBox extends HBox {
         case MARK_INCOMPLETE:
             dialog.getStyleClass().add("marked-label");
             break;
+        case INVALID:
+            // Fallthrough
         default:
             // Do nothing
         }

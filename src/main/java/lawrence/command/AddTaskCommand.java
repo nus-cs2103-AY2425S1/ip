@@ -46,9 +46,10 @@ public class AddTaskCommand extends Command {
      *                made
      * @param ui a {@link UserInterface} instance to display
      *           possible messages to the user
+     * @return a string representing the bot's response after execution of the command
      */
     @Override
-    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
+    public String execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         try {
             Task t = TaskParser.createTask(input, InputSource.USER);
             tasks.addTask(t);
@@ -58,15 +59,15 @@ public class AddTaskCommand extends Command {
             int numberOfTasks = tasks.getSize();
             String verb = numberOfTasks == 1 ? "is" : "are";
             String plural = numberOfTasks == 1 ? "" : "s";
-            this.response = String.format("Alright, added task:%n%s%nto the list.%n"
+            return String.format("Alright, added task:%n%s%nto the list.%n"
                     + "There %s currently %d task%s in the list.", t, verb, numberOfTasks, plural);
         } catch (DateTimeParseException e) {
-            this.response = String.format("Invalid date and/or time provided. DateTime should be in the format: %s",
+            return String.format("Invalid date and/or time provided. DateTime should be in the format: %s",
                     DateParser.FORMAT_STRING_FOR_USER_INPUT);
         } catch (IllegalArgumentException e) {
-            this.response = e.getMessage();
+            return e.getMessage();
         } catch (IOException e) {
-            this.response = "Failed to save tasks to file. Please try again.";
+            return "Failed to save tasks to file. Please try again.";
         }
     }
 }

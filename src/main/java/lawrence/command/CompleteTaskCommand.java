@@ -38,13 +38,13 @@ public class CompleteTaskCommand extends Command {
      *                made
      * @param ui a {@link UserInterface} instance to display
      *           possible messages to the user
+     * @return a string representing the bot's response after execution of the command
      */
     @Override
-    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
+    public String execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         String[] inputComponents = input.split(" ", 2);
         if (inputComponents.length < 2) {
-            this.response = "Please specify the task you want to mark as complete.";
-            return;
+            return "Please specify the task you want to mark as complete.";
         }
 
         String rawTaskNumber = inputComponents[1];
@@ -52,13 +52,13 @@ public class CompleteTaskCommand extends Command {
             int taskNumber = Integer.parseInt(rawTaskNumber);
             Task completeTask = tasks.completeTask(taskNumber);
             saveTasks(tasks, manager);
-            this.response = String.format("I've marked the task as complete:%n%s", completeTask);
+            return String.format("I've marked the task as complete:%n%s", completeTask);
         } catch (NumberFormatException e) {
-            this.response = "Please specify a number to select a task.";
+            return "Please specify a number to select a task.";
         } catch (IllegalArgumentException | IllegalStateException e) {
-            this.response = String.format("%s Please try again.", e.getMessage());
+            return String.format("%s Please try again.", e.getMessage());
         } catch (IOException e) {
-            this.response = String.format("Failed to mark task %s as complete. Please try again later.", rawTaskNumber);
+            return String.format("Failed to mark task %s as complete. Please try again later.", rawTaskNumber);
         }
     }
 }

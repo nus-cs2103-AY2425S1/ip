@@ -38,6 +38,10 @@ public class TaskFileManager {
      * Reads from the file specified in the constructor, then converts the
      * stored task strings into an array of {@link Task} objects using
      * the {@link TaskParser} class.
+     * <p>
+     * If the text stored in the file is not in the correct format, the line
+     * is skipped and its contents are not returned in the array.
+     * </p>
      *
      * @return an array of {@link Task} objects
      * @throws IOException if reading from the file is unsuccessful

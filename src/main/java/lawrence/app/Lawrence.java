@@ -84,30 +84,17 @@ public class Lawrence {
      * Returns the text response of the bot after parsing the input string and executing the relevant command.
      *
      * @param input the input string containing instructions on what command to run
-     * @return a string containing the bot's response
+     * @return a {@link Response} object containing details on the actions the bot took
      */
-    public String getResponse(String input) {
+    public Response getResponse(String input) {
         try {
             Command c = CommandParser.createCommand(input);
-            c.execute(tasks, manager, ui);
-            previousCommand = c;
-            return c.getResponse();
+            String message = c.execute(tasks, manager, ui);
+            return new Response(c.getType(), message, c.shouldContinue());
         } catch (IllegalArgumentException | IllegalStateException e) {
-            return String.format("%s Please try again.", e.getMessage());
+            String message = String.format("%s Please try again.", e.getMessage());
+            return new Response(CommandType.INVALID, message, true);
         }
-    }
-
-    /**
-     * Returns the type of command previously executed. If no command was executed, returns null.
-     *
-     * @return the type of the previous command, null if no previous command exists
-     */
-    public CommandType getPreviousCommandType() {
-        if (previousCommand == null) {
-            return null;
-        }
-
-        return previousCommand.getType();
     }
 
     /**

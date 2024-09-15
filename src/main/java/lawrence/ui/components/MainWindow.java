@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lawrence.app.Lawrence;
-import lawrence.command.CommandType;
+import lawrence.app.Response;
 
 /**
  * Controller for the main GUI.
@@ -55,16 +55,17 @@ public class MainWindow extends AnchorPane {
     /**
      * Creates two dialog boxes, one echoing user input and the other containing the bot reply and then
      * appends them to the dialog container.
-     * Clears the user input after processing.
+     * <p>
+     * Clears the user input field after processing.
+     * </p>
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = lawrence.getResponse(input);
-        CommandType type = lawrence.getPreviousCommandType();
+        Response response = lawrence.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, botImage, type)
+                DialogBox.getBotDialog(response, botImage)
         );
 
         if (!lawrence.shouldContinue()) {
