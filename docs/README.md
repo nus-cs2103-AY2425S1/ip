@@ -15,7 +15,9 @@ upcoming deadlines.
     java -jar Mendel-3.jar
     ```
 ---
+
 ## Feature summary
+
 | Feature  | Command                                       | Description                                                      |
 |----------|-----------------------------------------------|------------------------------------------------------------------|
 | todo     | `todo <description>`                          | Writes a simple reminder note                                    |
@@ -28,6 +30,7 @@ upcoming deadlines.
 | remind   | `remind <date>`                               | Finds tasks whose date is before given date and unmarked         |
 | list     | `list`                                        | Lists all tasks                                                  |
 | bye      | `bye`                                         | Program exits                                                    |
+
 ---
 
 ### Adding todo
