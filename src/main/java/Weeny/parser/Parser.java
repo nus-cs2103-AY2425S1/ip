@@ -110,4 +110,5 @@ public class Parser {
     public String extractDeadlineName(String input) {
         return input.substring(9, input.indexOf("/by") - 1).trim();
     }
+
 }

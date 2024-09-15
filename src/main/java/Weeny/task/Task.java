@@ -38,6 +38,35 @@ public class Task {
         }
     }
 
+
+    /**
+     * Overidden method to check if task occurs on date
+     *
+     * @param date Current date
+     * @return
+     */
+    public boolean isOnDate(String date) {
+        return false;
+    }
+
+
+    /**
+     * Checks if task is on a particular date
+     *
+     * @param date Date that is being checked against
+     * @return True if the date matches and False otherwise
+     */
+    public boolean containsDate(String date) {
+        switch (this.type) {
+        case TODO:
+            return true;
+        case EVENT, DEADLINE:
+            return this.isOnDate(date);
+        default:
+            return false;
+        }
+    }
+
     /**
      * Returns the status icon for the task.
      *

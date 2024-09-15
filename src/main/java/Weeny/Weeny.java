@@ -133,6 +133,10 @@ public class Weeny extends Application {
                     String keyWord = input.substring(5);
                     return ui.showSearchResult(taskList.findTask(keyWord));
 
+                case "schedule":
+                    String date = input.substring(9);
+                    return ui.showScheduleMessage(taskList.getSchedule(date), date);
+
                 default:
                     throw new UnsupportedOperationException("Unknown command");
                 }

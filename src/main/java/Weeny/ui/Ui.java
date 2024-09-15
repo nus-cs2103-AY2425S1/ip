@@ -1,7 +1,6 @@
 package weeny.ui;
 
 import java.util.List;
-import java.util.Scanner;
 
 import weeny.task.Task;
 
@@ -44,6 +43,20 @@ public class Ui {
             resultList = resultList + String.format((i + 1) + ". " + tasks.get(i).toString() + "\n");
         }
         return String.format(resultList);
+    }
+
+    /**
+     * Displays the list of tasks on a date
+     *
+     * @param tasks A list of tasks that is filtered to date and sorted
+     * @param date String of the particular date
+     */
+    public String showScheduleMessage(List<Task> tasks, String date) {
+        String scheduleList = "Here are the tasks you have on " + date + ":\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            scheduleList = scheduleList + String.format((i + 1) + " " + tasks.get(i).toString() + "\n");
+        }
+        return String.format(scheduleList);
     }
 
     /**
@@ -108,20 +121,4 @@ public class Ui {
         return String.format("Bye. Hope to see you soon!\n");
     }
 
-    /**
-     * Reads a line of user input from the console.
-     *
-     * @return The user input.
-     */
-    public String readUserInput() {
-        Scanner userInput = new Scanner(System.in);
-        return userInput.nextLine();
-    }
-
-    /**
-     * Prints a line separator.
-     */
-    private String stringLine() {
-        return "______________________________________________\n";
-    }
 }
