@@ -11,7 +11,7 @@ public class List extends Command {
     }
 
     public TaskTracker getResponse() {
-        System.out.println(this.taskTracker.getList());
+        System.out.println(this.taskTracker.printList());
         return new TaskTracker();
     }
 

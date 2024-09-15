@@ -6,8 +6,12 @@ import java.io.IOException;
 import javafx.application.Application;
 import rainy.commands.*;
 import rainy.gui.Main;
+import rainy.rainyexceptions.InvalidDeadlineParametersException;
+import rainy.rainyexceptions.InvalidEventParametersException;
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
+import rainy.tasks.Deadline;
+import rainy.tasks.Event;
 import rainy.tasks.TaskTracker;
 
 /**
@@ -38,7 +42,7 @@ public class Rainy {
      * @throws IOException
      */
     public static void acceptInput(String scanCommand) throws InvalidIndexException, InvalidMarkAndUnmarkException,
-            IOException {
+            IOException, InvalidDeadlineParametersException, InvalidEventParametersException {
         // Initialize UI, Storage, TaskTracker, Parser, and File objects
         UI ui = new UI();
         Storage storage = new Storage();
@@ -50,6 +54,7 @@ public class Rainy {
         ps.firstInput(scanCommand);
         String[] input = ps.getInput();
         String[] splitByTask = ps.getSplitByTask();
+        String[] updateParameters = ps.getUpdateParameters();
         String message = ps.getMessage();
         int validResponse = ps.getCount();
         assert(validResponse >= -1);
@@ -106,6 +111,11 @@ public class Rainy {
         case BYE:
             ByeCommand byeCommand = new ByeCommand();
             byeCommand.getResponse();
+            break;
+
+        case UPDATE:
+            UpdateCommand updateCommand = new UpdateCommand(validResponse, tm, updateParameters);
+            tm = updateCommand.getResponse();
             break;
 
         case INVALID:

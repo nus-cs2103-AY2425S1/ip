@@ -12,6 +12,10 @@ public class ToDo extends Task {
         super(name);
     }
 
+    public void setDescription(String name) {
+        this.name = name;
+    }
+
     /**
      * Represents the task in a readable format.
      * {@code

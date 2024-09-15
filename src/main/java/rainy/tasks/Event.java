@@ -31,6 +31,18 @@ public class Event extends Task {
         return this.time;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     /**
      * Represents the task in a readable format. If the task is read from an existing file, it is directly read into
      * name of the event. Else, this method does additional formatting to represent the date in a standard format.
@@ -52,12 +64,18 @@ public class Event extends Task {
                     + this.time.substring(2, 4)).format(DateTimeFormatter.ofPattern("HH:mm"));
             String secondTime = LocalTime.parse(this.time.substring(8, 10) + ":"
                     + this.time.substring(10, 12)).format(DateTimeFormatter.ofPattern("HH:mm"));
-            return "[E] " + super.getName() + " (" + newDate + " from "
+            return "[E] " + super.getName() + "(" + newDate + " from "
                     + firstTime + " to " + secondTime + ")";
         } catch (Exception e) {
-            this.compareDate = LocalDate.parse(this.date, DateTimeFormatter.ofPattern("MMM d yyyy"));
+            try {
+                this.compareDate = LocalDate.parse(this.date, DateTimeFormatter.ofPattern("MMM d yyyy"));
+            } catch (Exception d) {
+                this.compareDate = LocalDate.parse(this.date);
+            }
             String newDate = this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            return "[E] " + super.getName() + "(" + newDate + " from " + this.time + ")";
+            return this.time.contains(":") ? "[E] " + super.getName() + "(" + newDate + " from " + this.time + ")"
+                    : "[E] " + super.getName() + "(" + newDate + " from " + this.time.substring(0, 2) + ":"
+                        + this.time.substring(2, 10) + ":" + this.time.substring(10) + ")";
         }
     }
 }

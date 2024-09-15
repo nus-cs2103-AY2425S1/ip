@@ -46,6 +46,7 @@ public class Task implements Comparable<Task> {
      */
     public void mark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == true) {
+            System.out.println(this.ui.taskDone() + '^');
             throw new InvalidMarkAndUnmarkException(this.ui.taskDone());
         } else {
             this.isDone = true;
@@ -58,6 +59,7 @@ public class Task implements Comparable<Task> {
      */
     public void unmark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == false) {
+            System.out.println(this.ui.taskNotDone() + '^');
             throw new InvalidMarkAndUnmarkException(this.ui.taskNotDone());
         } else {
             this.isDone = false;

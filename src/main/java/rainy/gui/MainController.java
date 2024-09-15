@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import rainy.database.Rainy;
+import rainy.rainyexceptions.InvalidDeadlineParametersException;
+import rainy.rainyexceptions.InvalidEventParametersException;
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
 
@@ -47,7 +49,8 @@ public class MainController extends AnchorPane {
      * @throws IOException
      */
     @FXML
-    private void handleUserInput() throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {
+    private void handleUserInput() throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException,
+            InvalidDeadlineParametersException, InvalidEventParametersException {
         String scanCommand = userInput.getText();
         rainy.acceptInput(scanCommand);
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(scanCommand, userImage));

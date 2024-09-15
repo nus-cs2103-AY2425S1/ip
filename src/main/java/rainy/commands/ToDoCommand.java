@@ -17,7 +17,7 @@ public class ToDoCommand extends Command {
         if (userInput.length == 1) {
             this.ui.noToDoDescription();
         } else {
-            this.taskTracker.updateListToDo(taskName);
+            this.taskTracker.addListToDo(taskName);
         }
         return this.taskTracker;
     }
