@@ -2,10 +2,10 @@
 
 _Jar frees your mind from having to remember things you need to do._ 
 
-It's:
-text-based
-easy to learn
-FAST SUPER FAST to use
+**Features**
+1. Text-based
+2. Easy to learn
+3. FAST SUPER FAST to use
 
 ## All you need to do is:
 
