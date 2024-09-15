@@ -89,14 +89,14 @@ public class Storage {
     }
 
     public TaskTracker updateToDo(TaskTracker taskTracker, String userInput) {
-        taskTracker.updateListToDo(userInput.substring(11));
+        taskTracker.addListToDo(userInput.substring(11));
         return taskTracker;
     }
 
     public TaskTracker updateDeadline(TaskTracker taskTracker, String userInput) {
         String updatedOldData = userInput.substring(11, userInput.length() - 1);
         String[] deadlineSplit = updatedOldData.split(" \\(");
-        taskTracker.updateListDeadline(deadlineSplit[0] + " ", deadlineSplit[1]);
+        taskTracker.addListDeadline(deadlineSplit[0] + " ", deadlineSplit[1]);
         return taskTracker;
     }
 
@@ -105,7 +105,7 @@ public class Storage {
         String[] eventSplit = updatedOldData.split(" \\(");
         String newDate = eventSplit[1].split(" from ")[0];
         String newTime = eventSplit[1].split(" from ")[1];
-        taskTracker.updateListEvent(eventSplit[0] + " ", newDate, newTime);
+        taskTracker.addListEvent(eventSplit[0] + " ", newDate, newTime);
         return taskTracker;
     }
 
@@ -119,7 +119,7 @@ public class Storage {
         try {
             filename.createNewFile();
             FileWriter fw = new FileWriter(filename);
-            fw.write(tm.getList());
+            fw.write(tm.printList());
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();

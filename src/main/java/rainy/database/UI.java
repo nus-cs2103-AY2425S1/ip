@@ -56,8 +56,8 @@ public class UI {
     /**
      * Displays message when the user provides a date in the wrong format.
      */
-    public void invalidDateDeadline() {
-        System.out.println("Please input a date in the format MM/DD/YYYY!");
+    public String invalidDateDeadline() {
+        return "Please input a date and time  in the format MM/DD/YYYY HHMM!";
     }
 
     /**
@@ -70,9 +70,9 @@ public class UI {
     /**
      * Displays message if the user provides an event date in an invalid format.
      */
-    public void invalidEventDate() {
-        System.out.println("Please provide a proper date in MM/DD/YYYY format, "
-            + "as well as a start time and end time in HH:MM format for your Event!");
+    public String invalidEventDate() {
+        return "Please provide a proper date in MM/DD/YYYY format, "
+            + "as well as a start time and end time in HH:MM format for your Event!";
     }
 
     /**
@@ -156,5 +156,21 @@ public class UI {
      */
     public String taskNotDone() {
         return "Task is still undone!";
+    }
+
+    public void noTaskMatchFound() {
+        System.out.println("There are no tasks matching your description!");
+    }
+
+    public void taskHasBeenUpdated() {
+        System.out.println("Task has been updated!");
+    }
+
+    public void invalidDeadlineParameter() {
+        System.out.println("Please enter a valid parameter for editing your Deadline!!!");
+    }
+
+    public void invalidEventParameter() {
+        System.out.println("Please enter a valid parameter for editing your Event!!!");
     }
 }

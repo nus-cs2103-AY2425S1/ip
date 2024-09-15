@@ -41,12 +41,17 @@ public class TaskTracker {
         this.receivedInputs = !this.receivedInputs;
     }
 
+    public ArrayList<Task> getList() {
+        return this.taskList;
+    }
+
+
     /**
      * Displays the list of tasks when user inputs list.
      * This method also checks if a particular task is marked or unmarked.
      * @return  This method returns the list of tasks in <code>String</code>.
      */
-    public String getList() {
+    public String printList() {
         assert(this.counter >= 0);
         List<Task> newList = this.taskList;
         AtomicInteger numMatch = new AtomicInteger(1);
@@ -69,6 +74,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (z < 0 || z >= this.counter) {
+            System.out.println(this.ui.invalidTask() + '^');
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             Task newTask = this.taskList.get(z);
@@ -94,6 +100,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (q < 0 || q >= this.counter) {
+            System.out.println(this.ui.invalidTask() + '^');
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             Task newTask = this.taskList.get(q);
@@ -126,7 +133,7 @@ public class TaskTracker {
      * @param s  Represents the name of the todo task.
      */
 
-    public void updateListToDo(String s) {
+    public void addListToDo(String s) {
         this.taskList.add(new ToDo(s));
         this.counter++;
         if (this.receivedInputs) {
@@ -142,7 +149,7 @@ public class TaskTracker {
      * @param s  Represents the name of the deadline.
      * @param t  Represents the date and time of the deadline.
      */
-    public void updateListDeadline(String s, String t) {
+    public void addListDeadline(String s, String t) {
         if (this.receivedInputs) {
             assert(Integer.valueOf(t.substring(0, 4)) instanceof Integer);
             assert(Integer.valueOf(t.substring(5, 7)) instanceof Integer);
@@ -167,7 +174,7 @@ public class TaskTracker {
      * @param t  Represents the date of the event.
      * @param u  Represents the timeframe of the event.
      */
-    public void updateListEvent(String s, String t, String u) {
+    public void addListEvent(String s, String t, String u) {
         if (this.receivedInputs) {
             assert(Integer.valueOf(t.substring(0, 4)) instanceof Integer);
             assert(Integer.valueOf(t.substring(5, 7)) instanceof Integer);
@@ -197,6 +204,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksBeforeDelete();
         } else if (i < 0 || i >= this.counter) {
+            System.out.println(this.ui.invalidTask() + '^');
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             this.ui.removedTask();
@@ -224,15 +232,49 @@ public class TaskTracker {
         if (numMatch.get() > 1) {
             System.out.println(output);
         } else {
-            System.out.println("There are no tasks matching your description!");
+            this.ui.noTaskMatchFound();
         }
     }
 
     public void updateDeadlineName(int taskNumber, String name) {
         Task currentEdit = this.taskList.get(taskNumber);
-        if (currentEdit instanceof Deadline) {
-            Deadline currentDeadline = currentEdit;
-            currentDeadline.setDate(name);
+        if (currentEdit instanceof Deadline currentDeadline) {
+            currentDeadline.setName(name);
+        }
+    }
+
+    public void updateDeadlineDate(int taskNumber, String date) {
+        Task currentEdit = this.taskList.get(taskNumber);
+        if (currentEdit instanceof Deadline currentDeadline) {
+            currentDeadline.setDate(date);
+        }
+    }
+
+    public void updateEventName(int taskNumber, String name) {
+        Task currentEdit = this.taskList.get(taskNumber);
+        if (currentEdit instanceof Event currentEvent) {
+            currentEvent.setName(name);
+        }
+    }
+
+    public void updateEventDate(int taskNumber, String date) {
+        Task currentEdit = this.taskList.get(taskNumber);
+        if (currentEdit instanceof Event currentEvent) {
+            currentEvent.setDate(date);
+        }
+    }
+
+    public void updateEventTime(int taskNumber, String time) {
+        Task currentEdit = this.taskList.get(taskNumber);
+        if (currentEdit instanceof Event currentEvent) {
+            currentEvent.setTime(time);
+        }
+    }
+
+    public void updateToDo(int taskNumber, String description) {
+        Task currentEdit = this.taskList.get(taskNumber);
+        if (currentEdit instanceof ToDo currentToDo) {
+            currentToDo.setDescription(description);
         }
     }
 

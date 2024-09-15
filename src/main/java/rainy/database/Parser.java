@@ -64,11 +64,9 @@ public class Parser {
         this.input = userInput.split(" ");
         this.splitByTask = userInput.split("/");
         this.updateParameters = userInput.split(", ");
-        String[] tempArray = new String[100000];
-        for (int i = 0; i < updateParameters.length; i++)  {
-            if (i != 0) {
-                tempArray[i] = this.updateParameters[i];
-            }
+        String[] tempArray = new String[updateParameters.length - 1];
+        for (int i = 0; i < updateParameters.length - 1; i++)  {
+            tempArray[i] = updateParameters[i + 1];
         }
         this.updateParameters = tempArray;
         this.message = this.input[0];
@@ -79,9 +77,9 @@ public class Parser {
             } catch (Exception e) {
                 this.count = -1;
             }
-        } else if (this.message.equals("update") && this.input.length > 2) {
+        } else if (this.message.equals("update") && this.input.length >= 2) {
             try {
-                this.count = Integer.parseInt(this.input[1].substring(0, this.input[1].length()));
+                this.count = Integer.parseInt(this.input[1].substring(0, this.input[1].length() - 1));
             } catch (Exception e) {
                 this.count = -1;
             }

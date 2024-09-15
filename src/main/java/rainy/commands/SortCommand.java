@@ -11,7 +11,7 @@ public class SortCommand extends Command {
 
     public TaskTracker getResponse() {
         this.taskTracker.sortList();
-        System.out.println(this.taskTracker.getList());
+        System.out.println(this.taskTracker.printList());
         return this.taskTracker;
     }
 }
