@@ -28,14 +28,17 @@ public class UnmarkCommand extends Command {
         assert ui != null: "ui must not be null";
         assert storage != null: "storage must not be null";
 
-        int index = -1;
-        String formattedString = info.substring(6).trim();
+        String[] formattedString = info.substring(6).trim().split("\\s+");
+        int[] indexList = new int[formattedString.length];
         try {
-            index = Integer.parseInt(formattedString);
+            for (int i = 0; i < formattedString.length; i++) {
+                int index = Integer.parseInt(formattedString[i]);
+                indexList[i] = index;
+            }
         } catch (NumberFormatException e) {
             throw new MarkingTaskNotANumberException();
         }
-        String output = taskList.unmarkTaskDone(index, storage);
+        String output = taskList.unmarkListDone(storage, indexList);
         ui.showOutput(output);
         return output;
     }
