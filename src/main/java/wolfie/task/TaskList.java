@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Represents a list of tasks using ArrayList.
+ * Represents a list of tasks.
  */
 public class TaskList {
     private final List<Task> tasks;
@@ -53,7 +53,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a list of tasks that are on the specified date in the parameter.
+     * Returns a list of tasks that are on the specified date in the parameter using stream implementation.
      * @param date The date to check for tasks
      * @return A list of tasks that are on the specified date
      */
