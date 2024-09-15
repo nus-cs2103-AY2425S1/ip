@@ -40,7 +40,7 @@ public class Papadom {
         }
     }
     private static final Ui UI = new Ui();
-    public static final String STORAGE_PATH = "./src/main/java/papadom/Storage/tasks.txt";
+    public static final String STORAGE_PATH = "tasks.txt";
     private static final Storage STORAGE = new Storage(STORAGE_PATH);
     private static final TaskList TASK_LIST = new TaskList(STORAGE);
     private static final Scanner SCANNER = new Scanner(System.in);
