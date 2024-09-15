@@ -80,16 +80,16 @@ public class Ui {
                 break;
             }
             case "list":
-            message =TaskList.listTasks();
+                message = TaskList.listTasks();
                 break;
             case "mark": {
                 int taskNum = Parser.parseTaskNumber(userCommand);
-                message =TaskList.markTask(taskNum);
+                message = TaskList.markTask(taskNum);
                 break;
             }
             case "delete": {
                 int taskNum = Parser.parseTaskNumber(userCommand);
-                message =TaskList.deleteTask(taskNum);
+                message = TaskList.deleteTask(taskNum);
                 break;
             }
             case "bye":
@@ -103,7 +103,7 @@ public class Ui {
             case "event": {
                 message = Parser.parseEventTask(userCommand);
                 break;
-            }            
+            }
             case "find": {
                 message = TaskList.findTask(userCommand);
                 break;
