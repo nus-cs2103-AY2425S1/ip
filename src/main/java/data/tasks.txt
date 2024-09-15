@@ -1,2 +1,1 @@
-deadline deadline deadline /by tueday | true
-Todo task1 | false
+deadline   task1 /by tues | true

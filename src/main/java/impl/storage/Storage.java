@@ -21,6 +21,7 @@ public class Storage {
     Danny danny;
 
     public Storage(String path, Danny bot) {
+        assert !path.isEmpty();
         file = new File(path);
         filePath = path;
         danny = bot;
@@ -32,6 +33,7 @@ public class Storage {
         while (s.hasNext()) {
             line = s.nextLine();
             if (!line.isEmpty()) {
+                assert line.contains(" \\| ");
                 danny.parseString(line.split(" \\| ")[0]);
                 if (Objects.equals(line.split(" \\| ")[1], "true")) {
                     danny.setLastDone();

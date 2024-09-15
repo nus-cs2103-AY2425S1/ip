@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
     private Danny danny;
 
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/imgs/DaUser.png"));
-    private Image DannyImage = new Image(this.getClass().getResourceAsStream("/imgs/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/imgs/Anime.jpg"));
+    private Image DannyImage = new Image(this.getClass().getResourceAsStream("/imgs/Cat.jpg"));
 
     @FXML
     public void initialize() {
@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Duke instance
+     * Injects the Danny instance
      */
     public void setVars(Danny danny) {
         this.danny = danny;

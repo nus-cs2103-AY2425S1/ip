@@ -5,7 +5,7 @@ public class ToDos extends Task {
      * @inheritDoc
      */
     public ToDos(String description) {
-        super(description);
+        super(description.replace("todo", ""));
     }
 
     @Override
@@ -15,6 +15,6 @@ public class ToDos extends Task {
 
     @Override
     public String loadString() {
-        return "Todo " + this.description + " | " + this.isDone;
+        return "todo " + this.description + " | " + this.isDone;
     }
 }

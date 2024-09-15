@@ -10,7 +10,7 @@ public class Events extends Task {
      * @inheritDoc Stores start and end duration of event.
      */
     public Events(String description, String to, String from) {
-        super(description);
+        super(description.replace("event", ""));
         this.to = to;
         this.from = from;
     }
