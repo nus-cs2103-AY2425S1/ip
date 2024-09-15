@@ -2,7 +2,6 @@ package command;
 
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a command that displays a list of tasks.
@@ -16,11 +15,10 @@ public class ListCommand extends Command {
      * prints it using the user interface object.
      *
      * @param taskList The task list to be displayed.
-     * @param ui       The user interface object used to print the task list.
      * @param storage  The storage object, which is not used in this command.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         return taskList.toString();
     }
 }

@@ -4,7 +4,6 @@ import exception.KukiShinobuException;
 import storage.Storage;
 import task.Event;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a command to add an event task to the task list.
@@ -42,11 +41,10 @@ public class AddEventCommand extends Command {
      * Executes the command by adding the event task to the task list.
      *
      * @param taskList The TaskList where the event task will be added.
-     * @param ui       The Ui instance for user interaction.
      * @param storage  The Storage instance to save the updated task list.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         return taskList.addTask(this.event);
     }
 

@@ -2,7 +2,6 @@ package command;
 
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents a command that marks a specific task as not done.
@@ -27,11 +26,10 @@ public class UnmarkTaskCommand extends Command {
      * This method marks the task at the specified index as not done in the task list.
      *
      * @param taskList The task list containing the tasks to be updated.
-     * @param ui       The user interface object, which is not used in this command.
      * @param storage  The storage object, which is not used in this command.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         return taskList.unmarkAsDone(taskIndex);
     }
 }
