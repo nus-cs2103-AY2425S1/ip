@@ -27,6 +27,10 @@ public class Main extends Application {
             // Get the controller and set the KukiShinobu instance and the Stage reference
             MainWindow controller = fxmlLoader.getController();
             controller.setKukiShinobu(kukiShinobu);
+
+            // Assert that the kukiShinobu field of MainWindow is not null
+            assert kukiShinobu != null : "kukiShinobu should not be null";
+
             controller.setStage(stage);
             stage.show();
             controller.displayWelcomeMessage();
