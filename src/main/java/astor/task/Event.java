@@ -74,4 +74,19 @@ public class Event extends Task {
         int i = isDone() ? 1 : 0;
         return "E | " + i + " | " + this.getTaskInfo() + " | " + start + " | " + end;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Event) {
+            Event e = (Event) o;
+            return this.start.equals(e.start) && this.end.equals(e.end) && this.getTaskInfo().equals(e.getTaskInfo());
+        }
+        return false;
+    }
 }

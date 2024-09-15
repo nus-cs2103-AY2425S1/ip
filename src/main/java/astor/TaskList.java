@@ -177,11 +177,25 @@ public class TaskList {
         assert task != null: "task cannot be null";
         assert storage != null: "storage cannot be null";
 
+        String output = "";
+        for (Task t: taskList) {
+            if (t.equals(task)) {
+                output = "The same task has already been created:\n "
+                        + t.toString() + "\nBe more specific if you want to add the task!";
+                return output;
+            }
+        }
+
         storage.appendToFile(task.dataDescription());
         taskList.add(task);
-        return "Got it. I've added this task:\n  "
+        output = "Got it. I've added this task:\n  "
                 + task.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
+        return output;
 
+    }
+
+    public boolean checkDuplicates(Task task1, Task task2) {
+        return task1.equals(task2);
     }
 
     /**

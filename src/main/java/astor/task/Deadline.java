@@ -67,4 +67,19 @@ public class Deadline extends Task {
         int i = isDone() ? 1 : 0;
         return "D | " + i + " | " + this.getTaskInfo() + " | " + deadline;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Deadline) {
+            Deadline other = (Deadline) o;
+            return this.deadline.equals(other.deadline) && this.getTaskInfo().equals(other.getTaskInfo());
+        }
+        return false;
+    }
 }
