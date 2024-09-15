@@ -33,13 +33,19 @@ cp EXPECTED.TXT EXPECTED-UNIX.TXT
 dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
 # compare the output to the expected output
-PRINT_TEST=$(diff ACTUAL.TXT EXPECTED-UNIX.TXT)
-SAVE_TEST=$(diff ./data/tasks.txt TASKS-EXPECTED.TXT)
 echo "print test:"
-echo $PRINT_TEST
+diff ACTUAL.TXT EXPECTED-UNIX.TXT
+if [ $? -eq 0 ]
+then
+    echo "Test result: PASSED"
+else
+    echo "Test result: FAILED"
+    exit 1
+fi
+
 echo "save test:"
-echo $SAVE_TEST
-if [ "$PRINT_TEST" == "" ] && [ "$SAVE_TEST" == "" ]
+diff ./data/tasks.txt TASKS-EXPECTED.TXT
+if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
     exit 0
