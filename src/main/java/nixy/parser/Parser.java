@@ -20,6 +20,7 @@ public class Parser {
      * @return The Parsed object containing the command and task number or task.
      */
     public static Parsed parse(String input) {
+        assert input != null : "Input should not be null";
         Task task;
         input = input.trim();
         String[] tokens = input.split(" ", 2);

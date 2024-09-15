@@ -1,7 +1,6 @@
 package nixy.parse;
 
 import nixy.Command;
-import nixy.exceptions.NixyException;
 import nixy.task.Task;
 
 /**
@@ -11,7 +10,8 @@ import nixy.task.Task;
 public class Parsed {
     private Command command;
     private String stringParam;
-    private int taskNumber;
+    // Task number is -1 if it does not exist for the command.
+    private int taskNumber = -1;
     private Task task;
 
     public Parsed(Command c) {
@@ -62,9 +62,9 @@ public class Parsed {
      * @return The task number from the user input.
      */
     public int getTaskNumber() {
-        if (command != Command.MARK && command != Command.UNMARK && command != Command.DELETE) {
-            throw new NixyException("BLAHH!!! The task number does not exist for this command.");
-        }
+        assert (command == Command.MARK || command == Command.UNMARK || command == Command.DELETE)
+            : "Task number does not exist for this command";
+        assert taskNumber != -1 : "Task number should be set.";
         return taskNumber;
     }
 
@@ -74,9 +74,9 @@ public class Parsed {
      * @return The task from the user input.
      */
     public Task getTask() {
-        if (command != Command.TODO && command != Command.DEADLINE && command != Command.EVENT) {
-            throw new NixyException("BLAHH!!! The task does not exist for this command.");
-        }
+        assert (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT)
+            : "Task does not exist for this command";
+        assert task != null : "Task should be set.";
         return task;
     }
 
@@ -86,9 +86,8 @@ public class Parsed {
      * @return The String parameter from the user input.
      */
     public String getStringParam() {
-        if (command != Command.FIND) {
-            throw new NixyException("BLAHH!!! The String parameter does not exist for this command.");
-        }
+        assert (command == Command.FIND) : "String parameter does not exist for this command";
+        assert stringParam != null : "String parameter should be set.";
         return stringParam;
     }
 }
