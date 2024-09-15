@@ -42,6 +42,7 @@ public class DeleteCommand extends Command {
 
         StringBuilder tasksRemoved = new StringBuilder();
         int offset = 0;
+        toBeRemovedIndexes = Arrays.stream(toBeRemovedIndexes).sorted().distinct().toArray();
         Arrays.sort(toBeRemovedIndexes);
         for (int i : toBeRemovedIndexes) {
             Task t = tl.deleteTask(i + offset, storage);

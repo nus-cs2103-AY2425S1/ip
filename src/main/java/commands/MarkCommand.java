@@ -3,6 +3,8 @@ package commands;
 import static util.Utility.INDENT;
 import static util.Utility.NEW_LINE;
 
+import java.util.Arrays;
+
 import tasks.Task;
 import util.Storage;
 import util.TaskList;
@@ -38,6 +40,7 @@ public class MarkCommand extends Command {
         }
 
         StringBuilder updatedTasks = new StringBuilder();
+        toBeUpdatedIndexes = Arrays.stream(toBeUpdatedIndexes).distinct().toArray();
         for (int i : toBeUpdatedIndexes) {
             Task t = (this.command == CommandTypes.MARK) ? tl.markAsDone(i, storage)
                     : tl.markAsUndone(i, storage);

@@ -23,7 +23,6 @@ public class FindCommand extends Command {
         this.command = type;
     }
 
-    // TODO: filter out the by/ from/ to part.
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage, String... details)
             throws MizzException {
