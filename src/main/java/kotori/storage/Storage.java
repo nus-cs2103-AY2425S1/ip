@@ -36,22 +36,7 @@ public class Storage {
      * */
     public TaskList load() {
         try {
-            try {
-                TaskList result = new TaskList();
-                Scanner s = new Scanner(file);
-                while (s.hasNextLine()) {
-                    String input = s.nextLine();
-                    String[] elements = input.split(" \\| ");
-                    if (elements.length < 1) {
-                        throw new CorruptedFileException("");
-                    } else {
-                        result.add(Task.read(elements));
-                    }
-                }
-                return result;
-            } catch (DateTimeParseException e) {
-                throw new CorruptedFileException("");
-            }
+            return readList();
         } catch (FileNotFoundException e) {
             hasFile = false;
             return new TaskList();
@@ -60,11 +45,43 @@ public class Storage {
             return new TaskList();
         }
     }
-
+    /**
+     * Reads the list from a file.
+     * @return The tasklist obtained
+     * @throws CorruptedFileException if the file is corrupted.
+     * @throws FileNotFoundException if the file is not found.
+     * */
+    private TaskList readList() throws CorruptedFileException, FileNotFoundException {
+        try {
+            TaskList result = new TaskList();
+            Scanner s = new Scanner(file);
+            while (s.hasNextLine()) {
+                String input = s.nextLine();
+                final String separator = " \\| ";
+                String[] elements = input.split(separator);
+                boolean invalidLength = elements.length < 1;
+                if (invalidLength) {
+                    throw new CorruptedFileException();
+                } else {
+                    result.add(Task.read(elements));
+                }
+            }
+            return result;
+        } catch (DateTimeParseException e) {
+            throw new CorruptedFileException();
+        }
+    }
+    /**
+     * Checks if the file is corrupted.
+     * @return if the file is corrupted
+     * */
     public boolean isCorrupted() {
         return isCorrupted;
     }
-
+    /**
+     * Checks if the file exits.
+     * @return If the file exits
+     * */
     public boolean hasFile() {
         return hasFile;
     }

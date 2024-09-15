@@ -7,72 +7,43 @@ import kotori.taskList.Task;
 import kotori.taskList.TaskList;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.PrintStream;
-import java.util.Scanner;
 
+import java.io.File;
+import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KotoriTest {
 
     @Test
     public void greetTest() {
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        new GreetCommand().execute();
-        System.setOut(originalOut);
-        assertEquals("    ___________________________________________\n" +
-                "    Hello! I'm Kotori.\n" +
-                "    What can I do for you?\n" +
-                "    ___________________________________________\n", outContent.toString());
+        assertEquals("Hello! I'm Kotori.\nWhat can I do for you?\n", new GreetCommand().execute());
     }
 
     @Test
-    public void exitTest(){
+    public void exitTest() {
         TaskList list = new TaskList();
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
         new ExitCommand(list).execute();
-        System.setOut(originalOut);
-        assertEquals("    ___________________________________________\n" +
-                "    Bye! Hope to see you again soon.\n" +
-                "    ___________________________________________\n", outContent.toString());
+        assertEquals("Bye! Hope to see you again soon.", new ExitCommand(list).execute());
     }
 
     @Test
-    public void printListTest(){
+    public void printListTest() {
         TaskList list = new TaskList();
         try {
             list.add(Task.of("todo me"));
             list.mark(0);
-        } catch (Exception e) {}
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        new PrintListCommand(list).execute();
-        System.setOut(originalOut);
-        assertEquals( "    ___________________________________________\n" +
-                "    1. [T][X] me\n" +
-                "    ___________________________________________\n", outContent.toString());
+        } catch (Exception e) { }
+        assertEquals( "1. [T][X] me\n", new PrintListCommand(list).execute());
     }
 
     @Test
     public void addTest() {
         Storage storage = new Storage("testData", "Add.txt");
         TaskList list = storage.load();
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        new AddCommand(storage,list,"todo me").execute();
-        System.setOut(originalOut);
-        assertEquals(String.format("    ___________________________________________\n" +
-                "    Got it. I've added this task:\n" +
-                "    [T][ ] me\n" +
-                "    Now you have %s tasks in the list\n" +
-                "    ___________________________________________\n", list.size()), outContent.toString());
+
+        assertEquals(String.format("Got it. I've added this task:\n" + "[T][ ] me\n"
+                        + "Now you have %s tasks in the list\n", list.size() + 1),
+                new AddCommand(storage, list, "todo me").execute());
 
     }
 
@@ -83,17 +54,11 @@ public class KotoriTest {
         try {
             list.add(Task.of("todo me") );
             list.mark(0);
-        } catch (Exception e) {}{}
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        new DeleteCommand(storage,list,1).execute();
-        System.setOut(originalOut);
-        assertEquals(String.format("    ___________________________________________\n" +
-                "    OK~. I've deleted this task:\n" +
-                "    [T][X] me\n" +
-                "    Now you have 0 tasks in the list\n" +
-                "    ___________________________________________\n", list.size()), outContent.toString());
+        } catch (Exception e) { }
+        assertEquals(String.format("OK~. I've deleted this task:\n"
+                        +  "[T][X] me\n"
+                        + "Now you have 0 tasks in the list\n", list.size()),
+                new DeleteCommand(storage, list, 1).execute());
 
 
     }
@@ -106,16 +71,9 @@ public class KotoriTest {
         TaskList list = new TaskList();
         try {
             list.add(Task.of("todo me") );
-        } catch (Exception e) {}{}
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        new MarkCommand(storage,list,1).execute();
-        System.setOut(originalOut);
-        assertEquals("    ___________________________________________\n" +
-                "    Nice Job, Job 1 has been marked as done!\n" +
-                "    [T][X] me\n" +
-                "    ___________________________________________\n", outContent.toString());
+        } catch (Exception e) { }
+        assertEquals("Nice Job, Job 1 has been marked as done!\n"
+                + "    [T][X] me\n", new MarkCommand(storage, list, 1).execute());
     }
 
     @Test
@@ -127,16 +85,10 @@ public class KotoriTest {
         try {
             list.add(Task.of("todo me") );
             list.mark(0);
-        } catch (Exception e) {}{}
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        new UnmarkCommand(storage,list,1).execute();
-        System.setOut(originalOut);
-        assertEquals("    ___________________________________________\n" +
-                "    Alright, Job 1 has been marked as not done!\n" +
-                "    [T][ ] me\n" +
-                "    ___________________________________________\n", outContent.toString());
+        } catch (Exception e) { }
+
+        assertEquals("Alright, Job 1 has been marked as not done!\n"
+               + "    [T][ ] me\n", new UnmarkCommand(storage, list, 1).execute());
     }
 
     @Test
@@ -145,17 +97,12 @@ public class KotoriTest {
         try {
             list.add(Task.of("deadline something /by 2020-10-11") );
             list.add(Task.of("event project meeting /from 2020-10-08/to 2020-10-26"));
-        } catch (Exception e) {}{}
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        new SearchCommand(list, "2020-10-10").execute();
-        System.setOut(originalOut);
-        assertEquals("    ___________________________________________\n" +
-                "    These are the tasks related to this date 2020-10-10\n" +
-                "    [D][ ] something  (by: 2020-10-11)\n" +
-                "    [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)\n" +
-                "    ___________________________________________\n", outContent.toString());
+        } catch (Exception e) { }
+
+        assertEquals(
+                "These are the tasks related to this date 2020-10-10\n"
+                + "1. [D][ ] something  (by: 2020-10-11)\n"
+                + "2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)\n" , new SearchCommand(list, "2020-10-10").execute());
     }
 
     @Test
@@ -164,17 +111,11 @@ public class KotoriTest {
         try {
             list.add(Task.of("deadline something /by 2020-10-11") );
             list.add(Task.of("event project meeting for something/from 2020-10-08/to 2020-10-26"));
-        } catch (Exception e) {}{}
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        final PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-        new FindCommand(list, "something").execute();
-        System.setOut(originalOut);
-        assertEquals("    ___________________________________________\n" +
-                "    These are(is) the task(s) that match the description\n" +
-                "    1. [D][ ] something  (by: 2020-10-11)\n" +
-                "    2. [E][ ] project meeting for something (from: 2020-10-08 to: 2020-10-26)\n" +
-                "    ___________________________________________\n", outContent.toString());
+        } catch (Exception e) { }
+        assertEquals("These are(is) the task(s) that match the description\n"
+                + "1. [D][ ] something  (by: 2020-10-11)\n"
+                + "2. [E][ ] project meeting for something (from: 2020-10-08 to: 2020-10-26)\n"
+                , new FindCommand(list, "something").execute());
     }
 
     @Test
@@ -183,7 +124,7 @@ public class KotoriTest {
         try {
             expected.add(Task.of("todo me") );
             expected.mark(0);
-        } catch (Exception e) {}{}
+        } catch (Exception e) { }
         Storage testStorage = new Storage("testData", "Read.txt");
         assertEquals(expected, testStorage.load());
     }
@@ -198,7 +139,7 @@ public class KotoriTest {
             testStorage.updateFile(list);
             Scanner scanner = new Scanner(new File("testData/Load.txt"));
             assertEquals(list.get(0).getStorageMessage(), scanner.nextLine());
-        } catch (Exception e) {}
+        } catch (Exception e) { }
     }
 
     @Test
@@ -220,5 +161,7 @@ public class KotoriTest {
         assertEquals(true, (command7 instanceof DeleteCommand));
         Command command8 = parser.parse("find book");
         assertEquals(true, (command8 instanceof FindCommand));
+        Command command9 = parser.parse("sort");
+        assertEquals(true, (command9 instanceof SortCommand));
     }
 }

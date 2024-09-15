@@ -31,33 +31,18 @@ public abstract class Task implements Comparable<Task> {
         if (descriptions.equals("todo") || descriptions.equals("deadline") || descriptions.equals("event")) {
             throw new MissingInformationException("description", descriptions);
         }
-        final int lengthOfTodo = 5;
-        final int lengthOfDeadline = 9;
         final int lengthOfEvent = 6;
-        final int minimalLengthWithBy = 2;
         final int minimalLengthWithFrom = 2;
         final int minimalLengthWithTo = 3;
         final int descriptionPos = 0;
-        final int byPos = 1;
-        final int lengthOfBy = 3;
         final int fromPos = 1;
         final int lengthOfFrom = 5;
         final int toPos = 2;
         final int lengthOfTo = 3;
         if (descriptions.startsWith("todo ")) {
-            if (descriptions.length() <= lengthOfTodo || descriptions.charAt(lengthOfTodo) == ' ') {
-                throw new MissingInformationException("description", "todo");
-            }
-            return new ToDo(false, descriptions.substring(lengthOfTodo));
+            return ToDo.constructToDo(descriptions);
         } else if (descriptions.startsWith("deadline ")) {
-            if (descriptions.length() <= lengthOfDeadline || descriptions.charAt(lengthOfDeadline) == ' ') {
-                throw new MissingInformationException("description", "deadline");
-            }
-            String[] strings = descriptions.substring(lengthOfDeadline).split("/");
-            if (strings.length < minimalLengthWithBy || !strings[byPos].startsWith("by ")) {
-                throw new MissingInformationException("by time", "deadline");
-            }
-            return new DeadLine(false, strings[descriptionPos], strings[byPos].substring(lengthOfBy));
+            return DeadLine.constructDeadLine(descriptions);
         } else if (descriptions.startsWith("event ")) {
             if (descriptions.length() <= lengthOfEvent || descriptions.charAt(lengthOfEvent) == ' ') {
                 throw new MissingInformationException("description", "event");
@@ -95,7 +80,7 @@ public abstract class Task implements Comparable<Task> {
         final int deadlineLength = 4;
         final int eventLength = 5;
         if (strings.length <= minimalLength) {
-            throw new CorruptedFileException("");
+            throw new CorruptedFileException();
         } else if (strings[typePos].equals("T") && strings.length == todoLength) {
             return new ToDo(parseIcon(strings[iconPos]), strings[descriptionPos]);
         } else if (strings[typePos].equals("D") && strings.length == deadlineLength) {
@@ -103,7 +88,7 @@ public abstract class Task implements Comparable<Task> {
         } else if (strings[typePos].equals("E") && strings.length == eventLength) {
             return new Event(parseIcon(strings[iconPos]), strings[descriptionPos], strings[fromPos], strings[toPos]);
         } else {
-            throw new CorruptedFileException("");
+            throw new CorruptedFileException();
         }
     }
 
@@ -130,7 +115,7 @@ public abstract class Task implements Comparable<Task> {
         } else if (icon.equals(" ")) {
             return false;
         } else {
-            throw new CorruptedFileException("");
+            throw new CorruptedFileException();
         }
     }
 
@@ -182,6 +167,7 @@ public abstract class Task implements Comparable<Task> {
     public abstract boolean isRelatedToDate(LocalDate date);
 
     private static class ToDo extends Task {
+        private static final int keyWordLength = 5;
 
         public ToDo(boolean isDone, String description) {
             super(isDone, description);
@@ -225,10 +211,35 @@ public abstract class Task implements Comparable<Task> {
                 return 0;
             }
         }
+        /**
+         * Produce a instance of ToDo based on the description
+         * @param descriptions description of task.
+         * @return the task produced
+         * @throws MissingInformationException if there is information missing in the description
+         * */
+        private static ToDo constructToDo(String descriptions) throws MissingInformationException {
+            if (isMissingDescription(descriptions)) {
+                throw new MissingInformationException("description", "todo");
+            }
+            return new ToDo(false, skipKeyWord(descriptions));
+        }
+
+        private static boolean isMissingDescription(String descriptions) {
+            return descriptions.length() <= keyWordLength || descriptions.charAt(keyWordLength) == ' ';
+        }
+
+        private static String skipKeyWord(String descriptions) {
+            return descriptions.substring(keyWordLength);
+        }
 
     }
 
     private static class DeadLine extends Task {
+        private static final int deadlineKeyWordLength = 9;
+        private static final int byKeyWordLength = 3;
+        private static final int byTimePos = 1;
+        private static final int descriptionPos = 0;
+        private static final int expectedParts = 2;
         private LocalDate deadLine;
 
         public DeadLine(boolean isDone, String description, String deadLine) {
@@ -289,13 +300,65 @@ public abstract class Task implements Comparable<Task> {
                 return -1;
             }
         }
+        /**
+         * Constructs a deadline object based on the String input
+         * @param descriptions string input.
+         * @return The deadline object.
+         * @throws MissingInformationException if there is information missing.
+         * */
+        private static DeadLine constructDeadLine(String descriptions) throws MissingInformationException {
+            String[] splittedInput = splitInputs(descriptions);
+            return new DeadLine(false, splittedInput[descriptionPos],
+                    splittedInput[byTimePos].substring(byKeyWordLength));
+        }
+        /**
+         * Split the String input
+         * @param descriptions string input.
+         * @return The splitted string.
+         * @throws MissingInformationException if there is information missing.
+         * */
+        private static String[] splitInputs(String descriptions) throws MissingInformationException {
+            if (isMissingDescription(descriptions)) {
+                throw new MissingInformationException("description", "deadline");
+            }
+            String[] strings = descriptions.substring(deadlineKeyWordLength).split("/");
+            if (isMissingByTime(strings)) {
+                throw new MissingInformationException("by time", "deadline");
+            }
+            return strings;
+        }
+        /**
+         * Check is the input Missing description.
+         * @param descriptions the input.
+         * @return is Missing description.
+         * */
+        private static boolean isMissingDescription(String descriptions) {
+            return descriptions.length() <= deadlineKeyWordLength || descriptions.charAt(deadlineKeyWordLength) == ' ';
+        }
+        /**
+         * Check is the input Missing by time.
+         * @param splittedInputs the input.
+         * @return is Missing by time.
+         * */
+        private static boolean isMissingByTime(String[] splittedInputs) {
+            return splittedInputs.length < expectedParts || !splittedInputs[byTimePos].startsWith("by ");
+        }
     }
 
     private static class Event extends Task {
+        private static final int lengthOfEvent = 6;
+        private static final int minimalLengthWithFrom = 2;
+        private static final int minimalLengthWithTo = 3;
+        private static final int descriptionPos = 0;
+        private static final int fromPos = 1;
+        private static final int lengthOfFrom = 5;
+        private static final int toPos = 2;
+        private static final int lengthOfTo = 3;
         private LocalDate from;
         private LocalDate to;
-
-
+        /**
+         * Construct a Event object.
+         * */
         private Event(boolean isDone, String description, String from, String to) {
             super(isDone, description);
             this.from = LocalDate.parse(from);
@@ -352,6 +415,57 @@ public abstract class Task implements Comparable<Task> {
                 return -1;
             }
         }
+
+        private static Event constructEvent(String descriptions) throws MissingInformationException {
+            String[] splittedString = splitInputs(descriptions);
+            return new Event(false, splittedString[descriptionPos],
+                    splittedString[fromPos].substring(lengthOfFrom),
+                    splittedString[toPos].substring(lengthOfTo));
+        }
+
+        /**
+         * Split the String input
+         * @param descriptions string input.
+         * @return The splitted string.
+         * @throws MissingInformationException if there is information missing.
+         * */
+        private static String[] splitInputs(String descriptions) throws MissingInformationException {
+            if (isMissingDescription(descriptions)) {
+                throw new MissingInformationException("description", "event");
+            }
+            String splitter = "/";
+            String[] splittedInput = descriptions.substring(lengthOfEvent).split(splitter);
+            if (isMissingFromTime(splittedInput)) {
+                throw new MissingInformationException("from time", "event");
+            } else if (isMissingToTime(splittedInput)) {
+                throw new MissingInformationException("to time", "event");
+            }
+            return splittedInput;
+        }
+        /**
+         * Check is the input Missing description
+         * @param descriptions the input.
+         * @return is Missing description.
+         * */
+        private static boolean isMissingDescription(String descriptions) {
+            return descriptions.length() <= lengthOfEvent || descriptions.charAt(lengthOfEvent) == ' ';
+        }
+        /**
+         * Check is the input Missing from time.
+         * @param splittedInputs the input.
+         * @return is Missing from time.
+         * */
+        private static boolean isMissingFromTime(String[] splittedInputs) {
+            return splittedInputs.length < minimalLengthWithFrom || !splittedInputs[fromPos].startsWith("from ");
+        }
+        /**
+         * Check is the input Missing to time.
+         * @param splittedInputs the input.
+         * @return is Missing to time.
+         * */
+        private static boolean isMissingToTime(String[] splittedInputs) {
+            return splittedInputs.length < minimalLengthWithTo || !splittedInputs[toPos].startsWith("to ");
+        }
     }
     @Override
     public boolean equals(Object object) {
@@ -361,5 +475,5 @@ public abstract class Task implements Comparable<Task> {
             return false;
         }
     }
-    //...
+
 }
