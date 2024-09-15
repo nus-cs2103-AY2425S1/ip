@@ -1,12 +1,9 @@
 package neko.task;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import neko.NekoException;
-import neko.Storage;
-import neko.ui.Ui;
 
 /**
  * The TaskList class represents a task list that stores tasks added by the user,
@@ -28,6 +25,7 @@ public class TaskList {
      * @param tasks The initial list of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Task list should not be null!";
         this.tasks = tasks;
     }
 
@@ -35,10 +33,9 @@ public class TaskList {
      * Adds task to task list and write the task to storage.
      *
      * @param task The task to be added.
-     * @param storage The storage to be written to.
-     * @throws IOException if an I/O error occurs.
      */
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
     }
 
@@ -51,6 +48,8 @@ public class TaskList {
      */
     public Task getTask(int index) throws NekoException {
         checkValidIndex(index);
+        Task task = tasks.get(index);
+        assert task != null : "Task should not be null";
         return tasks.get(index);
     }
 
@@ -93,8 +92,10 @@ public class TaskList {
         int counter = 0;
         for (int index : indices) {
             checkValidIndex(index);
-            if (tasks.get(index).markAsDone()) {
-                markedTasks[counter] = tasks.get(index);
+            Task task = tasks.get(index);
+            if (task.markAsDone()) {
+                markedTasks[counter] = task;
+                assert task.isDone() : "Task should be marked as done";
                 counter++;
             }
         }
@@ -114,8 +115,10 @@ public class TaskList {
         int counter = 0;
         for (int index : indices) {
             checkValidIndex(index);
-            if (tasks.get(index).markAsNotDone()) {
-                unmarkedTasks[counter] = tasks.get(index);
+            Task task = tasks.get(index);
+            if (task.markAsNotDone()) {
+                unmarkedTasks[counter] = task;
+                assert !task.isDone() : "Task should be marked as not done";
                 counter++;
             }
         }
