@@ -49,12 +49,21 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox userBox = new DialogBox(text, img);
+        return userBox;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        if (text.startsWith("I'm sorry") || text.startsWith("You need")) {
+            db.editDialog("-fx-border-color: red");
+        }
+
         return db;
+    }
+
+    private void editDialog(String edits) {
+        dialog.setStyle(edits);
     }
 }

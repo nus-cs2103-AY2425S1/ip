@@ -48,9 +48,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = wansBot.getResponse(input);
+        DialogBox userBox =  DialogBox.getUserDialog(input, userImage);
+        DialogBox botBox = DialogBox.getDukeDialog(response, wansImage);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, wansImage)
+                userBox,
+                botBox
         );
         if (input.equals("bye")) {
             System.exit(0);
