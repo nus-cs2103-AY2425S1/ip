@@ -28,6 +28,10 @@ public class DeadlineCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException {
+        assert taskList != null: "taskList must not be null";
+        assert ui != null: "ui must not be null";
+        assert storage != null: "storage must not be null";
+
         String s = info.substring(8).trim();
         if (s.isEmpty()) {
             throw new EmptyTaskInfoException();
@@ -37,11 +41,9 @@ public class DeadlineCommand extends Command {
                 throw new EmptyDeadlineException();
             }
             Task task = new Deadline(stringArr[0].trim(), stringArr[1].trim());
-            String s1 = taskList.addTask(task, storage);
-            ui.showOutput("Got it. I've added this task:\n  "
-                    + s1 + "\nNow you have " + taskList.size() + " tasks in the list.");
-            return "Got it. I've added this task:\n  "
-                    + s1 + "\nNow you have " + taskList.size() + " tasks in the list.";
+            String output = taskList.addTask(task, storage);
+            ui.showOutput(output);
+            return output;
         }
     }
 

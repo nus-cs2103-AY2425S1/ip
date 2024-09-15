@@ -22,22 +22,20 @@ public class UnmarkCommand extends Command {
     }
 
 
-
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
-        // int index = 0;
-        String[] formattedString = info.substring(6).trim().split("\\s+");
-        int[] indexList = new int[formattedString.length];
+        assert taskList != null: "taskList must not be null";
+        assert ui != null: "ui must not be null";
+        assert storage != null: "storage must not be null";
+
+        int index = -1;
+        String formattedString = info.substring(6).trim();
         try {
-            for (int i = 0; i < formattedString.length; i++) {
-                int index = Integer.parseInt(formattedString[i]);
-                indexList[i] = index;
-            }
-            // index = Integer.parseInt(formattedString);
+            index = Integer.parseInt(formattedString);
         } catch (NumberFormatException e) {
             throw new MarkingTaskNotANumberException();
         }
-        String output = taskList.unmarkListDone(storage, indexList);
+        String output = taskList.unmarkTaskDone(index, storage);
         ui.showOutput(output);
         return output;
     }
