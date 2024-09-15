@@ -108,7 +108,7 @@ public class CommandUtility {
      *
      * @param dateTimeString String representing dateTime.
      * @param context        Indicates if method is looking at due dateTime, start dateTime or end dateTime.
-     * @return Formatted date and time strings separately.
+     * @return Validated date and time strings separately.
      * @throws BrockException If dateTime string is invalid.
      */
     public static String[] validateDateTime(String dateTimeString, Context context)
@@ -143,6 +143,28 @@ public class CommandUtility {
         }
     }
 
+    private static void validateLength(String[] commandWords, String actionName) throws BrockException {
+        int commandLength = commandWords.length;
+
+        if (commandLength == 1) {
+            throw new BrockException("Missing task number!");
+        }
+        if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
+            throw new BrockException(actionName
+                    + " command is in the form "
+                    + actionName.toLowerCase()
+                    + " <task-number>!");
+        }
+    }
+
+    private static void validateTaskNumber(String[] commandWords, TaskList tasks) throws BrockException {
+        int taskNumber = Integer.parseInt(commandWords[1]);
+        int totalTasks = tasks.numTasks();
+        if (taskNumber > totalTasks || taskNumber < 1) {
+            throw new BrockException("Task number does not exist!");
+        }
+    }
+
     /**
      * Checks if the mark or unmark command is valid.
      *
@@ -156,22 +178,7 @@ public class CommandUtility {
                 ? "Mark"
                 : "Unmark";
         String[] commandWords = command.split(" ");
-        int commandLength = commandWords.length;
-
-        if (commandLength == 1) {
-            throw new BrockException("Missing task number!");
-        }
-        if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
-            throw new BrockException(actionName
-                    + " command is in the form "
-                    + actionName.toLowerCase()
-                    + " <task-number>!");
-        }
-
-        int taskNumber = Integer.parseInt(commandWords[1]);
-        int totalTasks = tasks.numTasks();
-        if (taskNumber > totalTasks || taskNumber < 1) {
-            throw new BrockException("Task number does not exist!");
-        }
+        CommandUtility.validateLength(commandWords, actionName);
+        CommandUtility.validateTaskNumber(commandWords, tasks);
     }
 }
