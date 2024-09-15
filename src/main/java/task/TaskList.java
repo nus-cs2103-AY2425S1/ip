@@ -1,6 +1,7 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class to store {@code Task} objects.
@@ -172,14 +173,10 @@ public class TaskList {
     // TODO: REFACTOR TO USING STREAMS
     private boolean isDescriptionMatching(String description, String keyword) {
         String[] words = description.split(" ");
-        for (String word : words) {
-            if (word.equals(keyword)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(words)
+                .anyMatch(word -> word.equals(keyword));
     }
-
+    
     /**
      * Searches the task list for matching tasks.
      *
