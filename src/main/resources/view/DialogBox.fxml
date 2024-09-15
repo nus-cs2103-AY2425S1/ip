@@ -4,20 +4,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="TOP_RIGHT"
+<fx:root alignment="CENTER_LEFT"
          maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308"
          prefWidth="400.0"
+         style="-fx-background-color: #F0F0F0; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #D3D3D3;"
          type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"/>
-    <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
-  </children>
-  <padding>
-    <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
-  </padding>
-</fx:root>
 
+    <!-- VBox to contain the Label for the dialog text -->
+    <children>
+        <VBox alignment="TOP_LEFT" spacing="10" prefWidth="300.0">
+            <!-- Label with text wrap, font style, and a subtle shadow -->
+            <Label fx:id="dialog" text="Label" wrapText="true"
+                   prefWidth="300.0" maxWidth="Infinity" minHeight="-Infinity"
+                   textOverrun="CLIP"
+                   style="-fx-font-size: 14px; -fx-text-fill: #333333;
+                          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 1, 0, 1, 1);"/>
+        </VBox>
+
+        <!-- ImageView for displaying a profile picture or other image -->
+        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true"
+                   style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 2, 2);"/>
+    </children>
+
+    <!-- Padding around the entire dialog box for spacing -->
+    <padding>
+        <Insets bottom="15.0" left="10.0" right="10.0" top="15.0"/>
+    </padding>
+
+    <!-- Spacing between the label (dialog) and the image -->
+    <spacing>10.0</spacing>
+</fx:root>
