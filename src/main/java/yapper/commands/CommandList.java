@@ -1,7 +1,8 @@
 package yapper.commands;
 
-import java.util.LinkedHashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
 import yapper.exceptions.YapperException;
 
@@ -10,6 +11,9 @@ import yapper.exceptions.YapperException;
  */
 public class CommandList {
     private static final String DUNNO = "¯\\_(ツ)_/¯";
+    private static final HashSet<String> unaliasableCommands = new HashSet<>(
+            Set.of("bind", "unbind", "reset", "help", "clear")
+    );
     private LinkedHashMap<String, Command> availableCommands;
     private HashSet<String> newCommandAliases;
 
@@ -44,6 +48,8 @@ public class CommandList {
         addCommandWithAliases("find", new FindTaskCommand());
         // Delete task command
         addCommandWithAliases("delete", new DeleteTaskCommand(), "del");
+        addCommandWithAliases("clear", new ClearTaskListCommand());
+
         // Termination command
         addCommandWithAliases("bye", new TerminationCommand(), "exit", "quit");
     }
@@ -66,19 +72,16 @@ public class CommandList {
      * @throws YapperException if the command name is does not exist or the alias is already in use
      */
     public String bindCustomCommandAlias(String alias, String commandToAlias) throws YapperException {
-        if (commandToAlias.equals("bind")
-                || commandToAlias.equals("unbind")
-                || commandToAlias.equals("reset")
-                || commandToAlias.equals("help")) {
-            throw new YapperException("I don't recommend doing that");
-        }
-        if (this.availableCommands.containsKey(alias)) {
-            throw new YapperException(String.format("Command already in use: %s mapped to %s",
-                    alias,
-                    getCommandToExecute(alias).toString()));
+        if (unaliasableCommands.contains(commandToAlias)) {
+            throw new YapperException("I don't recommend doing that.");
         }
         if (!this.availableCommands.containsKey(commandToAlias)) {
-            throw new YapperException("No such command exists");
+            throw new YapperException("No such command exists.");
+        }
+        if (this.availableCommands.containsKey(alias)) {
+            throw new YapperException(String.format("That one's already in use: %s mapped to %s",
+                    alias,
+                    getCommandToExecute(alias).toString()));
         }
         this.availableCommands.put(alias, this.availableCommands.get(commandToAlias));
         this.newCommandAliases.add(alias);
@@ -86,13 +89,16 @@ public class CommandList {
     }
 
     public String unbindCustomCommandAlias(String commandName) throws YapperException {
+        if (unaliasableCommands.contains(commandName)) {
+            throw new YapperException("I REALLY don't recommend doing that.");
+        }
         if (!this.newCommandAliases.contains(commandName)) {
-            throw new YapperException("That command either doesn't exist or shouldn't be unbound");
+            throw new YapperException("That command either doesn't exist or is built-in by default.");
         }
         Command command = this.availableCommands.get(commandName);
         this.newCommandAliases.remove(commandName);
         this.availableCommands.remove(commandName);
-        return String.format("%s now unbound from %s", commandName, command.toString());
+        return String.format("%s now unbound from %s.", commandName, command.toString());
     }
 
     /**
@@ -101,7 +107,7 @@ public class CommandList {
     public String resetToDefault() {
         this.availableCommands.clear();
         initialiseAvailableCommands();
-        return String.format("Command list reset to default mappings");
+        return String.format("No more aliases! Command list reset to default mappings.");
     }
 
     /**

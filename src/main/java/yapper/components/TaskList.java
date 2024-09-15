@@ -30,7 +30,7 @@ public class TaskList {
      * Adds a new task to the task list and updates the file.
      *
      * @param task the task to be added
-     * @return     an array of strings reflecting the changes
+     * @return     a string reflecting the changes
      */
     public String addTask(Task task) {
         assert task != null : "Task should not be null";
@@ -90,7 +90,7 @@ public class TaskList {
     public String listTasks() {
         assert this.taskList != null : "Task list should not be null";
         StringBuilder sb = new StringBuilder();
-        String header = String.format("You currently have %d %s\n", getSize(), pluralise());
+        String header = String.format("You currently have %d %s.\n", getSize(), pluralise());
         sb.append(header);
         for (int i = 1; i <= getSize(); i++) {
             String temp = i + "." + getTask(i) + "\n";
@@ -103,7 +103,7 @@ public class TaskList {
      * Deletes a task from the list based on the specified task number and updates the file.
      *
      * @param taskNumber the number of the task to be deleted
-     * @return           an array of strings reflecting the changes
+     * @return           a of string reflecting the changes
      */
     public String deleteTask(int taskNumber) throws YapperException {
         Task task = getTask(taskNumber);
@@ -122,7 +122,7 @@ public class TaskList {
      *
      * @param command     the command specifying whether to mark or unmark the task
      * @param taskNumber  the number of the task to be marked or unmarked
-     * @return            a array of strings reflecting the changes
+     * @return            a string reflecting the changes
      */
     public String markOrUnmarkTask(String command, int taskNumber) throws YapperException {
         Task task = getTask(taskNumber);
@@ -131,7 +131,7 @@ public class TaskList {
             message = "Done! This task is now marked completed:";
             task.mark();
         } else {
-            message = "Task reopened! (Why though?)";
+            message = "Task reopened! But why though?";
             task.unmark();
         }
         writeToFile();
@@ -154,9 +154,19 @@ public class TaskList {
             .collect(Collectors.toCollection(ArrayList::new));
 
         if (foundMatches.isEmpty()) {
-            return "Sorry, I couldn't find any tasks that had this keyword! :(";
+            return "Sorry, I couldn't find any tasks with that keyword! :(";
         }
         return new TaskList(foundMatches, "").listTasks();
+    }
+
+    /**
+     * Clears the task list of all tasks
+     * @return an string reflecting the changes
+     */
+    public String clearTasks() {
+        this.taskList.clear();
+        writeToFile();
+        return "Got rid of all tasks. Starting anew?";
     }
 
     /**
@@ -175,6 +185,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a string indicating the action that was performed on the task list
+     * @param texts a variable number of strings to concatenate with the new-line character
+     * @return      a string concatenation
+     */
     public String stringifyResponse(String... texts) {
         StringBuilder response = new StringBuilder();
         for (String text : texts) {
