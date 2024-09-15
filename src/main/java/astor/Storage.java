@@ -33,7 +33,7 @@ public class Storage {
      * @param filePath
      */
     public Storage(String filePath) {
-        assert filePath != null: "filePath cannot be null";
+        assert filePath != null : "filePath cannot be null";
         try {
             this.filewriter = createNewDataStore(filePath);
         } catch (IOException e) {
@@ -53,7 +53,7 @@ public class Storage {
      * @throws IOException when there is interrupted io operations
      */
     private FileWriter createNewDataStore(String filePath) throws IOException {
-        assert filePath != null: "filePath cannot be null";
+        assert filePath != null : "filePath cannot be null";
         Path path = Paths.get(filePath);
         File file = path.toFile();
         if (!file.exists()) {
@@ -112,7 +112,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Task newTask = createTask(line);
-                assert newTask != null: "newTask cannot be null";
+                assert newTask != null : "newTask cannot be null";
                 tasks.add(newTask);
             }
         } catch (FileNotFoundException e) {
@@ -141,7 +141,7 @@ public class Storage {
      * @return the newly created {@code Task} object, either a {@code Todo}, {@code Deadline}, or {@code Event}
      */
     public Task createTask(String line) {
-        assert line != null: "line cannot be null";
+        assert line != null : "line cannot be null";
         assert line.charAt(0) == 'T' || line.charAt(0) == 'D' || line.charAt(0) == 'E' : "invalid stored format";
 
         String[] info = line.split(" \\| ");

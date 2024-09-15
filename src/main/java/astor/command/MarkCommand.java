@@ -23,9 +23,9 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {
-        assert taskList != null: "taskList must not be null";
-        assert ui != null: "ui must not be null";
-        assert storage != null: "storage must not be null";
+        assert taskList != null : "taskList must not be null";
+        assert ui != null : "ui must not be null";
+        assert storage != null : "storage must not be null";
 
         String[] formattedString = info.substring(4).trim().split("\\s+");
         int[] indexList = new int[formattedString.length];

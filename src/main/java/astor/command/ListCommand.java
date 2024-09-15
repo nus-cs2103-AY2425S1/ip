@@ -13,9 +13,9 @@ import astor.Ui;
 public class ListCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        assert taskList != null: "taskList must not be null";
-        assert ui != null: "ui must not be null";
-        assert storage != null: "storage must not be null";
+        assert taskList != null : "taskList must not be null";
+        assert ui != null : "ui must not be null";
+        assert storage != null : "storage must not be null";
 
         String output = "Here are the tasks in your list:" + taskList.getTaskList();
         ui.showOutput(output);

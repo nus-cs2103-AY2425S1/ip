@@ -36,10 +36,15 @@ public class TodoCommandTest {
             super();
         }
 
+
         @Override
         public String addTask(Task task, Storage storage) {
-            return task.toString();
+            String output = "Got it. I've added this task:\n  "
+                    + task.toString() + "\nNow you have " + 1 + " tasks in the list.";
+            return output;
         }
+
+
 
         @Override
         public int size() {

@@ -52,7 +52,7 @@ public class TaskList {
      * @throws MarkTaskOutOfRangeException if an invalid taskIndex is given by user
      */
     public String markTaskDone(int taskIndex, Storage storage) throws MarkTaskOutOfRangeException {
-        assert storage != null: "storage cannot be null";
+        assert storage != null : "storage cannot be null";
 
         if (isWithinIndexRange(taskIndex)) {
             Task task = taskList.get(taskIndex - 1);
@@ -70,6 +70,19 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks multiple tasks as done in the task list by their indices.
+     *
+     * <p>This method accepts a list of task indices, marks the corresponding tasks as done,
+     * and returns a formatted string indicating which tasks have been marked done. Each task
+     * is marked using the {@link #markTaskDone(int, Storage)} method, and the output is accumulated
+     * and separated by double newlines. The trailing newline is removed before returning the result.
+     *
+     * @param storage   The storage object that contains the task list and persists changes.
+     * @param indexList A variable number of integers representing the indices of the tasks to be marked as done.
+     * @return A string summarizing which tasks were marked as done, each separated by double newlines.
+     * @throws MarkTaskOutOfRangeException if any of the indices in {@code indexList} is out of range of the task list.
+     */
     public String markListDone(Storage storage, int... indexList) throws MarkTaskOutOfRangeException {
         StringBuilder s = new StringBuilder();
         for (int i: indexList) {
@@ -89,7 +102,7 @@ public class TaskList {
      * @throws MarkTaskOutOfRangeException if an invalid taskIndex is given by user
      */
     public String unmarkTaskDone(int taskIndex, Storage storage) throws MarkTaskOutOfRangeException {
-        assert storage != null: "storage cannot be null";
+        assert storage != null : "storage cannot be null";
 
         if (isWithinIndexRange(taskIndex)) {
             String output = generateOutputUnmarkTask(taskIndex);
@@ -100,6 +113,19 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks multiple tasks as not done in the task list by their indices.
+     *
+     * <p>This method accepts a list of task indices, unmarks the corresponding tasks as not done,
+     * and returns a formatted string indicating which tasks have been unmarked. Each task is unmarked
+     * using the {@link #unmarkTaskDone(int, Storage)} method, and the output is accumulated and
+     * separated by double newlines. The trailing newline is removed before returning the result.
+     *
+     * @param storage   The storage object that contains the task list and persists changes.
+     * @param indexList A variable number of integers representing the indices of the tasks to be unmarked as done.
+     * @return A string summarizing which tasks were unmarked, each separated by double newlines.
+     * @throws MarkTaskOutOfRangeException if any of the indices in {@code indexList} is out of range of the task list.
+     */
     public String unmarkListDone(Storage storage, int... indexList) throws MarkTaskOutOfRangeException {
         StringBuilder s = new StringBuilder();
         for (int i: indexList) {
@@ -148,7 +174,7 @@ public class TaskList {
      * @throws AstorException if there are no tasks to delete or taskIndex provided is out of range
      */
     public String deleteTask(int taskIndex, Storage storage) throws AstorException {
-        assert storage != null: "storage cannot be null";
+        assert storage != null : "storage cannot be null";
 
         if (taskList.isEmpty()) {
             throw DeleteTaskOutOfRangeException.noTaskToDelete();
@@ -174,8 +200,8 @@ public class TaskList {
      * @throws IOException if an I/O error occurs while appending to the file
      */
     public String addTask(Task task, Storage storage) throws IOException {
-        assert task != null: "task cannot be null";
-        assert storage != null: "storage cannot be null";
+        assert task != null : "task cannot be null";
+        assert storage != null : "storage cannot be null";
 
         String output = "";
         for (Task t: taskList) {

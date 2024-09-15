@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setAstor(Astor astor) {
-        assert astor != null: "astor must not be null";
+        assert astor != null : "astor must not be null";
 
         this.astor = astor;
     }

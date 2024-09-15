@@ -46,7 +46,7 @@ public class Parser {
      * @return the action categorised from the input
      */
     private static Action categorise(String input) {
-        assert input != null: "input cannot be null";
+        assert input != null : "input cannot be null";
         if (input.equals("bye")) {
             return Action.BYE;
         } else if (input.startsWith("mark")) {
@@ -81,20 +81,20 @@ public class Parser {
      * @throws UnspecificTaskException if the input does not match any known command
      */
     public static Command process(String input) throws AstorException {
-        assert input != null: "input cannot be null";
+        assert input != null : "input cannot be null";
         Action action = categorise(input);
         return switch (action) {
-            case MARK -> new MarkCommand(input);
-            case UNMARK -> new UnmarkCommand(input);
-            case LIST -> new ListCommand();
-            case DELETE -> new DeleteCommand(input);
-            case TODO -> new TodoCommand(input);
-            case DEADLINE -> new DeadlineCommand(input);
-            case EVENT -> new EventCommand(input);
-            case EMPTY -> throw new EmptyInputException();
-            case BYE -> new ExitCommand();
-            case FIND -> new FindCommand(input);
-            default -> throw new UnspecificTaskException();
+        case MARK -> new MarkCommand(input);
+        case UNMARK -> new UnmarkCommand(input);
+        case LIST -> new ListCommand();
+        case DELETE -> new DeleteCommand(input);
+        case TODO -> new TodoCommand(input);
+        case DEADLINE -> new DeadlineCommand(input);
+        case EVENT -> new EventCommand(input);
+        case EMPTY -> throw new EmptyInputException();
+        case BYE -> new ExitCommand();
+        case FIND -> new FindCommand(input);
+        default -> throw new UnspecificTaskException();
         };
     }
 }

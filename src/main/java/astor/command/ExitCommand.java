@@ -16,9 +16,9 @@ import astor.Ui;
 public class ExitCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
-        assert taskList != null: "taskList must not be null";
-        assert ui != null: "ui must not be null";
-        assert storage != null: "storage must not be null";
+        assert taskList != null : "taskList must not be null";
+        assert ui != null : "ui must not be null";
+        assert storage != null : "storage must not be null";
 
         storage.completeModification();
         ui.showBye();

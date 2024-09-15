@@ -25,7 +25,7 @@ public class Astor {
      * @param filePath the path to the file where task data is stored
      */
     public Astor(String filePath) {
-        assert filePath != null: "filePath cannot be null";
+        assert filePath != null : "filePath cannot be null";
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.taskList = new TaskList(storage.getData());

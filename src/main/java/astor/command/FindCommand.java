@@ -23,9 +23,9 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        assert taskList != null: "taskList must not be null";
-        assert ui != null: "ui must not be null";
-        assert storage != null: "storage must not be null";
+        assert taskList != null : "taskList must not be null";
+        assert ui != null : "ui must not be null";
+        assert storage != null : "storage must not be null";
 
         String[] keyword = info.substring(4).trim().split("\\s+");
         String tasks = taskList.matchesDescriptions(keyword);
