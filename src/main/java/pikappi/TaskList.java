@@ -58,7 +58,7 @@ public class TaskList {
         if (task == null) {
             throw new PikappiException("Pi-ka..?? What is the task..?");
         }
-        if (tasks.contains(task)) {
+        if (isDuplicate(task)) {
             throw new PikappiException("Pi-ka..?? Task already exists..");
         }
         tasks.add(task);
@@ -182,5 +182,20 @@ public class TaskList {
         default:
             throw new PikappiException("Pi-ka..?? Invalid sort option..");
         }
+    }
+
+    /**
+     * Checks if the new task is a duplicate of another task in the list.
+     *
+     * @param newTask Task to check for duplicates
+     * @return True if the task is a duplicate, false otherwise
+     */
+    public boolean isDuplicate(Task newTask) {
+        for (Task task : tasks) {
+            if (task.toString().equals(newTask.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
