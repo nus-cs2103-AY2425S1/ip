@@ -34,7 +34,7 @@ Example: `event CS2 finals /from 2024-10-30 /to 2024-11-03`
 
 ## Marking a task: `mark`
 
-Mark a task as completed.
+Marks a task as completed.
 
 Format: mark <taskIndex>
 
@@ -42,7 +42,7 @@ Example: `mark 1`
 
 ## Unmarking a task: `unmark`
 
-Unmark a task as incompleted.
+Unmarks a task as incompleted.
 
 Format: unmark <taskIndex>
 
@@ -50,27 +50,33 @@ Example: `unmark 1`
 
 ## Deleting a task: `mark`
 
-Mark a task as completed.
+Deletes the specified task from the tasklist.
 
-Format: mark <taskIndex>
+Format: delete <taskIndex>
 
-Example: `mark 1`
+Example: `delete 1`
 
-## Locating a task: `mark`
+## Locating a task: `find`
 
-Mark a task as completed.
+Finds tasks whose task description contain the given keyword.
 
-Format: mark <taskIndex>
+Format: find <keyword>
 
-Example: `mark 1`
+Example: `find quiz`
 
-## Setting priority for a task: `mark`
+- The search is case-sensitive
+- Index of find does not reflect the true index of task used for other methods.
+- Only task description is searched
+- Partial work can be matched
 
-Mark a task as completed.
+## Setting priority for a task: `priority`
 
-Format: mark <taskIndex>
+Sets a priority to a task at three levels: `HIGH(1), MEDIUM(2), LOW(3)`
 
-Example: `mark 1`
+Format: priority <taskIndex> /priority <int 1-3>
+
+Example: `priority 1 /priority 1`
+This command sets the task in index 1 to HIGH.
 
 ## Saving of data:
 
