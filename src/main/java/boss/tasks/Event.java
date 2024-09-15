@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 public class Event extends TimeTask {
     protected String from;
     protected String to;
-
     protected LocalDate toDate;
     protected LocalDateTime toTime;
 

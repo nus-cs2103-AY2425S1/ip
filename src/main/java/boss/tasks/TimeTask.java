@@ -25,13 +25,13 @@ public class TimeTask extends Task {
         super(description, isDone);
     }
 
-
     public boolean checkDateDifference() {
         if (this.date == null) {
             return false;
         }
-        long daysBetween = DAYS.between(this.date, LocalDate.now());
-        if (daysBetween <= 7) {
+        long daysBetween = DAYS.between(LocalDate.now(), this.date);
+        if (daysBetween >= 0 && daysBetween <= 7) {
+            System.out.println(daysBetween);
             return true;
         }
         return false;
@@ -41,12 +41,12 @@ public class TimeTask extends Task {
         if (this.time == null) {
             return false;
         }
-        long hoursBetween = this.time.until(LocalDateTime.now(), ChronoUnit.HOURS);
-        if (hoursBetween <= 168) {
+        long hoursBetween = LocalDateTime.now().until(this.time, ChronoUnit.HOURS);
+        if (hoursBetween >= 0 && hoursBetween <= 168) {
+            System.out.println(hoursBetween);
             return true;
         }
         return false;
-
     }
 
 

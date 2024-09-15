@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
     private Boss boss = new Boss("src/main/data/boss.txt");
 
     @Override
