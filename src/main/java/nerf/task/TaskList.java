@@ -33,22 +33,31 @@ public class TaskList {
     public void loadTasklist(List<String> taskList) {
         for (String taskLine: taskList) {
             String[] task = taskLine.split("\\|");
-            switch (task[0].trim()) {
-            case "T" -> listings.add(new ToDos(task[2].trim(), 
-                    task[1].trim().equals("1"), task[3].trim()));
-            case "D" -> {
-                LocalDate dueDate = Parser.parseStringToDate(task[4].trim());
-                listings.add(new Deadlines(task[2].trim(), task[1].trim().equals("1"), 
-                        dueDate, task[3].trim()));
+            try {
+                loadTask(task);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid data detected");
             }
-            case "E" -> {
-                LocalDate fromDate = Parser.parseStringToDate(task[4].trim());
-                LocalDate toDate = Parser.parseStringToDate(task[5].trim());
-                listings.add(new Events(task[2].trim(), task[1].trim().equals("1"), 
-                        fromDate, toDate, task[3].trim()));
-            }
-            default -> System.out.println("Save file seems to be corrupted.");
-            }
+        }
+    }
+    
+
+    private void loadTask(String[] task) {
+        switch (task[0].trim()) {
+        case "T" -> listings.add(new ToDos(task[2].trim(), 
+                task[1].trim().equals("1"), task[3].trim()));
+        case "D" -> {
+            LocalDate dueDate = Parser.parseStringToDate(task[4].trim());
+            listings.add(new Deadlines(task[2].trim(), task[1].trim().equals("1"), 
+                    dueDate, task[3].trim()));
+        }
+        case "E" -> {
+            LocalDate fromDate = Parser.parseStringToDate(task[4].trim());
+            LocalDate toDate = Parser.parseStringToDate(task[5].trim());
+            listings.add(new Events(task[2].trim(), task[1].trim().equals("1"), 
+                    fromDate, toDate, task[3].trim()));
+        }
+        default -> System.out.println("Save file seems to be corrupted.");
         }
     }
 
