@@ -1,4 +1,4 @@
-# duke.Duke User Guide
+# rudolf.Rudolf User Guide
 
 // Update the title above to match the actual product name
 

@@ -1,4 +1,4 @@
-package duke.task;
+package rudolf.task;
 
 /**
  * Represents a ToDo task.

@@ -1,9 +1,9 @@
-package duke.storage;
+package rudolf.storage;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import rudolf.task.Deadline;
+import rudolf.task.Event;
+import rudolf.task.Task;
+import rudolf.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Handles the loading and saving of tasks to a file in the Duke application.
+ * Handles the loading and saving of tasks to a file in the Rudolf application.
  */
 public class Storage {
     private final String filePath;

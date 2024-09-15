@@ -47,7 +47,7 @@ public class DialogBox extends HBox {
 
     /**
      * Flips the dialog box such that the ImageView is on the left and the text is on the right.
-     * This is typically used to differentiate between the user's dialog and Duke's dialog.
+     * This is typically used to differentiate between the user's dialog and Rudolf's dialog.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -68,14 +68,14 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a DialogBox for Duke's dialog with the specified text and image.
+     * Creates a DialogBox for Rudolf's dialog with the specified text and image.
      * The dialog box is flipped so that the ImageView appears on the left.
      *
      * @param text The text to display in the dialog box.
      * @param img  The image to display in the dialog box.
-     * @return A DialogBox instance configured for Duke's dialog.
+     * @return A DialogBox instance configured for Rudolf's dialog.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getRudolfDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

@@ -1,6 +1,6 @@
-package duke.ui;
+package rudolf.ui;
 
-import duke.task.Task;
+import rudolf.task.Task;
 
 import java.util.List;
 
@@ -25,9 +25,9 @@ public class Ui {
                 + "    |*  |    |   |     \\____________/       *\n";
         return "Hello, I am Rudolf, Santa's trusty red-nose reindeer. Christmas is nearing, so I am here to help you with your Christmas preparations.\n"
                 + "Here's how you can chat with me:\n"
-                + "1. Add a duke.task.ToDo: todo <description>\n"
-                + "2. Add a duke.task.Deadline: deadline <description> /by <date/time>\n"
-                + "3. Add an duke.task.Event: event <description> /from <start date/time> /to <end date/time>\n"
+                + "1. Add a ToDo: todo <description>\n"
+                + "2. Add a Deadline: deadline <description> /by <date/time>\n"
+                + "3. Add an Event: event <description> /from <start date/time> /to <end date/time>\n"
                 + "4. List all tasks: list\n"
                 + "5. Mark a task as done: mark <task number>\n"
                 + "6. Unmark a task: unmark <task number>\n"

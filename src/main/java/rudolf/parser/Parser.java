@@ -1,11 +1,11 @@
-package duke.parser;
+package rudolf.parser;
 
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.ToDo;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.ui.Ui;
+import rudolf.task.Task;
+import rudolf.task.TaskList;
+import rudolf.task.ToDo;
+import rudolf.task.Deadline;
+import rudolf.task.Event;
+import rudolf.ui.Ui;
 
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Parser {
      * Parses the user input and performs the corresponding action.
      *
      * @param input The user's input as a string.
-     * @return Duke's response as a string.
+     * @return Rudolf's response as a string.
      */
     public String parse(String input) {
         if (input.equals("list")) {

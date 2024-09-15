@@ -5,15 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import duke.Duke;
+import rudolf.Rudolf;
 
 /**
- * A GUI for Duke using FXML. This class initializes the main application window
+ * A GUI for Rudolf using FXML. This class initializes the main application window
  * and sets up the primary stage with the corresponding FXML layout.
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke("data/duke.txt");
+    private final Rudolf rudolf = new Rudolf("data/rudolf.txt");
 
     /**
      * The main entry point for the JavaFX application. This method sets up the
@@ -29,7 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // Injects the Duke instance into the controller
+            fxmlLoader.<MainWindow>getController().setRudolf(rudolf);  // Injects the Rudolf instance into the controller
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
