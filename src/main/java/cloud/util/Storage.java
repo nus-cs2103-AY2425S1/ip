@@ -15,6 +15,7 @@ import cloud.task.Todo;
 
 public class Storage {
     private final String filePath = "./data/Cloud.txt";
+    private final String DELIMITER = "|||$DELIM|||";
 
     /**
      * Constructs a Storage object. Checks if the file exists at the filepath
@@ -41,7 +42,7 @@ public class Storage {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             int taskCount = taskList.getTaskCount();
             for (int i = 0; i < taskCount; i++) {
-                writer.write(taskList.getTask(i).formatSave());
+                writer.write(taskList.getTask(i).formatSave() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Error writing to save file!");
