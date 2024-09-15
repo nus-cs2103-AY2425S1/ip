@@ -27,6 +27,19 @@ public class DeleteTaskCommand extends Command {
         this.taskNo = taskNo;
     }
 
+    public DeleteTaskCommand(String[] command) throws OrionInputException {
+        super(false);
+        if (command.length != 2) {
+            throw new OrionInputException("Correct syntax: delete <task number>");
+        } else {
+            try {
+                taskNo = Integer.parseInt(command[1]);
+            } catch (NumberFormatException e) {
+                throw new OrionInputException("Correct syntax: delete <task number>");
+            }
+        }
+    }
+
     /**
      * Executes the command by deleting the task from the task list and updating
      * the user interface.

@@ -1,5 +1,6 @@
 package orion.commands;
 
+import orion.exceptions.OrionException;
 import orion.utils.Storage;
 import orion.utils.TaskList;
 import orion.exceptions.OrionInputException;
@@ -24,6 +25,19 @@ public class MarkTaskCommand extends Command {
     public MarkTaskCommand(int taskNo) {
         super(false);
         this.taskNo = taskNo;
+    }
+
+    public MarkTaskCommand(String[] command) throws OrionInputException {
+        super(false);
+        if (command.length != 2) {
+            throw new OrionInputException("Correct syntax: mark <task number>");
+        } else {
+            try {
+                taskNo = Integer.parseInt(command[1]);
+            } catch (NumberFormatException e) {
+                throw new OrionInputException("Correct syntax: mark <task number>");
+            }
+        }
     }
 
     /**
