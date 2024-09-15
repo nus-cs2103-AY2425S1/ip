@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import orion.exceptions.OrionException;
+import orion.exceptions.OrionInputException;
 import orion.exceptions.OrionPathNotFoundException;
 import orion.exceptions.OrionSaveTaskListException;
 import orion.exceptions.OrionTaskDataException;
@@ -66,69 +67,30 @@ public class Storage {
                 String[] parsed = task.split(",");
                 switch (parsed[0]) {
                 case "todo":
-                    if (parsed.length != 3) {
-                        throw new OrionTaskDataException("Unrecognised todo task format");
-                    } else {
-                        boolean done = parsed[1].equals("T");
-                        Task todo = new Todo(parsed[2], done);
-                        tasks.add(todo);
-                        break;
-                    }
+                    tasks.add(parseTodo(parsed));
+                    break;
                 case "deadline":
-                    if (parsed.length != 4) {
-                        throw new OrionTaskDataException("Unrecognised deadline task format");
-                    } else {
-                        boolean done = parsed[1].equals("T");
-                        LocalDate time = LocalDate.parse(parsed[3]);
-                        Task deadline = new Deadline(parsed[2], done, time);
-                        tasks.add(deadline);
-                        break;
-                    }
+                    tasks.add(parseDeadline(parsed));
+                    break;
                 case "event":
-                    if (parsed.length != 5) {
-                        throw new OrionTaskDataException("Unrecognised event task format");
-                    } else {
-                        boolean done = parsed[1].equals("T");
-                        LocalDate start = LocalDate.parse(parsed[3]);
-                        LocalDate end = LocalDate.parse(parsed[4]);
-                        Task event = new Event(parsed[2], done, start, end);
-                        tasks.add(event);
-                        break;
-                    }
+                    tasks.add(parseEvent(parsed));
+                    break;
                 default:
                     // File corrupted
                     throw new OrionTaskDataException("Unrecognised task type");
                 }
             }
-
             return tasks;
-
         } catch (FileNotFoundException e) {
-            try {
-                File dataDirectory = new File(DATA_FOLDER_PATHNAME);
-                Path dir = Paths.get(DATA_FOLDER_PATHNAME);
-                if (dataDirectory.exists() && dataDirectory.isDirectory()) {
-                    Files.createFile(path);
-                } else if (dataDirectory.exists()) {
-                    Files.delete(dir);
-                    Files.createDirectory(dir);
-                    Files.createFile(path);
-                } else {
-                    Files.createDirectory(dir);
-                    Files.createFile(path);
-                }
-                throw new OrionTaskDataException("Task list not found, new list created");
-            } catch (IOException err) {
-                throw new OrionPathNotFoundException("Task list cannot be created");
-            }
+            createTaskListIfNotFound(path);
+
+            // Will never be thrown, since createTaskListIfNotFound always throws an exception
+            throw new OrionInputException("Unexpected error when creating save list!");
         } catch (OrionTaskDataException | DateTimeException e) {
-            try {
-                Files.delete(path);
-                Files.createFile(path);
-                throw new OrionTaskDataException("Task list corrupted, new list created");
-            } catch (IOException err) {
-                throw new OrionPathNotFoundException("Task list cannot be created");
-            }
+            createTaskListIfCorrupted(path);
+
+            // Will never be thrown, since createTaskListIfCorrupted always throws an exception
+            throw new OrionInputException("Unexpected error when creating save list!");
         }
     }
 
@@ -147,6 +109,68 @@ public class Storage {
             fw.close();
         } catch (IOException e) {
             throw new OrionSaveTaskListException("Task list cannot be saved");
+        }
+    }
+
+    private Todo parseTodo(String[] taskString) throws OrionTaskDataException {
+        if (taskString.length != 3) {
+            throw new OrionTaskDataException("Unrecognised todo task format");
+        } else {
+            boolean done = taskString[1].equals("T");
+            return new Todo(taskString[2], done);
+        }
+    }
+
+    private Deadline parseDeadline(String[] taskString) throws OrionTaskDataException {
+        if (taskString.length != 4) {
+            throw new OrionTaskDataException("Unrecognised deadline task format");
+        } else {
+            boolean done = taskString[1].equals("T");
+            LocalDate time = LocalDate.parse(taskString[3]);
+            return new Deadline(taskString[2], done, time);
+        }
+    }
+
+    private Event parseEvent(String[] taskString) throws OrionTaskDataException {
+        if (taskString.length != 5) {
+            throw new OrionTaskDataException("Unrecognised event task format");
+        } else {
+            boolean done = taskString[1].equals("T");
+            LocalDate start = LocalDate.parse(taskString[3]);
+            LocalDate end = LocalDate.parse(taskString[4]);
+            return new Event(taskString[2], done, start, end);
+        }
+    }
+
+    private void createTaskListIfNotFound(Path path)
+            throws OrionTaskDataException, OrionPathNotFoundException {
+        try {
+            File dataDirectory = new File(DATA_FOLDER_PATHNAME);
+            Path dir = Paths.get(DATA_FOLDER_PATHNAME);
+            if (dataDirectory.exists() && dataDirectory.isDirectory()) {
+                Files.createFile(path);
+            } else if (dataDirectory.exists()) {
+                Files.delete(dir);
+                Files.createDirectory(dir);
+                Files.createFile(path);
+            } else {
+                Files.createDirectory(dir);
+                Files.createFile(path);
+            }
+            throw new OrionTaskDataException("Task list not found, new list created");
+        } catch (IOException err) {
+            throw new OrionPathNotFoundException("Task list cannot be created");
+        }
+    }
+
+    private void createTaskListIfCorrupted(Path path)
+            throws OrionTaskDataException, OrionPathNotFoundException {
+        try {
+            Files.delete(path);
+            Files.createFile(path);
+            throw new OrionTaskDataException("Task list corrupted, new list created");
+        } catch (IOException err) {
+            throw new OrionPathNotFoundException("Task list cannot be created");
         }
     }
 }

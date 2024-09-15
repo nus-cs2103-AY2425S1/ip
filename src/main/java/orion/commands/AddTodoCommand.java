@@ -14,7 +14,7 @@ public class AddTodoCommand extends AddTaskCommand {
         if (command.length < 2) {
             throw new OrionInputException("Correct syntax: todo <task>");
         } else {
-            return new Todo(Parser.removeFirstWordFromString(command[1]).trim());
+            return new Todo(Parser.removeFirstWordFromString(String.join(" ", command)).trim());
         }
     }
 }
