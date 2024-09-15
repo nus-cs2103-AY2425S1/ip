@@ -20,6 +20,9 @@ public class ListCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, OutputHandler outputHandler) {
+
+        assert taskList != null : "taskList must not be null";
+        assert outputHandler != null : "outputHandler must not be null";
         outputHandler.print(taskList.listTasks());
     }
 }

@@ -30,6 +30,7 @@ public class InputParser {
      * @throws InvalidCommandError If the command does not exist.
      */
     public Command parse(String cmd) throws InvalidInputError, InvalidCommandError {
+        assert cmd != null;
 
         if (isByeCommand(cmd)) {
             return new ByeCommand();

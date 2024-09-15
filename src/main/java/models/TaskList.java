@@ -58,6 +58,7 @@ public class TaskList extends ActiveRecord {
      * @param task The task to be added to the list.
      */
     public void addTask(Task task) {
+        assert task != null;
         tasks.add(task);
         saveToDb();
     }
