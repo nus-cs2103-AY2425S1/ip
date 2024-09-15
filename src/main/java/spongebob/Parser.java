@@ -10,11 +10,8 @@ public class Parser {
     private String[] arguments;
 
     /**
-     * The command syntax is a array of size 4,
-     * first string will be the command,
-     * second is description,
-     * third is from / by date,
-     * last is the to date
+     * The command syntax is a array of size 4, first string will be the command,
+     * second is description, third is from / by date, last is the to date
      */
     public Parser() {
         this.arguments = new String[4];

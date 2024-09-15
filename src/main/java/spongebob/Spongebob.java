@@ -58,6 +58,6 @@ public class Spongebob {
     }
 
     public static void main(String[] args) {
-        new Spongebob("data/spongebob.txt").run();
+        new Spongebob("./spongebob.txt").run();
     }
 }

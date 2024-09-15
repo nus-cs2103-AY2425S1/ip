@@ -8,7 +8,20 @@ while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, Spongebob can track your tasks faster than 
 traditional GUI apps.
 ---
+## Setup Guide
 
+1. Download a version of Spongebob [here.](https://github.com/Jaynon/ip/releases)
+
+2. The jar file should be in a folder (ie folder_name/spongebob.jar)
+
+3. Then, run the included jar file in any terminal with the line below.
+```cmd
+java -jar spongebob.jar
+```
+
+---
+
+---
 ## Adding Todos
 
 Adds a Todo task to your list, such as watching a lecture video.

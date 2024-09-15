@@ -43,13 +43,15 @@ public class Storage {
 
         try {
             File f = new File(filePath);
+            f.getParentFile().mkdir();
+            boolean success = f.createNewFile();
             Scanner s = new Scanner(f);
 
             while (s.hasNext()) {
                 this.data.add(s.nextLine());
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
 
         for (String line : this.data) {
