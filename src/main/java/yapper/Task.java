@@ -20,11 +20,11 @@ public abstract class Task {
         this.name = taskName;
     }
 
-    public void setDone(boolean bool) {
+    public void setIsDone(boolean bool) {
         this.isDone = bool;
     }
 
-    public boolean hasDone() {
+    public boolean getIsDone() {
         return this.isDone;
     }
 

@@ -19,7 +19,7 @@ public class ToDo extends Task {
      * @return String representation of the ToDo object.
      */
     public String toString() {
-        String doneSymbol = super.hasDone() ? "[X]" : "[ ]";
+        String doneSymbol = super.getIsDone() ? "[X]" : "[ ]";
         return String.format("[T]%s %s", doneSymbol, super.getName());
     }
 
@@ -30,7 +30,7 @@ public class ToDo extends Task {
      * @return String representation of the ToDo object.
      */
     public String toFile() {
-        String fileDoneSymbol = super.hasDone() ? "D" : "N";
+        String fileDoneSymbol = super.getIsDone() ? "D" : "N";
         return String.format("T %s--%s", fileDoneSymbol, super.getName());
     }
 }

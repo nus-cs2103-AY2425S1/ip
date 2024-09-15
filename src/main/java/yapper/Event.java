@@ -32,8 +32,9 @@ public class Event extends Task {
     public String toString() {
         String fromDateTimeToString = this.fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         String toDateTimeToString = this.toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-        String doneSymbol = super.hasDone() ? "[X]" : "[ ]";
-        return String.format("[E]%s %s (FROM: %s TO: %s)", doneSymbol, super.getName(), fromDateTimeToString, toDateTimeToString);
+        String doneSymbol = super.getIsDone() ? "[X]" : "[ ]";
+        return String.format("[E]%s %s (FROM: %s TO: %s)", doneSymbol, super.getName(),
+                fromDateTimeToString, toDateTimeToString);
     }
 
     /**
@@ -43,7 +44,7 @@ public class Event extends Task {
      * @return String representation of the Event object.
      */
     public String toFile() {
-        String fileDoneSymbol = super.hasDone() ? "D" : "N";
+        String fileDoneSymbol = super.getIsDone() ? "D" : "N";
         return String.format("E %s--%s--%s--%s", fileDoneSymbol, super.getName(), this.fromDateTime, this.toDateTime);
     }
 }

@@ -106,7 +106,8 @@ public class TaskList {
             } else {
                 Task task = this.listOfTask.get(order - 1);
                 this.listOfTask.remove(order - 1);
-                String toReturn = "Noted. I've removed this task: \n" + task + "\n" + "Now you have " + this.listOfTask.size() + " tasks in the list";
+                String toReturn = "Noted. I've removed this task: \n" + task + "\n" + "Now you have "
+                        + this.listOfTask.size() + " tasks in the list";
                 System.out.println(toReturn);
                 this.storage.writeHistory(this.listOfTask);
                 return toReturn;
@@ -115,7 +116,7 @@ public class TaskList {
     }
 
     /**
-     * Add a ToDo object into the list of tasks.
+     * Adds a ToDo object into the list of tasks.
      *
      * @param command Word "todo" followed by the name of the task.
      * @throws YapperException If the string following "todo" is empty.
@@ -131,7 +132,7 @@ public class TaskList {
     }
 
     /**
-     * Add a Deadline object into the list of tasks.
+     * Adds a Deadline object into the list of tasks.
      *
      * @param command Word "deadline" followed by the name of the task, " /by ", followed by the ending time.
      * @throws YapperException If the name of the task is empty.
@@ -157,7 +158,7 @@ public class TaskList {
     }
 
     /**
-     * Add a Event object into the list of tasks.
+     * Adds an Event object into the list of tasks.
      *
      * @param command Word "event" followed by the name of the task, " /from ", followed by the starting time,
      *                " /to ", followed by the ending time.
@@ -198,7 +199,8 @@ public class TaskList {
      */
     public String addTask(Task task) {
         this.listOfTask.add(task);
-        String toReturn = "Got it. I've added this task:\n" + task + "\nNow you have " + this.listOfTask.size() + " tasks in the list";
+        String toReturn = "Got it. I've added this task:\n" + task + "\nNow you have " + this.listOfTask.size()
+                + " tasks in the list";
         System.out.println(toReturn);
         this.storage.writeHistory(this.listOfTask);
         return toReturn;
@@ -222,7 +224,7 @@ public class TaskList {
                 throw new YapperException("Task Number cannot be more than size of list!");
             } else {
                 Task taskToMark = this.listOfTask.get(order - 1);
-                taskToMark.setDone(true);
+                taskToMark.setIsDone(true);
                 String toReturn = "Nice! I've marked this task as done: \n" + taskToMark;
                 System.out.println(toReturn);
                 this.storage.writeHistory(this.listOfTask);
@@ -249,7 +251,7 @@ public class TaskList {
                 throw new YapperException("Task Number cannot be more than size of list!");
             } else {
                 Task taskToUnmark = this.listOfTask.get(order - 1);
-                taskToUnmark.setDone(false);
+                taskToUnmark.setIsDone(false);
                 String toReturn = "OK, I've marked this task as not done yet: \n" + taskToUnmark;
                 System.out.println(toReturn);
                 this.storage.writeHistory(this.listOfTask);
