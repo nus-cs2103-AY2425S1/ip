@@ -2,8 +2,12 @@ package winner;
 
 import java.util.Scanner;
 
-
-public class WinnerTaskBotCLI {
+/**
+ * Provides the command-line interface for the Winner task tracking bot.
+ * It continuously listens for user inputs, parses commands and interacts with the user.
+ * Terminates when user enters a command containing "bye".
+ */
+public class WinnerTaskBotCli {
 
     /**
      * Main loop of the Winner task tracking bot.
