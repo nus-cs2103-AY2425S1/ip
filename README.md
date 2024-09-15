@@ -27,3 +27,5 @@ Types of tasks supported:
 - [ ] Natural language processing like [ChatGPT](https://openai.com/index/chatgpt/)
 
 ~~Some strikethrough text~~
+
+Avatar image credit to Canva.
