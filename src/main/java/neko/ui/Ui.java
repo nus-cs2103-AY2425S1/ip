@@ -2,11 +2,7 @@ package neko.ui;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-
-import neko.Parser;
 
 /**
  * The Ui class handles all interactions with the user and works as the user interface
@@ -63,6 +59,10 @@ public class Ui {
         return in.nextLine();
     }
 
+    /**
+     * Return greeting message when the program starts.
+     * @return the greeting message as a string.
+     */
     public String getGreetingMessage() {
         return GREETING_MESSAGE;
     }
@@ -99,6 +99,10 @@ public class Ui {
         showMessage(EXIT_MESSAGE);
     }
 
+    /**
+     * Return the invalid input message.
+     * @return the invalid input message as a string
+     */
     public String getInvalidInputMessage() {
         return INVALID_INPUT_MESSAGE;
     }

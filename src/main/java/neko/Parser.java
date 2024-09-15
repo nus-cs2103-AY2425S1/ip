@@ -31,13 +31,13 @@ public class Parser {
      * @return A Task object corresponding to the string input, or null if the string format is invalid.
      */
     public static Task parseTask(String str) {
-        char c = str.charAt(0);
+        char taskType = str.charAt(0);
         Task task = null;
         String[] parts;
         boolean isDone = false;
         String taskName;
 
-        switch (c) {
+        switch (taskType) {
         case 'T':
             parts = str.split("\\|", 3);
             isDone = parts[1].trim().equals("1");
@@ -82,6 +82,30 @@ public class Parser {
         return input.split(" ")[0];
     }
 
+    /**
+     * Extracts the keyword to find from a user's input string.
+     * The keyword is assumed to be the second word in the input.
+     *
+     * @param input The user's input string.
+     * @return The keyword as a string.
+     * @throws NekoException If the input is invalid.
+     */
+    public static String parseKeyword(String input) throws NekoException {
+        try {
+            return input.split(" ")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NekoException("Keyword cannot be empty meow!");
+        }
+    }
+
+    /**
+     * Parses the user's input command for adding a task.
+     * The input string is split by spaces and returns an array of strings representing
+     * the individual components of the command.
+     *
+     * @param input The full user input string for adding a task.
+     * @return A string array where each element represents a part of the command, split by spaces.
+     */
     public static String[] parseAddCommand(String input) {
         return input.split(" ");
     }
@@ -101,6 +125,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string to extract task indices from the user command.
+     * @param input The user input string containing the command followed by task numbers.
+     * @return An array of integers representing the zero-based indices of the tasks.
+     * @throws NekoException If no task numbers are provided or if the input contains invalid number formats.
+     */
     public static Integer[] parseIndices(String input) throws NekoException {
         String[] parts = input.split(" ");
         if (parts.length < 2) {
