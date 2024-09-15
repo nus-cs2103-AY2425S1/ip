@@ -1,3 +1,6 @@
 D | 0 | return book | 2019-12-02 1800
 E | 0 | book meeting | Mon 2pm | 4pm
 E | 0 | project meeting | Mon 2pm | 4pm
+T | 0 | Math homework
+D | 0 | CS2103t ip tasks | 2019-12-02 1800
+T | 0 | return books
