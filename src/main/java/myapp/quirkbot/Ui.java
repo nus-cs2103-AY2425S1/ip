@@ -101,6 +101,8 @@ public class Ui extends Application {
             handleExit();
         } else if (command.equals("list")) {
             response = getTaskListMessage();
+        } else if (command.equals("command")) {
+            response = showListOfCommands();
         } else if (command.startsWith("delete")) {
             commandType = "DeleteCommand";
             response = handleDeleteTask(command);
@@ -124,6 +126,23 @@ public class Ui extends Application {
      */
     public String getCommandType() {
         return commandType;
+    }
+
+    /**
+     * Presents all the available commands for the user.
+     * @return the list of commands.
+     */
+    public String showListOfCommands() {
+        return " List of Commands:\n"
+                + "1. find search_keyword \n"
+                + "2. todo task_description\n"
+                + "3. deadline task_description /by dd/MM/YYYY HHmm\n"
+                + "4. event task_description /from dd/MM/YYYY HHmm /to dd/MM/YYYY HHmm\n"
+                + "5. delete task_number\n"
+                + "6. mark task_number\n"
+                + "7. unmark task_number\n"
+                + "8. list\n"
+                + "9. bye\n";
     }
 
     /**
@@ -244,9 +263,7 @@ public class Ui extends Application {
                     + "Also, use the dd/MM/yyyy HHmm format for the timings.";
         }
 
-        return "Oops! That command doesn’t seem right. "
-                + "Please use 'find', 'todo', 'deadline', 'event', 'delete', 'mark', 'unmark', 'list', or 'bye'."
-                + "Thanks a bunch!";
+        return "Oops! That command doesn’t seem right.";
     }
 
     /**
@@ -270,7 +287,7 @@ public class Ui extends Application {
     public String showTaskAdded(Task task, int tasklistSize) {
         assert task != null : "Task should not be null";
         assert tasklistSize > 0 : "Task list size should be greater than 0";
-        return "Great! I’ve added this task: " + task
+        return "Great! I’ve added this task: " + task.getDescription()
                 + "\nYou now have " + tasklistSize + " tasks in your list. 🎉";
     }
 
@@ -282,7 +299,7 @@ public class Ui extends Application {
      */
     public String showTaskRemoved(Task task) {
         assert task != null : "Task should not be null";
-        return "Done! I’ve removed this task: " + task
+        return "Done! I’ve removed this task: " + task.getDescription()
                 + "\nNow you have " + taskList.size() + " tasks left. 📉";
     }
 
@@ -295,7 +312,7 @@ public class Ui extends Application {
     public String showTaskMarked(Task task) {
         assert task != null : "Task should not be null";
         task.markDone();
-        return "Hooray! I’ve marked this task as done: " + task;
+        return "Hooray! I’ve marked this task as done: " + task.getDescription();
     }
 
     /**
@@ -307,7 +324,7 @@ public class Ui extends Application {
     public String showTaskUnmarked(Task task) {
         assert task != null : "Task should not be null";
         task.markUndone();
-        return "No worries! I’ve marked this task as not done yet: " + task;
+        return "No worries! I’ve unmarked this task as not done yet: " + task.getDescription();
     }
 
     /**

@@ -3,7 +3,7 @@ package myapp.quirkbot;
 import javafx.application.Application;
 
 /**
- * Main class which launches the application
+ * Main class which launches the application.
  */
 public class Main {
     public static void main(String[] args) {
