@@ -1,4 +1,4 @@
-package duke.tasks;
+package sadcat.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,8 +12,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.DukeException;
-import duke.storage.Storage;
+import sadcat.exceptions.SadCatException;
+import sadcat.storage.Storage;
 
 /**
  * Test class for the TaskList class.
@@ -53,7 +53,7 @@ class TaskListTest {
      * Tests adding different types of tasks to the TaskList.
      */
     @Test
-    void testAddTask() throws DukeException {
+    void testAddTask() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         String[] input = {"todo", "read book"};
         String expected = "Got it. I've added this task:\n"
@@ -83,7 +83,7 @@ class TaskListTest {
      * Tests deleting a task from the TaskList.
      */
     @Test
-    void testDeleteTask() throws DukeException {
+    void testDeleteTask() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         taskList.createTask("todo", "task to delete");
         newOut.reset();
@@ -98,13 +98,13 @@ class TaskListTest {
      * Tests the behavior when trying to delete a task with an invalid index.
      */
     @Test
-    void testDeleteInvalidTask() throws DukeException {
+    void testDeleteInvalidTask() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
-        DukeException e = assertThrows(DukeException.class, () -> taskList.deleteTask("1"));
+        SadCatException e = assertThrows(SadCatException.class, () -> taskList.deleteTask("1"));
         assertEquals("Task list is already empty.", e.getMessage());
         taskList.createTask("todo", "test task");
         newOut.reset();
-        e = assertThrows(DukeException.class, () -> taskList.deleteTask("2"));
+        e = assertThrows(SadCatException.class, () -> taskList.deleteTask("2"));
         assertEquals("Invalid index provided.", e.getMessage());
     }
 
@@ -112,7 +112,7 @@ class TaskListTest {
      * Tests marking a task as done.
      */
     @Test
-    void testMarkTask() throws DukeException {
+    void testMarkTask() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         taskList.createTask("todo", "task to mark");
         newOut.reset();
@@ -126,7 +126,7 @@ class TaskListTest {
      * Tests unmarking a task.
      */
     @Test
-    void testUnmarkTask() throws DukeException {
+    void testUnmarkTask() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         taskList.createTask("todo", "task to unmark");
         taskList.mark("1");
@@ -141,7 +141,7 @@ class TaskListTest {
      * Tests listing tasks when the list is empty.
      */
     @Test
-    void testEmptyList() throws DukeException {
+    void testEmptyList() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         taskList.printTaskList();
         assertEquals("List is currently empty.", newOut.toString().trim());
@@ -151,7 +151,7 @@ class TaskListTest {
      * Tests listing tasks when the list is not empty.
      */
     @Test
-    void testNonEmptyList() throws DukeException {
+    void testNonEmptyList() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         taskList.createTask("todo", "test task");
         newOut.reset();
@@ -163,7 +163,7 @@ class TaskListTest {
      * Tests finding tasks based on a keyword.
      */
     @Test
-    void testFindTask() throws DukeException {
+    void testFindTask() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         taskList.createTask("todo", "read book");
         taskList.createTask("todo", "write report");
@@ -180,7 +180,7 @@ class TaskListTest {
     @Test
     void testMarkInvalidTask() {
         TaskList taskList = TaskList.getInstance();
-        DukeException e = assertThrows(DukeException.class, () -> taskList.mark("1"));
+        SadCatException e = assertThrows(SadCatException.class, () -> taskList.mark("1"));
         assertEquals("List is empty, no tasks to mark.", e.getMessage());
     }
 
@@ -190,7 +190,7 @@ class TaskListTest {
     @Test
     void testUnmarkInvalidTask() {
         TaskList taskList = TaskList.getInstance();
-        DukeException e = assertThrows(DukeException.class, () -> taskList.unmark("1"));
+        SadCatException e = assertThrows(SadCatException.class, () -> taskList.unmark("1"));
         assertEquals("List is empty, no tasks to unmark.", e.getMessage());
     }
 
@@ -198,7 +198,7 @@ class TaskListTest {
      * Tests updating tasks in the TaskList.
      */
     @Test
-    void testUpdateTask() throws DukeException {
+    void testUpdateTask() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
 
         taskList.createTask("todo", "read book");
@@ -224,20 +224,20 @@ class TaskListTest {
         assertTrue(newOut.toString().trim().contains(expected));
         newOut.reset();
 
-        DukeException e = assertThrows(DukeException.class, () -> taskList.updateTask("4 todo invalid task"));
+        SadCatException e = assertThrows(SadCatException.class, () -> taskList.updateTask("4 todo invalid task"));
         assertEquals("Task index out of range.", e.getMessage());
 
-        e = assertThrows(DukeException.class, () -> taskList.updateTask("1 invalid_type some task"));
+        e = assertThrows(SadCatException.class, () -> taskList.updateTask("1 invalid_type some task"));
         assertEquals("Invalid task type.", e.getMessage());
 
-        e = assertThrows(DukeException.class, () -> taskList.updateTask(
+        e = assertThrows(SadCatException.class, () -> taskList.updateTask(
                 "1 deadline invalid date /by 2024-13-45 2500"));
         assertEquals("Invalid date format.", e.getMessage());
 
-        e = assertThrows(DukeException.class, () -> taskList.updateTask("1 deadline invalid format"));
+        e = assertThrows(SadCatException.class, () -> taskList.updateTask("1 deadline invalid format"));
         assertEquals("Invalid deadline format.", e.getMessage());
 
-        e = assertThrows(DukeException.class, () -> taskList.updateTask(
+        e = assertThrows(SadCatException.class, () -> taskList.updateTask(
                 "1 event invalid format /from 2024-08-23 1400"));
         assertEquals("Invalid event format.", e.getMessage());
 
@@ -253,7 +253,7 @@ class TaskListTest {
      * Tests the file switching functionality.
      */
     @Test
-    void testFileSwitching() throws DukeException {
+    void testFileSwitching() throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         Storage storage = Storage.getInstance();
 
@@ -272,7 +272,7 @@ class TaskListTest {
         newOut.reset();
 
         // Switch back to the default file
-        storage.changeFile("duke");
+        storage.changeFile("sadcat");
         taskList.printTaskList();
         assertTrue(newOut.toString().contains("1. [T][ ] Default file task"));
         assertFalse(newOut.toString().contains("New file task"));
@@ -290,7 +290,7 @@ class TaskListTest {
         newOut.reset();
 
         // Switch to the default file and verify it's unchanged
-        storage.changeFile("duke");
+        storage.changeFile("sadcat");
         taskList.printTaskList();
         assertTrue(newOut.toString().contains("1. [T][ ] Default file task"));
         assertFalse(newOut.toString().contains("New file task"));

@@ -1,25 +1,25 @@
-package duke.exceptions;
+package sadcat.exceptions;
 
 /**
- * Custom exception class for Duke application.
+ * Custom exception class for SadCat application.
  * This class extends the standard Exception class to provide
- * specific error handling for the Duke application.
+ * specific error handling for the SadCat application.
  */
-public class DukeException extends Exception {
+public class SadCatException extends Exception {
 
     /**
-     * Constructs a new DukeException with the specified error message.
+     * Constructs a new SadCatException with the specified error message.
      *
      * @param e the detail message (which is saved for later retrieval by the getMessage() method)
      */
-    public DukeException(String e) {
+    public SadCatException(String e) {
         super(e);
     }
 
     /**
      * Returns the detail message string of this exception.
      *
-     * @return the detail message string of this DukeException instance
+     * @return the detail message string of this SadCatException instance
      */
     @Override
     public String getMessage() {

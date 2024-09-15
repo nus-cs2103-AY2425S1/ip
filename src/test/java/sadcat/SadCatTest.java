@@ -1,13 +1,13 @@
-package duke;
+package sadcat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for the Duke class.
+ * Test class for the SadCat class.
  */
-public class DukeTest {
+public class SadCatTest {
 
     /**
      * A dummy test to ensure the test environment is working.

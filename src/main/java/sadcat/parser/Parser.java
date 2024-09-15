@@ -1,16 +1,16 @@
-package duke.parser;
+package sadcat.parser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
-import duke.storage.Storage;
-import duke.tasks.TaskList;
+import sadcat.exceptions.SadCatException;
+import sadcat.storage.Storage;
+import sadcat.tasks.TaskList;
 
 /**
- * Parser class for handling user input in the Duke application.
+ * Parser class for handling user input in the SadCat application.
  * This class is responsible for processing user commands and interacting with the TaskList.
  */
 public class Parser {
@@ -80,9 +80,9 @@ public class Parser {
                     taskList.createTask(cmd, args);
                     break;
                 default:
-                    throw new DukeException("Invalid command provided.");
+                    throw new SadCatException("Invalid command provided.");
                 }
-            } catch (DukeException e) {
+            } catch (SadCatException e) {
                 System.out.println(e.getMessage());
             } catch (IOException e) {
                 System.out.println("Error archiving tasks: " + e.getMessage());
@@ -99,7 +99,7 @@ public class Parser {
      *
      * @return string
      */
-    public String handleGuiInput(String input) throws DukeException {
+    public String handleGuiInput(String input) throws SadCatException {
         TaskList taskList = TaskList.getInstance();
         Storage storage = Storage.getInstance();
 
@@ -152,12 +152,12 @@ public class Parser {
                 taskList.createTask(cmd, args);
                 break;
             default:
-                throw new DukeException("Invalid command provided.");
+                throw new SadCatException("Invalid command provided.");
             }
             System.out.flush();
             System.setOut(sysstream);
             return bstream.toString();
-        } catch (DukeException e) {
+        } catch (SadCatException e) {
             return e.getMessage();
         } catch (IOException e) {
             return "Error archiving tasks: " + e.getMessage();

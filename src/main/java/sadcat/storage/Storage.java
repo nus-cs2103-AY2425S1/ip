@@ -1,4 +1,4 @@
-package duke.storage;
+package sadcat.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import sadcat.tasks.Task;
+import sadcat.tasks.TaskList;
 
 /**
  * The Storage class handles reading from and writing to the file system.
@@ -17,7 +17,7 @@ public class Storage {
 
     private static Storage storage;
     private static final String DATA_DIR = "data/";
-    private static final String DEFAULT_FILE = "duke";
+    private static final String DEFAULT_FILE = "sadcat";
     private static boolean isTestMode = false;
     private static String currentFile = DEFAULT_FILE;
 

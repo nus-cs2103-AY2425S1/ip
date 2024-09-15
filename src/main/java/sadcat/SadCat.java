@@ -1,28 +1,28 @@
-package duke;
+package sadcat;
 
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
-import duke.gui.Launcher;
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.ui.Ui;
+import sadcat.exceptions.SadCatException;
+import sadcat.gui.Launcher;
+import sadcat.parser.Parser;
+import sadcat.storage.Storage;
+import sadcat.ui.Ui;
 
 /**
- * The Duke class is the main class of the Duke application.
+ * The SadCat class is the main class of the SadCat application.
  * It initializes the UI, storage, and task list, and handles the main program loop.
  */
-public class Duke {
+public class SadCat {
     private final Ui ui;
     private final Storage storage;
     private boolean isRunning;
     private final Parser parser;
 
     /**
-     * Constructs a new Duke object.
+     * Constructs a new SadCat object.
      * Initializes the UI, storage, and task list, and loads data from storage.
      */
-    public Duke() {
+    public SadCat() {
         this.ui = new Ui();
         this.storage = new Storage();
         this.storage.readData();
@@ -31,17 +31,17 @@ public class Duke {
     }
 
     /**
-     * The main method that starts the Duke application.
+     * The main method that starts the SadCat application.
      * Now accepts varargs for potential future extensibility.
      *
      * @param args Command line arguments (currently not used, but could be in the future)
      */
     public static void main(String... args) {
         if (args.length > 0 && args[0].equals("--cli")) {
-            Duke duke = new Duke();
-            duke.ui.startup();
-            duke.runCommandLine();
-            duke.ui.shutdown();
+            SadCat sadcat = new SadCat();
+            sadcat.ui.startup();
+            sadcat.runCommandLine();
+            sadcat.ui.shutdown();
         } else {
             Launcher.main(args);
         }
@@ -68,14 +68,14 @@ public class Duke {
                 isRunning = false;
             }
             return response;
-        } catch (DukeException e) {
+        } catch (SadCatException e) {
             return e.getMessage();
         }
     }
 
     /**
-     * Getter method for Duke isRunning.
-     * @return boolean to show whether the Duke instance is running
+     * Getter method for SadCat isRunning.
+     * @return boolean to show whether the SadCat instance is running
      */
     public boolean isRunning() {
         return isRunning;
