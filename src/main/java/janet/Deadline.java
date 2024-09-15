@@ -11,17 +11,35 @@ import java.util.Arrays;
 public class Deadline extends ScheduledTask {
     private final LocalDateTime dueDate;
 
+    /**
+     * @param inputLine A String input from the user.
+     * @throws JanetException If keywords are missing, incorrect date and time format, or due date is invalid.
+     */
     Deadline(String inputLine) throws JanetException {
         // inside the program this will be called
-        this(createDeadlineCommand(inputLine).getDescription(),
-                createDeadlineCommand(inputLine).getSymbol(),
-                createDeadlineCommand(inputLine).getDueDateInDateTime());
+        this(createDeadlineFromUser(inputLine).getDescription(),
+                createDeadlineFromUser(inputLine).getSymbol(),
+                createDeadlineFromUser(inputLine).getDueDateInDateTime());
     }
 
+    /**
+     * @param description The description of the deadline.
+     * @param symbol The deadline symbol, D.
+     * @param dueDate The due date of the deadline, in LocalDateTime.
+     */
     Deadline(String description, String symbol, LocalDateTime dueDate) {
         // this is used inside the static method: createDeadlineCommand
         super(description, symbol, dueDate);    // dueDate is the scheduledDate
         this.dueDate = dueDate;
+    }
+
+    /**
+     * @param textLine A String of text from the text file to create deadline.
+     */
+    Deadline(String[] textLine) {
+        this(createDeadlineFromTxt(textLine).getDescription(),
+                createDeadlineFromTxt(textLine).getSymbol(),
+                createDeadlineFromTxt(textLine).getDueDateInDateTime());
     }
 
 
@@ -57,7 +75,7 @@ public class Deadline extends ScheduledTask {
                     commandDetails[commandDetails.length - 1]);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             // when either dueDate is not provided OR dueDate provided is in wrong format
-            throw new JanetException("WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd hh:mm (24hr)");
+            throw new JanetException("WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd HH:mm (24hr)");
         }
         return new String[]{description, dueDate};
     }
@@ -70,18 +88,34 @@ public class Deadline extends ScheduledTask {
      * @param inputLine User's command that was typed into the command line.
      * @return new Deadline object.
      */
-    public static Deadline createDeadlineCommand(String inputLine) throws JanetException {
+    public static Deadline createDeadlineFromUser(String inputLine) throws JanetException {
         String[] commandDetails = inputLine.split(" ");
         String[] deadlineDetails = findDeadlineDetails(commandDetails);     // (description, MMM dd yyyy hh:mm a)
         String dateAndTimeString = deadlineDetails[1];    // MMM dd yyyy hh:mm a
-        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
         LocalDateTime dateAndTime = LocalDateTime.parse(dateAndTimeString, stringToDateTime);  // convert String to LocalDateTime
+        if (dateAndTime.isBefore(LocalDateTime.now())) {
+            throw new JanetException("WHOOPS! Your deadline's due date cannot be earlier than today!");
+        }
         return new Deadline(deadlineDetails[0], "D", dateAndTime);
     }
 
+    /**
+     * Returns a Deadline object that was created from the line of text, in .txt file saved.
+     *
+     * @param textLine A line of text from the .txt file saved.
+     * @return A Deadline object.
+     */
+    public static Deadline createDeadlineFromTxt(String[] textLine) {
+        String symbol = textLine[0].trim();
+        String description = textLine[2].trim();
+        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
+        LocalDateTime dueDate = LocalDateTime.parse(textLine[3].trim(), stringToDateTime);
+        return new Deadline(description, symbol, dueDate);
+    }
 
     /**
-     * @return task's dueDate (deadline)
+     * @return task's dueDate (deadline) as a String
      */
     public String getDueDate() {
         String time = this.dueDate.format(DateTimeFormatter.ofPattern("HH:mm a"));
@@ -89,6 +123,10 @@ public class Deadline extends ScheduledTask {
         return date + " " + time;
     }
 
+
+    /**
+     * @return task's dueDate in LocalDateTime.
+     */
     public LocalDateTime getDueDateInDateTime() {
         return this.dueDate;
     }

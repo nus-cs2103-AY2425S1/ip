@@ -105,4 +105,48 @@ public class ParserTest {
                 exception.getMessage(), "WHOOPS! You don't have a task of this number!"
         );
     }
+
+    @Test
+    public void invalidFindCommandTest() {
+        JanetException e1 = assertThrows(JanetException.class,
+                () -> {Parser.checkInaccurateCommand(new String[]{"find"}, 3);});   // missing keyword(s)
+
+        JanetException e2 = assertThrows(JanetException.class,
+                () -> {Parser.checkInaccurateCommand(new String[]{"find     "}, 3);});
+
+        assertEquals(
+                e1.getMessage(), "WHOOPS! I'm only a chatbot, so I don't know what that means..."
+        );
+        assertEquals(
+                e2.getMessage(), "WHOOPS! I'm only a chatbot, so I don't know what that means..."
+        );
+    }
+
+    @Test
+    public void invalidSortCommandTest() {
+        JanetException e1 = assertThrows(JanetException.class,
+                () -> {Parser.checkInaccurateCommand(new String[]{"sort"}, 3);});   // missing keyword(s)
+
+        JanetException e2 = assertThrows(JanetException.class,
+                () -> {Parser.checkInaccurateCommand(new String[]{"sort     "}, 3);});
+
+        JanetException e3 = assertThrows(JanetException.class,
+                () -> {Parser.checkInaccurateCommand(new String[]{"sort this and that"}, 3);});   // additional keyword(s)
+
+        JanetException e4 = assertThrows(JanetException.class,
+                () -> {Parser.checkInaccurateCommand(new String[]{"sort all"}, 3);});   // unknown task type
+
+        assertEquals(
+                e1.getMessage(), "WHOOPS! I'm only a chatbot, so I don't know what that means..."
+        );
+        assertEquals(
+                e2.getMessage(), "WHOOPS! I'm only a chatbot, so I don't know what that means..."
+        );
+        assertEquals(
+                e3.getMessage(), "WHOOPS! I'm only a chatbot, so I don't know what that means..."
+        );
+        assertEquals(
+                e4.getMessage(), "WHOOPS! I'm only a chatbot, so I don't know what that means..."
+        );
+    }
 }

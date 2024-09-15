@@ -1,10 +1,8 @@
 package janet;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Represents the list of tasks.
@@ -54,7 +52,12 @@ public class TaskList {
      *
      * @param task A janet.Task object that is to be added into the listOfTasks.
      */
-    public void addTaskToList(Task task) {
+    public void addTaskToList(Task task) throws JanetException {
+        for (Task t : listOfTasks) {
+            if (t.getDescription().equals(task.getDescription())) {
+                throw new JanetException("WHOOPS! You already have another task of the same description!");
+            }
+        }
         this.listOfTasks.add(task);
     }
 
@@ -120,7 +123,7 @@ public class TaskList {
         for (Task task : listOfTasks) {
             for (String word : keyword) {
                 if (task.getDescription().contains(word)) {
-                    taskList.addTaskToList(task);
+                    taskList.getListOfTasks().add(task);
                 }
             }
         }
@@ -139,6 +142,7 @@ public class TaskList {
      * @return A boolean value.
      */
     private boolean isScheduledTask(Task task, LocalDate schedule) {
+        assert !task.getSymbol().equals("T");   // task should not be a ToDo
         return task.getScheduledDate().equals(schedule);
     }
 
@@ -151,13 +155,14 @@ public class TaskList {
      * @param date A String, representing the date the user inputs (yyyy-MM-dd).
      * @return A TaskList.
      */
-    public TaskList viewScheduledTasks(String date) throws JanetException {
+    public TaskList viewScheduledTasks(String date) {
         LocalDate schedule = LocalDate.parse(date);
         TaskList tasks = new TaskList();
         for (Task task : listOfTasks) {     // go through all the tasks in the list
             if (task.getScheduledDate() != null && isScheduledTask(task, schedule)) {
                 // if the task is a ScheduledTask and has the same schedule, add to tasks
-                tasks.addTaskToList(task);
+                assert !task.getSymbol().equals("T");   // task should not be a ToDo
+                tasks.getListOfTasks().add(task);
             }
         }
         return tasks;
@@ -192,7 +197,7 @@ public class TaskList {
         TaskList tasks = new TaskList();
         for (Task task : listOfTasks) {
             if (task.getSymbol().equals("D")) {
-                tasks.addTaskToList(task);
+                tasks.getListOfTasks().add(task);
             }
         }
         Collections.sort(tasks.getListOfTasks());
@@ -210,7 +215,7 @@ public class TaskList {
         TaskList tasks = new TaskList();
         for (Task task : listOfTasks) {
             if (task.getSymbol().equals("E")) {
-                tasks.addTaskToList(task);
+                tasks.getListOfTasks().add(task);
             }
         }
         Collections.sort(tasks.getListOfTasks());
