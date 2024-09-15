@@ -120,7 +120,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         int index = 1;
         for (Task task : tasks) {
-            sb.append(formatTaskWithIndex(index, task));
+            sb.append(formatTaskWithIndex(index++, task));
         }
         return sb.toString();
     }
