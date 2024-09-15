@@ -28,15 +28,6 @@ public class Ui {
     }
 
     /**
-     * Returns a horizontal line for formatting output in the UI.
-     *
-     * @return The horizontal line as a string.
-     */
-    public String showLine() {
-        return "____________________________________________________________\n";
-    }
-
-    /**
      * Returns a message when a task is added to the list.
      *
      * @param task The task that was added.

@@ -31,7 +31,7 @@ public class Fixed extends Task {
      * @param type The task type (e.g., EVENT).
      */
     public Fixed(String description, boolean isDone, int durationInHours, TaskType type) throws ChatBotException {
-        super(description, type);
+        super(description, isDone, type);
         if (durationInHours <= 0) {
             throw new ChatBotException("Duration must be a positive integer");
         }

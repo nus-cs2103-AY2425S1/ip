@@ -59,24 +59,4 @@ public class Bob {
         }
         return response;
     }
-
-    /**
-     * Returns the chatbot's welcome message.
-     * This message is displayed when the application starts.
-     *
-     * @return The welcome message as a string.
-     */
-    public String getWelcomeMessage() {
-        return String.format("Hello! I'm %s!\nWhat can I do for you?", NAME);
-    }
-
-    /**
-     * Returns the chatbot's goodbye message.
-     * This message is displayed when the user exits the application.
-     *
-     * @return The goodbye message as a string.
-     */
-    public String getGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!";
-    }
 }

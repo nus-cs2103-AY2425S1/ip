@@ -1,6 +1,5 @@
-T | 1 | test
 T | 1 | test task1
-T | 0 | test task
+T | 1 | test task
 D | 1 | read | 2024-08-29 1800
 E | 0 | read books | 2024-08-28 1500 | 2024-08-28 1700
 T | 1 | testing
@@ -8,4 +7,9 @@ E | 0 | go to class | 2024-09-01 0800 | 2024-09-01 1000
 D | 0 | assignment | 2024-09-01 2359
 T | 0 | assert
 T | 0 | hello
-F | 0 | read | 2
+F | 1 | read | 2
+D | 0 | readme | 2024-09-20 1600
+D | 0 | test | 2024-02-29 1100
+D | 0 | test | 2024-02-29 1100
+E | 0 | Team meeting | 2024-09-19 2100 | 2024-09-19 2300
+F | 0 | Watch CS2103 briefing | 1
