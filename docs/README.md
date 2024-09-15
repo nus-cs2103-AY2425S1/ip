@@ -3,7 +3,6 @@
 This is a task management chatbot. Given below are instructions on how to use it.
 
 [Quick Start](https://foochao.github.io/ip/#quick-start)
-
 [Features](https://foochao.github.io/ip/#features)
 - [Adding a todo task `todo`](https://foochao.github.io/ip/#adding-a-todo-task-todo)
 - [Adding a deadline task `deadline`](https://foochao.github.io/ip/#adding-a-deadline-task-deadline)
@@ -16,6 +15,10 @@ This is a task management chatbot. Given below are instructions on how to use it
 - [Close the app `bye`](https://foochao.github.io/ip/#close-the-app-bye)
 
 [Command Summary](https://foochao.github.io/ip/#command-summary)
+
+
+![](/docs/Ui.png)
+
 
 ## Quick Start
 
