@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
      * @throws MullerException If the input is not a valid task number.
      */
     public MarkCommand(String[] inputs) throws MullerException {
-        if (inputs.length < 2 || !isNumeric(inputs[1])) {
+        if (CommandUtil.isMarkCommandValid(inputs)) {
             throw new MullerException("Pick a valid task number to mark!");
         }
         this.index = Integer.parseInt(inputs[1]) - 1;
@@ -25,7 +25,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
-        super.assertionTest(tasks, ui, storage);
+        CommandUtil.assertionTest(tasks, ui, storage);
         tasks.get(index).markAsDone();
         storage.saveTasks(tasks);
         return ui.showTaskMarked(tasks, index);

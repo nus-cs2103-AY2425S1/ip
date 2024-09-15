@@ -22,7 +22,7 @@ public class OnCommand extends Command {
      * @throws MullerException If the input date format is invalid.
      */
     public OnCommand(String[] inputs) throws MullerException {
-        if (inputs.length < 2) {
+        if (CommandUtil.isInputComplete(inputs)) {
             throw new MullerException("Specify a date (e.g., 'on 2019-10-15')!");
         }
         try {
@@ -34,7 +34,7 @@ public class OnCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        super.assertionTest(tasks, ui, storage);
+        CommandUtil.assertionTest(tasks, ui, storage);
         return ui.showTaskOnDate(tasks, date);
     }
 }

@@ -25,6 +25,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image mullerImage = new Image(this.getClass().getResourceAsStream("/images/DaMuller.png"));
 
+    /**
+     * Starts of the program with greetings and a GUI.
+     */
     @FXML
     public void initialize() {
         String welcomeMessage = "Hello! I'm Muller!\nWhat can I do for you?";

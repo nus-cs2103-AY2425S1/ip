@@ -17,19 +17,6 @@ public abstract class Command {
      * @throws MullerException If an error occurs during command execution.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException;
-
-    /**
-     * Checks if the input task, ui, storage are not null.
-     *
-     * @param tasks
-     * @param ui
-     * @param storage
-     */
-    public void assertionTest(TaskList tasks, Ui ui, Storage storage) {
-        assert tasks != null : "TaskList should not be null";
-        assert ui != null : "Ui should not be null";
-        assert storage != null : "Storage should not be null";
-    }
 }
 
 

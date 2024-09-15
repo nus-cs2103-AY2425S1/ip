@@ -2,7 +2,6 @@ package muller.ui;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
 
 import muller.command.MullerException;
 import muller.task.Task;
@@ -54,7 +53,7 @@ public class Ui {
         try {
             return ("Nice! I've marked this task as done:\n"
                     + "  " + tasks.get(index));
-        } catch (MullerException e){
+        } catch (MullerException e) {
             return e.getMessage();
         }
     }
@@ -69,7 +68,7 @@ public class Ui {
         try {
             return ("OK, I've marked this task as not done yet:\n"
                     + "  " + tasks.get(index));
-        } catch (MullerException e){
+        } catch (MullerException e) {
             return e.getMessage();
         }
     }
