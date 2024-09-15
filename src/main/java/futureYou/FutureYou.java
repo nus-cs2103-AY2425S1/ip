@@ -16,7 +16,6 @@ public class FutureYou {
     public FutureYou() throws IOException {
         ui = new Ui();
         initializeFile(ui);
-
     }
 
     /**

@@ -1,5 +1,9 @@
 package futureyou;
 
+import futureyou.task.Deadline;
+import futureyou.task.Events;
+import futureyou.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,10 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import futureyou.task.Deadline;
-import futureyou.task.Events;
-import futureyou.task.Task;
 
 /**
  * The Storage class handles loading tasks from a file and saving tasks to a file.
@@ -35,21 +35,25 @@ public class Storage {
      * If the file does not exist, it creates the necessary parent directories and
      * the file.
      * If the file already exists, no action is taken.
+     *
+     * @param filePath path to the txt file containing task list
      */
     private void initializeFile(String filePath) {
         File file = new File(filePath);
-        if (!file.exists()) { // Check if the file does not exist
-            try {
-                // Ensure the parent directories are created
-                if (file.getParentFile() != null && !file.getParentFile().exists()) {
-                    file.getParentFile().mkdirs();
-                }
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("An error occurred while creating the file: " + e.getMessage());
+        if (file.exists()) {
+            return;
+        }
+        try {
+            // Ensure the parent directories are created
+            if (file.getParentFile() != null && !file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
             }
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file: " + e.getMessage());
         }
     }
+
 
     /**
      * Parses a task from a string representation and returns the corresponding task
@@ -113,7 +117,6 @@ public class Storage {
 
     /**
      * Saves the current list of tasks to a file.
-     *
      */
     public void saveTasks() {
         File file = new File(this.filePath);

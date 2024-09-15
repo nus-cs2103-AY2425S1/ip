@@ -1,21 +1,20 @@
 package futureyou.gui;
-
-import futureyou.FutureYou;
-
 import java.io.IOException;
 
+import futureyou.FutureYou;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private FutureYou futureYou;
+    private final FutureYou futureYou;
 
     {
         try {

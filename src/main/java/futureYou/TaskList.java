@@ -1,12 +1,12 @@
 package futureyou;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import futureyou.task.Deadline;
 import futureyou.task.Events;
 import futureyou.task.Task;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * The TaskList manages a list of tasks.
@@ -27,6 +27,16 @@ public class TaskList {
     }
 
     /**
+     * Returns message to be displayed when new task of any kind is added to task list.
+     *
+     * @return message stating the details of the newly added task
+     */
+    private static String newTaskAddedMsg(Task newTask) {
+        return "Added this task:" + System.lineSeparator() + newTask.print()
+                + System.lineSeparator() + taskList.size() + " tasks in the list";
+    }
+
+    /**
      * Returns the task list.
      *
      * @return The task list.
@@ -43,7 +53,7 @@ public class TaskList {
     public static String listTasks() {
         StringBuilder message = new StringBuilder();
         int count = 1;
-        System.out.println("Items in List:");
+        message.append("Items in List:").append(System.lineSeparator());
         for (Task item : taskList) {
             message.append(count++).append(". ").append(item.print()).append(System.lineSeparator());
         }
@@ -69,8 +79,7 @@ public class TaskList {
         Task newTask = new Task(taskName);
         taskList.add(newTask);
         storage.saveTasks();
-        return "Added this task: \n" + newTask.print() + System.lineSeparator()
-                + taskList.size() + " tasks in the list";
+        return newTaskAddedMsg(newTask);
     }
 
     /**
@@ -84,8 +93,7 @@ public class TaskList {
         Deadline newDeadline = new Deadline(taskName, deadline);
         taskList.add(newDeadline);
         storage.saveTasks();
-        return "Added this task: \n" + newDeadline.print() + System.lineSeparator()
-                + taskList.size() + " tasks in the list";
+        return newTaskAddedMsg(newDeadline);
     }
 
     /**
@@ -100,8 +108,7 @@ public class TaskList {
         Events newEvent = new Events(taskName, startDateTime, endDateTime);
         taskList.add(newEvent);
         storage.saveTasks();
-        return "Added this task: \n" + newEvent.print() + System.lineSeparator() + taskList.size()
-                + " tasks in the list";
+        return newTaskAddedMsg(newEvent);
     }
 
     /**
@@ -143,10 +150,10 @@ public class TaskList {
      *
      * @param text The text to search.
      * @throws Exception If the task number is invalid.
+     * @return message of all tasks containing the text (if it exists)
      */
     public static String findTask(String text) throws Exception {
         try {
-
             StringBuilder message = new StringBuilder(" Here are the matching tasks in your list: \n");
             int count = 1;
             for (Task task : TaskList.getTaskList()) {
