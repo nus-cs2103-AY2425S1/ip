@@ -102,6 +102,8 @@ public class UserTaskCreator implements TaskCreator {
                             parameters.length));
         }
 
+        assert parameters.length == NUMBER_OF_EVENT_PARAMETERS;
+
         // deconstruct array elements into their respective attributes
         String description = parameters[0];
         LocalDateTime from = DateParser.parseUserInputDate(parameters[1]);

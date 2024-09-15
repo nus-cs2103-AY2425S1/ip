@@ -56,6 +56,9 @@ public class AddTaskCommand extends Command {
 
             // Format components of message to display
             int numberOfTasks = tasks.getSize();
+
+            assert numberOfTasks > 0; // successfully adding a task means tasks will always have a length of at least 1
+
             String verb = numberOfTasks == 1 ? "is" : "are";
             String plural = numberOfTasks == 1 ? "" : "s";
             this.response = String.format("Alright, added task:%n%s%nto the list.%n"

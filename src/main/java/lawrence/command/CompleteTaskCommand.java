@@ -47,6 +47,8 @@ public class CompleteTaskCommand extends Command {
             return;
         }
 
+        assert inputComponents.length == 2;
+
         String rawTaskNumber = inputComponents[1];
         try {
             int taskNumber = Integer.parseInt(rawTaskNumber);

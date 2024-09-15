@@ -34,6 +34,7 @@ public class DisplayTasksCommand extends Command {
             return;
         }
 
+        assert tasks.getSize() >= 0;
         this.response = String.format("Here's your laundry list:%n%s", tasks);
     }
 }

@@ -83,6 +83,7 @@ public class TaskList {
         }
 
         Task t = tasks.get(taskNumber - 1);
+        assert t != null;
         t.setComplete(true);
         return t;
     }
