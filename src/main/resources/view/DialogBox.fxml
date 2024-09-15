@@ -11,9 +11,14 @@
          prefWidth="400.0"
          type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/17"
-         xmlns:fx="http://javafx.com/fxml/1">
+         xmlns:fx="http://javafx.com/fxml/1"
+         spacing="5.0">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="dialog"
+               text="Label"
+               wrapText="true"
+               minHeight="-Infinity"
+               style="-fx-background-color: lightblue; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;"/>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>

@@ -39,6 +39,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getHenryDialog(ui.greetings(), dukeImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     /** Injects the Henry instance. */
