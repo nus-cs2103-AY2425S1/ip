@@ -9,3 +9,4 @@ E |   | family dinner | 30/9/2024 1800 | 30/9/2024 2000
 T |   | fix my laptop
 E | X | cca training | 22/9/2024 1800 | 22/9/2024 1900
 D |   | submit report | 2/12/2024 1800
+T |   | run

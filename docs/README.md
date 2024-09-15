@@ -8,13 +8,29 @@ Regina is a task management chatbot designed to help you efficiently track your 
 - **Deadline:** Tasks that need to be completed by a specific time.
 - **Event:** Tasks that have both a start and end time.
 
-## Adding Deadlines
+## Adding ToDo Tasks
 
-To add a deadline task, use the following command format:
+To add a todo task, use the following command format:  
+`todo <task_description>`
+
+This will add the task to the list of tasks showing on the left side.
+
+**Example:**  
+`todo run`
+
+You will receive a confirmation message as a reply:
 
 ```
-deadline <task_name> /by <d/m/yyyy HH/mm>
+Got it. I've added this task:
+  [T][ ] run
+Now you have <number_of_current_tasks> tasks in the list.
+Jiayous!
 ```
+
+## Adding Deadline Tasks
+
+To add a deadline task, use the following command format:  
+`deadline <task_description> /by <d/m/yyyy HHmm>`
 
 This will add the task to the list of tasks showing on the left side.
 
@@ -30,6 +46,24 @@ Now you have <number_of_current_tasks> tasks in the list.
 Jiayous!
 ```
 
+## Adding Event Tasks
+
+To add an event task, use the following command format:  
+`event <task_description> /from <d/m/yyyy HHmm> /to <d/m/yyyy HHmm>`
+
+This will add the task to the list of tasks showing on the left side.
+
+**Example:**  
+`event project meeting /from 27/8/2024 1800 /to 27/8/2024 2000`
+
+You will receive a confirmation message as a reply:
+
+```
+Got it. I've added this task:
+  [E][ ] project meeting (from: Aug 27 2024, 6.00pm to: Aug 27 2024, 8.00pm)
+Now you have <number_of_current_tasks> tasks in the list.
+Jiayous!
+```
 
 ## Task List with Checkboxes
 
@@ -56,4 +90,16 @@ If you do not specify a specific snooze value, Regina will apply a default snooz
 Regina will respond with the updated task details:
 ```
 Pushed back the deadline of <task_description> by <snoozed_value> to <updated_date_and_time>
+```
+
+## Delete Tasks
+
+To delete tasks, just follow the format:  
+`delete <task_index>`
+
+Regina chatbot will then send you a confirmation message:
+```
+Wah shiok!
+Can forget about <task> liao!
+List now has <number_of_tasks_left> tasks!
 ```
