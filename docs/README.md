@@ -1,4 +1,5 @@
-EchoBot User Guide
+
+# EchoBot User Guide
 
 > "The key is not to prioritize what's on your schedule, but to schedule your priorities." -Stephen Covey ([source](https://www.brainyquote.com/authors/stephen-covey-quotes))
 
