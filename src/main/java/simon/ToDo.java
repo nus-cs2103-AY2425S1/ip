@@ -35,7 +35,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "T | " + (super.getCompleted() ? 1 : 0) + " | " + super.getName1();
+        return "T | " + (super.getIsComplete() ? 1 : 0) + " | " + super.getName1();
 
     }
 }

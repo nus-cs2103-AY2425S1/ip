@@ -6,7 +6,7 @@ package simon;
 public class Task {
     private String name;
     //public Integer number;
-    private Boolean completed;
+    private Boolean isComplete;
     /**
      * Creates a Task with the specified name and number.
      *
@@ -16,7 +16,7 @@ public class Task {
     public Task(String name, int number) {
         assert name != null : "Name cannot be empty cannot be null";
         this.name = name;
-        this.completed = false;
+        this.isComplete = false;
     }
     /**
      * Returns the name of the task.
@@ -31,8 +31,8 @@ public class Task {
      *
      * @return {@code true} if the task is completed, {@code false} otherwise.
      */
-    public Boolean getCompleted() {
-        return this.completed;
+    public Boolean getIsComplete() {
+        return this.isComplete;
     }
 
 
@@ -48,13 +48,13 @@ public class Task {
      * Marks the task as completed.
      */
     public void markAsDone() {
-        this.completed = true;
+        this.isComplete = true;
     }
     /**
      * Marks the task as not completed.
      */
     public void markAsNotDone() {
-        this.completed = false;
+        this.isComplete = false;
     }
     /**
      * Returns a string representation of the task in a format suitable for saving to a file.
@@ -63,7 +63,7 @@ public class Task {
      * @return a string in the format "T | completed status | task name"
      */
     public String toSaveFormat() {
-        return "T | " + (completed ? 1 : 0) + " | " + name;
+        return "T | " + (isComplete ? 1 : 0) + " | " + name;
     }
     /**
      * Returns a string representation of the task for display to the user.
@@ -72,7 +72,7 @@ public class Task {
      * @return a string representation of the task, including completion status
      */
     public String toString() {
-        if (this.completed) {
+        if (this.isComplete) {
             return "[X] " + this.name;
         } else {
             return "[ ] " + this.name;

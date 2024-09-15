@@ -40,7 +40,7 @@ public class Events extends Task {
     @Override
     public String toSaveFormat() {
         return "E | "
-                + (super.getCompleted() ? 1 : 0) + " | " + super.getName1()
+                + (super.getIsComplete() ? 1 : 0) + " | " + super.getName1()
                 + " | " + from + " | " + to;
     }
 }
