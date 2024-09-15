@@ -11,8 +11,8 @@ import papadom.utils.Ui;
  * Represents a command to add a deadline task to the task list.
  */
 public class AddDeadlineCommand extends Command {
-    private final String TEXT;
     private static final Parser PARSER = new Parser();
+    private final String TEXT;
 
     /**
      * Constructs an AddDeadlineCommand with the specified text input.

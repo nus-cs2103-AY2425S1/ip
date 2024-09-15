@@ -15,16 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AddEventCommandTest {
     private Storage storage;
-    private TaskList taskList;
-    private Ui ui;
 
     @BeforeEach
     public void setup() {
         // Reinitialize TaskList, Storage, and Ui before each test to start fresh
         storage = new Storage("testStorage.txt");
         storage.clearTasks();
-        taskList = new TaskList(storage);
-        ui = new Ui();
     }
     @Test
     public void testExecuteWithValidInput() throws IncorrectTaskInputFormatException {

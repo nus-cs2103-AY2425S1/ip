@@ -7,9 +7,8 @@ import papadom.utils.Parser;
 import papadom.utils.Ui;
 
 public class FindEventCommand extends Command {
-    private final String TEXT;
     private static final Parser PARSER = new Parser();
-
+    private final String TEXT;
     public FindEventCommand(String text) {
         this.TEXT = text;
     }
