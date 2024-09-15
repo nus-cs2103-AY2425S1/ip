@@ -66,12 +66,13 @@ public class CommandUtility {
      */
     private static String getLabel(Context context) throws BrockException {
         String label;
-        // Can ignore style error for this enhanced switch statement
+        // CHECKSTYLE.OFF: Indentation
         label = switch (context) {
             case DUE -> "Due ";
             case START -> "Start ";
             case END -> "End ";
         };
+        // CHECKSTYLE.ON: Indentation
         return label;
     }
 

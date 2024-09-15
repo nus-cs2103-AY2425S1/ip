@@ -245,6 +245,7 @@ public class Storage {
         // As we only want the task body
         String taskBody = taskDetails.substring(7);
 
+        // CHECKSTYLE.OFF: Indentation
         return switch (taskType) {
             case 'T' -> this.handleToDo(taskBody, taskStatus);
             case 'D' -> this.handleDeadline(taskBody, taskStatus);
@@ -254,6 +255,7 @@ public class Storage {
                 yield null;
             }
         };
+        // CHECKSTYLE.ON: Indentation
     }
 
     /**

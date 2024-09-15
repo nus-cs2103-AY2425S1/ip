@@ -170,13 +170,12 @@ public class TaskList {
      * @param keyword Keyword.
      * @return True if matches, false otherwise.
      */
-    // TODO: REFACTOR TO USING STREAMS
     private boolean isDescriptionMatching(String description, String keyword) {
         String[] words = description.split(" ");
         return Arrays.stream(words)
                 .anyMatch(word -> word.equals(keyword));
     }
-    
+
     /**
      * Searches the task list for matching tasks.
      *
