@@ -1,17 +1,22 @@
 # Tecna User Guide
+<img src="/src/main/resources/images/UGProductScreenshot.png" alt="find magic" width="300"/>
 
-// Update the title above to match the actual product name
+**_Tecna_** is one of the main characters in Winx Club, originating from the planet Zenith, a highly advanced world focused on technology and logic. As the Fairy of Technology, **_Tecna_** possesses unique abilities that allow her to control and manipulate digital systems, reflecting her sharp intellect and analytical mind.
 
-// Product screenshot goes here
+Getting the inspiration from our talented fairy, **_Tecna_** chatbot promises to simplify and streamline task management in your everyday life. Whether you're juggling work assignments, personal errands, or project deadlines, Tecna offers an intuitive and user-friendly interface to help you stay organized and productive.
 
-// Product intro goes here
 
-## Quick Start
+<h2 style="color: #9370db ">Quick Start</h2> 
 - There is already some tasks stored inside the application
 
-## Notes
-- 3 types of tasks, explain each type
-- Type of datetime input
+<h2 style="color: #9370db">Features</h2>
+> ### Things to note
+> 1. There are 3 types of task:
+> - **todo** Task: The task without any deadline.
+> - **deadline** Task: The task with deadline.
+> - **event** Task: The task with starting time and ending time.
+> 2. Date and time format
+> Deadlines, starting times and ending times must be all entered under the format of `yyyy-MM-dd HHmm`
 
 ## Adding a task
 Adds a new task to the list of tasks.
@@ -69,7 +74,7 @@ Command format: `bye`
 ## Saving the data
 Your input data will be automatically saved in the program's disk.
 
-## Command summary
+<h2 style="color: #9370db ">Command Summary</h2>
 
 | Action                    | Format, Examples                                                                                                                                                |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
