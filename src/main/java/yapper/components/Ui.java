@@ -19,8 +19,9 @@ public class Ui {
      * Displays the introduction message and prompts the user.
      */
     public String yapperIntroduction() {
-        return display(String.format("Hello, I'm %s", NAME),
-                "Type 'help' or '?' for a list of available commands");
+        return display(String.format("Hi, I'm %s!", NAME),
+                "I run things around here.",
+                "If you need help, type 'help' or '?' for a list of available commands.");
     }
 
     /**
@@ -38,8 +39,11 @@ public class Ui {
     public String display(String... texts) {
         assert texts != null : "Text should not be null";
         StringBuilder response = new StringBuilder();
-        for (String text : texts) {
-            response.append(text).append("\n");
+        for (int i = 0; i < texts.length; i++) {
+            response.append(texts[i]);
+            if (i < texts.length - 1) {
+                response.append("\n");
+            }
         }
         return response.toString();
     }

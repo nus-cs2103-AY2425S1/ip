@@ -3,7 +3,7 @@
 }
 
 .dialog-container {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, lightblue 10%, cyan 50%, lightgreen 90%);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(0,9,106,1) 10%, rgba(0,4,50,1) 90%);
     -fx-padding: 10;
 }
 

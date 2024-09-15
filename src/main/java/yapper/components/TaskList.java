@@ -110,9 +110,9 @@ public class TaskList {
         this.taskList.remove(taskNumber - 1);
         writeToFile();
         String[] texts = {
-            "The following task has been removed form the list:\n",
-            "  " + task + "\n",
-            "A total of " + getSize() + " " + pluralise() + " are still left.\n"
+            "Task removed:",
+            "  " + task,
+            "And you still have " + getSize() + " " + pluralise() + " are still left."
         };
         return stringifyResponse(texts);
     }
@@ -128,10 +128,10 @@ public class TaskList {
         Task task = getTask(taskNumber);
         String message = "";
         if (command.equals("mark")) {
-            message = "This task has been marked as completed:";
+            message = "Done! This task is now marked completed:";
             task.mark();
         } else {
-            message = "This task has been reopened:";
+            message = "Task reopened! (Why though?)";
             task.unmark();
         }
         writeToFile();

@@ -9,7 +9,7 @@ import yapper.exceptions.YapperException;
  * A class to contain all default available commands for the Yapper application.
  */
 public class CommandList {
-    private static final String DUNNO = "¯\\\\_(ツ)_/¯";
+    private static final String DUNNO = "¯\\_(ツ)_/¯";
     private LinkedHashMap<String, Command> availableCommands;
     private HashSet<String> newCommandAliases;
 
@@ -49,7 +49,7 @@ public class CommandList {
     }
 
     /**
-     * Method to add default aliases to commands
+     * Adds default aliases to commands
      */
     public void addCommandWithAliases(String commandName, Command command, String... aliases) {
         this.availableCommands.put(commandName, command);

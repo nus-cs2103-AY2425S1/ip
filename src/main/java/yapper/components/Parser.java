@@ -151,12 +151,12 @@ public class Parser {
             String deadline = descriptionAndDeadline[1].trim();
             // Check for any empty values
             if (description.isEmpty() || deadline.isEmpty()) {
-                throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE_BY])");
+                throw new YapperFormatException("(Format: deadline/d/D [DESC] /by [DEADLINE_BY])");
             }
             String[] deadlineArguments = {description, deadline};
             return deadlineArguments;
         } catch (IndexOutOfBoundsException e) {
-            throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE_BY])");
+            throw new YapperFormatException("(Format: deadline/d/D [DESC] /by [DEADLINE_BY])");
         }
     }
 
@@ -177,12 +177,12 @@ public class Parser {
             String toDate = otherArgumentsAndToDate[1].trim();
             // Check for any empty values
             if (description.isEmpty() || fromDate.isEmpty() || toDate.isEmpty()) {
-                throw new YapperFormatException("(Format: event [DESC] /from [FROM] /to [TO])");
+                throw new YapperFormatException("(Format: event/e/E [DESC] /from [FROM] /to [TO])");
             }
             String[] eventArguments = {description, fromDate, toDate};
             return eventArguments;
         } catch (IndexOutOfBoundsException e) {
-            throw new YapperFormatException("(Format: event [DESC] /from [FROM] /to [TO])");
+            throw new YapperFormatException("(Format: event/e/E [DESC] /from [FROM] /to [TO])");
         }
     }
 }

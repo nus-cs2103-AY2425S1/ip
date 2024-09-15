@@ -1,32 +1,29 @@
-| T |   | bye
-| T |   | hi
+| T |  | bye
+| T |  | hi
 | D | X | return book | Dec 2 2019
 | D | X | return book | Dec 2 2019
-| D |   | return book | Dec 2 2019
-| D |   | return book | Dec 2 2019
-| D |   | that | May 2 2002
+| D |  | return book | Dec 2 2019
 | D | X | something | 06:00 pm
-| D |   | return book | Dec 2 2019
-| D |   | return book | Dec 2 2019 06:00 pm
-| D |   | return book | Dec 2 2019
+| D |  | return book | Dec 2 2019
+| D |  | return book | Dec 2 2019 06:00 pm
+| D |  | return book | Dec 2 2019
 | D | X | p | May 5 1995
-| T |   | this
-| E |   | y | x ----- z
-| T |   | timeskip
+| T |  | this
+| E |  | y | x ----- z
 | D | X | this | 06: 00 pm
-| D |   | this | 06: 00 pm
+| D |  | this | 06: 00 pm
 | T | X | this
-| T |   | eat
-| D |   | this | 11:59 pm
-| D |   | this | Saturday 2359
-| T |   | that
-| D |   | something | 04:00 pm
-| D |   | something | 04:00 am
-| T |   | this that
+| T |  | eat
+| D |  | this | 11:59 pm
+| D | X | this | Saturday 2359
+| T |  | that
+| D |  | something | 04:00 pm
+| D |  | something | 04:00 am
+| T |  | this that
 | D | X | something else | 11:59 pm
-| E |   | something over there or elsewhere | Jan 2 2983 12:00 pm ----- May 5 1879 06:00 pm
-| E |   | something | 6 ----- 4
+| E |  | something over there or elsewhere | Jan 2 2983 12:00 pm ----- May 5 1879 06:00 pm
+| E |  | something | 6 ----- 4
 | E | X | this | Feb 2 2002 04:00 pm ----- Sept 9 2014 05:45 pm
-| E |   | something | Feb 2 1999 ----- May 5 2005 04:57 pm
-| D | X | this | summer
-| E |   | something | today ----- Feb 2 1999 03:46 pm
+| E |  | something | Feb 2 1999 ----- May 5 2005 04:57 pm
+| D |  | this | summer
+| E |  | something | Jan 1 2023 ----- Dec 31 2024

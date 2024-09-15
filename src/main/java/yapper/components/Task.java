@@ -32,7 +32,7 @@ public class Task {
     };
 
     private String description;
-    private String isDone;
+    private boolean isDone;
 
     /**
      * Constructs a new Task with the specified description.
@@ -46,21 +46,21 @@ public class Task {
             throw new YapperException("Description cannot be empty");
         }
         this.description = description;
-        this.isDone = "[ ]";
+        this.isDone = false;
     }
 
     /**
      * Marks the task as completed.
      */
     public void mark() {
-        this.isDone = "[X]";
+        this.isDone = true;
     }
 
     /**
      * Unmarks the task as not completed.
      */
     public void unmark() {
-        this.isDone = "[ ]";
+        this.isDone = false;
     }
 
     /**
@@ -159,7 +159,7 @@ public class Task {
      * @return the task description with completion status
      */
     public String getDesc() {
-        return this.isDone.charAt(1) + " | " + this.description;
+        return (this.isDone ? "X" : "") + " | " + this.description;
     }
 
     /**
@@ -169,6 +169,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return this.isDone + " " + this.description;
+        return (this.isDone ? "[X]" : "[ ]") + " " + this.description;
     }
 }
