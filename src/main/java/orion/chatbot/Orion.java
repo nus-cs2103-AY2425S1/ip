@@ -35,54 +35,14 @@ public class Orion {
      * If tasks cannot be loaded, initializes an empty task list.
      */
     public Orion() {
-//        isOnline = true;
-//        ui = new Ui();
         storage = new Storage();
-
-//        ui.printGreet();
 
         try {
             tasks = new TaskList(storage.loadTasks());
-//            ui.printWelcome(tasks.getNoTasks());
         } catch (OrionException e) {
-//            ui.printLoadingError();
             tasks = new TaskList();
-        } finally {
-//            ui.printBar();
         }
     }
-
-//    /**
-//     * Starts the main loop of the chatbot.
-//     * Continuously reads and executes commands from the user until the exit command is given.
-//     */
-//    public void run() {
-//        while (isOnline) {
-//            try {
-//                String command = ui.readCommand();
-//                Command c = Parser.parse(command);
-//                c.execute(tasks, storage, ui);
-//                isOnline = !c.isExit();
-//            } catch (OrionException e) {
-//                ui.printErrorMessage(e.getMessage());
-//            } catch (Exception e) {
-//                ui.printErrorMessage("Unexpected error! " + e.getMessage());
-//            } finally {
-//                ui.printBar();
-//            }
-//        }
-//
-//        ui.closeScanner();
-//    }
-
-//    /**
-//     * The main method that starts the Orion chatbot application.
-//     *
-//     * @param args Command-line arguments (not used).
-//     */
-//    public static void main(String[] args) {
-//        new Orion().run();
-//    }
 
     public String getResponse(String input) {
         try {

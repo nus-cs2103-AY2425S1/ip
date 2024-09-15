@@ -26,6 +26,19 @@ public class UnmarkTaskCommand extends Command {
         this.taskNo = taskNo;
     }
 
+    public UnmarkTaskCommand(String[] command) throws OrionInputException {
+        super(false);
+        if (command.length != 2) {
+            throw new OrionInputException("Correct syntax: unmark <task number>");
+        } else {
+            try {
+                taskNo = Integer.parseInt(command[1]);
+            } catch (NumberFormatException e) {
+                throw new OrionInputException("Correct syntax: unmark <task number>");
+            }
+        }
+    }
+
     /**
      * Executes the command by marking the task as not completed and updating
      * the user interface.
