@@ -2,7 +2,10 @@ package tasks;
 
 import static java.lang.Integer.parseInt;
 
+import exceptions.BadDataException;
+import exceptions.EmptyTagException;
 import exceptions.InvalidTaskNameException;
+import exceptions.SpaceInTagException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,12 +23,28 @@ public class ToDo extends Task {
      *
      * @param inputStr The string containing information of the task, which is the name and tags
      * @throws InvalidTaskNameException If no name is provided.
+     * @throws EmptyTagException If the provided tag is empty, usually because it is just whitespace.
+     * @throws SpaceInTagException If the provided tag contains whitespace.
      */
-    public ToDo(String inputStr) throws InvalidTaskNameException {
+    public ToDo(String inputStr) throws InvalidTaskNameException , EmptyTagException, SpaceInTagException {
         String[] args = inputStr.split("#");
+        ArrayList<String> newTags = new ArrayList<>();
 
         for (int i = 0; i < args.length; i++) {
             args[i] = args[i].trim();
+            // name checking is done later, this is for checking tags
+            if (i == 0) {
+                continue;
+            }
+
+            if (args[i].isEmpty()) {
+                throw new EmptyTagException();
+            } else if (args[i].contains(" ")) {
+                throw new SpaceInTagException();
+            }
+
+            //if tags are valid, add them to tags arraylist
+            newTags.add(args[i]);
         }
 
         String name = args[0];
@@ -34,13 +53,8 @@ public class ToDo extends Task {
         }
         this.name = name;
 
-        if (args.length < 2) {
-            return;
-        }
-
-
         // adding tags
-        tags.addAll(Arrays.asList(args).subList(1, args.length));
+        tags.addAll(newTags);
     }
 
     /**
@@ -48,26 +62,39 @@ public class ToDo extends Task {
      * This constructor takes in an array of strings after they have been split.
      *
      * @param input The array of strings, each string contains a field of the ToDo task
+     * @throws BadDataException If the stored data is in the incorrect format.
      */
-    public ToDo(String[] input) {
-        int isDone = parseInt(input[0]);
-        if (isDone == 0) {
-            this.isDone = false;
-        } else if (isDone == 1) {
-            this.isDone = true;
-        } else {
-            System.out.println("Error: problem with storing data, cannot have isDone having a value that is " +
-                    "not 1 or 0");
-            System.exit(-1);
-        }
-        this.name = input[1].trim();
-        if (input.length < 3) {
-            return;
-        }
+    public ToDo(String[] input) throws BadDataException {
+        try {
+            int isDone = parseInt(input[0]);
+            if (isDone == 0) {
+                this.isDone = false;
+            } else if (isDone == 1) {
+                this.isDone = true;
+            } else {
+                throw new BadDataException();
+            }
+            this.name = input[1].trim();
+            if (input.length < 3) {
+                return;
+            }
 
-        // adding tags
-        List<String> trimmedTags = Arrays.asList(input).subList(2, input.length).stream().map(String::trim).toList();
-        tags.addAll(trimmedTags);
+            // adding tags
+            List<String> trimmedTags = Arrays.asList(input).subList(2, input.length)
+                    .stream().map(String::trim).toList();
+
+            //even in data, tags should have correct formatting without white space
+            for (String s: trimmedTags) {
+                if (s.isEmpty() || s.contains(" ")) {
+                    throw new BadDataException();
+                }
+            }
+            tags.addAll(trimmedTags);
+
+        //to catch other errors like index out of bound errors
+        } catch (Exception e) {
+            throw new BadDataException();
+        }
     }
 
 

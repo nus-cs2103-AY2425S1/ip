@@ -2,11 +2,13 @@ package controllers;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -31,7 +33,16 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Bind the max value instead of the current value to the bottom of the content
+        scrollPane.vvalueProperty().bind(Bindings.createDoubleBinding(() ->
+                        dialogContainer.getHeight() / scrollPane.getContent().getBoundsInLocal().getHeight(),
+                dialogContainer.heightProperty(), scrollPane.heightProperty()));
+
+        scrollPane.setOnMouseEntered(event -> {
+            if (!userInput.isFocused()) {
+                scrollPane.requestFocus();
+            }
+        });
     }
 
     /** Injects the Duke instance */

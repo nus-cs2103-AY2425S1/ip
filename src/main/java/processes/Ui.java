@@ -43,7 +43,7 @@ public class Ui {
         if (!taskList.isEmpty()) {
             StringBuilder res = new StringBuilder("Your current tasks are: \n");
             for (int i = 0; i < taskList.size(); i++) {
-                res.append((i + 1)).append(".").append(taskList.get(i).toString()).append("\n");
+                res.append((i + 1)).append(".").append(taskList.get(i).toString()).append("\n\n");
             }
             return res.toString();
         } else {
@@ -71,7 +71,8 @@ public class Ui {
      */
     public String showMarked(Task markedTask) {
         assert markedTask != null : "Marked task given is null!";
-        return "task\n  " + markedTask + "\nis marked!";
+        return "Congrats on finishing " + markedTask.getName()
+                + "! It is now marked!";
     }
 
     /**
@@ -83,7 +84,7 @@ public class Ui {
      */
     public String showUnmarked(Task unmarkedTask) {
         assert unmarkedTask != null : "Unmarked task given is null!";
-        return "task\n  " + unmarkedTask + "\nis unMarked!";
+        return "Success, task " + unmarkedTask.getName() + " is now unmarked!";
     }
 
     /**
@@ -96,7 +97,7 @@ public class Ui {
      */
     public String addedTask(Task added, int taskListSize) {
         assert added != null : "Added task given is null!";
-        return "I have added the task:\n" + added + "\nYou now have " + taskListSize + " task(s)";
+        return "I have added the task:\n    " + added + "\nYou now have " + taskListSize + " task(s)";
     }
 
     /**
@@ -109,7 +110,7 @@ public class Ui {
      */
     public String deletedTask(Task deleted, int taskListSize) {
         assert deleted != null : "Deleted task given is null!";
-        return "The task\n " + deleted + "\nhas been removed!\nYou now have "
+        return "The task\n  " + deleted + "\nhas been removed!\nYou now have "
                 + taskListSize + " tasks left.";
     }
 
@@ -128,7 +129,7 @@ public class Ui {
         } else {
             StringBuilder res = new StringBuilder("Here are the matching task(s) in your list: \n");
             for (int i = 0; i < matchList.size(); i++) {
-                res.append((i + 1)).append(". ").append(matchList.get(i).toString());
+                res.append("    ").append((i + 1)).append(". ").append(matchList.get(i).toString()).append("\n");
             }
             return res.toString();
         }
@@ -142,7 +143,7 @@ public class Ui {
      * @return The success message
      */
     public String showTaskTags(Task taskToAddTags) {
-        return "Tags were successfully added! The task is now:\n" +
+        return "Tags were successfully added!\nThe task is now:\n   " +
                 taskToAddTags;
     }
 
@@ -156,7 +157,7 @@ public class Ui {
      */
     public String showRemoveTaskTags(Task taskToRemoveTags) {
 
-        return "Tags were successfully deleted! The task is now:\n" +
+        return "Tags were successfully deleted!\n The task is now:\n    " +
                 taskToRemoveTags;
 
     }

@@ -92,7 +92,7 @@ public class MrTracker {
             try {
                 Task newToDo = taskList.addToDo(input);
                 res = ui.addedTask(newToDo, taskList.getSize());
-            } catch (InvalidTaskNameException e) {
+            } catch (InvalidTaskNameException | EmptyTagException | SpaceInTagException e) {
                 res = ui.showMessage(e.getMessage());
             }
             break;
@@ -101,7 +101,8 @@ public class MrTracker {
             try {
                 Task newDeadLine = taskList.addDeadline(input);
                 res = ui.addedTask(newDeadLine, taskList.getSize());
-            } catch (InvalidTaskNameException | InvalidDateException e) {
+            } catch (InvalidTaskNameException | InvalidDateException
+                     | EmptyTagException | SpaceInTagException e) {
                 res = ui.showMessage(e.getMessage());
             }
             break;
@@ -110,7 +111,8 @@ public class MrTracker {
             try {
                 Task newEvent = taskList.addEvent(input);
                 res = ui.addedTask(newEvent, taskList.getSize());
-            } catch (InvalidDateException | InvalidTaskNameException e) {
+            } catch (InvalidDateException | InvalidTaskNameException |
+                     EmptyTagException | SpaceInTagException e) {
                 res = ui.showMessage(e.getMessage());
             }
             break;

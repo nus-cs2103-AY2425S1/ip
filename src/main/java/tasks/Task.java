@@ -62,8 +62,8 @@ public abstract class Task {
      *
      * @param tagsArr The string array of tags to add to the task.
      */
-    public void addTags(String[] tagsArr) {
-        Collections.addAll(tags, tagsArr);
+    public void addTags(ArrayList<String> tagsArr) {
+        tags.addAll(tagsArr);
     }
 
     /**

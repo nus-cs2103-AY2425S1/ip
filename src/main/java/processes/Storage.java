@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.BadDataException;
 import tasks.DeadLine;
 import tasks.Event;
 import tasks.Task;
@@ -91,6 +92,8 @@ public class Storage {
             sc.close();
         } catch (IOException ex) {
             System.out.println("The file " + filePath + " could not be read from");
+        } catch (BadDataException e) {
+
         }
     }
 

@@ -66,8 +66,10 @@ public class TaskList {
      * @param arg The string received from the user.
      * @return The ToDo that was created.
      * @throws InvalidTaskNameException If no task name is provided.
+     * @throws EmptyTagException If tag provided is empty, usually because it's all whitespace
+     * @throws SpaceInTagException If tag provided contains whitespace.
      */
-    public Task addToDo(String arg) throws InvalidTaskNameException {
+    public Task addToDo(String arg) throws InvalidTaskNameException, EmptyTagException, SpaceInTagException {
         String input = arg.substring(5).trim();
         ToDo newToDo = new ToDo(input);
         taskList.add(newToDo);
@@ -81,8 +83,11 @@ public class TaskList {
      * @return The DeadLine that was created
      * @throws InvalidTaskNameException If no task name is provided.
      * @throws InvalidDateException If invalid date/no date is provided.
+     * @throws EmptyTagException If tag provided is empty, usually because it's all whitespace
+     * @throws SpaceInTagException If tag provided contains whitespace.
      */
-    public Task addDeadline(String arg) throws InvalidTaskNameException, InvalidDateException {
+    public Task addDeadline(String arg)
+            throws InvalidTaskNameException, InvalidDateException, EmptyTagException, SpaceInTagException {
         String input = arg.substring(9).trim();
         Task newDeadline = new DeadLine(input);
         taskList.add(newDeadline);
@@ -97,8 +102,11 @@ public class TaskList {
      * @return The Event object that was created.
      * @throws InvalidTaskNameException If no task name is provided.
      * @throws InvalidDateException If invalid date/no date is provided.
+     * @throws EmptyTagException If tag provided is empty, usually because it's all whitespace
+     * @throws SpaceInTagException If tag provided contains whitespace.
      */
-    public Task addEvent(String arg) throws InvalidDateException, InvalidTaskNameException {
+    public Task addEvent(String arg)
+            throws InvalidDateException, InvalidTaskNameException, EmptyTagException, SpaceInTagException {
         String input = arg.substring(6).trim();
         Task newEvent = new Event(input);
         taskList.add(newEvent);
@@ -125,7 +133,6 @@ public class TaskList {
         Task currTask = taskList.get(index);
         taskList.remove(index);
         return currTask;
-
     }
 
 
@@ -220,7 +227,7 @@ public class TaskList {
             throw new TaskOutOfBoundsError(index);
         }
         Task taskToAddTags = taskList.get(--index);
-        taskToAddTags.addTags(Arrays.copyOfRange(inputs, 1, inputs.length));
+        taskToAddTags.addTags(tags);
         return taskToAddTags;
     }
 
