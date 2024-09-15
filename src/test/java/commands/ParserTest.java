@@ -34,7 +34,7 @@ public class ParserTest {
         TaskList allTask = new TaskList();
         ArrayList<Task> list = new ArrayList<>();
         try {
-            Task t1 = new Deadline("write essay", "2023/03/23 23:59");
+
             Task t2 = new Event("read book", "2023/03/02 08:00", "2023/03/02 20:00");
             list.add(t2);
             Parser.parse("deadline write essay /by 2023/03/23 23:59", allTask);
@@ -47,4 +47,46 @@ public class ParserTest {
         assertEquals(list.toString(), allTask.toString());
     }
 
+    @Test
+    public void test_parse_find() {
+        TaskList allTask = new TaskList();
+        ArrayList<Task> list = new ArrayList<>();
+        try {
+            Task t1 = new Deadline("write essay", "2023/03/23 23:59");
+            Task t2 = new Event("read book", "2023/03/02 08:00", "2023/03/02 20:00");
+            list.add(t1);
+            list.add(t2);
+
+            Parser.parse("deadline write essay /by 2023/03/23 23:59", allTask);
+            Parser.parse("event read book /from 2023/03/02 08:00 /to 2023/03/02 20:00", allTask);
+
+            String actualOutput = Parser.parse("find essay", allTask);
+            String expectedOutput = "Here are the matching tasks in your list:\n" + "1. " + t1;
+
+            assertEquals(actualOutput, expectedOutput);
+        } catch (EchoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_parse_tag() {
+        TaskList allTask = new TaskList();
+        ArrayList<Task> list = new ArrayList<>();
+        try {
+            Task t1 = new Deadline("write essay", "2023/03/23 23:59");
+            t1.setTag("#fun");
+            list.add(t1);
+
+            Parser.parse("deadline write essay /by 2023/03/23 23:59", allTask);
+            Parser.parse("tag 1 #fun", allTask);
+
+            String actualOutput = allTask.toString();
+            String expectedOutput = list.toString();
+
+            assertEquals(actualOutput, expectedOutput);
+        } catch (EchoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

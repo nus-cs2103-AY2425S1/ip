@@ -10,9 +10,9 @@ public class DeadlineTest {
     @Test
     public void test_creat_deadline() {
         try {
-            Task deadlineA = new Deadline("dA", "2023/03/23 23:59");
-            Task deadlineB = Task.createTask("deadline dA /by 2023/03/23 23:59");
-            assertEquals(deadlineA.toString(), deadlineB.toString());
+            Task expectedDeadline = new Deadline("dA", "2023/03/23 23:59");
+            Task actualDeadline = Task.createTask("deadline dA /by 2023/03/23 23:59");
+            assertEquals(expectedDeadline.toString(), actualDeadline.toString());
         } catch (EchoException e) {
             System.out.println(e.getMessage());
         }
@@ -21,11 +21,11 @@ public class DeadlineTest {
     @Test
     public void test_mark_deadline() {
         try {
-            Task deadlineA = new Deadline("dA", "2023/03/23 23:59");
-            Task deadlineB = Task.createTask("deadline dA /by 2023/03/23 23:59");
-            deadlineA.setMark();
-            deadlineB.setMark();
-            assertEquals(deadlineA.toString(), deadlineB.toString());
+            Task expectedDeadline = new Deadline("dA", "2023/03/23 23:59");
+            Task actualDeadline = Task.createTask("deadline dA /by 2023/03/23 23:59");
+            expectedDeadline.setMark();
+            actualDeadline.setMark();
+            assertEquals(expectedDeadline.toString(), actualDeadline.toString());
         } catch (EchoException e) {
             System.out.println(e.getMessage());
         }
