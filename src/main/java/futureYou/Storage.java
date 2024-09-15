@@ -37,6 +37,7 @@ public class Storage {
      * If the file already exists, no action is taken.
      */
     private void initializeFile(String filePath) {
+        assert (filePath != null);
         File file = new File(filePath);
         if (!file.exists()) { // Check if the file does not exist
             try {
