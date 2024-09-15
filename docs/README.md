@@ -2,12 +2,11 @@
 
 ![User Interface of Patrick The Star](Ui.png)
 
-Patrick The Star, Spongebob's Bestie, is the _best_ at **remembering your tasks for you!**
+## Patrick The Star, Spongebob's Bestie, is the _best_ at **remembering your tasks for you!**
 
 ## What can you do with Patrick The Star you may ask
 
 ### Adding todo tasks
-
 Add tasks that you are required to do and be arranged nicely in a list.
 
 "I have CS2103 iP to be done"
@@ -87,6 +86,81 @@ Nice! I've marked this task as done:
 T | X | CS2103 iP
 ```
 
-## Feature XYZ
+### Unmark tasks
 
-// Feature details
+Mark a specific task as not done
+
+"I thought I am done with CS2103 iP"
+
+Example: `unmark 1`
+
+The indexed task will be unmarked
+
+```
+Nice! I've marked this task as not done yet:
+T | O | CS2103 iP
+```
+
+### Delete tasks
+
+Deletes a specific task
+
+"I thought I need to do CS2103 iP but welps, guess not"
+
+Example: `delete 1`
+
+The indexed task will be deleted
+
+```
+Noted! I've removed this task:
+T | O | CS2103 iP
+Now you have 0 task in the list
+```
+
+### Delete tasks
+
+Deletes a specific task
+
+"I thought I need to do CS2103 iP but welps, guess not"
+
+Example: `delete 1`
+
+The indexed task will be deleted
+
+```
+Noted! I've removed this task:
+T | O | CS2103 iP
+Now you have 0 task in the list
+```
+
+### Date Formats
+
+Display the list of possible date formats to input
+
+"Damn! I'm not sure what date format Patrick accepts"
+
+Example: `formats`
+
+The list of possible date formats will be displayed
+
+```
+Here are the different formats available:
+yyyy-MM-dd HHmm
+...
+...
+```
+
+### Find Tasks
+
+Looks through the tasks and displays tasks with the specified keyword
+
+"Damn! There is so many tasks, when is the CS2103 briefing?"
+
+Example: `find CS2103 Briefing`
+
+The list of possible tasks will be displayed
+
+```
+Here are the matching tasks in your list:
+E | O | CS2103 Briefing | Sep 20 2024 1600-1800
+```
