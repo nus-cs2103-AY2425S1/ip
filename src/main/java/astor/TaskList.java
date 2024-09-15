@@ -37,7 +37,7 @@ public class TaskList {
         int index = 1;
         StringBuilder s = new StringBuilder();
         for (Task task : taskList) {
-            s.append("\n" + index + ". " + task.toString());
+            s.append("\n").append(index).append(". ").append(task.toString());
             index++;
         }
         return s.toString();
@@ -52,6 +52,8 @@ public class TaskList {
      * @throws MarkTaskOutOfRangeException if an invalid taskIndex is given by user
      */
     public String markTaskDone(int taskIndex, Storage storage) throws MarkTaskOutOfRangeException {
+        assert storage != null: "storage cannot be null";
+
         if (isWithinIndexRange(taskIndex)) {
             Task task = taskList.get(taskIndex - 1);
             if (task.isDone()) {
@@ -78,6 +80,8 @@ public class TaskList {
      * @throws MarkTaskOutOfRangeException if an invalid taskIndex is given by user
      */
     public String unmarkTaskDone(int taskIndex, Storage storage) throws MarkTaskOutOfRangeException {
+        assert storage != null: "storage cannot be null";
+
         if (isWithinIndexRange(taskIndex)) {
             String output = generateOutputUnmarkTask(taskIndex);
             storage.updateData(taskList);
@@ -126,6 +130,8 @@ public class TaskList {
      * @throws AstorException if there are no tasks to delete or taskIndex provided is out of range
      */
     public String deleteTask(int taskIndex, Storage storage) throws AstorException {
+        assert storage != null: "storage cannot be null";
+
         if (taskList.isEmpty()) {
             throw DeleteTaskOutOfRangeException.noTaskToDelete();
         }
@@ -150,6 +156,9 @@ public class TaskList {
      * @throws IOException if an I/O error occurs while appending to the file
      */
     public String addTask(Task task, Storage storage) throws IOException {
+        assert task != null: "task cannot be null";
+        assert storage != null: "storage cannot be null";
+
         storage.appendToFile(task.dataDescription());
         taskList.add(task);
         return task.toString();

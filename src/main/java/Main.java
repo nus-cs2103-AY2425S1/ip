@@ -16,10 +16,12 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Astor astor = new Astor("./src/main/data/astor.Astor.txt");
+    private final Astor astor = new Astor("./src/main/data/astor.Astor.txt");
 
     @Override
     public void start(Stage stage) {
+        assert stage != null: "Stage must not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

@@ -28,6 +28,10 @@ public class TodoCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AstorException, IOException {
+        assert taskList != null: "taskList must not be null";
+        assert ui != null: "ui must not be null";
+        assert storage != null: "storage must not be null";
+
         String s1 = info.substring(4).trim();
         if (s1.isEmpty()) {
             throw new EmptyTaskInfoException();
