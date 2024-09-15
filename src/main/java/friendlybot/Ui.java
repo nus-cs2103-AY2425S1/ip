@@ -4,7 +4,7 @@ package friendlybot;
  * Ui deals with the interactions between FriendlyBot and the user.
  */
 public class Ui {
-    private static String exitMessage = "Bye. Hope to see you again soon!";
+    private static String exitMessage = "Goodbye. Hope to see you again soon!";
 
     /**
      * Prints the given String input with an indentation of 4 spaces.

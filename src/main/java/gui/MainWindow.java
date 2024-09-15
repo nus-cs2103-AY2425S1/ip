@@ -1,9 +1,9 @@
 package gui;
 
-import friendlybot.command.Command;
-import friendlybot.command.BadCommand;
 import friendlybot.FriendlyBot;
 import friendlybot.Ui;
+import friendlybot.command.BadCommand;
+import friendlybot.command.Command;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getFriendlyBotDialog("Hello! I am Friendly Bot! How may I assist you today?\n"
-                        + "Use 'help' to get started!",
+                        + "Use 'help' to get started! :-)",
                         friendlyBotImage));
     }
 
