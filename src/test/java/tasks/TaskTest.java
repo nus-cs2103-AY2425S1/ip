@@ -1,8 +1,10 @@
 package tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import pandabot.tasks.Task;
 import pandabot.tasks.ToDo;
 
@@ -64,7 +66,7 @@ class TaskTest {
     void testParseEvent() {
         String[] details = {"E", "0", "Test Event task", "12/12/2024 1800", "13/12/2024 1800"};
         Task task = Task.parse(details);
-        assertEquals("[E][ ] Test Event task (from: Dec 12 2024, 6:00 pm to: Dec 13 2024, 6:00 pm)", task.toString());
+        assertEquals("[E][ ] Test Event task (from: Dec 12 2024, 6:00 pm, to: Dec 13 2024, 6:00 pm)", task.toString());
     }
 
     /**
@@ -74,6 +76,7 @@ class TaskTest {
     @Test
     void testParseInvalidInput() {
         String[] details = {"X", "0", "Test Invalid task"};
-        assertThrows(IllegalArgumentException.class, () -> Task.parse(details), "An invalid task type should throw an exception.");
+        assertThrows(IllegalArgumentException.class, () -> Task.parse(details),
+                "An invalid task type should throw an exception.");
     }
 }

@@ -1,13 +1,17 @@
 package tasks;
 
-import pandabot.exceptions.InputException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import pandabot.exceptions.InputException;
 import pandabot.tasks.Event;
 import pandabot.tasks.Task;
+
 
 /**
  * Unit tests for the Event class.
@@ -22,9 +26,10 @@ class EventTest {
      */
     @Test
     void testCreateTaskValid() throws InputException {
-        Task task = new Event("", LocalDateTime.now(), LocalDateTime.now()).createTask("Meeting /from 01/01/2024 0900 /to 01/01/2024 1700");
+        Task task = new Event("", LocalDateTime.now(), LocalDateTime.now())
+                .createTask("Meeting /from 01/01/2024 0900 /to 01/01/2024 1700");
         assertNotNull(task);
-        assertEquals("[E][ ] Meeting (from: Jan 1 2024, 9:00 am to: Jan 1 2024, 5:00 pm)", task.toString());
+        assertEquals("[E][ ] Meeting (from: Jan 1 2024, 9:00 am, to: Jan 1 2024, 5:00 pm)", task.toString());
     }
 
     /**
@@ -33,7 +38,8 @@ class EventTest {
      */
     @Test
     void testCreateTaskInvalid() {
-        assertThrows(InputException.class, () -> new Event("", LocalDateTime.now(), LocalDateTime.now()).createTask("event"));
+        assertThrows(InputException.class, () -> new Event("", LocalDateTime.now(),
+                LocalDateTime.now()).createTask("event"));
     }
 
     /**
