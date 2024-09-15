@@ -30,9 +30,4 @@ public class PapadomApp extends Application {
             Logger.getLogger(PapadomApp.class.getName()).log(Level.SEVERE, "Failed to load FXML", e);
         }
     }
-
-    // The main method launches the JavaFX application
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

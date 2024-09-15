@@ -2,26 +2,40 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.openjfx.javafxplugin' version '0.0.14'
 }
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
-    implementation 'org.openjfx:javafx-controls:20.0.2'
-    implementation 'org.openjfx:javafx-fxml:20.0.2'
-
-    implementation "org.openjfx:javafx-base:20.0.2:win"
-    implementation "org.openjfx:javafx-graphics:20.0.2:win"
-    implementation "org.openjfx:javafx-base:20.0.2:mac"
-    implementation "org.openjfx:javafx-graphics:20.0.2:mac"
-    implementation "org.openjfx:javafx-base:20.0.2:linux"
-    implementation "org.openjfx:javafx-graphics:20.0.2:linux"
-
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    String javaFxVersion = '17.0.7'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac-aarch64' // For Apple Silicon Macs
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac-aarch64' // For Apple Silicon Macs
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac-aarch64' // For Apple Silicon Macs
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac-aarch64' // For Apple Silicon Macs
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
 test {
@@ -39,48 +53,14 @@ test {
 }
 
 application {
-    mainClass.set("papadom.PapadomApp")
-}
-
-javafx {
-    version = "20.0.2" // Use the latest stable version
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base' ]
+    mainClass.set("papadom.Launcher")
 }
 
 shadowJar {
-    archiveBaseName.set("ip") // Set the name of the JAR
-    archiveClassifier.set("") // No classifier
-    archiveVersion.set("") // No version in the file name
-    manifest {
-        attributes 'Main-Class': 'papadom.PapadomApp'
-    }
-    mergeServiceFiles() // Ensure any service files are merged correctly
-}
-
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'papadom.PapadomApp'
-        )
-    }
+    archiveBaseName = "papadom"
+    archiveClassifier = null
 }
 
 run {
     standardInput = System.in
-}
-
-tasks.distZip {
-    dependsOn shadowJar
-}
-
-tasks.distTar {
-    dependsOn shadowJar
-}
-
-tasks.startScripts {
-    dependsOn shadowJar
-}
-
-tasks.startShadowScripts {
-    dependsOn jar
 }
