@@ -74,4 +74,13 @@ public class Deadline extends Task {
         //The format is: "[D] [X] <taskName> (by: <deadline>)", where [X] is marked if completed.
         return super.print() + " (by: " + this.getDeadline() + ")";
     }
+
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof Deadline) {
+            Deadline otherDeadline = (Deadline) other;
+            return this.deadline.compareTo(otherDeadline.deadline);
+        }
+        return super.compareTo(other); // fallback to taskName comparison
+    }
 }
