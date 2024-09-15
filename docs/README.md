@@ -1,6 +1,6 @@
 # Rudolf: Your Christmas Task Companion 🎄
 
-![image](https://github.com/user-attachments/assets/8a95d379-bd75-49cb-a594-c950347a3a6c)
+![Ui](./Ui.png)
 
 ## Product Overview
 
