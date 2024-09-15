@@ -32,7 +32,7 @@ inputting commands.
 
 ## Features
 
-_*Take not that all formatting for dates shown in this section 
+❗ _Take note that all formatting for dates shown in this section
 reflected by <date> is in <yyyy-MM-dd HHmm> format._
 
 ### Adding Tasks
