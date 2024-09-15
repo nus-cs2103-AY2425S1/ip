@@ -12,12 +12,12 @@ public class EventCommand extends Command {
     private static final String COMMAND_MSG = "Eyes peeled Chief! Got an event coming up:\n";
     private final Event event;
 
-    public EventCommand(String task, String date, String time) {
-        this.event = new Event(task, date, time);
+    public EventCommand(String task, String date, String time, String... tags) {
+        this.event = new Event(task, date, time, tags);
     }
 
-    public EventCommand(String task, String date) {
-        this.event = new Event(task, date);
+    public EventCommand(String task, String date, String... tags) {
+        this.event = new Event(task, date, tags);
     }
 
 

@@ -13,12 +13,12 @@ public class DeadlineCommand extends Command {
     private final Deadline deadline;
 
 
-    public DeadlineCommand(String task, String date, String time) {
-        this.deadline = new Deadline(task, date, time);
+    public DeadlineCommand(String task, String date, String time, String... tags) {
+        this.deadline = new Deadline(task, date, time, tags);
     }
 
-    public DeadlineCommand(String task, String date) {
-        this.deadline = new Deadline(task, date);
+    public DeadlineCommand(String task, String date, String... tags) {
+        this.deadline = new Deadline(task, date, tags);
     }
 
     public Deadline getDeadline() {

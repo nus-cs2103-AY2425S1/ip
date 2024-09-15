@@ -6,6 +6,7 @@ import Johnson.command.DeleteCommand;
 import Johnson.command.EventCommand;
 import Johnson.command.ExitCommand;
 import Johnson.command.FindCommand;
+import Johnson.command.FindTagCommand;
 import Johnson.command.GreetCommand;
 import Johnson.command.ListCommand;
 import Johnson.command.MarkCommand;
@@ -38,13 +39,18 @@ public class Parser {
      * Pattern to match arguments with date and time.
      */
     private static final Pattern DATETIME_COMMAND_PATTERN =
-            Pattern.compile("^(?<task>.+?)\\s*/\\s*(?<keyword>by|from|on)?\\s*(?<date>\\d{4}-\\d{2}-\\d{2})\\s*(?<time>\\d{1,2}:\\d{2}(\\s?(AM|PM))?)?$");
+            Pattern.compile("(?<task>.+?)\\s*/\\s*(?<keyword>by|from|on)?\\s*(?<date>\\d{4}-\\d{2}-\\d{2})\\s*(?<time>\\d{1,2}:\\d{2})?(?:\\s*/\\s*(?<tags>(#\\w+\\s*)*))?");
 
     /**
      * Pattern to match commands with an index.
      */
     private static final Pattern INDEXED_COMMAND_PATTERN =
             Pattern.compile("\\s*(?<index>\\d+)\\s*");
+
+    /**
+     * Pattern to match tags.
+     */
+    private static final Pattern TODO_PATTERN = Pattern.compile("(?<task>.+?)\\s*(?:/\\s*(?<tags>(#\\w+\\s*)*))?");
 
     public Parser() {
     }
@@ -101,6 +107,9 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             parsedCommand = new FindCommand(arguments);
             break;
+        case FindTagCommand.COMMAND_WORD:
+            parsedCommand = new FindTagCommand(arguments.trim());
+            break;
         default:
             throw new UnknownCommandException("Unknown command");
         }
@@ -128,11 +137,13 @@ public class Parser {
         String task = null;
         String date = null;
         String time = null;
-
+        String[] tags = null;
         if (deadlineMatcher.matches()) {
             task = deadlineMatcher.group("task");
             date = deadlineMatcher.group("date");
             time = deadlineMatcher.group("time");
+            tags = prepTags(deadlineMatcher);
+
         } else {
             System.out.println("Unknown command in prep method");
             throw new UnknownCommandException("Unknown command");
@@ -145,7 +156,7 @@ public class Parser {
             throw new MissingDateException("missing a date");
         }
 
-        return new DeadlineCommand(task, date, time);
+        return new DeadlineCommand(task, date, time, tags);
     }
 
     /**
@@ -168,11 +179,13 @@ public class Parser {
         String task = null;
         String date = null;
         String time = null;
+        String[] tags = null;
 
         if (eventMatcher.matches()) {
             task = eventMatcher.group("task");
             date = eventMatcher.group("date");
             time = eventMatcher.group("time");
+            tags = prepTags(eventMatcher);
         } else {
             System.out.println("Unknown command in prep method");
             throw new UnknownCommandException("Unknown command");
@@ -184,7 +197,7 @@ public class Parser {
         if (date == null) {
             throw new MissingDateException("missing a date");
         }
-        return new EventCommand(task, date, time);
+        return new EventCommand(task, date, time, tags);
     }
 
     /**
@@ -214,8 +227,25 @@ public class Parser {
         if (arguments == null || arguments.isEmpty()) {
             throw new MissingTaskException("Missing a task to add!");
         }
-        else {
-            return new ToDoCommand(arguments);
+        if (arguments.contains("/")) {
+            String[] tags = prepTags(TODO_PATTERN.matcher(arguments));
+            return new ToDoCommand(arguments.split("/")[0].trim(), tags);
         }
+        return new ToDoCommand(arguments);
+    }
+
+    private String[] prepTags(Matcher arguments) {
+        String tags = null;
+        if (arguments.matches()) {
+            tags = arguments.group("tags");
+            return Arrays.stream(tags.trim().split("#"))
+                    .map(String::trim)
+                    .filter(tag -> !tag.isEmpty())
+                    .toArray(String[]::new);
+        }
+        System.out.println("no Matches");
+        return new String[0];
+
     }
 }
+

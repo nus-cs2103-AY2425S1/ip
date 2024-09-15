@@ -96,4 +96,21 @@ public class TaskList {
         }
         return foundTasks;
     }
+
+    /**
+     * Finds tasks that contain the specified tag.
+     *
+     * @param tag the tag to search for.
+     * @return a list of tasks that contain the tag.
+     */
+    public ArrayList<Task> getTasksWithTag(String tag) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.hasTag(tag)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
+
 }

@@ -18,8 +18,8 @@ public class DatedTask extends Task {
      * @param date the date of the task.
      * @param time the time of the task.
      */
-    public DatedTask(String task, String date, String time) {
-        super(task);
+    public DatedTask(String task, String date, String time, String... tags) {
+        super(task, tags);
         this.date = LocalDate.parse(date);
         if (time != null) {
             this.time = LocalTime.parse(time);
@@ -32,14 +32,15 @@ public class DatedTask extends Task {
      * @param task the name of the task.
      * @param date the date of the task.
      */
-    public DatedTask(String task, String date) {
-        super(task);
+    public DatedTask(String task, String date, String... tags) {
+        super(task, tags);
         this.date = LocalDate.parse(date);
     }
 
     public DatedTask() {
         super();
     }
+
 
     public LocalDate getDate() {
         return this.date;

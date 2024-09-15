@@ -1,5 +1,9 @@
 package Johnson.task;
 
+import Johnson.utils.Tag;
+
+import java.util.ArrayList;
+
 /**
  * Represents a task with a name and completion status.
  */
@@ -7,14 +11,21 @@ public abstract class Task {
     private String taskName;
     private boolean isDone;
 
+    private ArrayList<Tag> tags;
     /**
      * Constructs a Task with the specified name.
+     * May have tags.
      *
      * @param taskName the name of the task.
+     * @param tags the tags of the task.
      */
-    public Task(String taskName) {
+    public Task(String taskName, String... tags) {
         this.taskName = taskName;
         this.isDone = false;
+        this.tags = new ArrayList<>();
+        for (String tag : tags) {
+            this.tags.add(new Tag(tag));
+        }
     }
 
     /**
@@ -23,6 +34,7 @@ public abstract class Task {
     public Task() {
         this.taskName = null;
         this.isDone = false;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -34,6 +46,7 @@ public abstract class Task {
     public Task(String taskName, boolean isDone) {
         this.taskName = taskName;
         this.isDone = isDone;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -74,6 +87,15 @@ public abstract class Task {
     }
 
     /**
+     * checks if the task has the specified tag.
+     * @param tag the tag to check for.
+     * @return true if the task has the specified tag, false otherwise.
+     */
+    public boolean hasTag(String tag) {
+        return tags.stream().anyMatch(t -> t.getTag().equals(tag));
+    }
+
+    /**
      * Returns a string representation of the task.
      *
      * @return a string representation of the task.
@@ -87,6 +109,6 @@ public abstract class Task {
         else {
             res = "[ ] ";
         }
-        return res + taskName;
+        return res + taskName + " " + tags;
     }
 }

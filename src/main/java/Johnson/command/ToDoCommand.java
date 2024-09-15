@@ -13,8 +13,8 @@ public class ToDoCommand extends Command {
 
     private final ToDo toDo;
 
-    public ToDoCommand(String toDo) {
-        this.toDo = new ToDo(toDo);
+    public ToDoCommand(String toDo, String... tags) {
+        this.toDo = new ToDo(toDo, tags);
     }
 
     public ToDo getToDo() {
@@ -24,6 +24,7 @@ public class ToDoCommand extends Command {
     @Override
     public String executeCommand() {
         Utilities.OutlineMessage(COMMAND_MSG + toDo);
+        Command.taskList.addTask(toDo);
         return (COMMAND_MSG + toDo);
     }
 }
