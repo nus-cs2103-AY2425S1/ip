@@ -26,9 +26,16 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/fried-chicken.png"));
     private Image sojuImage = new Image(this.getClass().getResourceAsStream("/images/soju.jpg"));
 
+    /**
+     * Initialises the main window of the app and sends a greeting message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greetingMessage = "HI! I LOVE TO DRINK SOJU!!!";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getSojuDialog(greetingMessage, sojuImage)
+        );
     }
 
     /** Injects the Duke instance */
