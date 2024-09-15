@@ -60,9 +60,10 @@ public class Barcus {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
             commandType = c.getClass().getSimpleName();
-            System.out.println("Command type: " + commandType);
+            //System.out.println("Command type: " + commandType);
             return c.getString();
         } catch (BarcusException e) {
+            commandType = "UnknownCommand";
             return "Uh oh, " + e.getMessage();
         }
     }

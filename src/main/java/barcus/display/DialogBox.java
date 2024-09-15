@@ -66,6 +66,9 @@ public class DialogBox extends HBox {
         case "UnmarkCommand":
             dialog.getStyleClass().add("unmark-label");
             break;
+        case "UnknownCommand":
+            dialog.getStyleClass().add("unknown-label");
+            break;
         default:
             // Do nothing
         }
