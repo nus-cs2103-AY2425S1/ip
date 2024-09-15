@@ -18,7 +18,8 @@ This is a task management chatbot. Given below are instructions on how to use it
 [Command Summary](https://foochao.github.io/ip/#command-summary)
 
 
-![](/docs/Ui.png)
+![Screenshot of SumoDE's GUI](Ui.png)
+
 
 
 ## Quick Start
