@@ -45,9 +45,10 @@ public class Storage {
      * If the file doesn't exist, an empty task list is initialized.
      * If loading fails, an empty task list is initialized.
      * If loading is successful, the tasks are loaded into the task list.
-     *
      * Warning can be suppressed as the only object type that can be saved
      * is an ArrayList consisting of Task objects.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
      */
     @SuppressWarnings("unchecked")
     public ArrayList<Task> loadTasks() {
@@ -61,7 +62,7 @@ public class Storage {
         File taskFile = new File(dataDir, "tasks.ser");
         if (!taskFile.exists()) {
             System.out.println("No saved tasks found.");
-            return new ArrayList<>(); // Initialize an empty task list if the file doesn't exist
+            return new ArrayList<>();
         }
 
         // Load tasks from the file if it exists
