@@ -19,7 +19,7 @@ Description: Adds an event with a start and end time.
 Usage Example: `event Team meeting /from 14/9/2024 0900 /to 14/9/2024 1100`
 Explanation: Adds an event with the description "Team meeting," starting on September 14, 2024, at 09:00 and ending on the same day at 11:00.
 
-##Todo Command
+## Todo Command
 
 Command: todo
 Description: Adds a to-do task with a description.
