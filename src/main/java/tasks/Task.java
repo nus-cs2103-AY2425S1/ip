@@ -66,6 +66,6 @@ public abstract class Task {
     }
 
     public boolean containWord(String word) {
-        return this.name.contains(word);
+        return this.name.contains(word.toLowerCase());
     }
 }

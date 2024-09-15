@@ -38,15 +38,15 @@ public class Friday {
      */
     public void run() {
         this.ui.init();
-        boolean bye = false;
+        boolean isByeCommand = false;
 
-        while (!bye) {
+        while (!isByeCommand) {
             System.out.print("Your input > ");
             String[] parsed = this.ui.getInput();
             Command command = Parser.parse(parsed);
             boolean isBye = command.execute(this.storage, this.tasks);
             if (isBye) {
-                bye = true;
+                isByeCommand = true;
             }
         }
 
@@ -55,7 +55,7 @@ public class Friday {
     }
 
     /**
-     * The main entry point of the Friday application.
+     * Runs the main entry point of the Friday application.
      * Creates a new Friday instance with the specified file path and runs it.
      *
      * @param args command-line arguments (not used)

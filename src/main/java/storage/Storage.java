@@ -14,7 +14,6 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-
 /**
  * Handles the reading and writing of tasks to and from a file on the disk.
  * The Storage class is responsible for persisting the state of the task list
