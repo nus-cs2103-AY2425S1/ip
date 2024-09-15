@@ -25,7 +25,6 @@ public class MainWindow extends AnchorPane {
     private Danny danny;
 
 
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/imgs/DaUser.png"));
     private Image DannyImage = new Image(this.getClass().getResourceAsStream("/imgs/DaDuke.png"));
 
@@ -34,7 +33,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Duke instance
+     */
     public void setVars(Danny danny) {
         this.danny = danny;
     }
@@ -46,7 +47,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if(input.equalsIgnoreCase("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
             danny.end();
             Platform.exit();
         }

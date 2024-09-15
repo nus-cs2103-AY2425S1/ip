@@ -95,19 +95,35 @@ public class Parser {
         }
 
         switch (cmd) {
-        case List -> { return handleList();}
-        case Todo -> { return handleToDo(in);}
-        case Deadline -> { return handleDeadline(in);}
-        case Event -> { return handleEvent(in);}
-        case Mark -> { return handleMark(in);}
-        case Unmark -> { return handleUnmark(in);}
-        case Delete -> { return handleDelete(in);}
-        case Find -> { return handleFind(in);}
+        case List -> {
+            return handleList();
+        }
+        case Todo -> {
+            return handleToDo(in);
+        }
+        case Deadline -> {
+            return handleDeadline(in);
+        }
+        case Event -> {
+            return handleEvent(in);
+        }
+        case Mark -> {
+            return handleMark(in);
+        }
+        case Unmark -> {
+            return handleUnmark(in);
+        }
+        case Delete -> {
+            return handleDelete(in);
+        }
+        case Find -> {
+            return handleFind(in);
+        }
         case Error -> {
             System.out.println("Error! Please try again :(");
             return "Error! Please try again :(";
         }
-        default ->{
+        default -> {
             System.out.println("Unknown Command Detected!");
             return "Unknown Command Detected!";
         }

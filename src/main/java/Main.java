@@ -39,6 +39,7 @@ public class Main extends Application {
 //            System.out.println("Saving unsuccessful :(");
 //        }
     }
+
     @Override
     public void start(Stage stage) {
         try {
@@ -54,7 +55,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void stop(){
+    public void stop() {
         try {
             Storage loader = new Storage("src/main/java/data/tasks.txt", danny);
             loader.saveTask();
