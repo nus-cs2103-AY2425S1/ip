@@ -31,7 +31,7 @@ public class AddDeadlineCommandTest {
         Storage storage = new Storage("testStorage.txt");
         TaskList taskList = new TaskList(storage);
         Ui ui = new Ui();
-        AddDeadlineCommand command = new AddDeadlineCommand("deadline return book /by 2024-12-12 12-00");
+        AddDeadlineCommand command = new AddDeadlineCommand("deadline return book /by 2024-12-12 12:00");
 
         // Capture the system output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -65,11 +65,11 @@ public class AddDeadlineCommandTest {
         );
 
         // Optionally check the exception message
-        String expectedMessage = " Please enter the correct format!\n"
-                + "  For todo tasks: todo [task]\n"
-                + "  For deadline tasks: deadline [task] /by yyyy-mm-dd OR yyyy-mm-dd hh-mm\n"
-                + "  For event tasks: event [task] /from [date & time] /to [date & time]\n"
-                + "  To find specific events with keyword: find [keyword]";
+        String expectedMessage = " Please enter the correct format!\n" +
+                "  For todo tasks: todo [task]\n" +
+                "  For deadline tasks: deadline [task] /by yyyy-mm-dd OR yyyy-mm-dd hh:mm in 24 hour format\n" +
+                "  For event tasks: event [task] /from [date & time] /to [date & time]\n" +
+                "  To find specific events with keyword: find [keyword]";
         assertEquals(expectedMessage, thrown.getMessage());
     }
     @Test
@@ -90,7 +90,7 @@ public class AddDeadlineCommandTest {
         // Optionally check the exception message
         String expectedMessage = " Please enter the correct format!\n" +
                 "  For todo tasks: todo [task]\n" +
-                "  For deadline tasks: deadline [task] /by yyyy-mm-dd OR yyyy-mm-dd hh-mm\n" +
+                "  For deadline tasks: deadline [task] /by yyyy-mm-dd OR yyyy-mm-dd hh:mm in 24 hour format\n" +
                 "  For event tasks: event [task] /from [date & time] /to [date & time]\n" +
                 "  To find specific events with keyword: find [keyword]";
         assertEquals(expectedMessage, thrown.getMessage());

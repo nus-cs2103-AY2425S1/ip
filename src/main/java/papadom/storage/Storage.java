@@ -63,10 +63,8 @@ public class Storage {
     public void createFileIfNotPresent() {
         File file = new File(FILE_PATH);
         try {
-            // Check if the file exists
+            // Check if the file exists, and if not, create it
             if (!file.exists()) {
-                // If the file doesn't exist, create it along with any necessary directories
-                file.getParentFile().mkdirs(); // Create directories if they don't exist
                 file.createNewFile();
             }
         } catch (IOException e) {

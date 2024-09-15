@@ -33,10 +33,10 @@ public class TaskList {
      */
     public String outputList() {
         if (this.TASK_LIST.isEmpty()) {
-            return "There are no tasks in your list.";
+            return " There are no tasks in your list.";
         }
 
-        StringBuilder finalList = new StringBuilder("Here are the tasks in your list:");
+        StringBuilder finalList = new StringBuilder(" Here are the tasks in your list:");
         for (int i = 0; i < this.TASK_LIST.size(); i++) {
             finalList.append("\n  ").append(i + 1).append(". ").append(this.TASK_LIST.get(i).toString());
         }
@@ -56,8 +56,8 @@ public class TaskList {
         this.TASK_LIST.add(task);  // Add task to the ArrayList
         STORAGE.addTaskToDatabase(task);  // Append the task to the file
 
-        return "Got it. I've added this task:\n  " + task.toString() + "\n"
-                + "Now you have " + this.TASK_LIST.size() + " tasks in the list.";
+        return " Got it. I've added this task:\n  " + task.toString() + "\n"
+                + " Now you have " + this.TASK_LIST.size() + " tasks in the list.";
     }
 
     /**
@@ -78,8 +78,8 @@ public class TaskList {
         Task taskToBeDeleted = this.TASK_LIST.remove(taskIndex);  // Remove the task from the list
         STORAGE.updateTasksInFile(this);  // Update the file with the modified task list
 
-        return "Noted. I've removed this task:\n  " + taskToBeDeleted
-                + "\nNow you have " + this.TASK_LIST.size() + " tasks in the list.";
+        return " Noted. I've removed this task:\n  " + taskToBeDeleted
+                + "\n Now you have " + this.TASK_LIST.size() + " tasks in the list.";
     }
 
     /**
@@ -101,7 +101,7 @@ public class TaskList {
         task.markAsDone();  // Mark the task as done
         STORAGE.updateTasksInFile(this);  // Update the file with the modified task list
 
-        return "Nice! I've marked this task as done:\n  " + task;
+        return " Nice! I've marked this task as done:\n  " + task;
     }
 
     /**
@@ -123,6 +123,6 @@ public class TaskList {
         task.unmark();  // Unmark the task
         STORAGE.updateTasksInFile(this);  // Update the file with the modified task list
 
-        return "OK, I've marked this task as not done yet:\n  " + task;
+        return " OK, I've marked this task as not done yet:\n  " + task;
     }
 }

@@ -1,7 +1,7 @@
 hi
 todo borrow book
 deadline return book /by 2024-12-12
-deadline return book /by 2024-12-12 12-00
+deadline return book /by 2024-12-12 12:00
 event project meeting /from Mon 2pm /to 4pm
 list
 find return book

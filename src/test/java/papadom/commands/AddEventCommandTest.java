@@ -67,7 +67,7 @@ public class AddEventCommandTest {
         // Optionally check the exception message
         String expectedMessage = " Please enter the correct format!\n" +
                 "  For todo tasks: todo [task]\n" +
-                "  For deadline tasks: deadline [task] /by yyyy-mm-dd OR yyyy-mm-dd hh-mm\n" +
+                "  For deadline tasks: deadline [task] /by yyyy-mm-dd OR yyyy-mm-dd hh:mm in 24 hour format\n" +
                 "  For event tasks: event [task] /from [date & time] /to [date & time]\n" +
                 "  To find specific events with keyword: find [keyword]";
         assertEquals(expectedMessage, thrown.getMessage());
@@ -90,7 +90,7 @@ public class AddEventCommandTest {
         // Optionally check the exception message
         String expectedMessage = " Please enter the correct format!\n" +
                 "  For todo tasks: todo [task]\n" +
-                "  For deadline tasks: deadline [task] /by yyyy-mm-dd OR yyyy-mm-dd hh-mm\n" +
+                "  For deadline tasks: deadline [task] /by yyyy-mm-dd OR yyyy-mm-dd hh:mm in 24 hour format\n" +
                 "  For event tasks: event [task] /from [date & time] /to [date & time]\n" +
                 "  To find specific events with keyword: find [keyword]";
         assertEquals(expectedMessage, thrown.getMessage());
