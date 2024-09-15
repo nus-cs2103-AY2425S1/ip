@@ -33,8 +33,10 @@ public class Ui {
     }
 
     /**
-     * Displays initial greeting message when the application starts.
+     * Returns initial greeting message when the application starts.
      * It also provides some help on the commands the user can use.
+     *
+     * @return String containing initial greeting message.
      */
     public static String winnerSaysHi() {
         return """
@@ -43,6 +45,11 @@ public class Ui {
                 """;
     }
 
+    /**
+     * Returns a help page providing commands to users.
+     *
+     * @return String containing help page.
+     */
     public static String winnerGivesHelp() {
         return """
                 Use these commands for me to add tasks:
@@ -60,6 +67,8 @@ public class Ui {
 
     /**
      * Displays a farewell message when the user exits the application.
+     *
+     * @return String containing faraewell message.
      */
     public static String winnerSaysBye() {
         return """
