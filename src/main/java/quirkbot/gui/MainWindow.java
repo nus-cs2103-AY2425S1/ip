@@ -72,6 +72,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Handles user input and processes it using the Ui class.
+     *
      * @return the buddy response in the dialog container.
      */
     public String getResponse(String input) {

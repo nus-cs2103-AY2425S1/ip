@@ -12,6 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a {@code Deadline} task with the specified description and deadline.
+     *
      * @param description The description of the task.
      * @param deadlineBy  The deadline date and time for the task.
      */
@@ -28,6 +29,7 @@ public class Deadline extends Task {
      * The fields are: task type ("D"), completion status (1 for done, 0 for not done),
      * description, and optionally, the deadline.
      * If the deadline is missing or incorrectly formatted, a warning is printed, and the deadline will be null.
+     *
      * @param taskData The string representing the Deadline task.
      * @return A Deadline object created from the string data.
      */
@@ -59,6 +61,7 @@ public class Deadline extends Task {
      * completion status, description, and the deadline formatted as "MMM dd yyyy HH:mm".
      * For example, a completed task might be represented as:
      * "[D][X] Finish assignment (by: Oct 10 2024 15:30)".
+     *
      * @return A string representing the Deadline task.
      */
     @Override
@@ -79,6 +82,7 @@ public class Deadline extends Task {
      * and deadline formatted as "dd/MM/yyyy HHmm".
      * For example, a saved task might be represented as:
      * "D | 1 | Finish assignment | 10/10/2024 1530"
+     *
      * @return A string representing the Deadline task in file format.
      */
     @Override

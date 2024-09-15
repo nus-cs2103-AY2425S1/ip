@@ -30,6 +30,7 @@ public class Ui extends Application {
     /**
      * Constructs a new GUI for the user.
      * Initializes the GUI application and greets the user during startup.
+     *
      * @param stage sets up the GUI application.
      */
     @Override
@@ -61,6 +62,7 @@ public class Ui extends Application {
 
     /**
      * Initializes the storage by creating necessary directories and files if they do not exist.
+     *
      * @return the Storage instance if initialization is successful, otherwise null.
      */
     public Storage initStorage() {
@@ -89,6 +91,7 @@ public class Ui extends Application {
 
     /**
      * Processes the user's command and returns the relevant response.
+     *
      * @param command instruction to the chatbot.
      * @return the response to the command.
      */
@@ -122,6 +125,7 @@ public class Ui extends Application {
 
     /**
      * Checks the type of the command entered by the user.
+     *
      * @return the command type.
      */
     public String getCommandType() {
@@ -130,6 +134,7 @@ public class Ui extends Application {
 
     /**
      * Presents all the available commands for the user.
+     *
      * @return the list of commands.
      */
     public String showListOfCommands() {
@@ -147,6 +152,7 @@ public class Ui extends Application {
 
     /**
      * Removes task and shows deleted task.
+     *
      * @param command entered by the user in the command box.
      * @return the message of the deleted task.
      */
@@ -165,6 +171,7 @@ public class Ui extends Application {
 
     /**
      * Marks task as done and shows the marked task to user.
+     *
      * @param command entered by the user in the command box.
      * @return the message of the marked task.
      */
@@ -183,6 +190,7 @@ public class Ui extends Application {
 
     /**
      * Marks task as not done and shows the unmarked task to user.
+     *
      * @param command entered by the user in the command box.
      * @return the message of the unmarked task.
      */
@@ -201,6 +209,7 @@ public class Ui extends Application {
 
     /**
      * Finds specific task(s) from the task list based on the user keyword.
+     *
      * @param command entered by the user in the command box.
      * @return the message of the task to find.
      */
@@ -218,6 +227,7 @@ public class Ui extends Application {
 
     /**
      * Adds desired task to the task list and shows added task to user.
+     *
      * @param command entered by the user in the command box.
      * @return the message of the added task.
      */
@@ -235,6 +245,7 @@ public class Ui extends Application {
 
     /**
      * Parses the task index from the command string.
+     *
      * @param command The command string containing the task index.
      * @return the parsed task index, or -1 if the index is invalid.
      */
@@ -248,6 +259,7 @@ public class Ui extends Application {
 
     /**
      * Shows an error message to user based on the invalid command.
+     *
      * @param command entered by the user in the command box.
      * @return the formatted error message.
      */
@@ -280,7 +292,8 @@ public class Ui extends Application {
     /**
      * Displays a message indicating that a task has been added.
      * Shows the details of the added task and the updated size of the task list.
-     * @param task added to the list.
+     *
+     * @param task         added to the list.
      * @param tasklistSize updated number of tasks in the list.
      * @return the formatted message of the added task.
      */
@@ -294,6 +307,7 @@ public class Ui extends Application {
     /**
      * Displays a message indicating that a task has been removed.
      * Shows the details of the removed task and the updated size of the task list.
+     *
      * @param task removed from the list.
      * @return the formatted message of the removed task.
      */
@@ -306,6 +320,7 @@ public class Ui extends Application {
     /**
      * Displays a message indicating that a task has been marked as done.
      * Marks the provided task as done and shows its updated status.
+     *
      * @param task marked as done.
      * @return the formatted message of the marked task.
      */
@@ -318,6 +333,7 @@ public class Ui extends Application {
     /**
      * Displays a message indicating that a task has been marked as not done yet.
      * Marks the provided task as not done and shows its updated status.
+     *
      * @param task marked as not done.
      * @return the formatted message of the unmarked task.
      */
@@ -330,6 +346,7 @@ public class Ui extends Application {
     /**
      * Displays the list of tasks to the user.
      * Shows all tasks in the provided TaskList with their corresponding index.
+     *
      * @return the formatted list of tasks.
      */
     public String getTaskListMessage() {
@@ -345,6 +362,7 @@ public class Ui extends Application {
     /**
      * Filters out the tasks from the list which match the user keyword.
      * Displays all the relevant search results from the task list.
+     *
      * @param tasks is the task list to be searched.
      * @return the formatted search results.
      */

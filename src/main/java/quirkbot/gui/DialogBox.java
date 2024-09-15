@@ -30,6 +30,7 @@ public class DialogBox extends HBox {
      * Constructs a DialogBox object with the specified text and image.
      * This constructor loads the FXML layout for the dialog box and initializes
      * the dialog text and display picture.
+     *
      * @param text to be displayed in the dialog box.
      * @param img  to be displayed alongside the text.
      */
@@ -54,6 +55,7 @@ public class DialogBox extends HBox {
     /**
      * Creates and returns a DialogBox representing the user's dialog.
      * The dialog box will display the specified text and image without flipping the alignment.
+     *
      * @param text to be displayed in the user's dialog box.
      * @param img  to be displayed alongside the user's dialog.
      * @return DialogBox object containing the user's dialog.
@@ -64,6 +66,7 @@ public class DialogBox extends HBox {
 
     /**
      * Changes the dialog colour style for different user commands.
+     *
      * @param commandType the type of the user command.
      */
     public void changeDialogStyle(String commandType) {
@@ -86,8 +89,9 @@ public class DialogBox extends HBox {
      * Creates and returns a DialogBox representing the bot's dialog.
      * The dialog box will display the specified text and image, with the alignment flipped
      * so that the image appears on the left side and the text on the right.
-     * @param text to be displayed in the bot's dialog box.
-     * @param img  to be displayed alongside the bot's dialog.
+     *
+     * @param text        to be displayed in the bot's dialog box.
+     * @param img         to be displayed alongside the bot's dialog.
      * @param commandType indicates the type of user command for bot to process.
      * @return DialogBox object containing the bot's dialog.
      */

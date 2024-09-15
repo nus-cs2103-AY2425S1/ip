@@ -57,6 +57,7 @@ public class Parser {
      * Parses a command string to create an appropriate datetime object
      * If the command format is incorrect or any part of the command is invalid,
      * an error message is printed and no LocalDateTime object is returned
+     *
      * @param dateTimeStr user's command string to be parsed
      * @return LocalDateTime object depending on the user's command
      */

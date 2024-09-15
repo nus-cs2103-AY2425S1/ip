@@ -9,6 +9,7 @@ abstract class Task {
 
     /**
      * Constructs a Task with the specified description.
+     *
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -19,6 +20,7 @@ abstract class Task {
 
     /**
      * Returns the description of the task.
+     *
      * @return The description of the task.
      */
     public String getDescription() {
@@ -27,6 +29,7 @@ abstract class Task {
 
     /**
      * Returns whether the task is marked as done.
+     *
      * @return true if the task is done, false otherwise.
      */
     public boolean getDone() {
@@ -55,6 +58,7 @@ abstract class Task {
      * Returns a string representation of the task.
      * This is an abstract method that must be implemented by concrete subclasses to provide
      * a specific format for displaying the task.
+     *
      * @return A string representing the task.
      */
     public abstract String toString();
@@ -63,6 +67,7 @@ abstract class Task {
      * Converts the task to a format suitable for saving to a file.
      * This is an abstract method that must be implemented by concrete subclasses to provide
      * a specific format for saving the task to a file.
+     *
      * @return A string representing the task in a file-compatible format.
      */
     public abstract String toFileFormat();

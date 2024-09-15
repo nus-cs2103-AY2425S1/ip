@@ -14,9 +14,10 @@ public class Event extends Task {
     /**
      * Constructs an Event task with the specified description,
      * start date/time, and end date/time.
+     *
      * @param description description of the event.
-     * @param eventFrom the start date and time of the event.
-     * @param eventTo the end date and time of the event.
+     * @param eventFrom   the start date and time of the event.
+     * @param eventTo     the end date and time of the event.
      */
     public Event(String description, LocalDateTime eventFrom, LocalDateTime eventTo) {
         super(description);
@@ -39,6 +40,7 @@ public class Event extends Task {
      * description, start date/time, and optionally, end date/time.
      * If the start or end date/time is missing or incorrectly formatted,
      * a warning is printed, and the respective date/time will be null.
+     *
      * @param taskData The string representing the Event task.
      * @return An Event task object created from the string data.
      */
@@ -77,6 +79,7 @@ public class Event extends Task {
      * formatted as "MMM dd yyyy HH:mm".
      * For example, a completed event might be represented as:
      * "[E][X] Team meeting (from: Oct 10 2024 09:00 to: Oct 10 2024 11:00)".
+     *
      * @return A string representing the Event task.
      */
     @Override
@@ -100,6 +103,7 @@ public class Event extends Task {
      * formatted as "dd/MM/yyyy HHmm".
      * For example, a saved event might be represented as:
      * "E | 1 | Team meeting | 10/10/2024 0900 | 10/10/2024 1100".
+     *
      * @return A string representing the Event task in file format.
      */
     @Override

@@ -14,6 +14,7 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified file path.
+     *
      * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
@@ -23,6 +24,7 @@ public class Storage {
 
     /**
      * Loads tasks from the file into the provided list.
+     *
      * @param taskList The list to which tasks will be added.
      */
     public void loadTasks(ArrayList<Task> taskList) {
@@ -53,6 +55,7 @@ public class Storage {
 
     /**
      * Stores tasks from the current task list into the provided file.
+     *
      * @param taskList The list to which tasks will be copied and saved into the file
      */
     public void saveTasks(ArrayList<Task> taskList) {
