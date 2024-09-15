@@ -38,6 +38,10 @@ public class Main extends Application {
             // Set up the scene and stage
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+
+            // Set the title of the stage (window title bar)
+            stage.setTitle("Bob Chatbot");
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
