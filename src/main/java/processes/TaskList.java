@@ -6,8 +6,10 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import exceptions.EmptyTagException;
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
+import exceptions.SpaceInTagException;
 import exceptions.TaskOutOfBoundsError;
 import tasks.DeadLine;
 import tasks.Event;
@@ -196,11 +198,21 @@ public class TaskList {
      * @return The target task that the tags were added to
      * @throws TaskOutOfBoundsError When the index provided by the user is out of bounds.
      * @throws NumberFormatException When the user did not provide a valid index.
+     * @throws EmptyTagException When the tag provided by the user is empty or only contains white space.
+     * @throws SpaceInTagException When the tag provided by the user contains white space.
      */
-    public Task tag(String command) throws TaskOutOfBoundsError, NumberFormatException {
+    public Task tag(String command)
+            throws TaskOutOfBoundsError, NumberFormatException, EmptyTagException, SpaceInTagException {
         String[] inputs = command.substring(4).split("#");
+        ArrayList<String> tags = new ArrayList<>();
         for (int i = 0; i < inputs.length; i++) {
             inputs[i] = inputs[i].trim();
+            if (inputs[i].isEmpty()) {
+                throw new EmptyTagException();
+            } else if (inputs[i].contains(" ")) {
+                throw new SpaceInTagException();
+            }
+            tags.add(inputs[i]);
         }
         int index = Integer.parseInt(inputs[0]);
 
