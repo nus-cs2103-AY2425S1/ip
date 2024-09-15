@@ -160,12 +160,16 @@ public class Parser {
                 return ui.deadlineMsg();
             }
         case FIND:
-            String keyword = input.split(" ", 2)[1].trim();
-            TaskList findList = list.findTaskByKeyword(keyword);
-            if (findList.getTaskCount() == 0) {
-                return ui.noFindMsg();
-            } else {
-                return ui.findMsg(findList);
+            try {
+                String keyword = input.split(" ", 2)[1].trim();
+                TaskList findList = list.findTaskByKeyword(keyword);
+                if (findList.getTaskCount() == 0) {
+                    return ui.noFindMsg();
+                } else {
+                    return ui.findMsg(findList);
+                }
+            } catch (Exception e) {
+                return ui.invalidFindMsg();
             }
         case INVALID:
             return ui.invalidMsg();

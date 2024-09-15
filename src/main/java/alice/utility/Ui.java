@@ -80,7 +80,7 @@ public class Ui {
      */
     public String invalidMsg() {
         String string = line + '\n'
-                + "Invalid command, use command words: list, todo, deadline, event, mark, unmark & delete" + '\n'
+                + "Invalid command, use command words: list, find, todo, deadline, event, mark, unmark & delete" + '\n'
                 + line;
         return string;
     }
@@ -192,6 +192,16 @@ public class Ui {
     public String noFindMsg() {
         String string = line + '\n'
                 + "No matching tasks in your list" + '\n'
+                + line;
+        return string;
+    }
+
+    /**
+     * Displays the command format for finding a task with keyword.
+     */
+    public String invalidFindMsg() {
+        String string = line + '\n'
+                + "Command Format: find [keyword] " + '\n'
                 + line;
         return string;
     }

@@ -1,8 +1,6 @@
 # Alice User Guide
 
-<img src="/docs/Ui.png" alt="Product screenshot" width="250"/>
-
-Alice is a chatbot that tracks all your tasks 
+Alice is a chatbot that tracks all your tasks
 
 ## Features
 
