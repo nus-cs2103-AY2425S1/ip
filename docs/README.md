@@ -12,7 +12,7 @@ Format: `list`
 
 Adds the todo task to tasklist.
 
-Format: todo <taskname>
+Format: todo TASKNAME
 
 Example: `todo view lecture video`
 
@@ -20,7 +20,7 @@ Example: `todo view lecture video`
 
 Adds the deadline task to tasklist.
 
-Format: deadline <taskname> /by <yyyy-MM-dd>
+Format: deadline TASKNAME /by YYYY-MM-DD
 
 Example: `deadline weekly quiz /by 2024-09-17`
 
@@ -28,7 +28,7 @@ Example: `deadline weekly quiz /by 2024-09-17`
 
 Adds the event task to tasklist.
 
-Format: event <taskname> /from <yyyy-MM-dd> /to <yyyy-MM-dd>
+Format: event TASKNAME /from YYYY-MM-DD /to YYYY-MM-DD
 
 Example: `event CS2 finals /from 2024-10-30 /to 2024-11-03`
 
@@ -36,7 +36,7 @@ Example: `event CS2 finals /from 2024-10-30 /to 2024-11-03`
 
 Marks a task as completed.
 
-Format: mark <taskIndex>
+Format: mark INDEX
 
 Example: `mark 1`
 
@@ -44,7 +44,7 @@ Example: `mark 1`
 
 Unmarks a task as incompleted.
 
-Format: unmark <taskIndex>
+Format: unmark INDEX
 
 Example: `unmark 1`
 
@@ -52,7 +52,7 @@ Example: `unmark 1`
 
 Deletes the specified task from the tasklist.
 
-Format: delete <taskIndex>
+Format: delete INDEX
 
 Example: `delete 1`
 
@@ -60,7 +60,7 @@ Example: `delete 1`
 
 Finds tasks whose task description contain the given keyword.
 
-Format: find <keyword>
+Format: find KEYWORD
 
 Example: `find quiz`
 
@@ -73,7 +73,7 @@ Example: `find quiz`
 
 Sets a priority to a task at three levels: `HIGH(1), MEDIUM(2), LOW(3)`
 
-Format: priority <taskIndex> /priority <int 1-3>
+Format: priority INDEX /priority \[1-3\]
 
 Example: `priority 1 /priority 1`
 This command sets the task in index 1 to HIGH.
