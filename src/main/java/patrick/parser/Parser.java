@@ -1,7 +1,11 @@
 package patrick.parser;
 
 import patrick.storage.Storage;
-import patrick.tasklist.*;
+import patrick.tasklist.Deadline;
+import patrick.tasklist.Event;
+import patrick.tasklist.Task;
+import patrick.tasklist.TaskList;
+import patrick.tasklist.ToDo;
 import patrick.ui.Ui;
 
 /**

@@ -10,8 +10,6 @@ import patrick.parser.Parser;
 import patrick.storage.Storage;
 import patrick.ui.Ui;
 
-import static patrick.ui.Ui.THERE_IS_AN_ERROR;
-
 /**
  * Represents a task that occurs at a specific time range.
  * It extends the {@code Task} class and includes {@code LocalDateTime} and
@@ -78,7 +76,7 @@ public class Event extends Task {
         try {
             Storage.appendToFile("\n" + task);
         } catch (IOException e) {
-            response = THERE_IS_AN_ERROR + e.getMessage();
+            response = Ui.THERE_IS_AN_ERROR + e.getMessage();
         }
         return response;
     }

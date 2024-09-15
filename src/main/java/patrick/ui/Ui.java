@@ -91,7 +91,13 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Displays a welcome message to the user.
+     *
+     * @return A welcome message for the user.
+     */
     public static String showWelcomeMsg() {
-        return "We should take Bikini Bottom, and push it somewhere else!\nOh Hello Spongebob!\nHow may I help you today?";
+        return "We should take Bikini Bottom, and push it somewhere else!"
+                + "\nOh Hello Spongebob!\nHow may I help you today?";
     }
 }

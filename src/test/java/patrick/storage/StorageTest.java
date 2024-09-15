@@ -1,11 +1,12 @@
 package patrick.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import patrick.storage.Storage.StorageOperationException;
 import patrick.tasklist.Task;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageTest";

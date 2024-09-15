@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import patrick.parser.Parser;
 import patrick.ui.Ui;
 
 /**
@@ -58,7 +57,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = patrick.getResponse(input);
         dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog("Hang on Spongebob! Let me check", patrickThinkingImage));
+        dialogContainer.getChildren().add(DialogBox
+                .getDukeDialog("Hang on Spongebob! Let me check", patrickThinkingImage));
         Image currentPatrick = response.startsWith("Watch your words") ? angryPatrickImage : dukeImage;
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(response, currentPatrick));
         userInput.clear();

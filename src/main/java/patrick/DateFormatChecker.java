@@ -69,6 +69,12 @@ public class DateFormatChecker {
         return "Unknown Format";
     }
 
+    /**
+     * Checks if a given date string matches any of the predefined date formats.
+     *
+     * @param date The date string to validate.
+     * @return {@code true} if the date matches any of the predefined formats, {@code false} otherwise.
+     */
     public static boolean isValidDate(String date) {
         for (String format : FORMATS) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
