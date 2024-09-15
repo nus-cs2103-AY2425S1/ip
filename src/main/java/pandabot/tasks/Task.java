@@ -30,6 +30,7 @@ public abstract class Task {
     }
 
     /**
+     * Returns a Task instance of type as specified in the input command
      * Abstract method for creating a specific type of task.
      * This method must be implemented by any subclass.
      *
