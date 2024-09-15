@@ -42,7 +42,7 @@ Here are the commands you can use:
 ## Listing all tasks: `list`
 
 The `list` command allows you to view all tasks currently stored in Duck's task list, including to-do items, deadlines, and events.
-![2139.png](..%2F..%2F..%2F..%2F..%2FAppData%2FLocal%2FTemp%2F2139.png)
+
 **Format:** `list`
 
 **Expected outcome**
