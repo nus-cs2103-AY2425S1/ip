@@ -13,25 +13,26 @@ upcoming deadlines.
 4. Execute the command 
     ```
     java -jar Mendel-3.jar
-    ```
----
 
-## Feature summary
-
-| Feature  | Command                                       | Description                                                      |
-|----------|-----------------------------------------------|------------------------------------------------------------------|
-| todo     | `todo <description>`                          | Writes a simple reminder note                                    |
-| deadline | `deadline <description> /by <date>`           | Writes dealine note with due date                                |
-| event    | `event <description> /from <date> /to <date>` | Writes event note from start to end date                         |
-| mark     | `mark <serial>`                               | Ticks task of corresponding serial number                        |
-| unmark   | `unmark <serial>`                             | Un-ticks task of corresponding serial number                     |
-| delete   | `delete <serial>`                             | Removes task of corresponding serial number                      |
-| find     | `find <keyword>`                              | Finds tasks whose description sub-matches the given expression   |
-| remind   | `remind <date>`                               | Finds tasks whose date is before given date and unmarked         |
-| list     | `list`                                        | Lists all tasks                                                  |
-| bye      | `bye`                                         | Program exits                                                    |
 
 ---
+
+## Command Summary Table
+
+| Feature    | Description                                                    | Command                                       |
+|------------|----------------------------------------------------------------|-----------------------------------------------|
+| `todo`     | Writes a simple reminder note                                  | `todo <description>`                          |
+| `deadline` | Writes deadline note with due date                             | `deadline <description> /by <date>`           |
+| `event`    | Writes event note from start to end date                       | `event <description> /from <date> /to <date>` |
+| `mark`     | Ticks task of corresponding serial number                      | `mark <serial>`                               |
+| `unmark`   | Un-ticks task of corresponding serial number                   | `unmark <serial>`                             |
+| `delete`   | Removes task of corresponding serial number                    | `delete <serial>`                             |
+| `list`     | Lists all tasks.                                               | `list`                                        |
+| `remind`   | Finds tasks whose date is before given date and unmarked       | `remind <date>`                               |
+| `find`     | Finds tasks whose description sub-matches the given expression | `find <keyword>`                              |
+| `bye`      | Program exits                                                  | `bye`                                         |
+
+--- 
 
 ### Adding todo
 
