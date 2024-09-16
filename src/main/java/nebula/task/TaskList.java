@@ -94,8 +94,8 @@ public class TaskList {
         return ui.displayDeletedTask(t);
     }
 
-    public String getTask(int taskNum) {
+    public Task getTask(int taskNum) {
         Task t = taskList.get(taskNum);
-        return t.getDescription();
+        return t;
     }
 }
