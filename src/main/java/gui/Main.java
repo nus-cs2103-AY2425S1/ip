@@ -28,6 +28,7 @@ public class Main extends Application {
             ap.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Applemazer");
             fxmlLoader.<MainWindow>getController().setApplemazer(applemazer);
             stage.show();
         } catch (IOException e) {
