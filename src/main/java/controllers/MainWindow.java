@@ -5,6 +5,8 @@ import java.util.Objects;
 import core.Brock;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -42,20 +44,36 @@ public class MainWindow extends AnchorPane {
             new Image(Objects.requireNonNull(this.getClass()
                     .getResourceAsStream("/images/DaBrock.jpg")));
 
+    private static final double SCROLL_AMOUNT = 0.0007;
+
     /**
      * Initializes the controller class.
      */
     @FXML
     public void initialize() {
-        // Ensures scroll is always to the very end
-        // For better UI
-        this.scrollPane.vvalueProperty()
-                .bind(this.dialogContainer.heightProperty());
-
-        // Set text input placeholder
-        // For better UI
+        this.setupScroll();
         this.userInput.setPromptText("Enter your command here!");
+        this.setupButtonIcon();
+    }
 
+    private void setupScroll() {
+        // Add listener function that listens to height of dialog container
+        // When height varies (ie: user + brock dialog added)
+        // Scroll to the very bottom
+        this.dialogContainer.heightProperty().addListener((obs, oldBounds, newBounds) -> {
+            scrollPane.setVvalue(scrollPane.getVmax());
+        });
+
+        // Add scroll callback function to dialog container
+        // When dialog container is scrolled, apply the callback function
+        // Scroll up/down by some amount
+        this.dialogContainer.setOnScroll(event -> {
+            double deltaY = event.getDeltaY() * SCROLL_AMOUNT;
+            scrollPane.setVvalue(scrollPane.getVvalue() - deltaY);
+        });
+    }
+
+    private void setupButtonIcon() {
         // Approach was adopted from https://edencoding.com/how-to-add-an-image-to-a-button/
         // To add an icon within the send button
         ImageView imageView = new ImageView(Objects.requireNonNull(getClass()
@@ -123,8 +141,8 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one showing user input and the other containing Brock's reply
-     *      and then appends them to the dialog container.
-     *      Clears the user input after processing.
+     * and then appends them to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -146,7 +164,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Exits the GUI application.
      * Approach was adapted from:
-     *      <a href="https://github.com/nus-cs2103-AY2425S1/forum/issues/199#issuecomment-2333192757">...</a>
+     * <a href="https://github.com/nus-cs2103-AY2425S1/forum/issues/199#issuecomment-2333192757">...</a>
      */
     public void exitProgram() {
         // Sets a 3-second delay before exiting

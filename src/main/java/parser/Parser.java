@@ -16,18 +16,9 @@ import exceptions.BrockException;
  * Class to identify user commands, and create associated {@code Command} objects.
  */
 public class Parser {
-    /**
-     * Identifies the type of command given.
-     *
-     * @param command User command.
-     * @param target Command type.
-     * @return True if command matches the specified type. False otherwise.
-     */
-    private boolean isCommand(String command, String target) {
-        String[] parts = command.toLowerCase()
-                .split(" ");
-        String firstWord = parts[0];
-        return firstWord.equalsIgnoreCase(target);
+    private String getCommandType(String command) {
+        String[] parts = command.split(" ", 2);
+        return parts[0].toLowerCase();
     }
 
     /**
@@ -38,34 +29,21 @@ public class Parser {
      * @throws BrockException If user command is invalid.
      */
     public Command handleCommand(String command) throws BrockException {
-        if (this.isCommand(command, "bye")) {
-            return new ByeCommand(command);
+        String commandType = this.getCommandType(command);
 
-        } else if (this.isCommand(command, "list")) {
-            return new ListCommand(command);
-
-        } else if (this.isCommand(command, "mark")) {
-            return new MarkCommand(command);
-
-        } else if (this.isCommand(command, "unmark")) {
-            return new UnmarkCommand(command);
-
-        } else if (this.isCommand(command, "delete")) {
-            return new DeleteCommand(command);
-
-        } else if (this.isCommand(command, "todo")) {
-            return new TodoCommand(command);
-
-        } else if (this.isCommand(command, "deadline")) {
-            return new DeadlineCommand(command);
-
-        } else if (this.isCommand(command, "event")) {
-            return new EventCommand(command);
-
-        } else if (this.isCommand(command, "find")) {
-            return new FindCommand(command);
-        } else {
-            throw new BrockException("Invalid command!");
-        }
+        // CHECKSTYLE.OFF: Indentation
+        return switch (commandType) {
+            case "bye" -> new ByeCommand(command);
+            case "list" -> new ListCommand(command);
+            case "mark" -> new MarkCommand(command);
+            case "unmark" -> new UnmarkCommand(command);
+            case "delete" -> new DeleteCommand(command);
+            case "todo" -> new TodoCommand(command);
+            case "deadline" -> new DeadlineCommand(command);
+            case "event" -> new EventCommand(command);
+            case "find" -> new FindCommand(command);
+            default -> throw new BrockException("Invalid command!");
+        };
+        // CHECKSTYLE.ON: Indentation
     }
 }

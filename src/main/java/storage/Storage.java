@@ -19,6 +19,8 @@ import task.ToDo;
 /**
  * Class to create, and interact with save file.
  */
+// TODO May want to extract out toDo storage, event storage and deadline storage (so this class doesnt get soo long)
+    // Inherit from Storage (Abstract Base Class)
 public class Storage {
     private static final String FILE_PATH = "./src/main/java/data/saveFile.txt";
     private static final File SAVE_FILE = new File(FILE_PATH);
