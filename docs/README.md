@@ -1,4 +1,4 @@
-# Lolo Chatbot User Guide 🤖
+# Lolo Chatbot 🤖
 
 Welcome to **Lolo**, your friendly Java-based chatbot! Lolo helps you manage tasks with ease, offering functionalities to add, list, mark, unmark, and delete tasks. With a sleek JavaFX interface, Lolo is designed to make task management efficient and enjoyable.
 
@@ -8,35 +8,17 @@ Welcome to **Lolo**, your friendly Java-based chatbot! Lolo helps you manage tas
 - **Mark Tasks**: Track progress by marking tasks as done or not done.
 - **Delete Tasks**: Remove tasks that are no longer needed.
 - **View Tasks**: List tasks by type and view them by date.
+- **Tag Tasks**: Tag tasks by customisable attributes.
 - **Graphical User Interface**: Enjoy a modern GUI with JavaFX.
 
 ## Getting Started 🚀
 
 Follow these steps to get Lolo up and running on your local machine:
 
-### 1. Open the Project in IntelliJ IDEA 🛠️
+### 1. Download the executable JAR file (`lolo.jar`) from [here](https://github.com/chenle228/ip/releases/tag/v0.2). 🛠️
 
-1. **Open IntelliJ IDEA**: If you are not on the welcome screen, click `File > Close Project` to close any existing project.
-2. **Open the Project**: Click `Open` and select the project directory, then click `OK`.
-3. **Configure JDK**: Ensure the project is configured to use JDK 17. In the dialog, set the `Project language level` field to the SDK default option.
-4. **Accept Defaults**: If prompted, accept the default settings to complete the setup.
+### 2. Double-click the executable JAR file (`lolo.jar`) to launch 🌐
 
-### 2. Clone the Repository 🖨️
-
-Open a terminal and clone the repository using the following command:
-
-```bash
-git clone https://github.com/chenle228/ip.git
-```
-Replace your-username with your GitHub username.
-
-### 3. Run the Application 🌐
-Navigate to the project directory and run the application with Gradle:
-
-```bash
-cd ip
-./gradlew run
-```
 ## User Guide 🛠️
 
 ### 1. **Add a ToDo Task** 📝
