@@ -1,8 +1,8 @@
 package tayoo;
 
 import tayoo.command.ExitCommand;
-import tayoo.exception.ParserException;
 import org.junit.jupiter.api.Test;
+import tayoo.exception.TayooException;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,7 +20,7 @@ public class ParserTest {
 
     @Test
     public void parseCommand_unknownCommand_failure() throws Exception {
-        assertThrows(ParserException.class, () -> Parser.parseCommand("./quit"));
+        assertThrows(TayooException.class, () -> Parser.parseCommand("./quit"));
     }
 
     @Test

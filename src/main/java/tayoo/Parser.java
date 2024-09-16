@@ -20,7 +20,6 @@ import tayoo.command.ExitCommand;
 import tayoo.command.FindCommand;
 import tayoo.command.ListCommand;
 import tayoo.command.MarkTaskCommand;
-import tayoo.exception.ParserException;
 import tayoo.exception.TayooException;
 import tayoo.tasks.Deadline;
 import tayoo.tasks.Event;
@@ -34,15 +33,13 @@ import tayoo.tasks.ToDo;
 public class Parser {
 
     /**
-     * Parses the user's input. Currently utilises a series of if-else checks to correlate the user's input with any
-     * commands that have been implemented. The case of the input command is arbitrary as all commands are automatically
-     * converted to upper case. This means that if implementing any new commands, they should be in all upper case when
-     * being added to the if-else chain.
+     * Parses the user's input. The case of the input command is arbitrary as all commands are automatically
+     * converted to upper case.
      *
      * @param command The user's input in a String format. The command should start with a substring representing the
-     * type of command,
+     * type of command.
      * @return An object that is a subclass of the Command class.
-     * @throws ParserException if there is an error when parsing a command, either because the command is not supported,
+     * @throws TayooException if there is an error when parsing a command, either because the command is not supported,
      * or the format of the command is wrong
      */
     public static Command parseCommand(String command) throws TayooException {
@@ -145,9 +142,9 @@ public class Parser {
      *
      * @param str The string representation of any task within the tasklist.txt file
      * @return The Task that is represented by the input string
-     * @throws ParserException if there is any error while parsing, for example, an invalid task entry
+     * @throws TayooException if there is any error while parsing, for example, an invalid task entry
      */
-    public static Task parseTask(String str) throws ParserException {
+    public static Task parseTask(String str) throws TayooException {
         Scanner scanner = new Scanner(str);
         scanner.useDelimiter("\\|");
         boolean isComplete;
@@ -181,7 +178,7 @@ public class Parser {
         default:
             //should not ever reach here
             scanner.close();
-            throw new ParserException("Reached end of parse task. Invalid task type: " + task);
+            throw new TayooException("Reached end of parse task. Invalid task type: " + task);
         }
     }
 
@@ -244,7 +241,7 @@ public class Parser {
      * @param tasklist The tasklist to be iterated through
      * @return A list of tasks which contains the input string as a substring in the title
      */
-    static List<Task> findTaskInTasklist(String input, List<? extends Task> tasklist) {
+    public static List<Task> findTaskInTasklist(String input, List<? extends Task> tasklist) {
         String toCheck = input.toUpperCase();
         List<Task> toReturn = new ArrayList<>();
         int length = tasklist.size();

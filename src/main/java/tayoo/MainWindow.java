@@ -26,6 +26,9 @@ public class MainWindow extends AnchorPane{
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image tayooImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -47,7 +50,7 @@ public class MainWindow extends AnchorPane{
         System.out.println(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, tayooImage)
+                DialogBox.getTayooDialog(response, tayooImage)
         );
         userInput.clear();
         if (tayoo.getIsExit()) {

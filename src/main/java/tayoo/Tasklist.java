@@ -8,7 +8,11 @@ import tayoo.tasks.Task;
 //Contains the digital tasklist that is used by the Tayoo chatbot while the bot is running.
 public class Tasklist {
 
+    /**
+     * Defines the maximum capacity of the tasklist.
+     */
     public static final int MAXIMUM_CAPACITY = 100;
+
     /**
      * The list of tasks in the task manager. Variable is final because it should not be reassigned to another value.
      * The capacity of the tasklist should not exceed 100 tasks.
@@ -146,8 +150,15 @@ public class Tasklist {
         return tasklistArray.get(taskNumber).toString();
     }
 
-    public String find(String input) {
-        List<Task> foundList = Parser.findTaskInTasklist(input, this.tasklistArray);
+    /**
+     * For a given input, finds and returns all tasks with the input as a substring within the title/description of the
+     * task. The tasks are displayed with each task on a new line.
+     *
+     * @param substring the substring to be searched for within
+     * @return the tasks with the substring inside their title/description compiled into a single string
+     */
+    public String find(String substring) {
+        List<Task> foundList = Parser.findTaskInTasklist(substring, this.tasklistArray);
 
         if (!foundList.isEmpty()) {
             int length = foundList.size();
@@ -158,6 +169,22 @@ public class Tasklist {
             return toReturn.toString();
         }
         return "";
+    }
+
+    /**
+     * Returns the number of tasks left in the tasklistArray
+     *
+     * @return String representation of the number of tasks left in the tasklistArray
+     */
+    public String numberOfTasksLeft() {
+        StringBuilder toReturn = new StringBuilder();
+        int tasklistSize = tasklistArray.size();
+        if (tasklistSize > 1) {
+            toReturn.append("\n Now you have ").append(tasklistSize).append(" tasks in your list");
+        } else {
+            toReturn.append("\n Now you have ").append(tasklistSize).append(" task in your list");
+        }
+        return toReturn.toString();
     }
 
 

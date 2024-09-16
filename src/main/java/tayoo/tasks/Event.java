@@ -1,6 +1,5 @@
 package tayoo.tasks;
 
-import tayoo.Tayoo;
 import tayoo.Parser;
 import tayoo.exception.TayooException;
 
@@ -16,12 +15,13 @@ public class Event extends Task {
     private final TemporalAccessor eventEnd;
 
     /**
-     * Constructs a new 'Event' object which can be added to Tayoo's list. Event is defined as a task
-     * with a start and end date/time
+     * Constructs a new 'Event' object which can be added to Tayoo's list. Event is defined as a task with a start and
+     * end date/time.
      *
      * @param title title of the event
      * @param start start date/time of the event
      * @param end end date/time of the event
+     * @param completed whether the event has been completed or not
      */
     public Event(String title, String start, String end, boolean completed) {
         super(title, completed);
@@ -31,6 +31,14 @@ public class Event extends Task {
         this.eventEndStr = end;
     }
 
+    /**
+     * Constructs a new 'Event' object which can be added to Tayoo's list. Event is defined as a task with a start and
+     * end date/time. Assumes the event has not been completed.
+     *
+     * @param title title of the event
+     * @param start start date/time of the event
+     * @param end end date/time of the event
+     */
     public Event(String title, String start, String end) {
         super(title);
         this.eventStart = Parser.parseDateTime(start);

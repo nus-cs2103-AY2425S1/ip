@@ -21,13 +21,10 @@ public class Ui {
         return "Hello! I'm " + this.botname + "\nAt your service! O7";
     }
 
-
     /**
      * Prints out the welcome default message of the chatbot.
-     *
      */
     public void showWelcome() {
-        //Introduce self
         printText(getWelcomeMessage());
     }
 

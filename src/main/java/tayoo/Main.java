@@ -15,6 +15,10 @@ public class Main extends Application {
 
     private Tayoo tayoo = new Tayoo();
 
+    /**
+     * Sets the scene of the GUI.
+     * @param stage the stage on which to set the scene for the GUI.
+     */
     @Override
     public void start(Stage stage) {
         try {

@@ -9,13 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import tayoo.exception.AddTxtException;
-import tayoo.exception.DeleteTxtException;
-import tayoo.exception.ParserException;
 import tayoo.exception.TayooException;
-import tayoo.exception.UpdateTxtException;
 import tayoo.tasks.Task;
 
 /**
@@ -46,39 +41,17 @@ public class Storage {
      *
      * @param taskNumber The zero-based index of the task in the TASKLIST whose completion is to be updated
      * @param isCompleted {@code true} if the task is completed, {@code false} if the task is not yet completed.
-     * @throws UpdateTxtException if the tasklist.txt file cannot be found, read, or updated successfully.
+     * @throws TayooException if the tasklist.txt file cannot be found, read, or updated successfully.
      */
-    public void updateTxt(int taskNumber, boolean isCompleted) throws UpdateTxtException {
-        List<String> lines = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            throw new UpdateTxtException("Cannot find tasklist.txt");
-        } catch (IOException e) {
-            throw new UpdateTxtException("An error occurred while reading the file");
-        }
+    public void updateTxt(int taskNumber, boolean isCompleted) throws TayooException {
+        List<String> lines = readFromTaskList();;
 
         String line = lines.get(taskNumber);
         String[] parts = line.split(" \\| ");
         parts[1] = Boolean.toString(isCompleted);
         lines.set(taskNumber, String.join(" | ", parts));
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
-            for (String updatedLine : lines) {
-                writer.write(updatedLine);
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            throw new UpdateTxtException("An error occurred while updating the task");
-        }
+        writeToTaskList(lines);
     }
 
     /**
@@ -91,24 +64,12 @@ public class Storage {
      * were no tasks found in the tasklist.txt file.
      * @throws TayooException if there was no tasklist.txt file found
      */
-    public List<Task> readTxt() throws TayooException {
+    public List<Task> returnTaskListFromTxt() throws TayooException {
         File f = new File(TASKLIST_FILEPATH);
-        List<Task> taskArray = new ArrayList<>();
-        try {
-            Scanner s = new Scanner(f);
-            while (s.hasNextLine()) {
-                try {
-                    //read file and add task to taskArray
-                    String taskStr = s.nextLine();
-                    Task taskToAdd = Parser.parseTask(taskStr);
-                    taskArray.add(taskToAdd);
-                } catch (ParserException e) {
-                    return null;
-                }
-            }
-            s.close();
-        } catch (FileNotFoundException e) {
-            throw new TayooException("Could not find .txt file during init");
+        List<String> lines = readFromTaskList();;
+        List<Task> taskArray= new ArrayList<>();
+        for (String taskString: lines) {
+            taskArray.add(Parser.parseTask(taskString));
         }
         return taskArray;
     }
@@ -119,35 +80,12 @@ public class Storage {
      * line, then writes the updated content back into the file.
      *
      * @param taskNumber the zero-based index of the task that is to be deleted within the tasklist.txt.
-     * @throws DeleteTxtException if tasklist.txt file could not be found, read or updated successfully.
+     * @throws TayooException if tasklist.txt file could not be found, read or updated successfully.
      */
-    public void deleteTxt(int taskNumber) throws DeleteTxtException {
-        List<String> lines = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            throw new DeleteTxtException("Cannot find tasklist.txt");
-        } catch (IOException e) {
-            throw new DeleteTxtException("An error occurred while reading the file");
-        }
-
+    public void deleteTxt(int taskNumber) throws TayooException {
+        List<String> lines = readFromTaskList();
         lines.remove(taskNumber);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
-            for (String updatedLine : lines) {
-                writer.write(updatedLine);
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            throw new DeleteTxtException("An error occurred while deleting the task");
-        }
+        writeToTaskList(lines);
     }
 
     /**
@@ -156,10 +94,31 @@ public class Storage {
      * added, then writes the updated content back into the file.
      *
      * @param taskToAdd the Task that is to be added to the tasklist.txt file
-     * @throws AddTxtException if the tasklist.txt file could not be found, read or updated successfully
+     * @throws TayooException if the tasklist.txt file could not be found, read or updated successfully
      */
-    public void addToTxt(Task taskToAdd) throws AddTxtException {
-        List<String> lines = new ArrayList<>();
+    public void addToTxt(Task taskToAdd) throws TayooException {
+        List<String> lines = readFromTaskList();
+        lines.add(taskToAdd.toTxt());
+        writeToTaskList(lines);
+    }
+
+    /**
+     * Attempts to create a new tasklist, returns true if a new file is created and false if not.
+     *
+     * @return true if a new tasklist has been created, false if not
+     * @throws TayooException if an IOException occurs during the creation of the file.
+     */
+    public boolean createTxt() throws TayooException {
+        File f = new File(TASKLIST_FILEPATH);
+        try {
+            return f.createNewFile();
+        } catch (IOException e) {
+            throw new TayooException("An IOexception occurred while creating .txt file");
+        }
+    }
+
+    private ArrayList<String> readFromTaskList() throws TayooException{
+        ArrayList<String> lines = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
             String line;
@@ -167,17 +126,17 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
             }
+
             reader.close();
         } catch (FileNotFoundException e) {
-            throw new AddTxtException("Cannot find tasklist.txt");
+            throw new TayooException("Cannot find tasklist.txt");
         } catch (IOException e) {
-            throw new AddTxtException("An error occurred while reading the file");
+            throw new TayooException("Invalid input while reading the file");
         }
-        try {
-            lines.add(taskToAdd.toTxt());
-        } catch (TayooException e) {
-            throw new AddTxtException(e.getMessage());
-        }
+        return lines;
+    }
+
+    private void writeToTaskList(List<? extends String> lines) throws TayooException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
             for (String updatedLine : lines) {
@@ -186,16 +145,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new AddTxtException("An error occurred while deleting the task");
-        }
-    }
-
-    public boolean createTxt() throws TayooException {
-        File f = new File(TASKLIST_FILEPATH);
-        try {
-            return f.createNewFile();
-        } catch (IOException e) {
-            throw new TayooException("An IOexception occurred while creating .txt file");
+            throw new TayooException("An error occurred while writing the task");
         }
     }
 
