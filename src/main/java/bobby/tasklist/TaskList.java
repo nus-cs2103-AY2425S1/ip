@@ -2,10 +2,7 @@ package bobby.tasklist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-import bobby.exceptions.InvalidInputException;
 import bobby.exceptions.InvalidTaskException;
 import bobby.exceptions.InvalidTaskNumberException;
 import bobby.tasks.Deadline;
@@ -159,81 +156,68 @@ public class TaskList {
     }
 
     /**
-     * Marks or unmarks multiple tasks based on the provided indices.
+     * Retrieves tasks based on the provided array of string indices.
      *
-     * @param isMarking a boolean indicating whether to mark (true) or unmark (false) the tasks
-     * @param args a variable number of task indices to be marked or unmarked
-     * @return an ArrayList of tasks that were marked or unmarked
-     * @throws InvalidInputException if the input indices are not valid integers
-     * @throws InvalidTaskNumberException if a task index is out of bounds
+     * @param indices The array of string indices for tasks to retrieve.
+     * @return An {@code ArrayList} of tasks corresponding to the provided indices.
+     * @throws InvalidTaskNumberException if any index is invalid or out of bounds.
      */
-    public ArrayList<Task> markMultipleTasks(boolean isMarking, String... args)
-            throws InvalidInputException, InvalidTaskNumberException {
-        ArrayList<Task> processedTasks = new ArrayList<>();
-        for (int i = 0; i < args.length; i++) {
+    public ArrayList<Task> getTasksFromIndices(String[] indices) throws InvalidTaskNumberException {
+        ArrayList<Task> tasksFromIndices = new ArrayList<>();
+
+        for (String indexStr : indices) {
             try {
-                int index = Integer.parseInt(args[i]) - 1;
-                Task task = tasks.get(index);
-                if (isMarking) {
-                    task.markTask();
-                } else {
-                    task.unmarkTask();
-                }
-                processedTasks.add(task); // Collect the processed task
+                int index = Integer.parseInt(indexStr.trim()) - 1;
+                Task task = get(index);
+                tasksFromIndices.add(task);
+
             } catch (NumberFormatException e) {
-                throw new InvalidInputException();
-            } catch (IndexOutOfBoundsException e) {
                 throw new InvalidTaskNumberException();
             }
         }
-        return processedTasks;
+
+        return tasksFromIndices;
     }
 
     /**
-     * Deletes multiple tasks from the task list based on the provided indices.
-     * The method processes each index provided in the arguments, removes the corresponding task from the list,
-     * and collects the removed tasks in an {@code ArrayList}.
-     * <p>
-     * If an index is invalid (either non-numeric or out of range), appropriate exceptions are thrown:
-     * {@code InvalidInputException} for non-numeric indices,
-     * and {@code InvalidTaskNumberException} for out-of-range indices.
-     * </p>
+     * Marks or unmarks multiple tasks based on the provided indices.
      *
-     * @param args A variable number of string arguments where each string represents
-     *             an index of the task to be deleted.
-     * @return An {@code ArrayList} of {@code Task} objects that were removed from the task list.
-     * @throws InvalidInputException if any of the arguments cannot be parsed as a valid integer.
-     * @throws InvalidTaskNumberException if any of the indices are out of the valid range of the task list.
+     * @param isMarking a boolean indicating whether to mark (true) or unmark (false) the tasks
+     * @param tasksToHandle an ArrayList of tasks to be marked or unmarked
      */
-    public ArrayList<Task> deleteMultipleTasks(String... args)
-            throws InvalidInputException, InvalidTaskNumberException {
-        ArrayList<Task> processedTasks = new ArrayList<>();
-        List<Integer> indices = new ArrayList<>();
-        // Parse and collect indices
-        for (String arg : args) {
-            try {
-                int index = Integer.parseInt(arg) - 1; // Convert to 0-based index
-                if (index < 0) {
-                    throw new InvalidInputException(); // Index must be non-negative
-                }
-                indices.add(index);
-            } catch (NumberFormatException e) {
-                throw new InvalidInputException();
+    public void markMultipleTasks(boolean isMarking, ArrayList<Task> tasksToHandle) {
+        for (Task task : tasksToHandle) {
+            if (isMarking) {
+                task.markTask();
+            } else {
+                task.unmarkTask();
+            }
+        }
+    }
+
+    /**
+     * Deletes multiple tasks from the task list.
+     * The tasks to be deleted are provided in the form of an {@code ArrayList}.
+     * If a task does not exist in the list, it will be skipped.
+     *
+     * @param tasksToDelete the {@code ArrayList} of tasks to delete
+     */
+    public void deleteMultipleTasks(ArrayList<Task> tasksToDelete) {
+        ArrayList<Integer> indicesToRemove = new ArrayList<>();
+
+        for (Task taskToDelete : tasksToDelete) {
+            int index = tasks.indexOf(taskToDelete);
+            if (index != -1) {
+                indicesToRemove.add(index);
             }
         }
 
-        // Sort indices in descending order to prevent shifting issues
-        Collections.sort(indices, Collections.reverseOrder());
+        // Sort the indices in reverse order to avoid shifting issues while removing
+        indicesToRemove.sort((a, b) -> b - a);
 
-
-        for (int index : indices) {
-            try {
-                Task removedTask = this.remove(index);
-                processedTasks.add(removedTask); // Collect the processed task
-            } catch (IndexOutOfBoundsException e) {
-                throw new InvalidTaskNumberException();
-            }
+        // Remove tasks by their indices
+        for (int index : indicesToRemove) {
+            tasks.remove(index);
         }
-        return processedTasks;
     }
 }

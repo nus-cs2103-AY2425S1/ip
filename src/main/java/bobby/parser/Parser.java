@@ -3,17 +3,24 @@ package bobby.parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
+import bobby.command.AddTaskCommand;
+import bobby.command.ByeCommand;
 import bobby.command.Command;
+import bobby.command.CommandEnum;
+import bobby.command.DeleteTasksCommand;
+import bobby.command.FindTasksCommand;
+import bobby.command.ListCommand;
+import bobby.command.MarkTasksCommand;
+import bobby.command.SearchDateCommand;
+import bobby.command.UnmarkTasksCommand;
 import bobby.exceptions.BobbyException;
 import bobby.exceptions.EmptyDeadlineException;
 import bobby.exceptions.EmptyEventException;
 import bobby.exceptions.EmptyTodoException;
 import bobby.exceptions.InvalidDateException;
 import bobby.exceptions.InvalidInputException;
-import bobby.tasklist.TaskList;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
 import bobby.tasks.Task;
@@ -45,17 +52,16 @@ public class Parser {
      *
      * @param userInput the input string from the user
      * @return the {@code Command} enum constant corresponding to the user's input
-     * @see Command#fromString(String)
+     * @see CommandEnum#fromString(String)
      */
-    public Command parseCommand(String userInput) {
-        return Command.fromString(userInput);
+    public CommandEnum parseCommand(String userInput) {
+        return CommandEnum.fromString(userInput);
     }
 
     /**
      * Parses the user input and returns an array containing the task indices.
      * This method splits the input string by spaces and returns the arguments
      * starting from the second position onward, excluding the command keyword.
-     *
      * For example, if the input is "mark 1 2 3", this method will return
      * an array containing ["1", "2", "3"].
      *
@@ -106,18 +112,85 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a {@code Todo} task based on the provided user input.
+     *
+     * @param userInput The user's input in the form of "todo {description}".
+     * @return A {@code Todo} task.
+     * @throws EmptyTodoException If the description of the todo task is empty.
+     */
+    public Task createTodo(String userInput) throws EmptyTodoException {
+        if (userInput.length() <= 5 || userInput.substring(5).trim().isEmpty()) {
+            throw new EmptyTodoException();
+        }
+
+        // Extract the description after "todo " and trim any leading or trailing spaces
+        String description = userInput.substring(5).trim();
+        return new Todo(description);
+    }
 
     /**
-     * Parses the "finddate" or "findkey" command and extracts the search criteria from the user input.
+     * Creates a {@code Deadline} task based on the provided user input.
      *
-     * @param userInput The input string from the user, expected to start with "searchdate " or "find ".
-     * @param tasks The {@code TaskList} containing the tasks to search.
-     * @return An {@code ArrayList} of {@code Task} objects that match the search criteria.
-     * @throws InvalidDateException if the argument is invalid as a date format.
-     * @throws InvalidInputException if the argument is invalid and cannot be parsed as a keyword.
+     * @param userInput The user's input in the form of "deadline {description} /by {yyyy-MM-dd}".
+     * @return A {@code Deadline} task.
+     * @throws EmptyDeadlineException If the description or deadline date is missing.
+     * @throws InvalidDateException If the provided deadline date format is invalid.
      */
-    public ArrayList<Task> parseFindCommand(String userInput, TaskList tasks)
-            throws InvalidDateException, InvalidInputException {
+    public Task createDeadline(String userInput) throws EmptyDeadlineException, InvalidDateException {
+        if (userInput.length() <= 9) {
+            throw new EmptyDeadlineException(); // No description provided
+        }
+        String[] parts = userInput.substring(9).split(" /by ");
+        if (parts.length < 2) {
+            throw new EmptyDeadlineException();
+        }
+        String description = parts[0];
+        String byString = parts[1];
+        try {
+            LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return new Deadline(description, by);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+    }
+
+    /**
+     * Creates an {@code Event} task based on the provided user input.
+     *
+     * @param userInput The user's input in the form of "event {description} /from {yyyy-MM-dd} /to {yyyy-MM-dd}".
+     * @return An {@code Event} task.
+     * @throws EmptyEventException If the description, start date, or end date is missing.
+     * @throws InvalidDateException If the provided date format is invalid.
+     */
+    public Task createEvent(String userInput) throws EmptyEventException, InvalidDateException {
+        if (userInput.length() <= 6) {
+            throw new EmptyEventException();
+        }
+        String[] parts = userInput.substring(6).split(" /from | /to ");
+        if (parts.length < 3) {
+            throw new EmptyEventException();
+        }
+        String description = parts[0];
+        String fromString = parts[1];
+        String toString = parts[2];
+        try {
+            LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return new Event(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+    }
+
+    /**
+     * Extracts the keyword for searching tasks from the user input.
+     *
+     * @param userInput The user's input in the form of "find {keyword}" or "searchdate {yyyy-MM-dd}".
+     * @return The keyword or date string to be used in the search.
+     * @throws InvalidInputException If the input is invalid or the keyword is missing.
+     */
+    public String findKeyword(String userInput) throws InvalidInputException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
             throw new InvalidInputException();
@@ -126,71 +199,44 @@ public class Parser {
         String argument = parts[1].trim(); // Extract the argument after "searchdate " or "find "
         assert command.equalsIgnoreCase("searchdate")
                 || command.equalsIgnoreCase("find") : "Invalid command: " + command;
-        if (command.equalsIgnoreCase("searchdate")) {
-            LocalDate date = parseDate(argument);
-            return tasks.findTasksByDate(date);
-        } else if (command.equalsIgnoreCase("find")) {
-            return tasks.findTasksByKeyword(argument);
-        } else {
-            throw new InvalidInputException();
-        }
+        return argument;
     }
 
     /**
-     * Parses the user's input to create a specific type of {@code Task}.
-     * This method interprets the input string provided by the user and creates
-     * an appropriate {@code Task} object (e.g., {@code Todo}, {@code Deadline}, or {@code Event}).
-     * It throws specific exceptions if the input is malformed or missing necessary parts.
+     * Extracts and parses a date from the user input for the search date command.
      *
-     * @param userInput the input string from the user describing the task
-     * @return a {@code Task} object that represents the user's input
-     * @throws BobbyException if the user's input is invalid or incomplete, causing
-     *                        one of several possible exceptions:
-     *                <ul>
-     *                  <li>{@code EmptyTodoException} if the description for a "todo" is empty.</li>
-     *                  <li>{@code EmptyDeadlineException} if the "deadline" input is missing parts or malformed.</li>
-     *                  <li>{@code EmptyEventException} if the "event" input is missing parts or malformed.</li>
-     *                  <li>{@code InvalidDateException} if the date format is incorrect.</li>
-     *                  <li>{@code InvalidInputException} if the input does not match any recognized command.</li>
-     *                </ul>
+     * @param userInput The user's input in the form of "searchdate {yyyy-MM-dd}".
+     * @return The {@code LocalDate} object representing the date.
+     * @throws InvalidDateException If the provided date format is invalid.
+     * @throws InvalidInputException If the date is missing in the input.
      */
-    public Task parseTask(String userInput) throws BobbyException {
-        if (userInput.startsWith("todo ")) {
-            String description = userInput.substring(5).trim();
-            if (description.isEmpty()) {
-                throw new EmptyTodoException();
-            }
-            return new Todo(description);
-        } else if (userInput.startsWith("deadline ")) {
-            String[] parts = userInput.substring(9).split(" /by ");
-            if (parts.length < 2) {
-                throw new EmptyDeadlineException();
-            }
-            String description = parts[0];
-            String byString = parts[1];
-            try {
-                LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                return new Deadline(description, by);
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateException();
-            }
-        } else if (userInput.startsWith("event ")) {
-            String[] parts = userInput.substring(6).split(" /from | /to ");
-            if (parts.length < 3) {
-                throw new EmptyEventException();
-            }
-            String description = parts[0];
-            String fromString = parts[1];
-            String toString = parts[2];
-            try {
-                LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                return new Event(description, from, to);
-            } catch (DateTimeParseException e) {
-                throw new InvalidDateException();
-            }
-        } else {
-            throw new InvalidInputException();
-        }
+    public LocalDate findDate(String userInput) throws InvalidDateException, InvalidInputException {
+        String arg = findKeyword(userInput);
+        return parseDate(arg);
+    }
+
+    /**
+     * Parses the user input and returns the corresponding {@code Command} object.
+     *
+     * @param userInput The user's input string representing a command.
+     * @return A {@code Command} object based on the user's input.
+     * @throws BobbyException If the user input is invalid or does not match any command.
+     */
+    public Command parseUserCommand(String userInput) throws BobbyException {
+        CommandEnum commandEnum = CommandEnum.fromString(userInput);
+        Command command = switch (commandEnum) {
+        case BYE -> new ByeCommand();
+        case LIST -> new ListCommand();
+        case MARK -> new MarkTasksCommand(parseTaskIndices(userInput));
+        case UNMARK -> new UnmarkTasksCommand(parseTaskIndices(userInput));
+        case DELETE -> new DeleteTasksCommand(parseTaskIndices(userInput));
+        case TODO -> new AddTaskCommand(createTodo(userInput));
+        case DEADLINE -> new AddTaskCommand(createDeadline(userInput));
+        case EVENT -> new AddTaskCommand(createEvent(userInput));
+        case FIND -> new FindTasksCommand(findKeyword(userInput));
+        case SEARCHDATE -> new SearchDateCommand(findDate(userInput));
+        default -> throw new InvalidInputException();
+        };
+        return command;
     }
 }
