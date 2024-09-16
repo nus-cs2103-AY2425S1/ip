@@ -43,6 +43,9 @@ public class DeadlineCommand extends Command {
             throw new SigmaException(missingDeadlineMessage);
         }
         LocalDateTime dateTime = Parser.parseLocalDateTime(deadlineSplit[1]);
+        if (dateTime.isBefore(LocalDateTime.now())) {
+            throw new SigmaException("What the sigma? Your start time is in the past!");
+        }
         DeadlineTask deadlineTask = new DeadlineTask(deadlineSplit[0], dateTime);
         tasks.add(deadlineTask);
         return "Wow! Keeping yourself busy! Added: \n" + deadlineTask
