@@ -1,6 +1,6 @@
 # Schedulo User Guide
 
-(Screenshot coming soon)
+![User Interface](https://lavanyagarg112.github.io/ip/Ui.png)
 
 ## Introduction
 
