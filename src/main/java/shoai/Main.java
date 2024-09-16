@@ -25,11 +25,18 @@ public class Main extends Application {
             // Add the CSS file to the scene
             scene.getStylesheets().add(getClass().getResource("/view/styles.css").toExternalForm());
 
-            // Set the scene to the stage and show it
+            // Set the scene to the stage
             stage.setScene(scene);
+
+            // Set the title of the stage
+            stage.setTitle("ShoAI");
+
+            // Show the stage
+            stage.show();
+
+            // Inject the chatbot instance into the controller
             MainWindow controller = fxmlLoader.getController();
             controller.setChatbot(chatbot);  // Inject the chatbot instance
-            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
