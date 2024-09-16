@@ -160,6 +160,8 @@ public class Tasklist {
     public String find(String substring) {
         List<Task> foundList = Parser.findTaskInTasklist(substring, this.tasklistArray);
 
+        assert !substring.isEmpty() : "Substring should not be empty";
+
         if (!foundList.isEmpty()) {
             int length = foundList.size();
             StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list: \n");

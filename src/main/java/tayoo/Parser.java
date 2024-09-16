@@ -49,19 +49,19 @@ public class Parser {
 
         switch (commandType) {
         case TODO:
-            return new AddTaskCommand(new ToDo(inputParts[1]));
+            return parseToDo(inputParts);
         case DEADLINE:
-            return parseDeadline(inputParts[1].trim());
+            return parseDeadline(inputParts);
         case EVENT:
-            return parseEvent(inputParts[1].trim());
+            return parseEvent(inputParts);
         case MARK:
-            return parseMark(inputParts[1].trim(), true);
+            return parseMark(inputParts, true);
         case UNMARK:
-            return parseMark(inputParts[1].trim(), false);
+            return parseMark(inputParts, false);
         case FIND:
-            return new FindCommand(inputParts[1].trim());
+            return parseFind(inputParts);
         case DELETE:
-            return parseDelete(inputParts[1].trim());
+            return parseDelete(inputParts);
         case LIST:
             return new ListCommand();
         case EXIT:
@@ -71,8 +71,16 @@ public class Parser {
         }
     }
 
-    private static Command parseDeadline(String inputPart) {
-        String[] deadlineParts = inputPart.split("(?i)/by", 2);
+    private static Command parseToDo(String[] inputParts) {
+        assert inputParts.length == 2: "Todo command must have title";
+
+        return new AddTaskCommand(new ToDo(inputParts[1]));
+    }
+
+    private static Command parseDeadline(String[] inputParts) {
+        assert inputParts.length == 2: "Deadline command must have title and deadline";
+
+        String[] deadlineParts = inputParts[1].split("(?i)/by", 2);
 
         assert deadlineParts.length == 2 : "Input should have title and deadline";
 
@@ -81,8 +89,10 @@ public class Parser {
         return new AddTaskCommand(new Deadline(title, deadline));
     }
 
-    private static Command parseEvent(String inputPart) {
-        String[] eventParts = inputPart.split("(?i)/to|/from", 3);
+    private static Command parseEvent(String[] inputParts) {
+        assert inputParts.length == 2: "Event command must have title, from and to";
+
+        String[] eventParts = inputParts[1].split("(?i)/to|/from", 3);
 
         assert eventParts.length == 3 : "Input should have title, start and end";
 
@@ -92,8 +102,10 @@ public class Parser {
         return new AddTaskCommand(new Event(title, start, end));
     }
 
-    private static Command parseDelete(String inputPart) throws TayooException{
-        String[] deleteIndicesArray = inputPart.split("\\s");
+    private static Command parseDelete(String[] inputParts) throws TayooException{
+        assert inputParts.length == 2: "Delete command should be followed be either an index or \"all\"";
+
+        String[] deleteIndicesArray = inputParts[1].split("\\s");
 
         if (deleteIndicesArray[0].equalsIgnoreCase("ALL")) {
             if (deleteIndicesArray.length == 1) {
@@ -115,8 +127,10 @@ public class Parser {
 
         return new DeleteTaskCommand(deleteIndicesList);
     }
-    private static Command parseMark(String inputPart, boolean isComplete) throws TayooException{
-        String[] markIndicesArray = inputPart.split("\\s");
+    private static Command parseMark(String[] inputParts, boolean isComplete) throws TayooException{
+        assert inputParts.length == 2: "Mark command must have one or more indices";
+
+        String[] markIndicesArray = inputParts[1].split("\\s");
         List<Integer> markIndicesList= new ArrayList<>();
 
         for (String index : markIndicesArray) {
@@ -128,6 +142,12 @@ public class Parser {
         }
 
         return new MarkTaskCommand(markIndicesList, isComplete);
+    }
+
+    private static Command parseFind(String[] inputParts) {
+        assert inputParts.length == 2 : "Find command must include substring to look for";
+
+        return new FindCommand(inputParts[1]);
     }
 
 
