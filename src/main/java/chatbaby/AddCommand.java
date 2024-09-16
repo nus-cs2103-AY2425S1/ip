@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 public class AddCommand extends Command {
     private static final int VALIDPARTSNUM = 2;
     private int prefixLength;
-    private TaskType type;
+    private final TaskType type;
 
     /**
      * Constructs an AddCommand with the given command body and task type.
@@ -50,46 +50,72 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
         Task newTask;
         switch (type) {
-        case TODO -> newTask = new ToDo(commandBody);
-        case DEADLINE -> {
-            String[] deadlineParts = commandBody.split("/by ");
-            if (deadlineParts.length != VALIDPARTSNUM) {
-                throw new ChatBabyException("Oh no!!! The description of this "
-                        + type.name().toLowerCase() + " cannot be empty.");
-            }
-            try {
-                String taskDescription = deadlineParts[0].trim();
-                String deadline = deadlineParts[1].trim();
-                newTask = new Deadline(taskDescription, deadline);
-            } catch (DateTimeParseException e) {
-                throw new ChatBabyException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
-            }
-        }
-        case EVENT -> {
-            String[] eventParts = commandBody.split("/from ");
-            if (eventParts.length != VALIDPARTSNUM) {
-                throw new ChatBabyException("Oh no!!! The description of this "
-                        + type.name().toLowerCase() + " cannot be empty.");
-            }
-            String name = eventParts[0].trim();
-            String[] eventTimes = eventParts[1].split("/to ");
-            if (eventTimes.length != VALIDPARTSNUM) {
-                throw new ChatBabyException("Oh no!!! The time of this "
-                        + type.name().toLowerCase() + " is invalid.");
-            }
-            try {
-                String from = eventTimes[0].trim();
-                String to = eventTimes[1].trim();
-                newTask = new Event(name, from, to);
-            } catch (DateTimeParseException e) {
-                throw new ChatBabyException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
-            }
-        }
+        case TODO -> newTask = createToDo();
+        case DEADLINE -> newTask = createDeadline();
+        case EVENT -> newTask = createEvent();
         default -> throw new ChatBabyException("Oh no!!! I'm sorry, but I don't understand that command.");
         }
         tasks.addTask(newTask);
         System.out.println("Got it. I've added this task:\n"
                 + newTask + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    /**
+     * Creates a ToDo task from the command body.
+     *
+     * @return The newly created ToDo task.
+     * @throws ChatBabyException If the description is empty.
+     */
+    private ToDo createToDo() throws ChatBabyException {
+        return new ToDo(commandBody);
+    }
+
+    /**
+     * Creates a Deadline task from the command body.
+     *
+     * @return The newly created Deadline task.
+     * @throws ChatBabyException If the description or date format is invalid.
+     */
+    private Deadline createDeadline() throws ChatBabyException {
+        String[] deadlineParts = commandBody.split("/by ");
+        if (deadlineParts.length != VALIDPARTSNUM) {
+            throw new ChatBabyException("Oh no!!! The description of this "
+                    + type.name().toLowerCase() + " cannot be empty.");
+        }
+        try {
+            String taskDescription = deadlineParts[0].trim();
+            String deadline = deadlineParts[1].trim();
+            return new Deadline(taskDescription, deadline);
+        } catch (DateTimeParseException e) {
+            throw new ChatBabyException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+        }
+    }
+
+    /**
+     * Creates an Event task from the command body.
+     *
+     * @return The newly created Event task.
+     * @throws ChatBabyException If the description or time format is invalid.
+     */
+    private Event createEvent() throws ChatBabyException {
+        String[] eventParts = commandBody.split("/from ");
+        if (eventParts.length != VALIDPARTSNUM) {
+            throw new ChatBabyException("Oh no!!! The description of this "
+                    + type.name().toLowerCase() + " cannot be empty.");
+        }
+        String name = eventParts[0].trim();
+        String[] eventTimes = eventParts[1].split("/to ");
+        if (eventTimes.length != VALIDPARTSNUM) {
+            throw new ChatBabyException("Oh no!!! The time of this "
+                    + type.name().toLowerCase() + " is invalid.");
+        }
+        try {
+            String from = eventTimes[0].trim();
+            String to = eventTimes[1].trim();
+            return new Event(name, from, to);
+        } catch (DateTimeParseException e) {
+            throw new ChatBabyException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+        }
     }
 }
