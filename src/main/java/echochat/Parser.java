@@ -14,6 +14,7 @@ public class Parser {
     public Command parse(String input) throws EmptyDescriptionError, InvalidCommandError {
         String[] parts = input.split(" ", 2);
 
+        // Assert statement here
         assert parts.length > 0 : "Input split resulted in an empty array";
 
         if (input.equals("bye")) {
