@@ -4,11 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
 import david.exceptions.DavidInvalidDateTimeException;
-
+import david.exceptions.DavidInvalidTimeException;
 
 public class DateParserTest {
 
@@ -34,7 +35,7 @@ public class DateParserTest {
     }
 
     @Test
-    public void invalidTimeExceptionThrown() {
+    public void invalidTimeFormatExceptionThrown() {
         DavidInvalidDateTimeException exception =
                 assertThrows(DavidInvalidDateTimeException.class, (
                 ) -> DateParser.getDate(" 2024-11-12 2500"));
@@ -45,6 +46,26 @@ public class DateParserTest {
                 + "is the 24 hour time.";
         assertEquals(expectedErrorMessage, exception.showErrorMessage(),
                 "Exception is thrown when time is not valid");
+    }
+
+    /**
+     * This method tests if the first time passed is before the second time passed
+     */
+    @Test
+    public void invalidTimeExceptionThrown() {
+        String formatInputPattern = "yyyy-MM-dd HHmm";
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
+        LocalDateTime t1 = LocalDateTime.parse("2023-12-01 1200", inputFormatter);
+        LocalDateTime t2 = LocalDateTime.parse("2024-12-01 1200", inputFormatter);
+
+        DavidInvalidTimeException exception =
+                assertThrows(DavidInvalidTimeException.class, (
+                ) -> DateParser.validateDateTime(t1, t2));
+        String expectedErrorMessage = "Please ensure that the time inputted is after the current time."
+                + " If you are trying to input an event task, make sure \"\\from\" field is a valid time "
+                + "before  \"\\to\" field";
+        assertEquals(expectedErrorMessage, exception.showErrorMessage(),
+                "Exception is thrown when t1 is before t2");
     }
 
     @Test
