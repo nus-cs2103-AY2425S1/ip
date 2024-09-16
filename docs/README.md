@@ -13,8 +13,8 @@ Monique is a desktop chat-bot app for managing your todo list
 This project uses Java 17. Ensure that your PC has this first
 
 ## Launching monique
-#### 1. Download the latest 'monique.jar' file linked [here](#).
-#### 2. Navigate to the folder where you downloaded the `monique.jar` file.
+#### 1. Download the latest 'Monique.jar' file linked [here](https://github.com/emmannyyy/ip/releases/download/v0.2/Monique.jar).
+#### 2. Navigate to the folder where you downloaded the `Monique.jar` file.
 #### 3. Run monique using the following command:
 ```bash
 java -jar monique.jar
