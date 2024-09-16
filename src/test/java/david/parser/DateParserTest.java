@@ -69,6 +69,23 @@ public class DateParserTest {
     }
 
     @Test
+    public void invalidTimeExceptionThrownWhenSame() {
+        String formatInputPattern = "yyyy-MM-dd HHmm";
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
+        LocalDateTime t1 = LocalDateTime.parse("2024-12-01 1200", inputFormatter);
+        LocalDateTime t2 = LocalDateTime.parse("2024-12-01 1200", inputFormatter);
+
+        DavidInvalidTimeException exception =
+                assertThrows(DavidInvalidTimeException.class, (
+                ) -> DateParser.validateDateTime(t2, t1));
+        String expectedErrorMessage = "Please ensure that the time inputted is after the current time."
+                + " If you are trying to input an event task, make sure \"\\from\" field is a valid time "
+                + "before  \"\\to\" field";
+        assertEquals(expectedErrorMessage, exception.showErrorMessage(),
+                "Exception is thrown when t1 is before t2");
+    }
+
+    @Test
     public void validTimeOutput() throws DavidInvalidTimeException {
         String formatInputPattern = "yyyy-MM-dd HHmm";
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
