@@ -55,6 +55,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getMilutrockDialog(response, milutrockImage)
         );
+
         userInput.clear();
     }
 }

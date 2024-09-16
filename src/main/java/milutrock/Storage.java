@@ -36,7 +36,8 @@ public class Storage {
         try {
             Scanner scanner = new Scanner(this.file);
             this.replayInput(scanner);
-        } catch (FileNotFoundException e) {}
+        } catch (FileNotFoundException e) {
+        }
     }
 
     /**
@@ -56,7 +57,8 @@ public class Storage {
             String input = scanner.nextLine();
             try {
                 this.parser.parseCommand(input);
-            } catch (UnknownCommandException e) {}
+            } catch (UnknownCommandException e) {
+            }
         }
     }
 }
