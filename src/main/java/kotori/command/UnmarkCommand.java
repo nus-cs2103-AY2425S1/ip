@@ -35,13 +35,21 @@ public class UnmarkCommand extends Command {
             return printMessages("Sorry~ can not unmark that task because it does not exist");
         } else {
             try {
-                taskList.unmark(index - 1);
+                taskList.unmark(modify(index));
                 this.storage.updateFile(taskList);
                 return printMessages(String.format("Alright, Job %s has been marked as not done!\n    %s",
-                        index, taskList.get(index - 1)));
+                        index, taskList.get(modify(index))));
             } catch (IncorrectStateException e) {
                 return printMessages(e.getMessage());
             }
         }
+    }
+    /**
+     * Modify the index for delete operation.
+     * @param index the index to be modified
+     * @return the modified index
+     * */
+    private int modify(int index) {
+        return index - 1;
     }
 }

@@ -36,13 +36,21 @@ public class MarkCommand extends Command {
             return printMessages("Sorry~ can not mark that task because it does not exist");
         } else {
             try {
-                taskList.mark(index - 1);
+                taskList.mark(modify(index));
                 storage.updateFile(taskList);
                 return printMessages(String.format("Nice Job, Job %s has been marked as done!\n    %s",
-                        index, taskList.get(index - 1)));
+                        index, taskList.get(modify(index))));
             } catch (IncorrectStateException e) {
                 return printMessages(e.getMessage());
             }
         }
+    }
+    /**
+     * Modify the index for delete operation.
+     * @param index the index to be modified
+     * @return the modified index
+     * */
+    private int modify(int index) {
+        return index - 1;
     }
 }
