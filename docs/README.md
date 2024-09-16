@@ -1,6 +1,6 @@
 # MonoBot User Guide
 
-![Screenshot of Ui of app](../docs/Ui.png)
+![Screenshot of Ui of app](./Ui.png)
 
 MonoBot is a graphical user interface (GUI) desktop application that helps you track your upcoming tasks
 
