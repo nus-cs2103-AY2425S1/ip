@@ -4,7 +4,7 @@
 }
 
 .text-field {
-    -fx-background-color: #ff9e9e;
+    -fx-background-color: rgb(158, 158, 158);
     -fx-font: 20px "Arial";
 }
 
