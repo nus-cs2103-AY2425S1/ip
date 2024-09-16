@@ -364,10 +364,10 @@ public class WansBot {
         case "load":
             response += storage.loadTasks(userTaskList);
             break;
-        case "findTask":
+        case "findtask":
             response += findTaskDate(userInput);
             break;
-        case "findName":
+        case "findname":
             response += findTaskName(userInput);
             break;
         case "bye":
