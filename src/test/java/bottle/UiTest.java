@@ -2,10 +2,6 @@ package bottle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,10 +17,6 @@ public class UiTest {
      * The Ui.
      */
     private Ui ui;
-    /**
-     * The Output stream.
-     */
-    private ByteArrayOutputStream outputStream;
 
     /**
      * Sets up.
@@ -32,17 +24,6 @@ public class UiTest {
     @BeforeEach
     public void setUp() {
         ui = new Ui();
-        outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-    }
-
-    /**
-     * Tear down.
-     */
-    @AfterEach
-    public void tearDown() {
-        System.setIn(System.in); // Reset System.in after the test
-        System.setOut(System.out); // Reset System.out after the test (if you modify it)
     }
 
     /**
@@ -54,12 +35,12 @@ public class UiTest {
         taskList.addTask(new Todo("Task 1"));
         taskList.addTask(new Todo("Task 2"));
         ui = new Ui();
-        ui.printTaskList(taskList);
+
         String expectedOutput =
                 "\n____________________________________________________________\n"
                         + "1. [T][ ] Task 1\n" + "2. [T][ ] Task 2\n"
-                        + "\n____________________________________________________________\n\r" + "\n";
-        assertEquals(expectedOutput, outputStream.toString());
+                        + "\n____________________________________________________________\n";
+        assertEquals(expectedOutput, ui.printTaskList(taskList));
     }
 
     /**
@@ -69,12 +50,12 @@ public class UiTest {
     public void testPrintMark() {
         Task task = new Todo("Sample Task");
         task.mark();
-        ui.printMark(task);
+
         String expectedOutput = "\n____________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
                 + "[T][X] Sample Task"
-                + "\n____________________________________________________________\n\r" + "\n";
-        assertEquals(expectedOutput, outputStream.toString());
+                + "\n____________________________________________________________\n";
+        assertEquals(expectedOutput, ui.printMark(task));
     }
 
 }

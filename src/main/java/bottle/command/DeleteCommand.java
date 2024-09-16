@@ -25,6 +25,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskIndex < taskList.getTaskList().size() : "Index is out of range!";
+        assert taskIndex >= 0 : "Index is out of range!";
         Task task = taskList.removeTask(taskIndex);
         storage.saveTasks(taskList.getTaskList());
         return ui.printDeleteMsg(taskList.getTaskList(), task);
