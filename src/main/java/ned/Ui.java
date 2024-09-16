@@ -90,7 +90,7 @@ public class Ui {
      * @param listOfTasksSize The total number of tasks after the removal.
      */
     public void removeTasksToNedDialogue(Task selectedTask, int listOfTasksSize) {
-        addToNedDialogue("Aye, I've added this task m'lord:");
+        addToNedDialogue("Aye, I've removed this task m'lord:");
         addToNedDialogue(Ui.INDENTATIONS + selectedTask);
         addToNedDialogue("Now you've " + listOfTasksSize + " tasks left. Get to it then!");
     }
