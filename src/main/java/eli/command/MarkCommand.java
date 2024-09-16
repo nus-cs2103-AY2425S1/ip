@@ -22,8 +22,12 @@ public class MarkCommand extends Command {
    */
   @Override
   public String execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
-    tasks.mark(index);
-    storage.save(tasks);
-    return Ui.displayAfterMarkTask(tasks, index);
+    try {
+      tasks.mark(index);
+      storage.save(tasks);
+      return Ui.displayAfterMarkTask(tasks, index);
+    } catch (IllegalArgumentException e) {
+      return "Error: " + e.getMessage();
+    }
   }
 }

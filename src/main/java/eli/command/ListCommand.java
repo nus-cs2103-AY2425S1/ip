@@ -16,7 +16,11 @@ public class ListCommand extends Command {
    */
   @Override
   public String execute(TaskList tasks, Ui ui, Storage storage) {
-    tasks.list();
-    return Ui.displayAfterListTask(tasks);
+    try {
+      tasks.list();
+      return Ui.displayAfterListTask(tasks);
+    } catch (IllegalArgumentException e) {
+      return "Error: " + e.getMessage();
+    }
   }
 }

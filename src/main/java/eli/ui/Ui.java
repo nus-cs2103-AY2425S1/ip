@@ -91,11 +91,11 @@ public class Ui {
   }
 
   public static String displayAfterAddTask(Task task) {
-    return "Added: " + task;
+    return "OK. I've added this task: " + task;
   }
 
   public static String displayAfterDeleteTask(Task task) {
-    return "Delete: " + task;
+    return "OK. I've removed this task: " + task;
   }
 
   public static String displayAfterMarkTask(TaskList tasklist, int taskIdx) {
@@ -109,7 +109,7 @@ public class Ui {
 
   public static String displayAfterUnmarkTask(TaskList tasklist, int taskIdx) {
     StringBuilder result = new StringBuilder();
-    result.append("Great job!\n");
+    result.append("OK, I've marked this task as not done yet.\n");
     ArrayList tasks = tasklist.getArrayList();
     result.append("   ").append(tasks.get(taskIdx - 1).toString()).append("\n");
     return result.toString();

@@ -19,8 +19,13 @@ public class UnmarkCommand extends Command {
 
   @Override
   public String execute(TaskList tasks, Ui ui, Storage storage) {
-    tasks.unmark(index);
-    storage.save(tasks);
-    return Ui.displayAfterUnmarkTask(tasks, index);
+
+    try {
+      tasks.unmark(index);
+      storage.save(tasks);
+      return Ui.displayAfterUnmarkTask(tasks, index);
+    } catch (IllegalArgumentException e) {
+      return "Error: " + e.getMessage();
+    }
   }
 }

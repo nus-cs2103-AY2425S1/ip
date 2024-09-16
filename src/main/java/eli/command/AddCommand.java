@@ -23,9 +23,14 @@ public class AddCommand extends Command {
 
   @Override
   public String execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
-    tasks.addTask(task);
-    storage.save(tasks);
-    return Ui.displayAfterAddTask(task);
-
+    //assert task != null : "Task to be added cannot be null";
+    //assert tasks.getTaskListLength() < 100 : "Task list is already full!!!";
+    try {
+      tasks.addTask(task);
+      storage.save(tasks);
+      return Ui.displayAfterAddTask(task);
+    } catch (IllegalArgumentException e) {
+      return "Error: " + e.getMessage();
+    }
   }
 }

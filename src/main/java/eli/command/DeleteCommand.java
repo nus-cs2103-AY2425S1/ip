@@ -23,9 +23,13 @@ public class DeleteCommand extends Command {
 
   @Override
   public String execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
-    tasks.delete(index);
-    storage.save(tasks);
-    Task task = (Task) tasks.getArrayList().get(index);
-    return Ui.displayAfterDeleteTask(task);
+    try {
+      Task task = (Task) tasks.getArrayList().get(index - 1);
+      tasks.delete(index);
+      storage.save(tasks);
+      return Ui.displayAfterDeleteTask(task);
+    } catch (IllegalArgumentException e) {
+      return "Error: " + e.getMessage();
+    }
   }
 }
