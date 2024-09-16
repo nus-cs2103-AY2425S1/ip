@@ -54,15 +54,15 @@ public class TaskList {
 
             String respond = "";
             respond += ("Deleted " + "\"" + task.toString() + "\"" + "\n");
-            respond += ("Now you have " + tasks.size() + " task(s).\n");
+            respond += ("Now you have " + tasks.size() + " task(s). Meow~\n");
 
             Storage.update(tasks, false);
 
             return respond;
         } catch (IndexOutOfBoundsException e) {
-            throw new SocchatException("Invalid task number.");
+            throw new SocchatException("Invalid task number. Meow~");
         } catch (NumberFormatException e) {
-            throw new SocchatException("Please enter a valid task number for deletion.");
+            throw new SocchatException("Please enter a valid task number for deletion. Meow~");
         }
     }
 
@@ -70,7 +70,7 @@ public class TaskList {
      * Lists all tasks in the task list.
      */
     public String list() {
-        String respond = "Your task list:\n";
+        String respond = "Meow~\nYour task list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
             respond += (i + 1) + ": ";
@@ -92,7 +92,7 @@ public class TaskList {
      * Creates a response string confirming that the task has been successfully added
      */
     public String addingTaskAcknowledgement(Task t) {
-        String respond = "added: ";
+        String respond = "Meow~\nadded: ";
         respond += (t.toString() + "\n");
         respond += ("Now you have " + tasks.size() + " task(s).\n");
         return respond;
@@ -119,9 +119,9 @@ public class TaskList {
             Storage.update(tasks, false);
             return respond;
         } catch (IndexOutOfBoundsException e) {
-            throw new SocchatException("Invalid task number.");
+            throw new SocchatException("Invalid task number. Meow~");
         } catch (NumberFormatException e) {
-            throw new SocchatException("Please enter a valid task number.");
+            throw new SocchatException("Please enter a valid task number.Meow~");
         }
     }
 
@@ -140,7 +140,7 @@ public class TaskList {
         }
 
         String respond = "";
-        respond += ("Found " + foundTasks.size() + " task(s). \n");
+        respond += ("Found " + foundTasks.size() + " task(s). Meow~\n");
         for (int i = 0; i < foundTasks.size(); i++) {
             Task curr = foundTasks.get(i);
             respond += ((i + 1) + ": ");

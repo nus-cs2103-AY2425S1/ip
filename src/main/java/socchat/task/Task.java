@@ -61,7 +61,7 @@ public abstract class Task {
     public String mark() {
         String respond = "";
         this.isDone = true;
-        respond += ("Marked " + "\"" + description + "\"" + " as done\n");
+        respond += ("Meow~ Marked " + "\"" + description + "\"" + " as done\n");
         respond += this.toString() + "\n";
         return respond;
     }
@@ -72,7 +72,7 @@ public abstract class Task {
     public String unmark() {
         String respond = "";
         this.isDone = false;
-        respond += ("Marked " + "\"" + description + "\"" + " as not done\n");
+        respond += ("Meow~ Marked " + "\"" + description + "\"" + " as not done\n");
         respond += this.toString() + "\n";
         return respond;
     }

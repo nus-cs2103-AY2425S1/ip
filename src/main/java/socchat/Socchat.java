@@ -46,7 +46,7 @@ public class Socchat {
      */
     public static String greet() {
         String respond = "";
-        respond += ("Hello! I'm Socchat!\n");
+        respond += ("Meow~ I'm Socchat!\n");
         respond += ("What can I do for you?\n");
         return respond;
     }
@@ -60,7 +60,7 @@ public class Socchat {
         PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
-        return "Bye. Hope to see you again soon!";
+        return "Meow~ Hope to see you again soon!";
     }
 
 }

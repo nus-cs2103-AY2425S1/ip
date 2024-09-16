@@ -1,4 +1,4 @@
 D | Done | assignment 1 | 2022-12-22 11:11 |  | null
 T | Not done | drink coffee |  |  | null
 E | Not done | concert | 2022-12-27 12:27 | 2022-12-27 12:27 | entertainment
-T | Not done | hiking |  |  | fun
+T | Not done | hiking |  |  | sport
