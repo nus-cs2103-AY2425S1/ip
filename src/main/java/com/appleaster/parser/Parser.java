@@ -25,7 +25,9 @@ public class Parser {
      * @throws AppleasterException If the input is invalid or cannot be parsed.
      */
     public static Command parseCommand(String input) throws AppleasterException {
+        assert input != null : "Input string cannot be null";
         String[] parts = input.split("\\s+", 2);
+        assert parts.length > 0 : "Input string cannot be empty";
         String commandWord = parts[0].toLowerCase();
         String arguments = parts.length > 1 ? parts[1] : "";
 
@@ -65,6 +67,7 @@ public class Parser {
      * @throws AppleasterException If the arguments are invalid.
      */
     private static Command parseMarkUnmark(String commandWord, String arguments) throws AppleasterException {
+        assert commandWord != null && (commandWord.equals("mark") || commandWord.equals("unmark")) : "Invalid command word for mark/unmark";
         if (arguments.isEmpty()) {
             throw new AppleasterException("Please provide a task number to " + commandWord + ". For example: " + commandWord + " 1");
         }
@@ -99,6 +102,7 @@ public class Parser {
      * @throws AppleasterException If the todo description is empty.
      */
     private static Command parseTodo(String description) throws AppleasterException {
+        assert description != null : "Todo description cannot be null";
         if (description.trim().isEmpty()) {
             throw new AppleasterException("The description of a todo cannot be empty. Please provide a description after 'todo'.");
         }
@@ -113,7 +117,9 @@ public class Parser {
      * @throws AppleasterException If the deadline format is invalid.
      */
   private static Command parseDeadline(String arguments) throws AppleasterException {
+    assert arguments != null : "Deadline arguments cannot be null";
     String[] parts = arguments.split(" /by ");
+    assert parts.length == 2 : "Deadline must have a description and a date";
     if (parts.length != 2) {
       throw new AppleasterException("Invalid deadline format. "
           + "Please use: deadline <description> /by yyyy-MM-dd HHmm");
@@ -135,7 +141,9 @@ public class Parser {
      * @throws AppleasterException If the event format is invalid.
      */
   private static Command parseEvent(String arguments) throws AppleasterException {
+    assert arguments != null : "Event arguments cannot be null";
     String[] parts = arguments.split(" /from | /to ");
+    assert parts.length == 3 : "Event must have a description, start time, and end time";
     if (parts.length != 3) {
       throw new AppleasterException("Invalid event format. "
           + "Please use: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
@@ -157,6 +165,7 @@ public class Parser {
      * @throws AppleasterException If the delete command format is invalid.
      */
   private static Command parseDelete(String arguments) throws AppleasterException {
+    assert arguments != null : "Delete arguments cannot be null";
     if (arguments.isEmpty()) {
       throw new AppleasterException("Please provide a task number to delete. "
           + "For example: delete 1");
@@ -178,6 +187,7 @@ public class Parser {
      * @throws AppleasterException If the date format is invalid.
      */
   private static Command parseDate(String arguments) throws AppleasterException {
+    assert arguments != null : "Date argument cannot be null";
     if (arguments.isEmpty()) {
       throw new AppleasterException("Please provide a date in the format: date yyyy-MM-dd");
     }
