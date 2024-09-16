@@ -41,4 +41,20 @@ public class Ui {
             }
         }
     }
+
+    /**
+     * Displays all matching tasks in the TaskList to the user.
+     *
+     * @param tasks The list of all matching tasks.
+     */
+    public void showFindResults(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are all the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.getTask(i));
+            }
+        }
+    }
 }
