@@ -27,8 +27,8 @@ public class Storage {
 
         try {
             if (!file.exists()) {
-                new File(file.getParent()).mkdirs(); // Create the directory if it doesn't exist
-                file.createNewFile(); // Create the file if it doesn't exist
+                new File(file.getParent()).mkdirs();
+                file.createNewFile();
             } else {
                 BufferedReader reader = new BufferedReader(new FileReader(filePath));
                 String line;
