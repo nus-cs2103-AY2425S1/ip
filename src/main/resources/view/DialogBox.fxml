@@ -9,11 +9,10 @@
          maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308"
          prefWidth="400.0"
-         style="-fx-background-color: #f9f9f9; -fx-border-color: #ccc; -fx-border-radius: 10px;
-                        -fx-background-radius: 10px;"
          type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/17"
-         xmlns:fx="http://javafx.com/fxml/1">
+         xmlns:fx="http://javafx.com/fxml/1"
+         styleClass="dialog-box">
 
         <children>
                 <Label fx:id="dialog"
@@ -22,15 +21,14 @@
                        minHeight="-Infinity"
                        maxHeight="Infinity"
                        HBox.hgrow="ALWAYS"
-                       style="-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-text-fill: #333;"/>
+                       styleClass="label"/>
 
                 <ImageView fx:id="displayPicture"
                            fitHeight="99.0"
                            fitWidth="99.0"
                            pickOnBounds="true"
                            preserveRatio="true"
-                           style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 2, 2);
-                                        -fx-border-radius: 50px; -fx-background-radius: 50px;"/>
+                           styleClass="image-view"/>
         </children>
 
         <padding>

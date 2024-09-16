@@ -45,10 +45,20 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = agave.getResponse(input);
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, agaveImage)
-        );
+        boolean isError = response.startsWith("Uh-oh:");
+
+        if(isError) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getErrorDialog(response, agaveImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getBotDialog(response, agaveImage)
+            );
+        }
+
         userInput.clear();
     }
 }

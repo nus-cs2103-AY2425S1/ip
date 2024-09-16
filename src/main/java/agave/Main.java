@@ -25,7 +25,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Agave Chatbot");
+            scene.getStylesheets().add(Main.class.getResource("/view/styles.css").toExternalForm());
+            stage.setTitle("Agave");
+
+            stage.setResizable(true);
 
             MainWindow controller = fxmlLoader.getController();
             controller.setAgave(agave);

@@ -7,7 +7,7 @@ plugins {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'agave.GUI.Launcher'
+                'Main-Class': 'agave.gui.Launcher'
         )
     }
 }
@@ -50,7 +50,7 @@ test {
 }
 
 application {
-    mainClass.set("agave.GUI.Launcher")
+    mainClass.set("agave.gui.Launcher")
 }
 
 shadowJar {

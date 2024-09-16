@@ -1,5 +1,6 @@
 package agave.gui;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.shape.Circle;
+
 import java.util.Collections;
 
 public class DialogBox extends HBox {
@@ -34,6 +37,18 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(image);
+
+        displayPicture.setFitHeight(50);
+        displayPicture.setFitWidth(50);
+        displayPicture.setPreserveRatio(true);
+        displayPicture.setClip(new Circle(25, 25, 25));
+    }
+
+    public static DialogBox getErrorDialog(String response, Image agaveImage) {
+        DialogBox db = new DialogBox(response, agaveImage);
+        db.flip();
+        db.getStyleClass().add("error-dialog");
+        return db;
     }
 
 
