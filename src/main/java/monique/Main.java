@@ -1,11 +1,14 @@
 package monique;
 
+import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 
 
 /**
@@ -25,6 +28,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            // Set default locale to Singapore
+            Locale.setDefault(new Locale("en", "SG"));
+            // Set default time zone to Singapore
+            TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
             MainWindow mainWindow = new MainWindow(stage);
             Scene scene = new Scene(mainWindow);
             stage.setScene(scene); // Setting the stage to show our screen
