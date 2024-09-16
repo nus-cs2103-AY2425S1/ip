@@ -28,113 +28,163 @@ public class Parser {
         }
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0];
-        int taskNumber;
         switch (commandWord) {
         case "list":
-            return new ListCommand();
+            return handleList();
         case "mark":
-            Pattern markPattern = Pattern.compile("^mark (\\d+)$");
-            Matcher markMatcher = markPattern.matcher(fullCommand);
-            if (!markMatcher.matches()) {
-                throw new HanaException("Invalid mark syntax. Write only the task index after the word 'mark'.");
-            }
-            taskNumber = Integer.parseInt(markMatcher.group(1)) - 1;
-            assert taskNumber >= 0 : "Task number should be non-negative";
-            return new MarkCommand(taskNumber);
+            return handleMark(fullCommand);
         case "unmark":
-            Pattern unmarkPattern = Pattern.compile("^unmark (\\d+)$");
-            Matcher unmarkMatcher = unmarkPattern.matcher(fullCommand);
-            if (!unmarkMatcher.matches()) {
-                throw new HanaException("Invalid unmark syntax. Write only the task index after the word 'unmark'.");
-            }
-            taskNumber = Integer.parseInt(unmarkMatcher.group(1)) - 1;
-            assert taskNumber >= 0 : "Task number should be non-negative";
-            return new UnmarkCommand(taskNumber);
+            return handleUnmark(fullCommand);
         case "todo":
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new HanaException("OOPS!!! The description of a todo cannot be empty.");
-            }
-            return new AddCommand(new ToDo(parts[1]));
+            return handleToDo(parts);
         case "deadline":
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new HanaException("OOPS!!! The description of a deadline cannot be empty.");
-            }
-            String[] deadlineParts = parts[1].split(" /by ");
-            if (fullCommand.trim().equals("deadline") || fullCommand.startsWith("deadline /by")) {
-                throw new HanaException("OOPS!!! The description of a deadline cannot be empty.");
-            } else if (!fullCommand.contains(" /by ")) {
-                throw new HanaException("OOPS!!! Please add deadline date/time by adding /by");
-            }
-            try {
-                LocalDate dateBy = LocalDate.parse(deadlineParts[1]);
-                deadlineParts[1] = dateBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            } catch (DateTimeParseException e) {
-                throw new HanaException("OOPS!!! The date format is incorrect. Please use the format YYYY-MM-DD.");
-            }
-            return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
+            return handleDeadline(fullCommand, parts);
         case "event":
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new HanaException("OOPS!!! The description of an event cannot be empty.");
-            }
-            String[] eventParts = parts[1].split(" /from | /to ");
-            if (fullCommand.trim().equals("event") || fullCommand.startsWith("event /from")) {
-                throw new HanaException("OOPS!!! The description of an event cannot be empty.");
-            } else if (!fullCommand.contains(" /from ") || !fullCommand.contains(" /to ")) {
-                throw new HanaException("OOPS!!! Please add event time by adding /from and /to");
-            } else if (fullCommand.indexOf(" /to ") < fullCommand.indexOf(" /from ")) {
-                throw new HanaException("OOPS!!! Please add /from before /to");
-            }
-            try {
-                LocalDate dateFrom = LocalDate.parse(eventParts[1]);
-                LocalDate dateTo = LocalDate.parse(eventParts[2]);
-                if (dateFrom.isAfter(dateTo)) {
-                    throw new HanaException("OOPS!!! from date cannot be after to date.");
-                }
-                assert !dateFrom.isAfter(dateTo) : "Event start date cannot be after end date";
-                eventParts[1] = dateFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                eventParts[2] = dateTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            } catch (DateTimeParseException e) {
-                throw new HanaException("OOPS!!! The date format is incorrect. \nPlease use the format YYYY-MM-DD.");
-            }
-            return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+            return handleEvent(fullCommand, parts);
         case "delete":
-            Pattern deletePattern = Pattern.compile("^delete (\\d+)$");
-            Matcher deleteMatcher = deletePattern.matcher(fullCommand);
-            if (!deleteMatcher.matches()) {
-                throw new HanaException("Invalid delete syntax. Write only the task index after the word 'delete'.");
-            }
-            taskNumber = Integer.parseInt(parts[1]) - 1;
-            assert taskNumber >= 0 : "Task number should be non-negative";
-            return new DeleteCommand(taskNumber);
+            return handleDelete(fullCommand, parts);
         case "find":
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new HanaException("OOPS!!! The search keyword cannot be empty.");
-            }
-            assert parts.length == 2 : "Find command should have a keyword";
-            return new FindCommand(parts[1]);
+            return handleFind(parts);
         case "massMark":
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new HanaException("OOPS!!! You must provide a keyword for massMark.");
-            }
-            assert parts.length == 2 : "Find command should have a keyword";
-            return new MassMarkCommand(parts[1]);
+            return handleMassMark(parts);
         case "massUnmark":
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new HanaException("OOPS!!! You must provide a keyword for massUnmark.");
-            }
-            assert parts.length == 2 : "Find command should have a keyword";
-            return new MassUnmarkCommand(parts[1]);
+            return handleMassUnmark(parts);
         case "massDelete":
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new HanaException("OOPS!!! You must provide a keyword for massDelete.");
-            }
-            assert parts.length == 2 : "Find command should have a keyword";
-            return new MassDeleteCommand(parts[1]);
+            return handleMassDelete(parts);
         case "bye":
-            return new ExitCommand();
+            return handleExit();
         default:
             throw new HanaException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private static ListCommand handleList() {
+        return new ListCommand();
+    }
+
+    private static ExitCommand handleExit() {
+        return new ExitCommand();
+    }
+
+    private static MassDeleteCommand handleMassDelete(String[] parts) throws HanaException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("OOPS!!! You must provide a keyword for massDelete.");
+        }
+        assert parts.length == 2 : "Find command should have a keyword";
+        return new MassDeleteCommand(parts[1]);
+    }
+
+    private static MassUnmarkCommand handleMassUnmark(String[] parts) throws HanaException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("OOPS!!! You must provide a keyword for massUnmark.");
+        }
+        assert parts.length == 2 : "Find command should have a keyword";
+        return new MassUnmarkCommand(parts[1]);
+    }
+
+    private static MassMarkCommand handleMassMark(String[] parts) throws HanaException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("OOPS!!! You must provide a keyword for massMark.");
+        }
+        assert parts.length == 2 : "Find command should have a keyword";
+        return new MassMarkCommand(parts[1]);
+    }
+
+    private static FindCommand handleFind(String[] parts) throws HanaException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("OOPS!!! The search keyword cannot be empty.");
+        }
+        assert parts.length == 2 : "Find command should have a keyword";
+        return new FindCommand(parts[1]);
+    }
+
+    private static DeleteCommand handleDelete(String fullCommand, String[] parts) throws HanaException {
+        int taskNumber;
+        Pattern deletePattern = Pattern.compile("^delete (\\d+)$");
+        Matcher deleteMatcher = deletePattern.matcher(fullCommand);
+        if (!deleteMatcher.matches()) {
+            throw new HanaException("Invalid delete syntax. Write only the task index after the word 'delete'.");
+        }
+        taskNumber = Integer.parseInt(parts[1]) - 1;
+        assert taskNumber >= 0 : "Task number should be non-negative";
+        return new DeleteCommand(taskNumber);
+    }
+
+    private static AddCommand handleEvent(String fullCommand, String[] parts) throws HanaException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("OOPS!!! The description of an event cannot be empty.");
+        }
+        String[] eventParts = parts[1].split(" /from | /to ");
+        if (fullCommand.trim().equals("event") || fullCommand.startsWith("event /from")) {
+            throw new HanaException("OOPS!!! The description of an event cannot be empty.");
+        } else if (!fullCommand.contains(" /from ") || !fullCommand.contains(" /to ")) {
+            throw new HanaException("OOPS!!! Please add event time by adding /from and /to");
+        } else if (fullCommand.indexOf(" /to ") < fullCommand.indexOf(" /from ")) {
+            throw new HanaException("OOPS!!! Please add /from before /to");
+        }
+        try {
+            LocalDate dateFrom = LocalDate.parse(eventParts[1]);
+            LocalDate dateTo = LocalDate.parse(eventParts[2]);
+            if (dateFrom.isAfter(dateTo)) {
+                throw new HanaException("OOPS!!! from date cannot be after to date.");
+            }
+            assert !dateFrom.isAfter(dateTo) : "Event start date cannot be after end date";
+            eventParts[1] = dateFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            eventParts[2] = dateTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new HanaException("OOPS!!! The date format is incorrect. \nPlease use the format YYYY-MM-DD.");
+        }
+        return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+    }
+
+    private static AddCommand handleDeadline(String fullCommand, String[] parts) throws HanaException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("OOPS!!! The description of a deadline cannot be empty.");
+        }
+        String[] deadlineParts = parts[1].split(" /by ");
+        if (fullCommand.trim().equals("deadline") || fullCommand.startsWith("deadline /by")) {
+            throw new HanaException("OOPS!!! The description of a deadline cannot be empty.");
+        } else if (!fullCommand.contains(" /by ")) {
+            throw new HanaException("OOPS!!! Please add deadline date/time by adding /by");
+        }
+        try {
+            LocalDate dateBy = LocalDate.parse(deadlineParts[1]);
+            deadlineParts[1] = dateBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new HanaException("OOPS!!! The date format is incorrect. Please use the format YYYY-MM-DD.");
+        }
+        return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
+    }
+
+    private static AddCommand handleToDo(String[] parts) throws HanaException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("OOPS!!! The description of a todo cannot be empty.");
+        }
+        return new AddCommand(new ToDo(parts[1]));
+    }
+
+    private static UnmarkCommand handleUnmark(String fullCommand) throws HanaException {
+        int taskNumber;
+        Pattern unmarkPattern = Pattern.compile("^unmark (\\d+)$");
+        Matcher unmarkMatcher = unmarkPattern.matcher(fullCommand);
+        if (!unmarkMatcher.matches()) {
+            throw new HanaException("Invalid unmark syntax. Write only the task index after the word 'unmark'.");
+        }
+        taskNumber = Integer.parseInt(unmarkMatcher.group(1)) - 1;
+        assert taskNumber >= 0 : "Task number should be non-negative";
+        return new UnmarkCommand(taskNumber);
+    }
+
+    private static MarkCommand handleMark(String fullCommand) throws HanaException {
+        int taskNumber;
+        Pattern markPattern = Pattern.compile("^mark (\\d+)$");
+        Matcher markMatcher = markPattern.matcher(fullCommand);
+        if (!markMatcher.matches()) {
+            throw new HanaException("Invalid mark syntax. Write only the task index after the word 'mark'.");
+        }
+        taskNumber = Integer.parseInt(markMatcher.group(1)) - 1;
+        assert taskNumber >= 0 : "Task number should be non-negative";
+        return new MarkCommand(taskNumber);
     }
 }
 
