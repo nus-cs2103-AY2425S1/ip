@@ -3,6 +3,8 @@ package ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -100,7 +102,10 @@ class UiTest {
                 + " - event <taskDescription> /from <startTime> /to <endTime>\n"
                 + " - bye\n"
                 + " - help\n"
-                + " - find <keyword>\n";
+                + " - find <keyword>\n"
+                + " - note list\n"
+                + " - note entry <noteContent>\n"
+                + " - note delete <noteNumber>\n";
 
         assertEquals(expectedOutput.trim(), ui.displayHelp().trim());
     }
@@ -144,5 +149,43 @@ class UiTest {
                 + "2. [T] [ ] Read the news\n";
 
         assertEquals(expectedOutput.trim(), ui.displayMatchingTasks(taskList, "READ").trim());
+    }
+
+    @Test
+    void testDisplayNotes() {
+        List<String> notes = new ArrayList<>();
+        notes.add("First note");
+        notes.add("Second note");
+
+        String expectedOutput = "Here are your notes:\n"
+                + "1. First note\n"
+                + "2. Second note\n";
+
+        assertEquals(expectedOutput.trim(), ui.displayNotes(notes).trim());
+    }
+
+    @Test
+    void testDisplayNotesNoNotes() {
+        List<String> notes = new ArrayList<>();
+
+        String expectedOutput = "Here are your notes:\nNo notes found.\n";
+
+        assertEquals(expectedOutput.trim(), ui.displayNotes(notes).trim());
+    }
+
+    @Test
+    void testDisplayNoteAdded() {
+        String noteContent = "This is a note";
+        String expectedOutput = "Okay! Added this note:\n  This is a note\n";
+
+        assertEquals(expectedOutput.trim(), ui.displayNoteAdded(noteContent).trim());
+    }
+
+    @Test
+    void testDisplayNoteDeleted() {
+        int noteNumber = 2;
+        String expectedOutput = "Okay! Deleted note number 2:\n";
+
+        assertEquals(expectedOutput.trim(), ui.displayNoteDeleted(noteNumber).trim());
     }
 }

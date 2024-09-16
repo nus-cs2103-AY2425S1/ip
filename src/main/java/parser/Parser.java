@@ -40,18 +40,18 @@ public class Parser {
         String command = parts[0];
 
         return switch (command) {
-            case "bye" -> handleBye();
-            case "list" -> handleList();
-            case "mark" -> handleMark(parts);
-            case "unmark" -> handleUnmark(parts);
-            case "delete" -> handleDelete(parts);
-            case "todo" -> handleTodo(parts);
-            case "deadline" -> handleDeadline(parts);
-            case "event" -> handleEvent(parts);
-            case "help" -> handleHelp();
-            case "find" -> handleFind(parts);
-            case "note" -> handleNote(parts);
-            default -> throw new InvalidCommandException();
+        case "bye" -> handleBye();
+        case "list" -> handleList();
+        case "mark" -> handleMark(parts);
+        case "unmark" -> handleUnmark(parts);
+        case "delete" -> handleDelete(parts);
+        case "todo" -> handleTodo(parts);
+        case "deadline" -> handleDeadline(parts);
+        case "event" -> handleEvent(parts);
+        case "help" -> handleHelp();
+        case "find" -> handleFind(parts);
+        case "note" -> handleNote(parts);
+        default -> throw new InvalidCommandException();
         };
     }
 
@@ -138,7 +138,8 @@ public class Parser {
      *
      * @param parts The user input split into parts.
      * @return A {@code DeadlineCommand} to add a new deadline task.
-     * @throws MissingArgumentException, InvalidFormatException if the format is incorrect.
+     * @throws MissingArgumentException if a required argument is missing.
+     * @throws InvalidFormatException if the format is incorrect.
      */
     private static Command handleDeadline(String[] parts) throws MissingArgumentException, InvalidFormatException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -167,7 +168,8 @@ public class Parser {
      *
      * @param parts The user input split into parts.
      * @return An {@code EventCommand} to add a new event task.
-     * @throws MissingArgumentException, InvalidFormatException if the format is incorrect.
+     * @throws MissingArgumentException if a required argument is missing.
+     * @throws InvalidFormatException if the format is incorrect.
      */
     private static Command handleEvent(String[] parts) throws MissingArgumentException, InvalidFormatException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -253,7 +255,8 @@ public class Parser {
      */
     private static Command handleNote(String[] parts) throws MissingArgumentException, InvalidFormatException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new MissingArgumentException("Note command requires either 'list', 'entry <content>', or 'delete <number>'.\n"
+            throw new MissingArgumentException("Note command requires either 'list', 'entry <content>',"
+                    + " or 'delete <number>'.\n"
                     + "   Usage: note list\n"
                     + "   or: note entry <content>\n"
                     + "   or: note delete <number>");
@@ -293,7 +296,8 @@ public class Parser {
             }
         }
 
-        throw new InvalidFormatException("Note command requires either 'list', 'entry <content>', or 'delete <number>'.\n"
+        throw new InvalidFormatException("Note command requires either 'list', 'entry <content>',"
+                + " or 'delete <number>'.\n"
                 + "   Usage: note list\n"
                 + "   or: note entry <content>\n"
                 + "   or: note delete <number>");

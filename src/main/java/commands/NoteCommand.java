@@ -82,8 +82,10 @@ public class NoteCommand implements Command {
             storage.deleteNoteFromFile(noteNumber);
             return ui.displayNoteDeleted(noteNumber);
         }
+        default -> {
+            throw new DownyException("Unknown action for NoteCommand: " + action); //Should never reach here
         }
-        throw new DownyException("Unknown action for NoteCommand: " + action); //Should never reach here
+        }
     }
 
     /**
