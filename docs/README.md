@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # <img src="DavidLogo.png" alt="David Logo" width="25"/> David User Guide
 
 ![Screenshot of David chatbot](/Ui.png)
