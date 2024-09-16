@@ -94,6 +94,11 @@ public class TaskList {
         return ui.displayDeletedTask(t);
     }
 
+    /**
+     * Returns the specified task from the TaskList
+     *
+     * @param taskNum The task number of the Task Object to be returned
+     */
     public String getTask(int taskNum) {
         Task t = taskList.get(taskNum);
         return t.getDescription();

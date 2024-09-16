@@ -19,12 +19,27 @@ public class Parser {
     private static Storage storage;
     private static TaskList tasks;
 
+    /**
+     * Constructs a new Parser instance.
+     * Initializes the user interface and storage, and sets the task list.
+     *
+     * @param filePath The path to the file where task data is stored.
+     * @param tasks    The TaskList containing current tasks.
+     */
     public Parser (String filePath, TaskList tasks) {
         ui = new Ui();
         storage = new Storage(filePath);
         this.tasks = tasks;
     }
 
+    /**
+     * Parses a command string input by the user and returns the corresponding Command object.
+     * It handles commands like "bye", "list", "mark", "unmark", "delete", and task creation commands.
+     *
+     * @param command The full command string entered by the user.
+     * @return The Command object that corresponds to the user input.
+     * @throws NebulaException If the command is invalid or improperly formatted.
+     */
     public static Command parse(String command) throws NebulaException {
         if(command.equals("bye")) {
             return new ByeCommand(command);
@@ -169,6 +184,7 @@ public class Parser {
     }
 
     /**
+     * Splits the command string to extract the task description
      *
      * @param command The command string containing the command and task description
      * @return The task description as a String
@@ -179,6 +195,7 @@ public class Parser {
     }
 
     /**
+     * Splits the command string to extract the
      *
      * @param command The command string containing the command, task description, and deadline
      * @return The task deadline as a String

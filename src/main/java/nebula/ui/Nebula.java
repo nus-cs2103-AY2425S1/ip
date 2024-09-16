@@ -14,6 +14,12 @@ public class Nebula {
     private Parser parser;
     private Storage storage;
 
+    /**
+     * Constructs a new Nebula instance.
+     * Initializes the user interface, storage, task list, and parser.
+     *
+     * @param filePath The path of the file where task data is stored.
+     */
     public Nebula(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +31,12 @@ public class Nebula {
         parser = new Parser(filePath, tasks);
     }
 
+    /**
+     * Continuously reads user commands, processes them, and executes the corresponding actions
+     * until the exit command is given.
+     *
+     * @throws IOException If there is an issue reading from or writing to files.
+     */
     public void run() throws IOException {
         System.out.println(ui.greeting());
         boolean isExit = false;
@@ -45,10 +57,11 @@ public class Nebula {
     }
 
     /**
-     * Entry point of the application. Initializes the UI, task list, and parser,
-     * then processes user commands in a loop until "bye" is entered
+     * The entry point of the application.
+     * Initializes the Nebula application with the provided file path and starts it.
      *
-     * @param args command-line arguments (not used)
+     * @param args Command-line arguments (not used).
+     * @throws IOException If there is an issue during the execution of the application.
      */
     public static void main(String[] args) throws IOException {
         new Nebula("./data/nebulaTaskList.txt").run();
