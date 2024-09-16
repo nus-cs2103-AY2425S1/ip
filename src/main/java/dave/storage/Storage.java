@@ -25,20 +25,25 @@ public class Storage {
     /**
      * Constructs a Storage object and loads tasks from the specified file into the given TaskList.
      *
-     * @param file     The file path to load tasks from and save tasks to.
+     * @param filePath The file path to load tasks from and save tasks to.
      * @param taskList The TaskList to populate with tasks loaded from the file.
      */
-    public Storage(String file, TaskList taskList) {
-        assert file != null : "File path must not be null";
-        this.filePath = file;
+    public Storage(String filePath, TaskList taskList) {
+        assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty";
+        Storage.filePath = filePath;
         loadTasks(taskList);
     }
 
+    /**
+     * Loads tasks from the file and populates the TaskList.
+     *
+     * @param taskList The TaskList to populate with tasks.
+     */
     private void loadTasks(TaskList taskList) {
         try {
             taskList.setTaskList(loadFile());
         } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks from the file.");
+            System.out.println("Error occurred while loading tasks: " + e.getMessage());
         }
     }
 
@@ -53,6 +58,12 @@ public class Storage {
         writeTasksToFile(dataList, fileObj);
     }
 
+    /**
+     * Creates the file if it doesn't already exist.
+     *
+     * @return The File object for the file path.
+     * @throws IOException If an I/O error occurs while creating the file.
+     */
     private static File createFile() throws IOException {
         assert filePath != null : "File path must not be null";
         File fileObj = new File(filePath);
@@ -63,6 +74,13 @@ public class Storage {
         return fileObj;
     }
 
+    /**
+     * Writes tasks from the TaskList to the specified file.
+     *
+     * @param dataList The TaskList containing tasks to be written to the file.
+     * @param fileObj  The File object representing the file to be written to.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     private static void writeTasksToFile(TaskList dataList, File fileObj) throws IOException {
         try (FileWriter fw = new FileWriter(fileObj)) {
             for (int i = 0; i < dataList.getSize(); i++) {
@@ -80,11 +98,17 @@ public class Storage {
         writeToFile("");
     }
 
+    /**
+     * Writes content to the file, overwriting the existing contents.
+     *
+     * @param content The content to be written to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     private static void writeToFile(String content) throws IOException {
         assert filePath != null : "File path must not be null";
-        FileWriter fw = new FileWriter(filePath, false);
-        fw.write("");
-        fw.close();
+        try (FileWriter fw = new FileWriter(filePath, false)) {
+            fw.write(content);
+        }
     }
 
     /**
@@ -119,12 +143,22 @@ public class Storage {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                tasks.add(parseTask(line));
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
         }
         return tasks;
     }
 
+    /**
+     * Parses a task from a line of text from the file.
+     *
+     * @param line The line of text representing a task.
+     * @return The parsed Task.
+     * @throws IOException If an error occurs while parsing the task.
+     */
     private Task parseTask(String line) throws IOException {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0].trim();
@@ -134,11 +168,23 @@ public class Storage {
         try {
             return createTask(taskType, isDone, description, parts);
         } catch (InvalidDateTimeFormatException | InvalidDescriptionException e) {
-            System.out.println("An error occurred while loading the task from the file.");
+            System.out.println("Error occurred while loading task: " + e.getMessage());
             return null;
         }
     }
 
+    /**
+     * Creates a task based on the task type and parsed data.
+     *
+     * @param taskType    The type of the task (T, D, or E).
+     * @param isDone      Whether the task is marked as done.
+     * @param description The task description.
+     * @param parts       Additional parts of the task for deadlines or events.
+     * @return The created Task.
+     * @throws IOException                    If an I/O error occurs while creating the task.
+     * @throws InvalidDescriptionException    If the description is invalid.
+     * @throws InvalidDateTimeFormatException If the date or time format is invalid.
+     */
     private Task createTask(String taskType, boolean isDone, String description, String[] parts)
             throws IOException, InvalidDescriptionException, InvalidDateTimeFormatException {
         switch (taskType) {
