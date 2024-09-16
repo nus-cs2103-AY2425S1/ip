@@ -2,15 +2,13 @@ package tayoo;
 
 import java.util.Scanner;
 
-/**
- * The Ui class will deal with interactions with users, including input, output
- */
+/** The Ui class will deal with interactions with users, including input, output */
 public class Ui {
 
-    private final String botname;
+    private final String chatbotName;
 
     public Ui(String name) {
-        this.botname = name;
+        this.chatbotName = name;
     }
 
     public String getExitMessage() {
@@ -18,22 +16,16 @@ public class Ui {
     }
 
     public String getWelcomeMessage() {
-        return "Hello! I'm " + this.botname + "\nAt your service! O7";
+        return "Hello! I'm " + this.chatbotName + "\nAt your service! O7";
     }
 
 
-    /**
-     * Prints out the welcome default message of the chatbot.
-     *
-     */
+    /** Prints out the welcome default message of the chatbot. */
     public void showWelcome() {
-        //Introduce self
         printText(getWelcomeMessage());
     }
 
-    /**
-     * Prints out the standard chatbot message when exiting the bot
-     */
+    /** Prints out the standard chatbot message when exiting the bot */
     public void showExit() {
         printText(getExitMessage());
     }

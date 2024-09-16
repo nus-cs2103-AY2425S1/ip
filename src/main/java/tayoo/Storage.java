@@ -15,7 +15,7 @@ import tayoo.exception.AddTxtException;
 import tayoo.exception.DeleteTxtException;
 import tayoo.exception.ParserException;
 import tayoo.exception.TayooException;
-import tayoo.exception.UpdateTxtException;
+import tayoo.exception.TayooException;
 import tayoo.tasks.Task;
 
 /**
@@ -30,9 +30,7 @@ public class Storage {
      */
     private static final String TASKLIST_FILEPATH = "./tasklist.txt";
 
-    /**
-     * Returns a new storage instance
-     */
+    /** Returns a new storage instance */
     public Storage() {
     }
 
@@ -46,22 +44,25 @@ public class Storage {
      *
      * @param taskNumber The zero-based index of the task in the TASKLIST whose completion is to be updated
      * @param isCompleted {@code true} if the task is completed, {@code false} if the task is not yet completed.
-     * @throws UpdateTxtException if the tasklist.txt file cannot be found, read, or updated successfully.
+     * @throws TayooException if the tasklist.txt file cannot be found, read, or updated successfully.
      */
-    public void updateTxt(int taskNumber, boolean isCompleted) throws UpdateTxtException {
+    public void updateTxt(int taskNumber, boolean isCompleted) throws TayooException {
         List<String> lines = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
-            String line;
+            String line = reader.readLine();
 
-            while ((line = reader.readLine()) != null) {
+            while (line != null) {
                 lines.add(line);
+                line = reader.readLine();
             }
+
             reader.close();
+
         } catch (FileNotFoundException e) {
-            throw new UpdateTxtException("Cannot find tasklist.txt");
+            throw new TayooException("Cannot find tasklist.txt");
         } catch (IOException e) {
-            throw new UpdateTxtException("An error occurred while reading the file");
+            throw new TayooException("An error occurred while reading the file");
         }
 
         String line = lines.get(taskNumber);
@@ -77,7 +78,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new UpdateTxtException("An error occurred while updating the task");
+            throw new TayooException("An error occurred while updating the task");
         }
     }
 

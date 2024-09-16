@@ -5,13 +5,14 @@ import java.util.List;
 
 import tayoo.tasks.Task;
 
-//Contains the digital tasklist that is used by the Tayoo chatbot while the bot is running.
+/** Contains the digital tasklist that is used by the Tayoo chatbot while the bot is running. */
 public class Tasklist {
 
+    /** Defines the maximum capacity of the tasklist */
     public static final int MAXIMUM_CAPACITY = 100;
+
     /**
      * The list of tasks in the task manager. Variable is final because it should not be reassigned to another value.
-     * The capacity of the tasklist should not exceed 100 tasks.
      */
     private final ArrayList<Task> tasklistArray = new ArrayList<>(MAXIMUM_CAPACITY);
 
@@ -22,12 +23,8 @@ public class Tasklist {
      * @param taskList The provided list of tasks. Any argument should extend from {@code List<Task>}.
      */
     public Tasklist(List<Task> taskList) {
-        int size = taskList.size();
-
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                this.tasklistArray.add(taskList.get(i));
-            }
+        if (!taskList.isEmpty()) {
+            this.tasklistArray.addAll(taskList);
         }
     }
 
@@ -42,26 +39,22 @@ public class Tasklist {
     public boolean addTask(Task task) {
         if (tasklistArray.size() >= MAXIMUM_CAPACITY) {
             return false;
-        } else {
-            tasklistArray.add(task);
-            return true;
         }
+
+        return tasklistArray.add(task);
     }
 
     /**
      * Deletes a task from the TASKLIST. The task is identified by accessing the TASKLIST using the task's index.
      *
      * @param taskNumber The zero-based index of the task that is to be removed
-     * @return {@code true} if the task was found and successfully removed from TASKLIST, {@code false} if the index
-     *  provided exceeds the TASKLIST size or is negative
-     * @throws IndexOutOfBoundsException if the index is out of bounds for the TASKLIST
+     * @return the deleted task if the task was successfully removed and {@code null} if not.
      */
-    public boolean deleteTask(int taskNumber) {
+    public Task deleteTask(int taskNumber) {
         if (taskNumber < 0 || taskNumber >= tasklistArray.size()) {
-            return false;
+            return null;
         }
-        Task task = tasklistArray.get(taskNumber);
-        return tasklistArray.remove(task);
+        return tasklistArray.remove(taskNumber);
     }
 
     /**
@@ -71,14 +64,17 @@ public class Tasklist {
      * @return String representation of all the tasks in the TASKLIST
      */
     public String printTaskList() {
-        StringBuilder toPrint = new StringBuilder("Here are the tasks in your list: \n");
-        int length = tasklistArray.size();
+        StringBuilder toReturn = new StringBuilder("Here are the tasks in your list: \n");
+        int tasklistSize = tasklistArray.size();
 
-        for (int i = 0; i < length; i++) {
-            toPrint.append(i + 1).append(". ").append(tasklistArray.get(i).toString()).append("\n");
+        for (int i = 0; i < tasklistSize; i++) {
+            toReturn.append(i + 1)
+                    .append(". ")
+                    .append(tasklistArray.get(i).toString())
+                    .append("\n");
         }
 
-        return toPrint.toString();
+        return toReturn.toString();
     }
 
     /**
@@ -124,7 +120,7 @@ public class Tasklist {
         if (taskNumber < 0  || taskNumber >= tasklistArray.size()) {
             return false;
         }
-        return tasklistArray.get(taskNumber).unmark();
+        return tasklistArray.get(taskNumber).markAsNotDone();
     }
 
     public int getSize() {
@@ -135,31 +131,28 @@ public class Tasklist {
         return this.tasklistArray;
     }
 
-
     public String getTaskStr(int taskNumber) {
-        if (taskNumber >= tasklistArray.size()) {
-            return null;
-        }
-        if (taskNumber < 0) {
+        if (taskNumber < 0 || taskNumber >= tasklistArray.size()) {
             return null;
         }
         return tasklistArray.get(taskNumber).toString();
     }
 
     public String find(String input) {
-        List<Task> foundList = Parser.findTaskInTasklist(input, this.tasklistArray);
+        List<Task> foundTasks = Parser.findTaskInTasklist(input, this.tasklistArray);
 
-        if (!foundList.isEmpty()) {
-            int length = foundList.size();
+        if (!foundTasks.isEmpty()) {
+            int length = foundTasks.size();
             StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list: \n");
             for (int i = 0; i < length; i++) {
-                toReturn.append(i).append(". ").append(foundList.get(i).toString()).append("\n");
+                toReturn.append(i)
+                        .append(". ")
+                        .append(foundTasks.get(i).toString())
+                        .append("\n");
             }
             return toReturn.toString();
+        } else {
+            return "Could not find any matching tasks!";
         }
-        return "";
     }
-
-
-
 }

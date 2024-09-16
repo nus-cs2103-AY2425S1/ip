@@ -4,6 +4,7 @@ import tayoo.Storage;
 import tayoo.Tasklist;
 import tayoo.Ui;
 import tayoo.exception.TayooException;
+import tayoo.tasks.Task;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,11 +36,13 @@ public class DeleteTaskCommand extends Command {
                 continue;
             }
 
-            String deletedTaskStr = tasklist.getTaskStr(taskToDelete);
+            Task deletedTask = tasklist.deleteTask(taskToDelete);
 
-            if (tasklist.deleteTask(taskToDelete)) {
+            if (deletedTask != null) {
                 storage.deleteTxt(taskToDelete);
-                toPrint.append("Deleted: ").append(deletedTaskStr).append("\n");
+                toPrint.append("Deleted: ").append(deletedTask.toString()).append("\n");
+            } else {
+                throw new TayooException("Exception occurred when deleting task");
             }
         }
 
@@ -68,9 +71,13 @@ public class DeleteTaskCommand extends Command {
                 continue;
             }
 
-            if (tasklist.deleteTask(taskToDelete)) {
+            Task deletedTask = tasklist.deleteTask(taskToDelete);
+
+            if (deletedTask != null) {
                 storage.deleteTxt(taskToDelete);
-                toReturn.append("Deleted: ").append(tasklist.getTaskStr(taskToDelete)).append("\n");
+                toReturn.append("Deleted: ").append(deletedTask.toString()).append("\n");
+            } else {
+                throw new TayooException("Exception occurred when deleting task");
             }
         }
 

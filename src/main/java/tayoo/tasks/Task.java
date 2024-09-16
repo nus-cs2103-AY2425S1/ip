@@ -37,7 +37,7 @@ public class Task {
         }
     }
 
-    public boolean unmark() {
+    public boolean markAsNotDone() {
         if (!this.completed) {
             return false;
         } else {

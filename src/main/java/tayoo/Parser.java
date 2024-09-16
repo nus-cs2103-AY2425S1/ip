@@ -179,7 +179,6 @@ public class Parser {
             scanner.close();
             return new Deadline(title, deadlineStr, isComplete);
         default:
-            //should not ever reach here
             scanner.close();
             throw new ParserException("Reached end of parse task. Invalid task type: " + task);
         }
@@ -244,22 +243,25 @@ public class Parser {
      * @param tasklist The tasklist to be iterated through
      * @return A list of tasks which contains the input string as a substring in the title
      */
-    static List<Task> findTaskInTasklist(String input, List<? extends Task> tasklist) {
-        String toCheck = input.toUpperCase();
+    static List<Task> findTaskInTasklist(String input, List<Task> tasklist) {
+        String substringToCheck = input.toUpperCase();
         List<Task> toReturn = new ArrayList<>();
+
         int length = tasklist.size();
         for (int i = 0; i < length; i++) {
-            if (tasklist.get(i).getTitle().toUpperCase().contains(toCheck)) {
-                toReturn.add(tasklist.get(i));
+            Task task = tasklist.get(i);
+            String taskName = task.getTitle().toUpperCase();
+
+            if (taskName.contains(substringToCheck)) {
+                toReturn.add(task);
             }
         }
         return toReturn;
     }
 
     private static CommandType parseCommandType(String command) throws TayooException {
-        command = command.toUpperCase();
 
-        switch(command) {
+        switch(command.toUpperCase()) {
         case "LIST":
             return CommandType.LIST;
         case "MARK":

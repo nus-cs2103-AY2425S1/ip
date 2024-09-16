@@ -3,8 +3,6 @@ package tayoo;
 import tayoo.command.Command;
 import tayoo.exception.TayooException;
 
-//this is a test commit to try and remerge branch level 10 into master for the dashboard
-
 /**
  * The Tayoo class is the main class of the Tayoo chatbot, it initialises a new Ui, Storage and Tasklist per instannce
  * of Tayoo.
