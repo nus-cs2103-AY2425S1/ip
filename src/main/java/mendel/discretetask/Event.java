@@ -4,6 +4,7 @@ import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -135,13 +136,13 @@ public class Event extends Task {
         String startMsg = dateTimeMsg[0];
         String endMsg = dateTimeMsg[1];
         ConditionalExceptionHandler.of()
-                .conditionTriggerException(!new DateTimeManager(startMsg)
-                                .isEarlierThan(new DateTimeManager(new Date().toString())),
+                .conditionTriggerException(new DateTimeManager(startMsg)
+                                .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
                         "OOPS! Start day is earlier than today.\nPlease ensure valid time period.")
-                .conditionTriggerException(!new DateTimeManager(endMsg)
-                                .isEarlierThan(new DateTimeManager(new Date().toString())),
+                .conditionTriggerException(new DateTimeManager(endMsg)
+                                .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
                         "OOPS! End day is later than today.\nPlease ensure valid time period.")
-                .conditionTriggerException(!new DateTimeManager(startMsg).isEarlierThan(new DateTimeManager(endMsg)),
+                .conditionTriggerException(new DateTimeManager(endMsg).isEarlierThan(new DateTimeManager(startMsg)),
                         "OOPS! Start day is later than end day.\nPlease ensure valid time period.")
                 .conditionTriggerException(startMsg.isEmpty() && endMsg.isEmpty(),
                         "OOPS! I am unsure of start and due.\nPlease specify a start and due.")

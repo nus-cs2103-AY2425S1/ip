@@ -4,6 +4,7 @@ import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -118,8 +119,8 @@ public class Deadline extends Task {
     private static void handleDateTimeError(String endMsg) throws MendelException {
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
-                .conditionTriggerException(!new DateTimeManager(endMsg)
-                                .isEarlierThan(new DateTimeManager(new Date().toString())),
+                .conditionTriggerException(new DateTimeManager(endMsg)
+                                .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
                         "OOPS! Start day is later than end day.\nPlease ensure valid time period.");
     }
 
