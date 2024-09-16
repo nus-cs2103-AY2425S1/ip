@@ -8,7 +8,7 @@ import tasks.Task;
  * Handles processing of user tasks.
  */
 public class TaskList {
-    private final static String MESSAGE_ONFIND = "I found some matching tasks in your list: ";
+    private static final String MESSAGE_ONFIND = "I found some matching tasks in your list: ";
 
     private ArrayList<Task> taskList;
 
@@ -99,7 +99,8 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         sb.append(MESSAGE_ONFIND);
 
-        final int counter[] = { 1 };
+        // workaround for counter in streams
+        final int[] counter = { 1 };
         this.taskList.stream()
                 .filter(t -> t.toString().contains(input) || t.getTag().contains(input))
                 .map(t -> String.format("%d.%s %s\n", counter[0]++, t.toString(), t.getTag()))
@@ -116,7 +117,8 @@ public class TaskList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        final int counter[] = { 1 };
+        // workaround for counter in streams
+        final int[] counter = { 1 };
         this.taskList.stream()
                 .map(t -> String.format("%d.%s  %s\n", counter[0]++, t.toString(), t.getTag()))
                 .forEach(t -> sb.append(t));

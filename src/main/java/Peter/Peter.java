@@ -21,6 +21,6 @@ public class Peter {
      * Returns string response based on input command.
      */
     public String getResponse(String input) { 
-        return CommandParser.parseCommand(input, tasklist, store); 
+        return CommandParser.parseCommand(input, tasklist, store);
     }
 }

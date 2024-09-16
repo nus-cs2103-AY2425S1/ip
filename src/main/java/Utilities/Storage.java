@@ -124,7 +124,9 @@ public class Storage {
             fileScanner.close();
 
             String s = fileContents.get(index);
-            fileContents.set(index, s + tag);
+            // Overwrite Previous Tag
+            String writeString = s.substring(0, s.lastIndexOf(",") + 1) + " " + tag;
+            fileContents.set(index, writeString);
             FileWriter fw = new FileWriter(this.file);
             for (String line : fileContents) {
                 fw.write(line + "\n");
@@ -178,7 +180,7 @@ public class Storage {
 
         try {
             FileWriter fw = new FileWriter(this.file, true);
-            fw.write(details + "\n"); // for readibility
+            fw.write(details + " \n"); // for readibility
             fw.close();
         } catch (IOException e) {
             message += Ui.updateUserOnError(e);

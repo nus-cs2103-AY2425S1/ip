@@ -16,9 +16,9 @@ import tasks.ToDos;
  * Parses user input to execute corresponding commands.
  */
 public class CommandParser {
-    private final static String MESSAGE_ONLIST_NONEMPTY = "Here are the tasks in your list bro: \n";
-    private final static String MESSAGE_ON_LIST_EMPTY = "There are no tasks in your list bro! Time to add some work! \n";
-    private final static String REGEX_INT_PATTERN = "[^0-9]";
+    private static final String MESSAGE_ONLIST_NONEMPTY = "Here are the tasks in your list bro: \n";
+    private static final String MESSAGE_ON_LIST_EMPTY = "You have no tasks bro! Time to add some work! \n";
+    private static final String REGEX_INT_PATTERN = "[^0-9]";
     private enum Commands {
         LIST("list"),
         MARK("mark"),
@@ -59,13 +59,13 @@ public class CommandParser {
             int index = extractIntegerFromString(input) - 1;
             assert index <= taskList.getSize(); // add assertion to check index
             response += taskList.updateTaskListStatus(index, input.startsWith("mark"));
-            store.updateTaskStatus(index, input.startsWith(Commands.MARK.command));
+            response += store.updateTaskStatus(index, input.startsWith(Commands.MARK.command));
         } else if (input.startsWith(Commands.DELETE.command)) {
             // extract integer value
             int index = extractIntegerFromString(input) - 1;
             assert index <= taskList.getSize(); // add assertion to check index
             response += taskList.removeFromTaskList(index);
-            store.removeFileTask(index);
+            response += store.removeFileTask(index);
         } else if (input.startsWith(Commands.FIND.command)) {
             String matchValue = input.replace("find", "").strip();
             assert !matchValue.isEmpty();
@@ -74,14 +74,14 @@ public class CommandParser {
             String[] splits = input.split("/");
             int index = extractIntegerFromString(splits[0]) - 1;
             response += taskList.addTag(index, splits[1].strip());
-            store.updateTaskTag(index, splits[1].strip());
+            response += store.updateTaskTag(index, splits[1].strip());
         } else {
             // Invoke Task Creation Commands
             try {
                 TaskType type;
                 if (input.startsWith(Commands.TODO.command)) {
                     type = TaskType.TODO;
-                } else if (input.startsWith(Commands.DEADLINE.command)) {   
+                } else if (input.startsWith(Commands.DEADLINE.command)) {
                     type = TaskType.DEADLINE;
                 } else if (input.startsWith(Commands.EVENT.command)) {
                     type = TaskType.EVENT;
@@ -101,7 +101,7 @@ public class CommandParser {
 
     /**
      * Handles the creation of tasks.
-     * 
+     *
      * @param type TaskType of the task to be created.
      * @param input String containing the parameters for the task.
      * @param taskList TaskList class for maintaining tasks.
@@ -111,7 +111,8 @@ public class CommandParser {
      * @throws BadDescriptionException If there are missing descriptions for the task
      * @throws DateTimeException If date format is not correct
      */
-    private static String createTask(TaskType type, String input, TaskList taskList, Storage store, String response) throws BadDescriptionException, DateTimeException {
+    private static String createTask(TaskType type, String input, TaskList taskList, Storage store, String response) 
+            throws BadDescriptionException, DateTimeException {
         String[] splits = input.split("/");
         String name = splits[0].substring(type.name().length() + 1);
         if (name.isEmpty()) {
@@ -122,7 +123,7 @@ public class CommandParser {
             case TODO:
                 Task t = new ToDos(name);
                 response += taskList.addToTaskList(t, name);
-                store.updateFileTasks(String.format("T, %d, %s, ", 0, name));
+                response += store.updateFileTasks(String.format("T, %d, %s, ", 0, name));
                 break;
             case DEADLINE:
                 if (splits.length != 2) {
@@ -131,7 +132,7 @@ public class CommandParser {
                 String details = splits[1].replace("by", "");
                 Task t2 = new Deadlines(name, details.strip());
                 response += taskList.addToTaskList(t2, name);
-                store.updateFileTasks(String.format("D, %d, %s, %s, ", 0, name, t2.getWriteTaskInfo()));;
+                response += store.updateFileTasks(String.format("D, %d, %s, %s, ", 0, name, t2.getWriteTaskInfo()));;
                 break;
             case EVENT:
                 if (splits.length != 3) {
@@ -141,7 +142,10 @@ public class CommandParser {
                 String endDetails = splits[2].replace("to", "");
                 Task t3 = new Event(name, startDetails.strip(), endDetails.strip());
                 response += taskList.addToTaskList(t3, name);
-                store.updateFileTasks(String.format("E, %d, %s, %s, ", 0, name, t3.getWriteTaskInfo()));
+                response += store.updateFileTasks(String.format("E, %d, %s, %s, ", 0, name, t3.getWriteTaskInfo()));
+                break;
+            default:
+                // Should never trigger as TaskType is checked beforehand.
                 break;
             }
         } catch (DateTimeParseException ex) {

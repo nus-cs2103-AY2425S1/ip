@@ -43,6 +43,7 @@ public class Ui {
 
         message += "Noted! I have successfully tagged this task bro: ";
         message += t.toString();
+        message += t.getTag();
 
         return message;
     }
