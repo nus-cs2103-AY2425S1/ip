@@ -24,7 +24,7 @@ public class Parser {
      * Handles date and time formats for deadlines and events.
      *
      * @param fullCommand The command string input by the user.
-     * @return a {@code Command} object representing the user command.
+     * @return A {@code Command} object representing the user command.
      * @throws LoloException If the command is invalid or the date/time format is incorrect.
      */
     public static Command parse(String fullCommand) throws LoloException {
@@ -69,6 +69,15 @@ public class Parser {
     private static Command handleTodoCommand(String fullCommand) {
         return new AddCommand(new ToDo(fullCommand.substring(5)));
     }
+
+    /**
+     * Returns an {@code AddCommand} to add a {@code Deadline} task.
+     * The date and time are parsed from the command.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return An {@code AddCommand} with a new {@code Deadline} task.
+     * @throws LoloException If the date and time format is incorrect.
+     */
 
     private static Command handleDeadlineCommand(String fullCommand) throws LoloException {
         String[] parts = fullCommand.split(" /by ");
