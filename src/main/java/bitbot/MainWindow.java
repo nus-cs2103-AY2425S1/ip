@@ -35,6 +35,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image bitbotImage = new Image(this.getClass().getResourceAsStream("/images/Duke.png"));
 
+    /**
+     * Initialises the application with the introduction paragraph when it is first loaded.
+     */
     @FXML
     public void initialize() {
 

@@ -1,16 +1,18 @@
 package bitbot;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import java.time.format.DateTimeParseException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
+import org.junit.jupiter.api.Test;
 
+/**
+ * Unit Test for Deadline class
+ */
 public class DeadlineTest {
     @Test
     public void testFinalString_withLocalDateTime() {
@@ -40,7 +42,7 @@ public class DeadlineTest {
     public void toFileFormat_withLocalDateTime() {
         LocalDateTime dateTime = LocalDateTime.of(2024, 8, 30, 16, 0);
         Deadline deadline = new Deadline("Submit report", dateTime);
-        String expected = "D| |Submit report|Aug 30 2024 16:00|NIL";
+        String expected = "D| |Submit report|Aug 30 2024 16:00|NIL|";
         assertEquals(expected, deadline.toFileFormat());
     }
 
@@ -49,7 +51,7 @@ public class DeadlineTest {
         LocalDate date = LocalDate.of(2024, 8, 30);
         Deadline deadline = new Deadline("Submit report", date);
         deadline.markAsDone();
-        String expected = "D|X|Submit report|Aug 30 2024|NIL";
+        String expected = "D|X|Submit report|Aug 30 2024|NIL|";
         assertEquals(expected, deadline.toFileFormat());
     }
 
@@ -57,7 +59,7 @@ public class DeadlineTest {
     public void toFileFormat_withLocalTime() {
         LocalTime time = LocalTime.of(16, 0);
         Deadline deadline = new Deadline("Submit report", time);
-        String expected = "D| |Submit report|16:00|NIL";
+        String expected = "D| |Submit report|16:00|NIL|";
         assertEquals(expected, deadline.toFileFormat());
     }
 
