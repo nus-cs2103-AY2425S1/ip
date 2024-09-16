@@ -40,6 +40,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        userInput.setPromptText("Type command here...");
     }
 
     /** Injects the Dipsy instance and shows welcome message. */
