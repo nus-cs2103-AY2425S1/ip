@@ -30,7 +30,8 @@ public class EventTask extends Task {
     public String toString() {
         assert !description.isEmpty() : description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
-        return "[E]" + super.toString() + " (from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + start.format(formatter)
+                + " to: " + end.format(formatter) + ")";
     }
 
     /**
