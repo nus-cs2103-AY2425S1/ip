@@ -15,7 +15,7 @@ import ned.Ned;
  */
 public class Main extends Application {
 
-    private Ned nedInstance = new Ned("./cachedTasks.txt");
+    private Ned nedInstance = new Ned(Ned.CACHED_TASKS_PATH);
 
     @Override
     public void start(Stage stage) {

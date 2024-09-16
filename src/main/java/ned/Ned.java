@@ -1,5 +1,7 @@
 package ned;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ import ned.tasks.Task;
  * Represents the chatbot, Ned, which will read and react to user commands.
  */
 public class Ned {
-    public static final String CACHED_TASKS_PATH = Paths.get("src", "data", "cachedTasks.txt").toString();
+    public static final String CACHED_TASKS_PATH = Path.of("data", "cachedFiles.txt").toString();
     private static final String EXIT_MESSAGE = "EXIT MESSAGE";
     private Storage storage;
     private Ui ui;
