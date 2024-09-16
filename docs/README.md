@@ -186,11 +186,27 @@ Here are the matching tasks in your list:
 1. [T][ ] read book
 ```
 
+### 7. Adding Multiple To-Dos
+
+To add multiple to-dos at once:
+
+```bash
+addmultipletodos <task1>, <task2>...
+```
+
+**Example:**
+
+```bash
+addmultipletodos buy groceries, make presentation
+```
+
 **Expected Outcome:**
 
 ```
-Bye. Hope to see you again soon!
+Got it. I've added the todos
 ```
+You can then check using the `list` command.
+
 
 ## Conclusion
 

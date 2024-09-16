@@ -40,7 +40,7 @@ public class HelpCommand extends Command {
                 + "6. unmark <index> - Unmarks a task as not done\n"
                 + "7. delete <index> - Deletes a task\n"
                 + "8. find <keyword> - Finds tasks containing the keyword\n"
-                + "9. help - Shows this help message\n"
-                + "10. bye - Exits the application";
+                + "9. addmultipletodos <task1>, <task2>, ... - Adds multiple Todo tasks\n"
+                + "10. help - Shows this help message\n";
     }
 }
