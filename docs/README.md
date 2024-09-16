@@ -56,7 +56,7 @@ More detailed breakdowns are included below.
 
 Adds a todo, deadline or event to Hoshi.
 
-Format: `add EVENT DESCRIPTION STARTDATE ENDDATE`
+Format: `add TASKTYPE DESCRIPTION STARTDATE ENDDATE`
 
 Examples:
 - `add todo ASG1`
@@ -112,6 +112,7 @@ Hoshi data is saved automatically after any command that changes the data. There
 
 ## Acknowledgements
 
-1. ASCII Art - https://patorjk.com/software/taag/#p=testall&f=Star%20Wars&t=HOSHI
-2. JavaFX initOwner Method - https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
-3. JavaFX PauseTransition Method - https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
+1. ASCII Art - [Link](https://patorjk.com/software/taag/#p=testall&f=Star%20Wars&t=HOSHI)
+2. JavaFX initOwner Method - [Link](https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html)
+3. JavaFX PauseTransition Method - [Link](https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx)
+4. Arrays copyOfRange Method - [Link](https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/)
