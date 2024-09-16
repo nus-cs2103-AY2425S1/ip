@@ -80,11 +80,11 @@ public class Ui {
   }
 
   public static String displayAfterAddTask(Task task) {
-    return "Yay! \uD83C\uDF37 I’ve added " + task + " just for you! Keep up the great work! \uD83D\uDCAA✨: ";
+    return "Yay! \uD83C\uDF37 I’ve added '" + task + "' just for you! Keep up the great work! \uD83D\uDCAA✨ ";
   }
 
   public static String displayAfterDeleteTask(Task task) {
-    return "Alright, now " + task + " is gone! ✨ You're doing amazing, keep it up! \uD83C\uDF08";
+    return "Alright, now '" + task + "' is gone! ✨ You're doing amazing, keep it up! \uD83C\uDF08";
   }
 
   public static String displayAfterMarkTask(TaskList tasklist, int taskIdx) {
