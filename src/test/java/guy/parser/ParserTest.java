@@ -71,6 +71,9 @@ public class ParserTest {
         assertEquals("", outContent.toString().trim());
     }
 
+    /**
+     * Tests the Parser's response to adding a todo task.
+     */
     @Test
     public void toDoTest() {
         Parser p = new Parser(new Scanner(new ByteArrayInputStream("todo break something".getBytes())));
@@ -80,6 +83,9 @@ public class ParserTest {
         assertTrue(outContent.toString().contains("That's 1 tasks for your ass to handle."));
     }
 
+    /**
+     * Tests the Parser's response to adding a deadline task.
+     */
     @Test
     public void deadlineTest() {
         Parser p = new Parser(new Scanner(
@@ -90,6 +96,9 @@ public class ParserTest {
         assertTrue(outContent.toString().contains("That's 1 tasks for your ass to handle."));
     }
 
+    /**
+     * Tests the Parser's response to adding an event task.
+     */
     @Test
     public void eventTest() {
         Parser p = new Parser(new Scanner(
@@ -100,6 +109,9 @@ public class ParserTest {
         assertTrue(outContent.toString().contains("That's 1 tasks for your ass to handle."));
     }
 
+    /**
+     * Tests the Parser's response to deleting a task.
+     */
     @Test
     public void deleteTest() {
         Parser testParser = new Parser(new Scanner(new ByteArrayInputStream("todo break something".getBytes())));
@@ -114,6 +126,9 @@ public class ParserTest {
         assertTrue(outContent.toString().contains("Your ass still needs to handle 0 more tasks."));
     }
 
+    /**
+     * Tests the Parser's response to finding a task.
+     */
     @Test
     public void findTest() {
         Parser testParser = new Parser(new Scanner(new ByteArrayInputStream("todo break something".getBytes())));
@@ -131,6 +146,9 @@ public class ParserTest {
         assertTrue(outContent.toString().contains("[T] [ ] smash something"));
     }
 
+    /**
+     * Tests the GUI's response to an invalid command.
+     */
     @Test
     public void invalidGuiTest() throws GuyException {
         Parser p = new Parser(new Scanner(System.in));
@@ -138,6 +156,9 @@ public class ParserTest {
         assertEquals("Maybe put in an actual command next time, shitass.", res.trim());
     }
 
+    /**
+     * Tests the GUI's response to adding a todo task.
+     */
     @Test
     public void toDoGuiTest() throws GuyException {
         Parser p = new Parser(new Scanner(System.in));

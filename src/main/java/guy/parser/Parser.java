@@ -81,10 +81,10 @@ public class Parser {
      */
     public String handleGuiInput(String input) throws GuyException {
         TaskManager tm = TaskManager.getInstance();
-        ByteArrayOutputStream bstream = new ByteArrayOutputStream();
-        PrintStream pstream = new PrintStream(bstream);
-        PrintStream sysstream = System.out;
-        System.setOut(pstream);
+        ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+        PrintStream pStream = new PrintStream(bStream);
+        PrintStream mainStream = System.out;
+        System.setOut(pStream);
 
         String[] temp = splitCmd(input);
         assert temp.length > 1;
@@ -123,8 +123,8 @@ public class Parser {
                 throw new GuyException("Maybe put in an actual command next time, shitass.");
             }
             System.out.flush();
-            System.setOut(sysstream);
-            return bstream.toString();
+            System.setOut(mainStream);
+            return bStream.toString();
         } catch (GuyException e) {
             return e.getMessage();
         }
