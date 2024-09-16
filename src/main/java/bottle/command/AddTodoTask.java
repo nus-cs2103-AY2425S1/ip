@@ -25,6 +25,7 @@ public class AddTodoTask extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert !description.isEmpty() : "Task description cannot be empty!";
         taskList.addTask(new Todo(description));
         storage.saveTasks(taskList.getTaskList());
         return ui.printTaskAddedMessage(taskList.getTaskList());

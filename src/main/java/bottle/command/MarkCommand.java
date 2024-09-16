@@ -24,6 +24,8 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskIndex < taskList.getTaskList().size() : "Index is out of range!";
+        assert taskIndex >= 0 : "Index is out of range!";
         taskList.getTask(taskIndex).mark();
         storage.saveTasks(taskList.getTaskList());
         return ui.printMark(taskList.getTask(taskIndex));

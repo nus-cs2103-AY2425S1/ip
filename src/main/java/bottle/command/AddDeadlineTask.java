@@ -33,6 +33,8 @@ public class AddDeadlineTask extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert !description.isEmpty() : "Task description cannot be empty!";
+        assert by != null : "Deadline time cannot be empty!";
         taskList.addTask(new Deadline(description, by));
         storage.saveTasks(taskList.getTaskList());
         return ui.printTaskAddedMessage(taskList.getTaskList());

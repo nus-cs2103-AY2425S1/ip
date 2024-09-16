@@ -30,6 +30,7 @@ public class Storage {
      * @param filePath the file path
      */
     public Storage(String filePath) {
+        assert !filePath.isEmpty() : "filePath cannot be empty";
         this.filePath = filePath;
         this.parser = new Parser();
     }
@@ -62,6 +63,7 @@ public class Storage {
                 List<String> lines = Files.readAllLines(Paths.get(filePath));
                 for (String line : lines) {
                     String[] parts = line.split("\\|");
+                    assert parts.length > 0 : "input cannot be empty!";
                     Task task;
                     task = parser.parseTask(line);
                     taskList.add(task);

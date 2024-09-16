@@ -30,6 +30,7 @@ public class FindCommand extends Command {
                 filteredList.addTask(task);
             }
         }
+        assert filteredList != null : "Filtered List cannot be null!";
         return ui.printTaskList(filteredList);
     }
 }
