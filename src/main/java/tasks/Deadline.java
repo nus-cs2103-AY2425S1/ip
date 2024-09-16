@@ -17,7 +17,10 @@ public class Deadline extends Task {
     public Deadline(String name, LocalDateTime by) {
         super(name);
         this.endTime = by;
+    }
 
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
     /**

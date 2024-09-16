@@ -1,7 +1,11 @@
 package utils;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
 
 /**
@@ -47,16 +51,8 @@ public class StoredList {
      * @return The message if successful in removing a Task.
      */
     public String removeItem(int index) {
-<<<<<<< HEAD
-        String message = LINE_BREAK
-=======
-<<<<<<< HEAD
         assert index < this.getSize() : "Accessing item not in list";
-        String message = "____________________________________________________________\n"
-=======
         String message = LINE_BREAK
->>>>>>> 749b9d28a174100c7e78501f3051de16f0eae133
->>>>>>> master
                 + "Noted. I've removed this task:\n"
                 + this.getItem(index) + "\n"
                 + "Now you have " + this.getSize() + " task in the list.\n"
@@ -81,6 +77,66 @@ public class StoredList {
         }
         message.append(LINE_BREAK);
         return message.toString();
+    }
+
+    /**
+     * Displays all task that is close to a specific date/ time.
+     */
+    public String reminder(LocalDateTime referenceTime) {
+        assert referenceTime != null;
+        StoredList upcomingTask = new StoredList();
+        StoredList overdueTask = new StoredList();
+        StringBuilder message = new StringBuilder();
+        message.append(LINE_BREAK);
+        for (Task item : data) {
+            LocalDateTime endTime;
+            if (item instanceof Event event) {
+                endTime = event.getEndTime();
+            } else if (item instanceof Deadline deadline) {
+                endTime = deadline.getEndTime();
+            } else {
+                endTime = null;
+            }
+
+            if (endTime != null) {
+                if (isOverdueTask(endTime, referenceTime)) {
+                    if (!item.getCompleted()) {
+                        overdueTask.addItem(item);
+                    }
+                } else if (isUpComingTask(endTime, referenceTime)) {
+                    upcomingTask.addItem(item);
+                }
+            }
+        }
+        message.append("Reminders: \n");
+        message.append(LINE_BREAK);
+        message.append("Overdue Tasks: \n");
+        message.append(overdueTask);
+        message.append("Upcoming Tasks: \n");
+        message.append(upcomingTask);
+        return message.toString();
+    }
+
+    /**
+     * Checks if the task is to be done within 1 week of the reference time.
+     * @param taskTime The task end time.
+     * @param referenceTime The reference time.
+     * @return True if task is due within 1 week, false otherwise.
+     */
+    public boolean isUpComingTask(LocalDateTime taskTime, LocalDateTime referenceTime) {
+        Duration duration = Duration.between(referenceTime, taskTime);
+        return duration.toDays() >= 0 && duration.toDays() <= 7;
+    }
+
+    /**
+     * Checks if the task is overdue.
+     * @param taskTime The task end time.
+     * @param referenceTime The reference time.
+     * @return True if task is overdue, false otherwise.
+     */
+    public boolean isOverdueTask(LocalDateTime taskTime, LocalDateTime referenceTime) {
+        Duration duration = Duration.between(referenceTime, taskTime);
+        return duration.toDays() < 0;
     }
 
     /**

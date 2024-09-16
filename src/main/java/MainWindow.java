@@ -25,6 +25,9 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image chatterboxImage = new Image(this.getClass().getResourceAsStream("/images/DaChatterbox.png"));
 
+    /**
+     * Initialises the Graphical User Interface.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -33,6 +36,8 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setChatterbox(Chatterbox c) {
         chatterbox = c;
+        DialogBox startUpMessage = DialogBox.getChatterboxDialog(chatterbox.reminder(), userImage);
+        dialogContainer.getChildren().add(startUpMessage);
     }
 
     /**

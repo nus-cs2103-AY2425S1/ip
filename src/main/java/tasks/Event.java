@@ -23,6 +23,10 @@ public class Event extends Task {
         this.endTime = end;
     }
 
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
     /**
      * Returns a string on how an Event should be stored in a save file.
      * @return Save format for the task.
