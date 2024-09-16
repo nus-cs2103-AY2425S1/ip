@@ -187,40 +187,47 @@ public class TaskList {
     }
 
     /**
+     * Comparator function used in sorting
+     *
+     * @return whether the t1 or t2 is bigger
+     */
+    private static int compareTasks(Task t1, Task t2) {
+        // Solution below adopted from https://stackoverflow.com/questions/62492114/how-does-comparator-works-internally
+        // Sort by type: Task (0) -> Deadline (1) -> Event (2)
+        if (t1.getClass() != t2.getClass()) {
+            if (t1 instanceof Task && !(t1 instanceof Deadline) && !(t1 instanceof Events)) {
+                return -1;
+            }
+            if (t2 instanceof Task && !(t2 instanceof Deadline) && !(t2 instanceof Events)) {
+                return 1;
+            }
+            if (t1 instanceof Deadline) {
+                return -1;
+            }
+            if (t2 instanceof Deadline) {
+                return 1;
+            }
+            if (t1 instanceof Events) {
+                return -1;
+            }
+            if (t2 instanceof Events) {
+                return 1;
+            }
+        }
+
+        // If the same type, use the compareTo method of each class
+        return t1.compareTo(t2);
+    }
+
+    /**
      * Sorts the task list by task type then by the end date time.
      *
      * @return the list of tasklist that is sorted
      */
     public static String sortTask() {
-        Collections.sort(taskList, (t1, t2) -> {
-            // Sort by type: Task -> Deadline -> Event
-            if (t1.getClass() != t2.getClass()) {
-                if (t1 instanceof Task && !(t1 instanceof Deadline) && !(t1 instanceof Events)) {
-                    return -1;
-                }
-                if (t2 instanceof Task && !(t2 instanceof Deadline) && !(t2 instanceof Events)) {
-                    return 1;
-                }
-                if (t1 instanceof Deadline) {
-                    return -1;
-                }
-                if (t2 instanceof Deadline) {
-                    return 1;
-                }
-                if (t1 instanceof Events) {
-                    return -1;
-                }
-                if (t2 instanceof Events) {
-                    return 1;
-                }
-            }
-            storage.saveTasks();
-            // If the same type, use the compareTo method of each class
-            return t1.compareTo(t2);
-        });
-
+        // Solution below adopted from https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property
+        Collections.sort(taskList, (t1, t2) -> compareTasks(t1, t2));
+        storage.saveTasks();
         return listTasks();
     }
-
-
 }
