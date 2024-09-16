@@ -78,9 +78,10 @@ Example: `find book`
 
 ### Sorting tasks: `sort`
 
-Sorts tasks by their deadline and displays task list. \
+Sorts tasks by their deadline and displays sorted task list. \
 Tasks without a deadline will be placed at the end. \
-Events will be sorted by their start date.
+Events will be sorted by their start date. \
+**Note: Original task list will not be modified.**
 
 Format: `sort` \
 Sample output:
