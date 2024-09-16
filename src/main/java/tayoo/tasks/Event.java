@@ -3,6 +3,8 @@ package tayoo.tasks;
 import tayoo.Parser;
 import tayoo.exception.TayooException;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
@@ -48,26 +50,37 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         String startString, endString;
 
-
         if (eventStart != null) {
-            startString = dateFormatter.format(eventStart);
+            if (eventStart instanceof LocalDateTime) {
+                startString = dateTimeFormatter.format((LocalDateTime) eventStart);
+            } else if (eventStart instanceof LocalTime) {
+                startString = timeFormatter.format((LocalTime) eventStart);
+            } else {
+                startString = eventStart.toString();
+            }
         } else {
             startString = Objects.requireNonNullElse(eventStartStr, "");
         }
 
         if (eventEnd != null) {
-            endString = dateFormatter.format(eventEnd);
+            if (eventEnd instanceof LocalDateTime) {
+                endString = dateTimeFormatter.format((LocalDateTime) eventEnd);
+            } else if (eventEnd instanceof LocalTime) {
+                endString = timeFormatter.format((LocalTime) eventEnd);
+            } else {
+                endString = eventEnd.toString();
+            }
         } else {
             endString = Objects.requireNonNullElse(eventEndStr, "");
         }
 
-
-        return "[E]" + super.toString() + " (from: " + startString + " to: " + endString + " )";
+        return "[E]" + super.toString() + " (from: " + startString + " to: " + endString + ")";
     }
 
     /**

@@ -16,6 +16,22 @@ public class DeleteTaskCommand extends Command {
 
     private final List<Integer> taskNumbers;
 
+    /**
+     * Creates a new DeleteTask instance. When deleting tasks, it is most efficient to delete the task in descending
+     * order because the tasks are stored in the tasklist as an ArrayList. The constructor therefore sorts the input
+     * list of taskNumbers in descending order. The constructor also decrements each integer by one because the input
+     * assumes a 1-based list, while the tasks are stored in a 0-based index.
+     *
+     * @param taskNumbers The list of indexes of tasks which are to be deleted. May not be sorted and is in 1-based
+     *                    index
+     */
+    public DeleteTaskCommand(List<Integer> taskNumbers) {
+        this.taskNumbers = taskNumbers;
+        Collections.sort(taskNumbers, Collections.reverseOrder());
+
+        taskNumbers.replaceAll(x -> x - 1);
+    }
+
     private String deleteTaskCommandHelper(Tasklist tasklist, Storage storage) throws TayooException {
         StringBuilder toReturn = new StringBuilder();
 
@@ -24,7 +40,7 @@ public class DeleteTaskCommand extends Command {
             //guard conditions
             if (taskToDelete < 0) {
                 throw new TayooException("Expected task number > 0");
-            } else if (taskToDelete > Tasklist.MAXIMUM_CAPACITY) {
+            } else if (taskToDelete >= Tasklist.MAXIMUM_CAPACITY) {
                 throw new TayooException("Expected task number < " + Tasklist.MAXIMUM_CAPACITY);
             } else if (taskToDelete >= tasklist.getSize()) {
                 toReturn.append("Could not find task number ").append(taskToDelete + 1).append("\n");
@@ -42,22 +58,6 @@ public class DeleteTaskCommand extends Command {
         toReturn.append(tasklist.numberOfTasksLeft());
 
         return toReturn.toString();
-    }
-
-    /**
-     * Creates a new DeleteTask instance. When deleting tasks, it is most efficient to delete the task in descending
-     * order because the tasks are stored in the tasklist as an ArrayList. The constructor therefore sorts the input
-     * list of taskNumbers in descending order. The constructor also decrements each integer by one because the input
-     * assumes a 1-based list, while the tasks are stored in a 0-based index.
-     * 
-     * @param taskNumbers The list of indexes of tasks which are to be deleted. May not be sorted and is in 1-based 
-     *                    index
-     */
-    public DeleteTaskCommand(List<Integer> taskNumbers) {
-        this.taskNumbers = taskNumbers;
-        Collections.sort(taskNumbers, Collections.reverseOrder());
-
-        taskNumbers.replaceAll(x -> x - 1);
     }
 
     /**

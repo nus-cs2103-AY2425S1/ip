@@ -24,8 +24,9 @@ public class AddTaskCommand extends Command {
         if (tasklist.addTask(this.taskToAdd)) {
             storage.addToTxt(this.taskToAdd);
 
-            toReturn.append("Got it. I've added this task: \n").append(this.taskToAdd.toString());
-            toReturn.append(tasklist.numberOfTasksLeft());
+            toReturn.append("Got it. I've added this task: \n")
+                    .append(this.taskToAdd.toString())
+                    .append(tasklist.numberOfTasksLeft());
 
         } else {
             throw new TayooException("You have too many tasks in your tasklist!");
@@ -65,7 +66,6 @@ public class AddTaskCommand extends Command {
     @Override
     public String toString() {
         return this.taskToAdd.toString();
-
     }
 
     @Override

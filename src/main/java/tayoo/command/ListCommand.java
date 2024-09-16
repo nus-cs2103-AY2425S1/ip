@@ -38,7 +38,6 @@ public class ListCommand extends Command {
      */
     @Override
     public String guiExecute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {
-        System.out.println("Reached guiExecute");
         return tasklist.printTaskList();
     }
 

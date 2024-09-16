@@ -47,7 +47,7 @@ public class Task {
      *
      * @return true if the task was previously marked as complete and has been changed, return false otherwise.
      */
-    public boolean unmark() {
+    public boolean markAsNotDone() {
         if (!this.completed) {
             return false;
         } else {

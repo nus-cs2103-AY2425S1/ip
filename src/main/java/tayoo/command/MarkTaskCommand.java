@@ -63,8 +63,8 @@ public class MarkTaskCommand extends Command {
         for (int taskToMark : tasksToMark) {
             if (taskToMark < 0) {
                 throw new TayooException("Expected task number > 0");
-            } else if (taskToMark > Tasklist.MAXIMUM_CAPACITY) {
-                throw new TayooException("Expected task number < " + Tasklist.MAXIMUM_CAPACITY);
+            } else if (taskToMark >= Tasklist.MAXIMUM_CAPACITY) {
+                throw new TayooException("Expected task number <= " + Tasklist.MAXIMUM_CAPACITY);
             } else if (taskToMark >= tasklist.getSize()) {
                 toReturn.append("Could not find task number ").append(taskToMark + 1).append("\n");
                 continue;

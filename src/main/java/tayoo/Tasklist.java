@@ -128,7 +128,7 @@ public class Tasklist {
         if (taskNumber < 0  || taskNumber >= tasklistArray.size()) {
             return false;
         }
-        return tasklistArray.get(taskNumber).unmark();
+        return tasklistArray.get(taskNumber).markAsNotDone();
     }
 
     public int getSize() {
@@ -179,7 +179,7 @@ public class Tasklist {
     public String numberOfTasksLeft() {
         StringBuilder toReturn = new StringBuilder();
         int tasklistSize = tasklistArray.size();
-        if (tasklistSize > 1) {
+        if (tasklistSize > 1 || tasklistSize == 0) {
             toReturn.append("\n Now you have ").append(tasklistSize).append(" tasks in your list");
         } else {
             toReturn.append("\n Now you have ").append(tasklistSize).append(" task in your list");
