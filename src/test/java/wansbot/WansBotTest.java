@@ -35,5 +35,28 @@ public class WansBotTest {
         wans.addTodos("todos read");
         assertEquals(ui.handleSuccesfulMarking(taskList, 0), wans.markTasks("mark 1"));
     }
-    
+
+    @Test
+    public void markTasks_throwsNumberFormatException() {
+        UI ui  = new UI();
+        Todos read = new Todos("read");
+        read.finish();
+        TaskList taskList = new TaskList();
+        taskList.add(read);
+        WansBot wans = new WansBot();
+        wans.addTodos("todos read");
+        assertEquals(ui.handleMarkingFormat(), wans.markTasks("mark a"));
+    }
+
+    @Test
+    public void markTasks_throwsNotANumMarkingException() {
+        UI ui  = new UI();
+        Todos read = new Todos("read");
+        read.finish();
+        TaskList taskList = new TaskList();
+        taskList.add(read);
+        WansBot wans = new WansBot();
+        wans.addTodos("todos read");
+        assertEquals(ui.handleInvalidNum(), wans.markTasks("mark 2"));
+    }
 }
