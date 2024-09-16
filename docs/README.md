@@ -22,7 +22,7 @@ To download the latest version of David,
 
 
 ## Command summary
-> [!NOTE]
+> **NOTE**
 > 
 > The easiest way to see all available commands is simply calling the `help` command
 
@@ -133,7 +133,7 @@ To download the latest version of David,
 </table>
 
 ## Features
-> [!NOTE]  
+> **NOTE**
 > - Words in `UPPER_CASE` are required parameters supplied by the user.
 > - Words in `lower_case` are action specifiers for commands
 
