@@ -1,13 +1,16 @@
 package bitbot;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit test for Todo class
+ */
 public class TodoTest {
 
-    Task toDos = new Todo("Do Homework");
+    private Task toDos = new Todo("Do Homework");
 
     @Test
     public void correctlySetsStatus() {
@@ -27,6 +30,6 @@ public class TodoTest {
 
     @Test
     public void toFileFormat_withDescription() {
-        assertEquals("T| |Do Homework|NIL| NIL", toDos.toFileFormat());
+        assertEquals("T| |Do Homework|NIL| NIL|", toDos.toFileFormat());
     }
 }

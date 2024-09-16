@@ -27,6 +27,10 @@ with minor modifications
 
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;
+
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+
 }
 
 /*
