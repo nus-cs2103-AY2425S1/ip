@@ -26,6 +26,10 @@ public class Ui {
     private static final String UNKNOWN_EVENT_TIMING = "The event task description " +
             "must contain '/from' and '/to' with the respective start and end times.";
 
+    private static final String ONE_KEYWORD = "Please enter exactly one keyword for the 'find' command.";
+
+    private static final String NO_MATCHING_TASKS = "No matching tasks found.";
+
     /**
      * Returns the greeting message to be displayed to the user
      *
@@ -195,6 +199,26 @@ public class Ui {
     public String displayUnknownEventTimingException() {
         return DIVIDER + "\n"
                 + UNKNOWN_EVENT_TIMING;
+    }
+
+    public String displayNoMatchingTasks() {return DIVIDER + "\n" + NO_MATCHING_TASKS;}
+
+    public String displayMatchingTasks(ArrayList<Task> matchingTasks) {
+        String displayList = DIVIDER + "\n"; // Add a divider at the beginning
+
+        displayList += "Here are the matching tasks in your list:" + "\n";
+
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            displayList += (i + 1) + ". " + matchingTasks.get(i).toString();
+            if (i < matchingTasks.size() - 1) {
+                displayList += "\n"; // Add a newline between tasks but not after the last task
+            }
+        }
+        return displayList;
+    }
+
+    public String displayOneKeywordException() {
+        return DIVIDER + "\n" + ONE_KEYWORD;
     }
 
     /**

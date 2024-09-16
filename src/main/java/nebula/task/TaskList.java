@@ -100,8 +100,8 @@ public class TaskList {
      *
      * @param taskNum The task number of the Task Object to be returned
      */
-    public String getTask(int taskNum) {
+    public Task getTask(int taskNum) {
         Task t = taskList.get(taskNum);
-        return t.getDescription();
+        return t;
     }
 }
