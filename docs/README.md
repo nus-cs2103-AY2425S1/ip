@@ -117,8 +117,8 @@ Once you are finished with the chatbot, simply type ```bye```. SirPotato will th
 | Command                        | Description      |Example                               |
 |--------------------------------|------------------|----------------------------------------------------------|
 | `todo <description>`           | Adds a todo task | `todo Borrow a book`                                      |
-| `deadline <description> /by <date>`| Adds a deadline task| `deadline Submit assignment /by 2024-09-15`               |
-| `event <description> /from <start_date> /to <end_date>`| Adds an event task                         | `event Team meeting /from 2024-09-15 /to 2024-09-16`      |
+| `deadline <description> /by <date>`| Adds a deadline task| `deadline Submit assignment /by 15-09-2014`               |
+| `event <description> /from <start_date> /to <end_date>`| Adds an event task                         | `event Team meeting /from 15-10-2024 /to 16-10-2024`      |
 | `list`                             | Lists all tasks                                            | `list`                                                   |
 | `mark <task_number>`               | Marks a task as done                                       | `mark 1`                                                 |
 | `unmark <task_number>`             | Unmarks a task as not done                                 | `unmark 1`                                               |
