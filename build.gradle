@@ -53,7 +53,8 @@ run {
 }
 
 shadowJar {
-    archiveFileName = 'jackson_v1.jar'
+    archiveFileName = 'jackson.jar'
+
 }
 
 checkstyle {

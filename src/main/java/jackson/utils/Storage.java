@@ -41,7 +41,8 @@ public class Storage {
         File f = new File(this.path); // new file from path
         String output = "";
 
-        f.createNewFile();
+        assert f.exists() : "Error, file does not exist!";
+
         FileWriter fw = new FileWriter(f);
         for (int i = 0; i < taskList.getSize(); i++) {
             fw.write(taskList.getTask(i).toString()); // write each task
@@ -64,26 +65,28 @@ public class Storage {
     public String load(TaskList taskList) {
         File f = new File(this.path); // new file object
         Task t;
-        String output = "";
-
-        // assertion to check if file exists
-        assert f.exists() : "Error! File does not exist!\n";
+        String output;
 
         try {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+                return "Making new save file!";
+            }
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
                 t = loadIndividual(sc.nextLine());
                 taskList.addTask(t);
             }
             sc.close(); // close scanner
-            output += "Tasks loaded successfully!\n";
+            output = "Tasks loaded successfully!\n";
         } catch (IOException e) {
             // file cannot be access or read from
             // skip loading completely
-            output += String.format("IOException! %s! Aborting loading...\n", e);
+            output = String.format("IOException! %s! Aborting loading...\n", e);
         } catch (Exception e) {
             // some other exception besides IOException
-            output += String.format("Unknown Error! %s! Aborting loading...\n", e);
+            output = String.format("Unknown Error! %s! Aborting loading...\n", e);
         }
         return output;
     }

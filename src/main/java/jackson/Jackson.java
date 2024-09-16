@@ -34,10 +34,13 @@ public class Jackson {
     private static final int EXPECTED_SIZE = 100;
 
     // Path to save list data
-    private static final String PATH = "src/main/resources/texts/data.txt";
+    private static final String PATH = "data/data.txt";
 
     // Path list to read secret text from
-    private static final String SECRET_PATH = "src/main/resources/texts/secret_text.txt";
+    private static final String SECRET_TEXT = "TWFyaSBraXRhIHJha3lhdCBTaW5nYXB1cmEKU2FtYS1" +
+            "zYW1hIG1lbnVqdSBiYWhhZ2lhCkNpdGEtY2l0YSBraXRhIHlhbmcgbXVsaWEKQmVyamF5YSBTaW5n" +
+            "YXB1cmEKTWFyaWxhaCBraXRhIGJlcnNhdHUKRGVuZ2FuIHNlbWFuZ2F0IHlhbmcgYmFydQpTZW11Y" +
+            "SBraXRhIGJlcnNlcnUKTWFqdWxhaCBTaW5nYXB1cmEKTWFqdWxhaCBTaW5nYXB1cmE=";
 
     // Stores secret text for greedy loading
     private static String secret = "";
@@ -61,30 +64,17 @@ public class Jackson {
     }
 
     /**
-     * Reads secret text from secret file and prints it.
-     * If secret file not found, handles exception and prints error message.
+     * Prints secret text.
+     * Due to jar issues, this cannot be read from a file.
      * @return String response.
      */
-    public String readSecret() {
-        String output; // variable to store the accumulated text
-        File f = new File(SECRET_PATH); // File object for Stream
-        if (!secret.isEmpty()) {
-            return secret;
-        }
-        // load String Stream from File
-        try (Stream<String> secretString = Files.lines(f.toPath())) {
-            // accumulate each line
-            output = secretString.reduce((line, total) -> total + line + "\n").orElse("").strip();
 
-            // decode from base64 to utf8
-            byte[] decoded = Base64.getDecoder().decode(output);
-            output = new String(decoded);
-        } catch (IOException e) {
-            // if file path not found
-            output = "Oops! Secret file not found...";
-        }
+    public String printSecret() {
+        // decode from base64 to utf8
+        byte[] decoded = Base64.getDecoder().decode(SECRET_TEXT);
+
         // print secret msg!
-        return output;
+        return new String(decoded);
     }
 
     /**
@@ -174,7 +164,7 @@ public class Jackson {
                 this.commandType = Commands.CommandType.EXIT;
                 break;
             case SECRET:
-                output = this.readSecret();
+                output = this.printSecret();
                 this.commandType = Commands.CommandType.SECRET;
                 break;
             case INVALID:
