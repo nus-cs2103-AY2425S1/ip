@@ -1,4 +1,4 @@
-package tomo;
+package ui;
 
 import java.util.Scanner;
 
