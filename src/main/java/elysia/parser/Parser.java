@@ -1,17 +1,30 @@
 package elysia.parser;
 
-import elysia.Elysia;
-import elysia.command.*;
+import java.time.LocalDate;
+
+import elysia.command.Command;
+import elysia.command.DeadlineCommand;
+import elysia.command.DeleteCommand;
+import elysia.command.ElysiaCommand;
+import elysia.command.EventCommand;
+import elysia.command.ExitCommand;
+import elysia.command.FindCommand;
+import elysia.command.MarkCommand;
+import elysia.command.PrintListCommand;
+import elysia.command.ToDoCommand;
+import elysia.command.UnmarkCommand;
 import elysia.exception.EmptyDescriptionException;
 import elysia.exception.InvalidDateFormatException;
 import elysia.exception.UnknownCommandException;
 
-import java.time.LocalDate;
-
+/**
+ * Parses the user's commands into respective commands.
+ */
 public class Parser {
     private Command command;
 
-    public Command parseCommand(String input) throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException {
+    public Command parseCommand(String input)
+            throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException {
         String[] str = input.split(" ");
         String token = str[0].toLowerCase();
 

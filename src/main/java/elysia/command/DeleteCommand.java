@@ -1,24 +1,33 @@
 package elysia.command;
 
-import elysia.exception.EmptyDescriptionException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import elysia.storage.Storage;
 import elysia.task.Task;
 import elysia.ui.Ui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
+/**
+ * Represents a delete command in the application.
+ */
 public class DeleteCommand extends Command {
-    int index;
+    private int index;
+
     public DeleteCommand(int index) {
         super();
         this.index = index;
     }
 
+    /**
+     * Executes the command to remove a task from the list and update the storage.
+     *
+     * @param tasks The list of tasks from which a task will be removed.
+     * @return A message indicating the result of the operation, including confirmation of the task removal.
+     */
     @Override
-    public String execute(ArrayList<Task> tasks) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks) {
         Task task = tasks.get(index);
-        assert task != null: "task is null";
+        assert task != null : "task is null";
         tasks.remove(index);
 
         Ui ui = new Ui();

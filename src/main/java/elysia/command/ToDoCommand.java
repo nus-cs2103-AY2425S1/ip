@@ -1,25 +1,34 @@
 package elysia.command;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import elysia.storage.Storage;
 import elysia.task.Task;
 import elysia.task.ToDos;
 import elysia.ui.Ui;
 
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-
+/**
+ * Represents a create-todo item command.
+ */
 public class ToDoCommand extends Command {
-    String description;
+    private String description;
+
     public ToDoCommand(String description) {
         this.description = description;
     }
 
 
+    /**
+     * Creates a Todo item and add into the tasks list.
+     *
+     * @param tasks
+     * @return
+     */
     public String execute(ArrayList<Task> tasks) {
         Ui ui = new Ui();
         Task task = new ToDos(this.description);
-        assert task != null: "task is null";
+        assert task != null : "task is null";
         tasks.add(task);
         try {
             Storage.appendToFile(task);

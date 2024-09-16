@@ -1,23 +1,25 @@
 package elysia.ui;
 
-import elysia.task.Task;
-
 import java.util.ArrayList;
+
+import elysia.task.Task;
 
 /**
  * Text UI of the application.
  */
 public class Ui {
-    private static String line = "____________________________________________________________";
-    private static String welcomeMessage = "Hi there! Did you miss me?\n" +
-            "Wherever you are and whenever you need,\n" +
-            "Elysia will always meet your expectations.";
-    private static String exitMessage = "Alright, this time we really have to say goodbye.\n" +
-            "Goodbye, Mei!";
+    private static String welcomeMessage = "Hi there! Did you miss me?\n"
+            + "Wherever you are and whenever you need,\n"
+            + "Elysia will always meet your expectations.";
+    private static String exitMessage = "Alright, this time we really have to say goodbye.\n"
+            + "Goodbye, Mei!";
 
 
-
-
+    /**
+     * Returns the welcome message for the user.
+     *
+     * @return The welcome message as a string.
+     */
     public String getWelcomeMessage() {
         StringBuilder result = new StringBuilder();
         result.append(welcomeMessage).append("\n");
@@ -25,7 +27,8 @@ public class Ui {
     }
 
     /**
-     * Displays added message
+     * Returns a message indicating that a task has been added to the list.
+     *
      * @param task
      */
     public String getAddedMessage(ArrayList<Task> arrayLists, Task task) {
@@ -38,12 +41,22 @@ public class Ui {
         return result.toString();
     }
 
+    /**
+     * Returns the exit message for the user.
+     *
+     * @return
+     */
     public String getExitMessage() {
         return exitMessage;
     }
 
 
-
+    /**
+     * Returns a string representation of the list of tasks.
+     *
+     * @param arrayLists
+     * @return
+     */
     public String printList(ArrayList<Task> arrayLists) {
         StringBuilder result = new StringBuilder();
         int n = arrayLists.size();
@@ -55,13 +68,25 @@ public class Ui {
         return result.toString();
     }
 
+    /**
+     * Returns a message indicating that a task has been marked as done.
+     *
+     * @param task
+     * @return
+     */
     public String getMarkAsDoneMessage(Task task) {
-        StringBuilder result =  new StringBuilder();
+        StringBuilder result = new StringBuilder();
         result.append("Nice! I've marked this task as done:\n");
         result.append(task);
         return result.toString();
     }
 
+    /**
+     * Returns a message indicating that a task has been marked as not done.
+     *
+     * @param task
+     * @return
+     */
     public String getUnmarkAsDoneMessage(Task task) {
         StringBuilder result = new StringBuilder();
         result.append("OK, I've marked this task as not done yet:\n");
@@ -70,6 +95,13 @@ public class Ui {
     }
 
 
+    /**
+     * Returns a message indicating that a task has been removed from the list.
+     *
+     * @param arrayLists
+     * @param task
+     * @return
+     */
     public String getDeleteTaskMessage(ArrayList<Task> arrayLists, Task task) {
         StringBuilder result = new StringBuilder();
         result.append("Noted. I've removed this task:\n");

@@ -1,22 +1,31 @@
 package elysia.command;
 
-import elysia.exception.EmptyDescriptionException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import elysia.storage.Storage;
 import elysia.task.Task;
 import elysia.ui.Ui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
+/**
+ * Represents a command that marks an item as has not been completed.
+ */
 public class UnmarkCommand extends Command {
-    int index;
+    private int index;
+
     public UnmarkCommand(int index) {
         super();
         this.index = index;
     }
 
+    /**
+     * Marks the item as [ ].
+     *
+     * @param tasks
+     * @return
+     */
     @Override
-    public String execute(ArrayList<Task> tasks) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks) {
         Task curr = tasks.get(this.index);
         curr.unmarkAsDone();
 

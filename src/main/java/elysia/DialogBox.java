@@ -49,10 +49,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox for the user with the specified text and image.
+     *
+     * @param text
+     * @param img
+     * @return A DialogBox instance representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a DialogBox for Elysia with the specified text and image, and flips the dialog box layout.
+     *
+     * @param text
+     * @param img
+     * @return A DialogBox instance representing Elysia's dialog, flipped to have the image on the left.
+     */
     public static DialogBox getElysiaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
