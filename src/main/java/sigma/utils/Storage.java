@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import sigma.exception.SigmaException;
 import sigma.task.DeadlineTask;
@@ -31,6 +32,7 @@ import sigma.task.TodoTask;
  */
 public class Storage {
 
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final String filePath;
 
     /**
@@ -57,16 +59,21 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(data);
             assert writer != null : "Writer cannot be null";
-            for (Task task : tasks) {
-                assert task != null : "Item cannot be null";
-                String date = task.getDateString();
-                writer.write(String.format("%s | %s | %s | %s \n",
-                        task.getTaskType(), task.getStatusString(), task.getDescription(), date));
-            }
+            writeTasksToFile(tasks, writer);
             writer.close();
         } catch (IOException e) {
+            LOGGER.severe("An error occurred while writing to file.");
             System.out.println("An error occurred while writing to file.");
             e.printStackTrace();
+        }
+    }
+
+    private static void writeTasksToFile(ArrayList<Task> tasks, FileWriter writer) throws IOException {
+        for (Task task : tasks) {
+            assert task != null : "Item cannot be null";
+            String date = task.getDateString();
+            writer.write(String.format("%s | %s | %s | %s \n",
+                    task.getTaskType(), task.getStatusString(), task.getDescription(), date));
         }
     }
 
@@ -87,6 +94,7 @@ public class Storage {
         try {
             Files.createFile(path);
         } catch (IOException e) {
+            LOGGER.severe("Error creating file.");
             return "What the sigma? Error creating file!";
         }
         return "SLAY! File created!";
@@ -108,27 +116,31 @@ public class Storage {
         try {
             items = new ArrayList<>();
             Scanner fileInput = new Scanner(data);
-            while (fileInput.hasNextLine()) {
-                String line = fileInput.nextLine();
-                assert line != null : "Line cannot be null";
-                String[] dataArray = line.split(" \\| ");
-                String type = dataArray[0];
-                boolean status = dataArray[1].equals("X");
-                String desc = dataArray[2];
-                String date = dataArray[3];
-                Task task = createTaskFromData(type, desc, date);
-                task.setCompleted(status);
-                items.add(task);
-            }
+            readLinesFromFile(items, fileInput);
             fileInput.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while reading file.");
+            LOGGER.severe("An error occurred while reading file.");
             e.printStackTrace();
         } catch (SigmaException e) {
             System.out.println(e.getMessage());
         }
         assert items != null : "Items cannot be null. If it is, an error occurred while reading file.";
         return items;
+    }
+
+    private void readLinesFromFile(ArrayList<Task> items, Scanner fileInput) throws SigmaException {
+        while (fileInput.hasNextLine()) {
+            String line = fileInput.nextLine();
+            assert line != null : "Line cannot be null";
+            String[] dataArray = line.split(" \\| ");
+            String type = dataArray[0];
+            boolean status = dataArray[1].equals("X");
+            String desc = dataArray[2];
+            String date = dataArray[3];
+            Task task = createTaskFromData(type, desc, date);
+            task.setCompleted(status);
+            items.add(task);
+        }
     }
 
     /**
@@ -154,6 +166,7 @@ public class Storage {
                 String trimmedDate = date.strip();
                 dateTime = LocalDateTime.parse(trimmedDate, dateFormat);
             } catch (DateTimeParseException e) {
+                LOGGER.warning("Invalid date format.");
                 throw new SigmaException("What the sigma? File contains invalid date format!");
             }
             task = new DeadlineTask(description, dateTime);

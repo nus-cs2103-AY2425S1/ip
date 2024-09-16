@@ -43,6 +43,12 @@ public class EventCommand extends Command {
         }
         LocalDateTime from = Parser.parseLocalDateTime(timingArray[0]);
         LocalDateTime to = Parser.parseLocalDateTime(timingArray[1]);
+        if (from.isBefore(LocalDateTime.now())) {
+            throw new SigmaException("What the sigma? Your start time is in the past!");
+        }
+        if (from.isAfter(to)) {
+            throw new SigmaException("What the sigma? Your start time is after your end time!");
+        }
         EventTask eventTask = new EventTask(eventSplit[0], from, to);
         tasks.add(eventTask);
         return "You're a busy bee! Added: \n" + eventTask

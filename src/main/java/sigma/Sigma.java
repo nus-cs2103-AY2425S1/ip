@@ -1,8 +1,11 @@
 package sigma;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import log.MyLogger;
 import sigma.command.Command;
 import sigma.exception.SigmaException;
 import sigma.utils.Parser;
@@ -16,6 +19,7 @@ import sigma.utils.Ui;
  */
 public class Sigma {
 
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
@@ -27,6 +31,13 @@ public class Sigma {
      * Initializes the Ui, Storage, and TaskList.
      */
     public Sigma() {
+        try {
+            MyLogger.setup();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Problems with creating the log files");
+        }
+        LOGGER.info("Initializing Sigma");
         this.ui = new Ui();
         storage = new Storage("data.txt");
         this.data = new File("data.txt");
@@ -52,6 +63,7 @@ public class Sigma {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
+            LOGGER.info("Parsed command: " + command.toString());
             commandType = command.toString();
             assert tasks != null : "TaskList cannot be null";
             assert storage != null : "Storage cannot be null";
@@ -62,8 +74,10 @@ public class Sigma {
             }
             return response;
         } catch (SigmaException e) {
+            LOGGER.warning("SigmaException: " + e.getMessage());
             return e.getMessage();
         } catch (NumberFormatException e) {
+            LOGGER.warning("NumberFormatException: " + e.getMessage());
             return "What the sigma? I need a number!";
         }
     }
