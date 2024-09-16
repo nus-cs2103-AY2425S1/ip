@@ -180,38 +180,65 @@ public class Ui {
                 String.format(TASK_COUNT_MESSAGE, size));
     }
 
+    /**
+     * Prints an error message for no task description.
+     */
     public void printEmptyTaskErrorMessage() {
         printBotResponse("Don't expect me to remember nothing!");
     }
 
+    /**
+     * Prints an error message for no /by for deadline task.
+     */
     public void printEmptyByErrorMessage() {
         printBotResponse("BY WHEN??!!");
     }
 
+    /**
+     * Prints an error message for no /from or /to for event task.
+     */
     public void printInvalidEventDateErrorMessage() {
         printBotResponse("Give me a valid from and to!");
     }
 
+    /**
+     * Prints an error message for invalid date format for deadline or event task.
+     */
     public void printInvalidDateFormatErrorMessage() {
         printBotResponse("Invalid date format! Please use yyyy-mm-dd format.");
     }
 
+    /**
+     * Prints an error message for invalid index.
+     */
     public void printInvalidIndexErrorMessage() {
         printBotResponse("Give me a valid index!");
     }
 
+    /**
+     * Prints an error message using reserved character.
+     */
     public void printReservedCharacterErrorMessage() {
         printBotResponse("| is a special character and cannot be used.");
     }
 
+    /**
+     * Prints an error message for invalid command.
+     */
     public void printInvalidCommandErrorMessage() {
         printBotResponse("Give me a valid command!");
     }
 
+    /**
+     * Prints an error message for postpone command with wrong task type.
+     */
     public void printPostponeErrorMessage() {
         printBotResponse("Task given can't be postponed.");
     }
 
+    /**
+     * Prints a list of tasks that match the keyword.
+     */
     public void printFindMessage(ArrayList<Task> list) {
         String[] listStrings = new String[list.size() + 1];
         listStrings[0] = "Here are the matching tasks in your list:";
@@ -221,6 +248,12 @@ public class Ui {
         printBotResponse(listStrings);
     }
 
+    /**
+     * Prints a message indicating that a task has been postponed.
+     * 
+     * @param task The task that has been postponed.
+     * @param days The number of days the task has been postponed by.
+     */
     public void printPostponeMessage(Task task, int days) {
         printBotResponse("Got it. I've postponed this task by " + days + " days:", task.toString());
     }

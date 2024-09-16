@@ -50,10 +50,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox representing the user's dialog.
+     * 
+     * @param text
+     * @param img
+     * @return DialogBox
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox representing Joe's dialog.
+     * 
+     * @param text
+     * @param img
+     * @return DialogBox
+     */
     public static DialogBox getJoeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -47,6 +47,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the parser for the MainWindow. The parser is used to parse user input.
+     *
+     * @param parser The parser to be set.
+     */
     public void setParser(Parser parser) {
         this.parser = parser;
     }
