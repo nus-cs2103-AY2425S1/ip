@@ -23,6 +23,52 @@ public class Opus {
         taskList = new TaskList(storage.load());
     }
 
+    private String handleByeCommand() throws OpusException {
+        storage.save(taskList.getTasks());
+        return "Bye. Hope to see you again soon!";
+    }
+    private String handleListCommand() {
+        String response = "";
+        for (Task task : taskList.getTasks()) {
+            response += task.toString() + "\n";
+        }
+        return response;
+    }
+    private String handleMarkCommand(String[] words) throws OpusException {
+        if (words.length < 2) {
+            throw new OpusException("Please specify the task number to mark.");
+        }
+        int i = Integer.parseInt(words[1]) - 1;
+        assert i >= 0 && i < taskList.getSize() : "Index out of bounds: " + i;
+        taskList.getTask(i).markAsDone();
+        return "Nice! I've marked this task as done:\n" + taskList.getTask(i).toString();
+    }
+    private String handleDeleteCommand(String[] words) throws OpusException {
+        String response = "";
+        if (words.length < 2) {
+            throw new OpusException("Please specify the task number to delete.");
+        }
+        int i = Integer.parseInt(words[1]) - 1;
+        assert i >= 0 && i < taskList.getSize() : "Index out of bounds: " + i;
+        response = "Noted. I've removed this task:\n" + taskList.getTask(i).toString() + "\n";
+        taskList.removeTask(i);
+        response += "Now you have " + taskList.getSize() + " tasks in the list.";
+        return response;
+    }
+
+    private String handleHelpCommand() {
+        String response = "Here are the commands you can use:\n";
+        response += "1. list - List all tasks\n";
+        response += "2. mark <index> - Mark a task as done\n";
+        response += "3. delete <index> - Delete a task\n";
+        response += "4. deadline <task> /by <end-date> - Add a deadline by the end date\n";
+        response += "5. event <task> /from <start-date> /to <end-date>";
+        response += " - Add an event with start and end dates\n";
+        response += "6. todotask <> - Add a Todo\n";
+        response += "7. bye - Exit the application";
+        return response;
+    }
+
     /**
      * Starts the main loop of the application, interacting with the user and processing
      * commands until the user issues the "bye" command. Commands such as adding tasks,
@@ -36,24 +82,7 @@ public class Opus {
             String[] words = Parser.parse(fullCommand);
 
             try {
-                if (words[0].equals("bye")) {
-                    storage.save(taskList.getTasks());
-                    ui.showGoodbye();
-                    break;
-                } else if (words[0].equals("list")) {
-                    taskList.listTasks();
-                } else if (words[0].equals("mark")) {
-                    int i = Integer.parseInt(words[1]) - 1;
-                    taskList.getTask(i).markAsDone();
-                    ui.showMessage("Nice! I've marked this task as done:");
-                    ui.showMessage(taskList.getTask(i).toString());
-                } else if (words[0].equals("delete")) {
-                    int i = Integer.parseInt(words[1]) - 1;
-                    ui.showMessage("Noted. I've removed this task:");
-                    ui.showMessage(taskList.getTask(i).toString());
-                    taskList.removeTask(i);
-                    ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
-                } else if (words[0].equals("find")) {
+                if (words[0].equals("find")) {
                     String keyword = words[1];
                     taskList.findTasks(keyword);
                 } else if (words[0].equals("help")) {
@@ -100,33 +129,15 @@ public class Opus {
         try {
             assert words.length > 0 : "Command cannot be empty";
             if (words[0].equals("bye")) {
-                storage.save(taskList.getTasks());
-                return "Bye. Hope to see you again soon!";
+                response = handleByeCommand();
             } else if (words[0].equals("list")) {
-                for (Task task : taskList.getTasks()) {
-                    response += task.toString() + "\n";
-                }
+                response = handleListCommand();
             } else if (words[0].equals("mark")) {
-                int i = Integer.parseInt(words[1]) - 1;
-                assert i >= 0 && i < taskList.getSize() : "Index out of bounds: " + i;
-                taskList.getTask(i).markAsDone();
-                response = "Nice! I've marked this task as done:\n" + taskList.getTask(i).toString();
+                response = handleMarkCommand(words);
             } else if (words[0].equals("delete")) {
-                int i = Integer.parseInt(words[1]) - 1;
-                assert i >= 0 && i < taskList.getSize() : "Index out of bounds: " + i;
-                response = "Noted. I've removed this task:\n" + taskList.getTask(i).toString() + "\n";
-                taskList.removeTask(i);
-                response += "Now you have " + taskList.getSize() + " tasks in the list.";
+                response = handleDeleteCommand(words);
             } else if (words[0].equals("help")) {
-                response = "Here are the commands you can use:\n";
-                response += "1. list - List all tasks\n";
-                response += "2. mark <index> - Mark a task as done\n";
-                response += "3. delete <index> - Delete a task\n";
-                response += "4. deadline <task> /by <end-date> - Add a deadline by the end date\n";
-                response += "5. event <task> /from <start-date> /to <end-date>";
-                response += " - Add an event with start and end dates\n";
-                response += "6. todotask <> - Add a Todo\n";
-                response += "7. bye - Exit the application";
+                response = handleHelpCommand();
             } else {
                 if (words[0].equals("todo")) {
                     assert words.length > 1 : "The description of a todo cannot be empty";
