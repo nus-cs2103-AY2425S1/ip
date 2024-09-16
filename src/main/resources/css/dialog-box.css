@@ -24,9 +24,8 @@
 }
 
 .delete-label {
-    -fx-background-color: red;
+    -fx-background-color: gray;
 }
-
 
 #displayPicture {
     /* Shadow effect on image. */
