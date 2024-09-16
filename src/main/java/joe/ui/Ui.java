@@ -244,8 +244,8 @@ public class Ui {
     public void printFindMessage(ArrayList<Task> list) {
         String[] listStrings = new String[list.size() + 1];
         listStrings[0] = "Here are the matching tasks in your list:";
-        for (int i = 1; i < list.size(); i++) {
-            listStrings[i] = i + "." + list.get(i);
+        for (int i = 1; i <= list.size(); i++) {
+            listStrings[i] = i + "." + list.get(i - 1);
         }
         printBotResponse(listStrings);
     }
