@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+//@@author engyuhan-reused
+//Reused from https://se-education.org/guides/tutorials/javaFx.html
+//with minor modifications
 /**
  * Represents the GUI.
  */
@@ -34,6 +37,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Bob");
             fxmlLoader.<MainWindow>getController().connect(Main.inputQueue, Main.outputQueue);
             fxmlLoader.<MainWindow>getController().listen();
             stage.show();
@@ -42,3 +46,4 @@ public class Main extends Application {
         }
     }
 }
+//@@author

@@ -42,7 +42,7 @@ public class Archive {
     }
 
     /**
-     * Archive a list of tasks.
+     * Archives a list of tasks.
      *
      * @param tasks The list of tasks to archive.
      * @throws BobException If an IO error occurs.
@@ -62,7 +62,7 @@ public class Archive {
     }
 
     /**
-     * Retrieve the tasks from the archive.
+     * Retrieves the tasks from the archive.
      *
      * @return The list of tasks archived.
      * @throws BobException If an IO error occurs.

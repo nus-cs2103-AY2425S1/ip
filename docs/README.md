@@ -1,30 +1,63 @@
-# Bob User Guide
+# Bob
 
-// Update the title above to match the actual product name
+Bob is a task manager chat bot.
 
-// Product screenshot goes here
+## Adding todos
 
-// Product intro goes here
+Add a task to do.
+
+Example: `todo read book`
+
+Adds a to-do task called read book to the list.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Add a task with a deadline.
 
-// Give examples of usage
+Example: `deadline return book /by 2024-09-11 00:00:00`
 
-Example: `keyword (optional arguments)`
+Adds a deadline task called return book that is due by 
+2024-09-11 00:00:00.
 
-// A description of the expected outcome goes here
+## Adding events
 
-```
-expected output
-```
+Add a task with a start and end time.
 
-## Feature ABC
+Example: `event book club meeting /from 2024-09-11 09:00:00 /to 10:00:00`
 
-// Feature details
+Adds a event task called book club meeting that starts
+on 2024-09-11 09:00:00 and ends at 10:00:00.
 
 
-## Feature XYZ
+## List tasks
 
-// Feature details
+View all tasks.
+
+Example: `list`
+
+Lists all tasks added so far.
+
+## Delete task
+
+Delete a task by item number.
+
+Example: `delete 3`
+
+Deletes the third task in the list.
+
+## Mark Task Completed
+
+Mark a task as completed.
+
+Example: `mark 2`
+
+Marks the second task in the list as completed.
+
+## Unmark Task Completed
+
+Mark a task as not completed.
+
+Example: `unmark 4`
+
+Marks the fourth task in the list as not completed.
+

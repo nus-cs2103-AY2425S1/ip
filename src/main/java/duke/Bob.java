@@ -75,7 +75,7 @@ public class Bob {
     }
 
     /**
-     * Main method.
+     * Runs the application.
      *
      * @param args The command line arguments.
      */
