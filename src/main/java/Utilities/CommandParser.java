@@ -16,7 +16,8 @@ import tasks.ToDos;
  * Parses user input to execute corresponding commands.
  */
 public class CommandParser {
-    private final static String MESSAGE_ONLIST = "Here are the tasks in your list: \n";
+    private final static String MESSAGE_ONLIST_NONEMPTY = "Here are the tasks in your list bro: \n";
+    private final static String MESSAGE_ON_LIST_EMPTY = "There are no tasks in your list bro! Time to add some work! \n";
     private final static String REGEX_INT_PATTERN = "[^0-9]";
     private enum Commands {
         LIST("list"),
@@ -47,8 +48,12 @@ public class CommandParser {
     public static String parseCommand(String input, TaskList taskList, Storage store) {
         String response = "";
         if (input.startsWith(Commands.LIST.command)) {
-            response += MESSAGE_ONLIST;
-            response += taskList.toString();
+            if (taskList.getSize() == 0) {
+                response += MESSAGE_ON_LIST_EMPTY;
+            } else {
+                response += MESSAGE_ONLIST_NONEMPTY;
+                response += taskList.toString();
+            }
         } else if (input.startsWith(Commands.UNMARK.command) || input.startsWith(Commands.MARK.command)) {
             // extract integer value
             int index = extractIntegerFromString(input) - 1;
@@ -71,6 +76,7 @@ public class CommandParser {
             response += taskList.addTag(index, splits[1].strip());
             store.updateTaskTag(index, splits[1].strip());
         } else {
+            // Invoke Task Creation Commands
             try {
                 TaskType type;
                 if (input.startsWith(Commands.TODO.command)) {
@@ -154,8 +160,8 @@ public class CommandParser {
     private static int extractIntegerFromString(String input) {
         String intValue = input.replaceAll(REGEX_INT_PATTERN, "");
         assert !intValue.isEmpty(); // add assertion to ensure index string is not null
-        int index = Integer.parseInt(intValue);
+        int result = Integer.parseInt(intValue);
 
-        return index;
+        return result;
     }
 }

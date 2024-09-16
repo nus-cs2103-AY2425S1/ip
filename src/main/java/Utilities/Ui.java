@@ -16,7 +16,7 @@ public class Ui {
 
         message += "I've added: ";
         message += name;
-        message += String.format("\nNow you have %d in the list!", size);
+        message += String.format("\nNow you have %d tasks in the list! Time to get to work bro!", size);
 
         return message;
     }
@@ -28,7 +28,7 @@ public class Ui {
     public static String updateUserOnDeletion(Task t) {
         String message = "";
 
-        message += "Noted! I've removed this task: ";
+        message += "Noted! I've removed this task bro: ";
         message += t.toString();
 
         return message;
@@ -41,7 +41,7 @@ public class Ui {
     public static String updateUserOnTag(Task t) {
         String message = "";
 
-        message += "Noted! I have successfully tagged this task: ";
+        message += "Noted! I have successfully tagged this task bro: ";
         message += t.toString();
 
         return message;
@@ -54,7 +54,7 @@ public class Ui {
     public static String updateUserOnUncompletion(Task t) {
         String message = "";
 
-        message += "OK! I've marked the task as not done yet: ";
+        message += "Fine! I've marked the task as not done yet bro: ";
         message += t.toString();
 
         return message;
@@ -67,7 +67,7 @@ public class Ui {
     public static String updateUserOnCompletion(Task t) {
         String message = "";
 
-        message += "Good job! I've marked this task as done: ";
+        message += "Good job! I've marked this task as done bro: ";
         message += t.toString();
 
         return message;
@@ -82,7 +82,7 @@ public class Ui {
     public static String updateUserOnError(Exception e) {
         String message = "";
 
-        message += "The following error has occured, please try again. \n";
+        message += "The following error has occured, please try again bro. \n";
         message += e.getMessage();
 
         return message;
