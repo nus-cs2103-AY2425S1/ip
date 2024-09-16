@@ -86,12 +86,14 @@ public class Ui {
      * 
      * @param task The task being deleted.
      */
-    public String printDeleteMessage(Task task) {
-        return (
-            "Noted. I've removed this task:" + "\n"
-            + "  " + task + "\n"
-            + "Now you have " + this.taskList.getNumberOfTasks() + " tasks in the list." + "\n"
-        );
+    public String printDeleteMessage(ArrayList<Task> tasks) {
+        String output = "Noted. I've removed this task:\n";
+        for (Task task : tasks) {
+            output += "  " + task + "\n";
+        }
+        output += "Now you have " + this.taskList.getNumberOfTasks() + " tasks in the list.\n";
+        
+        return output;
     }
 
     /**

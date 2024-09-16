@@ -1,5 +1,7 @@
 package milutrock.stubs;
 
+import java.util.ArrayList;
+
 import milutrock.TaskList;
 import milutrock.Ui;
 import milutrock.tasks.Task;
@@ -59,9 +61,9 @@ public class UiStub extends Ui {
     }
     
     @Override
-    public String printDeleteMessage(Task task) {
+    public String printDeleteMessage(ArrayList<Task> tasks) {
         this.lastFunctionCalled = Function.PRINT_DELETE_MESSAGE;
-        this.taskInput = task;
+        this.taskInput = tasks.get(0);
         return "";
     }
 

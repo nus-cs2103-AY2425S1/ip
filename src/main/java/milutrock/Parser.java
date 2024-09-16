@@ -1,6 +1,8 @@
 package milutrock;
 
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import milutrock.exceptions.InvalidTaskFormatException;
 import milutrock.exceptions.UnknownCommandException;
@@ -37,8 +39,8 @@ public class Parser {
             return this.handleMark(words);
         } else if (words.length == 2 && words[0].equals("unmark")) {
             return this.handleUnmark(words);
-        } else if (words.length == 2 && words[0].equals("delete")) {
-            return this.handleDelete(words);
+        } else if (words.length > 1 && words[0].equals("delete")) {
+            return this.handleDelete(input);
         } else if (words.length > 1 && words[0].equals("find")) {
             return this.handleFind(input);
         } else if (
@@ -70,11 +72,23 @@ public class Parser {
         return this.ui.printUnmarkMessage(i);
     }
 
-    private String handleDelete(String[] words) {
-        int i = Integer.parseInt(words[1]) - 1;
-        Task task = this.taskList.removeTask(i);
+    private String handleDelete(String input) {
+        String query = input.substring(7);
+        String[] words = query.split("\\s+");
 
-        return this.ui.printDeleteMessage(task);
+        Integer[] indexes = new Integer[words.length];
+        for (int i = 0; i < words.length; i++) {
+            indexes[i] = Integer.parseInt(words[i]) - 1;
+        }
+        Arrays.sort(indexes, Collections.reverseOrder());
+
+        ArrayList<Task> deletedTasks = new ArrayList<Task>();
+        for (Integer i : indexes) {
+            Task task = this.taskList.removeTask(i);
+            deletedTasks.add(task);
+        }
+
+        return this.ui.printDeleteMessage(deletedTasks);
     }
 
     private String handleFind(String input) {
