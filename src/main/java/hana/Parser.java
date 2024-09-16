@@ -145,15 +145,15 @@ public class Parser {
      * @throws HanaException If the task index is invalid or the delete syntax is incorrect.
      */
     private static DeleteCommand handleDelete(String fullCommand, String[] parts) throws HanaException {
-        int taskNumber;
         Pattern deletePattern = Pattern.compile("^delete (\\d+)$");
         Matcher deleteMatcher = deletePattern.matcher(fullCommand);
         if (!deleteMatcher.matches()) {
             throw new HanaException("Invalid delete syntax. Write only the task index after the word 'delete'.");
         }
-        taskNumber = Integer.parseInt(parts[1]) - 1;
+        int taskNumber = Integer.parseInt(deleteMatcher.group(1));
         assert taskNumber >= 0 : "Task number should be non-negative";
-        return new DeleteCommand(taskNumber);
+        int indexNumber = taskNumber - 1;
+        return new DeleteCommand(indexNumber);
     }
 
     /**
@@ -240,15 +240,15 @@ public class Parser {
      * @throws HanaException If the task index is invalid or the unmark syntax is incorrect.
      */
     private static UnmarkCommand handleUnmark(String fullCommand) throws HanaException {
-        int taskNumber;
         Pattern unmarkPattern = Pattern.compile("^unmark (\\d+)$");
         Matcher unmarkMatcher = unmarkPattern.matcher(fullCommand);
         if (!unmarkMatcher.matches()) {
             throw new HanaException("Invalid unmark syntax. Write only the task index after the word 'unmark'.");
         }
-        taskNumber = Integer.parseInt(unmarkMatcher.group(1)) - 1;
+        int taskNumber = Integer.parseInt(unmarkMatcher.group(1));
         assert taskNumber >= 0 : "Task number should be non-negative";
-        return new UnmarkCommand(taskNumber);
+        int indexNumber = taskNumber - 1;
+        return new UnmarkCommand(indexNumber);
     }
 
     /**
@@ -259,15 +259,15 @@ public class Parser {
      * @throws HanaException If the task index is invalid or the mark syntax is incorrect.
      */
     private static MarkCommand handleMark(String fullCommand) throws HanaException {
-        int taskNumber;
         Pattern markPattern = Pattern.compile("^mark (\\d+)$");
         Matcher markMatcher = markPattern.matcher(fullCommand);
         if (!markMatcher.matches()) {
             throw new HanaException("Invalid mark syntax. Write only the task index after the word 'mark'.");
         }
-        taskNumber = Integer.parseInt(markMatcher.group(1)) - 1;
+        int taskNumber = Integer.parseInt(markMatcher.group(1));
         assert taskNumber >= 0 : "Task number should be non-negative";
-        return new MarkCommand(taskNumber);
+        int indexNumber = taskNumber - 1;
+        return new MarkCommand(indexNumber);
     }
 }
 

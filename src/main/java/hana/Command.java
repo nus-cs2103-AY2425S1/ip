@@ -137,7 +137,7 @@ class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws HanaException, IOException {
-        if (index < 0 || index > tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new HanaException("Task number out of range.");
         }
         Task task = tasks.get(index);
@@ -156,7 +156,7 @@ class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws HanaException, IOException {
-        if (index < 0 || index > tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new HanaException("Task number out of range.");
         }
         Task task = tasks.get(index);
