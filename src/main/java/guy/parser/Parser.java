@@ -139,7 +139,6 @@ public class Parser {
      */
     private String[] splitCmd(String input) {
         String[] raw = input.split(" ", 2);
-        assert raw.length == 2;
         String[] output = {"", ""};
         for (int i = 0; i < raw.length; ++i) {
             output[i] = raw[i].trim();

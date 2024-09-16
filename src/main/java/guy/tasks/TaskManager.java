@@ -202,7 +202,7 @@ public class TaskManager {
             Storage.saveData();
             System.out.println("Fine. Added this lousy task:");
             System.out.println(task);
-            System.out.println("That's " + tasks.size() + " tasks for your ass to handle.");
+            System.out.printf("That's %d tasks for your ass to handle.\n", tasks.size());
         } catch (GuyException e) {
             System.out.println(e.getMessage());
         } catch (DateTimeException e) {

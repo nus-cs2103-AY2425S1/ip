@@ -70,15 +70,8 @@ public class MainWindow extends AnchorPane {
         entry.clear();
 
         if (!guy.isRunning()) {
-            Platform.runLater(() -> {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                stage.close();
-                Platform.exit();
-            });
+            stage.close();
+            Platform.exit();
         }
     }
 

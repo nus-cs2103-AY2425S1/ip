@@ -12,9 +12,6 @@
 <AnchorPane fx:id="mainPane" minHeight="400.0" minWidth="300.0" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guy.gui.MainWindow">
     <children>
         <VBox spacing="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
-            <HBox alignment="TOP_RIGHT" prefHeight="56.0" prefWidth="380.0" spacing="10">
-                <Button fx:id="darkModeToggle" prefHeight="62.0" prefWidth="116.0" text="Toggle Dark Mode" />
-            </HBox>
             <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                 <content>
                     <VBox fx:id="dialogContainer" spacing="15">
