@@ -79,7 +79,8 @@ public class Ui {
         if (filteredTaskList.getLength() == 0) {
             this.outputToScreen("Unfortunately, seems like no task fits the description!");
         } else {
-            String output = ("Here are some tasks that I found that matches your description! Aren't I just the best!\n");
+            String output = ("Here are some tasks that I found that matches your description!"
+                + " Aren't I just the best!\n");
             output += filteredTaskList.toString();
             this.outputToScreen(output);
         }
