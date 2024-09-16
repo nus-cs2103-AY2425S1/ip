@@ -1,0 +1,7 @@
+.dialog {
+    -fx-background-color: lightblue;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+    -fx-border-color: lightblue;
+    -fx-border-radius: 15;
+}
