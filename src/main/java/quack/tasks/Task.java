@@ -54,14 +54,17 @@ public abstract class Task {
             break;
 
         case "DEADLINE":
-            startDate = Task.convertStringToDateTime(taskDetails[2]);
-            task = new DeadlineTask(taskDetails[1], startDate);
+            endDate = Task.convertStringToDateTime(taskDetails[2]);
+            Task.checkValidDate(endDate);
+            task = new DeadlineTask(taskDetails[1], endDate);
             break;
 
         case "EVENT":
             startDate = Task.convertStringToDateTime(taskDetails[2]);
             endDate = Task.convertStringToDateTime(taskDetails[3]);
             Task.checkValidDateRange(startDate, endDate);
+            Task.checkValidDate(startDate);
+            Task.checkValidDate(endDate);
             task = new EventTask(taskDetails[1], startDate, endDate);
             break;
 
@@ -91,7 +94,22 @@ public abstract class Task {
 
         if (endDate.isBefore(startDate)) {
             throw new InvalidDateTimeException("The end date before start date? "
-                + "Please enter a start date before the end date!");
+                + "I don't think that is allowed! Please enter a start date before the end date!");
+        }
+    }
+
+    /**
+     * Checks if the start date given falls after the end date given.
+     * @param startDate The start date of the object.
+     * @param endDate The end date of the object.
+     * @throws InvalidDateTimeException If the date time string is invalid.
+     */
+    private static void checkValidDate(LocalDateTime date)
+            throws InvalidDateTimeException {
+
+        if (date.isBefore(LocalDateTime.now())) {
+            throw new InvalidDateTimeException("Are we going back in time? "
+                + "Please enter a date that is not in the past!");
         }
     }
 

@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import quack.exception.FailedFilePathCreationException;
+import quack.exception.FailedLoadSaveFileException;
 import quack.exception.InvalidDateTimeException;
 import quack.exception.InvalidTaskTypeException;
 import quack.tasks.Task;
@@ -27,8 +29,10 @@ public class Storage {
     private static String DEFAULT_FILE_NAME = "./data/savedData.csv";
     /** Index offset for task status */
     private static int OFFSET_STATUS = 2;
-    /** Index offset for tag*/
+    /** Index offset for tag */
     private static int OFFSET_TAG = 1;
+    /** Ui object to handle UI interface tasks */
+    private Ui ui;
 
     /**
      * Creates a storage object.
@@ -39,13 +43,14 @@ public class Storage {
      * Afterwards it will load the data from the save file.
      * @param taskList A list that stores all the tasks tracked by Quack.
      */
-    public Storage(TaskList taskList) {
+    public Storage(TaskList taskList, Ui ui) {
+        this.ui = ui;
 
         try {
             Path filePath = Paths.get(DEFAULT_PATH);
             Files.createDirectories(filePath);
         } catch (Exception error) {
-            System.out.println(error.getMessage());
+            this.ui.printExceptionMessage(new FailedFilePathCreationException());
         }
 
         this.loadData(taskList);
@@ -81,7 +86,7 @@ public class Storage {
 
         } catch (IOException IoError) {
             // There is no data file to read from, then continue as per normal.
-            System.out.println(IoError.getMessage());
+            ui.printExceptionMessage(new FailedLoadSaveFileException());
         }
     }
 
@@ -130,9 +135,9 @@ public class Storage {
                 task.tag(data[length - Storage.OFFSET_TAG]);
             }
         } catch (InvalidDateTimeException dateTimeError) {
-            System.out.println(dateTimeError.getMessage());
+            ui.printExceptionMessage(dateTimeError);
         } catch (InvalidTaskTypeException taskTypeError) {
-            System.out.println(taskTypeError.getMessage());
+            ui.printExceptionMessage(taskTypeError);
         }
 
         return task;

@@ -36,8 +36,8 @@ public class Quack {
 
         this.isRunning = true;
         this.toDoList = new TaskList();
-        this.storage = new Storage(this.toDoList);
         this.ui = new Ui(dialogContainer, quackImage);
+        this.storage = new Storage(this.toDoList, this.ui);
         this.parser = new Parser(toDoList, storage, ui);
 
         ui.printGreeting();
