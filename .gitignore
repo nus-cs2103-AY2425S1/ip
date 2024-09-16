@@ -15,3 +15,11 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Data files
+/data/data.txt
+/text-ui-test/data/data.txt
+
+# Java binary files
+*.class
+*.jar
