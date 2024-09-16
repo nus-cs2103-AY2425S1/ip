@@ -24,10 +24,10 @@ public abstract class Command {
     }
 
     /**
-     * Randomly selects and returns a prefix for a command from a given list.
+     * Returns a randomly selected prefix for a command from a given list.
      * 
-     * @param prefixes
-     * @return a randomly selected prefix from the given list of prefixes.
+     * @param prefixes the array of prefixes.
+     * @return a randomly selected prefix from the given prefixes.
      */
     public String generateRandomPrefix(String[] prefixes) {
         return prefixes[this.RNG.nextInt(prefixes.length)];

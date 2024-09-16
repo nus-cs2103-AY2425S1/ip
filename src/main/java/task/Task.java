@@ -21,7 +21,7 @@ public class Task {
     }
 
     /**
-     * Mark a task as completed.
+     * Marks a task as completed.
      */
     public void markAsCompleted() {
         this.isCompleted = true;
@@ -29,7 +29,7 @@ public class Task {
     }
 
     /**
-     * Mark a task as incomplete.
+     * Marks a task as incomplete.
      */
     public void markAsNotCompleted() {
         this.isCompleted = false;

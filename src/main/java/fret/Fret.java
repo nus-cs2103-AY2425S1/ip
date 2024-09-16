@@ -24,12 +24,6 @@ public class Fret {
      * @return the greeting.
      */
     public String welcomeUser() {
-        // String logo = "________                ___ \n"
-        //         + "| _____|             ___| |___ \n"
-        //         + "| |___  __   _   ___ |__   __|\n"
-        //         + "| ___|  | |/ /  / _ \\   | |\n"
-        //         + "| |     |   /  <  __/   | |__\n"
-        //         + "|_|     |__|    \\___|   |___|\n";
         String logo = "F R E T \n";
         
         String welcomeString = "Initiating...\n" + logo 

@@ -135,7 +135,6 @@ public class Parser {
                     return new TaskCompletionCommand(true, taskNum - 1);
                 } else {
                     // if no integer found, reprompt for input
-                    // printBotOutputString("\tUhhh sorry what did you wanna mark again?");
                     return new ErrorCommand("Uhhh sorry what did you wanna mark again?");
                 }
             } else if (userInput.startsWith("unmark")) {
