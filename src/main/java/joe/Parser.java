@@ -93,7 +93,7 @@ public class Parser {
         try {
             return Commands.valueOf(commandCodeString.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new JoeException("Unknown command");
+            throw new JoeException("Unknown command, try using 'help'");
         }
     }
 
