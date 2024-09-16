@@ -2,8 +2,9 @@
 
 ![Lama Ui Display](Ui.png)
 
-**Lama** is a *SMART* chatbot that assists you in managing your daily tasks.
-The GUI version of Lama makes it easier to interact with the bot using simple commands for task management.
+**Lama** is a *SMART* chatbot designed to help you efficiently manage your daily tasks. 
+
+The GUI version of Lama simplifies task management by enabling you to interact with the bot using simple, intuitive commands.
 
 ---
 
