@@ -113,6 +113,13 @@ public class Parser {
         return new MarkCommand(taskNumber);
     }
 
+    /**
+     * Returns an {@code UnmarkCommand} to unmark a task as not done.
+     * The task number is parsed from the command.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return An {@code UnmarkCommand} to unmark the task.
+     */
     private static Command handleUnmarkCommand(String fullCommand) {
         int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
         return new UnmarkCommand(taskNumber);
