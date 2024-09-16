@@ -25,6 +25,7 @@ public class XiziApp extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Xizi Bot");
             fxmlLoader.<MainWindow>getController().setXizi(xizi); // inject the Xizi instance
             stage.show();
         } catch (IOException e) {
