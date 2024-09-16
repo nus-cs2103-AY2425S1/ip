@@ -19,8 +19,8 @@ public class Bob {
      */
     private static final boolean isGui = true;
 
-    private static final String storagePath = "./data/storage.txt";
-    private static final String archivePath = "./data/archive.txt";
+    private static final String storagePath = "./storage.txt";
+    private static final String archivePath = "./archive.txt";
 
     /**
      * The maximum capacity of the input and output message queues.
