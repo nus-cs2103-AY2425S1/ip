@@ -63,7 +63,12 @@ deadline return book /by 2/12/2019 1800
 #### Expected Output:
 
 ```bash
-Added: [D][ ] return book (by: Dec 2 2019 18:00)
+MentalHealth bot replies:
+
+Okays! I've added this task:
+[D][ ] return book (by: Dec 2 2019 18:00)
+
+Now you have 1 tasks in the list.
 ```
 
 ### Todo Tasks
@@ -83,7 +88,12 @@ todo borrow book
 #### Expected Output:
 
 ```bash
-Added: [T][ ] borrow book
+MentalHealth bot replies:
+
+Okays! I've added this task:
+[T][ ] todo borrow book
+
+Now you have 2 tasks in the list.
 ```
 
 ### Event Scheduling
@@ -103,7 +113,12 @@ event project meeting /from Mon 2pm /to 4pm
 #### Expected Output:
 
 ```bash
-Added: [E][ ] project meeting (from: Mon 14:00 to 16:00)
+MentalHealth bot replies:
+
+Okays! I've added this task:
+[E][ ] project meeting (from: Mon 14:00 to 16:00)
+
+Now you have 3 tasks in the list.
 ```
 
 ### Marking Tasks as Completed
@@ -117,13 +132,18 @@ mark <index>
 #### Example:
 
 ```bash
-mark 1
+mark 2
 ```
 
 #### Expected Output:
 
 ```bash
-Marked: [T][X] borrow book
+MentalHealth bot replies:
+
+Okays! I've marked this task as done:
+[T][X] borrow book
+
+Now you have 3 tasks in the list.
 ```
 
 ### Unmarking Completed Tasks
@@ -137,13 +157,18 @@ unmark <index>
 #### Example:
 
 ```bash
-unmark 1
+unmark 2
 ```
 
 #### Expected Output:
 
 ```bash
-Unmarked: [T][ ] borrow book
+MentalHealth bot replies:
+
+Okays! I've marked this task as not done
+[T][ ] borrow book
+
+Now you have 3 tasks in the list.
 ```
 
 ### Deleting Tasks
@@ -157,13 +182,18 @@ delete <index>
 #### Example:
 
 ```bash
-delete 1
+delete 2
 ```
 
 #### Expected Output:
 
 ```bash
-Deleted: [T][ ] borrow book
+MentalHealth bot replies:
+
+Alrighty! I will remove this task:
+[T][ ] borrow book
+
+Now you have 2 tasks in the list.
 ```
 
 ### Listing All Tasks
@@ -177,9 +207,11 @@ list
 #### Expected Output:
 
 ```bash
-1. [T][ ] borrow book  
-2. [D][ ] return book (by: Dec 2 2019 18:00)  
-3. [E][ ] project meeting (from: Mon 14:00 to 16:00)
+MentalHealth bot replies:
+
+your TODO's
+1. [D][ ] return book (by: Dec 2 2019 18:00)  
+2. [E][ ] project meeting (from: Mon 14:00 to 16:00)
 ```
 
 ### Updating Task Descriptions
@@ -199,7 +231,12 @@ update 1 /description play
 #### Expected Output:
 
 ```bash
-Updated: [T][ ] play
+MentalHealth bot replies:
+
+Alrighty! I have updated this task:
+[D][ ] play (by: Dec 2 2019 18:00)  
+
+Now you have 2 tasks in the list.
 ```
 
 ### Finding Tasks
@@ -213,15 +250,18 @@ find <keyword>
 #### Example:
 
 ```bash
-find book
+find play
 ```
 
 #### Expected Output:
 
 ```bash
-Here are the matching tasks in your list:
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Dec 2 2019 18:00)
+Here are your matching tasks!
+
+Mentalhealth bot replies:
+
+your TODO's
+1. [D][ ] play (by: Dec 2 2019 18:00)
 ```
 
 ---
