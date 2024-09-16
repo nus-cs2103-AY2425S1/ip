@@ -125,22 +125,3 @@ If you're ever unsure of a command, just type `help` to get a quick reminder of 
 
 
 
-
-
-
-
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
