@@ -38,7 +38,7 @@ public class Qwerty {
     }
 
     /**
-     * Handle the given user input. Attempts to create a corresponding command and execute it.
+     * Handles the given user input. Attempts to create a corresponding command and execute it.
      *
      * @param rawInput String input to execute.
      */
