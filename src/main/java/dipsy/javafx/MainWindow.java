@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
 
     private Dipsy dipsy;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/PepeClown.jpeg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Reagen.png"));
     private Image dipsyImage = new Image(this.getClass().getResourceAsStream("/images/Dipsy.jpeg"));
 
     @FXML

@@ -1,38 +1,32 @@
 /* Main label styling for the dialog bubbles (user messages) */
 .label {
-    -fx-background-color: #E3F2FD; /* Slightly muted light blue for a modern, clean look */
-    -fx-border-color: #B0BEC5; /* Light gray border for subtle contrast */
-    -fx-border-width: 1px;
-    -fx-background-radius: 12px; /* Smooth rounded corners */
-    -fx-border-radius: 12px;
-    -fx-padding: 12px 16px; /* Refined padding for better spacing */
-    -fx-text-fill: #2C3E50; /* Slightly darker text for better contrast */
-    -fx-font-size: 14px; /* Standardized font size */
-    -fx-font-family: "Segoe UI", sans-serif; /* Modern font for consistency */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 6, 0, 0, 2); /* Soft shadow for depth */
+    -fx-background-color: #4761F5;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-padding: 10px 14px;
+    -fx-text-fill: #F3F4FE;
+    -fx-font-size: 15px;
+    -fx-font-family: "Source Sans Pro", sans-serif;
+    -fx-font-weight: normal;
 }
 
 /* Reply dialog bubble */
 .reply-label {
-    -fx-background-color: #BBDEFB; /* Slightly darker shade for reply messages */
-    -fx-border-color: #90A4AE; /* Muted light gray border */
-    -fx-border-width: 1px;
-    -fx-background-radius: 12px; /* Consistent rounded corners */
-    -fx-border-radius: 12px;
-    -fx-padding: 12px 16px; /* Consistent padding */
-    -fx-text-fill: #2C3E50; /* Darker text for readability */
-    -fx-font-size: 14px;
-    -fx-font-family: "Segoe UI", sans-serif;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 6, 0, 0, 2); /* Subtle shadow effect */
+    -fx-background-color: #F1F1F1;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-padding: 10px 14px; /* Consistent padding */
+    -fx-text-fill: #000000;
+    -fx-font-size: 15px;
+    -fx-font-family: "Source Sans Pro", sans-serif;
+    -fx-font-weight: normal;
 }
 
 /* Avatar (Display Picture) */
 #displayPicture {
-    /* Clean shadow effect */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 12, 0.5, 5, 5); /* Subtle shadow for depth */
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
-    -fx-border-radius: 50%; /* Circular image for a modern look */
+    -fx-border-radius: 100%; /* Circular image for a modern look */
 }
 
 /* General text alignment and padding for both user and reply bubbles */

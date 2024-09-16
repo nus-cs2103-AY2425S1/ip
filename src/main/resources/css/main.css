@@ -1,54 +1,54 @@
 .root {
-    -fx-background-color: #F3F4F6; /* Light neutral background color for a clean and modern look */
+    -fx-background-color: #FFFFFF;
     -fx-font-family: "Segoe UI", "Arial", sans-serif; /* Use a modern font */
 }
 
 /* TextField */
 .text-field {
-    -fx-background-color: #FFFFFF; /* White background for input field */
-    -fx-border-radius: 8px; /* Slightly rounded corners for a modern feel */
-    -fx-background-radius: 8px;
+    -fx-background-color: #F3F3F3;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
     -fx-padding: 10px; /* Add padding for breathing room */
-    -fx-font-size: 14px; /* Simple font */
+    -fx-font-size: 15px; /* Simple font */
     -fx-border-color: #CCCCCC; /* Light gray border */
     -fx-border-width: 1px;
 }
 
 .text-field:focused {
-    -fx-background-color: #FFFFFF; /* Keep the background white on focus */
-    -fx-border-color: #1A73E8; /* Subtle blue border when focused */
+    -fx-background-color: #F3F3F3;
+    -fx-border-color: #4761F5;
     -fx-border-width: 1.5px;
 }
 
 /* Button */
+/* Set the fill color for the SVG icons */
+.button .svg-path {
+    -fx-fill: #4761F5; /* Default color for SVG icon */
+}
+
+/* Change color on hover */
+.button:hover .svg-path {
+    -fx-fill: #3B55D9; /* Darker color on hover */
+}
+
+/* Change color on pressed */
+.button:pressed .svg-path {
+    -fx-fill: #2F44B2; /* Even darker color on press */
+}
+
+/* Button styling */
 .button {
-    -fx-background-color: #1A73E8; /* Solid, flat blue color */
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
-    -fx-padding: 10px 18px;
-    -fx-cursor: hand;
-    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: none;
+    -fx-padding: 5px;
 }
 
 .button:hover {
-    -fx-background-color: #1558B2; /* Darker blue on hover for subtle interactivity */
+    -fx-background-color: rgba(71, 97, 245, 0.1); /* Light background on hover */
 }
 
 .button:pressed {
-    -fx-background-color: #0B3D91; /* Even darker blue when pressed */
-}
-
-/* Dialog Box */
-.dialog-box {
-    -fx-background-color: #E0F7FA; /* Light, flat accent color for dialog box */
-    -fx-text-fill: #333333; /* Darker text for contrast */
-    -fx-padding: 12px 16px;
-    -fx-border-radius: 12px; /* Rounded corners */
-    -fx-background-radius: 12px;
-    -fx-border-color: transparent;
+    -fx-background-color: rgba(47, 68, 178, 0.2); /* Slightly darker background when pressed */
 }
 
 /* ScrollPane and ScrollBar */
