@@ -38,9 +38,20 @@ public class BottleOpener {
     public String getResponse(String userInput) {
         storage.save(tasks);
         Parser parser = new Parser(userInput, this.tasks);
-        String botMessage = parser.runParser();
+        String botMessage = parser.executeCommand();
         this.hasExited = parser.checkExit();
         return botMessage;
+    }
+
+    /**
+     * Generates a reminder of upcoming deadlines by invoking the "remind" command
+     * through the {@code Parser} instance. This method filters the tasks and returns
+     * a string that lists all tasks with deadlines that are due.
+     *
+     */
+    public String remindDeadlines() {
+        Parser parser = new Parser("remind", this.tasks);
+        return parser.executeCommand();
     }
 
     /**

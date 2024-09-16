@@ -107,5 +107,43 @@ public class Tasklist {
         return output.toString();
     }
 
+    /**
+     * Checks if there are any tasks with deadlines in the task list.
+     *
+     * @return {@code true} if the task list contains at least one deadline; {@code false} otherwise.
+     */
+    public boolean checkDeadlines() {
+        for (Task task : this.tasklist) {
+            if (task.getType().equals("D")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Generates a formatted string of all tasks with deadlines from the task list.
+     *
+     * <p>An assertion ensures that the task list is not {@code null} before processing.
+     *
+     * @return A string containing a numbered list of all tasks with deadlines. If there are no
+     *         deadlines, an empty string is returned.
+     * @throws AssertionError if the task list is {@code null}.
+     */
+    public String showDeadlines() {
+        assert this.tasklist != null : "Tasklist should not be null";
+
+        StringBuilder output = new StringBuilder();
+        int deadlineNumber = 1;
+        for (Task task : this.tasklist) {
+            String taskType = task.getType();
+            if (taskType.equals("D")) {
+                output.append(String.format("%d. %s%n", deadlineNumber, task));
+                deadlineNumber++;
+            }
+        }
+        return output.toString();
+    }
+
 }
 
