@@ -42,8 +42,12 @@ public class Storage {
      */
     public ArrayList<Task> loadData() throws JoeException {
         File file = new File(this.filePath);
+        if (!file.exists()) {
+            file.getParentFile().mkdir();
+        }
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
+            file.createNewFile();
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             ArrayList<Task> tasks = new ArrayList<>();
             String line = null;
             while ((line = reader.readLine()) != null) {
