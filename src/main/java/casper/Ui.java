@@ -1,9 +1,9 @@
 package casper;
 
+import java.time.LocalDate;
+
 import exception.CasperBotException;
 import exception.CasperBotOutOfBoundsException;
-
-import java.time.LocalDate;
 
 /**
  * Represents the Ui class
@@ -105,6 +105,14 @@ public class Ui {
             return String.valueOf(output);
         }
     }
+
+    /**
+     * Displays the tasks falling on a specified date based on a given task list
+     * @param taskList The task list of the user
+     * @param date The specified date in LocalDate
+     * @return A string of the tasks on that date
+     * @throws CasperBotOutOfBoundsException Due to the use of getTask
+     */
     public String displaySchedule(TaskList taskList, LocalDate date) throws CasperBotOutOfBoundsException {
         if (taskList.isEmpty()) {
             return "There is nothing on your schedule on " + date + ".";
