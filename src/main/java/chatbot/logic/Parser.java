@@ -44,7 +44,7 @@ public class Parser {
      * @param s User's instruction string
      * @param taskList TaskList object as encapsulated by the Bobby class
      * @param storage Storage object as encapsulated by the Bobby class
-     * @return A string representation of the chatbot's reply to the command
+     * @return A Command representing the command entered by the user
      * @throws InputException Exception thrown if instruction is not of the correct format
      */
     public static Command processInput(String s, TaskList taskList, Storage storage) throws InputException {

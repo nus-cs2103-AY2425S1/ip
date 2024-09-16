@@ -133,7 +133,7 @@ public class TaskList {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n");
-        sb.append(newTask);
+        sb.append(newTask + "\n");
         sb.append("Now you have " + tasks.size() + " tasks in the list\n");
 
         return sb.toString();
