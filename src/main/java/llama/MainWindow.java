@@ -68,6 +68,6 @@ public class MainWindow extends AnchorPane {
                 System.exit(0);
             });
             delay.play();
-        }   
+        }
     }
 }
