@@ -72,6 +72,7 @@ public class Storage {
                     throw new InvalidCommandException("Invalid task type: " + split[0]);
             }
         }
+        fileScanner.close();
         return tasks;
     }
 
