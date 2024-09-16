@@ -28,8 +28,7 @@ public class Parser {
      */
     public static String parseToDoTask(String userCommand) {
         assert (userCommand != null);
-        String[] userInputs = userCommand.split(" ");
-        String taskName = userInputs[1].trim();
+        String taskName = userCommand.substring(4);
         return TaskList.addTask(taskName);
     }
 

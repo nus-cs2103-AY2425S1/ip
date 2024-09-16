@@ -1,13 +1,13 @@
 package futureyou;
 
+import futureyou.task.Deadline;
+import futureyou.task.Events;
+import futureyou.task.Task;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import futureyou.task.Deadline;
-import futureyou.task.Events;
-import futureyou.task.Task;
 
 /**
  * The TaskList manages a list of tasks.
@@ -52,6 +52,9 @@ public class TaskList {
      * @return message All tasks in tasklist neatly formatted
      */
     public static String listTasks() {
+        if (taskList.isEmpty()) {
+            return "Task List is empty!";
+        }
         StringBuilder message = new StringBuilder();
         int count = 1;
         message.append("Items in List:").append(System.lineSeparator());
@@ -173,8 +176,8 @@ public class TaskList {
 
     /**
      * Sorts the task list by task type then by the end date time.
-     * @return the list of tasklist that is sorted
      *
+     * @return the list of tasklist that is sorted
      */
     public static String sortTask() {
         Collections.sort(taskList, (t1, t2) -> {
