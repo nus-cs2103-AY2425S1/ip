@@ -12,8 +12,8 @@ public class RemindCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void executeCmd(TaskList list, Ui ui) {
-        ui.showReminders(list);
+    public String executeCmd(TaskList list, Ui ui) {
+        return ui.showReminders(list);
     }
 
     /**

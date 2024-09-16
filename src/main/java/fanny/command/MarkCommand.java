@@ -28,12 +28,15 @@ public class MarkCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void executeCmd(TaskList list, Ui ui) {
+    public String executeCmd(TaskList list, Ui ui) {
         int taskId = Integer.parseInt(input);
+        String message= "";
 
         ui.showHorizontalLine();
-        ui.showMarkTaskMsg(taskId, list);
+        message = ui.showMarkTaskMsg(taskId, list);
         ui.showHorizontalLine();
+
+        return message;
     }
 
     /**

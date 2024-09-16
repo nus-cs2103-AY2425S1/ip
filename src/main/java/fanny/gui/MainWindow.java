@@ -59,10 +59,9 @@ public class MainWindow extends AnchorPane {
      * Displays the startup message from the Ui class in the dialog container.
      */
     private void showStartupMessage() {
-        String welcomeMessage = Fanny.captureCliMsg(() -> new Ui().printHello());
-        String filteredMessage = Fanny.filterLines(welcomeMessage);
+        String welcomeMessage = new Ui().printHello();
         String reminderMessage = Fanny.getReminders();
-        String startUpMessage = filteredMessage + "\n" + reminderMessage;
+        String startUpMessage = welcomeMessage + "\n" + reminderMessage;
 
         dialogContainer.getChildren().add(
                 DialogBox.getFannyDialog(startUpMessage, dukeImage)

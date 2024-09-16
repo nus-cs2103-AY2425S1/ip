@@ -21,7 +21,7 @@ public abstract class Command {
      * @param list The task list to be modified by the command.
      * @param ui The user interface to interact with the user.
      */
-    public abstract void executeCmd(TaskList list, Ui ui);
+    public abstract String executeCmd(TaskList list, Ui ui);
 
     /**
      * An abstract method that indicates whether this command

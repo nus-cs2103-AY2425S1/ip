@@ -78,11 +78,15 @@ public class TaskList {
     /**
      * Prints the list of tasks to the console.
      */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        String message = "Here are the tasks in your list:\n";
+
         for (int i = 0; i < this.list.size(); i++) {
-            System.out.println(i+1 + "." + list.get(i).toString());
+            message += i+1 + "." + list.get(i).toString() + "\n";
         }
+
+        System.out.println(message);
+        return message;
     }
 
     /**

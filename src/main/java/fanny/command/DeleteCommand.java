@@ -28,12 +28,15 @@ public class DeleteCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void executeCmd(TaskList list, Ui ui) {
+    public String executeCmd(TaskList list, Ui ui) {
         int taskId = Integer.parseInt(input);
+        String message = "";
 
         ui.showHorizontalLine();
-        ui.showDeleteTaskMsg(taskId, list);
+        message = ui.showDeleteTaskMsg(taskId, list);
         ui.showHorizontalLine();
+
+        return message;
     }
 
     /**

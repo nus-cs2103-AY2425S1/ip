@@ -37,19 +37,23 @@ public class EventCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void executeCmd(TaskList list, Ui ui) {
+    public String executeCmd(TaskList list, Ui ui) {
+        String message = "";
         ui.showHorizontalLine();
+
         try {
             generateEvent();
             list.add(this.event);
-            ui.showAddTaskMsg(this.event, list);
+            message = ui.showAddTaskMsg(this.event, list);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showMessage("Event description and duration cannot be empty");
+            message = ui.showMessage("Event description and duration cannot be empty");
         } catch (DateTimeParseException e) {
-            ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
+            message = ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
         } finally {
             ui.showHorizontalLine();
         }
+
+        return message;
     }
 
     /**

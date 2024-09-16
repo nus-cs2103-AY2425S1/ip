@@ -32,17 +32,21 @@ public class ToDoCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void executeCmd(TaskList list, Ui ui) {
+    public String executeCmd(TaskList list, Ui ui) {
+        String message = "";
         ui.showHorizontalLine();
+
         try {
             generateToDo();
             list.add(this.todo);
-            ui.showAddTaskMsg(this.todo, list);
+            message = ui.showAddTaskMsg(this.todo, list);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showMessage("Task description cannot be empty");
+            message = ui.showMessage("Task description cannot be empty");
         } finally {
             ui.showHorizontalLine();
         }
+
+        return message;
     }
 
     /**

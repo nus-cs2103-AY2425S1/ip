@@ -15,9 +15,11 @@ public class ByeCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void executeCmd(TaskList list, Ui ui) {
-        ui.printBye();
+    public String executeCmd(TaskList list, Ui ui) {
+        String message = ui.printBye();
         ui.close();
+
+        return message;
     }
 
     /**

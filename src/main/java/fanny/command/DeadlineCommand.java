@@ -36,19 +36,23 @@ public class DeadlineCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void executeCmd(TaskList list, Ui ui) {
+    public String executeCmd(TaskList list, Ui ui) {
+        String message = "";
         ui.showHorizontalLine();
+
         try {
             generateDeadline();
             list.add(this.deadline);
-            ui.showAddTaskMsg(this.deadline, list);
+            message = ui.showAddTaskMsg(this.deadline, list);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showMessage("Task description and deadline cannot be empty");
+            message = ui.showMessage("Task description and deadline cannot be empty");
         } catch (DateTimeParseException e) {
-            ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
+            message = ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
         } finally {
             ui.showHorizontalLine();
         }
+
+        return message;
     }
 
     /**

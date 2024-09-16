@@ -33,12 +33,15 @@ public class FindCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void executeCmd(TaskList list, Ui ui) {
+    public String executeCmd(TaskList list, Ui ui) {
         List<Task> filteredList = list.findTasks(this.keyword);
+        String message = "";
 
         ui.showHorizontalLine();
-        ui.showFindTaskMsg(filteredList);
+        message = ui.showFindTaskMsg(filteredList);
         ui.showHorizontalLine();
+
+        return message;
     }
 
     /**
