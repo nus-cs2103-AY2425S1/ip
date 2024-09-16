@@ -41,6 +41,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setWrapText(true);
+        dialog.setMaxWidth(Double.MAX_VALUE);
         if (img != null) {
             displayPicture.setImage(img);
             displayPicture.setVisible(true);

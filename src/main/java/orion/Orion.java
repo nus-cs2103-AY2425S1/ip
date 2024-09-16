@@ -1,3 +1,4 @@
+// prettier-ignore-file
 package orion;
 
 import java.io.IOException;
@@ -117,7 +118,7 @@ public class Orion extends Application {
             default -> "Unknown command: " + parts[0];
             };
         } catch (OrionException e) {
-            return "Error: " + e.getMessage();
+            return "Error: " + e.getMessage() + "\n";
         }
     }
 
