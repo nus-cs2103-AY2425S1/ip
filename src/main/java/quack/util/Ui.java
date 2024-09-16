@@ -13,19 +13,12 @@ public class Ui {
 
     /** The name of the chatbot */
     private String botName = "Quack";
-    /** The logo for Quack */
-    private String logo =
-        "________                       __    \n"
-        + "\\_____  \\  __ _______    ____ |  | __\n"
-        + " /  / \\  \\|  |  \\__  \\ _/ ___\\|  |/ /\n"
-        + "/   \\_/.  \\  |  // __ \\\\  \\___|    < \n"
-        + "\\_____\\ \\_/____/(____  /\\___  >__|_ \\ \n"
-        + "       \\__>          \\/     \\/     \\/\n";
-
     /** Farewell message for Quack */
-    private String farewellMessage = "Bye. Hope to see you again soon!";
+    private String farewellMessage = "Welp time to waddle away. "
+        + "Hope to see you again soon and bring some bread next time!";
     /** Greeting message for Quack */
-    private String greetingMessage = "Hello! I'm " + this.botName + "\nWhat can I do for you?";
+    private String greetingMessage = "Quack*.\nI'm " + this.botName + " your one of a kind talking duck"
+        + "\nWhat can I do for you?";
     /** Output stream to display response to user */
     private VBox dialogContainer;
     /** Image of the Quack chatbot */
@@ -43,20 +36,11 @@ public class Ui {
     }
 
     /**
-     * Retrieves the logo of Quack.
-     * @return The logo of Quack.
+     * Prints the greeting message for Quack.
      */
-    public String getLogo() {
+    public void printGreeting() {
 
-        return this.logo + "\n";
-    }
-
-    /**
-     * Retrieves the greeting message for Quack.
-     * @return The greeting message to be displayed by Quack
-     */
-    public String getGreeting() {
-        return this.greetingMessage;
+        this.outputToScreen(this.greetingMessage);
     }
 
     /**
@@ -93,9 +77,10 @@ public class Ui {
     public void printSearchResult(TaskList filteredTaskList) {
 
         if (filteredTaskList.getLength() == 0) {
-            this.outputToScreen("Im sorry. Seems like no tasks in the task list fits the description!");
+            this.outputToScreen("Unfortunately, seems like no task fits the description!");
         } else {
-            String output = ("Here are some tasks that I found that matches your description:\n");
+            String output = ("Here are some tasks that I found that matches your description!"
+                + " Aren't I just the best!\n");
             output += filteredTaskList.toString();
             this.outputToScreen(output);
         }
@@ -119,7 +104,7 @@ public class Ui {
      */
     public void requestSearchPrompt() {
 
-        this.outputToScreen("What task would you like to find?");
+        this.outputToScreen("What task would you like me to find?");
     }
 
     /**
@@ -137,7 +122,7 @@ public class Ui {
      */
     public void requestTaskType() {
 
-        this.outputToScreen("What is the type of task you would like to add?");
+        this.outputToScreen("What is the type of task you would like me to add?");
     }
 
     /**

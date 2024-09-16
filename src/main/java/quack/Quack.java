@@ -40,8 +40,7 @@ public class Quack {
         this.ui = new Ui(dialogContainer, quackImage);
         this.parser = new Parser(toDoList, storage, ui);
 
-        String greeting = ui.getGreeting();
-        ui.outputToScreen(greeting);
+        ui.printGreeting();
     }
 
     /**
