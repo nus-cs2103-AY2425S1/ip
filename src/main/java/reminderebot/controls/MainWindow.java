@@ -32,7 +32,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        String greeting = " Hello! I'm ***" + "Reminderebot" + "***\n" + " What can I do for you?";
+        String greeting = " Hello! I'm ***" + "Reminderebot" + "***\n" + " What can I do for you?\n "
+                + "Enter /help for more commands";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
                 DialogBox.getReminderebotDialog(greeting, reminderebotImage)
@@ -59,5 +60,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getReminderebotDialog(response, reminderebotImage)
         );
         userInput.clear();
+        // Exit if user says bye
+        if (response.equals(" Bye. Hope to see you again soon!")) {
+            reminderebot.shutdown();
+        }
     }
 }

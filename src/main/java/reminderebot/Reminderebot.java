@@ -86,4 +86,11 @@ public class Reminderebot {
             return ui.showError(e.getMessage());
         }
     }
+
+    /**
+     * Clear resources and Shut down Reminderebot
+     */
+    public void shutdown() {
+        System.exit(0);
+    }
 }

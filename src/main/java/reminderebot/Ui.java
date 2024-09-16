@@ -20,6 +20,9 @@ public class Ui {
             + " What can I do for you?\n" + topBuffer;
     private static final String goodbyeText =
             " Bye. Hope to see you again soon!";
+    private static final String helpText = "Welcome to the help section! Please enter a command below:\n"
+            + " bye\n list\n mark <int>\n unmark <int>\n find <keyword>\n todo <taskname>\n"
+            + " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>";
     private Scanner input;
 
     /**
@@ -120,5 +123,13 @@ public class Ui {
             output.append(i + 1).append(".").append(tasksFound.get(i)).append("\n");
         }
         return output.toString();
+    }
+
+    /**
+     * Returns a string representing the help text
+     * @return help text
+     */
+    public String getHelpText() {
+        return helpText;
     }
 }
