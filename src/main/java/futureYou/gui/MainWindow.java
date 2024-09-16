@@ -1,6 +1,7 @@
 package futureyou.gui;
 
 import futureyou.FutureYou;
+import futureyou.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,6 +23,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private FutureYou futureYou;
+    private final Ui ui = new Ui();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image futureYouImage = new Image(this.getClass().getResourceAsStream("/images/futureYou.png"));
@@ -29,15 +31,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        String initializationMessage = ui.hello();
+
+        dialogContainer.getChildren().add(DialogBox.getFutureYouDialog(initializationMessage, futureYouImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Future You instance */
     public void setFutureYou(FutureYou futureYou) {
         this.futureYou = futureYou;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Future You's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

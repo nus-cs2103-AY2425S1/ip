@@ -64,6 +64,7 @@ public class Storage {
      * @return The task object parsed from the string.
      */
     private Task parseTask(String taskString) {
+        // Solution below inspired by https://stackoverflow.com/questions/16311651/java-string-split-by
         String[] stringParts = taskString.trim().split("\\|");
 
         String typeOfTask = stringParts[0].trim();

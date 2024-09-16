@@ -2,6 +2,7 @@ package futureyou;
 
 import java.util.Scanner;
 
+import futureyou.exception.FutureYouException;
 
 /**
  * The Ui class handles all interactions with the user.
@@ -42,13 +43,34 @@ public class Ui {
     /**
      * Greets the user with a welcome message.
      */
-    public void hello() {
-        System.out.println("____________________________________________________________" + System.lineSeparator()
-                + "Yo! It's" + System.lineSeparator() + LOGO
-                + "What can I do for you?" + System.lineSeparator()
-                + "____________________________________________________________\n");
-
+    public String hello() {
+        StringBuilder message = new StringBuilder();
+        message.append("____________________________________________________________")
+                .append(System.lineSeparator())
+                .append("Hi this is Future You here")
+                .append(System.lineSeparator())
+                .append("I have the following commands available:")
+                .append(System.lineSeparator())
+                .append("____________________________________________________________")
+                .append(System.lineSeparator())
+                .append("1) todo/deadline/event")
+                .append(System.lineSeparator())
+                .append("2) mark <task number>")
+                .append(System.lineSeparator())
+                .append("3) delete <task number>")
+                .append(System.lineSeparator())
+                .append("4) list")
+                .append(System.lineSeparator())
+                .append("5) find <task name>")
+                .append(System.lineSeparator())
+                .append("6) sort")
+                .append(System.lineSeparator())
+                .append("7) bye")
+                .append(System.lineSeparator());
+        displayMessage(message.toString());
+        return message.toString();
     }
+
 
     /**
      * Reads the user's command.
@@ -118,6 +140,10 @@ public class Ui {
                 message = "Please enter a valid command!";
                 break;
             }
+            displayMessage(message);
+            return message;
+        } catch (FutureYouException e) {
+            message = e.getMessage();
             displayMessage(message);
             return message;
         } catch (Exception e) {
