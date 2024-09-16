@@ -1,17 +1,15 @@
 # Llama Project
 
 This a chatbot named after the great land animal _Llama_. It is able to keep track of your tasks efficiently!
-**It is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI) while still having the 
-benefits of a Graphical User Interface (GUI). If you can type fast, Llama can get your task management done faster than 
-traditional GUI apps.**
+It is a desktop app for **managing tasks, optimized for use via a Command Line Interface (CLI)** while still having the 
+**benefits of a Graphical User Interface (GUI)**. If you can type fast, Llama can get your task management done faster 
+than traditional GUI apps.
+
+* Table of Contents
+  {:toc}
 
 
-
-Given below are instructions on how to use it.
-
-// Product screenshot goes here
-
-// Product intro goes here
+---
 
 ## Quick Start
 
