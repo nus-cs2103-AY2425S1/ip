@@ -28,7 +28,7 @@ public class ParserTest {
      */
     @BeforeEach
     public void initializeVariables() {
-       this.parser = new Parser(null, null, null);
+        this.parser = new Parser(null, null, null);
     }
 
     /**
