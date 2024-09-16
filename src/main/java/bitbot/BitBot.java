@@ -83,7 +83,7 @@ public class BitBot {
                     finalResponse = handleUntag(arrayList, partsOfInput, numberPart);
                     break;
                 case "bye":
-                    Storage.saveTasksToFile(arrayList);
+                    Storage.saveTasksToFile(arrayList, PATH_TO_FILE);
                     break;
                 default:
                     // if it does not fall in any of this keyword,

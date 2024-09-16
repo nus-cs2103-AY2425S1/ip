@@ -1,3 +1,4 @@
-T| |Read book|NIL| NIL|
-D| |Submit assignment|Sep 20 2024 18:00|NIL|
+T| |Read book|NIL| NIL| NIL
+D| |Submit assignment|Sep 20 2024 18:00|NIL|NIL
 E| |Attend meeting|Sep 22 2024 10:00|Sep 22 2024 12:00|
+E| |return book|Apr 29 2024|Apr 29 2024|

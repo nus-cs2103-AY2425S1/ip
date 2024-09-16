@@ -38,8 +38,8 @@ public class UI {
 
     private final String conclusion = "          ____________________________________\n"
             + "          Sad to see you go :( Thank you for using BitBot and hope you enjoyed my service!\n"
-            + "          Don't worry, your tasks are saved and are safe with me :)"
-            + "          The next time you come, you can complete your tasks!!!!."
+            + "          Don't worry, your tasks are saved and are safe with me :)\n"
+            + "          The next time you come, you can complete your tasks!!!!.\n"
             + "          Hope to see you again soon and goodbye!\n"
             + "          ____________________________________\n";
 

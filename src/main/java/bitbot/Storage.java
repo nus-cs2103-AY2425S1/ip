@@ -63,9 +63,9 @@ public class Storage {
      * @param tasks this is the arrayList of tasks that have been saved.
      * @throws IOException
      */
-    public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
+    public static void saveTasksToFile(ArrayList<Task> tasks, String filename) throws IOException {
         ensureFileExists();
-        FileWriter fileWriter = new FileWriter(PATH_TO_FILE);
+        FileWriter fileWriter = new FileWriter(filename);
         for (Task task : tasks) {
             fileWriter.write(task.toFileFormat() + System.lineSeparator());
         }
