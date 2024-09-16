@@ -2,6 +2,7 @@ package moody.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 /**
  * Represents an event task with a start and end date and time.
@@ -35,19 +36,26 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         return "E | " + super.toFileFormat() + " | " + this.from.format(INPUT_FORMATTER) + " | "
-                + this.to.format(INPUT_FORMATTER);
+                + this.to.format(INPUT_FORMATTER) + " | " + this.tags;
     }
 
     /**
      * Returns a string representation of the Event for display purposes.
-     * The format includes the task type, description, start time, and end time in a user-friendly format.
+     * The format includes the task type, description, start time, end time in a user-friendly format
+     * and tags (if any), with each tag preceded by a '#'.
      *
      * @return A string representation of the Event.
      */
     @Override
     public String toString() {
-        String timeframe = String.format("(from: %s to: %s)", this.from.format(OUTPUT_FORMATTER),
-                this.to.format(OUTPUT_FORMATTER));
-        return String.format("[E]%s %s", super.toString(), timeframe);
+        String modifiedTags = this.tags.isEmpty()
+                ? ""
+                : this.tags.stream()
+                .map(tag -> "#" + tag)
+                .collect(Collectors.joining(" "));
+
+        String timeframeWithTags = String.format("(from: %s to: %s) %s",
+                this.from.format(OUTPUT_FORMATTER), this.to.format(OUTPUT_FORMATTER), modifiedTags);
+        return String.format("[E]%s %s", super.toString(), timeframeWithTags);
     }
 }

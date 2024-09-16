@@ -52,18 +52,22 @@ public class Storage {
             String[] parts = line.split(" \\| ");
             String taskType = parts[0];
             boolean isTaskDone = parts[1].equals("1");
+            String allTags;
             Task task;
 
             switch (taskType) {
             case "T":
                 task = new Todo(parts[2].trim());
+                allTags = parts[3].trim();
                 break;
             case "D":
                 task = new Deadline(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), INPUT_FORMATTER));
+                allTags = parts[4].trim();
                 break;
             case "E":
                 task = new Event(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), INPUT_FORMATTER),
                         LocalDateTime.parse(parts[4].trim(), INPUT_FORMATTER));
+                allTags = parts[5].trim();
                 break;
             default:
                 continue;
@@ -74,6 +78,14 @@ public class Storage {
             }
 
             tasks.add(task);
+            if (!allTags.isEmpty()) {
+                allTags = allTags.substring(1, allTags.length() - 1);
+                String[] allTagsAsArray = allTags.split(", ");
+                for (String tag : allTagsAsArray) {
+                    task.addTag(tag);
+                }
+            }
+
         }
 
         scanner.close();

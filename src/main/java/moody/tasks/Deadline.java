@@ -2,6 +2,7 @@ package moody.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 /**
  * Represents a deadline task with a specific due date and time.
@@ -31,18 +32,27 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " + super.toFileFormat() + " | " + this.by.format(INPUT_FORMATTER);
+        return "D | " + super.toFileFormat() + " | " + this.by.format(INPUT_FORMATTER)
+                + " | " + this.tags;
     }
 
     /**
      * Returns a string representation of the Deadline for display purposes.
-     * The format includes the task type, description, and due date in a user-friendly format.
+     * The format includes the task type, description, due date in a user-friendly format
+     * and tags (if any).
      *
      * @return A string representation of the Deadline.
      */
     @Override
     public String toString() {
-        String timeframe = String.format("(by: %s)", this.by.format(OUTPUT_FORMATTER));
-        return String.format("[D]%s %s", super.toString(), timeframe);
+        String modifiedTags = this.tags.isEmpty()
+                ? ""
+                : this.tags.stream()
+                .map(tag -> "#" + tag)
+                .collect(Collectors.joining(" "));
+
+        String timeframeWithTags = String.format("(by: %s) %s",
+                this.by.format(OUTPUT_FORMATTER), modifiedTags);
+        return String.format("[D]%s %s", super.toString(), timeframeWithTags);
     }
 }
