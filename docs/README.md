@@ -1,7 +1,7 @@
 # Applemazer User Guide
 
 <p align="center">
-   <img src="/docs/Ui.png">
+   <img src="Ui.png">
 </p>
 
 Applemazer is an **intelligent chatbot application designed to optimize your task management workflow.**
@@ -42,6 +42,7 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
+
 ### Adding a Deadline task: `deadline`
 Adds a deadline task to keep track of.
 
@@ -58,6 +59,7 @@ Got it. I've added this task:
    [D][] CS2103T iP (by: 20 Sep 2024 11:59pm)
 Now you have 2 tasks in the list.
 ```
+
 
 ### Adding an Event task: `event`
 Adds an event task to keep track of.
@@ -76,6 +78,7 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
+
 ### Exiting the program: `bye`
 Exits the program after displaying a farewell message.
 
@@ -85,6 +88,7 @@ Expected outcome:
 ```
 Bye. Hope to see you again soon!
 ```
+
 
 ### Listing all tasks: `list`
 Lists down all tasks that are currently being tracked.
@@ -98,6 +102,7 @@ Here are the tasks in your list:
 2. [D][] CS2103T iP (by: 20 Sep 2024 11:59pm)
 3. [E][] recess week (from: 21 Sep 2024 to: 29 Sep 2024)
 ```
+
 
 ### Marking a task as done: `mark`
 Marks a task as done.
@@ -113,6 +118,7 @@ Nice! I've marked this task as done:
    [D][X] CS2103T iP (by: 20 Sep 2024 11:59pm)
 ```
 
+
 ### Marking a task as not done: `unmark`
 Marks a task as not done.
 
@@ -126,6 +132,7 @@ Expected outcome:
 OK, I've marked this task as not done yet:
    [D][] CS2103T iP (by: 20 Sep 2024 11:59pm)
 ```
+
 
 ### Deleting a task: `delete`
 Deletes a task that is currently being tracked.
@@ -142,6 +149,7 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
+
 ### Finding a specific task: `find`
 Lists down all tasks that match or contain the given description.
 
@@ -156,6 +164,7 @@ Expected outcome:
 Here are the matching tasks in your list:
 2. [E][] recess week (from: 21 Sep 2024 to: 29 Sep 2024)
 ```
+
 
 ### Saving the program
 The program saves all data automatically when any changes are made.
