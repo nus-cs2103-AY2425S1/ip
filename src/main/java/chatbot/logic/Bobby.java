@@ -36,7 +36,7 @@ public class Bobby {
         assert this.taskList != null : "taskList should not be null";
 
         try {
-            return Parser.processInput(command, this.taskList, this.storage);
+            return Parser.processInput(command, this.taskList, this.storage).run();
         } catch (InputException e) {
             return e.getMessage();
         }
