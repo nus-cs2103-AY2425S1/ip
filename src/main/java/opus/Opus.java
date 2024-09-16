@@ -9,7 +9,6 @@ public class Opus {
 
     private Storage storage;
     private TaskList taskList;
-    private Ui ui;
 
     /**
      * Initializes the Opus application with the specified file path for storage.
@@ -18,15 +17,19 @@ public class Opus {
      * @param filePath Path to the file where tasks are stored.
      */
     public Opus(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
     }
-
     private String handleByeCommand() throws OpusException {
         storage.save(taskList.getTasks());
         return "Bye. Hope to see you again soon!";
     }
+
+    /**
+     * Handles the list command by displaying all tasks in the task list.
+     *
+     * @return The response message containing all tasks in the list.
+     */
     private String handleListCommand() {
         String response = "";
         for (Task task : taskList.getTasks()) {
@@ -34,6 +37,13 @@ public class Opus {
         }
         return response;
     }
+    /**
+     * Handles the mark command by marking a task as done.
+     *
+     * @param words The command split into words.
+     * @return The response message indicating the task has been marked as done.
+     * @throws OpusException If the task number is not specified or is invalid.
+     */
     private String handleMarkCommand(String[] words) throws OpusException {
         if (words.length < 2) {
             throw new OpusException("Please specify the task number to mark.");
@@ -43,6 +53,13 @@ public class Opus {
         taskList.getTask(i).markAsDone();
         return "Nice! I've marked this task as done:\n" + taskList.getTask(i).toString();
     }
+    /**
+     * Handles the delete command by removing a task from the list.
+     *
+     * @param words The command split into words.
+     * @return The response message indicating the task has been deleted.
+     * @throws OpusException If the task number is not specified or is invalid.
+     */
     private String handleDeleteCommand(String[] words) throws OpusException {
         String response = "";
         if (words.length < 2) {
@@ -55,7 +72,11 @@ public class Opus {
         response += "Now you have " + taskList.getSize() + " tasks in the list.";
         return response;
     }
-
+    /**
+     * Handles the help command by displaying a list of available commands.
+     *
+     * @return The response message containing the list of commands.
+     */
     private String handleHelpCommand() {
         String response = "Here are the commands you can use:\n";
         response += "1. list - List all tasks\n";
@@ -69,58 +90,13 @@ public class Opus {
         return response;
     }
 
-    /**
-     * Starts the main loop of the application, interacting with the user and processing
-     * commands until the user issues the "bye" command. Commands such as adding tasks,
-     * marking tasks, listing tasks, and deleting tasks are handled.
-     */
-    public void run() {
-        ui.showWelcome();
-
-        while (true) {
-            String fullCommand = ui.readCommand();
-            String[] words = Parser.parse(fullCommand);
-
-            try {
-                if (words[0].equals("find")) {
-                    String keyword = words[1];
-                    taskList.findTasks(keyword);
-                } else if (words[0].equals("help")) {
-                    ui.showHelp();
-                } else {
-                    if (words[0].equals("todo")) {
-                        if (words.length <= 1) {
-                            throw new OpusEmptyDescriptionException("The description of a todo cannot be empty.");
-                        }
-                        Task todo = new ToDo(words[1]);
-                        taskList.addTask(todo);
-                    } else if (words[0].equals("deadline")) {
-                        String[] parts = Parser.parseDeadlineDetails(words[1]);
-                        Task deadline = new Deadline(parts[0], parts[1]);
-                        taskList.addTask(deadline);
-                    } else if (words[0].equals("event")) {
-                        String[] parts = Parser.parseEventDetails(words[1]);
-                        Task event = new Event(parts[0], parts[1], parts[2]);
-                        taskList.addTask(event);
-                    } else {
-                        throw new OpusUnknownCommandException("I'm sorry, but I don't know what that means.");
-                    }
-                    ui.showMessage("Got it. I've added this task:");
-                    ui.showMessage(taskList.getTask(taskList.getSize() - 1).toString());
-                    ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
-                }
-            } catch (OpusException e) {
-                ui.showMessage(e.getMessage());
-            }
-        }
-    }
 
     /**
      * Main method to launch the Opus application.
      * @param args Command-line arguments, not used.
      */
     public static void main(String[] args) {
-        new Opus("data/tasks.txt").run();
+        new Opus("data/tasks.txt");
     }
 
     public String getResponse(String input) {
