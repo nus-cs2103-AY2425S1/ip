@@ -49,8 +49,30 @@ public class TaskList {
         this(new ArrayList<>());
     }
 
-    public void addTask(Task task) {
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to add.
+     * @return The task number of the task in the task list (1-indexed).
+     */
+    public int addTask(Task task) {
         tasks.add(task);
+        // newly added task is always the last one
+        return tasks.size();
+    }
+
+    /**
+     * Adds a task to the task list at the specified index.
+     * If the index out of bounds (larger), ignore index.
+     *
+     * @param index The index to add the task.
+     * @param task The task to add.
+     */
+    public void addTask(int index, Task task) {
+        if (index > tasks.size()) {
+            tasks.add(task);
+        }
+        tasks.add(index, task);
     }
 
     public int getTaskCount() {
@@ -79,7 +101,10 @@ public class TaskList {
                 String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
         }
         Task task = tasks.get(taskNumber - 1);
-        task.markAsDone();
+        if (task.markAsDone() == false) {
+            throw new TaskNotFoundException(
+                String.format("BLAHH!!! The task number %s is already marked.", taskNumber));
+        }
         return task.toString();
     }
 
@@ -95,7 +120,10 @@ public class TaskList {
                 String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
         }
         Task task = tasks.get(taskNumber - 1);
-        task.markAsUndone();
+        if (task.markAsUndone() == false) {
+            throw new TaskNotFoundException(
+                String.format("BLAHH!!! The task number %s is already not marked.", taskNumber));
+        }
         return task.toString();
     }
 
@@ -103,15 +131,15 @@ public class TaskList {
      * Deletes the task with the specified task number.
      *
      * @param taskNumber The task number to delete.
-     * @return The task string that was deleted.
+     * @return The task that was deleted.
      */
-    public String deleteTask(int taskNumber) {
+    public Task deleteTask(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
             throw new TaskNotFoundException(
                 String.format("BLAHH!!! The task number %s to delete does not exist.", taskNumber));
         }
         Task task = tasks.remove(taskNumber - 1);
-        return task.toString();
+        return task;
     }
 
     /**

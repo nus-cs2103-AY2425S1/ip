@@ -67,6 +67,13 @@ public class Ui {
     }
 
     /**
+     * Show the message that command has been undone.
+     */
+    public void showUndoMessage() {
+        displayMessage("I've undone the previous command.");
+    }
+
+    /**
      * Helper method to display a list of tasks with a message.
      * The list is displayed with a number prefix.
      *

@@ -7,7 +7,7 @@ import nixy.ui.Ui;
 /**
  * Class representing the command to mark/unmark a task as done.
  */
-public class MarkCommand implements Command {
+public class MarkCommand implements UndoableCommand {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
@@ -61,6 +61,21 @@ public class MarkCommand implements Command {
         } else {
             String taskStr = tasks.markTaskAsUndone(taskNumber);
             ui.showMarkedAsUndone(taskStr);
+        }
+        storage.save(tasks);
+    }
+
+    /**
+     * Undoes the command to mark/unmark a task as done.
+     */
+    @Override
+    public void undo() {
+        if (isMark) {
+            String taskStr = tasks.markTaskAsUndone(taskNumber);
+            ui.showMarkedAsUndone(taskStr);
+        } else {
+            String taskStr = tasks.markTaskAsDone(taskNumber);
+            ui.showMarkedAsDone(taskStr);
         }
         storage.save(tasks);
     }

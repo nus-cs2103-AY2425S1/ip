@@ -23,7 +23,7 @@ import nixy.task.TodoTask;
 
 
 class ParserTest {
-    private final Parser parser = new Parser(null, null, null);
+    private final Parser parser = new Parser(null, null, null, null);
 
     @Test
     void parse_byeCommand_commandByeReturned() {
