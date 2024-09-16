@@ -1,17 +1,13 @@
 package futureyou;
 
-import futureyou.task.Deadline;
-import futureyou.task.Events;
-import futureyou.task.Task;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import futureyou.task.Deadline;
+import futureyou.task.Events;
+import futureyou.task.Task;
 
 /**
  * The TaskList manages a list of tasks.
@@ -154,8 +150,8 @@ public class TaskList {
      * Finds specified tasks using text input by the user.
      *
      * @param text The text to search.
-     * @throws Exception If the task number is invalid.
      * @return message of all tasks containing the text (if it exists)
+     * @throws Exception If the task number is invalid.
      */
     public static String findTask(String text) throws Exception {
         try {
