@@ -2,7 +2,7 @@
 
 Appleaster is a quirky, apple-themed chatbot that helps you manage your tasks with a dash of fruity fun. It's here to make your day-to-day task management as sweet as apple pie!
 
-![Appleaster UI](docs/Ui.png)
+![Appleaster UI](Ui.png)
 
 ## Quick start
 
