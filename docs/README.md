@@ -1,5 +1,9 @@
 # Count User Guide
 
+## How do I install and run Count?
+1: Download Count.jar from the releases page
+2: Place it in a folder (This is where your tasks will be saved and loaded from)
+3: Open it!
 
 ![Ui.png](Ui.png)
 
