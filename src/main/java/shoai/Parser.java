@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.application.Platform;
 
-
 /**
  * Parses user commands and executes the corresponding actions on the task list.
  */
@@ -25,9 +24,8 @@ public class Parser {
      * @throws ShoAIException If there is an error processing the command.
      */
     public String parse(String fullCommand, TaskList tasks, Storage storage, ClientList clients) throws ShoAIException {
-        fullCommand = fullCommand.toLowerCase(); // Convert command to lowercase
         String[] commandParts = fullCommand.split(" ", 2);
-        String command = commandParts[0];
+        String command = commandParts[0].toLowerCase();
         String arguments = commandParts.length > 1 ? commandParts[1] : "";
 
         switch (command) {
@@ -207,13 +205,24 @@ public class Parser {
     }
 
     private void validateArguments(String arguments, int minParts) throws ShoAIException {
-        if (arguments.trim().isEmpty()) {
-            throw new ShoAIException("Error! Oops! Looks like you forgot to provide any arguments. Please try again.");
+        if (arguments == null || arguments.trim().isEmpty()) {
+            throw new ShoAIException("Error! Arguments cannot be empty.");
         }
-        if (arguments.split(" ").length < minParts) {
-            throw new ShoAIException("Error! Hmm, it seems like you're missing some arguments. We need a bit more info to proceed!");
+
+        // Handle multiple spaces and trailing/leading spaces
+        arguments = arguments.trim();
+        String[] parts = arguments.split("\\s+");
+
+        if (parts.length < minParts) {
+            throw new ShoAIException("Error! Insufficient arguments provided.");
+        }
+
+        // Check for special characters (if specific characters are not allowed)
+        if (arguments.matches(".*[<>:\"/\\|?*].*")) {
+            throw new ShoAIException("Error! Command contains invalid characters.");
         }
     }
+
 
     private int parseIndex(String indexString) throws ShoAIException {
         try {
