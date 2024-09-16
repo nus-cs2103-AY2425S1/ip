@@ -11,7 +11,6 @@ import elara.task.Task;
  * It handles input/output between the user and the system.
  */
 public class Ui {
-    private static final String LINE = "____________________________________________________________";
     private final Scanner scanner;
     private String lastResponse;
 

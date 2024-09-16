@@ -15,10 +15,10 @@ import elara.utils.Ui;
  */
 public class Elara {
 
+    private static final String FILE_PATH = "./data/Elara.txt";
     private final Storage storage;
     private final TaskList taskList;
     private final Ui ui;
-    private static final String FILE_PATH = "./data/Elara.txt";
 
     /**
      * Constructs an instance of the Elara chatbot.
@@ -31,6 +31,10 @@ public class Elara {
         taskList = new TaskList(storage.load());
     }
 
+    /**
+     * Constructs an instance of the Elara chatbot.
+     * Default where file to load for Storage instance is defined as FILE_PATH
+     */
     public Elara() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -58,6 +62,12 @@ public class Elara {
         }
     }
 
+    /**
+     * Gets response from Elara chatbot
+     *
+     * @param input input string.
+     * @return response string from Elara chatbot.
+     */
     public String getResponse(String input) {
         String response;
 
