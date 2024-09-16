@@ -166,6 +166,12 @@ public class TaskList {
      * @throws Exception If the task number is invalid.
      */
     public static String findTask(String text) throws Exception {
+        if (taskList.isEmpty()) {
+            return "Task List is empty!";
+        } else if (text.trim().isEmpty()) {
+            return "Please enter a non empty task name to search";
+        }
+
         StringBuilder message = new StringBuilder("Here are the matching tasks in your list:");
         message.append(System.lineSeparator());
         int count = 0;
