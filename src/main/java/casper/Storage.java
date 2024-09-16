@@ -75,8 +75,8 @@ public class Storage {
     }
 
     /**
-     * Write a task description to a file for persistent storage
-     * @throws CasperBotIoException f there is an IOException while writing to the file
+     * Writes a task description to a file for persistent storage
+     * @throws CasperBotIoException if an IOException is thrown during file writing
      */
     public void writeToFile(Task task) throws CasperBotIoException {
         try {
