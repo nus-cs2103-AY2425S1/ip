@@ -41,15 +41,16 @@ public class Storage {
     public ArrayList<Task> load() throws HenryException {
         ArrayList<Task> recordedTasks = new ArrayList<>();
 
-        // create a Scanner using the File as the source
         File file = new File(this.filePath);
         ensureFileExists(file);
 
-        if (file.length() == 0) {  // Check if the file is empty
-            return recordedTasks;  // Return empty list if no tasks are recorded
+        //Check if the file is empty
+        if (file.length() == 0) {
+            return recordedTasks;
         }
 
-        readTasksFromFile(file, recordedTasks);  // Read and parse the tasks
+        //Read and parse the tasks
+        readTasksFromFile(file, recordedTasks);
         return recordedTasks;
     }
 
@@ -85,7 +86,7 @@ public class Storage {
     private void readTasksFromFile(File file, ArrayList<Task> recordedTasks) throws HenryException {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
-                parseTask(scanner.nextLine(), recordedTasks);  // Parse each line into a task
+                parseTask(scanner.nextLine(), recordedTasks);
             }
         } catch (IOException e) {
             throw new HenryException("An error occurred while reading the file");
@@ -102,17 +103,17 @@ public class Storage {
     private void parseTask(String input, ArrayList<Task> recordedTasks) throws HenryException {
         String[] words = input.split(" \\| ");
         switch (words[0]) {
-            case "T":
-                addToDo(recordedTasks, words);
-                break;
-            case "D":
-                addDeadline(recordedTasks, words);
-                break;
-            case "E":
-                addEvent(words, recordedTasks);
-                break;
-            default:
-                throw new HenryException("Unknown task type: " + words[0]);
+        case "T":
+            addToDo(recordedTasks, words);
+            break;
+        case "D":
+            addDeadline(recordedTasks, words);
+            break;
+        case "E":
+            addEvent(words, recordedTasks);
+            break;
+        default:
+            throw new HenryException("Unknown task type: " + words[0]);
         }
     }
 
