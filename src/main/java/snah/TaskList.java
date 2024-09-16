@@ -1,6 +1,8 @@
 package snah;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import snah.task.Task;
 import snah.util.Storage;
@@ -18,6 +20,10 @@ public class TaskList {
 
     public TaskList(Storage storage) {
         this.tasksList = storage.getTaskLists();
+    }
+
+    public TaskList(ArrayList<Task> tasksList) {
+        this.tasksList = tasksList;
     }
 
     public void add(Task task) {
@@ -45,14 +51,10 @@ public class TaskList {
      * @param keyword Keyword to search for
      * @return List of tasks that contain the keyword
      */
-    public ArrayList<Task> search(String keyword) {
-        ArrayList<Task> searchResults = new ArrayList<>();
-        for (Task task : tasksList) {
-            if (task.contains(keyword)) {
-                searchResults.add(task);
-            }
-        }
-        return searchResults;
+    public TaskList search(String keyword) {
+        ArrayList<Task> searchResults = tasksList.stream().filter(task -> task.contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new TaskList(searchResults);
     }
 
     /**
@@ -60,11 +62,9 @@ public class TaskList {
      * @return Tasks stringified
      */
     public String list() {
-        String response = "";
-        for (int i = 0; i < tasksList.size(); i++) {
-            response += String.format("%d. %s\n", i + 1, tasksList.get(i));
-        }
-        return response;
+        return IntStream.range(0, tasksList.size())
+                .mapToObj(i -> String.format("%d. %s", i + 1, tasksList.get(i).toString()))
+                .collect(Collectors.joining("\n"));
     }
 
     public void save(Storage storage) {

@@ -23,6 +23,8 @@ public class UnMark extends Command {
         }
 
         tasks.get(taskIndex).unmarkAsDone();
+        tasks.save(storage);
+
         return "Nice! I've unmarked this task as undone:\n" + tasks.get(taskIndex);
     }
 
