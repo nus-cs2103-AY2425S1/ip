@@ -73,7 +73,7 @@ public class TaskList {
                 return "task removed:\n" + task.toString() + "\nNow you have " + items.size() + " tasks in the list";
             }
         }
-        return "No such task found!";
+        return "No sussy tasks found!";
     }
 
     /**

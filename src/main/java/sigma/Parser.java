@@ -39,7 +39,7 @@ public class Parser {
      * @return The greeting message
      */
     public String greet() {
-        return "hello, I'm Sigma, your personal chatbot";
+        return "Hello, I'm your personal skibidi sigma chatbot. What can I gyat for you?";
     }
 
     /**

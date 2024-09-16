@@ -12,7 +12,7 @@ public class Ui {
      * @return The welcome message
      */
     public String welcome() {
-        return "Hello! I'm Sigma \nWhat can I do for you? \n";
+        return "Hello! I'm Sigma \nWhat do you gyat to do today?\n";
     }
 
     /**
