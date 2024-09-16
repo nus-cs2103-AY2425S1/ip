@@ -11,7 +11,7 @@ public class TaskList {
     private final ArrayList<Task> tasks;
 
     /**
-     * Constructor for the TaskList object which abstracts an ArrayList of tasks.
+     * Constructs a {@code TaskList} object which abstracts an {@code ArrayList} of tasks.
      * @param tasks The task list to store.
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -19,43 +19,45 @@ public class TaskList {
     }
 
     /**
-     * @param task The task to add to the task list.
+     * Adds a given {@code Task} to the {@code TaskList}.
      */
     public void add(Task task) {
         tasks.add(task);
     }
 
     /**
-     * @param task The task to remove from the task list.
+     * Removes a given {@code Task} from the {@code TaskList}.
      */
     public void remove(Task task) {
         tasks.remove(task);
     }
 
     /**
-     * @param taskNumber The task to get from the task list.
-     * @return The task retrieved from the task list.
+     * Returns a {@code Task} from the {@code TaskList}.
+     * <p>
+     * The {@code Task} to get is specified by the {@code taskNumber}.
+     * @param taskNumber The number of the {@code Task} to get from the {@code TaskList}.
      */
     public Task get(int taskNumber) {
         return tasks.get(taskNumber);
     }
 
     /**
-     * @return Returns {@code true} if the task list is empty.
+     * Returns {@code true} if the {@code TaskList} is empty.
      */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
     /**
-     * @return Returns the size of the task list stored.
+     * Returns the size of the {@code TaskList} stored.
      */
     public int size() {
         return tasks.size();
     }
 
     /**
-     * @return Returns the task list stored.
+     * Returns the {@code TaskList} stored.
      */
     public ArrayList<Task> getList() {
         return tasks;

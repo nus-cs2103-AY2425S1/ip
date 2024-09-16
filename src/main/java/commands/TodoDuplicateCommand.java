@@ -11,7 +11,7 @@ import tasks.DuplicateHandler;
 public class TodoDuplicateCommand extends Command {
     /**
      * Executes the "to-do" duplicate handler command which prevents the user from adding
-     * a duplicate To-do task to the task list.
+     * a duplicate {@code Todo} task to the {@code TaskList}.
      *
      * @param tasks            The task list to use.
      * @param storage          The storage object containing the filepath which the chatbot saves to and loads from.

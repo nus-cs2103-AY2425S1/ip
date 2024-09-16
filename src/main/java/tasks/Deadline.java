@@ -13,7 +13,7 @@ public class Deadline extends Task {
     private final String key;
 
     /**
-     * Constructor for a {@code Deadline} task.
+     * Constructs a {@code Deadline} task.
      * @param description Description of the task.
      * @param deadline The deadline for the task, as a String.
      * @throws DateTimeException Thrown when the string for the deadline does not follow the appropriate format.
@@ -32,8 +32,7 @@ public class Deadline extends Task {
     }
 
     /**
-     *  Returns the task icon, followed by its done/undone status.
-     * @return The task icon [D] and the task's done/undone status.
+     * Returns the task icon [D], followed by its done/undone status.
      */
     @Override
     public String getStatusIcon() {
@@ -42,7 +41,6 @@ public class Deadline extends Task {
 
     /**
      * Returns the task description, followed by its deadline.
-     * @return The task description and its deadline.
      */
     @Override
     public String toString() {
@@ -62,7 +60,6 @@ public class Deadline extends Task {
      * <p>
      * The key is formed by concatenating the {@code description} and {@code deadline}
      * arguments passed into the {@code Deadline} constructor.
-     * @return The key of this {@code Deadline}.
      */
     public String getKey() {
         return this.key;

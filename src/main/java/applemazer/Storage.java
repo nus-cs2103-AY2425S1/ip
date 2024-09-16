@@ -17,7 +17,7 @@ public class Storage {
     private final String filePath;
 
     /**
-     * Constructor for the Storage object.
+     * Constructs a {@code Storage} object.
      * @param filePath The file where the task list is saved to or loaded from.
      */
     public Storage(String filePath) {

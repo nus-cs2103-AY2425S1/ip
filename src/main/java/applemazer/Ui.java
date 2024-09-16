@@ -7,19 +7,24 @@ import tasks.Task;
  */
 public class Ui {
     /**
-     * Greeting message printed when starting up the chatbot.
+     * Returns a predefined greeting message.
      */
     public String greeting() {
         return "Hello! I'm Applemazer.\nWhat can I do for you?\n";
     }
 
     /**
-     * Farewell message printed when shutting down the chatbot.
+     * Returns a predefined farewell message.
      */
     public String farewell() {
         return "Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Lists all tasks in the given {@code TaskList}.
+     * @param tasks The {@code TaskList} that contains the tasks to list.
+     * @return A {@code String} listing all tasks in the given {@code TaskList}.
+     */
     public String getFullTaskListString(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
@@ -31,6 +36,13 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Lists all tasks in the given {@code TaskList} that match or contain the provided {@code desc}.
+     * @param tasks The {@code TaskList} that contains the tasks to search through.
+     * @param desc The {@code String} to search for within each task.
+     * @return A {@code String} listing all tasks in the given {@code TaskList} that match or contain
+     *         the provided {@code desc}.
+     */
     public String getMatchingTaskListString(TaskList tasks, String desc) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the matching tasks in your list:\n");
@@ -45,7 +57,7 @@ public class Ui {
     }
 
     /**
-     * Message printed when task is marked as done.
+     * Returns the predefined message that indicates when a {@code Task} is marked as done.
      */
     public String getTaskSetDoneMessage(Task task) {
         return "Nice! I've marked this task as done:\n"
@@ -53,7 +65,7 @@ public class Ui {
     }
 
     /**
-     * Message printed when task is marked as undone.
+     * Returns the predefined message that indicates when a {@code Task} is marked as not done.
      */
     public String getTaskSetUndoneMessage(Task task) {
         return "OK, I've marked this task as not done yet:\n"
@@ -61,7 +73,8 @@ public class Ui {
     }
 
     /**
-     * Message printed when task is added to the task list.
+     * Returns the predefined message that indicates when a {@code Task} has been added to the
+     * {@code TaskList}.
      */
     public String getTaskAddedMessage(Task task, int size) {
         return "Got it. I've added this task:\n"
@@ -70,7 +83,8 @@ public class Ui {
     }
 
     /**
-     * Message printed when task is deleted from the task list.
+     * Returns the predefined message that indicates when a {@code Task} has been deleted from the
+     * {@code TaskList}.
      */
     public String getTaskDeletedMessage(Task task, int size) {
         return "Noted. I've removed this task:\n"
@@ -78,6 +92,10 @@ public class Ui {
                + "Now you have " + size + " tasks in the list.\n";
     }
 
+    /**
+     * Returns the predefined message that indicates that the current {@code Task} is a duplicate and cannot
+     * be added into the {@code TaskList}.
+     */
     public String getDuplicateDeny() {
         return "This task is already in the list!\n";
     }

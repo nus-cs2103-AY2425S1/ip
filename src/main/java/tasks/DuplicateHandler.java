@@ -13,7 +13,7 @@ public class DuplicateHandler {
     private final HashMap<String, Integer> eventCount = new HashMap<>();
 
     /**
-     * Constructor for a {@code DuplicateHandler} object.
+     * Constructs a {@code DuplicateHandler} object.
      * <p>
      * When a {@code DuplicateHandler} is created, it stores all current {@code Task}
      * in the given {@code TaskList} into their respective {@code HashMap}'s.

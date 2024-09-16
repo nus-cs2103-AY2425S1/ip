@@ -17,7 +17,7 @@ public class DeadlineCommand extends Command {
     private final String deadline;
 
     /**
-     * Constructor for a {@code DeadLineCommand} object.
+     * Constructs a {@code DeadLineCommand} object.
      * @param desc Description of the task.
      * @param deadline The deadline for the task, as a String.
      */

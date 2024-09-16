@@ -17,7 +17,7 @@ public class IntegerCommand extends Command {
     private final int taskNumber;
 
     /**
-     * Constructor for an {@code IntegerCommand} object.
+     * Constructs a {@code IntegerCommand} object.
      * <p>
      * Integer commands include "mark", "unmark", and "delete".
      * @param command The type of integer command (mark, unmark, delete).

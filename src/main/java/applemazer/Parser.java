@@ -24,7 +24,7 @@ public class Parser {
     private final DuplicateHandler duplicateHandler;
 
     /**
-     * Constructor for a {@code Parser} object.
+     * Constructs a {@code Parser} object.
      * @param sc The {@code Scanner} to read user input from.
      * @param duplicateHandler The {@code DuplicateHandler} that handles instances
      *                         of duplicate tasks being added.

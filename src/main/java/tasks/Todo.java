@@ -7,7 +7,7 @@ package tasks;
 public class Todo extends Task {
 
     /**
-     * Constructor for a {@code Todo} task.
+     * Constructs a {@code Todo} task.
      * @param description Description of the task.
      */
     public Todo(String description) {
@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     /**
-     * @return Returns the task icon, followed by its done/undone status.
+     * Returns the task icon, followed by its done/undone status.
      */
     @Override
     public String getStatusIcon() {

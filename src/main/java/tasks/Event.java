@@ -15,7 +15,7 @@ public class Event extends Task {
     private final String key;
 
     /**
-     * Constructor for an {@code Event} task.
+     * Constructs an {@code Event} task.
      * <p>
      * Note that setting the time is optional.
      * @param description Description of the event.
@@ -39,8 +39,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the task icon, followed by its done/undone status.
-     * @return The task icon [E] and the task's done/undone status.
+     * Returns the task icon [E], followed by its done/undone status.
      */
     @Override
     public String getStatusIcon() {
@@ -51,7 +50,6 @@ public class Event extends Task {
      * Returns the task description, followed by its start date and end date.
      * <p>
      * Time will be added if it had been previously set.
-     * @return The task description and its start and end date.
      */
     @Override
     public String toString() {
@@ -78,7 +76,6 @@ public class Event extends Task {
      * <p>
      * The key is formed by concatenating the {@code description}, {@code from}, and
      * {@code to} arguments passed into the {@code Event} constructor.
-     * @return The key of this {@code Event}.
      */
     public String getKey() {
         return this.key;

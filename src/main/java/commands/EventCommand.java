@@ -18,9 +18,9 @@ public class EventCommand extends Command {
     private final String to;
 
     /**
-     * Constructor for an {@code EventCommand} object.
+     * Constructs an {@code EventCommand} object.
      * <p>
-     * Note that setting the time is optional.
+     * Note that setting a time is optional.
      * @param desc Description of the event.
      * @param from The start date (and time) of the event, as a String.
      * @param to The end date (and time) of the event, as a String.

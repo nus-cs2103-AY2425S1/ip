@@ -14,7 +14,7 @@ public class TodoCommand extends Command {
     private final String desc;
 
     /**
-     * Constructor for a {@code TodoCommand} object.
+     * Constructs a {@code TodoCommand} object.
      * @param desc Description of the task.
      */
     public TodoCommand(String desc) {

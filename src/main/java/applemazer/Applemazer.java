@@ -8,7 +8,7 @@ import tasks.DuplicateHandler;
 import tasks.Task;
 
 /**
- * Main class that runs the Applemazer chatbot.
+ * Main class that runs the {@code Applemazer} chatbot.
  */
 public class Applemazer {
     protected static TaskList tasks;
@@ -20,7 +20,7 @@ public class Applemazer {
     private boolean isProcessing = true;
 
     /**
-     * Constructor for the Applemazer chatbot.
+     * Constructs an instance of the {@code Applemazer} chatbot.
      * @param filePath The file to load a task list from.
      */
     public Applemazer(String filePath) {
@@ -34,9 +34,9 @@ public class Applemazer {
     }
 
     /**
-     * Main processing loop for the text-based version of the Applemazer chatbot.
+     * Processes user input for the text-based version of the {@code Applemazer} chatbot.
      * <p>
-     * Executes commands based on user input.
+     * Executes commands based on the user input.
      */
     private void process() {
         System.out.println(ui.greeting());
@@ -72,22 +72,23 @@ public class Applemazer {
     }
 
     /**
-     * @return {@code Ui} object currently being used by the chatbot.
+     * Returns {@code Ui} object currently being used by the chatbot.
      */
     public Ui getUi() {
         return this.ui;
     }
 
     /**
-     * @return Returns {@code true} if the chatbot should shut down after
-     *         executing a particular command.
+     * Returns {@code true} if the chatbot should shut down after executing a particular command.
      */
     public boolean shouldExit() {
         return !this.isProcessing;
     }
 
     /**
-     * Entry point of the text-based version of the Applemazer chatbot program.
+     * Starts the text-based version of the {@code Applemazer} chatbot program.
+     * <p>
+     * Creates an {@code Applemazer} chatbot instance and triggers its processing.
      * @param args Unused CLI arguments.
      */
     public static void main(String[] args) {

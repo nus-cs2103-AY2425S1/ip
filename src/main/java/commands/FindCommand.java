@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     private final String desc;
 
     /**
-     * Constructor for a {@code FindCommand} object.
+     * Constructs a {@code FindCommand} object.
      * <p>
      * @param desc The keyword in the task description to search for.
      */

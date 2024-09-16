@@ -3,15 +3,16 @@ package tasks;
 import java.io.Serializable;
 
 /**
- * Class that represents a task.
- * These tasks are added to the task list.
+ * Class that represents a {@code Task}.
+ * <p>
+ * These tasks are added to the {@code TaskList}.
  */
 public class Task implements Serializable {
     protected final String description;
     protected boolean isDone = false;
 
     /**
-     * Constructor for a Task object.
+     * Constructs a {@code Task} object.
      * This is only called by inherited classes to set the task description.
      * @param description Description of the task.
      */
@@ -43,7 +44,6 @@ public class Task implements Serializable {
 
     /**
      * Returns the task description.
-     * @return The task description.
      */
     @Override
     public String toString() {

@@ -10,7 +10,7 @@ import tasks.DuplicateHandler;
  */
 public class NonExistentCommand extends Command {
     /**
-     * Does not do anything since it is a non-existent command.
+     * Does nothing since it is a non-existent command.
      *
      * @param tasks            The task list to use if necessary.
      * @param storage          The storage object containing the filepath which the chatbot saves to and loads from.

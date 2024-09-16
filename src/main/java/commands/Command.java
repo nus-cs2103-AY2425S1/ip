@@ -10,7 +10,7 @@ import tasks.DuplicateHandler;
  */
 public abstract class Command {
     /**
-     * Method to execute a parsed user command.
+     * Executes a parsed user command.
      * <p>
      * Subclasses should provide their own implementation.
      *
