@@ -23,6 +23,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks
+     *
      * @return The list of tasks
      */
     public static List<Task> getItems() {
@@ -31,6 +32,7 @@ public class TaskList {
 
     /**
      * Retrieves the task at the specified index
+     *
      * @param i The index of the task
      * @return The task at the index specified
      */
@@ -40,6 +42,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks as a friendly formatted String
+     *
      * @return String representation of the tasks
      */
     public static String toPrettyList() {
@@ -55,6 +58,7 @@ public class TaskList {
 
     /**
      * Deletes the task that the user specifies
+     *
      * @param userInput The task that the user wants to delete
      */
     public String handleDelete(String userInput) {
@@ -74,6 +78,7 @@ public class TaskList {
 
     /**
      * Adds the given task to the TaskList
+     *
      * @param task The task to be added
      */
     public static void addToList(Task task) {
@@ -82,6 +87,7 @@ public class TaskList {
 
     /**
      * Retrieves the current size of the TaskList
+     *
      * @return The size of the TaskList
      */
     public static int getSize() {
