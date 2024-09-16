@@ -53,8 +53,8 @@ public class SetPriorityCommand extends Command {
         assert ui != null : "UI must not be null";
         assert storage != null : "Storage must not be null";
 
-        if (this.taskIndex <= 0) {
-            throw new InvalidInputException("The task index cannot be smaller than zero");
+        if (this.taskIndex < 0) {
+            throw new InvalidInputException("The task index is too small");
         } else if (this.taskIndex >= taskList.getTasks().size()) {
             throw new InvalidInputException("The task index cannot be larger than the size of the task list");
         }

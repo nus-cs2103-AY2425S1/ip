@@ -68,7 +68,7 @@ public class InputParser {
             return new AddTaskCommand(userInput);
         case "priority":
             String[] taskIndexAndPriority = InputParser.parseCommandArgument(userInput,
-                    "Invalid priority command format").split(" ", 2);;
+                    "wrong number of inputs to priority command!").split(" ", 2);;
             try {
                 int taskIndex = Integer.parseInt(taskIndexAndPriority[0]) - 1;
                 int priority = Integer.parseInt(taskIndexAndPriority[1]);
@@ -103,7 +103,7 @@ public class InputParser {
             assert taskIndex >= 0 : "Task index must be non-negative";
             return taskIndex;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new InvalidInputException("Your input is invalid.\n" + e.getMessage());
+            throw new InvalidInputException("Please follow the command format specified!");
         }
     }
 
@@ -125,7 +125,7 @@ public class InputParser {
             assert tokens.length == 2 : "Invalid command format: expected two parts, got " + tokens.length;
             return tokens[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidInputException(errorMessage + "\n" + e.getMessage());
+            throw new InvalidInputException(errorMessage);
         }
     }
 }
