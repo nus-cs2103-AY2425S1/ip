@@ -35,6 +35,7 @@ public class TaskList {
 
     /**
      * Deletes task from tasklist.
+     *
      * @param idx The index of the task to be removed
      * @return The deleted task
      */

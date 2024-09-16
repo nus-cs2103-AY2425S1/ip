@@ -1,6 +1,5 @@
 package echochat;
-import Exceptions.EmptyDescriptionError;
-import Exceptions.InvalidCommandError;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,9 +11,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Main extends Application{
-
-
+/**
+ * Main application class that extends JavaFX Application to launch the GUI for the Echo chat application.
+ */
+public class Main extends Application {
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -23,13 +23,16 @@ public class Main extends Application{
     private Scene scene;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/trump.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/harris.png"));
+    private Image echoImage = new Image(this.getClass().getResourceAsStream("/images/harris.png"));
     private Echo echo = new Echo();
 
-
-    public void start(Stage stage) {
-        //Setting up required components
-
+    /**
+     * Sets up the primary stage and initializes the main layout components such as the ScrollPane, TextField,
+     * and Button for the user interface.
+     *
+     * @param stage The primary stage for this application, onto which the application scene can be set.
+     */
+    public void setupStage(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -37,25 +40,27 @@ public class Main extends Application{
         userInput = new TextField();
         sendButton = new Button("Send");
 
-//        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-//        dialogContainer.getChildren().addAll(dialogBox);
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        mainLayout.setPrefSize(400.0, 600.0);
 
         scene = new Scene(mainLayout);
 
         stage.setScene(scene);
         stage.show();
+    }
 
-        //Formatting the window to look as expected
-
-        stage.setTitle("Duke");
+    /**
+     * Formats the window's appearance by setting its size, titles, scroll policies, and positioning the elements.
+     * This ensures the window is properly sized and its components are laid out correctly.
+     *
+     * @param stage The primary stage for this application.
+     */
+    public void formatWindow(Stage stage) {
+        stage.setTitle("Echo");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
 
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -67,19 +72,29 @@ public class Main extends Application{
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        //Handling user input
+    /**
+     * The entry point for the JavaFX application. This method is called after the application has been launched.
+     * It sets up and formats the stage, and handles user input events.
+     *
+     * @param stage The primary stage for this application.
+     */
+    public void start(Stage stage) {
+        // Setting up required components
+        setupStage(stage);
 
+        // Formatting the window to look as expected
+        formatWindow(stage);
+
+        // Handling user input
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -87,24 +102,21 @@ public class Main extends Application{
             handleUserInput();
         });
 
-
-        //Scroll down to the end every time dialogContainer's height changes.
+        // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
     }
 
     /**
-     * Creates a dialog box containing user input, and appends it to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by creating a dialog box containing the user's input and Echo's response, then appends it to
+     * the dialog container. Clears the user input field after processing the input.
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = echo.getResponse(userInput.getText());
+        String echoText = echo.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getEchoDialog(dukeText, dukeImage)
+                DialogBox.getEchoDialog(echoText, echoImage)
         );
         userInput.clear();
     }
-
 }

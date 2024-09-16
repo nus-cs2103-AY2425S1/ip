@@ -128,6 +128,13 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Shows the tasks that have been found based on search keyword(s).
+     *
+     * @param description Keywords to search for.
+     * @param tasks Tasks to be searched.
+     * @return Tasks that contain keyword.
+     */
     public String showFoundTasks(String description, ArrayList<Task> tasks) {
         String outputMessage = ("Here are the matching tasks in you list:");
         int idx = 0;

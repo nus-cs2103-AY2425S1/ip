@@ -50,6 +50,7 @@ public class Task implements Serializable {
 
     /**
      * Returns description of task.
+     *
      * @return Task description
      */
     public String getDesc() {
@@ -59,6 +60,7 @@ public class Task implements Serializable {
 
     /**
      * Returns date as a LocalDateTime object.
+     *
      * @param dateTimeStr
      * @return LocalDateTime object based on String passed to it
      */
