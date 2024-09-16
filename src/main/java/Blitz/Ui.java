@@ -15,7 +15,7 @@ public class Ui {
      */
     public String getStringForTaskAdded(int size, Task task) {
         return "Got it. I've added this task:\n"
-                + "  [" + task.getType() + "][ ] " + task + "\n"
+                + "[" + task.getType() + "][ ] " + task + "\n"
                 + "Now you have " + size + " tasks in the list.";
     }
 
@@ -27,7 +27,7 @@ public class Ui {
      */
     public String getStringForTaskDeleted(Task task) {
         return "Noted. I've removed this task:\n"
-                + "  [" + task.getType() + "]" + "[" + (task.isDone() ? "X" : " ") + "] " + task;
+                + "[" + task.getType() + "]" + "[" + (task.isDone() ? "X" : " ") + "] " + task;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Ui {
      */
     public String getStringForTaskMarked(Task task) {
         return "Nice! I've marked this task as done:\n"
-                + "  [" + task.getType() + "]" + "[X] " + task;
+                + "[" + task.getType() + "]" + "[X] " + task;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Ui {
      */
     public String getStringForTaskUnmarked(Task task) {
         return "Ok, I've marked this task as not done yet\n:"
-                + "  [" + task.getType() + "]" + "[ ] " + task;
+                + "[" + task.getType() + "]" + "[ ] " + task;
     }
 
     /**
@@ -66,7 +66,7 @@ public class Ui {
 
             assert curr != null : "Task in task list must not be null";
 
-            string += "    " + (i + 1) + ".[" + curr.getType() + "]"
+            string += (i + 1) + ". [" + curr.getType() + "]"
                     + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr + "\n";
         }
 
@@ -87,7 +87,7 @@ public class Ui {
 
             assert curr != null : "Task in task list must not be null";
 
-            string += "    " + (i + 1) + ".[" + curr.getType() + "]"
+            string += (i + 1) + ". [" + curr.getType() + "]"
                     + "[" + (curr.isDone() ? "X" : " ") + "] " + curr + "\n";
         }
 
