@@ -13,6 +13,11 @@ public class ToDoTest {
 
     @Test
     public void testToString() {
-        assertEquals("[T][ ] do coding tonight", new ToDo("do coding tonight").toString());
+        assertEquals("[T][ ][L] do coding tonight", new ToDo("do coding tonight").toString());
+    }
+
+    @Test
+    public void testToString2() {
+        assertEquals("[T][ ][L] study for test tomorrow", new ToDo("study for test tomorrow").toString());
     }
 }

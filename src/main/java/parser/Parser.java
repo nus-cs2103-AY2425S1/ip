@@ -211,7 +211,7 @@ public class Parser {
                     if (!command.substring(8, byPosition).isBlank()) {
                         if (command.length() > byPosition + 3 && command.charAt(byPosition + 3) == ' ') {
                             if (!command.substring(byPosition + 4).isBlank()) {
-                                String description = command.substring(9, byPosition);
+                                String description = command.substring(9, byPosition - 1);
                                 String by = command.substring(byPosition + 4);
                                 if (checkValidDate(by)) {
                                     return TaskList.addTask(new Deadline(description, LocalDate.parse(by)));
@@ -249,7 +249,7 @@ public class Parser {
                                         if (command.length() > toPosition + 3
                                                 && command.charAt(toPosition + 3) == ' ') {
                                             if (!command.substring(toPosition + 4).isBlank()) {
-                                                String description = command.substring(6, fromPosition);
+                                                String description = command.substring(6, fromPosition - 1);
                                                 String from = command.substring(fromPosition + 6, toPosition - 1);
                                                 String to = command.substring(toPosition + 4);
                                                 if (checkValidDate(from) && checkValidDate(to)) {

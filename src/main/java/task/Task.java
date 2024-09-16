@@ -28,7 +28,7 @@ public class Task {
         this.priority = priority;
     }
 
-    public String getShortPriority(Priority priority) {
+    public String getShortPriority() {
         if (priority == Priority.HIGH) {
             return "H";
         } else if (priority == Priority.MEDIUM) {
@@ -60,6 +60,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "][" + this.getShortPriority(priority) + "] " + this.getDescription();
+        return "[" + this.getStatusIcon() + "][" + this.getShortPriority() + "] " + this.getDescription();
     }
 }
