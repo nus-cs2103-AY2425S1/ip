@@ -28,54 +28,89 @@ public class Parser {
      * @throws LoloException If the command is invalid or the date/time format is incorrect.
      */
     public static Command parse(String fullCommand) throws LoloException {
-        String[] parts;
         try {
             if (fullCommand.equalsIgnoreCase("bye")) {
                 return new ExitCommand();
             } else if (fullCommand.equalsIgnoreCase("list")) {
                 return new ListCommand();
             } else if (fullCommand.startsWith("todo ")) {
-                return new AddCommand(new ToDo(fullCommand.substring(5)));
+                return handleTodoCommand(fullCommand);
             } else if (fullCommand.startsWith("deadline ")) {
-                parts = fullCommand.split(" /by ");
-                String description = parts[0].substring(9);
-                LocalDateTime by = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                return new AddCommand(new Deadline(description, by));
+                return handleDeadlineCommand(fullCommand);
             } else if (fullCommand.startsWith("event ")) {
-                parts = fullCommand.split(" /from ");
-                String description = parts[0].substring(6);
-                String[] fromTo = parts[1].split(" /to ");
-                LocalDateTime from = LocalDateTime.parse(fromTo[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                LocalDateTime to = LocalDateTime.parse(fromTo[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                return new AddCommand(new Event(description, from, to));
+                return handleEventCommand(fullCommand);
             } else if (fullCommand.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
-                return new MarkCommand(taskNumber);
+                return handleMarkCommand(fullCommand);
             } else if (fullCommand.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
-                return new UnmarkCommand(taskNumber);
+                return handleUnmarkCommand(fullCommand);
             } else if (fullCommand.startsWith("delete ")) {
-                int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
-                return new DeleteCommand(taskNumber);
+                return handleDeleteCommand(fullCommand);
             } else if (fullCommand.startsWith("on ")) {
-                LocalDateTime date = LocalDateTime.parse(fullCommand.substring(3) + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                return new ListOnDateCommand(date);
+                return handleListOnDateCommand(fullCommand);
             } else if (fullCommand.startsWith("find ")) {
-                String keyword = fullCommand.substring(5);
-                return new FindCommand(keyword);
+                return handleFindCommand(fullCommand);
             } else if (fullCommand.startsWith("tag")) {
-                parts = fullCommand.split(" ", 3);
-                if (parts.length < 3) {
-                    throw new LoloException("Please specify both task number and tag.");
-                }
-                int taskNumber = Integer.parseInt(parts[1]) - 1; // Task numbers in the UI are 1-based, but internally they are 0-based.
-                String tag = parts[2]; // The tag to be added to the task
-                return new TagCommand(taskNumber, tag);
+                return handleTagCommand(fullCommand);
             } else {
                 throw new LoloException("I'm sorry, but I don't know what that means :-(");
             }
         } catch (DateTimeParseException e) {
             throw new LoloException("The date and time format should be yyyy-mm-dd HHmm.");
         }
+    }
+
+    private static Command handleTodoCommand(String fullCommand) {
+        return new AddCommand(new ToDo(fullCommand.substring(5)));
+    }
+
+    private static Command handleDeadlineCommand(String fullCommand) throws LoloException {
+        String[] parts = fullCommand.split(" /by ");
+        String description = parts[0].substring(9);
+        LocalDateTime by = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return new AddCommand(new Deadline(description, by));
+    }
+
+    private static Command handleEventCommand(String fullCommand) throws LoloException {
+        String[] parts = fullCommand.split(" /from ");
+        String description = parts[0].substring(6);
+        String[] fromTo = parts[1].split(" /to ");
+        LocalDateTime from = LocalDateTime.parse(fromTo[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        LocalDateTime to = LocalDateTime.parse(fromTo[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return new AddCommand(new Event(description, from, to));
+    }
+
+    private static Command handleMarkCommand(String fullCommand) {
+        int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+        return new MarkCommand(taskNumber);
+    }
+
+    private static Command handleUnmarkCommand(String fullCommand) {
+        int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+        return new UnmarkCommand(taskNumber);
+    }
+
+    private static Command handleDeleteCommand(String fullCommand) {
+        int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+        return new DeleteCommand(taskNumber);
+    }
+
+    private static Command handleListOnDateCommand(String fullCommand) {
+        LocalDateTime date = LocalDateTime.parse(fullCommand.substring(3) + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return new ListOnDateCommand(date);
+    }
+
+    private static Command handleFindCommand(String fullCommand) {
+        String keyword = fullCommand.substring(5);
+        return new FindCommand(keyword);
+    }
+
+    private static Command handleTagCommand(String fullCommand) throws LoloException {
+        String[] parts = fullCommand.split(" ", 3);
+        if (parts.length < 3) {
+            throw new LoloException("Please specify both task number and tag.");
+        }
+        int taskNumber = Integer.parseInt(parts[1]) - 1;
+        String tag = parts[2];
+        return new TagCommand(taskNumber, tag);
     }
 }
