@@ -54,7 +54,7 @@ public class Parser {
             throw new LamaException(UNKNOWN_COMMAND);
         }
 
-        String[] words = command.split(" ", 2);
+        String[] words = command.trim().split(" ", 2);
 
         assert words.length > 0 : "Command should not be an empty string";
 
