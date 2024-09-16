@@ -82,11 +82,17 @@ public class ToDo extends Task {
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
+<<<<<<< HEAD
         } else if (obj instanceof ToDo) {
             ToDo typeCastedObj = (ToDo) obj;
             return (isTaskDescriptionEqual(typeCastedObj) && isStatusEqual(typeCastedObj));
+=======
+        } else if (!(obj instanceof ToDo)) {
+            return false;
+>>>>>>> C-DetectDuplicates
         }
-        return false;
+        ToDo typeCastedObj = (ToDo) obj;
+        return typeCastedObj.taskDescription.equalsIgnoreCase(this.taskDescription);
     }
 
     private boolean isStatusEqual(ToDo typeCastedObj) {

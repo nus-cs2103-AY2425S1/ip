@@ -106,13 +106,12 @@ public class Deadline extends Task {
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        } else if (obj instanceof Deadline) {
-            Deadline typeCastedObj = (Deadline) obj;
-            return (isTaskDescriptionEqual(typeCastedObj)
-                    && isDeadlineTimingEqual(typeCastedObj)
-                    && isStatusEqual(typeCastedObj));
+        } else if (!(obj instanceof Deadline)) {
+            return false;
         }
-        return false;
+        Deadline typeCastedObj = (Deadline) obj;
+        return (isTaskDescriptionEqual(typeCastedObj)
+                && isDeadlineTimingEqual(typeCastedObj));
     }
 
     private boolean isStatusEqual(Deadline typeCastedObj) {
@@ -124,6 +123,6 @@ public class Deadline extends Task {
     }
 
     private boolean isTaskDescriptionEqual(Deadline typeCastedObj) {
-        return this.taskDescription.equals(typeCastedObj.taskDescription);
+        return this.taskDescription.equalsIgnoreCase(typeCastedObj.taskDescription);
     }
 }

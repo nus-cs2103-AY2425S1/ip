@@ -2,6 +2,7 @@ package ned;
 
 import java.util.ArrayList;
 
+import ned.exceptions.DuplicateTaskException;
 import ned.exceptions.InvalidIndexException;
 import ned.exceptions.NedException;
 import ned.tasks.Task;
@@ -82,10 +83,18 @@ public class TaskList {
      * @param newTask - The task which is to be added
      * @param uiInstance - The Ui instance which is used to print out the addition's success to the user
      */
-    public void addTask(Task newTask, Ui uiInstance) {
+    public void addTask(Task newTask, Ui uiInstance) throws NedException {
         assert this.listOfTasks != null : "List of tasks cannot be null!";
+        if (isTaskADuplicate(newTask)) {
+            throw new DuplicateTaskException(String.format("Sorry m'lord, it seems that this task, %s, already "
+                    + "appears in the task list.\n", newTask) + "Use the list command to confirm this error m'lord.");
+        }
         this.listOfTasks.add(newTask);
         uiInstance.addTasksToNedDialogue(newTask, this.listOfTasks.size());
+    }
+
+    private boolean isTaskADuplicate(Task newTask) {
+        return this.listOfTasks.contains(newTask);
     }
 
     /**

@@ -2,6 +2,13 @@ package ned.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+<<<<<<< HEAD
+=======
+
+import ned.Ui;
+import ned.exceptions.*;
+
+>>>>>>> C-DetectDuplicates
 
 import ned.Ui;
 import ned.exceptions.InvalidTimeFormatException;
@@ -68,7 +75,14 @@ public class Event extends Task {
             this.fromTiming = LocalDate.parse(fromTiming);
             this.toTiming = LocalDate.parse(toTiming);
         } catch (DateTimeParseException e) {
+<<<<<<< HEAD
             throw new InvalidTimeFormatException(EVENT_INVALID_TIME_FORMAT_ERROR_MESSAGE);
+=======
+            throw new InvalidTimeFormatException("M'lord, the time formatting in /to or /from does not follow "
+                    + "ISO 8601 (yyyy-mm-dd). Here are examples of valid timings:\n" + Ui.INDENTATIONS
+                    + "2015-08-04\n" + Ui.INDENTATIONS
+                    + "2015-08-04T10:11:30");
+>>>>>>> C-DetectDuplicates
         }
         this.taskType = "E";
     }
@@ -120,4 +134,28 @@ public class Event extends Task {
         return String.format("event|%d|%s|%s|%s", status, this.taskDescription, this.fromTiming, this.toTiming);
     }
 
+    @Override
+    public boolean equals(Object otherObject) {
+        if (otherObject == this) {
+            return true;
+        } else if (!(otherObject instanceof Event)) {
+            return false;
+        }
+        Event typeCastedOtherObject = (Event) otherObject;
+        return (isTaskDescriptionEqual(typeCastedOtherObject.taskDescription)
+                && isEventFromTimingEqual(typeCastedOtherObject.fromTiming)
+                && isEventToTimingEqual(typeCastedOtherObject.toTiming));
+    }
+
+    public boolean isTaskDescriptionEqual(String otherTaskDescription) {
+        return this.taskDescription.equalsIgnoreCase(otherTaskDescription);
+    }
+
+    public boolean isEventFromTimingEqual(LocalDate otherFromTiming) {
+        return this.fromTiming.equals(otherFromTiming);
+    }
+
+    public boolean isEventToTimingEqual(LocalDate otherToTiming) {
+        return this.toTiming.equals(otherToTiming);
+    }
 }
