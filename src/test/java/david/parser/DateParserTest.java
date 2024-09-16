@@ -69,6 +69,18 @@ public class DateParserTest {
     }
 
     @Test
+    public void validTimeOutput() throws DavidInvalidTimeException {
+        String formatInputPattern = "yyyy-MM-dd HHmm";
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
+        LocalDateTime t1 = LocalDateTime.parse("2023-12-01 1200", inputFormatter);
+        LocalDateTime t2 = LocalDateTime.parse("2024-12-01 1200", inputFormatter);
+
+        boolean validTime = DateParser.validateDateTime(t2, t1);
+        assertEquals(validTime, true);
+    }
+
+
+    @Test
     public void properOutputDateTimeFormat() throws DavidInvalidDateTimeException {
         LocalDateTime dateTime = DateParser.getDate(" 2024-12-12 1300");
         String actual = DateParser.formatOutputDate(dateTime);

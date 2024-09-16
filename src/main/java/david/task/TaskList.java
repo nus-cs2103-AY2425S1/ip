@@ -99,7 +99,7 @@ public class TaskList {
             String[] eventDetails = t.getTask().split(" ");
             List<String> eventArr = new ArrayList<>(Arrays.asList(eventDetails));
 
-            for (int j = 0; j < eventKeywordList.size(); j ++) {
+            for (int j = 0; j < eventKeywordList.size(); j++) {
                 String word = eventKeywordList.get(j);
                 if (eventArr.contains(word)) {
                     events += t + "\n";

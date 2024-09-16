@@ -20,6 +20,7 @@ To download the latest version of David,
 2. Download the `.jar` file.
 3. Run the `jar` file by double clicking on it.
 
+
 ## Command summary
 > [!NOTE]
 >
@@ -128,16 +129,6 @@ To download the latest version of David,
 </td>
 <td>Sorts tasks in the order specified</td>
   </tr>
-
-  <tr>
-    <td>
-
-`help`
-</td>
-<td> -
-</td>
-<td>Displays a list of available commands</td>
-  </tr>
 </table>
 
 
@@ -229,9 +220,4 @@ Parameters accepted:
 
 Example: `sort asc`
 
-### Display all available commands
-Displays a list of available commands
 
-Format: `help`
-
-Example: `help`
