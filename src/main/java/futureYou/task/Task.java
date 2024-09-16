@@ -30,8 +30,9 @@ public class Task implements Comparable<Task> {
     /**
      * Marks the task as completed.
      */
-    public void markTask() {
-        this.completed = true;
+    public Task markTask() {
+        this.completed = !this.completed;
+        return this;
     }
 
     /**

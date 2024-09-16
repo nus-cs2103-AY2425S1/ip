@@ -123,9 +123,17 @@ public class TaskList {
      */
     public static String markTask(int taskNumber) {
         try {
-            taskList.get(taskNumber).markTask();
+            Task markedTask = taskList.get(taskNumber).markTask();
             storage.saveTasks();
-            return "Marked as Done: \n" + taskList.get(taskNumber).print();
+            StringBuilder message = new StringBuilder();
+            if (markedTask.getTaskStatus()) {
+                message.append("Task marked as completed:").append(System.lineSeparator());
+            } else {
+                message.append("Task marked as incompleted:").append(System.lineSeparator());
+            }
+            message.append(taskList.get(taskNumber).print());
+
+            return message.toString();
         } catch (Exception e) {
             return "Please enter a valid Task number";
         }
