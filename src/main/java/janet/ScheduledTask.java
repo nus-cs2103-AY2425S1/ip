@@ -53,6 +53,13 @@ public class ScheduledTask extends Task {
         return scheduledDateAndTime.toLocalDate();
     }
 
+    /**
+     * Finds and returns the index of the keyword inside the String array.
+     *
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @param keyword a String keyword that specifies what to be searched for in commandDetails.
+     * @return the index of the keyword in commandDetails.
+     */
     public static int getIndexOfKeyword(String[] commandDetails, String keyword) {
         int indexOfKeyword = 0;
         // first word in commandDetails belong to the command, so start from i = 1.
