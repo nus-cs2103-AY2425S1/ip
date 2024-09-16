@@ -2,6 +2,7 @@ package gui;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Set;
 
 import tasks.Task;
 
@@ -123,6 +124,33 @@ public class GuiResponses {
         }
         return toReturn.toString();
 
+    }
+
+    /**
+     * Gets String representation of tagged task
+     * @param task Task that is tagged
+     * @param tagName name of tag
+     * @return String representation of tagged task
+     */
+    public String taggedTasks(Task task, String tagName) {
+        return String.format("Tagged Task: %s with tag: %s", task.descNoTags(), tagName);
+    }
+
+    /**
+     * Gets String representation of all tags
+     * @param tagKeys set of strings of tags
+     * @return String representation of all tags
+     */
+    public String displayAllTags(Set<String> tagKeys) {
+        if (tagKeys.size() == 0) {
+            return "No tags found";
+        }
+        StringBuilder tagsString = new StringBuilder(
+                String.format("Currently have %d Tags: \n", tagKeys.size()));
+        for (String tag : tagKeys) {
+            tagsString.append(tag).append("\n");
+        }
+        return tagsString.toString();
     }
 
 }

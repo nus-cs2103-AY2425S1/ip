@@ -22,4 +22,13 @@ public class Todo extends Task {
         return "T";
     }
 
+    @Override
+    public String getDescription() {
+        return super.getDescription() + this.getTags();
+    }
+
+    @Override
+    public String descNoTags() {
+        return super.getDescription();
+    }
 }

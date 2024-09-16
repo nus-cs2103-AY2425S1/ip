@@ -9,6 +9,8 @@ import chatterboxexceptions.ChatterboxExceptions;
 import gui.GuiResponses;
 import parser.Parser;
 import storage.Storage;
+import tags.Tag;
+import tags.TagList;
 import tasks.Task;
 import tasks.TaskList;
 
@@ -21,6 +23,7 @@ public class ChatterboxGui {
     private final Storage storage;
 
     private final TaskList tasks;
+    private final TagList userTags;
 
     /**
      * initiates Chatterbox with a prior history filepath
@@ -32,15 +35,17 @@ public class ChatterboxGui {
         this.guiResponses = new GuiResponses();
         this.parser = new Parser();
         this.storage = new Storage(filepath);
-        ArrayList<Task> loaded = new ArrayList<>();
+        this.userTags = new TagList();
+        ArrayList<Task> loadedTask = new ArrayList<>();
+        TagList loadedTags = new TagList();
         try {
-            loaded = storage.load(parser);
+            storage.load(parser, loadedTask, loadedTags);
         } catch (FileNotFoundException e) {
             System.out.println("Error: No history file found at path");
         }
 
 
-        this.tasks = new TaskList(loaded);
+        this.tasks = new TaskList(loadedTask);
 
 
     }
@@ -54,13 +59,16 @@ public class ChatterboxGui {
         this.parser = new Parser();
         this.storage = new Storage();
         ArrayList<Task> loaded = new ArrayList<>();
+        TagList loadedTags = new TagList();
+
         try {
-            loaded = storage.load(parser);
+            storage.load(parser, loaded, loadedTags);
         } catch (FileNotFoundException e) {
             System.out.println("Error: No history file found at path");
         }
 
         this.tasks = new TaskList(loaded);
+        this.userTags = loadedTags;
 
     }
 
@@ -125,7 +133,7 @@ public class ChatterboxGui {
                 String[] parsed = parser.parseDeadline(input);
 
 
-                LocalDateTime deadlineDate = parser.parseDateTime(parsed[1].substring(2));
+                LocalDateTime deadlineDate = parser.parseDateTime(parsed[1]);
 
 
                 if (deadlineDate == null) {
@@ -143,10 +151,10 @@ public class ChatterboxGui {
 
             case EVENT:
                 String[] eventParsed = parser.parseEvent(input);
-
-                LocalDateTime startDate = parser.parseDateTime(eventParsed[1].substring(4)); //from 4
-                LocalDateTime endDate = parser.parseDateTime(eventParsed[2].substring(2));
-
+                System.out.println(eventParsed[1]);
+                System.out.println(eventParsed[2]);
+                LocalDateTime startDate = parser.parseDateTime(eventParsed[1]); //from 4
+                LocalDateTime endDate = parser.parseDateTime(eventParsed[2]);
                 if (startDate == null || endDate == null) {
 
                     tasks.addEvent(eventParsed[0].trim(), eventParsed[1], eventParsed[2]);
@@ -154,6 +162,7 @@ public class ChatterboxGui {
                 } else {
                     tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
                 }
+                System.out.println("Event added");
                 result = guiResponses.addTaskMsg("Event", tasks.size());
                 break;
 
@@ -173,7 +182,26 @@ public class ChatterboxGui {
                 // input for tag will be tag /i{index} /t{text}
                 String tagText = parser.parseTagText(input);
                 int tagIndex = parser.parseTagIndex(input) - 1;
-                tasks.tagTask(tagIndex, tagText);
+                Tag tag;
+                if (userTags.containsTag(tagText)) {
+                    tag = userTags.getTag(tagText); //finds the tag
+                    tasks.getTask(tagIndex).addTag(tag); //adds tag to the task object
+                    tag.tagTask(tasks.getTask(tagIndex)); //adds task to the tag object
+
+
+                    result = guiResponses.taggedTasks(tasks.getTask(tagIndex), tagText);
+
+                    break;
+                }
+                tag = new Tag(tagText);
+                userTags.addTag(tag);
+                tasks.getTask(tagIndex).addTag(new Tag(tagText));
+                result = guiResponses.taggedTasks(tasks.getTask(tagIndex), tagText);
+                break;
+
+            case ALLTAGS:
+
+                result = guiResponses.displayAllTags(userTags.getAllTags());
                 break;
             default:
                 result = "Error occured...";

@@ -89,6 +89,16 @@ public class ParserTest {
     }
 
     @Test
+    public void parseEvent_plainText() {
+        try {
+            assertArrayEquals(new String[] {"start", "4pm", "9pm"},
+                    testParser.parseEvent("event start /from 4pm /to 9pm"));
+        } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
+            System.out.println("error" + e.getMessage());
+        }
+    }
+
+    @Test
     public void parseEvent_eventSlash() {
         try {
             assertArrayEquals(new String[] {"first text", "/from abc", "/to end"},

@@ -1,9 +1,12 @@
 package tasks;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import chatterboxexceptions.ChatterboxExceptions;
+import tags.Tag;
 
 
 /**
@@ -12,7 +15,7 @@ import chatterboxexceptions.ChatterboxExceptions;
 public abstract class Task {
     private Boolean status;
     private String desc;
-    private ArrayList<String> tags = new ArrayList<>();
+    private Set<Tag> tags = new HashSet<>();
 
 
     /**
@@ -39,7 +42,19 @@ public abstract class Task {
         if (tags.size() <= 0) {
             return "";
         }
-        return "tags: " + String.join(" ", this.tags);
+        StringBuilder tagString = new StringBuilder();
+        for (Tag tag : tags) {
+            tagString.append(tag.toString()).append(" ");
+        }
+//        for (int i = 0; i < tags.size(); i++) {
+//            tagString.append(tags.get(i).toString());
+//
+//            // Add a space after each string except the last one
+//            if (i < tags.size() - 1) {
+//                tagString.append(" ");
+//            }
+//        }
+        return " /tags: " + tagString.toString();
     }
 
     /**
@@ -47,7 +62,7 @@ public abstract class Task {
      * @return string of description
      */
     public String getDescription() {
-        return this.desc + " " + this.getTags();
+        return this.desc + " ";
     }
 
     /**
@@ -76,9 +91,9 @@ public abstract class Task {
 
     /**
      * gets the tags of the task
-     * @return an arraylist of tags
+     * @param tag the tag to task list of tag
      */
-    public void addTag(String tag) {
+    public void addTag(Tag tag) {
         this.tags.add(tag);
     }
     @Override
@@ -98,4 +113,6 @@ public abstract class Task {
         Task other = (Task) obj;
         return Objects.hash(this.getDescription()) == Objects.hash(other.getDescription());
     }
+
+    public abstract String descNoTags();
 }
