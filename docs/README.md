@@ -1,12 +1,19 @@
 # Llama Project
 
-This is a project template for a greenfield Java project. It's named after the great land animal _Llama_. Given below are instructions on how to use it.
+This a chatbot named after the great land animal _Llama_. It is able to keep track of your tasks efficiently!
+**It is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI) while still having the 
+benefits of a Graphical User Interface (GUI). If you can type fast, Llama can get your task management done faster than 
+traditional GUI apps.**
+
+
+
+Given below are instructions on how to use it.
 
 // Product screenshot goes here
 
 // Product intro goes here
 
-## User Guide
+## Quick Start
 
 ### Setting up
 1. Ensure that you have Java `17` installed on your computer.
@@ -30,29 +37,68 @@ This is a project template for a greenfield Java project. It's named after the g
 > 4. If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 
-### Adding todos `todo`
+### Adding todos: `todo`
+Adds a task of type `todo` to the task list.
+Format: `todo DESCRIPTION`
+Examples: `todo borrow book`
 
-### Adding deadlines `deadline`
+### Adding deadlines: `deadline`
+Adds a deadline of type `deadline` to the task list.
+Format: `deadline DESCRIPTION /by DATE`
+Examples: `deadline return book /by 2024-11-23 12:00`
 
-### Adding events `event`
+### Adding events: `event`
+Adds an event of type `event` to the task list.
+Format: `event DESCRIPTION /from DATE /to DATE`
+Examples: `event project meeting /from 2024-11-23 12:00 /to 2024-11-23 14:00`
 
-// Describe the action and its outcome.
+### Listing all tasks: `list`
+Shows a list of all tasks in the task list.
+Format: `list`
+Sample Output: <add screenshot here>
 
-// Give examples of usage
+### Deleteing a task: `delete`
+Deletes a task from the task list.
+Format: `delete TASK_NUMBER`
+Example: `delete 3` deletes the 3rd task in the task list. 
 
-Example: `keyword (optional arguments)`
+### Marking a task as done: `mark`
+Marks a task as done in the task list.
+Format: `mark TASK_NUMBER`
+Example: `mark 3` marks the 3rd task in the task list as done.
 
-// A description of the expected outcome goes here
+### Unmarking a task as done: `unmark`
+Unmarks a task as done in the task list.
+Format: `unmark TASK_NUMBER`
+Example: `unmark 3` unmarks the 3rd task in the task list as done.
 
-```
-expected output
-```
+### Locating tasks by name: `find`
+Finds tasks whose descriptions contain the given keyword.
+Format: `find KEYWORD`
+Example: `find book` returns a list of tasks with the word `book` in their description.
 
-## Feature ABC
+### Create a tag: `create`
+Creates a tag that can be used to tag a task.
+Format: `create TAG_NAME`
+Example: `create important`
 
-// Feature details
+### Tag a task: `tag`
+Tags a task with an already existing tag.
+Format: `tag TASK_NUMBER /with TAG_NAME`
 
+### Untag a task: `untag`
+Untags a task with an already existing tag.
+Format: `untag TASK_NUMBER`
 
-## Feature XYZ
+### Exiting the program: `bye`
+Exits the program.
+Format: `bye`
 
-// Feature details
+---
+##  Data management
+
+### Saving the data
+Llama chatbot will automatically save data on tasks and tags after any command that changes data. There is no need to save manually.
+
+### Editing the data file
+Llama data files can be located in [JAR file location]/data/tagFile.txt and [JAR file location]/data/taskFile.txt. 
