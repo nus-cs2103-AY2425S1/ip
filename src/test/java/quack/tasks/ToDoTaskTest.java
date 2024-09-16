@@ -1,6 +1,7 @@
 package quack.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -158,5 +159,25 @@ public class ToDoTaskTest {
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
             "The toString function did not convert the task properly to its string format");
+    }
+
+    /**
+     * Tests the equals functionality.
+     * <p>
+     * Ensures that the correct output is given when 2 todo tasks are the same.
+     */
+    @Test
+    void testEquals() {
+
+        ToDoTask dummyTask1 = new ToDoTask("Hello");
+        ToDoTask dummyTask2 = new ToDoTask("Hello");
+
+        assertEquals(dummyTask1, dummyTask2,
+            "The 2 todo task should be equal");
+
+        dummyTask1.mark();
+
+        assertNotEquals(dummyTask1, dummyTask2,
+            "The 2 todo task should not be equal");
     }
 }

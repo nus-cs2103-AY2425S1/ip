@@ -1,6 +1,7 @@
 package quack.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -169,5 +170,24 @@ public class DeadlineTaskTest {
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
             "The toString function did not convert the task properly to its string format");
+    }
+
+    /**
+     * Tests the equals functionality.
+     * <p>
+     * Ensures that the correct output is given when 2 deadline tasks are the same.
+     */
+    @Test
+    void testEquals() {
+
+        DeadlineTask dummyDeadline1 = new DeadlineTask(this.taskDescription, this.taskDueDate);
+        DeadlineTask dummyDeadline2 = new DeadlineTask(this.taskDescription, this.taskDueDate);
+        DeadlineTask dummyDeadline3 = new DeadlineTask("Different Task!", this.taskDueDate);
+
+        assertEquals(dummyDeadline1, dummyDeadline2,
+            "The 2 deadline task should be equal");
+
+        assertNotEquals(dummyDeadline1, dummyDeadline3,
+            "The 2 deadline task should not be equal");
     }
 }
