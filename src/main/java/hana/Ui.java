@@ -1,7 +1,6 @@
 package hana;
 
 import java.util.List;
-import java.util.Scanner;
 
 import hana.task.Task;
 import hana.task.TaskList;
