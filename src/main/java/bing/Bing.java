@@ -1,4 +1,11 @@
+package bing;
+
 import java.io.IOException;
+import bing.storage.Storage;
+import bing.command.*;
+import bing.task.TaskList;
+import bing.ui.Ui;
+import bing.parser.Parser;
 
 public class Bing {
 

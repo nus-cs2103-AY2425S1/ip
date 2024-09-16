@@ -1,6 +1,9 @@
+package bing.parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import bing.command.*;
 import java.util.Arrays;
 
 public class Parser {

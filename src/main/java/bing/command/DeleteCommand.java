@@ -1,15 +1,22 @@
+package bing.command;
+
+import bing.storage.Storage;
+import bing.task.Task;
+import bing.task.TaskList;
+import bing.ui.Ui;
+
 import java.io.IOException;
-public class UnmarkCommand implements Command {
+public class DeleteCommand implements Command {
     private int index;
 
-    public UnmarkCommand(int index) {
+    public DeleteCommand(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(index);
-        task.setStatus(TaskStatus.UNDONE);
+        tasks.deleteTask(index);
         ui.showTasks(tasks);
         try {
             storage.save(tasks.getTasks());

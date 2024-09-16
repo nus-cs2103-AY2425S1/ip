@@ -1,5 +1,7 @@
-import java.util.Scanner;
+package bing.ui;
 
+import java.util.Scanner;
+import bing.task.TaskList;
 public class Ui {
 
     private Scanner scanner = new Scanner(System.in);
@@ -10,7 +12,7 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println("______________________________");
-        System.out.println("Hi! My name is Bing");
+        System.out.println("Hi! My name is bing.Bing");
         System.out.println("How can I help you?");
         System.out.println("______________________________");
     }

@@ -1,4 +1,4 @@
-# Bing User Guide
+# bing.Bing User Guide
 
 // Update the title above to match the actual product name
 

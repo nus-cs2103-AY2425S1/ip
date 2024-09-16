@@ -1,3 +1,10 @@
+package bing.command;
+
+import bing.storage.Storage;
+import bing.task.Task;
+import bing.task.TaskList;
+import bing.ui.Ui;
+
 import java.io.IOException;
 public abstract class AddCommand implements Command {
     protected Task task;

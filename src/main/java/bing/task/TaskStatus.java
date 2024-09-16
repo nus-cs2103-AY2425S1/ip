@@ -1,3 +1,5 @@
+package bing.task;
+
 public enum TaskStatus {
     DONE("X"),
     UNDONE(" ");
