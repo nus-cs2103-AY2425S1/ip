@@ -149,6 +149,12 @@ public class Parser {
         return new ListOnDateCommand(date);
     }
 
+    /**
+     * Returns a {@code FindCommand} to find tasks that match the given keyword.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return A {@code FindCommand} to search for tasks with the specified keyword.
+     */
     private static Command handleFindCommand(String fullCommand) {
         String keyword = fullCommand.substring(5);
         return new FindCommand(keyword);
