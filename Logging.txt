@@ -1,10 +1,10 @@
-Sep 17, 2024 2:32:59 AM sigma.Sigma <init>
+Sep 17, 2024 3:08:07 AM sigma.Sigma <init>
 INFO: Initializing Sigma
-Sep 17, 2024 2:32:59 AM sigma.gui.Main start
+Sep 17, 2024 3:08:08 AM sigma.gui.Main start
 INFO: Stage has been set.
-Sep 17, 2024 2:33:02 AM sigma.Sigma getResponse
-INFO: Parsed command: UnrecognisedCommand
-Sep 17, 2024 2:33:02 AM sigma.Sigma getResponse
-WARNING: SigmaException: What the sigma? I don't understand! Try again! Enter "todo", "deadline", "event", "list", "mark", "unmark", "find" or "bye"!
-Sep 17, 2024 2:33:04 AM sigma.Sigma getResponse
-INFO: Parsed command: ByeCommand
+Sep 17, 2024 3:08:10 AM sigma.Sigma getResponse
+INFO: Parsed command: HelpCommand
+Sep 17, 2024 3:17:49 AM sigma.Sigma getResponse
+INFO: Parsed command: ListCommand
+Sep 17, 2024 3:17:51 AM sigma.Sigma getResponse
+INFO: Parsed command: MarkCommand
