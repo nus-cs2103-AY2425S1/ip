@@ -37,9 +37,8 @@ public class Deadline extends Task {
      * @throws BigdogException if the input string is empty or does not contain a valid deadline.
      */
     public static Deadline of(String s) throws BigdogException {
-        if (s.isEmpty() || s.charAt(0) == '/') {
-            throw new BigdogException("deadline can't be empty! Theres nothing to do!\n");
-        }
+
+        assert (!s.isEmpty() && s.charAt(0) != '/') : "deadline can't be empty! Theres nothing to do!\n";
 
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '/') {
@@ -59,9 +58,8 @@ public class Deadline extends Task {
      * @throws BigdogException if the input string is corrupted or invalid.
      */
     public static Deadline of(String s, boolean marked) throws BigdogException {
-        if (s.length() <= 4) {
-            throw new BigdogException("data file corrupted! Cause: " + s + "\n");
-        }
+
+        assert s.length() > 4 : "data file corrupted! Cause: " + s + "\n";
 
         for (int i = 5; i < s.length(); i++) {
             if (s.charAt(i) == '|') {
@@ -81,33 +79,31 @@ public class Deadline extends Task {
      * @throws BigdogException if the input string has an invalid format.
      */
     private static LocalDateTime stringToDate(String str) throws BigdogException {
-        long dashes = str.chars().filter(x -> x == '/').count();
-        if (dashes != 2) {
-            throw new BigdogException("Invalid date format :" + str + "\n");
-        } else {
-            String[] getTime = str.split(" ");
-            String[] getDate = getTime[0].split("/");
-            String year = getDate[2];
-            String month = getDate[1];
-            String day = getDate[0];
 
-            try {
-                if (getTime.length == 2) {
-                    withTime = true;
-                    return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, getTime[1]));
-                } else if (getTime.length == 1) {
-                    withTime = false;
-                    return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "00:00"));
-                } else {
-                    throw new BigdogException("Invalid date format: " + str
-                            + "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
-                }
-            } catch (DateTimeParseException e) {
-                throw new BigdogException("Invalid date format :" + str
+        assert str.chars().filter(x -> x == '/').count() == 2 : "Invalid date format :" + str + "\n";
+
+        String[] getTime = str.split(" ");
+        String[] getDate = getTime[0].split("/");
+        String year = getDate[2];
+        String month = getDate[1];
+        String day = getDate[0];
+
+        try {
+            if (getTime.length == 2) {
+                withTime = true;
+                return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, getTime[1]));
+            } else if (getTime.length == 1) {
+                withTime = false;
+                return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "00:00"));
+            } else {
+                throw new BigdogException("Invalid date format: " + str
                         + "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
             }
-
+        } catch (DateTimeParseException e) {
+            throw new BigdogException("Invalid date format :" + str
+                    + "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
         }
+
     }
 
     /**

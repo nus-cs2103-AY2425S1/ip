@@ -40,9 +40,9 @@ public class TaskList {
      * @throws BigdogException if the index is out of the valid range.
      */
     public String delete(int i) {
-        if (i <= 0 || i > this.list.size()) {
-            throw new BigdogException("TaskList Error: That's out of your list!\n");
-        }
+
+        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
+
         Task temp = this.list.get(i - 1);
         this.list.remove(i - 1);
         return String.format("Noted. I've removed this task:\n%s\nNow you have %s tasks in the list.\n",
@@ -66,9 +66,9 @@ public class TaskList {
      * @throws BigdogException if the index is out of the valid range.
      */
     public String mark(int i) {
-        if (i <= 0 || i > this.list.size()) {
-            throw new BigdogException("TaskList Error: That's out of your list!\n");
-        }
+
+        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
+
         this.list.get(i - 1).mark();
         return String.format("Nice! I've marked this task as done:\n%s\n", this.list.get(i - 1));
     }
@@ -81,9 +81,9 @@ public class TaskList {
      * @throws BigdogException if the index is out of the valid range.
      */
     public String unmark(int i) {
-        if (i <= 0 || i > this.list.size()) {
-            throw new BigdogException("TaskList Error: That's out of your list!\n");
-        }
+
+        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
+
         this.list.get(i - 1).unmark();
         return String.format("OK, I've marked this task as not done yet:\n%s\n", this.list.get(i - 1));
     }
@@ -101,9 +101,10 @@ public class TaskList {
                 result.append(i + 1).append(". ").append(this.list.get(i).toString()).append("\n");
             }
         }
-        if (result.toString().equals("Here are the tasks in your list:\n")) {
-            return "There are no similar tasks in your list!\n";
-        }
+
+        assert !result.toString().equals("Here are the tasks in your list:\n")
+                : "There are no similar tasks in your list!\n";
+
         return result.toString();
     }
 

@@ -24,11 +24,11 @@ public class Todo extends Task {
      * @return a new Todo object with the specified description.
      * @throws BigdogException if the description is empty.
      */
-    public static Todo of(String s) throws BigdogException {
-        if (s.isEmpty()) {
-            throw new BigdogException("todo can't be empty! How can you do nothing!");
-        }
+    public static Todo of(String s) {
+
+        assert !s.isEmpty() : "todo can't be empty! How can you do nothing!";
         return new Todo(s, false);
+
     }
 
     /**
@@ -39,11 +39,11 @@ public class Todo extends Task {
      * @return a new Todo object with the specified description.
      * @throws BigdogException if the description is empty.
      */
-    public static Todo of(String s, boolean marked) throws BigdogException {
-        if (s.length() <= 4) {
-            throw new BigdogException("todo can't be empty! How can you do nothing!");
-        }
+    public static Todo of(String s, boolean marked) {
+
+        assert s.length() > 4 : "todo can't be empty! How can you do nothing!";
         return new Todo(s.substring(4), marked);
+
     }
 
     /**
