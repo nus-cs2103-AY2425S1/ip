@@ -36,7 +36,9 @@ public class DateTimeHandler {
             throw new InvalidFormatException("Date must be in the format YYYY/MM/DD.");
         }
 
-        int year, month, day;
+        int year;
+        int month;
+        int day;
         try {
             year = Integer.parseInt(dateParts[0]);
             month = Integer.parseInt(dateParts[1]);
@@ -61,7 +63,8 @@ public class DateTimeHandler {
                 throw new InvalidFormatException("Invalid time format. Please use HHMM.");
             }
 
-            int hour, minute;
+            int hour;
+            int minute;
             try {
                 hour = Integer.parseInt(timePart.substring(0, 2));
                 minute = Integer.parseInt(timePart.substring(2, 4));
