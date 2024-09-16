@@ -6,7 +6,7 @@ public class TextUI {
     //TODO: add verbose toggle
 
     /**
-     * Provide a Text User Interface
+     * Provides a Text User Interface
      *
      * <br>
      * This is the main function which keeps the interaction running between user and AVA

@@ -24,7 +24,8 @@ public class FileManager {
     private static final String DEFAULT_PATH="./../data/tasks.txt";
 
     /**
-     * Create a new FileManager with default path
+     * Creates a new FileManager with default path
+     *
      * <br>
      * Calls {@link FileManager#FileManager(String)} internally to create the FileManager
      * Only use this constructor if user doesn't want to set file path
