@@ -37,7 +37,7 @@ public class EventCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new InvalidInputException("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
         } catch (NullPointerException e) {
-            throw new InvalidInputException("Event command format: event <desc> "
+            throw new InvalidInputException("Event command format: event <description> "
                     + "/from <YYYY-MM-DD HH:mm> /to <YYYY-MM-DD HH:mm>.");
         }
 

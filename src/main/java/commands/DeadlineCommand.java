@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new InvalidInputException("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
         } catch (NullPointerException e) {
-            throw new InvalidInputException("Deadline command format: deadline <desc> /by <YYYY-MM-DD HH:mm>.");
+            throw new InvalidInputException("Deadline command format: deadline <description> /by <YYYY-MM-DD HH:mm>.");
         }
     }
 
