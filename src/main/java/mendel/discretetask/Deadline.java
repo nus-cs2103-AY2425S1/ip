@@ -120,7 +120,7 @@ public class Deadline extends Task {
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
                 .conditionTriggerException(new DateTimeManager(endMsg)
                                 .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
-                        "OOPS! Start day is later than end day.\nPlease ensure valid time period.");
+                        "OOPS! Start day is later than today.\nPlease ensure valid time period.");
     }
 
     /**
