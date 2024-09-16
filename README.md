@@ -20,13 +20,13 @@ Example of usage:
 #### Deadline
 `deadline DESCRIPTION /by DATE`: adds a Deadline task with the given description and date.
 Example of usage:
-- `deadline return book /by 2024-09-30`
-- `D return book /by 2024-09-30` (short form)
+- `deadline return book /by 2024-09-30 12:00`
+- `D return book /by 2024-09-30 12:00` (short form)
 #### Event
 `event DESCRIPTION /from START_DATE /to END_DATE`: adds an Event task with the given description, start date and end date.
 Example of usage:
-- `event project meeting /from 2024-09-30 /to 2024-10-01`
-- `E project meeting /from 2024-09-30 /to 2024-10-01` (short form)
+- `event project meeting /from 2024-09-30 12:00 /to 2024-10-01 12:00`
+- `E project meeting /from 2024-09-30 12:00 /to 2024-10-01 12:00` (short form)
 
 ### Listing all tasks
 `list`: lists all tasks in the chatbot.
