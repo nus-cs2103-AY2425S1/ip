@@ -25,6 +25,8 @@ To download the latest version of David,
 > [!NOTE]
 >
 > The easiest way to see all available commands is simply calling the `help` command
+
+
 <table>
   <tr>
     <th>Command</th><th>Arguments</th><th>Action</th>
