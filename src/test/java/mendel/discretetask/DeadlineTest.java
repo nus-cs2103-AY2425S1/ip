@@ -12,11 +12,11 @@ public class DeadlineTest {
     public void showDeadline() {
         assertEquals("[D][ ] testing (by: Jan 01 2024)",
                 Deadline.of("deadline testing /by 1 Jan 2024").toString());
-        assertEquals("[D][ ] testing (by: Jan 01 2024, 15:00)",
+        assertEquals("[D][ ] testing one (by: Jan 01 2024, 15:00)",
                 Deadline.of("deadline testing one /by 1 Jan 2024 1500").toString());
-        assertEquals("[D][ ] testing (by: Jan 01 2024)",
+        assertEquals("[D][ ] testing two (by: Jan 01 2024)",
                 Deadline.of("deadline testing two /by 01-01-2024").toString());
-        assertEquals("[D][ ] testing (by: Jan 01 2024, 15:00)",
+        assertEquals("[D][ ] testing three (by: Jan 01 2024, 15:00)",
                 Deadline.of("deadline testing three /by 01-01-2024 15:00").toString());
     }
 

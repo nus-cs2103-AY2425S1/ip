@@ -4,6 +4,8 @@ import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
+import java.time.LocalDate;
+
 /**
  * Represents deadline task. The Deadline class extends the Task class
  * and includes additional attributes to handle the description and the due date.
@@ -92,6 +94,13 @@ public class Deadline extends Task {
      */
     private static void handleError(String rawDescription) throws MendelException {
         String[] slashSegments = rawDescription.split(" /by ");
+        handleGeneralFormattingError(slashSegments, rawDescription);
+        String endMsg = slashSegments[1];
+        handleDateTimeError(endMsg);
+
+    }
+    private static void handleGeneralFormattingError(String[] slashSegments, String rawDescription)
+            throws MendelException {
         String[] misplacedSegments = rawDescription.split("/by");
         String[] mainMessage = slashSegments[0].split(" ");
         ConditionalExceptionHandler.of()
@@ -105,9 +114,13 @@ public class Deadline extends Task {
                         "OOPS! deadline due cannot be empty.\nPlease indicate a due.")
                 .conditionTriggerException(slashSegments.length > 2,
                         "OOPS! I am unsure of due.\nPlease specify only one due.");
-        String endMsg = slashSegments[1];
+    }
+    private static void handleDateTimeError(String endMsg) throws MendelException {
         ConditionalExceptionHandler.of()
-                .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
+                .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
+                .conditionTriggerException(new DateTimeManager(endMsg)
+                                .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
+                        "OOPS! Start day is later than end day.\nPlease ensure valid time period.");
     }
 
     /**
@@ -126,15 +139,10 @@ public class Deadline extends Task {
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         DateTimeManager inputDate = new DateTimeManager(formattedDate);
         DateTimeManager toDate = new DateTimeManager(this.by);
-        if (!inputDate.isValidFormat()) {
-            throw new MendelException("Invalid due date. Write in form Month Day Year such as Aug 09 2024");
-        }
-        if (!toDate.isValidFormat()) {
-            return false;
-        }
         long timeDeadline = inputDate.toEpochTime();
         long timeTo = new DateTimeManager(toDate.removeTimeStamp()).toEpochTime();
-        boolean isTaskInRange = timeDeadline > timeTo;
+        long today = new DateTimeManager(LocalDate.now().toString()).toEpochTime();
+        boolean isTaskInRange = timeDeadline > timeTo && timeTo > today;
         return isTaskInRange && !super.getStatus();
     }
 

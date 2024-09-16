@@ -135,14 +135,13 @@ public class TaskList extends Command {
     /**
      * Finds tasks with deadlines matching the specified date of type String.
      *
-     * @param inputInformation The information containing
-     * date to search for in the format understood by {@code DateTimeManager}.
+     * @param inputInformation The information containing date to search for
      * @return A message listing all tasks with deadlines on the specified date.
      */
     public String find(String inputInformation) {
         String rawDate = inputInformation.split("remind ")[1];
         String formattedDate = new DateTimeManager(rawDate).toString();
-        return String.format("Here are the tasks with deadlines by %s", formattedDate)
+        return String.format("Here are the tasks with deadlines by %s.", formattedDate)
                 + draftItemList(formattedDate);
     }
     private String draftItemList(String formattedDate) {
@@ -151,8 +150,13 @@ public class TaskList extends Command {
         for (int i = 0; i < counter; i++) {
             if (this.messages.get(i).isIncompleteWithinTargetDueDate(formattedDate)) {
                 increment++;
-                finalMessage += String.format("\n%d.%s", increment, this.messages.get(i).toString());
+                finalMessage += String.format("\n  %d.%s", increment, this.messages.get(i).toString());
             }
+        }
+        if (increment == 0) {
+            finalMessage += "\n  Good job! You have no pending tasks!";
+        } else {
+            finalMessage += String.format("\nYou have %d tasks for review", increment);
         }
         return finalMessage;
     }
@@ -166,8 +170,7 @@ public class TaskList extends Command {
     public String findDescription(String fullCommand) {
         String[] segments = fullCommand.split("find ");
         String matchString = stringMatcher(segments);
-        String finalMessage = "Here are the matching tasks in your list" + draftDescriptionList(matchString);
-        return finalMessage;
+        return "Here are the matching tasks in your list" + draftDescriptionList(matchString);
     }
 
     private String draftDescriptionList(String matchString) {
@@ -176,7 +179,7 @@ public class TaskList extends Command {
         for (int i = 0; i < counter; i++) {
             if (this.messages.get(i).isMatchingDescription(matchString)) {
                 increment++;
-                finalMessage += String.format("\n%d.%s", increment, this.messages.get(i).toString());
+                finalMessage += String.format("\n  %d.%s", increment, this.messages.get(i).toString());
             }
         }
         return finalMessage;
@@ -212,11 +215,11 @@ public class TaskList extends Command {
     public String toString() {
         String finalMessage = "";
         if (counter > 0) {
-            finalMessage = String.format("1.%s", this.messages.get(0).toString());
+            finalMessage = String.format("  1.%s", this.messages.get(0).toString());
         }
         for (int i = 1; i < counter; i++) {
             int increment = i + 1;
-            finalMessage += String.format("\n%d.%s", increment, this.messages.get(i).toString());
+            finalMessage += String.format("\n  %d.%s", increment, this.messages.get(i).toString());
         }
         return finalMessage;
     }

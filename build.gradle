@@ -52,7 +52,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "mendel-2-a"
+    archiveBaseName = "mendel-3"
     archiveClassifier = null
 }
 

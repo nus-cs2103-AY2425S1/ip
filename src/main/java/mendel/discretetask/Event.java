@@ -4,6 +4,8 @@ import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
+import java.time.LocalDate;
+
 /**
  * Represents an event task.
  * The Event class extends the Task class and includes additional attributes
@@ -100,6 +102,13 @@ public class Event extends Task {
      */
     private static void handleError(String rawDescription) throws MendelException {
         String[] slashSegments = rawDescription.split(" /from ");
+        handleGeneralFormattingError(slashSegments, rawDescription);
+        String[] dateTimeMsg = slashSegments[1].split(" /to ");
+        handleDateTimeError(dateTimeMsg);
+    }
+
+    private static void handleGeneralFormattingError(String[] slashSegments, String rawDescription)
+            throws MendelException {
         String[] mainMessage = slashSegments[0].split(" ");
         ConditionalExceptionHandler.of()
                 .orConditionTriggerException(slashSegments.length < 2)
@@ -120,14 +129,24 @@ public class Event extends Task {
                         "OOPS! I am unsure of end.\nPlease specify an end.")
                 .conditionTriggerException(slashSegments[1].split(" /to ").length > 2,
                         "OOPS! I am unsure of end.\nPlease specify only one end.");
-        String startMsg = slashSegments[1].split(" /to ")[0];
-        String endMsg = slashSegments[1].split(" /to ")[1];
+    }
+
+    private static void handleDateTimeError(String[] dateTimeMsg) throws MendelException {
+        String startMsg = dateTimeMsg[0];
+        String endMsg = dateTimeMsg[1];
         ConditionalExceptionHandler.of()
+                .conditionTriggerException(new DateTimeManager(startMsg)
+                                .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
+                        "OOPS! Start day is earlier than today.\nPlease ensure valid time period.")
+                .conditionTriggerException(new DateTimeManager(endMsg)
+                                .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
+                        "OOPS! End day is later than today.\nPlease ensure valid time period.")
+                .conditionTriggerException(new DateTimeManager(endMsg).isEarlierThan(new DateTimeManager(startMsg)),
+                        "OOPS! Start day is later than end day.\nPlease ensure valid time period.")
                 .conditionTriggerException(startMsg.isEmpty() && endMsg.isEmpty(),
                         "OOPS! I am unsure of start and due.\nPlease specify a start and due.")
-                .conditionTriggerException(startMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
+                .conditionTriggerException(startMsg.isEmpty(), "OOPS! I am unsure of start.\nPlease specify a start.")
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
-
     }
 
     /**
@@ -146,15 +165,13 @@ public class Event extends Task {
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         DateTimeManager inputDate = new DateTimeManager(formattedDate);
         DateTimeManager toDate = new DateTimeManager(this.to);
-        if (!inputDate.isValidFormat()) {
-            throw new MendelException("Invalid due date. Write in form Month Day Year such as Aug 09 2024");
-        }
-        if (!toDate.isValidFormat()) {
-            return false;
-        }
+        DateTimeManager fromDate = new DateTimeManager(this.from);
         long timeDeadline = new DateTimeManager(inputDate.removeTimeStamp()).toEpochTime();
         long timeTo = new DateTimeManager(toDate.removeTimeStamp()).toEpochTime();
-        boolean isTaskInRange = timeDeadline > timeTo;
+        long timeFrom = new DateTimeManager(fromDate.removeTimeStamp()).toEpochTime();
+        long today = new DateTimeManager(LocalDate.now().toString()).toEpochTime();
+        boolean isTaskInRange = (timeDeadline > timeTo || timeDeadline > timeFrom)
+                && (timeTo > today || timeFrom > today);
         return isTaskInRange && !super.getStatus();
     }
 
