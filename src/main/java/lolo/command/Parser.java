@@ -160,6 +160,14 @@ public class Parser {
         return new FindCommand(keyword);
     }
 
+    /**
+     * Returns a {@code TagCommand} to add a tag to the specified task.
+     * The task number and tag are parsed from the command.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return A {@code TagCommand} to add the tag to the specified task.
+     * @throws LoloException If the task number or tag is invalid.
+     */
     private static Command handleTagCommand(String fullCommand) throws LoloException {
         String[] parts = fullCommand.split(" ", 3);
         if (parts.length < 3) {
