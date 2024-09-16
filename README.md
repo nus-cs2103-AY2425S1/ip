@@ -1,24 +1,55 @@
-# Duke project template
+# BottleOpener
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Overview
+**BottleOpener** is a task management chatbot that helps you 
+track and manage various tasks such as todos, deadlines, 
+and events. The chatbot provides an interactive way to 
+manage your tasks through a simple command-line interface (CLI) 
+or graphical interface (GUI).
 
-## Setting up in Intellij
+## Features
+- **Add** tasks: Easily add ToDo, Deadline, or Event tasks.
+- **Mark** tasks: Mark tasks as done or undone.
+- **Delete** tasks: Remove tasks you no longer need.
+- **List** tasks: View all tasks in the task list.
+- **Remind** deadlines: Receive automatic reminders for 
+upcoming deadlines.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Quick Start
+1. Launch the application.
+2. Type in commands.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Commands
++ `todo` creates a simple task that does not have a deadline or time.
+```declarative
+todo <task_description>
+```
++ `deadline` creates a task with a due date.
+```declarative
+deadline <task_description> /by <due_date>
+```
++ `event` creates a task that is scheduled to happen at a specific time.
+```declarative
+event <task_description> /from <start_time> /to <end_time>
+```
++ `list` displays all the tasks stored in the chat bot.
+```declarative
+list
+```
++ `mark` / `unmark` marks or unmarks a specified task as completed or not completed.
+```declarative
+mark <task_number>
+unmark <task_number>
+```
++ `delete` removes a task from the list.
+```declarative
+delete <task_number>
+```
++ `remind` displays all the tasks with upcoming deadlines.
+```declarative
+remind
+```
++ `bye` exits and closes the chat bot.
+```declarative
+bye
+```
