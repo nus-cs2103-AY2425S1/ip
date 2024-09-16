@@ -26,9 +26,11 @@ public class Ui {
     /**
      * Bids the user farewell with a message.
      */
-    public static void bye() {
-        System.out.println("Bye. Hope to see you again soon!" + System.lineSeparator()
+    public String bye() {
+        String msg = ("Bye. Hope to see you again soon!" + System.lineSeparator()
                 + "____________________________________________________________\n");
+    displayMessage(msg);
+    return msg;
     }
 
     /**
@@ -117,7 +119,7 @@ public class Ui {
                 break;
             }
             case "bye":
-                bye();
+                message = bye();
                 close();
                 break;
             case "deadline": {
