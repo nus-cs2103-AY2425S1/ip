@@ -59,17 +59,9 @@ public class Event extends ScheduledTask {
      * @return a String[], where first elem = janet.Event.description, second elem = janet.Event.startDate, third elem = janet.Event.endDate.
      */
     public static String[] findEventDetails(String[] commandDetails) throws JanetException {
-        int indexOfFrom = 0;
-        int indexOfTo = 0;
-        // first word in commandDetails must be event, so start from i=1 word
-        for (int i = 1; i < commandDetails.length; i++) {
-            if (commandDetails[i].equals("/from")) {
-                indexOfFrom = i;
-            }
-            if (commandDetails[i].equals("/to")) {
-                indexOfTo = i;
-            }
-        }
+        int indexOfFrom = getIndexOfKeyword(commandDetails, "/from");
+        int indexOfTo = getIndexOfKeyword(commandDetails, "/to");
+
         if (indexOfFrom == 0 || indexOfTo == 0) {
             throw new JanetException("WHOOPS! Missing/Wrong keywords for creating event...");
         }

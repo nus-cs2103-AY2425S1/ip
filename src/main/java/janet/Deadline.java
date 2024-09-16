@@ -53,13 +53,7 @@ public class Deadline extends ScheduledTask {
      * @return a String[], where first elem = janet.Deadline.description, second elem = janet.Deadline.dueDate.
      */
     public static String[] findDeadlineDetails(String[] commandDetails) throws JanetException {
-        int indexOfBy = 0;
-        // first word in commandDetails must be deadline, so start from the i=1 word
-        for (int i = 1; i < commandDetails.length; i++) {
-            if (commandDetails[i].equals("/by")) {
-                indexOfBy = i;
-            }
-        }
+        int indexOfBy = getIndexOfKeyword(commandDetails, "/by");
         if (indexOfBy == 0) {
             // when the keyword '/by' is not found in the command.
             throw new JanetException("WHOOPS! Missing/Wrong keywords for creating deadline...");

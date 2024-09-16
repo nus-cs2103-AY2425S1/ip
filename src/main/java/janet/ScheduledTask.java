@@ -52,4 +52,15 @@ public class ScheduledTask extends Task {
     public LocalDate getScheduledDate() {
         return scheduledDateAndTime.toLocalDate();
     }
+
+    public static int getIndexOfKeyword(String[] commandDetails, String keyword) {
+        int indexOfKeyword = 0;
+        // first word in commandDetails belong to the command, so start from i = 1.
+        for (int i = 1; i < commandDetails.length; i++) {
+            if (commandDetails[i].equals(keyword)) {
+                indexOfKeyword = i;
+            }
+        }
+        return indexOfKeyword;
+    }
 }
