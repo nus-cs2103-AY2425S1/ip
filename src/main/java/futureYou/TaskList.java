@@ -1,13 +1,13 @@
 package futureyou;
 
-import futureyou.task.Deadline;
-import futureyou.task.Events;
-import futureyou.task.Task;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import futureyou.task.Deadline;
+import futureyou.task.Events;
+import futureyou.task.Task;
 
 /**
  * The TaskList manages a list of tasks.
@@ -55,9 +55,9 @@ public class TaskList {
         if (taskList.isEmpty()) {
             return "Task List is empty!";
         }
-        StringBuilder message = new StringBuilder();
+        StringBuilder message = new StringBuilder("Items in List:");
         int count = 1;
-        message.append("Items in List:").append(System.lineSeparator());
+        message.append(System.lineSeparator());
         for (Task item : taskList) {
             message.append(count++).append(". ").append(item.print()).append(System.lineSeparator());
         }
@@ -125,11 +125,11 @@ public class TaskList {
         try {
             Task markedTask = taskList.get(taskNumber).markTask();
             storage.saveTasks();
-            StringBuilder message = new StringBuilder();
+            StringBuilder message = new StringBuilder("Task marked as ");
             if (markedTask.getTaskStatus()) {
-                message.append("Task marked as completed:").append(System.lineSeparator());
+                message.append("completed:").append(System.lineSeparator());
             } else {
-                message.append("Task marked as incompleted:").append(System.lineSeparator());
+                message.append("incompleted:").append(System.lineSeparator());
             }
             message.append(taskList.get(taskNumber).print());
 
@@ -165,21 +165,18 @@ public class TaskList {
      * @throws Exception If the task number is invalid.
      */
     public static String findTask(String text) throws Exception {
-        try {
-            StringBuilder message = new StringBuilder(" Here are the matching tasks in your list: \n");
-            int count = 0;
-            for (Task task : taskList) {
-                if (task.getTaskName().contains(text.trim())) {
-                    message.append("[").append(count++).append("]").append(task.print()).append(System.lineSeparator());
-                }
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list:");
+        message.append(System.lineSeparator());
+        int count = 0;
+        for (Task task : taskList) {
+            if (task.getTaskName().contains(text.trim())) {
+                message.append("[").append(count++).append("]").append(task.print()).append(System.lineSeparator());
             }
-            if (count == 0) {
-                return "No task matching that text was found";
-            }
-            return message.toString();
-        } catch (Exception e) {
-            return "Please enter a valid Task number";
         }
+        if (count == 0) {
+            return "No task matching that text was found";
+        }
+        return message.toString();
     }
 
     /**
