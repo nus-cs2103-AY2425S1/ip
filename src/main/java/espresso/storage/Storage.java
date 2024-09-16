@@ -6,14 +6,10 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import espresso.ui.Ui;
-import espresso.task.TaskList;
 import espresso.task.Task;
 import espresso.task.TodoTask;
 import espresso.task.DeadlineTask;
 import espresso.task.EventTask;
-import espresso.storage.Storage;
-import espresso.parser.Parser;
 import espresso.command.InvalidCommandException;
 
 /**

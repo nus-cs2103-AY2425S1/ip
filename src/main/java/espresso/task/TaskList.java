@@ -83,6 +83,23 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+    
+    /* Finds all tasks that contain the specified substring.
+     *
+     * @param substring the substring to search for.
+     * @return the list of tasks that contain the substring.
+     */
+    public TaskList find(String str) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.contains(str)) {
+                matchingTasks.add(task);
+            }
+        }
+        TaskList res = new TaskList(matchingTasks);
+        return res;
+    }
 
     /**
      * Returns a string representation of the TaskList, where each task is preceded
@@ -93,7 +110,7 @@ public class TaskList {
     @Override
     public String toString() {
         String res = "";
-        for (int i = 0; i < tasks.size(); ++i) {
+        for (int i = 0; i < tasks.size(); i++) {
             res += i + 1 + "." + tasks.get(i);
             if (i < tasks.size() - 1) {
                 res += "\n";
