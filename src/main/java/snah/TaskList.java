@@ -41,8 +41,8 @@ public class TaskList {
     }
 
     /**
-     * Search for the keyword in the tasks list
-     * @param keyword
+     * Search for relevant keywords found in the tasks
+     * @param keyword Keyword to search for
      * @return List of tasks that contain the keyword
      */
     public ArrayList<Task> search(String keyword) {

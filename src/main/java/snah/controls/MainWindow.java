@@ -26,6 +26,9 @@ public class MainWindow extends AnchorPane {
     private Image snahImage = new Image(this.getClass().getResourceAsStream("/images/snah.png"));
     private Snah snah = new Snah();
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -33,14 +36,14 @@ public class MainWindow extends AnchorPane {
                 .addAll(DialogBox.getSnahDialog(String.format("Hello! I'm Snah\nWhat can I do for you?"), snahImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Snah instance */
     public void setSnah(Snah s) {
         snah = s;
     }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing
-     * Duke's reply and then appends them to the dialog container. Clears the user
+     * Snah's reply and then appends them to the dialog container. Clears the user
      * input after processing.
      */
     @FXML

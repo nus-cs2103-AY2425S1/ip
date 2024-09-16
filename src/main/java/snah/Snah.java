@@ -21,7 +21,8 @@ public class Snah {
     private Ui ui;
 
     /**
-     * Constructor for Snah chatbot
+     * Constructor for Snah chatbot Initializes the required dependencies for the
+     * chatbot
      */
     public Snah() {
         storage = new Storage();
@@ -164,7 +165,7 @@ public class Snah {
     }
 
     /**
-     * Main chat loop for the chatbot
+     * Entry point for the CLI chat loop Reads user input and processes the commands
      */
     public void chatLoop() {
         Scanner scanner = new Scanner(System.in);
