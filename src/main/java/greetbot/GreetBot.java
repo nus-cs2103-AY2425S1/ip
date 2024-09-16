@@ -25,7 +25,6 @@ public class GreetBot {
         storage = new Storage(filePath);
         isRunning = true;
         tasks = new TaskList(storage.load());
-        storage.saveData(tasks);
     }
 
     // run and getResponse method is adapted from

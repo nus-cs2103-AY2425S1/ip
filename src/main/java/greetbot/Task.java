@@ -127,8 +127,8 @@ abstract class Task {
 
         public Event(String description, String from, String to) {
             super(description);
-            this.from = from.substring(from.indexOf(" ") + 1);
-            this.to = to.substring(to.indexOf(" ") + 1);
+            this.from = from;
+            this.to = to;
         }
 
 

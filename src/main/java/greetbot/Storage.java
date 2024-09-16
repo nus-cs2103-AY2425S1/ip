@@ -78,7 +78,7 @@ public class Storage {
         } else if (typeOfTask == 'E') {
             final int fromPart = 3;
             final int toPart = 4;
-            String command = "event" + fields[descriptionPart] + "/from" + fields[fromPart] + "/to" + fields[toPart];
+            String command = "event" + fields[descriptionPart] + "/" + fields[fromPart] + "/" + fields[toPart].trim();
             Task.decideTaskFromDatabase(command, taskList);
             if (fields[isDonePart].trim().equals(doneString)) {
                 taskList.get(taskList.size() - 1).mark();
