@@ -168,16 +168,16 @@ public class Snah {
      */
     public void chatLoop() {
         Scanner scanner = new Scanner(System.in);
-        boolean continueChat = true;
+        boolean isContinueChatting = true;
 
-        while (continueChat) {
+        while (isContinueChatting) {
             String input = scanner.nextLine();
             Parser.Command currentCommand = Parser.getCommand(input);
             ui.start();
             switch (currentCommand) {
             case BYE: {
                 ui.print("Goodbye! See you sooooonnn!");
-                continueChat = false;
+                isContinueChatting = false;
                 break;
             }
             case LIST: {
