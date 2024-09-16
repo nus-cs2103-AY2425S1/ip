@@ -22,14 +22,14 @@ Creates a Deadline.
 
 Format: `deadline <description> /by <due date>`
 
-:bulb: `due date` should be in (dd/MM/yyyy hh:mm) format.
+💡 `due date` should be in (dd/MM/yyyy hh:mm) format.
 
 ## Adding Events: `event`
 Creates an Event. 
 
 Format: `event <description> /from <start> /to <end>`
 
-:bulb: `start` and `end` should be in (dd/MM/yyyy hh:mm) format. 
+💡 `start` and `end` should be in (dd/MM/yyyy hh:mm) format. 
 
 ## Listing all Tasks: `list`
 Shows a list of all tasks, completed or not.
@@ -41,7 +41,7 @@ Deletes the specified task from the list of tasks.
 
 Format: `delete <task number>` 
 
-:bulb: `task number` refers to the index number shown in the displayed task list.
+💡 `task number` refers to the index number shown in the displayed task list.
 
 ## Search for a Task: `find`
 Searches for tasks that contain the specified keyword.
@@ -53,7 +53,7 @@ Marks a task as done. Can be undone with `unmark`
 
 Format: `mark <task number>` / `unmark <task number>`
 
-:bulb: `task number` refers to the index number shown in the displayed task list.
+💡 `task number` refers to the index number shown in the displayed task list.
 
 ## Exit: `bye`
 Leave the app. Automatically closes after a few seconds.
