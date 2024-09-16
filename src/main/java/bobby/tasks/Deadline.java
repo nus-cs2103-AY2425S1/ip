@@ -1,9 +1,9 @@
 package bobby.tasks;
 
-import bobby.exception.EmptyDescriptionException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import bobby.exception.EmptyDescriptionException;
 
 /**
  * Deadline is a type of task.

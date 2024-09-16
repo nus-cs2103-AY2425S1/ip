@@ -10,7 +10,7 @@ public class BobbyException extends Exception {
      *
      * @param msg Message to describe the error.
      */
-    public BobbyException (String msg) {
+    public BobbyException(String msg) {
         super(msg);
     }
 }
