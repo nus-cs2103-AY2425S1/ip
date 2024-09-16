@@ -29,7 +29,9 @@ public class Main extends Application {
             stage.getIcons().add(tickIcon);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setTick(tick); // inject the Tick instance
+            MainWindow controller = fxmlLoader.<MainWindow>getController();
+            controller.setTick(tick); // inject the Tick instance
+            controller.setGreetingMessage();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

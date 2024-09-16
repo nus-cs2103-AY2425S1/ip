@@ -37,6 +37,14 @@ public class MainWindow extends AnchorPane {
         tick = t;
     }
 
+    public void setGreetingMessage() {
+        String greetingMessage = "System starting up...\n"
+                + "Brrt brrt! I'm Tick!\n"
+                + "What can I do for you?";
+        dialogContainer.getChildren().add(
+                DialogBox.getTickDialog(greetingMessage, tickImage));
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
