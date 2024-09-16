@@ -9,8 +9,15 @@ import lolo.ui.MainWindow;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static final String DEFAULT_FILE_PATH = "./data/lolo.txt";
+    private Lolo lolo;
 
-    private Lolo lolo = new Lolo("./data/lolo.txt");
+    @Override
+    public void init() {
+        // Optionally get the file path from system properties or environment variables
+        String filePath = System.getProperty("lolo.filepath", DEFAULT_FILE_PATH);
+        this.lolo = new Lolo(filePath);
+    }
 
 
     @Override
