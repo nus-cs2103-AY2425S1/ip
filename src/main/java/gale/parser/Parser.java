@@ -186,4 +186,30 @@ public class Parser {
                 + "Please use 'yyyy-MM-dd HH:mm' or 'd/M/yyyy HH:mm'.");
         }
     }
+
+    public static int parseIndex(String input, String command) throws GaleException {
+        String[] parts = input.split(" ");
+        if (parts.length != 2) {
+            throw new GaleException("Your task number got lost in the wind. "
+                + "Please use '" + command + " [task number]'");
+        }
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            if (index < 0) {
+                throw new GaleException("Oops! That task number is lost in the wind. Try again?");
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new GaleException("Swoosh! The wind thinks that's not a number!");
+        }
+    }
+
+    public static String parseKeyword(String input) throws GaleException {
+        String[] parts = input.split(" ", 2);
+        String keyword = parts[1].trim();
+        if (parts.length < 2 || keyword.isEmpty()) {
+            throw new GaleException("The wind blew away your keyword. Please use 'find [keyword]'.");
+        }
+        return keyword;
+    }
 }

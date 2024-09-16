@@ -80,6 +80,10 @@ public class MainWindow extends AnchorPane {
             pause.setOnFinished(e -> Platform.exit());
             pause.play();
         }
-        // gale.saveTasks();
+        try {
+            gale.saveTasks();
+        } catch (GaleException e) {
+            displayError(e.getMessage());
+        }
     }
 }

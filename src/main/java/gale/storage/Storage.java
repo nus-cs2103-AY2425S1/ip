@@ -1,5 +1,6 @@
 package gale.storage;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -64,11 +65,12 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> taskList) throws IOException {
         assert taskList != null : "taskList should not be null, but can be empty";
-        FileWriter writer = new FileWriter(this.filePath);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
         for (Task task : taskList) {
             writer.write(task.toFileString());
             writer.write("\n");
         }
+        writer.flush();
         writer.close();
     }
 

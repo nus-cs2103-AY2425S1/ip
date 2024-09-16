@@ -60,8 +60,9 @@ public class Gale {
     }
 
     /**
-     * The main entry point for the Gale task manager application to run.
-     * @param args command line arguments
+     * Creates a new Gale instance and starts the execution of the program.
+     * <p>This method is only for the console version of the program.</p>
+     * @param args command line arguments (not used)
      */
     public static void main(String[] args) {
         Gale gale = new Gale();
@@ -69,20 +70,9 @@ public class Gale {
     }
 
     /**
-     * Saves the current list of tasks to storage.
-     * <p>This method is called after each operation that modifies a task in the tasklist.</p>
-     */
-    public void saveTasks() throws GaleException {
-        try {
-            storage.saveTasks(taskList.getTaskList());
-        } catch (IOException e) {
-            throw new GaleException("Oops! The wind interfered with saving your tasks. Please try again.");
-        }
-    }
-
-    /**
      * Runs the main loop of the program.
      * <p>This method reads user input and processes it accordingly until the user inputs 'bye'.</p>
+     * <p>This method is only for the console version of the program.</p>
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);
@@ -97,7 +87,7 @@ public class Gale {
             try {
                 saveTasks();
             } catch (GaleException e) {
-                mainWindow.displayError(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
         scanner.close();
@@ -127,62 +117,51 @@ public class Gale {
     }
 
     /**
-     * Deletes a task from the tasklist, given the task number, and returns the deleted task as a String.
+     * Saves the current list of tasks to storage.
+     * <p>This method is called after each operation that modifies a task in the tasklist.</p>
+     */
+    public void saveTasks() throws GaleException {
+        try {
+            storage.saveTasks(taskList.getTaskList());
+        } catch (IOException e) {
+            throw new GaleException("Oops! The wind interfered with saving your tasks. Please try again.");
+        }
+    }
+
+    /**
+     * Deletes a task from the tasklist and returns the deleted task as a String.
      * @param input user input in the form of 'delete (task number)'
-     * @return the deleted task
-     * @throws GaleException if the task number is not provided
+     * @return the UI message for the deleted task as a String
+     * @throws GaleException if the task number is invalid
      */
     public String deleteTask(String input) throws GaleException {
-        String[] strA = input.split(" ");
-        if (strA.length != 2) {
-            throw new GaleException("Your task number got lost in the wind. Please use 'delete [task number]'");
-        }
-        int index = Integer.parseInt(strA[1]) - 1;
-        if (index < 0 || index >= taskList.size()) {
-            throw new GaleException("Oops! That task number is lost in the wind. Try again?");
-        }
-        Task task = taskList.getTask(index);
-        taskList.deleteTask(index);
+        int index = Parser.parseIndex(input, "delete");
+        Task task = taskList.deleteTask(index);
         return ui.showDeletedTask(task, taskList.size());
     }
 
     /**
      * Marks or un-marks a task as done, given the task number.
-     * Returns the marked or un-marked task as a String.
      * @param input user input in the form of 'mark (task number)' or 'unmark (task number)'
-     * @return the marked or un-marked task
-     * @throws GaleException if the task number is not provided or if the task is already in the requested state
+     * @return the UI message for the marked or unmarked task as a String
+     * @throws GaleException if the task number is invalid or if the task is already in the requested state
      */
     public String handleTaskMarking(String input) throws GaleException {
-        String[] strA = input.split(" ");
-        int index = Integer.parseInt(strA[1]) - 1;
-        boolean isDone = strA[0].equals("mark");
-        if (index >= 0 && index < taskList.size()) {
-            Task task = taskList.getTask(index);
-            if (task.status() == isDone) {
-                throw new GaleException("Oops! This task is already marked as " + (isDone ? "done." : "not done."));
-            } else {
-                taskList.markTask(index, isDone);
-                return ui.showMarkedTask(task, isDone);
-            }
-        } else {
-            throw new GaleException("Oops! That task number is lost in the wind. Try again?");
-        }
+        boolean isDone = input.startsWith("mark");
+        String command = isDone ? "mark" : "unmark";
+        int index = Parser.parseIndex(input, command);
+        Task task = taskList.markTask(index, isDone);
+        return ui.showMarkedTask(task, isDone);
     }
 
     /**
      * Finds tasks that contain the keyword in their description.
-     * Returns the list of found tasks as a String
-     * @param input the user input in the form of 'find (keyword)'
-     * @return the list of found tasks
+     * @param input user input in the form of 'find (keyword)'
+     * @return the UI message for the matching tasks as a String
      * @throws GaleException if the keyword is missing
      */
     public String findTasks(String input) throws GaleException {
-        String[] strA = input.split(" ", 2);
-        if (strA.length < 2 || strA[1].trim().isEmpty()) {
-            throw new GaleException("Oops! Your keyword is lost in the wind. Please use 'find [keyword]'.");
-        }
-        String keyword = strA[1].trim();
+        String keyword = Parser.parseKeyword(input);
         ArrayList<Task> foundTasks = taskList.findTasks(keyword);
         return ui.showFoundTasks(foundTasks, keyword);
     }

@@ -1,5 +1,8 @@
 package gale.task;
+
 import java.util.ArrayList;
+
+import gale.exception.GaleException;
 
 /**
  * Represents a list of tasks using an ArrayList.
@@ -39,8 +42,11 @@ public class TaskList {
      *
      * @param index the index of the task to be deleted, starting from 0
      */
-    public void deleteTask(int index) {
-        taskList.remove(index);
+    public Task deleteTask(int index) throws GaleException {
+        if (index < 0 || index >= taskList.size()) {
+            throw new GaleException("Swoosh! That task number is lost in the wind. Try again?");
+        }
+        return taskList.remove(index);
     }
 
     /**
@@ -83,13 +89,21 @@ public class TaskList {
      * @param index the index of the task to be marked, starting from 0
      * @param isDone whether the task is to be marked as done
      */
-    public void markTask(int index, boolean isDone) {
+    public Task markTask(int index, boolean isDone) throws GaleException {
+        if (index < 0 || index >= taskList.size()) {
+            throw new GaleException("Swoosh! That task number is lost in the wind. Try again?");
+        }
         Task task = taskList.get(index);
+        if (task.status() == isDone) {
+            String message = isDone ? "done." : "not done.";
+            throw new GaleException("Oops! This task is already marked as " + message);
+        }
         if (isDone) {
             task.markAsDone();
         } else {
             task.markAsNotDone();
         }
+        return task;
     }
 
     /**
