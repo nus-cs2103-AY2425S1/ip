@@ -117,8 +117,9 @@ public class TaskList {
         }
         return Ui.uiList(match);
     }
-    public String sort() {
+    public String sort(Storage storage) {
         array.sort(Comparator.comparing(task -> task.getDateTime(), Comparator.nullsLast(Comparator.naturalOrder())));
-        return this.handleList();
+        storage.writeFile(this.array);
+        return "After sorting " + this.handleList();
     }
 }

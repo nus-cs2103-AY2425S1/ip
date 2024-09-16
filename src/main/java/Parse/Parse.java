@@ -65,7 +65,7 @@ public class Parse {
         } else if (input.startsWith("find")) {
             return tasks.search(input);
         } else if (input.startsWith("sort")) {
-            return tasks.sort();
+            return tasks.sort(storage);
         }
             try {
                 return tasks.handleTask(input, storage);

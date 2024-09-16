@@ -14,7 +14,7 @@ public class Ui {
         String s = "Here are the tasks in your list\n";
         int i = 1;
         for ( Task element : array) {
-            s = s + "." + element.toString() + "\n";
+            s = s + i +"." + element.toString() + "\n";
             i += 1;
         }
         return s;
