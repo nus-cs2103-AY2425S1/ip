@@ -37,8 +37,8 @@ public class Ui {
      * @return The greeting message as a String.
      */
     public String greet() {
-        String greeting = "     Hello! I'm Friday\n"
-                + "     What can I do for you?";
+        String greeting = "     Hello Mr Stark, I'm Friday, your personal assistant.\n"
+                + "     How may I assist you today?";
 
         printMessage(greeting);
 
@@ -54,7 +54,8 @@ public class Ui {
     public String showError(String message) {
         assert message != null : "Error message should not be null";
 
-        String error = "     " + message;
+        String error = "     Apologies, Mr Stark but there was an issue:\n"
+                + "     " + message;
 
         printMessage(error);
 
@@ -77,7 +78,8 @@ public class Ui {
      * @return The loading error message as a String.
      */
     public String showLoadingError() {
-        String loadingError = "     Error loading tasks from file. Starting with an empty task list.";
+        String loadingError = "     Pardon me, Mr Stark. "
+                + "I encountered an issue loading your tasks. Starting with a blank slate.";
 
         printMessage(loadingError);
 
@@ -93,9 +95,9 @@ public class Ui {
      */
     public String showAddedTask(Task task, int noOfTasks) {
         assert task != null : "Task should not be null";
-        String message = "     Got it. I've added this task:\n"
+        String message = "     Copied that, Mr Stark. I've successfully added the following task:\n"
                 + "       " + task + "\n"
-                + "     Now you have " + noOfTasks + " tasks in the list.";
+                + "     You now have " + noOfTasks + " tasks in your list.";
 
         printMessage(message);
 
@@ -111,9 +113,9 @@ public class Ui {
      */
     public String showDeletedTask(Task task, int noOfTasks) {
         assert task != null : "Task should not be null";
-        String message = "     Noted. I've removed this task:\n"
+        String message = "     Roger that, Mr Stark. I've removed the following task:\n"
                 + "       " + task + "\n"
-                + "     Now you have " + noOfTasks + " tasks in the list.";
+                + "     You now have " + noOfTasks + " remaining tasks.";
 
         printMessage(message);
 
@@ -128,7 +130,7 @@ public class Ui {
      */
     public String showMarkedTask(Task task) {
         assert task != null : "Task should not be null";
-        String message = "     Nice! I've marked this task as done:\n"
+        String message = "     Noted, Mr Stark. Task marked as completed:\n"
                 + "       " + task;
 
         printMessage(message);
@@ -145,7 +147,7 @@ public class Ui {
     public String showUnmarkedTask(Task task) {
         assert task != null : "Task should not be null";
 
-        String message = "     Nice! I've unmarked this task:\n"
+        String message = "     Noted, Mr Stark. Task marked as not completed:\n"
                 + "       " + task;
 
         printMessage(message);
@@ -164,11 +166,11 @@ public class Ui {
 
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
-            output.append("     Your task list is empty.\n");
+            output.append("     Mr Stark, unfortunately your task list is currently empty.");
         } else {
-            output.append("     Here are the tasks in your list:\n");
+            output.append("     Noted, Mr Stark. Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                output.append("         ").append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
             }
         }
 
@@ -190,13 +192,13 @@ public class Ui {
 
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
-            output.append("     No tasks found on this date.\n");
+            output.append("     Mr Stark, unfortunately there is no tasks scheduled for this date.");
         } else {
-            output.append("     Here are your tasks on ")
+            output.append("     Noted, Mr Stark. Here are your tasks for ")
                     .append(date.format(DateTimeFormatter.ofPattern(DISPLAY_FORMAT_PATTERN)))
                     .append(":\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                output.append("         ").append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
             }
         }
 
@@ -216,11 +218,11 @@ public class Ui {
 
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
-            output.append("     No matching tasks found.\n");
+            output.append("     Mr Stark, unfortunately there is no tasks matched your search.");
         } else {
-            output.append("     Here are the matching tasks in your list:\n");
+            output.append("     Noted, Mr Stark. Here are the tasks that match your query:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                output.append("         ").append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
             }
         }
 
@@ -240,11 +242,11 @@ public class Ui {
 
         StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
-            output.append("     Your task list is empty.\n");
+            output.append("     Your task list is currently empty.");
         } else {
-            output.append("     Here are your tasks listed in order of ascending dates:\n");
+            output.append("     Noted, Mr Stark. Here are your tasks sorted by date:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                output.append("         ").append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
             }
         }
 
@@ -259,7 +261,7 @@ public class Ui {
      * @return The goodbye message as a String.
      */
     public String sayGoodbye() {
-        String goodbye = "     Bye. Hope to see you again soon!";
+        String goodbye = "     Goodbye, Mr Stark. I'll be here when you need me next.";
 
         printMessage(goodbye);
 
