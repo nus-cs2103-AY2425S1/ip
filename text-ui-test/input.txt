@@ -1,0 +1,15 @@
+todo todo task
+deadline deadline task /by 1984-02-28 1600
+event event task /from from date /to to date
+list
+mark 1
+list
+unmark 1
+list
+todo
+deadline asdasd
+event asdasd
+asdasd
+delete 1
+list
+bye
