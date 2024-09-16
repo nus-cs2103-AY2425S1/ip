@@ -1,6 +1,6 @@
 # Regina User Guide
 
-![User Interface](UI.png.png)
+![User Interface](Ui.png)
 
 **Product Introduction:**  
 Regina is a task management chatbot designed to help you efficiently track your tasks in a way that seems like 
