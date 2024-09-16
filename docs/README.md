@@ -28,7 +28,7 @@ Expected output:
 ```
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
       [T][ ] read book
-    Now you have 1 tasks in the list.
+    Now you have 2 tasks in the list.
 ```
 
 ## Adding a DEADLINE Task: `DEADLINE`
@@ -42,7 +42,7 @@ Expected output:
 ```
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
       [D][ ] return book (by: Dec 02 2019, 18:00)
-    Now you have 2 tasks in the list.
+    Now you have 3 tasks in the list.
 ```
 
 ## Adding an EVENT Task: `EVENT`
@@ -56,7 +56,7 @@ Expected output:
 ```
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
       [E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
-    Now you have 3 tasks in the list.
+    Now you have 4 tasks in the list.
 ```
 
 ## Deleting a Task: `DELETE`
