@@ -100,6 +100,9 @@ public class DialogBox extends HBox {
         case "DeleteCommand":
             dialog.getStyleClass().add("delete-label");
             break;
+        case "FunnyCommand":
+            dialog.getStyleClass().add("funny-label");
+            break;
         default:
             // Default style is used here.
         }
