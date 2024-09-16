@@ -6,11 +6,15 @@ import hien.main.TaskList;
 import hien.task.Task;
 import hien.ui.UI;
 
+import java.util.ArrayList;
+
 public class DeleteCommand extends Command {
     private String input;
-    public DeleteCommand(String input, boolean isExit) {
+    private boolean isDeleteAll = false;
+    public DeleteCommand(String input, boolean isExit, boolean isDeleteAll) {
         super(isExit);
         this.input = input;
+        this.isDeleteAll = isDeleteAll;
     }
     private boolean isValidIndex(TaskList tasks, String index) throws HienException {
         if (index.isEmpty() || !index.matches("-?(0|[1-9]\\d*)")) {
@@ -38,9 +42,21 @@ public class DeleteCommand extends Command {
         }
     }
 
+    private void deleteAllTasks(TaskList tasks, UI ui, Storage storage) throws HienException {
+        tasks.clear();
+        ui.showMessage(" Got it. I've deleted all the tasks");
+        storage.save(tasks);
+
+    }
+
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws HienException {
-        deleteTask(tasks, input, storage, ui);
+        if (isDeleteAll) {
+            deleteAllTasks(tasks, ui, storage);
+        } else {
+            deleteTask(tasks, input, storage, ui);
+        }
+
     }
 }

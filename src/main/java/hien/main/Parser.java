@@ -28,7 +28,9 @@ class Parser {
                 // Parse event details and create Event object
                 return new EventCommand(input, false);
             case "delete":
-                return new DeleteCommand(input, false);
+                return new DeleteCommand(input, false, false);
+            case "deleteall":
+                return new DeleteCommand(input, false, true);
             case "bye":
                 return new ExitCommand(true);
             default:

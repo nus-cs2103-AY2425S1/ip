@@ -39,6 +39,10 @@ public class TaskList {
         }
     }
 
+    public void clear() {
+        tasks.clear();
+    }
+
     public Task getTask(int index) throws HienException {
         if (index < 0 || index >= tasks.size()) {
             throw new HienException("Task index is out of bounds.");

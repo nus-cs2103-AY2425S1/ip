@@ -1,26 +1,36 @@
 package hien.ui;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
     private Scanner scanner;
+    private String lastMessage;
+
     public UI() {
         scanner = new Scanner(System.in);
     }
 
     public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Hien");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        String welcomeMessage = "____________________________________________________________\n" +
+                " Hello! I'm Hien\n" +
+                " What can I do for you?\n" +
+                "____________________________________________________________";
+        System.out.println(welcomeMessage);
+        lastMessage = welcomeMessage;
     }
 
     public void showGoodbye() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
+        String goodbyeMessage = "____________________________________________________________\n" +
+                " Bye. Hope to see you again soon!";
+        System.out.println(goodbyeMessage);
+        lastMessage = goodbyeMessage; // Store the message
     }
 
     public void showLine() {
-        System.out.println("____________________________________________________________");
+        String lineMessage = "____________________________________________________________";
+        System.out.println(lineMessage);
     }
 
     public String readCommand() {
@@ -28,18 +38,29 @@ public class UI {
     }
 
     public void showLoadingError() {
-        System.out.println("Error loading tasks. Starting with an empty task list.");
+        String errorMessage = "Error loading tasks. Starting with an empty task list.";
+        System.out.println(errorMessage);
+        lastMessage = errorMessage;
     }
 
     public void showError(String message) {
         System.out.println(message);
+        lastMessage = message;// Store the message
     }
 
     public void showMessage(String message) {
         System.out.println(message);
+        lastMessage = message;// Store the message
     }
 
+    // Close scanner when done
     public void closeScanner() {
         scanner.close();
     }
+
+    // New methods for testing
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
 }
