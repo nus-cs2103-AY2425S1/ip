@@ -160,34 +160,47 @@ public class Parser {
      */
     private static Command parseDeadlineCommand(String details) throws ScheduloException {
         String[] taskParts = details.split(" /by ", 2);
-        if (taskParts.length < 2 || taskParts[0].trim().isEmpty()) {
-            throw new ScheduloException("The description of a deadline or the /by cannot be empty.");
-        }
+        validateTaskParts(taskParts, "The description or /by of a deadline cannot be empty.");
 
         String[] dateParts = taskParts[1].split(" ");
-        try {
-            if (dateParts.length == 1) {
-                LocalDate deadlineDate = LocalDate.parse(dateParts[0]);
-                if (deadlineDate.isBefore(LocalDate.now())) {
-                    throw new ScheduloException("The deadline cannot be in the past.");
-                }
-                return new AddCommand(new Deadline(taskParts[0], deadlineDate));
-            } else if (dateParts.length == 2) {
-                LocalDateTime deadlineDateTime = LocalDateTime.parse(dateParts[0] + "T" + dateParts[1]);
-                if (deadlineDateTime.isBefore(LocalDateTime.now())) {
-                    throw new ScheduloException("The deadline cannot be in the past.");
-                }
-                return new AddCommand(new Deadline(taskParts[0], deadlineDateTime));
-            } else {
-                throw new ScheduloException("The /by of a deadline should be in the format "
-                        + "yyyy-MM-dd or yyyy-MM-dd HH:mm.");
-            }
-        } catch (DateTimeParseException e) {
-            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or "
-                    + "'yyyy-MM-dd HH:mm' for date and time.");
+        return createDeadlineCommand(taskParts[0], dateParts);
+    }
+
+    private static void validateTaskParts(String[] taskParts, String message) throws ScheduloException {
+        if (taskParts.length < 2 || taskParts[0].trim().isEmpty()) {
+            throw new ScheduloException(message);
         }
     }
 
+    private static Command createDeadlineCommand(String description, String[] dateParts) throws ScheduloException {
+        try {
+            if (dateParts.length == 1) {
+                return createDeadlineWithDate(description, dateParts[0]);
+            } else if (dateParts.length == 2) {
+                return createDeadlineWithDateTime(description, dateParts[0], dateParts[1]);
+            } else {
+                throw new ScheduloException("The /by of a deadline should be in the format yyyy-MM-dd or yyyy-MM-dd HH:mm.");
+            }
+        } catch (DateTimeParseException e) {
+            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm' for date and time.");
+        }
+    }
+
+    private static Command createDeadlineWithDate(String description, String date) throws ScheduloException {
+        LocalDate deadlineDate = LocalDate.parse(date);
+        if (deadlineDate.isBefore(LocalDate.now())) {
+            throw new ScheduloException("The deadline cannot be in the past.");
+        }
+        return new AddCommand(new Deadline(description, deadlineDate));
+    }
+
+    private static Command createDeadlineWithDateTime(String description, String date, String time) throws ScheduloException {
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(date + "T" + time);
+        if (deadlineDateTime.isBefore(LocalDateTime.now())) {
+            throw new ScheduloException("The deadline cannot be in the past.");
+        }
+        return new AddCommand(new Deadline(description, deadlineDateTime));
+    }
 
     /**
      * Parses the details of an event command and returns the corresponding Command object.
@@ -198,54 +211,74 @@ public class Parser {
      */
     private static Command parseEventCommand(String details) throws ScheduloException {
         String[] taskParts = details.split(" /from ", 2);
-        if (taskParts.length < 2 || taskParts[0].trim().isEmpty()) {
-            throw new ScheduloException("The description or /from of an event cannot be empty.");
-        }
+        validateTaskParts(taskParts, "The description or /from of an event cannot be empty.");
 
         String[] deadlines = taskParts[1].split(" /to ", 2);
-        if (deadlines.length < 2) {
-            throw new ScheduloException("The /from or /to of an event cannot be empty.");
-        }
+        validateEventParts(deadlines);
 
         String[] fromParts = deadlines[0].split(" ");
         String[] toParts = deadlines[1].split(" ");
 
+        return createEventCommand(taskParts[0], fromParts, toParts);
+    }
+
+    private static void validateEventParts(String[] eventParts) throws ScheduloException {
+        if (eventParts.length < 2) {
+            throw new ScheduloException("The /from or /to of an event cannot be empty.");
+        }
+    }
+
+    private static Command createEventCommand(String description, String[] fromParts, String[] toParts) throws ScheduloException {
         try {
             if (fromParts.length == 1 && toParts.length == 1) {
-                LocalDate from = LocalDate.parse(fromParts[0]);
-                LocalDate to = LocalDate.parse(toParts[0]);
-                if (from.isAfter(to)) {
-                    throw new ScheduloException("The start date of an event cannot be after the end date.");
-                }
-                return new AddCommand(new Event(taskParts[0], from, to));
+                return createEventWithDates(description, fromParts[0], toParts[0]);
             } else if (fromParts.length == 2 && toParts.length == 2) {
-                LocalDateTime from = LocalDateTime.parse(fromParts[0] + "T" + fromParts[1]);
-                LocalDateTime to = LocalDateTime.parse(toParts[0] + "T" + toParts[1]);
-                if (from.isAfter(to)) {
-                    throw new ScheduloException("The start date of an event cannot be after the end date.");
-                }
-                return new AddCommand(new Event(taskParts[0], from, to));
+                return createEventWithDateTimes(description, fromParts[0], fromParts[1], toParts[0], toParts[1]);
             } else if (fromParts.length == 1 && toParts.length == 2) {
-                LocalDate from = LocalDate.parse(fromParts[0]);
-                LocalDateTime to = LocalDateTime.parse(toParts[0] + "T" + toParts[1]);
-                if (from.isAfter(to.toLocalDate())) {
-                    throw new ScheduloException("The start date of an event cannot be after the end date.");
-                }
-                return new AddCommand(new Event(taskParts[0], from, to));
+                return createEventWithMixedDateTime(description, fromParts[0], toParts[0], toParts[1], true);
             } else if (fromParts.length == 2 && toParts.length == 1) {
-                LocalDateTime from = LocalDateTime.parse(fromParts[0] + "T" + fromParts[1]);
-                LocalDate to = LocalDate.parse(toParts[0]);
-                if (from.toLocalDate().isAfter(to)) {
-                    throw new ScheduloException("The start date of an event cannot be after the end date.");
-                }
-                return new AddCommand(new Event(taskParts[0], from, to));
+                return createEventWithMixedDateTime(description, fromParts[0], fromParts[1], toParts[0], false);
             } else {
-                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-MM-dd or "
-                        + "yyyy-MM-dd HH:mm.");
+                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-MM-dd or yyyy-MM-dd HH:mm.");
             }
         } catch (DateTimeParseException e) {
-            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or "
-                    + "'yyyy-MM-dd HH:mm'.");
+            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm'.");
+        }
+    }
+
+    private static Command createEventWithDates(String description, String fromDate, String toDate) throws ScheduloException {
+        LocalDate from = LocalDate.parse(fromDate);
+        LocalDate to = LocalDate.parse(toDate);
+        if (from.isAfter(to)) {
+            throw new ScheduloException("The start date of an event cannot be after the end date.");
+        }
+        return new AddCommand(new Event(description, from, to));
+    }
+
+    private static Command createEventWithDateTimes(String description, String fromDate, String fromTime, String toDate, String toTime) throws ScheduloException {
+        LocalDateTime from = LocalDateTime.parse(fromDate + "T" + fromTime);
+        LocalDateTime to = LocalDateTime.parse(toDate + "T" + toTime);
+        if (from.isAfter(to)) {
+            throw new ScheduloException("The start date of an event cannot be after the end date.");
+        }
+        return new AddCommand(new Event(description, from, to));
+    }
+
+    private static Command createEventWithMixedDateTime(String description, String date, String time, String otherDate, boolean isFromDate) throws ScheduloException {
+        if (isFromDate) {
+            LocalDate from = LocalDate.parse(date);
+            LocalDateTime to = LocalDateTime.parse(otherDate + "T" + time);
+            if (from.isAfter(to.toLocalDate())) {
+                throw new ScheduloException("The start date of an event cannot be after the end date.");
+            }
+            return new AddCommand(new Event(description, from, to));
+        } else {
+            LocalDateTime from = LocalDateTime.parse(date + "T" + time);
+            LocalDate to = LocalDate.parse(otherDate);
+            if (from.toLocalDate().isAfter(to)) {
+                throw new ScheduloException("The start date of an event cannot be after the end date.");
+            }
+            return new AddCommand(new Event(description, from, to));
         }
     }
 

@@ -40,11 +40,9 @@ public class Schedulo {
      * This method reads user commands, processes them, and interacts with the user interface.
      */
     public String run(String fullCommand) {
-        // boolean isExit = false;
         try {
             this.c = Parser.parse(fullCommand);
             return this.c.execute(tasks, storage);
-            // isExit = c.isExit();
         } catch (ScheduloException | IOException e) {
             return e.getMessage();
         }
@@ -56,7 +54,6 @@ public class Schedulo {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        // new Schedulo("data/data.txt").run();
         Application.launch(App.class, args);
     }
 
