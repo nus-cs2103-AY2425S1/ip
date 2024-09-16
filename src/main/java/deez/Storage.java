@@ -53,11 +53,15 @@ public class Storage {
      * @throws IOException            If there is an issue with reading the file.
      * @throws ClassNotFoundException If the stored class is not recognized.
      */
-    public TaskList loadTasks() throws IOException, ClassNotFoundException {
+    public TaskList loadTasks() throws ClassNotFoundException {
         assert filePath != null && !filePath.isBlank();
-        FileInputStream fileInputStream = new FileInputStream(filePath + File.separator + FILE_NAME);
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        return (TaskList) objectInputStream.readObject();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(filePath + File.separator + FILE_NAME);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            return (TaskList) objectInputStream.readObject();
+        } catch (IOException e) {
+            throw new DeezException("Failed to load tasks from file.");
+        }
     }
 
     /**
