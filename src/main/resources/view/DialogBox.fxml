@@ -10,7 +10,7 @@
         maxHeight="1.7976931348623157E308"
         maxWidth="1.7976931348623157E308"
         prefWidth="400.0"
-        stylesheets="@../dialog-box.css"
+        stylesheets="@../css/dialog-box.css"
         type="javafx.scene.layout.HBox"
         xmlns="http://javafx.com/javafx/22"
         xmlns:fx="http://javafx.com/fxml/1">
@@ -20,12 +20,13 @@
                 minHeight="-Infinity"
                 text="Label"
                 wrapText="true">
-         <HBox.margin>
-            <Insets left="7.0" right="7.0" />
-         </HBox.margin>
-         <padding>
-            <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-         </padding></Label>
+             <HBox.margin>
+                <Insets left="7.0" right="7.0" />
+             </HBox.margin>
+             <padding>
+                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+             </padding>
+        </Label>
         <ImageView
                 fx:id="displayPicture"
                 fitHeight="64.0"

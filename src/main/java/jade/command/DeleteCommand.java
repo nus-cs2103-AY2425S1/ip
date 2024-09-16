@@ -31,6 +31,7 @@ public class DeleteCommand extends Command {
         try {
             return displayTaskDeletedMessage(FOR_GUI);
         } catch (JadeException e) {
+            jade.Jade.setErrorResponse(true);
             return e.getMessage();
         }
     }

@@ -72,16 +72,22 @@ public class DialogBox extends HBox {
      * Creates a dialog box for Jade's response with the specified text and image.
      * The dialog box is flipped so that the image is on the left and the text is on the right.
      *
-     * @param text The text to be displayed in Jade's dialog box.
+     * @param text The text of Jade's response.
      * @param img  The image representing Jade.
-     * @return A DialogBox instance representing Jade's response.
+     * @param isError Indicates if the response is an error message.
+     * @return A DialogBox instance for Jade's response.
      */
-    public static DialogBox getJadeDialog(String text, Image img) {
+    public static DialogBox getJadeDialog(String text, Image img, boolean isError) {
         assert text != null && !text.trim().isEmpty() : "Jade dialog text should not be null or empty";
         assert img != null : "Jade image should not be null";
 
         var db = new DialogBox(text, img);
         db.flip();
+
+        if (isError) {
+            db.dialog.getStyleClass().add("error-label");
+        }
+
         return db;
     }
 

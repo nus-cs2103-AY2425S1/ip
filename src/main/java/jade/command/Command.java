@@ -14,8 +14,11 @@ public abstract class Command {
 
     /**
      * Default constructor for the Command class.
+     * Sets the error response flag to false.
      */
-    public Command() {}
+    public Command() {
+        jade.Jade.setErrorResponse(false);
+    }
 
     /**
      * Constructs a Command object with the specified TaskManager.
@@ -23,6 +26,7 @@ public abstract class Command {
      * @param taskManager The TaskManager to interact with.
      */
     public Command(TaskManager taskManager) {
+        jade.Jade.setErrorResponse(false);
         this.taskManager = taskManager;
     }
 

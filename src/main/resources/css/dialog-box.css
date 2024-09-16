@@ -17,6 +17,11 @@
     -fx-border-radius: 1em 1em 1em 0;
 }
 
+.error-label {
+    -fx-background-color: #f2c1c1; // red
+    -fx-border-color: #d66666; // dark red
+}
+
 #displayPicture {
     -fx-clip: circle;
 }

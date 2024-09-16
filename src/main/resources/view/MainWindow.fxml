@@ -10,7 +10,7 @@
         maxHeight="-Infinity" maxWidth="-Infinity"
         minHeight="-Infinity" minWidth="-Infinity"
         prefHeight="600.0" prefWidth="400.0"
-        stylesheets="@../main.css"
+        stylesheets="@../css/main.css"
         xmlns="http://javafx.com/javafx/22"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="jade.gui.MainWindow">

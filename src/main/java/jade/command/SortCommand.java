@@ -29,6 +29,7 @@ public class SortCommand extends Command {
         try {
             return displaySortedTaskListMessage(FOR_GUI);
         } catch (JadeException e) {
+            jade.Jade.setErrorResponse(true);
             return e.getMessage();
         }
     }

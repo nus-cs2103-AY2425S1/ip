@@ -14,6 +14,7 @@ import jade.ui.Ui;
  * or integrated into a graphical user interface (GUI).
  */
 public class Jade {
+    private static boolean isErrorResponse = false;
     private static final String FILE_PATH = "./data/jade.txt";
     private static final Storage STORAGE = new Storage(FILE_PATH);
     private static final TaskManager TASK_MANAGER = new TaskManager(STORAGE);
@@ -43,7 +44,26 @@ public class Jade {
             Command command = PARSER.parseForGui(input);
             return command.runForGui();
         } catch (JadeException e) {
+            isErrorResponse = true;
             return e.getMessage();
         }
+    }
+
+    /**
+     * Checks if the response was an error.
+     *
+     * @return True if the response was an error, false otherwise.
+     */
+    public boolean getErrorResponse() {
+        return isErrorResponse;
+    }
+
+    /**
+     * Sets whether the response should be considered an error.
+     *
+     * @param isError True if the response is an error, false otherwise.
+     */
+    public static void setErrorResponse(boolean isError) {
+        isErrorResponse = isError;
     }
 }

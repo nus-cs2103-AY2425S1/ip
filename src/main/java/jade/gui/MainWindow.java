@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     private Image jadeImage = new Image(this.getClass().getResourceAsStream("/images/JadeIcon.jpg"));
 
     /**
-     * Initializes the main window by setting up the necessary GUI components.
+     * Initialises the main window by setting up the necessary GUI components.
      */
     @FXML
     public void initialize() {
@@ -66,22 +66,23 @@ public class MainWindow extends AnchorPane {
         assert input != null && !input.trim().isEmpty() : "User input should not be null or empty";
 
         String response = jade.getResponse(input);
-        addDialogBoxes(input, response);
+        boolean isError = jade.getErrorResponse();
+        addDialogBoxes(input, response, isError);
         userInput.clear();
         checkForBye(input);
     }
 
     /**
-     * Adds dialog boxes for the user's input and Jade's response.
+     * Adds dialog boxes for the user's input and Jade's response to the dialog container.
      *
-     * @param messages The messages to be displayed in dialog boxes (user input and Jade response).
+     * @param input The user's input.
+     * @param response Jade's response.
+     * @param isError True if the response is an error message.
      */
-    private void addDialogBoxes(String... messages) {
-        assert messages.length == 2 : "There should be exactly two messages (user input and Jade response)";
-
+    private void addDialogBoxes(String input, String response, boolean isError) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(messages[0], userImage),
-                DialogBox.getJadeDialog(messages[1], jadeImage)
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getJadeDialog(response, jadeImage, isError)
         );
     }
 
@@ -105,21 +106,19 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Handles the initial greeting command when the application starts.
-     * Adds Jade's initial greeting message to the dialog container.
      */
     private void handleInitialGreeting() {
         String response = new GreetCommand().runForGui();
         assert response != null : "Initial greeting response should not be null";
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getJadeDialog(response, jadeImage)
+                DialogBox.getJadeDialog(response, jadeImage, false)
         );
     }
 
     /**
-     * Sets up custom scrolling behavior for the dialog container.
-     * Adds a listener to automatically scroll to the bottom when new messages are added,
-     * and handles manual scrolling with mouse input to adjust the scroll position.
+     * Configures custom scrolling behavior for the dialog container.
+     * Automatically scrolls to the bottom when new messages are added and handles manual scrolling.
      */
     private void handleScroll() {
         assert dialogContainer != null && scrollPane != null : "Dialog container and scroll pane must not be null";

@@ -33,6 +33,7 @@ public class MarkCommand extends Command {
         try {
             return displayMarkedTaskMessage(FOR_GUI);
         } catch (JadeException e) {
+            jade.Jade.setErrorResponse(true);
             return e.getMessage();
         }
     }

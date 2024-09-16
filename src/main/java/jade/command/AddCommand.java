@@ -36,6 +36,7 @@ public class AddCommand extends Command {
         try {
             return displayTaskAddedMessage(FOR_GUI);
         } catch (JadeException e) {
+            jade.Jade.setErrorResponse(true);
             return e.getMessage();
         }
     }
