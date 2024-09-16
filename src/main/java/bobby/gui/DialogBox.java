@@ -55,6 +55,7 @@ public class DialogBox extends HBox {
     public static DialogBox getBobbyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.dialog.getStyleClass().add("reply-label");
         return db;
     }
 }
