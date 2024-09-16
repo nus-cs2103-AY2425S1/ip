@@ -4,14 +4,17 @@ Bobby is your personal butler, he helps to manage **any** and **every** tasks yo
 Compared to the conventional way of using your mouse and keyboard, Bobby works best when you type. Type away all your tasks and never lose track of any of them again!
 
 ## Installation
+
 To get your personal butler:
 1. Ensure that you have `Java 17` downloaded on your device.
 2. Download the latest `jar` file
 3. Run `java -jar bobby_v1.jar` in the directory of where the `jar` file is located
 4. A GUI window should pop up as shown below:
+
 ![img.png](startupImage.png)
 
 ## Features
+
 > [!NOTE]
 > Notes about input format:
 > - Words in `UPPERCASE` are parameters to be supplied by the user
@@ -20,6 +23,7 @@ To get your personal butler:
 
 Here are a list of features that Bobby provides:
 ### Creating tasks
+
 Create a todo task in the following format: `todo TASK_NAME DESCRIPTION`
 
 Create a deadline task in the following format: `deadline TASK_NAME /by TASK_NAME DATE`
@@ -29,9 +33,11 @@ Create a deadline task in the following format: `deadline TASK_NAME /by TASK_NAM
 Create an event task in the following format: `event TASK_NAME /from START /to END`
 
 ### List
+
 List out all your tasks in with `list`
 
 ### Task completion
+
 You can mark a task as completed by inputting `mark TASK_NUMBER`
 
 you can also unmark a task by inputting `unmark TASK_NUMBER`
@@ -39,10 +45,12 @@ you can also unmark a task by inputting `unmark TASK_NUMBER`
 - `TASK_NUMBER` indicates the index of the task in `list`
 
 ### Removing Tasks
+
 Remove any task with `delete TASK_NUMBER`
 - `TASK_NUMBER` indicates the index of the task in `list`
 
 ### Finding matching tasks
+
 If you want to related tasks, simply use `find KEYWORD` to display all the tasks related 
 to `KEYWORD`
 
@@ -51,6 +59,7 @@ E.g: `find assignment` will display a list of tasks containing the word `assignm
 - Only full words will be matched
 
 ### Archiving
+
 To archive a task, `archive TASK_NUMBER`
 To view all your archived tasks, simply `listarchive`.
 > [!TIP]
@@ -68,6 +77,7 @@ Bobby will auto save the files. There is no need to save manually.
 > backup copy instead.
 
 ## Command Summary
+
 | Command | Format |
 |:-:|:-:|
 | Todo | `todo TASK_NAME` |
