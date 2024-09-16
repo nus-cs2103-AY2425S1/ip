@@ -132,12 +132,18 @@ public class Parser {
      * @param fullCommand The command string input by the user.
      * @return A {@code DeleteCommand} to delete the task.
      */
-
     private static Command handleDeleteCommand(String fullCommand) {
         int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
         return new DeleteCommand(taskNumber);
     }
 
+    /**
+     * Returns a {@code ListOnDateCommand} to list tasks that occur on the given date.
+     * The date is parsed from the command.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return A {@code ListOnDateCommand} to list tasks on the specified date.
+     */
     private static Command handleListOnDateCommand(String fullCommand) {
         LocalDateTime date = LocalDateTime.parse(fullCommand.substring(3) + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         return new ListOnDateCommand(date);
