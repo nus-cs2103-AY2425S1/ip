@@ -37,7 +37,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Format the deadline into the storage format.
+     * Formats the deadline into the storage format.
      *
      * @return A deadline string in the storage format.
      */
@@ -47,7 +47,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Format the deadline into displayable string.
+     * Formats the deadline into displayable string.
      *
      * @return deadline string to be displayed.
      */

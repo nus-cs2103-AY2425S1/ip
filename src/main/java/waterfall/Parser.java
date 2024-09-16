@@ -59,60 +59,9 @@ public class Parser {
             }
             return new AddCommand(title);
         } else if (input.startsWith("deadline ")) {
-            if (!input.contains("/")) {
-                throw new WaterfallException("oh man where's your deadline!");
-            }
-            int index = input.indexOf("/");
-            if (index <= 9) {
-                throw new WaterfallException("Bruh what is this empty title are you kidding me!");
-            }
-            String title = input.substring(9, index - 1);
-            if (title.isEmpty()) {
-                throw new WaterfallException("Bruh what is this empty title are you kidding me!");
-            }
-            String description = input.substring(index + 1);
-            if (!description.startsWith("by ")) {
-                throw new WaterfallException("unrecognised comment: " + description);
-            }
-            return new AddCommand(title, description.substring(3));
+            return handleDeadline(input);
         } else if (input.startsWith("event ")) {
-            String[] inputs = input.split(" /");
-            if (inputs.length != 3) {
-                throw new WaterfallException("invalid event format: An event must contain only from and to comments");
-            }
-            if (inputs[0].length() <= 5) {
-                throw new WaterfallException("Bruh what is this empty title are you kidding me!");
-            }
-            String title = inputs[0].substring(6);
-            if (title.isEmpty()) {
-                throw new WaterfallException("Bruh what is this empty title are you kidding me!");
-            }
-            String from;
-            String to;
-            if (inputs[1].startsWith("from ")) {
-                from = inputs[1].substring(5);
-                if (inputs[2].startsWith("to ")) {
-                    to = inputs[2].substring(3);
-                } else {
-                    throw new WaterfallException("invalid format: missing to comment");
-                }
-            } else if (inputs[1].startsWith("to")) {
-                to = inputs[1].substring(3);
-                if (inputs[2].startsWith("from ")) {
-                    from = inputs[2].substring(5);
-                } else {
-                    throw new WaterfallException("invalid format: missing from comment");
-                }
-            } else {
-                throw new WaterfallException("invalid format: missing to and from comment");
-            }
-            if (to.isEmpty()) {
-                throw new WaterfallException("Bruh what is this empty to command are you kidding me!");
-            }
-            if (from.isEmpty()) {
-                throw new WaterfallException("Bruh what is this empty from command are you kidding me!");
-            }
-            return new AddCommand(title, from, to);
+            return handleEvent(input);
         } else if (input.startsWith("find ")) {
             if (input.length() <= 5) {
                 throw new WaterfallException("Bruh what is this empty task you are looking for!");
@@ -123,4 +72,65 @@ public class Parser {
             return new UnrecognisedCommand();
         }
     }
+
+    private static Command handleDeadline(String input) throws WaterfallException {
+        if (!input.contains("/")) {
+            throw new WaterfallException("oh man where's your deadline!");
+        }
+        int index = input.indexOf("/");
+        if (index <= 9) {
+            throw new WaterfallException("Bruh what is this empty title are you kidding me!");
+        }
+        String title = input.substring(9, index - 1);
+        if (title.isEmpty()) {
+            throw new WaterfallException("Bruh what is this empty title are you kidding me!");
+        }
+        String description = input.substring(index + 1);
+        if (!description.startsWith("by ")) {
+            throw new WaterfallException("unrecognised comment: " + description);
+        }
+        return new AddCommand(title, description.substring(3));
+    }
+
+    private static Command handleEvent(String input) throws WaterfallException {
+        String[] inputs = input.split(" /");
+        if (inputs.length != 3) {
+            throw new WaterfallException("invalid event format: An event must contain only from and to comments");
+        }
+        if (inputs[0].length() <= 5) {
+            throw new WaterfallException("Bruh what is this empty title are you kidding me!");
+        }
+        String title = inputs[0].substring(6);
+        if (title.isEmpty()) {
+            throw new WaterfallException("Bruh what is this empty title are you kidding me!");
+        }
+        String from;
+        String to;
+        if (inputs[1].startsWith("from ")) {
+            from = inputs[1].substring(5);
+            if (inputs[2].startsWith("to ")) {
+                to = inputs[2].substring(3);
+            } else {
+                throw new WaterfallException("invalid format: missing to comment");
+            }
+        } else if (inputs[1].startsWith("to")) {
+            to = inputs[1].substring(3);
+            if (inputs[2].startsWith("from ")) {
+                from = inputs[2].substring(5);
+            } else {
+                throw new WaterfallException("invalid format: missing from comment");
+            }
+        } else {
+            throw new WaterfallException("invalid format: missing to and from comment");
+        }
+        if (to.isEmpty()) {
+            throw new WaterfallException("Bruh what is this empty to command are you kidding me!");
+        }
+        if (from.isEmpty()) {
+            throw new WaterfallException("Bruh what is this empty from command are you kidding me!");
+        }
+        return new AddCommand(title, from, to);
+    }
+
 }
+

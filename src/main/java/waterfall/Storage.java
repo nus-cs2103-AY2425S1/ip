@@ -45,7 +45,7 @@ public class Storage {
     }
 
     /**
-     * Add a new task to the storage file. The task is appended to the end of the file.
+     * Adds a new task to the storage file. The task is appended to the end of the file.
      *
      * @param task The task to be added.
      * @throws IOException If I/O exception occurs while writing to the file.
