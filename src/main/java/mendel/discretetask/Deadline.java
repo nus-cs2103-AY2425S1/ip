@@ -135,6 +135,12 @@ public class Deadline extends Task {
                 .equals(new DateTimeManager(this.by).removeTimeStamp());
     }
 
+    /**
+     * Checks if deadline is before the date specified and is after today
+     *
+     * @param formattedDate date to look back from
+     * @return true if deadline is before the date specified and is after today contains pattern, false otherwise
+     */
     @Override
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         DateTimeManager inputDate = new DateTimeManager(formattedDate);
@@ -157,15 +163,21 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task, including its type and status.
+     * Checks description contains input pattern specified
      *
-     * @return A string representing the Deadline task.
+     * @param matchingString  pattern to look for
+     * @return true if description contains pattern, false otherwise
      */
     @Override
     public boolean isMatchingDescription(String matchingString) {
         return this.description.contains(matchingString);
     }
 
+    /**
+     * Returns a string representation of the Deadline task, including its type and status.
+     *
+     * @return A string representing the Deadline task.
+     */
     @Override
     public String toString() {
         return String.format("[D]%s", super.toString());
