@@ -122,6 +122,13 @@ public class Parser {
     }
     // @@author Richard H
 
+    /**
+     * Checks if a command input fulfils specific criteria.
+     *
+     * @param idx Index from which to check if String exists.
+     * @param str String to be checked.
+     * @return True if String is not empty from specified idx, otherwise false
+     */
     private static boolean isEmptyFromIdx(int idx, String str) {
         if (idx < 0 || str == null) {
             return false;
@@ -130,6 +137,17 @@ public class Parser {
         return str.substring(idx, str.length()).trim().length() == 0;
     }
 
+    /**
+     * Checks if command fulfils certain specified criteria.
+     *
+     * @param length Length of command.
+     * @param target Valid minimal length of command.
+     * @param idx Index to check command from.
+     * @param input Input String command.
+     * @param commandParts Array-form of the commands split by whitespaces.
+     * @param b True to perform Integer parsing checks on command input.
+     * @return True if command fails any specific criterion, otherwise false.
+     */
     private static boolean isInvalidCommand(int length, int target,
                                             int idx, String input, String[] commandParts, boolean ... b) {
         if (length < target) {
