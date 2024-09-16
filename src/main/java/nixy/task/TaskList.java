@@ -33,7 +33,10 @@ public class TaskList {
     }
 
     /**
-     * Creates a task manager with tasks loaded from file.
+     * Creates a task manager with pre-existing tasks.
+     * This constructor is used when loading tasks from a file.
+     *
+     * @param tasks The list of tasks to manage.
      */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
