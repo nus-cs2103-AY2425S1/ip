@@ -39,10 +39,13 @@ public class Ui {
             + Ui.INDENTATIONS + "delete <item-index>              - Removes the item at the specified index from the "
             + "list\n"
             + Ui.INDENTATIONS + "todo <description>               - Creates a new todo task and adds it to the list\n"
-            + Ui.INDENTATIONS + "<description> /by <date>         - Creates a new deadline task and adds it to the "
-            + "list\n"
-            + Ui.INDENTATIONS + "<description> /from <date> /to <date> - Creates a new event task and adds it to "
-            + "the list";
+            + Ui.INDENTATIONS + "deadline <description> /by <date>         - Creates a new deadline task and adds it "
+            + "to the list\n"
+            + Ui.INDENTATIONS + "event <description> /from <date> /to <date> - Creates a new event task and adds it to "
+            + "the list\n"
+            + Ui.INDENTATIONS + "find <search term>               - Searches the current list of tasks for any tasks "
+            + "with descriptions that contain the search term\n"
+            + Ui.INDENTATIONS + "help                             - Lists all currently available commands\n";
     private static final String logo = Ui.INDENTATIONS + " ____  _____              __  \n"
             + Ui.INDENTATIONS + "|_   \\|_   _|            |  ] \n"
             + Ui.INDENTATIONS + "  |   \\ | |  .---.   .--.| |  \n"
