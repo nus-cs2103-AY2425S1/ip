@@ -30,7 +30,7 @@ public class ParserTest {
             Parser.parseToDo("todo");
             fail();
         } catch (GaleException e) {
-            assertEquals("Oops! The wind blew away your to-do description. Please use: 'todo [description]'.",
+            assertEquals("Oops! The wind blew away your to-do description. Please use: 'todo [priority] [description]'.",
                     e.getMessage());
         }
     }
