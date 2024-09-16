@@ -9,7 +9,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * Controller for the main GUI.
- * This class handles user input, interacts with the Dave instance, and updates the user interface.
+ * This class is responsible for handling user input, interacting with the Duke instance (called Dave),
+ * and updating the user interface.
  */
 public class MainWindow extends AnchorPane {
 
@@ -27,17 +28,18 @@ public class MainWindow extends AnchorPane {
 
     private Dave dave;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/dukeImage.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("userImage.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("dukeImage.png"));
 
     /**
-     * Initializes the MainWindow by setting up the scroll pane behavior and ensuring
-     * that new content is automatically scrolled into view.
+     * Initializes the MainWindow by binding the scroll pane's vertical value to the dialog container's height
+     * and setting the scroll behavior.
+     * Ensures the scroll pane adapts to the height and automatically scrolls down when new content is added.
      */
     @FXML
     public void initialize() {
-        assert scrollPane != null : "ScrollPane should not be null"; // Ensure scrollPane is initialized
-        assert dialogContainer != null : "DialogContainer should not be null"; // Ensure dialogContainer is initialized
+        assert scrollPane != null : "ScrollPane should not be null"; // Assert that scrollPane is initialized
+        assert dialogContainer != null : "DialogContainer should not be null"; // Assert that dialogContainer is initialized
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.setFitToWidth(true);
@@ -46,38 +48,39 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Dave instance into the controller to enable interaction with the task manager.
+     * Injects the Duke (Dave) instance into the controller.
+     * This allows the MainWindow to interact with the Duke instance for task management.
      *
-     * @param d The Dave instance that handles task management and processes user commands.
+     * @param d The Dave instance that handles tasks and processes user commands.
      */
     public void setDave(Dave d) {
-        assert d != null : "Dave instance should not be null"; // Ensure a valid Dave instance is passed
-        this.dave = d;
+        assert d != null : "Dave instance should not be null"; // Assert that a valid Dave instance is passed
+        dave = d;
     }
 
     /**
-     * Handles the user input when the user presses enter or clicks the "Send" button.
-     * It creates dialog boxes for both the user's input and Dave's response,
-     * and adds them to the dialog container.
+     * Handles user input by creating dialog boxes for both the user's input and Dave's response.
+     * Adds the dialog boxes to the dialog container and clears the user input field after processing.
+     * This method is triggered when the user clicks the "Send" button or presses enter.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        assert input != null && !input.isEmpty() : "User input should not be null or empty"; // Ensure input is valid
+        assert input != null && !input.isEmpty() : "User input should not be null or empty"; // Assert input is valid
 
         String response = dave.getResponse(input);
-        assert response != null : "Response from Dave should not be null"; // Ensure response is valid
+        assert response != null : "Response from Dave should not be null"; // Assert response is valid
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        userInput.clear(); // Clear the input field after handling
+        userInput.clear();
     }
 
     /**
-     * Displays a welcome message to the user when the application starts.
-     * This message is shown in a dialog box with a list of available commands.
+     * Displays a welcome message and lists the available commands to the user when the application starts.
+     * This message is displayed in a dialog box within the GUI.
      */
     public void showWelcomeMessage() {
         String welcomeMessage = "Welcome to Dave!\n"
@@ -91,8 +94,8 @@ public class MainWindow extends AnchorPane {
                 + "- delete <task number>: Delete a task\n"
                 + "- find <keyword>: Find tasks that match the keyword\n"
                 + "- bye: Exit the program\n"
-                + "- reminder all: Check undone tasks\n"
-                + "- reminder overdue: Check overdue undone tasks\n";
+                + "- reminder all: Check undone task\n"
+                + "- reminder overdue: Check undone overdue task\n";
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(welcomeMessage, dukeImage)
