@@ -22,6 +22,8 @@ public class Deez {
     protected TaskList taskList = new TaskList(new ArrayList<>());
     private Ui ui = new Ui();
 
+    private Personality personality = new DeezPersonality("deez");
+
     /**
      * Constructor
      */
@@ -51,7 +53,7 @@ public class Deez {
      */
     public void initialiseUi(Consumer<String> messageConsumer) {
         ui = new Ui(messageConsumer);
-        ui.say("Hello! I'm Deez!", "What can I do you for?");
+        ui.say(personality.getGreeting(), "What can I do you for?");
     }
 
     /**
@@ -73,6 +75,7 @@ public class Deez {
      */
     private void handleExit() {
         // TODO: Not really sure how to handle this at the moment
+        ui.say(personality.getFarewell());
     }
 
     /**
@@ -88,7 +91,7 @@ public class Deez {
      * @throws DeezException
      */
     private void handleInvalidCommand() throws DeezException {
-        throw new DeezException("Please enter a valid command.");
+        throw new DeezException(personality.getErrorReaction(), "Please enter a valid command.");
     }
 
     /**
@@ -101,7 +104,7 @@ public class Deez {
         String name = props.getProperty("name");
         String tags = props.getProperty("tags");
         if (name.isBlank()) {
-            throw new DeezException("Please provide a description for the todo.");
+            throw new DeezException(personality.getErrorReaction(), "Please provide a description for the todo.");
         }
         Todo t = new Todo(props.getProperty("name"));
 
@@ -111,7 +114,7 @@ public class Deez {
 
         taskList.addTask(t);
 
-        ui.say("Easy. I have added your task.", t.toString(),
+        ui.say(personality.getAffirmation(), "I have added your task.", t.toString(),
             "You have " + taskList.size() + " tasks in the " + "list");
     }
 
@@ -133,7 +136,7 @@ public class Deez {
             }
 
             taskList.addTask(d);
-            ui.say("Donezo. I have added your task.", d.toString(),
+            ui.say(personality.getAffirmation(), "I have added your task.", d.toString(),
                 "You have " + taskList.size() + " tasks in the " + "list");
         } catch (DateTimeParseException e) {
             throw new DeezException("Failed to parse deadline date.", "Usage:",
@@ -162,7 +165,8 @@ public class Deez {
                 e.setTags(tags.split(","));
             }
             taskList.addTask(e);
-            ui.say("Event added", e.toString(), "You have " + taskList.size() + " tasks in the " + "list");
+            ui.say(personality.getAffirmation(), "Event added", e.toString(),
+                "You have " + taskList.size() + " tasks in the " + "list");
         } catch (DateTimeParseException e) {
             throw new DeezException("Invalid date.", "Usage:",
                 "event " + "project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
@@ -185,7 +189,7 @@ public class Deez {
             } else if (!isMarkDone && t.isDone()) {
                 t.toggleDone();
             }
-            ui.say("Updated task:", t.toString());
+            ui.say(personality.getAffirmation(), "Updated task:", t.toString());
         } catch (Exception e) {
             throw new DeezException("No task at index " + taskIdx, "Please try again.");
         }
@@ -196,7 +200,7 @@ public class Deez {
         try {
             Task t = taskList.get(taskIdx - 1);
             taskList.remove(t);
-            ui.say("Deleted task:", t.toString(), taskList.size() + " tasks remain.");
+            ui.say(personality.getAffirmation(), "Deleted task:", t.toString(), taskList.size() + " tasks remain.");
         } catch (Exception e) {
             throw new DeezException("No task at index " + taskIdx, "Please try again.");
         }
@@ -213,7 +217,7 @@ public class Deez {
 
     private void handleSave() {
         storage.saveTasks(taskList);
-        ui.say("Saved successfully!");
+        ui.say(personality.getAffirmation(), "Saved successfully!");
     }
 
     /**
