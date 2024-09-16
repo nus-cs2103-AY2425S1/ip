@@ -51,8 +51,7 @@ public class CommandHandler {
         } else if(command.equals("sort")) {
             tasks.sortByDeadline();
             return ui.showSort();
-        }
-        else {
+        } else {
             throw new AgaveException("I'm sorry, but I don't understand the command: " + parser.getCommand());
         }
     }

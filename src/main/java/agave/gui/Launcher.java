@@ -1,4 +1,4 @@
-package agave.GUI;
+package agave.gui;
 
 import agave.Main;
 import javafx.application.Application;

@@ -13,7 +13,7 @@
             style="-fx-background-color: #f4f4f4;"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="agave.GUI.MainWindow">
+            fx:controller="agave.gui.MainWindow">
 
     <TextField fx:id="userInput"
                layoutY="558.0"

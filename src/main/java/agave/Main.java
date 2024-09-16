@@ -1,6 +1,6 @@
 package agave;
 
-import agave.GUI.MainWindow;
+import agave.gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
