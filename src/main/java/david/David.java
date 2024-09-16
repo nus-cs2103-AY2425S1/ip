@@ -184,8 +184,8 @@ public class David {
 
         LocalDateTime fromDate = DateParser.getDate(eventDetails[0]);
         LocalDateTime toDate = DateParser.getDate(eventDetails[1]);
-        DateParser.validateDateTime(fromDate, LocalDateTime.now());
-        DateParser.validateDateTime(toDate, LocalDateTime.now());
+        DateParser.validateDateTime(LocalDateTime.now(), fromDate);
+        DateParser.validateDateTime(LocalDateTime.now(), toDate);
 
         Task t = new EventTask(eventName, fromDate, toDate, false);
         this.tasks.addTask(t);
@@ -212,7 +212,7 @@ public class David {
         }
 
         LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
-        DateParser.validateDateTime(byDate, LocalDateTime.now());
+        DateParser.validateDateTime(LocalDateTime.now(), byDate);
 
         Task t = new DeadlineTask(eventSplit[0], byDate, false);
         this.tasks.addTask(t);

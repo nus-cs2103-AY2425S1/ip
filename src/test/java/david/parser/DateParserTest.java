@@ -60,7 +60,7 @@ public class DateParserTest {
 
         DavidInvalidTimeException exception =
                 assertThrows(DavidInvalidTimeException.class, (
-                ) -> DateParser.validateDateTime(t1, t2));
+                ) -> DateParser.validateDateTime(t2, t1));
         String expectedErrorMessage = "Please ensure that the time inputted is after the current time."
                 + " If you are trying to input an event task, make sure \"\\from\" field is a valid time "
                 + "before  \"\\to\" field";
@@ -75,7 +75,7 @@ public class DateParserTest {
         LocalDateTime t1 = LocalDateTime.parse("2023-12-01 1200", inputFormatter);
         LocalDateTime t2 = LocalDateTime.parse("2024-12-01 1200", inputFormatter);
 
-        boolean validTime = DateParser.validateDateTime(t2, t1);
+        boolean validTime = DateParser.validateDateTime(t1, t2);
         assertEquals(validTime, true);
     }
 

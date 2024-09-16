@@ -66,7 +66,7 @@ public class DateParser extends Parser {
      * @return true if t1 is before t2.
      */
     public static boolean validateDateTime(LocalDateTime t1, LocalDateTime t2) throws DavidInvalidTimeException {
-        if (t1.isBefore(t2)) {
+        if (t1.isAfter(t2) || t1.isEqual(t2)) {
             throw new DavidInvalidTimeException();
         }
         return true;
