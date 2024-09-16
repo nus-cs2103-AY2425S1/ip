@@ -38,7 +38,7 @@ This chatbot is,
 A todo task is a generic task which does not have any timeline attached with it.
 
 A Todo task can be created using the following syntax
-`todo <task_description>`
+`todo TASK_DESCRTIPTION`
 
 
 Example: `todo Plan Vacation`
@@ -58,7 +58,7 @@ Now you have n tasks in the list.
 A deadline task is a task which has a specific end date and time to it.
 
 A Deadline task can be created using the following syntax
-`deadline <task_description> /by dd/mm/yyyy HHMM`
+`deadline TASK_DESCRTIPTION /by DD/MM/YYYY HHMM`
 
 > Date and Time must be given in the specified format!
 
@@ -77,7 +77,7 @@ Now you have n tasks in the list.
 An event task is a task which spans across a certain duration. It has a start date/time and end date/time.
 
 An Event task can be created using the following syntax
-`event <task_description> /from dd/mm/yyyy HHMM /to dd/mm/yyyy HHMM`
+`event TASK_DESCRTIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM`
 
 > Date and Time must be given in the specified format!
 
@@ -129,7 +129,7 @@ Events
 ## Mark a task as completed
 
 This is used to mark out a task as completed which is done using the following command
-`mark <task_number>`
+`mark TASK_NUMBER`
 
 > You can use 'list' function to view task number
 
@@ -146,7 +146,7 @@ Meow! I've marked this task as done:
 ## Unmark a task as completed
 
 This is the undo action of marking a task as done. It is done using the following command:
-`unmark <task_number>`
+`unmark TASK_NUMBER`
 
 > You can use 'list' function to view task number
 
@@ -163,7 +163,7 @@ Meow! I've marked this task as not done yet:
 ## find
 
 This is used to find any particular task using search keywords
-`find <keywords>`
+`find KEYWORDS`
 
 Example: `fine Meeting`
 
@@ -176,7 +176,7 @@ expected output
 ## delete
 
 This is used to permanently delete a task and remove it from the list.
-`delete <task_number>`
+`delete TASK_NUMBER`
 
 > You can use 'list' function to view task number
 
