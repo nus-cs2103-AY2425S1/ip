@@ -1,6 +1,6 @@
 # Yapper User Guide
 
-![Yapper UI](./Ui.png.png?raw=true "Yapper Chatbot")
+![Yapper UI](./Ui.png?raw=true "Yapper Chatbot")
 
 // Product intro goes here
 
