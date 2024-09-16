@@ -12,6 +12,13 @@ public class ChatBot {
         this.taskList.loadTasksFromFile();
         ui.greet();
     }
+
+    /**
+     * Checks if there is a duplicate task in tasklist.
+     *
+     * @param task
+     * @return true if there is duplicate task, else false.
+     */
     public boolean isDuplicate(Task task) {
         for (Task existingTask : taskList.getTaskList()) {
             if (task.equals(existingTask)) {
@@ -20,6 +27,13 @@ public class ChatBot {
         }
         return false;
     }
+
+    /**
+     * Provides response to user based on input.
+     *
+     * @param input User input.
+     * @return Chatbot's response.
+     */
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
