@@ -49,7 +49,7 @@ public abstract class Task {
     /**
      * Returns generated write format for the specific task.
      */
-    public abstract String getWriteTaskInfo();
+    public abstract String serialize();
 
     @Override
     public String toString() {

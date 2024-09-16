@@ -83,7 +83,7 @@ public class Ui {
     public static String updateUserOnError(Exception e) {
         String message = "";
 
-        message += "The following error has occured, please try again bro. \n";
+        message += "\nThe following error has occured, please try again bro. \n";
         message += e.getMessage();
 
         return message;

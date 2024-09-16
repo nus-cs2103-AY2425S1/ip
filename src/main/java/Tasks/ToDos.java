@@ -12,7 +12,7 @@ public class ToDos extends Task {
      * Returns an empty string to represent no time conditions.
      */
     @Override
-    public String getWriteTaskInfo() {
+    public String serialize() {
         return "";
     }
 

@@ -8,7 +8,7 @@ import utilities.TaskList;
  * Main Class to run controller logic for the application.
  */
 public class Peter {
-    public static final String FILE_PATH = "./tasks/data.txt";
+    public static final String FILE_PATH = "./data.txt";
     private Storage store;
     private TaskList tasklist;
 

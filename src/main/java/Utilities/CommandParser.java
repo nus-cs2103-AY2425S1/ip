@@ -19,6 +19,7 @@ public class CommandParser {
     private static final String MESSAGE_ONLIST_NONEMPTY = "Here are the tasks in your list bro: \n";
     private static final String MESSAGE_ON_LIST_EMPTY = "You have no tasks bro! Time to add some work! \n";
     private static final String REGEX_INT_PATTERN = "[^0-9]";
+    
     private enum Commands {
         LIST("list"),
         MARK("mark"),
@@ -132,7 +133,7 @@ public class CommandParser {
                 String details = splits[1].replace("by", "");
                 Task t2 = new Deadlines(name, details.strip());
                 response += taskList.addToTaskList(t2, name);
-                response += store.updateFileTasks(String.format("D, %d, %s, %s, ", 0, name, t2.getWriteTaskInfo()));;
+                response += store.updateFileTasks(String.format("D, %d, %s, %s, ", 0, name, t2.serialize()));;
                 break;
             case EVENT:
                 if (splits.length != 3) {
@@ -142,7 +143,7 @@ public class CommandParser {
                 String endDetails = splits[2].replace("to", "");
                 Task t3 = new Event(name, startDetails.strip(), endDetails.strip());
                 response += taskList.addToTaskList(t3, name);
-                response += store.updateFileTasks(String.format("E, %d, %s, %s, ", 0, name, t3.getWriteTaskInfo()));
+                response += store.updateFileTasks(String.format("E, %d, %s, %s, ", 0, name, t3.serialize()));
                 break;
             default:
                 // Should never trigger as TaskType is checked beforehand.

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  * and initial length is of length 4.
  */
 public class TaskListTest {
-    private static final String FILE_PATH = "./tasks/data.txt";
+    private static final String FILE_PATH = "./data.txt";
     private static final String CHECK_STRING = "1.[T][X] run errands";
 
     private Storage store = new Storage(FILE_PATH);

@@ -20,7 +20,7 @@ public class Deadlines extends Task {
      * Returns deadline end period as a writeable string.
      */
     @Override
-    public String getWriteTaskInfo() {
+    public String serialize() {
         return this.deadlineInfo.format(PATTERN_READ);
     }
 

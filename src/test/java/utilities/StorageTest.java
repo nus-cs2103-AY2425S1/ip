@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
  * and initial length is of length 4.
  */
 public class StorageTest {
-    private static final String FILE_PATH = "./tasks/data.txt"; 
+    private static final String FILE_PATH = "./data.txt"; 
 
     @Test
     public void loadTasksFromFileTest() {
@@ -24,7 +24,7 @@ public class StorageTest {
 
         // Check for correct datetime of event read
         Task t = tl.get(2);
-        assertEquals("2024-12-29 12:00, 2024-12-29 17:00", t.getWriteTaskInfo());
+        assertEquals("2024-12-29 12:00, 2024-12-29 17:00", t.serialize());
     }
 
     @Test

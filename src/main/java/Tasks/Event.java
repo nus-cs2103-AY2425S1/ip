@@ -22,7 +22,7 @@ public class Event extends Task {
      * Returns event start/end period as a writeable string.
      */
     @Override
-    public String getWriteTaskInfo() {
+    public String serialize() {
         return this.startPeriod.format(PATTERN_READ) + ", " + this.endPeriod.format(PATTERN_READ);
     }
 
