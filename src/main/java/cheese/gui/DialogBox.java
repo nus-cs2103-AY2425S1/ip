@@ -41,7 +41,9 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
 
         //Create a circle to clip the profile picture
-        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
+        Circle clip = new Circle(
+            displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2
+        );
         displayPicture.setClip(clip);
     }
 

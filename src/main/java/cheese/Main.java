@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * A GUI for chatbot using FXML.
  */
 public class Main extends Application {
-    private WheelyBigCheese bot = new WheelyBigCheese();
+    private CheeseBot bot = new CheeseBot();
 
     @Override
     public void start(Stage stage) {

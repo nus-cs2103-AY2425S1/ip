@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cheese.WheelyBigCheese;
+import cheese.CheeseBot;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private WheelyBigCheese bot;
+    private CheeseBot bot;
 
     private Image userImage = new Image(Objects.requireNonNull(
         this.getClass().getResourceAsStream("/images/person.png")
@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the CheeseBot instance and adds intro message */
-    public void setCheese(WheelyBigCheese b) {
+    public void setCheese(CheeseBot b) {
         bot = b;
         String response = bot.start();
         dialogContainer.getChildren().add(
