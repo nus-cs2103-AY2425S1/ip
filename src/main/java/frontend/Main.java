@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Peridot peridot = new Peridot("./src/data/chatData.txt");
+    private Peridot peridot = new Peridot("./chatData.txt");
 
     @Override
     public void start(Stage stage) {

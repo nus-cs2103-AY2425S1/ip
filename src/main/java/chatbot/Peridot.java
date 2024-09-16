@@ -33,7 +33,7 @@ public class Peridot {
             storage.write(taskList.getTaskList());
             return response;
         } catch (Exception e) {
-            return "type 'help' to see list of commands";
+            return e.getMessage();
         }
     }
 

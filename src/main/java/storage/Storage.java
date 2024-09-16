@@ -86,7 +86,7 @@ public class Storage {
      */
     public void write(List<Task> newData) {
         try {
-            FileWriter data = new FileWriter("./src/data/chatData.txt");
+            FileWriter data = new FileWriter("./chatData.txt");
             newData.forEach(task -> {
                 try {
                     data.write(task.toData() + "\n");

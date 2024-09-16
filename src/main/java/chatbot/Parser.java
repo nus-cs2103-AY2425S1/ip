@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import exceptions.InvalidCommandException;
 import exceptions.InvalidNumberException;
+import exceptions.NoTasksException;
+import exceptions.NonExistentTaskException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.TaskList;
@@ -23,9 +25,11 @@ public class Parser {
      * @return Bot response.
      * @throws InvalidCommandException If invalid command is given.
      * @throws InvalidNumberException If invalid number is given.
+     * @throws NoTasksException If tasklist is empty when trying to list or operate on specific tasks.
+     * @throws NonExistentTaskException If specified task does not exist.
      */
     public static String answer(String response, TaskList taskList)
-            throws InvalidCommandException, InvalidNumberException {
+            throws InvalidCommandException, InvalidNumberException, NoTasksException, NonExistentTaskException {
         String command = response.contains(" ")
                 ? response.substring(0, response.indexOf(' '))
                 : response;
@@ -49,16 +53,13 @@ public class Parser {
                 return taskList.addTask(new Event(name, LocalDate.parse(startTime),
                         LocalDate.parse(endTime)), false);
             case "mark":
-                index = Integer.parseInt(response.substring(response.indexOf(' ') + 1,
-                        response.indexOf(' ') + 2)) - 1;
+                index = Integer.parseInt(response.substring(response.indexOf(' ') + 1)) - 1;
                 return taskList.markTask(index);
             case "unmark":
-                index = Integer.parseInt(response.substring(response.indexOf(' ') + 1,
-                        response.indexOf(' ') + 2)) - 1;
+                index = Integer.parseInt(response.substring(response.indexOf(' ') + 1)) - 1;
                 return taskList.unmarkTask(index);
             case "delete":
-                index = Integer.parseInt(response.substring(response.indexOf(' ') + 1,
-                        response.indexOf(' ') + 2)) - 1;
+                index = Integer.parseInt(response.substring(response.indexOf(' ') + 1)) - 1;
                 return taskList.deleteTask(index);
             case "list":
                 return taskList.listOut();
@@ -69,12 +70,14 @@ public class Parser {
             case "help":
                 return Parser.showCommands();
             default:
-                throw new InvalidCommandException();
+                return "type 'help' to see list of commands";
             }
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidCommandException();
         } catch (NumberFormatException e) {
             throw new InvalidNumberException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new NonExistentTaskException();
         }
     }
 

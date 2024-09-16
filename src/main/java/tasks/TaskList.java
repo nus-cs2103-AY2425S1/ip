@@ -1,5 +1,7 @@
 package tasks;
 
+import exceptions.NoTasksException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +47,13 @@ public class TaskList {
 
     /**
      * Lists out all the tasks in the task list.
+     *
+     * @throws NoTasksException If tasklist is empty when trying to list or operate on specific tasks.
      */
-    public String listOut() {
+    public String listOut() throws NoTasksException {
+        if (this.list.isEmpty()) {
+            throw new NoTasksException();
+        }
         StringBuilder reply = new StringBuilder();
         for (int i = 1; i < this.list.size(); i++) {
             reply.append(i).append(".").append(this.list.get(i - 1)).append("\n");
@@ -59,8 +66,12 @@ public class TaskList {
      * Marks the specified task as done.
      *
      * @param index Index of task to be marked as done.
+     * @throws NoTasksException If tasklist is empty when trying to list or operate on specific tasks.
      */
-    public String markTask(int index) {
+    public String markTask(int index) throws NoTasksException {
+        if (this.list.isEmpty()) {
+            throw new NoTasksException();
+        }
         this.list.get(index).mark();
         String reply = "You have marked the following task as done!\n" + this.list.get(index);
         return reply;
@@ -70,8 +81,12 @@ public class TaskList {
      * Marks the specified task as undone.
      *
      * @param index Index of task to be marked as done.
+     * @throws NoTasksException If tasklist is empty when trying to list or operate on specific tasks.
      */
-    public String unmarkTask(int index) {
+    public String unmarkTask(int index) throws NoTasksException {
+        if (this.list.isEmpty()) {
+            throw new NoTasksException();
+        }
         this.list.get(index).unmark();
         String reply = "You have unmarked the following task!\n" + this.list.get(index);
         return reply;
@@ -81,8 +96,12 @@ public class TaskList {
      * Deletes the specified task.
      *
      * @param index Index of task to be deleted.
+     * @throws NoTasksException If tasklist is empty when trying to list or operate on specific tasks.
      */
-    public String deleteTask(int index) {
+    public String deleteTask(int index) throws NoTasksException {
+        if (this.list.isEmpty()) {
+            throw new NoTasksException();
+        }
         Task deleted = this.list.get(index);
         this.list.remove(index);
         String reply = "Let's go deleting!\nDeleted task " + deleted;
@@ -94,7 +113,7 @@ public class TaskList {
      *
      * @return List of tasks.
      */
-    public List<Task> getTaskList() {
+    public List<Task> getTaskList(){
         return this.list;
     }
 
