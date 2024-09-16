@@ -205,7 +205,9 @@ public class Ui {
      * Prints an error message for invalid date format for deadline or event task.
      */
     public void printInvalidDateFormatErrorMessage() {
-        printBotResponse("Invalid date format! Please use yyyy-mm-dd format.");
+        printBotResponse(
+                "Invalid date format! Please use yyyy-mm-dd format." +
+                        " Ensure you have provided the correct date.");
     }
 
     /**
