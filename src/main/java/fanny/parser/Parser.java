@@ -1,7 +1,17 @@
 package fanny.parser;
 
 import fanny.FannyException;
-import fanny.command.*;
+import fanny.command.ByeCommand;
+import fanny.command.Command;
+import fanny.command.DeadlineCommand;
+import fanny.command.DeleteCommand;
+import fanny.command.EventCommand;
+import fanny.command.FindCommand;
+import fanny.command.ListCommand;
+import fanny.command.MarkCommand;
+import fanny.command.RemindCommand;
+import fanny.command.ToDoCommand;
+import fanny.command.UnmarkCommand;
 
 /**
  * Parses user input and returns the matching command to execute.

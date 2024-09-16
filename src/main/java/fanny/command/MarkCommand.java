@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
     @Override
     public String executeCmd(TaskList list, Ui ui) {
         int taskId = Integer.parseInt(input);
-        String message= "";
+        String message = "";
 
         ui.showHorizontalLine();
         message = ui.showMarkTaskMsg(taskId, list);

@@ -49,8 +49,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " + this.getDescription() + "(from: " +
-                this.getStartTime() + " to: " + this.getEndTime() + ")";
+        return "[E][" + this.getStatusIcon() + "] " + this.getDescription() + "(from: "
+                + this.getStartTime() + " to: " + this.getEndTime() + ")";
     }
 
     /**

@@ -19,10 +19,12 @@ public class Fanny {
     /** Handles user interface interaction */
     private static Ui ui;
 
+    private static final String FILEPATH = "data/fanny.txt";
+
     /** Handles the storing and loading of tasks */
     private Storage storage;
 
-    private static final String FILEPATH = "data/fanny.txt";
+
 
     public Fanny() {
         this(FILEPATH);
