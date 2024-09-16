@@ -22,7 +22,7 @@ and much more—all while keeping things lighthearted with cheese-themed interac
   - [Reschedule task](#rescheduling-tasks-reschedule)
   - [Delay task](#snoozing-tasks-snooze)
   - [Exit program](#close-bot-bye)
-  - [Storing date](#saving-the-data)
+  - [Storing data](#saving-the-data)
 
 ---
 ## Quick start
