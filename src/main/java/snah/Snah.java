@@ -49,23 +49,18 @@ public class Snah {
      * Entry point for the CLI chat loop Reads user input and processes the commands
      */
     public void chatLoop() {
-
-        boolean isContinueChat = true;
         Scanner scanner = new Scanner(System.in);
 
-        while (isContinueChat) {
-            String input = scanner.nextLine();
+        String input;
+        do {
+            input = scanner.nextLine();
+
             ui.start();
-            String response = getResponse(input);
-            ui.print(response);
+            ui.print(getResponse(input));
             ui.end();
 
-            if (Parser.getCommand(input).isExit()) {
-                isContinueChat = false;
-            }
-
             tasksList.save(storage);
-        }
+        } while (Parser.isExit(input));
         scanner.close();
     }
 }

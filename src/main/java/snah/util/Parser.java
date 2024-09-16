@@ -153,4 +153,8 @@ public class Parser {
         return response;
     }
 
+    public static boolean isExit(String input) {
+        return input.startsWith("bye");
+    }
+
 }
