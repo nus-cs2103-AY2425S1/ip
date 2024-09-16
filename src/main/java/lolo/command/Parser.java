@@ -19,12 +19,12 @@ public class Parser {
 
     /**
      * Parses a string command and returns the corresponding {@code Command} object.
-     * Recognizes commands for adding, deleting, marking, and unmarking tasks,
-     * as well as listing tasks and exiting the application. Handles date and time
-     * formats for deadlines and events.
+     * Recognizes commands for adding, deleting, marking, unmarking tasks,
+     * as well as listing tasks, finding tasks, and tagging tasks.
+     * Handles date and time formats for deadlines and events.
      *
      * @param fullCommand The command string input by the user.
-     * @return A {@code Command} object representing the user command.
+     * @return a {@code Command} object representing the user command.
      * @throws LoloException If the command is invalid or the date/time format is incorrect.
      */
     public static Command parse(String fullCommand) throws LoloException {
