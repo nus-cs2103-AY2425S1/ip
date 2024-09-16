@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import quack.StorageStub;
-import quack.TaskListStub;
-import quack.UiStub;
 import quack.command.AddTagCommand;
 import quack.command.AddTaskCommand;
 import quack.command.Command;
@@ -31,7 +28,7 @@ public class ParserTest {
      */
     @BeforeEach
     public void initializeVariables() {
-        this.parser = new Parser(new TaskListStub(), new StorageStub(), new UiStub());
+       this.parser = new Parser(null, null, null);
     }
 
     /**
