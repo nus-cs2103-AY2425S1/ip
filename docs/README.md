@@ -6,9 +6,12 @@ Joe is a desktop app for managing tasks using a CLI. If you are a fast typer, Jo
 
 ## Install
 
-1. Download the zip file of this repository. [Click here for more info on how to download on GitHub](https://docs.github.com/en/get-started/start-your-journey/downloading-files-from-github#downloading-a-repositorys-files)
-2. Extract the zip file.
-3. Enjoy using Joe by double clicking the jar file!
+> **Prerequisites**: Java 17 with JavaFX installed on your computer.
+
+1. Download the jar file for Joe. [Click here to download](https://github.com/GabrielCWT/ip/releases/download/A-Release/joe.jar)
+2. With a terminal, navigate to the directory where the jar file is located.
+3. Run the jar file by typing `java -jar joe.jar` in the terminal.
+4. Enjoy using Joe!
 
 ## Features
 
