@@ -45,25 +45,30 @@ public class Bottle {
     public void run() {
         ui.printWelcomeMsg();
         while (true) {
-            try {
-                String input = ui.getInput();
-                Command command = parser.parseCommand(input);
-                assert command != null : "command cannot be null";
-                command.execute(taskList, ui, storage);
-            } catch (BottleException e) {
-                System.out.println(e.getMessage());
-            }
+            handleUserInput();
         }
     }
 
     public String getResponse(String input) {
         try {
-            Command command = parser.parseCommand(input);
-            assert command != null : "command cannot be null";
-            return command.execute(taskList, ui, storage);
+            return processCommand(input);
         } catch (BottleException e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+    private String processCommand(String input) throws BottleException {
+        Command command = parser.parseCommand(input);
+        assert command != null : "command cannot be null";
+        return command.execute(taskList, ui, storage);
+    }
+
+    private void handleUserInput() {
+        try {
+            String input = ui.getInput();
+            processCommand(input);
+        } catch (BottleException e) {
+            System.out.println(e.getMessage());
         }
     }
 
