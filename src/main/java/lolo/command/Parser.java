@@ -125,6 +125,14 @@ public class Parser {
         return new UnmarkCommand(taskNumber);
     }
 
+    /**
+     * Returns a {@code DeleteCommand} to delete a task.
+     * The task number is parsed from the command.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return A {@code DeleteCommand} to delete the task.
+     */
+
     private static Command handleDeleteCommand(String fullCommand) {
         int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
         return new DeleteCommand(taskNumber);
