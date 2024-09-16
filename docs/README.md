@@ -16,7 +16,6 @@ Example: `deadline wish rachael happy birthday /by 2024-09-30`
 A short alert would show task has been added to the task list with the deadline.
 
 ```
-expected output:
 Got it. I've added this task:
 [D][ ] wish rachael happy birthday (by: 30 Sep 2024)
 Now you have X tasks in the list.
@@ -33,7 +32,6 @@ Example: `event attend conference /from 2024-09-30 /to 2024-10-01`
 A short alert would show task has been added to the task list with the start and end date.
 
 ```
-expected output:
 Got it. I've added this task:
 [E][ ] attend conference (from: 30 Sep 2024 to: 01 Oct 2024)
 Now you have X tasks in the list.
@@ -50,7 +48,6 @@ Example: `todo watch Stranger Things`
 A short alert would show task has been added to the task list.
 
 ```
-expected output:
 Got it. I've added this task:
 [T][ ] watch Stranger Things
 Now you have X tasks in the list.
@@ -65,7 +62,6 @@ Example: `list`
 A list of tasks would be shown.
 
 ```
-expected output:
 Here are the tasks in your list:
 1. [D][ ] wish rachael happy birthday (by: 30 Sep 2024)
 2. [E][ ] attend conference (from: 30 Sep 2024 to: 01 Oct 2024)
@@ -84,7 +80,6 @@ Example: `delete 3`
 A short alert would show task has been deleted from the task list.
 
 ```
-expected output:
 Noted. I've removed this task:
 [T][ ] watch Stranger Things
 Now you have X tasks in the list.
@@ -102,7 +97,7 @@ Example: `mark 1`, `unmark 1`
 A short alert would show task has been marked as done/undone in the task list.
 
 ```
-expected output: (mark 1)
+(mark 1)
 Nice! I've marked this task as done:
 [D][X] wish rachael happy birthday (by: 30 Sep 2024)
 ```
@@ -129,7 +124,6 @@ Example: `find conference`
 A list of tasks that contain the keyword would be shown.
 
 ```
-expected output:
 Here are the matching tasks in your list:
 1. [E][ ] attend conference (from: 30 Sep 2024 to: 01 Oct 2024)
 ```
