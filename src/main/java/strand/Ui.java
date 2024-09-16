@@ -90,7 +90,7 @@ public class Ui {
     public String taskRemoved(Task task, int size) {
         return print(String.format("""
                 (☞ﾟ∀ﾟ)☞ Task removed:
-                %s
+                  %s
                 Now you have %d tasks in the list.""", task, size));
     }
 
@@ -104,9 +104,9 @@ public class Ui {
     public String taskMarked(Task task, boolean marked) {
         if (marked) {
             return print(String.format("( ﾟヮﾟ) You finished a task?! "
-                    + "Congrats! I've marked this task as done:\n%s", task));
+                    + "Congrats! I've marked this task as done:\n  %s", task));
         } else {
-            return print(String.format("ಠ_ಠ ...OK, I've marked this task as not done yet:\n"
+            return print(String.format("ಠ_ಠ ...OK, I've marked this task as not done yet:\n  "
                     + "%s", task));
         }
     }
@@ -120,7 +120,7 @@ public class Ui {
      */
     public String priorityAssigned(Task task, Task.PriorityEnum priority) {
         return print(String.format(":> I've marked this task with priority %s"
-                + ":\n%s", priority, task));
+                + ":\n  %s", priority, task));
     }
 
     /**

@@ -20,7 +20,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
-      [E][ ] project meeting from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
+      [E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
     Now you have 3 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -29,21 +29,21 @@
 
     1.[T][ ] read book
     2.[D][ ] return book (by: Dec 02 2019, 18:00)
-    3.[E][ ] project meeting from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
+    3.[E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ( ﾟヮﾟ) You finished a task?! Congrats! I've marked this task as done:
-    [D][X] return book (by: Dec 02 2019, 18:00)
+      [D][X] return book (by: Dec 02 2019, 18:00)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ಠ_ಠ ...OK, I've marked this task as not done yet:
-    [D][ ] return book (by: Dec 02 2019, 18:00)
+      [D][ ] return book (by: Dec 02 2019, 18:00)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
@@ -84,7 +84,7 @@
 
     1.[T][ ] read book
     2.[D][ ] return book (by: Dec 02 2019, 18:00)
-    3.[E][ ] project meeting from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
+    3.[E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
     4.[D][ ] do homework (by: Sept 09 9090, 00:00)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -92,7 +92,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (☞ﾟ∀ﾟ)☞ Task removed:
-    [E][ ] project meeting from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
+      [E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
     Now you have 3 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -114,7 +114,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (☞ﾟ∀ﾟ)☞ Task removed:
-    [T][ ] read book
+      [T][ ] read book
     Now you have 3 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -122,7 +122,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (☞ﾟ∀ﾟ)☞ Task removed:
-    [D][ ] return book (by: Dec 02 2019, 18:00)
+      [D][ ] return book (by: Dec 02 2019, 18:00)
     Now you have 2 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -130,7 +130,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (☞ﾟ∀ﾟ)☞ Task removed:
-    [D][ ] do homework (by: Sept 09 9090, 00:00)
+      [D][ ] do homework (by: Sept 09 9090, 00:00)
     Now you have 1 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -138,7 +138,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (☞ﾟ∀ﾟ)☞ Task removed:
-    [D][ ] finish homework (by: tomorrow)
+      [D][ ] finish homework (by: tomorrow)
     Now you have 0 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
