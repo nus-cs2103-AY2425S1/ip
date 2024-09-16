@@ -22,7 +22,7 @@ These tasks have a description and a deadline. The deadline **must** be a date _
 
 `d/m/yy h[:m]am/pm`
 
-See the (datetime formatting)[##Datetimes] section below for more details.
+See the datetime formatting section below for more details.
 
 Command: `deadline <description> /by <datetime>`
 
