@@ -1,6 +1,6 @@
 # Eli User Guide
 
-<img src="path/to/your-image.png" alt="Eli chatbot screenshot" width="300"/>
+<img src="docs.Ui.png" alt="Eli chatbot screenshot" width="300"/>
 
 Welcome to **Eli**, your lovely personal assistant designed to help you manage tasks with ease! Eli is a user-friendly chatbot that keeps track of your to-dos, deadlines, and events while communicating in a friendly and charming way.
 
