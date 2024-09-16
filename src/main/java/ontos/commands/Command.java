@@ -297,4 +297,27 @@ public abstract class Command {
             return ui.findOutput(filteredList);
         }
     }
+
+    /**
+     * Represents a command used to display help information.
+     */
+    public static class HelpCommand extends Command {
+        /**
+         * Constructs a HelpCommand.
+         */
+        public HelpCommand() {
+            super();
+        }
+
+        /**
+         * Displays the help information to the user.
+         *
+         * @param tasks       The TaskList containing the tasks, is not used here.
+         * @param ui          The Ui used for displaying the help information.
+         * @param saveManager The SaveManager used to save tasks, is not used here.
+         */
+        public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+            return ui.help();
+        }
+    }
 }

@@ -73,7 +73,7 @@ public class SaveManager {
             return new TaskList();
         }
     }
-    
+
     /**
      * Adds a task to the TaskList from the input string.
      *

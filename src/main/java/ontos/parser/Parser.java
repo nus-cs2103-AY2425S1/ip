@@ -39,6 +39,8 @@ public class Parser {
             return parseEvent(input);
         } else if (input.startsWith("find")) {
             return parseFind(input);
+        } else if (input.equalsIgnoreCase("help")) {
+            return new Command.HelpCommand();
         } else {
             throw new IllegalArgumentException();
         }
@@ -166,6 +168,10 @@ public class Parser {
 
             if (description == "") {
                 throw new OntosException(" OOPS!!! The description of an event cannot be empty.");
+            }
+
+            if (start.isAfter(end)) {
+                throw new OntosException(" OOPS!!! The start date of an event cannot be after the end date.");
             }
 
             Task event = Task.event(description, start, end);
