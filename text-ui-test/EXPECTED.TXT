@@ -1,4 +1,3 @@
-Tasks successfully loaded from file.
 Hello I'm Bobby
 What can I do for you today?
 Tasks successfully saved to file.

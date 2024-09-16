@@ -128,7 +128,6 @@ public class Storage {
                 tasks.add(task);
             }
             scanner.close();
-            System.out.println("Tasks successfully loaded from file.");
         } catch (IOException e) {
             System.out.println("Error reading from file: " + e.getMessage());
         } catch (InvalidTaskException e) {
