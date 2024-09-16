@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import bobby.exceptions.InvalidInputException;
 import bobby.exceptions.InvalidTaskException;
 import bobby.exceptions.InvalidTaskNumberException;
 import bobby.tasks.Deadline;
@@ -128,47 +127,47 @@ public class TestTaskList {
         assertEquals("Finish homework", result.get(0).getDescription());
     }
 
-
     /**
-     * Tests that multiple tasks can be marked as done.
-     * Verifies that the tasks are marked correctly using their indices.
+     * Tests marking multiple tasks as done.
+     * Verifies that the tasks are correctly marked as done.
      *
-     * @throws InvalidInputException if the input index is invalid
-     * @throws InvalidTaskNumberException if the task index is invalid
-     * @throws InvalidTaskException if there is an issue with adding the task
+     * @throws InvalidTaskException if the task cannot be added
      */
     @Test
-    public void testMarkMultipleTasks() throws InvalidInputException, InvalidTaskNumberException, InvalidTaskException {
-        Task task1 = new Todo("Task 1");
-        Task task2 = new Todo("Task 2");
+    public void testMarkMultipleTasks() throws InvalidTaskException {
+        Task task1 = new Todo("Read book");
+        Task task2 = new Deadline("Submit report", LocalDate.of(2024, 9, 15));
         taskList.add(task1);
         taskList.add(task2);
 
-        ArrayList<Task> markedTasks = taskList.markMultipleTasks(true, "1", "2");
-        assertEquals(markedTasks.get(0).getStatusIcon(), "X");
-        assertEquals(markedTasks.get(1).getStatusIcon(), "X");
+        ArrayList<Task> tasksToMark = new ArrayList<>();
+        tasksToMark.add(task1);
+        tasksToMark.add(task2);
+
+        taskList.markMultipleTasks(true, tasksToMark);
+        assertEquals(task1.getStatusIcon(), "X");
+        assertEquals(task2.getStatusIcon(), "X");
     }
 
     /**
-     * Tests that multiple tasks can be deleted from the task list.
-     * Verifies that the tasks are deleted correctly and that the task list is empty afterward.
+     * Tests deleting multiple tasks from the task list.
+     * Verifies that the specified tasks are removed from the list.
      *
-     * @throws InvalidTaskException if there is an issue with adding the task
-     * @throws InvalidTaskNumberException if the task index is invalid during deletion
-     * @throws InvalidInputException if the input index is invalid
+     * @throws InvalidTaskException if the task cannot be added
      */
     @Test
-    public void testDeleteMultipleTasks() throws
-            InvalidTaskException, InvalidTaskNumberException, InvalidInputException {
-        Task task1 = new Todo("Task 1");
-        Task task2 = new Todo("Task 2");
+    public void testDeleteMultipleTasks() throws InvalidTaskException {
+        Task task1 = new Todo("Read book");
+        Task task2 = new Deadline("Submit report", LocalDate.of(2024, 9, 15));
         taskList.add(task1);
         taskList.add(task2);
 
-        ArrayList<Task> deletedTasks = taskList.deleteMultipleTasks("1", "2");
+        ArrayList<Task> tasksToDelete = new ArrayList<>();
+        tasksToDelete.add(task1);
+        tasksToDelete.add(task2);
+
+        taskList.deleteMultipleTasks(tasksToDelete);
         assertTrue(taskList.isEmpty());
-        assertEquals(2, deletedTasks.size());
     }
-
 
 }

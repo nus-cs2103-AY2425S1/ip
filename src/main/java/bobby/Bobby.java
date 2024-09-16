@@ -1,14 +1,10 @@
 package bobby;
 
-import java.util.ArrayList;
-
 import bobby.command.Command;
 import bobby.exceptions.BobbyException;
-import bobby.exceptions.InvalidInputException;
 import bobby.parser.Parser;
 import bobby.storage.Storage;
 import bobby.tasklist.TaskList;
-import bobby.tasks.Task;
 import bobby.ui.Ui;
 
 /**
@@ -71,42 +67,9 @@ public class Bobby {
      * @return The response to be displayed to the user.
      */
     public String processCommand(String userInput) {
-        Command command = parser.parseCommand(userInput);
         try {
-            switch (command) {
-            case BYE:
-                return ui.getExitMessage();
-            case LIST:
-                return ui.getTasksList(tasks);
-            case MARK:
-                String[] markArgs = parser.parseTaskIndices(userInput);
-                ArrayList<Task> tasksToMark = tasks.markMultipleTasks(true, markArgs);
-                storage.saveTasks(tasks);
-                return ui.getTaskMarkedMessage(tasksToMark);
-            case UNMARK:
-                String[] unmarkArgs = parser.parseTaskIndices(userInput);
-                ArrayList<Task> tasksToUnmark = tasks.markMultipleTasks(false, unmarkArgs);
-                storage.saveTasks(tasks);
-                return ui.getTaskUnmarkedMessage(tasksToUnmark);
-            case DELETE:
-                String[] deleteArgs = parser.parseTaskIndices(userInput);
-                ArrayList<Task> tasksToDelete = tasks.deleteMultipleTasks(deleteArgs);
-                storage.saveTasks(tasks);
-                return ui.getTaskDeletedMessage(tasksToDelete, tasks.size());
-            case SEARCHDATE:
-            case FIND:
-                ArrayList<Task> foundTasks = parser.parseFindCommand(userInput, tasks);
-                return ui.getFoundTasksMessage(foundTasks);
-            case TODO:
-            case EVENT:
-            case DEADLINE:
-                Task newTask = parser.parseTask(userInput);
-                tasks.add(newTask);
-                storage.saveTasks(tasks);
-                return ui.getTaskAddedMessage(newTask, tasks.size());
-            default:
-                throw new InvalidInputException();
-            }
+            Command userCommand = parser.parseUserCommand(userInput);
+            return userCommand.execute(this.tasks, this.ui, this.storage);
         } catch (BobbyException e) {
             return ui.getErrorMessage(e.getMessage());
         }
