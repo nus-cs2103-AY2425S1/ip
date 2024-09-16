@@ -37,7 +37,9 @@ public class Snah {
     public String getResponse(String input) {
         try {
             Command currentCommand = Parser.getCommand(input);
-            return currentCommand.execute(tasksList, storage);
+            String response = currentCommand.execute(tasksList, storage);
+            tasksList.save(storage);
+            return response;
         } catch (ParsingException e) {
             return e.getMessage();
         }
@@ -48,5 +50,22 @@ public class Snah {
      */
     public void chatLoop() {
 
+        boolean isContinueChat = true;
+        Scanner scanner = new Scanner(System.in);
+
+        while (isContinueChat) {
+            String input = scanner.nextLine();
+            ui.start();
+            String response = getResponse(input);
+            ui.print(response);
+            ui.end();
+
+            if (Parser.getCommand(input).isExit()) {
+                isContinueChat = false;
+            }
+
+            tasksList.save(storage);
+        }
+        scanner.close();
     }
 }
