@@ -28,15 +28,24 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-
-        try {
-            //File f = new File("../../../data/list.txt"); 
+        try { 
             File f = new File(filePath); 
+            File parentDir = f.getParentFile(); 
+
+            if (parentDir != null && !parentDir.exists()) {
+                if (parentDir.mkdirs()) {
+                    System.out.println("Creating directories for your data file.");
+                } else {
+                    System.out.println("Failed to create directories.");
+                }
+            }
+
             if (f.createNewFile()) {
                 System.out.println("Creating your data file");
             } else {
                 System.out.println("Initializing your data file");
             }
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
