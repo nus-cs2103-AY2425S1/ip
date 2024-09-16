@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("src/main/java/fx/Launcher.java")
+    mainClass.set("fx.Launcher")
 }
 
 shadowJar {
@@ -50,6 +50,6 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }
