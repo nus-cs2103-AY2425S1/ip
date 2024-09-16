@@ -2,16 +2,7 @@ package ned;
 
 import java.util.regex.Pattern;
 
-import ned.commands.AddDeadlineCommand;
-import ned.commands.AddEventCommand;
-import ned.commands.AddToDoCommand;
-import ned.commands.ByeCommand;
-import ned.commands.Command;
-import ned.commands.DeleteCommand;
-import ned.commands.FindCommand;
-import ned.commands.ListCommand;
-import ned.commands.MarkCommand;
-import ned.commands.UnmarkCommand;
+import ned.commands.*;
 
 /**
  * Represents the different types of commands.
@@ -25,8 +16,8 @@ public enum CommandTypes {
     DEADLINE(new AddDeadlineCommand()),
     EVENT(new AddEventCommand()),
     BYE(new ByeCommand()),
-
     FIND(new FindCommand()),
+    HELP(new HelpCommand()),
     UNKNOWN(null);
     private final Command command;
     // Enum constructor

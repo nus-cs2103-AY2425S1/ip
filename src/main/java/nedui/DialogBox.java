@@ -59,6 +59,7 @@ public class DialogBox extends HBox {
         }
         dialog.setText(s);
         displayPicture.setImage(i);
+        DisplayImage.applyCircularFilter(this.displayPicture, 80);
     }
 
     /**
@@ -72,6 +73,18 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Changes the colour of the chatbot's dialog box if the message is meant to be an error to red.
+     *
+     * @param isErrorMessage Whether the message shown by the chatbot was an error message.
+     */
+    private void changeDialogStyle(boolean isErrorMessage) {
+        if (isErrorMessage) {
+            this.dialog.setStyle(""); // Clears the inline style
+            this.dialog.getStyleClass().add("error-label");
+        }
+    }
+
+    /**
      * Creates a {@code DialogBox} representing the user's input, with appropriate styling.
      *
      * @param userInput The user's input text.
@@ -81,6 +94,8 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String userInput, Image userImage) {
         DialogBox userDialogBox = new DialogBox(userInput, userImage);
         userDialogBox.setPadding(new Insets(40, 10, 10, 10));
+        userDialogBox.setSpacing(15); // Ensure spacing between image and text
+        userDialogBox.dialog.setStyle("-fx-background-color: white; -fx-border-radius: 10;");
         return userDialogBox;
     }
 
@@ -93,10 +108,13 @@ public class DialogBox extends HBox {
      * @param nedImage The application's avatar image.
      * @return A {@code DialogBox} configured for the application's response.
      */
-    public static DialogBox getNedDialog(String nedInput, Image nedImage) {
+    public static DialogBox getNedDialog(String nedInput, Image nedImage, boolean isErrorMessage) {
         var nedDialogBox = new DialogBox(nedInput, nedImage);
-        nedDialogBox.flip();
         nedDialogBox.setPadding(new Insets(40, 10, 10, 10));
+        nedDialogBox.setSpacing(15); // Ensure spacing between image and text
+        nedDialogBox.dialog.setStyle("-fx-background-color: lightgrey; -fx-padding: 10; -fx-border-radius: 10;");
+        nedDialogBox.flip();
+        nedDialogBox.changeDialogStyle(isErrorMessage);
         return nedDialogBox;
     }
 }

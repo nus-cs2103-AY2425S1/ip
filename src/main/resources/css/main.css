@@ -1,0 +1,88 @@
+/* Define main colors for the winter theme */
+.root {
+    main-color: rgb(245, 245, 245);  /* Light gray representing snow */
+    accent-color: rgb(200, 200, 200); /* Darker gray for accents */
+    -fx-background-color: main-color;
+    -fx-background-image: url("/images/house_stark.jpg");
+    -fx-background-size: stretch;
+}
+
+/* Style for text fields */
+.text-field {
+    -fx-background-color: accent-color;
+    -fx-text-fill: black; /* Dark text for readability */
+    -fx-font: 20px "Arial";
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+/* Style for buttons */
+.button {
+    -fx-background-color: accent-color;
+    -fx-text-fill: black;
+    -fx-font: bold 16px "Arial";
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: rgb(220, 220, 220); /* Slightly lighter gray */
+    -fx-font-size: 18px;
+}
+
+/* Pressed effect for buttons */
+.button:pressed {
+    -fx-background-color: rgb(180, 180, 180); /* Darker gray */
+    -fx-font-size: 20px;
+}
+
+/* Style for labels */
+.label {
+    -fx-background-color: accent-color;
+    -fx-text-fill: black;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+}
+
+/* Scroll pane and viewport background */
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Style for scroll bars */
+.scroll-bar {
+    -fx-font-size: 10px; /* Width of scroll bar */
+    -fx-background-color: transparent;
+}
+
+/* Style for the thumb of scroll bars */
+.scroll-bar .thumb {
+    -fx-background-color: accent-color;
+    -fx-background-radius: 5px;
+}
+
+/* Hide increment and decrement buttons */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+/* Style for images (e.g., display pictures) */
+#displayPicture {
+    /* Shadow effect on image */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 5, 5);
+    /* Adjust image size */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    /* No rotation */
+    -fx-rotate: 0;
+}

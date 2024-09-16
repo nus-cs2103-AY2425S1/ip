@@ -44,6 +44,4 @@ public class DeadlineTest {
             assertEquals("M'lord, this saved deadline task has no due date!", e.getMessage());
         }
     }
-
-
 }
