@@ -65,9 +65,6 @@ public class TaskList {
     }
 
     /**
-     * Returns an array containing all the tasks.
-
-    /**
      * Marks the task with the specified task number as done.
      *
      * @param taskNumber The task number to mark as done.
