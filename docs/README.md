@@ -92,7 +92,7 @@ Sample List:
 - [ ] borrow books
 - [ ] return books
 
-Example: `delete 1`
+Example: `delete 2`
 
 ```
 I have removed this task: 
