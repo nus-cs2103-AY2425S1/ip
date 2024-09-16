@@ -63,7 +63,7 @@ public class Schedulo {
      * @return The response to the user input.
      */
     public String getResponse(String input) {
-        return this.run(input);
+        return "Schedulo at your service! Let's get things organized.\n" + this.run(input);
     }
 
     /**
