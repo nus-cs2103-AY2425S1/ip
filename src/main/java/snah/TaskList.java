@@ -41,8 +41,8 @@ public class TaskList {
     }
 
     /**
-     * Search for the keyword in the tasks list
-     * @param keyword
+     * Search for relevant keywords found in the tasks
+     * @param keyword Keyword to search for
      * @return List of tasks that contain the keyword
      */
     public ArrayList<Task> search(String keyword) {
@@ -53,6 +53,18 @@ public class TaskList {
             }
         }
         return searchResults;
+    }
+
+    /**
+     * Return stringify of the all the tasks in the list
+     * @return Tasks stringified
+     */
+    public String list() {
+        String response = "";
+        for (int i = 0; i < tasksList.size(); i++) {
+            response += String.format("%d. %s\n", i + 1, tasksList.get(i));
+        }
+        return response;
     }
 
     public void save(Storage storage) {

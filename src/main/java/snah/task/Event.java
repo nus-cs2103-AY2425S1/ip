@@ -44,4 +44,12 @@ public class Event extends Task {
     public String toSaveFile() {
         return String.format("E:%s:%s:%s:%s", isDone() ? "x" : "", getDescription(), from, to);
     }
+
+    /**
+     * Returns the format to create a new Event task
+     * @return Format description for the Event task
+     */
+    public static String getFormatDescription() {
+        return "event <description> /from <start time> /to <end time>";
+    }
 }

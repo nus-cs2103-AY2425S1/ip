@@ -10,7 +10,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (Task) %s", printStatus(), getDescription());
+        return String.format("%s (Todo) %s", printStatus(), getDescription());
     }
 
     /**
@@ -22,4 +22,11 @@ public class ToDo extends Task {
         return String.format("T:%s:%s", isDone() ? "x" : "", getDescription());
     }
 
+    /**
+     * Returns the format to create a new Todo task
+     * @return Format description for the Todo task
+     */
+    public static String getFormatDescription() {
+        return "todo <description>";
+    }
 }

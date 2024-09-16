@@ -1,47 +1,58 @@
 package snah.util;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import snah.commands.Clear;
+import snah.commands.Command;
+import snah.commands.CreateDeadline;
+import snah.commands.CreateEvent;
+import snah.commands.CreateTodo;
+import snah.commands.Delete;
+import snah.commands.Find;
+import snah.commands.Invalid;
+import snah.commands.List;
+import snah.commands.Mark;
+import snah.commands.UnMark;
+import snah.errors.ParsingException;
+import snah.task.Deadline;
+import snah.task.Event;
+import snah.task.ToDo;
+
 /**
  * Class to handle the parsing of the chatbot
  */
 public class Parser {
 
-    /**
-     * Enum to represent the commands that the chatbot can handle
-     */
-    public enum Command {
-        BYE, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE, CLEAR, INVALID, FIND
+    private static final Map<String, Function<String, Command>> commandMap = new HashMap<>();
+
+    static {
+        commandMap.put("LIST", List::new);
+        commandMap.put("CLEAR", Clear::new);
+        commandMap.put("MARK", Mark::new);
+        commandMap.put("UNMARK", UnMark::new);
+        commandMap.put("TODO", CreateTodo::new);
+        commandMap.put("DEADLINE", CreateDeadline::new);
+        commandMap.put("EVENT", CreateEvent::new);
+        commandMap.put("DELETE", Delete::new);
+        commandMap.put("FIND", Find::new);
     }
 
     /**
      * Returns the command from the user input
      * @param input User input
-     * @return Command from the user input
+     * @return an executable command from the user input
      */
     public static Command getCommand(String input) {
         String commandSymbol = input.split(" ", 2)[0].toUpperCase();
-        switch (commandSymbol) {
-        case "LIST":
-            return Command.LIST;
-        case "CLEAR":
-            return Command.CLEAR;
-        case "MARK":
-            return Command.MARK;
-        case "UNMARK":
-            return Command.UNMARK;
-        case "DEADLINE":
-            return Command.DEADLINE;
-        case "EVENT":
-            return Command.EVENT;
-        case "TODO":
-            return Command.TODO;
-        case "DELETE":
-            return Command.DELETE;
-        case "BYE":
-            return Command.BYE;
-        case "FIND":
-            return Command.FIND;
-        default:
-            return Command.INVALID;
+
+        Function<String, Command> commandConstructor = commandMap.get(commandSymbol);
+
+        if (commandConstructor != null) {
+            return commandConstructor.apply(input);
+        } else {
+            return new Invalid();
         }
     }
 
@@ -59,14 +70,14 @@ public class Parser {
      * @param input User input
      * @return Payload from the user input
      */
-    public static String[] getTodoPayload(String input) {
+    public static String[] getTodoPayload(String input) throws ParsingException {
         String[] todoPayload = input.split(" ", 2);
         if (todoPayload.length == 1) {
-            return null;
+            throw new ParsingException("The todo command should be in the format: " + ToDo.getFormatDescription());
         }
         String todoDescription = input.split(" ", 2)[1];
         if (todoDescription.length() == 0) {
-            return null;
+            throw new ParsingException("The description of a todo cannot be empty.");
         }
         return new String[] { todoDescription };
     }
@@ -76,14 +87,15 @@ public class Parser {
      * @param input User input
      * @return Deadline payload from the user input
      */
-    public static String[] getDeadlinePayload(String input) {
+    public static String[] getDeadlinePayload(String input) throws ParsingException {
         String[] deadlinePayload = input.split(" ", 2);
         if (deadlinePayload.length == 1) {
-            return null;
+            throw new ParsingException("The description of a deadline cannot be empty.");
         }
         String[] splitInput = deadlinePayload[1].split(" /by ");
         if (splitInput.length != 2) {
-            return null;
+            throw new ParsingException(
+                    "The deadline command should be in the format: " + Deadline.getFormatDescription());
         }
         return new String[] { splitInput[0], splitInput[1] };
     }
@@ -93,18 +105,18 @@ public class Parser {
      * @param input User input
      * @return Event payload from the user input
      */
-    public static String[] getEventPayload(String input) {
+    public static String[] getEventPayload(String input) throws ParsingException {
         String[] eventPayload = input.split(" ", 2);
         if (eventPayload.length == 1) {
-            return null;
+            throw new ParsingException("The description of an event cannot be empty.");
         }
         String[] splitInput = eventPayload[1].split(" /from ");
         if (splitInput.length != 2) {
-            return null;
+            throw new ParsingException("The event command should be in the format: " + Event.getFormatDescription());
         }
         String[] finalSplit = splitInput[1].split(" /to ");
         if (finalSplit.length != 2) {
-            return null;
+            throw new ParsingException("The event command should be in the format: " + Event.getFormatDescription());
         }
         return new String[] { splitInput[0], finalSplit[0], finalSplit[1] };
     }
@@ -114,20 +126,37 @@ public class Parser {
      * @param input User input
      * @return Task index from the user input
      */
-    public static int getTaskIndex(String input) {
-        return Integer.parseInt(input.split(" ", 2)[1].strip()) - 1;
+    public static int getTaskIndex(String input) throws ParsingException {
+        String[] taskIndexPayload = input.split(" ", 2);
+        if (taskIndexPayload.length == 1) {
+            throw new ParsingException("The task index cannot be empty.");
+        }
+        try {
+            return Integer.parseInt(input.split(" ", 2)[1].strip()) - 1;
+        } catch (NumberFormatException e) {
+            throw new ParsingException("The task index should be a number.");
+        }
     }
 
-    public static String getSearchQuery(String input) {
+    public static String getSearchQuery(String input) throws ParsingException {
         String[] searchPayload = input.split(" ", 2);
         if (searchPayload.length == 1) {
-            return null;
+            throw new ParsingException("The search query cannot be empty.");
         }
         return input.split(" ", 2)[1];
     }
 
-    public static String[] getCommandStrings() {
-        return Command.values().toString().replaceAll("^.|.$", "").split(", ");
+    public static String getCommandStrings() {
+        String[] commandList = commandMap.keySet().toArray(new String[0]);
+        String response = "";
+        for (String command : commandList) {
+            response += command + "\n";
+        }
+        return response;
+    }
+
+    public static boolean isExit(String input) {
+        return input.startsWith("bye");
     }
 
 }
