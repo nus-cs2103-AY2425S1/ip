@@ -23,9 +23,8 @@ To download the latest version of David,
 
 ## Command summary
 > [!NOTE]
->
+> 
 > The easiest way to see all available commands is simply calling the `help` command
-
 
 <table>
   <tr>
@@ -133,7 +132,6 @@ To download the latest version of David,
   </tr>
 </table>
 
-
 ## Features
 > [!NOTE]  
 > - Words in `UPPER_CASE` are required parameters supplied by the user.
@@ -221,5 +219,3 @@ Parameters accepted:
 - `desc` - descending order
 
 Example: `sort asc`
-
-

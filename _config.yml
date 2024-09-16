@@ -1,9 +1,0 @@
-# Site settings
-title: David
-description: Chatbot for storing tasks
-url: "https://incogdino.github.io/ip/" # Your GitHub Pages URL
-github_username: incogdino
-
-# Build settings
-markdown: GFM
-theme: jekyll-theme-minimal
