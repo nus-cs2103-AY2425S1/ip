@@ -3,6 +3,9 @@ package gui;
 import java.util.Objects;
 
 import errorhandling.ReginaException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -11,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import regina.Regina;
 import tasks.TaskList;
 
@@ -95,9 +99,7 @@ public class MainWindow extends AnchorPane {
         CheckBox taskCheckBox = new CheckBox(taskDescription);
         taskCheckBox.setSelected(isDone);
 
-        taskCheckBox.setOnAction(e -> {
-            markTaskAndSendResponse(taskCheckBox, i);
-        });
+        taskCheckBox.setOnAction(e -> markTaskAndSendResponse(taskCheckBox, i));
         return taskCheckBox;
     }
 
@@ -125,5 +127,24 @@ public class MainWindow extends AnchorPane {
         loadCheckboxes();
         // Clear the input field after handler
         userInput.clear();
+        if (input.equals("bye")) {
+            // Create a countdown before closing
+            final int[] countdown = {3}; // Countdown starts at 3
+            Timeline timeline = new Timeline(new KeyFrame(
+                    Duration.seconds(1),
+                    event -> {
+                        if (countdown[0] > 0) {
+                            dialogContainer.getChildren().add(DialogBox.getReginaDialog(
+                                    "Closing in " + countdown[0], reginaImage
+                            ));
+                            countdown[0]--;
+                        } else {
+                            Platform.exit();
+                        }
+                    }
+            ));
+            timeline.setCycleCount(4); // Run 4 times: 3, 2, 1, and then close
+            timeline.play();
+        }
     }
 }

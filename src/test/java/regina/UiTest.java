@@ -78,12 +78,10 @@ public class UiTest {
 
     @Test
     public void testExitMessage() {
-        ui.exit();
+        String actualOutput = ui.exit();
         String expectedOutput = """
-                    ********************************************************************
-                    Bye. Hope to see you again soon!
-                    ********************************************************************
+                Bye. Hope to see you again soon!
                 """;
-        assertEquals(expectedOutput.trim(), outContent.toString().trim());
+        assertEquals(expectedOutput.trim(), actualOutput);
     }
 }

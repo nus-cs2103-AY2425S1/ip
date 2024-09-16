@@ -354,6 +354,8 @@ public class Regina {
                     }
                 case "mark":
                 case "unmark":
+                case "bye":
+                    return ui.exit();
                 case "delete":
                     String[] parts2 = data.getRawInput().split(" "); // Split raw input to get parts
                     if (haveNumber(parts2)) {
