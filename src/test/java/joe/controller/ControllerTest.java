@@ -2,9 +2,10 @@ package joe.controller;
 
 import org.junit.jupiter.api.Test;
 
+import joe.UiStub;
 import joe.task.TaskDeadline;
 import joe.task.TaskEvent;
-import joe.ui.Ui;
+// import joe.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 
 public class ControllerTest {
-    private final Controller controller = new Controller(new Ui("Test"));
+    private final Controller controller = new Controller(new UiStub("Test"));
 
     @BeforeEach
     public void setUp() {
