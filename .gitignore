@@ -19,3 +19,4 @@ data/
 *.fish
 *.txt
 .vscode/
+**.swp
