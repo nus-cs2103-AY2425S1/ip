@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  */
 public abstract class TimeTask extends Task {
     /**
-     * Constructor for the TimeTask abstract class
+     * Constructs the TimeTask object
      *
      * @param name Name of the task
      * @param isDone Boolean value representing whether the task has been marked as done

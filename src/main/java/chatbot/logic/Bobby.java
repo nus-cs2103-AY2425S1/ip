@@ -17,7 +17,7 @@ public class Bobby {
     private Storage storage;
 
     /**
-     * Constructor for the Bobby class
+     * Constructs the Bobby object
      * Initialises the ui, storage and taskList variables
      */
     public Bobby() {

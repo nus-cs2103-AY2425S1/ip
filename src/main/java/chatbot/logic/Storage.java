@@ -20,7 +20,7 @@ public class Storage {
     private String fileName;
 
     /**
-     * Constructor for the Storage object, takes in 2 arguments
+     * Constructs the Storage object, takes in 2 arguments
      *
      * @param dirPath String representing the desired directory path for the file to be in
      * @param fileName String representing the file name of the file

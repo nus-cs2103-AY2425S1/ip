@@ -14,7 +14,7 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructor for the Task abstract class
+     * Constructs the Task object
      *
      * @param name Name of the task
      * @param isDone Boolean value representing whether the task has been marked as done
@@ -28,7 +28,7 @@ public abstract class Task {
     }
 
     /**
-     * Class method that formats a LocalDateTime object in the
+     * Formats a LocalDateTime object in the
      * desired format of LLL dd yyyy HH:mm
      *
      * @param date the LocalDateTime object to be formatted
@@ -49,7 +49,7 @@ public abstract class Task {
     }
 
     /**
-     * Overridden toString method, displaying the status and name of the task
+     * Displays the status and name of the task
      *
      * @return String representation of the abstract task
      */

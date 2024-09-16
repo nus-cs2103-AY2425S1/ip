@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import chatbot.exception.InvalidIndexException;
-import chatbot.task.Deadline;
-import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.TimeTask;
 
@@ -17,13 +15,14 @@ public class TaskList {
     /** ArrayList of tasks encapsulated by TaskList */
     private ArrayList<Task> tasks;
 
+    /** Represents the two possible orders to sort */
     public enum SortOrder {
         ASC,
         DESC
     }
 
     /**
-     * Constructor for the TaskList object
+     * Constructs the TaskList object
      *
      * @param tasks ArrayList of tasks
      */
@@ -163,6 +162,12 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Sorts the tasklist based on the order specified
+     *
+     * @param order The order that the tasklist should be sorted in
+     * @return The confirmation of the sorting
+     */
     public String sort(SortOrder order) {
         if (order == SortOrder.ASC) {
             this.tasks.sort((t1, t2) -> {

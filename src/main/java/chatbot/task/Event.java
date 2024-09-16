@@ -13,7 +13,7 @@ public class Event extends TimeTask {
     private LocalDateTime to;
 
     /**
-     * Overloaded constructor for the Event class, taking in 4 arguments
+     * Constructs the Event object, taking in 4 arguments
      *
      * @param name Name of Event
      * @param from Date and time that the event starts
@@ -31,7 +31,7 @@ public class Event extends TimeTask {
     }
 
     /**
-     * Overloaded constructor for the Event class, taking in 3 arguments
+     * Constructs the Event object, taking in 3 arguments
      *
      * @param name Name of Event
      * @param from Date and time that the event starts
@@ -52,7 +52,7 @@ public class Event extends TimeTask {
     }
 
     /**
-     * Overridden toString method, displaying the type of the task along with other details
+     * Displays the type of the task along with other details
      *
      * @return String representation of the Event task
      */

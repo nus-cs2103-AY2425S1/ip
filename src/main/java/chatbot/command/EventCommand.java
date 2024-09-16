@@ -1,27 +1,49 @@
 package chatbot.command;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import chatbot.exception.EmptyArgsException;
 import chatbot.exception.InputException;
 import chatbot.logic.TaskList;
 import chatbot.task.Event;
 import chatbot.task.Task;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
+/**
+ * Represents the "event" command that creates a new Event task
+ */
 public class EventCommand extends Command {
+    /** TaskList object that represents the Task List of the current chatbot instance */
     private TaskList taskList;
+    /** Name of the task */
     private String name;
+    /** Starting datetime of the task in string representation */
     private String from;
+    /** Ending datetime of the task in string representation */
     private String to;
 
+    /**
+     * Constructs the DeadlineCommand object
+     *
+     * @param taskList The TaskList instance of the chatbot
+     * @param name The name of the task
+     * @param from The starting datetime of the task
+     * @param to The ending datetime of the task
+     */
     public EventCommand(TaskList taskList, String name, String from, String to) {
         this.taskList = taskList;
         this.name = name;
         this.from = from;
         this.to = to;
     }
+
+    /**
+     * Executes the Event command, adds a Event task to the tasklist
+     *
+     * @return The String result of the command after it is run
+     * @throws InputException A potential Input Exception
+     */
     @Override
     public String run() throws InputException {
         if (name.trim().isEmpty() || from.trim().isEmpty() || to.trim().isEmpty()) {

@@ -25,7 +25,7 @@ public class DialogBox extends HBox {
     private ImageView displayImage;
 
     /**
-     * Constructor for a DialogBox object
+     * Constructs a DialogBox object
      *
      * @param text String representing the message content
      * @param img Image representing the display image of the sender
@@ -55,7 +55,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Factory method that creates a new DialogBox object if the user were the sender
+     * Creates a new DialogBox object if the user were the sender
      *
      * @param s String representing the message content
      * @param i Image representing the display image of the sender
@@ -66,7 +66,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Factory method that creates a new DialogBox object if the bot were the sender
+     * Creates a new DialogBox object if the bot were the sender
      *
      * @param s String representing the message content
      * @param i Image representing the display image of the sender

@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Setter method to set the Bobby instance
+     * Sets the Bobby instance
      * @param bobby The chatbot instance to be set
      */
     public void setBobby(Bobby bobby) {

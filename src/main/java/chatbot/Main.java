@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * Represents the chatbot application
  */
 public class Main extends Application {
-    /** Represents the chatbot logic */
+    /** The chatbot logic */
     private Bobby bobby = new Bobby();
 
     /**

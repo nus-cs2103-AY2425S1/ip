@@ -10,7 +10,7 @@ public class ListCommand extends Command {
     private TaskList taskList;
 
     /**
-     * Constructor for the ListCommand class
+     * Constructs the ListCommand object
      *
      * @param taskList the TaskList instance of the chatbot
      */
@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Execution of the List command
+     * Executes the List command
      *
      * @return The string representation of the list of tasks
      */

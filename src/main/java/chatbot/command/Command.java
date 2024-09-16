@@ -8,7 +8,7 @@ import chatbot.exception.InputException;
  */
 public abstract class Command {
     /**
-     * Represents running the command
+     * Executes the command
      *
      * @return The String result of the command after it is run
      * @throws InputException A potential Input Exception

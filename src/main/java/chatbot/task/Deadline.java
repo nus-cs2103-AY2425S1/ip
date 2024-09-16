@@ -11,7 +11,7 @@ public class Deadline extends TimeTask {
     private LocalDateTime deadline;
 
     /**
-     * Overloaded constructor for the Deadline task, taking in 3 arguments
+     * Constructs the Deadline task object, taking in 3 arguments
      *
      * @param name Name of Deadline task
      * @param deadline Date and time of the deadline
@@ -26,7 +26,7 @@ public class Deadline extends TimeTask {
     }
 
     /**
-     * Overloaded constructor for the Deadline task, taking in 2 arguments
+     * Constructs the Deadline task object, taking in 2 arguments
      *
      * @param name Name of Deadline task
      * @param deadline Date and time of the deadline
@@ -46,7 +46,7 @@ public class Deadline extends TimeTask {
     }
 
     /**
-     * Overridden toString method, displaying the type of the task along with other details
+     * Displays the type of the task along with other details
      *
      * @return String representation of the Deadline task
      */
