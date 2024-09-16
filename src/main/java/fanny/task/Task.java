@@ -29,6 +29,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     /**
      * Marks this task as done by setting the {@code isDone} status to {@code true}.
      */

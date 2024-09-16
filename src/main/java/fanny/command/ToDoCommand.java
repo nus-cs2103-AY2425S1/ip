@@ -12,6 +12,7 @@ public class ToDoCommand extends Command {
 
     /** String representation of the description of the todo task. */
     private String description;
+    private ToDo todo;
 
     /**
      * Constructs an {@code ToDoCommand} with the specified description.
@@ -25,26 +26,35 @@ public class ToDoCommand extends Command {
 
     /**
      * Executes the command to add an todo task to the task list.
-     * Parses the description to extract the todo task information.
      * Handles any errors that may occur during parsing.
      *
      * @param list The task list to which the event task is added.
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
+    public String executeCmd(TaskList list, Ui ui) {
+        String message = "";
         ui.showHorizontalLine();
+
         try {
-            Task todo = new ToDo(description);
-            list.add(todo);
-            ui.showMessage("Fanny:\nGot it. I've added this task:");
-            ui.showMessage(todo.toString());
-            ui.showMessage("Now you have " + list.getLength() + " tasks in the list.");
+            generateToDo();
+            list.add(this.todo);
+            message = ui.showAddTaskMsg(this.todo, list);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showMessage("Task description cannot be empty");
+            message = ui.showMessage("Task description cannot be empty");
         } finally {
             ui.showHorizontalLine();
         }
+
+        return message;
+    }
+
+    /**
+     * Parses the description to extract the todo task information.
+     * Generate a todo task based on the extracted information.
+     */
+    public void generateToDo() {
+        this.todo = new ToDo(this.description);
     }
 
     /**
@@ -53,7 +63,7 @@ public class ToDoCommand extends Command {
      * @return {@code false}, indicating that the application should not exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

@@ -28,12 +28,15 @@ public class UnmarkCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
-        ui.showHorizontalLine();
+    public String executeCmd(TaskList list, Ui ui) {
         int taskId = Integer.parseInt(input);
-        ui.showMessage("Fanny:\nOK, I've marked this task as not done yet:");
-        ui.showMessage(list.markAsNotDone(taskId));
+        String message = "";
+
         ui.showHorizontalLine();
+        message = ui.showUnmarkTaskMsg(taskId, list);
+        ui.showHorizontalLine();
+
+        return message;
     }
 
     /**
@@ -42,7 +45,7 @@ public class UnmarkCommand extends Command {
      * @return {@code false}, indicating that the application should not exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 

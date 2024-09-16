@@ -28,12 +28,15 @@ public class MarkCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
-        ui.showHorizontalLine();
+    public String executeCmd(TaskList list, Ui ui) {
         int taskId = Integer.parseInt(input);
-        ui.showMessage("Fanny:\nNice! I've marked this task as done:");
-        ui.showMessage(list.markAsDone(taskId));
+        String message= "";
+
         ui.showHorizontalLine();
+        message = ui.showMarkTaskMsg(taskId, list);
+        ui.showHorizontalLine();
+
+        return message;
     }
 
     /**
@@ -42,7 +45,7 @@ public class MarkCommand extends Command {
      * @return {@code false}, indicating that the application should not exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

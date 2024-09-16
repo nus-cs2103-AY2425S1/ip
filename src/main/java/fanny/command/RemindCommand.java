@@ -3,10 +3,7 @@ package fanny.command;
 import fanny.task.TaskList;
 import fanny.ui.Ui;
 
-/**
- * Represents the command that handles the "bye" prompt.
- */
-public class ByeCommand extends Command {
+public class RemindCommand extends Command {
 
     /**
      * Executes the "bye" command by displaying a goodbye message and closing the UI.
@@ -16,10 +13,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {
-        String message = ui.printBye();
-        ui.close();
-
-        return message;
+        return ui.showReminders(list);
     }
 
     /**
@@ -29,6 +23,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public boolean shouldExit() {
-        return true;
+        return false;
     }
 }

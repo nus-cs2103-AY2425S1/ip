@@ -10,21 +10,35 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
     /** The start time of the event. */
-    protected LocalDateTime from;
+    protected LocalDateTime startTime;
     /** The end time of the event. */
-    protected LocalDateTime to;
+    protected LocalDateTime endTime;
 
     /**
      * Constructs an {@code Event} with the specified description, start time, and end time.
      *
      * @param description A description of the event.
-     * @param from The start time of the event.
-     * @param to The end time of the event.
+     * @param startTime The start time of the event.
+     * @param endTime The end time of the event.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.to = to;
-        this.from = from;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
+     * Constructs an {@code Event} with the specified duration as a string.
+     *
+     * @param description The description of the task.
+     * @param startTime The start time of the event in string format.
+     * @param endTime The end time of the event in string format.
+     */
+    public Event(String description, String startTime, String endTime) {
+        super(description);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
+        this.startTime = LocalDateTime.parse(startTime, formatter);;
+        this.endTime = LocalDateTime.parse(endTime, formatter);;
     }
 
     /**
@@ -35,8 +49,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " + this.getDescription() + "(from: " + this.getFrom()
-                + " to: " + this.getTo() + ")";
+        return "[E][" + this.getStatusIcon() + "] " + this.getDescription() + "(from: " +
+                this.getStartTime() + " to: " + this.getEndTime() + ")";
     }
 
     /**
@@ -44,8 +58,8 @@ public class Event extends Task {
      *
      * @return A string representing the start time in the format "MMM dd, yyyy HH:mm".
      */
-    public String getFrom() {
-        return from.format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm"));
+    public String getStartTime() {
+        return startTime.format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm"));
     }
 
     /**
@@ -53,7 +67,7 @@ public class Event extends Task {
      *
      * @return A string representing the end time in the format "MMM dd, yyyy HH:mm".
      */
-    public String getTo() {
-        return to.format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm"));
+    public String getEndTime() {
+        return endTime.format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm"));
     }
 }

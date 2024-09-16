@@ -33,18 +33,15 @@ public class FindCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
-        ui.showHorizontalLine();
+    public String executeCmd(TaskList list, Ui ui) {
         List<Task> filteredList = list.findTasks(this.keyword);
-        if (filteredList.isEmpty()) {
-            ui.showMessage("Fanny:\nNo matching tasks found.");
-        } else {
-            ui.showMessage("Fanny:\nHere are the matching tasks in your list:");
-            for (int i = 0; i < filteredList.size(); i++) {
-                ui.showMessage((i + 1) + "." + filteredList.get(i).toString());
-            }
-        }
+        String message = "";
+
         ui.showHorizontalLine();
+        message = ui.showFindTaskMsg(filteredList);
+        ui.showHorizontalLine();
+
+        return message;
     }
 
     /**
@@ -53,7 +50,7 @@ public class FindCommand extends Command {
      * @return {@code false}, indicating that the application should not exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

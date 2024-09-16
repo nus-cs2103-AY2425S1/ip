@@ -15,11 +15,14 @@ public class ListCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
+    public String executeCmd(TaskList list, Ui ui) {
+        String message = "";
+
         ui.showHorizontalLine();
-        ui.showMessage("Fanny:");
-        list.printList();
+        message = ui.showMessage("Fanny:\n") + list.printList();
         ui.showHorizontalLine();
+
+        return message;
     }
 
     /**
@@ -28,7 +31,7 @@ public class ListCommand extends Command {
      * @return {@code false}, indicating that the application should not exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 

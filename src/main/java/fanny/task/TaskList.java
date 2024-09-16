@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 import fanny.storage.Storage;
 
@@ -76,11 +78,15 @@ public class TaskList {
     /**
      * Prints the list of tasks to the console.
      */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        String message = "Here are the tasks in your list:\n";
+
         for (int i = 0; i < this.list.size(); i++) {
-            System.out.println(i+1 + "." + list.get(i).toString());
+            message += i+1 + "." + list.get(i).toString() + "\n";
         }
+
+        System.out.println(message);
+        return message;
     }
 
     /**
@@ -90,13 +96,16 @@ public class TaskList {
      * @return A string representing the task after it has been marked as done.
      */
     public String markAsDone(int index) {
+        assert index > 0 && index <= this.list.size() : "Index out of bounds.";
+        Task taskToMark = this.list.get(index - 1);
+        
         try {
-            list.get(index - 1).markAsDone();
+            taskToMark.markAsDone();
             storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
-        return list.get(index - 1).toString();
+        return taskToMark.toString();
     }
 
     /**
@@ -106,24 +115,46 @@ public class TaskList {
      * @return A string representing the task after it has been marked as not done.
      */
     public String markAsNotDone(int index) {
+        assert index > 0 && index <= this.list.size() : "Index out of bounds.";
+        Task taskToUnMark = this.list.get(index - 1);
+        
         try {
-            list.get(index - 1).markAsNotDone();
+            taskToUnMark.markAsNotDone();
             storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
-        return list.get(index - 1).toString();
+        return taskToUnMark.toString();
     }
 
     /**
-     * Finds the list of task that matches the keyword provided.
+     * Finds the list of task that matches the keyword provided using Streams.
      *
      * @param keyword The keyword to search for.
      * @return A list of filtered tasks that contains the keyword.
      */
     public List<Task> findTasks(String keyword) {
+        assert keyword != null : "Keyword is null.";
         return list.stream()
                 .filter(task -> task.getDescription().contains(keyword))
+                .toList();
+    }
+
+    /**
+     * Gets a list of tasks with upcoming deadlines.
+     *
+     * @return List of tasks with deadlines within the next 24 hours.
+     */
+    public List<Deadline> getUpcomingDeadlines() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nextDay = now.plusDays(1);
+
+        // Filter tasks that are deadlines and due within 24 hours
+        return list.stream()
+                .filter(task -> task instanceof Deadline)
+                .map(task -> (Deadline) task)
+                .filter(deadline -> deadline.getDeadlineTime().isAfter(now) &&
+                        deadline.getDeadlineTime().isBefore(nextDay))
                 .toList();
     }
 

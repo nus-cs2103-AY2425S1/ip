@@ -28,13 +28,15 @@ public class DeleteCommand extends Command {
      * @param ui The UI object to interact with the user.
      */
     @Override
-    public void actionable(TaskList list, Ui ui) {
-        ui.showHorizontalLine();
+    public String executeCmd(TaskList list, Ui ui) {
         int taskId = Integer.parseInt(input);
-        ui.showMessage("Fanny:\nNoted. I've removed this task:");
-        ui.showMessage(list.delete(taskId));
-        ui.showMessage("Now you have " + list.getLength() + " tasks in the list.");
+        String message = "";
+
         ui.showHorizontalLine();
+        message = ui.showDeleteTaskMsg(taskId, list);
+        ui.showHorizontalLine();
+
+        return message;
     }
 
     /**
@@ -43,7 +45,7 @@ public class DeleteCommand extends Command {
      * @return {@code false}, indicating that the application should not exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 
