@@ -5,6 +5,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import sigma.Ui;
 /**
  * Controller for the main GUI.
  */
@@ -19,9 +21,10 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Sigma sigma;
+    private Ui ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/sigma.jpg"));
+    private Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/sigma.jpg"));
 
     @FXML
     public void initialize() {
@@ -31,6 +34,15 @@ public class MainWindow extends AnchorPane {
     /** Injects the Sigma instance */
     public void setSigma(Sigma s) {
         sigma = s;
+        displayWelcomeMessage();
+    }
+
+    /** Displays the welcome message */
+    private void displayWelcomeMessage() {
+        ui = new Ui();
+        dialogContainer.getChildren().add(
+                DialogBox.getSigmaDialog(ui.welcome(), sigmaImage)
+        );
     }
 
     /**
@@ -43,7 +55,7 @@ public class MainWindow extends AnchorPane {
         String response = sigma.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getSigmaDialog(response, dukeImage)
+                DialogBox.getSigmaDialog(response, sigmaImage)
         );
         userInput.clear();
     }
