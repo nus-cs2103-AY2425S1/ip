@@ -42,17 +42,28 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getBottleOpenerDialog("Hello! I'm BottleOpener!\nWhat can I do for you?\n", botImage)
+                DialogBox.getBottleOpenerDialog("Hello! I'm BottleOpener!\n", botImage)
         );
     }
 
     /**
-     * Sets the `BottleOpener` instance for this controller.
+     * Sets the {@code BottleOpener} instance for this controller and displays a reminder
+     * of upcoming deadlines in the dialog container.
      *
-     * @param b The `BottleOpener` instance to be used for handling user input and generating responses.
+     * <p>This method initializes the bot by assigning the provided {@code BottleOpener}
+     * instance to the {@code bot} field. Once the bot is set, it immediately calls
+     * the {@code remindDeadlines()} method to fetch and display any pending deadlines
+     * in the dialog container as a message from the bot.
+     *
+     * @param b The {@code BottleOpener} instance to be used for handling user input and
+     *          generating responses within the chatbot application.
      */
     public void setBottleOpener(BottleOpener b) {
         bot = b;
+        String reminderMessage = bot.remindDeadlines();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBottleOpenerDialog(reminderMessage, botImage)
+        );
     }
 
     /**
