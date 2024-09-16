@@ -1,4 +1,5 @@
 package neko.task;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -34,7 +35,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(dateFormatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(dateTimeFormatter) + ")";
     }
 
     /**
@@ -45,7 +46,30 @@ public class Deadline extends Task {
      * @return a string representation of the Deadline task's deadline.
      */
     @Override
-    public String getTime() {
-        return by.format(dateFormatter);
+    public String getDateTimeStr() {
+        return by.format(dateTimeFormatter);
+    }
+
+    /**
+     * Checks if the deadline is on the specified date.
+     *
+     * @param date the date to check.
+     * @return true if the deadline is the same as the date;
+     *         false otherwise.
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return by.toLocalDate().isEqual(date);
+    }
+
+    /**
+     * Returns a formatted string representing the deadline schedule for a given date.
+     * @param date The date when the deadline is
+     * @return A String representation of the deadline task.
+     */
+    @Override
+    public String getScheduleStr(LocalDate date) {
+        return "Deadline: " + this.getDescription() + " at "
+                + this.by.toLocalTime().format(timeFormatter);
     }
 }

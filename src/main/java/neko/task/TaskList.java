@@ -1,5 +1,8 @@
 package neko.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -184,5 +187,32 @@ public class TaskList {
         }
 
         return tasksFound.trim();
+    }
+
+    /**
+     * Returns a list of tasks scheduled on the specified date.
+     *
+     * @param date The date for which tasks are to be viewed.
+     * @return A string containing the tasks scheduled on the given date.
+     *         If there are no tasks, a message indicating no tasks is returned.
+     */
+
+    public String viewTasksOnDate(LocalDate date) {
+        String dateStr = date.format(DateTimeFormatter.ofPattern("eee, d MMM uuuu"));
+        if (tasks.isEmpty()) {
+            return "You don't have any tasks yet meow!";
+        }
+        String prefix = "Meow! Here is your schedule on " + dateStr + "\n";
+        StringBuilder schedule = new StringBuilder();
+        int count = 1;
+        for (Task task : tasks) {
+            if (task.isOnDate(date)) {
+                schedule.append(count++ + ". " + task.getScheduleStr(date) + "\n");
+            }
+        }
+        if (schedule.toString().isEmpty()) {
+            return "Meow! You dont have any task on " + dateStr;
+        }
+        return prefix + schedule.toString().trim();
     }
 }
