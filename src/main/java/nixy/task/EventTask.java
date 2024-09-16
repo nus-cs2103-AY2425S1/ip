@@ -14,6 +14,7 @@ public class EventTask extends Task {
 
     /**
      * Creates an event task with the specified description, start time, end time and done status.
+     *
      * @param description The description of the task.
      * @param startDate The start time of the task.
      * @param endDate The end time of the task.
@@ -27,6 +28,7 @@ public class EventTask extends Task {
 
     /**
      * Creates an event task with the specified description, start time, end time.
+     *
      * @param description The description of the task.
      * @param startDate The start time of the task.
      * @param endDate The end time of the task.
@@ -39,6 +41,7 @@ public class EventTask extends Task {
 
     /**
      * Returns the start time of the task.
+     *
      * @return The start time of the task.
      */
     public LocalDate getStartDate() {
@@ -47,6 +50,7 @@ public class EventTask extends Task {
 
     /**
      * Returns the end time of the task.
+     *
      * @return The end time of the task.
      */
     public LocalDate getEndDate() {
@@ -83,7 +87,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * Returns the string representation of the task in data format (for saving to file)
+     * Returns the string representation of the task in data format (for saving to file).
      *
      * @return The data string.
      */

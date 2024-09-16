@@ -3,10 +3,11 @@ package nixy.task;
 import java.time.LocalDate;
 
 /**
- * TaskParser is responsible for parsing tasks from strings in save file format
+ * TaskParser is responsible for parsing tasks from strings in save file format.
  * It provides static methods for parsing tasks.
  */
 public class TaskDecoder {
+
     /**
      * Parses a task from the specified string.
      *
@@ -39,6 +40,7 @@ public class TaskDecoder {
     /**
      * Parses a deadline task from the specified string.
      * Deadline task contains a description and a deadline.
+     *
      * @param taskMetadata The string representation of the deadline task without the task type.
      * @param isDone The done status of the task.
      * @return The deadline task parsed from the string.
@@ -57,6 +59,7 @@ public class TaskDecoder {
     /**
      * Parses an event task from the specified string.
      * Event task contains a description, an event start time, and an event end time.
+     *
      * @param taskMetadata The string representation of the event task without the task type.
      * @param isDone The done status of the task.
      * @return The event task parsed from the string.

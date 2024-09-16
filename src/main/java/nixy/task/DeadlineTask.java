@@ -74,7 +74,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Returns the string representation of the task in data format (for saving to file)
+     * Returns the string representation of the task in data format (for saving to file).
      *
      * @return The data string.
      */

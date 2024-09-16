@@ -4,7 +4,7 @@ package nixy.task;
  * Base class for all tasks, including TodoTask, DeadlineTask, and EventTask.
  * Provides basic functionality for marking tasks as done and getting the task description.
  */
-public abstract class Task {
+public abstract class Task implements ReadableTask {
     private String description;
     private boolean isDone;
 
@@ -81,10 +81,11 @@ public abstract class Task {
     }
 
     /**
-     * Returns the string representation of the task in data format (for saving to file)
+     * Returns the string representation of the task in data format (for saving to file).
      *
      * @return The data string.
      */
+    @Override
     public String toDataString() {
         return String.format("%s|%s", this.getStatusLabel(), this.description);
     }

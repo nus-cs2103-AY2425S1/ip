@@ -16,9 +16,9 @@ public class TaskList {
     private List<Task> tasks;
 
     /**
-     * Inner class that provides an iterator for tasks.
+     * Inner class that provides an iterator for reading tasks.
      */
-    private class TaskIterator implements Iterator<Task> {
+    private class TaskIterator implements Iterator<ReadableTask> {
         private int index = 0;
 
         @Override
@@ -27,13 +27,16 @@ public class TaskList {
         }
 
         @Override
-        public Task next() {
+        public ReadableTask next() {
             return tasks.get(index++);
         }
     }
 
     /**
-     * Creates a task manager with tasks loaded from file.
+     * Creates a task manager with pre-existing tasks.
+     * This constructor is used when loading tasks from a file.
+     *
+     * @param tasks The list of tasks to manage.
      */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
@@ -55,11 +58,12 @@ public class TaskList {
     }
 
     /**
-     * Returns an iterator for tasks.
-     * NOTE: Could potentially be used to modify existing tasks.
-     * @return An iterator for tasks.
+     * Returns an iterator for reading tasks.
+     * NOTE: Have to be explicitly casted to modify attributes (intended).
+     *
+     * @return ReadableTask iterator.
      */
-    public Iterator<Task> getTasksIterator() {
+    public Iterator<ReadableTask> getTasksIterator() {
         return new TaskIterator();
     }
 

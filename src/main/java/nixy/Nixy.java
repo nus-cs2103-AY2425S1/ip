@@ -3,6 +3,7 @@ package nixy;
 import java.util.function.Consumer;
 
 import nixy.command.Command;
+import nixy.command.CommandType;
 import nixy.exceptions.NixyException;
 import nixy.parse.Parser;
 import nixy.task.TaskList;
@@ -77,20 +78,20 @@ public class Nixy {
             ui.showNixyException(e);
             return;
         }
-        switch (c.getType()) {
-        case BYE:
-            // Special case for BYE command to run onExit method
+
+        try {
             c.execute();
+        } catch (NixyException e) {
+            ui.showNixyException(e);
+        }
+
+        if (c.getType() == CommandType.BYE) {
             onExit.run();
-            break;
-        default:
-            c.execute();
-            break;
         }
     }
 
     /**
-     * Main driver for Nixy cli
+     * Main driver for Nixy CLI.
      * Entry point to display welcome message and read user input.
      */
     public void run() {
