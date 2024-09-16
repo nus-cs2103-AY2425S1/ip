@@ -1,4 +1,3 @@
-/Users/blackhole/Desktop/Code.nosync/ip/src/main/java/com/appleaster/ui/Ui.java
 /Users/blackhole/Desktop/Code.nosync/ip/src/main/java/com/appleaster/ui/DialogBox.java
 /Users/blackhole/Desktop/Code.nosync/ip/src/main/java/com/appleaster/ui/MainWindow.java
 /Users/blackhole/Desktop/Code.nosync/ip/src/main/java/com/appleaster/parser/Parser.java

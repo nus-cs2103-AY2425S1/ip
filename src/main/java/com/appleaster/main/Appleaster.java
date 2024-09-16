@@ -8,6 +8,8 @@ import com.appleaster.storage.Storage;
 import com.appleaster.task.TaskList;
 import com.appleaster.task.Task;
 
+import java.time.LocalDate;
+
 public class Appleaster {
     private final Storage storage;
     private TaskList tasks;
@@ -51,6 +53,8 @@ public class Appleaster {
                     return tasks.getTasksOnDateString(c.getDate());
                 case FIND:
                     return tasks.getMatchingTasksString(c.getKeyword());
+                case VIEW_SCHEDULE:
+                    return viewSchedule(c.getDate());
                 case BYE:
                     storage.save(tasks.getTasks());
                     return "Goodbye! Remember, an apple a day keeps the doctor away, but I hope to see you sooner!";
@@ -60,5 +64,9 @@ public class Appleaster {
         } catch (AppleasterException e) {
             return "Oops! " + e.getMessage();
         }
+    }
+
+    private String viewSchedule(LocalDate date) {
+        return tasks.getScheduleForDateString(date);
     }
 }

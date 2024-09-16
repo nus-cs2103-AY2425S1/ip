@@ -2,6 +2,7 @@ package com.appleaster.task;
 
 import com.appleaster.exception.AppleasterException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 public class TaskList {
     private static final DateTimeFormatter DATE_FORMATTER = 
         DateTimeFormatter.ofPattern("MMM d yyyy");
+    private static final DateTimeFormatter TIME_FORMATTER = 
+        DateTimeFormatter.ofPattern("HH:mm");        
     private final List<Task> tasks;
 
     /**
@@ -172,4 +175,73 @@ public class TaskList {
     public List<Task> getTasks() {
         return new ArrayList<>(tasks);
     }
+
+    /**
+     * Gets a string representation of the schedule for a specific date.
+     *
+     * @param date The date to view the schedule for.
+     * @return A string containing the schedule for the specified date, or a message if no tasks are found.
+     */
+    public String getScheduleForDateString(LocalDate date) {
+        List<Task> scheduledTasks = tasks.stream()
+            .filter(task -> {
+                if (task instanceof Event) {
+                    Event event = (Event) task;
+                    return event.getFrom().toLocalDate().equals(date) 
+                        || event.getTo().toLocalDate().equals(date);
+                } else if (task instanceof Deadline) {
+                    return ((Deadline) task).getBy().toLocalDate().equals(date);
+                }
+                return false;
+            })
+            .sorted((t1, t2) -> {
+                LocalDateTime time1 = getTaskTime(t1);
+                LocalDateTime time2 = getTaskTime(t2);
+                return time1.compareTo(time2);
+            })
+            .collect(Collectors.toList());
+
+        if (scheduledTasks.isEmpty()) {
+            return "There are no tasks scheduled for " + date.format(DATE_FORMATTER);
+        } else {
+            StringBuilder sb = new StringBuilder("Schedule for " + date.format(DATE_FORMATTER) + ":\n");
+            for (int i = 0; i < scheduledTasks.size(); i++) {
+                Task task = scheduledTasks.get(i);
+                String timeString = getTaskTimeString(task);
+                sb.append(String.format("%d. [%s] %s\n", i + 1, timeString, task));
+            }
+            return sb.toString().trim();
+        }
+    }
+
+    /**
+     * Gets the time of a task for sorting purposes.
+     *
+     * @param task The task to get the time for.
+     * @return The LocalDateTime of the task.
+     */
+    private LocalDateTime getTaskTime(Task task) {
+        if (task instanceof Event) {
+            return ((Event) task).getFrom();
+        } else if (task instanceof Deadline) {
+            return ((Deadline) task).getBy();
+        }
+        return LocalDateTime.MAX; // Put Todo tasks at the end
+    }
+
+    /**
+     * Gets a string representation of the task time.
+     *
+     * @param task The task to get the time string for.
+     * @return A string representing the task time.
+     */
+    private String getTaskTimeString(Task task) {
+        if (task instanceof Event) {
+            Event event = (Event) task;
+            return event.getFrom().format(TIME_FORMATTER) + " - " + event.getTo().format(TIME_FORMATTER);
+        } else if (task instanceof Deadline) {
+            return ((Deadline) task).getBy().format(TIME_FORMATTER);
+        }
+        return "All day"; // For Todo tasks
+    }    
 }

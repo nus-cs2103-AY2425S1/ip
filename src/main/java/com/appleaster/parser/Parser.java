@@ -51,6 +51,8 @@ public class Parser {
         return parseFind(arguments);                
       case "bye":
         return new Command(CommandType.BYE);
+      case "view":
+        return parseViewSchedule(arguments);        
       default:
         throw new AppleasterException("I don't recognize that command. "
             + "Here are the commands I know: todo, deadline, event, list, "
@@ -196,6 +198,18 @@ public class Parser {
       return new Command(CommandType.DATE, date);
     } catch (DateTimeParseException e) {
       throw new AppleasterException("Invalid date format. Please use: yyyy-MM-dd");
+    }
+  }
+
+  private static Command parseViewSchedule(String arguments) throws AppleasterException {
+    if (arguments.trim().isEmpty()) {
+        throw new AppleasterException("Please provide a date to view the schedule. For example: view 2024-09-16");
+    }
+    try {
+        LocalDate date = LocalDate.parse(arguments.trim(), DATE_FORMAT);
+        return new Command(CommandType.VIEW_SCHEDULE, date);
+    } catch (DateTimeParseException e) {
+        throw new AppleasterException("Invalid date format. Please use: yyyy-MM-dd");
     }
   }
 }

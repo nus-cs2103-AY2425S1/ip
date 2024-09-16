@@ -11,4 +11,5 @@ public enum CommandType {
     BYE,
     UNKNOWN,
     FIND,
+    VIEW_SCHEDULE
 }
