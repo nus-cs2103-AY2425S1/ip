@@ -26,6 +26,7 @@ public class TaskList {
      * @param taskList the task list
      */
     public TaskList(ArrayList<Task> taskList) {
+        assert taskList != null : "taskList shouldn't be null!";
         this.taskList = taskList;
     }
 
@@ -54,6 +55,7 @@ public class TaskList {
      * @param task the task
      */
     public void addTask(Task task) {
+        assert task != null : "task cannot be null!";
         taskList.add(task);
     }
 
@@ -73,6 +75,7 @@ public class TaskList {
 
     @Override
     public String toString() {
+        assert taskList != null : "Task List shouldn't be null";
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             int idx = i + 1;

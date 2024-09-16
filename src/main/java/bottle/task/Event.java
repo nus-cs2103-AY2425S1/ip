@@ -37,6 +37,7 @@ public class Event extends bottle.task.Task {
     @Override
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
-        return "E | " + (isChecked ? "1 | " : "0 | ") + this.taskDesc + " | " + this.from.format(formatter) + " | " + this.to.format(formatter);
+        return "E | " + (isChecked ? "1 | " : "0 | ")
+                + this.taskDesc + " | " + this.from.format(formatter) + " | " + this.to.format(formatter);
     }
 }

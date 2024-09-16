@@ -39,6 +39,9 @@ public class AddEventTask extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert !description.isEmpty() : "Task description cannot be empty!";
+        assert from != null : "Starting time cannot be empty!";
+        assert to != null : "Ending time cannot be empty!";
         taskList.addTask(new Event(description, from, to));
         storage.saveTasks(taskList.getTaskList());
         return ui.printTaskAddedMessage(taskList.getTaskList());
