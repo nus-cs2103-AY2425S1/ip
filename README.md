@@ -5,19 +5,19 @@ Sigma is a desktop app for managing tasks, optimized for use via a Command Line 
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Viewing help: `help`](#help) 
-  - [Adding a task: `todo`, `deadline`, `event`](#add)
-  - [Listing all tasks: `list`](#list)
-  - [Marking a task as done: `mark`, `unmark`](#mark)
-  - [Deleting a task: `delete`](#delete)
-  - [Finding a task: `find`](#find)
-  - [Sorting tasks: `sort`](#sort)
-  - [Exiting the program: `bye`](#exit)
+  - [Viewing help: `help`](#viewing-help-help) 
+  - [Adding a task: `todo`, `deadline`, `event`](#adding-a-task-todo-deadline-event)
+  - [Listing all tasks: `list`](#listing-all-tasks-list)
+  - [Marking a task as done: `mark`, `unmark`](#marking-a-task-as-done-mark-unmark)
+  - [Deleting a task: `delete`](#deleting-a-task-delete)
+  - [Finding a task: `find`](#finding-a-task-find)
+  - [Sorting tasks: `sort`](#sorting-tasks-sort)
+  - [Exiting the program: `bye`](#exiting-the-program-bye)
 
 ## Quick Start
 1. Ensure you have Java 17 or above installed in your Computer.
 
-2. Download the latest `.jar` file from [here](https://github.com/anselmlong/ip/releases/tag/v0.2).
+2. Download the latest `.jar` file from [here](https://github.com/anselmlong/ip/releases/tag/v1.0).
 
 3. Copy the file to the folder you want to use as the home folder for your AddressBook.
 
