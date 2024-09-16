@@ -11,7 +11,8 @@ import seedu.maxine.task.Todo;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FileParserTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

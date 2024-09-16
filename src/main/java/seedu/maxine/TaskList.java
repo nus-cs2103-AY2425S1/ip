@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import seedu.maxine.task.Task;
 
-public class TaskList implements MaxineList {
+public class TaskList implements Iterable<Task> {
     private ArrayList<Task> list;
     private Storage storage;
 

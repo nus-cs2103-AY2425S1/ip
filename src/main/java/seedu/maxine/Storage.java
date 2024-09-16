@@ -64,7 +64,7 @@ public class Storage {
      * Adds new lines to the txt file, based on updated list.
      * @param list updated TaskList
      */
-    public void refreshStorage(MaxineList list) {
+    public void refreshStorage(TaskList list) {
 
         File file = new File(filePath);
 

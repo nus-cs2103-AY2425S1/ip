@@ -2,13 +2,15 @@ package seedu.maxine;
 
 import java.util.Scanner;
 
+import seedu.maxine.command.Command;
+
 public class Maxine {
-    
     static Scanner scanner = new Scanner(System.in);
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
+    private Command command;
 
     /**
      * Constructs new instance of Maxine class
@@ -18,6 +20,7 @@ public class Maxine {
         tasks = new TaskList();
         parser = new Parser();
         storage = new Storage("data/maxine.txt");
+        command = new Command(storage, ui, tasks);
     }
 
     public String getResponse(String input) {
@@ -31,7 +34,7 @@ public class Maxine {
         try {
             ui.greet();
             storage.load();
-            while (parser.getStatus()) {
+            while (command.getStatus()) {
                 String answer = ask();
                 parser.parse(answer);
             }
