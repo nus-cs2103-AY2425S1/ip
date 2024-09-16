@@ -2,7 +2,7 @@
 
 **Moody** is a chatbot designed to manage your tasks within _SECONDS_ using CLI
 
-![Ui.png.png](Ui.png.png)
+![Ui.png](Ui.png)
 
 ## Summary List of Features
 > “You never finish a program, you just stop working on it” – Anonymous ([source](https://softwarequotes.com/quote/you-never-finish-a-program--you-just-stop-working-))
