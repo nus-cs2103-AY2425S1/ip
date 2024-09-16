@@ -104,6 +104,7 @@ public class TaskList {
                 if (eventArr.contains(word)) {
                     events += t + "\n";
                     hasEvent = true;
+                    break;
                 }
             }
 
