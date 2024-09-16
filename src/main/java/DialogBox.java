@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.Collections;
-
+import javafx.scene.shape.Circle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,6 +34,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        Circle clip = new Circle(45, 45, 45);  // Circle with radius 50
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -44,6 +46,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
