@@ -17,12 +17,6 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private static final String TODO_TYPE = "T";
-    private static final String DEADLINE_TYPE = "D";
-    private static final String EVENT_TYPE = "E";
-    private static final String TASK_DONE = "1";
-    private static final String TASK_NOT_DONE = "0";
-
     private final String filePath;
 
     /**
@@ -41,78 +35,12 @@ public class Storage {
      * @throws ChatBuddyException If there is an error while loading the tasks.
      */
     public ArrayList<Task> load() throws ChatBuddyException {
-        ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-
-        if (file.exists()) {
-            try (Scanner scanner = new Scanner(file)) {
-                while (scanner.hasNextLine()) {
-                    tasks.add(parseTask(scanner.nextLine()));
-                }
-            } catch (IOException | ChatBuddyException e) {
-                throw new ChatBuddyException("An error occurred while loading tasks: " + e.getMessage());
-            }
-        } else {
-            createStorageFile(file);
+        if (!file.exists()) {
+            createFileAndDirectories(file);
+            return new ArrayList<>();
         }
-
-        return tasks;
-    }
-
-    /**
-     * Parses a line from the file into a Task object.
-     *
-     * @param line The line representing the task.
-     * @return A Task object corresponding to the line.
-     * @throws ChatBuddyException If the task type is invalid.
-     */
-    private Task parseTask(String line) throws ChatBuddyException {
-        String[] parts = line.split(" \\| ");
-        String type = parts[0];
-        boolean isDone = parts[1].equals(TASK_DONE);
-        String description = parts[2];
-
-        Task task;
-        switch (type) {
-        case TODO_TYPE:
-            task = new ToDo(description);
-            break;
-
-        case DEADLINE_TYPE:
-            task = new Deadline(description, parts[3]);
-            break;
-
-        case EVENT_TYPE:
-            task = new Event(description, parts[3], parts[4]);
-            break;
-
-        default:
-            throw new ChatBuddyException("Invalid task type in file: " + type);
-        }
-
-        if (isDone) {
-            task.markAsDone();
-        }
-
-        return task;
-    }
-
-    /**
-     * Creates the storage file and necessary directories if they do not exist.
-     *
-     * @param file The file to create.
-     * @throws ChatBuddyException If an error occurs during file creation.
-     */
-    private void createStorageFile(File file) throws ChatBuddyException {
-        try {
-            File directory = new File(file.getParent());
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new ChatBuddyException("An error occurred while creating storage file: " + e.getMessage());
-        }
+        return loadTasksFromFile(file);
     }
 
     /**
@@ -128,6 +56,86 @@ public class Storage {
             }
         } catch (IOException e) {
             throw new ChatBuddyException("An error occurred while saving tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads tasks from the file.
+     *
+     * @param file The file to read tasks from.
+     * @return A list of tasks read from the file.
+     * @throws ChatBuddyException If there is an error while loading the tasks.
+     */
+    private ArrayList<Task> loadTasksFromFile(File file) throws ChatBuddyException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                tasks.add(parseTaskFromLine(line));
+            }
+        } catch (IOException e) {
+            throw new ChatBuddyException("An error occurred while reading tasks: " + e.getMessage());
+        }
+        return tasks;
+    }
+
+    /**
+     * Parses a task from a line in the file.
+     *
+     * @param line The line of text representing a task.
+     * @return The Task object created from the line.
+     * @throws ChatBuddyException If there is an error while parsing the task.
+     */
+    private Task parseTaskFromLine(String line) throws ChatBuddyException {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task = createTask(type, description, parts);
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    /**
+     * Creates a task object based on the type and parts from the file.
+     *
+     * @param type        The type of task ("T", "D", "E").
+     * @param description The task description.
+     * @param parts       The line parts containing additional details.
+     * @return The Task object created.
+     * @throws ChatBuddyException If an invalid task type is encountered.
+     */
+    private Task createTask(String type, String description, String[] parts) throws ChatBuddyException {
+        switch (type) {
+        case "T":
+            return new ToDo(description);
+        case "D":
+            return new Deadline(description, parts[3]);
+        case "E":
+            return new Event(description, parts[3], parts[4]);
+        default:
+            throw new ChatBuddyException("Invalid task type in file.");
+        }
+    }
+
+    /**
+     * Creates the file and its parent directories if they do not exist.
+     *
+     * @param file The file to be created.
+     * @throws ChatBuddyException If there is an error creating the file or directories.
+     */
+    private void createFileAndDirectories(File file) throws ChatBuddyException {
+        try {
+            File directory = new File(file.getParent());
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new ChatBuddyException("An error occurred while creating the file: " + e.getMessage());
         }
     }
 }
