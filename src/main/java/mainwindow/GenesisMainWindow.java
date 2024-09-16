@@ -38,8 +38,18 @@ public class GenesisMainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setGenesis(Genesis g) {
         genesis = g;
+        displayWelcomeMessage();
     }
-
+    private void displayWelcomeMessage() {
+        if (genesis != null) {
+            String welcomeMessage = genesis.initialise();
+            dialogContainer.getChildren().add(
+                    DialogBox.getGenesisDialog(welcomeMessage, genesisImage)
+            );
+        } else {
+            System.out.println("Genesis instance is null!");
+        }
+    }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.

@@ -4,21 +4,6 @@ import commandparser.CommandParser;
 import storage.Storage;
 import taskmanager.TaskManager;
 import ui.Ui;
-import java.io.IOException;
-
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a generic task.
@@ -62,15 +47,8 @@ public class Genesis {
     }
 
 
-
-
-    /**
-     * The entry point of the Genesis application.
-     *
-     * @param args The command-line arguments.
-     */
-    public static void main(String[] args) {
-        System.out.println("Hello! I'm Genesis!\nWhat can I do for you?\n");
+    public String initialise() {
+        return "Hello! I'm Genesis!\nWhat can I do for you?\n";
 
     }
 }
