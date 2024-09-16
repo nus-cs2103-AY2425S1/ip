@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    private ShoAI chatbot = new ShoAI("src/main/data/ShoAI.txt");
+    private ShoAI chatbot = new ShoAI("src/main/data/ShoAI.txt", "src/main/data/clients.txt");
 
     @Override
     public void start(Stage stage) {
