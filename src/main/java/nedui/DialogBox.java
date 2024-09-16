@@ -29,7 +29,7 @@ import javafx.scene.layout.HBox;
  *   <li>Loading the dialog box layout from an FXML resource.</li>
  *   <li>Displaying a message with an associated image.</li>
  *   <li>Flipping the dialog box orientation for different dialog types.</li>
- * </ul>
+ * </ul>uu
  *
  * @see javafx.scene.layout.HBox
  */
