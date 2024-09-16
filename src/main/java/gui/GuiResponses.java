@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import tasks.Task;
+import tasks.TaskList;
 
 /**
  * Handles the string formatting of chatterbox responses for the gui
@@ -42,10 +43,11 @@ public class GuiResponses {
 
     /**
      * display the list of tasks
-     * @param userList of tasks
+     * @param tasks TaskList object
      * @return String representation of tasks in list
      */
-    public String displayList(ArrayList<Task> userList) {
+    public String displayList(TaskList tasks) {
+        ArrayList<Task> userList = tasks.getTasks();
         StringBuilder toReturn = new StringBuilder("Current Tasks in List: \n");
         for (int i = 0; i < userList.size(); i++) {
             toReturn.append(String.format(i + 1 + ". " + "[%s][%s] %s",

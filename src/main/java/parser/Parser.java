@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import chatterboxexceptions.ChatterboxExceptions;
+import command.Command;
 
 /**
  * Parser class has various methods to parse user input
@@ -76,6 +77,7 @@ public class Parser {
     public ValidCommand parseCommand(String text) {
 
 
+
         if (text.startsWith("bye")) {
             return ValidCommand.BYE;
         } else if (text.startsWith("list")) {
@@ -105,6 +107,10 @@ public class Parser {
 
     }
 
+    public Command parseCommandType(String text) {
+        //TODO: Implement this
+        return null;
+    }
     /**
      * Extracts the index for mark and unmark
      * @param input of format mark/unmark {int}

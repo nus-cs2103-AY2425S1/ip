@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import chatterboxexceptions.ChatterboxExceptions;
+import command.Command;
 import gui.GuiResponses;
 import parser.Parser;
 import storage.Storage;
@@ -92,7 +93,7 @@ public class ChatterboxGui {
     public String processInput(String input) {
 
 
-        String result = "";
+        String result = ""; //used to store gui response
         input = input.trim();
         try {
             Parser.ValidCommand command = parser.parseCommand(input);
@@ -105,7 +106,7 @@ public class ChatterboxGui {
                 break;
             case LIST:
 
-                result = guiResponses.displayList(tasks.getTasks());
+                result = guiResponses.displayList(tasks);
                 break;
 
             case MARK:
@@ -217,6 +218,22 @@ public class ChatterboxGui {
 
         storage.saveHistory(tasks.getTasks());
         return result;
+    }
+
+    public String processInput2(String input) {
+        input = input.trim();
+        Command currCommand = parser.parseCommandType(input);
+        String result = null;
+        try {
+            result = currCommand.execute(input, guiResponses, userTags, tasks, parser);
+        } catch (ChatterboxExceptions.ChatterBoxNoInput chatterBoxNoInput) {
+            throw new RuntimeException(chatterBoxNoInput);
+        } catch (ChatterboxExceptions.ChatterBoxMissingParameter chatterBoxMissingParameter) {
+            throw new RuntimeException(chatterBoxMissingParameter);
+        }
+        storage.saveHistory(tasks.getTasks());
+        return result;
+
     }
 
 
