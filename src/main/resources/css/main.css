@@ -7,17 +7,18 @@
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: black;
     -fx-font: 20px "Helvetica";
+    -fx-text-fill: white;
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: white;
     -fx-font: italic bold 16px "Helvetica";
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color: gray;
     -fx-font-size: 18px;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: black;
     -fx-background-radius: 1em;
 }
 
