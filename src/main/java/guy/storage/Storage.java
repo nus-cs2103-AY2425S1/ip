@@ -105,17 +105,4 @@ public class Storage {
         getInstance().readData();
     }
 
-    /**
-     * Deletes the test file.
-     */
-    public static void wipeTest() {
-        File testFile = new File(DATA_DIR + TEST_FILE);
-        if (testFile.exists()) {
-            boolean isDeleted = testFile.delete();
-            if (!isDeleted) {
-                System.err.println("You really thought I could delete this file: " + testFile.getAbsolutePath());
-            }
-        }
-    }
-
 }

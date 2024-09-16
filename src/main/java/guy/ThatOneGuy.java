@@ -73,7 +73,8 @@ public class ThatOneGuy {
     }
 
     /**
-     * Accessor function to check if ThatOneGuy is running.
+     * Checks if ThatOneGuy is running.
+     * @return Whether the application is running
      */
     public boolean isRunning() {
         return isRunning;

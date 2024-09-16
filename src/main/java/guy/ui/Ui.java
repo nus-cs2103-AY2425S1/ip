@@ -17,7 +17,7 @@ public class Ui {
     }
 
     /**
-     * Accessor function for the greeting message.
+     * Retrieves the greeting message.
      * @return the greeting message
      */
     public String getGreeting() {
