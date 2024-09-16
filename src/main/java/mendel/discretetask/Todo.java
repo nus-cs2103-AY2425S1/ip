@@ -101,9 +101,26 @@ public class Todo extends Task {
         return false;
     }
 
+    /**
+     * Checks if Todo deadline is before the date specified and is after today
+     *
+     * @param formattedDate date to look back from
+     * @return true if Todo deadline is before the date specified and is after today contains pattern, false otherwise
+     */
     @Override
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         return false;
+    }
+
+    /**
+     * Checks description contains input pattern specified
+     *
+     * @param matchingString  pattern to look for
+     * @return true if description contains pattern, false otherwise
+     */
+    @Override
+    public boolean isMatchingDescription(String matchingString) {
+        return this.description.contains(matchingString);
     }
 
     /**
@@ -111,11 +128,6 @@ public class Todo extends Task {
      *
      * @return A string containing the task type, status, and description.
      */
-    @Override
-    public boolean isMatchingDescription(String matchingString) {
-        return this.description.contains(matchingString);
-    }
-
     @Override
     public String parseDetailsForDB() {
         return String.format("T | %d | %s", super.getStatus() ? 1 : 0, this.description);

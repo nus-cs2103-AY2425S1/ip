@@ -1,9 +1,9 @@
 package mendel.discretetask;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TodoTest {
     @Test
@@ -20,5 +20,19 @@ public class TodoTest {
         } catch (Exception e) {
             assertEquals("OOPS! todo description cannot be empty.\nAdd description.", e.toString());
         }
+    }
+
+    @Test
+    public void checkMatchingDescription() {
+        assertTrue(Todo.of("todo CS2103T assignment")
+                .isMatchingDescription("CS2103T"));
+        assertFalse(Todo.of("todo CS2103T assignment")
+                .isMatchingDescription("CS2104T"));
+    }
+
+    @Test
+    public void reminder() {
+        Todo event = Todo.of("todo CS2103T assignment");
+        assertFalse(event.isIncompleteWithinTargetDueDate("02-01-2001"));
     }
 }

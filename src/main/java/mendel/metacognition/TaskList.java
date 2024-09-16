@@ -33,7 +33,7 @@ public class TaskList extends Command {
      */
     public Task getTask(int serial) {
         ConditionalExceptionHandler.of()
-                .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
+                .conditionTriggerException(serial >= this.counter, "OOPS! Serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
         return messages.get(serial);
     }
@@ -66,7 +66,7 @@ public class TaskList extends Command {
      */
     public String marker(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
-                .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
+                .conditionTriggerException(serial >= this.counter, "OOPS! Serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
         Task task = this.messages.get(serial);
         task.markAsDone();
@@ -83,7 +83,7 @@ public class TaskList extends Command {
      */
     public String unMarker(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
-                .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
+                .conditionTriggerException(serial >= this.counter, "OOPS! Serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
         Task task = this.messages.get(serial);
         task.markAsUnDone();
@@ -100,11 +100,11 @@ public class TaskList extends Command {
      */
     public String delete(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
-                .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
+                .conditionTriggerException(serial >= this.counter, "OOPS! Serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
         Task task = this.messages.remove(serial);
         this.counter--;
-        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
+        return String.format("Noted. I've removed this task:\n  %s\n  Now you have %d tasks in the list.",
                 task,
                 this.counter);
     }
