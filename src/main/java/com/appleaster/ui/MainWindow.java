@@ -24,11 +24,9 @@ public class MainWindow extends AnchorPane {
 
     private Appleaster appleaster;
 
-    // private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    // private Image appleasterImage = new Image(this.getClass().getResourceAsStream("/images/appleaster.jpg"));
-    private Image userImage = new Image(new File("src/main/resources/images/user.png").toURI().toString());
-    private Image appleasterImage = new Image(new File("src/main/resources/images/appleaster.jpg").toURI().toString());    
-
+    private Image userImage = new Image(getClass().getResource("/images/user.png").toExternalForm());
+    private Image appleasterImage = new Image(getClass().getResource("/images/appleaster.jpg").toExternalForm());
+    
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
