@@ -43,6 +43,11 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NoosyException {
+
+        assert tasks != null : "Tasklist cannot be null.";
+        assert ui != null : "Ui cannot be left as null.";
+        assert storage != null : "Storage cannot be null.";
+
         this.tasksWithKeyword = tasks.find(this.keyword);
         ui.showFindCommand(tasksWithKeyword);
     }

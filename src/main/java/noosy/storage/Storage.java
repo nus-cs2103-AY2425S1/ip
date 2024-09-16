@@ -32,6 +32,9 @@ public class Storage {
      * @param path The file path where tasks will be stored and retrieved.
      */
     public Storage(String path) {
+
+        assert !path.isBlank() : "File path should not be blank.";
+
         this.path = path;
     }
 

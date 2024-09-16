@@ -42,6 +42,9 @@ public class Noosy {
      * @param filePath The file path for storing tasks.
      */
     public Noosy(String filePath) {
+
+        assert !filePath.isBlank() : "File path should not be blank.";
+
         ui = new Ui();
         storage = new Storage(filePath);
         try {
