@@ -7,12 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
+/**
+ * Represents the main window of the ShoAI application, handling user interactions
+ * and displaying dialogs.
+ */
 public class MainWindow extends AnchorPane {
 
     @FXML
@@ -25,27 +24,40 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private ShoAI chatbot;
-    private boolean welcomed;
+    private boolean hasBeenWelcomed;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image chatbotImage = new Image(this.getClass().getResourceAsStream("/images/shoai.jpeg"));
 
+    /**
+     * Initializes the MainWindow by setting up the ScrollPane to automatically scroll
+     * to the bottom and showing the welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         showWelcomeMessage();
     }
 
-
+    /**
+     * Sets the ShoAI chatbot instance for handling user input and generating responses.
+     *
+     * @param c The ShoAI chatbot instance to be set.
+     */
     public void setChatbot(ShoAI c) {
         chatbot = c;
     }
 
+    /**
+     * Handles user input by processing it through the chatbot and displaying the
+     * resulting response in the dialog container. It also checks for error messages
+     * and displays them appropriately.
+     */
     @FXML
     private void handleUserInput() {
-        if (!welcomed) {
+        if (!hasBeenWelcomed) {
             showWelcomeMessage();
-            welcomed = true;
+            hasBeenWelcomed = true;
         }
         String input = userInput.getText();
         String response = chatbot.getResponse(input);
@@ -66,14 +78,17 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-
+    /**
+     * Displays a welcome message from the chatbot in the dialog container if it
+     * has not already been displayed.
+     */
     private void showWelcomeMessage() {
-        if (!welcomed) {
+        if (!hasBeenWelcomed) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getChatbotDialog("What's up! \uD83D\uDC4B I'm ShoAI, what do you need today?",
                             chatbotImage)
             );
-            welcomed = true;
+            hasBeenWelcomed = true;
         }
     }
 }

@@ -8,10 +8,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Main entry point for the ShoAI application.
+ * Initializes the user interface and injects the chatbot instance into the controller.
+ */
 public class Main extends Application {
 
     private ShoAI chatbot = new ShoAI("src/main/data/ShoAI.txt", "src/main/data/clients.txt");
 
+    /**
+     * Starts the ShoAI application.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -42,6 +51,11 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * The main method for launching the ShoAI application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         launch(args);
     }

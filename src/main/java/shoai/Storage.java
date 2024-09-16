@@ -1,25 +1,31 @@
 package shoai;
+
 import shoai.Task; // Imports the Task class for task handling
 import shoai.Parser; // Imports the Parser class for converting tasks to and from file strings
 import shoai.ShoAIException; // Imports the ShoAIException class for handling exceptions
 import java.io.*; // Imports classes for file handling (BufferedReader, BufferedWriter, File, FileReader, FileWriter, IOException)
 import java.util.ArrayList; // Imports ArrayList to store and manipulate the task list
 
-
 /**
- * Handles the storage and retrieval of tasks to and from a file.
+ * Handles the storage and retrieval of tasks and clients to and from files.
  */
 public class Storage {
     private String taskPath;
     private String clientPath;
 
+    /**
+     * Creates a Storage object with specified file paths.
+     *
+     * @param taskPath  The path to the file where tasks are stored.
+     * @param clientPath The path to the file where clients are stored.
+     */
     public Storage(String taskPath, String clientPath) {
         this.taskPath = taskPath;
         this.clientPath = clientPath;
     }
 
     /**
-     * Loads tasks from the file.
+     * Loads tasks from the specified file.
      *
      * @return An ArrayList of tasks loaded from the file.
      * @throws ShoAIException If there is an error reading from the file.
@@ -42,6 +48,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Loads clients from the specified file.
+     *
+     * @return An ArrayList of clients loaded from the file.
+     * @throws ShoAIException If there is an error reading from the file.
+     */
     public ArrayList<Client> loadClients() throws ShoAIException {
         ArrayList<Client> clients = new ArrayList<>();
         File file = new File(clientPath);
@@ -59,7 +71,6 @@ public class Storage {
         }
         return clients;
     }
-
 
     /**
      * Saves the specified tasks to the file.
@@ -80,6 +91,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the specified clients to the file.
+     *
+     * @param clients The ArrayList of clients to save.
+     */
     public void saveClients(ArrayList<Client> clients) {
         File file = new File(clientPath);
         file.getParentFile().mkdirs(); // Create the directory if it doesn't exist
