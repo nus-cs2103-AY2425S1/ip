@@ -168,7 +168,7 @@ public class Ui {
         } else {
             output.append("     Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                output.append("         ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
 
@@ -196,7 +196,7 @@ public class Ui {
                     .append(date.format(DateTimeFormatter.ofPattern(DISPLAY_FORMAT_PATTERN)))
                     .append(":\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                output.append("         ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
 
@@ -220,7 +220,7 @@ public class Ui {
         } else {
             output.append("     Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                output.append("         ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
 
@@ -244,7 +244,7 @@ public class Ui {
         } else {
             output.append("     Here are your tasks listed in order of ascending dates:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
+                output.append("         ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
 

@@ -30,7 +30,7 @@ public class DialogBox extends HBox {
      * @param text The text to be displayed in the dialog box.
      * @param img  The image to be displayed in the dialog box.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isUser) {
         assert text != null : "Text should not be null";
         assert img != null : "Image should not be null";
         try {
@@ -44,6 +44,11 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        if (isUser) {
+            this.dialog.getStyleClass().add("user-label");
+        } else {
+            this.dialog.getStyleClass().add("app-label");
+        }
     }
 
     /**
@@ -67,7 +72,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         assert text != null : "Text should not be null";
         assert img != null : "Image should not be null";
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, true);
     }
 
     /**
@@ -81,7 +86,7 @@ public class DialogBox extends HBox {
     public static DialogBox getFridayDialog(String text, Image img) {
         assert text != null : "Text should not be null";
         assert img != null : "Image should not be null";
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, false);
         db.flip();
         return db;
     }
