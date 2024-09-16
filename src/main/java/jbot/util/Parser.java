@@ -15,12 +15,9 @@ import jbot.command.MarkCommand;
 import jbot.command.ToDoCommand;
 import jbot.command.UnmarkCommand;
 
-
 /**
  * A utility class for parsing user input into commands. This class cannot be instantiated.
  */
-@SuppressWarnings({"StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
-
 public class Parser {
     private Parser() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
@@ -34,6 +31,10 @@ public class Parser {
      */
     public static void init() {
         Parser.commandMap = new HashMap<>();
+
+        // Assert that commands are not initialized yet
+        assert Parser.commandMap.isEmpty() : "Command map should be empty before initialization";
+
         Parser.commandMap.put("list", ListCommand.getInstance());
         Parser.commandMap.put("bye", ByeCommand.getInstance());
         Parser.commandMap.put("mark", MarkCommand.getInstance());
@@ -44,6 +45,17 @@ public class Parser {
         Parser.commandMap.put("delete", DeleteCommand.getInstance());
         Parser.commandMap.put("find", FindCommand.getInstance());
 
+        // Assert that all expected commands are present in the map
+        assert Parser.commandMap.size() == 9 : "Command map size should be 9 after initialization";
+        assert Parser.commandMap.containsKey("list") : "Command map should contain 'list' command";
+        assert Parser.commandMap.containsKey("bye") : "Command map should contain 'bye' command";
+        assert Parser.commandMap.containsKey("mark") : "Command map should contain 'mark' command";
+        assert Parser.commandMap.containsKey("unmark") : "Command map should contain 'unmark' command";
+        assert Parser.commandMap.containsKey("todo") : "Command map should contain 'todo' command";
+        assert Parser.commandMap.containsKey("deadline") : "Command map should contain 'deadline' command";
+        assert Parser.commandMap.containsKey("event") : "Command map should contain 'event' command";
+        assert Parser.commandMap.containsKey("delete") : "Command map should contain 'delete' command";
+        assert Parser.commandMap.containsKey("find") : "Command map should contain 'find' command";
     }
 
     /**
@@ -54,11 +66,20 @@ public class Parser {
      * @throws InvalidCommandException If the user input does not match any known command.
      */
     public static JBotCommand parse(String userInput) throws InvalidCommandException {
+        assert userInput != null && !userInput.isEmpty() : "User input should not be null or empty";
+
         String inputCommand = userInput.split(" ")[0];
+        assert inputCommand != null && !inputCommand.isEmpty() : "Parsed input command should not be null or empty";
+
         JBotCommand command = Parser.commandMap.get(inputCommand);
+
         if (command == null) {
             throw new InvalidCommandException("Invalid command: " + inputCommand);
         }
+
+        // Assert that the returned command is not null
+        assert command != null : "Returned command should not be null";
+
         return command;
     }
 }
