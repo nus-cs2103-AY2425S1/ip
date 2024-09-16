@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /** Represents a horizontal bibi.gui.DialogBox with an ImageView for icons and Label for text*/
 public class DialogBox extends HBox {
@@ -39,6 +40,9 @@ public class DialogBox extends HBox {
 
         dialog.setText(s);
         displayPicture.setImage(i);
+        displayPicture.setClip(new Circle(displayPicture.getFitWidth() / 2,
+                displayPicture.getFitHeight() / 2,
+                displayPicture.getFitWidth() / 2));
     }
 
     public static DialogBox getUserDialogBox(String s, Image i) {
