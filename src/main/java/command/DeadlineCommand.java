@@ -1,19 +1,33 @@
 package command;
 
+import java.time.LocalDateTime;
+
 import chatterboxexceptions.ChatterboxExceptions;
 import gui.GuiResponses;
 import parser.Parser;
 import tags.TagList;
 import tasks.TaskList;
 
-import java.time.LocalDateTime;
-
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
     public DeadlineCommand() {
     }
 
+    /**
+     * Executes the command to add a deadline task.
+     * @param input The input string.
+     * @param guiResponses The gui response object.
+     * @param tagList The tag list object.
+     * @param taskList The task list object.
+     * @param parser The parser object.
+     * @return The response message.
+     * @throws ChatterboxExceptions.ChatterBoxNoInput If no input is provided.
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter If a parameter is missing.
+     */
     @Override
-    public  String execute(String input, GuiResponses guiResponses,
+    public String execute(String input, GuiResponses guiResponses,
                                    TagList tagList,
                            TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
                             ChatterboxExceptions.ChatterBoxMissingParameter {

@@ -7,20 +7,17 @@ import tags.TagList;
 import tasks.TaskList;
 
 /**
- * Represents a todo command that can be executed by the user
+ * Represents an invalid command that can be executed by the user
  */
-public class TodoCommand extends Command {
-    public TodoCommand() {
+public class InvalidCommand extends Command {
+    public InvalidCommand() {
     }
-
 
     @Override
     public String execute(String input, GuiResponses guiResponses,
                           TagList tagList,
-                          TaskList taskList, Parser parser)
-            throws ChatterboxExceptions.ChatterBoxNoInput,
+                          TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
             ChatterboxExceptions.ChatterBoxMissingParameter {
-        taskList.addTodo(parser.parseTodo(input));
-        return guiResponses.addTaskMsg("Todo", taskList.size());
+        return guiResponses.getInvalidCommandMessage();
     }
 }

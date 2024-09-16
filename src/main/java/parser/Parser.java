@@ -8,7 +8,21 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import chatterboxexceptions.ChatterboxExceptions;
+import command.AllTagsCommand;
+import command.ByeCommand;
 import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.InvalidCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.TagCommand;
+import command.TodoCommand;
+import command.UnmarkCommand;
+
+
 
 /**
  * Parser class has various methods to parse user input
@@ -107,9 +121,40 @@ public class Parser {
 
     }
 
+    /**
+     * Parses a string of text to check if text has a valid command listed in ValidCommandS
+     * by checking the first word
+     * @param text to be parsed,
+     * @return corresponding Command object enum to the command in text
+     */
     public Command parseCommandType(String text) {
         //TODO: Implement this
-        return null;
+        if (text.startsWith("bye")) {
+            return new ByeCommand();
+        } else if (text.startsWith("list")) {
+            return new ListCommand();
+        } else if (text.startsWith("mark")) {
+            return new MarkCommand();
+        } else if (text.startsWith("unmark")) {
+            return new UnmarkCommand();
+        } else if (text.startsWith("todo")) {
+            return new TodoCommand();
+        } else if (text.startsWith("deadline")) {
+            return new DeadlineCommand();
+        } else if (text.startsWith("event")) {
+            return new EventCommand();
+        } else if (text.startsWith("delete")) {
+            return new DeleteCommand();
+        } else if (text.startsWith("find")) {
+            return new FindCommand();
+        } else if (text.startsWith("tag")) {
+            return new TagCommand();
+        } else if (text.startsWith("alltags")) {
+            return new AllTagsCommand();
+        } else {
+            return new InvalidCommand();
+
+        }
     }
     /**
      * Extracts the index for mark and unmark

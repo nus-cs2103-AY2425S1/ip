@@ -155,4 +155,8 @@ public class GuiResponses {
         return tagsString.toString();
     }
 
+    public String getInvalidCommandMessage() {
+        return "Sorry, I don't understand that command. Please try again. ˙◠˙";
+    }
+
 }

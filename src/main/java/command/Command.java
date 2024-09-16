@@ -6,6 +6,9 @@ import parser.Parser;
 import tags.TagList;
 import tasks.TaskList;
 
+/**
+ * Represents a command that can be executed by the user
+ */
 public abstract class Command {
 
     public Command() {
@@ -22,5 +25,7 @@ public abstract class Command {
      * @return the gui response after executing the command
      */
     public abstract String execute(String input, GuiResponses guiResponses,
-                                   TagList tagList, TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter;
+                                   TagList tagList, TaskList taskList, Parser parser)
+            throws ChatterboxExceptions.ChatterBoxNoInput,
+            ChatterboxExceptions.ChatterBoxMissingParameter;
 }

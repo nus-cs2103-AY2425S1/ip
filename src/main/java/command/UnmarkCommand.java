@@ -6,6 +6,9 @@ import parser.Parser;
 import tags.TagList;
 import tasks.TaskList;
 
+/**
+ * Represents a unmark command that can be executed by the user
+ */
 public class UnmarkCommand extends Command {
     public UnmarkCommand() {
     }
@@ -22,8 +25,10 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(String input, GuiResponses guiResponses,
-                          TagList tagList, TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter {
-        int index = parser.extractNum(input) -1;
+                          TagList tagList, TaskList taskList, Parser parser)
+            throws ChatterboxExceptions.ChatterBoxNoInput,
+            ChatterboxExceptions.ChatterBoxMissingParameter {
+        int index = parser.extractNum(input) - 1;
         return guiResponses.unmarkMsg(taskList.unmarkTask(index));
     }
 }

@@ -1,19 +1,34 @@
 package command;
 
+import java.time.LocalDateTime;
+
 import chatterboxexceptions.ChatterboxExceptions;
 import gui.GuiResponses;
 import parser.Parser;
 import tags.TagList;
 import tasks.TaskList;
 
-import java.time.LocalDateTime;
 
-public class EventCommand extends Command{
+/**
+ * Represents the command to add an event task.
+ */
+public class EventCommand extends Command {
     public EventCommand() {
     }
 
+    /**
+     * Executes the command to add an event task.
+     * @param input The input string.
+     * @param guiResponses The gui response object.
+     * @param tagList The tag list object.
+     * @param taskList The task list object.
+     * @param parser The parser object.
+     * @return The response string.
+     * @throws ChatterboxExceptions.ChatterBoxNoInput If no input is provided.
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter If a parameter is missing.
+     */
     @Override
-    public  String execute(String input, GuiResponses guiResponses,
+    public String execute(String input, GuiResponses guiResponses,
                            TagList tagList,
                            TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
             ChatterboxExceptions.ChatterBoxMissingParameter {
