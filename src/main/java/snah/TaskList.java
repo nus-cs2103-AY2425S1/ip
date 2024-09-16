@@ -55,6 +55,18 @@ public class TaskList {
         return searchResults;
     }
 
+    /**
+     * Return stringify of the all the tasks in the list
+     * @return Tasks stringified
+     */
+    public String list() {
+        String response = "";
+        for (int i = 0; i < tasksList.size(); i++) {
+            response += String.format("%d. %s\n", i + 1, tasksList.get(i));
+        }
+        return response;
+    }
+
     public void save(Storage storage) {
         storage.saveTaskList(tasksList);
     }
