@@ -92,7 +92,7 @@ public class TaskList {
     }
 
     /**
-     * Indicate a task to be incomplete.
+     * Indicates a task to be incomplete.
      *
      * @param x The index of the task as shown in the list to be indicated as incomplete.
      * @throws BobbyException If the user does not enter a valid index

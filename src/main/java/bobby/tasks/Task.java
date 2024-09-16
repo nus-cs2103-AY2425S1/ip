@@ -49,14 +49,14 @@ public abstract class Task {
     }
 
     /**
-     * Indicates a task as incomplete
+     * Indicates a task as incomplete.
      */
     public void indIncomplete() {
         this.isCompleted = false;
     }
 
     /**
-     * Return the completion status of a task.
+     * Returns the completion status of a task.
      *
      * @return "X" is task is completed "" if incomplete.
      */
