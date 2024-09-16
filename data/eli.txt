@@ -1,3 +1,4 @@
 T | 1 | read book
 T | 0 | write essay
 T | 0 | CA1
+T | 0 | read a book
