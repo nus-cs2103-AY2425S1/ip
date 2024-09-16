@@ -21,26 +21,45 @@ public class LoanCommand extends Command {
     public LoanCommand(String userInput) {
         this.userInput = userInput;
     }
-    
-    private ArrayList<String> getLoanCommandDesc(String userInput) {
+
+    private ArrayList<String> getLoanCommandDesc(String userInput) throws NuffleException {
         ArrayList<String> loanDesc = new ArrayList<>();
+        String dueDateFormat = getDueDate();
+        if (!isValidateDateTimeFormat(dueDateFormat)) {
+            throw NuffleException.checkDateTimeFormat();
+        }
+
         // Get the description of the loan task
         String commandPattern = "loan /B (\\w+) /L (\\w+) /amt (\\d+(?:\\.\\d{1,2})?) /due (\\d{4}-\\d{2}-\\d{2} \\d{4})";
         Pattern pattern = Pattern.compile(commandPattern);
+
         Matcher matcher = pattern.matcher(userInput);
-        System.out.println(matcher);
         if (matcher.matches()) {
-            String borrower = matcher.group(1);  // Group 1: Borrower's name
+            String borrower = matcher.group(1);
             loanDesc.add(borrower);
-            String lender = matcher.group(2);    // Group 2: Lender's name
+            String lender = matcher.group(2);
             loanDesc.add(lender);
-            String amount = matcher.group(3);    // Group 3: Amount
+            String amount = matcher.group(3);
             loanDesc.add(amount);
-            String dueDate = matcher.group(4);   // Group 4: Due date
+            String dueDate = matcher.group(4);
+
             loanDesc.add(dueDate);
         }
+
         return loanDesc;
 
+    }
+
+    public String getDueDate() {
+        // Get the date and check if the date format is correct
+        int dueIndex = userInput.indexOf("/due");
+
+        if (dueIndex != -1) {
+            // Extract the part after "/due"
+            return userInput.substring(dueIndex + "/due".length()).trim();
+        } else {
+            return "-1";
+        }
     }
 
     @Override
@@ -54,24 +73,15 @@ public class LoanCommand extends Command {
         }
 
         ArrayList<String> desc = getLoanCommandDesc(userInput);
-        System.out.println(desc.get(0));
-        System.out.println(desc.get(1));
-        System.out.println(desc.get(2));
-        System.out.println(desc.get(3));
         // ensure that to /B /L /due and /amt has an input after it
         if (desc.get(0).trim().isEmpty() || desc.get(1).trim().isEmpty() ||
                 desc.get(2).trim().isEmpty() || desc.get(3).trim().isEmpty()) {
             throw NuffleException.checkLoanParams();
         }
 
-        // check that the date input is of the correct format (yyyy-mm-dd hhmm)
-        if (!isValidateDateTimeFormat(desc.get(3))) {
-            throw NuffleException.checkDateTimeFormat();
-        }
-        // Parse the amount
         double amount = Double.parseDouble(desc.get(2));
-        // Parse the date and time
 
+        // Parse the date and time
         String dueDateTime = desc.get(3).trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         LocalDateTime from = LocalDateTime.parse(dueDateTime, formatter);

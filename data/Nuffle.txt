@@ -2,3 +2,5 @@ E | 1 | study | 2024-Sep-22 1400 | 2024-Sep-22 1700
 D | 0 | submit assignment | 2024-Sep-30 2359
 D | 0 | submit report | 2024-Sep-30 2359
 D | 0 | buy food | 2024-Sep-09 2359
+L | 0 |    ashok    |    denon    | 100.0 | 2024-Sep-24 2359
+L | 0 |  a  |  c  | 100.0 | 2024-Sep-30 2359

@@ -42,7 +42,6 @@ public class Nuffle {
      */
     public String getResponse(String input) throws IOException {
         assert input != null && !input.trim().isEmpty() : "User input should not be null or empty";
-        System.out.println("im here");
         return responseHandler(input);
     }
 
@@ -58,11 +57,9 @@ public class Nuffle {
     public String responseHandler(String userInput) throws IOException {
         assert userInput != null && !userInput.trim().isEmpty() : "User input should not be null or empty";
         String response;
-        System.out.println(userInput);
 
         try {
             Command userCommand = Parser.parseCommand(userInput);
-            System.out.println(userCommand);
             response = userCommand.execute(inputList, storage, ui);
         } catch (NuffleException e) {
             response = ui.exceptionErrorMessage(e);
