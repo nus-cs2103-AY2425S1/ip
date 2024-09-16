@@ -27,10 +27,17 @@ abstract public class Task {
     }
 
     /**
-     * Toggles the done status of the task.
+     * Marks the task as done.
      */
-    public void toggleDone() {
-        this.isDone = !this.isDone;
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * Marks the task as not done.
+     */
+    public void markUndone() {
+        this.isDone = false;
     }
 
     /**

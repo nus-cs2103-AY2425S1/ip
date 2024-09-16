@@ -68,7 +68,7 @@ public class Controller {
             ui.printInvalidIndexErrorMessage();
             return;
         }
-        store.get(index).toggleDone();
+        store.get(index).markDone();
         ui.printDoneMessage(store.get(index));
     }
 
@@ -84,7 +84,7 @@ public class Controller {
             ui.printInvalidIndexErrorMessage();
             return;
         }
-        store.get(index).toggleDone();
+        store.get(index).markUndone();
         ui.printUndoneMessage(store.get(index));
     }
 

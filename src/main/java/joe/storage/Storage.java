@@ -100,7 +100,7 @@ public class Storage {
             throw new IllegalArgumentException("Invalid task type");
         }
         if (isDone) {
-            task.toggleDone();
+            task.markDone();
         }
         return task;
     }
