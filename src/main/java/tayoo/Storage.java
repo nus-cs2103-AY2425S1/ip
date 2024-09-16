@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tayoo.exception.TayooException;
-<<<<<<< HEAD
-import tayoo.exception.TayooException;
-=======
->>>>>>> master
 import tayoo.tasks.Task;
 
 /**
@@ -46,47 +42,14 @@ public class Storage {
      * @throws TayooException if the tasklist.txt file cannot be found, read, or updated successfully.
      */
     public void updateTxt(int taskNumber, boolean isCompleted) throws TayooException {
-<<<<<<< HEAD
-        List<String> lines = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
-            String line = reader.readLine();
-
-            while (line != null) {
-                lines.add(line);
-                line = reader.readLine();
-            }
-
-            reader.close();
-
-        } catch (FileNotFoundException e) {
-            throw new TayooException("Cannot find tasklist.txt");
-        } catch (IOException e) {
-            throw new TayooException("An error occurred while reading the file");
-        }
-=======
         List<String> lines = readFromTaskList();;
->>>>>>> master
 
         String line = lines.get(taskNumber);
         String[] parts = line.split(" \\| ");
         parts[1] = Boolean.toString(isCompleted);
         lines.set(taskNumber, String.join(" | ", parts));
 
-<<<<<<< HEAD
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
-            for (String updatedLine : lines) {
-                writer.write(updatedLine);
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            throw new TayooException("An error occurred while updating the task");
-        }
-=======
         writeToTaskList(lines);
->>>>>>> master
     }
 
     /**
