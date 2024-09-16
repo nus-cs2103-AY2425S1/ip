@@ -37,7 +37,11 @@ public class TaskList {
      * @param x The index of the desired task.
      * @return Task at index x of the list.
      */
-    public Task getTask(int x) {
+    public Task getTask(int x) throws BobbyException {
+        if (x >= this.listOfTasks.size() || x < 0) {
+            throw new BobbyException("My apologies. There is no task at that number!");
+        }
+
         return this.listOfTasks.get(x);
     }
 
@@ -110,7 +114,11 @@ public class TaskList {
      *
      * @param x The index of the task as shown in the list to be removed.
      */
-    public void deleteTask(int x) {
+    public void deleteTask(int x) throws BobbyException {
+        if (x > this.listOfTasks.size() || x <= 0) {
+            throw new BobbyException("My apologies. There is no task at that number!");
+        }
+
         this.listOfTasks.remove(x - 1);
     }
 
