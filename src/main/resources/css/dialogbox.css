@@ -1,25 +1,42 @@
+/* Main label styling for the dialog bubbles (user messages) */
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
-    -fx-border-width: 2px;
-    -fx-background-radius: 1em 1em 0 1em;
-    -fx-border-radius: 1em 1em 0 1em;
+    -fx-background-color: #E3F2FD; /* Slightly muted light blue for a modern, clean look */
+    -fx-border-color: #B0BEC5; /* Light gray border for subtle contrast */
+    -fx-border-width: 1px;
+    -fx-background-radius: 12px; /* Smooth rounded corners */
+    -fx-border-radius: 12px;
+    -fx-padding: 12px 16px; /* Refined padding for better spacing */
+    -fx-text-fill: #2C3E50; /* Slightly darker text for better contrast */
+    -fx-font-size: 14px; /* Standardized font size */
+    -fx-font-family: "Segoe UI", sans-serif; /* Modern font for consistency */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 6, 0, 0, 2); /* Soft shadow for depth */
 }
 
+/* Reply dialog bubble */
 .reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-color: #BBDEFB; /* Slightly darker shade for reply messages */
+    -fx-border-color: #90A4AE; /* Muted light gray border */
+    -fx-border-width: 1px;
+    -fx-background-radius: 12px; /* Consistent rounded corners */
+    -fx-border-radius: 12px;
+    -fx-padding: 12px 16px; /* Consistent padding */
+    -fx-text-fill: #2C3E50; /* Darker text for readability */
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 6, 0, 0, 2); /* Subtle shadow effect */
 }
 
+/* Avatar (Display Picture) */
 #displayPicture {
-    /* Shadow effect on image. */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
-
-    /* Change size of image. */
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
-
-    /* Rotate image clockwise by degrees. */
-    -fx-rotate: 0;
+    /* Clean shadow effect */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 12, 0.5, 5, 5); /* Subtle shadow for depth */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-border-radius: 50%; /* Circular image for a modern look */
 }
 
+/* General text alignment and padding for both user and reply bubbles */
+.label, .reply-label {
+    -fx-alignment: center-left; /* Left-align the text inside the dialog bubbles */
+    -fx-wrap-text: true; /* Ensure that text wraps inside the bubbles */
+}
