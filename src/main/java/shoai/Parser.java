@@ -25,6 +25,7 @@ public class Parser {
      * @throws ShoAIException If there is an error processing the command.
      */
     public String parse(String fullCommand, TaskList tasks, Storage storage, ClientList clients) throws ShoAIException {
+        fullCommand = fullCommand.toLowerCase(); // Convert command to lowercase
         String[] commandParts = fullCommand.split(" ", 2);
         String command = commandParts[0];
         String arguments = commandParts.length > 1 ? commandParts[1] : "";
@@ -55,7 +56,7 @@ public class Parser {
             case "listclients":
                 return handleListClients(clients);
             default:
-                throw new ShoAIException("Ask me something I understand!");
+                throw new ShoAIException("Error! Ask me something I understand.");
         }
     }
 
@@ -106,7 +107,7 @@ public class Parser {
     private String handleDeadline(String arguments, TaskList tasks, Storage storage) throws ShoAIException {
         String[] parts = arguments.split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new ShoAIException("The description or datetime of the deadline cannot be empty.");
+            throw new ShoAIException("Error! The description or datetime of the deadline cannot be empty.");
         }
         LocalDateTime deadlineDateTime = parseDateTime(parts[1].trim());
         Task newDeadline = new Deadline(parts[0].trim(), deadlineDateTime);
@@ -119,11 +120,11 @@ public class Parser {
     private String handleEvent(String arguments, TaskList tasks, Storage storage) throws ShoAIException {
         String[] parts = arguments.split(" /from ");
         if (parts.length < 2) {
-            throw new ShoAIException("The description or start datetime of the event cannot be empty.");
+            throw new ShoAIException("Error! The description or start datetime of the event cannot be empty.");
         }
         String[] timeParts = parts[1].split(" /to ");
         if (timeParts.length < 2 || parts[0].trim().isEmpty() || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
-            throw new ShoAIException("The description, start datetime, or end datetime of the event cannot be empty.");
+            throw new ShoAIException("Error! The description, start datetime, or end datetime of the event cannot be empty.");
         }
         LocalDateTime fromDateTime = parseDateTime(timeParts[0].trim());
         LocalDateTime toDateTime = parseDateTime(timeParts[1].trim());
@@ -149,7 +150,7 @@ public class Parser {
         StringBuilder response = new StringBuilder("Here you go! These are the matching tasks in your list:\n");
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
         if (matchingTasks.isEmpty()) {
-            response.append(String.format("Uhoh! No tasks found matching the keyword: %s", keyword));
+            response.append(String.format("Error! No tasks found matching the keyword: %s", keyword));
         } else {
             for (int i = 0; i < matchingTasks.size(); i++) {
                 response.append(String.format("%d.%s%n", i + 1, matchingTasks.get(i)));
@@ -162,7 +163,7 @@ public class Parser {
     private String handleAddClient(String arguments, ClientList clientList, Storage storage) throws ShoAIException {
         String[] clientParts = arguments.split(" /email | /phone ");
         if (clientParts.length < 3) {
-            throw new ShoAIException("Please provide name, email, and phone for the client.");
+            throw new ShoAIException("Error! Please provide name, email, and phone for the client.");
         }
         String clientName = clientParts[0].trim();
         String clientEmail = clientParts[1].trim();
@@ -178,10 +179,10 @@ public class Parser {
         try {
             removeIndex = Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
-            throw new ShoAIException("Invalid client number format.");
+            throw new ShoAIException("Error! Invalid client number format.");
         }
         if (removeIndex < 0 || removeIndex >= clientList.getAllClients().size()) {
-            throw new ShoAIException("Client number out of range.");
+            throw new ShoAIException("Error! Client number out of range.");
         }
         Client removedClient = clientList.getClient(removeIndex);
         clientList.removeClient(removeIndex);
@@ -205,10 +206,10 @@ public class Parser {
 
     private void validateArguments(String arguments, int minParts) throws ShoAIException {
         if (arguments.trim().isEmpty()) {
-            throw new ShoAIException("Arguments cannot be empty.");
+            throw new ShoAIException("Error! Arguments cannot be empty.");
         }
         if (arguments.split(" ").length < minParts) {
-            throw new ShoAIException("Insufficient arguments provided.");
+            throw new ShoAIException("Error! Insufficient arguments provided.");
         }
     }
 
@@ -216,7 +217,7 @@ public class Parser {
         try {
             return Integer.parseInt(indexString.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new ShoAIException("Invalid task number format.");
+            throw new ShoAIException("Error! Invalid task number format.");
         }
     }
 
@@ -224,7 +225,7 @@ public class Parser {
         try {
             return LocalDateTime.parse(dateTimeString, DATE_TIME_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new ShoAIException("The date and time format is incorrect. Use yyyy-MM-dd HH:mm.");
+            throw new ShoAIException("Error! The date and time format is incorrect. Use yyyy-MM-dd HH:mm.");
         }
     }
 
@@ -276,7 +277,7 @@ public class Parser {
     public static Task fileStringToTask(String fileString) throws ShoAIException {
         String[] parts = fileString.split(" \\| ");
         if (parts.length < 3) {
-            throw new ShoAIException("Invalid task format.");
+            throw new ShoAIException("Error! Invalid task format.");
         }
 
         String type = parts[0];
@@ -293,7 +294,7 @@ public class Parser {
                 LocalDateTime eventToDateTime = LocalDateTime.parse(parts[4], DATE_TIME_FORMAT);
                 return new Event(description, eventFromDateTime, eventToDateTime);
             default:
-                throw new ShoAIException("Unknown task type: " + type);
+                throw new ShoAIException("Error! Unknown task type: " + type);
         }
     }
 
@@ -301,7 +302,7 @@ public class Parser {
         // Example format: "Name /email email /phone phone"
         String[] parts = fileString.split(" /email | /phone ");
         if (parts.length < 3) {
-            throw new ShoAIException("Invalid client format.");
+            throw new ShoAIException("Error! Invalid client format.");
         }
         String name = parts[0].trim();
         String email = parts[1].trim();

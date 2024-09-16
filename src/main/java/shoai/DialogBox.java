@@ -22,7 +22,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, String styleClass) {
         assert text != null && !text.isEmpty() : "Dialog text cannot be null or empty";
         assert img != null : "Image cannot be null";
         try {
@@ -36,6 +36,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.getStyleClass().add(styleClass);
 
         // Apply DropShadow effect to the ImageView
         DropShadow shadow = new DropShadow();
@@ -54,12 +55,18 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, "user-dialog");
     }
 
     public static DialogBox getChatbotDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, "chatbot-dialog");
         db.flip();
+        return db;
+    }
+
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img, "error-dialog"); // Use a new style class for error
+        db.flip(); // Flip so it's on the chatbot side
         return db;
     }
 }
