@@ -5,5 +5,6 @@ url: "https://incogdino.github.io/ip/" # Your GitHub Pages URL
 github_username: your-username
 
 # Build settings
-markdown: GFM
-theme: minima
+markdown: kramdown
+kramdown:
+  input: GFM # This enables GitHub Flavored Markdown (GFM)
