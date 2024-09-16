@@ -64,12 +64,25 @@ public class Storage {
 
     }
 
+    /**
+     * Creates a Task object from a line read from the file.
+     * The line format is dependent on the task type, and tags, if present, are handled accordingly.
+     *
+     * @param line A string representing the task in the file format.
+     * @return The Task object created from the string.
+     * @throws MaxException If an unknown task type is found or if any other error occurs during task creation.
+     */
     private static Task createTask(String line) throws MaxException {
         String[] parts = line.split(" \\| ");
         Task task;
+        boolean isTagged;
+
         switch (parts[0]) {
         case "T":
             task = new Todo(parts[2]);
+
+            isTagged = parts.length > 3;
+
             break;
         case "D":
             Parser tempParser = new Parser();
@@ -79,16 +92,32 @@ public class Storage {
             } else {
                 task = new Deadline(parts[2], parts[3]);
             }
+
+            isTagged = parts.length > 4;
+
             break;
         case "E":
             task = new Event(parts[2], parts[3]);
+
+            isTagged = parts.length > 4;
+
             break;
         default:
             throw new MaxException("Unknown task type found in file.");
         }
+
         if (parts[1].equals("1")) {
             task.markDone();
         }
+
+        if (isTagged) {
+            // Tags are assumed to be the last part if there are extra parts
+            String[] tags = parts[parts.length - 1].split(",");
+            for (String tag : tags) {
+                task.addTag(tag.trim());
+            }
+        }
+
         return task;
     }
 
@@ -102,11 +131,14 @@ public class Storage {
         try {
             File file = new File(path);
             file.getParentFile().mkdirs();
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+
             for (Task task : storedTasks) {
                 writer.write(task.toFileFormat());
                 writer.newLine();
             }
+
             writer.close();
         } catch (IOException e) {
             throw new MaxException("An IOException occurred.");

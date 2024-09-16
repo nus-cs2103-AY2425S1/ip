@@ -40,13 +40,18 @@ public class Event extends Task {
     }
 
     /**
-     * Converts the event to a string format suitable for saving to a file.
+     * Returns the task in a format suitable for saving to a file.
+     * The format includes the task type, completion status, description, start time,
+     * end time, and any tags associated with the task.
      *
-     * @return A string in the format "E | status | description | /from start time /to end time".
+     * @return A string representing the task formatted for file storage.
      */
     @Override
     public String toFileFormat() {
-        return String.format("E | %d | %s | %s", isDone ? 1 : 0, description, "/from " + startTime + " /to " + endTime);
+        String tagsString = getTagsString();
+        return String.format("E | %d | %s | /from %s /to %s%s", isDone ? 1 : 0, description,
+                startTime, endTime,
+                tagsString.isEmpty() ? "" : " | " + tagsString);
     }
 
 }

@@ -29,13 +29,16 @@ public class Todo extends Task {
     }
 
     /**
-     * Converts the Todo task to a string format suitable for saving to a file.
-     * The format is "T | status | description", where the status is either 1 (done) or 0 (not done).
+     * Returns the task in a format suitable for saving to a file.
+     * The format includes the task type, completion status, description,
+     * and any tags associated with the task.
      *
-     * @return A string format of the Todo task for file saving.
+     * @return A string representing the task formatted for file storage.
      */
     @Override
     public String toFileFormat() {
-        return String.format("T | %d | %s", isDone ? 1 : 0, description);
+        String tagsString = getTagsString();
+        return String.format("T | %d | %s%s", isDone ? 1 : 0, description,
+                tagsString.isEmpty() ? "" : " | " + tagsString);
     }
 }

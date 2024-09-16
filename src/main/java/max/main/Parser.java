@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Parser class is responsible for interpreting and executing user commands.
@@ -87,6 +88,12 @@ public class Parser {
             } else if (text.startsWith("find")) {
                 String toFind = text.replaceFirst("find", "").trim();
                 handleFind(toFind);
+            } else if (text.startsWith("tag")) {
+                handleTag(text);
+            } else if (text.startsWith("untag")) {
+                handleUntag(text);
+            } else if (text.startsWith("searchtag")) {
+                handleSearchtag(text);
             } else {
                 throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
             }
@@ -98,6 +105,98 @@ public class Parser {
 
         return false;
 
+    }
+
+    /**
+     * Handles searching for tasks by a specific tag.
+     * The command text should be in the format "searchtag [tag]".
+     * The method extracts the tag from the command and searches for tasks with that tag.
+     *
+     * @param text The command text containing the tag to search for.
+     * @throws MaxException If the command text does not contain a tag.
+     */
+    private void handleSearchtag(String text) throws MaxException {
+        String tag = text.replaceFirst("searchtag", "").trim();
+
+        if (tag.isEmpty()) {
+            throw new MaxException("Tag cannot be empty. Please provide a tag to search.");
+        }
+
+        List<Task> results = taskList.searchByTag(tag);
+
+        ui.printTagSearchResults(results);
+    }
+
+    /**
+     * Handles adding a tag to a task based on user input.
+     * The input text should be in the format "tag [index] [tag]".
+     * The method extracts the task index and tag from the input, then adds the tag to the specified task.
+     *
+     * @param text The command text containing the task index and the tag to add.
+     * @throws MaxException If the index cannot be parsed as an integer.
+     * @throws MaxException If the task index is out of bounds.
+     * @throws MaxException If the input does not contain enough parts or if the tag is empty.
+     */
+    private void handleTag(String text) throws MaxException {
+        String[] parts = text.split(" ", 3);
+
+        if (parts.length < 3) {
+            throw new MaxException("Insufficient command. Use the format: tag [index] [tag].");
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new MaxException("Invalid index format. Please provide a valid integer index.");
+        }
+
+        String tag = parts[2].trim();
+        if (tag.isEmpty()) {
+            throw new MaxException("Tag cannot be empty. Please provide a tag to add.");
+        }
+
+        Task task = taskList.getTask(index);
+        task.addTag(tag);
+
+        ui.printLine();
+        ui.printMessage("Added tag #" + tag + " to task " + (index + 1));
+    }
+
+    /**
+     * Handles removing a tag from a task based on user input.
+     * The input text should be in the format "untag [index] [tag]".
+     * The method extracts the task index and tag from the input, then removes the tag from the specified task.
+     *
+     * @param text The command text containing the task index and the tag to remove.
+     * @throws MaxException If the index cannot be parsed as an integer.
+     * @throws MaxException If the task index is out of bounds.
+     * @throws MaxException If the input does not contain enough parts or if the tag is empty.
+     */
+    private void handleUntag(String text) throws MaxException {
+        // Parse the command to extract the index and tag
+        String[] parts = text.split(" ", 3);
+
+        if (parts.length < 3) {
+            throw new MaxException("Insufficient command parts. Use the format: untag [index] [tag].");
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new MaxException("Invalid index format. Please provide a valid integer index.");
+        }
+
+        String tag = parts[2].trim();
+        if (tag.isEmpty()) {
+            throw new MaxException("Tag cannot be empty. Please provide a tag to remove.");
+        }
+
+        Task task = taskList.getTask(index);
+        task.removeTag(tag);
+        ui.printLine();
+        ui.printMessage("Removed tag #" + tag + " from task " + (index + 1));
     }
 
     /**
