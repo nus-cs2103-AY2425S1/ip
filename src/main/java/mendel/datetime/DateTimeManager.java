@@ -1,12 +1,12 @@
 package mendel.datetime;
 
-import mendel.mendelexception.MendelException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import mendel.mendelexception.MendelException;
 
 /**
  * The DateTimeManager class parses inputted of date-time strings to a consistent form.

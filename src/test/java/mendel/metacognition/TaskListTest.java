@@ -5,9 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 import mendel.discretetask.Deadline;
 import mendel.discretetask.Todo;
-import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
@@ -139,8 +140,8 @@ public class TaskListTest {
     public void findDeadline() {
         TaskList taskList = new TaskList();
         taskList.add(Deadline.of("deadline test /by 31 Aug 2030"));
-        assertEquals("Here are the tasks with deadlines by Dec 01 2030.\n  1.[D][ ] test (by: Aug 31 2030)" +
-                "\nYou have 1 tasks for review",
+        assertEquals("Here are the tasks with deadlines by Dec 01 2030.\n  1.[D][ ] test (by: Aug 31 2030)"
+                + "\nYou have 1 tasks for review",
                 taskList.find("remind 01 Dec 2030"));
         assertEquals("Here are the tasks with deadlines by Dec 01 2025.\n  Good job! You have no pending tasks!",
                 taskList.find("remind 01 Dec 2025"));

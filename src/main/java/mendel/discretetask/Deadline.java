@@ -1,10 +1,10 @@
 package mendel.discretetask;
 
+import java.time.LocalDate;
+
 import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
-
-import java.time.LocalDate;
 
 /**
  * Represents deadline task. The Deadline class extends the Task class
