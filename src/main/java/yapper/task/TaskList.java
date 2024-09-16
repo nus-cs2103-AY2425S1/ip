@@ -3,6 +3,9 @@ package yapper.task;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -33,17 +36,18 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-
+    
     public List<Task> findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            // Convert both the task description and the keyword to lowercase for case-insensitive comparison
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }
         return matchingTasks;
-        
     }
+    
     public String listTasks() {
         if (tasks.isEmpty()) {
             return "You have no tasks in the list.";

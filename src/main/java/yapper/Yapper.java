@@ -227,9 +227,9 @@ public class Yapper {
      * @throws YapperException If no keyword is provided for the search.
      */
     private String handleFind(String fullCommand) throws YapperException {
-        String[] parts = splitAndValidateCommand(fullCommand, "find", 2);  
-        String keyword = parts[1];
-        List<Task> matchingTasks = tasks.findTasks(keyword);
+        String[] parts = splitAndValidateCommand(fullCommand, "find", 2);
+        String keyword = parts[1].toLowerCase(); // Convert the keyword to lowercase once
+        List<Task> matchingTasks = tasks.findTasks(keyword); // Case-insensitive search
 
         if (matchingTasks.isEmpty()) {
             return "Sorry, Boss. I couldn't find any tasks matching the keyword '" + keyword + "'.";
