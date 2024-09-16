@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
 public class Parser {
     static final String FROM_TO_TIME_MISSING = "OOPS!!! The description and timings of an event "
             + "should not be empty.\n"
-            + "          Please add a description to the event you wish to add to the list.\n"
+            + "          Please add a timeline to the event you wish to add to the list.\n"
             + "          For example: \"event return book /from Mon 4pm /to 6pm\"\n"
             + "          Or \"event return book /from 29-04-2021 18:00 /to 29-04-2021 18:30\"";
 
     static final String BY_TIME_MISSING = "OOPS!!! You need to add the \"by\" details.\n"
-            + "          For example: deadline homework /by Aug 6th";
+            + "          Remember to follow this format: deadline <description> /by <date / time / date & time>\n";
 
-    static final String TODO_DESCRIPTION_MISSING = "OOPS!!! Need to add a description for a todo activity\n "
-            + "         For example: todo borrow book";
+    static final String TODO_DESCRIPTION_MISSING = "OOPS!!! Need to add a description for a todo activity\n"
+            + "         Remember to follow this format: todo <description>\n";
 
     static final String LENGTH_OF_INPUT_TOO_SMALL = "OOPS!! Add a string of words you want to find.\n"
             + "          Please do not leave it blank.";
@@ -137,7 +137,7 @@ public class Parser {
      * @return a String
      */
     static String buildTaskMessage(Task taskType, int length, String task) {
-        return "          ____________________________________\n          Got it. I've added this task:\n"
+        return "          ____________________________________\n          Okay, got it. I've added this task:\n"
                 + "             " + taskType.finalString() + "\n"
                 + "          Now you have " + length + " " + task + " in the list.\n"
                 + "          ____________________________________";

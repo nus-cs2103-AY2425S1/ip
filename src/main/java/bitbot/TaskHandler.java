@@ -203,7 +203,7 @@ public class TaskHandler {
 
         if (similarWordList.isEmpty()) {
             result.append("          ____________________________________\n");
-            result.append("          There are no matching tasks in the list.\n");
+            result.append("          There are no matching tasks in the list :(\n");
             result.append("          Please try another keyword.\n");
             result.append("          ____________________________________\n");
         } else {
@@ -256,7 +256,7 @@ public class TaskHandler {
         } catch (NumberFormatException e) {
             throw new BitBotException("OOPS!! Invalid number, key in a proper positive number!!");
         } catch (ArrayIndexOutOfBoundsException err) {
-            throw new BitBotException("OOPS!! Exceeding the range of the list.\n"
+            throw new BitBotException("OOPS!! Exceeding the range of the list :(\n"
                     + "          Please key in a number within the size of the list");
         }
 
@@ -276,7 +276,7 @@ public class TaskHandler {
 
         arrayList.get(index - 1).markAsNotTagged();
         return "          ____________________________________\n          "
-                + "OK, I've untagged this task:\n"
+                + "Okay, I've untagged this task:\n"
                 + "             " + arrayList.get(index - 1).finalString()
                 + "\n"
                 + "          ____________________________________\n";
@@ -292,7 +292,7 @@ public class TaskHandler {
     public static String handleMark(ArrayList<Task> arrayList, int index) {
         arrayList.get(index - 1).markAsDone();
         return "          ____________________________________\n          "
-                + "Nice! I've marked this task as done:\n"
+                + "Yay nice! I've marked this task as done:\n"
                 + "             " + arrayList.get(index - 1).finalString()
                 + "\n"
                 + "          ____________________________________\n";
@@ -308,7 +308,7 @@ public class TaskHandler {
     public static String handleUnmark(ArrayList<Task> arrayList, int index) {
         arrayList.get(index - 1).markAsUndone();
         return "          ____________________________________\n          "
-                + "OK, I've marked this task as not done yet:"
+                + "Okay, I've marked this task as not done yet:"
                 + "             " + arrayList.get(index - 1).finalString()
                 + "\n"
                 + "          ____________________________________\n";
@@ -325,7 +325,7 @@ public class TaskHandler {
     public static String handleDelete(ArrayList<Task> arrayList, int index, String task) {
         Task task1 = arrayList.remove(index - 1);
         return "          ____________________________________\n          "
-                + "Noted. I've removed this task:\n"
+                + "Alright noted. I've removed this task:\n"
                 + "             " + task1.finalString() + "\n"
                 + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
                 + "          ____________________________________";
@@ -359,16 +359,17 @@ public class TaskHandler {
         int numberPart = -1;
 
         if (partsOfInput.length < 2) {
-            throw new BitBotException("OOPS!! Add the task number to mark/ unmark / delete the event.\n"
-                    + "          Please do not leave it blank.");
+            throw new BitBotException("OOPS!! I cannot function without you providing me the\n"
+                    + "          task number to mark/ unmark / delete the event.\n"
+                    + "          Please do not leave it blank!");
         }
         if (isAString(partsOfInput[partsOfInput.length - 1])) {
-            throw new BitBotException("OOPS!!! The second character should be a number.\n"
+            throw new BitBotException("OOPS!!! The second character should be a number!\n"
                     + "          For example: delete 1");
         }
         if (arrayList.isEmpty()) {
-            throw new BitBotException("You cannot mark / unmark / delete anything yet "
-                    + "since the list is empty.\n"
+            throw new BitBotException("Your list is empty!!!! "
+                    + "You cannot mark / unmark / delete anything yet.\n"
                     + "          Add something into the list first!");
         }
 
