@@ -2,6 +2,12 @@ package futureyou.gui;
 
 import futureyou.FutureYou;
 import futureyou.Ui;
+
+import java.util.Objects;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 /**
  * Controller for the main GUI.
  */
@@ -55,5 +62,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getFutureYouDialog(response, futureYouImage)
         );
         userInput.clear();
+
+        if (Objects.equals(input, "bye")) {
+
+            //@@author James_D
+            //Reused from https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
+            //with minor modifications
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 }
