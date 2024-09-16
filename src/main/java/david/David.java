@@ -55,6 +55,7 @@ public class David {
      * Get response from chatbot
      */
     public String getResponse(String input) {
+        String response = "";
         inputString = input;
 
         if (inputString.equals("bye")) {
@@ -64,23 +65,35 @@ public class David {
         try {
             switch (StringParser.parseStringToCommand(inputString)) {
             case "LIST":
-                return listTasks();
+                response = listTasks();
+                break;
             case "MARK":
-                return markTaskAsDone(inputString);
+                response = markTaskAsDone(inputString);
+                break;
             case "UNMARK":
-                return markTaskAsUnDone(inputString);
+                response = markTaskAsUnDone(inputString);
+                break;
             case "TODO":
-                return addTodoTask(inputString);
+                response = addTodoTask(inputString);
+                break;
             case "EVENT":
-                return addEventTask(inputString);
+                response = addEventTask(inputString);
+                break;
             case "DEADLINE":
-                return addDeadlineTask(inputString);
+                response = addDeadlineTask(inputString);
+                break;
             case "DELETE":
-                return deleteTask(inputString);
+                response = deleteTask(inputString);
+                break;
             case "FIND":
-                return findEvent(inputString);
+                response = findEvent(inputString);
+                break;
             case "SORT":
-                return sortEvent(inputString);
+                response = sortEvent(inputString);
+                break;
+            case "HELP":
+                response = ui.displayHelp();
+                break;
             default:
                 throw new DavidUnknownActionException();
             }
@@ -88,6 +101,8 @@ public class David {
             //The actual error message thrown depends on the runtime type of the exception thrown. (Polymorphism)
             return ui.displayErrorMessage(e);
         }
+
+        return response;
     }
 
     /**

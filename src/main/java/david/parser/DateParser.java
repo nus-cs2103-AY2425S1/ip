@@ -60,9 +60,10 @@ public class DateParser extends Parser {
 
     /**
      * Validates if a given date time is before another given date time
-     * @param t1
-     * @param t2
-     * @return true if t1 is before t2
+     *
+     * @param t1 LocalDateTime of the first time instance.
+     * @param t2 LocalDateTime of the second time instance.
+     * @return true if t1 is before t2.
      */
     public static boolean validateDateTime(LocalDateTime t1, LocalDateTime t2) throws DavidInvalidTimeException {
         if (t1.isBefore(t2)) {

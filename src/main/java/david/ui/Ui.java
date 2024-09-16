@@ -10,8 +10,9 @@ import david.task.TaskList;
  */
 public class Ui {
     private static final String BUNNY_EMOJI = new String(Character.toChars(0x1F430));
-    private static final String INTRO = " Hello! I'm David. Your bunny assistant " + BUNNY_EMOJI + "\n"
-            + " What can I do for you?\n";
+    private static final String INTRO = "Hello! I'm David. Your bunny assistant " + BUNNY_EMOJI + "\n"
+            + " What can I do for you?\n"
+            + "(Input help for a list of commands)\n";
 
     private static final String OUTRO = "Bye! Hope to see you again soon!\n";
 
@@ -142,5 +143,27 @@ public class Ui {
      */
     public String findEvent(String s, TaskList tasks) {
         return tasks.findEvent(s);
+    }
+
+    /**
+     * Displays help message for list of available commands
+     *
+     * @return Help message.
+     */
+    public String displayHelp() {
+        return "Here is a list of commands that can be inputted: \n"
+                + "1. todo TASK_NAME \n"
+                + "2. deadline TASK_NAME \by BY_DATE\n"
+                + "3. event TASK_NAME /from FROM_DATE /to TO_DATE\n"
+                + "4. list \n"
+                + "5. mark TASK_NUMBER \n"
+                + "6. unmark TASK_NUMBER \n"
+                + "7. delete TASK_NUMBER \n"
+                + "8. find TASK_NAME \n"
+                + "9. sort ORDER \n"
+                + "\n"
+                + "- Arguments in caps are input fields specified by you\n"
+                + "- ORDER has two valid values, \"asc\" and \"desc\"";
+
     }
 }
