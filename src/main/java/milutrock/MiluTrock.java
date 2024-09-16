@@ -1,7 +1,5 @@
 package milutrock;
 
-import java.util.Scanner;
-
 import milutrock.exceptions.UnknownCommandException;
 
 /**
@@ -14,39 +12,32 @@ public class MiluTrock {
     private Parser parser;
     private Storage storage;
 
-    public MiluTrock(String path) {
+    public MiluTrock() {
         this.taskList = new TaskList();
         this.ui = new Ui("MiluTrock", this.taskList);
         this.parser = new Parser(this.taskList, this.ui);
-        this.storage = new Storage(path, this.parser);
+        this.storage = new Storage("./data.txt", this.parser);
     }
 
-    private void run() {
-        this.ui.printBanner();
-
+    /**
+     * Initialize the milutrock class.
+     */
+    public String initializeAndGetBanner() {
         this.storage.loadTasks();
 
-        Scanner scanner = new Scanner(System.in);
-        boolean shouldContinue = true;
-        while (shouldContinue && scanner.hasNext()) {
-            String input = scanner.nextLine();
-
-            this.ui.printLineBreak();
-
-            try {
-                shouldContinue = this.parser.parseCommand(input);
-            } catch (UnknownCommandException e) {
-                System.out.println(e.getMessage());
-            }
-
-            this.ui.printLineBreak();
-        }
-        scanner.close();
-
-        this.storage.storeTasks();
+        return this.ui.printBanner();
     }
 
-    public static void main(String[] args) {
-        new MiluTrock("./data.txt").run();
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        this.storage.storeCommand(input);
+        
+        try {
+            return this.parser.parseCommand(input);
+        } catch (UnknownCommandException e) {
+            return e.getMessage();
+        }
     }
 }

@@ -16,20 +16,14 @@ public class Ui {
         this.taskList = taskList;
     }
 
-
     /**
      * Display a greeting message with the name of the assistant.
      */
-    public void printBanner() {
-        System.out.println("Hello! I'm " + this.name + "!");
-        System.out.println("What can I do for you?");
-    }
-
-    /**
-     * Print a line of underscores as a visual break.
-     */
-    public void printLineBreak() {
-        System.out.println("____________________________________________________________");
+    public String printBanner() {
+        return (
+            "Hello! I'm " + this.name + "!\n"
+            + "What can I do for you?\n"
+        );
     }
 
     /**
@@ -44,18 +38,20 @@ public class Ui {
      * 
      * @param i Index of the task to print.
      */
-    public void printTask(int i) {
-        System.out.println("  " + this.taskList.getTaskAtIndexAsString(i));
+    private String printTask(int i) {
+        return "  " + this.taskList.getTaskAtIndexAsString(i) + "\n";
     }
 
     /**
      * Print out the tasks in a task list with their corresponding indices.
      */
-    public void printTaskList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printTaskList() {
+        String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < this.taskList.getNumberOfTasks(); i++) {
-            System.out.println((i + 1) + ". " + this.taskList.getTaskAtIndexAsString(i));
+            output += (i + 1) + ". " + this.taskList.getTaskAtIndexAsString(i) + "\n";
         }
+
+        return output;
     }
 
     /**
@@ -64,9 +60,11 @@ public class Ui {
      * 
      * @param i Index of the task marked as done.
      */
-    public void printMarkMessage(int i) {
-        System.out.println("Nice! I've marked this task as done:");
-        this.printTask(i);
+    public String printMarkMessage(int i) {
+        return (
+            "Nice! I've marked this task as done:\n"
+            + this.printTask(i)
+        );
     }
 
     /**
@@ -75,9 +73,11 @@ public class Ui {
      * 
      * @param i Index of the task marked as not done yet.
      */
-    public void printUnmarkMessage(int i) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        this.printTask(i);
+    public String printUnmarkMessage(int i) {
+        return (
+            "OK, I've marked this task as not done yet:\n"
+            + this.printTask(i)
+        );
     }
     
     /**
@@ -86,20 +86,24 @@ public class Ui {
      * 
      * @param task The task being deleted.
      */
-    public void printDeleteMessage(Task task) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + this.taskList.getNumberOfTasks() + " tasks in the list.");
+    public String printDeleteMessage(Task task) {
+        return (
+            "Noted. I've removed this task:" + "\n"
+            + "  " + task + "\n"
+            + "Now you have " + this.taskList.getNumberOfTasks() + " tasks in the list." + "\n"
+        );
     }
 
     /**
      * Print a message confirming the addition of a task to a list along
      * with the updated number of tasks in the list.
      */
-    public void printAddMessage() {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.taskList.getTaskAtIndexAsString(this.taskList.getNumberOfTasks() - 1));
-        System.out.println("Now you have " + this.taskList.getNumberOfTasks() + " tasks in the list.");
+    public String printAddMessage() {
+        return (
+            "Got it. I've added this task:" + "\n"
+            + "  " + this.taskList.getTaskAtIndexAsString(this.taskList.getNumberOfTasks() - 1) + "\n"
+            + "Now you have " + this.taskList.getNumberOfTasks() + " tasks in the list." + "\n"
+        );
     }
 
     /**
@@ -107,10 +111,12 @@ public class Ui {
      * 
      * @param tasks The list of tasks to print.
      */
-    public void printFindMessage(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String printFindMessage(ArrayList<Task> tasks) {
+        String output = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            output += (i + 1) + ". " + tasks.get(i) + "\n";
         }
+
+        return output;
     }
 }

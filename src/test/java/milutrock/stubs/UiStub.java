@@ -33,52 +33,42 @@ public class UiStub extends Ui {
     }
 
     @Override
-    public void printBanner() {
+    public String printBanner() {
         this.lastFunctionCalled = Function.PRINT_BANNER;
+        return "";
     }
 
     @Override
-    public void printLineBreak() {
-        this.lastFunctionCalled = Function.PRINT_LINE_BREAK;
-    }
-
-    @Override
-    public void printByeMessage() {
-        this.lastFunctionCalled = Function.PRINT_BYE_MESSAGE;
-    }
-
-    @Override
-    public void printTask(int i) {
-        this.lastFunctionCalled = Function.PRINT_TASK;
-        this.integerInput = i;
-    }
-
-    @Override
-    public void printTaskList() {
+    public String printTaskList() {
         this.lastFunctionCalled = Function.PRINT_TASK_LIST;
+        return "";
     }
 
     @Override
-    public void printMarkMessage(int i) {
+    public String printMarkMessage(int i) {
         this.lastFunctionCalled = Function.PRINT_MARK_MESSAGE;
         this.integerInput = i;
+        return "";
     }
 
     @Override
-    public void printUnmarkMessage(int i) {
+    public String printUnmarkMessage(int i) {
         this.lastFunctionCalled = Function.PRINT_UNMARK_MESSAGE;
         this.integerInput = i;
+        return "";
     }
     
     @Override
-    public void printDeleteMessage(Task task) {
+    public String printDeleteMessage(Task task) {
         this.lastFunctionCalled = Function.PRINT_DELETE_MESSAGE;
         this.taskInput = task;
+        return "";
     }
 
     @Override
-    public void printAddMessage() {
+    public String printAddMessage() {
         this.lastFunctionCalled = Function.PRINT_ADD_MESSAGE;
+        return "";
     }
 
 }
