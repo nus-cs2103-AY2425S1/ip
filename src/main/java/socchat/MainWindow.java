@@ -31,10 +31,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Socchat s) {
+    public void setSocchat(Socchat s) {
         socchat = s;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Socchat.greet(), soccatImage)
+                DialogBox.getSocchatDialog(Socchat.greet(), soccatImage)
         );
     }
 
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String response = socchat.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, soccatImage)
+                DialogBox.getSocchatDialog(response, soccatImage)
         );
         userInput.clear();
     }
