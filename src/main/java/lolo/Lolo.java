@@ -73,7 +73,7 @@ public class Lolo {
 
     /**
      * The main entry point of the Lolo application.
-     * Creates a new Lolo object and starts the application.
+     * Initializes and runs the Lolo application.
      *
      * @param args Command line arguments.
      */
