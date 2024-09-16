@@ -10,6 +10,7 @@ import monique.ui.Ui;
  * This command is used to change the status of a task from completed to not completed.
  */
 public class UnmarkCommand extends Command {
+    public static final String COMMAND_TYPE = "unmark";
     public static final int INDEX_OFFSET = 1;
     private final int taskNum;
     private String unmarkMessage = "";
@@ -19,7 +20,7 @@ public class UnmarkCommand extends Command {
      * @param taskNum the index of the task to unmark
      */
     public UnmarkCommand(int taskNum) {
-        super();
+        super(COMMAND_TYPE);
         this.taskNum = taskNum;
     }
 

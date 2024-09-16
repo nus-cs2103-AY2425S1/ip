@@ -1,7 +1,10 @@
 package monique;
 
+import java.util.Objects;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -25,7 +28,13 @@ public class Main extends Application {
             MainWindow mainWindow = new MainWindow(stage);
             Scene scene = new Scene(mainWindow);
             stage.setScene(scene); // Setting the stage to show our screen
+            stage.setTitle("Monique: Your personal helper");
+            Image moniqueImage = new Image(Objects.requireNonNull(this.getClass()
+                    .getResourceAsStream("/images/monique_logo.png")));
+            stage.getIcons().add(moniqueImage);
             mainWindow.showWelcomeMessage();
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             stage.show(); // Render the stage.
         } catch (Exception e) {
             e.printStackTrace();

@@ -11,6 +11,7 @@ import monique.ui.Ui;
  * This command is used when the input command does not match any recognized commands.
  */
 public class UnknownCommand extends Command {
+    public static final String COMMAND_TYPE = "unknown";
     private final MoniqueException moniqueException;
 
     /**
@@ -18,7 +19,7 @@ public class UnknownCommand extends Command {
      * This is used when an unknown command is encountered, triggering a default exception.
      */
     public UnknownCommand() {
-        super();
+        super(COMMAND_TYPE);
         this.moniqueException = new UnknownCommandException();
     }
     /**
@@ -28,7 +29,7 @@ public class UnknownCommand extends Command {
      * @param moniqueException The specific {@link MoniqueException} to be thrown.
      */
     public UnknownCommand(MoniqueException moniqueException) {
-        super();
+        super(COMMAND_TYPE);
         this.moniqueException = moniqueException;
     }
     /**

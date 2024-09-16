@@ -9,12 +9,12 @@ import monique.ui.Ui;
  * This command saves the current task list to storage and displays a goodbye message to the user.
  */
 public class ByeCommand extends Command {
-
+    public static final String COMMAND_TYPE = "bye";
     /**
      * Constructs a <code>ByeCommand</code> object.
      */
     public ByeCommand() {
-        super();
+        super(COMMAND_TYPE);
     }
 
     /**

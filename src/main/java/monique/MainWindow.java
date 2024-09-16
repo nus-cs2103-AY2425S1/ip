@@ -71,7 +71,7 @@ public class MainWindow extends AnchorPane {
      */
     public void showWelcomeMessage() {
         String welcomeMessage = monique.getWelcomeMessage();
-        dialogContainer.getChildren().add(DialogBox.getMoniqueDialog(welcomeMessage, moniqueImage));
+        dialogContainer.getChildren().add(DialogBox.getMoniqueDialog(welcomeMessage, moniqueImage, "default"));
     }
     /**
      * Injects the Monique instance into this controller.
@@ -92,9 +92,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = monique.getResponse(input);
+        String commandType = monique.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMoniqueDialog(response, moniqueImage)
+                DialogBox.getMoniqueDialog(response, moniqueImage, commandType)
         );
         userInput.clear();
         if (response.equalsIgnoreCase(monique.getUi().showGoodbye())) {

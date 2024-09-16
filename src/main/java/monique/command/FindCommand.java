@@ -19,7 +19,7 @@ import monique.ui.Ui;
  * </p>
  */
 public class FindCommand extends Command {
-
+    public static final String COMMAND_TYPE = "find";
     private final String[] searchKeys;
     private String foundResults = "";
 
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
      */
     //Overloaded Constructor
     public FindCommand(String ...searchKeys) {
-        super();
+        super(COMMAND_TYPE);
         assert searchKeys.length > 0;
         this.searchKeys = searchKeys;
     }

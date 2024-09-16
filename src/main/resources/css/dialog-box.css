@@ -1,0 +1,78 @@
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
+.label {
+    -fx-background-color: white; /* White background */
+    -fx-border-color: #87CEEB #D1E7DD #AFEEEE #B0E0E6; /* Soft pastel blues and greens for borders */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-color: white; /* White background */
+    -fx-border-color: #87CEEB #D1E7DD #AFEEEE #B0E0E6; /* Soft pastel blues and greens for borders */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+/* Add Label */
+.add-label {
+    -fx-background-color: #F0FAFC; /* Very Light Pastel Blue */
+}
+
+/* Bye Label */
+.bye-label {
+    -fx-background-color: #EDF7ED; /* Very Light Mint Green */
+}
+
+/* Delete Label */
+.delete-label {
+    -fx-background-color: #E7F8F8; /* Very Light Pastel Teal */
+}
+
+/* Find Label */
+.find-label {
+    -fx-background-color: #E0FFFF; /* Very Light Pastel Cyan */
+}
+
+/* Guide Label */
+.guide-label {
+    -fx-background-color: #F1FBF6; /* Very Light Aqua Green */
+}
+
+/* List Label */
+.list-label {
+    -fx-background-color: #E8F7F8; /* Very Light Pale Turquoise */
+}
+
+/* Mark Label */
+.mark-label {
+    -fx-background-color: #F4F8E6; /* Very Light Pastel Green */
+}
+
+/* Unmark Label */
+.unmark-label {
+    -fx-background-color: #F5FFFF; /* Very Light Cyan */
+}
+
+/* Unknown Label */
+.unknown-label {
+    -fx-background-color: #E9F4F5; /* Very Light Seafoam */
+}
+
+/* Default Label */
+.default-label {
+    -fx-background-color: #FFFFFF; /* White */
+}
+

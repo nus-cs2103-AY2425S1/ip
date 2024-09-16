@@ -12,13 +12,14 @@ import monique.ui.Ui;
  * This command prints all tasks with their respective indices to the console.
  */
 public class ListCommand extends Command {
+    public static final String COMMAND_TYPE = "list";
     private String listResult = "";
     /**
      * Constructs a <code>ListCommand</code> instance.
      * This constructor initializes the command without any additional parameters.
      */
     public ListCommand() {
-        super();
+        super(COMMAND_TYPE);
     }
 
     /**

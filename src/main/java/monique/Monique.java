@@ -19,6 +19,7 @@ public class Monique {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
+    private String commandType = "default";
 
     /**
      * Constructs a new <code>Monique</code> object.
@@ -47,6 +48,7 @@ public class Monique {
         try {
             Command c = Parser.parse(input);
             c.execute(taskList, ui, storage);
+            commandType = c.getCommandType();
             if (!c.isActive()) {
                 return ui.showGoodbye();
             }
@@ -73,5 +75,8 @@ public class Monique {
         return this.ui;
     }
 
+    public String getCommandType() {
+        return commandType;
+    }
 
 }

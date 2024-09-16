@@ -11,16 +11,16 @@ import monique.ui.Ui;
  * The command identifies a task by its index and removes it from the task list.
  */
 public class DeleteCommand extends Command {
+    public static final String COMMAND_TYPE = "delete";
     private final int taskNum;
     private String deleteMessage = "";
-
     /**
      * Constructs a <code>DeleteCommand</code> with the specified task index.
      *
      * @param taskNum the index of the task to be deleted
      */
     public DeleteCommand(int taskNum) {
-        super();
+        super(COMMAND_TYPE);
         this.taskNum = taskNum;
     }
 

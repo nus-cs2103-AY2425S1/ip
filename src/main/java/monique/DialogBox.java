@@ -7,17 +7,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -48,7 +43,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         Circle clip = new Circle(50, 50, 50);
         displayPicture.setClip(clip);
@@ -64,6 +58,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     /**
@@ -75,13 +70,6 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String s, Image i) {
         DialogBox db = new DialogBox(s, i);
-        //create blue background for userDialog
-        BackgroundFill userBg = new BackgroundFill(
-                Color.LIGHTBLUE,
-                new CornerRadii(10),
-                new Insets(10, 10, 10, 10)
-        );
-        db.setBackground(new Background(userBg));
         return db;
     }
 
@@ -92,17 +80,46 @@ public class DialogBox extends HBox {
      * @param i the image to be displayed in the dialog box
      * @return a {@code DialogBox} instance styled for Monique
      */
-    public static DialogBox getMoniqueDialog(String s, Image i) {
+    public static DialogBox getMoniqueDialog(String s, Image i, String commandType) {
         DialogBox db = new DialogBox(s, i);
-        //create blue background for userDialog
-        BackgroundFill dukeBg = new BackgroundFill(
-                Color.LIGHTGREEN,
-                new CornerRadii(10),
-                new Insets(10, 10, 10, 10)
-        );
-        db.setBackground(new Background(dukeBg));
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
+    }
+
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+        case "add":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "bye":
+            dialog.getStyleClass().add("bye-label");
+            break;
+        case "delete":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        case "find":
+            dialog.getStyleClass().add("find-label");
+            break;
+        case "guide":
+            dialog.getStyleClass().add("guide-label");
+            break;
+        case "list":
+            dialog.getStyleClass().add("list-label");
+            break;
+        case "mark":
+            dialog.getStyleClass().add("mark-label");
+            break;
+        case "unknown":
+            dialog.getStyleClass().add("unknown-label");
+            break;
+        case "unmark":
+            dialog.getStyleClass().add("unmark-label");
+            break;
+        default:
+            dialog.getStyleClass().add("default-label");
+            break;
+        }
     }
 }
 

@@ -11,6 +11,10 @@ import monique.ui.Ui;
  * how it interacts with the task list, user interface, and storage.
  */
 public abstract class Command {
+    private String commandType;
+    public Command(String commandType) {
+        this.commandType = commandType;
+    }
     /**
      * Executes the command with the given task list, user interface, and storage.
      * Subclasses must implement this method to define specific command behavior.
@@ -34,4 +38,13 @@ public abstract class Command {
      * @return the response string
      */
     public abstract String getResponse(Ui ui);
+
+    /**
+     * Returns a string of the type of command.
+     *
+     * @return the command-type string
+     */
+    public String getCommandType() {
+        return commandType;
+    }
 }

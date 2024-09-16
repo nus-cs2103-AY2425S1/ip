@@ -10,10 +10,10 @@ import monique.ui.Ui;
  * This command updates the status of a task to completed.
  */
 public class MarkCommand extends Command {
+    public static final String COMMAND_TYPE = "mark";
     public static final int INDEX_OFFSET = 1;
     private final int taskNum;
     private String markMessage = "";
-
     /**
      * Constructs a <code>MarkCommand</code> instance with the specified task number.
      * This constructor initializes the command with the task number to be marked.
@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
      * @param taskNum the index of the task to be marked as complete
      */
     public MarkCommand(int taskNum) {
-        super();
+        super(COMMAND_TYPE);
         this.taskNum = taskNum;
     }
 

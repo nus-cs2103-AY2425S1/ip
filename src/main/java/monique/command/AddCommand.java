@@ -5,13 +5,15 @@ import monique.task.Task;
 import monique.tasklist.TaskList;
 import monique.ui.Ui;
 
+
+
 /**
  * Represents a command to add a task to the task list.
  * This command adds a specified <code>Task</code> to the <code>TaskList</code> and informs the
  * <code>Ui</code> about the addition.
  */
 public class AddCommand extends Command {
-
+    public static final String COMMAND_TYPE = "add";
     private final Task task;
     /**
      * Constructs an <code>AddCommand</code> with the specified task.
@@ -19,7 +21,7 @@ public class AddCommand extends Command {
      * @param task the task to be added to the task list
      */
     public AddCommand(Task task) {
-        super();
+        super(COMMAND_TYPE);
         this.task = task;
     }
 

@@ -11,13 +11,13 @@ import monique.ui.Ui;
  * This command provides information about available commands and their usage.
  */
 public class GuideCommand extends Command {
-
+    public static final String COMMAND_TYPE = "guide";
     /**
      * Constructs a <code>GuideCommand</code> instance.
      * This constructor initializes the command without any additional parameters.
      */
     public GuideCommand() {
-        super();
+        super(COMMAND_TYPE);
     }
 
     /**
