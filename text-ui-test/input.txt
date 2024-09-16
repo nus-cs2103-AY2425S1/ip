@@ -1,0 +1,12 @@
+hi
+deadline Complete take home assignment /by 4th aug
+todo help starving kids in africa
+event play ctf /from 5th aug /to 7th aug
+list
+mark 1
+list
+mark 3
+list
+unmark 1
+list
+bye
