@@ -63,7 +63,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            return new InvalidCommand("I'm sorry, but I don't know what that means :-(");
+            return new InvalidCommand("Failed to interpret command.");
         }
     }
 
@@ -76,7 +76,7 @@ public class Parser {
     private static Command parseTodo(String arguments) {
         assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
-            return new InvalidCommand("OOPS!!! The description of a todo cannot be empty.");
+            return new InvalidCommand("The description of a todo cannot be empty.");
         }
         return new AddCommand(new Todo(arguments));
     }
@@ -91,7 +91,7 @@ public class Parser {
         assert arguments != null : "Arguments should not be null";
         String[] splitArguments = arguments.split(" /by ");
         if (splitArguments.length < 2) {
-            return new InvalidCommand("OOPS!!! The description or deadline cannot be empty.");
+            return new InvalidCommand("The description or deadline cannot be empty.");
         }
 
         String description = splitArguments[0];
@@ -99,7 +99,7 @@ public class Parser {
         try {
             return new AddCommand(new Deadline(description, by));
         } catch (DateTimeParseException e) {
-            return new InvalidCommand("OOPS!!! The date format for the deadline is incorrect. "
+            return new InvalidCommand("The date format for the deadline is incorrect. "
                     + "Please use yyyy-MM-dd HHmm.");
         }
     }
@@ -114,12 +114,12 @@ public class Parser {
         assert arguments != null : "Arguments should not be null";
         String[] splitArguments = arguments.split(" /from ");
         if (splitArguments.length < 2) {
-            return new InvalidCommand("OOPS!!! The description or date/time cannot be empty.");
+            return new InvalidCommand("The description or date/time cannot be empty.");
         }
 
         String[] dateTimeParts = splitArguments[1].split(" /to ");
         if (dateTimeParts.length < 2) {
-            return new InvalidCommand("OOPS!!! The end date/time for the event cannot be empty.");
+            return new InvalidCommand("The end date/time for the event cannot be empty.");
         }
 
         String description = splitArguments[0];
@@ -128,7 +128,7 @@ public class Parser {
             String to = dateTimeParts[1];
             return new AddCommand(new Event(description, from, to));
         } catch (DateTimeParseException e) {
-            return new InvalidCommand("OOPS!!! The date/time format for the event is incorrect. "
+            return new InvalidCommand("The date/time format for the event is incorrect. "
                     + "Please use yyyy-MM-dd HHmm.");
         }
     }
@@ -142,14 +142,14 @@ public class Parser {
     private static Command parseMark(String arguments) {
         assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
-            return new InvalidCommand("OOPS!!! The index for marking tasks cannot be empty.");
+            return new InvalidCommand("The index for marking tasks cannot be empty.");
         }
 
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
             return new MarkCommand(index);
         } catch (NumberFormatException e) {
-            return new InvalidCommand("OOPS!!! The index for marking a task is invalid.");
+            return new InvalidCommand("The index for marking a task is invalid.");
         }
     }
 
@@ -162,14 +162,14 @@ public class Parser {
     private static Command parseUnmark(String arguments) {
         assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
-            return new InvalidCommand("OOPS!!! The index for unmarking tasks cannot be empty.");
+            return new InvalidCommand("The index for unmarking tasks cannot be empty.");
         }
 
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
             return new UnmarkCommand(index);
         } catch (NumberFormatException e) {
-            return new InvalidCommand("OOPS!!! The index for unmarking a task is invalid.");
+            return new InvalidCommand("The index for unmarking a task is invalid.");
         }
     }
 
@@ -182,14 +182,14 @@ public class Parser {
     private static Command parseDelete(String arguments) {
         assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
-            return new InvalidCommand("OOPS!!! The index for deleting tasks cannot be empty.");
+            return new InvalidCommand("The index for deleting tasks cannot be empty.");
         }
 
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
             return new DeleteCommand(index);
         } catch (NumberFormatException e) {
-            return new InvalidCommand("OOPS!!! The index for deleting a task is invalid.");
+            return new InvalidCommand("The index for deleting a task is invalid.");
         }
     }
 
@@ -202,14 +202,14 @@ public class Parser {
     private static Command parseOn(String arguments) {
         assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
-            return new InvalidCommand("OOPS!!! The date for finding tasks cannot be empty.");
+            return new InvalidCommand("The date for finding tasks cannot be empty.");
         }
 
         try {
             LocalDate date = LocalDate.parse(arguments.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             return new OnCommand(date);
         } catch (DateTimeParseException e) {
-            return new InvalidCommand("OOPS!!! The date format is incorrect. Please use yyyy-MM-dd.");
+            return new InvalidCommand("The date format is incorrect. Please use yyyy-MM-dd.");
         }
     }
 
@@ -222,7 +222,7 @@ public class Parser {
     private static Command parseFind(String arguments) {
         assert arguments != null : "Arguments should not be null";
         if (arguments.isEmpty()) {
-            return new InvalidCommand("OOPS!!! The keyword for finding tasks cannot be empty.");
+            return new InvalidCommand("The keyword for finding tasks cannot be empty.");
         }
         return new FindCommand(arguments);
     }
