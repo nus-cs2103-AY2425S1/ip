@@ -1,9 +1,9 @@
 package ava.commands;
 
 /**
- *
+ * Stores Commands supported by AVA
  */
-public enum Commands {
+public enum Command {
     LIST,
     TODO,
     EVENT,
