@@ -1,0 +1,51 @@
+.root {
+    main-color: rgb(230, 240, 250);
+    -fx-background-color: main-color;
+    -fx-font-size: 12px;
+    -fx-font-family: "Verdana";
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #64b5f6;
+}
+
+#userInput {
+    -fx-background-color: #f0f8ff;
+    -fx-font: 14px "Verdana";
+}
+
+#sendButton {
+    -fx-background-color: #64b5f6;
+    -fx-font: bold 14px "Verdana";
+}
+
+#sendButton:hover {
+    -fx-background-color: #42a5f5;
+    -fx-font: 14px "Verdana";
+}
+
+#sendButton:pressed {
+    -fx-background-color: #708090;
+    -fx-font-size: 14px;
+}
+
+#dialog {
+    -fx-padding: 12px;
+}
+
+.user-dialog {
+    -fx-background-color: #f6d9be;
+    -fx-background-radius: 10px 10px 0 10px;
+    -fx-border-radius: 10px 10px 0 10px;
+}
+
+.thanos-dialog {
+    -fx-background-color: #c8e0ff;
+    -fx-background-radius: 10px 10px 10px 0;
+    -fx-border-radius: 10px 10px 10px 0;
+}
