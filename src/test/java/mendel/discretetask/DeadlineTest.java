@@ -73,4 +73,23 @@ public class DeadlineTest {
         assertFalse(Deadline.of("deadline CS2103T assignment /by 01-01-2030 15:00")
                 .isMatchingDescription("CS2104T"));
     }
+
+    @Test
+    public void reminder() {
+        Deadline deadline = Deadline.of("deadline CS2103T assignment /by 01-01-2030 15:00");
+        assertTrue(deadline.isIncompleteWithinTargetDueDate("02-02-2031"));
+        assertFalse(deadline.isIncompleteWithinTargetDueDate("02-02-2001"));
+        deadline.markAsDone();
+        assertFalse(deadline.isIncompleteWithinTargetDueDate("02-02-2031"));
+
+    }
+
+    @Test
+    public void invalidDateSet() {
+        try {
+            Deadline.of("deadline CS2103T assignment /by 01-01-2023 15:00");
+        } catch (Exception e) {
+            assertEquals("OOPS! Start day is later than today.\nPlease ensure valid time period.", e.toString());
+        }
+    }
 }
