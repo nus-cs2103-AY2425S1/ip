@@ -16,6 +16,8 @@ import qwerty.Qwerty;
  */
 public class Ui extends Application {
 
+    private static final String APP_NAME = "Qwerty";
+
     private static FXMLLoader fxmlLoader;
 
     /**
@@ -29,6 +31,7 @@ public class Ui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(APP_NAME);
             Qwerty qwerty = new Qwerty();
             fxmlLoader.<MainWindow>getController().setQwerty(qwerty); // inject the Qwerty instance
             qwerty.start();
