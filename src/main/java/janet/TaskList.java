@@ -51,6 +51,8 @@ public class TaskList {
      * Adds the task into the current list of tasks.
      *
      * @param task A janet.Task object that is to be added into the listOfTasks.
+     * @throws JanetException If the currently adding task has the same description as another task
+     * that is already inside the list.
      */
     public void addTaskToList(Task task) throws JanetException {
         for (Task t : listOfTasks) {
