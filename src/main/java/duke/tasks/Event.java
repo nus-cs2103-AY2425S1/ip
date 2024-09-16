@@ -35,14 +35,14 @@ public class Event extends Task {
 
         // Parse the 'from' field
         parsedFromDateTime = DateTimeFormatEnum.parse(from)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid date format."));
+                .orElseThrow(() -> new InvalidEventException("Invalid date format."));
         if (parsedFromDateTime == null) {
             throw new InvalidEventException("Invalid 'from' date and time format.");
         }
 
         // Parse the 'to' field
         parsedToDateTime = DateTimeFormatEnum.parse(to)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid date format."));
+                .orElseThrow(() -> new InvalidEventException("Invalid date format."));
         if (parsedToDateTime == null) {
             throw new InvalidEventException("Invalid 'to' date and time format.");
         }

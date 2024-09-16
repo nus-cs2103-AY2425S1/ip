@@ -27,7 +27,7 @@ public class Deadline extends Task {
         super(description);
 
         parsedDateTime = DateTimeFormatEnum.parse(by)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid date format."));;
+                .orElseThrow(() -> new InvalidDeadlineException("Invalid date format."));;
 
         if (parsedDateTime == null) {
             throw new InvalidDeadlineException("Your deadline is invalid.");

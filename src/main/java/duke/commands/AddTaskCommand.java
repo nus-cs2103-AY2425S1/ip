@@ -43,7 +43,7 @@ public class AddTaskCommand extends Command {
         try {
             return taskList.addTask(this.userInput);
         } catch (InvalidTaskException e) {
-            throw new InvalidInputException("Please enter a valid task to add!");
+            throw new InvalidInputException(e.getMessage());
         }
     }
 }

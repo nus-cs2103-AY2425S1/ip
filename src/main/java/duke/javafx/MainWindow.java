@@ -9,6 +9,7 @@ import duke.parser.InputParser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -130,6 +131,11 @@ public class MainWindow extends AnchorPane {
         assert input != null && !input.isEmpty() : "User input should not be empty";
 
         try {
+            if (input.equalsIgnoreCase("bye")) {
+                saveTasks();
+                Platform.exit();
+            }
+
             Command command = InputParser.parseUserInput(input);
             assert command != null : "Parsed command should not be null";
 

@@ -182,14 +182,15 @@ public class TaskList {
      * @param userInput the raw input string from the user.
      */
     private void processDeadlineTask(String userInput) throws InvalidDeadlineException {
-        String[] deadlineInfo = userInput.split("/by");
-        String deadlineDescription = deadlineInfo[0].replace("deadline", "").trim();
-        String deadlineDate = deadlineInfo[1].trim();
-
         try {
+            String[] deadlineInfo = userInput.split("/by");
+            String deadlineDescription = deadlineInfo[0].replace("deadline", "").trim();
+            String deadlineDate = deadlineInfo[1].trim();
             tasks.add(new Deadline(deadlineDescription, deadlineDate));
         } catch (InvalidDeadlineException e) {
-            throw new InvalidDeadlineException("Please enter a valid deadline!");
+            throw new InvalidDeadlineException(e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidDeadlineException("Please follow the format specified for deadline commands!");
         }
     }
 
@@ -199,16 +200,17 @@ public class TaskList {
      * @param userInput the raw input string from the user.
      */
     private void processEventTask(String userInput) throws InvalidEventException {
-        String[] eventInfo = userInput.split("/from");
-        String eventDescription = eventInfo[0].replace("event", "").trim();
-        String[] eventTime = eventInfo[1].split("/to");
-        String start = eventTime[0].trim();
-        String end = eventTime[1].trim();
-
         try {
+            String[] eventInfo = userInput.split("/from");
+            String eventDescription = eventInfo[0].replace("event", "").trim();
+            String[] eventTime = eventInfo[1].split("/to");
+            String start = eventTime[0].trim();
+            String end = eventTime[1].trim();
             tasks.add(new Event(eventDescription, start, end));
         } catch (InvalidEventException e) {
-            throw new InvalidEventException("Please enter a valid event!");
+            throw new InvalidEventException(e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidEventException("Please follow the format specified for deadline commands!");
         }
     }
 
