@@ -1,13 +1,8 @@
 package elysia.storage;
 
-import elysia.task.Deadline;
-import elysia.task.Event;
-import elysia.task.Task;
-import elysia.task.ToDos;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,8 +13,19 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import elysia.task.Deadline;
+import elysia.task.Event;
+import elysia.task.Task;
+import elysia.task.ToDos;
+
+/**
+ * Unit tests for the Storage class. Tests the functionality of adding tasks to storage and saving/loading tasks.
+ */
 public class StorageTest {
 
     private Storage storage;
@@ -29,15 +35,21 @@ public class StorageTest {
     @TempDir
     Path tempDir;
 
+    /**
+     * Sets up the test environment. Initializes the Storage instance and prepares an empty task list before each test.
+     */
     @BeforeEach
     public void setUp() {
         tasks = new ArrayList<>();
         storage = new Storage(tasks);
     }
 
+    /**
+     * Cleans up the test environment. Deletes the temporary file after each test to avoid leaving unnecessary files.
+     */
     @AfterEach
     public void cleanUp() {
-        if ((tempFile!=null) && tempFile.exists()) {
+        if ((tempFile != null) && tempFile.exists()) {
             try {
                 Files.delete(tempFile.toPath());
             } catch (IOException e) {
@@ -46,6 +58,11 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Tests adding a ToDos task from a file. Verifies that the task is correctly parsed and added to the task list.
+     *
+     * @throws FileNotFoundException If the test file cannot be found.
+     */
     @Test
     public void storage_testAddToDos() throws FileNotFoundException {
         storage.scanFileContents(createTestFile("T | 0 | borrow book\n"));
@@ -56,6 +73,11 @@ public class StorageTest {
         assertEquals("[ ]", tasks.get(0).getStatusIcon());
     }
 
+    /**
+     * Tests adding a Deadline task from a file. Verifies that the task is correctly parsed and added to the task list.
+     *
+     * @throws FileNotFoundException If the test file cannot be found.
+     */
     @Test
     public void storage_testAddDeadline() throws FileNotFoundException {
         storage.scanFileContents(createTestFile("D | 1 | return book | 2024-09-02\n"));
@@ -66,10 +88,16 @@ public class StorageTest {
         assertEquals("[X]", tasks.get(0).getStatusIcon());
     }
 
+    /**
+     * Tests saving tasks to a file and checking the file's content. Verifies that the tasks are correctly saved and
+     * that the file content matches the expected format.
+     *
+     * @throws IOException If there is an error writing to or reading from the file.
+     */
     @Test
     public void testHandleExit() throws IOException {
         tasks.add(new ToDos("read book"));
-        tasks.add(new Deadline("return book", LocalDate.of(2024,9,2)));
+        tasks.add(new Deadline("return book", LocalDate.of(2024, 9, 2)));
         tasks.add(new Event("project meeting", "Mon 6pm", "8pm"));
 
         //append the given string to tempDir
@@ -85,6 +113,13 @@ public class StorageTest {
         assertTrue(content.contains("E | 0 | project meeting | Mon 6pm | 8pm"));
     }
 
+    /**
+     * Creates a temporary test file with the given content. Writes the specified content to a temporary file and
+     * returns its absolute path.
+     *
+     * @param s The content to write to the file.
+     * @return The absolute path of the created test file.
+     */
     private String createTestFile(String s) {
         try {
             tempFile = Files.createTempFile(tempDir, "test", ".txt").toFile();

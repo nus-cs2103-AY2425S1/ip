@@ -1,21 +1,29 @@
 package elysia.command;
 
-import elysia.exception.EmptyDescriptionException;
-import elysia.storage.Storage;
+import java.util.ArrayList;
+
 import elysia.task.Task;
 import elysia.ui.Ui;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a search command.
+ */
 public class FindCommand extends Command {
-    String searchContent;
-    public FindCommand (String searchContent) {
+    private String searchContent;
+
+    public FindCommand(String searchContent) {
         super();
         this.searchContent = searchContent;
     }
 
+    /**
+     * Finds the item in list if it matches or partially matches.
+     *
+     * @param tasks
+     * @return
+     */
     @Override
-    public String execute(ArrayList<Task> tasks) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks) {
         Ui ui = new Ui();
 
         ArrayList<Task> results = new ArrayList<>();

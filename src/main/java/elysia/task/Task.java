@@ -1,7 +1,5 @@
 package elysia.task;
 
-import elysia.exception.EmptyDescriptionException;
-
 /**
  * Represents a basic task.
  */
@@ -47,6 +45,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task, including its status icon and description.
+     *
+     * @return A string in the format "[status icon] [description]", where [status icon] represents the task's
+     *     completion status (e.g., "X" for done, " " for not done), and [description] is the task's description.
+     */
     @Override
     public String toString() {
         return getStatusIcon() + " " + this.description;

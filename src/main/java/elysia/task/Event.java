@@ -21,11 +21,21 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Returns a string representation of the Event task, including its description, start time, and end time.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
     }
 
+    /**
+     * Returns a string representation of the Event task suitable for saving to a text file.
+     *
+     * @return
+     */
     @Override
     public String saveToTxt() {
         int i = this.isDone ? 1 : 0;

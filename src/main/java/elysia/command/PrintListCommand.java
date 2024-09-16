@@ -1,19 +1,26 @@
 package elysia.command;
 
-import elysia.exception.EmptyDescriptionException;
-import elysia.storage.Storage;
+import java.util.ArrayList;
+
 import elysia.task.Task;
 import elysia.ui.Ui;
 
-import java.util.ArrayList;
-
-public class PrintListCommand extends Command{
-    public PrintListCommand () {
+/**
+ * Represents a print list command.
+ */
+public class PrintListCommand extends Command {
+    public PrintListCommand() {
         super();
     }
 
+    /**
+     * Prints the list to user.
+     *
+     * @param tasks
+     * @return
+     */
     @Override
-    public String execute(ArrayList<Task> tasks) throws EmptyDescriptionException {
+    public String execute(ArrayList<Task> tasks) {
         Ui ui = new Ui();
         return ui.printList(tasks);
     }

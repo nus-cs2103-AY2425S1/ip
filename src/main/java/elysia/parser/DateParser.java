@@ -1,12 +1,8 @@
 package elysia.parser;
 
-import elysia.exception.InvalidDateFormatException;
-
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +12,7 @@ import java.util.Map;
 public class DateParser {
 
     /**
-     * Parses the string input into LocalDate object.
+     * Parses the string input into LocalDate object. To be stored in Deadline.
      **/
     public static LocalDate parseDate(String input) {
         LocalDate parsedDate = null;
@@ -30,6 +26,33 @@ public class DateParser {
             return parsedDate;
         }
 
+        DateTimeFormatter[] formatters = getDateTimeFormatters();
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                parsedDate = LocalDate.parse(input, formatter);
+                break; // Exit loop if parsing is successful
+            } catch (DateTimeParseException e) {
+                // Continue to the next format if parsing fails
+                // hence the catch block here is leaved empty
+            }
+
+            try {
+                parsedDate = LocalDate.parse(input + " " + LocalDate.now().getYear(), formatter);
+                break;
+            } catch (DateTimeParseException e) {
+                // throws the exception and return null if parsing fails
+                // the exception will be handled at Elysia
+            }
+        }
+
+        return parsedDate;
+    }
+
+    /**
+     * @return the date formatters used
+     */
+    private static DateTimeFormatter[] getDateTimeFormatters() {
         DateTimeFormatter[] formatters = {
                 //handle suffix (st, rd, etc)
                 DateTimeFormatter.ofPattern("d['st']['nd']['rd']['th'] MMM yyyy"),
@@ -38,32 +61,11 @@ public class DateParser {
                 DateTimeFormatter.ofPattern("yyyy-M-d"),
                 DateTimeFormatter.ofPattern("d-M-yyyy")
         };
-
-        for (DateTimeFormatter formatter : formatters) {
-            try {
-                parsedDate = LocalDate.parse(input, formatter);
-                break; // Exit loop if parsing is successful
-            } catch (DateTimeParseException e) {
-                // Continue to the next format if parsing fails
-            }
-        }
-
-        if (parsedDate == null) {
-            for (DateTimeFormatter formatter : formatters) {
-                try {
-                    parsedDate = LocalDate.parse(input + " " + LocalDate.now().getYear(), formatter);
-                    break; // Exit loop if parsing is successful
-                } catch (DateTimeParseException e) {
-                    // Continue to the next format if parsing fails
-                }
-            }
-        }
-
-        return parsedDate;
+        return formatters;
     }
 
     /**
-     * Builds a map that map the subsequent dates for Mon, Tues...Sun.
+     * Builds a map that map the next subsequent dates for Mon, Tues...Sun.
      **/
     public static Map<String, LocalDate> buildMap() {
         Map<String, LocalDate> map = new HashMap<>();
