@@ -1,4 +1,1 @@
-D | 0 | another book  | 10-08-2004
-D | 0 | another book  | 10-08-2009
-D | 1 | something  | 10-08-2001
-D | 0 | third book  | 10-08-2006
+T | 0 | borrow book
