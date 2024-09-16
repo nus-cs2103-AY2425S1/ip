@@ -109,17 +109,17 @@ public class ParserTest {
 
     @Test
     void testParseDeadlineCommandWithoutByDate() {
-        assertThrows(EmptyDescriptionError.class, () -> parser.parse("deadline submit assignment"));
+        assertThrows(InvalidCommandError.class, () -> parser.parse("deadline submit assignment"));
     }
 
     @Test
     void testParseEventCommandWithoutDateRange() {
-        assertThrows(EmptyDescriptionError.class, () -> parser.parse("event meeting /from Monday"));
+        assertThrows(InvalidCommandError.class, () -> parser.parse("event meeting /from Monday"));
     }
 
     @Test
     void testParseEventCommandWithoutToDate() {
-        assertThrows(EmptyDescriptionError.class, () -> parser.parse("event meeting /from Monday /to"));
+        assertThrows(InvalidCommandError.class, () -> parser.parse("event meeting /from Monday /to"));
     }
 
 
