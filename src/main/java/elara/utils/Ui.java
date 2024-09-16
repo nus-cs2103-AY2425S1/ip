@@ -153,4 +153,15 @@ public class Ui {
     public String getLastResponse() {
         return lastResponse;
     }
+
+    /**
+     * Displays a message when the task has already been added to the list.
+     *
+     * @param task the duplicate task.
+     */
+    public void showDuplicateMessage(Task task) {
+        lastResponse = "This task has already been added to the list.";
+        lastResponse += task.toString();
+        System.out.println(lastResponse);
+    }
 }

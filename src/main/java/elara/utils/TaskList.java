@@ -105,4 +105,19 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    /**
+     * Returns whether the task is already in the list
+     *
+     * @param task task to be added
+     * @return true if task is already in list, else returns false.
+     */
+    public boolean isDuplicate(Task task) {
+        for (Task listTask : tasks) {
+            if (listTask.equals(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

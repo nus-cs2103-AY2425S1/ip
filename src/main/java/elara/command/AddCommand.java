@@ -44,6 +44,9 @@ public class AddCommand implements Command {
         case "event" -> Parser.parseEvent(details);
         default -> throw new InvalidInputException("Unknown command type: " + commandType);
         };
+        if (taskList.isDuplicate(newTask)) {
+            ui.showDuplicateMessage(newTask);
+        }
 
         taskList.addTask(newTask);
         ui.showAddTaskMessage(newTask, taskList);

@@ -2,6 +2,7 @@ package elara.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a task that is an event with a start and end time.
@@ -45,5 +46,23 @@ public class EventTask extends Task {
     public String toFileFormat() {
         return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description,
                 start, end);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof EventTask)) {
+            return false;
+        }
+        EventTask that = (EventTask) o;
+        return isDone == that.isDone && description.equals(that.description)
+                && start.equals(that.start) && end.equals(that.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, start, end);
     }
 }

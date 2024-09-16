@@ -2,6 +2,7 @@ package elara.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a task with a specific deadline.
@@ -39,5 +40,22 @@ public class DeadlineTask extends Task {
     @Override
     public String toFileFormat() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DeadlineTask)) {
+            return false;
+        }
+        DeadlineTask that = (DeadlineTask) o;
+        return this.description.equals(that.description) && deadline.equals(that.deadline);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, deadline);
     }
 }

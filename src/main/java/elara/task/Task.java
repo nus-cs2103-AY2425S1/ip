@@ -1,5 +1,7 @@
 package elara.task;
 
+import java.util.Objects;
+
 /**
  * Represents an abstract task with a description and a completion status.
  * This class serves as the base for specific types of tasks such as ToDoTask, DeadlineTask, and EventTask.
@@ -70,5 +72,22 @@ public abstract class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Task task = (Task) o;
+        return description.equals(task.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description);
     }
 }
