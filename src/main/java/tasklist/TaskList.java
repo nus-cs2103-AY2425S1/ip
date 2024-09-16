@@ -1,4 +1,4 @@
-package tomo;
+package tasklist;
 
 import task.Task;
 import exception.TaskListException;
