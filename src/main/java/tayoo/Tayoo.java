@@ -6,9 +6,6 @@ import tayoo.exception.TayooException;
 /**
  * The Tayoo class is the main class of the Tayoo chatbot, it initialises a new Ui, Storage and Tasklist per instannce
  * of Tayoo.
- *
- * @author Jeremy
- * @version 0.1
  */
 public class Tayoo {
     private static final String NAME = "tayoo";
@@ -36,7 +33,7 @@ public class Tayoo {
             if (storage.createTxt()) {
                 ui.printText("Creating a new tasklist.txt for you.");
             }
-            this.tasks = new Tasklist(storage.readTxt());
+            this.tasks = new Tasklist(storage.returnTaskListFromTxt());
         } catch (TayooException e) {
             ui.printError(e.getMessage());
         }
@@ -66,12 +63,13 @@ public class Tayoo {
         }
     }
 
-    public static void main(String[] args) {
-        Tayoo tayoo = new Tayoo();
-        tayoo.run();
-        System.exit(0);
-    }
-
+    /**
+     * This method returns the string response of the chatbot for a given input command. This method also executes the
+     * given command as if input to the textUi.
+     *
+     * @param input The user input to the GUI
+     * @return The string response of the chatbot after having parsed and executed the input
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parseCommand(input);
@@ -85,6 +83,13 @@ public class Tayoo {
 
     public boolean getIsExit() {
         return isExit;
+    }
+
+
+    public static void main(String[] args) {
+        Tayoo tayoo = new Tayoo();
+        tayoo.run();
+        System.exit(0);
     }
 
 }

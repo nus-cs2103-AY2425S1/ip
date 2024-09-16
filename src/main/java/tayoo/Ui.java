@@ -19,7 +19,6 @@ public class Ui {
         return "Hello! I'm " + this.chatbotName + "\nAt your service! O7";
     }
 
-
     /** Prints out the welcome default message of the chatbot. */
     public void showWelcome() {
         printText(getWelcomeMessage());

@@ -20,7 +20,6 @@ import tayoo.command.ExitCommand;
 import tayoo.command.FindCommand;
 import tayoo.command.ListCommand;
 import tayoo.command.MarkTaskCommand;
-import tayoo.exception.ParserException;
 import tayoo.exception.TayooException;
 import tayoo.tasks.Deadline;
 import tayoo.tasks.Event;
@@ -34,15 +33,13 @@ import tayoo.tasks.ToDo;
 public class Parser {
 
     /**
-     * Parses the user's input. Currently utilises a series of if-else checks to correlate the user's input with any
-     * commands that have been implemented. The case of the input command is arbitrary as all commands are automatically
-     * converted to upper case. This means that if implementing any new commands, they should be in all upper case when
-     * being added to the if-else chain.
+     * Parses the user's input. The case of the input command is arbitrary as all commands are automatically
+     * converted to upper case.
      *
      * @param command The user's input in a String format. The command should start with a substring representing the
-     * type of command,
+     * type of command.
      * @return An object that is a subclass of the Command class.
-     * @throws ParserException if there is an error when parsing a command, either because the command is not supported,
+     * @throws TayooException if there is an error when parsing a command, either because the command is not supported,
      * or the format of the command is wrong
      */
     public static Command parseCommand(String command) throws TayooException {
@@ -52,19 +49,19 @@ public class Parser {
 
         switch (commandType) {
         case TODO:
-            return new AddTaskCommand(new ToDo(inputParts[1]));
+            return parseToDo(inputParts);
         case DEADLINE:
-            return parseDeadline(inputParts[1].trim());
+            return parseDeadline(inputParts);
         case EVENT:
-            return parseEvent(inputParts[1].trim());
+            return parseEvent(inputParts);
         case MARK:
-            return parseMark(inputParts[1].trim(), true);
+            return parseMark(inputParts, true);
         case UNMARK:
-            return parseMark(inputParts[1].trim(), false);
+            return parseMark(inputParts, false);
         case FIND:
-            return new FindCommand(inputParts[1].trim());
+            return parseFind(inputParts);
         case DELETE:
-            return parseDelete(inputParts[1].trim());
+            return parseDelete(inputParts);
         case LIST:
             return new ListCommand();
         case EXIT:
@@ -74,8 +71,16 @@ public class Parser {
         }
     }
 
-    private static Command parseDeadline(String inputPart) {
-        String[] deadlineParts = inputPart.split("(?i)/by", 2);
+    private static Command parseToDo(String[] inputParts) {
+        assert inputParts.length == 2: "Todo command must have title";
+
+        return new AddTaskCommand(new ToDo(inputParts[1]));
+    }
+
+    private static Command parseDeadline(String[] inputParts) {
+        assert inputParts.length == 2: "Deadline command must have title and deadline";
+
+        String[] deadlineParts = inputParts[1].split("(?i)/by", 2);
 
         assert deadlineParts.length == 2 : "Input should have title and deadline";
 
@@ -84,8 +89,10 @@ public class Parser {
         return new AddTaskCommand(new Deadline(title, deadline));
     }
 
-    private static Command parseEvent(String inputPart) {
-        String[] eventParts = inputPart.split("(?i)/to|/from", 3);
+    private static Command parseEvent(String[] inputParts) {
+        assert inputParts.length == 2: "Event command must have title, from and to";
+
+        String[] eventParts = inputParts[1].split("(?i)/to|/from", 3);
 
         assert eventParts.length == 3 : "Input should have title, start and end";
 
@@ -95,8 +102,10 @@ public class Parser {
         return new AddTaskCommand(new Event(title, start, end));
     }
 
-    private static Command parseDelete(String inputPart) throws TayooException{
-        String[] deleteIndicesArray = inputPart.split("\\s");
+    private static Command parseDelete(String[] inputParts) throws TayooException{
+        assert inputParts.length == 2: "Delete command should be followed be either an index or \"all\"";
+
+        String[] deleteIndicesArray = inputParts[1].split("\\s");
 
         if (deleteIndicesArray[0].equalsIgnoreCase("ALL")) {
             if (deleteIndicesArray.length == 1) {
@@ -118,8 +127,10 @@ public class Parser {
 
         return new DeleteTaskCommand(deleteIndicesList);
     }
-    private static Command parseMark(String inputPart, boolean isComplete) throws TayooException{
-        String[] markIndicesArray = inputPart.split("\\s");
+    private static Command parseMark(String[] inputParts, boolean isComplete) throws TayooException{
+        assert inputParts.length == 2: "Mark command must have one or more indices";
+
+        String[] markIndicesArray = inputParts[1].split("\\s");
         List<Integer> markIndicesList= new ArrayList<>();
 
         for (String index : markIndicesArray) {
@@ -131,6 +142,12 @@ public class Parser {
         }
 
         return new MarkTaskCommand(markIndicesList, isComplete);
+    }
+
+    private static Command parseFind(String[] inputParts) {
+        assert inputParts.length == 2 : "Find command must include substring to look for";
+
+        return new FindCommand(inputParts[1]);
     }
 
 
@@ -145,9 +162,9 @@ public class Parser {
      *
      * @param str The string representation of any task within the tasklist.txt file
      * @return The Task that is represented by the input string
-     * @throws ParserException if there is any error while parsing, for example, an invalid task entry
+     * @throws TayooException if there is any error while parsing, for example, an invalid task entry
      */
-    public static Task parseTask(String str) throws ParserException {
+    public static Task parseTask(String str) throws TayooException {
         Scanner scanner = new Scanner(str);
         scanner.useDelimiter("\\|");
         boolean isComplete;
@@ -180,7 +197,7 @@ public class Parser {
             return new Deadline(title, deadlineStr, isComplete);
         default:
             scanner.close();
-            throw new ParserException("Reached end of parse task. Invalid task type: " + task);
+            throw new TayooException("Reached end of parse task. Invalid task type: " + task);
         }
     }
 

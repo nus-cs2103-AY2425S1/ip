@@ -28,6 +28,11 @@ public class Task {
         this.completed = false;
     }
 
+    /**
+     * Marks a task as complete.
+     *
+     * @return true if the task was previously marked as incomplete and has been changed, returns false otherwise.
+     */
     public boolean markAsDone() {
         if (this.completed) {
             return false;
@@ -37,6 +42,11 @@ public class Task {
         }
     }
 
+    /**
+     * Marks a task as incomplete.
+     *
+     * @return true if the task was previously marked as complete and has been changed, return false otherwise.
+     */
     public boolean markAsNotDone() {
         if (!this.completed) {
             return false;
