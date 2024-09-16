@@ -8,18 +8,21 @@ import java.util.Scanner;
 public class ShoAI {
 
     private TaskList tasks;
+    private ClientList clients;
     private Storage storage;
     private Parser parser;
 
-    public ShoAI(String filePath) {
-        this.storage = new Storage(filePath);
+    public ShoAI(String taskPath, String clientPath) {
+        this.storage = new Storage(taskPath, clientPath);
         try {
             this.tasks = new TaskList(storage.loadTasks());
+            this.clients = new ClientList(storage.loadClients());
         } catch (ShoAIException e) {
             // Handle the exception, e.g., log it or print an error message
             System.out.println("Error loading tasks: " + e.getMessage());
             // Optionally, you can initialize tasks to an empty TaskList
             this.tasks = new TaskList();
+            this.clients = new ClientList();
         }
         this.parser = new Parser();
     }
@@ -33,7 +36,7 @@ public class ShoAI {
      */
     public String getResponse(String userInput) {
         try {
-            return parser.parse(userInput, tasks, storage);
+            return parser.parse(userInput, tasks, storage, clients);
         } catch (ShoAIException e) {
             return e.getMessage();
         }

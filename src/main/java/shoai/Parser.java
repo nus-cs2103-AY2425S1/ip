@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javafx.application.Platform;
+
 
 /**
  * Parses user commands and executes the corresponding actions on the task list.
@@ -22,7 +24,7 @@ public class Parser {
      * @return The response string from the executed command or null if the application should exit.
      * @throws ShoAIException If there is an error processing the command.
      */
-    public String parse(String fullCommand, TaskList tasks, Storage storage) throws ShoAIException {
+    public String parse(String fullCommand, TaskList tasks, Storage storage, ClientList clients) throws ShoAIException {
         String[] commandParts = fullCommand.split(" ", 2);
         String command = commandParts[0];
         String arguments = commandParts.length > 1 ? commandParts[1] : "";
@@ -46,8 +48,14 @@ public class Parser {
                 return handleDelete(arguments, tasks, storage);
             case "find":
                 return handleFind(arguments, tasks);
+            case "addclient":
+                return handleAddClient(arguments, clients, storage);
+            case "removeclient":
+                return handleRemoveClient(arguments, clients, storage);
+            case "listclients":
+                return handleListClients(clients);
             default:
-                throw new ShoAIException("Unknown command: " + command);
+                throw new ShoAIException("Ask me something I understand!");
         }
     }
 
@@ -56,12 +64,17 @@ public class Parser {
     }
 
     private String handleList(TaskList tasks) {
+        if (tasks.size() == 0) {
+            return "Yay! You have no tasks now!";
+        }
+
         StringBuilder response = new StringBuilder("Here are all the tasks in your list!\n");
         for (int i = 0; i < tasks.size(); i++) {
             response.append(String.format("%d.%s%n", i + 1, tasks.get(i)));
         }
         return response.toString();
     }
+
 
     private String handleMark(String arguments, TaskList tasks, Storage storage) throws ShoAIException {
         validateArguments(arguments, 1);
@@ -145,6 +158,51 @@ public class Parser {
         return response.toString();
     }
 
+
+    private String handleAddClient(String arguments, ClientList clientList, Storage storage) throws ShoAIException {
+        String[] clientParts = arguments.split(" /email | /phone ");
+        if (clientParts.length < 3) {
+            throw new ShoAIException("Please provide name, email, and phone for the client.");
+        }
+        String clientName = clientParts[0].trim();
+        String clientEmail = clientParts[1].trim();
+        String clientPhone = clientParts[2].trim();
+        Client newClient = new Client(clientName, clientEmail, clientPhone);
+        clientList.addClient(newClient);
+        storage.saveClients(clientList.getAllClients());
+        return "Client added:\n" + newClient;
+    }
+
+    private String handleRemoveClient(String arguments, ClientList clientList, Storage storage) throws ShoAIException {
+        int removeIndex;
+        try {
+            removeIndex = Integer.parseInt(arguments) - 1;
+        } catch (NumberFormatException e) {
+            throw new ShoAIException("Invalid client number format.");
+        }
+        if (removeIndex < 0 || removeIndex >= clientList.getAllClients().size()) {
+            throw new ShoAIException("Client number out of range.");
+        }
+        Client removedClient = clientList.getClient(removeIndex);
+        clientList.removeClient(removeIndex);
+        storage.saveClients(clientList.getAllClients());
+        return "Client removed:\n" + removedClient;
+    }
+
+    private String handleListClients(ClientList clientList) {
+        ArrayList<Client> clients = clientList.getAllClients();
+
+        if (clients.isEmpty()) {
+            return "No clients yet";
+        }
+
+        StringBuilder response = new StringBuilder("Here are all the clients:\n");
+        for (int i = 0; i < clients.size(); i++) {
+            response.append((i + 1) + ". " + clients.get(i) + "\n");
+        }
+        return response.toString();
+    }
+
     private void validateArguments(String arguments, int minParts) throws ShoAIException {
         if (arguments.trim().isEmpty()) {
             throw new ShoAIException("Arguments cannot be empty.");
@@ -201,6 +259,13 @@ public class Parser {
         return sb.toString();
     }
 
+    public static String clientToFileString(Client client) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(client.getName()).append(" /email ").append(client.getEmail()).append(" /phone ").append(client.getPhone());
+        return sb.toString();
+    }
+
+
     /**
      * Converts a string representation from file storage back to a Task object.
      *
@@ -230,5 +295,18 @@ public class Parser {
             default:
                 throw new ShoAIException("Unknown task type: " + type);
         }
+    }
+
+    public static Client fileStringToClient(String fileString) throws ShoAIException {
+        // Example format: "Name /email email /phone phone"
+        String[] parts = fileString.split(" /email | /phone ");
+        if (parts.length < 3) {
+            throw new ShoAIException("Invalid client format.");
+        }
+        String name = parts[0].trim();
+        String email = parts[1].trim();
+        String phone = parts[2].trim();
+
+        return new Client(name, email, phone);
     }
 }
