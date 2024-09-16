@@ -21,6 +21,7 @@ public class Event extends Task {
         this.start = start;
         this.end = end;
     }
+
     /**
      * Returns string representation of Event.
      *

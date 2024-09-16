@@ -38,7 +38,7 @@ public class TaskList {
      * @return Task of specified type with given task description.
      * @throws SerenityException If type of task is not specified.
      */
-    public Task createTask(String input) throws SerenityException {
+    public static Task createTask(String input) throws SerenityException {
         Task t;
 
         if (input.startsWith("todo")) {
@@ -188,7 +188,6 @@ public class TaskList {
      * @return String representation of TaskList of matching tasks
      * @throws SerenityException If keyword is missing.
      */
-    @SuppressWarnings({"StringConcatenationInLoop", "ForLoopReplaceableByForEach"})
     public String findTask(String input) throws SerenityException {
 
         String[] parts = input.split(" ");
@@ -211,6 +210,32 @@ public class TaskList {
             message += "\n" + index + ". " + foundTasks.get(j);
         }
         return message;
+    }
+
+    /**
+     * Updates task at specified index.
+     *
+     * @param input User's input.
+     * @return Message to be displayed to user when task is updated.
+     * @throws SerenityException If update info or task index is missing.
+     */
+    public String updateTask(String input) throws SerenityException {
+        String[] parts = input.split("/update");
+        if (parts.length == 1) {
+            throw new SerenityException("Error: Missing info to update task with.");
+        }
+
+        String[] command = parts[0].split(" ");
+        if (command.length == 1) {
+            throw new SerenityException("Error: Missing index");
+        }
+
+        int index = Integer.parseInt(command[1]) - 1;
+        String taskDescription = parts[1].strip();
+        Task newTask = TaskList.createTask(taskDescription);
+        Task t = tasks.set(index, newTask);
+
+        return "Task has been updated! Updated task: \n " + newTask;
     }
 
     /**

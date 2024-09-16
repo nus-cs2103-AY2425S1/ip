@@ -17,6 +17,7 @@ public class Task {
         this.isDone = false;
     }
 
+
     /**
      * Returns string representation of status of task.
      *
@@ -59,4 +60,5 @@ public class Task {
         int i = this.isDone ? 1 : 0;
         return i + " | " + this.description;
     }
+
 }
