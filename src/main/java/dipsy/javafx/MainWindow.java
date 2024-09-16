@@ -3,6 +3,8 @@ package dipsy.javafx;
 import dipsy.Dipsy;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -12,10 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
-
 
 /**
  * Controller for the main GUI.
@@ -37,6 +35,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Reagen.png"));
     private Image dipsyImage = new Image(this.getClass().getResourceAsStream("/images/Dipsy.jpeg"));
 
+    /** Initializes the JavaFX GUI, setting up any required components */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
