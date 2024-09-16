@@ -13,8 +13,15 @@ public class List extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        String response = "Here are the tasks in your list:\n";
-        response += tasks.list();
+        String tasksList = tasks.list();
+        String response = "";
+        if (tasksList.isEmpty()) {
+            response += "There are no tasks in your list.\nCreate a new one with the 'todo', "
+                    + "'deadline' or 'event' command.";
+        } else {
+            response = "Here are the tasks in your list:\n";
+            response += tasksList;
+        }
         return response;
     }
 

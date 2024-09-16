@@ -3,6 +3,7 @@ package snah;
 import java.util.Scanner;
 
 import snah.commands.Command;
+import snah.commands.List;
 import snah.errors.InvalidTaskException;
 import snah.errors.ParsingException;
 import snah.util.Parser;
@@ -65,5 +66,16 @@ public class Snah {
             tasksList.save(storage);
         } while (Parser.isExit(input));
         scanner.close();
+    }
+
+    /**
+     * Greets the user with a welcome message If user is new, a tutorial is also
+     * included
+     * @return
+     */
+    public String greet() {
+        String response = "Hello! I'm Snah\nWhat can I do for you?\n";
+        response += new List("").execute(tasksList, storage);
+        return response;
     }
 }

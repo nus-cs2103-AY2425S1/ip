@@ -11,6 +11,7 @@ import snah.commands.CreateEvent;
 import snah.commands.CreateTodo;
 import snah.commands.Delete;
 import snah.commands.Find;
+import snah.commands.Help;
 import snah.commands.Invalid;
 import snah.commands.List;
 import snah.commands.Mark;
@@ -37,6 +38,7 @@ public class Parser {
         commandMap.put("EVENT", CreateEvent::new);
         commandMap.put("DELETE", Delete::new);
         commandMap.put("FIND", Find::new);
+        commandMap.put("HELP", Help::new);
     }
 
     /**
@@ -148,6 +150,10 @@ public class Parser {
 
     public static String getCommandStrings() {
         return commandMap.keySet().stream().reduce("", (acc, command) -> acc + command + "\n");
+    }
+
+    public static String[] getCommandList() {
+        return commandMap.keySet().toArray(new String[0]);
     }
 
     public static boolean isExit(String input) {

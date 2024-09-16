@@ -32,8 +32,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren()
-                .addAll(DialogBox.getSnahDialog(String.format("Hello! I'm Snah\nWhat can I do for you?"), snahImage));
+        dialogContainer.getChildren().addAll(DialogBox.getSnahDialog(snah.greet(), snahImage));
     }
 
     /** Injects the Snah instance */
