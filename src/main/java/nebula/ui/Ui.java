@@ -115,32 +115,68 @@ public class Ui {
         return DIVIDER + "\n" + ALREADY_UNMARKED;
     }
 
+    /**
+     * Displays a message confirming that a task has been deleted.
+     *
+     * @param task The task that was deleted.
+     * @return A string message confirming the deletion of the task and showing the current number of tasks.
+     */
     public String displayDeletedTask(Task task) {
         return DIVIDER + "\n" + "Noted. I've removed this task:" + "\n" + " " + task.toString()
                 + "\n" + "Now you have " + TaskList.getTaskListLength()
                 + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ") + "in the list.";
     }
 
+    /**
+     * Displays an error message when an unknown command is entered.
+     *
+     * @return A string message indicating that the command is unknown.
+     */
     public String displayUnknownCommandException() {
         return DIVIDER + "\n" + UNKNOWN_COMMAND;
     }
 
+    /**
+     * Displays an error message when the task number entered by the user is unknown.
+     *
+     * @return A string message indicating that the task number is unknown.
+     */
     public String displayUnknownTaskNumberException() {
         return DIVIDER + "\n" + UNKNOWN_TASK_NUMBER;
     }
 
+    /**
+     * Displays an error message when the user enters a task number that does not exist.
+     *
+     * @return A string message indicating that the task number does not exist.
+     */
     public String displayNonexistentTaskNumberException() {
         return DIVIDER + "\n" + NONEXISTENT_TASK_NUMBER + "\n" + DIVIDER;
     }
 
+    /**
+     * Displays an error message when the task description is unknown or missing.
+     *
+     * @return A string message indicating that the task description is unknown.
+     */
     public String displayUnknownMessageException() {
         return DIVIDER + "\n" + UNKNOWN_DESCRIPTION;
     }
 
+    /**
+     * Displays an error message when the deadline of a task is unknown or improperly formatted.
+     *
+     * @return A string message indicating that the deadline is unknown or incorrect.
+     */
     public String displayUnknownDeadlineException() {
         return DIVIDER + "\n" + UNKNOWN_DEADLINE;
     }
 
+    /**
+     * Displays an error message when the event timing is unknown or improperly formatted.
+     *
+     * @return A string message indicating that the event timing is unknown or incorrect.
+     */
     public String displayUnknownEventTimingException() {
         return DIVIDER + "\n" + UNKNOWN_EVENT_TIMING;
     }
@@ -165,12 +201,20 @@ public class Ui {
         return DIVIDER + "\n" + ONE_KEYWORD;
     }
 
+    /**
+     * Reads a command input by the user from the console.
+     *
+     * @return The command string entered by the user.
+     */
     public String readCommand() {
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
         return command;
     }
 
+    /**
+     * Displays a divider line in the console to separate sections of output.
+     */
     public void showLine() {
         System.out.println(DIVIDER);
     }

@@ -20,6 +20,11 @@ public class Storage {
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm");
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     *
+     * @param filePath The path to the file to be used for storage.
+     */
     public Storage(String filePath) {
         this.path = filePath;
     }
@@ -135,6 +140,12 @@ public class Storage {
         return dateTime.format(DATE_TIME_FORMAT);
     }
 
+    /**
+     * Loads tasks from the file located at the given path.
+     *
+     * @return the TaskList containing the tasks loaded from the file.
+     * @throws NebulaException if the file does not exist or cannot be accessed.
+     */
     public ArrayList<Task> load() throws NebulaException {
         Path nebulaTextFile = Paths.get(path);
 
