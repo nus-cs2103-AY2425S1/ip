@@ -150,7 +150,7 @@ public class UI {
      * Prints to console depending on the result of find command. If empty, WansBot will tell user that no tasks
      * fall on the date. If not then WansBot will tell the user exactly which events lie on date.
      */
-    public String handleFindFiles(TaskList taskList, String date) {
+    public String handleFindTasks(TaskList taskList, String date) {
         if (taskList.numOfTasks() != 0) {
             return "Here are your tasks on " + LocalDate.parse(date)
                     .format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n"

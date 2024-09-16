@@ -249,7 +249,7 @@ public class WansBot {
             String[] splitDate = userInput.split(" ");
             TaskList filteredList = new TaskList();
             filterTaskList(splitDate, filteredList);
-            return ui.handleFindFiles(filteredList, splitDate[1]);
+            return ui.handleFindTasks(filteredList, splitDate[1]);
         } catch (DateTimeParseException e) {
             return ui.handleDateTimeException();
         }
@@ -281,7 +281,7 @@ public class WansBot {
      * Finds the current tasks in userTaskList that contain the keyword and prints to console in a list.
      */
     private String findTaskName(String userInput) { // "find [keyword]"
-        String[] splitName = userInput.split("findName ");
+        String[] splitName = userInput.split("findname ");
         TaskList filteredList = new TaskList();
         for (int i = 0; i < userTaskList.numOfTasks(); i++) {
             if (userTaskList.getTask(i).hasName(splitName[1])) {
