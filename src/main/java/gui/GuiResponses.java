@@ -27,7 +27,7 @@ public class GuiResponses {
      */
     public String greeting() {
         return "Hello! I'm " + GuiResponses.BOTNAME
-                + "\nWhat can I do for you?";
+                + "\nWhat can I do for you? ^_^";
 
     }
 
@@ -48,12 +48,22 @@ public class GuiResponses {
      */
     public String displayList(TaskList tasks) {
         ArrayList<Task> userList = tasks.getTasks();
-        StringBuilder toReturn = new StringBuilder("Current Tasks in List: \n");
+        StringBuilder toReturn = new StringBuilder(
+                String.format("You have %d Tasks in List: \n", userList.size()));
         for (int i = 0; i < userList.size(); i++) {
             toReturn.append(String.format(i + 1 + ". " + "[%s][%s] %s",
                     userList.get(i).getTaskSymbol(),
                     userList.get(i).getStatus() ? "X" : " ",
                     userList.get(i).getDescription()) + "\n");
+        }
+        if (userList.size() == 0) {
+            toReturn.append("You have no tasks! (•‿•)");
+        }
+        if (userList.size() > 0 && userList.size() <= 5) {
+            toReturn.append("You have less than 5 tasks!Keep it up! :)");
+        }
+        if (userList.size() > 10) {
+            toReturn.append("You have more than 10 tasks... It is never going to end...");
         }
         return toReturn.toString();
     }
@@ -73,7 +83,7 @@ public class GuiResponses {
      * @return msg for marking a task
      */
     public String markMsg(Task task) {
-        return "Marked Task as done!" + "\n" + task.getDescription();
+        return "Marked Task as done! d(>_< )" + "\n" + task.getDescription();
     }
 
     /**
@@ -82,7 +92,7 @@ public class GuiResponses {
      * @return msg for unmarking a task
      */
     public String unmarkMsg(Task task) {
-        return "Marked Task as undone!" + "\n" + task.getDescription();
+        return "Marked Task as undone! :( You have 1 more task now..." + "\n" + task.getDescription();
 
     }
 
@@ -145,7 +155,7 @@ public class GuiResponses {
      */
     public String displayAllTags(Set<String> tagKeys) {
         if (tagKeys.size() == 0) {
-            return "No tags found";
+            return "No tags found! ¯\\\\_(ツ)_/¯";
         }
         StringBuilder tagsString = new StringBuilder(
                 String.format("Currently have %d Tags: \n", tagKeys.size()));
