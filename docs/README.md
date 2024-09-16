@@ -1,30 +1,55 @@
-# Duke User Guide
+# BottleOpener
 
-// Update the title above to match the actual product name
+## Overview
+**BottleOpener** is a task management chatbot that helps you
+track and manage various tasks such as todos, deadlines,
+and events. The chatbot provides an interactive way to
+manage your tasks through a simple command-line interface (CLI)
+or graphical interface (GUI).
 
-// Product screenshot goes here
+## Features
+- **Add** tasks: Easily add ToDo, Deadline, or Event tasks.
+- **Mark** tasks: Mark tasks as done or undone.
+- **Delete** tasks: Remove tasks you no longer need.
+- **List** tasks: View all tasks in the task list.
+- **Remind** deadlines: Receive automatic reminders for
+  upcoming deadlines.
 
-// Product intro goes here
+## Quick Start
+1. Launch the application.
+2. Type in commands.
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+### Commands
++ `todo` creates a simple task that does not have a deadline or time.
+```declarative
+todo <task_description>
 ```
-expected output
++ `deadline` creates a task with a due date.
+```declarative
+deadline <task_description> /by <due_date>
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
++ `event` creates a task that is scheduled to happen at a specific time.
+```declarative
+event <task_description> /from <start_time> /to <end_time>
+```
++ `list` displays all the tasks stored in the chat bot.
+```declarative
+list
+```
++ `mark` / `unmark` marks or unmarks a specified task as completed or not completed.
+```declarative
+mark <task_number>
+unmark <task_number>
+```
++ `delete` removes a task from the list.
+```declarative
+delete <task_number>
+```
++ `remind` displays all the tasks with upcoming deadlines.
+```declarative
+remind
+```
++ `bye` exits and closes the chat bot.
+```declarative
+bye
+```
