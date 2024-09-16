@@ -28,30 +28,29 @@ class UiTest {
 
     @Test
     void showWelcomeMessage_shouldDisplayCorrectMessage() {
-        ui.showWelcomeMessage();
-        String expectedMessage = ("     Hualalalalala I'm Waterfall\n" + "     What can I do for you?\n");
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage.trim()));
+        String res = Ui.showWelcomeMessage();
+        assertEquals("Hualalalalala I'm Waterfall\n" + "What can I do for you?\n", res);
     }
 
     @Test
     void showByeMessage_shouldDisplayCorrectMessage() {
-        ui.showByeMessage();
-        String expectedMessage = "    Shhhhhhhhhhhh. Hope to see you again soon!\n";
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage.trim()));
+        String res = ui.showByeMessage();
+        String expectedMessage = "Shhhhhhhhhhhh. Hope to see you again soon!\n";
+        assertEquals(expectedMessage, res);
     }
 
     @Test
     void showLoadingError_shouldDisplayCorrectErrorMessage() {
         ui.showLoadingError();
-        String expectedMessage = "    Oops! Something went wrong in loading the database!";
+        String expectedMessage = "Oops! Something went wrong in loading the database!";
         assertTrue(outputStreamCaptor.toString().contains(expectedMessage.trim()));
     }
 
     @Test
     void showLine_shouldDisplayCorrectLine() {
-        ui.showLine();
-        String expectedMessage = "    ____________________________________________________________\n";
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage.trim()));
+        String res = ui.showLine();
+        String expectedMessage = "____________________________________________________________\n";
+        assertEquals(expectedMessage, res);
     }
 
     @Test
@@ -66,51 +65,46 @@ class UiTest {
     @Test
     void showError_shouldDisplayCorrectErrorMessage() {
         String errorMessage = "An error occurred";
-        ui.showError(errorMessage);
-        String expectedMessage = "     Oops Water falls: " + errorMessage;
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage.trim()));
+        String res = ui.showError(errorMessage);
+        String expectedMessage = "Oops Water falls: " + errorMessage;
+        assertEquals(expectedMessage, res);
     }
 
     @Test
     void showAddMessage_shouldDisplayCorrectAddMessage() {
         Task task = new ToDo("Test task");
-        ui.showAddMessage(task);
-        String expectedMessage1 = "      Successfully added a task to the waterfallll:";
-        String expectedMessage2 = "      [T][ ] Test task";
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage1.trim()));
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage2.trim()));
+        String res = ui.showAddMessage(task);
+        String expectedMessage = "Successfully added a task to the waterfallll:\n"
+                + "[T][ ] Test task";
+        assertEquals(expectedMessage, res);
     }
 
     @Test
     void showMarkMessage_shouldDisplayCorrectMarkMessage() {
         Task task = new ToDo("Test task");
         task.setDone(true);
-        ui.showMarkMessage(task);
-        String expectedMessage1 = "      Huluhuluhulu, I've marked this task as done: ";
-        String expectedMessage2 = "      [T][X] Test task";
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage1.trim()));
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage2.trim()));
+        String res = ui.showMarkMessage(task);
+        String expectedMessage = "Huluhuluhulu, I've marked this task as done: \n"
+                + "[T][X] Test task";
+        assertEquals(expectedMessage, res);
     }
 
     @Test
     void showUnmarkMessage_shouldDisplayCorrectUnmarkMessage() {
         Task task = new ToDo("Test task");
-        ui.showUnmarkMessage(task);
-        String expectedMessage1 = "      Hohohohohoho, I've marked this task as not done: ";
-        String expectedMessage2 = "      [T][ ] Test task";
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage1.trim()));
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage2.trim()));
-
+        String res = ui.showUnmarkMessage(task);
+        String expectedMessage = "Hohohohohoho, I've marked this task as not done: \n"
+                + "[T][ ] Test task";
+        assertEquals(expectedMessage, res);
     }
 
     @Test
     void showDeleteMessage_shouldDisplayCorrectDeleteMessage() {
         Task task = new ToDo("Test task");
-        ui.showDeleteMessage(task);
-        String expectedMessage1 = "      Hehehehehehe, I've removed this task from the waterfall: ";
-        String expectedMessage2 = "      [T][ ] Test task";
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage1.trim()));
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage2.trim()));
+        String res = ui.showDeleteMessage(task);
+        String expectedMessage = "Hehehehehehe, I've removed this task from the waterfall: \n"
+                + "[T][ ] Test task";
+        assertEquals(expectedMessage, res);
     }
 
     @Test
@@ -119,8 +113,8 @@ class UiTest {
         taskList.add(new ToDo("Test task 1"));
         taskList.add(new ToDo("Test task 2"));
 
-        ui.showTaskListMessage(taskList);
-        String expectedMessage = "     Here's the tasks in your waterfall hualalala\n";
-        assertTrue(outputStreamCaptor.toString().contains(expectedMessage.trim()));
+        String res = ui.showTaskListMessage(taskList);
+        String expectedMessage = "Here's the tasks in your waterfall hualalala\n";
+        assertTrue(res.contains(expectedMessage));
     }
 }
