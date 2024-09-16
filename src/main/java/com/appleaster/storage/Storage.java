@@ -12,15 +12,30 @@ import com.appleaster.task.Event;
 import com.appleaster.task.Task;
 import com.appleaster.task.Todo;
 
+/**
+ * Handles the loading and saving of tasks to a file.
+ * This class is responsible for persisting task data between application sessions.
+ */
 public class Storage {
     private static final String DATA_DIRECTORY = "data";
     private final Path filePath;
     private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath the path to the file where tasks will be stored
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return a list of tasks read from the file
+     * @throws AppleasterException if an error occurs while loading the tasks
+     */
     public List<Task> load() throws AppleasterException {
         try {
             createDataDirectoryIfNotExists();
@@ -41,6 +56,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param tasks the list of tasks to be saved
+     * @throws AppleasterException if an error occurs while saving the tasks
+     */
     public void save(List<Task> tasks) throws AppleasterException {
         try {
             createDataDirectoryIfNotExists();
@@ -55,10 +76,22 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the data directory if it doesn't exist.
+     *
+     * @throws IOException if an I/O error occurs
+     */
     private void createDataDirectoryIfNotExists() throws IOException {
         Files.createDirectories(filePath.getParent());
     }
 
+    /**
+     * Formats a task into a string for file storage.
+     *
+     * @param task the task to be formatted
+     * @return a string representation of the task
+     * @throws IllegalArgumentException if the task type is unknown
+     */
     private String formatTask(Task task) {
         if (task instanceof Todo) {
             return String.format("T | %d | %s", task.isCompleted() ? 1 : 0, task.getDescription());
@@ -73,6 +106,13 @@ public class Storage {
         throw new IllegalArgumentException("Unknown task type");
     }
 
+    /**
+     * Parses a string from the file into a Task object.
+     *
+     * @param line the string to be parsed
+     * @return the Task object created from the string
+     * @throws IllegalArgumentException if the task type is unknown
+     */
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
