@@ -65,7 +65,6 @@ public class Parser {
      * @param fullCommand The command string input by the user.
      * @return An {@code AddCommand} with a new {@code ToDo} task.
      */
-
     private static Command handleTodoCommand(String fullCommand) {
         return new AddCommand(new ToDo(fullCommand.substring(5)));
     }
@@ -78,7 +77,6 @@ public class Parser {
      * @return An {@code AddCommand} with a new {@code Deadline} task.
      * @throws LoloException If the date and time format is incorrect.
      */
-
     private static Command handleDeadlineCommand(String fullCommand) throws LoloException {
         String[] parts = fullCommand.split(" /by ");
         String description = parts[0].substring(9);
@@ -86,6 +84,14 @@ public class Parser {
         return new AddCommand(new Deadline(description, by));
     }
 
+    /**
+     * Returns an {@code AddCommand} to add an {@code Event} task.
+     * The start and end date/time are parsed from the command.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return An {@code AddCommand} with a new {@code Event} task.
+     * @throws LoloException If the date and time format is incorrect.
+     */
     private static Command handleEventCommand(String fullCommand) throws LoloException {
         String[] parts = fullCommand.split(" /from ");
         String description = parts[0].substring(6);
