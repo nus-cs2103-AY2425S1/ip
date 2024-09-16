@@ -4,6 +4,17 @@
 
 ![Ui.png](Ui.png)
 
+# List of features
+1. [Adding tasks to be done](#adding-tasks-to-be-done)
+2. [Adding deadlines](#adding-deadlines)
+3. [Adding events](#adding-events)
+4. [Finding tasks](#finding-tasks)
+5. [Marking tasks as done](#marking-tasks-as-done)
+6. [Unmarking tasks](#unmarking-tasks)
+7. [Deleting tasks](#deleting-tasks)
+8. [Listing all tasks](#listing-all-tasks)
+9. [Accessing help](#accessing-help)
+
 ## Adding Tasks to be Done
 
 Use the `todo` command to add a simple task without a specific date or time.
