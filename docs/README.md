@@ -111,3 +111,5 @@ To exit Lolo, use the command:
 bye
 ```
 This will close the application.
+
+Have fun trying out Lolo! 🙌
