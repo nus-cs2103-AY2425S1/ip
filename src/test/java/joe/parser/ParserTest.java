@@ -10,7 +10,7 @@ import joe.ui.Ui;
 
 public class ParserTest {
     private final ControllerStub controller = new ControllerStub();
-    private final Parser<ControllerStub> parser = new Parser<>(controller, new Ui("Test"));
+    private final Parser parser = new Parser(controller, new Ui("Test"));
 
     private final String todoFormat = "todo %s";
     private final String deadlineFormat = "deadline %s /by %s";

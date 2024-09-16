@@ -33,7 +33,7 @@ public class Ui {
      * @param stage The stage to display the main window on.
      * @param parser The parser to use for parsing user input.
      */
-    public void start(Stage stage, Parser<Controller> parser) {
+    public void start(Stage stage, Parser parser) {
         mainWindow = new MainWindow();
         this.stage = stage;
         Scene scene = new Scene(mainWindow);

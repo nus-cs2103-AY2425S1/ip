@@ -8,20 +8,20 @@ public class Joe {
     public static final String CHATBOT_NAME = "Joe";
 
     private Controller controller;
-    private Parser<Controller> parser;
+    private Parser parser;
     private Ui ui;
 
     public Joe() {
         this.ui = new Ui(CHATBOT_NAME);
         this.controller = new Controller(ui);
-        this.parser = new Parser<>(controller, ui);
+        this.parser = new Parser(controller, ui);
     }
 
     public Controller getController() {
         return controller;
     }
 
-    public Parser<Controller> getParser() {
+    public Parser getParser() {
         return parser;
     }
 

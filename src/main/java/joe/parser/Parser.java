@@ -27,12 +27,12 @@ import static joe.Constants.FIND_COMMAND_LENGTH;
 /**
  * Parses the input from the user and calls the appropriate controller method.
  */
-public class Parser<C extends Controller> {
+public class Parser {
 
-    private final C controller;
+    private final Controller controller;
     private final Ui ui;
 
-    public Parser(C controller, Ui ui) {
+    public Parser(Controller controller, Ui ui) {
         this.controller = controller;
         this.ui = ui;
     }

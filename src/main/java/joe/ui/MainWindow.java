@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Parser<Controller> parser;
+    private Parser parser;
 
     private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/userIcon.png"));
     private final Image JOE_IMAGE = new Image(this.getClass().getResourceAsStream("/images/joeIcon.png"));
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setParser(Parser<Controller> parser) {
+    public void setParser(Parser parser) {
         this.parser = parser;
     }
 
