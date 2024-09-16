@@ -33,7 +33,6 @@ public class OuiOuiBaguette {
      * @param dirPath The directory path where task data will be stored.
      */
     public OuiOuiBaguette(String dirPath) {
-        // ui = new CommandLineUi();
         storage = new FileStorage(dirPath);
         tasks = new TaskList(storage);
         parser = new Parser();
