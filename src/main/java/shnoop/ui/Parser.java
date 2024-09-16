@@ -130,6 +130,33 @@ public class Parser {
         return str.substring(idx, str.length()).trim().length() == 0;
     }
 
+    private static boolean isInvalidCommand(int length, int target,
+                                            int idx, String input, String[] commandParts, boolean ... b) {
+        if (length < target) {
+            return true;
+        }
+
+        if (isEmptyFromIdx(idx, input)) {
+            return true;
+        }
+
+        if (commandParts.length < 2) {
+            return true;
+        }
+
+        if (commandParts[1].isEmpty()) {
+            return true;
+        }
+
+        if (b.length != 0 && b[0] == true) {
+            if (!canBeInteger(input.substring(idx, length))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Determines the relevant Command to be executed based on the String input.
      *
@@ -198,26 +225,22 @@ public class Parser {
                 throw new ShnoopException(improperInput);
             }
         case FIND:
-            if (length < 6 || isEmptyFromIdx(5, input)
-                    || commandParts[1].isEmpty()) {
+            if (isInvalidCommand(length, 6, 5, input, commandParts)) {
                 throw new ShnoopException(improperInput);
             }
             return new FindCommand(input);
         case DELETE:
-            if (length < 8 || isEmptyFromIdx(7, input)
-                    || commandParts[1].isEmpty() || !canBeInteger(input.substring(7, length))) {
+            if (isInvalidCommand(length,8, 7, input, commandParts, true)) {
                 throw new ShnoopException(improperInput);
             }
             return new DeleteCommand(input);
         case MARK:
-            if (length < 6 || isEmptyFromIdx(5, input)
-                    || commandParts[1].isEmpty() || !canBeInteger(input.substring(5, length))) {
+            if (isInvalidCommand(length, 6, 5, input, commandParts, true)) {
                 throw new ShnoopException(improperInput);
             }
             return new MarkCommand(input, true);
         case UNMARK:
-            if (length < 8 || isEmptyFromIdx(7, input)
-                    || commandParts[1].isEmpty() || !canBeInteger(input.substring(7, length))) {
+            if (isInvalidCommand(length, 8, 7, input, commandParts, true)) {
                 throw new ShnoopException(improperInput);
             }
             return new MarkCommand(input, false);
