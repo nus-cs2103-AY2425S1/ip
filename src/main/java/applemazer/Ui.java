@@ -49,7 +49,7 @@ public class Ui {
         int taskNumber = 1;
         for (Task task : tasks.getList()) {
             if (task.getDescription().contains(desc)) {
-                sb.append(taskNumber).append(".").append(task.getStatusIcon()).append(task);
+                sb.append(taskNumber).append(". ").append(task.getStatusIcon()).append(task);
             }
             taskNumber++;
         }
