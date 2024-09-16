@@ -97,8 +97,8 @@ public class Parser {
     private String handleAddEvent(String message) throws MissingDateException,
             MissingTaskNameException, InvalidDateException {
         String[] parts = splitAddTaskUserInput(message, "event");
-        String taskName = validateTaskName(parts[0], "event");
         validateDate(parts, "event");
+        String taskName = validateTaskName(parts[0], "event");
         String from = parts[1].trim();
         String to = parts[2].trim();
         return taskList.addTask(new Event(taskName, from, to));
@@ -129,7 +129,7 @@ public class Parser {
     }
 
     private String validateTaskName(String message, String taskType) throws MissingTaskNameException {
-        String taskName = message.replace(taskType, "").trim();
+        String taskName = message.replaceFirst(taskType, "").trim();
 
         if (taskName.isEmpty()) {
             throw new MissingTaskNameException(taskType);
@@ -143,7 +143,7 @@ public class Parser {
             throw new MissingDateException("deadline");
         }
         if (taskType.equals("event") && parts.length != VALID_ADD_EVENT_LENGTH) {
-            throw new MissingDateException("deadline");
+            throw new MissingDateException("event");
         }
     }
 

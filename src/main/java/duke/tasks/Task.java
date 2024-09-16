@@ -45,6 +45,9 @@ public class Task {
         }
     }
 
+    public boolean isCompleted() {
+        return isDone;
+    }
     @Override
     public String toString() {
         return (isDone ? "[X]" : "[ ]") + " " + name;

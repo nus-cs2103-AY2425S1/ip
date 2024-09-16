@@ -33,5 +33,9 @@ public class Duke {
             return e.toString();
         }
     }
+
+    public TaskList getTaskList() {
+        return taskList;
+    }
 }
 

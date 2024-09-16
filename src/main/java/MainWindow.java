@@ -29,11 +29,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-        // Show greeting message when the app starts
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(Ui.printGreeting(), dukeImage)
         );
+
+        Platform.runLater(() -> {
+            String reminderMessage = duke.getTaskList().setReminder();
+            if (!reminderMessage.isEmpty()) {
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getDukeDialog(reminderMessage, dukeImage)
+                );
+            }
+        });
     }
 
     /** Injects the Duke instance */

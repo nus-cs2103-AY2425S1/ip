@@ -24,6 +24,14 @@ public class Event extends Task {
         this.to = new Time(to);
     }
 
+    public Time getTo() {
+        return to;
+    }
+
+    public Time getFrom() {
+        return from;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.toString() + " to: "

@@ -59,7 +59,18 @@ public class Time {
             return false;
         }
     }
-
+    /**
+     * Converts the Time object to LocalDateTime. If only date is available, it assumes time as 00:00.
+     *
+     * @return LocalDateTime representing the date and time (or midnight if time is missing)
+     */
+    public LocalDateTime toLocalDateTime() {
+        if (hasTime) {
+            return dateTime;
+        } else {
+            return date.atStartOfDay();
+        }
+    }
     @Override
     public String toString() {
         return originalFormat;

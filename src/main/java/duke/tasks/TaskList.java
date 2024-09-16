@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,62 @@ public class TaskList {
             }
         }
         return tasks;
+    }
+
+    /**
+     * Generates a reminder message for the user, listing any overdue tasks and tasks that are
+     * urgent (due within the next 3 days).
+     *
+     * @return A string containing the reminder message for overdue and urgent tasks.
+     */
+    public String setReminder() {
+        StringBuilder taskReminders = new StringBuilder();
+        List<Task> urgentTasks = new ArrayList<>();
+        List<Task> overdueTasks = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+        for (Task task : listOfTasks) {
+            if (isTaskOverdue(task, now)) {
+                overdueTasks.add(task);
+            } else if (isTaskUrgent(task, now)) {
+                urgentTasks.add(task);
+            }
+        }
+
+        if (!overdueTasks.isEmpty()) {
+            taskReminders.append("Oh no! You have some tasks OVERDUE:\n");
+            for (Task task : overdueTasks) {
+                taskReminders.append("  ").append(task).append("\n");
+            }
+        }
+
+        if (!urgentTasks.isEmpty()) {
+            taskReminders.append("\nYou have some tasks that are URGENT (due in 3 days):\n");
+            for (Task task : urgentTasks) {
+                taskReminders.append("  ").append(task).append("\n");
+            }
+        }
+        return taskReminders.toString();
+    }
+
+    private boolean isTaskOverdue(Task task, LocalDateTime now) {
+        if (task instanceof Deadline) {
+            return ((Deadline) task).getBy().toLocalDateTime().isBefore(now) && !task.isCompleted();
+        } else if (task instanceof Event) {
+            return ((Event) task).getTo().toLocalDateTime().isBefore(now) && !task.isCompleted();
+        }
+        return false;
+    }
+
+    private boolean isTaskUrgent(Task task, LocalDateTime now) {
+        LocalDateTime threeDaysFromNow = now.plusDays(3);
+        if (task instanceof Deadline) {
+            return ((Deadline) task).getBy().toLocalDateTime().isBefore(threeDaysFromNow) && !task.isCompleted()
+                    && !isTaskOverdue(task, now);
+        } else if (task instanceof Event) {
+            return ((Event) task).getTo().toLocalDateTime().isBefore(threeDaysFromNow) && !task.isCompleted()
+                    && !isTaskOverdue(task, now);
+        }
+        return false;
     }
 
     /**
