@@ -158,7 +158,7 @@ public class Snah {
             return response;
         }
         default: {
-            return "Oi, something went wrong";
+            assert false : "Should never hit the default case because of the INVALID command";
         }
         }
     }
