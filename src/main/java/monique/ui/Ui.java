@@ -74,7 +74,7 @@ public class Ui {
      * @return A welcome message.
      */
     public String showWelcome() {
-        return "Hello, I am Monique,\nI am your personal assistant :)";
+        return "Whats good homie, I am Monique,\nI am your personal assistant :)";
     }
 
     /**
@@ -83,7 +83,7 @@ public class Ui {
      * @return A goodbye message.
      */
     public String showGoodbye() {
-        return "Goodbye! Have a great day! This window will close in 3 seconds";
+        return "ciao homie! Have a great day! This window will close in 3 seconds";
     }
 
     /**
