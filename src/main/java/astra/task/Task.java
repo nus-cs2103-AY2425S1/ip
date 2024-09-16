@@ -29,6 +29,8 @@ public abstract class Task implements Comparable<Task> {
     public Task(String name) throws AstraException {
         if (name.isBlank()) {
             throw new AstraException("Task description cannot be empty.");
+        } else if (name.contains("|")) {
+            throw new AstraException("Task description cannot contain '|'.");
         }
         this.name = name;
         this.isDone = false;
