@@ -11,10 +11,25 @@ import java.io.IOException;
 
 public class AddDeadlineCommand extends Command {
 
+    /**
+     * Constructs an {@code AddDeadlineCommand} object with the specified description.
+     *
+     * @param description The command description containing details about the deadline task to be added.
+     */
     public AddDeadlineCommand(String description) {
         super(description);
     }
 
+    /**
+     * Executes the add deadline command.
+     * Parses the task description and deadline from the command, creates a new deadline task,
+     * and adds it to the task list.
+     *
+     * @param tasks   The task list to which the new deadline task will be added.
+     * @param ui      The UI component to display the result of adding the deadline task.
+     * @param storage The storage component (not used in this method).
+     * @throws IOException If an I/O error occurs during any file operations (e.g., saving the task list).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         String command = getDescription();
@@ -29,6 +44,11 @@ public class AddDeadlineCommand extends Command {
         System.out.println(addedDeadline);
     }
 
+    /**
+     * Indicates whether this command will exit the application.
+     *
+     * @return false since adding a Deadline Task does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;
