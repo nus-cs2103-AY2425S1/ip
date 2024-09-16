@@ -9,6 +9,7 @@ import java.util.List;
  * Task list containing all the tasks
  */
 public class TaskList {
+    private static final String NO_EVENT_MESSAGE = "There are no events matching the specified task.";
 
     private List<Task> tasks;
 
@@ -86,6 +87,7 @@ public class TaskList {
      */
     public String findEvent(String s) {
         String events = "Here are the matching tasks in your list:\n";
+        boolean hasEvent = false;
 
         for (int i = 0; i < tasks.size(); i++) {
             //Iterates through all tasks and finds tasks containing strings matching the string provided
@@ -94,10 +96,11 @@ public class TaskList {
             List<String> eventArr = new ArrayList<>(Arrays.asList(eventDetails));
             if (eventArr.contains(s)) {
                 events += t + "\n";
+                hasEvent = true;
             }
         }
 
-        return events;
+        return hasEvent ? events : NO_EVENT_MESSAGE;
     }
 
     /**

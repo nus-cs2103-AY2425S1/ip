@@ -136,7 +136,7 @@ public class David {
      */
     public String findEvent(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
-        return ui.findEvent(event, tasks);
+        return ui.findEvent(event.trim(), tasks);
     }
 
 
@@ -149,7 +149,7 @@ public class David {
     public String addTodoTask(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
 
-        Task t = new TodoTask(s, false);
+        Task t = new TodoTask(event, false);
         this.tasks.addTask(t);
 
         return ui.displayTaskDetails(t, this.tasks.getSize());
