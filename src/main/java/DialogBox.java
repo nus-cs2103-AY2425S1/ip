@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Class that represents a chat dialog box.
@@ -31,8 +32,17 @@ public class DialogBox extends HBox {
 
         // Styling the dialog box
         text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
+        displayPicture.setFitWidth(50);
+        displayPicture.setFitHeight(50);
+
+        // Create a circular clip for profile image
+        Circle clip = new Circle(25, 25, 25);
+
+        // Apply the clip to the ImageView
+        displayPicture.setClip(clip);
+
+        text.setStyle("-fx-padding: 0 10 0 10;");
+
         this.setAlignment(Pos.TOP_RIGHT);
 
         this.getChildren().addAll(text, displayPicture);
@@ -46,6 +56,7 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
+
         this.getChildren().setAll(tmp);
     }
 
@@ -55,7 +66,17 @@ public class DialogBox extends HBox {
         for (String str : strs) {
             s += str;
         }
-        return new DialogBox(s, i);
+        DialogBox userDialog = new DialogBox(s, i);
+        userDialog.setStyle(
+                "-fx-background-color: #cce7ff;"
+                + "-fx-padding: 10;"
+                + "-fx-border-insets: 5px;"
+                + "-fx-background-insets: 5px;"
+                + "-fx-border-radius: 15;"
+                + "-fx-background-radius: 15;"
+                + "-fx-border-color: lightblue;"
+                + "-fx-border-width: 1;");
+        return userDialog;
     }
 
     /** Dialog box of chatbot */
@@ -66,6 +87,15 @@ public class DialogBox extends HBox {
         }
 
         var db = new DialogBox(s, i);
+        db.setStyle(
+                "-fx-background-color: #e0e0e0;"
+                + "-fx-padding: 10;"
+                + "-fx-border-insets: 5px;"
+                + "-fx-background-insets: 5px;"
+                + "-fx-border-radius: 15;"
+                + "-fx-background-radius: 15;"
+                + "-fx-border-color: lightgray;"
+                + "-fx-border-width: 1;");
         db.flip();
         return db;
     }
