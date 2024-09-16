@@ -91,4 +91,13 @@ public class Events extends Task {
         // The format is: "[E] [X] <taskName> (from: <startDate> to: <endDate>)", where [X] is marked if completed.
         return super.print() + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ")";
     }
+
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof Events) {
+            Events otherEvent = (Events) other;
+            return this.endDateTime.compareTo(otherEvent.endDateTime);
+        }
+        return super.compareTo(other); // fallback to taskName comparison
+    }
 }

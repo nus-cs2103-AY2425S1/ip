@@ -7,6 +7,11 @@ import futureyou.task.Task;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * The TaskList manages a list of tasks.
@@ -155,18 +160,56 @@ public class TaskList {
     public static String findTask(String text) throws Exception {
         try {
             StringBuilder message = new StringBuilder(" Here are the matching tasks in your list: \n");
-            int count = 1;
-            for (Task task : TaskList.getTaskList()) {
-                if (task.getTaskName().contains(text)) {
+            int count = 0;
+            for (Task task : taskList) {
+                if (task.getTaskName().contains(text.trim())) {
                     message.append("[").append(count++).append("]").append(task.print()).append(System.lineSeparator());
                 }
             }
-            if (count == 1) {
-                return "No task mataching that text was found";
+            if (count == 0) {
+                return "No task matching that text was found";
             }
             return message.toString();
         } catch (Exception e) {
             return "Please enter a valid Task number";
         }
     }
+
+    /**
+     * Sorts the task list by task type then by the end date time.
+     * @return the list of tasklist that is sorted
+     *
+     */
+    public static String sortTask() {
+        Collections.sort(taskList, (t1, t2) -> {
+            // Sort by type: Task -> Deadline -> Event
+            if (t1.getClass() != t2.getClass()) {
+                if (t1 instanceof Task && !(t1 instanceof Deadline) && !(t1 instanceof Events)) {
+                    return -1;
+                }
+                if (t2 instanceof Task && !(t2 instanceof Deadline) && !(t2 instanceof Events)) {
+                    return 1;
+                }
+                if (t1 instanceof Deadline) {
+                    return -1;
+                }
+                if (t2 instanceof Deadline) {
+                    return 1;
+                }
+                if (t1 instanceof Events) {
+                    return -1;
+                }
+                if (t2 instanceof Events) {
+                    return 1;
+                }
+            }
+            storage.saveTasks();
+            // If the same type, use the compareTo method of each class
+            return t1.compareTo(t2);
+        });
+
+        return listTasks();
+    }
+
+
 }

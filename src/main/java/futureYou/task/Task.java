@@ -3,9 +3,9 @@ package futureyou.task;
 /**
  * Represents a task with a name and completion status.
  */
-public class Task {
-    private boolean completed = false;
+public class Task implements Comparable<Task> {
     private final String name;
+    private boolean completed = false;
 
     /**
      * Constructs a Task with the specified name.
@@ -82,5 +82,10 @@ public class Task {
         //  The format is: "[T] [X] <taskName>", where [X] is marked if completed.
         String cross = (this.getTaskStatus() ? "X" : " ");
         return "[" + this.getType() + "] " + "[" + cross + "] " + this.getTaskName();
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        return this.name.compareTo(other.name);
     }
 }

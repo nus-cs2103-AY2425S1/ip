@@ -106,7 +106,11 @@ public class Ui {
                 break;
             }
             case "find": {
-                message = TaskList.findTask(userCommand);
+                message = TaskList.findTask(userCommand.substring(4));
+                break;
+            }
+            case "sort": {
+                message = TaskList.sortTask();
                 break;
             }
             default: // User enters invalid command
