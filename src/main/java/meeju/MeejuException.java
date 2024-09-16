@@ -12,7 +12,8 @@ public class MeejuException extends Exception {
 
     private String message;
     /**
-     * Construct for MeejuException.
+     * Constructor for MeejuException.
+     * MeejuException is thrown when the bot encounters exceptional situations.
      *
      * @param message The detail about the exception that occured.
      */
