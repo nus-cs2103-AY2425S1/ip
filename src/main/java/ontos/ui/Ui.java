@@ -10,7 +10,7 @@ import ontos.task.TaskList;
  * and displaying relevant messages. It includes methods to greet the user,
  * display tasks, handle incorrect input, and various task-related actions.
  */
-public class Ui { 
+public class Ui {
     /** Scanner object to handle user input. */
     private Scanner inputs;
 
@@ -231,6 +231,26 @@ public class Ui {
         assert filteredList != null : "Filtered list cannot be null";
 
         String output = "Here are the matching tasks in your list:\n" + filteredList;
+        System.out.println(output);
+        return output;
+    }
+
+    /**
+     * Displays the list of commands that can be used in the console.
+     *
+     * @return the list of commands as a String.
+     */
+    public String help() {
+        String output = "Here are the commands you can use:\n"
+                + "1. list: Lists all tasks in the task list.\n"
+                + "2. todo <description>: Adds a todo task to the task list.\n"
+                + "3. deadline <description> /by <yyyy-mm-dd>: Adds a deadline task to the task list.\n"
+                + "4. event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>: Adds an event task to the task list.\n"
+                + "5. done <index>: Marks the task at the specified index as done.\n"
+                + "6. delete <index>: Deletes the task at the specified index.\n"
+                + "7. find <keyword>: Finds tasks that contain the keyword.\n"
+                + "8. help: Displays the list of commands.\n"
+                + "9. bye: Exits the program.";
         System.out.println(output);
         return output;
     }

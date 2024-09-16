@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
 
         if (isFirstInteraction) {
             setOntos(input);
-            response = "Save location set to: " + input + "\n" + ontos.getGreeting();
+            response = "Save location set to: " + input + ".txt" + "\n" + ontos.getGreeting();
             isFirstInteraction = false;
         } else {
             response = ontos.getResponse(input);

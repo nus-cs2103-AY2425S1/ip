@@ -27,7 +27,7 @@ public class Ontos {
      * @param saveLocation The location of the save file relative to the project's root directory.
      */
     public Ontos(String saveLocation) {
-        Path projectRoot = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
+        Path projectRoot = Paths.get("").toAbsolutePath();
         this.ui = new Ui();
         this.saveManager = new SaveManager(projectRoot, saveLocation);
         saveManager.createSave();
