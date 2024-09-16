@@ -20,12 +20,12 @@ public class ToDoTask extends Task {
 
     @Override
     public boolean equals(Object obj) {
- 
-        // If the object is compared with itself then return true  
+
+        // If the object is compared with itself then return true
         if (obj == this) {
             return true;
         }
- 
+
         if (!(obj instanceof ToDoTask)) {
             return false;
         }
@@ -33,8 +33,10 @@ public class ToDoTask extends Task {
         ToDoTask taskObj = (ToDoTask) obj;
 
         boolean isSameDescription = this.description == taskObj.description;
+        boolean sameStatus = this.isChecked == taskObj.isChecked;
+        boolean sameTag = this.tag == taskObj.tag;
 
-        return isSameDescription;
+        return isSameDescription && sameStatus && sameTag;
     }
 
     @Override

@@ -14,8 +14,6 @@ import quack.tasks.Task;
  */
 public class TaskList {
 
-    /** Track how many tasks are in the list */
-    protected int length;
     /** List to store tasks */
     protected ArrayList<Task> toDoList;
 
@@ -25,7 +23,6 @@ public class TaskList {
     public TaskList() {
 
         this.toDoList = new ArrayList<Task>();
-        length = 0;
     }
 
     /**
@@ -43,7 +40,7 @@ public class TaskList {
      */
     public int getLength() {
 
-        return this.length;
+        return this.toDoList.size();
     }
 
     /**
@@ -97,7 +94,6 @@ public class TaskList {
         assert(task != null);
 
         this.toDoList.add(task);
-        length = this.toDoList.size();
     }
 
     /**
@@ -118,7 +114,6 @@ public class TaskList {
 
         // Remove the task from the list
         Task removedTask = this.toDoList.remove(idx);
-        length = this.toDoList.size();
 
         return removedTask;
     }
@@ -166,10 +161,10 @@ public class TaskList {
         idx = idx - 1;
         this.checkIndexInBounds(idx);
 
-        if (command.equals("addTag")) {
+        if (command.equals("addtag")) {
             task = this.toDoList.get(idx);
             task.tag(tag[0]);
-        } else if (command.equals("removeTag")) {
+        } else if (command.equals("removetag")) {
             task = this.toDoList.get(idx);
             task.unTag();
         } else {
@@ -195,13 +190,52 @@ public class TaskList {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        // If the object is compared with itself then return true
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof TaskList)) {
+            return false;
+        }
+
+        TaskList taskListObj = (TaskList) obj;
+
+        boolean isSameLength = this.getLength() == taskListObj.getLength();
+
+        // The length is already different thus there is no point in comparing each task
+        if (!isSameLength) {
+            return isSameLength;
+        }
+
+        ArrayList<Task> otherList = taskListObj.getToDoList();
+
+        for (int i = 0; i < this.getLength(); i++) {
+            boolean hasSameTask = false;
+            for (int j = 0; j < this.getLength(); j++) {
+                if (this.toDoList.get(i).equals(otherList.get(j))) {
+                    hasSameTask = true;
+                }
+            }
+
+            if (!hasSameTask) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Checks if the index is out of bounds or not.
      * @param idx The index keyed in by the user.
      * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
      */
     private void checkIndexInBounds(int idx) throws IndexOutOfBoundsException {
-        if (idx < 0 || idx >= length) {
+        if (idx < 0 || idx >= this.getLength()) {
             throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1)
                 + " entered is out of bounds!");
         }

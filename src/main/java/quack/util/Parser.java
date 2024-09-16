@@ -42,7 +42,7 @@ public class Parser {
      */
     public Command processCommand(String userCommand) {
         Command command;
-        switch (userCommand) {
+        switch (userCommand.toLowerCase()) {
         case "list":
             command = new ListCommand(taskList, ui);
             return command;

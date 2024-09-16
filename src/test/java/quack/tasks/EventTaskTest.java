@@ -1,6 +1,7 @@
 package quack.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -179,5 +180,24 @@ public class EventTaskTest {
 
         assertEquals(expectedTaskStringFormat, actualTaskStringFormat,
             "The toString function did not convert the task properly to its string format");
+    }
+
+    /**
+     * Tests the equals functionality.
+     * <p>
+     * Ensures that the correct output is given when 2 event tasks are the same.
+     */
+    @Test
+    void testEquals() {
+        LocalDateTime dummyStartDate = LocalDateTime.parse("11/05/2024 10:00:30", this.dateFormat);
+        EventTask dummyEvent1 = new EventTask(this.taskDescription, this.taskStartDate, this.taskEndDate);
+        EventTask dummyEvent2 = new EventTask(this.taskDescription, this.taskStartDate, this.taskEndDate);
+        EventTask dummyEvent3 = new EventTask(this.taskDescription, dummyStartDate, this.taskEndDate);
+
+        assertEquals(dummyEvent1, dummyEvent2,
+            "The 2 event task should be equal");
+
+        assertNotEquals(dummyEvent1, dummyEvent3,
+            "The 2 event task should not be equal");
     }
 }

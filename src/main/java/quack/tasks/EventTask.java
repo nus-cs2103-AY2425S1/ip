@@ -54,12 +54,12 @@ public class EventTask extends Task {
 
     @Override
     public boolean equals(Object obj) {
- 
-        // If the object is compared with itself then return true  
+
+        // If the object is compared with itself then return true
         if (obj == this) {
             return true;
         }
- 
+
         if (!(obj instanceof EventTask)) {
             return false;
         }
@@ -69,8 +69,10 @@ public class EventTask extends Task {
         boolean isSameDescription = this.description == taskObj.description;
         boolean isSameStartDate = this.startDate.equals(taskObj.startDate);
         boolean isSameEndDate = this.endDate.equals(taskObj.endDate);
+        boolean sameStatus = this.isChecked == taskObj.isChecked;
+        boolean sameTag = this.tag == taskObj.tag;
 
-        return isSameDescription && isSameStartDate && isSameEndDate;
+        return isSameDescription && isSameStartDate && isSameEndDate && sameStatus && sameTag;
     }
 
     @Override

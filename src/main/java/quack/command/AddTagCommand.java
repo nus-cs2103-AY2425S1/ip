@@ -102,7 +102,7 @@ public class AddTagCommand extends Command {
 
         try {
             int index = Integer.parseInt(this.index);
-            Task task = this.taskList.updateTag(index, "addTag", tagLabel);
+            Task task = this.taskList.updateTag(index, "addtag", tagLabel);
             ui.printUpdateSuccessfulMessage(task, "tag", taskList);
         } catch (NumberFormatException invalidIdxError) {
             ui.printExceptionMessage(new InvalidIndexException(this.index));

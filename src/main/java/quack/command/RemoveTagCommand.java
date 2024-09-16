@@ -41,7 +41,7 @@ public class RemoveTagCommand extends Command {
 
         try {
             int index = Integer.parseInt(input);
-            Task task = this.taskList.updateTag(index, "removeTag");
+            Task task = this.taskList.updateTag(index, "removetag");
             ui.printUpdateSuccessfulMessage(task, "un-tag", taskList);
         } catch (NumberFormatException invalidIdxError) {
             ui.printExceptionMessage(new InvalidIndexException(input));

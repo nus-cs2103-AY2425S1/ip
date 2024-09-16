@@ -41,12 +41,12 @@ public class DeadlineTask extends Task {
 
     @Override
     public boolean equals(Object obj) {
- 
-        // If the object is compared with itself then return true  
+
+        // If the object is compared with itself then return true
         if (obj == this) {
             return true;
         }
- 
+
         if (!(obj instanceof DeadlineTask)) {
             return false;
         }
@@ -55,8 +55,10 @@ public class DeadlineTask extends Task {
 
         boolean isSameDescription = this.description == taskObj.description;
         boolean isSameDueDate = this.dueDate.equals(taskObj.dueDate);
+        boolean sameStatus = this.isChecked == taskObj.isChecked;
+        boolean sameTag = this.tag == taskObj.tag;
 
-        return isSameDescription && isSameDueDate;
+        return isSameDescription && isSameDueDate && sameStatus && sameTag;
     }
 
     @Override
