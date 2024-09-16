@@ -2,6 +2,7 @@ package hoshi.command;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import hoshi.exception.HoshiException;
 import hoshi.task.Deadline;
@@ -22,6 +23,8 @@ public class AddCommand implements Command {
      */
     private final String[] splitInput;
 
+    private static final int DESCRIPTION_INDEX = 2;
+
     /**
      * Constructs a new instance of AddCommand.
      *
@@ -36,7 +39,7 @@ public class AddCommand implements Command {
 
         try {
             String taskType = splitInput[1].toLowerCase();
-            String desc = getDescription(splitInput);
+            String desc = getDescription(splitInput, taskType);
 
             switch (taskType) {
             case "todo":
@@ -80,8 +83,9 @@ public class AddCommand implements Command {
      */
     private String handleAddDeadline(TaskList taskList, Ui ui, Storage storage, String[] splitInput, String desc) {
         try {
+            int splitInputLength = splitInput.length;
             // Parse datetime and create deadline to be added
-            LocalDate dateTime = LocalDate.parse(splitInput[3]);
+            LocalDate dateTime = LocalDate.parse(splitInput[splitInputLength - 1]);
             Deadline deadline = new Deadline(desc, dateTime);
 
             // Add deadline to taskList
@@ -101,9 +105,10 @@ public class AddCommand implements Command {
      */
     private String handleAddEvent(TaskList taskList, Ui ui, Storage storage, String[] splitInput, String desc) {
         try {
+            int splitInputLength = splitInput.length;
             // Parse datetime and create event to be added
-            LocalDate dateTimeStart = LocalDate.parse(splitInput[3]);
-            LocalDate dateTimeEnd = LocalDate.parse(splitInput[4]);
+            LocalDate dateTimeStart = LocalDate.parse(splitInput[splitInputLength - 1]);
+            LocalDate dateTimeEnd = LocalDate.parse(splitInput[splitInputLength - 2]);
 
             // Add event to taskList
             return handleAddTask(new Event(desc, dateTimeStart, dateTimeEnd), taskList, ui, storage, desc);
@@ -117,9 +122,32 @@ public class AddCommand implements Command {
      *
      * @param splitInput list where each element represents a word in the split input
      */
-    private String getDescription(String[] splitInput) throws HoshiException {
+    private String getDescription(String[] splitInput,String taskType) throws HoshiException {
         try {
-            String desc = splitInput[2];
+            String desc = "";
+            int splitInputLength = splitInput.length;
+            switch (taskType) {
+                case "todo":
+                    //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
+                    // Concatenate elements from index 2 onwards
+                    desc = String.join(" ", Arrays.copyOfRange(splitInput,
+                            DESCRIPTION_INDEX, splitInputLength));
+                    break;
+                case "deadline":
+                    //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
+                    // Concatenate elements from index 2 to the 2nd last element hence - 1
+                    desc = String.join(" ", Arrays.copyOfRange(splitInput,
+                            DESCRIPTION_INDEX, splitInputLength - 1));
+                    break;
+                case "event":
+                    //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
+                    // Concatenate elements from index 2 to the 3rd element hence -2
+                    desc = String.join(" ", Arrays.copyOfRange(splitInput,
+                            DESCRIPTION_INDEX, splitInputLength - 2));
+                    break;
+                default:
+                    throw new HoshiException("Hoshi doesn't understand! Unknown task type.");
+            }
             if (desc.isEmpty()) {
                 throw new HoshiException("Hoshi doesn't understand! The task description is empty.");
             }

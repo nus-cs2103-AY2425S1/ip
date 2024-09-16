@@ -29,7 +29,7 @@ public class Main extends Application {
             // customize stage
             stage.setTitle("Hoshi - Your Task Assistant"); // Setting window title
             stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinWidth(450);
 
             // image for app icon
             Image image = new Image("/images/Hoshi.JPG");
