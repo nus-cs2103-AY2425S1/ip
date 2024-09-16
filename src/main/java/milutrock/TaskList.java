@@ -28,6 +28,8 @@ public class TaskList {
      * @return The removed task.
      */
     public Task removeTask(int i) {
+        assert i < this.getNumberOfTasks();
+        
         Task task = this.tasks.get(i);
         this.tasks.remove(i);
 
@@ -40,6 +42,8 @@ public class TaskList {
      * @param i Index of the task to mark as done.
      */
     public void markTaskAsDone(int i) {
+        assert i < this.getNumberOfTasks();
+
         this.tasks.get(i).markDone();
     }
 
@@ -49,6 +53,8 @@ public class TaskList {
      * @param i Index of the task to unmark as done.
      */
     public void unmarkTaskAsDone(int i) {
+        assert i < this.getNumberOfTasks();
+
         this.tasks.get(i).unmarkDone();
     }
 
@@ -68,6 +74,8 @@ public class TaskList {
      * @return String representation of the task.
      */
     public String getTaskAtIndexAsString(int i) {
+        assert i < this.getNumberOfTasks();
+        
         return this.tasks.get(i).toString();
     }
 
