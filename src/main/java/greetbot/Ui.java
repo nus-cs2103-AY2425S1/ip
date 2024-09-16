@@ -66,12 +66,24 @@ public class Ui {
                 + "Now you have %d tasks in the list.", task.toString(), total);
     }
 
+    /**
+     * Returns a message to show the task is deleted.
+     * @param task The task that is deleted.
+     * @param total Total number of tasks in the task list.
+     * @return The message string.
+     */
     public String showDelete(Task task, int total) {
         return String.format("Noted. I've removed this task:\n"
                 + "%s\n"
                 + "Now you have %d tasks in the list.", task.toString(), total);
     }
 
+    /**
+     * Return a string to show the task is found.
+     * @param searchItem The specific string.
+     * @param list The whole task list.
+     * @return The message string.
+     */
     public String showFind(String searchItem, TaskList list) {
         return String.format("Here are the matching tasks in your list:\n"
                 + "%s", list.findTasks(searchItem));

@@ -13,7 +13,8 @@ public class Parser {
     public static String[] parseCommand(String input) {
         final int keywordPosition = 0;
         final int splitCommandToKeywordAndArgumentPart = 2;
-        String[] command = input.split(" ", splitCommandToKeywordAndArgumentPart);
+        final String separatorInCommand = " ";
+        String[] command = input.split(separatorInCommand, splitCommandToKeywordAndArgumentPart);
         command[keywordPosition] = command[keywordPosition].toUpperCase();
         return command;
     }
@@ -42,7 +43,8 @@ public class Parser {
         final int toTimePosition = 2;
         final int fromAndSpaceTotalCharacters = 5;
         final int toAndSpaceTotalCharacters = 3;
-        String[] args = input.trim().split("/");
+        final String splitStringForDifferentCommandParts = "/";
+        String[] args = input.trim().split(splitStringForDifferentCommandParts);
         args[descriptionPosition] = args[descriptionPosition].trim();
         args[fromTimePosition] = args[fromTimePosition].trim().substring(fromAndSpaceTotalCharacters);
         args[toTimePosition] = args[toTimePosition].trim().substring(toAndSpaceTotalCharacters);
@@ -58,7 +60,8 @@ public class Parser {
         final int descriptionPosition = 0;
         final int byTimePosition = 1;
         final int byAndSpaceTotalCharacters = 3;
-        String[] args = input.trim().split("/");
+        final String splitStringForDifferentCommandParts = "/";
+        String[] args = input.trim().split(splitStringForDifferentCommandParts);
         args[descriptionPosition] = args[descriptionPosition].trim();
         args[byTimePosition] = args[byTimePosition].trim().substring(byAndSpaceTotalCharacters);
         return args;

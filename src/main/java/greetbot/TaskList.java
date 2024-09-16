@@ -3,6 +3,9 @@ package greetbot;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * A class which manage the list of tasks
+ */
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
 
@@ -26,6 +29,10 @@ public class TaskList {
         list.remove(position - 1);
     }
 
+    /**
+     * Shows the contents within the tasklist.
+     * @return A string representation of the list.
+     */
     public String showTasks() {
         StringBuilder result = new StringBuilder();
         result.append("Here are the tasks in your list:\n");
@@ -39,6 +46,11 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Finds the tasks which contains the target description.
+     * @param targetDescription The string we what to check.
+     * @return A string representation of tasks which includes the target description.
+     */
     public String findTasks(String targetDescription) {
         ArrayList<Task> resultList = new ArrayList<>();
         for (int i = 0; i < this.getLength(); i++) {

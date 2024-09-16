@@ -60,7 +60,6 @@ public class GreetBot {
     public String getResponse(String input) throws RandomInputException, EmptyDescriptionException {
         final int keywordPart = 0;
         final int markUnmarkDeletePosition = 1;
-        final int onlyHaveKeyword = 1;
         final int argumentsPart = 1;
 
         String[] segment = Parser.parseCommand(input);
@@ -73,38 +72,38 @@ public class GreetBot {
         } else if (keyword.equals("LIST") || keyword.equals("L")) {
             return ui.showList(this.tasks);
         } else if (keyword.equals("MARK") || keyword.equals("M")) {
+            checkEmptyDescription(segment, "mark");
             return this.markAsDone(Parser.parseMarkUnmarkDelete(segment[markUnmarkDeletePosition]) - 1);
         } else if (keyword.equals("UNMARK") || keyword.equals("UM")) {
+            checkEmptyDescription(segment, "unmark");
             return this.markAsNotDone(Parser.parseMarkUnmarkDelete(segment[markUnmarkDeletePosition]) - 1);
         } else if (keyword.equals("TODO") || keyword.equals("T")) {
-            if (segment.length == onlyHaveKeyword) {
-                throw new EmptyDescriptionException("OOPS!!! The description of todo cannot be empty.");
-            }
+            checkEmptyDescription(segment, "todo");
             return this.addTodo(Parser.parseTodo(segment[argumentsPart]));
         } else if (keyword.equals("EVENT") || keyword.equals("E")) {
-            if (segment.length == onlyHaveKeyword) {
-                throw new EmptyDescriptionException("OOPS!!! The description of event cannot be empty.");
-            }
+            checkEmptyDescription(segment, "event");
             return this.addEvent(Parser.parseEvent(segment[argumentsPart]));
         } else if (keyword.equals("DEADLINE") || keyword.equals("D")) {
-            if (segment.length == onlyHaveKeyword) {
-                throw new EmptyDescriptionException("OOPS!!! The description of deadline cannot be empty.");
-            }
+            checkEmptyDescription(segment, "deadline");
             return this.addDeadline(Parser.parseDeadline(segment[argumentsPart]));
         } else if (keyword.equals("DELETE") || keyword.equals("DEL")) {
-            if (segment.length == onlyHaveKeyword) {
-                throw new EmptyDescriptionException("OOPS!!! The description of delete cannot be empty.");
-            }
+            checkEmptyDescription(segment, "delete");
             return this.deleteTask(Parser.parseMarkUnmarkDelete(segment[argumentsPart]));
         } else if (keyword.equals("FIND")) {
-            if (segment.length == onlyHaveKeyword) {
-                throw new EmptyDescriptionException("OOPS!!! The description of find cannot be empty.");
-            }
+            checkEmptyDescription(segment, "find");
             return this.findTask(Parser.parseFind(segment[argumentsPart]));
         } else if (keyword.isEmpty()) {
             return "";
         } else {
             throw new RandomInputException("何のことを言っているのか分かりません");
+        }
+    }
+
+    private void checkEmptyDescription(String[] segment, String currentKeyword) throws EmptyDescriptionException {
+        final int onlyHaveKeyword = 1;
+        if (segment.length == onlyHaveKeyword) {
+            throw new EmptyDescriptionException(
+                    String.format("OOPS!!! The description of %s cannot be empty.", currentKeyword));
         }
     }
 
