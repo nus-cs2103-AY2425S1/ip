@@ -1,6 +1,5 @@
 package eli.command;
 
-import eli.exception.EliException;
 import eli.storage.Storage;
 import eli.task.TaskList;
 import eli.ui.Ui;
@@ -26,9 +25,8 @@ public abstract class Command {
    * @param ui      The Ui object to handle user interactions.
    * @param storage The Storage object to handle file operations.
    * @return
-   * @throws EliException If any error occurs during command execution.
    */
-  public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws EliException;
+  public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
   /**
    * Returns whether this command is an exit command.

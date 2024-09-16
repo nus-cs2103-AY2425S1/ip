@@ -1,6 +1,5 @@
 package eli.command;
 
-import eli.exception.EliException;
 import eli.storage.Storage;
 import eli.task.Task;
 import eli.task.TaskList;
@@ -22,9 +21,10 @@ public class AddCommand extends Command {
   }
 
   @Override
-  public String execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
-    //assert task != null : "Task to be added cannot be null";
-    //assert tasks.getTaskListLength() < 100 : "Task list is already full!!!";
+  public String execute(TaskList tasks, Ui ui, Storage storage) {
+    assert task != null : "Task to be added cannot be null";
+    assert tasks.getTaskListLength() < 100 : "Task list is already full!!!";
+
     try {
       tasks.addTask(task);
       storage.save(tasks);

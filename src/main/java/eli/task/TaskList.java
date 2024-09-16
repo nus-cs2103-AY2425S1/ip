@@ -87,6 +87,7 @@ public class TaskList {
    */
   public void mark(int taskIdx) {
     assert taskIdx > 0 && taskIdx <= tasks.size() : "Invalid task index";
+
     if (taskIdx <= 0 || taskIdx > tasks.size()) {
       throw new IllegalArgumentException("Invalid task index: " + taskIdx);
     }

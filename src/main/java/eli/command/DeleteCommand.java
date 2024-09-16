@@ -1,6 +1,5 @@
 package eli.command;
 
-import eli.exception.EliException;
 import eli.storage.Storage;
 import eli.task.Task;
 import eli.task.TaskList;
@@ -22,7 +21,7 @@ public class DeleteCommand extends Command {
   }
 
   @Override
-  public String execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
+  public String execute(TaskList tasks, Ui ui, Storage storage) {
     try {
       Task task = (Task) tasks.getArrayList().get(index - 1);
       tasks.delete(index);

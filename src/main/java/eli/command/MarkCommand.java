@@ -1,6 +1,5 @@
 package eli.command;
 
-import eli.exception.EliException;
 import eli.storage.Storage;
 import eli.task.TaskList;
 import eli.ui.Ui;
@@ -21,7 +20,7 @@ public class MarkCommand extends Command {
    * @return
    */
   @Override
-  public String execute(TaskList tasks, Ui ui, Storage storage) throws EliException {
+  public String execute(TaskList tasks, Ui ui, Storage storage) {
     try {
       tasks.mark(index);
       storage.save(tasks);

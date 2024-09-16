@@ -62,7 +62,6 @@ public class Storage {
       }
     } catch (IOException e) {
       System.out.println("An error occurred while saving tasks to file.");
-
     }
   }
 }

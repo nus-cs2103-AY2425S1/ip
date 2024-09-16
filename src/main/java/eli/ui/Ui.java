@@ -40,10 +40,8 @@ public class Ui {
             + " | |___| | |___    |_|  \n"
             + " |_____| |_____| |_____|\n";
     System.out.println("Hello from\n" + logo);
-    System.out.println("____________________________________________________________");
     System.out.println(" Hello! I'm Eli");
     System.out.println(" What are your tasks today?");
-    System.out.println("____________________________________________________________");
   }
 
   /**
@@ -81,7 +79,6 @@ public class Ui {
     }
     return result.toString();
   }
-
 
   /**
    * Closes the scanner used for input.
