@@ -87,7 +87,7 @@ Display the current list of tasks using the `list` command.
 
 You can mark a task as completed or unmark it if needed.
 
-### Mark a Task:
+### Mark Task:
 
 - **Command**: `mark [task index]`
 
@@ -102,7 +102,7 @@ You can mark a task as completed or unmark it if needed.
     [T][X] Read Book
   ```
 
-### Unmark a Task:
+### Unmark Task:
 
 - **Command**: `unmark [task index]`
 
@@ -214,7 +214,7 @@ Create an alias for a frequently used command. *All commands have a default alia
 
 ## Bye
 
-Exit the application
+Exit the application.
 
 - **Command**: `bye`
 
@@ -228,6 +228,4 @@ Exit the application
   Bye. Hope to see you again soon!
   ```
 
---
-This documentation provides a comprehensive guide on how to use **Lama** through its GUI, covering all major features
-from adding tasks to managing aliases.
+---
