@@ -30,6 +30,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         String command = getDescription();
+
         int taskNum = Parser.splitCommandAndTaskNumber(command);
         System.out.println(tasks.markTask(taskNum));
     }

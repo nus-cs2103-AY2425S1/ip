@@ -32,8 +32,10 @@ public class AddTodoCommand extends Command {
         String command = getDescription();
 
         String taskDescription = Parser.splitCommandAndTaskDescription(command);
+
         Task newTodo = new Todo(taskDescription);
         String addedTodo = tasks.addTask(newTodo);
+
         System.out.println(addedTodo);
     }
 

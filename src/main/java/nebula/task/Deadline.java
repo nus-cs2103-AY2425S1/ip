@@ -7,7 +7,8 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     private LocalDateTime deadline;
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMAT
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs a Deadline task with the specified description and deadline
@@ -51,7 +52,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return this.getTaskSymbol() + " " + super.toString() + " (by: " + getDeadline() + ")";
+        return this.getTaskSymbol()
+                + " " + super.toString() + " (by: " + getDeadline() + ")";
     }
 
     /**

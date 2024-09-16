@@ -12,8 +12,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMAT
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter DATE_FORMAT
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static Ui ui;
     private static Storage storage;
@@ -94,13 +96,14 @@ public class Parser {
                 || command.startsWith("unmark") || command.startsWith("delete")
                 || command.startsWith("list") || command.startsWith("bye"))) {
             throw new NebulaException(ui.displayUnknownCommandException());
-        } else if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
+        } else if (command.startsWith("mark") || command.startsWith("unmark")
+                || command.startsWith("delete")) {
             String[] parts = command.split(" ", 2);
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new NebulaException(ui.displayUnknownTaskNumberException());
             }
             try {
-                int taskIndex = Integer.parseInt(parts[1].trim()) - 1; // Convert to 0-based index
+                int taskIndex = Integer.parseInt(parts[1].trim()) - 1;
                 if (taskIndex < 0 || taskIndex >= TaskList.getTaskListLength()) {
                     throw new NebulaException(ui.displayNonexistentTaskNumberException());
                 }
@@ -125,7 +128,8 @@ public class Parser {
 
                     // Validate the due date format
                     if (!isValidDate(dueDate)) {
-                        throw new NebulaException("Warning: Deadline date is not in the correct format (M/d/yyyy HHmm).");
+                        throw new NebulaException("Warning: Deadline date "
+                                + "is not in the correct format (M/d/yyyy HHmm).");
                     }
                 }
             } else if (command.startsWith("event")) {
@@ -145,7 +149,8 @@ public class Parser {
 
                     // Validate the start and end dates
                     if (!isValidDate(startDate) || !isValidDate(endDate)) {
-                        throw new NebulaException("Warning: Event dates must be in yyyy-mm-dd format.");
+                        throw new NebulaException("Warning: Event dates"
+                                + " must be in yyyy-mm-dd format.");
                     }
                 }
             }
@@ -160,11 +165,11 @@ public class Parser {
      */
     private static boolean isValidDate(String dateStr) {
         try {
-            LocalDateTime.parse(dateStr, DATE_TIME_FORMAT); // Attempt to parse the date with time
+            LocalDateTime.parse(dateStr, DATE_TIME_FORMAT);
             return true;
         } catch (DateTimeParseException e) {
             try {
-                LocalDate.parse(dateStr, DATE_FORMAT); // Attempt to parse the date without time
+                LocalDate.parse(dateStr, DATE_FORMAT);
                 return true;
             } catch (DateTimeParseException ex) {
                 return false;
