@@ -63,6 +63,8 @@ public class Storage {
                         newTask.markAsDone();
                     }
                     tasksList.add(newTask);
+                } else {
+                    assert false : "Save file corrupted";
                 }
 
             }

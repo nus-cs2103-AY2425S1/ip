@@ -45,4 +45,11 @@ public class Deadline extends Task {
         return String.format("D:%s:%s:%s", isDone() ? "x" : "", getDescription(), by);
     }
 
+    /**
+     * Returns the format to create a new Deadline task
+     * @return Format description for the Deadline task
+     */
+    public static String getFormatDescription() {
+        return "deadline <description> /by <deadline in yyyy-mm-dd>";
+    }
 }
