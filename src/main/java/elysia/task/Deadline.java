@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Extends the Task class to include deadline-specific details.
  **/
 public class Deadline extends Task {
-    protected LocalDate by;
+    private LocalDate by;
 
     /**
      * Constructs a Deadline task with the specified description and due date.
@@ -18,6 +18,15 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
+    }
+
+    /**
+     * Passes deadline to Comparator for sorting steps afterwards.
+     *
+     * @return
+     */
+    public LocalDate getBy() {
+        return this.by;
     }
 
     /**

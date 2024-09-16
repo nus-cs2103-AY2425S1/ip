@@ -32,11 +32,22 @@ public class DeadlineCommand extends Command {
         Task task = new Deadline(this.description, this.by);
         assert task != null : "task is null";
         tasks.add(task);
+
+        // Sort the tasks by deadline if they are instances of Deadline
+        tasks.sort((task1, task2) -> {
+            if (task1 instanceof Deadline && task2 instanceof Deadline) {
+                return ((Deadline) task1).getBy().compareTo(((Deadline) task2).getBy());
+            }
+            return 0; // Handle non-Deadline tasks if necessary
+        });
+
         try {
-            Storage.appendToFile(task);
+            Storage storage = new Storage(tasks);
+            storage.saveFile();
         } catch (IOException e) {
             return "Something went wrong: " + e.getMessage();
         }
+        
         return ui.getAddedMessage(tasks, task);
     }
 }
