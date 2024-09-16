@@ -23,10 +23,12 @@ public class EventTask extends Task {
         super(desc, isDone);
         this.start = start;
         this.end = end;
+        assert start != null && end != null : "start and end should not be empty";
     }
 
     @Override
     public String toString() {
+        assert !description.isEmpty() : description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
         return "[E]" + super.toString() + " (from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
     }
