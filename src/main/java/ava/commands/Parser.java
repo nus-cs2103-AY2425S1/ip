@@ -1,5 +1,9 @@
 package ava.commands;
 
+import ava.task.TaskManager;
+
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     /**
@@ -30,5 +34,71 @@ public class Parser {
         } else {
             throw new IllegalArgumentException("Unsupported Command");
         }
+    }
+
+    /**
+     * Parses the To-Do command and executes it
+     *
+     * <br>
+     * Stores a To-Do task in the task list
+     * @param command a To - Do task
+     * @param taskManager Task Manager to store the task
+     */
+    public static void parseToDo(String command, TaskManager taskManager){
+        final int TODO_LENGTH = 5;
+        String todo = command.substring(TODO_LENGTH);
+        taskManager.addTask(todo);
+    }
+
+    /**
+     * Parses the Deadline command and executes it
+     *
+     * <br>
+     * Stores a Deadline task in the task list
+     * @param command a Deadline task
+     * @param taskManager Task Manager to store the task
+     */
+    public static void parseDeadline(String command, TaskManager taskManager){
+        final int DEADLINE_LENGTH = 9;
+        String deadline = command.substring(DEADLINE_LENGTH);
+        String[] arguments = deadline.split("/by");
+        String description = arguments[0].trim();
+        String time = arguments[1].trim();
+        try {
+            taskManager.addTask(description, time);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use the format yyyy-mm-dd");
+        }
+    }
+
+    /**
+     * Parses the Event command and executes it
+     *
+     * <br>
+     * Stores an Event task in the task list
+     * @param command a Deadline task
+     * @param taskManager Task Manager to store the task
+     */
+    public static void parseEvent(String command, TaskManager taskManager){
+        final int EVENT_LENGTH = 6;
+        String event = command.substring(EVENT_LENGTH);
+
+
+
+    }
+    public static void parseMark(String command){
+
+    }
+
+    public static void parseUnmark(String command){
+
+    }
+
+    public static void parseDelete(String command){
+
+    }
+
+    public static void parseFind(String command){
+
     }
 }
