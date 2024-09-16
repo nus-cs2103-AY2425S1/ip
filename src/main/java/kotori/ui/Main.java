@@ -9,8 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import kotori.Kotori;
 
+
+
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Kotori using FXML.
  */
 public class Main extends Application {
 
@@ -23,6 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Kotori");
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setKotori(kotori);
