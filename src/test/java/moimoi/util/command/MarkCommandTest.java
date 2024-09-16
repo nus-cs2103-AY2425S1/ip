@@ -76,17 +76,10 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_validIndex_success() {
-
+    public void execute_validIndex_success() throws Exception {
         this.tasks.add(this.task);
-
-        try {
-            MarkCommand markCommand = new MarkCommand("1");
-            markCommand.execute(this.storage, this.tasks);
-        } catch (MoiMoiException e) {
-            fail();
-        }
-
+        MarkCommand markCommand = new MarkCommand("1");
+        markCommand.execute(this.storage, this.tasks);
     }
 
 }

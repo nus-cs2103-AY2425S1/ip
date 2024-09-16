@@ -12,22 +12,18 @@ import moimoi.util.exception.MoiMoiException;
 public class ParserTest {
 
     @Test
-    public void parse_validInput_success() {
-        try {
-            Parser.parse("todo borrow book");
-            Parser.parse("deadline return book /by 2024-08-22 17:00");
-            Parser.parse("event project meeting /from 2024-08-22 18:00 /to 2024-08-22 18:30");
-            Parser.parse("period cry /for 24");
-            Parser.parse("delete 1");
-            Parser.parse("mark 2");
-            Parser.parse("unmark 3");
-            Parser.parse("LIST");
-            Parser.parse("schedule 2024-08-22");
-            Parser.parse("find happiness");
-            Parser.parse("Bye");
-        } catch (MoiMoiException e) {
-            fail();
-        }
+    public void parse_validInput_success() throws Exception {
+        Parser.parse("todo borrow book");
+        Parser.parse("deadline return book /by 2024-08-22 17:00");
+        Parser.parse("event project meeting /from 2024-08-22 18:00 /to 2024-08-22 18:30");
+        Parser.parse("period cry /for 24");
+        Parser.parse("delete 1");
+        Parser.parse("mark 2");
+        Parser.parse("unmark 3");
+        Parser.parse("LIST");
+        Parser.parse("schedule 2024-08-22");
+        Parser.parse("find happiness");
+        Parser.parse("Bye");
     }
 
     @Test

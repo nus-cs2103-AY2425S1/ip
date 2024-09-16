@@ -159,36 +159,22 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_validInputs_success() {
+    public void execute_validInputs_success() throws Exception {
 
-        try {
-            AddCommand addCommand = new AddCommand(CommandEnum.DEADLINE, "dummy /by 2024-08-22 18:00");
-            addCommand.execute(this.storage, this.tasks);
-        } catch (MoiMoiException e) {
-            fail();
-        }
+        AddCommand addCommand;
 
-        try {
-            AddCommand addCommand = new AddCommand(CommandEnum.EVENT,
+        addCommand = new AddCommand(CommandEnum.DEADLINE, "dummy /by 2024-08-22 18:00");
+        addCommand.execute(this.storage, this.tasks);
+
+        addCommand = new AddCommand(CommandEnum.EVENT,
                     "dummy /from 2024-08-22 18:00 /to 2024-08-22 18:30");
-            addCommand.execute(this.storage, this.tasks);
-        } catch (MoiMoiException e) {
-            fail();
-        }
+        addCommand.execute(this.storage, this.tasks);
 
-        try {
-            AddCommand addCommand = new AddCommand(CommandEnum.PERIOD, "dummy /for 17");
-            addCommand.execute(this.storage, this.tasks);
-        } catch (MoiMoiException e) {
-            fail();
-        }
+        addCommand = new AddCommand(CommandEnum.PERIOD, "dummy /for 17");
+        addCommand.execute(this.storage, this.tasks);
 
-        try {
-            AddCommand addCommand = new AddCommand(CommandEnum.PERIOD, "dummy /for 17.5");
-            addCommand.execute(this.storage, this.tasks);
-        } catch (MoiMoiException e) {
-            fail();
-        }
+        addCommand = new AddCommand(CommandEnum.PERIOD, "dummy /for 17.5");
+        addCommand.execute(this.storage, this.tasks);
 
     }
 

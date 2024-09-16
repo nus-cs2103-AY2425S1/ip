@@ -76,17 +76,10 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_validIndex_success() {
-
+    public void execute_validIndex_success() throws Exception {
         this.tasks.add(this.task);
-
-        try {
-            UnmarkCommand unmarkCommand = new UnmarkCommand("1");
-            unmarkCommand.execute(this.storage, this.tasks);
-        } catch (MoiMoiException e) {
-            fail();
-        }
-
+        UnmarkCommand unmarkCommand = new UnmarkCommand("1");
+        unmarkCommand.execute(this.storage, this.tasks);
     }
 
 }

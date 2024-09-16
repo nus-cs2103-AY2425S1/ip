@@ -32,99 +32,78 @@ public class EventTest {
     }
 
     @Test
-    public void testMarkUnmark() {
-        try {
+    public void testMarkUnmark() throws Exception {
 
-            Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
-            assertEquals(" ", event.getStatusIcon());
+        Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
+        assertEquals(" ", event.getStatusIcon());
 
-            event.mark();
-            assertEquals("X", event.getStatusIcon());
+        event.mark();
+        assertEquals("X", event.getStatusIcon());
 
-            event.mark();
-            assertEquals("X", event.getStatusIcon());
+        event.mark();
+        assertEquals("X", event.getStatusIcon());
 
-            event.unmark();
-            assertEquals(" ", event.getStatusIcon());
+        event.unmark();
+        assertEquals(" ", event.getStatusIcon());
 
-            event.unmark();
-            assertEquals(" ", event.getStatusIcon());
+        event.unmark();
+        assertEquals(" ", event.getStatusIcon());
 
-        } catch (InvalidDateTimeRangeException e) {
-            fail();
-        }
     }
 
     @Test
-    public void occurringOn_occurringDate_returnsTrue() {
-        try {
-            Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
-            assertTrue(event.occursOn(LocalDate.parse("2024-08-24")));
-            assertTrue(event.occursOn(LocalDate.parse("2024-08-25")));
-            assertTrue(event.occursOn(LocalDate.parse("2024-08-27")));
-        } catch (InvalidDateTimeRangeException e) {
-            fail();
-        }
+    public void occurringOn_occurringDate_returnsTrue() throws Exception {
+
+        Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
+
+        assertTrue(event.occursOn(LocalDate.parse("2024-08-24")));
+        assertTrue(event.occursOn(LocalDate.parse("2024-08-25")));
+        assertTrue(event.occursOn(LocalDate.parse("2024-08-27")));
+
     }
 
     @Test
-    public void occurringOn_notOccurringDate_returnsFalse() {
-        try {
-            Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
-            assertFalse(event.occursOn(LocalDate.parse("2024-07-24")));
-            assertFalse(event.occursOn(LocalDate.parse("2024-09-25")));
-        } catch (InvalidDateTimeRangeException e) {
-            fail();
-        }
+    public void occurringOn_notOccurringDate_returnsFalse() throws Exception {
+        Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
+        assertFalse(event.occursOn(LocalDate.parse("2024-07-24")));
+        assertFalse(event.occursOn(LocalDate.parse("2024-09-25")));
     }
 
     @Test
-    public void hasKeyword() {
-        try {
+    public void hasKeyword() throws Exception {
 
-            Event eventWithoutWhiteSpace = new Event(this.description, this.datetimeEarly, this.datetimeLate);
-            Event eventWithWhiteSpace = new Event(this.description + " " + this.description,
-                    this.datetimeEarly, this.datetimeLate);
+        Event eventWithoutWhiteSpace = new Event(this.description, this.datetimeEarly, this.datetimeLate);
+        Event eventWithWhiteSpace = new Event(this.description + " " + this.description,
+                this.datetimeEarly, this.datetimeLate);
 
-            assertTrue(eventWithoutWhiteSpace.hasKeyword("dummy"));
-            assertTrue(eventWithoutWhiteSpace.hasKeyword("Dum"));
-            assertTrue(eventWithWhiteSpace.hasKeyword(" "));
+        assertTrue(eventWithoutWhiteSpace.hasKeyword("dummy"));
+        assertTrue(eventWithoutWhiteSpace.hasKeyword("Dum"));
+        assertTrue(eventWithWhiteSpace.hasKeyword(" "));
 
-            assertFalse(eventWithoutWhiteSpace.hasKeyword("dummies"));
-            assertFalse(eventWithoutWhiteSpace.hasKeyword("?"));
-            assertFalse(eventWithoutWhiteSpace.hasKeyword("dummy "));
-            assertFalse(eventWithoutWhiteSpace.hasKeyword(" "));
+        assertFalse(eventWithoutWhiteSpace.hasKeyword("dummies"));
+        assertFalse(eventWithoutWhiteSpace.hasKeyword("?"));
+        assertFalse(eventWithoutWhiteSpace.hasKeyword("dummy "));
+        assertFalse(eventWithoutWhiteSpace.hasKeyword(" "));
 
-        } catch (InvalidDateTimeRangeException e) {
-            fail();
-        }
     }
 
     @Test
-    public void testStringUI() {
-        try {
-            Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
-            event.mark();
-            assertEquals("[E][X] " + this.description + " (from: "
-                    + this.datetimeEarly.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " to: "
-                    + this.datetimeLate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + ")",
-                    event.stringUI());
-        } catch (InvalidDateTimeRangeException e) {
-            fail();
-        }
+    public void testStringUI() throws Exception {
+        Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
+        event.mark();
+        assertEquals("[E][X] " + this.description + " (from: "
+                + this.datetimeEarly.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " to: "
+                + this.datetimeLate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + ")",
+                event.stringUI());
     }
 
     @Test
-    public void testStringStorage() {
-        try {
-            Event event = new Event(this.description, this.datetimeEarly, this.datetimeEarly);
-            assertEquals("E |   | " + this.description + " | "
-                    + this.datetimeEarly.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " | "
-                    + this.datetimeEarly.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                    event.stringStorage());
-        } catch (InvalidDateTimeRangeException e) {
-            fail();
-        }
+    public void testStringStorage() throws Exception {
+        Event event = new Event(this.description, this.datetimeEarly, this.datetimeEarly);
+        assertEquals("E |   | " + this.description + " | "
+                + this.datetimeEarly.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " | "
+                + this.datetimeEarly.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                event.stringStorage());
     }
 
 }

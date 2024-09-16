@@ -35,75 +35,59 @@ public class PeriodTest {
     }
 
     @Test
-    public void testMarkUnmark() {
-        try {
-            Period period = new Period(this.description, this.period);
-            assertEquals(" ", period.getStatusIcon());
+    public void testMarkUnmark() throws Exception {
 
-            period.mark();
-            assertEquals("X", period.getStatusIcon());
+        Period period = new Period(this.description, this.period);
+        assertEquals(" ", period.getStatusIcon());
 
-            period.mark();
-            assertEquals("X", period.getStatusIcon());
+        period.mark();
+        assertEquals("X", period.getStatusIcon());
 
-            period.unmark();
-            assertEquals(" ", period.getStatusIcon());
+        period.mark();
+        assertEquals("X", period.getStatusIcon());
 
-            period.unmark();
-            assertEquals(" ", period.getStatusIcon());
-        } catch (InvalidPeriodException e) {
-            fail();
-        }
+        period.unmark();
+        assertEquals(" ", period.getStatusIcon());
+
+        period.unmark();
+        assertEquals(" ", period.getStatusIcon());
+
     }
 
     @Test
-    public void occurringOn_date_returnsFalse() {
-        try {
-            Period period = new Period(this.description, this.period);
-            assertFalse(period.occursOn(LocalDate.parse("2024-08-24")));
-        } catch (InvalidPeriodException e) {
-            fail();
-        }
+    public void occurringOn_date_returnsFalse() throws Exception {
+        Period period = new Period(this.description, this.period);
+        assertFalse(period.occursOn(LocalDate.parse("2024-08-24")));
     }
 
     @Test
-    public void hasKeyword() {
-        try {
-            Period periodWithoutWhiteSpace = new Period(this.description, this.period);
-            Period periodWithWhiteSpace = new Period(this.description + " " + this.description, this.period);
+    public void hasKeyword() throws Exception {
 
-            assertTrue(periodWithoutWhiteSpace.hasKeyword("dummy"));
-            assertTrue(periodWithoutWhiteSpace.hasKeyword("Dum"));
-            assertTrue(periodWithWhiteSpace.hasKeyword(" "));
+        Period periodWithoutWhiteSpace = new Period(this.description, this.period);
+        Period periodWithWhiteSpace = new Period(this.description + " " + this.description, this.period);
 
-            assertFalse(periodWithoutWhiteSpace.hasKeyword("dummies"));
-            assertFalse(periodWithoutWhiteSpace.hasKeyword("?"));
-            assertFalse(periodWithoutWhiteSpace.hasKeyword("dummy "));
-            assertFalse(periodWithoutWhiteSpace.hasKeyword(" "));
-        } catch (InvalidPeriodException e) {
-            fail();
-        }
+        assertTrue(periodWithoutWhiteSpace.hasKeyword("dummy"));
+        assertTrue(periodWithoutWhiteSpace.hasKeyword("Dum"));
+        assertTrue(periodWithWhiteSpace.hasKeyword(" "));
+
+        assertFalse(periodWithoutWhiteSpace.hasKeyword("dummies"));
+        assertFalse(periodWithoutWhiteSpace.hasKeyword("?"));
+        assertFalse(periodWithoutWhiteSpace.hasKeyword("dummy "));
+        assertFalse(periodWithoutWhiteSpace.hasKeyword(" "));
+
     }
 
     @Test
-    public void testStringUI() {
-        try {
-            Period period = new Period(this.description, this.period);
-            assertEquals("[P][ ] " + this.description + " (needs " + this.period + " hours)",
+    public void testStringUI() throws Exception {
+        Period period = new Period(this.description, this.period);
+        assertEquals("[P][ ] " + this.description + " (needs " + this.period + " hours)",
                     period.stringUI());
-        } catch (InvalidPeriodException e) {
-            fail();
-        }
     }
 
     @Test
-    public void testStringStorage() {
-        try {
-            Period period = new Period(this.description, this.period);
-            period.mark();
-            assertEquals("P | X | " + this.description + " | " + this.period, period.stringStorage());
-        } catch (InvalidPeriodException e) {
-            fail();
-        }
+    public void testStringStorage() throws Exception {
+        Period period = new Period(this.description, this.period);
+        period.mark();
+        assertEquals("P | X | " + this.description + " | " + this.period, period.stringStorage());
     }
 }

@@ -76,17 +76,10 @@ public class DeleteTest {
     }
 
     @Test
-    public void execute_validIndex_success() {
-
+    public void execute_validIndex_success() throws Exception {
         this.tasks.add(this.task);
-
-        try {
-            DeleteCommand deleteCommand = new DeleteCommand("1");
-            deleteCommand.execute(this.storage, this.tasks);
-        } catch (MoiMoiException e) {
-            fail();
-        }
-
+        DeleteCommand deleteCommand = new DeleteCommand("1");
+        deleteCommand.execute(this.storage, this.tasks);
     }
 
 }

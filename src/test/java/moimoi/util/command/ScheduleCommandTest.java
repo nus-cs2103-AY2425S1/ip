@@ -37,13 +37,9 @@ public class ScheduleCommandTest {
     }
 
     @Test
-    public void execute_validDate_success() {
-        try {
-            ScheduleCommand scheduleCommand = new ScheduleCommand("2024-08-24");
-            scheduleCommand.execute(this.storage, this.tasks);
-        } catch (MoiMoiException e) {
-            fail();
-        }
+    public void execute_validDate_success() throws Exception {
+        ScheduleCommand scheduleCommand = new ScheduleCommand("2024-08-24");
+        scheduleCommand.execute(this.storage, this.tasks);
     }
 
 }
