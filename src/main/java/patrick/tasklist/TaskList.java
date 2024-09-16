@@ -91,7 +91,7 @@ public class TaskList {
         }
 
         int num = Integer.parseInt(taskNo);
-        if (num > Storage.getList().size()) {
+        if (num > Storage.getList().size() || num < 1) {
             throw new Parser.PatrickException("Invalid Task Number!!");
         }
 
@@ -133,7 +133,7 @@ public class TaskList {
         }
 
         int num = Integer.parseInt(taskNo);
-        if (num > Storage.getList().size()) {
+        if (num > Storage.getList().size() || num < 1) {
             throw new Parser.PatrickException("Invalid Task Number!!");
         }
 
