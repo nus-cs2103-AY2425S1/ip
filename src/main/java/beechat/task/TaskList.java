@@ -85,4 +85,20 @@ public class TaskList {
     public List<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Returns a list of matching tasks that contains the keyword in the description.
+     *
+     * @param keyword The keyword in the user input.
+     * @return A TaskList object with all the matching tasks.
+     */
+    public TaskList findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return new TaskList(matchingTasks);
+    }
 }
