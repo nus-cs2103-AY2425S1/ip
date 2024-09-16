@@ -1,0 +1,14 @@
+error
+deadline something /by 2/2/25
+deadline more /by 2025/2/22 1820
+list
+todo even more
+event much more /from 9/9/24 6pm /to 9/9/24 7.30pm
+event give error
+event give error /from 9/9/24 8pm /to 9/9/24 7.20am
+list
+mark 2
+mark 4
+unmark 6
+list
+bye
