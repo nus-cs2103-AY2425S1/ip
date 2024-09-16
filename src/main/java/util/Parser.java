@@ -179,10 +179,12 @@ public class Parser {
             } else if (dateParts.length == 2) {
                 return createDeadlineWithDateTime(description, dateParts[0], dateParts[1]);
             } else {
-                throw new ScheduloException("The /by of a deadline should be in the format yyyy-MM-dd or yyyy-MM-dd HH:mm.");
+                throw new ScheduloException("The /by of a deadline should be in the format yyyy-MM-dd or"
+                + "yyyy-MM-dd HH:mm.");
             }
         } catch (DateTimeParseException e) {
-            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm' for date and time.");
+            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or"
+            + "'yyyy-MM-dd HH:mm' for date and time.");
         }
     }
 
@@ -194,7 +196,10 @@ public class Parser {
         return new AddCommand(new Deadline(description, deadlineDate));
     }
 
-    private static Command createDeadlineWithDateTime(String description, String date, String time) throws ScheduloException {
+    private static Command createDeadlineWithDateTime(
+        String description,
+        String date,
+        String time) throws ScheduloException {
         LocalDateTime deadlineDateTime = LocalDateTime.parse(date + "T" + time);
         if (deadlineDateTime.isBefore(LocalDateTime.now())) {
             throw new ScheduloException("The deadline cannot be in the past.");
@@ -228,7 +233,10 @@ public class Parser {
         }
     }
 
-    private static Command createEventCommand(String description, String[] fromParts, String[] toParts) throws ScheduloException {
+    private static Command createEventCommand(
+        String description,
+        String[] fromParts,
+        String[] toParts) throws ScheduloException {
         try {
             if (fromParts.length == 1 && toParts.length == 1) {
                 return createEventWithDates(description, fromParts[0], toParts[0]);
@@ -239,14 +247,19 @@ public class Parser {
             } else if (fromParts.length == 2 && toParts.length == 1) {
                 return createEventWithMixedDateTime(description, fromParts[0], fromParts[1], toParts[0], false);
             } else {
-                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-MM-dd or yyyy-MM-dd HH:mm.");
+                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-MM-dd"
+                + "or yyyy-MM-dd HH:mm.");
             }
         } catch (DateTimeParseException e) {
-            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm'.");
+            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or"
+            + "'yyyy-MM-dd HH:mm'.");
         }
     }
 
-    private static Command createEventWithDates(String description, String fromDate, String toDate) throws ScheduloException {
+    private static Command createEventWithDates(
+        String description,
+        String fromDate,
+        String toDate) throws ScheduloException {
         LocalDate from = LocalDate.parse(fromDate);
         LocalDate to = LocalDate.parse(toDate);
         if (from.isAfter(to)) {
@@ -255,7 +268,12 @@ public class Parser {
         return new AddCommand(new Event(description, from, to));
     }
 
-    private static Command createEventWithDateTimes(String description, String fromDate, String fromTime, String toDate, String toTime) throws ScheduloException {
+    private static Command createEventWithDateTimes(
+        String description,
+        String fromDate,
+        String fromTime,
+        String toDate,
+        String toTime) throws ScheduloException {
         LocalDateTime from = LocalDateTime.parse(fromDate + "T" + fromTime);
         LocalDateTime to = LocalDateTime.parse(toDate + "T" + toTime);
         if (from.isAfter(to)) {
@@ -264,7 +282,12 @@ public class Parser {
         return new AddCommand(new Event(description, from, to));
     }
 
-    private static Command createEventWithMixedDateTime(String description, String date, String time, String otherDate, boolean isFromDate) throws ScheduloException {
+    private static Command createEventWithMixedDateTime(
+        String description,
+        String date,
+        String time,
+        String otherDate,
+        boolean isFromDate) throws ScheduloException {
         if (isFromDate) {
             LocalDate from = LocalDate.parse(date);
             LocalDateTime to = LocalDateTime.parse(otherDate + "T" + time);
