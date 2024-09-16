@@ -116,6 +116,7 @@ public class Parser {
         return new Command(determineCommandType(type), description, 0, task);
     }
 
+
     /**
      * Extracts the task description from the details string.
      *
