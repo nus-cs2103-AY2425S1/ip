@@ -3,6 +3,9 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents tasks with start and end time conditions.
+ */
 public class Event extends Task {
     private LocalDateTime startPeriod;
     private LocalDateTime endPeriod;

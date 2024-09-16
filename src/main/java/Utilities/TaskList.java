@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import tasks.Task;
 
+/**
+ * Handles processing of user tasks.
+ */
 public class TaskList {
     private final static String MESSAGE_ONFIND = "I found some matching tasks in your list: ";
 

@@ -3,7 +3,9 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Represents tasks with an end time condition.
+ */
 public class Deadlines extends Task {
     private LocalDateTime deadlineInfo;
     private static final DateTimeFormatter PATTERN_DISPLAY = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
@@ -15,7 +17,7 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Returns event start/end period as a writeable string.
+     * Returns deadline end period as a writeable string.
      */
     @Override
     public String getWriteTaskInfo() {

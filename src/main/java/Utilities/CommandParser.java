@@ -12,8 +12,12 @@ import tasks.Task;
 import tasks.TaskType;
 import tasks.ToDos;
 
+/**
+ * Parses user input to execute corresponding commands.
+ */
 public class CommandParser {
     private final static String MESSAGE_ONLIST = "Here are the tasks in your list: \n";
+    private final static String REGEX_INT_PATTERN = "[^0-9]";
     private enum Commands {
         LIST("list"),
         MARK("mark"),
@@ -47,17 +51,13 @@ public class CommandParser {
             response += taskList.toString();
         } else if (input.startsWith(Commands.UNMARK.command) || input.startsWith(Commands.MARK.command)) {
             // extract integer value
-            String intValue = input.replaceAll("[^0-9]", "");
-            assert !intValue.isEmpty(); // add assertion to ensure index is not empty
-            int index = Integer.parseInt(intValue) - 1;
+            int index = extractIntegerFromString(input) - 1;
             assert index <= taskList.getSize(); // add assertion to check index
             response += taskList.updateTaskListStatus(index, input.startsWith("mark"));
             store.updateTaskStatus(index, input.startsWith(Commands.MARK.command));
         } else if (input.startsWith(Commands.DELETE.command)) {
             // extract integer value
-            String intValue = input.replaceAll("[^0-9]", "");
-            assert !intValue.isEmpty(); // add assertion to ensure index is not empty
-            int index = Integer.parseInt(intValue) - 1;
+            int index = extractIntegerFromString(input) - 1;
             assert index <= taskList.getSize(); // add assertion to check index
             response += taskList.removeFromTaskList(index);
             store.removeFileTask(index);
@@ -67,9 +67,7 @@ public class CommandParser {
             response += taskList.findTasks(matchValue);
         } else if (input.startsWith(Commands.TAG.command)) {
             String[] splits = input.split("/");
-            String intValue = splits[0].replaceAll("[^0-9]", "");
-            assert !intValue.isEmpty();
-            int index = Integer.parseInt(intValue) - 1;
+            int index = extractIntegerFromString(splits[0]) - 1;
             response += taskList.addTag(index, splits[1].strip());
             store.updateTaskTag(index, splits[1].strip());
         } else {
@@ -141,9 +139,23 @@ public class CommandParser {
                 break;
             }
         } catch (DateTimeParseException ex) {
+            // Rethrow datetime exception
             throw new DateTimeException(name);
         }
 
         return response;
+    }
+
+    /**
+     * Extracts the integer value from string
+     * @param input String to be parsed
+     * @return Integer value contained in string
+     */
+    private static int extractIntegerFromString(String input) {
+        String intValue = input.replaceAll(REGEX_INT_PATTERN, "");
+        assert !intValue.isEmpty(); // add assertion to ensure index string is not null
+        int index = Integer.parseInt(intValue);
+
+        return index;
     }
 }

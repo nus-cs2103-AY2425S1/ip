@@ -6,6 +6,11 @@ import tasks.Task;
  * Generates system messages for the application.
  */
 public class Ui {
+    /**
+     * Returns user message for creation of tasks.
+     * @param name String name of task.
+     * @param size Integer size of current task list.
+     */
     public static String updateUserOnAddition(String name, int size) {
         String message = "";
 
@@ -16,6 +21,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Returns user message for deletion of tasks.
+     * @param t Task to be deleted.
+     */
     public static String updateUserOnDeletion(Task t) {
         String message = "";
 
@@ -25,6 +34,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Returns user message for updating of task tag.
+     * @param t Task to be tagged.
+     */
     public static String updateUserOnTag(Task t) {
         String message = "";
 
@@ -34,6 +47,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Returns user message for task uncompletion.
+     * @param t Task to be flagged as not done.
+     */
     public static String updateUserOnUncompletion(Task t) {
         String message = "";
 
@@ -43,6 +60,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Returns user message for task completion.
+     * @param t Task to be flagged as done.
+     */
     public static String updateUserOnCompletion(Task t) {
         String message = "";
 
@@ -52,10 +73,16 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Returns user message when an error occurs in the application.
+     * Only checked exceptions are handled here.
+     * @param e Exception raised.
+     * @return String message that includes exception details.
+     */
     public static String updateUserOnError(Exception e) {
         String message = "";
 
-        message += "The following error has occured, please try again. ";
+        message += "The following error has occured, please try again. \n";
         message += e.getMessage();
 
         return message;

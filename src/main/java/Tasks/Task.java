@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents Superclass for all tasks.
+ */
 public abstract class Task {
     protected String name;
     protected Boolean isDone;

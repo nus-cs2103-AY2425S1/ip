@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Raised exception on unknown command input.
+ * Raises exception on unknown command input.
  */
 public class UnknownCommandException extends Exception {
     public UnknownCommandException() {

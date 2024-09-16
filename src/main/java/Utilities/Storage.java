@@ -12,6 +12,9 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDos;
 
+/**
+ * Handles storage of user task information.
+ */
 public class Storage {
     private File file;
 
@@ -57,11 +60,11 @@ public class Storage {
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
-            // Admin Message for Generation
-            System.out.println("File has been generated.");
+            // Generate initial file
             try {
                 this.file.createNewFile();
             } catch (IOException ex) {
+                // Should never be caught in actual execution.
                 System.out.println(Ui.updateUserOnError(ex));
             }
         }
@@ -74,8 +77,10 @@ public class Storage {
      *
      * @param index Index of task to be updated.
      * @param status Status of isDone to determine update information.
+     * @return String message with failure details only on failure.
      */
-    public void updateTaskStatus(int index, boolean status) {
+    public String updateTaskStatus(int index, boolean status) {
+        String message = "";
         ArrayList<String> fileContents = new ArrayList<>();
 
         try {
@@ -94,8 +99,10 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println(Ui.updateUserOnError(e));
+            message += Ui.updateUserOnError(e);
         }
+
+        return message;
     }
 
     /**
@@ -103,8 +110,10 @@ public class Storage {
      *
      * @param index Index of task to be updated.
      * @param tag Tag to be updated.
+     * @return String message with failure details only on failure.
      */
-    public void updateTaskTag(int index, String tag) {
+    public String updateTaskTag(int index, String tag) {
+        String message = "";
         ArrayList<String> fileContents = new ArrayList<>();
 
         try {
@@ -122,16 +131,20 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println(Ui.updateUserOnError(e));
+            message += Ui.updateUserOnError(e);
         }
+
+        return message;
     }
 
     /**
      * Removes specific task from the file.
      *
      * @param index Index of task to be removed.
+     * @return String message with failure details only on failure.
      */
-    public void removeFileTask(int index) {
+    public String removeFileTask(int index) {
+        String message = "";
         ArrayList<String> fileContents = new ArrayList<>();
 
         try {
@@ -148,22 +161,29 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println(Ui.updateUserOnError(e));
+            message += Ui.updateUserOnError(e);
         }
+
+        return message;
     }
 
     /**
      * Adds the newly created task into the file.
      *
      * @param details String containing details for the new task.
+     * @return String message with failure details only on failure.
      */
-    public void updateFileTasks(String details) {
+    public String updateFileTasks(String details) {
+        String message = "";
+
         try {
             FileWriter fw = new FileWriter(this.file, true);
             fw.write(details + "\n"); // for readibility
             fw.close();
         } catch (IOException e) {
-            System.out.println(Ui.updateUserOnError(e));
+            message += Ui.updateUserOnError(e);
         }
+
+        return message;
     }
 }

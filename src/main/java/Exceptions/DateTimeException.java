@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Raised exception on inaccurate date formats.
+ * Raises exception on inaccurate date formats.
  */
 public class DateTimeException extends Exception {
     public DateTimeException(String name) {
