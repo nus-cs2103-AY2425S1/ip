@@ -26,6 +26,9 @@ public class Event extends Task {
         super(name);
         this.from = LocalDate.parse(from, inputFormatter);
         this.to = LocalDate.parse(to, inputFormatter);
+        if (!isValidDates()) {
+            throw new AstraException("Event end date must be after or equal to start date.");
+        }
     }
 
     /**
@@ -41,6 +44,19 @@ public class Event extends Task {
         super(done, name);
         this.from = LocalDate.parse(from, inputFormatter);
         this.to = LocalDate.parse(to, inputFormatter);
+        if (!isValidDates()) {
+            throw new AstraException("Event end date must be after or equal to start date.");
+        }
+    }
+
+    /**
+     * Checks if the event dates are valid.
+     * Event end date must be after or equal to start date.
+     *
+     * @return Whether the event dates are valid.
+     */
+    private boolean isValidDates() {
+        return from.isBefore(to) || from.isEqual(to);
     }
 
     public LocalDate getStartDate() {
