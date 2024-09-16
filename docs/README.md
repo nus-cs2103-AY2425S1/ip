@@ -117,22 +117,6 @@ T | O | CS2103 iP
 Now you have 0 task in the list
 ```
 
-### Delete tasks
-
-Deletes a specific task
-
-"I thought I need to do CS2103 iP but welps, guess not"
-
-Example: `delete 1`
-
-The indexed task will be deleted
-
-```
-Noted! I've removed this task:
-T | O | CS2103 iP
-Now you have 0 task in the list
-```
-
 ### Date Formats
 
 Display the list of possible date formats to input
