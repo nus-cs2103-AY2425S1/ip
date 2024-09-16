@@ -1,0 +1,5 @@
+T | 0 | sleep
+T | 1 | cs2103
+D | 1 | sleep | Aug-12-2024 1600
+E | 0 | go to school | Sep-13-2024 0700 | Sep-13-2024 1900
+T | 0 | cs2103 ip
