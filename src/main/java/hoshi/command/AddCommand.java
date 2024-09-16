@@ -127,26 +127,26 @@ public class AddCommand implements Command {
             String desc = "";
             int splitInputLength = splitInput.length;
             switch (taskType) {
-                case "todo":
-                    //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-                    // Concatenate elements from index 2 onwards
-                    desc = String.join(" ", Arrays.copyOfRange(splitInput,
-                            DESCRIPTION_INDEX, splitInputLength));
-                    break;
-                case "deadline":
-                    //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-                    // Concatenate elements from index 2 to the 2nd last element hence - 1
-                    desc = String.join(" ", Arrays.copyOfRange(splitInput,
-                            DESCRIPTION_INDEX, splitInputLength - 1));
-                    break;
-                case "event":
-                    //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-                    // Concatenate elements from index 2 to the 3rd element hence -2
-                    desc = String.join(" ", Arrays.copyOfRange(splitInput,
-                            DESCRIPTION_INDEX, splitInputLength - 2));
-                    break;
-                default:
-                    throw new HoshiException("Hoshi doesn't understand! Unknown task type.");
+            case "todo":
+                //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
+                // Concatenate elements from index 2 onwards
+                desc = String.join(" ", Arrays.copyOfRange(splitInput,
+                        DESCRIPTION_INDEX, splitInputLength));
+                break;
+            case "deadline":
+                //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
+                // Concatenate elements from index 2 to the 2nd last element hence - 1
+                desc = String.join(" ", Arrays.copyOfRange(splitInput,
+                        DESCRIPTION_INDEX, splitInputLength - 1));
+                break;
+            case "event":
+                //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
+                // Concatenate elements from index 2 to the 3rd element hence -2
+                desc = String.join(" ", Arrays.copyOfRange(splitInput,
+                        DESCRIPTION_INDEX, splitInputLength - 2));
+                break;
+            default:
+                throw new HoshiException("Hoshi doesn't understand! Unknown task type.");
             }
             if (desc.isEmpty()) {
                 throw new HoshiException("Hoshi doesn't understand! The task description is empty.");
