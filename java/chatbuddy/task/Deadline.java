@@ -2,6 +2,9 @@ package chatbuddy.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import chatbuddy.exception.ChatBuddyException;
 
 /**
  * Represents a deadline task in the ChatBuddy task list.
@@ -17,10 +20,36 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline.
      * @param by The due date of the deadline.
+     * @throws ChatBuddyException If the date format is invalid.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws ChatBuddyException {
         super(description);
-        this.by = LocalDate.parse(by, INPUT_FORMATTER);
+        try {
+            this.by = LocalDate.parse(by, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ChatBuddyException("Invalid date format. Please use yyyy-MM-dd.");
+        }
+    }
+
+
+    /**
+     * Updates the due date of the deadline.
+     *
+     * @param newDate The new due date in yyyy-MM-dd format.
+     * @throws ChatBuddyException If the date is in an invalid format.
+     */
+    @Override
+    public void updateDate(String newDate) throws ChatBuddyException {
+        assert newDate != null && !newDate.trim().isEmpty() : "New date must not be null or empty";
+        if (newDate.contains("/by") || newDate.contains("/from") || newDate.contains("/to")) {
+            throw new ChatBuddyException("Invalid format. Please provide the deadline with the format: 'update' <number of task> 'date' <yyyy-MM-dd> to update a deadline task");
+        }
+
+        try {
+            this.by = LocalDate.parse(newDate, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ChatBuddyException("Invalid date format. Please use <yyyy-MM-dd>.");
+        }
     }
 
     @Override
