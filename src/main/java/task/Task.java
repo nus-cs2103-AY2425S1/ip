@@ -79,15 +79,25 @@ public class Task {
         return new String[]{pureDescription, tagString};
     }
 
+    private static String[] tagStringToArr(String tagStr) {
+        String[] tagArr;
+        if (tagStr.isEmpty()) {
+            tagArr = new String[]{};
+        } else {
+            tagArr = tagStr.split(" ");
+        }
+        return tagArr;
+    }
+
     private static Todo createTodo(String description) {
         String[] descTagArr = extractTags(description);
-        String[] tagArr = descTagArr[1].split(" ");
+        String[] tagArr = tagStringToArr(descTagArr[1]);
         return new Todo(descTagArr[0], tagArr);
     }
 
     private static Event createEvent(String description) throws DateTimeParseException {
         String[] descTagArr = extractTags(description);
-        String[] tagArr = descTagArr[1].split(" ");
+        String[] tagArr = tagStringToArr(descTagArr[1]);
         String pureDescription = descTagArr[0];
 
         int firstSlashIndex = pureDescription.indexOf("/");
@@ -102,7 +112,7 @@ public class Task {
 
     private static Deadline createDeadline(String description) throws DateTimeParseException {
         String[] descTagArr = extractTags(description);
-        String[] tagArr = descTagArr[1].split(" ");
+        String[] tagArr = tagStringToArr(descTagArr[1]);
         String pureDescription = descTagArr[0];
 
         int firstSlashIndex = pureDescription.indexOf("/");
@@ -151,6 +161,10 @@ public class Task {
     }
 
     public String getTagsAsString() {
+        if (tagsLst.isEmpty()) {
+            return "No tags";
+        }
+
         StringBuilder result = new StringBuilder();
         tagsLst.forEach(tag -> result.append(tag.toString())
                 .append(" "));
