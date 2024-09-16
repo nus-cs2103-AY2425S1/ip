@@ -25,8 +25,8 @@ public class Storage {
     private static final String PATH_TO_FILE = "./data/Bitbot.txt";
 
     /**
-     * It checks if the file that is being read from exists.
-     * If it doesn't, create the directory and the file.
+     * Checks if the file that is being read from exists
+     * else it creates a new directory and a new file.
      *
      * @throws IOException if directory is not found.
      */
@@ -90,61 +90,7 @@ public class Storage {
             // adapted from W3.4c (using Scanner) of notes.
             while (scanner.hasNextLine()) {
                 String[] partsOfLineFromFile = scanner.nextLine().split("\\|");
-                Task task = null;
-
-                // trims the trailing whitespace
-                switch (partsOfLineFromFile[0].trim()) {
-                case "D":
-                    String descriptionOfDeadline = partsOfLineFromFile[2].trim();
-                    String deadlineBy = partsOfLineFromFile[3].trim();
-                    try {
-                        LocalDateTime localDateTime = LocalDateTime.parse(deadlineBy, dateTimeFormatter);
-                        task = new Deadline(descriptionOfDeadline, localDateTime);
-                    } catch (DateTimeParseException e) {
-                        try {
-                            LocalDate localDate = LocalDate.parse(deadlineBy, dateFormatter);
-                            task = new Deadline(descriptionOfDeadline, localDate);
-                        } catch (DateTimeParseException err) {
-                            try {
-                                LocalTime localTime = LocalTime.parse(deadlineBy, timeFormatter);
-                                task = new Deadline(descriptionOfDeadline, localTime);
-                            } catch (DateTimeParseException error) {
-                                task = new Deadline(descriptionOfDeadline, deadlineBy);
-                            }
-                        }
-                    }
-                    break;
-
-                case "T":
-                    task = new Todo(partsOfLineFromFile[2]);
-                    break;
-
-                case "E":
-                    String descriptionOfEvent = partsOfLineFromFile[2].trim();
-                    String eventFrom = partsOfLineFromFile[3].trim();
-                    String eventTo = partsOfLineFromFile[4].trim();
-                    try {
-                        LocalDateTime localDateTime = LocalDateTime.parse(eventFrom, dateTimeFormatter);
-                        LocalDateTime localDateTime1 = LocalDateTime.parse(eventTo, dateTimeFormatter);
-                        task = new Events(descriptionOfEvent, localDateTime, localDateTime1);
-                    } catch (DateTimeParseException e) {
-                        try {
-                            LocalDate localDate = LocalDate.parse(eventFrom, dateFormatter);
-                            LocalDate localDate1 = LocalDate.parse(eventTo, dateFormatter);
-                            task = new Events(descriptionOfEvent, localDate, localDate1);
-                        } catch (DateTimeParseException err) {
-                            try {
-                                LocalTime localTime = LocalTime.parse(eventFrom, timeFormatter);
-                                LocalTime localTime1 = LocalTime.parse(eventTo, timeFormatter);
-                                task = new Events(descriptionOfEvent, localTime, localTime1);
-                            } catch (DateTimeParseException error) {
-                                task = new Events(descriptionOfEvent, eventFrom, eventTo);
-                            }
-                        }
-                    }
-                    break;
-                default:
-                }
+                Task task = parseTask(partsOfLineFromFile);
 
                 if (partsOfLineFromFile[1].trim().equals("X")) {
                     task.markAsDone();
@@ -163,5 +109,107 @@ public class Storage {
 
     }
 
+    /**
+     * Parses the type of task from the input and creates a corresponding Task object.
+     *
+     * @param partsOfInput A String array which consists of the type of task and the relevant details.
+     * @return the Task object corresponding to the task type.
+     */
+    private static Task parseTask(String[] partsOfInput) {
+        Task task = null;
+        String typeOfTask = partsOfInput[0].trim();
 
+        assert typeOfTask.equals("D") || typeOfTask.equals("T") || typeOfTask.equals("E")
+                : "Invalid task type: " + typeOfTask;
+
+        switch (typeOfTask) {
+        case "D":
+            task = createDealineTask(partsOfInput);
+            break;
+        case "T":
+            task = parseTodoTask(partsOfInput);
+            break;
+        case "E":
+            task = createEventTask(partsOfInput);
+            break;
+        default:
+            // there should not be any other task
+            break;
+        }
+        return task;
+    }
+
+    /**
+     * Creates a Deadline Task from the input given.
+     *
+     * @param partsOfInput A String array which consists of the type of task and the relevant details.
+     * @return a Task which in this case is a Deadline task.
+     */
+    private static Task createDealineTask(String[] partsOfInput) {
+        String descriptionOfDeadline = partsOfInput[2].trim();
+        String deadlineBy = partsOfInput[3].trim();
+        Task task = null;
+        try {
+            LocalDateTime localDateTime = LocalDateTime.parse(deadlineBy, dateTimeFormatter);
+            task = new Deadline(descriptionOfDeadline, localDateTime);
+        } catch (DateTimeParseException e) {
+            try {
+                LocalDate localDate = LocalDate.parse(deadlineBy, dateFormatter);
+                task = new Deadline(descriptionOfDeadline, localDate);
+            } catch (DateTimeParseException err) {
+                try {
+                    LocalTime localTime = LocalTime.parse(deadlineBy, timeFormatter);
+                    task = new Deadline(descriptionOfDeadline, localTime);
+                } catch (DateTimeParseException error) {
+                    task = new Deadline(descriptionOfDeadline, deadlineBy);
+                }
+            }
+        }
+        return task;
+    }
+
+    /**
+     * Creates an Event Task from the input given.
+     *
+     * @param partsOfInput A String array which consists of the type of task and the relevant details.
+     * @return a Task which in this case is an Event task.
+     */
+    private static Task createEventTask(String[] partsOfInput) {
+        String descriptionOfEvent = partsOfInput[2].trim();
+        String eventFrom = partsOfInput[3].trim();
+        String eventTo = partsOfInput[4].trim();
+        Task task = null;
+
+        try {
+            LocalDateTime localDateTime = LocalDateTime.parse(eventFrom, dateTimeFormatter);
+            LocalDateTime localDateTime1 = LocalDateTime.parse(eventTo, dateTimeFormatter);
+            task = new Events(descriptionOfEvent, localDateTime, localDateTime1);
+        } catch (DateTimeParseException e) {
+            try {
+                LocalDate localDate = LocalDate.parse(eventFrom, dateFormatter);
+                LocalDate localDate1 = LocalDate.parse(eventTo, dateFormatter);
+                task = new Events(descriptionOfEvent, localDate, localDate1);
+            } catch (DateTimeParseException err) {
+                try {
+                    LocalTime localTime = LocalTime.parse(eventFrom, timeFormatter);
+                    LocalTime localTime1 = LocalTime.parse(eventTo, timeFormatter);
+                    task = new Events(descriptionOfEvent, localTime, localTime1);
+                } catch (DateTimeParseException error) {
+                    task = new Events(descriptionOfEvent, eventFrom, eventTo);
+                }
+            }
+        }
+
+        return task;
+    }
+
+    /**
+     * Creates a Todo Task from the input given.
+     *
+     * @param partsOfInput A String array which consists of the type of task and the relevant details.
+     * @return a Task which in this case is a Todo task.
+     */
+    private static Task parseTodoTask(String[] partsOfInput) {
+        return new Todo(partsOfInput[2].trim());
+    }
 }
