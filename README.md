@@ -14,11 +14,20 @@ The features David provides include:
 - [x] Find tasks
 - [x] Mark and unmark of tasks
 
+# Installation
+To download the latest version of David,
+1. Go to the project's [releases](https://github.com/Incogdino/ip/releases/tag/v0.2).
+2. Download the `.jar` file.
+3. Run the `jar` file by double clicking on it.
+
+
+
+## Command summary
 > [!NOTE]
 >
 > The easiest way to see all available commands is simply calling the `help` command
-> 
-## Command summary
+>
+
 <table>
   <tr>
     <th>Command</th><th>Arguments</th><th>Action</th>
