@@ -22,7 +22,7 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * For view command (compareTo method), to be used in sorting of Task objects
+     * Returns the scheduledDateAndTime in LocalDateTime.
      *
      * @return null.
      */
@@ -31,7 +31,7 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Find Task objects with scheduled date
+     * Returns the date portion of scheduledDateAndTime, in LocalDate.
      *
      * @return null.
      */
