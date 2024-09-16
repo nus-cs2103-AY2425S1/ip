@@ -50,19 +50,24 @@ public class ListOnCommand implements Command {
         ui.showLine();
         boolean hasTasksFound = false;
         ui.printMessage("Here are the tasks on the particular day in your list:");
+
         try {
             for (Task task : actions.getItems()) {
+                // Check if the task is an Event
                 if (task instanceof Event) {
                     Event event = (Event) task;
                     if (isConcurrent(event)) {
                         ui.printMessage(event.toString());
                         hasTasksFound = true;
-                    } else if (task instanceof Deadline) {
-                        Deadline deadline = (Deadline) task;
-                        if (deadline.getDdl().equals(date)) {
-                            ui.printMessage(deadline.toString());
-                            hasTasksFound = true;
-                        }
+                    }
+                } else if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    LocalDateTime deadlineDate = deadline.getDdl();
+
+                    // Compare date and time (ignore seconds and milliseconds)
+                    if (deadlineDate.equals(date)) {
+                        ui.printMessage(deadline.toString());
+                        hasTasksFound = true;
                     }
                 }
             }
@@ -75,6 +80,7 @@ public class ListOnCommand implements Command {
         }
         ui.showLine();
     }
+
 
     private boolean isConcurrent(Event event) {
         //Start date requirements

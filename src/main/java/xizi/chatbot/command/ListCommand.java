@@ -24,18 +24,19 @@ public class ListCommand implements Command {
     @Override
     public void execute(TaskList actions, Storage storage, Ui ui) {
         ui.showLine();
-        ui.printMessage("Here are the tasks in your list:");
         int listSize = actions.getSize();
-        List<Task> innerTasks = actions.getItems();
-        for (int i = 1; i <= listSize; i++) {
-            Task task = innerTasks.get(i - 1);
-            String taskString = String.format("%d. %s", i, task.toString());
-            ui.printMessage(taskString);
-        }
         if (listSize == 0) {
             ui.printMessage("There are no tasks in the list now");
+        } else {
+            ui.printMessage("Here are the tasks in your list:");
+            List<Task> innerTasks = actions.getItems();
+            for (int i = 1; i <= listSize; i++) {
+                Task task = innerTasks.get(i - 1);
+                String taskString = String.format("%d. %s", i, task.toString());
+                ui.printMessage(taskString);
+            }
+            ui.showLine();
         }
-        ui.showLine();
     }
 }
 
