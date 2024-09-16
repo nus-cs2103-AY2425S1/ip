@@ -64,9 +64,11 @@ public class Storage {
         case "D":
             taskToAdd = new Deadline(fields[2], LocalDateTime.parse(fields[3]));
             break;
-        default: // case "T":
+        case "T":
             taskToAdd = new ToDo(fields[2]);
             break;
+        default:
+            throw new RuntimeException("This should not happen");
         }
         if ((fields[1]).equals("X")) {
             taskToAdd.markAsDone();
@@ -107,49 +109,4 @@ public class Storage {
             throw new RuntimeException("This should never happen", e);
         }
     }
-
-
-//        /**
-//          * Write to File, also Handles I/O exception
-//          * @param textToAdd
-//          */
-//    public void writeToFile(String textToAdd) {
-//        try {
-//            System.out.println("Added"+ textToAdd + "to" + filePath);
-//            File file = new File(filePath);
-//
-//            // This storage location is relative: If run from .bat script,
-//            // the txt file will be stored at ip/text-ui-test/data/
-//            // On the other hand, if Reminderebot.java is run directly,
-//            // the txt file will be stored at ip/data
-//            File dir = new File(file.getParent());
-//
-//            boolean dirCreated = dir.mkdirs();
-//            System.out.println(dirCreated);
-//            if (file.createNewFile()) {
-//                FileWriter fw = new FileWriter(filePath);
-//                fw.write(textToAdd);
-//                fw.close();
-//            } else {
-//                FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-//                fw.write("\n" + textToAdd);
-//                fw.close();
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException("This should never happen", e);
-//        }
-//    }
-
-//    /**
-//     * Prints file contents.
-//     * @param filePath
-//     * @throws FileNotFoundException
-//     */
-//    public void printFileContents(String filePath) throws FileNotFoundException {
-//        File f = new File(filePath); // create a File for the given file path
-//        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-//        while (s.hasNext()) {
-//            System.out.println(s.nextLine());
-//        }
-//    }
 }
