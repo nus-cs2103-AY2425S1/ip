@@ -1,4 +1,4 @@
-package BonnieGUI;
+package bonnieGUI;
 
 import java.io.IOException;
 

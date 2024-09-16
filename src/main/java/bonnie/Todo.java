@@ -1,4 +1,4 @@
-package Bonnie;
+package bonnie;
 
 public class Todo extends Task {
 

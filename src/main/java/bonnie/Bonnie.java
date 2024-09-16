@@ -1,4 +1,4 @@
-package Bonnie;
+package bonnie;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,11 +1,11 @@
-Hello I'm Bonnie, what is your name?
-Hey donkey! Welcome to the Bonnie chat bot! Please input a command to continue!
-1. bye : leaves the conversation with Bonnie
+Hello I'm bonnie, what is your name?
+Hey donkey! Welcome to the bonnie chat bot! Please input a command to continue!
+1. bye : leaves the conversation with bonnie
 2. mark/unmark {task number}: marks or unmarks that task as done
-3. todo {task name}: Bonnie adds a todo task into your task list
-4. deadline {task name} /by {deadline}: Bonnie adds a task with a deadline to your task list.
-5. event {task name} /from {start} /to {end}: Bonnie adds an event with a start/end time to your task list.
-Bonnie wants to remind you that you should substitute items with curly braces with the actual information.
+3. todo {task name}: bonnie adds a todo task into your task list
+4. deadline {task name} /by {deadline}: bonnie adds a task with a deadline to your task list.
+5. event {task name} /from {start} /to {end}: bonnie adds an event with a start/end time to your task list.
+bonnie wants to remind you that you should substitute items with curly braces with the actual information.
 Also, do remember to use the forward slashes! "/from" is valid but "from" is NOT valid!
 Example: "event clean floor /from 18th September 5pm /to 18th September 6pm" is a valid command
 

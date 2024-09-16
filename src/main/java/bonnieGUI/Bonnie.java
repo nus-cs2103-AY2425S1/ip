@@ -1,4 +1,4 @@
-package BonnieGUI;
+package bonnieGUI;
 
 import Exceptions.*;
 public class Bonnie {

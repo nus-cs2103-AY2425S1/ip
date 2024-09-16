@@ -1,6 +1,5 @@
-package BonnieGUI;
+package bonnieGUI;
 
-import Exceptions.*;
 import Tasks.*;
 
 import java.io.File;

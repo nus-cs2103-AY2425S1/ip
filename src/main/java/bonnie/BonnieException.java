@@ -1,4 +1,4 @@
-package Bonnie;
+package bonnie;
 
 abstract public class BonnieException extends Exception {
 

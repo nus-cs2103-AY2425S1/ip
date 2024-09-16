@@ -1,4 +1,4 @@
-package Bonnie;
+package bonnie;
 
 import java.util.ArrayList;
 

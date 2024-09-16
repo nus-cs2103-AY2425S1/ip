@@ -1,4 +1,4 @@
-package Bonnie;
+package bonnie;
 
 import java.util.ArrayList;
 
@@ -46,8 +46,7 @@ public class Parser {
                 list += String.format("%d. %s\n", i+1, foundTasks.get(i));
             }
             System.out.println(list);
-        }
-        else {
+        } else {
             // Want to parse and add task into task list
             parseTaskAddition(input);
         }
@@ -105,7 +104,6 @@ public class Parser {
     }
 
     private static void parseTaskAddition(String input) throws EmptyTodoException, UnknownCommandException, DeadlineFormatException {
-        // Want to split the string according to spaces 1st
         String[] splitString = input.split(" ", 2);
         String name;
         if (splitString[0].equals("todo")) {
@@ -123,9 +121,6 @@ public class Parser {
             TaskList.addTask(new Deadline(components[0], components[1]));
             name = components[0];
         } else if (splitString[0].equals("event")) {
-            // Idea is that original string is in the form {event_name} /from {start} /to {end}
-            // Hence first split will get event name and the {start} /to {end}
-            // Second split will split the {start} /to {end} to get the actual start and end
             String[] component1 = splitString[1].split(" /from ", 2);
             String[] component2 = component1[1].split(" /to ", 2);
             TaskList.addTask(new Event(component1[0], component2[0], component2[1]));
