@@ -1,16 +1,18 @@
 package nixy.command;
 
 import nixy.Storage;
+import nixy.task.Task;
 import nixy.task.TaskList;
 import nixy.ui.Ui;
 
 /**
  * Class representing the command to delete a task.
  */
-public class DeleteCommand implements Command {
+public class DeleteCommand implements UndoableCommand {
     private Ui ui;
     private TaskList tasks;
     private int taskNumber;
+    private Task deletedTask;
     private Storage storage;
 
     /**
@@ -51,8 +53,19 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void execute() {
-        String taskStr = tasks.deleteTask(taskNumber);
-        ui.showDeletedTask(taskStr, tasks.getTaskCount());
+        deletedTask = tasks.deleteTask(taskNumber);
+        ui.showDeletedTask(deletedTask.toString(), tasks.getTaskCount());
+        storage.save(tasks);
+    }
+
+    /**
+     * Undoes the command to delete a task.
+     */
+    @Override
+    public void undo() {
+        assert deletedTask != null : "Deleted task should not be null";
+        tasks.addTask(taskNumber, deletedTask);
+        ui.showAddedTask(deletedTask, tasks.getTaskCount());
         storage.save(tasks);
     }
 }

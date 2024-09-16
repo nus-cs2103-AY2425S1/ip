@@ -41,16 +41,24 @@ public abstract class Task implements ReadableTask {
 
     /**
      * Marks the task as done.
+     *
+     * @return true if the task was previously not done, false otherwise.
      */
-    public void markAsDone() {
+    public boolean markAsDone() {
+        boolean prevIsDone = this.isDone;
         this.isDone = true;
+        return prevIsDone != this.isDone;
     }
 
     /**
      * Marks the task as undone.
+     *
+     * @return true if the task was previously done, false otherwise.
      */
-    public void markAsUndone() {
+    public boolean markAsUndone() {
+        boolean prevIsDone = this.isDone;
         this.isDone = false;
+        return prevIsDone != this.isDone;
     }
 
     /**

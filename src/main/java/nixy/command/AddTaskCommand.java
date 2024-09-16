@@ -9,12 +9,13 @@ import nixy.ui.Ui;
  * Class representing the command to add a task.
  * Works for all different types of tasks.
  */
-public class AddTaskCommand implements Command {
+public class AddTaskCommand implements UndoableCommand {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
     private CommandType taskType;
     private Task task;
+    private int taskNumber;
 
     /**
      * Constructor for AddTaskCommand.
@@ -57,8 +58,17 @@ public class AddTaskCommand implements Command {
      */
     @Override
     public void execute() {
-        tasks.addTask(task);
+        taskNumber = tasks.addTask(task);
         ui.showAddedTask(task, tasks.getTaskCount());
         storage.save(tasks);
+    }
+
+    /**
+     * Undoes the command to add a task.
+     */
+    @Override
+    public void undo() {
+        Command c = new DeleteCommand(ui, tasks, taskNumber, storage);
+        c.execute();
     }
 }

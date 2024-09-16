@@ -3,7 +3,9 @@ package nixy;
 import java.util.function.Consumer;
 
 import nixy.command.Command;
+import nixy.command.CommandHistory;
 import nixy.command.CommandType;
+import nixy.command.UndoableCommand;
 import nixy.exceptions.NixyException;
 import nixy.parse.Parser;
 import nixy.task.TaskList;
@@ -17,6 +19,7 @@ public class Nixy {
 
     private Storage storage;
     private TaskList tasks;
+    private CommandHistory commandHistory;
     private Ui ui;
     private Runnable onExit = () -> {};
     private Parser parser;
@@ -30,13 +33,14 @@ public class Nixy {
     public Nixy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        commandHistory = new CommandHistory();
         try {
             tasks = new TaskList(storage.load());
         } catch (NixyException e) {
             ui.showNixyException(e);
             tasks = new TaskList();
         }
-        parser = new Parser(storage, tasks, ui);
+        parser = new Parser(storage, tasks, ui, commandHistory);
     }
 
     /**
@@ -79,10 +83,16 @@ public class Nixy {
             return;
         }
 
+        boolean isExecuted = false;
         try {
             c.execute();
+            isExecuted = true;
         } catch (NixyException e) {
             ui.showNixyException(e);
+        }
+
+        if (c instanceof UndoableCommand && isExecuted) {
+            commandHistory.add((UndoableCommand) c);
         }
 
         if (c.getType() == CommandType.BYE) {

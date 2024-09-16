@@ -7,12 +7,14 @@ import nixy.Storage;
 import nixy.command.AddTaskCommand;
 import nixy.command.ByeCommand;
 import nixy.command.Command;
+import nixy.command.CommandHistory;
 import nixy.command.CommandType;
 import nixy.command.DeleteCommand;
 import nixy.command.FindCommand;
 import nixy.command.InvalidCommand;
 import nixy.command.ListCommand;
 import nixy.command.MarkCommand;
+import nixy.command.UndoCommand;
 import nixy.exceptions.NixyException;
 import nixy.task.DeadlineTask;
 import nixy.task.EventTask;
@@ -28,6 +30,7 @@ import nixy.ui.Ui;
 public class Parser {
     private Storage storage;
     private TaskList tasks;
+    private CommandHistory commandHistory;
     private Ui ui;
 
     /**
@@ -36,11 +39,13 @@ public class Parser {
      * @param storage The storage object to store tasks data.
      * @param tasks The task list object to manage tasks.
      * @param ui The user interface object to display messages.
+     * @param commandHistory The command history object to manage command history.
      */
-    public Parser(Storage storage, TaskList tasks, Ui ui) {
+    public Parser(Storage storage, TaskList tasks, Ui ui, CommandHistory commandHistory) {
         this.storage = storage;
         this.tasks = tasks;
         this.ui = ui;
+        this.commandHistory = commandHistory;
     }
 
     /**
@@ -76,6 +81,8 @@ public class Parser {
             return parseAddEventCommand(args);
         case "find":
             return parseFindCommand(args);
+        case "undo":
+            return new UndoCommand(ui, commandHistory.pop());
         default:
             return new InvalidCommand(ui);
         }
