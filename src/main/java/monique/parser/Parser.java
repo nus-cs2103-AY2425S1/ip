@@ -33,6 +33,8 @@ public class Parser {
     public static final String MISSING_SEARCH_KEYS_ERROR_MESSAGE = "you have not provided any search keys";
     public static final String INVALID_DEADLINE_FORMAT_ERROR_MESSAGE = "invalid format for Deadline command";
     public static final String INVALID_EVENT_FORMAT_ERROR_MESSAGE = "invalid format for Event command";
+    public static final String FROM_DATE_BEFORE_TO_DATE_ERROR_MESSAGE = "error: the 'from' date is before the "
+                                                                        + "'to' date";
     public static final String UNEXPECTED_VALUE_ERROR_MESSAGE = "Unexpected value: ";
     private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete", "find");
     private static final Set<String> taskTypes = Set.of("todo", "deadline", "event");
@@ -178,6 +180,10 @@ public class Parser {
         LocalDateTime fromDate = DateParser.getDateTimeString(fromDateString);
         String toDateString = toSplit[1].trim();
         LocalDateTime toDate = DateParser.getDateTimeString(toDateString);
+        //check if fromDate is before toDate
+        if (fromDate.isAfter(toDate)) {
+            throw new ParseException(FROM_DATE_BEFORE_TO_DATE_ERROR_MESSAGE);
+        }
         Task taskToAdd = new Event(description, false, fromDate, toDate, DateParser.hasTime(fromDateString));
         return new AddCommand(taskToAdd);
     }
