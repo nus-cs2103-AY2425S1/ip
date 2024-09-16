@@ -101,6 +101,13 @@ public class Parser {
         return new AddCommand(new Event(description, from, to));
     }
 
+    /**
+     * Returns a {@code MarkCommand} to mark a task as done.
+     * The task number is parsed from the command.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return A {@code MarkCommand} to mark the task.
+     */
     private static Command handleMarkCommand(String fullCommand) {
         int taskNumber = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
         return new MarkCommand(taskNumber);
