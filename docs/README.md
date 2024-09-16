@@ -28,3 +28,7 @@ expected output
 ## Feature XYZ
 
 // Feature details
+
+## Acknowledgements
+
+Used ChatGPT for improving documentation and code quality.
