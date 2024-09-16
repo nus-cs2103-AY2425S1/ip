@@ -219,6 +219,6 @@ Format: `bye`
 | `findtask` | `findtask (date)` e.g. `findtask 2023-04-12` |
 | `findname` | `findname (any_string)` e.g. `findname rea` |
 | `save` | `save` |
-| `question` | `question (your_question_ending_with_a_question_mark) (your_answer_for_that_question)` e.g. `question What is my name? Adib' |
+| `question` | `question (your_question_ending_with_a_question_mark) (your_answer_for_that_question)` e.g. `question What is my name? Adib` |
 | `answer` | `answer (your_saved_question)` e.g. `answer What is my name?` |
 | `bye` | `bye` |
