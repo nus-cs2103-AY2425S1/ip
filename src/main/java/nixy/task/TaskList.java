@@ -57,6 +57,7 @@ public class TaskList {
     /**
      * Returns an iterator for tasks.
      * NOTE: Could potentially be used to modify existing tasks.
+     *
      * @return An iterator for tasks.
      */
     public Iterator<Task> getTasksIterator() {

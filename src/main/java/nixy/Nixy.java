@@ -90,7 +90,7 @@ public class Nixy {
     }
 
     /**
-     * Main driver for Nixy cli
+     * Main driver for Nixy CLI.
      * Entry point to display welcome message and read user input.
      */
     public void run() {

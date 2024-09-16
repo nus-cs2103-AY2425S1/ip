@@ -26,6 +26,8 @@ public class Ui {
 
     /**
      * Read input from the user via command line interface.
+     *
+     * @return The input string from the user.
      */
     public static String readCliInput() {
         Scanner in = new Scanner(System.in);
@@ -47,6 +49,7 @@ public class Ui {
 
     /**
      * Display the list of tasks to the user.
+     *
      * @param tasks The list of tasks to display.
      */
     public void showList(TaskList tasks) {
@@ -83,6 +86,7 @@ public class Ui {
 
     /**
      * Show the message that the task has been marked as done.
+     *
      * @param taskString The string represenation of task that was marked as done.
      */
     public void showMarkedAsDone(String taskString) {
@@ -92,6 +96,7 @@ public class Ui {
 
     /**
      * Show the message that the task has been marked as not done.
+     *
      * @param taskString The string represenation of task that was marked as not done.
      */
     public void showMarkedAsUndone(String taskString) {
@@ -101,6 +106,7 @@ public class Ui {
 
     /**
      * Show the message that the task has been deleted.
+     *
      * @param taskString The string represenation of task that was deleted.
      * @param taskCount The number of tasks remaining in the list.
      */
@@ -112,6 +118,7 @@ public class Ui {
 
     /**
      * Display the NixyException message to the user.
+     *
      * @param e The exception to display.
      */
     public void showNixyException(NixyException e) {
@@ -120,6 +127,7 @@ public class Ui {
 
     /**
      * Show the message that the task has been added.
+     *
      * @param task The task that was added.
      * @param taskCount The number of tasks in the list.
      */

@@ -32,6 +32,7 @@ public class Parser {
 
     /**
      * Constructor for Parser.
+     *
      * @param storage The storage object to store tasks data.
      * @param tasks The task list object to manage tasks.
      * @param ui The user interface object to display messages.
@@ -44,6 +45,7 @@ public class Parser {
 
     /**
      * Parses the user input and returns a Command object.
+     *
      * @param input The user input to be parsed.
      * @return The Command object to be executed.
      */

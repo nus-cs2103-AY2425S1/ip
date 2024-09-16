@@ -7,7 +7,7 @@ public class TodoTask extends Task {
     /**
      * Creates a Todo task with the specified description.
      *
-     * @param description The description of the task
+     * @param description The description of the task.
      */
     public TodoTask(String description) {
         super(description);
@@ -43,7 +43,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * Returns the string representation of the task in data format (for saving to file)
+     * Returns the string representation of the task in data format (for saving to file).
      *
      * @return The data string.
      */

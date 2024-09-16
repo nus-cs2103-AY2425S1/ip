@@ -10,6 +10,7 @@ public class ByeCommand implements Command {
 
     /**
      * Constructor for ByeCommand.
+     *
      * @param ui The Ui object to interact with the user.
      */
     public ByeCommand(Ui ui) {
