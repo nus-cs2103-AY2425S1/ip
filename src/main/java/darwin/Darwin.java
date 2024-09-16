@@ -45,6 +45,9 @@ public class Darwin {
         }
     }
 
+    /**
+     * Initialises a chat with the user and chat bot Darwin through GUI
+     */
     public String getResponse(String input) {
         try {
             Command cmd = parser.parse(input);

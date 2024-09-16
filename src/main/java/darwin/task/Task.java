@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class Task {
     private String name;
-    private boolean done = false;
+    private boolean isDone = false;
 
     public Task(String name) {
         this.name = name;
@@ -19,15 +19,15 @@ public abstract class Task {
     }
 
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmarkDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public abstract String getSymbol();
