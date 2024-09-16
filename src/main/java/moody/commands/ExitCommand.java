@@ -27,6 +27,13 @@ public class ExitCommand extends Command {
         return ui.showGoodbyeAsString();
     }
 
+    /**
+     * Indicates whether this command should cause the application to exit.
+     * This method is overridden to return {@code true}, as the ExitCommand
+     * signals the application to terminate.
+     *
+     * @return {@code true}, indicating that the application should exit.
+     */
     @Override
     public boolean isExit() {
         return true;
