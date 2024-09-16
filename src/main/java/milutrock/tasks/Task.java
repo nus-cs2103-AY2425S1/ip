@@ -27,6 +27,7 @@ public class Task {
 
     @Override
     public String toString() { 
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.name; 
+        String checkbox = this.isDone ? "X" : " ";        
+        return "[" + checkbox + "] " + this.name; 
     } 
 }
