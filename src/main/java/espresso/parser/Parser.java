@@ -2,15 +2,11 @@ package espresso.parser;
 
 import espresso.ui.Ui;
 import espresso.task.TaskList;
-import espresso.task.Task;
 import espresso.task.TodoTask;
 import espresso.task.DeadlineTask;
 import espresso.task.EventTask;
-import espresso.storage.Storage;
-import espresso.parser.Parser;
 import espresso.command.InvalidCommandException;
 import java.text.ParseException;
-import java.io.IOException;
 
 public class Parser {
     public static void parse(String input, TaskList taskList, Ui ui) throws InvalidCommandException, ParseException {
@@ -48,8 +44,15 @@ public class Parser {
 
             ui.printTaskRemoved(taskList.getTask(i));
             taskList.removeTask(i);
+        } else if (checkInput(input, "find ")) {
+            String searchItem = input.substring(5).trim();
+            if (searchItem.isEmpty()) {
+                throw new InvalidCommandException("Search term cannot be empty.");
+            }
+            TaskList foundTasks = taskList.find(searchItem);
+            ui.printFoundTasks(foundTasks);
         } else {
-            ui.printError("Command cannot be found");
+            ui.printError("Command not found.");
         }
     }
 

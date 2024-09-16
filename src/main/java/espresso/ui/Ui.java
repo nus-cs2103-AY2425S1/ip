@@ -1,12 +1,6 @@
 package espresso.ui;
-import espresso.ui.Ui;
 import espresso.task.TaskList;
 import espresso.task.Task;
-import espresso.task.TodoTask;
-import espresso.task.DeadlineTask;
-import espresso.task.EventTask;
-import espresso.storage.Storage;
-import espresso.parser.Parser;
 import espresso.command.InvalidCommandException;
 import java.util.Scanner;
 
@@ -16,6 +10,7 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     public void printLine() {
         System.out.println("________________________________________________");
     }
@@ -84,5 +79,14 @@ public class Ui {
         System.out.println("Nice. The following task has been marked as undone:");
         System.out.println(task);
         printLine();
+    }
+
+    public void printFoundTasks(TaskList tasks) {
+        if (tasks.size() < 1) {
+            System.out.println("No tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            System.out.println(tasks);
+        }
     }
 }
