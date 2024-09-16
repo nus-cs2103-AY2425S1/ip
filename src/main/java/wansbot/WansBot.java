@@ -18,11 +18,13 @@ import wansbot.ui.UI;
  * wansbot.Main class in the package which has all the logic of the Bot.
  */
 public class WansBot {
-    private static TaskList userTaskList = new TaskList();
-    private static UI ui = new UI();
-    private static Storage storage = new Storage(ui);
+    private TaskList userTaskList = new TaskList();
+    private UI ui = new UI();
+    private Storage storage = new Storage(ui);
     private QuestionBank questionBank = new QuestionBank();
 
+    public WansBot() {
+    }
     /**
      * Throws InputEmptyException when user doesn't input anything after command word.
      */
@@ -108,7 +110,7 @@ public class WansBot {
      * Handles marking tasks function by specifying how caught exceptions are dealt with. Prints to console what
      * user needs to correct for the command to work.
      */
-    private String markTasks(String userInput) {
+    protected String markTasks(String userInput) {
 
         try {
             checkNumInput(userInput, userTaskList.numOfTasks());
@@ -143,8 +145,8 @@ public class WansBot {
     /**
      * Adds Todos to the userTaskList.
      */
-    private String addTodos(String userInput) {
-        Todos newTodo = new Todos(userInput.substring(5));
+    protected String addTodos(String userInput) {
+        Todos newTodo = new Todos(userInput.substring(6));
         userTaskList.add(newTodo);
         return ui.handleSuccessfulAdd(newTodo);
     }

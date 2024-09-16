@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import wansbot.tasks.InputEmptyException;
 import wansbot.tasks.TaskList;
+import wansbot.tasks.Todos;
+import wansbot.ui.UI;
+import wansbot.WansBot;
 
 public class WansBotTest {
     @Test
@@ -20,4 +23,17 @@ public class WansBotTest {
             assertEquals("You need to input something after todos ", e.getMessage());
         }
     }
+
+    @Test
+    public void markTasks_marksTasks() {
+        UI ui  = new UI();
+        Todos read = new Todos("read");
+        read.finish();
+        TaskList taskList = new TaskList();
+        taskList.add(read);
+        WansBot wans = new WansBot();
+        wans.addTodos("todos read");
+        assertEquals(ui.handleSuccesfulMarking(taskList, 0), wans.markTasks("mark 1"));
+    }
+    
 }

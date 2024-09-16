@@ -84,7 +84,7 @@ public class UI {
      * @param posTask Postion of task user wants to remove.
      */
     public String handleSuccesfulMarking(TaskList taskList, int posTask) {
-        return "Nice! I've marked\n"
+        return "Nice! I've marked "
                 + taskList.getTask(posTask).toString()
                 + " as completed";
     }
@@ -100,7 +100,7 @@ public class UI {
      * Prints to console when task is unmarked successfully, along with the task deleted.
      */
     public String handleSuccesfulUnmarking(TaskList taskList, int posTask) {
-        return "Okay, so you lied! I've marked\n"
+        return "Okay, so you lied! I've marked "
                 + taskList.getTask(posTask).toString()
                 + " as uncompleted";
     }

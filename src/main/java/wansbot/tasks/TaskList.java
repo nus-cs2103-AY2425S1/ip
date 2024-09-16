@@ -66,7 +66,7 @@ public class TaskList {
         }
         String myTasks = "";
         for (int i = 0; i < this.listOfTasks.size(); i++) {
-            myTasks += (i + 1) + ". " + this.listOfTasks.get(i).toString() + "\n";
+            myTasks += (i + 1) + ". " + this.getTask(i).toString() + "\n";
         }
 
         return myTasks;
