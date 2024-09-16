@@ -59,6 +59,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an {@code AddCommand} to add a {@code ToDo} task.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return An {@code AddCommand} with a new {@code ToDo} task.
+     */
+
     private static Command handleTodoCommand(String fullCommand) {
         return new AddCommand(new ToDo(fullCommand.substring(5)));
     }
