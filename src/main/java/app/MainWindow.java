@@ -8,7 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Controller for the main GUI.
@@ -28,10 +29,6 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/human.png"));
     private Image deezImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
-    private AudioClip audioClip = new AudioClip(this.getClass().getResource("/sounds/ring.mp3").toExternalForm());
-
-
-
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -49,9 +46,10 @@ public class MainWindow extends AnchorPane {
      * Adds a message from Deez in the GUI.
      */
     public void outputMessage(String message) {
-        if (!audioClip.isPlaying()) {
-            audioClip.play();
-        }
+
+        Media media = new Media(this.getClass().getResource("/sounds/ring.mp3").toString());
+        MediaPlayer audioPlayer = new MediaPlayer(media);
+        audioPlayer.play();
 
         dialogContainer.getChildren().addAll(
             DialogBox.getDukeDialog(message, deezImage)
