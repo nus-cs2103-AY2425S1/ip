@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public abstract class Task implements Serializable {
     protected static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER =
         DateTimeFormatter.ofPattern("MMM dd yyyy " + "hh:mma");
-    protected boolean done;
+    protected boolean isDone;
     protected String description;
 
     protected String[] tags;
@@ -20,11 +20,11 @@ public abstract class Task implements Serializable {
      * Constructor for a task with a given description and done status.
      *
      * @param description the description of the task
-     * @param done        whether the task is done or not
+     * @param isDone      whether the task is done or not
      */
-    public Task(String description, boolean done) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.done = done;
+        this.isDone = isDone;
         this.tags = new String[0];
     }
 
@@ -35,7 +35,7 @@ public abstract class Task implements Serializable {
      */
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
         this.tags = new String[0];
     }
 
@@ -44,9 +44,9 @@ public abstract class Task implements Serializable {
      *
      * @return whether the task is now considered done or not
      */
-    public boolean toggleDone() {
-        this.done = !this.done;
-        return this.done;
+    public boolean toggleIsDone() {
+        this.isDone = !this.isDone;
+        return this.isDone;
     }
 
     /**
@@ -62,7 +62,7 @@ public abstract class Task implements Serializable {
     /* Returns a string representation of the task, depending on its done status. */
     public String toString() {
         String tagsDescription = Arrays.stream(tags).map(s -> " #" + s).collect(Collectors.joining());
-        return (this.done ? "[X] " : "[ ] ") + this.description + tagsDescription;
+        return (this.isDone ? "[X] " : "[ ] ") + this.description + tagsDescription;
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class Task implements Serializable {
      * @return whether the task is done
      */
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
     /**
      * Sets the tags of the task.

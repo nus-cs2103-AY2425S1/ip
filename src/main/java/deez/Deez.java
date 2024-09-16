@@ -185,9 +185,9 @@ public class Deez {
         try {
             Task t = taskList.get(taskIdx - 1);
             if (isMarkDone && !t.isDone()) {
-                t.toggleDone();
+                t.toggleIsDone();
             } else if (!isMarkDone && t.isDone()) {
-                t.toggleDone();
+                t.toggleIsDone();
             }
             ui.say(personality.getAffirmation(), "Updated task:", t.toString());
         } catch (Exception e) {
