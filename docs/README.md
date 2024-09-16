@@ -30,11 +30,11 @@ For further help or issues, visit [our GitHub repository](https://github.com/mun
 
 - **Description**: Adds a task to your list.
 
-- **Usage**: 
-- todo <task description>
-- deadline <task description> /by <YYYY-MM-DD>
-- event <task description> /from <start time> /to <end time>
-- 
+- **Usage**:
+1. todo <task description>
+2. deadline <task description> /by <YYYY-MM-DD>
+3. event <task description> /from <start time> /to <end time>
+
 Example: `todo read a book`
 
 **Expected Outcome**: A new ToDo task is added to your list.
@@ -60,8 +60,8 @@ Here are the tasks in your list ✨:
 ### 3. Marking or Unmarking Tasks
 - **Description**: Marks a task as done.
 - **Usage**: 
-- mark <task number>
-- unmark <task number>
+1. mark <task number>
+2. unmark <task number>
 
 Example: mark 1
 
@@ -105,7 +105,8 @@ Here are the matching tasks in your list 🌸:
 
 
 ```
-Goodbye, sweet friend! Can’t wait to see you again soon! 💕✨```
+Goodbye, sweet friend! Can’t wait to see you again soon! 💕✨
+```
 
 
 
