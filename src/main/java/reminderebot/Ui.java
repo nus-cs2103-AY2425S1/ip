@@ -76,7 +76,7 @@ public class Ui {
      * @return marked task
      */
     public String markTask(Task task) {
-        return "Nice! I've marked this task as done:\n";
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
