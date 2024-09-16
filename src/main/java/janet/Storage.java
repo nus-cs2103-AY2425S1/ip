@@ -31,7 +31,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
             for (Task task : listOfTasks) {
-                String marked = (task.isDone()) ? "1" : "0";
+                String marked = (task.isTaskMarked()) ? "1" : "0";
                 String entry = task.getSymbol() + " | " + marked + " | " + task.getDescription();
                 if (task instanceof Deadline) {
                     entry = entry + " | " + ((Deadline) task).getDueDate();
@@ -86,7 +86,7 @@ public class Storage {
                 // invalid
                 continue;
             }
-            task.setDone(isDone);
+            task.setMark(isDone);
             listOfTasks.add(task);
         }
         fileReader.close();

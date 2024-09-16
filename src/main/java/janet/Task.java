@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Task implements Comparable<Task> {
     private final String description;
     private final String symbol;
-    private boolean done;
+    private boolean isMarked;
 
     /**
      * @param description The description of the task.
@@ -17,7 +17,7 @@ public class Task implements Comparable<Task> {
      */
     public Task(String description, String symbol) {
         this.description = description;
-        this.done = false;
+        this.isMarked = false;
         this.symbol = symbol;
     }
 
@@ -56,20 +56,20 @@ public class Task implements Comparable<Task> {
     /**
      * @return the value of this.done, indicating whether the task is done (marked) or not done (unmarked)
      */
-    public boolean isDone() {
-        return this.done;
+    public boolean isTaskMarked() {
+        return this.isMarked;
     }
 
     /**
      * @param newStatus assign newStatus (true/false) to this.done
      */
-    public void setDone(boolean newStatus) {
-        this.done = newStatus;
+    public void setMark(boolean newStatus) {
+        this.isMarked = newStatus;
     }
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isMarked) {
             return String.format("[%s][X] %s", this.symbol, this.description);
         }
         return String.format("[%s][ ] %s", this.symbol, this.description);

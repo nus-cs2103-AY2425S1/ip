@@ -74,11 +74,11 @@ public class TaskList {
     public String markAsDone(int desiredTaskNum) {
         // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be marked as done
         Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
-        if (desiredTask.isDone()) {
+        if (desiredTask.isTaskMarked()) {
             // the desired task is already marked as done
             return "already marked";
         }
-        desiredTask.setDone(true);
+        desiredTask.setMark(true);
         return "marked";
     }
 
@@ -93,11 +93,11 @@ public class TaskList {
     public String unmark(int desiredTaskNum) {
         // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be unmarked
         Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
-        if (!desiredTask.isDone()) {
+        if (!desiredTask.isTaskMarked()) {
             // desired task is already marked as NOT done (unmarked)
             return "already unmarked";
         }
-        desiredTask.setDone(false);
+        desiredTask.setMark(false);
         return "unmarked";
     }
 
