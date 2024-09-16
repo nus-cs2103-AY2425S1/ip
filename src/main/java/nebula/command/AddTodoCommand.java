@@ -28,7 +28,7 @@ public class AddTodoCommand extends Command {
      * @param storage The storage component (not used in this method).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String command = getDescription();
 
         String taskDescription = Parser.splitCommandAndTaskDescription(command);
@@ -36,7 +36,7 @@ public class AddTodoCommand extends Command {
         Task newTodo = new Todo(taskDescription);
         String addedTodo = tasks.addTask(newTodo);
 
-        System.out.println(addedTodo);
+        return addedTodo;
     }
 
     /**

@@ -31,7 +31,7 @@ public class AddDeadlineCommand extends Command {
      * @throws IOException If an I/O error occurs during any file operations (e.g., saving the task list).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         String command = getDescription();
 
         String taskInformation = Parser.splitCommandAndTaskDescription(command);
@@ -41,7 +41,7 @@ public class AddDeadlineCommand extends Command {
         Task newDeadline = new Deadline(taskDescriptionDeadline, taskDeadline);
         String addedDeadline = tasks.addTask(newDeadline);
 
-        System.out.println(addedDeadline);
+        return addedDeadline;
     }
 
     /**

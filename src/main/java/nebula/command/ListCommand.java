@@ -23,8 +23,8 @@ public class ListCommand extends Command {
      * @param storage The storage component (not used in this method).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println(ui.displayList());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.displayList();
     }
 
     /**

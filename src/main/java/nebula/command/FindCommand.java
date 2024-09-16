@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         String command = getDescription();
         String keyword = Parser.splitCommandAndTaskDescription(command);
 
@@ -33,9 +33,9 @@ public class FindCommand extends Command {
 
         // Display the matching tasks
         if (matchingTasks.isEmpty()) {
-            System.out.println(ui.displayNoMatchingTasks());
+            return ui.displayNoMatchingTasks();
         } else {
-            System.out.println(ui.displayMatchingTasks(matchingTasks));
+            return ui.displayMatchingTasks(matchingTasks);
         }
     }
 

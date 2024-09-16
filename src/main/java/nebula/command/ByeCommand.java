@@ -27,9 +27,9 @@ public class ByeCommand extends Command {
      * @throws IOException If an I/O error occurs during saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        System.out.println(ui.goodbye());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         storage.saveTaskListToTextFile(TaskList.getTaskList());
+        return ui.goodbye();
     }
 
     /**

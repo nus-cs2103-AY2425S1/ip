@@ -26,7 +26,7 @@ public abstract class Command {
      * @param storage The storage to save any changes made to the task list.
      * @throws IOException If an I/O error occurs while executing the command or saving changes.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
 
     /**
      * Indicates whether this command will cause the application to exit.

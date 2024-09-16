@@ -25,11 +25,11 @@ public class DeleteCommand extends Command {
      * @param storage The storage component (not used in this method).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String command = getDescription();
 
         int taskNum = Parser.splitCommandAndTaskNumber(command);
-        System.out.println(tasks.deleteTask(taskNum));
+        return tasks.deleteTask(taskNum);
     }
 
     /**
