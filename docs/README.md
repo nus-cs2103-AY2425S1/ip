@@ -207,6 +207,10 @@ Got it. I've added the todos
 ```
 You can then check using the `list` command.
 
+### 8. Help command
+
+Use the `help` command to easily view all the commands available at your fingertips!
+
 
 ## Conclusion
 
