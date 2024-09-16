@@ -29,4 +29,5 @@ This project could not have been possible without the following works:
 - (kaixin-hc's ip bot for the theme)[https://github.com/kaixin-hc/ip]
 - (Original ip bot code)[https://github.com/nus-cs2103-AY2425S1/ip/tree/master]
 - (House Stark background)[https://i.pinimg.com/736x/0b/4d/b9/0b4db943493a88715fea9a09ad5fe1e9.jpg]
-- (Ned Stark display photo)[https://en.wikipedia.org/wiki/Ned_Stark]
+- (Ned Stark display photo)[https://awoiaf.westeros.org/index.php/File:Eddard_Amoka.jpg]
+- (Crown logo, image by Freepik)[https://www.freepik.com/free-vector/gradient-gold-crown-logo-template_87163587.htm#query=crown%20logo&position=15&from_view=keyword&track=ais_hybrid&uuid=6cddb71f-5bba-4e73-97da-c52eb0de4a25]
