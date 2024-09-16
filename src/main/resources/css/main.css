@@ -6,7 +6,7 @@
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: #eafff3;
     -fx-font: 20px "Arial";
 }
 
@@ -26,7 +26,7 @@
 }
 
 .scroll-pane {
-    -fx-background-color: rgba(200,200,200,.5);
+    -fx-background-color: rgba(200,200,200,.75);
 }
 
 .scroll-pane .viewport {
