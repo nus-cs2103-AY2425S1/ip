@@ -1,7 +1,7 @@
 package echochat;
 
-import Exceptions.EmptyDescriptionError;
-import Exceptions.InvalidCommandError;
+import exceptions.EmptyDescriptionError;
+import exceptions.InvalidCommandError;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

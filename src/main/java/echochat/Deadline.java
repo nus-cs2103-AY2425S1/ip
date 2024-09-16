@@ -14,6 +14,7 @@ public class Deadline extends Task{
 
     /**
      * Get description of Deadline.
+     *
      * @return Task description with date included.
      */
     @Override
@@ -26,7 +27,8 @@ public class Deadline extends Task{
     }
 
     /**
-     * Get the "by" String of the deadline
+     * Get the "by" String of the deadline.
+     *
      * @return String stating when deadline is
      */
     public String getBy() {
