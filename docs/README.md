@@ -7,7 +7,7 @@ The GUI version of Lama makes it easier to interact with the bot using simple co
 
 ---
 
-## Adding TODO Tasks
+## Adding TODO Task
 
 Add a to-do task with no specific deadline using the `todo` command.
 
@@ -27,7 +27,7 @@ Add a to-do task with no specific deadline using the `todo` command.
 
 ---
 
-## Adding Deadlines
+## Adding Deadline
 
 Add a task with a specific deadline using the `deadline` command.
 
@@ -47,7 +47,7 @@ Add a task with a specific deadline using the `deadline` command.
 
 ---
 
-## Adding Events
+## Adding Event
 
 Add an `event` that starts and ends at a specific time.
 
@@ -67,7 +67,7 @@ Add an `event` that starts and ends at a specific time.
 
 ---
 
-## Listing
+## List
 
 Display the current list of tasks using the `list` command.
 
@@ -83,7 +83,7 @@ Display the current list of tasks using the `list` command.
 
 ---
 
-## Marking and Unmarking Tasks
+## Marking and Unmarking Task
 
 You can mark a task as completed or unmark it if needed.
 
@@ -119,7 +119,7 @@ You can mark a task as completed or unmark it if needed.
 
 ---
 
-## Deleting Tasks
+## Deleting Task
 
 Delete a specific task from your list.
 
