@@ -5,7 +5,6 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Represents an event task.
@@ -166,12 +165,10 @@ public class Event extends Task {
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         DateTimeManager inputDate = new DateTimeManager(formattedDate);
         DateTimeManager toDate = new DateTimeManager(this.to);
-        if (!toDate.isValidFormat()) {
-            return false;
-        }
         long timeDeadline = new DateTimeManager(inputDate.removeTimeStamp()).toEpochTime();
         long timeTo = new DateTimeManager(toDate.removeTimeStamp()).toEpochTime();
-        boolean isTaskInRange = timeDeadline > timeTo;
+        long today = new DateTimeManager(LocalDate.now().toString()).toEpochTime();
+        boolean isTaskInRange = timeDeadline > timeTo && timeTo > today;
         return isTaskInRange && !super.getStatus();
     }
 

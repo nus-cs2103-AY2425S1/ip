@@ -170,8 +170,7 @@ public class TaskList extends Command {
     public String findDescription(String fullCommand) {
         String[] segments = fullCommand.split("find ");
         String matchString = stringMatcher(segments);
-        String finalMessage = "Here are the matching tasks in your list" + draftDescriptionList(matchString);
-        return finalMessage;
+        return "Here are the matching tasks in your list" + draftDescriptionList(matchString);
     }
 
     private String draftDescriptionList(String matchString) {

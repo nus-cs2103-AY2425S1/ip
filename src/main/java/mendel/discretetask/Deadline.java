@@ -5,7 +5,6 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Represents deadline task. The Deadline class extends the Task class
@@ -140,12 +139,10 @@ public class Deadline extends Task {
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         DateTimeManager inputDate = new DateTimeManager(formattedDate);
         DateTimeManager toDate = new DateTimeManager(this.by);
-        if (!toDate.isValidFormat()) {
-            return false;
-        }
         long timeDeadline = inputDate.toEpochTime();
         long timeTo = new DateTimeManager(toDate.removeTimeStamp()).toEpochTime();
-        boolean isTaskInRange = timeDeadline > timeTo;
+        long today = new DateTimeManager(LocalDate.now().toString()).toEpochTime();
+        boolean isTaskInRange = timeDeadline > timeTo && timeTo > today;
         return isTaskInRange && !super.getStatus();
     }
 
