@@ -78,7 +78,14 @@ public class TestStorage {
                 + "D | false | Submit report | 2024-12-12\n"
                 + "E | false | Conference | 2024-12-15 | 2024-12-16\n";
 
+        content = normalizeLineEndings(content);
+        expectedContent = normalizeLineEndings(expectedContent);
+
         assertEquals(expectedContent, content, "File content should match the expected output.");
+    }
+
+    private String normalizeLineEndings(String input) {
+        return input.replace("\r\n", "\n").replace("\r", "\n");
     }
 
     @Test

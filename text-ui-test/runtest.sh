@@ -22,13 +22,7 @@ fi
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin bobby.Bobby < input.txt > ACTUAL.TXT
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
-
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
+if diff <(tr -d '\r' < ACTUAL.TXT) <(tr -d '\r' < EXPECTED.TXT);
 then
     echo "Test result: PASSED"
     exit 0
