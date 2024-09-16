@@ -42,7 +42,7 @@ public class Parser {
         case "event":
             return handleEvent(fullCommand, parts);
         case "delete":
-            return handleDelete(fullCommand, parts);
+            return handleDelete(fullCommand);
         case "find":
             return handleFind(parts);
         case "massMark":
@@ -140,11 +140,10 @@ public class Parser {
      * Handles the creation of a DeleteCommand based on the user input.
      *
      * @param fullCommand The full user input command string.
-     * @param parts The array containing the command and task index.
      * @return A new DeleteCommand instance to delete the specified task.
      * @throws HanaException If the task index is invalid or the delete syntax is incorrect.
      */
-    private static DeleteCommand handleDelete(String fullCommand, String[] parts) throws HanaException {
+    private static DeleteCommand handleDelete(String fullCommand) throws HanaException {
         Pattern deletePattern = Pattern.compile("^delete (\\d+)$");
         Matcher deleteMatcher = deletePattern.matcher(fullCommand);
         if (!deleteMatcher.matches()) {
