@@ -16,7 +16,7 @@ public class Luna {
      * Creates a chatbot session.
      */
     public Luna() {
-        this.storage = new Storage();
+        storage = new Storage();
         previousCommand = null;
 
         try {

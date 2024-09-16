@@ -22,7 +22,10 @@ import luna.task.Todo;
  * This class is responsible for saving and loading tasks from a file.
  */
 public class Storage {
-    public static final String FILE_PATH = "./data/luna.txt";
+    public static final String FILE_PATH = System.getProperty("user.home")
+            + File.separator + "luna.txt";
+    public static final String TEMP_FILE_PATH = System.getProperty("user.home")
+            + File.separator + "temp.txt";
 
     /**
      * Loads tasks from a specified file.
@@ -93,7 +96,7 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
-            File tempFile = new File("./data/temp.txt");
+            File tempFile = new File(TEMP_FILE_PATH);
             FileWriter fw = new FileWriter(tempFile);
 
             for (Task task : tasks) {
@@ -101,8 +104,8 @@ public class Storage {
             }
 
             fw.close();
-            Path tempPath = Paths.get("./data/temp.txt");
-            Files.copy(tempPath, Paths.get("./data/luna.txt"), StandardCopyOption.REPLACE_EXISTING);
+            Path tempPath = Paths.get(TEMP_FILE_PATH);
+            Files.copy(tempPath, Paths.get(FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
             Files.delete(tempPath);
 
         } catch (IOException e) {
