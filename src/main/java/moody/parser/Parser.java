@@ -2,10 +2,21 @@ package moody.parser;
 
 import moody.exceptions.InvalidCommandException;
 import moody.exceptions.TaskInputException;
-import moody.commands.*;
+import moody.commands.AddDeadlineCommand;
+import moody.commands.AddEventCommand;
+import moody.commands.AddTagCommand;
+import moody.commands.AddTodoCommand;
+import moody.commands.Command;
+import moody.commands.DeleteCommand;
+import moody.commands.ExitCommand;
+import moody.commands.FindCommand;
+import moody.commands.ListCommand;
+import moody.commands.MarkCommand;
+import moody.commands.RemoveTagCommand;
+import moody.commands.UnmarkCommand;
 
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 
 /**
  * Parses user input into Command objects.
@@ -13,7 +24,6 @@ import java.time.format.DateTimeParseException;
  * and returning the corresponding Command objects.
  */
 public class Parser {
-    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Parses the given command string into a Command object.
@@ -31,47 +41,24 @@ public class Parser {
         String commandWord = parts[0].toLowerCase(); // Get the command keyword
         String arguments = parts.length > 1 ? parts[1] : ""; // Get the arguments
 
-        switch (commandWord) {
-        case "bye":
-            return new ExitCommand();
-
-        case "list":
-            return new ListCommand();
-
-        case "mark":
-            return parseMarkCommand(arguments);
-
-        case "unmark":
-            return parseUnmarkCommand(arguments);
-
-        case "todo":
-            return parseTodoCommand(arguments);
-
-        case "deadline":
-            return parseDeadlineCommand(arguments);
-
-        case "event":
-            return parseEventCommand(arguments);
-
-        case "delete":
-            return parseDeleteCommand(arguments);
-
-        case "find":
-            return parseFindCommand(arguments);
-
-        case "tag":
-            return parseTagCommand(arguments);
-
-        case "untag":
-            return parseUntagCommand(arguments);
-
-        default:
-            throw new InvalidCommandException("""
-            Error: Command not found
-               
-            Please input a valid command
-            """);
-        }
+        return switch (commandWord) {
+        case "bye" -> new ExitCommand();
+        case "list" -> new ListCommand();
+        case "mark" -> parseMarkCommand(arguments);
+        case "unmark" -> parseUnmarkCommand(arguments);
+        case "todo" -> parseTodoCommand(arguments);
+        case "deadline" -> parseDeadlineCommand(arguments);
+        case "event" -> parseEventCommand(arguments);
+        case "delete" -> parseDeleteCommand(arguments);
+        case "find" -> parseFindCommand(arguments);
+        case "tag" -> parseTagCommand(arguments);
+        case "untag" -> parseUntagCommand(arguments);
+        default -> throw new InvalidCommandException("""
+                Error: Command not found
+                
+                Please input a valid command
+                """);
+        };
     }
 
     /**
@@ -103,10 +90,10 @@ public class Parser {
     }
 
     /**
-     * Parses the arguments for a "todo" command into an AddTodoCommand object.
+     * Parses the arguments for a "to-do" command into an AddTodoCommand object.
      * The method extracts the description from the arguments and creates an AddTodoCommand.
      *
-     * @param arguments The arguments of the "todo" command, expected to be the task description.
+     * @param arguments The arguments of the "to-do" command, expected to be the task description.
      * @return An AddTodoCommand object with the specified description.
      * @throws TaskInputException If the description is empty.
      */
@@ -184,6 +171,14 @@ public class Parser {
         return new DeleteCommand(taskIndex);
     }
 
+    /**
+     * Parses the arguments for a "find" command into a FindCommand object.
+     * The method extracts the keyword from the arguments and creates a FindCommand.
+     *
+     * @param arguments The arguments of the "find" command, expected to be the search keyword.
+     * @return A FindCommand object with the specified search keyword.
+     * @throws TaskInputException If the keyword is empty.
+     */
     private static Command parseFindCommand(String arguments) throws TaskInputException {
         if (arguments.trim().isEmpty()) {
             throw new TaskInputException("Error: The search keyword cannot be empty.");
@@ -206,6 +201,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the arguments for a "tag" command into an AddTagCommand object.
+     * The method extracts the task index and tag from the arguments and creates an AddTagCommand.
+     *
+     * @param arguments The arguments of the "tag" command, expected to include the task index and tag.
+     * @return An AddTagCommand object with the specified task index and tag.
+     * @throws TaskInputException If the task index or tag is empty.
+     */
     private static Command parseTagCommand(String arguments) throws TaskInputException {
         String[] parts = arguments.split(" ", 2);
         if (parts.length != 2 || parts[1].trim().isEmpty()) {
@@ -217,6 +220,14 @@ public class Parser {
         return new AddTagCommand(taskIndex, tag);
     }
 
+    /**
+     * Parses the arguments for an "untag" command into a RemoveTagCommand object.
+     * The method extracts the task index and tag from the arguments and creates a RemoveTagCommand.
+     *
+     * @param arguments The arguments of the "untag" command, expected to include the task index and tag.
+     * @return A RemoveTagCommand object with the specified task index and tag.
+     * @throws TaskInputException If the task index or tag is empty.
+     */
     private static Command parseUntagCommand(String arguments) throws TaskInputException {
         String[] parts = arguments.split(" ", 2);
         if (parts.length != 2 || parts[1].trim().isEmpty()) {
