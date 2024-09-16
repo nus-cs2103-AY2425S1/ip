@@ -58,7 +58,7 @@ public abstract class Task {
     }
 
     /**
-     * Check if the task has a specific tag
+     * Checks if the task has a specific tag
      *
      */
     public boolean hasTag(String tag) {

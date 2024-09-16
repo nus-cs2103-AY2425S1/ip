@@ -44,7 +44,6 @@ public class Xizi {
     }
 
     /**
-     * The main entry point for the Xizi chatbot application.
      * Creates a new instance of Xizi with the default file path and starts the chatbot.
      *
      * @param args Command-line arguments (not used).
@@ -95,9 +94,8 @@ public class Xizi {
      */
     public String getResponse(String input) {
         try {
-            // Print the absolute path of the file for debugging
-            //Path filePath = Paths.get(FILE_PATH);
-            //System.out.println("Absolute path: " + filePath.toAbsolutePath());
+            // Print the absolute path of the file for debugging. Path filePath = Paths.get(FILE_PATH);
+            // and then System.out.println("Absolute path: " + filePath.toAbsolutePath());
 
             Command command = parser.parse(input);
             assert command != null : "Parsed command should not be null.";
