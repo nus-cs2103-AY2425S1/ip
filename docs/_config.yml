@@ -1,4 +1,6 @@
 title: David
 description: Chatbot for storing tasks
 theme: jekyll-theme-cayman
-markdown: GFM
+markdown: kramdown
+kramdown:
+  input: GFM # This enables GitHub Flavored Markdown (GFM)
