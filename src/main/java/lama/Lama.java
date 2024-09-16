@@ -69,11 +69,12 @@ public class Lama {
             return false;
         }
     }
+
     /**
      * Main method and entry point of the Lama application.
      * Create a new instance of Lama object and run it.
      *
-     * @param args not used.
+     * @param args This is not used.
      */
     public static void main(String[] args) {
         new Lama("./data/lama.txt", "./data/alias.txt").run();
