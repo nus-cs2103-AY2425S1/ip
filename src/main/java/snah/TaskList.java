@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import snah.task.Event;
 import snah.task.Task;
+import snah.task.ToDo;
 import snah.util.Storage;
 
 /**
@@ -69,6 +71,22 @@ public class TaskList {
 
     public void save(Storage storage) {
         storage.saveTaskList(tasksList);
+    }
+
+    public static TaskList getTutorialTasks() {
+        TaskList tutorialTasks = new TaskList();
+        tutorialTasks.add(new ToDo("Create a new task with the command => todo <task description>"));
+        tutorialTasks.add(new ToDo("List all tasks with the command => list"));
+
+        ToDo markedTodo = new ToDo("Mark a task as done with the command => mark <task number>");
+        markedTodo.markAsDone();
+
+        tutorialTasks.add(markedTodo);
+
+        tutorialTasks.add(new Event("Learning the Snah way", "now", "I am ready!"));
+        tutorialTasks.add(new ToDo("Learn to do more with the help command: help"));
+
+        return tutorialTasks;
     }
 
 }

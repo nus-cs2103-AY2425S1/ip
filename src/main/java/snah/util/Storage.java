@@ -8,6 +8,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import snah.TaskList;
 import snah.task.Deadline;
 import snah.task.Event;
 import snah.task.Task;
@@ -26,11 +27,19 @@ public class Storage {
         try {
             File file = new File(SAVE_FILE_NAME);
             if (!file.exists()) {
-                file.createNewFile();
+                createTutorialFile();
             }
         } catch (IOException e) {
             System.out.println("Error creating file: " + e.getMessage());
         }
+    }
+
+    private void createTutorialFile() throws IOException {
+        File file = new File(SAVE_FILE_NAME);
+        file.createNewFile();
+
+        TaskList tutorialTasks = TaskList.getTutorialTasks();
+        tutorialTasks.save(this);
     }
 
     /**
