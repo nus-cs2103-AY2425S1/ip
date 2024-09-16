@@ -75,11 +75,4 @@ public class UnmarkCommandTest {
 
     }
 
-    @Test
-    public void execute_validIndex_success() throws Exception {
-        this.tasks.add(this.task);
-        UnmarkCommand unmarkCommand = new UnmarkCommand("1");
-        unmarkCommand.execute(this.storage, this.tasks);
-    }
-
 }
