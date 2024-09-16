@@ -39,41 +39,80 @@ public class Storage {
      *                 the directory, or reading the tasks.
      */
     public ArrayList<Task> load() throws HenryException {
+        ArrayList<Task> recordedTasks = new ArrayList<>();
+
+        // create a Scanner using the File as the source
+        File file = new File(this.filePath);
+        ensureFileExists(file);
+
+        if (file.length() == 0) {  // Check if the file is empty
+            return recordedTasks;  // Return empty list if no tasks are recorded
+        }
+
+        readTasksFromFile(file, recordedTasks);  // Read and parse the tasks
+        return recordedTasks;
+    }
+
+    /**
+     * Ensures that the file and its parent directories exist. If they do not exist,
+     * this method creates them.
+     *
+     * @param file The file to check and possibly create.
+     * @throws HenryException If there is an error creating the file or directory.
+     */
+    private void ensureFileExists(File file) throws HenryException {
         try {
-            ArrayList<Task> recordedTasks = new ArrayList<>();
-
-            // create a Scanner using the File as the source
-            File file = new File(this.filePath);
-            //if file does not exist, create new file and directory
-            if (!file.getParentFile().exists()) {
-                if (!file.getParentFile().mkdirs()) {
-                    throw new HenryException("Failed to create directory for file path");
-                }
+            // Ensure directory exists
+            if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
+                throw new HenryException("Failed to create directory for file path");
             }
-
-            if (!file.exists()) {
-                if (!file.createNewFile()) {
-                    throw new HenryException("Failed to create new file");
-                }
-                return recordedTasks; // Return empty list if file just created
+            // Ensure file exists
+            if (!file.exists() && !file.createNewFile()) {
+                throw new HenryException("Failed to create new file");
             }
-
-            Scanner scanner1 = new Scanner(file);
-            while (scanner1.hasNext()) {
-                String input = scanner1.nextLine();
-                String[] words = input.split(" \\| ");
-                if (words[0].equals("T")) {
-                    addToDo(recordedTasks, words);
-                } else if (words[0].equals("D")) {
-                    addDeadline(recordedTasks, words);
-                } else if (words[0].equals("E")) {
-                    addEvent(words, recordedTasks);
-                }
-                assert (words[0].equals("T") || words[0].equals("D") || words[0].equals("E"));
-            }
-            return recordedTasks;
         } catch (IOException e) {
             throw new HenryException("An error occurred while accessing the file");
+        }
+    }
+
+    /**
+     * Reads tasks from the given file and adds them to the provided ArrayList.
+     *
+     * @param file The file to read tasks from.
+     * @param recordedTasks The list where parsed tasks will be added.
+     * @throws HenryException If there is an error reading the file.
+     */
+    private void readTasksFromFile(File file, ArrayList<Task> recordedTasks) throws HenryException {
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNext()) {
+                parseTask(scanner.nextLine(), recordedTasks);  // Parse each line into a task
+            }
+        } catch (IOException e) {
+            throw new HenryException("An error occurred while reading the file");
+        }
+    }
+
+    /**
+     * Parses a single task from the input string and adds it to the list of recorded tasks.
+     *
+     * @param input The input string representing a task.
+     * @param recordedTasks The list where the parsed task will be added.
+     * @throws HenryException If the task type is unknown.
+     */
+    private void parseTask(String input, ArrayList<Task> recordedTasks) throws HenryException {
+        String[] words = input.split(" \\| ");
+        switch (words[0]) {
+            case "T":
+                addToDo(recordedTasks, words);
+                break;
+            case "D":
+                addDeadline(recordedTasks, words);
+                break;
+            case "E":
+                addEvent(words, recordedTasks);
+                break;
+            default:
+                throw new HenryException("Unknown task type: " + words[0]);
         }
     }
 
