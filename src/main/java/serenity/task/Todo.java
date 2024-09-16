@@ -1,7 +1,5 @@
 package serenity.task;
 
-import serenity.task.Task;
-
 /**
  * Represents a type of Task with only a basic description.
  */

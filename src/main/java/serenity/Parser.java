@@ -37,7 +37,7 @@ public class Parser {
             ui.showTaskList(tasks);
             break;
         case "todo", "deadline", "event":
-            t = tasks.createTask(input);
+            t = TaskList.createTask(input);
             message = tasks.addTask(t);
             ui.showMessage(message);
             storage.saveTask(t);
@@ -55,6 +55,11 @@ public class Parser {
         case "find":
             message = tasks.findTask(input);
             ui.showMessage(message);
+            break;
+        case "update":
+            message = tasks.updateTask(input);
+            ui.showMessage(message);
+            storage.writeToFile(tasks);
             break;
         default:
             ui.showMessage("Error: Invalid task.");
@@ -101,6 +106,10 @@ public class Parser {
                 break;
             case "find":
                 message = tasks.findTask(input);
+                break;
+            case "update":
+                message = tasks.updateTask(input);
+                storage.writeToFile(tasks);
                 break;
             default:
                 message = "Error: Invalid task.";
