@@ -37,7 +37,7 @@ public class DeadlineTask extends Task {
     public String toString() {
         String isCompleted = super.isCompleted() ? "X" : " ";
 
-        return "[D]" + "[" + isCompleted + "] " + super.getTask() + "(by: "
+        return "[D]" + "[" + isCompleted + "] " + super.getTask() + " (by: "
                 + DateParser.formatOutputDate(this.by) + ")";
     }
 }

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import david.exceptions.DavidInvalidDateTimeException;
+import david.exceptions.DavidInvalidTimeException;
 
 /**
  * Date parser class to parse given date into proper LocalDateTime and back to String
@@ -55,5 +56,18 @@ public class DateParser extends Parser {
     public static String formatCacheDate(LocalDateTime date) {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(formatCachePattern);
         return date.format(outputFormatter);
+    }
+
+    /**
+     * Validates if a given date time is before another given date time
+     * @param t1
+     * @param t2
+     * @return true if t1 is before t2
+     */
+    public static boolean validateDateTime(LocalDateTime t1, LocalDateTime t2) throws DavidInvalidTimeException {
+        if (t1.isBefore(t2)) {
+            throw new DavidInvalidTimeException();
+        }
+        return true;
     }
 }

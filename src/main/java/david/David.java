@@ -10,6 +10,7 @@ import david.exceptions.DavidInvalidDateTimeException;
 import david.exceptions.DavidInvalidDeadlineException;
 import david.exceptions.DavidInvalidRangeException;
 import david.exceptions.DavidInvalidTaskException;
+import david.exceptions.DavidInvalidTimeException;
 import david.exceptions.DavidUnknownActionException;
 import david.parser.DateParser;
 import david.parser.StringParser;
@@ -29,6 +30,7 @@ public class David {
     private Ui ui;
     private String inputString = "";
     private Storage cache;
+
 
     /**
      * Constructor for David.David
@@ -147,7 +149,7 @@ public class David {
      * @throws DavidInvalidDateTimeException if time is invalid.
      */
     public String addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException,
-            DavidInvalidDateTimeException {
+            DavidInvalidDateTimeException, DavidInvalidTimeException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /from", 2);
         String eventName = eventSplit[0];
@@ -167,6 +169,8 @@ public class David {
 
         LocalDateTime fromDate = DateParser.getDate(eventDetails[0]);
         LocalDateTime toDate = DateParser.getDate(eventDetails[1]);
+        DateParser.validateDateTime(fromDate, LocalDateTime.now());
+        DateParser.validateDateTime(toDate, LocalDateTime.now());
 
         Task t = new EventTask(eventName, fromDate, toDate, false);
         this.tasks.addTask(t);
@@ -183,7 +187,7 @@ public class David {
      * @throws DavidInvalidDateTimeException if time is invalid.
      */
     public String addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException,
-            DavidInvalidDateTimeException {
+            DavidInvalidDateTimeException, DavidInvalidTimeException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /by", 2);
 
@@ -193,6 +197,8 @@ public class David {
         }
 
         LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
+        DateParser.validateDateTime(byDate, LocalDateTime.now());
+
         Task t = new DeadlineTask(eventSplit[0], byDate, false);
         this.tasks.addTask(t);
 

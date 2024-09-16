@@ -134,16 +134,14 @@ public class Storage {
     public void saveTask(TaskList tasks) throws DavidCacheException {
         try {
             FileWriter writer = new FileWriter(this.CACHE_PATH, false);
-            BufferedWriter bw = new BufferedWriter(writer);
 
             String text = "";
             for (int i = 0; i < tasks.getSize(); i++) {
                 Task t = tasks.getTask(i);
-                text += t.toCacheString();
-                bw.write(text);
-                bw.newLine();
+                text += t.toCacheString() + "\n";
+
             }
-            bw.close();
+            writer.write(text);
             writer.close();
         } catch (IOException e) {
             //Named file is invalid/ unavailable
