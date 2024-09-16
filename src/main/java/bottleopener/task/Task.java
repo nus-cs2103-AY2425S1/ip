@@ -10,7 +10,7 @@ package bottleopener.task;
  */
 public abstract class Task {
     protected String description;
-    protected boolean status;
+    protected boolean isDone;
 
     /**
      * Constructs a new Task with the specified description.
@@ -21,18 +21,18 @@ public abstract class Task {
     public Task(String description) {
         assert description != null && !description.isEmpty() : "Description cannot be empty";
         this.description = description;
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
      * Constructs a new Task with the specified description and status.
      *
      * @param description The description of the task.
-     * @param status      The completion status of the task; {@code true} if the task is done, {@code false} otherwise.
+     * @param isDone      The completion status of the task; {@code true} if the task is done, {@code false} otherwise.
      */
-    public Task(String description, boolean status) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.status = status;
+        this.isDone = isDone;
     }
 
     /**
@@ -69,7 +69,7 @@ public abstract class Task {
      * @return {@code true} if the task is marked as done, {@code false} otherwise.
      */
     public boolean isDone() {
-        return this.status;
+        return this.isDone;
     }
 
     /**
@@ -78,7 +78,7 @@ public abstract class Task {
      * @return "X" if the task is done, otherwise a space (" ").
      */
     public String getStatusIcon() {
-        return (status ? "X" : " ");
+        return (isDone ? "X" : " ");
     }
 
     /**
