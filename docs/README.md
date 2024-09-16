@@ -1,7 +1,7 @@
 # Count User Guide
 
 
-![ui.png](ui.png)
+![Ui.png](Ui.png)
 
 Welcome to Count, your new digital assistant here to help streamline your day!
 Now with innovative functions such as a built-in task list,
