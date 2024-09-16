@@ -29,12 +29,13 @@ abstract class Task {
      * @param list Add the processed task to the database.
      */
     public static void decideTaskFromDatabase(String currentCommand, ArrayList<Task> list) {
+        final String splitStringForDifferentCommandParts = "/";
         if (currentCommand.startsWith("deadline")) {
             final int deadlineAndSpaceTotalCharacters = 9;
             final int descriptionPart = 0;
             final int byPart = 1;
             String rest = currentCommand.substring(deadlineAndSpaceTotalCharacters);
-            String[] parse = rest.split("/");
+            String[] parse = rest.split(splitStringForDifferentCommandParts);
             list.add(new Deadline(parse[descriptionPart], parse[byPart]));
 
         } else if (currentCommand.startsWith("todo")) {
@@ -48,7 +49,7 @@ abstract class Task {
             final int toPart = 2;
             final int eventAndSpaceTotalCharacters = 6;
             String rest = currentCommand.substring(eventAndSpaceTotalCharacters);
-            String[] parse = rest.split("/");
+            String[] parse = rest.split(splitStringForDifferentCommandParts);
             list.add(new Event(parse[descriptionPart], parse[fromPart], parse[toPart]));
         }
     }
