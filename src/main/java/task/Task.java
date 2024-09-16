@@ -1,7 +1,11 @@
 package task;
 
+import task.tags.Tags;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Represents a task with a description and completion status.
@@ -15,25 +19,32 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    protected Tags tags;
+
     /**
-     * Constructs a {@code Task} with the specified description and sets the task as not done.
+     * Constructs a {@code Task} with the specified description and a collection of tags.
+     * The task is set as not done.
      *
      * @param description The description of the task.
+     * @param tags        A collection of tags associated with the task.
      */
-    public Task(String description) {
+    public Task(String description, Collection<String> tags) {
         this.description = description;
         this.isDone = false;
+        this.tags = new Tags(tags);
     }
 
     /**
-     * Constructs a {@code Task} with the specified description and completion status.
+     * Constructs a {@code Task} with the specified description, completion status, and a collection of tags.
      *
      * @param description The description of the task.
+     * @param tags        A collection of tags associated with the task.
      * @param isDone      A boolean indicating whether the task is completed.
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, Collection<String> tags) {
         this.description = description;
         this.isDone = isDone;
+        this.tags = new Tags(tags);
     }
 
     /**
@@ -80,7 +91,7 @@ public abstract class Task {
      */
     public String unmarkAsDone() {
         this.isDone = false;
-        return String.format("OK, I've marked this task as not done yet:\n%s",this.toString());
+        return String.format("OK, I've marked this task as not done yet:\n%s", this.toString());
     }
 
     /**

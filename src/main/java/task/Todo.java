@@ -1,5 +1,7 @@
 package task;
 
+import java.util.Collection;
+
 /**
  * Represents a to-do task.
  * <p>
@@ -10,29 +12,32 @@ package task;
 public class Todo extends Task {
 
     /**
-     * Constructs a {@code Todo} with the specified description.
+     * Constructs a {@code Todo} with the specified description, completion status, and tags.
      * <p>
-     * Initializes the to-do task with the given description. The task is initially not done.
-     * </p>
-     *
-     * @param description The description of the to-do task.
-     */
-    public Todo(String description) {
-        super(description);
-    }
-
-    /**
-     * Constructs a {@code Todo} with the specified description and completion status.
-     * <p>
-     * Initializes the to-do task with the given description and completion status.
+     * Initializes the to-do task with the given description, completion status, and associated tags.
      * </p>
      *
      * @param description The description of the to-do task.
      * @param isDone      A boolean indicating whether the to-do task is completed.
+     * @param tags        A collection of tags associated with the to-do task.
      */
-    public Todo(String description, boolean isDone) {
-        super(description, isDone);
+    public Todo(String description, boolean isDone, Collection<String> tags) {
+        super(description, isDone, tags);
     }
+
+    /**
+     * Constructs a {@code Todo} with the specified description and tags.
+     * <p>
+     * Initializes the to-do task with the given description, associated tags, and the task is initially not done.
+     * </p>
+     *
+     * @param description The description of the to-do task.
+     * @param tags        A collection of tags associated with the to-do task.
+     */
+    public Todo(String description, Collection<String> tags) {
+        super(description, tags);
+    }
+
 
     /**
      * Returns a string representation of the {@code Todo} for display purposes.
@@ -57,6 +62,6 @@ public class Todo extends Task {
      */
     @Override
     public String getDatabaseString() {
-        return String.format("T | %d | %s", this.isDone ? 1 : 0, this.description);
+        return String.format("T | %d | %s | %s", this.isDone ? 1 : 0, this.description, this.tags.getDatabaseString());
     }
 }
