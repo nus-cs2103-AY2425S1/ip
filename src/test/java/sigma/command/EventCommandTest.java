@@ -13,14 +13,14 @@ public class EventCommandTest {
     @Test
     public void eventCommand_normalEvent_normalResponse() {
         EventCommand ec = new EventCommand(
-                new String[]{"event", "go library /from 2024-08-30 1800 /to 2024-08-30 2000"});
+                new String[]{"event", "go library /from 2024-12-12 1800 /to 2024-12-12 2000"});
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             ec.execute(tl, null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertEquals("[E][ ] go library (from: Aug 30 2024, 18:00 to: Aug 30 2024, 20:00)", tl.get(0).toString());
+        assertEquals("[E][ ] go library (from: Dec 12 2024, 18:00 to: Dec 12 2024, 20:00)", tl.get(0).toString());
     }
 
     @Test

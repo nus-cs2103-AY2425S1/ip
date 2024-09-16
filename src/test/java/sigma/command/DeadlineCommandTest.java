@@ -15,14 +15,17 @@ public class DeadlineCommandTest {
 
     @Test
     public void deadlineCommand_normalDeadline_normalResponse() {
-        DeadlineCommand dc = new DeadlineCommand(new String[]{"deadline", "return book /by 2024-08-30 1800"});
+        DeadlineCommand dc = new DeadlineCommand(new String[]{"deadline", "return book /by 2024-12-12 1800"});
         TaskList tl = new TaskList(new ArrayList<>());
+        String response = null;
         try {
-            dc.execute(tl, null, null);
+            response = dc.execute(tl, null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertEquals("[D][ ] return book (by: Aug 30 2024, 18:00)", tl.get(0).toString());
+        assertEquals("Wow! Keeping yourself busy! Added: \n"
+                + "[D][ ] return book (by: Dec 12 2024, 18:00)\n"
+                + "Now you have 1 tasks in the list!", response);
     }
 
     @Test

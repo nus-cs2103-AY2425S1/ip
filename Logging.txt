@@ -1,54 +1,10 @@
-Sep 17, 2024 2:14:12 AM sigma.Sigma <init>
+Sep 17, 2024 2:32:59 AM sigma.Sigma <init>
 INFO: Initializing Sigma
-Sep 17, 2024 2:14:13 AM sigma.gui.Main start
+Sep 17, 2024 2:32:59 AM sigma.gui.Main start
 INFO: Stage has been set.
-Sep 17, 2024 2:14:34 AM sigma.Sigma getResponse
+Sep 17, 2024 2:33:02 AM sigma.Sigma getResponse
 INFO: Parsed command: UnrecognisedCommand
-Sep 17, 2024 2:14:34 AM sigma.Sigma getResponse
+Sep 17, 2024 2:33:02 AM sigma.Sigma getResponse
 WARNING: SigmaException: What the sigma? I don't understand! Try again! Enter "todo", "deadline", "event", "list", "mark", "unmark", "find" or "bye"!
-Sep 17, 2024 2:14:36 AM sigma.Sigma getResponse
-INFO: Parsed command: FunnyCommand
-Sep 17, 2024 2:14:38 AM sigma.Sigma getResponse
-INFO: Parsed command: FunnyCommand
-Sep 17, 2024 2:14:40 AM sigma.Sigma getResponse
-INFO: Parsed command: TodoCommand
-Sep 17, 2024 2:14:44 AM sigma.Sigma getResponse
-INFO: Parsed command: DeadlineCommand
-Sep 17, 2024 2:14:44 AM sigma.Sigma getResponse
-WARNING: SigmaException: What the sigma? Invalid date format! Write the date in the format YYYY-MM-DD HHmm!
-Sep 17, 2024 2:14:51 AM sigma.Sigma getResponse
-INFO: Parsed command: DeadlineCommand
-Sep 17, 2024 2:14:58 AM sigma.Sigma getResponse
-INFO: Parsed command: DeadlineCommand
-Sep 17, 2024 2:15:40 AM sigma.Sigma getResponse
-INFO: Parsed command: ListCommand
-Sep 17, 2024 2:15:41 AM sigma.Sigma getResponse
-INFO: Parsed command: MarkCommand
-Sep 17, 2024 2:15:41 AM sigma.Sigma getResponse
-WARNING: SigmaException: Bro's dreaming. Add a number bozo!
-Sep 17, 2024 2:15:42 AM sigma.Sigma getResponse
-INFO: Parsed command: MarkCommand
-Sep 17, 2024 2:15:44 AM sigma.Sigma getResponse
-INFO: Parsed command: MarkCommand
-Sep 17, 2024 2:17:34 AM sigma.Sigma getResponse
-INFO: Parsed command: SortCommand
-Sep 17, 2024 2:17:34 AM sigma.Sigma getResponse
-WARNING: SigmaException: What the sigma? You're missing the sort parameters! Write "sort <parameter>"!
-Sep 17, 2024 2:17:35 AM sigma.Sigma getResponse
-INFO: Parsed command: SortCommand
-Sep 17, 2024 2:17:35 AM sigma.Sigma getResponse
-WARNING: SigmaException: What the sigma? I can't sort by that parameter!
-Sep 17, 2024 2:17:37 AM sigma.Sigma getResponse
-INFO: Parsed command: SortCommand
-Sep 17, 2024 2:17:38 AM sigma.Sigma getResponse
-INFO: Parsed command: SortCommand
-Sep 17, 2024 2:17:39 AM sigma.Sigma getResponse
-INFO: Parsed command: SortCommand
-Sep 17, 2024 2:17:42 AM sigma.Sigma getResponse
-INFO: Parsed command: SortCommand
-Sep 17, 2024 2:17:42 AM sigma.Sigma getResponse
-WARNING: SigmaException: What the sigma? I can't sort by that parameter!
-Sep 17, 2024 2:17:44 AM sigma.Sigma getResponse
-INFO: Parsed command: SortCommand
-Sep 17, 2024 2:17:45 AM sigma.Sigma getResponse
+Sep 17, 2024 2:33:04 AM sigma.Sigma getResponse
 INFO: Parsed command: ByeCommand

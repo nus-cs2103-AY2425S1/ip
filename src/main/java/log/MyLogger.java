@@ -12,6 +12,7 @@ import java.util.logging.SimpleFormatter;
 /**
  * This class sets up the logger for the application.
  * Credit to: https://www.vogella.com/tutorials/Logging/article.html
+ * @author anselmlong-reused
  */
 public class MyLogger {
     private static FileHandler fileTxt;

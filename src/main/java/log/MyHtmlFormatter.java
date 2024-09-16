@@ -10,6 +10,7 @@ import java.util.logging.LogRecord;
 /**
  * This custom formatter formats parts of a log record to a single line.
  * Credit to: https://www.vogella.com/tutorials/Logging/article.html
+ * @author anselmlong-reused
  */
 public class MyHtmlFormatter extends Formatter {
     // this method is called for every log records
