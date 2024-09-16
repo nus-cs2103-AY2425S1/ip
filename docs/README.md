@@ -1,6 +1,6 @@
 # ShoAI User Guide
 
-![alt text](image.png)
+![alt text](Ui.png)
 
 ## Introduction
 
