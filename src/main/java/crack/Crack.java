@@ -33,6 +33,94 @@ public class Crack {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        String command = Parser.parseCommand(input); // Get the command part of the input
+
+        switch (command) {
+        case "bye":
+            return ui.showGoodbye();
+        case "list":
+            if (tasks.isEmpty()) {
+                return "Your task list is empty.";
+            } else {
+                return "Here are the tasks in your list:\n" + tasks.listTasks();
+            }
+        case "mark":
+            try {
+                int index = Parser.parseTaskNumber(input);
+                tasks.getTask(index).markAsDone();
+                storage.saveTasks(tasks.getTasks(), ui);
+                return "Nice! I've marked this task as done:\n   " + tasks.getTask(index);
+            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                return e.getMessage();
+            }
+        case "unmark":
+            try {
+                int index = Parser.parseTaskNumber(input);
+                tasks.getTask(index).unmark();
+                storage.saveTasks(tasks.getTasks(), ui);
+                return "OK, I've marked this task as not done yet:\n   " + tasks.getTask(index);
+            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                return ui.showError(e.getMessage());
+            }
+        case "todo":
+            try {
+                String description = Parser.parseTodoDescription(input);
+                Todo newTodo = new Todo(description);
+                tasks.addTask(newTodo);
+                storage.saveTasks(tasks.getTasks(), ui);
+                return ui.showTaskAdded(newTodo, tasks.getSize());
+            } catch (IllegalArgumentException e) {
+                return ui.showError(e.getMessage());
+            }
+        case "deadline":
+            try {
+                String[] deadlineDetails = Parser.parseDeadline(input);
+                Deadline newDeadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                tasks.addTask(newDeadline);
+                storage.saveTasks(tasks.getTasks(), ui);
+                return ui.showTaskAdded(newDeadline, tasks.getSize());
+            } catch (IllegalArgumentException e) {
+                return ui.showError(e.getMessage());
+            }
+        case "event":
+            try {
+                String[] eventDetails = Parser.parseEvent(input);
+                Event newEvent = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
+                tasks.addTask(newEvent);
+                storage.saveTasks(tasks.getTasks(), ui);
+                return ui.showTaskAdded(newEvent, tasks.getSize());
+            } catch (IllegalArgumentException e) {
+                return ui.showError(e.getMessage());
+            }
+        case "find":
+            try {
+                String keyword = input.substring(5).trim(); // Extract the keyword
+                if (keyword.isEmpty()) {
+                    throw new IllegalArgumentException("Keyword cannot be empty.");
+                }
+                return ui.showMatchingTasks(tasks.findTasks(keyword));
+            } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+                return ui.showError(e.getMessage());
+            }
+        case "delete":
+            try {
+                int index = Parser.parseTaskNumber(input);
+                Task removedTask = tasks.removeTask(index);
+                storage.saveTasks(tasks.getTasks(), ui);
+                return ("Noted. I've removed this task:\n   " + removedTask);
+            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                return ui.showError(e.getMessage());
+            }
+        default:
+            return ui.showError("Invalid Command.");
+        }
+    }
+
+
+    /**
      * Starts the main loop of the application. It repeatedly reads user input,
      * parses commands, and performs actions based on the input. The loop continues
      * until the user enters the "bye" command, at which point the application

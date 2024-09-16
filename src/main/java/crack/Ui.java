@@ -3,6 +3,7 @@ package crack;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 /**
  * The Ui class handles all interactions with the user. It provides methods
  * for displaying messages, reading user input, and formatting output to be
@@ -10,7 +11,6 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private static final String DIVIDER = "____________________________________________________________\n";
     private final Scanner scanner;
 
     /**
@@ -24,24 +24,19 @@ public class Ui {
      * Displays the welcome message when the application starts.
      */
     public void showWelcome() {
-        System.out.println(DIVIDER
-                + " Hello! I'm Crack\n"
+        System.out.println(
+                " Hello! I'm Crack\n"
                 + " What can I do for you?\n"
-                + DIVIDER);
+        );
     }
 
-    /**
-     * Prints a divider line to visually separate sections of output.
-     */
-    public void showDivider() {
-        System.out.println(DIVIDER);
-    }
+
 
     /**
      * Displays the goodbye message when the user exits the application.
      */
-    public void showGoodbye() {
-        System.out.println("Goodbye!");
+    public String showGoodbye() {
+        return "Goodbye!\n";
     }
 
     /**
@@ -59,8 +54,8 @@ public class Ui {
      *
      * @param message the error message to display.
      */
-    public void showError(String message) {
-        System.out.println(DIVIDER + " Error: " + message + "\n" + DIVIDER);
+    public String showError(String message) {
+        return (" Error: " + message + "\n");
     }
 
     /**
@@ -69,7 +64,7 @@ public class Ui {
      * @param message the message to display.
      */
     public void showMessage(String message) {
-        System.out.println(DIVIDER + message + "\n" + DIVIDER);
+        System.out.println(message + "\n");
     }
 
     /**
@@ -78,9 +73,9 @@ public class Ui {
      * @param task the task that was added.
      * @param size the new size of the task list.
      */
-    public void showTaskAdded(Task task, int size) {
-        System.out.println(DIVIDER + " Got it. I've added this task:\n   " + task + "\n"
-                + " Now you have " + size + " tasks in the list.\n" + DIVIDER);
+    public String showTaskAdded(Task task, int size) {
+        return (" Got it. I've added this task:\n   " + task + "\n"
+                + " Now you have " + size + " tasks in the list.\n");
     }
 
     /**
@@ -88,15 +83,15 @@ public class Ui {
      *
      * @param tasks the list of matching tasks.
      */
-    public void showMatchingTasks(ArrayList<Task> tasks) {
+    public String showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(DIVIDER + " No tasks found with the given keyword.\n" + DIVIDER);
+            return (" No tasks found with the given keyword.\n");
         } else {
-            System.out.println(DIVIDER + " Here are the matching tasks in your list:");
+            String output = (" Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                output += ((i + 1) + "." + tasks.get(i) + "\n");
             }
-            System.out.println(DIVIDER);
+            return output;
         }
     }
 
