@@ -59,15 +59,18 @@ public class Storage {
             case "T":
                 task = new Todo(parts[2].trim());
                 allTags = parts[3].trim();
+                allTags = allTags.substring(1, allTags.length() - 1);
                 break;
             case "D":
                 task = new Deadline(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), INPUT_FORMATTER));
                 allTags = parts[4].trim();
+                allTags = allTags.substring(1, allTags.length() - 1);
                 break;
             case "E":
                 task = new Event(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), INPUT_FORMATTER),
                         LocalDateTime.parse(parts[4].trim(), INPUT_FORMATTER));
                 allTags = parts[5].trim();
+                allTags = allTags.substring(1, allTags.length() - 1);
                 break;
             default:
                 continue;
@@ -78,18 +81,21 @@ public class Storage {
             }
 
             tasks.add(task);
-            if (!allTags.isEmpty()) {
-                allTags = allTags.substring(1, allTags.length() - 1);
-                String[] allTagsAsArray = allTags.split(", ");
-                for (String tag : allTagsAsArray) {
-                    task.addTag(tag);
-                }
-            }
+            addingTagsToTask(allTags, task);
 
         }
 
         scanner.close();
         return tasks;
+    }
+
+    private static void addingTagsToTask(String allTags, Task task) {
+        if (!allTags.isEmpty()) {
+            String[] allTagsAsArray = allTags.split(", ");
+            for (String tag : allTagsAsArray) {
+                task.addTag(tag);
+            }
+        }
     }
 
     /**
