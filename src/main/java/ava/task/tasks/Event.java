@@ -1,4 +1,4 @@
-package ava.task.Tasks;
+package ava.task.tasks;
 
 import ava.task.Task;
 

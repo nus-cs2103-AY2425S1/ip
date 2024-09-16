@@ -2,17 +2,17 @@ package ava.task;
 
 abstract public class Task {
     private String title;
-    private boolean done;
+    private boolean isDone;
     private Priority priority;
 
     public Task(String title) {
         this.title = title;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public Task(String title, boolean done) {
+    public Task(String title, boolean isDone) {
         this.title = title;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public String getTitle() {
@@ -20,19 +20,19 @@ abstract public class Task {
     }
 
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void markNotDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        return String.format("%s | %s", this.done?"✅ Done   ":"❌ Pending",title);
+        return String.format("%s | %s", this.isDone?"✅ Done   ":"❌ Pending",title);
     }
 }

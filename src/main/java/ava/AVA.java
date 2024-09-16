@@ -97,8 +97,7 @@ public class AVA {
             //TODO: use string format
             out.println("Alright I have deleted this task");
             out.println(taskId +". " + task);
-        }
-        else{
+        } else{
             taskManager.addTask(currentInput);
             out.println("----------------------------------------------------------------");
             out.println("Added " + currentInput);

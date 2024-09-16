@@ -1,11 +1,10 @@
 package ava.task;
 
 import ava.files.FileManager;
-import ava.task.Tasks.Deadline;
-import ava.task.Tasks.Event;
-import ava.task.Tasks.Todo;
+import ava.task.tasks.Deadline;
+import ava.task.tasks.Event;
+import ava.task.tasks.Todo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
