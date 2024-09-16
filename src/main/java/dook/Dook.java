@@ -10,8 +10,8 @@ import dook.tasks.TaskList;
 import dook.ui.Ui;
 
 /**
- * The main entry point for the Dook application.
- * Manages the overall flow of the application, including user interaction and task management.
+ * The main entry point for the Dook application. Manages the overall flow of the application,
+ * including user interaction and task management.
  */
 public class Dook {
 
@@ -21,7 +21,6 @@ public class Dook {
     private static Parser parser = new Parser();
 
     /**
-     * The main method that runs the Dook application.
      * Initializes the storage, loads tasks, and starts the user interface loop.
      *
      * @param args Command line arguments (not used).
