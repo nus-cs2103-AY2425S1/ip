@@ -121,6 +121,10 @@ public class UI {
        return "You need to input a valid number that exists in your TaskList!";
     }
 
+    public String handleInvalidDates() {
+        return "Your end date needs to be AFTER your start date! >:(";
+    }
+
     /**
      * Prints to console when task is successfully added to userTaskList.
      */

@@ -193,6 +193,14 @@ public class WansBot {
             return ui.handleEventFormat();
         } catch (DateTimeParseException e) {
             return ui.handleDateTimeException();
+        } catch (IllegalArgumentException e) {
+            return ui.handleInvalidDates();
+        }
+    }
+
+    private void checkValidDates(LocalDate start, LocalDate end) {
+        if (start.isAfter(end)) {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -205,9 +213,12 @@ public class WansBot {
     private Events extractEvent(String userInput) {
         String[] splitUserStartDate = userInput.split(" /from ", 3);
         String[] splitUserEndDate = splitUserStartDate[1].split(" /to ", 2);
+        LocalDate startDate =  LocalDate.parse(splitUserEndDate[0].trim());
+        LocalDate endDate = LocalDate.parse(splitUserEndDate[1].trim());
+        checkValidDates(startDate, endDate);
         Events newEvent = new Events(splitUserStartDate[0].substring(5),
-                LocalDate.parse(splitUserEndDate[0].trim()),
-                LocalDate.parse(splitUserEndDate[1].trim()));
+                startDate,
+                endDate);
         return newEvent;
     }
 
