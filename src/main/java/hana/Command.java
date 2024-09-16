@@ -162,7 +162,7 @@ class UnmarkCommand extends Command {
         Task task = tasks.get(index);
         task.markAsUndone();
         storage.save(tasks.getTasks());
-        ui.showTaskMarked(task);
+        ui.showTaskUnmarked(task);
     }
 }
 
