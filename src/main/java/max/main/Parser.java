@@ -99,8 +99,7 @@ public class Parser {
             }
             this.storage.saveTasks(taskList.getTasks());
         } catch (MaxException e) {
-            ui.printLine();
-            ui.printMessage(e.getMessage());
+            ui.printToMax("\t " + e.getMessage());
         }
 
         return false;
@@ -159,8 +158,7 @@ public class Parser {
         Task task = taskList.getTask(index);
         task.addTag(tag);
 
-        ui.printLine();
-        ui.printMessage("Added tag #" + tag + " to task " + (index + 1));
+        ui.printToMax("\t Added tag #" + tag + " to task " + (index + 1));
     }
 
     /**
@@ -195,8 +193,7 @@ public class Parser {
 
         Task task = taskList.getTask(index);
         task.removeTag(tag);
-        ui.printLine();
-        ui.printMessage("Removed tag #" + tag + " from task " + (index + 1));
+        ui.printToMax("\t Removed tag #" + tag + " from task " + (index + 1));
     }
 
     /**

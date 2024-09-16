@@ -48,44 +48,23 @@ public class Ui {
     public void printTaskTypeAdded(Task task, int size) {
         assert size >= 0 : "Task list size cannot be negative.";
 
-        printLine();
         printToMax("\t Got it. I've added this task:");
         printToMax("\t   " + task.toString());
         printToMax("\t Now you have " + size + " tasks in the list.");
-        printLine();
-    }
-
-    /**
-     * Prints a message to the console.
-     *
-     * @param message The message to be printed.
-     */
-    public void printMessage(String message) {
-        printToMax("\t " + message);
-        printLine();
     }
 
     /**
      * Prints a welcome message when the program starts.
      */
     public void printHello() {
-        printLine();
-        printMessage("Hello! I'm Max\n\t What can I do for you?");
+        printToMax("\t Hello! I'm Max\n\t What can I do for you?");
     }
 
     /**
      * Prints a goodbye message when the program ends.
      */
     public void printBye() {
-        printLine();
-        printMessage("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Prints a horizontal line to separate different sections of output.
-     */
-    public void printLine() {
-        printToMax("\t_______________________________________");
+        printToMax("\t Bye. Hope to see you again soon!");
     }
 
     /**
@@ -100,7 +79,6 @@ public class Ui {
             int count = i + 1;
             printToMax("\t " + count + "." + tasks.get(i).toString());
         }
-        printLine();
     }
 
     /**
@@ -111,7 +89,6 @@ public class Ui {
      * @param tasks The list of tasks matching the tag search.
      */
     public void printTagSearchResults(List<Task> tasks) {
-        printLine();
         if (tasks.isEmpty()) {
             printToMax("\t  No tasks found with the given tag.");
         } else {
@@ -120,7 +97,6 @@ public class Ui {
                 printTaskWithTags(task);
             }
         }
-        printLine();
     }
 
     /**
@@ -146,7 +122,6 @@ public class Ui {
      *                 {@code false} if all tasks are displayed.
      */
     public void printList(boolean isFilter) {
-        printLine();
         if (isFilter) {
             printToMax("\t Here are the matching tasks in your list:");
         } else {
@@ -164,11 +139,9 @@ public class Ui {
     public void printDeleteTask(Task removedTask, int size) {
         assert size >= 0 : "Task list size cannot be negative after deletion.";
 
-        printLine();
         printToMax("\t Noted. I've removed this task:");
         printToMax("\t   " + removedTask.toString());
         printToMax("\t Now you have " + size + " tasks in the list.");
-        printLine();
     }
 
     /**
@@ -179,10 +152,8 @@ public class Ui {
     public void printMarkDone(Task task) {
         assert task != null : "Task cannot be null when marked as done.";
 
-        printLine();
         printToMax("\t Nice! I've marked this task as done:");
         printToMax("\t   " + task.toString());
-        printLine();
     }
 
     /**
@@ -193,10 +164,8 @@ public class Ui {
     public void printMarkNotDone(Task task) {
         assert task != null : "Task cannot be null when marked as not done.";
 
-        printLine();
         printToMax("\t OK, I've marked this task as not done yet:");
         printToMax("\t   " + task.toString());
-        printLine();
     }
 
     /**
@@ -212,7 +181,6 @@ public class Ui {
      * Prints the help information to guide users on how to use the application.
      */
     public void printHelp() {
-        printLine();
         printToMax("Welcome to Max Help Page!");
         printToMax("Here are some commands you can use:");
         printToMax("");
@@ -265,6 +233,5 @@ public class Ui {
         printToMax("    Shows this help page.");
         printToMax("");
 
-        printLine();
     }
 }
