@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Reminderebot reminderebot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image reminderebotImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image reminderebotImage = new Image(this.getClass().getResourceAsStream("/images/Remindere.png"));
 
     /**
      * Initial message for Reminderebot GUI.
