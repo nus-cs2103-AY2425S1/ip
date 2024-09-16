@@ -87,6 +87,7 @@ public class Ui {
                 Todo task = new Todo(todoName);
                 taskList.getCurrentList().add(task);
                 history.updateFile(taskList.getCurrentList());
+                assert taskList.getCurrentList().size() != 0;
                 return ("Got it. I've added this task: " + task.toString() + "\n" + "Now you have "
                         + taskList.getCurrentList().size() + " tasks in the list.");
             } else if (input.startsWith("deadline ")) {
@@ -94,6 +95,7 @@ public class Ui {
                         parser.getDeadlineTime());
                 taskList.getCurrentList().add(task);
                 history.updateFile(taskList.getCurrentList());
+                assert taskList.getCurrentList().size() != 0;
                 return ("Got it. I've added this task: " + task.toString() + "\n" + "Now you have "
                         + taskList.getCurrentList().size() + " tasks in the list.");
             } else if (input.startsWith("event ")) {
@@ -101,9 +103,11 @@ public class Ui {
                         parser.getEventStartTime(), parser.getEventEndTime());
                 taskList.getCurrentList().add(task);
                 history.updateFile(taskList.getCurrentList());
+                assert taskList.getCurrentList().size() != 0;
                 return ("Got it. I've added this task: " + task.toString() + "\n" + "Now you have "
                         + taskList.getCurrentList().size() + " tasks in the list.");
             } else if (input.startsWith("delete")) {
+                assert taskList.getCurrentList().size() > 0;
                 Task toremove = taskList.getCurrentList().get(parser.getDeleteIndex() - 1);
                 taskList.getCurrentList().remove(toremove);
                 history.updateFile(taskList.getCurrentList());

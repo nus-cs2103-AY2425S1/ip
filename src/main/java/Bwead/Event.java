@@ -34,6 +34,7 @@ public class Event extends Task {
     }
 
     public String getName() {
+        assert this.text != null;
         return this.text;
     }
 

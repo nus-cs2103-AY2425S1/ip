@@ -10,11 +10,6 @@ public class TaskList {
 
     private static ArrayList<Task> currentList;
 
-    /*
-    public TaskList() {
-        currentList = new ArrayList<>();
-    }*/
-
     /**
      * Constructor for TaskList.
      *
