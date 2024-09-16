@@ -1,5 +1,7 @@
 package mendel.datetime;
 
+import mendel.mendelexception.MendelException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -25,10 +27,10 @@ public class DateTimeManager {
         "MM dd yyyy", "dd MM yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy dd MM", "yyyy, dd MM", "dd-MM-yyyy",
         "MM d yyyy", "d MM yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy d MM", "yyyy, d MM", "d-MM-yyyy",
         "M dd yyyy", "dd M yyyy", "dd/M/yyyy", "M/dd/yyyy", "yyyy dd M", "yyyy, dd M", "dd-M-yyyy",
-        "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy"
+        "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy", "yyyy-MM-dd"
     };
-    private String rawDate;
-    private String formattedDate;
+    private final String rawDate;
+    private final String formattedDate;
 
     /**
      * Constructs a DateTimeManager object by attempting to parse a raw date string into a standard format.
@@ -36,24 +38,21 @@ public class DateTimeManager {
      *
      * @param rawDate the input date string to be parsed and formatted
      */
-    public DateTimeManager(String rawDate) {
+    public DateTimeManager(String rawDate) throws MendelException {
         this.rawDate = rawDate;
-        try {
-            LocalDateTime date = LocalDateTime.parse(rawDate);
-            this.formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        } catch (DateTimeParseException e) {
-            boolean hasValidFormat = this.isValidFormat();
-
-            if (!hasValidFormat) {
-                this.formattedDate = rawDate;
-            } else {
-                this.formattedDate = parseDate();
-            }
+        if (!this.isValidFormat()) {
+            String message = String.format(
+                    "The date %s is not correctly formatted.\nWrite in form Month Day Year such as Aug 09 2024",
+                    rawDate);
+            throw new MendelException(message);
         }
+        this.formattedDate = parseDate();
     }
 
     /**
      * Checks if input datetime format is valid
+     *
+     * @return true if the date string matches a recognised format, false otherwise.
      */
     public boolean isValidFormat() {
         for (int i = 0; i < POSSIBLE_FORMATTED_TIME.length; i++) {
@@ -78,7 +77,7 @@ public class DateTimeManager {
      */
     private boolean isValidFormat(DateTimeFormatter dateFormatter) {
         try {
-            LocalDate date = LocalDate.parse(rawDate, dateFormatter);
+            LocalDate.parse(rawDate, dateFormatter);
             return true;
         } catch (DateTimeParseException e) {
             return false;
@@ -119,12 +118,19 @@ public class DateTimeManager {
 
     /**
      * Converts DateTime to EpochTime seconds
+     *
+     * @return a long representing the Epoch time.
      */
     public long toEpochTime() {
         String formatDateNoTime = new DateTimeManager(this.formattedDate).removeTimeStamp();
         LocalDate date = LocalDate.parse(formatDateNoTime, DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
+
+    public boolean isEarlierThan(DateTimeManager laterDate) {
+        return this.toEpochTime() < laterDate.toEpochTime();
+    }
+
     /**
      * Returns the formatted date string.
      *
