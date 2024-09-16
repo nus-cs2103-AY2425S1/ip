@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 
-import luna.task.Task;
 import org.junit.jupiter.api.Test;
 
 import luna.task.Deadline;
@@ -63,7 +62,7 @@ public class TaskListTest {
                 + "Now you have 1 tasks in the list.";
 
         assertEquals(taskString, taskList.addTask(todo, storage));
-        assertEquals(1,taskList.getTasks().size());
+        assertEquals(1, taskList.getTasks().size());
     }
 
     @Test
@@ -77,7 +76,7 @@ public class TaskListTest {
                 + "Now you have 1 tasks in the list.";
 
         assertEquals(taskString, taskList.addTask(deadline, storage));
-        assertEquals(1,taskList.getTasks().size());
+        assertEquals(1, taskList.getTasks().size());
     }
 
     @Test
@@ -91,7 +90,7 @@ public class TaskListTest {
                 + "Now you have 1 tasks in the list.";
 
         assertEquals(taskString, taskList.addTask(event, storage));
-        assertEquals(1,taskList.getTasks().size());
+        assertEquals(1, taskList.getTasks().size());
     }
 
     @Test
@@ -107,7 +106,7 @@ public class TaskListTest {
         taskList.addTask(deadline, storage);
         taskList.addTask(event, storage);
 
-        assertEquals(3,taskList.getTasks().size());
+        assertEquals(3, taskList.getTasks().size());
         assertEquals(todo, taskList.getTasks().get(0));
         assertEquals(deadline, taskList.getTasks().get(1));
         assertEquals(event, taskList.getTasks().get(2));
