@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import ned.exceptions.CacheFileNotFoundException;
 import ned.exceptions.CacheFileNotUsableException;
+import ned.exceptions.DataDirectoryNotCreatableException;
 import ned.exceptions.NedException;
 import ned.tasks.Task;
 
@@ -31,6 +32,20 @@ public class Storage {
         this.cacheFilePath = filePath;
         File f = new File(filePath);
         this.cacheFile = f;
+    }
+
+    private void createDirectoriesIfNotExist() throws NedException {
+        // Get the parent directory of the file
+        File parentDir = cacheFile.getParentFile();
+        System.out.println("Current working directory: " + System.getProperty("user.dir"));
+        // Check if the parent directory exists, if not, create it
+        if (parentDir != null && !parentDir.exists()) {
+            boolean dirsCreated = parentDir.mkdirs();
+            if (!dirsCreated) {
+                throw new DataDirectoryNotCreatableException("Failed to create data subdirectory in the current "
+                        + "directory: " + parentDir.getAbsolutePath());
+            }
+        }
     }
 
     /**
@@ -66,6 +81,7 @@ public class Storage {
 
     public void save(TaskList listOfTasks) throws NedException {
         assert listOfTasks != null : "Task list cannot be null!";
+        createDirectoriesIfNotExist();
         int sizeOfList = listOfTasks.getSize();
         try {
             FileWriter fw = new FileWriter(this.cacheFilePath);
