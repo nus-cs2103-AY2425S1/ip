@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -65,7 +66,7 @@ public class TasklistTest {
 
         Tasklist testDummyTasklist = new Tasklist(dummyTaskArraylist);
 
-        assertTrue(testDummyTasklist.deleteTask(0));
+        assertInstanceOf(ToDo.class, testDummyTasklist.deleteTask(0));
         assertEquals("[D][ ] Return Book (by: Sunday)", testDummyTasklist.getTaskStr(0));
         assertEquals(1, testDummyTasklist.getSize());
     }
