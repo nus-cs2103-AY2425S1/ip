@@ -2,7 +2,6 @@ package echochat;
 
 public class Command {
 
-
     private CommandType type;
     private String description;
     private int index;
@@ -23,6 +22,7 @@ public class Command {
 
     /**
      * Returns type of command.
+     *
      * @return CommandType enum
      */
     public CommandType getType() {
@@ -30,7 +30,8 @@ public class Command {
     }
 
     /**
-     * Returns command index,
+     * Returns command index.
+     *
      * @return Integer representing command index
      */
     public int getIndex() {
@@ -39,6 +40,7 @@ public class Command {
 
     /**
      * Returns task of the command.
+     *
      * @return Task
      */
     public Task getTask() {

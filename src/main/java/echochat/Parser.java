@@ -1,7 +1,6 @@
 package echochat;
-
-import Exceptions.EmptyDescriptionError;
-import Exceptions.InvalidCommandError;
+import exceptions.EmptyDescriptionError;
+import exceptions.InvalidCommandError;
 
 /**
  * Parses user input to determine the appropriate Command.
@@ -19,103 +18,210 @@ public class Parser {
     public Command parse(String input) throws EmptyDescriptionError, InvalidCommandError {
         String[] parts = input.split(" ", 2);
 
-        // Assert that the input split resulted in at least one part
-        assert parts.length > 0 : "Input split resulted in an empty array";
-
-        if (input.equals("bye")) {
+        if (isExitCommand(input)) {
             return new Command(CommandType.EXIT, null, 0);
-        } else if (input.equals("list")) {
+        } else if (isListCommand(input)) {
             return new Command(CommandType.LIST, null, 0);
         } else if (parts.length == 2) {
-            switch (parts[0]) {
-            case "find":
-                return new Command(CommandType.FIND, parts[1], 0);
-            case "mark":
-                return new Command(CommandType.MARK, null, Integer.parseInt(parts[1]));
-            case "unmark":
-                return new Command(CommandType.UNMARK, null, Integer.parseInt(parts[1]));
-            case "delete":
-                return new Command(CommandType.DELETE, null, Integer.parseInt(parts[1]));
-            case "todo":
-            case "deadline":
-            case "event":
-                if (parts[1].trim().isEmpty()) {
-                    throw new EmptyDescriptionError();
-                }
-                return parseTask(parts[0], parts[1]);
-            default:
-                throw new InvalidCommandError();
-            }
+            return parseActionCommand(parts[0], parts[1]);
         }
         throw new InvalidCommandError();
     }
 
     /**
-     * Parses the details of a task and returns a Command with the appropriate task type.
+     * Checks if the input is an "exit" command.
      *
-     * @param type either "todo", "deadline" or "event"
-     * @param details String that contains the description and optional dates
-     * @return Command with the specified task type
-     * @throws InvalidCommandError if the type is invalid
-     * @throws EmptyDescriptionError if the description is empty or missing where required
+     * @param input the user input to check
+     * @return true if the input is "bye", false otherwise
+     */
+    private boolean isExitCommand(String input) {
+        return input.equals("bye");
+    }
+
+    /**
+     * Checks if the input is a "list" command.
+     *
+     * @param input the user input to check
+     * @return true if the input is "list", false otherwise
+     */
+    private boolean isListCommand(String input) {
+        return input.equals("list");
+    }
+
+    /**
+     * Parses action commands like find, mark, unmark, delete, or task creation commands (todo, deadline, event).
+     *
+     * @param command the command keyword (e.g., mark, unmark, find)
+     * @param details the command details (e.g., task number or task description)
+     * @return Command object based on the input
+     * @throws EmptyDescriptionError if the task description is missing for todo, deadline, or event commands
+     * @throws InvalidCommandError if the command is invalid or cannot be parsed
+     */
+    private Command parseActionCommand(String command, String details) throws EmptyDescriptionError, InvalidCommandError {
+        switch (command) {
+        case "find":
+            return new Command(CommandType.FIND, details, 0);
+        case "mark":
+            return new Command(CommandType.MARK, null, parseTaskNumber(details));
+        case "unmark":
+            return new Command(CommandType.UNMARK, null, parseTaskNumber(details));
+        case "delete":
+            return new Command(CommandType.DELETE, null, parseTaskNumber(details));
+        case "todo":
+        case "deadline":
+        case "event":
+            if (details.isEmpty()) {
+                throw new EmptyDescriptionError();
+            }
+            return parseTask(command, details);
+        default:
+            throw new InvalidCommandError();
+        }
+    }
+
+    /**
+     * Parses the task number from the user input.
+     *
+     * @param input the input string containing the task number
+     * @return the parsed task number
+     * @throws InvalidCommandError if the input is not a valid number
+     */
+    private int parseTaskNumber(String input) throws InvalidCommandError {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandError();
+        }
+    }
+
+    /**
+     * Parses a task command (todo, deadline, event) and returns the corresponding Command object.
+     *
+     * @param type the type of task (e.g., "todo", "deadline", or "event")
+     * @param details the task details, including description and optional dates
+     * @return Command object based on the task type and details
+     * @throws InvalidCommandError if the task format is incorrect
+     * @throws EmptyDescriptionError if the task description is empty
      */
     private Command parseTask(String type, String details) throws InvalidCommandError, EmptyDescriptionError {
-        assert type.equals("todo") || type.equals("deadline") || type.equals("event") : "Unknown task type: " + type;
-
-        String description = "";
-        String by = null;
-        String from = null;
-        String to = null;
-
-        if (details.contains("/")) {
-            String[] splitDetails = details.split("/");
-            description = splitDetails[0].trim();
-
-            for (int i = 1; i < splitDetails.length; i++) {
-                String detail = splitDetails[i].trim();
-                if (detail.startsWith("by ")) {
-                    by = detail.substring(3).trim();
-                } else if (detail.startsWith("from ")) {
-                    from = detail.substring(5).trim();
-                } else if (detail.startsWith("to ")) {
-                    to = detail.substring(3).trim();
-                }
-            }
-        } else {
-            description = details;
-        }
+        String description = extractDescription(details);
+        String by = extractBy(details);
+        String from = extractFrom(details);
+        String to = extractTo(details);
 
         if (description.isEmpty()) {
             throw new EmptyDescriptionError();
         }
 
-        Task task = null;
+        Task task = createTask(type, description, by, from, to);
+        return new Command(determineCommandType(type), description, 0, task);
+    }
+
+
+    /**
+     * Extracts the task description from the details string.
+     *
+     * @param details the input string containing the task details
+     * @return the extracted task description
+     */
+    private String extractDescription(String details) {
+        return details.split("/")[0].trim();
+    }
+
+    /**
+     * Extracts the "by" date for a deadline task from the details string.
+     *
+     * @param details the input string containing the task details
+     * @return the "by" date if present, null otherwise
+     */
+    private String extractBy(String details) {
+        return extractDetail(details, "by ");
+    }
+
+    /**
+     * Extracts the "from" time for an event task from the details string.
+     *
+     * @param details the input string containing the task details
+     * @return the "from" time if present, null otherwise
+     */
+    private String extractFrom(String details) {
+        return extractDetail(details, "from ");
+    }
+
+    /**
+     * Extracts the "to" time for an event task from the details string.
+     *
+     * @param details the input string containing the task details
+     * @return the "to" time if present, null otherwise
+     */
+    private String extractTo(String details) {
+        return extractDetail(details, "to ");
+    }
+
+    /**
+     * Extracts a detail (such as a date or time) from the task details string.
+     *
+     * @param details the input string containing the task details
+     * @param prefix the prefix to look for (e.g., "by ", "from ", "to ")
+     * @return the extracted detail if present, null otherwise
+     */
+    private String extractDetail(String details, String prefix) {
+        for (String part : details.split("/")) {
+            part = part.trim();
+            if (part.startsWith(prefix)) {
+                return part.substring(prefix.length()).trim();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Creates a Task object based on the task type and details.
+     *
+     * @param type the type of task (todo, deadline, or event)
+     * @param description the task description
+     * @param by the "by" date for deadline tasks (nullable)
+     * @param from the "from" time for event tasks (nullable)
+     * @param to the "to" time for event tasks (nullable)
+     * @return the created Task object
+     * @throws InvalidCommandError if the task details are invalid
+     */
+    private Task createTask(String type, String description, String by, String from, String to) throws InvalidCommandError {
         switch (type) {
         case "todo":
-            task = new Todo(description);
-            break;
+            return new Todo(description);
         case "deadline":
             if (by == null) {
-                throw new EmptyDescriptionError(); // Custom message in the exception
+                throw new InvalidCommandError();
             }
-            task = new Deadline(by, description);
-            break;
+            return new Deadline(by, description);
         case "event":
             if (from == null || to == null) {
-                throw new EmptyDescriptionError(); // Custom message in the exception
+                throw new InvalidCommandError();
             }
-            task = new Event(from, to, description);
-            break;
+            return new Event(from, to, description);
         default:
-            throw new InvalidCommandError(); // Custom message in the exception
+            throw new InvalidCommandError();
         }
+    }
 
-        assert task != null : "Task should have been initialized for type: " + type;
-        return new Command(
-                type.equals("todo") ? CommandType.TODO :
-                        type.equals("deadline") ? CommandType.DEADLINE : CommandType.EVENT,
-                description, 0, task
-        );
+    /**
+     * Determines the CommandType for a task based on its type.
+     *
+     * @param type the type of task (todo, deadline, or event)
+     * @return the corresponding CommandType
+     */
+    private CommandType determineCommandType(String type) {
+        switch (type) {
+        case "todo":
+            return CommandType.TODO;
+        case "deadline":
+            return CommandType.DEADLINE;
+        case "event":
+            return CommandType.EVENT;
+        default:
+            throw new IllegalArgumentException("Invalid task type: " + type);
+        }
     }
 
 }

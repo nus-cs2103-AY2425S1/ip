@@ -19,6 +19,7 @@ public class Event extends Task{
 
     /**
      * Get description of the event.
+     *
      * @return Event description, including its starting and ending dates
      */
     @Override
@@ -31,6 +32,7 @@ public class Event extends Task{
 
     /**
      * Get starting date of event.
+     *
      * @return String representing start of event
      */
     public String getFrom() {
@@ -39,6 +41,7 @@ public class Event extends Task{
 
     /**
      * Get ending date of event.
+     *
      * @return String representing end of event
      */
     public String getTo() {

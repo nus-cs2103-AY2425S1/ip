@@ -11,6 +11,7 @@ public class Storage {
 
     /**
      * Saves the list of tasks to file.
+     *
      * @param lst The list of tasks to save
      */
     public void save(ArrayList<Task> lst) {
@@ -24,6 +25,7 @@ public class Storage {
 
     /**
      * Load the list of tasks from file.
+     *
      * @return The list of tasks, or an empty list if the file does not exist or an error occurs
      */
     public ArrayList<Task> load() {
