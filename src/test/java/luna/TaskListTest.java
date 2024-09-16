@@ -34,6 +34,22 @@ public class TaskListTest {
     }
 
     @Test
+    public void deleteTask_validTaskNumber_success() {
+        try {
+            Storage storage = new Storage();
+            TaskList taskList = new TaskList();
+            Todo todo = new Todo("return book");
+            taskList.addTask(todo, storage);
+            
+            assertEquals(1, taskList.getTasks().size());
+            assertEquals(todo, taskList.deleteTask(0, storage));
+            assertEquals(0, taskList.getTasks().size());
+        } catch (LunaException e) {
+            fail();
+        }
+    }
+
+    @Test
     public void addTask_deadlineTask_success() {
         Storage storage = new Storage();
         Deadline deadline = new Deadline("Buy groceries", LocalDateTime.now());
