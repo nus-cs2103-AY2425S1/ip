@@ -15,7 +15,6 @@ To get your personal butler:
 
 ## Features
 
-> [!NOTE]
 > Notes about input format:
 > - Words in `UPPERCASE` are parameters to be supplied by the user
 > - Order of arguments cannot be changed
@@ -27,7 +26,7 @@ Here are a list of features that Bobby provides:
 Create a todo task in the following format: `todo TASK_NAME DESCRIPTION`
 
 Create a deadline task in the following format: `deadline TASK_NAME /by TASK_NAME DATE`
-> [!NOTE]
+
 > The `DATE` has to be in `YYYY-MM-DD` format
 
 Create an event task in the following format: `event TASK_NAME /from START /to END`
@@ -62,8 +61,8 @@ E.g: `find assignment` will display a list of tasks containing the word `assignm
 
 To archive a task, `archive TASK_NUMBER`
 To view all your archived tasks, simply `listarchive`.
-> [!TIP]
-> Archive tasks after they are marked completed to prevent a very long list of tasks.
+
+> **TIP:** Archive tasks after they are marked completed to prevent a very long list of tasks.
 
 ## Saving and Loading
 The list of tasks are stored in `[JAR_FILE_LOCATION]/data.txt` and list of archived tasks are stored in 
@@ -71,7 +70,7 @@ The list of tasks are stored in `[JAR_FILE_LOCATION]/data.txt` and list of archi
 If these files are not present, they will automatically be created. Upon any modifications, 
 Bobby will auto save the files. There is no need to save manually.
 
-> [!CAUTION]
+
 > **CAUTION**: In the event if there is any need to edit the data files directly, it is important to follow the format 
 > correctly or the application might not work as intended. It is therefore recommended to work with a
 > backup copy instead.
