@@ -2,13 +2,6 @@ package ned.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-<<<<<<< HEAD
-=======
-
-import ned.Ui;
-import ned.exceptions.*;
-
->>>>>>> C-DetectDuplicates
 
 import ned.Ui;
 import ned.exceptions.InvalidTimeFormatException;
@@ -75,14 +68,7 @@ public class Event extends Task {
             this.fromTiming = LocalDate.parse(fromTiming);
             this.toTiming = LocalDate.parse(toTiming);
         } catch (DateTimeParseException e) {
-<<<<<<< HEAD
             throw new InvalidTimeFormatException(EVENT_INVALID_TIME_FORMAT_ERROR_MESSAGE);
-=======
-            throw new InvalidTimeFormatException("M'lord, the time formatting in /to or /from does not follow "
-                    + "ISO 8601 (yyyy-mm-dd). Here are examples of valid timings:\n" + Ui.INDENTATIONS
-                    + "2015-08-04\n" + Ui.INDENTATIONS
-                    + "2015-08-04T10:11:30");
->>>>>>> C-DetectDuplicates
         }
         this.taskType = "E";
     }

@@ -94,11 +94,8 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String userInput, Image userImage) {
         DialogBox userDialogBox = new DialogBox(userInput, userImage);
         userDialogBox.setPadding(new Insets(40, 10, 10, 10));
-<<<<<<< HEAD
         userDialogBox.setSpacing(15); // Ensure spacing between image and text
         userDialogBox.dialog.setStyle("-fx-background-color: white; -fx-border-radius: 10;");
-=======
->>>>>>> C-DetectDuplicates
         return userDialogBox;
     }
 
