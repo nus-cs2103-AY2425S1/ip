@@ -13,7 +13,7 @@ import dave.exceptions.InvalidDescriptionException;
 public class Deadline extends Task {
 
     /** The due date and time of the task */
-    private LocalDateTime dueDateTime;
+    private final LocalDateTime dueDateTime;
 
     /**
      * Constructs a Deadline task with the specified description and due date/time.
@@ -26,7 +26,8 @@ public class Deadline extends Task {
         String[] arguments = description.split("/by ");
 
         if (arguments.length < 2 || arguments[1].trim().isEmpty()) {
-            throw new InvalidDescriptionException("Huh! Please provide a deadline task in the format: <task> /by yyyy-MM-dd HHmm");
+            throw new InvalidDescriptionException("Huh! Please provide a deadline task in the format: "
+                    + "<task> /by yyyy-MM-dd HHmm");
         }
 
         // Try parsing the dueDateTime directly in yyyy-MM-dd HHmm format
@@ -45,7 +46,8 @@ public class Deadline extends Task {
         try {
             return LocalDateTime.parse(dateTime, formatter);
         } catch (DateTimeParseException e) {
-            throw new InvalidDescriptionException("Invalid date/time format. Please use yyyy-MM-dd HHmm (e.g., 2024-09-14 1800)");
+            throw new InvalidDescriptionException("Invalid date/time format. "
+                    + "Please use yyyy-MM-dd HHmm (e.g., 2024-09-14 1800)");
         }
     }
 

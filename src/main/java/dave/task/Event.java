@@ -15,13 +15,13 @@ import dave.exceptions.InvalidDescriptionException;
  */
 public class Event extends Task {
     /** The date the event starts */
-    private LocalDate fromDate;
+    private final LocalDate fromDate;
 
     /** The time the event starts */
-    private LocalTime fromTime;
+    private final LocalTime fromTime;
 
     /** The time the event ends */
-    private LocalTime toTime;
+    private final LocalTime toTime;
 
     /**
      * Creates an event task with the specified description, start date/time, and end time.

@@ -22,9 +22,15 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructor for DialogBox. Takes in text and image to populate the dialog box.
+     *
+     * @param text Text to be displayed.
+     * @param img Image to represent the speaker.
+     */
     private DialogBox(String text, Image img) {
-        assert text != null : "Text should not be null"; // Assert that text is not null
-        assert img != null : "Image should not be null"; // Assert that image is not null
+        assert text != null : "Text should not be null"; // Ensure text is not null
+        assert img != null : "Image should not be null"; // Ensure image is not null
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -32,12 +38,12 @@ public class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error loading DialogBox FXML: " + e.getMessage()); // Avoid using empty catch blocks
         }
 
-        assert dialog != null : "Dialog label should have been initialized"; // Assert that dialog label is initialized
+        // Ensure dialog and displayPicture are properly initialized
+        assert dialog != null : "Dialog label should have been initialized";
         assert displayPicture != null : "Display picture should have been initialized";
-        // Assert that image view is initialized
 
         dialog.setText(text);
         displayPicture.setImage(img);
@@ -48,7 +54,7 @@ public class DialogBox extends HBox {
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        assert tmp != null : "DialogBox children list should not be null"; // Assert that children list is valid
+        assert tmp != null : "DialogBox children list should not be null"; // Ensure children list is valid
 
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
@@ -56,15 +62,30 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates a user dialog with the specified text and image.
+     *
+     * @param text Text for the user dialog.
+     * @param img Image representing the user.
+     * @return DialogBox for the user.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
-        assert text != null && !text.isEmpty() : "User dialog text should not be null or empty"; // Assert text is valid
-        assert img != null : "User image should not be null"; // Assert image is valid
+        assert text != null && !text.isEmpty() : "User dialog text should not be null or empty"; // Ensure text is valid
+        assert img != null : "User image should not be null"; // Ensure image is valid
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a Duke dialog with the specified text and image. The dialog is flipped
+     * so that the image is on the left and the text is on the right.
+     *
+     * @param text Text for the Duke dialog.
+     * @param img Image representing Duke.
+     * @return DialogBox for Duke.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
-        assert text != null && !text.isEmpty() : "Duke dialog text should not be null or empty"; // Assert text is valid
-        assert img != null : "Duke image should not be null"; // Assert image is valid
+        assert text != null && !text.isEmpty() : "Duke dialog text should not be null or empty"; // Ensure text is valid
+        assert img != null : "Duke image should not be null"; // Ensure image is valid
         var db = new DialogBox(text, img);
         db.flip();
         return db;
