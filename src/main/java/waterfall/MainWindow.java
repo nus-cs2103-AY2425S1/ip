@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Waterfall waterfall;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private final Image WaterfallImage = new Image(this.getClass().getResourceAsStream("/images/Waterfall.png"));
 
     /**
      * Initialises the main window.
@@ -31,7 +32,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.greetUser(dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.greetUser(WaterfallImage));
     }
 
     /** Injects the Waterfall instance */
@@ -49,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = waterfall.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getWaterfallDialog(response, dukeImage)
+                DialogBox.getWaterfallDialog(response, WaterfallImage)
         );
         userInput.clear();
     }
