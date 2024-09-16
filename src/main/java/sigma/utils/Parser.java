@@ -4,7 +4,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import sigma.command.ByeCommand;
+import sigma.command.DeadlineCommand;
+import sigma.command.DeleteCommand;
+import sigma.command.EventCommand;
+import sigma.command.FindCommand;
+import sigma.command.FunnyCommand;
+import sigma.command.HelpCommand;
+import sigma.command.ListCommand;
+import sigma.command.MarkCommand;
+import sigma.command.SortCommand;
+import sigma.command.TodoCommand;
+import sigma.command.UnmarkCommand;
+import sigma.command.UnrecognisedCommand;
 import sigma.exception.SigmaException;
+
+
 
 /**
  * Represents a parser that parses user input.
@@ -15,6 +30,7 @@ public class Parser {
      * Parses the user input and returns the corresponding command.
      *
      * @param command User input.
+     *
      * @return Corresponding command.
      */
     public static sigma.command.Command parse(String command) {
@@ -24,29 +40,31 @@ public class Parser {
         String cmd = commandArray[0].toLowerCase();
         switch (cmd) {
         case "todo":
-            return new sigma.command.TodoCommand(commandArray);
+            return new TodoCommand(commandArray);
         case "deadline":
-            return new sigma.command.DeadlineCommand(commandArray);
+            return new DeadlineCommand(commandArray);
         case "event":
-            return new sigma.command.EventCommand(commandArray);
+            return new EventCommand(commandArray);
         case "list":
-            return new sigma.command.ListCommand(commandArray);
+            return new ListCommand(commandArray);
         case "mark":
-            return new sigma.command.MarkCommand(commandArray);
+            return new MarkCommand(commandArray);
         case "unmark":
-            return new sigma.command.UnmarkCommand(commandArray);
+            return new UnmarkCommand(commandArray);
         case "delete":
-            return new sigma.command.DeleteCommand(commandArray);
+            return new DeleteCommand(commandArray);
         case "bye":
-            return new sigma.command.ByeCommand(commandArray);
+            return new ByeCommand(commandArray);
         case "find":
-            return new sigma.command.FindCommand(commandArray);
+            return new FindCommand(commandArray);
         case "help":
-            return new sigma.command.HelpCommand(commandArray);
+            return new HelpCommand(commandArray);
         case "sort":
-            return new sigma.command.SortCommand(commandArray);
+            return new SortCommand(commandArray);
+        case "sigma": case "hello": case "hi": case "skibidi":
+            return new FunnyCommand(commandArray);
         default:
-            return new sigma.command.UnrecognisedCommand(commandArray);
+            return new UnrecognisedCommand(commandArray);
         }
     }
 
@@ -54,6 +72,7 @@ public class Parser {
      * Parses the date and time input and returns a LocalDateTime object.
      *
      * @param timing Date and time input.
+     *
      * @return LocalDateTime object.
      * @throws SigmaException If the date and time input is invalid.
      */

@@ -27,6 +27,11 @@
     -fx-background-color: gray;
 }
 
+.funny-label {
+    -fx-background-color: linear-gradient(to right, green, orange, red);
+    -fx-font-family: "Comic Sans MS";
+}
+
 #displayPicture {
     /* Shadow effect on image. */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 100, 1, 50, 5);
