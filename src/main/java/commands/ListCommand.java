@@ -1,6 +1,6 @@
 package commands;
 
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.TaskList;
 
 /**
@@ -42,7 +42,7 @@ public class ListCommand extends Command {
      * </p>
      */
     @Override
-    public String execute(Storage storage, TaskList tasks) {
+    public String execute(TaskStorage taskStorage, TaskList tasks) {
         return this.getResponse(tasks);
     }
 }

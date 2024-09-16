@@ -7,17 +7,17 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
 import exceptions.BrockException;
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.TaskList;
 
 public abstract class BaseCommandTest {
-    protected static final Storage STORAGE = new Storage();
+    protected static final TaskStorage TASK_STORAGE = new TaskStorage();
     protected static final TaskList TASKS = new TaskList(new ArrayList<>());
 
     @BeforeAll
     public static void createSaveFile() {
         try {
-            STORAGE.createFile();
+            TASK_STORAGE.createFile();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -26,7 +26,7 @@ public abstract class BaseCommandTest {
     @AfterEach
     public void resetFile() {
         try {
-            STORAGE.writeToFile("", false);
+            TASK_STORAGE.writeToFile("", false);
         } catch (BrockException e) {
             System.out.println(e.getMessage());
         }

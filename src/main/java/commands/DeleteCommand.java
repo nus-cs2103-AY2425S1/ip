@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.TaskList;
 import utility.CommandUtility;
 
@@ -55,10 +55,10 @@ public class DeleteCommand extends Command {
         checkTaskNumber(commandWords, tasks);
     }
 
-    private void updateSaveFile(Storage storage, TaskList tasks) throws BrockException {
+    private void updateSaveFile(TaskStorage taskStorage, TaskList tasks) throws BrockException {
         String remainingTasks = tasks.listTasks();
-        storage.writeToFile("", false);
-        storage.writeToFile(remainingTasks, true);
+        taskStorage.writeToFile("", false);
+        taskStorage.writeToFile(remainingTasks, true);
     }
 
     private String getResponse(TaskList tasks, String deletedTaskDetails) {
@@ -79,7 +79,7 @@ public class DeleteCommand extends Command {
      * @throws BrockException If delete command is invalid.
      */
     @Override
-    public String execute(Storage storage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
         this.validateDelete(tasks);
 
         String command = super.getCommand();
@@ -87,7 +87,7 @@ public class DeleteCommand extends Command {
         String deletedTaskDetails = tasks.getTaskDetails(taskIndex);
         tasks.removeFromList(taskIndex);
 
-        this.updateSaveFile(storage, tasks);
+        this.updateSaveFile(taskStorage, tasks);
         return this.getResponse(tasks, deletedTaskDetails);
     }
 }

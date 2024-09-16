@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import commands.Command;
 import exceptions.BrockException;
 import parser.Parser;
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.Task;
 import task.TaskList;
 import utility.Pair;
@@ -16,7 +16,7 @@ import utility.Pair;
  * Class that represents the chatbot.
  */
 public class Brock {
-    private static final Storage STORAGE = new Storage();
+    private static final TaskStorage TASK_STORAGE = new TaskStorage();
     private static final Parser PARSER = new Parser();
 
     /**
@@ -29,7 +29,7 @@ public class Brock {
         boolean isSuccessful;
         String overallResponse;
         try {
-            String[] responses = STORAGE.createFile();
+            String[] responses = TASK_STORAGE.createFile();
             isSuccessful = true;
             overallResponse = responses[0] + " | " + responses[1];
 
@@ -53,7 +53,7 @@ public class Brock {
         TaskList tasks;
         String overallResponse;
         try {
-            ArrayList<Task> prevTasks = STORAGE.loadTasksFromFile();
+            ArrayList<Task> prevTasks = TASK_STORAGE.loadTasksFromFile();
             tasks = new TaskList(prevTasks);
             overallResponse = "Successfully read from save file!";
 
@@ -87,7 +87,7 @@ public class Brock {
         isExit = processedCommand.equalsIgnoreCase("bye");
         try {
             Command commandObj = PARSER.handleCommand(processedCommand);
-            overallResponse = commandObj.execute(STORAGE, tasks);
+            overallResponse = commandObj.execute(TASK_STORAGE, tasks);
 
         } catch (BrockException e) {
             overallResponse = e.getMessage();

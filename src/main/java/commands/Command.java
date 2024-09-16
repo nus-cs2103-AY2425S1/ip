@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.TaskList;
 
 /**
@@ -32,10 +32,10 @@ public abstract class Command {
     /**
      * Runs the user command.
      *
-     * @param storage {@code Storage} object that creates and interfaces with save file.
+     * @param taskStorage {@code Storage} object that creates and interfaces with save file.
      * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
      * @return Response string after executing the command.
      * @throws BrockException If there are any issues with running the command.
      */
-    public abstract String execute(Storage storage, TaskList tasks) throws BrockException;
+    public abstract String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException;
 }

@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.Deadline;
 import task.Task;
 import task.TaskList;
@@ -85,8 +85,8 @@ public class DeadlineCommand extends Command {
         }
     }
 
-    private void updateSaveFile(Storage storage, TaskList tasks, Task deadlineTask) throws BrockException {
-        storage.writeToFile(tasks.numTasks() + ". "
+    private void updateSaveFile(TaskStorage taskStorage, TaskList tasks, Task deadlineTask) throws BrockException {
+        taskStorage.writeToFile(tasks.numTasks() + ". "
                         + tasks.getTaskDetails(deadlineTask) + '\n',
                 true);
     }
@@ -110,11 +110,11 @@ public class DeadlineCommand extends Command {
      * @throws BrockException If deadline command is invalid.
      */
     @Override
-    public String execute(Storage storage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
         Task deadlineTask = this.createDeadline();
         tasks.addToList(deadlineTask);
 
-        this.updateSaveFile(storage, tasks, deadlineTask);
+        this.updateSaveFile(taskStorage, tasks, deadlineTask);
         return this.getResponse(tasks, deadlineTask);
     }
 }

@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.Event;
 import task.Task;
 import task.TaskList;
@@ -119,8 +119,8 @@ public class EventCommand extends Command {
         }
     }
 
-    private void updateSaveFile(Storage storage, TaskList tasks, Task eventTask) throws BrockException {
-        storage.writeToFile(tasks.numTasks() + ". "
+    private void updateSaveFile(TaskStorage taskStorage, TaskList tasks, Task eventTask) throws BrockException {
+        taskStorage.writeToFile(tasks.numTasks() + ". "
                         + tasks.getTaskDetails(eventTask) + '\n',
                 true);
     }
@@ -144,11 +144,11 @@ public class EventCommand extends Command {
      * @throws BrockException If event command is invalid
      */
     @Override
-    public String execute(Storage storage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
         Task eventTask = this.createEvent();
         tasks.addToList(eventTask);
 
-        this.updateSaveFile(storage, tasks, eventTask);
+        this.updateSaveFile(taskStorage, tasks, eventTask);
         return this.getResponse(tasks, eventTask);
     }
 }

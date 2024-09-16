@@ -11,11 +11,11 @@ public class ListCommandTest extends BaseCommandTest {
     @Test
     public void execute_singleTask_correctResponse() {
         TodoCommand tc = new TodoCommand("todo borrow book");
-        assertDoesNotThrow(() -> tc.execute(STORAGE, TASKS));
+        assertDoesNotThrow(() -> tc.execute(TASK_STORAGE, TASKS));
 
         String expectedOutput = "Here is the task in your list:\n"
                 + "1. [T][ ] borrow book ";
-        String actualOutput = LIST_COMMAND.execute(STORAGE, TASKS);
+        String actualOutput = LIST_COMMAND.execute(TASK_STORAGE, TASKS);
         assertEquals(expectedOutput, actualOutput);
     }
 
@@ -23,7 +23,7 @@ public class ListCommandTest extends BaseCommandTest {
     public void execute_noTask_correctResponse() {
         String expectedOutput = "Here are the tasks in your list:\n"
                 + "No current tasks!";
-        String actualOutput = LIST_COMMAND.execute(STORAGE, TASKS);
+        String actualOutput = LIST_COMMAND.execute(TASK_STORAGE, TASKS);
         assertEquals(expectedOutput, actualOutput);
     }
 }

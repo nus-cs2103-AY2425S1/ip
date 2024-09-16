@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.TaskList;
 import utility.CommandUtility;
 
@@ -18,10 +18,10 @@ public class MarkCommand extends Command {
         super(command);
     }
 
-    private void updateSaveFile(Storage storage, TaskList tasks) throws BrockException {
+    private void updateSaveFile(TaskStorage taskStorage, TaskList tasks) throws BrockException {
         String tasksString = tasks.listTasks();
-        storage.writeToFile("", false);
-        storage.writeToFile(tasksString, true);
+        taskStorage.writeToFile("", false);
+        taskStorage.writeToFile(tasksString, true);
     }
 
     private String getResponse(TaskList tasks, int taskIndex, boolean isSuccessful) {
@@ -44,13 +44,13 @@ public class MarkCommand extends Command {
      * @throws BrockException If mark command is invalid.
      */
     @Override
-    public String execute(Storage storage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
         String command = super.getCommand();
         CommandUtility.validateStatus(command, CommandUtility.Action.MARK, tasks);
         int taskIndex = CommandUtility.getTaskIndex(command);
         boolean isSuccessful = tasks.markTask(taskIndex);
 
-        this.updateSaveFile(storage, tasks);
+        this.updateSaveFile(taskStorage, tasks);
         return this.getResponse(tasks, taskIndex, isSuccessful);
     }
 }

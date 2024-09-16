@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.Storage;
+import storage.TaskStorage.TaskStorage;
 import task.TaskList;
 
 /**
@@ -70,7 +70,7 @@ public class FindCommand extends Command {
      * @throws BrockException If the find command is invalid.
      */
     @Override
-    public String execute(Storage storage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
         String keyword = this.validateFindCommand();
         String[] findResult = tasks.findMatchingTasks(keyword);
 
