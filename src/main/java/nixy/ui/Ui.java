@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 
 import nixy.exceptions.NixyException;
+import nixy.task.ReadableTask;
 import nixy.task.Task;
 import nixy.task.TaskList;
 
@@ -75,9 +76,10 @@ public class Ui {
     private void displayList(TaskList tasks, String message) {
         ArrayList<String> lines = new ArrayList<>();
         lines.add(message);
-        Iterator<Task> tasksIterator = tasks.getTasksIterator();
+        Iterator<ReadableTask> tasksIterator = tasks.getTasksIterator();
         for (int i = 0; tasksIterator.hasNext(); i++) {
-            Task task = tasksIterator.next();
+            ReadableTask task = tasksIterator.next();
+            assert task != null : "Task should not be null";
             lines.add(String.format("%d. %s", i + 1, task));
         }
         String printMessage = String.join("\n" + "    ", lines);

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import nixy.exceptions.NixyException;
+import nixy.task.ReadableTask;
 import nixy.task.Task;
 import nixy.task.TaskDecoder;
 import nixy.task.TaskList;
@@ -82,9 +83,9 @@ public class Storage {
             }
 
             FileWriter fileWriter = new FileWriter(filePath);
-            Iterator<Task> taskIterator = taskList.getTasksIterator();
+            Iterator<ReadableTask> taskIterator = taskList.getTasksIterator();
             for (int i = 0; taskIterator.hasNext(); i++) {
-                Task task = taskIterator.next();
+                ReadableTask task = taskIterator.next();
                 assert task != null : "Task should not be null";
                 fileWriter.write(String.format("%s%n", task.toDataString()));
             }
