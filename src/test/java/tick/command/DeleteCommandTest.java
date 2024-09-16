@@ -1,5 +1,8 @@
 package tick.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
 import tick.commands.DeleteCommand;
@@ -17,8 +20,8 @@ public class DeleteCommandTest {
         try {
             deleteCommand.execute(taskList, new Ui(), new Storage("data/test.txt"));
         } catch (TickException e) {
-            assert false : "Exception thrown when it should not have been thrown.";
+            fail("Exception thrown when it should not have been thrown.");
         }
-        assert taskList.getSize() == 0 : "Task was not deleted.";
+        assertEquals(0, taskList.getSize());
     }
 }
