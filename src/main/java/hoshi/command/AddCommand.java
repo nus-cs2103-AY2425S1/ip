@@ -19,11 +19,14 @@ import hoshi.utils.Storage;
 public class AddCommand implements Command {
 
     /**
+     * stores the constant value 2 for description index
+     */
+    private static final int DESCRIPTION_INDEX = 2;
+
+    /**
      * Stores the user input after splitting by empty space
      */
     private final String[] splitInput;
-
-    private static final int DESCRIPTION_INDEX = 2;
 
     /**
      * Constructs a new instance of AddCommand.
@@ -121,8 +124,9 @@ public class AddCommand implements Command {
      * Gets the description from the splitInput for use in handleAdd
      *
      * @param splitInput list where each element represents a word in the split input
+     * @param taskType the string indicating what task to get the description for
      */
-    private String getDescription(String[] splitInput,String taskType) throws HoshiException {
+    private String getDescription(String[] splitInput, String taskType) throws HoshiException {
         try {
             String desc = "";
             int splitInputLength = splitInput.length;
