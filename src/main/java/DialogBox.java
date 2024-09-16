@@ -29,6 +29,9 @@ public class DialogBox extends HBox {
 
         this.label.setText(text);
         this.imageView.setImage(picture);
+        this.imageView.setId("imageView");
+
+        this.setId("dialogBox");
 
     }
 
