@@ -34,6 +34,20 @@ public class Ui {
     }
 
     /**
+     * Displays a list of commands that the user can use.
+     */
+    public void showHelp() {
+        System.out.println("Here are the commands you can use:");
+        System.out.println("1. list - List all tasks");
+        System.out.println("2. mark [task number] - Mark a task as done");
+        System.out.println("3. delete [task number] - Delete a task");
+        System.out.println("4. deadline [task] /by [end-date] - Add a deadline by the end date");
+        System.out.println("5. event [task] /from [start-date] /to [end-date] - Add an event with start and end dates");
+        System.out.println("6. todo [task] - Add a Todo");
+        System.out.println("7. bye - Exit the application");
+    }
+
+    /**
      * Displays a goodbye message when the user exits the application.
      */
     public void showGoodbye() {

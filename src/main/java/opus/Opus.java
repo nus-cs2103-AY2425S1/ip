@@ -56,6 +56,8 @@ public class Opus {
                 } else if (words[0].equals("find")) {
                     String keyword = words[1];
                     taskList.findTasks(keyword);
+                } else if (words[0].equals("help")) {
+                    ui.showHelp();
                 } else {
                     if (words[0].equals("todo")) {
                         if (words.length <= 1) {
@@ -115,6 +117,16 @@ public class Opus {
                 response = "Noted. I've removed this task:\n" + taskList.getTask(i).toString() + "\n";
                 taskList.removeTask(i);
                 response += "Now you have " + taskList.getSize() + " tasks in the list.";
+            } else if (words[0].equals("help")) {
+                response = "Here are the commands you can use:\n";
+                response += "1. list - List all tasks\n";
+                response += "2. mark <index> - Mark a task as done\n";
+                response += "3. delete <index> - Delete a task\n";
+                response += "4. deadline <task> /by <end-date> - Add a deadline by the end date\n";
+                response += "5. event <task> /from <start-date> /to <end-date>";
+                response += " - Add an event with start and end dates\n";
+                response += "6. todotask <> - Add a Todo\n";
+                response += "7. bye - Exit the application";
             } else {
                 if (words[0].equals("todo")) {
                     assert words.length > 1 : "The description of a todo cannot be empty";
