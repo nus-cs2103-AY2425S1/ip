@@ -62,6 +62,7 @@ public class Ui {
                 8. List out all tasks occurring at a specified date and time: occurring <date_and_time>
                    Example: occurring 2/12/2024 1800
                 9. For help: type 'help'
+                10. To exit the app: type 'bye'
                 What can I do for you?
                 """, name
         );
@@ -95,6 +96,8 @@ public class Ui {
                 - For current date and time: now
                 - To view tasks occurring on a specified date and time: occurring <date_and_time>
                   Example: occurring 2/12/2024 1800
+                - To exit: bye
+                  The window will close in 3 seconds.
                 """;
         System.out.println(helpMessage);
         return helpMessage;
@@ -124,9 +127,10 @@ public class Ui {
      * Exits the program and closes the scanner.
      * This method displays a goodbye message to the user.
      */
-    public void exit() {
-        System.out.println(LINE + "\n" + INDENT + "Bye. Hope to see you again soon!\n" + LINE);
+    public String exit() {
+        String message = "Bye. Hope to see you again soon!";
         this.scanner.close();
+        return message;
     }
 
     /**

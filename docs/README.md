@@ -136,4 +136,21 @@ You will then receive the reply:
 Cleared all tasks!
 ```
 
+## Exiting the Chatbot
+
+To exit the app, simply type the word `bye`.
+
+Regina will then do a countdown starting from `3`, and the window will close
+once the countdown reaches `1`.
+```
+Bye. Hope to see you again soon! 
+
+Closing in 3
+
+Closing in 2
+
+Closing in 1
+```
+
+
 ### Happy Task Tracking!
