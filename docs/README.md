@@ -56,7 +56,7 @@ Now you have 1 tasks in the list.
 
 Writes a deadline with date the task is to be completed by.
 
-`todo <description> /by <date>`
+`todo <description> /by <date>`[^1]
 
 **Example:**
 
@@ -76,7 +76,7 @@ Now you have 2 tasks in the list.
 
 Writes a event encapsulated within a start to end date range
 
-`event <description> /from <date> /to <date>`
+`event <description> /from <date> /to <date>`[^1]
 
 **Example:**
 
@@ -169,7 +169,7 @@ Here are the matching tasks in your list
 
 Finds unmarked events and deadlines whose due date is before given input date
 
-`remind <date>`
+`remind <date>`[^1]
 
 **Example:**
 
@@ -185,7 +185,7 @@ Here are the tasks with deadlines by Dec 05 2024
 
 ### List tasks
 
-Lists out all tasks curently in list
+Lists out all tasks currently in list
 
 `list`
 
@@ -201,3 +201,12 @@ Here are the tasks in your list:
    1.[D][ ] CS2103T IP (by: Sep 20 2024)
    2.[T][X] CS2103T assignment
 ```
+
+
+[^1]: A variety of dateTime format is supported as outlined here:
+"dd-MMM-yyyy HH:mm", "dd/MMM/yyyy HH:mm", "dd MMM yyyy HH:mm", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
+"d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm", "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
+"dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm", "d/MMM/yyyy HHmm", "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm", "d MMM yyyy HHmm"
+"dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy", "MMM, dd yyyy", "d MMM yyyy", "d/MMM/yyyy", "d-MMM-yyyy", "MMM d yyyy", "MMM, d yyyy",
+"MM dd yyyy", "dd MM yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy dd MM", "yyyy, dd MM", "dd-MM-yyyy", "MM d yyyy", "d MM yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy d MM", "yyyy, d MM", "d-MM-yyyy",
+"M dd yyyy", "dd M yyyy", "dd/M/yyyy", "M/dd/yyyy", "yyyy dd M", "yyyy, dd M", "dd-M-yyyy", "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy"
