@@ -23,6 +23,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJoe(joe); // inject the Joe instance
+            stage.setMinHeight(220);
+            stage.setMinWidth(550);
+            stage.setTitle("Joe ChatBot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

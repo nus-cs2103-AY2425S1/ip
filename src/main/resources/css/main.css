@@ -1,0 +1,49 @@
+/* main.css */
+.root {
+    main-color: #e3f2fd;  /* Light blue background for a soft look */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #ffffff; /* White text field for contrast */
+    -fx-font: 18px "Arial";
+    -fx-border-color: #90caf9; /* Soft blue border */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button {
+    -fx-background-color: #42a5f5; /* Medium blue for buttons */
+    -fx-text-fill: white; /* White text for contrast */
+    -fx-font: 16px "Arial";
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #1e88e5; /* Darker blue on hover */
+}
+
+.button:pressed {
+    -fx-background-color: #1565c0; /* Even darker blue on click */
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #64b5f6; /* Light blue thumb */
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
