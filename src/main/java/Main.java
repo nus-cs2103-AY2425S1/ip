@@ -24,6 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Nixy");
             // inject the Nixy instance
             fxmlLoader.<MainWindow>getController().setNixy(nixy);
             stage.show();
