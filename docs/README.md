@@ -1,8 +1,6 @@
 # Yapper User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
+![Yapper UI](./Ui.png.png?raw=true "Yapper Chatbot")
 
 // Product intro goes here
 
