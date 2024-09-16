@@ -58,34 +58,68 @@ public class Storage {
         Scanner reader = new Scanner(this.savedTasks);
         while (reader.hasNextLine()) {
             String line = reader.nextLine();
-            String[] components = line.split(" \\| ");
-            String taskType = components[0];
-            boolean isDone = components[1].equals("1");
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            Task task;
-            switch (taskType) {
-            case "T":
-                task = new Todo(components[2]);
-                break;
-            case "D":
-                task = new Deadline(components[2], LocalDateTime.parse(components[3], formatter));
-                break;
-            case "E":
-                task = new Event(components[2], LocalDateTime.parse(components[3], formatter),
-                        LocalDateTime.parse(components[4], formatter));
-                break;
-            default:
-                continue;
-            }
-            if (isDone) {
-                task.markAsDone();
-            }
-
-            tasks.add(task);
+            generateTasks(line, tasks);
         }
         reader.close();
         return tasks;
+    }
+
+    /**
+     * Generates and adds a task to the list based on the string representation of the task.
+     * The task is created based on the components of the input line.
+     * If the task type is not recognized, it skips the addition of the task.
+     *
+     * @param line  The string representing the task in the file format.
+     * @param tasks The list of tasks to which the generated task will be added.
+     */
+    private void generateTasks(String line, ArrayList<Task> tasks) {
+        String[] components = line.split(" \\| ");
+        String taskType = components[0];
+        boolean isDone = components[1].equals("1");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        Task task = getType(taskType, components, formatter, isDone);
+
+        if (task == null) {
+            return;
+        }
+
+        tasks.add(task);
+    }
+
+    /**
+     * Creates and returns a task based on the task type and components provided.
+     * Returns null if the task type is not recognized.
+     *
+     * @param taskType  The type of the task (e.g., "T" for Todo, "D" for Deadline, "E" for Event).
+     * @param components The components of the task, split from the line in the file.
+     * @param formatter The DateTimeFormatter used to parse date and time strings.
+     * @param isDone    Indicates whether the task is marked as done.
+     * @return The task created based on the task type and components, or null if the task type is not recognized.
+     */
+    private Task getType(String taskType, String[] components, DateTimeFormatter formatter, boolean isDone) {
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = new Todo(components[2]);
+            break;
+        case "D":
+            task = new Deadline(components[2], LocalDateTime.parse(components[3], formatter));
+            break;
+        case "E":
+            task = new Event(components[2], LocalDateTime.parse(components[3], formatter),
+                    LocalDateTime.parse(components[4], formatter));
+            break;
+        default:
+            return null;
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     /**
