@@ -14,6 +14,10 @@ The features David provides include:
 - [x] Find tasks
 - [x] Mark and unmark of tasks
 
+> [!NOTE]
+> 
+> The easiest way to see all available commands is simply calling the `help` command
+
 ## Command summary
 <table>
   <tr>
@@ -119,6 +123,16 @@ The features David provides include:
 </td>
 <td>Sorts tasks in the order specified</td>
   </tr>
+
+  <tr>
+    <td>
+
+`help`
+</td>
+<td> -
+</td>
+<td>Displays a list of available commands</td>
+  </tr>
 </table>
 
 
@@ -210,4 +224,9 @@ Parameters accepted:
 
 Example: `sort asc`
 
+### Display all available commands
+Displays a list of available commands
 
+Format: `help`
+
+Example: `help`
