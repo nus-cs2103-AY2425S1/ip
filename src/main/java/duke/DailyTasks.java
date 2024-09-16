@@ -17,10 +17,9 @@ import javafx.stage.Stage;
  * It handles initializing the application, managing the task list, and saving
  * the application state before exiting.
  *
- * <p>This class extends {@link javafx.application.Application} and serves as
- * the entry point for the JavaFX application. It initializes core components
- * such as the task list, storage, and user interface, and passes these
- * components to the {@link duke.javafx.MainWindow} for UI management.</p>
+ * <p>This class extends {@link javafx.application.Application}.
+ * It initializes core components such as the task list, storage, and user interface,
+ * and passes these components to the {@link duke.javafx.MainWindow} for UI management.</p>
  */
 public class DailyTasks extends Application {
     private TaskList taskList;
@@ -68,15 +67,5 @@ public class DailyTasks extends Application {
         MainWindow mainWindow = new MainWindow(stage, this.taskList, this.storage, this.ui);
         // Assert that the MainWindow is initialized properly
         assert mainWindow != null : "MainWindow cannot be null after initialization";
-    }
-
-    /**
-     * The main method that serves as the entry point for the application.
-     * It calls the {@link #launch(String...)} method to start the JavaFX application.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        launch(args);
     }
 }

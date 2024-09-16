@@ -46,6 +46,12 @@ public class MarkTaskCommand extends Command {
         assert taskList != null : "Task list must not be null";
         assert ui != null : "UI object must not be null";
 
+        if (this.taskIndex <= 0) {
+            throw new InvalidInputException("The task index cannot be smaller than zero");
+        } else if (this.taskIndex >= taskList.getTasks().size()) {
+            throw new InvalidInputException("The task index cannot be larger than the size of the task list");
+        }
+
         // Ensure taskIndex is within valid bounds
         assert this.taskIndex >= 0 && this.taskIndex < taskList.getTasks().size() : "Task index is out of bounds";
 

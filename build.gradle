@@ -66,7 +66,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.DailyTasks")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
