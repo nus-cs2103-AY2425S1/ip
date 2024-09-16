@@ -12,9 +12,6 @@ Joe is a desktop app for managing tasks using a CLI. If you are a fast typer, Jo
 
 ## Features
 
--   [Joe User Guide :rocket:](#joe-user-guide-rocket)
--   [Install](#install)
--   [Features](#features)
 -   [Help Menu](#help-menu)
 -   [Adding Todos](#adding-todos)
 -   [Adding Deadlines](#adding-deadlines)
@@ -24,6 +21,7 @@ Joe is a desktop app for managing tasks using a CLI. If you are a fast typer, Jo
 -   [Listing Tasks](#listing-tasks)
 -   [Finding Tasks](#finding-tasks)
 -   [Postponing Deadlines and Events](#postponing-deadlines-and-events)
+-   [Exiting the App](#exiting-the-app)
 
 ### Help Menu
 
@@ -74,3 +72,8 @@ Joe is a desktop app for managing tasks using a CLI. If you are a fast typer, Jo
 
 -   Command: `postpone <task number> <days>`
 -   Use: Postpones the deadline or event by the specified number of days.
+
+### Exiting the App
+
+-  Command: `bye`
+-  Use: Exits the app.
