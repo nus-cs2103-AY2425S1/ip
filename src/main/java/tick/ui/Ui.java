@@ -73,7 +73,7 @@ public class Ui {
      * @param taskCount The current number of tasks in the list.
      */
     public void showTaskAdded(Task task, int taskCount) {
-        this.response = "Got it. I've added this task:\n"
+        this.response = "Ding ding! I've added this task:\n"
                 + task + "\n"
                 + "Now you have " + taskCount + " tasks in the list.";
         System.out.println(this.response);
@@ -86,7 +86,7 @@ public class Ui {
      * @param taskCount The current number of tasks in the list.
      */
     public void showTaskDeleted(Task task, int taskCount) {
-        this.response = "Noted. I've removed this task:\n"
+        this.response = "Womp womp. I've removed this task:\n"
                 + task + "\n"
                 + "Now you have " + taskCount + " tasks in the list.";
         System.out.println(this.response);
@@ -121,7 +121,7 @@ public class Ui {
      */
     public void showList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            this.response = "You have no tasks in your list.";
+            this.response = "Wow! You have no tasks in your list!";
             System.out.println(this.response);
         } else {
             StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
@@ -140,10 +140,10 @@ public class Ui {
      */
     public void showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            this.response = "No matching tasks found.";
+            this.response = "Womp womp. No matching tasks found.";
             System.out.println(this.response);
         } else {
-            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+            StringBuilder sb = new StringBuilder("Ding ding! Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }

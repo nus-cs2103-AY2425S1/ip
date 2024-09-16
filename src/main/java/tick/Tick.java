@@ -55,7 +55,7 @@ public class Tick {
             c.execute(tasks, ui, storage);
             return ui.getResponse();
         } catch (TickException e) {
-            return "ERROR! ERROR!: " + e.getMessage();
+            return "ERROR! ERROR! " + e.getMessage();
         }
     }
 
