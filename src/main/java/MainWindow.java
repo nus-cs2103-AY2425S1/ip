@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Initialise chatbot with welcome message.
+     * Initialises chatbot with welcome message.
      */
     public void start() {
         dialogContainer.getChildren().addAll(DialogBox.getAliceDialog(alice.start(), aliceImage));

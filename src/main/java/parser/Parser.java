@@ -1,5 +1,9 @@
 package parser;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import commands.Command;
 import exceptions.AliceException;
 import exceptions.FormatException;
@@ -49,73 +53,46 @@ public class Parser {
                     list.findTaskOfPriority(Priority.MEDIUM),
                     list.findTaskOfPriority(Priority.LOW));
         case MARK:
-            String[] markParams = result[1].split(" ");
-            int markTaskNumber = checkValidTaskNumber(markParams[0]);
-            checkValidTaskInput(Command.MARK, markParams);
-            Task markTask = list.markTask(markTaskNumber, markParams[1]);
+            Object[] markParams = parseAndCheck(Command.MARK, result[1]);
+            Task markTask = list.markTask((Integer) markParams[0], (String) markParams[1]);
             return ui.getHandleTaskMessage(markTask, "mark");
         case UNMARK:
-            String[] unmarkParams = result[1].split(" ");
-            int unmarkTaskNumber = checkValidTaskNumber(unmarkParams[0]);
-            checkValidTaskInput(Command.UNMARK, unmarkParams);
-            Task unmarkTask = list.unmarkTask(unmarkTaskNumber, unmarkParams[1]);
+            Object[] unmarkParams = parseAndCheck(Command.UNMARK, result[1]);
+            Task unmarkTask = list.unmarkTask((Integer) unmarkParams[0], (String) unmarkParams[1]);
             return ui.getHandleTaskMessage(unmarkTask, "unmark");
         case DELETE:
-            String[] deleteParams = result[1].split(" ");
-            int deleteTaskNumber = checkValidTaskNumber(deleteParams[0]);
-            checkValidTaskInput(Command.DELETE, deleteParams);
-            Task task = list.deleteTask(deleteTaskNumber, deleteParams[1]);
+            Object[] deleteParams = parseAndCheck(Command.DELETE, result[1]);
+            Task task = list.deleteTask((Integer) deleteParams[0], (String) deleteParams[1]);
             return ui.getHandleTaskMessage(task, "delete", list.getSize());
         case TODO:
-            // result[1] contains description /p priority
-            checkValidTaskInput(Command.TODO, result);
-
-            String[] todoParams = result[1].split("/p");
-            addedTask = todoParams.length == 1
-                    ? list.addTask(Command.TODO, todoParams[0])
-                    : list.addTask(Command.TODO, todoParams[0], todoParams[1].strip());
+            List<String> todoParams = parseEvents(Command.TODO, result);
+            addedTask = todoParams.size() == 1
+                    ? list.addTask(Command.TODO, todoParams.get(0))
+                    : list.addTask(Command.TODO, todoParams.get(1), todoParams.get(1));
             break;
         case DEADLINE:
-            // result[1] contains description /by deadline /p priority
-            checkValidTaskInput(Command.DEADLINE, result);
-
-            String[] deadlineInfo = result[1].split("/by ");
-            checkValidTaskInput(Command.DEADLINE, deadlineInfo);
-
-            String[] deadlineParams = deadlineInfo[1].split("/p");
-
-            addedTask = deadlineParams.length == 1
-                    ? list.addTask(Command.DEADLINE, deadlineInfo[0], deadlineParams[0].strip())
-                    : list.addTask(Command.DEADLINE, deadlineInfo[0], deadlineParams[0].strip(),
-                        deadlineParams[1].strip());
+            List<String> deadlineParams = parseEvents(Command.DEADLINE, result);
+            addedTask = deadlineParams.size() == 2
+                    ? list.addTask(Command.DEADLINE, deadlineParams.get(0), deadlineParams.get(1))
+                    : list.addTask(Command.DEADLINE, deadlineParams.get(0), deadlineParams.get(1),
+                        deadlineParams.get(2));
             break;
         case EVENT:
-            // result[1] contains description /from from /to to /p priority
-            checkValidTaskInput(Command.EVENT, result);
-
-            String[] eventInfo = result[1].split("/from ");
-            checkValidTaskInput(Command.EVENT, eventInfo);
-
-            String[] times = eventInfo[1].split("/to ");
-            checkValidTaskInput(Command.EVENT, times);
-
-            String[] eventParams = times[1].split("/p");
-
-            addedTask = eventParams.length == 1
-                    ? list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), eventParams[0].strip())
-                    : list.addTask(Command.EVENT, eventInfo[0], times[0].strip(), eventParams[0].strip(),
-                        eventParams[1].strip());
+            List<String> eventParams = parseEvents(Command.EVENT, result);
+            addedTask = eventParams.size() == 3
+                    ? list.addTask(Command.EVENT, eventParams.get(0), eventParams.get(1), eventParams.get(2))
+                    : list.addTask(Command.EVENT, eventParams.get(0), eventParams.get(1), eventParams.get(2),
+                        eventParams.get(3));
             break;
         case FIND:
             return ui.getFilteredTasks(list.findTasks(result[1]));
         case EXIT:
             return "";
         case PRIORITY:
-            String[] params = result[1].split(" ");
-            int taskNumber = checkValidTaskNumber(params[0]);
-            checkValidTaskInput(Command.PRIORITY, params);
-            Task updateTask = list.updatePriority(taskNumber, params[1].strip(), params[2].strip());
-            return ui.getHandleTaskMessage(updateTask, "priority", params[2].strip());
+            Object[] priorityParams = parseAndCheck(Command.PRIORITY, result[1]);
+            Task updateTask = list.updatePriority((Integer) priorityParams[0],
+                    (String) priorityParams[1], (String) priorityParams[2]);
+            return ui.getHandleTaskMessage(updateTask, "priority", (String) priorityParams[2]);
         default:
             throw new AliceException(input);
         }
@@ -187,6 +164,74 @@ public class Parser {
             throw new MissingArgumentException("Priority", "taskNumber", "priority", "newPriority");
         default:
             break;
+        }
+    }
+
+    /**
+     * Returns parsed params from input string.
+     * Only for commands MARK, UNMARK, DELETE, PRIORITY.
+     *
+     * @param command the type of command.
+     * @param input the user input.
+     * @return the inputted params.
+     */
+    private Object[] parseAndCheck(Command command, String input) throws AliceException {
+        switch (command) {
+        case MARK:
+            String[] markParams = input.split(" ");
+            int markTaskNumber = checkValidTaskNumber(markParams[0]);
+            checkValidTaskInput(Command.MARK, markParams);
+            return new Object[] {markTaskNumber, markParams[1]};
+        case UNMARK:
+            String[] unmarkParams = input.split(" ");
+            int unmarkTaskNumber = checkValidTaskNumber(unmarkParams[0]);
+            checkValidTaskInput(Command.UNMARK, unmarkParams);
+            return new Object[] {unmarkTaskNumber, unmarkParams[1]};
+        case DELETE:
+            String[] deleteParams = input.split(" ");
+            int deleteTaskNumber = checkValidTaskNumber(deleteParams[0]);
+            checkValidTaskInput(Command.DELETE, deleteParams);
+            return new Object[] {deleteTaskNumber, deleteParams[1]};
+        case PRIORITY:
+            String[] params = input.split(" ");
+            int taskNumber = checkValidTaskNumber(params[0]);
+            checkValidTaskInput(Command.PRIORITY, params);
+            return new Object[] {taskNumber, params[1].strip(), params[2].strip()};
+        default:
+            return new Object[0];
+        }
+    }
+
+    private List<String> parseEvents(Command command, String[] input) throws AliceException {
+        switch (command) {
+        case TODO:
+            checkValidTaskInput(Command.TODO, input);
+            String[] todoParams = input[1].split("/p");
+            return Arrays.stream(todoParams).map(String::strip).toList();
+        case DEADLINE:
+            checkValidTaskInput(Command.DEADLINE, input);
+            String[] deadlineInfo = input[1].split("/by ");
+            checkValidTaskInput(Command.DEADLINE, deadlineInfo);
+
+            String[] deadlineParams = deadlineInfo[1].split("/p");
+            List<String> params = new ArrayList<>(List.of(deadlineInfo[0]));
+            Arrays.stream(deadlineParams).map(String::strip).forEach(params::add);
+            return params;
+        case EVENT:
+            checkValidTaskInput(Command.EVENT, input);
+
+            String[] eventInfo = input[1].split("/from ");
+            checkValidTaskInput(Command.EVENT, eventInfo);
+
+            String[] times = eventInfo[1].split("/to ");
+            checkValidTaskInput(Command.EVENT, times);
+
+            String[] eventParams = times[1].split("/p");
+            List<String> allEventParams = new ArrayList<>(List.of(eventInfo[0], times[0].strip()));
+            Arrays.stream(eventParams).map(String::strip).forEach(allEventParams::add);
+            return allEventParams;
+        default:
+            return List.of();
         }
     }
 }
