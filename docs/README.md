@@ -112,6 +112,18 @@ Example:
 
 Once you are finished with the chatbot, simply type ```bye```. SirPotato will then automatically save your data to the file it loaded earlier. Nothing else is needed from you and you may then close the application by hitting the x in the top left corner of the window. 
 
+## Command summary
 
+| Command                        | Description      |Example                               |
+|--------------------------------|------------------|----------------------------------------------------------|
+| `todo <description>`           | Adds a todo task | `todo Borrow a book`                                      |
+| `deadline <description> /by <date>`| Adds a deadline task| `deadline Submit assignment /by 2024-09-15`               |
+| `event <description> /from <start_date> /to <end_date>`| Adds an event task                         | `event Team meeting /from 2024-09-15 /to 2024-09-16`      |
+| `list`                             | Lists all tasks                                            | `list`                                                   |
+| `mark <task_number>`               | Marks a task as done                                       | `mark 1`                                                 |
+| `unmark <task_number>`             | Unmarks a task as not done                                 | `unmark 1`                                               |
+| `delete <task_number>`             | Deletes a task                                             | `delete 2`                                               |
+| `sort description`                 | Sorts tasks by description                                 | `sort description`                                       |
+| `sort deadline`                    | Sorts tasks by deadline                                    | `sort deadline`                                          |
 
 
