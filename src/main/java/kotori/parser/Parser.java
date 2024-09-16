@@ -39,11 +39,9 @@ public class Parser {
         } else if (input.equals("sort")) {
             return new SortCommand(list, storage);
         } else if (input.startsWith("mark ")) {
-            int index = Integer.parseInt(getInformation(input));
-            return new MarkCommand(storage, list, index);
+            return makeMarkCommand(input);
         } else if (input.startsWith("unmark ")) {
-            int index = Integer.parseInt(getInformation(input));
-            return new UnmarkCommand(storage, list, index);
+            return makeUnarkCommand(input);
         } else if (input.startsWith("delete ")) {
             int index = Integer.parseInt(getInformation(input));
             return new DeleteCommand(storage, list, index);
@@ -56,9 +54,29 @@ public class Parser {
         }
     }
     /**
-     * Get the information of the command line and skip the keyword.
+     * Gets the information of the command line and skip the keyword.
      * */
     private String getInformation(String input) {
         return input.split(" ")[1].trim();
+    }
+    /**
+     * Tries to make a MarkCommand
+     * */
+    private Command makeMarkCommand(String input) {
+        try {
+            int index = Integer.parseInt(getInformation(input));
+            return new MarkCommand(storage, list, index);
+        } catch (NumberFormatException e) {
+            return new ErrorCommand("Please enter a valid number for mark command");
+        }
+    }
+
+    private Command makeUnarkCommand(String input) {
+        try {
+            int index = Integer.parseInt(getInformation(input));
+            return new UnmarkCommand(storage, list, index);
+        } catch (NumberFormatException e) {
+            return new ErrorCommand("Please enter a valid number for unmark command");
+        }
     }
 }
