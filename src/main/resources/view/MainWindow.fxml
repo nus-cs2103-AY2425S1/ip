@@ -14,9 +14,11 @@
             </content>
         </ScrollPane>
 
-        <TextField fx:id="userInput" layoutY="1000.0" onAction="#handleUserInput" prefHeight="45.0" prefWidth="960.0" style="-fx-font-size: 13pt;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="110.0" />
+        <TextField fx:id="userInput" layoutY="1000.0" onAction="#handleUserInput" prefHeight="45.0" prefWidth="960.0"  AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="220.0" />
 
-        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="45.0" prefWidth="90.0" style="-fx-font-size: 13pt;" text="Send" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="45.0" prefWidth="90.0"  text="Send" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="110.0" />
+
+        <Button fx:id="helpButton" mnemonicParsing="false" onAction="#handleHelpButton" prefHeight="45.0" prefWidth="90.0" text="Help" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
 
     </children>
 </AnchorPane>
