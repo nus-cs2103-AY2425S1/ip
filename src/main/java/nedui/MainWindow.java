@@ -33,9 +33,8 @@ public class MainWindow extends AnchorPane {
     private Ned ned;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    //    private Image NedImage = new Image(this.getClass().getResourceAsStream("/images/Ned_Stark-Sean_Bean.jpg"));
     private Image nedImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/Ned_Stark-Sean_Bean.jpg")));
+            this.getClass().getResourceAsStream("/images/Eddard.png")));
 
 
     @FXML
