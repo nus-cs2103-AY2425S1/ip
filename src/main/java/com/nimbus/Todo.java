@@ -1,7 +1,7 @@
 package com.nimbus;
 
 /**
- * Todo is a task
+ * Todo is a task with deadline.
  */
 public class Todo extends Task {
 

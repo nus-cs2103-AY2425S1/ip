@@ -6,7 +6,7 @@ import com.nimbus.Todo;
 import com.nimbus.Ui;
 
 /**
- * Add a new todo task to chatbot
+ * Add a new todo task to chatbot.
  */
 public class TodoCommand extends Command {
     private final String argument;

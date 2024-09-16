@@ -11,7 +11,7 @@ import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
 /**
- * Add a new deadline to chatbot
+ * Add a new deadline to chatbot.
  */
 public class DeadlineCommand extends Command {
     private final String argument;

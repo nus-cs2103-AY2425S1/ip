@@ -5,7 +5,7 @@ import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
 /**
- * Remove a task
+ * Remove a task.
  */
 public class RemoveCommand extends Command {
     private final int index;

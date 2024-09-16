@@ -8,7 +8,7 @@ import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
 
 /**
- * Nimbus is a chatbot
+ * Nimbus is a chatbot.
  */
 public class Nimbus {
     private static String name = "Nimbus";
@@ -19,9 +19,9 @@ public class Nimbus {
     private final Storage storage;
 
     /**
-     * Create a new chatbot
-     * @param filePath file path of the data stored by the chatbot
-     * @param ui ui used for the chatbot to show message to user
+     * Create a new chatbot.
+     * @param filePath File path of the data stored by the chatbot.
+     * @param ui Ui used for the chatbot to show message to user.
      */
     public Nimbus(String filePath, Ui ui) {
         this.ui = ui;
@@ -33,8 +33,8 @@ public class Nimbus {
     }
 
     /**
-     * Execute command with the chatbot
-     * @param command command to be executed
+     * Execute command with the chatbot.
+     * @param command command to be executed.
      */
     public void executeCommand(String command) {
         try {
@@ -53,7 +53,7 @@ public class Nimbus {
     }
 
     /**
-     * Run the Nimbus Chatbot
+     * Run the Nimbus Chatbot.
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);

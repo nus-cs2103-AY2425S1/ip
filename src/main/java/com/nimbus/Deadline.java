@@ -15,10 +15,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Create new deadline object
-     * @param description Description of the deadline
-     * @param isDone set the task to be done
-     * @param deadline Deadline in string format
+     * Create new deadline object.
+     * @param description Description of the deadline.
+     * @param isDone Whether the task has been done.
+     * @param deadline Deadline of the task in string format.
      */
     public Deadline(String description, boolean isDone, String deadline) {
         super(description, isDone);

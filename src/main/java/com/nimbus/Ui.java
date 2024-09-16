@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 
 /**
- * Ui is a javaFX Application, used to create GUI
+ * Ui is a javaFX Application, used to create GUI.
  */
 public class Ui extends Application {
     private static FXMLLoader fxmlLoader;
@@ -47,22 +47,22 @@ public class Ui extends Application {
     }
 
     /**
-     * Print welcome message onto window
+     * Print welcome message onto window.
      */
     public void showWelcomeMessage() {
         Ui.mainWindowController.showBotMessage("Hello! I'm " + name + '\n' + "What can I do for you?");
     }
 
     /**
-     * Print goodbye message onto window
+     * Print goodbye message onto window.
      */
     public void showGoodbyeMessage() {
         Ui.mainWindowController.showBotMessage("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Show all task onto window
-     * @param tasks tasks to be shown onto window
+     * Show all task onto window.
+     * @param tasks The tasks to be shown onto window.
      */
     public void showAllTasks(TaskList tasks) {
         StringBuilder msg = new StringBuilder("Here are the tasks in your list:\n");
@@ -73,9 +73,9 @@ public class Ui extends Application {
     }
 
     /**
-     * Show a newly added task onto window
-     * @param task task to be shown to window
-     * @param newSize number of task after adding the task
+     * Show a newly added task onto window.
+     * @param task Task to be shown to window.
+     * @param newSize The number of task after adding the task.
      */
     public void showAddedTask(Task task, int newSize) {
         Ui.mainWindowController.showBotMessage("Got it. I've added this task:\n" + task + '\n'
@@ -83,9 +83,9 @@ public class Ui extends Application {
     }
 
     /**
-     * Show a removed task onto window
-     * @param task task removed
-     * @param newSize number of task after removing the task
+     * Show a removed task onto window.
+     * @param task The task removed.
+     * @param newSize The number of task after removing the task.
      */
     public void showRemovedTask(Task task, int newSize) {
         Ui.mainWindowController.showBotMessage("Noted. I've removed this task: " + task
@@ -93,24 +93,24 @@ public class Ui extends Application {
     }
 
     /**
-     * Show a task has been marked as done
-     * @param task task that has been marked as done
+     * Show a task has been marked as done.
+     * @param task The task that has been marked as done.
      */
     public void showDoneTask(Task task) {
         Ui.mainWindowController.showBotMessage("Nice! I've marked this task as done: " + task);
     }
 
     /**
-     * Show a task has been marked as not done
-     * @param task task that has been marked as not done
+     * Show a task has been marked as not done.
+     * @param task The task that has been marked as not done.
      */
     public void showNotDoneTask(Task task) {
         Ui.mainWindowController.showBotMessage("OK, I've marked this task as not done yet: " + task);
     }
 
     /**
-     * Show all found tasks to user
-     * @param tasks Found tasks to be shown
+     * Show all found tasks to user.
+     * @param tasks All found tasks to be shown.
      */
     public void showFoundTask(TaskList tasks) {
         StringBuilder msg = new StringBuilder("Here are the matching tasks in your list:");
@@ -121,8 +121,8 @@ public class Ui extends Application {
     }
 
     /**
-     * Show all duplicate task related to the one user is trying to add
-     * @param tasks All duplicate task
+     * Show all duplicate task related to the one user is trying to add.
+     * @param tasks All duplicate task to be shown.
      */
     public void showDuplicateTask(TaskList tasks) {
 
@@ -133,14 +133,25 @@ public class Ui extends Application {
         Ui.mainWindowController.showBotMessage(msg.toString());
     }
 
+    /**
+     * Show a user message to the GUI.
+     * @param msg The user message to be shown.
+     */
     public void showUserMessage(String msg) {
         Ui.mainWindowController.showUserMessage(msg);
     }
 
+    /**
+     * Show an error message to the GUI.
+     * @param msg The error message to be shown.
+     */
     public void showError(String msg) {
         Ui.mainWindowController.showBotMessage("Sorry, I didn't get that.\n" + msg);
     }
 
+    /**
+     * Stop the GUI.
+     */
     public void stopGraphicalUI() {
         Platform.exit();
     }

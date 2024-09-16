@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Event is a task with start time and end time
+ * Event is a task with start time and end time.
  */
 public class Event extends Task {
     protected String from;
@@ -16,11 +16,11 @@ public class Event extends Task {
     }
 
     /**
-     * Create a new event
-     * @param description description of the event
-     * @param isDone True iff the event has been done
-     * @param from Start time of the event
-     * @param to End time of the event
+     * Create a new event.
+     * @param description Description of the event.
+     * @param isDone Whether the event has been done.
+     * @param from Start time of the event.
+     * @param to End time of the event.
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
@@ -40,16 +40,16 @@ public class Event extends Task {
     }
 
     /**
-     * Return from date of an event
-     * @return from date in a String
+     * Return "from" date of an event
+     * @return "from" date in a String
      */
     public String getFromDate() {
         return this.from;
     }
 
     /**
-     * Return to date of an event
-     * @return to date in a String
+     * Return "to" date of an event
+     * @return "to" date in a String
      */
     public String getToDate() {
         return this.to;

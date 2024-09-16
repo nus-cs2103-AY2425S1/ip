@@ -49,6 +49,13 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Get a dialog from text and image.
+     * @param text Message contained by the dialog box.
+     * @param img Image of the dialog box.
+     * @param isFlipped Whether the dialog is flipped or not.
+     * @return A dialog box.
+     */
     public static DialogBox getDialog(String text, Image img, boolean isFlipped) {
         var db = new DialogBox(text, img);
         if (isFlipped) {

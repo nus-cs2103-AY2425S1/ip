@@ -28,9 +28,9 @@ public class MainWindow extends AnchorPane {
     private Nimbus bot;
 
     /**
-     * Initialize MainWindow
-     * @param userImagePath file path of user icon
-     * @param botImagePath file path of bot icon
+     * Initialize MainWindow.
+     * @param userImagePath File path of user icon.
+     * @param botImagePath File path of bot icon.
      */
     @FXML
     public void initialize(String userImagePath, String botImagePath) {
@@ -66,10 +66,18 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Render chatbot message to the Ui.
+     * @param message Message to be rendered.
+     */
     public void showBotMessage(String message) {
         showMessage(message, false);
     }
 
+    /**
+     * Render user message to the Ui.
+     * @param message Message to be rendered.
+     */
     public void showUserMessage(String message) {
         showMessage(message, true);
     }

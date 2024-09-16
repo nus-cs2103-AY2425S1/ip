@@ -6,7 +6,7 @@ import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
 /**
- * ByeCommand will exit the program
+ * ByeCommand will exit the program.
  */
 public class ByeCommand extends Command {
     @Override

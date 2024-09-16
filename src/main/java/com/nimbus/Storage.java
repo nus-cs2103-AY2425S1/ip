@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Storage class handle the read and write file operation of a chatbot
+ * Storage class handle the read and write file operation of a chatbot.
  */
 public class Storage {
     private final String filePath;
 
     /**
-     * Create a new storage object
-     * @param path file path of the data to be stored
+     * Create a new storage object.
+     * @param path File path of the data to be stored.
      */
     public Storage(String path) {
         this.filePath = path;
@@ -23,7 +23,7 @@ public class Storage {
     }
 
     /**
-     * Create necessary directory and the file
+     * Create necessary directory and the file.
      */
     private void checkSavedFile() {
         File file = new File(filePath);
@@ -41,9 +41,9 @@ public class Storage {
     }
 
     /**
-     * Read a command and its file format and return its Command object
-     * @param command A command in its file format
-     * @return A Command object that identifies command
+     * Read a command and its file format and return its Command object.
+     * @param command A command in its file format.
+     * @return A Command object that identifies command.
      */
     public static Task getTaskFromSavedCommand(String command) {
         String[] arr = command.split("\\|");
@@ -57,8 +57,8 @@ public class Storage {
     }
 
     /**
-     * Load all command in filePath
-     * @return TaskList contains all the Command in filePath
+     * Load all command in filePath.
+     * @return TaskList contains all the Command in filePath.
      */
     public TaskList load() {
         TaskList ans = new TaskList();
@@ -79,9 +79,9 @@ public class Storage {
     }
 
     /**
-     * Save a task to filePath
-     * @param task to be saved
-     * @return true iff saved successfully
+     * Save a task to filePath.
+     * @param task The task to be saved.
+     * @return True iff saved successfully.
      */
     public boolean writeTaskToFile(Task task) {
         try (FileWriter file = new FileWriter(filePath, true)) {
@@ -95,10 +95,10 @@ public class Storage {
     }
 
     /**
-     * Remove index-th task in filePath (0-indexed)
-     * @param index index of the task to remove
-     * @param size  number of task in the file
-     * @return true iff removed successfully
+     * Remove index-th task in filePath (0-indexed).
+     * @param index The index of the task to remove.
+     * @param size The number of task in the file.
+     * @return True iff removed successfully.
      */
     public boolean removeTaskFromFileByIndex(int index, int size) {
         try {
@@ -128,8 +128,8 @@ public class Storage {
     }
 
     /**
-     * Save all task in tasks in filePath (Overwrite)
-     * @param tasks tasks to be saved
+     * Save all task in tasks in filePath (Overwrite).
+     * @param tasks The tasks to be saved.
      */
     public void writeTasksToFile(TaskList tasks) {
         try {

@@ -11,7 +11,7 @@ import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
 /**
- * Add a new event to chatbot
+ * Add a new event to chatbot.
  */
 public class EventCommand extends Command {
     private final String argument;

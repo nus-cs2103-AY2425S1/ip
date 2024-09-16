@@ -5,7 +5,7 @@ import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
 /**
- * Mark a task to be done
+ * Mark a task to be done.
  */
 public class MarkCommand extends Command {
     private final int index;

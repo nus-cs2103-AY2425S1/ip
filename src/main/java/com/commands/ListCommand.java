@@ -5,7 +5,7 @@ import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
 /**
- * List all task stored by chatbot
+ * List all task stored by chatbot.
  */
 public class ListCommand extends Command {
 

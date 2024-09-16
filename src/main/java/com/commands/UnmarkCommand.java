@@ -5,7 +5,7 @@ import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
 /**
- * Mark a task to be not done
+ * Mark a task to be not done.
  */
 public class UnmarkCommand extends Command {
     private final int index;

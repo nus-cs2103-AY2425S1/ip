@@ -14,15 +14,15 @@ import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
 
 /**
- * A command parser for the chatbot
+ * A command parser for the chatbot.
  */
 public final class Parser {
 
 
     /**
-     * Given a command, return it's command type
-     * @param line command
-     * @return Command Type in String Format
+     * Given a command, return its command type.
+     * @param line The command in raw string form.
+     * @return Command Type in String Format.
      */
     public static String getCommandType(String line) {
         int index = line.indexOf(" ");
@@ -34,9 +34,9 @@ public final class Parser {
     }
 
     /**
-     * Given an argument, extract it's description
-     * @param argument argument of a command
-     * @return description of the corresponding argument
+     * Given an argument, extract its description.
+     * @param argument Argument of a command.
+     * @return Description of the corresponding argument.
      */
     public static String getDescription(String argument) {
         int index = argument.indexOf("/");
@@ -48,10 +48,10 @@ public final class Parser {
     }
 
     /**
-     * Given a command, return its argument (Excluding its command type)
-     * @param command Command
-     * @return Argument of a command
-     * @throws InvalidArgumentException if the argument is empty
+     * Given a command, return its argument (Excluding its command type).
+     * @param command Command in its raw string form.
+     * @return Argument of a command.
+     * @throws InvalidArgumentException If the argument is empty.
      */
     public static String getArgument(String command) throws InvalidArgumentException {
         command = command.trim();
@@ -63,11 +63,11 @@ public final class Parser {
     }
 
     /**
-     * Extract the substring after an option
-     * @param argument argument of a command
-     * @param target   which option to extract
-     * @return the substring after the option
-     * @throws InvalidArgumentException if option can't be found
+     * Extract the substring after an option.
+     * @param argument Argument of a command.
+     * @param target Which option to extract.
+     * @return The substring after the option.
+     * @throws InvalidArgumentException If option can't be found.
      */
     public static String readOption(String argument, String target) throws InvalidArgumentException {
         int startIndex = argument.indexOf("/" + target);
@@ -86,11 +86,11 @@ public final class Parser {
     }
 
     /**
-     * Takes a command a return corresponding Command object
-     * @param line command
-     * @return A Command object that represent the command
-     * @throws InvalidCommandException if the command is not valid
-     * @throws InvalidArgumentException if the argument of a command does not match its command type
+     * Takes a command a return corresponding Command object.
+     * @param line The command in its raw string form.
+     * @return A Command object that represent the command.
+     * @throws InvalidCommandException If the command is not valid.
+     * @throws InvalidArgumentException If the argument of a command does not match its command type.
      */
     public static Command parse(String line) throws InvalidCommandException, InvalidArgumentException {
         return switch (getCommandType(line)) {

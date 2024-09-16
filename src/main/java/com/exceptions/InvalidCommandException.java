@@ -1,7 +1,7 @@
 package com.exceptions;
 
 /**
- * Invalid command error for Nimbus
+ * Invalid command error for Nimbus.
  */
 public class InvalidCommandException extends Exception {
     public InvalidCommandException(String msg) {
