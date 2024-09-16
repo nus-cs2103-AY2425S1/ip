@@ -50,9 +50,8 @@ Meow! I've added this task:
     [T][] Plan Vaccation
 Now you have n tasks in the list.
 ```
-> [!NOTE]
-> n refers to the total number of tasks 
 
+> n refers to the total number of tasks
 
 ## Adding Deadline Tasks
 
@@ -61,9 +60,7 @@ A deadline task is a task which has a specific end date and time to it.
 A Deadline task can be created using the following syntax
 `deadline <task_description> /by dd/mm/yyyy HHMM`
 
-> [!NOTE]
 > Date and Time must be given in the specified format!
-
 
 Example: `deadline Submit Project /by 20/09/2024 2359`
 
@@ -82,7 +79,6 @@ An event task is a task which spans across a certain duration. It has a start da
 An Event task can be created using the following syntax
 `event <task_description> /from dd/mm/yyyy HHMM /to dd/mm/yyyy HHMM`
 
-> [!NOTE]
 > Date and Time must be given in the specified format!
 
 Example: `event TP Meeting /from 22/09/2024 1400 /to 22/09/2024 1500`
@@ -127,17 +123,14 @@ Deadlines
 
 Events
 1. [E][ ] TP Meeting (from: Sep 22 2024 14:00HRS to: Sep 22 2024 15:00HRS)
-
-> [!NOTE]
-> Those tasks which are marked as completed will NOT be listed!
 ```
+> Those tasks which are marked as completed will NOT be listed!
 
 ## Mark a task as completed
 
 This is used to mark out a task as completed which is done using the following command
 `mark <task_number>`
 
-> [!NOTE]
 > You can use 'list' function to view task number
 
 
@@ -155,7 +148,6 @@ Meow! I've marked this task as done:
 This is the undo action of marking a task as done. It is done using the following command:
 `unmark <task_number>`
 
-> [!NOTE]
 > You can use 'list' function to view task number
 
 
@@ -186,7 +178,6 @@ expected output
 This is used to permanently delete a task and remove it from the list.
 `delete <task_number>`
 
-> [!NOTE]
 > You can use 'list' function to view task number
 
 Example: `delete 3`
