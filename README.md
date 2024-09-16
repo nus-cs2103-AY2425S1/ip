@@ -8,9 +8,7 @@
    \_____\ \_/____/(____  /\___  >__|_ \ 
          \__>          \/     \/     \/
 
-   ----------------------------------------
-   Hello! I'm Quack
-   What can I do for you?
+   Hello! I'm just an ordinary duck.
    ```
 
 ## What is Quack?
@@ -18,159 +16,45 @@
    Quack is a friendly chatbot which helps you keep track of pesky tasks, events or deadlines!
 
 ## Setting up Quack
-
+   
+   ### InteliJ
    Prerequisites: JDK 17, update Intellij to the most recent version.
 
-   Open Intellij (if you are not in the welcome screen, click File > Close Project to close the existing project first)
-   Open the project into Intellij as follows:
-   Click Open.
-   Select the project directory, and click OK.
-   If there are any further prompts, accept the defaults.
-   Configure the project to use JDK 17 (not other versions) as explained in here.
-   In the same dialog, set the Project language level field to the SDK default option.
-   After that, locate the src/main/java/Quack.java file, right-click it, and choose Run Quack.main() (if the code editor is showing compile errors, try restarting the IDE).
+   1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+   2. Open the project into Intellij as follows:
+      - Click `Open`.
+      - Select the project directory, and click `OK`.
+      - If there are any further prompts, accept the defaults.
+   3. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+      In the same dialog, set the **Project language level** field to the `SDK default` option.
+   4. Ensure Gradle is installed
+   5. After that, run gradle either by CLI `gradle run` or using the inbuilt Gradle GUI in IntelliJ. Running `gradle build` is optional but recommended
 
+   ### VSCode
    For VSCode :
-   Open the project directory
-   Ensure that java extenstions are installed
-   After that, locate the src/main/java/Quack.java file and press F5 to run the chatbot.
+   1. Open VSCode
+   2. Open the project into VSCode as follows:
+      - Click `File` then `Open Folder`.
+      - Select the project directory, and click `OK`.
+      - If there are any further prompts, accept the defaults.
+   3. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+   4. Ensure Gradle is installed
+   5. After that, run gradle either by CLI `gradle run` or using the inbuilt Gradle GUI on the side pannel to the left/right. Running `gradle build` is optional but recommended
 
 # Features
 
 Here is a list of features:
 
 * Adding a task
+   - ToDo
+   - Event
+   - Deadline
 * Listing tasks
 * Marking & unmarking tasks
 * Deleting a task
+* Tagging a Task
+* Filtering Tasks
 * Ending the chatbot
-
-## Adding a Task
-
-There are 3 task types, todo, event or deadline. And to add one of these tasks into the list type the following command:
-> `add <Task type> <Task description>`
-
-Make sure that it is seperated by a space.
-
-For events and deadlines, it will further prompt you for a start and end date.
-
-### Example
-
-After adding a todo task Quack will display this.
-
-```
-add todo Task 1
---------------------------------------------------
-Alright I have added this task into the list: 
-[T][ ] Task 1
-You now have 1 tasks in your list right now!
---------------------------------------------------
-```
-
-After adding a deadline task Quack will display this.
-
-```
-add deadline Task 1
---------------------------------------------------
-When is this task due?
-21/08/2024 5PM
-Alright I have added this task into the list:
-[D][ ] Task 1(Due by: 21/08/2024 5PM)
-You now have 1 tasks in your list right now!
---------------------------------------------------
-```
-
-After adding a event task Quack will display this.
-
-```
-add event Task 1
---------------------------------------------------
-When does this event start?
-Tomorrow
-When is this task due?
-Next Week
-Alright I have added this task into the list:
-[E][ ] Task 1(From: Tomorrow To: Next Week)
-You now have 2 tasks in your list right now!
---------------------------------------------------
-```
-
-## Listing Tasks
-
-You can view the tasks in the list by inputing the following command:
-> `list`
-
-### Example
-
-```
-list
---------------------------------------------------
-1. [D][ ] Task 1(Due by: 21/08/2024 5PM)
-2. [E][ ] Task 1(From: Tomorrow To: Next Week)
---------------------------------------------------
-```
-
-## Marking & Unmarking Tasks
-
-Tasks in your list can be marked or unmarked by inputing the following command:
-* Mark - `mark <index of the task as displayed in on the list>`
-* Unmark - `unmark <index of the task as displayed in on the list>`
-
-### Example
-
-For marking a task.
-
-```
-mark 2
---------------------------------------------------
-Nice! I've marked this task as done:
-[E][X] Task 1(From: Tomorrow To: Next Week)
---------------------------------------------------
-```
-
-For unmarking a task.
-
-```
-unmark 2
---------------------------------------------------
-OK, I've marked this task as not done yet:
-[E][ ] Task 1(From: Tomorrow To: Next Week)
---------------------------------------------------
-```
-
-## Deleting a task
-
-Unwanted tasks can be removed by inputing the following command:
-> `delete <index of the task as displayed in on the list>`
-
-### Example
-
-```
-delete 1
---------------------------------------------------
-Alright I have removed this task into the list:
-[D][ ] Task 1(Due by: 21/08/2024 5PM)
-You now have 1 tasks in your list right now!
---------------------------------------------------
-list 
---------------------------------------------------
-1. [E][ ] Task 1(From: Tomorrow To: Next Week)
---------------------------------------------------
-```
-
-## Ending the Chatbot
-
-To stop Quack (But why would you!! :( ) key in the following command:
-> `bye`
-
-### Example
-
-```
-bye
---------------------------------------------------
-Bye. Hope to see you again soon!
---------------------------------------------------
-```
 
 # References
 
