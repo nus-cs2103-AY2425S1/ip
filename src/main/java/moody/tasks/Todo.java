@@ -1,5 +1,7 @@
 package moody.tasks;
 
+import java.util.stream.Collectors;
+
 /**
  * Represents a to-do task.
  * A to-do is a type of Task that does not include any additional date or time information.
@@ -24,17 +26,25 @@ public class Todo extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "T | " + super.toFileFormat();
+        return "T | " + super.toFileFormat() + " | " + this.tags;
     }
 
     /**
      * Returns a string representation of the To-do for display purposes.
-     * The format includes the task type and the description.
+     * The format includes the task type, description, and tags (if any),
+     * with each tag preceded by a '#'.
      *
      * @return A string representation of the To-do.
      */
     @Override
     public String toString() {
-        return String.format("[T]%s", super.toString());
+        // Add a # prefix to each tag, separated by spaces
+        String modifiedTags = this.tags.isEmpty()
+                ? ""
+                : this.tags.stream()
+                    .map(tag -> "#" + tag)
+                    .collect(Collectors.joining(" "));
+
+        return String.format("[T]%s %s", super.toString(), modifiedTags);
     }
 }

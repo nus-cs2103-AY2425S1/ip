@@ -1,6 +1,6 @@
 package moody.tasks;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -21,7 +21,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.tags = new HashSet<>();
+        this.tags = new LinkedHashSet<>();
     }
 
     /**
@@ -90,17 +90,18 @@ public class Task {
      * @return A string representation of the Task in file format.
      */
     public String toFileFormat() {
-        return (isDone ? "1" : "0") + " | " + this.description + String.join(",", tags);
+        return (isDone ? "1" : "0") + " | " + this.description;
     }
 
     /**
      * Returns a string representation of the Task for display purposes.
-     * The format includes the status icon, description and taqss
+     * The format includes the status icon, and description.
      *
      * @return A string representation of the Task.
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s %s", getStatusIcon(), this.description, tags.isEmpty() ? "" : tags);
+        return String.format("[%s] %s", getStatusIcon(),
+                this.description);
     }
 }
