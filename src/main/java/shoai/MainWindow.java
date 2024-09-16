@@ -48,13 +48,24 @@ public class MainWindow extends AnchorPane {
             welcomed = true;
         }
         String input = userInput.getText();
-        String response = chatbot.getResponse(input); // uses parser to get response
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getChatbotDialog(response, chatbotImage)
-        );
+        String response = chatbot.getResponse(input);
+
+        // Check if the response is an error by some criteria
+        if (response.startsWith("Error") || response.contains("invalid")) { // Example check
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getErrorDialog(response, chatbotImage) // Error dialog in red
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getChatbotDialog(response, chatbotImage)
+            );
+        }
+
         userInput.clear();
     }
+
 
     private void showWelcomeMessage() {
         if (!welcomed) {

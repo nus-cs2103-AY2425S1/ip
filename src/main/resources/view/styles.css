@@ -1,0 +1,27 @@
+/* Style for user dialog bubbles */
+.user-dialog {
+    -fx-background-color: lightblue;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+    -fx-border-color: #a0c4ff;
+    -fx-border-radius: 15;
+}
+
+/* Style for chatbot dialog bubbles */
+.chatbot-dialog {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 15;
+}
+
+/* Style for error dialog bubbles */
+.error-dialog {
+    -fx-background-color: #ffcccc; /* Light red background for errors */
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+    -fx-border-color: #ff0000; /* Red border for errors */
+    -fx-border-radius: 15;
+    -fx-text-fill: #ff0000; /* Red text color */
+}
