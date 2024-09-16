@@ -8,4 +8,7 @@ unmark 1
 list
 delete 1
 list
+tag 1 important
+tag 2 urgent
+tag 3 fun
 bye
