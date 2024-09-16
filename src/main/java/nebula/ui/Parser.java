@@ -44,6 +44,10 @@ public class Parser {
             validateCommand(command);
             return new DeleteCommand(command);
         }
+        else if(command.startsWith("find")) {
+            validateCommand(command);
+            return new FindCommand(command);
+        }
         else {
             validateCommand(command);
 
@@ -77,7 +81,8 @@ public class Parser {
         } else if (!(command.startsWith("todo") || command.startsWith("deadline")
                 || command.startsWith("event") || command.startsWith("mark")
                 || command.startsWith("unmark") || command.startsWith("delete")
-                || command.startsWith("list") || command.startsWith("bye"))) {
+                || command.startsWith("list") || command.startsWith("bye")
+                || command.startsWith("find"))) {
             throw new NebulaException(ui.displayUnknownCommandException());
         } else if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
             String[] parts = command.split(" ", 2);
@@ -91,6 +96,16 @@ public class Parser {
                 }
             } catch (NumberFormatException e) {
                 throw new NebulaException(ui.displayUnknownTaskNumberException());
+            }
+        } else if (command.startsWith("find")) {
+            String[] parts = command.split(" ", 2);
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new NebulaException(ui.displayUnknownMessageException());
+            }
+
+            String[] keywords = parts[1].trim().split("\\s+");
+            if (keywords.length != 1) {
+                throw new NebulaException(ui.displayOneKeywordException());
             }
         } else {
             String[] parts = command.split(" ", 2);
