@@ -1,0 +1,11 @@
+todo Read Chapter 5
+deadline Submit Assignment /by 2024-09-10 2359
+event Team Meeting /from 2024-09-15 1400 /to 2024-09-15 1600
+list
+mark 1
+list
+unmark 1
+list
+delete 1
+list
+bye
