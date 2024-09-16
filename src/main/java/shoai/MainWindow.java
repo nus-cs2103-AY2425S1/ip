@@ -70,7 +70,7 @@ public class MainWindow extends AnchorPane {
     private void showWelcomeMessage() {
         if (!welcomed) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getChatbotDialog("What's up! I'm ShoAI, what do you need today?",
+                    DialogBox.getChatbotDialog("What's up! \uD83D\uDC4B I'm ShoAI, what do you need today?",
                             chatbotImage)
             );
             welcomed = true;
