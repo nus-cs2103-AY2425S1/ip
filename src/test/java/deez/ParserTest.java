@@ -110,4 +110,26 @@ public class ParserTest {
         assertEquals(Command.FIND, result.getKey());
         assertEquals("book", result.getValue().getProperty("keyword"));
     }
+
+    @Test
+    void testChineseInput() {
+        // Act
+        Pair<Command, Properties> result = Parser.parse("todo 你好世界这是一测试");
+
+        // Assert
+        assertEquals(Command.TODO, result.getKey());
+        assertEquals("你好世界这是一测试", result.getValue().getProperty("name"));
+    }
+
+    @Test
+    void testTags() {
+        // Act
+        Pair<Command, Properties> result = Parser.parse("todo hello #tag1 #tag2");
+
+        // Assert
+        assertEquals(Command.TODO, result.getKey());
+        assertEquals("hello", result.getValue().getProperty("name"));
+        assertEquals("tag1,tag2", result.getValue().getProperty("tags"));
+    }
+
 }
