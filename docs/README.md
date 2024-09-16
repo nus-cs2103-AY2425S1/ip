@@ -7,7 +7,7 @@ Duker is a chatbot that helps you stay on top of your tasks.
 ## Features
 - Words in `UPPER_CASE` are the parameters to be supplied by the user. (e.g. in `mark INDEX`, `INDEX` is a 
   parameter which can be used as `mark 2`.)
-- `DATE_TIME` have to be supplied in the following format `yyyy-MM-dd hh:ss`.
+- `DATE_TIME` have to be supplied in the following format `yyyy-MM-dd HH:mm`.
 - To terminate the chatbot, simply execute the command `bye`.
 
 ## List all tasks: `list`

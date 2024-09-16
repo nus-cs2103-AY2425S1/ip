@@ -1,9 +1,11 @@
 package duker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
@@ -71,6 +73,15 @@ public class ParserTest {
             assertEquals("Event command must contain '/from' followed by a start date-time.",
                     e.getMessage());
         }
+    }
+
+    @Test
+    public void testParseEventCommand_invalidDateTimeFormat_exceptionThrown() {
+        Parser parser = new Parser();
+        String command = "event Meeting /from invalid-date /to 2024-25-60 24:75";
+        assertThrows(DateTimeParseException.class, () -> {
+            parser.parseEventCommand(command);
+        });
     }
 
 }

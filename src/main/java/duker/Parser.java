@@ -105,11 +105,8 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             return LocalDateTime.parse(dateTimeString, formatter);
         } catch (DateTimeParseException e) {
-            System.err.println("Invalid date-time format. " +
-                    "Please provide the date-time in 'yyyy-MM-dd HH:mm' format. " +
-                    "Time should be in 24 hours format.");
+            throw e;
         }
-        return null;
     }
 
     private Todo parseTodoCommand(String command) {
@@ -137,8 +134,12 @@ public class Parser {
         }
 
         String dateTimeString = parts[1].trim();
-        LocalDateTime by = convertStringToDate(dateTimeString);
-        return new Deadline(description, by);
+        try {
+            LocalDateTime by = convertStringToDate(dateTimeString);
+            return new Deadline(description, by);
+        } catch (DateTimeParseException e) {
+            throw e;
+        }
     }
 
     protected Event parseEventCommand(String command) {
@@ -164,9 +165,13 @@ public class Parser {
         String fromDateTimeString = partsTo[0].trim(); // Extract start date-time
         String toDateTimeString = partsTo[1].trim(); // Extract end date-time
 
-        LocalDateTime from = convertStringToDate(fromDateTimeString);
-        LocalDateTime to = convertStringToDate(toDateTimeString);
-        return new Event(description, from, to);
+        try {
+            LocalDateTime from = convertStringToDate(fromDateTimeString);
+            LocalDateTime to = convertStringToDate(toDateTimeString);
+            return new Event(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw e;
+        }
     }
 
     private int parseIndexCommand(String[] getInstr, TaskList taskList) throws InvalidIndexException {
@@ -245,6 +250,10 @@ public class Parser {
             taskList.add(deadline, storage);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date-time format. " +
+                    "Please provide the date-time in 'yyyy-MM-dd HH:mm' format. " +
+                    "Time should be in 24 hours format.");
         }
     }
 
@@ -254,6 +263,10 @@ public class Parser {
             taskList.add(event, storage);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date-time format. " +
+                    "Please provide the date-time in 'yyyy-MM-dd HH:mm' format. " +
+                    "Time should be in 24 hours format.");
         }
     }
 
