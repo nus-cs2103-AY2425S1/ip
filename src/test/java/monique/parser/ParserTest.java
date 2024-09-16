@@ -1,4 +1,6 @@
 package monique.parser;
+
+import static monique.parser.Parser.FROM_DATE_BEFORE_TO_DATE_ERROR_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,8 +15,11 @@ import monique.exception.IllegalDateFormatException;
 import monique.task.Deadline;
 import monique.task.Event;
 import monique.task.ToDo;
+import monique.ui.Ui;
+
 
 public class ParserTest {
+    private Ui ui = new Ui();
 
     @Test
     public void parse_withEmptyString_unknownCommand() {
@@ -80,5 +85,20 @@ public class ParserTest {
         Command command = Parser.parse("event project meeting /from Monday");
         assertTrue(command instanceof UnknownCommand); // Assuming error handling falls back to UnknownCommand
     }
-}
 
+    @Test
+    void testParseEventCommandWithFromDateAfterToDate() {
+        // Arrange
+        String commandString = "event project meeting /from 12/09/2024 1700 /to 12/09/2024 1100";
+
+        // Act
+        Command command = Parser.parse(commandString);
+
+        // Assert
+        assertTrue(command instanceof UnknownCommand, "Expected UnknownCommand but got "
+                                                      + command.getClass().getName());
+        UnknownCommand unknownCommand = (UnknownCommand) command;
+        assertEquals(FROM_DATE_BEFORE_TO_DATE_ERROR_MESSAGE, unknownCommand.getResponse(ui),
+                "Error message does not match");
+    }
+}

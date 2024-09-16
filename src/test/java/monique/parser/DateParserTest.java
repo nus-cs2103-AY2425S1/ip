@@ -141,32 +141,32 @@ public class DateParserTest {
 
     @Test
     void testParseDateValidSlashFormat() throws IllegalDateFormatException {
-        assertEquals(LocalDate.of(2024, 11, 9), DateParser.parseDate("11/9/2024"));
-        assertEquals(LocalDate.of(2024, 1, 31), DateParser.parseDate("1/31/2024"));
+        assertEquals(LocalDate.of(2024, 9, 11), DateParser.parseDate("11/9/2024"));
+        assertEquals(LocalDate.of(2024, 1, 31), DateParser.parseDate("31/1/2024"));
     }
 
     @Test
     void testParseDateValidDashFormat() throws IllegalDateFormatException {
-        assertEquals(LocalDate.of(2024, 11, 9), DateParser.parseDate("11-9-2024"));
-        assertEquals(LocalDate.of(2024, 1, 31), DateParser.parseDate("1-31-2024"));
+        assertEquals(LocalDate.of(2024, 11, 9), DateParser.parseDate("9-11-2024"));
+        assertEquals(LocalDate.of(2024, 1, 31), DateParser.parseDate("31-1-2024"));
     }
 
     @Test
     void testParseDateInvalidFormat() {
         assertThrows(IllegalDateFormatException.class, () -> DateParser.parseDate("2024/11/09"));
         assertThrows(IllegalDateFormatException.class, () -> DateParser.parseDate("2024-31-01"));
-        assertThrows(IllegalDateFormatException.class, () -> DateParser.parseDate("31/01/2024"));
+        assertThrows(IllegalDateFormatException.class, () -> DateParser.parseDate("01/31/2024"));
     }
 
     @Test
     void testParseDateEdgeCases() throws IllegalDateFormatException {
         // Testing with leading zeros
-        assertEquals(LocalDate.of(2024, 11, 9), DateParser.parseDate("11/09/2024"));
-        assertEquals(LocalDate.of(2024, 1, 31), DateParser.parseDate("01/31/2024"));
+        assertEquals(LocalDate.of(2024, 11, 9), DateParser.parseDate("09/11/2024"));
+        assertEquals(LocalDate.of(2024, 1, 31), DateParser.parseDate("31/01/2024"));
 
         // Testing single digit months and days
-        assertEquals(LocalDate.of(2024, 2, 5), DateParser.parseDate("2/5/2024"));
-        assertEquals(LocalDate.of(2024, 2, 5), DateParser.parseDate("2-5-2024"));
+        assertEquals(LocalDate.of(2024, 2, 5), DateParser.parseDate("5/2/2024"));
+        assertEquals(LocalDate.of(2024, 2, 5), DateParser.parseDate("5-2-2024"));
     }
 
 
@@ -205,14 +205,14 @@ public class DateParserTest {
     @Test
     void testParseDateOrDayDateFormat1() throws IllegalDateFormatException {
         LocalDate expectedDate = LocalDate.of(2024, 9, 11);
-        LocalDate actualDate = DateParser.parseDateOrDay("9/11/2024");
+        LocalDate actualDate = DateParser.parseDateOrDay("11/09/2024");
         assertEquals(expectedDate, actualDate);
     }
 
     @Test
     void testParseDateOrDayDateFormat2() throws IllegalDateFormatException {
         LocalDate expectedDate = LocalDate.of(2024, 9, 11);
-        LocalDate actualDate = DateParser.parseDateOrDay("09-11-2024");
+        LocalDate actualDate = DateParser.parseDateOrDay("11-09-2024");
         assertEquals(expectedDate, actualDate);
     }
 
@@ -419,7 +419,7 @@ public class DateParserTest {
 
     @Test
     public void testGetDateTimeStringWithDateOnly() throws IllegalDateFormatException {
-        String input = "09-15-2024";
+        String input = "15-09-2024";
         LocalDateTime expected = LocalDateTime.of(LocalDate.parse("2024-09-15"), LocalTime.MIDNIGHT);
         assertEquals(expected, getDateTimeString(input));
     }
@@ -433,7 +433,7 @@ public class DateParserTest {
     @Test
     public void testGetDateTimeStringWithDateAndTime() throws IllegalDateFormatException {
         String input = "2-9-2024 11:15pm";
-        LocalDateTime expected = LocalDateTime.of(LocalDate.parse("2024-02-09"), LocalTime.parse("23:15"));
+        LocalDateTime expected = LocalDateTime.of(LocalDate.parse("2024-09-02"), LocalTime.parse("23:15"));
         assertEquals(expected, getDateTimeString(input));
     }
 

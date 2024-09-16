@@ -26,8 +26,8 @@ public class DateParser {
             + "|[Ff]ri(?:day)?|[Ss]at(?:urday)?|[Ss]un(?:day)?|[Tt]omorrow))\\s+((\\d{1,2}:?\\d{0,2}\\s?(?:am|pm)?)"
             + "|(\\b\\d{4}\\b))";
     public static final int WEEK_OFFSET = 7;
-    public static final DateTimeFormatter DATE_FORMATTER_SLASH = DateTimeFormatter.ofPattern("M/d/yyyy");
-    public static final DateTimeFormatter DATE_FORMATTER_DASH = DateTimeFormatter.ofPattern("M-d-yyyy");
+    public static final DateTimeFormatter DATE_FORMATTER_SLASH = DateTimeFormatter.ofPattern("d/M/yyyy");
+    public static final DateTimeFormatter DATE_FORMATTER_DASH = DateTimeFormatter.ofPattern("d-M-yyyy");
     public static final DateTimeFormatter FORMAT_24_HOUR = DateTimeFormatter.ofPattern("HHmm");
     public static final DateTimeFormatter FORMAT_24_HOUR_COLON = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter FORMAT_24_HOUR_3_DIGIT_COLON = DateTimeFormatter.ofPattern("HH:mm");
@@ -41,8 +41,8 @@ public class DateParser {
      * Enum for supported date formats.
      */
     public enum DateFormatType {
-        TYPE1_SLASH("M[/]d[/]yyyy[ HHmm]"),
-        TYPE1_DASH("M[-]d[-]yyyy[ HHmm]");
+        TYPE1_SLASH("d[/]M[/]yyyy[ HHmm]"),
+        TYPE1_DASH("d[-]M[-]yyyy[ HHmm]");
 
         private final String pattern;
 
