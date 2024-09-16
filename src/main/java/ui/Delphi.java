@@ -5,7 +5,7 @@ import exceptions.DelphiException;
 import exceptions.HardDriveNotFoundException;
 import parser.Parser;
 import storage.Storage;
-import TaskList.TaskList;
+import tasklist.TaskList;
 
 /**
  * The main class for running the ui.Delphi application.

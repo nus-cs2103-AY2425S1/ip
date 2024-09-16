@@ -23,6 +23,12 @@ public class Event extends Task {
         window = "(" + formattedDeadline[1] + " " + formattedDeadline[2] + ")";
     }
 
+    /**
+     * provides a way for the user to edit the timeframe of existing events by passing in a new window
+     *
+     * @param newWindow string representation of the deadline
+     * @param p the parser used to help parse the new deadline
+     */
     public void editTask(String newWindow, Parser p) throws DelphiException {
         String[] formattedDeadline = p.parseEvent(newWindow);
         window = "(" + formattedDeadline[1] + " " + formattedDeadline[2] + ")";

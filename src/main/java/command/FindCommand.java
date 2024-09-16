@@ -4,10 +4,18 @@ import java.util.List;
 
 import storage.Storage;
 import task.Task;
-import TaskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Command to find a task based on keyword.
+ */
 public class FindCommand extends Command {
+    /**
+     * Constructs an FindCommand with the given input string.
+     *
+     * @param s The input string that contains the keyword that we search for.
+     */
     public FindCommand(String s) {
         super(s);
     }

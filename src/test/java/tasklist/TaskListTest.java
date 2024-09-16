@@ -1,5 +1,5 @@
 /*
-package TaskList;
+package tasklist;
 
 import parser.DateParser;
 import parser.parser;
@@ -26,7 +26,7 @@ public class TaskListTest {
     class ParserStub extends parser {
 
     }
-     TaskList testTaskList = new TaskList();
+     tasklist testTaskList = new tasklist();
     @Test
     public void loadStorageToTasks() {
         StorageStub s = new StorageStub();

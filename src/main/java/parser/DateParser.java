@@ -56,7 +56,7 @@ public class DateParser {
                 int day = dateTime.getDayOfMonth();
                 String ordinalDay = day + OrdinalSuffix.getSuffix(day);
                 formattedDateTime = formattedDateTime.replaceFirst("\\d+", ordinalDay);
-                    return formattedDateTime.toLowerCase(); // Convert "AM/PM" to "am/pm"
+                return formattedDateTime.toLowerCase(); // Convert "AM/PM" to "am/pm"
             } catch (DateTimeParseException e) {
                 // empty
             }

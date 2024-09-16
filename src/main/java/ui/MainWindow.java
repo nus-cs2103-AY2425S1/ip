@@ -75,9 +75,9 @@ public class MainWindow extends AnchorPane {
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(event -> {
             Stage stage = (Stage) dialogContainer.getScene().getWindow();
-            stage.close();  // Close the JavaFX application
+            stage.close(); // Close the JavaFX application
         });
-        pause.play();  // Start the pause transition
+        pause.play(); // Start the pause transition
     }
 }
 

@@ -1,7 +1,7 @@
 package command;
 
 import storage.Storage;
-import TaskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -31,11 +31,5 @@ public class BreakCommand extends Command {
     public String execute(TaskList t, Storage s, Ui ui) {
         return ui.goodbyeMessage();
     }
-
-    /**
-     * Indicates that this command should cause the application to exit.
-     *
-     * @return True, indicating that the application should terminate.
-     */
 }
 

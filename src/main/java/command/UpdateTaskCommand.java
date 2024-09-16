@@ -1,21 +1,40 @@
 package command;
 
+import java.util.List;
+
 import exceptions.DelphiException;
 import exceptions.InvalidInputException;
 import exceptions.TaskNotFoundException;
 import parser.Parser;
 import storage.Storage;
-import TaskList.TaskList;
 import task.Task;
+import tasklist.TaskList;
 import ui.Ui;
 
-import java.util.List;
+/**
+ * Command to update a task in the task list after searching for it based on keyword.
+ */
+public class UpdateTaskCommand extends Command {
 
-public class UpdateTaskCommand extends Command{
+    /**
+     * Constructs an UpdateTaskCommand with the given input string.
+     *
+     * @param s The input string that contains the description of the task to be updated.
+     */
     public UpdateTaskCommand(String s) {
         super(s);
     }
 
+    /**
+     * Executes the task edit based on the input provided. The input is checked to contain "/by" or "/from"
+     * to determine the type of task (deadline or event) and updates it accordingly.
+     *
+     * @param t The task list to search through.
+     * @param s The storage instance used to save the updated task list to disk.
+     * @param ui The user interface instance used to interact with the user.
+     * @return A message indicating the success or failure of the operation.
+     * @throws DelphiException If an invalid input is given or if no task is found to update.
+     */
     public String execute(TaskList t, Storage s, Ui ui) throws DelphiException {
         String str;
         if (getInput().contains("/by")) {

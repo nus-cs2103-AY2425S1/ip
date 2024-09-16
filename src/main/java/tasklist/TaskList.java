@@ -1,6 +1,5 @@
-package TaskList;
+package tasklist;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import task.Task;
 import task.Todo;
 
 /**
- * Represents a list of tasks. The TaskList.TaskList class manages the creation,
+ * Represents a list of tasks. The tasklist.tasklist class manages the creation,
  * manipulation, and display of tasks, including Todos, Deadlines, and Events.
  *
  * @author Jordan Chan
@@ -23,7 +22,7 @@ import task.Todo;
 public class TaskList {
     private final List<Task> tasks;
     /**
-     * Constructs an empty TaskList.TaskList.
+     * Constructs an empty tasklist.tasklist.
      */
     public TaskList() {
         tasks = new ArrayList<>();
@@ -155,7 +154,12 @@ public class TaskList {
         return this.tasks;
     }
 
-
+    /**
+     * Finds and returns a list of tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to search for in the tasks.
+     * @return A list of tasks that contain the keyword.
+     */
     public List<Task> findTask(String keyword) {
         List<Task> resTaskList = this.getTasks();
         TaskList res = new TaskList();

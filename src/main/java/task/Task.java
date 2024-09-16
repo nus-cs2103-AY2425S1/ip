@@ -28,6 +28,7 @@ public abstract class Task {
     }
 
     /**
+     * this function is used to update tasks in the tasklist with a different deadline or time frame
      *
      * @param newInfo the new time frame to update tasks with
      * @param p parser object to help parse the new info

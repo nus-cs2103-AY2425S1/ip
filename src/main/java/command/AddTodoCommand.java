@@ -2,8 +2,8 @@ package command;
 
 import exceptions.DelphiException;
 import storage.Storage;
-import TaskList.TaskList;
 import task.Todo;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -40,7 +40,7 @@ public class AddTodoCommand extends Command {
         t.addTask(newTodo); // Note: This will be removed once addTask is simplified to just add to the list
 
         //assert that the task was added
-        assert t.getSize() > 0 : "TaskList should not be empty";
+        assert t.getSize() > 0 : "tasklist should not be empty";
 
         // Write the updated task list to storage
         s.writeToHardDisk(t.getTasks());

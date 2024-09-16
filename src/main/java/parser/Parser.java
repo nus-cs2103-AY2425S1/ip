@@ -22,7 +22,7 @@ import exceptions.InvalidInputException;
  */
 public class Parser {
 
-    DateParser d = new DateParser();
+    private final DateParser d = new DateParser();
 
     /**
      * Parses the given input string and returns an appropriate Command object based on the content of the input.
@@ -114,7 +114,7 @@ public class Parser {
      *         - The second element is the formatted deadline wrapped in "(by: ...)".
      * @throws InvalidInputException if the input string does not contain "/by".
      */
-    public String[] parseDeadline(String s) throws InvalidInputException{
+    public String[] parseDeadline(String s) throws InvalidInputException {
         //chatgpt was used to help write this
         String[] res = new String[2];
         int slashIndex = s.indexOf("/by");
@@ -136,6 +136,19 @@ public class Parser {
         return res;
     }
 
+    /**
+     * Parses an event string into its description, start time, and end time.
+     * The event string must contain "/from" to indicate the start time and "/to" to indicate the end time.
+     * If the format is invalid, it throws an InvalidInputException.
+     *
+     * @param s The event string to be parsed, which must contain the description, "/from", and "/to" parts.
+     * @return A string array where:
+     *         - res[0] is the event description,
+     *         - res[1] is the formatted start time prefixed with "from: ",
+     *         - res[2] is the formatted end time prefixed with "to: ".
+     * @throws InvalidInputException If the input string does not contain
+     *     valid "/from" and "/to" parts or if "to" comes before "from".
+     */
     public String[] parseEvent(String s) throws InvalidInputException {
         //chatgpt was used to help write this
         String[] res = new String[3];

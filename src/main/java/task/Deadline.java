@@ -24,7 +24,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * provides a way for the user to edit the deadlines of existing tasks by passing in a new deadline
+     * provides a way for the user to edit the deadlines of existing deadlines by passing in a new deadline
      *
      * @param newDeadline string representation of the deadline
      * @param p the parser used to help parse the new deadline

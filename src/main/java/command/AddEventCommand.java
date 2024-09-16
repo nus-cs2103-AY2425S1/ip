@@ -3,8 +3,8 @@ package command;
 import exceptions.DelphiException;
 import parser.Parser;
 import storage.Storage;
-import TaskList.TaskList;
 import task.Event;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -41,7 +41,7 @@ public class AddEventCommand extends Command {
         t.addTask(newEvent);
 
         //assert that the task was added
-        assert t.getSize() > 0 : "TaskList should not be empty";
+        assert t.getSize() > 0 : "tasklist should not be empty";
 
         // Write the updated task list to storage
         s.writeToHardDisk(t.getTasks());
