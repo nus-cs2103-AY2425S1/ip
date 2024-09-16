@@ -152,5 +152,15 @@ public class TaskList {
         }
         return tasksWithKeyword.toString();
     }
+
+    Task addTagToTask(int taskNumber, String tag) throws FredException {
+        try {
+            Task task = tasks.get(taskNumber);
+            task.addTag(tag);
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException();
+        }
+    }
 }
 

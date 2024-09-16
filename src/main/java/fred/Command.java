@@ -9,7 +9,8 @@ public enum Command {
     FIND_TASK("find"),
     ADD_TODO_TASK("todo"),
     ADD_DEADLINE_TASK("deadline"),
-    ADD_EVENT_TASK("event");
+    ADD_EVENT_TASK("event"),
+    TAG_TASK("tag");
 
     private final String commandName;
 

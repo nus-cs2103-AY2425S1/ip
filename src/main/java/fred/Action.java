@@ -8,6 +8,7 @@ public class Action {
     private TaskType taskType;
     private String taskDetails;
     private String keyword;
+    private String tag;
 
     public Action(Command command) {
         this.command = command;
@@ -29,6 +30,12 @@ public class Action {
         this.keyword = keyword;
     }
 
+    public Action(Command command, int taskNumber, String tag) {
+        this.command = command;
+        this.taskNumber = taskNumber;
+        this.tag = tag;
+    }
+
     public Command getCommand() {
         return command;
     }
@@ -47,6 +54,10 @@ public class Action {
 
     public String getKeyword() {
         return keyword;
+    }
+
+    public String getTag() {
+        return tag;
     }
 }
 

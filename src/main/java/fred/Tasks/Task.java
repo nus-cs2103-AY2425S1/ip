@@ -1,5 +1,7 @@
 package fred.Tasks;
 
+import java.util.ArrayList;
+
 /**
  * The abstract Task class represents a task with a description and a completion status.
  * It provides methods for marking the task as done or not done, and for generating
@@ -8,6 +10,7 @@ package fred.Tasks;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected ArrayList<String> tags;
 
     /**
      * Constructs a Task with the given description. By default, the task is not done.
@@ -17,6 +20,7 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -49,7 +53,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), description);
+        return String.format("[%s] %s (%s)", getStatusIcon(), description, getTags());
     }
 
     /**
@@ -69,5 +73,21 @@ public abstract class Task {
             }
         }
         return false;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    public String getTags() {
+        StringBuilder tagsAsString = new StringBuilder();
+        for (String tag : tags) {
+            tagsAsString.append(tag);
+            tagsAsString.append(", ");
+        }
+        if (!tagsAsString.isEmpty()) {
+            tagsAsString.setLength(tagsAsString.length() - 2);
+        }
+        return tagsAsString.toString();
     }
 }

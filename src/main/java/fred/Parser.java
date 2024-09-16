@@ -26,9 +26,11 @@ public class Parser {
         Command[] commandsWithTaskNumber = new Command[]{Command.MARK_TASK, Command.UNMARK_TASK, Command.DELETE_TASK};
         Command[] commandsWithTaskTypeAndDetails = new Command[]{Command.ADD_TODO_TASK, Command.ADD_DEADLINE_TASK, Command.ADD_EVENT_TASK};
         Command[] commandsWithKeyword = new Command[]{Command.FIND_TASK};
+        Command[] commandsWithNumberAndTag = new Command[]{Command.TAG_TASK};
         boolean actionNeedsTaskNumber = Arrays.asList(commandsWithTaskNumber).contains(command);
         boolean actionNeedsTaskTypeAndDetails = Arrays.asList(commandsWithTaskTypeAndDetails).contains(command);
         boolean actionNeedsKeyword = Arrays.asList(commandsWithKeyword).contains(command);
+        boolean actionNeedsNumberAndTag = Arrays.asList(commandsWithNumberAndTag).contains(command);
         if (actionNeedsTaskNumber) {
             int taskNumber = getTaskNumber(inputParts[1]);
             action = new Action(command, taskNumber);
@@ -39,6 +41,11 @@ public class Parser {
         } else if (actionNeedsKeyword) {
             String keyword = getKeyword(inputParts[1]);
             action = new Action(command, keyword);
+        } else if (actionNeedsNumberAndTag) {
+            String[] dividedInputParts = inputParts[1].split(" ", 2);
+            int taskNumber = getTaskNumber(dividedInputParts[0]);
+            String tag = getTag(dividedInputParts[1]);
+            action = new Action(command, taskNumber, tag);
         } else {
             action = new Action(command);
         }
@@ -87,6 +94,13 @@ public class Parser {
             default:
                 return null;
         }
+    }
+
+    String getTag(String inputPart) throws EmptyTagException {
+        if (inputPart.isEmpty()) {
+            throw new EmptyTagException();
+        }
+        return inputPart;
     }
 }
 

@@ -103,6 +103,10 @@ public class Fred {
                 String tasksWithKeyword = tasks.findTasksInTaskList(action.getKeyword());
                 message = "Here are the matching tasks in your list:\n" + tasksWithKeyword;
                 break;
+            case TAG_TASK:
+                tasks.addTagToTask(action.getTaskNumber(), action.getTag());
+                message = "OK, I've added the tag.";
+                break;
             default:
                 return null;
         }
