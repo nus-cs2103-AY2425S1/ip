@@ -165,10 +165,13 @@ public class Event extends Task {
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         DateTimeManager inputDate = new DateTimeManager(formattedDate);
         DateTimeManager toDate = new DateTimeManager(this.to);
+        DateTimeManager fromDate = new DateTimeManager(this.from);
         long timeDeadline = new DateTimeManager(inputDate.removeTimeStamp()).toEpochTime();
         long timeTo = new DateTimeManager(toDate.removeTimeStamp()).toEpochTime();
+        long timeFrom = new DateTimeManager(fromDate.removeTimeStamp()).toEpochTime();
         long today = new DateTimeManager(LocalDate.now().toString()).toEpochTime();
-        boolean isTaskInRange = timeDeadline > timeTo && timeTo > today;
+        boolean isTaskInRange = (timeDeadline > timeTo || timeDeadline > timeFrom)
+                && (timeTo > today || timeFrom > today);
         return isTaskInRange && !super.getStatus();
     }
 
