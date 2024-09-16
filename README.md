@@ -69,4 +69,4 @@ We welcome contributions!
 
 ## Contact
 
-If you have any questions, feel free to contact me at `manaslegodesigns@gmail.com`.
+If you have any questions, feel free to contact me at `manaslegodesigns@gmail.com`
