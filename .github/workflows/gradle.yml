@@ -20,6 +20,10 @@ jobs:
 
       - name: Merge to master
         run: git checkout --progress --force ${{ github.sha }}
+  
+      - name: Install dos2unix (macOS)
+        if: runner.os == 'macOS'
+        run: brew install dos2unix
 
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
