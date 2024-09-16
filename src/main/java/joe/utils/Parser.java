@@ -15,7 +15,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
     private static final DateTimeFormatter PARSE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter PRINT_FORMATTER = DateTimeFormatter.ofPattern("MMM/d/yyyy HH:mm");
+    private static final DateTimeFormatter PRINT_FORMATTER = DateTimeFormatter.ofPattern(
+            "d['st']['nd']['rd']['th'] 'of' MMMM yyyy, h:mma");
     private static final String DELIMITER = " \\| ";
     private final TaskList tasks;
 
@@ -68,7 +69,22 @@ public class Parser {
      * @return a formatted string representing the LocalDateTime object
      */
     public static String printDateTime(LocalDateTime dateTime) {
-        return dateTime.format(PRINT_FORMATTER);
+        int day = dateTime.getDayOfMonth();
+        String daySuffix = getDayOfMonthSuffix(day);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d'" + daySuffix + "' 'of' MMMM yyyy, h:mma");
+        return dateTime.format(formatter).toLowerCase();
+    }
+
+    private static String getDayOfMonthSuffix(int day) {
+        if (day >= 11 && day <= 13) {
+            return "th";
+        }
+        switch (day % 10) {
+        case 1: return "st";
+        case 2: return "nd";
+        case 3: return "rd";
+        default: return "th";
+        }
     }
 
     private static int parseTaskIndex(String userCmd, int i, int n) {

@@ -82,7 +82,7 @@ public class TaskList {
      * @return the message to be displayed to the user
      */
     private static String getUnmarkMessage(Task t) {
-        return String.format("OK, I've marked this task as undone:\n  %s", t);
+        return String.format("OK, I've marked this task as not done:\n  %s", t);
     }
 
     /**
@@ -268,7 +268,8 @@ public class TaskList {
             }
         }
 
-        return tasks.stream()
+        return String.format("Here are the tasks on %s:\n", targetDate.format(DateTimeFormatter.ISO_DATE))
+                + tasks.stream()
                 .filter(t -> (t instanceof Deadline d && d.daysTillDeadline(targetDate) == 0L)
                         || (t instanceof Event e && e.daysTillEvent(targetDate) == 0L))
                 .sorted(Comparator.comparing(Task::getTime))
