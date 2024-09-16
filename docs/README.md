@@ -15,7 +15,7 @@ Welcome to **Lolo**, your friendly Java-based chatbot! Lolo helps you manage tas
 
 Follow these steps to get Lolo up and running on your local machine:
 
-### 1. Download the executable JAR file (`lolo.jar`) from [latest release](https://github.com/chenle228/ip/releases/tag/v0.2). 🛠️
+### 1. Download the executable JAR file (`lolo.jar`) from [latest release](https://github.com/chenle228/ip/releases/tag/v0.2) 🛠️
 
 ### 2. Double-click (`lolo.jar`) to launch 🌐
 
