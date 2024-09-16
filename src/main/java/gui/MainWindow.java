@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = chatter.processInput(input);
-        if (response == null) {
+        if (response == (null)) {
             Stage stage = (Stage) dialogContainer.getScene().getWindow();
             stage.close();
         }

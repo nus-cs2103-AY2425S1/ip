@@ -142,10 +142,10 @@ public class Storage {
         if (tagStart != -1) {
             String tags = nextLine.substring(tagStart + 7);
             String[] tagList = tags.split(" ");
-//            System.out.println("parsed tags");
-//            System.out.println(tagList.length);
+            //            System.out.println("parsed tags");
+            //            System.out.println(tagList.length);
             for (String tag : tagList) {
-//                System.out.println("Tag: " + tag);
+                //                System.out.println("Tag: " + tag);
 
                 Tag nextTag = loadedTags.addTagFromString(tag);
                 taskTagSet.add(nextTag);
@@ -180,7 +180,7 @@ public class Storage {
             } else {
 
                 deadline = rest.substring(startBracket + 5, bracketEnd).trim();
-//                System.out.println(deadline);
+
             }
             LocalDateTime deadlineObj = parser.parseDateTime(deadline);
             Deadline newDead;

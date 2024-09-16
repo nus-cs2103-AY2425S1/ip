@@ -1,6 +1,5 @@
 package storage;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
@@ -80,10 +79,10 @@ public class StorageTest {
     @Test
     public void parseEvent_normalText() {
         try {
-           ArrayList<Task> taskList = new ArrayList<>();
-           testStorage.parseTask(testParser,"E |   | event 1 ( from 4pm to 6pm )",
+            ArrayList<Task> taskList = new ArrayList<>();
+            testStorage.parseTask(testParser, "E |   | event 1 ( from 4pm to 6pm )",
                    taskList, new TagList());
-           assertEquals(new Event("event 1", "4pm", "6pm").getDescription(),
+            assertEquals(new Event("event 1", "4pm", "6pm").getDescription(),
                    taskList.get(0).getDescription());
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
             System.out.println("error" + e.getMessage());
@@ -105,7 +104,7 @@ public class StorageTest {
     }
 
     @Test
-    public void parseEvent_tag(){
+    public void parseEvent_tag() {
         try {
             ArrayList<Task> taskList = new ArrayList<>();
             TagList tags = new TagList();
