@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import milutrock.MiluTrock;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for MiluTrock using FXML.
  */
 public class Main extends Application {
 
