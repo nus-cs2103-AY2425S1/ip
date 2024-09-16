@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("nebula.ui.Nebula")
+    mainClass.set("nebula.ui.Launcher")
 }
 
 shadowJar {
