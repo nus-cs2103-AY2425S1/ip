@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lama.Lama;
@@ -29,6 +30,8 @@ public class Main extends Application {
         try {
             AnchorPane anchorPane = loadMainWindow();
             Scene scene = new Scene(anchorPane);
+            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/lama.png")));
+            stage.setTitle("Lama");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
