@@ -41,7 +41,7 @@ public class FindCommand extends Command {
         StringBuilder string = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            String keyword = this.input.replaceFirst("from ", "");
+            String keyword = this.input.replaceFirst("find ", "");
             if (task.getDescription().contains(keyword)) {
                 string.append(i + 1).append(".").append(task).append("\n");
                 numOfMatches++;
