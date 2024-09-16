@@ -133,7 +133,7 @@ public class GuiResponses {
      * @return String representation of tagged task
      */
     public String taggedTasks(Task task, String tagName) {
-        return String.format("Tagged Task: %s with tag: %s", task.getDescription(), tagName);
+        return String.format("Tagged Task: %s with tag: %s", task.descNoTags(), tagName);
     }
 
     /**
@@ -145,7 +145,8 @@ public class GuiResponses {
         if (tagKeys.size() == 0) {
             return "No tags found";
         }
-        StringBuilder tagsString = new StringBuilder();
+        StringBuilder tagsString = new StringBuilder(
+                String.format("Currently have %d Tags: \n", tagKeys.size()));
         for (String tag : tagKeys) {
             tagsString.append(tag).append("\n");
         }

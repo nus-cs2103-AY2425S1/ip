@@ -9,10 +9,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
+import tags.Tag;
 import tags.TagList;
 import tasks.Deadline;
 import tasks.Event;
@@ -119,41 +122,66 @@ public class Storage {
     }
 
     /**
-     * Parses the task from the input string [Symbol] |   | [Text] /tags ...
+     * Parses the task from the input string [Symbol] |   | [Text] ( from ... to )/tags ...
      *
      * @param parser
      * @param nextLine
      * @param loadedTasks
      * @throws ChatterboxExceptions.ChatterBoxNoInput
      */
-    private static void parseTask(Parser parser, String nextLine, ArrayList<Task> loadedTasks, TagList loadedTags)
+    protected void parseTask(Parser parser, String nextLine, ArrayList<Task> loadedTasks, TagList loadedTags)
             throws ChatterboxExceptions.ChatterBoxNoInput {
         char type = nextLine.charAt(0);
         boolean status = nextLine.charAt(4) == 'X';
 
+        int tagStart = nextLine.indexOf("/tags");
+
         // parse tags if available
-        if (nextLine.contains("/tags")) {
-            int tagStart = nextLine.indexOf("/tags");
-            String tags = nextLine.substring(tagStart + 5);
+        Set<Tag> taskTagSet = new HashSet<>(); //stores the current tags for this task
+
+        if (tagStart != -1) {
+            String tags = nextLine.substring(tagStart + 7);
             String[] tagList = tags.split(" ");
+//            System.out.println("parsed tags");
+//            System.out.println(tagList.length);
             for (String tag : tagList) {
-                loadedTags.addTagFromString(tag);
+//                System.out.println("Tag: " + tag);
+
+                Tag nextTag = loadedTags.addTagFromString(tag);
+                taskTagSet.add(nextTag);
             }
 
         }
         //rest includes text ( deadline/event )
-        String rest = nextLine.substring(8);
+        String rest = nextLine.substring(8); //moves to start of description
 
         if (type == 'T') {
+            if (tagStart != -1) { //if tags are present
+                int end = rest.indexOf("/tags");
+                rest = rest.substring(0, end);
+            }
             Todo currTodo = new Todo(rest.trim());
             if (status) {
                 currTodo.setStatus(true);
             }
-            loadedTasks.add(new Todo(rest.trim()));
+            //add tags to todo
+            for (Tag tag : taskTagSet) {
+                currTodo.addTag(tag);
+            }
+            loadedTasks.add(currTodo);
         } else if (type == 'D') {
             int startBracket = rest.indexOf("( by");
+            int bracketEnd = rest.indexOf(") /tags");
             String desc = rest.substring(0, startBracket).trim();
-            String deadline = rest.substring(startBracket + 5, rest.length() - 2).trim();
+            String deadline;
+            if (tagStart == -1) {
+                deadline = rest.substring(startBracket + 5, rest.length() - 2).trim();
+
+            } else {
+
+                deadline = rest.substring(startBracket + 5, bracketEnd).trim();
+//                System.out.println(deadline);
+            }
             LocalDateTime deadlineObj = parser.parseDateTime(deadline);
             Deadline newDead;
 
@@ -166,6 +194,9 @@ public class Storage {
             if (status) {
                 newDead.setStatus(true);
             }
+            for (Tag tag : taskTagSet) {
+                newDead.addTag(tag);
+            }
             loadedTasks.add(newDead);
 
         } else {
@@ -174,7 +205,15 @@ public class Storage {
             String desc = rest.substring(0, startBracket).trim();
             String startDate = rest.substring(startBracket + 7, toStart).trim();
             LocalDateTime startDateObj = parser.parseDateTime(startDate);
-            String endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
+            String endDate;
+            if (tagStart == -1) {
+                endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
+
+            } else {
+                int bracketEnd = rest.indexOf(") /tags");
+
+                endDate = rest.substring(toStart + 3, bracketEnd).trim();
+            }
             LocalDateTime endDateObj = parser.parseDateTime(endDate);
 
             Event nextEvent;
@@ -188,6 +227,9 @@ public class Storage {
                 nextEvent.setStatus(true);
             }
 
+            for (Tag tag : taskTagSet) {
+                nextEvent.addTag(tag);
+            }
             loadedTasks.add(nextEvent);
 
         }

@@ -1,7 +1,9 @@
 package tasks;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import tags.Tag;
@@ -13,7 +15,7 @@ import tags.Tag;
 public abstract class Task {
     private Boolean status;
     private String desc;
-    private ArrayList<Tag> tags = new ArrayList<>();
+    private Set<Tag> tags = new HashSet<>();
 
 
     /**
@@ -41,15 +43,18 @@ public abstract class Task {
             return "";
         }
         StringBuilder tagString = new StringBuilder();
-        for (int i = 0; i < tags.size(); i++) {
-            tagString.append(tags.get(i).toString());
-
-            // Add a space after each string except the last one
-            if (i < tags.size() - 1) {
-                tagString.append(" ");
-            }
+        for (Tag tag : tags) {
+            tagString.append(tag.toString()).append(" ");
         }
-        return "|tags: " + tagString.toString();
+//        for (int i = 0; i < tags.size(); i++) {
+//            tagString.append(tags.get(i).toString());
+//
+//            // Add a space after each string except the last one
+//            if (i < tags.size() - 1) {
+//                tagString.append(" ");
+//            }
+//        }
+        return " /tags: " + tagString.toString();
     }
 
     /**
@@ -108,4 +113,6 @@ public abstract class Task {
         Task other = (Task) obj;
         return Objects.hash(this.getDescription()) == Objects.hash(other.getDescription());
     }
+
+    public abstract String descNoTags();
 }

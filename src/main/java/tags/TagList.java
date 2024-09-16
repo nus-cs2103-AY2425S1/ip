@@ -25,9 +25,12 @@ public class TagList {
      * adds a tag object to list of tags using string argument (done during loading)
      *
      * @param tagName the name of the tag to be added
+     * @return the tag object created
      */
-    public void addTagFromString(String tagName) {
-        tags.put(tagName, new Tag(tagName));
+    public Tag addTagFromString(String tagName) {
+        Tag tag = new Tag(tagName);
+        tags.put(tagName, tag);
+        return tag;
     }
 
     /**

@@ -184,8 +184,12 @@ public class ChatterboxGui {
                 int tagIndex = parser.parseTagIndex(input) - 1;
                 Tag tag;
                 if (userTags.containsTag(tagText)) {
-                    tag = userTags.getTag(tagText);
-                    tasks.getTask(tagIndex).addTag(userTags.getTag(tagText));
+                    tag = userTags.getTag(tagText); //finds the tag
+                    tasks.getTask(tagIndex).addTag(tag); //adds tag to the task object
+                    tag.tagTask(tasks.getTask(tagIndex)); //adds task to the tag object
+
+
+                    result = guiResponses.taggedTasks(tasks.getTask(tagIndex), tagText);
 
                     break;
                 }

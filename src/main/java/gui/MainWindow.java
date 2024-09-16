@@ -39,7 +39,8 @@ public class MainWindow extends AnchorPane {
         chatter = c;
         if (c.hasTasks()) {
             dialogContainer.getChildren()
-                    .add(DialogBox.getChatterboxDialog("History found!", chatterImage));
+                    .addAll(DialogBox.getChatterboxDialog("History found!", chatterImage),
+                            DialogBox.getChatterboxDialog(c.getGreeting(), chatterImage));
         }
     }
 
