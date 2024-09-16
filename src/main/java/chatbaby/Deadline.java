@@ -13,7 +13,7 @@ public class Deadline extends Task {
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-    private LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs a Deadline task with the specified name and deadline.

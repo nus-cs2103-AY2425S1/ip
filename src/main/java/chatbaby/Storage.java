@@ -1,10 +1,6 @@
 package chatbaby;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,7 +11,7 @@ import java.util.Scanner;
  * This class handles reading tasks from a file and writing tasks to a file.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -36,7 +32,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
-            return tasks; // Return empty list if file doesn't exist
+            return tasks;
         }
 
         try (Scanner scanner = new Scanner(file)) {
@@ -44,7 +40,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
                 try {
-                    tasks.add(Task.fromFileText(line)); // Handle corrupted data inside the method
+                    tasks.add(Task.fromFileText(line));
                 } catch (Exception e) {
                     throw new ChatBabyException("Error while reading line: " + line);
                 }
@@ -65,14 +61,14 @@ public class Storage {
         try {
             Path parentDir = Path.of(filePath).getParent();
             if (parentDir != null) {
-                Files.createDirectories(parentDir); // Creates the directory if it doesn't exist
+                Files.createDirectories(parentDir);
             }
             BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
             for (Task task: tasks.getTasks()) {
                 bw.write(task.toFileText());
                 bw.newLine();
             }
-            bw.close(); // Close BufferedWriter to ensure all data is written
+            bw.close();
         } catch (IOException e) {
             throw new ChatBabyException("Error while saving tasks: " + e.getMessage());
         }

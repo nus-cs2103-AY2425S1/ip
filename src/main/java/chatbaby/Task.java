@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * Subclasses define specific types of tasks (e.g., ToDo, Deadline, Event).
  */
 public abstract class Task {
-    private String name;
+    private final String name;
     private boolean isDone;
 
     /**

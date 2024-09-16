@@ -12,8 +12,8 @@ public class Event extends Task {
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-    private LocalDateTime eventStartTime;
-    private LocalDateTime eventEndTime;
+    private final LocalDateTime eventStartTime;
+    private final LocalDateTime eventEndTime;
 
     /**
      * Constructs an Event with the specified name, start, and end times.
