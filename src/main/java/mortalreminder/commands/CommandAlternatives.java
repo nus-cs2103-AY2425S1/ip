@@ -14,16 +14,6 @@ public class CommandAlternatives {
     private final HashMap<String, CommandType> alternativeCommands;
 
     /**
-     * Creates a new CommandAlternatives Object with all basic commands.
-     */
-    public CommandAlternatives() {
-        this.alternativeCommands = new HashMap<>();
-        for (CommandType type : CommandType.values()) {
-            this.alternativeCommands.put(type.name().toLowerCase(), type);
-        }
-    }
-
-    /**
      * This method is used when creating the hashmap using long term storage.
      *
      * @param alternativeCommands list of saved alternative commands from previous sessions.
