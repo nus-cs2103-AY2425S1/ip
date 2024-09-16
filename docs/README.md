@@ -1,7 +1,7 @@
 # Meeju User Guide
 
 
-![UI for Meeju](./ui.png)
+![UI for Meeju](./Ui.png)
 
 **Meeju, Your Personal assistant to track your tasks**
 
