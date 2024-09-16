@@ -26,9 +26,9 @@ public class GuiResponses {
      * @return string format of the greeting
      */
     public String greeting() {
-        return "Hello! I'm " + GuiResponses.BOTNAME
-                + "\nWhat can I do for you? ^_^";
-
+        return "Greetings. I am " + GuiResponses.BOTNAME + ".\n"
+                + "In this moment, I am here to assist you with your thoughts and tasks. "
+                + "How may I guide you today?";
     }
 
     /**
@@ -57,13 +57,14 @@ public class GuiResponses {
                     userList.get(i).getDescription()) + "\n");
         }
         if (userList.size() == 0) {
-            toReturn.append("You have no tasks! (•‿•)");
+            toReturn.append("Your task list is empty, a rare moment of calmness.");
         }
-        if (userList.size() > 0 && userList.size() <= 5) {
-            toReturn.append("You have less than 5 tasks!Keep it up! :)");
+        if (userList.size() > 0 && userList.size() < 5) {
+            toReturn.append("You have fewer than 5 tasks. It seems the load is manageable for now."
+                    + "\n Keep going!");
         }
         if (userList.size() > 10) {
-            toReturn.append("You have more than 10 tasks... It is never going to end...");
+            toReturn.append("The list has grown beyond 10 tasks... sometimes it feels like the journey is endless.");
         }
         return toReturn.toString();
     }
@@ -83,7 +84,9 @@ public class GuiResponses {
      * @return msg for marking a task
      */
     public String markMsg(Task task) {
-        return "Marked Task as done! d(>_< )" + "\n" + task.getDescription();
+        return "You've completed the task %s" + "\n" + task.getDescription()
+                + "\n" + "Each completed task is a step closer to clarity, "
+                + "though the journey may still feel long...";
     }
 
     /**
@@ -92,8 +95,10 @@ public class GuiResponses {
      * @return msg for unmarking a task
      */
     public String unmarkMsg(Task task) {
-        return "Marked Task as undone! :( You have 1 more task now..." + "\n" + task.getDescription();
-
+        return "The task has been marked as undone."
+                + " Sometimes, it feels like our efforts to move forward are met with setbacks.\n"
+                + "You now have one more task to address:\n"
+                + task.getDescription();
     }
 
     /**
@@ -104,7 +109,8 @@ public class GuiResponses {
      */
     public String addTaskMsg(String type, int size) {
         return String.format("Added %s to Tasks", type) + "\n"
-                + String.format("Currently %d tasks in List", size);
+                + String.format("Currently %d tasks in List. ", size)
+                + String.format("Sometimes, I wonder if you have too much time on your hands... (¬_¬)", size);
 
     }
 
@@ -115,10 +121,9 @@ public class GuiResponses {
      * @return Deleted task message
      */
     public String delTaskMsg(Task task, int size) {
-
-
-        return "Deleting Task: " + task.getDescription()
-                + "\n" + String.format("%d tasks left", size);
+        return "The task has been removed: " + task.getDescription() + "\n"
+                + String.format("You now have %d tasks remaining. "
+                + "Each deletion is a step forward, though the journey continues.", size);
     }
 
     /**
@@ -127,7 +132,11 @@ public class GuiResponses {
      * @return String representation of matching search
      */
     public String getSearchList(ArrayList<Task> matches) {
-        StringBuilder toReturn = new StringBuilder("Displaying All Matching Tasks: +\n");
+        StringBuilder toReturn = new StringBuilder("Here are the tasks that align with your search:\n");
+        if (matches.size() == 0) {
+            toReturn.append("...It seems there are no tasks that match your criteria at this moment. "
+                    + "Sometimes, the answers we seek remain hidden.");
+        }
         for (int i = 0; i < matches.size(); i++) {
             toReturn.append(String.format(i + 1 + ". " + "[%s][%s] %s",
                     matches.get(i).getTaskSymbol(),
@@ -145,28 +154,36 @@ public class GuiResponses {
      * @return String representation of tagged task
      */
     public String taggedTasks(Task task, String tagName) {
-        return String.format("Tagged Task: %s with tag: %s", task.descNoTags(), tagName);
+        return String.format("The task has been tagged with '%s'.\n"
+                + "This addition might change how you perceive and approach this task, "
+                + "adding another layer to its significance:\n"
+                + "%s", tagName, task.descNoTags());
     }
-
     /**
      * Gets String representation of all tags
      * @param tagKeys set of strings of tags
      * @return String representation of all tags
      */
     public String displayAllTags(Set<String> tagKeys) {
-        if (tagKeys.size() == 0) {
-            return "No tags found! ¯\\\\_(ツ)_/¯";
+        if (tagKeys.isEmpty()) {
+            return "It appears there are no tags at the moment. Sometimes, our organization tools can feel sparse.";
+
         }
         StringBuilder tagsString = new StringBuilder(
-                String.format("Currently have %d Tags: \n", tagKeys.size()));
+                String.format("You currently have %d Tags: \n", tagKeys.size()));
         for (String tag : tagKeys) {
             tagsString.append(tag).append("\n");
         }
         return tagsString.toString();
     }
 
+    /**
+     * Gets String representation of invalid command response
+     * @return String representation of invalid command response
+     */
     public String getInvalidCommandMessage() {
-        return "Sorry, I don't understand that command. Please try again. ˙◠˙";
+        return "It seems I didn’t quite grasp that command. Sometimes, our communication can be elusive."
+                + " Please try again.";
     }
 
 }
