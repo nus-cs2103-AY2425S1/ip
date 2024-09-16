@@ -5,14 +5,11 @@ import exceptions.InvalidCommandError;
 public class Parser {
 
     /**
-     * Parses the user input and returns the corresponding Command object.
-     * Determines whether the command is a mark/unmark/delete/list command
-     * or delegates to task-specific parsing if necessary.
-     *
+     * Returns a mark/unmark/delete Command based on the first word of user input, or calls parseTask()
      * @param input the entire user input to be parsed
-     * @return Command object based on the input
-     * @throws EmptyDescriptionError if the description for tasks like todo, deadline, or event is missing
-     * @throws InvalidCommandError if the command is not recognized
+     * @return Command with task type mark/unmark/delete
+     * @throws EmptyDescriptionError
+     * @throws InvalidCommandError
      */
     public Command parse(String input) throws EmptyDescriptionError, InvalidCommandError {
         String[] parts = input.split(" ", 2);
