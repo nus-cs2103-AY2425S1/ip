@@ -80,7 +80,7 @@ public class TaskList {
     }
 
     /**
-     * Finds all events realted to the string specified by the user
+     * Finds all events related to the string specified by the user
      *
      * @param s String specified by the user.
      * @return  String containing all events matching the string specified by the user.
@@ -89,15 +89,24 @@ public class TaskList {
         String events = "Here are the matching tasks in your list:\n";
         boolean hasEvent = false;
 
+        //splits event string into its keywords
+        String[] eventKeywords = s.split(" ");
+        List<String> eventKeywordList = new ArrayList<>(Arrays.asList(eventKeywords));
+
         for (int i = 0; i < tasks.size(); i++) {
-            //Iterates through all tasks and finds tasks containing strings matching the string provided
+            //Iterates through all tasks and finds tasks containing strings matching any word of string provided
             Task t = tasks.get(i);
             String[] eventDetails = t.getTask().split(" ");
             List<String> eventArr = new ArrayList<>(Arrays.asList(eventDetails));
-            if (eventArr.contains(s)) {
-                events += t + "\n";
-                hasEvent = true;
+
+            for (int j = 0; j < eventKeywordList.size(); j ++) {
+                String word = eventKeywordList.get(j);
+                if (eventArr.contains(word)) {
+                    events += t + "\n";
+                    hasEvent = true;
+                }
             }
+
         }
 
         return hasEvent ? events : NO_EVENT_MESSAGE;
