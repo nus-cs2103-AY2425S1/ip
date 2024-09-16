@@ -217,11 +217,14 @@ public class CasperBot {
         return this.ui.addTaskMessage(newEvent, this.taskList.getNumberOfTasks());
     }
     private String viewSchedule(String[] parsedInputs) throws CasperBotInvalidCommandException,
-            CasperBotInvalidDateException, CasperBotOutOfBoundsException {
+            CasperBotInvalidDateException, CasperBotOutOfBoundsException, CasperBotMissingInputException {
         try {
             String command = parsedInputs[0].toLowerCase();
             if (!command.equals("view")) {
                 throw new CasperBotInvalidCommandException();
+            }
+            if (parsedInputs[1].isEmpty()) {
+                throw new CasperBotMissingInputException("date", "view");
             }
             LocalDate viewDate = LocalDate.parse(parsedInputs[1]);
             TaskList taskListOnDay = this.taskList.findTasksByDate(viewDate);
