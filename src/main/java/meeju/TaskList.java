@@ -12,7 +12,7 @@ public class TaskList {
     private Storage storage;
 
     /**
-     * Construct for TaskList object.
+     * Constructor for TaskList object.
      * Creates a new Storage object and initialises the ArrayList with the tasks saved in the disk.
      *
      * @param storage The Storage object responsible for loading and saving tasks.
