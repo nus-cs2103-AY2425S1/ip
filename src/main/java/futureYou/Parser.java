@@ -7,6 +7,14 @@ import java.time.format.DateTimeFormatter;
  * The Parser class deals with making sense of the user command.
  */
 public class Parser {
+    private static final StringBuilder START_OF_ERROR;
+    private static final String DEADLINE_FORMAT = "deadline <task name> /by <YYYY-MM-DD HH:mm>";
+    private static final String EVENT_FORMAT = "event <task name> /from <YYYY-MM-DD HH:mm> /to <YYYY-MM-DD HH:mm>";
+
+    static {
+        START_OF_ERROR = new StringBuilder("Invalid command format. Expected format: \n");
+    }
+
     /**
      * Parses the task number from the user's command.
      *
@@ -29,6 +37,11 @@ public class Parser {
     public static String parseToDoTask(String userCommand) {
         assert (userCommand != null);
         String taskName = userCommand.substring(4);
+
+        if (taskName.isEmpty()) {
+            return "Please enter a task name";
+        }
+
         return TaskList.addTask(taskName);
     }
 
@@ -40,15 +53,20 @@ public class Parser {
      */
     public static String parseDeadlineTask(String userCommand) {
         assert (userCommand != null);
-        String[] userInputs = userCommand.split("/");
+        try {
+            String[] userInputs = userCommand.split("/");
 
-        String taskName = userInputs[0].substring(9, userInputs[0].length() - 1);
-        String deadlineString = userInputs[1].substring(3);
+            String taskName = userInputs[0].substring(9, userInputs[0].length() - 1);
+            String deadlineString = userInputs[1].substring(3);
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime deadline = LocalDateTime.parse(deadlineString, format);
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime deadline = LocalDateTime.parse(deadlineString, format);
 
-        return TaskList.addTask(taskName, deadline);
+            return TaskList.addTask(taskName, deadline);
+        } catch (Exception e) {
+            StringBuilder errMsg = START_OF_ERROR.append(DEADLINE_FORMAT);
+            return errMsg.toString();
+        }
     }
 
     /**
@@ -60,18 +78,23 @@ public class Parser {
      */
     public static String parseEventTask(String userCommand) {
         assert (userCommand != null);
-        String[] userInputs = userCommand.split("/");
+        try {
+            String[] userInputs = userCommand.split("/");
 
-        String taskName = userInputs[0].substring(6, userInputs[0].length() - 1);
-        String startDateTimeString = userInputs[1].substring(5, userInputs[1].length() - 1);
-        String endDateTimeString = userInputs[2].substring(3);
+            String taskName = userInputs[0].substring(6, userInputs[0].length() - 1);
+            String startDateTimeString = userInputs[1].substring(5, userInputs[1].length() - 1);
+            String endDateTimeString = userInputs[2].substring(3);
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, format);
-        LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, format);
+            LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, format);
+            LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, format);
 
-        return TaskList.addTask(taskName, startDateTime, endDateTime);
+            return TaskList.addTask(taskName, startDateTime, endDateTime);
+        } catch (Exception e) {
+            StringBuilder errMsg = START_OF_ERROR.append(EVENT_FORMAT);
+            return errMsg.toString();
+        }
     }
 
     /**
@@ -79,7 +102,6 @@ public class Parser {
      *
      * @param userCommand The command entered by the user.
      * @return The parsed task number.
-     * @throws Exception If the task number is invalid.
      */
     public static int parseTaskNumber(String userCommand) throws Exception {
         assert (userCommand != null);

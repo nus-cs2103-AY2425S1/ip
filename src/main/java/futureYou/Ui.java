@@ -2,6 +2,7 @@ package futureyou;
 
 import java.util.Scanner;
 
+
 /**
  * The Ui class handles all interactions with the user.
  */
