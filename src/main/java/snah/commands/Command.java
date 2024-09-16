@@ -1,6 +1,7 @@
 package snah.commands;
 
 import snah.TaskList;
+import snah.errors.InvalidTaskException;
 import snah.errors.ParsingException;
 import snah.util.Storage;
 
@@ -25,7 +26,7 @@ public abstract class Command {
      * @return Response from the command
      * @throws ParsingException If there is an error parsing the command
      */
-    public abstract String execute(TaskList tasks, Storage storage) throws ParsingException;
+    public abstract String execute(TaskList tasks, Storage storage) throws ParsingException, InvalidTaskException;
 
     /**
      * Returns the user input

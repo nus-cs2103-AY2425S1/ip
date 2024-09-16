@@ -1,6 +1,7 @@
 package snah.commands;
 
 import snah.TaskList;
+import snah.errors.InvalidTaskException;
 import snah.errors.ParsingException;
 import snah.util.Parser;
 import snah.util.Storage;
@@ -14,8 +15,12 @@ public class Mark extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws ParsingException {
+    public String execute(TaskList tasks, Storage storage) throws ParsingException, InvalidTaskException {
         int taskIndex = Parser.getTaskIndex(getInput());
+
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            throw new InvalidTaskException(taskIndex);
+        }
 
         tasks.get(taskIndex).markAsDone();
         tasks.save(storage);

@@ -1,6 +1,7 @@
 package snah.commands;
 
 import snah.TaskList;
+import snah.errors.InvalidTaskException;
 import snah.errors.ParsingException;
 import snah.task.Task;
 import snah.util.Parser;
@@ -15,8 +16,12 @@ public class Delete extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws ParsingException {
+    public String execute(TaskList tasks, Storage storage) throws ParsingException, InvalidTaskException {
         int taskIndex = Parser.getTaskIndex(getInput());
+
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            throw new InvalidTaskException(taskIndex);
+        }
 
         Task deletedTask = tasks.remove(taskIndex);
         tasks.save(storage);
