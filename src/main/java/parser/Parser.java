@@ -3,7 +3,18 @@ package parser;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
-import commands.*;
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.FindCommand;
+import commands.HelpCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.NoteCommand;
+import commands.TodoCommand;
+import commands.UnmarkCommand;
 import exceptions.DownyException;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidFormatException;
@@ -164,26 +175,50 @@ public class Parser {
                     + "start time, and end time.\n   "
                     + "event <taskDescription> /from <startTime> /to <endTime>");
         }
+
         String remainder = parts[1];
         String[] splitParts = remainder.split("/from", 2);
-        if (splitParts.length < 2 || !splitParts[1].contains("/to")) {
-            throw new InvalidFormatException("Event command must follow the format: "
-                    + "<task> /from <startTime> /to <endTime>.");
+
+        if (splitParts.length < 2 || splitParts[1].trim().isEmpty()) {
+            throw new InvalidFormatException("Event command must contain the '/from' keyword with a valid start time.");
         }
+
+        if (!splitParts[1].contains("/to")) {
+            throw new InvalidFormatException("Event command must contain the '/to' keyword with a valid end time.");
+        }
+
         String name = splitParts[0].trim();
+        if (name.isEmpty()) {
+            throw new MissingArgumentException("Event command requires a task description before '/from'.");
+        }
+
         String[] time = splitParts[1].split("/to", 2);
+
+        // Ensure that startTime and endTime exist after splitting
+        if (time.length < 2 || time[0].trim().isEmpty() || time[1].trim().isEmpty()) {
+            throw new InvalidFormatException("Start time or end time is missing or incorrectly formatted. "
+                    + "Please use: event <taskDescription> /from <startTime> /to <endTime>.");
+        }
+
         String startTime = time[0].trim();
         String endTime = time[1].trim();
+
         LocalDateTime formattedStartTime;
         LocalDateTime formattedEndTime;
         try {
             formattedStartTime = DateTimeHandler.convertToDateTime(startTime);
             formattedEndTime = DateTimeHandler.convertToDateTime(endTime);
-        } catch (NumberFormatException | DateTimeException e) {
-            throw new InvalidFormatException("startTime and endTime must follow the format: YYYY/MM/DD HHMM");
+
+            if (formattedStartTime.isAfter(formattedEndTime)) {
+                throw new InvalidFormatException("Start time must be before end time.");
+            }
+        } catch (DateTimeException e) {
+            throw new InvalidFormatException("StartTime and EndTime must follow the format: YYYY/MM/DD HHMM.");
         }
+
         return new EventCommand(name, formattedStartTime, formattedEndTime);
     }
+
 
     /**
      * Handles the "help" command to display help information.
@@ -224,16 +259,13 @@ public class Parser {
                     + "   or: note delete <number>");
         }
 
-        // Split the remaining part of the command to identify the action (list, entry, or delete)
         String[] noteParts = parts[1].split(" ", 2);
         String noteCommand = noteParts[0];
 
-        // Handle "note list" case
         if (noteCommand.equals("list")) {
             return new NoteCommand("list");
         }
 
-        // Handle "note entry" case
         if (noteCommand.equals("entry")) {
             if (noteParts.length < 2 || noteParts[1].trim().isEmpty()) {
                 throw new MissingArgumentException("Note entry requires content to be specified.\n"
@@ -242,28 +274,25 @@ public class Parser {
             return new NoteCommand("entry", noteParts[1].trim());
         }
 
-        // Handle "note delete" case
         if (noteCommand.equals("delete")) {
             if (noteParts.length < 2 || noteParts[1].trim().isEmpty()) {
                 throw new MissingArgumentException("Note delete requires a note number.\n"
                         + "   Usage: note delete <number>");
             }
 
-            // Parse the note number
             try {
                 int noteNumber = Integer.parseInt(noteParts[1].trim());
                 if (noteNumber <= 0) {
                     throw new InvalidFormatException("Note number must be greater than 0.\n"
                             + "   Usage: note delete <number>");
                 }
-                return new NoteCommand("delete", noteNumber); // Assuming the NoteCommand will handle deleting the note by number
+                return new NoteCommand("delete", noteNumber);
             } catch (NumberFormatException e) {
                 throw new InvalidFormatException("Invalid format for note number. It must be an integer.\n"
                         + "   Usage: note delete <number>");
             }
         }
 
-        // If none of the valid commands were found, throw an exception
         throw new InvalidFormatException("Note command requires either 'list', 'entry <content>', or 'delete <number>'.\n"
                 + "   Usage: note list\n"
                 + "   or: note entry <content>\n"
