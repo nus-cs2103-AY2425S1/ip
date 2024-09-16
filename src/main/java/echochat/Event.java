@@ -44,4 +44,13 @@ public class Event extends Task{
     public String getTo() {
         return to;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() == Event.class) {
+            return ((Event) o).getDesc().equals(this.getDesc())
+                    && ((Event) o).getFrom().equals(this.getFrom()) && ((Event) o).getTo().equals(this.getTo());
+        }
+        return false;
+    }
 }

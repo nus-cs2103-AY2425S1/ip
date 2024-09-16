@@ -32,4 +32,13 @@ public class Deadline extends Task{
     public String getBy() {
         return this.by;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() == Deadline.class) {
+            return ((Deadline) o).getDesc().equals(this.getDesc())
+                    && ((Deadline) o).getBy().equals(this.getBy());
+        }
+        return false;
+    }
 }

@@ -1,20 +1,25 @@
 package echochat;
+
 import Exceptions.EmptyDescriptionError;
 import Exceptions.InvalidCommandError;
 
+/**
+ * Parses user input to determine the appropriate Command.
+ */
 public class Parser {
 
     /**
-     * Returns a mark/unmark/delete Command based on the first word of user input, or calls parseTask()
+     * Parses the user input and returns a corresponding Command.
+     *
      * @param input the entire user input to be parsed
-     * @return Command with task type mark/unmark/delete
-     * @throws EmptyDescriptionError
-     * @throws InvalidCommandError
+     * @return Command with task type mark/unmark/delete or other commands
+     * @throws EmptyDescriptionError if the input does not contain a valid description where required
+     * @throws InvalidCommandError if the input is not recognized as a valid command
      */
     public Command parse(String input) throws EmptyDescriptionError, InvalidCommandError {
         String[] parts = input.split(" ", 2);
 
-        // Assert statement here
+        // Assert that the input split resulted in at least one part
         assert parts.length > 0 : "Input split resulted in an empty array";
 
         if (input.equals("bye")) {
@@ -34,7 +39,7 @@ public class Parser {
             case "todo":
             case "deadline":
             case "event":
-                if (parts[1].equals("")) {
+                if (parts[1].trim().isEmpty()) {
                     throw new EmptyDescriptionError();
                 }
                 return parseTask(parts[0], parts[1]);
@@ -45,17 +50,16 @@ public class Parser {
         throw new InvalidCommandError();
     }
 
-
     /**
-     * Returns a Command with task type todo/deadline/event type with correct details.
+     * Parses the details of a task and returns a Command with the appropriate task type.
+     *
      * @param type either "todo", "deadline" or "event"
-     * @param details String that possible contains dates to be parsed
-     * @return Command with task type todo/deadline/event
-     * @throws InvalidCommandError
-     * @throws EmptyDescriptionError
+     * @param details String that contains the description and optional dates
+     * @return Command with the specified task type
+     * @throws InvalidCommandError if the type is invalid
+     * @throws EmptyDescriptionError if the description is empty or missing where required
      */
     private Command parseTask(String type, String details) throws InvalidCommandError, EmptyDescriptionError {
-
         assert type.equals("todo") || type.equals("deadline") || type.equals("event") : "Unknown task type: " + type;
 
         String description = "";
@@ -72,7 +76,7 @@ public class Parser {
                 if (detail.startsWith("by ")) {
                     by = detail.substring(3).trim();
                 } else if (detail.startsWith("from ")) {
-                    from = detail.substring(5);
+                    from = detail.substring(5).trim();
                 } else if (detail.startsWith("to ")) {
                     to = detail.substring(3).trim();
                 }
@@ -91,18 +95,27 @@ public class Parser {
             task = new Todo(description);
             break;
         case "deadline":
-            assert by != null : "Deadline task requires a 'by' date";
+            if (by == null) {
+                throw new EmptyDescriptionError(); // Custom message in the exception
+            }
             task = new Deadline(by, description);
             break;
         case "event":
-            assert from != null && to != null : "Event task requires 'from' and 'to' dates";
+            if (from == null || to == null) {
+                throw new EmptyDescriptionError(); // Custom message in the exception
+            }
             task = new Event(from, to, description);
             break;
         default:
-            break;
+            throw new InvalidCommandError(); // Custom message in the exception
         }
 
         assert task != null : "Task should have been initialized for type: " + type;
-        return new Command(type.equals("todo") ? CommandType.TODO : type.equals("deadline") ? CommandType.DEADLINE : CommandType.EVENT, description, 0, task);
+        return new Command(
+                type.equals("todo") ? CommandType.TODO :
+                        type.equals("deadline") ? CommandType.DEADLINE : CommandType.EVENT,
+                description, 0, task
+        );
     }
+
 }

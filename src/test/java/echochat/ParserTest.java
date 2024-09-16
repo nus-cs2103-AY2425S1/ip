@@ -86,4 +86,41 @@ public class ParserTest {
         assertThrows(InvalidCommandError.class, () -> parser.parse("delete"));
     }
 
+    @Test
+    void testParseDeadlineCommandWithExtraSpaces() throws EmptyDescriptionError, InvalidCommandError {
+        Command command = parser.parse("deadline    submit assignment    /by    tomorrow");
+        assertEquals(CommandType.DEADLINE, command.getType());
+        assertNotNull(command.getTask());
+        assertTrue(command.getTask() instanceof Deadline);
+        assertEquals("[D][ ] submit assignment (by: tomorrow)", command.getTask().getDesc());
+        assertEquals("tomorrow", ((Deadline) command.getTask()).getBy());
+    }
+
+    @Test
+    void testParseEventCommandWithExtraSpaces() throws EmptyDescriptionError, InvalidCommandError {
+        Command command = parser.parse("event    meeting    /from    Monday    /to    Wednesday");
+        assertEquals(CommandType.EVENT, command.getType());
+        assertNotNull(command.getTask());
+        assertTrue(command.getTask() instanceof Event);
+        assertEquals("[E][ ] meeting (from: Monday to: Wednesday)", command.getTask().getDesc());
+        assertEquals("Monday", ((Event) command.getTask()).getFrom());
+        assertEquals("Wednesday", ((Event) command.getTask()).getTo());
+    }
+
+    @Test
+    void testParseDeadlineCommandWithoutByDate() {
+        assertThrows(EmptyDescriptionError.class, () -> parser.parse("deadline submit assignment"));
+    }
+
+    @Test
+    void testParseEventCommandWithoutDateRange() {
+        assertThrows(EmptyDescriptionError.class, () -> parser.parse("event meeting /from Monday"));
+    }
+
+    @Test
+    void testParseEventCommandWithoutToDate() {
+        assertThrows(EmptyDescriptionError.class, () -> parser.parse("event meeting /from Monday /to"));
+    }
+
+
 }

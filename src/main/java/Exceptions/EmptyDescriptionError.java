@@ -2,6 +2,6 @@ package Exceptions;
 
 public class EmptyDescriptionError extends Exception {
     public EmptyDescriptionError() {
-        super("Empty description.");
+        super("Empty description or incorrect format.");
     }
 }

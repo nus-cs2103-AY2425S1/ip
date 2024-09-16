@@ -1,6 +1,4 @@
 package echochat;
-import Exceptions.EmptyDescriptionError;
-import Exceptions.InvalidCommandError;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,7 +21,7 @@ public class Main extends Application{
     private Scene scene;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/trump.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/harris.png"));
+    private Image echoImage = new Image(this.getClass().getResourceAsStream("/images/harris.png"));
     private Echo echo = new Echo();
 
 
@@ -50,7 +48,7 @@ public class Main extends Application{
 
         //Formatting the window to look as expected
 
-        stage.setTitle("Duke");
+        stage.setTitle("Echo");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -99,10 +97,10 @@ public class Main extends Application{
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = echo.getResponse(userInput.getText());
+        String echoText = echo.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getEchoDialog(dukeText, dukeImage)
+                DialogBox.getEchoDialog(echoText, echoImage)
         );
         userInput.clear();
     }

@@ -12,7 +12,14 @@ public class ChatBot {
         this.taskList.loadTasksFromFile();
         ui.greet();
     }
-
+    public boolean isDuplicate(Task task) {
+        for (Task existingTask : taskList.getTaskList()) {
+            if (task.equals(existingTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
@@ -43,6 +50,9 @@ public class ChatBot {
             case DEADLINE:
             case EVENT:
                 Task newTask = command.getTask();
+                if (isDuplicate(newTask)) {
+                    return ui.showDuplicate();
+                }
                 taskList.addToList(newTask);
                 return ui.showTaskAdded(newTask, taskList.getTaskList().size());
             case UNKNOWN:

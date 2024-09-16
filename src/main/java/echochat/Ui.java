@@ -140,4 +140,8 @@ public class Ui {
         System.out.println(outputMessage);
         return outputMessage;
     }
+
+    public String showDuplicate() {
+        return "Task already exists. Skipped task.";
+    }
 }
