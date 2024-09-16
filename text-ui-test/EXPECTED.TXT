@@ -1,7 +1,45 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-----------------------------------
+Hello! I'm Bobby
+What can I do for you?
+-----------------------------------
+-----------------------------------
+Plus one more thing to do:
+[T][ ] Fly Kite
+Now you have 1 tasks.
+-----------------------------------
+-----------------------------------
+Plus one more thing to do:
+[D][ ] Do homework (by: Sunday)
+Now you have 2 tasks.
+-----------------------------------
+-----------------------------------
+Plus one more thing to do:
+[E][ ] Meeting (from: Today to: Tomorrow)
+Now you have 3 tasks.
+-----------------------------------
+-----------------------------------
+1. [T][ ] Fly Kite
+2. [D][ ] Do homework (by: Sunday)
+3. [E][ ] Meeting (from: Today to: Tomorrow)
+-----------------------------------
+-----------------------------------
+Nice! I have marked this task as done:
+[T][X] Fly Kite
+-----------------------------------
+-----------------------------------
+1. [T][X] Fly Kite
+2. [D][ ] Do homework (by: Sunday)
+3. [E][ ] Meeting (from: Today to: Tomorrow)
+-----------------------------------
+-----------------------------------
+OK, I have marked this task as not done yet:
+[T][ ] Fly Kite
+-----------------------------------
+-----------------------------------
+1. [T][ ] Fly Kite
+2. [D][ ] Do homework (by: Sunday)
+3. [E][ ] Meeting (from: Today to: Tomorrow)
+-----------------------------------
+-----------------------------------
+Bye. Hope to see you again soon!
+-----------------------------------

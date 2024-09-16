@@ -1,0 +1,9 @@
+todo Fly Kite
+deadline Do homework /by Sunday
+event Meeting /from Today /to Tomorrow
+list
+mark 0
+list
+unmark 0
+list
+bye
