@@ -88,8 +88,10 @@ public class DeadlineTest {
     public void invalidDateSet() {
         try {
             Deadline.of("deadline CS2103T assignment /by 01-01-2023 15:00");
+            fail();
         } catch (Exception e) {
-            assertEquals("OOPS! Start day is later than today.\nPlease ensure valid time period.", e.toString());
+            assertEquals("OOPS! Start day is later than today.\nPlease ensure valid time period.",
+                    e.toString());
         }
     }
 }

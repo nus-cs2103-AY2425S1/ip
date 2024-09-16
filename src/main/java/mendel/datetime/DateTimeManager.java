@@ -17,9 +17,10 @@ public class DateTimeManager {
         "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
         "d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
         "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
-        "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm",
+        "d MMM yyyy HHmm", "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm",
         "d/MMM/yyyy HHmm", "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm",
-        "d MMM yyyy HHmm", "MMM dd yyyy, HH mm", "MMM dd yyyy, HH:mm", "MMM dd yyyy, HHmm", "MMM dd yyyy HH:mm"
+        "d MMM yyyy HHmm", "MMM dd yyyy, HH mm", "MMM dd yyyy, HH:mm", "MMM dd yyyy, HHmm", "MMM dd yyyy HH:mm",
+        "d/MMM/yyyy HH mm"
     };
     private static final String[] POSSIBLE_FORMATTED_UNTIME = new String[] {
         "dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy", "MMM, dd yyyy",

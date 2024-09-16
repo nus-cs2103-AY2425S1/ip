@@ -1,9 +1,9 @@
 package mendel.discretetask;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class EventTest {
     @Test
@@ -55,6 +55,51 @@ public class EventTest {
             fail();
         } catch (Exception e) {
             assertEquals("OOPS! I am unsure of start.\nPlease specify only one start.", e.toString());
+        }
+    }
+
+    @Test
+    public void checkMatchingDescription() {
+        assertTrue(Event.of("event CS2103T assignment /from 01-01-2030 15:00 /to 01-01-2031")
+                .isMatchingDescription("CS2103T"));
+        assertFalse(Event.of("event CS2103T assignment /from 01-01-2030 15:00 /to 01-01-2031")
+                .isMatchingDescription("CS2104T"));
+    }
+
+    @Test
+    public void reminder() {
+        Event event = Event.of("event CS2103T assignment /from 01-01-2030 15:00 /to 01-01-2031");
+        assertTrue(event.isIncompleteWithinTargetDueDate("02-01-2030"));
+        assertTrue(event.isIncompleteWithinTargetDueDate("02-01-2032"));
+        assertFalse(event.isIncompleteWithinTargetDueDate("02-01-2001"));
+        event.markAsDone();
+        assertFalse(event.isIncompleteWithinTargetDueDate("02-01-2031"));
+    }
+
+    @Test
+    public void invalidDateSet() {
+        try {
+            Event.of("event CS2103T assignment /from 01-01-2030 15:00 /to 01-01-2001");
+            fail();
+        } catch (Exception e) {
+            assertEquals("OOPS! End day is earlier than today.\nPlease ensure valid time period.",
+                    e.toString());
+        }
+
+        try {
+            Event.of("event CS2103T assignment /from 01-01-2001 15:00 /to 01-01-2030");
+            fail();
+        } catch (Exception e) {
+            assertEquals("OOPS! Start day is earlier than today.\nPlease ensure valid time period.",
+                    e.toString());
+        }
+
+        try {
+            Event.of("event CS2103T assignment /from 01-01-2031 15:00 /to 01-01-2030");
+            fail();
+        } catch (Exception e) {
+            assertEquals("OOPS! Start day is later than end day.\nPlease ensure valid time period.",
+                    e.toString());
         }
     }
 }

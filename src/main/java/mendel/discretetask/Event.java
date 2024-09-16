@@ -140,7 +140,7 @@ public class Event extends Task {
                         "OOPS! Start day is earlier than today.\nPlease ensure valid time period.")
                 .conditionTriggerException(new DateTimeManager(endMsg)
                                 .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
-                        "OOPS! End day is later than today.\nPlease ensure valid time period.")
+                        "OOPS! End day is earlier than today.\nPlease ensure valid time period.")
                 .conditionTriggerException(new DateTimeManager(endMsg).isEarlierThan(new DateTimeManager(startMsg)),
                         "OOPS! Start day is later than end day.\nPlease ensure valid time period.")
                 .conditionTriggerException(startMsg.isEmpty() && endMsg.isEmpty(),
