@@ -167,7 +167,7 @@ Here are the matching tasks in your list
 
 ### Remind task
 
-Finds tasks whose deadline is before given date and task is unmarked
+Finds unmarked events and deadlines whose due date is before given input date
 
 `remind <date>`
 
