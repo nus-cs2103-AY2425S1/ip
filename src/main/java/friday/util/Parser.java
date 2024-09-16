@@ -1,6 +1,7 @@
 package friday.util;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -126,6 +127,13 @@ public class Parser {
         try {
             String from = dateTimeParts[0];
             String to = dateTimeParts[1];
+
+            LocalDateTime startDateTime = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime endDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            if (!startDateTime.isBefore(endDateTime)) {
+                return new InvalidCommand("The start date/time must be earlier than the end date/time.");
+            }
+
             return new AddCommand(new Event(description, from, to));
         } catch (DateTimeParseException e) {
             return new InvalidCommand("The date/time format for the event is incorrect. "
