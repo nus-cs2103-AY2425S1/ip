@@ -1,6 +1,8 @@
 package xizi.chatbot.command;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 
 import xizi.chatbot.Parser;
@@ -49,7 +51,7 @@ public class ListOnCommand implements Command {
     public void execute(TaskList actions, Storage storage, Ui ui) {
         ui.showLine();
         boolean hasTasksFound = false;
-        ui.printMessage("Here are the tasks on the particular day in your list:");
+        List<Task> tasksOnDate = new ArrayList<>();
 
         try {
             for (Task task : actions.getItems()) {
@@ -57,7 +59,7 @@ public class ListOnCommand implements Command {
                 if (task instanceof Event) {
                     Event event = (Event) task;
                     if (isConcurrent(event)) {
-                        ui.printMessage(event.toString());
+                        tasksOnDate.add(event);
                         hasTasksFound = true;
                     }
                 } else if (task instanceof Deadline) {
@@ -66,7 +68,7 @@ public class ListOnCommand implements Command {
 
                     // Compare date and time (ignore seconds and milliseconds)
                     if (deadlineDate.equals(date)) {
-                        ui.printMessage(deadline.toString());
+                        tasksOnDate.add(deadline);
                         hasTasksFound = true;
                     }
                 }
@@ -74,10 +76,16 @@ public class ListOnCommand implements Command {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         if (!hasTasksFound) {
             ui.printMessage("No tasks found on this date.");
+            return;
         }
+        ui.printMessage("Here are the tasks on the particular day in your list:");
+        for (Task task : tasksOnDate) {
+            ui.printMessage(task.toString());
+        }
+
+
         ui.showLine();
     }
 

@@ -2,6 +2,7 @@ package xizi.chatbot.command;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 
 import xizi.chatbot.Parser;
@@ -38,8 +39,12 @@ public class EventCommand implements Command {
             if (taskDescription.isEmpty() || fromStr.isEmpty() || toStr.isEmpty()) {
                 throw new XiziException("The description or time of an event cannot be empty.");
             }
-            from = Parser.parseDateTime(fromStr);
-            to = Parser.parseDateTime(toStr);
+            try {
+                from = Parser.parseDateTime(fromStr);
+                to = Parser.parseDateTime(toStr);
+            } catch (DateTimeParseException e) {
+                throw new XiziException("Invalid date/time format. Use the format: d/M/yyyy HHmm");
+            }
         } else {
             throw new XiziException("Invalid event command format. Use: event <description> /from <start> /to <end>");
         }
@@ -58,6 +63,14 @@ public class EventCommand implements Command {
     @Override
     public void execute(TaskList actions, Storage storage, Ui ui) throws IOException, XiziException {
         Task task = new Event(taskDescription, from, to);
+        // Check if the task already exists in the task list
+        if (actions.getItems().contains(task)) {
+            ui.showLine();
+            ui.printMessage("This task already exists in the list:");
+            ui.printMessage("  " + task);
+            ui.showLine();
+            return;
+        }
         actions.addTask(task);
         storage.appendTask(task);
         ui.showLine();

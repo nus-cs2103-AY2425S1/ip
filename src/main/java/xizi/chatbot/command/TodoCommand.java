@@ -50,6 +50,14 @@ public class TodoCommand implements Command {
     @Override
     public void execute(TaskList actions, Storage storage, Ui ui) throws IOException, XiziException {
         Task task = new Todo(taskDescription);
+        // Check if the task already exists in the task list
+        if (actions.getItems().contains(task)) {
+            ui.showLine();
+            ui.printMessage("This task already exists in the list:");
+            ui.printMessage("  " + task);
+            ui.showLine();
+            return;
+        }
         actions.addTask(task);
         storage.appendTask(task);
         ui.showLine();

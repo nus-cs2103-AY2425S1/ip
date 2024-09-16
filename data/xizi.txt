@@ -1,3 +1,4 @@
-D | 1 | buy groceries | Sep 15 2024, 11:59pm | important, urgent, try, happy
-T | 1 | read book | tired, sleep
-E | 1 | team lunch | Dec 1 2024, 12:00pm | Dec 1 2024, 1:00pm | fun, urgent
+D | 0 | buy groceries | Sep 15 2024, 11:59pm | important, urgent, happy, cs
+T | 0 | read book | tired, sleep
+E | 0 | team lunch | Dec 1 2024, 12:00pm | Dec 1 2024, 1:00pm | fun, urgent, ummm
+D | 0 | tired | Sep 16 2024, 11:55pm | 
