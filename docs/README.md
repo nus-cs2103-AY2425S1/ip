@@ -49,7 +49,7 @@ todo complete CS2103T assignment
 ```
 Got it. I've added this task:
      [T][ ] test
-Now you have 5 tasks in the list.
+Now you have 1 tasks in the list.
 ```
 
 ### Adding deadline
@@ -68,7 +68,7 @@ deadline CS2103T IP /by Sep 20 2024
 ```
 Got it. I've added this task:
    [D][ ] CS2103T IP (by: Sep 20 2024)
-Now you have 6 tasks in the list.
+Now you have 2 tasks in the list.
 ```
 
 
@@ -88,7 +88,7 @@ event CS2103T course /from Aug 10 2024 /to Dec 15 2024
 ```
 Got it. I've added this task:
    [E][ ] CS2103T course (from: Aug 10 2024 to Dec 15 2024)
-Now you have 7 tasks in the list.
+Now you have 3 tasks in the list.
 ```
 
 ### Mark task
@@ -100,7 +100,7 @@ Marks a task syntatically as done
 **Example:**
 
 ```
-mark 6
+mark 2
 ```
 
 **Expected Output:**
@@ -118,7 +118,7 @@ Marks a task syntatically as not done
 **Example:**
 
 ```
-unmark 6
+unmark 2
 ```
 
 **Expected Output:**
@@ -136,7 +136,7 @@ Removes task from list
 **Example:**
 
 ```
-delete 7
+delete 3
 ```
 
 **Expected Output:**
@@ -198,10 +198,6 @@ list
 **Expected Output:**
 ```
 Here are the tasks in your list:
-   1.[T][ ] read book
-   2.[D][X] return book (by: Jun 6 2024)
-   3.[E][X] project meeting (from: Aug 6 2024 to Aug 7 2024)
-   4.[T][ ] join sports club
-   5.[D][ ] CS2103T IP (by: Sep 20 2024)
-   6.[T][X] CS2103T assignment
+   1.[D][ ] CS2103T IP (by: Sep 20 2024)
+   2.[T][X] CS2103T assignment
 ```
