@@ -1,0 +1,35 @@
+.label {
+    /* Background gradient blending shades of grey */
+    -fx-background-color: linear-gradient(to bottom right, #D3D3D3, #DCDCDC);
+
+    /* Border colors adjusted to complement the grey theme */
+    -fx-border-color: #7d7d7d;
+    -fx-border-width: 2px;
+    /* Rounded corners */
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+}
+
+.error-label {
+    -fx-background-color: #FF7F7F;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

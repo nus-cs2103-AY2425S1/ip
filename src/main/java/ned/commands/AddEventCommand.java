@@ -78,6 +78,6 @@ public class AddEventCommand implements Command {
      */
     @Override
     public String getRegex() {
-        return this.REGEX;
+        return REGEX;
     }
 }

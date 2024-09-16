@@ -32,7 +32,7 @@ public class Parser {
         CommandTypes command = CommandTypes.findMatchingCommand(userInput);
         assert command != null : "command cannot be null";
         switch (command) {
-        case MARK, UNMARK, LIST, DELETE, TODO, DEADLINE, EVENT, BYE, FIND:
+        case MARK, UNMARK, LIST, DELETE, TODO, DEADLINE, EVENT, BYE, FIND, HELP:
             return command.getCommand();
         case UNKNOWN:
         default:

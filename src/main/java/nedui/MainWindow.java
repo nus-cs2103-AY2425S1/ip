@@ -5,11 +5,14 @@ import java.util.Objects;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import ned.Ned;
@@ -38,13 +41,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        userInput.setPromptText("Command me m'lord");
     }
 
     /** Injects the Duke instance */
     public void setNed(Ned d) {
         this.ned = d;
         dialogContainer.getChildren().addAll(
-                DialogBox.getNedDialog(ned.getWelcomeMessage(), nedImage)
+                encloseNedInput(ned.getWelcomeMessage(), false)
         );
     }
 
@@ -56,21 +60,31 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = ned.getResponse(input);
+        boolean isErrorMessage = ned.getMessageErrorStatus();
         if (response.equals("EXIT MESSAGE")) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getNedDialog(ned.getByeMessage(), nedImage)
-            );
+                    encloseUserInput(input),
+                    encloseNedInput(ned.getByeMessage(), false));
             exitApplicationWithDelay(2);
             return;
+
         }
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getNedDialog(response, nedImage)
+                encloseUserInput(input),
+                encloseNedInput(response, isErrorMessage)
         );
         userInput.clear();
     }
 
+    private DialogBox encloseUserInput(String input) {
+        DialogBox userDialogBox = DialogBox.getUserDialog(input, userImage);
+        return userDialogBox;
+    }
+
+    private DialogBox encloseNedInput(String response, boolean isErrorMessage) {
+        DialogBox nedDialogBox = DialogBox.getNedDialog(response, nedImage, isErrorMessage);
+        return nedDialogBox;
+    }
     private void exitApplicationWithDelay(double seconds) {
         PauseTransition delayAnimation = new PauseTransition(Duration.seconds(seconds));
         delayAnimation.setOnFinished(event -> Platform.exit());

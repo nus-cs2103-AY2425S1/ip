@@ -17,6 +17,8 @@ public class Ned {
     private Ui ui;
     private TaskList tasks;
 
+    private boolean isMessageError = false;
+
 
     /**
      * Creates an instance of the Ned chatbot.
@@ -46,12 +48,17 @@ public class Ned {
             if (c.isExit()) {
                 return EXIT_MESSAGE;
             }
+            isMessageError = false;
             return ui.getAllBuiltUpDialogue();
         } catch (NedException e) {
+            isMessageError = true;
             return e.getMessage();
         }
     }
 
+    public boolean getMessageErrorStatus() {
+        return this.isMessageError;
+    }
     public String getWelcomeMessage() {
         return ui.getWelcomeMessage();
     }
@@ -74,6 +81,7 @@ public class Ned {
                 c.execute(tasks, ui, storage, fullCommand);
                 isExit = c.isExit();
             } catch (NedException e) {
+                isMessageError = true;
                 ui.addToNedDialogue(e.getMessage());
             }
         }
