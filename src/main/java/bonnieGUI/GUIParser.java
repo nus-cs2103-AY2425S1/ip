@@ -15,9 +15,8 @@ public class GUIParser {
      * @param input The user input to be parsed.
      * @throws DeadlineFormatException   If the format of the deadline task is incorrect.
      * @throws EmptyTodoException        If the body of the todo task is empty.
-     * @throws UnknownCommandException   If the command is unknown.
      */
-    public static String parseInput(String input) throws DeadlineFormatException, EmptyTodoException, UnknownCommandException {
+    public static String parseInput(String input) throws DeadlineFormatException, EmptyTodoException {
         assert input != "";
         if (input.equals("list")) {
             return returnList();
@@ -147,7 +146,7 @@ public class GUIParser {
         }
     }
 
-    private static String parseTaskAddition(String input) throws EmptyTodoException, UnknownCommandException, DeadlineFormatException {
+    private static String parseTaskAddition(String input) throws EmptyTodoException, DeadlineFormatException {
         String[] splitString = input.split(" ", 2);
         String name;
         if (splitString[0].equals("todo")) {
@@ -170,7 +169,7 @@ public class GUIParser {
             GUITaskList.addTask(new Event(component1[0], component2[0], component2[1]));
             name = component1[0];
         } else {
-            throw new UnknownCommandException(input);
+            return String.format("Hey %s, I do not understand what you mean by %s", MainWindow.username, input);
         }
 
         return String.format("Hey %s, I have added \"%s\" into your task list!\n" +
