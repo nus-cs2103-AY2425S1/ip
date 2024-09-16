@@ -93,6 +93,8 @@ public class Parser {
                 task = Deadline.getDeadlineFromInput(input);
             } else {
                 // words[0] is guaranteed to be "event" here
+                assert words[0].equals("event");
+                
                 task = Event.getEventFromInput(input);
             }
             this.taskList.addTask(task);
