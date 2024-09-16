@@ -16,6 +16,9 @@ import snah.commands.List;
 import snah.commands.Mark;
 import snah.commands.UnMark;
 import snah.errors.ParsingException;
+import snah.task.Deadline;
+import snah.task.Event;
+import snah.task.ToDo;
 
 /**
  * Class to handle the parsing of the chatbot
@@ -70,7 +73,7 @@ public class Parser {
     public static String[] getTodoPayload(String input) throws ParsingException {
         String[] todoPayload = input.split(" ", 2);
         if (todoPayload.length == 1) {
-            throw new ParsingException("The description of a todo cannot be empty.");
+            throw new ParsingException("The todo command should be in the format: " + ToDo.getFormatDescription());
         }
         String todoDescription = input.split(" ", 2)[1];
         if (todoDescription.length() == 0) {
@@ -92,7 +95,7 @@ public class Parser {
         String[] splitInput = deadlinePayload[1].split(" /by ");
         if (splitInput.length != 2) {
             throw new ParsingException(
-                    "The deadline command should be in the format: deadline <description> /by <date>");
+                    "The deadline command should be in the format: " + Deadline.getFormatDescription());
         }
         return new String[] { splitInput[0], splitInput[1] };
     }
@@ -109,12 +112,11 @@ public class Parser {
         }
         String[] splitInput = eventPayload[1].split(" /from ");
         if (splitInput.length != 2) {
-            throw new ParsingException("The event command should be in the format: event <description> /from <date>");
+            throw new ParsingException("The event command should be in the format: " + Event.getFormatDescription());
         }
         String[] finalSplit = splitInput[1].split(" /to ");
         if (finalSplit.length != 2) {
-            throw new ParsingException(
-                    "The event command should be in the format: event <description> /from <date> /to <date>");
+            throw new ParsingException("The event command should be in the format: " + Event.getFormatDescription());
         }
         return new String[] { splitInput[0], finalSplit[0], finalSplit[1] };
     }

@@ -22,4 +22,11 @@ public class ToDo extends Task {
         return String.format("T:%s:%s", isDone() ? "x" : "", getDescription());
     }
 
+    /**
+     * Returns the format to create a new Todo task
+     * @return Format description for the Todo task
+     */
+    public static String getFormatDescription() {
+        return "todo <description>";
+    }
 }

@@ -3,6 +3,7 @@ package snah;
 import java.util.Scanner;
 
 import snah.commands.Command;
+import snah.errors.InvalidTaskException;
 import snah.errors.ParsingException;
 import snah.util.Parser;
 import snah.util.Storage;
@@ -41,6 +42,8 @@ public class Snah {
             tasksList.save(storage);
             return response;
         } catch (ParsingException e) {
+            return e.getMessage();
+        } catch (InvalidTaskException e) {
             return e.getMessage();
         }
     }
