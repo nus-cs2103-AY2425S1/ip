@@ -62,7 +62,7 @@ public class TaskList {
      */
     public Task updateTask(int idx, String command) throws FailedUpdateException, InvalidCommandException {
 
-        boolean signal;
+        boolean isUpdated;
         // Minus 1 because of 0 indexing
         idx = idx - 1;
 
@@ -72,15 +72,15 @@ public class TaskList {
 
         // We need to determine which of the function to call based on the input
         if (command.equals("mark")) {
-            signal = task.mark();
+            isUpdated = task.mark();
         } else if (command.equals("unmark")) {
-            signal = task.unmark();
+            isUpdated = task.unmark();
         } else {
             throw new InvalidCommandException(command);
         }
 
         // If for any reason the task did not update then we will need to update the user
-        if (!signal) {
+        if (!isUpdated) {
             throw new FailedUpdateException(task, command);
         }
 

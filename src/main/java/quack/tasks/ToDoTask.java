@@ -19,6 +19,25 @@ public class ToDoTask extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+ 
+        // If the object is compared with itself then return true  
+        if (obj == this) {
+            return true;
+        }
+ 
+        if (!(obj instanceof ToDoTask)) {
+            return false;
+        }
+
+        ToDoTask taskObj = (ToDoTask) obj;
+
+        boolean isSameDescription = this.description == taskObj.description;
+
+        return isSameDescription;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
