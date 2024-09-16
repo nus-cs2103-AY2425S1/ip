@@ -1,6 +1,7 @@
 package task;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 /**
  * Represents an event with a start and end date.
@@ -15,28 +16,30 @@ public class Event extends Task {
     protected LocalDate end;
 
     /**
-     * Constructs an {@code Event} with the specified description, start date, and end date.
+     * Constructs an {@code Event} with the specified description, start date, end date,
+     * and associated tags.
      * <p>
      * This constructor initializes the event with the given description, start date,
-     * and end date. Both dates are parsed from strings into {@link LocalDate} objects.
+     * end date, and associated tags. Both dates are parsed from strings into {@link LocalDate} objects.
      * </p>
      *
      * @param description The description of the event.
      * @param start       The start date of the event in string format (e.g., "2024-09-01").
      * @param end         The end date of the event in string format (e.g., "2024-09-02").
+     * @param tags        A collection of tags associated with the event.
      */
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(String description, String start, String end, Collection<String> tags) {
+        super(description, tags);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
 
     /**
      * Constructs an {@code Event} with the specified description, start date, end date,
-     * and completion status.
+     * completion status, and associated tags.
      * <p>
      * This constructor initializes the event with the given description, start date,
-     * end date, and whether the event is completed. Both dates are parsed from strings
+     * end date, completion status, and associated tags. Both dates are parsed from strings
      * into {@link LocalDate} objects.
      * </p>
      *
@@ -44,9 +47,10 @@ public class Event extends Task {
      * @param start       The start date of the event in string format (e.g., "2024-09-01").
      * @param end         The end date of the event in string format (e.g., "2024-09-02").
      * @param isDone      A boolean indicating whether the event is completed.
+     * @param tags        A collection of tags associated with the event.
      */
-    public Event(String description, String start, String end, boolean isDone) {
-        super(description, isDone);
+    public Event(String description, String start, String end, boolean isDone, Collection<String> tags) {
+        super(description, isDone, tags);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
@@ -63,7 +67,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + getDateStringPrintFormat(this.start) + " to: "
-                + getDateStringPrintFormat(this.end) + ")";
+                + getDateStringPrintFormat(this.end) + ") " + this.tags.toString();
     }
 
     /**
@@ -78,11 +82,12 @@ public class Event extends Task {
     @Override
     public String getDatabaseString() {
         return String.format(
-                "E | %d | %s | %s | %s",
+                "E | %d | %s | %s | %s | %s",
                 this.isDone ? 1 : 0,
                 this.description,
                 getDateStringStorageFormat(this.start),
-                getDateStringStorageFormat(this.start)
+                getDateStringStorageFormat(this.start),
+                this.tags.getDatabaseString()
         );
     }
 }

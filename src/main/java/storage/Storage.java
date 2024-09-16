@@ -5,12 +5,14 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+import task.tags.Tags;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -124,13 +126,20 @@ public class Storage {
         String taskType = taskConstituents[0];
         boolean isCompleted = taskConstituents[1].equals("1");
 
+        // Extract and parse tags if present
+        HashSet<String> tags = new HashSet<>();
+        if (taskConstituents.length > 2) {
+            String tagsString = taskConstituents[taskConstituents.length - 1];
+            tags = Tags.parseDatabaseString(tagsString);
+        }
+
         switch (taskType) {
             case "T":
-                return parseTodo(taskConstituents, isCompleted);
+                return parseTodo(taskConstituents, isCompleted, tags);
             case "D":
-                return parseDeadline(taskConstituents, isCompleted);
+                return parseDeadline(taskConstituents, isCompleted, tags);
             case "E":
-                return parseEvent(taskConstituents, isCompleted);
+                return parseEvent(taskConstituents, isCompleted, tags);
             default:
                 System.err.println("Unknown task type: " + taskType);
                 return null;
@@ -142,11 +151,12 @@ public class Storage {
      *
      * @param taskConstituents The array of task constituents.
      * @param isCompleted      The completion status of the task.
+     * @param tags             The tags associated with the task.
      * @return A Todo object or null if the line is invalid.
      */
-    private Task parseTodo(String[] taskConstituents, boolean isCompleted) {
+    private Task parseTodo(String[] taskConstituents, boolean isCompleted, HashSet<String> tags) {
         if (taskConstituents.length >= 3) {
-            return new Todo(taskConstituents[2], isCompleted);
+            return new Todo(taskConstituents[2], isCompleted, tags);
         } else {
             System.err.println("Invalid task.Todo task format: " + String.join(DELIMITER, taskConstituents));
             return null;
@@ -158,11 +168,12 @@ public class Storage {
      *
      * @param taskConstituents The array of task constituents.
      * @param isCompleted      The completion status of the task.
+     * @param tags             The tags associated with the task.
      * @return A Deadline object or null if the line is invalid.
      */
-    private Task parseDeadline(String[] taskConstituents, boolean isCompleted) {
+    private Task parseDeadline(String[] taskConstituents, boolean isCompleted, HashSet<String> tags) {
         if (taskConstituents.length >= 4) {
-            return new Deadline(taskConstituents[2], taskConstituents[3], isCompleted);
+            return new Deadline(taskConstituents[2], taskConstituents[3], isCompleted, tags);
         } else {
             System.err.println("Invalid task.Deadline task format: " + String.join(DELIMITER, taskConstituents));
             return null;
@@ -174,16 +185,18 @@ public class Storage {
      *
      * @param taskConstituents The array of task constituents.
      * @param isCompleted      The completion status of the task.
+     * @param tags             The tags associated with the task.
      * @return An Event object or null if the line is invalid.
      */
-    private Task parseEvent(String[] taskConstituents, boolean isCompleted) {
+    private Task parseEvent(String[] taskConstituents, boolean isCompleted, HashSet<String> tags) {
         if (taskConstituents.length >= 5) {
-            return new Event(taskConstituents[2], taskConstituents[3], taskConstituents[4], isCompleted);
+            return new Event(taskConstituents[2], taskConstituents[3], taskConstituents[4], isCompleted, tags);
         } else {
             System.err.println("Invalid task.Event task format: " + String.join(DELIMITER, taskConstituents));
             return null;
         }
     }
+
 
     /**
      * Writes the specified list of tasks to the file.
