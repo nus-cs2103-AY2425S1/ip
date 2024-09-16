@@ -2,6 +2,7 @@ package xizi.chatbot.gui;
 
 import java.util.Objects;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import xizi.chatbot.Xizi;
 
 
@@ -59,6 +61,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getXiziDialog(response, xiziImage)
         );
+        // Check if response contains the Goodbye flag
+        // Thread.sleep(1500) is blocking the JavaFX application thread, preventing the UI from being updated
+        if (response.contains("Goodbye")) {
+            // Create a pause to allow the goodbye message to be shown
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.0)); // 1.0-second delay
+            delay.setOnFinished(event -> Platform.exit()); // Close the application after delay
+            delay.play(); // Start the pause transition
+        }
         userInput.clear();
     }
 

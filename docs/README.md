@@ -1,8 +1,9 @@
 # Xizi Chatbot - Task Manager Bot
 
-## Overview
-Welcome to the **Xizi Chatbot**! Xizi is a simple Java-based personal assistant chatbot designed to help you manage your tasks effectively. It allows you to add different types of tasks, 
-mark them as done or undone, tag them, and even search for specific tasks using keywords or tags.
+<div style="background-color:#f0f8ff; padding:15px; border-radius:10px;">
+  <h2 style="color:#2c3e50;">Overview</h2>
+  <p>Welcome to the <strong>Xizi Chatbot</strong>! Xizi is a Java-based personal assistant chatbot that helps you manage tasks such as todos, deadlines, and events. With Xizi, you can tag tasks, mark them as done, search by keyword or tag, and much more!</p>
+</div>
 
 ## How to use Xizi bot?
 Navigate to the Releases page, download the latest JAR and run `java -jar xizi.jar` in the terminal to start the bot.

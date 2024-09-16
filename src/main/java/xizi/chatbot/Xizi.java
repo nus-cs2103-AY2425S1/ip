@@ -110,6 +110,7 @@ public class Xizi {
             // Execute the command
             command.execute(actions, storage, ui);
             ps.flush(); // Ensure all data is written to the ByteArrayOutputStream
+
             return byteStream.toString().trim();
         } catch (XiziException | IOException e) {
             return e.getMessage(); // Return the error message as the response
