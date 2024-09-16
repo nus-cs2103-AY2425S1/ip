@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import fanny.task.Event;
-import fanny.task.Task;
 import fanny.task.TaskList;
 import fanny.ui.Ui;
 
@@ -64,8 +63,8 @@ public class EventCommand extends Command {
         String[] cmdEvent = this.description.split("/from ", 2);
         String info = cmdEvent[0];
         String[] duration = cmdEvent[1].split(" /to ", 2);
-        LocalDateTime startTime = LocalDateTime.parse(duration[0], formatter);
-        LocalDateTime endTime = LocalDateTime.parse(duration[1], formatter);
+        LocalDateTime startTime = LocalDateTime.parse(duration[0], super.getFormatter());
+        LocalDateTime endTime = LocalDateTime.parse(duration[1], super.getFormatter());
         this.event = new Event(info, startTime, endTime);
     }
 

@@ -2,10 +2,9 @@ package fanny.task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDateTime;
-import java.util.stream.Collectors;
 
 import fanny.storage.Storage;
 
@@ -82,7 +81,7 @@ public class TaskList {
         String message = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < this.list.size(); i++) {
-            message += i+1 + "." + list.get(i).toString() + "\n";
+            message = message + (i + 1) + "." + list.get(i).toString() + "\n";
         }
 
         System.out.println(message);
@@ -98,7 +97,6 @@ public class TaskList {
     public String markAsDone(int index) {
         assert index > 0 && index <= this.list.size() : "Index out of bounds.";
         Task taskToMark = this.list.get(index - 1);
-        
         try {
             taskToMark.markAsDone();
             storage.save(this.list);
@@ -117,7 +115,6 @@ public class TaskList {
     public String markAsNotDone(int index) {
         assert index > 0 && index <= this.list.size() : "Index out of bounds.";
         Task taskToUnMark = this.list.get(index - 1);
-        
         try {
             taskToUnMark.markAsNotDone();
             storage.save(this.list);
@@ -153,8 +150,8 @@ public class TaskList {
         return list.stream()
                 .filter(task -> task instanceof Deadline)
                 .map(task -> (Deadline) task)
-                .filter(deadline -> deadline.getDeadlineTime().isAfter(now) &&
-                        deadline.getDeadlineTime().isBefore(nextDay))
+                .filter(deadline -> deadline.getDeadlineTime().isAfter(now)
+                        && deadline.getDeadlineTime().isBefore(nextDay))
                 .toList();
     }
 

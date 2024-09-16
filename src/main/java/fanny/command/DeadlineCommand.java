@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import fanny.task.Deadline;
-import fanny.task.Task;
 import fanny.task.TaskList;
 import fanny.ui.Ui;
 
@@ -61,7 +60,7 @@ public class DeadlineCommand extends Command {
      */
     public void generateDeadline() {
         String[] cmdDeadline = this.description.split("/by ", 2);
-        LocalDateTime time = LocalDateTime.parse(cmdDeadline[1], formatter);
+        LocalDateTime time = LocalDateTime.parse(cmdDeadline[1], super.getFormatter());
         String description = cmdDeadline[0];
         this.deadline = new Deadline(description, time);
     }

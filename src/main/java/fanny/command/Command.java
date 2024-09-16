@@ -12,7 +12,7 @@ import fanny.ui.Ui;
 public abstract class Command {
 
     /** The formatter used for parsing and formatting date and time. */
-    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * An abstract method that executes the command
@@ -31,4 +31,8 @@ public abstract class Command {
      *     {@code false} otherwise.
      */
     public abstract boolean shouldExit();
+
+    public DateTimeFormatter getFormatter() {
+        return formatter;
+    }
 }

@@ -1,11 +1,11 @@
 package fanny.ui;
 
+import java.util.List;
+import java.util.Scanner;
+
 import fanny.task.Deadline;
 import fanny.task.Task;
 import fanny.task.TaskList;
-
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Handles interactions with the user by printing messages and reading user input.
@@ -78,8 +78,8 @@ public class Ui {
     }
 
     public String showAddTaskMsg(Task task, TaskList list) {
-        message = "Fanny:\nGot it. I've added this task:\n" + task.toString() + "\n" +
-                "Now you have " + list.getLength() + " tasks in the list.";
+        message = "Fanny:\nGot it. I've added this task:\n" + task.toString() + "\n"
+                + "Now you have " + list.getLength() + " tasks in the list.";
 
         System.out.println(message);
 
@@ -87,8 +87,8 @@ public class Ui {
     }
 
     public String showDeleteTaskMsg(int taskId, TaskList list) {
-        message = "Fanny:\nNoted. I've removed this task:\n" +  list.delete(taskId) + "\n" +
-                "Now you have " + list.getLength() + " tasks in the list.";
+        message = "Fanny:\nNoted. I've removed this task:\n" + list.delete(taskId) + "\n"
+                + "Now you have " + list.getLength() + " tasks in the list.";
 
         System.out.println(message);
 
@@ -96,8 +96,8 @@ public class Ui {
     }
 
     public String showMarkTaskMsg(int taskId, TaskList list) {
-        message = "Fanny:\nNice! I've marked this task as done:\n" +
-                list.markAsDone(taskId);
+        message = "Fanny:\nNice! I've marked this task as done:\n"
+                + list.markAsDone(taskId);
 
         System.out.println(message);
 
@@ -105,8 +105,8 @@ public class Ui {
     }
 
     public String showUnmarkTaskMsg(int taskId, TaskList list) {
-        message = "Fanny:\nOK, I've marked this task as not done yet:\n" +
-                list.markAsNotDone(taskId);
+        message = "Fanny:\nOK, I've marked this task as not done yet:\n"
+                + list.markAsNotDone(taskId);
 
         System.out.println(message);
 
