@@ -1,13 +1,6 @@
 package chatbuddy.parser;
 
-import chatbuddy.command.AddCommand;
-import chatbuddy.command.Command;
-import chatbuddy.command.DeleteCommand;
-import chatbuddy.command.ExitCommand;
-import chatbuddy.command.FindCommand;
-import chatbuddy.command.ListCommand;
-import chatbuddy.command.MarkCommand;
-import chatbuddy.command.UnmarkCommand;
+import chatbuddy.command.*;
 import chatbuddy.exception.ChatBuddyException;
 
 /**
@@ -24,59 +17,161 @@ public class Parser {
      */
     public static Command parse(String userInput) throws ChatBuddyException {
         String[] parts = userInput.split(" ", 2);
+        assert parts.length > 0 : "User input should not be empty";
         String commandWord = parts[0];
 
         switch (commandWord) {
-            case "list":
-                return new ListCommand();
+        case "list":
+            return new ListCommand();
 
-            case "mark":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new ChatBuddyException("Please specify the task number to mark.");
-                }
-                return new MarkCommand(parts[1]);
+        case "mark":
+            return parseMarkCommand(parts);
 
-            case "unmark":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new ChatBuddyException("Please specify the task number to unmark.");
-                }
-                return new UnmarkCommand(parts[1]);
+        case "unmark":
+            return parseUnmarkCommand(parts);
 
-            case "todo":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new ChatBuddyException("The description of a todo cannot be empty.");
-                }
-                return new AddCommand(parts[1], "T");
+        case "todo":
+            return parseTodoCommand(parts);
 
-            case "deadline":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new ChatBuddyException("The description of a deadline cannot be empty.");
-                }
-                return new AddCommand(parts[1], "D");
+        case "deadline":
+            return parseDeadlineCommand(parts);
 
-            case "event":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new ChatBuddyException("The description of an event cannot be empty.");
-                }
-                return new AddCommand(parts[1], "E");
+        case "event":
+            return parseEventCommand(parts);
 
-            case "delete":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new ChatBuddyException("Please specify the task number to delete.");
-                }
-                return new DeleteCommand(parts[1]);
+        case "delete":
+            return parseDeleteCommand(parts);
 
-            case "find":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new ChatBuddyException("Please provide a keyword to search.");
-                }
-                return new FindCommand(parts[1]);
+        case "find":
+            return parseFindCommand(parts);
 
-            case "bye":
-                return new ExitCommand();
+        case "update":
+            return parseUpdateCommand(parts);
 
-            default:
-                throw new ChatBuddyException("Sorry, I don't understand that command.");
+        case "bye":
+            return new ExitCommand();
+
+        default:
+            throw new ChatBuddyException("Sorry, I don't understand that command.");
         }
+    }
+
+    /**
+     * Parses the input for the 'mark' command and returns a MarkCommand.
+     *
+     * @param parts The user input split into command word and arguments.
+     * @return A MarkCommand to mark the specified tasks as done.
+     * @throws ChatBuddyException If the task number is not specified or invalid.
+     */
+    private static Command parseMarkCommand(String[] parts) throws ChatBuddyException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new ChatBuddyException("Please specify the task number to mark.");
+        }
+        String[] markIndices = parts[1].split(" ");
+        return new MarkCommand(markIndices);
+    }
+
+    /**
+     * Parses the input for the 'unmark' command and returns an UnmarkCommand.
+     *
+     * @param parts The user input split into command word and arguments.
+     * @return An UnmarkCommand to mark the specified tasks as not done.
+     * @throws ChatBuddyException If the task number is not specified or invalid.
+     */
+    private static Command parseUnmarkCommand(String[] parts) throws ChatBuddyException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new ChatBuddyException("Please specify the task number to unmark.");
+        }
+        String[] unmarkIndices = parts[1].split(" ");
+        return new UnmarkCommand(unmarkIndices);
+    }
+
+    /**
+     * Parses the input for the 'todo' command and returns an AddCommand for a ToDo task.
+     *
+     * @param parts The user input split into command word and arguments.
+     * @return An AddCommand to add a new ToDo task.
+     * @throws ChatBuddyException If the task description is empty or invalid.
+     */
+    private static Command parseTodoCommand(String[] parts) throws ChatBuddyException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new ChatBuddyException("The description of a todo cannot be empty.");
+        }
+        return new AddCommand(parts[1], "T");
+    }
+
+    /**
+     * Parses the input for the 'deadline' command and returns an AddCommand for a Deadline task.
+     *
+     * @param parts The user input split into command word and arguments.
+     * @return An AddCommand to add a new Deadline task.
+     * @throws ChatBuddyException If the task description is empty or invalid.
+     */
+    private static Command parseDeadlineCommand(String[] parts) throws ChatBuddyException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new ChatBuddyException("The description of a deadline cannot be empty.");
+        }
+        return new AddCommand(parts[1], "D");
+    }
+
+    /**
+     * Parses the input for the 'event' command and returns an AddCommand for an Event task.
+     *
+     * @param parts The user input split into command word and arguments.
+     * @return An AddCommand to add a new Event task.
+     * @throws ChatBuddyException If the task description is empty or invalid.
+     */
+    private static Command parseEventCommand(String[] parts) throws ChatBuddyException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new ChatBuddyException("The description of an event cannot be empty.");
+        }
+        return new AddCommand(parts[1], "E");
+    }
+
+    /**
+     * Parses the input for the 'delete' command and returns a DeleteCommand.
+     *
+     * @param parts The user input split into command word and arguments.
+     * @return A DeleteCommand to delete the specified tasks.
+     * @throws ChatBuddyException If the task number is not specified or invalid.
+     */
+    private static Command parseDeleteCommand(String[] parts) throws ChatBuddyException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new ChatBuddyException("Please specify the task number to delete.");
+        }
+        String[] deleteIndices = parts[1].split(" ");
+        return new DeleteCommand(deleteIndices);
+    }
+
+    /**
+     * Parses the input for the 'find' command and returns a FindCommand.
+     *
+     * @param parts The user input split into command word and arguments.
+     * @return A FindCommand to find tasks matching the specified keyword.
+     * @throws ChatBuddyException If the keyword is not provided or invalid.
+     */
+    private static Command parseFindCommand(String[] parts) throws ChatBuddyException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new ChatBuddyException("Please provide a keyword to search.");
+        }
+        return new FindCommand(parts[1]);
+    }
+
+    /**
+     * Parses the input for the 'update' command and returns an UpdateCommand.
+     *
+     * @param parts The user input split into command word and arguments.
+     * @return An UpdateCommand to update the specified task's field.
+     * @throws ChatBuddyException If the task number, field type, or new details are invalid.
+     */
+    private static Command parseUpdateCommand(String[] parts) throws ChatBuddyException {
+        String[] updateParts = parts[1].split(" ", 3);
+        if (updateParts.length < 3) {
+            throw new ChatBuddyException("Usage: update <task number> <field type> <new details>");
+        }
+        int taskIndex = Integer.parseInt(updateParts[0]);
+        String fieldType = updateParts[1];
+        String newDetails = updateParts[2];
+        return new UpdateCommand(taskIndex, newDetails, fieldType);
     }
 }

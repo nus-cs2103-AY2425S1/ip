@@ -6,29 +6,36 @@ import chatbuddy.task.Task;
 import chatbuddy.task.TaskList;
 import chatbuddy.ui.Ui;
 
+import java.util.ArrayList;
+
 /**
- * Represents a command to mark a task as done.
+ * Represents a command to mark tasks as done in the task list.
  */
 public class MarkCommand extends Command {
 
-    private int index;
+    private final ArrayList<Integer> indices;
 
     /**
-     * Constructs a MarkCommand with the specified index of the task to be marked as done.
+     * Constructs a MarkCommand with the specified indices of the tasks to be marked as done.
      *
-     * @param index The index of the task to be marked as done.
-     * @throws ChatBuddyException If the provided index is not a valid number.
+     * @param indices The indices of the tasks to be marked as done.
+     * @throws ChatBuddyException If the provided indices are not valid numbers.
      */
-    public MarkCommand(String index) throws ChatBuddyException {
+    public MarkCommand(String[] indices) throws ChatBuddyException {
+        this.indices = new ArrayList<>();
         try {
-            this.index = Integer.parseInt(index) - 1;
+            for (String index : indices) {
+                int parsedIndex = Integer.parseInt(index) - 1;
+                assert parsedIndex >= 0 : "Index cannot be negative";
+                this.indices.add(parsedIndex);
+            }
         } catch (NumberFormatException e) {
             throw new ChatBuddyException("Invalid task number.");
         }
     }
 
     /**
-     * Executes the mark command, marking the task as done and updating the storage.
+     * Executes the mark command, marking tasks as done in the task list and updating storage.
      *
      * @param tasks   The task list.
      * @param ui      The user interface to display the updated task status.
@@ -37,13 +44,19 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
-        if (index >= tasks.size() || index < 0) {
-            throw new ChatBuddyException("Task number out of range.");
+        StringBuilder markedTasks = new StringBuilder();
+        for (int index : indices) {
+            assert tasks.size() > 0 : "Task list should not be empty";
+            if (index >= tasks.size() || index < 0) {
+                throw new ChatBuddyException("Task number out of range.");
+            }
+            Task task = tasks.getTask(index);
+            task.markAsDone();
+            markedTasks.append(" ").append(task).append("\n");
         }
-        Task task = tasks.getTask(index);
-        task.markAsDone();
+
         storage.saveTasks(tasks.getTasks());
-        ui.showMarkTask(task);
+        ui.showMarkTasks(markedTasks.toString(), indices.size());
         return ui.getOutput();
     }
 }

@@ -1,5 +1,7 @@
 package chatbuddy.task;
 
+import chatbuddy.exception.ChatBuddyException;
+
 /**
  * Represents a task in the ChatBuddy task list.
  */
@@ -11,25 +13,20 @@ public abstract class Task {
      * Constructs a Task with the given description.
      *
      * @param description The description of the task.
-     *                    Must not be null or empty.
-     *
      */
     public Task(String description) {
-        assert description != null : "Task description should not be null";
-        assert !description.trim().isEmpty() : "Task description should not be empty";
-
+        assert description != null && !description.trim().isEmpty() : "Description must not be null or empty";
         this.description = description;
         this.isDone = false;
     }
 
     /**
-     * Returns the status icon (done or not done) of the task.
+     * Returns the status icon of the task.
+     * "X" if done, " " if not done.
      *
-     * @return The status icon of the task ("X" if done, " " if not done).
+     * @return The status icon of the task.
      */
     public String getStatusIcon() {
-        assert isDone == true || isDone == false : "Task status should be either true or false";
-
         return (isDone ? "X" : " ");
     }
 
@@ -38,7 +35,6 @@ public abstract class Task {
      */
     public void markAsDone() {
         assert !isDone : "Task is already marked as done";
-
         this.isDone = true;
     }
 
@@ -47,14 +43,33 @@ public abstract class Task {
      */
     public void unmarkAsDone() {
         assert isDone : "Task is already not done";
-
         this.isDone = false;
+    }
+
+    /**
+     * Updates the description of the task.
+     *
+     * @param newDescription The new description of the task.
+     */
+    public void updateDescription(String newDescription) {
+        assert newDescription != null && !newDescription.trim().isEmpty() : "Description must not be null or empty";
+        this.description = newDescription;
+    }
+
+    /**
+     * Updates the date of the task.
+     * By default, this method throws an exception as a basic task has no date.
+     * Subclasses like `Deadline` or `Event` should override this method.
+     *
+     * @param newDate The new date of the task.
+     * @throws ChatBuddyException If the task type does not have a date to update.
+     */
+    public void updateDate(String newDate) throws ChatBuddyException {
+        throw new ChatBuddyException("This task type does not have a date to update");
     }
 
     @Override
     public String toString() {
-        assert description != null : "Task description should not be null";
-
         return "[" + getStatusIcon() + "] " + description;
     }
 
