@@ -1,6 +1,8 @@
 package neko.task;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * The Task class represents a general task that can be either
@@ -21,7 +23,9 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Task {
-    protected static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("eee, d MMM uuuu h:mma");
+    protected static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("eee, d MMM uuuu h:mma");
+    protected static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("eee, d MMM uuuu");
+    protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
     private String name;
     private boolean isDone;
 
@@ -82,7 +86,26 @@ public class Task {
      *
      * @return an empty string, as a general Task does not have a time.
      */
-    public String getTime() {
+    public String getDateTimeStr() {
+        return "";
+    }
+
+    /**
+     * Checks if the task is scheduled on the specified date.
+     *
+     * @param date the date to check.
+     * @return false as a general task does not have a schedule.
+     */
+    public boolean isOnDate(LocalDate date) {
+        return false;
+    }
+
+    /**
+     * Gets the string representation of the task in the format of schedule
+     *
+     * @return an empty string, as a general task does not have a schedule.
+     */
+    public String getScheduleStr(LocalDate date) {
         return "";
     }
 

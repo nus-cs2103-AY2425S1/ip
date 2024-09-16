@@ -1,4 +1,5 @@
 package neko.task;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -14,6 +15,8 @@ import java.time.LocalDateTime;
 public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
+    private final String startStr;
+    private final String endStr;
 
     /**
      * Constructs a new Event task with the specified name, start time and end time.
@@ -26,6 +29,8 @@ public class Event extends Task {
         super(name);
         this.start = start;
         this.end = end;
+        this.startStr = start.format(dateTimeFormatter);
+        this.endStr = end.format(dateTimeFormatter);
     }
 
     /**
@@ -39,8 +44,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + start.format(dateFormatter)
-                + " to: " + end.format(dateFormatter) + ")";
+                + " (from: " + startStr
+                + " to: " + endStr + ")";
     }
 
     /**
@@ -51,8 +56,60 @@ public class Event extends Task {
      * @return a string representation of the event's start time and end time.
      */
     @Override
-    public String getTime() {
-        return start.format(dateFormatter) + " | "
-                + end.format(dateFormatter);
+    public String getDateTimeStr() {
+        return startStr + " | "
+                + endStr;
+    }
+
+    /**
+     * Checks if the specified date is in the range of the event start and end.
+     * @param date The date to check.
+     * @return true if there is an overlapping of the event and the input date;
+     *         false otherwise.
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        LocalDate startDate = start.toLocalDate();
+        LocalDate endDate = end.toLocalDate();
+
+        // Check if the date is within the range (inclusive)
+        return (date.isEqual(startDate) || date.isAfter(startDate)) &&
+                (date.isEqual(endDate) || date.isBefore(endDate));
+    }
+
+    /**
+     * Returns a formatted string representing the event schedule for a given date.
+     *
+     * <p> The event can be in one of three states:</p>
+     * <ul>
+     *   <li>Starting on the given date: The event starts on the provided date, so the
+     *   method will return the start and end times of the event.</li>
+     *   <li>Ongoing: The event spans multiple days, and the provided date falls between
+     *   the start and end dates, so the method will return that the event is ongoing.</li>
+     *   <li>Ending on the given date: The event ends on the provided date, and the method
+     *   will return the time at which the event ends.</li>
+     * </ul>
+     *
+     * @param date The specific date to check for event scheduling.
+     * @return A string representing the event on the given date. The string will show
+     *         whether the event starts, ends, or is ongoing on the provided date. An empty
+     *         string is returned if none of the tree conditions is met.
+     */
+    @Override
+    public String getScheduleStr(LocalDate date) {
+        LocalDate startDate = start.toLocalDate();
+        LocalDate endDate = end.toLocalDate();
+
+        if (date.isEqual(startDate)) {
+            return "Event: " + this.getDescription() + " (from: "
+                    + startStr + " to: " + endStr + ")";
+        } else if (date.isAfter(startDate) && date.isBefore(endDate)) {
+            return "Ongoing event: " + this.getDescription() + " (from: "
+                    + startStr + " to: " + endStr + ")";
+        } else if (date.isEqual(endDate)) {
+            return "Event: " + this.getDescription() + " ends at "
+                    + this.end.toLocalTime() + ")";
+        }
+        return "";
     }
 }

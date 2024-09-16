@@ -2,6 +2,7 @@ package neko;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class Neko {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_FIND = "find";
     private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_VIEW = "view";
     private static final String FILE_PATH = "./data/neko.txt";
     private Ui ui;
     private Storage storage;
@@ -133,6 +135,9 @@ public class Neko {
         case COMMAND_HELP:
             response = getHelpMessage();
             break;
+        case COMMAND_VIEW:
+            response = handleViewCommand(input);
+            break;
         default:
             response = ui.getInvalidInputMessage();
         }
@@ -215,7 +220,9 @@ public class Neko {
                 + "6. unmark [task number] - Marks the task at the given index as not done\n"
                 + "7. delete [task number] - Deletes the task at the given index\n"
                 + "8. find [keyword] - Finds tasks that match the given keyword\n"
-                + "9. help - Shows this list of commands\n";
+                + "9. view [date] - Displays the list of tasks scheduled for the specified date\n"
+                + "10. help - Shows this list of commands\n";
+
     }
 
     /**
@@ -294,6 +301,22 @@ public class Neko {
             return "No tasks found meow!";
         } else {
             return "Here are the matching tasks in your list meow:\n" + tasksFound;
+        }
+    }
+    /**
+     * Handles the 'view' command to search for tasks scheduled on specified date
+     *
+     * @param input The user input containing the date.
+     * @return A response string showing the tasks scheduled on the date.
+     * @throws NekoException If the input is invalid.
+     */
+    private String handleViewCommand(String input) throws NekoException {
+        try {
+            String dateStr = input.split(" ")[1];
+            LocalDate date = Parser.parseDate(dateStr);
+            return tasks.viewTasksOnDate(date);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NekoException("Please specify a date to view your schedule meow!");
         }
     }
 

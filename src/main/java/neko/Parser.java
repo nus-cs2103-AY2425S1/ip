@@ -1,8 +1,10 @@
 package neko;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 import neko.task.Deadline;
 import neko.task.Event;
@@ -20,8 +22,11 @@ public class Parser {
             DateTimeFormatter.ofPattern("eee, d MMM uuuu h:mma");
 
     /** Formatter for parsing date-time inputs in the 'yyyy-MM-dd'T'HH:mm' format. */
-    private static final DateTimeFormatter dateFormatter =
+    private static final DateTimeFormatter dateTimeFormatter =
             DateTimeFormatter.ofPattern("yyyyMMdd'T'HH:mm");
+
+    private static final DateTimeFormatter dateFormatter =
+            DateTimeFormatter.ofPattern("yyyyMMdd");
 
     /**
      * Parses a string representing a task and converts it into a Task object.
@@ -118,10 +123,25 @@ public class Parser {
      */
     public static LocalDateTime parseTime(String input) throws NekoException {
         try {
-            return LocalDateTime.parse(input, dateFormatter);
+            return LocalDateTime.parse(input, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new NekoException("Invalid date/time format!\n"
                     + "Please use 'yyyyMMddTHH:mm' format.");
+        }
+    }
+
+    /**
+     * Parses a date string in the 'yyyyMMdd' format into a LocalDate object.
+     *
+     * @param input The string representation of a date.
+     * @return A LocalDate object corresponding to the input string.
+     */
+    public static LocalDate parseDate(String input) throws NekoException {
+        try {
+            return LocalDate.parse(input, dateFormatter);
+        } catch (DateTimeParseException e) {
+            throw new NekoException("Invalid date format!\n"
+                    + "Please use 'yyyyMMdd' format.");
         }
     }
 

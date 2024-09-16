@@ -131,10 +131,10 @@ public class Storage {
             taskDetails = task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
-            taskDetails = task.getDescription() + " | " + deadlineTask.getTime();
+            taskDetails = task.getDescription() + " | " + deadlineTask.getDateTimeStr();
         } else if (task instanceof Event) {
             Event eventTask = (Event) task;
-            taskDetails = task.getDescription() + " | " + eventTask.getTime();
+            taskDetails = task.getDescription() + " | " + eventTask.getDateTimeStr();
         }
 
         return taskType + " | " + status + " | " + taskDetails;
