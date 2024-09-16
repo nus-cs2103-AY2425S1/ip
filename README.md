@@ -1,24 +1,95 @@
-# Duke project template
+# Beeboo User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+<img width="905" alt="Screenshot 2024-09-16 at 10 54 18 AM" src="https://github.com/user-attachments/assets/614ec9fb-6803-4883-bec8-f87c772997cf">
 
-## Setting up in Intellij
+Beeboo is a easy to use app used to manage your tasks, be it todos, deadlines or events.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Table of contents
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. [Quick Start](#-quick-start)
+2. [Features](#-features)
+   - [Todo](#-adding-todo)
+   - [Deadline](#-adding-deadline)
+   - [List](#-adding-events)
+   - [Find](#-list)
+   - [Mark/Unmark](#-mark-or-unmark)
+   - [Deletion](#-deletion)
+
+### Quick Start
+1. Ensure you have Java 17 or above installed in your Computer.
+2. Download the latest .jar file from [Beeboo.jar](https://github.com/rubinnn/ip/releases/tag/A-Jar)
+2. Double click to open the app, it should immediately open the app for you to use.
+### Features
+
+#### Adding Todo
+Example:
+```
+todo read book
+```
+This will prompt a message telling you that the task is added to the list.As such
+
+```
+added: [T][] read book
+You have [size of list] tasks in the list
+```
+#### Adding Deadline
+A deadline is a task with a time constraint.So a date and time has to be added to have the constraint.
+This is done by adding /by YYYY-MM-DD time.Example:
+```
+deadline return book/ by 2024-09-30 1900
+```
+Example output:
+```
+added: [D][] return book (by 30 sep 2024 6:00pm)
+You have [size of list] tasks in the list
+```
+#### Adding Events
+Events are tasks that are from 1 time to another time. So another additional time constraint is added with /from ... /to
+Example:
+```
+event meeting /from 2024-09-30 1800 /to 2000
+```
+Example output:
+```
+added: [E][] meeting (from 30 sep 2024 6:00pm to 30 sep 2024 8:00pm)
+You have [size of list] tasks in the list
+```
+#### List
+You call list to get your list of tasks
+```
+list
+```
+Example output:
+```
+1. [T][] read book
+2. [D][] return book (by 30 sep 2024 6:00pm)
+```
+#### Find
+searching keyword through using 1 of the description words
+```
+find book
+```
+Example output:
+```
+1.[Relevent tasks with book in the description]
+```
+#### Mark or Unmark
+Marking or unmarking the task at a certain index to label it as done or not done.Example:
+```
+mark 1
+```
+Example Output:
+```
+Nice! I've marked this task as done: [task at 1st index]
+```
+#### Deletion
+Deleting the item at a specific index.Example
+```
+Delete 1
+```
+Example Output:
+```
+Ok I have removed the following item
+[T][X] read book
+You have [size of list] tasks left;
+```
