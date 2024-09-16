@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Meeju using FXML.
  */
 public class Main extends Application {
 
@@ -22,7 +22,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setMeeju(meeju); // inject the Duke instance
+            stage.setTitle("Meeju");
+            stage.setMinHeight(630);
+            stage.setMinWidth(600);
+            fxmlLoader.<MainWindow>getController().setMeeju(meeju);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

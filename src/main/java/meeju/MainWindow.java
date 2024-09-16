@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String welcomeMessage = "Meow!\n"
                 + " Hello! I'm Meeju\n"
-                + " What can I do for you?\n\n\n\n";
+                + " What can I do for you?\n";
         dialogContainer.getChildren().addAll(
                 DialogBox.getMeejuDialog(welcomeMessage, meejuImage)
         );
