@@ -7,17 +7,36 @@ import beechat.task.TodoTask;
 import beechat.util.Storage;
 import beechat.util.Ui;
 
-import java.io.*;
+import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a command to add a new task to the task list.
+ * This command can handle adding todos, deadlines, and events based on user input.
+ */
 public class AddCommand extends Command {
     private final String fullCommand;
 
+    /**
+     * Constructs an AddCommand with the specified user input.
+     *
+     * @param fullCommand The full input string from the user.
+     */
     public AddCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Executes the add command, which adds a new task (todo, deadline, or event)
+     * to the task list and updates the storage.
+     *
+     * @param tasks   The TaskList object that contains all tasks.
+     * @param ui      The Ui object that handles all user interactions.
+     * @param storage The Storage object that saves and loads tasks.
+     * @throws IOException If an error occurs while executing the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         String[] words = fullCommand.split(" ", 2);

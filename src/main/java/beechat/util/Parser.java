@@ -3,8 +3,19 @@ package beechat.util;
 import beechat.command.*;
 import beechat.exception.BeeException;
 
+/**
+ * Parses user input and converts it into a command to be executed.
+ * Reads the user's inputs and creates the appropriate Command objects.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input into a specific Command object.
+     *
+     * @param fullCommand The full user input string to parse.
+     * @return A Command object corresponding to the user's input.
+     * @throws Exception If the user input has an invalid command word.
+     */
     public static Command parse(String fullCommand) throws Exception {
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0];

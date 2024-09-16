@@ -14,13 +14,34 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * Provides methods to read and write tasks from and to a file.
+ */
 public class Storage {
+
+    /** The path to the file where tasks are stored. */
     private final String filePath;
+
+    /** The date and time formatter used to parse and format task dates. */
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads tasks from the specified file if it exists.
+     * Otherwise, it creates a new file and directory if necessary.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If an error occurs while reading from or creating the file.
+     */
     public List<Task> loadTasks() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -79,6 +100,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public void saveTasks(List<Task> tasks) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
