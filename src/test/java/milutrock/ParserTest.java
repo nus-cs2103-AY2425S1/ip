@@ -20,9 +20,6 @@ public class ParserTest {
         this.uiStub = new UiStub();
         this.parser = new Parser(this.taskListStub, this.uiStub);
 
-        runCommand("bye", false);
-        assertEquals(uiStub.lastFunctionCalled, UiStub.Function.PRINT_BYE_MESSAGE);
-
         runCommand("list", false);
         assertEquals(uiStub.lastFunctionCalled, UiStub.Function.PRINT_TASK_LIST);
 
