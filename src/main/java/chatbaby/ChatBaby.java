@@ -76,7 +76,6 @@ public class ChatBaby {
     }
 
     /**
-     * Main method to run the ChatBaby application.
      * Sets the default locale to English to avoid issues with date and time formatting in other languages.
      *
      * @param args Command line arguments (not used).
