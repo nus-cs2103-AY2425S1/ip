@@ -10,9 +10,12 @@ public class Ui {
     public static final String LINE = "—————————————————————————————————————";
 
     /**
-     * A helper method to print messages with a leading indentation.
+     * Prints a message with a leading indentation of four spaces.
      *
-     * @param str The message to be printed.
+     * <p>This method prepends four spaces to the given string and outputs it
+     * to the console using {@code System.out.println}.</p>
+     *
+     * @param str the message to be printed, with an added indentation.
      */
     private void print(String str) {
         System.out.println("    " + str);

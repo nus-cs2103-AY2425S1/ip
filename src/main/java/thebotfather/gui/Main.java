@@ -36,6 +36,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(500);
             stage.setMinWidth(700);
+            stage.setTitle("The BotFather");
             fxmlLoader.<MainWindow>getController().setBigBoss(bigBoss);
             stage.show();
         } catch (IOException e) {
