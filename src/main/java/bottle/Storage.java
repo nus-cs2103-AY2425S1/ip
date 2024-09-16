@@ -15,6 +15,7 @@ import bottle.task.Task;
  * The type Storage.
  */
 public class Storage {
+    private static final String DELIMITER = "\\|";
     /**
      * The File path.
      */
@@ -36,6 +37,16 @@ public class Storage {
     }
 
     /**
+     * Ensure file exists.
+     */
+    private void ensureFileExists() {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            handleMissingFile();
+        }
+    }
+
+    /**
      * Handle missing file.
      */
     private void handleMissingFile() {
@@ -54,26 +65,41 @@ public class Storage {
      * @return the array list
      */
     public ArrayList<Task> loadTasks() {
-        File file = new File(filePath);
+        ensureFileExists();
+        List<String> lines = readFile();
+        return parseTasks(lines);
+    }
+
+    /**
+     * Read file list.
+     *
+     * @return the list
+     */
+    private List<String> readFile() {
+        try {
+            return Files.readAllLines(Paths.get(filePath));
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Parse tasks array list.
+     *
+     * @param lines the lines
+     * @return the array list
+     */
+    private ArrayList<Task> parseTasks(List<String> lines) {
         ArrayList<Task> taskList = new ArrayList<>();
-        if (!file.exists()) {
-            handleMissingFile();
-        } else {
-            try {
-                List<String> lines = Files.readAllLines(Paths.get(filePath));
-                for (String line : lines) {
-                    String[] parts = line.split("\\|");
-                    assert parts.length > 0 : "input cannot be empty!";
-                    Task task;
-                    task = parser.parseTask(line);
-                    taskList.add(task);
-                }
-            } catch (IOException e) {
-                System.out.println("Error reading file");
-            }
+        for (String line : lines) {
+            assert !line.isEmpty() : "Input cannot be empty!";
+            Task task = parser.parseTask(line);
+            taskList.add(task);
         }
         return taskList;
     }
+
 
     /**
      * Save tasks.
@@ -81,18 +107,23 @@ public class Storage {
      * @param taskList the task list
      */
     public void saveTasks(ArrayList<Task> taskList) {
-        File file = new File(filePath);
-        if (!file.exists()) {
-            handleMissingFile();
-        }
-        try {
-            FileWriter fileWriter = new FileWriter(file);
+        ensureFileExists();
+        writeTasksToFile(taskList);
+    }
+
+    /**
+     * Write tasks to file.
+     *
+     * @param taskList the task list
+     */
+    private void writeTasksToFile(ArrayList<Task> taskList) {
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
             for (Task task : taskList) {
                 fileWriter.write(task.toSaveFormat() + System.lineSeparator());
             }
-            fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error saving file");
+            System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
+
 }
