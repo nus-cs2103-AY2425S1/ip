@@ -147,12 +147,7 @@ public class Parser {
     }
 
     public static String getCommandStrings() {
-        String[] commandList = commandMap.keySet().toArray(new String[0]);
-        String response = "";
-        for (String command : commandList) {
-            response += command + "\n";
-        }
-        return response;
+        return commandMap.keySet().stream().reduce("", (acc, command) -> acc + command + "\n");
     }
 
     public static boolean isExit(String input) {

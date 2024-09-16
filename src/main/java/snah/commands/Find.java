@@ -20,16 +20,14 @@ public class Find extends Command {
     public String execute(TaskList tasks, Storage storage) throws ParsingException {
         String keyword = Parser.getSearchQuery(getInput());
 
-        ArrayList<Task> searchResults = tasks.search(keyword);
+        TaskList searchResults = tasks.search(keyword);
 
-        if (searchResults.isEmpty()) {
+        if (searchResults.size() == 0) {
             return "No tasks found with the keyword";
         }
 
         String response = "Here are the tasks in your list:\n";
-        for (int i = 0; i < searchResults.size(); i++) {
-            response += String.format("%d. %s\n", i + 1, searchResults.get(i));
-        }
+        response += searchResults.list();
         return response;
     }
 
