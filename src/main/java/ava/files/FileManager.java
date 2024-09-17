@@ -76,7 +76,8 @@ public class FileManager {
             //TODO: log error
             System.out.println("File not found");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //TODO: deal with this
+            // throw new Ill(e);
         }
         return new ArrayList<Task>(){
             @Override
