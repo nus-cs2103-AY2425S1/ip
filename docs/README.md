@@ -152,7 +152,7 @@ Example usage:
 Expected output:
 ```
 Have a look at the list of tasks:
-  read
+  1.[T][] Buy bread
   2.[D][] Complete tutorial (by: 22 Sept 2024)
   3.[E][] Attend workshop (from: 22 Sept 2024 to: 23 Sept 2024)
 ```
