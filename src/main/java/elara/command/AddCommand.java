@@ -46,6 +46,7 @@ public class AddCommand implements Command {
         };
         if (taskList.isDuplicate(newTask)) {
             ui.showDuplicateMessage(newTask);
+            return;
         }
 
         taskList.addTask(newTask);
