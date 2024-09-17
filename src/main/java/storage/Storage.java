@@ -98,6 +98,7 @@ public class Storage {
 
     /**
      * Converts an ArrayList of task strings into an ArrayList of Task objects.
+     * Uses streams
      *
      * @param taskString An ArrayList of strings, each representing a task.
      * @return An ArrayList of Task objects parsed from the input strings.
