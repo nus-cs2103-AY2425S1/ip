@@ -51,6 +51,7 @@ When it is time to part ways with JustBot
 - Closes JustBot after 2 secs 
 ---
 # JustBot in action! 
+![JustBot](ExampleUsage.png)
 
 
 
