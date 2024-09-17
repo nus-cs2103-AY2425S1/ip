@@ -1,4 +1,4 @@
-package toothless.GUI;
+package toothless.gui;
 
 import java.io.IOException;
 import java.util.Collections;

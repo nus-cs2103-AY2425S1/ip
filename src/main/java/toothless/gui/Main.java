@@ -1,4 +1,4 @@
-package toothless.GUI;
+package toothless.gui;
 
 import java.io.IOException;
 
@@ -23,6 +23,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setToothless(toothless);
+            stage.setTitle("Toothless");
+            stage.setMinHeight(220);
+            stage.setMinWidth(400);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
