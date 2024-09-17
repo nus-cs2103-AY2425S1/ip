@@ -1,9 +1,11 @@
 package bitbot;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for Parser class.

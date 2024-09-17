@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -95,7 +96,8 @@ public class Storage {
                 if (partsOfLineFromFile[1].trim().equals("X")) {
                     task.markAsDone();
                 }
-                if (!partsOfLineFromFile[partsOfLineFromFile.length - 1].trim().equals("")) {
+                if (partsOfLineFromFile.length >= 5
+                        && !partsOfLineFromFile[partsOfLineFromFile.length - 1].trim().equals("NIL")) {
                     task.markAsTagged(partsOfLineFromFile[partsOfLineFromFile.length - 1]);
                 }
                 listFromFile.add(task);

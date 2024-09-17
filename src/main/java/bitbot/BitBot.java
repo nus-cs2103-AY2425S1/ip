@@ -88,23 +88,7 @@ public class BitBot {
                 default:
                     // if it does not fall in any of this keyword,
                     // throw an error saying there is no such keyword.
-                    throw new BitBotException("OOPS!!! I do not know what this keyword is!\n"
-                            + "          Please key in only one of these:\n          "
-                            + "\n          "
-                            + "mark \n          "
-                            + "unmark \n          "
-                            + "todo \n          "
-                            + "deadline \n          "
-                            + "event\n          "
-                            + "list\n          "
-                            + "delete\n          "
-                            + "bye\n          "
-                            + "find\n          "
-                            + "tag\n          "
-                            + "untag\n          "
-                            + "\n          "
-                            + "Please key in in this format:\n          "
-                            + "todo ... / deadline ... ");
+                    throwUnknownWordError();
                 }
 
             } else {
@@ -122,6 +106,25 @@ public class BitBot {
 
         return finalResponse;
 
+    }
+    private static void throwUnknownWordError() throws BitBotException {
+        throw new BitBotException("OOPS!!! I do not know what this keyword is!\n"
+                + "          Please key in only one of these:\n          "
+                + "\n          "
+                + "mark \n          "
+                + "unmark \n          "
+                + "todo \n          "
+                + "deadline \n          "
+                + "event\n          "
+                + "list\n          "
+                + "delete\n          "
+                + "bye\n          "
+                + "find\n          "
+                + "tag\n          "
+                + "untag\n          "
+                + "\n          "
+                + "Please key in in this format:\n          "
+                + "todo ... / deadline ... ");
     }
 
 }

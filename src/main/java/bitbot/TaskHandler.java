@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This is the TaskHandling class which deals with the different types of tasks present.
@@ -30,11 +31,14 @@ public class TaskHandler {
      * @param toTime the ending time of the event
      * @return a Task
      */
-    private static Task createEvent(String description, String fromTime, String toTime) {
+    private static Task createEvent(String description, String fromTime, String toTime) throws BitBotException{
         LocalDateTime startDateTime = parseDateTime(fromTime);
         LocalDateTime endDateTime = parseDateTime(toTime);
 
         if (startDateTime != null && endDateTime != null) {
+            if (startDateTime.isAfter(endDateTime)) {
+                throw new BitBotException("OOPS!! The ending time cannot be before the beginning time!!!");
+            }
             return new Events(description, startDateTime, endDateTime);
         }
 
@@ -42,13 +46,20 @@ public class TaskHandler {
         LocalTime endTime = parseTime(toTime);
 
         if (startTime != null && endTime != null) {
+            if (startTime.isAfter(endTime)) {
+                throw new BitBotException("OOPS!! The ending time cannot be before the beginning time!!!");
+            }
             return new Events(description, startTime, endTime);
         }
 
         LocalDate startDate = parseDate(fromTime);
         LocalDate endDate = parseDate(toTime);
 
+
         if (startDate != null && endDate != null) {
+            if (startDate.isAfter(endDate)) {
+                throw new BitBotException("OOPS!! The ending time cannot be before the beginning time!!!");
+            }
             return new Events(description, startDate, endDate);
         }
 
@@ -228,6 +239,10 @@ public class TaskHandler {
     public static String handleTag(ArrayList<Task> arrayList, String[] input) throws BitBotException {
         handleErrorForNoFurtherInput(input);
         try {
+            if (input.length == 1) {
+                throw new BitBotException("OOPS!! Key in a number of the task you wish to tag!!\n"
+                        + "          It should be of the form: tag <number> #<tag>");
+            }
             int index = Integer.parseInt(input[1]);
 
             if (index < 1 || index > arrayList.size()) {
@@ -235,7 +250,12 @@ public class TaskHandler {
                         + "within the size of the list.");
             }
 
-            String tag = input[2];
+            /*
+            Used the assistance of ChatGPT to solve the error of being unable to key in many words as the tag description
+            So, I used GPT to help me with the joining of the input list from the second index onwards.
+             */
+            String tag = String.join(" ", Arrays.copyOfRange(input, 2, input.length));
+
             if (!tag.startsWith("#")) {
                 throw new BitBotException("OOPS!! Tags should start with #");
             }

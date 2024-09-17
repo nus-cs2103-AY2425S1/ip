@@ -19,7 +19,7 @@ public abstract class Task {
         this.taskDescription = taskDescription;
         this.isDone = false;
         this.isTagged = false;
-        this.tag = "";
+        this.tag = "NIL";
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class Task {
      */
     public void markAsNotTagged() {
         this.isTagged = false;
-        this.tag = "";
+        this.tag = "NIL";
     }
 
 }

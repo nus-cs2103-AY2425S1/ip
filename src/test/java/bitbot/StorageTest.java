@@ -1,6 +1,8 @@
 package bitbot;
 
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,13 +10,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class StorageTest {
     private static final String TEST_FILE_PATH = "./data/TestBitbot.txt";
     private static final Path TEST_FILE = Path.of(TEST_FILE_PATH);
 
-    ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     /*
     I used ChatGPT to help me with identifying and the usage of @BeforeEach & @AfterEach and
