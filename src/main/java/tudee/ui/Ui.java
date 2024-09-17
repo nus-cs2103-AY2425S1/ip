@@ -136,6 +136,13 @@ public class Ui {
         return output;
     }
 
+    /**
+     * Generates a reminder message for tasks that are due soon.
+     * If no tasks are due soon, an empty string is returned.
+     *
+     * @param tasks The TaskList containing tasks to be checked for upcoming deadlines or events.
+     * @return A string with reminders of tasks due tomorrow, returns an empty string if there are no tasks due.
+     */
     public String showReminders(TaskList tasks) {
         LocalDate today = LocalDate.now();
         boolean hasReminders = false;
@@ -159,6 +166,7 @@ public class Ui {
         }
         return hasReminders ? output : "";
     }
+
     /**
      * Closes the Scanner resource used for reading user input.
      * This should be called when the user terminates the chatbot.

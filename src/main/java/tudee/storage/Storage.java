@@ -77,23 +77,23 @@ public class Storage {
     /**
      * Checks what command the first element of the array contains.
      *
-     * @return a new task corresponding to the command.
      * @param data A string array consisting of task description and other requirements depending on task type.
+     * @return a new task corresponding to the command.
      */
     private Task createTaskFromData(String[] data) throws TudeeException {
         switch (data[COMMAND_INDEX]) {
-            case "T":
-                return new ToDo(data[DESCRIPTION_INDEX]);
-            case "D":
-                // Assert that Deadline has 4 segments.
-                assert data.length == DEADLINE_SEGMENTS: "Deadline must have 4 segments";
-                return new Deadline(data[DESCRIPTION_INDEX], data[DEADLINE_INDEX]);
-            case "E":
-                // Assert that Events has 5 segments.
-                assert data.length == EVENT_SEGMENTS: "Events must have 5 segments";
-                return new Events(data[DESCRIPTION_INDEX], data[START_INDEX], data[END_INDEX]);
-            default:
-                throw new TudeeException("Invalid letter");
+        case "T":
+            return new ToDo(data[DESCRIPTION_INDEX]);
+        case "D":
+            // Assert that Deadline has 4 segments.
+            assert data.length == DEADLINE_SEGMENTS : "Deadline must have 4 segments";
+            return new Deadline(data[DESCRIPTION_INDEX], data[DEADLINE_INDEX]);
+        case "E":
+            // Assert that Events has 5 segments.
+            assert data.length == EVENT_SEGMENTS : "Events must have 5 segments";
+            return new Events(data[DESCRIPTION_INDEX], data[START_INDEX], data[END_INDEX]);
+        default:
+            throw new TudeeException("Invalid letter");
         }
     }
 

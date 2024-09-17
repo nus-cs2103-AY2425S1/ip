@@ -15,28 +15,28 @@ public enum CommandType {
      */
     public static CommandType fromString(String command) {
         switch (command.toLowerCase()) {
-            case "list":
-                return LIST;
-            case "bye":
-                return BYE;
-            case "todo":
-                return TODO;
-            case "deadline":
-                return DEADLINE;
-            case "event":
-                return EVENT;
-            case "mark":
-                return MARK;
-            case "unmark":
-                return UNMARK;
-            case "delete":
-                return DELETE;
-            case "date":
-                return DATE;
-            case "find":
-                return FIND;
-            default:
-                return UNKNOWN;
+        case "list":
+            return LIST;
+        case "bye":
+            return BYE;
+        case "todo":
+            return TODO;
+        case "deadline":
+            return DEADLINE;
+        case "event":
+            return EVENT;
+        case "mark":
+            return MARK;
+        case "unmark":
+            return UNMARK;
+        case "delete":
+            return DELETE;
+        case "date":
+            return DATE;
+        case "find":
+            return FIND;
+        default:
+            return UNKNOWN;
         }
     }
 }

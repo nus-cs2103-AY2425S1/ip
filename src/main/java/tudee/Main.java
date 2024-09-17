@@ -24,7 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setTudee(tudee);  // inject the Tudee instance
+            fxmlLoader.<MainWindow>getController().setTudee(tudee); // inject the Tudee instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
