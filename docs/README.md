@@ -10,6 +10,7 @@ Here are a few examples to get started:
 - `todo <task>` : Adds a new To-Do item.
 - `bye` : Exits the program.
 
+
 ## Features
 
 ### 1. Managing ToDos, Events, and Deadlines
@@ -115,6 +116,7 @@ Exit the chatbot application. The GUI will close in 3 seconds.
   bye
   ```
 
+
 ## Command Summary
 
 | Action            | Format                                        |
@@ -128,6 +130,7 @@ Exit the chatbot application. The GUI will close in 3 seconds.
 | Find Task         | `find <keyword>`                              |
 | List All Tasks    | `list`                                        |
 | Exit              | `bye`                                         |
+
 
 ## FAQ
 - **Q: How do I save my tasks?**  
