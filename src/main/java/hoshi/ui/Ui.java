@@ -61,7 +61,14 @@ public class Ui {
      * Displays text indicating which task was deleted
      */
     public String displayTaskDeleted(Task task) {
-        return "OK, Hoshi has removed ( " + task.getDesc() + " )!";
+        return "OK, Hoshi has removed (" + task.getDesc() + ")!";
+    }
+
+    /**
+     * Displays text prompting the user to specify a keyword to search for
+     */
+    public String displayKeywordToFind() {
+        return "Please specify the keyword to find this task!";
     }
 
     /**

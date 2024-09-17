@@ -17,6 +17,7 @@ import hoshi.ui.Ui;
 public class Parser {
 
     private static final int MIN_MARK_LENGTH = 5;
+    private static final int MIN_FIND_LENGTH = 5;
     private static final int MIN_UNMARK_LENGTH = 7;
     private static final int MIN_DELETE_LENGTH = 7;
     private static final String INPUT_ERROR_MESSAGE = "Hoshi doesn't understand, try a different input?";
@@ -84,6 +85,9 @@ public class Parser {
             break;
 
         case "find":
+            if (input.trim().length() < MIN_FIND_LENGTH) {
+                return ui.displayKeywordToFind();
+            }
             String keyword = splitInput[1];
             command = new FindCommand(keyword);
             break;
