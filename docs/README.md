@@ -5,7 +5,7 @@ Blitz is a **desktop app for managing tasks** via a Command Line Interface (CLI)
 
 ## Command Summary
 | Action   | Format                                                            | Example                                                                      |
-| -------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+|:---------|:------------------------------------------------------------------|:-----------------------------------------------------------------------------|
 | todo     | todo [description]                                                | todo this is my first todo task!                                             |
 | deadline | deadline [description] /by [yyyy-mm-dd hhmm]                      | deadline this is my first deadline task! /to 2024-07-19 1200                 |
 | event    | event [description] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm] | event this is my first event task! /from 2024-07-19 1200 /to 2024-07-20 1200 |
