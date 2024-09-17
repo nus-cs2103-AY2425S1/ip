@@ -30,6 +30,8 @@ public class Bwead {
             ui.showLoadingError(e.getMessage());
         }
         ui.set(history, tasks);
+        assert history != null;
+        assert tasks != null;
     }
 
     public String getResponse(String input) {
