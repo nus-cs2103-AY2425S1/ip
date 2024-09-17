@@ -20,10 +20,6 @@ public class Ui {
         return Parser.getCommandWord(str);
     }
 
-    public String getGreeting() {
-        return Message.MESSAGE_GREETING;
-    }
-
     public String getBye() {
         return Message.MESSAGE_GOODBYE;
     }
@@ -46,14 +42,6 @@ public class Ui {
 
     public String getDeleteMessage(Task t, TaskList l) {
         return String.format(Message.MESSAGE_DELETE, t.toString(), l.getTaskList().size());
-    }
-
-    public String getDivide() {
-        return Message.DIVIDE;
-    }
-
-    public void showLoadingError() {
-        System.out.println(Message.MESSAGE_LOADING_ERROR);
     }
 
     public String getDateFormatErrorMessage() {

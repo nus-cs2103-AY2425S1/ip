@@ -5,12 +5,10 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import katheryne.Katheryne;
-import katheryne.Message;
 
 
 public class Main extends Application {
@@ -20,7 +18,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        showGreetingDialog();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
@@ -32,12 +29,5 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    private void showGreetingDialog() {
-        Alert greetingAlert = new Alert(Alert.AlertType.INFORMATION);
-        greetingAlert.setTitle("Welcome");
-        greetingAlert.setHeaderText(null);
-        greetingAlert.setContentText(Message.MESSAGE_GREETING);
-        greetingAlert.showAndWait(); // Show dialog and wait for user to close it
     }
 }

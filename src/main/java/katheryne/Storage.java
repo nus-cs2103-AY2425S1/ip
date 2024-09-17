@@ -1,14 +1,21 @@
 package katheryne;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import katheryne.exceptions.InvalidInputException;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
+/**
+ * Handles the reading and writing of tasks from and to the local file.
+ */
 public class Storage {
     private String path;
 
@@ -16,6 +23,10 @@ public class Storage {
         this.path = path;
     }
 
+    /**
+     * Save the tasks to a local file at the specified path.
+     * @param l current task list
+     */
     public void save(TaskList l) {
         try {
             String str = "";
@@ -30,42 +41,105 @@ public class Storage {
         }
     }
 
-    public TaskList load() throws InvalidInputException {
-        TaskList list = null;
+    /**
+     * Read in tasks from the specified file.
+     */
+    public TaskList load() throws FileNotFoundException, InvalidInputException {
+        TaskList list = new TaskList();
+        List<String> lines = new ArrayList<>();
         try {
-            File file = new File(path);
-
-            Scanner sc = new Scanner(file);
-            list = new TaskList();
-
-            while (sc.hasNext()) {
-                String command = sc.nextLine();
-                String[] fullcommand = command.split("\\|\\|");
-                String commandWord = fullcommand[0];
-                Task task = null;
-                if (commandWord.equals("D")) {
-                    String[] des = fullcommand[2].split("|", 2);
-                    task = new Deadline(des[0], des[1]);
-                } else if (commandWord.equals("T")) {
-                    task = new ToDo(fullcommand[2]);
-                } else if (commandWord.equals("E")) {
-                    String[] des = fullcommand[2].split("|", 2);
-                    String fromTime = des[1].split("-")[0];
-                    String toTime = des[1].split("-")[1];
-                    String description = des[0];
-                    task = new Event(description, fromTime, toTime);
-                } else {
-                    throw new InvalidInputException("Invalid Input Detected");
+            lines = java.nio.file.Files.readAllLines(java.nio.file.Paths.get(path));
+        } catch (IOException e) {
+            return new TaskList();
+        }
+        try {
+            for (String str : lines) {
+                String[] fullCommand = str.split("\\|");
+                if (fullCommand.length < 3) {
+                    throw new InvalidInputException("Invalid task format: " + str);
                 }
-                if (fullcommand[1].equals("1")) {
+                Task task = parseTask(fullCommand);
+                if (fullCommand[1].trim().equals("1")) {
                     task.mark();
                 }
                 list.addTask(task);
             }
-            sc.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Sorry, Katheryne cannot find the file: " + e.getMessage());
+        } catch (InvalidInputException e) {
+            System.out.println("Invalid format: " + e.getMessage());
+            return new TaskList();
         }
         return list;
+    }
+
+    private Task parseTask(String[] fullCommand) throws InvalidInputException {
+        if (fullCommand.length < 3) {
+            throw new InvalidInputException("Invalid task data format: " + String.join(" ", fullCommand));
+        }
+
+        String commandWord = fullCommand[0].trim();
+        Task task = null;
+
+        switch (commandWord) {
+        case "D":
+            if (fullCommand.length != 4) {
+                throw new InvalidInputException("Invalid format for Deadline task.");
+            }
+            task = createDeadlineTask(fullCommand);
+            break;
+        case "T":
+            if (fullCommand.length != 3) {
+                throw new InvalidInputException("Invalid format for ToDo task.");
+            }
+            String description = fullCommand[2];
+            task = new ToDo(description);
+            break;
+        case "E":
+            if (fullCommand.length != 4) {
+                throw new InvalidInputException("Invalid format for Event task.");
+            }
+            task = createEventTask(fullCommand);
+            break;
+        default:
+            throw new InvalidInputException("Unknown task type: " + commandWord);
+        }
+
+        return task;
+    }
+
+    private Deadline createDeadlineTask(String[] fullCommand) throws InvalidInputException {
+        if (fullCommand.length != 4) {
+            throw new InvalidInputException("Invalid format for Deadline task.");
+        }
+        String description = fullCommand[2];
+        String dueDate = fullCommand[3];
+        String formattedDueDate = convertToExpectedDateFormat(dueDate);
+        return new Deadline(description, formattedDueDate);
+    }
+
+    private String convertToExpectedDateFormat(String dueDate) throws InvalidInputException {
+        dueDate = dueDate.trim();
+        try {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+            LocalDate date = LocalDate.parse(dueDate, inputFormatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            return date.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException("Invalid date format: " + dueDate);
+        }
+    }
+
+
+
+
+    private Event createEventTask(String[] fullCommand) throws InvalidInputException {
+        String description = fullCommand[2];
+        String timeDetails = fullCommand[3];
+        String[] times = timeDetails.split("-", 2);
+        if (times.length != 2) {
+            throw new InvalidInputException("Invalid time format for event task.");
+        }
+        String from = times[0];
+        String to = times[1];
+        return new Event(description, from, to);
     }
 }

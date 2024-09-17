@@ -3,6 +3,9 @@ package katheryne;
 import katheryne.exceptions.InvalidInputException;
 import katheryne.exceptions.MissingInformationException;
 
+/**
+ * Command class handles the repose generation and action to be executed to user input
+ */
 public class Command {
     protected Ui ui;
     protected TaskList taskList;
@@ -12,7 +15,13 @@ public class Command {
         this.taskList = taskList;
     }
 
+    /**
+     * Lists down all tasks that have been saved
+     */
     public String executeList() {
+        if (taskList.getTaskList().isEmpty()) {
+            return Message.MESSAGE_EMPTY_LIST;
+        }
         return ui.getListMessage() + taskList.toString();
     }
 
@@ -68,7 +77,8 @@ public class Command {
     public String executeAddToDo(String string)
             throws MissingInformationException {
         try {
-            String[] fullCommand = parseAndValidateCommand(string, "You need to specify the description of a todo task.");
+            String[] fullCommand = parseAndValidateCommand(string,
+                    "You need to specify the description of a todo task.");
             String des = Parser.getToDoDes(string);
             ToDo todo = new ToDo(des);
             return checkDuplicate(todo);

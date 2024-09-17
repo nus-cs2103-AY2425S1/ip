@@ -1,13 +1,14 @@
 package katheryne.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import katheryne.Katheryne;
+import katheryne.Message;
+import katheryne.exceptions.InvalidInputException;
 import katheryne.exceptions.MissingInformationException;
 
 /**
@@ -20,8 +21,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Katheryne katheryne;
 
@@ -31,6 +30,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greeting = Message.MESSAGE_GREETING;
+        dialogContainer.getChildren().add(
+                DialogBox.getKatheryneDialog(greeting, katheryneImage));
     }
 
     /** Injects the Duke instance */
@@ -43,7 +45,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws MissingInformationException {
+    private void handleUserInput() throws MissingInformationException, InvalidInputException {
         String input = userInput.getText();
         String response = katheryne.getResponse(input);
         dialogContainer.getChildren().addAll(

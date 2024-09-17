@@ -2,6 +2,7 @@ package katheryne;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Deadline Class is a child class of Task Class.
@@ -15,14 +16,15 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description, TYPE);
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
         LocalDate dateObj = LocalDate.parse(by, inputFormatter);
         this.time = dateObj;
         assert this.time != null : "Time should be specified.";
     }
 
+    @Override
     public String toString() {
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
         return String.format("[D]%s(by: %s)", super.toString(), this.time.format(outputFormatter));
     }
 
@@ -37,7 +39,7 @@ public class Deadline extends Task {
 
     @Override
     public String toSaveString() {
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
         if (isDone) {
             return String.format("D | %d | %s | %s", 1, this.getDescription(), this.time.format(outputFormatter));
         } else {

@@ -1,7 +1,6 @@
 package katheryne;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 
 /**
@@ -14,19 +13,23 @@ public class TaskList {
         this.taskList = new ArrayList<Task>();
     }
 
-    public TaskList(TaskList l) {
-        this.taskList = l.getTaskList();
-    }
-
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
 
+    /**
+     * Marks a task as done
+     * @param id
+     */
     public void mark(int id) {
         Task t = taskList.get(id);
         t.mark();
     }
 
+    /**
+     * Unmarks a task
+     * @param id
+     */
     public void unmark(int id) {
         Task t = taskList.get(id);
         t.unmark();
@@ -44,6 +47,11 @@ public class TaskList {
         return taskList.get(id);
     }
 
+    /**
+     * Finds task with specified description
+     * @param str description to be searched in the task list
+     * @return a tasklist of tasks containing the given description
+     */
     public TaskList findTask(String str) {
         TaskList searchResult = new TaskList();
         for (Task t : taskList) {
@@ -70,6 +78,11 @@ public class TaskList {
         return output;
     }
 
+    /**
+     * Compares the given task with other in the task list for duplication detection
+     * @param t given task
+     * @return boolean value of whether given task is a duplicate of other tasks
+     */
     public boolean hasDuplicates(Task t) {
         for (Task task : taskList) {
             if (t.equals(task)) {

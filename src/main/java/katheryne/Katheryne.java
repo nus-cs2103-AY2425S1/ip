@@ -1,126 +1,126 @@
 package katheryne;
 
+import java.io.FileNotFoundException;
+
 import katheryne.exceptions.InvalidInputException;
 import katheryne.exceptions.MissingInformationException;
+
 
 
 /**
  * Katheryne Class is the main class that will run based on different commands
  * given by users. It has attribute of storage for loading and saving of tasks;
- * taskList to manage the tasks on record; and ui to handle interation with users.
+ * taskList to manage the tasks on record; and ui to handle interaction with users.
  */
 public class Katheryne {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-
+    /**
+     * Constructor for Katheryne class
+     */
     public Katheryne(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            taskList = new TaskList(storage.load());
-        } catch (Exception e) {
-            ui.showLoadingError();
+            taskList = storage.load();
+        } catch (FileNotFoundException e) {
+            System.out.println(Message.MESSAGE_LOADING_ERROR + e.getMessage());
+            taskList = new TaskList();
+        } catch (InvalidInputException e) {
+            System.out.println(e.getMessage());
             taskList = new TaskList();
         }
     }
 
+    /**
+     * Starts the interaction with user
+     * @param args
+     */
     public static void main(String[] args) throws MissingInformationException {
         Katheryne k = new Katheryne("./data/Katheryne.txt");
         k.run();
     }
 
-
-    public void run() throws MissingInformationException {
-        System.out.println(ui.getDivide());
-        System.out.println(ui.getGreeting());
-
+    /**
+     * Handles user input and flow of input
+     */
+    public void run() {
         boolean isFinish = false;
-
         while (!isFinish) {
-            System.out.println(ui.getDivide());
+            String str = ui.getLine();
             try {
-                Command c = new Command(ui, taskList);
-                String str = ui.getLine();
-                String commandWord = ui.getCommand(str);
-                if (commandWord.equals("list")) {
-                    System.out.println(c.executeList());
-                } else if (commandWord.equals("mark")) {
-                    System.out.println(c.executeMark(str));
-
-                } else if (commandWord.equals("unmark")) {
-                    System.out.println(c.executeUnmark(str));
-                } else if (commandWord.equals("todo")) {
-                    System.out.println(c.executeAddToDo(str));
-                } else if (commandWord.equals("event")) {
-                    System.out.println(c.executeAddEvent(str));
-                } else if (commandWord.equals("deadline")) {
-                    System.out.println(c.executeAddDeadline(str));
-                } else if (commandWord.equals("bye")) {
+                handleCommand(str);
+                if (ui.getCommand(str).equals("bye")) {
                     isFinish = true;
-                    System.out.println(ui.getDivide());
-                    System.out.println(ui.getBye());
-                    System.out.println(ui.getDivide());
-                } else if (commandWord.equals("delete")) {
-                    System.out.println(c.executeDelete(str));
-                } else if (commandWord.equals("find")) {
-                    System.out.println(c.executeFind(str));
-                } else {
-                    String msg = "Katheryne: I'm sorry, Katheryne is unable to comprehend your request.";
-                    throw new InvalidInputException(msg);
                 }
-                storage.save(taskList);
-            } catch (InvalidInputException e) {
-                System.out.println("Katheryne: " + e.getMessage());
+            } catch (InvalidInputException | MissingInformationException e) {
+                continue;
             }
         }
     }
 
-    public String getResponse(String userInput) throws MissingInformationException {
+    /**
+     * Handle the response generation of Katheryne to the user input.
+     *
+     * @param str The user input.
+     * @return The response to the user input.
+     */
+
+    private String handleCommand(String str) throws MissingInformationException, InvalidInputException {
+        Command c = new Command(ui, taskList);
+        String commandWord = ui.getCommand(str);
+
+        String response;
+        switch (commandWord) {
+        case "list" -> response = c.executeList();
+        case "mark" -> {
+            response = c.executeMark(str);
+            storage.save(taskList);
+        }
+        case "unmark" -> {
+            response = c.executeUnmark(str);
+            storage.save(taskList);
+        }
+        case "todo" -> {
+            response = c.executeAddToDo(str);
+            storage.save(taskList);
+        }
+        case "event" -> {
+            response = c.executeAddEvent(str);
+            storage.save(taskList);
+        }
+        case "deadline" -> {
+            response = c.executeAddDeadline(str);
+            storage.save(taskList);
+        }
+        case "bye" -> response = ui.getBye();
+        case "delete" -> {
+            response = c.executeDelete(str);
+            storage.save(taskList);
+        }
+        case "find" -> response = c.executeFind(str);
+        default -> {
+            String msg = "I'm sorry, Katheryne is unable to comprehend your request.";
+            throw new InvalidInputException(msg);
+        }
+        }
+        return response;
+    }
+
+    /**
+     * Returns the response to the user input.
+     *
+     * @param input The user input.
+     * @return The response of the knight to the user input.
+     */
+
+    public String getResponse(String input) throws MissingInformationException, InvalidInputException {
         try {
-            Command c = new Command(ui, taskList);
-            String str = userInput;
-            String commandWord = ui.getCommand(str);
-            switch (commandWord) {
-                case "list" -> {
-                    return c.executeList();
-                }
-                case "mark" -> {
-                    storage.save(taskList);
-                    return c.executeMark(str);
-                }
-                case "unmark" -> {
-                    storage.save(taskList);
-                    return c.executeUnmark(str);
-                }
-                case "todo" -> {
-                    storage.save(taskList);
-                    return c.executeAddToDo(str);
-                }
-                case "event" -> {
-                    storage.save(taskList);
-                    return c.executeAddEvent(str);
-                }
-                case "deadline" -> {
-                    storage.save(taskList);
-                    return c.executeAddDeadline(str);
-                }
-                case "bye" -> {
-                    return ui.getBye();
-                }
-                case "delete" -> {
-                    storage.save(taskList);
-                    return c.executeDelete(str);
-                }
-                case "find" -> {
-                    return c.executeFind(str);
-                }
-                default -> {
-                    String msg = "I'm sorry, Katheryne is unable to comprehend your request.";
-                    throw new InvalidInputException(msg);
-                }
-            }
+            return handleCommand(input);
         } catch (InvalidInputException e) {
+            return String.format("Katheryne: %s", e.getMessage());
+        } catch (MissingInformationException e) {
             return String.format("Katheryne: %s", e.getMessage());
         }
     }

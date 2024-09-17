@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser is in charge of parsing user input to match with standard format
+ */
 public class Parser {
     public static String[] parseCommand(String input) {
-        return input.split(" ",2);
+        return input.split(" ", 2);
     }
 
     public static String getCommandWord(String input) {
@@ -18,11 +21,11 @@ public class Parser {
     }
 
     public static String getDeadlineTime(String input) {
-        return input.split("/by",2)[1].trim();
+        return input.split("/by", 2)[1].trim();
     }
 
     public static String getDeadlineDes(String input) {
-        return parseCommand(input)[1].split("/by ",2)[0];
+        return parseCommand(input)[1].split("/by ", 2)[0];
     }
 
     public static String[] getEventTimeAndDescription(String input) {
@@ -83,10 +86,4 @@ public class Parser {
     public static String getFindKeyWord(String str) {
         return Parser.parseCommand(str)[1];
     }
-
-
-
-
-
-
 }
