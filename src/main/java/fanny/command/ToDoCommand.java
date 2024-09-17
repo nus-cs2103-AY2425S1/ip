@@ -40,7 +40,7 @@ public class ToDoCommand extends Command {
             generateToDo();
             list.add(this.todo);
             message = ui.showAddTaskMsg(this.todo, list);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IllegalArgumentException e) {
             message = ui.showMessage("Task description cannot be empty");
         } finally {
             ui.showHorizontalLine();
@@ -52,8 +52,13 @@ public class ToDoCommand extends Command {
     /**
      * Parses the description to extract the todo task information.
      * Generate a todo task based on the extracted information.
+     *
+     * @throws IllegalArgumentException if description is empty.
      */
-    public void generateToDo() {
+    public void generateToDo() throws IllegalArgumentException {
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Task description cannot be empty");
+        }
         this.todo = new ToDo(this.description);
     }
 

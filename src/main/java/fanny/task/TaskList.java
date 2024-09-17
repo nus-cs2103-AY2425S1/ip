@@ -53,8 +53,12 @@ public class TaskList {
      *
      * @param index The 1-based index of the task to be deleted.
      * @return A string representing the task that was removed.
+     * @throws IllegalArgumentException if the index is less than 1 or greater than the list size.
      */
-    public String delete(int index) {
+    public String delete(int index) throws IllegalArgumentException {
+        if (index < 1 || index > this.list.size()) {
+            throw new IllegalArgumentException("Index out of bounds: " + index);
+        }
         String taskToBeRemoved = list.get(index - 1).toString();
         try {
             this.list.remove(index - 1);
@@ -116,9 +120,12 @@ public class TaskList {
      *
      * @param index The 1-based index of the task to be marked as not done.
      * @return A string representing the task after it has been marked as not done.
+     * @throws IllegalArgumentException if the index is less than 1 or greater than the list size.
      */
-    public String markAsNotDone(int index) {
-        assert index > 0 && index <= this.list.size() : "Index out of bounds.";
+    public String markAsNotDone(int index) throws IllegalArgumentException {
+        if (index < 1 || index > this.list.size()) {
+            throw new IllegalArgumentException("Index out of bounds: " + index);
+        }
         Task taskToUnMark = this.list.get(index - 1);
         try {
             taskToUnMark.markAsNotDone();

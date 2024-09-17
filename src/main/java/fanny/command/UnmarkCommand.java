@@ -30,12 +30,19 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {
-        int taskId = Integer.parseInt(input);
         String message = "";
 
-        ui.showHorizontalLine();
-        message = ui.showUnmarkTaskMsg(taskId, list);
-        ui.showHorizontalLine();
+        try {
+            ui.showHorizontalLine();
+            int taskId = Integer.parseInt(input);
+            message = ui.showUnmarkTaskMsg(taskId, list);
+        } catch (NumberFormatException e) {
+            message = ui.showMessage("The index must be an integer.");
+        } catch (IllegalArgumentException e) {
+            message = ui.showMessage(e.getMessage());
+        } finally {
+            ui.showHorizontalLine();
+        }
 
         return message;
     }
