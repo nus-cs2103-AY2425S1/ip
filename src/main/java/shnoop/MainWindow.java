@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Shnoop shnoop;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/beta.png"));
-    private Image shnoopImage = new Image(this.getClass().getResourceAsStream("/images/shnoop.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/beta-nobg.png"));
+    private Image shnoopImage = new Image(this.getClass().getResourceAsStream("/images/shnoop-nobg.png"));
 
     @FXML
     public void initialize() {
