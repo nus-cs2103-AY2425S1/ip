@@ -8,14 +8,10 @@ import java.io.File;
 import java.nio.file.Files;
 import java.io.FileWriter;
 
-<<<<<<< HEAD:src/main/java/MeowMeow/Saving.java
 /**
  * Represents a saving and loading system
  */
-public class Saving {
-=======
 public class Storage {
->>>>>>> branch-A-CodingStandard:src/main/java/meowmeow/Storage.java
 
     private Path saveFilePath;
     private String pathName;
