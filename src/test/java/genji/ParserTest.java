@@ -1,9 +1,16 @@
 package genji;
 
 import genji.command.AddCommand;
+import genji.command.DateCommand;
+import genji.command.FindCommand;
+import genji.task.Deadline;
+import genji.task.Event;
 import genji.task.TaskList;
 import genji.task.ToDo;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -79,5 +86,47 @@ public class ParserTest {
         t.add(new ToDo("test2"));
         Parser.parse("delete 1").execute(t, u, s);
         assertEquals("[T][ ] test2", t.get(0).toString());
+    }
+
+    /**
+     * Tests if parse method deals with checking date properly
+     * Adds some tasks to list and then parses and execute the date command
+     * Compare if the task is listed properly
+     * @throws GenjiException Not expected to be thrown
+     */
+    @Test
+    public void testDateCommand() throws GenjiException {
+        TaskList t = new TaskList();
+        Ui u = new Ui();
+        Storage s = new Storage("./data/Genji.txt");
+        t.add(new ToDo("test1"));
+        t.add(new Deadline("test2", LocalDateTime.parse("2024-09-20T16:00")));
+        t.add(new Event("test3", LocalDateTime.parse("2024-09-22T17:30"),
+                LocalDateTime.parse("2024-09-22T19:30")));
+        DateCommand d = (DateCommand) Parser.parse("date 2024-09-20");
+        d.execute(t, u, s);
+        assertEquals("Here are the matching tasks in your list:\n" +
+                "[D][ ] test2 (by: Sep 20 2024 16:00)\n", d.getResponse());
+    }
+
+    /**
+     * Tests if parse method deals with finding task properly
+     * Adds some tasks to list and then parses and execute the find command
+     * Compare if the task is listed properly
+     * @throws GenjiException Not expected to be thrown
+     */
+    @Test
+    public void testFindCommand() throws GenjiException {
+        TaskList t = new TaskList();
+        Ui u = new Ui();
+        Storage s = new Storage("./data/Genji.txt");
+        t.add(new ToDo("test1"));
+        t.add(new Deadline("Test2", LocalDateTime.parse("2024-09-20T16:00")));
+        t.add(new Event("Test3", LocalDateTime.parse("2024-09-22T17:30"),
+                LocalDateTime.parse("2024-09-22T19:30")));
+        FindCommand d = (FindCommand) Parser.parse("find test");
+        d.execute(t, u, s);
+        assertEquals("Here are the matching tasks in your list:\n" +
+                "[T][ ] test1\n", d.getResponse());
     }
 }
