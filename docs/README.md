@@ -22,7 +22,7 @@ Talkie is packed with various features, such as:
 * Marking tasks as done
 * Unmarking tasks as not done
 * Searching tasks with keywords
-* Sorting tasks alphabetically
+* Sorting tasks alphanumerically
 
 <br>
 
@@ -176,7 +176,7 @@ Sorts the task list in alphanumerical order.
 Your task list after sorting:
 1. [T][ ] CS2103T Week 6 Assignment
 2. [D][ ] CS2101 Slides (by: Sep 17 2024 23:59)
-3. [E][ ] John's Birthday Party (from: Sep 17 2024 16:00 to: Sep 17 2024 2200)
+3. [E][ ] John's Birthday Party (from: Sep 17 2024 16:00 to: Sep 17 2024 22:00)
 ```
 <br>
 
