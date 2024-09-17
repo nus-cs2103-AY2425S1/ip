@@ -1,8 +1,8 @@
 package jay.gui;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.net.URL;
+import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +25,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, String color) {
         try {
             URL fxmlResource = Gui.class.getResource("/view/DialogBox.fxml");
             assert fxmlResource != null : "FXML resource not found";
@@ -38,7 +38,13 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        String style = dialog.getStyle() + "-fx-background-color: " + color + ";";
+        // Bold the text if it is lightRed, which mean it is an exception message
+        if (color.equals("Red")) {
+            style += "-fx-font-weight: bold;";
+        }
         dialog.setText(text);
+        dialog.setStyle(style);
         displayPicture.setImage(img);
     }
 
@@ -54,12 +60,19 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         assert img != null : "Image cannot be null!";
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, "lightGreen");
     }
 
-    public static DialogBox getJayDialog(String text, Image img) {
+    public static DialogBox getJayDialog(String text, Image img, boolean isException) {
         assert img != null : "Image cannot be null!";
-        DialogBox dialogBox = new DialogBox(text, img);
+        DialogBox dialogBox = null;
+
+        if (isException) {
+            dialogBox = new DialogBox(text, img, "Red");
+        } else {
+            dialogBox = new DialogBox(text, img, "lightBlue");
+        }
+
         dialogBox.flip();
         return dialogBox;
     }

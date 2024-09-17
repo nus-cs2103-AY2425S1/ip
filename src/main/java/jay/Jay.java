@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import jay.command.Command;
 import jay.command.InvalidCommandException;
+import jay.gui.ResponseMessageException;
 import jay.parser.Parser;
 import jay.storage.DataIOException;
 import jay.task.InvalidTaskException;
@@ -45,7 +46,11 @@ public class Jay {
                 ui.quit();
                 break;
             } else {
-                ui.output(this.processCommand(command));
+                try {
+                    ui.output(this.processCommand(command));
+                } catch (ResponseMessageException e) {
+                    ui.output(e.getMessage());
+                }
             }
         }
     }
@@ -78,7 +83,7 @@ public class Jay {
      * @param input The user input.
      * @return The response to the user.
      */
-    public String handleInput(String input) {
+    public String handleInput(String input) throws ResponseMessageException {
         return this.processCommand(input);
     }
 
@@ -88,7 +93,7 @@ public class Jay {
      * @param commandStr The command to be processed.
      * @return The response to the command. Show to the user by the chatbot.
      */
-    private String processCommand(String commandStr) {
+    private String processCommand(String commandStr) throws ResponseMessageException {
         Command command = new Command(commandStr);
         Command.CommandType commandType = command.getCommandType();
 
@@ -130,7 +135,7 @@ public class Jay {
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (InvalidCommandException | InvalidTaskException | DataIOException e) {
-            return e.getMessage();
+            throw new ResponseMessageException(e.getMessage());
         }
     }
 

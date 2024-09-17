@@ -79,7 +79,7 @@ public class TaskList {
      */
     private void isValidTaskNumberCheck(int taskNumber) throws InvalidCommandException {
         if (!this.isValidTaskNumber(taskNumber)) {
-            throw new InvalidCommandException("OOPS!!! The Jay.task number is invalid.");
+            throw new InvalidCommandException("OOPS!!! The task number is invalid.");
         }
     }
 

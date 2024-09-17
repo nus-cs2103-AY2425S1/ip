@@ -29,10 +29,13 @@ public class MainWindow extends AnchorPane {
     private boolean isExit = false;
 
     private final Image userImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/user.jpg")));
+            this.getClass().getResourceAsStream("/images/user.png")));
     private final Image jayImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/jayBot.jpg")));
+            this.getClass().getResourceAsStream("/images/jayBot.png")));
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -41,8 +44,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setJay(Jay jay) {
         this.jay = jay;
-        dialogContainer.getChildren().add(DialogBox.getJayDialog(jay.greet(), jayImage));
-        dialogContainer.getChildren().add(DialogBox.getJayDialog(jay.showHighPriorityTasks(), jayImage));
+        dialogContainer.getChildren().add(DialogBox.getJayDialog(jay.greet(), jayImage, false));
+        dialogContainer.getChildren().add(DialogBox.getJayDialog(jay.showHighPriorityTasks(), jayImage,
+                false));
     }
 
     /**
@@ -56,16 +60,24 @@ public class MainWindow extends AnchorPane {
         }
 
         String input = userInput.getText();
-        String response = jay.handleInput(input);
 
         if (input.equals("bye")) {
             isExit = true;
         }
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJayDialog(response, jayImage)
-        );
+        try {
+            String response = jay.handleInput(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getJayDialog(response, jayImage, false)
+            );
+        } catch (ResponseMessageException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getJayDialog(e.getMessage(), jayImage, true)
+            );
+        }
+
         userInput.clear();
     }
 }
