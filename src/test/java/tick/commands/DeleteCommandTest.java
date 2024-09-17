@@ -1,11 +1,10 @@
-package tick.command;
+package tick.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import tick.commands.DeleteCommand;
 import tick.exceptions.TickException;
 import tick.storage.Storage;
 import tick.storage.TaskList;
