@@ -11,7 +11,8 @@
             prefHeight="600.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sunny.MainWindow">
+            fx:controller="sunny.MainWindow"
+            style="-fx-background-color: #87CEEB;">
     <children>
         <TextField fx:id="userInput"
                    layoutY="558.0"
@@ -32,11 +33,13 @@
                     hvalue="1.0"
                     prefHeight="557.0"
                     prefWidth="400.0"
-                    vvalue="1.0">
+                    vvalue="1.0"
+                    style="-fx-background-color: #87CEEB;">
             <content>
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
-                      prefWidth="388.0" />
+                      prefWidth="388.0"
+                      style="-fx-background-color: #87CEEB;"/>
             </content>
         </ScrollPane>
     </children>

@@ -5,8 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,8 +23,9 @@ public class MainWindow extends AnchorPane {
 
     private Ui sunny;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaCatto.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDoggo.png"));
+    private Image backgroundImage = new Image(this.getClass().getResourceAsStream("/images/DaBackGround.png"));
 
     @FXML
     public void initialize() {
@@ -54,4 +56,3 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 }
-
