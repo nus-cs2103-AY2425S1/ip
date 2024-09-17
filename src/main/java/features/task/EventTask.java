@@ -1,5 +1,7 @@
 package features.task;
 
+import exceptions.InvalidDateException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -26,7 +28,7 @@ public class EventTask extends Task {
 		this.startAt = LocalDateTime.parse(startAt, formatter);
 		this.endAt = LocalDateTime.parse(endAt, formatter);
 		if (this.startAt.isAfter(this.endAt)) {
-			throw new Exception("Start date must be before end date.");
+			throw new InvalidDateException();
 		}
 	}
 

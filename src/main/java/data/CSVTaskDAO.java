@@ -1,5 +1,6 @@
 package data;
 
+import exceptions.InvalidCsvFormatException;
 import features.task.DeadlineTask;
 import features.task.EventTask;
 import features.task.TodoTask;
@@ -66,7 +67,7 @@ public class CSVTaskDAO implements TaskDAO {
                         String endAt = eventTimes[1].trim();
                         task = new EventTask(description, startAt, endAt);
                     } else {
-                        throw new Exception("Invalid format for EventTask in CSV.");
+                        throw new InvalidCsvFormatException();
                     }
                 }
                 default -> System.out.println("Unknown task type in CSV: " + type);
