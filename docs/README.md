@@ -29,7 +29,7 @@ If you need help, type 'help' or '?' for a list of available commands.
 
 ---
 
-### Add Tasks
+### Add tasks
 
 There are 3 types of tasks can be added to the list:
 
@@ -59,13 +59,13 @@ Example:
 
 ```[E][ ] Comicon (from: Nov 24 2024 09:00 am to: Nov 26 2024 11:59 pm)```
 
-### List out tasks
+### List tasks
 
 List out the existing tasks that were created.
 
 Format: ```list```
 
-### Mark Tasks
+### Mark tasks
 
 Tasks can be marked one at a time by referencing their index (1-indexed) on the task list.
 
@@ -77,25 +77,26 @@ Format: ```unmark TASK_INDEX```
 
 The ```TASK_INDEX``` should also be a **positive integer** (e.g. 1, 2, 3, ...)
 
-### Find a task
+### Find tasks
 
 Find and list out tasks containing a certain keyword.
 
 Format: ```find KEYWORD```
 
-### Delete a task
+### Delete tasks
 
 Similar to mark/unmark, delete tasks based on their index on the list.
 
 Format: ```delete TASK_INDEX```
 
-### Clear all tasks
+### Clear tasks
 
-Clear the task list using the following command.
+Clear all the task list using the following command.
 
 Format: ```clear```
 
 ### Help menu
+
 A help menu is available in case you forget any commands. The correct format for each command is
 also provided.
 
