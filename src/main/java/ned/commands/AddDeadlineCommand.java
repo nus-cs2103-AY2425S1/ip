@@ -22,7 +22,6 @@ public class AddDeadlineCommand implements Command {
     /**
      * This method carries out the adding of a new Deadline object with information parsed from the command to the
      * taskList of the Ned instance's tasklist.
-     *
      * The NedException is thrown if the user does not specify a description for the task
      * and if there is no deadline specified in the command using /by.
      *

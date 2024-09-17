@@ -18,7 +18,7 @@ public class AddToDoCommand implements Command {
 
     /**
      * This method creates a new ToDo object and then adds it to the taskList instance belonging to the Ned instance
-     * . It Will throw NedException if the command is incomplete, be it missing a description, a /from timing or a
+     * . It will throw NedException if the command is incomplete, be it missing a description, a /from timing or a
      * /to timing.
      *
      * @param taskList        The TaskList instance associated with the Ned instance, used to store the list of tasks

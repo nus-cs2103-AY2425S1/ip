@@ -71,7 +71,6 @@ public class AddEventCommand implements Command {
 
     /**
      * Returns the regex expression used to identify the event command.
-     *
      * Used in Parser class to find the associated command.
      *
      * @return The regex pattern associated with this command

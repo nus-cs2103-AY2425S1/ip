@@ -80,12 +80,12 @@ public class Event extends Task {
      * @param taskDescription The description of the event task.
      * @param eventFromDate The start date of the event in ISO 8601 format (yyyy-MM-dd).
      * @param eventToDate The end date of the event in ISO 8601 format (yyyy-MM-dd).
-     * @param taskStatus {@code true} if the task is completed; {@code false} otherwise.
+     * @param isTaskComplete {@code true} if the task is completed; {@code false} otherwise.
      * @return A new {@code Event} object.
      * @throws NedException If any of the parameters are blank.
      */
     public static Event createEvent(String taskDescription, String eventFromDate, String eventToDate,
-                                    boolean taskStatus) throws NedException {
+                                    boolean isTaskComplete) throws NedException {
         if (taskDescription.isBlank()) {
             throw new MissingTaskDescriptionException(EVENT_MISSING_TASK_DESCRIPTION_ERROR_MESSAGE);
         } else if (eventFromDate.isBlank()) {
@@ -93,7 +93,7 @@ public class Event extends Task {
         } else if (eventToDate.isBlank()) {
             throw new MissingTaskToDateException(EVENT_MISSING_TO_DATE_ERROR_MESSAGE);
         }
-        return new Event(taskDescription, eventFromDate, eventToDate, taskStatus);
+        return new Event(taskDescription, eventFromDate, eventToDate, isTaskComplete);
     }
 
     /**
