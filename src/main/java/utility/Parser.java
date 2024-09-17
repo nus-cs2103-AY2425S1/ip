@@ -17,6 +17,44 @@ import task.Todo;
  */
 
 public class Parser {
+    private static final int START_IDX = 7;
+    private static final int DONE_IDX = 4;
+    private static Todo parseTodoFromStorageFileLine(String line) throws InvalidStorageFileException {
+        String taskDescription = line.substring(Parser.START_IDX);
+        if (taskDescription.equals("")) {
+            throw new InvalidStorageFileException();
+        }
+
+        return new Todo(taskDescription);
+    }
+
+    private static Deadline parseDeadlineFromStorageFileLine(String line) throws InvalidStorageFileException {
+        String byDelimiter = " (by: ";
+        int byIdx = line.indexOf(byDelimiter);
+        if (byIdx == -1) {
+            throw new InvalidStorageFileException();
+        }
+        String taskDescription = line.substring(Parser.START_IDX, byIdx);
+        String deadline = line.substring(byIdx + byDelimiter.length(), line.length() - 1);
+
+        return new Deadline(taskDescription, deadline);
+    }
+
+    private static Event parseEventFromStorageFileLine(String line) throws InvalidStorageFileException {
+        String fromDelimiter = " (from: ";
+        String toDelimiter = " to: ";
+        int fromIdx = line.indexOf(fromDelimiter);
+        int toIdx = line.indexOf(toDelimiter);
+        if (fromIdx == -1 || toIdx == -1) {
+            throw new InvalidStorageFileException();
+        }
+        String taskDescription = line.substring(Parser.START_IDX, fromIdx);
+        String from = line.substring(fromIdx + fromDelimiter.length(), toIdx);
+        String to = line.substring(toIdx, line.length() - 1);
+
+        return new Event(taskDescription, from, to);
+    }
+
     /**
      * Parses a line in the storage file to the corresponding Task
      * 
@@ -26,47 +64,24 @@ public class Parser {
      */
     public static Task parseStorageFileLine(String line) throws InvalidStorageFileException {
         try {
-            int startIdx = 7;
             char taskType = line.charAt(1);
-            Task t;
-            String taskDescription;
 
+            Task t;
             switch (taskType) {
             case 'T':
-                taskDescription = line.substring(startIdx);
-                if (taskDescription.equals("")) {
-                    throw new InvalidStorageFileException();
-                }
-                t = new Todo(taskDescription);
+                t = Parser.parseTodoFromStorageFileLine(line);
                 break;
             case 'D':
-                String byDelimiter = " (by: ";
-                int byIdx = line.indexOf(byDelimiter);
-                if (byIdx == -1) {
-                    throw new InvalidStorageFileException();
-                }
-                taskDescription = line.substring(startIdx, byIdx);
-                String deadline = line.substring(byIdx + byDelimiter.length(), line.length() - 1);
-                t = new Deadline(taskDescription, deadline);
+                t = Parser.parseDeadlineFromStorageFileLine(line);
                 break;
             case 'E':
-                String fromDelimiter = " (from: ";
-                String toDelimiter = " to: ";
-                int fromIdx = line.indexOf(fromDelimiter);
-                int toIdx = line.indexOf(toDelimiter);
-                if (fromIdx == -1 || toIdx == -1) {
-                    throw new InvalidStorageFileException();
-                }
-                taskDescription = line.substring(startIdx, fromIdx);
-                String from = line.substring(fromIdx + fromDelimiter.length(), toIdx);
-                String to = line.substring(toIdx, line.length() - 1);
-                t = new Event(taskDescription, from, to);
+                t = Parser.parseEventFromStorageFileLine(line);
                 break;
             default:
                 throw new InvalidStorageFileException();
             }
 
-            char doneLabel = line.charAt(4);
+            char doneLabel = line.charAt(Parser.DONE_IDX);
             if (doneLabel == 'X') {
                 t.mark();
             }
