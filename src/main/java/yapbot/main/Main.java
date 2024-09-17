@@ -20,8 +20,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+
             stage.setTitle("YapBot");
             stage.getIcons().add(new Image("/images/robot.png"));
+
             fxmlLoader.<MainWindow>getController().setYapBot(yapBot); // inject the Duke instance
             stage.show();
             fxmlLoader.<MainWindow>getController().printYapBotDialog(yapBot.run());

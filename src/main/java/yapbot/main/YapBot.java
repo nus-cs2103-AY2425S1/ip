@@ -29,7 +29,7 @@ public class YapBot {
     }
 
     /**
-     * Driver function to start the YapBot instance.
+     * Starts the YapBot instance and returns the appropriate startup message.
      */
     public String run() {
 

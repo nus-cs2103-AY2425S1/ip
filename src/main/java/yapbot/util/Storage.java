@@ -16,7 +16,6 @@ import yapbot.tasks.Task;
 import yapbot.tasks.ToDo;
 
 
-
 /**
  * Handles all file interactions for YapBot.
  */
@@ -61,47 +60,19 @@ public class Storage {
 
                 switch (taskType) {
                 case "T": {
-                    int isDone = Integer.parseInt(taskData[1]);
-                    String taskDetails = taskData[2];
-                    Task task;
-
-                    if (isDone == 1) {
-                        task = new ToDo(taskDetails, true);
-                    } else {
-                        task = new ToDo(taskDetails);
-                    }
-
+                    Task task = this.generateToDo(taskData);
                     result.add(task);
                     break;
                 }
 
                 case "D": {
-                    int isDone = Integer.parseInt(taskData[1]);
-                    String taskDetails = taskData[2];
-                    LocalDateTime deadline = LocalDateTime.parse(taskData[3]);
-                    Task task;
-
-                    if (isDone == 1) {
-                        task = new Deadline(taskDetails, deadline, true);
-                    } else {
-                        task = new Deadline(taskDetails, deadline, false);
-                    }
+                    Task task = this.generateDeadline(taskData);
                     result.add(task);
                     break;
                 }
 
                 case "E": {
-                    int isDone = Integer.parseInt(taskData[1]);
-                    String taskDetails = taskData[2];
-                    LocalDateTime from = LocalDateTime.parse(taskData[3]);
-                    LocalDateTime to = LocalDateTime.parse(taskData[4]);
-                    Task task;
-
-                    if (isDone == 1) {
-                        task = new Event(taskDetails, from, to, true);
-                    } else {
-                        task = new Event(taskDetails, from, to, false);
-                    }
+                    Task task = this.generateEvent(taskData);
                     result.add(task);
                     break;
                 }
@@ -140,6 +111,57 @@ public class Storage {
 
             throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
                     + "\nYapBot will execute without prior data.");
+        }
+    }
+
+    private Task generateToDo(String[] taskData) throws YapBotException, NumberFormatException {
+        if (taskData.length < 3) {
+            throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
+                    + "\nYapBot will execute without prior data.");
+        }
+
+        int isDone = Integer.parseInt(taskData[1]);
+        String taskDetails = taskData[2];
+
+        if (isDone == 1) {
+            return new ToDo(taskDetails, true);
+        } else {
+            return new ToDo(taskDetails);
+        }
+    }
+
+    private Task generateDeadline(String[] taskData) throws YapBotException, DateTimeParseException, NumberFormatException {
+        if (taskData.length < 4) {
+            throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
+                    + "\nYapBot will execute without prior data.");
+        }
+
+        int isDone = Integer.parseInt(taskData[1]);
+        String taskDetails = taskData[2];
+        LocalDateTime deadline = LocalDateTime.parse(taskData[3]);
+
+        if (isDone == 1) {
+            return new Deadline(taskDetails, deadline, true);
+        } else {
+            return new Deadline(taskDetails, deadline, false);
+        }
+    }
+
+    private Task generateEvent(String[] taskData) throws YapBotException, DateTimeParseException, NumberFormatException {
+        if (taskData.length < 5) {
+            throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
+                    + "\nYapBot will execute without prior data.");
+        }
+
+        int isDone = Integer.parseInt(taskData[1]);
+        String taskDetails = taskData[2];
+        LocalDateTime from = LocalDateTime.parse(taskData[3]);
+        LocalDateTime to = LocalDateTime.parse(taskData[4]);
+
+        if (isDone == 1) {
+            return new Event(taskDetails, from, to, true);
+        } else {
+            return new Event(taskDetails, from, to, false);
         }
     }
 
