@@ -157,7 +157,7 @@ public class Parser {
 
     private String processAddTaskInput(String input) throws IOException {
         if (input.isEmpty()) {
-            return "Please specify a task name!";
+            return "I can't add the task if you don't specify a task name.";
         }
 
         TaskType taskType;
@@ -194,7 +194,7 @@ public class Parser {
         String taskName = input.replace(TODO_COMMAND, "").strip();
 
         if (!taskList.find(taskName, true).isEmpty()) {
-            return "There is already a task with this name!";
+            return "There is already a task with this name though...";
         }
         if (taskName.isEmpty()) {
             throw new ToDoNoDescriptionException();
@@ -204,7 +204,7 @@ public class Parser {
         this.taskList.writeToFile();
 
         String outputString = "";
-        outputString = outputString + "Got it. I've added this task:";
+        outputString = outputString + "Got it. I've added it as a To Do:";
         outputString = outputString + "\n" + this.taskList.get(taskList.size() - 1).toString();
         outputString = outputString + "\nNow you have " + this.taskList.size() + " tasks in the list.";
 
@@ -218,7 +218,7 @@ public class Parser {
             throw new DeadlineNoDescriptionException();
         }
         if (!taskList.find(taskName, true).isEmpty()) {
-            return "There is already a task with this name!";
+            return "There is already a task with this name though...";
         }
 
         String date = noCommandInput.split("/by")[1].strip();
@@ -227,7 +227,7 @@ public class Parser {
         this.taskList.writeToFile();
 
         String outputString = "";
-        outputString = outputString + "Got it. I've added this task:";
+        outputString = outputString + "Got it. I've added it as a Deadline:";
         outputString = outputString + "\n" + this.taskList.get(taskList.size() - 1).toString();
         outputString = outputString + "\nNow you have " + this.taskList.size() + " tasks in the list.";
 
@@ -241,7 +241,7 @@ public class Parser {
             throw new EventNoDescriptionException();
         }
         if (!taskList.find(taskName, true).isEmpty()) {
-            return "There is already a task with this name!";
+            return "There is already a task with this name...";
         }
         String fromAndTo = noCommandInput.split("/from")[1].strip();
         String fromDate = fromAndTo.split("/to")[0].strip();
@@ -251,7 +251,7 @@ public class Parser {
         this.taskList.writeToFile();
 
         String outputString = "";
-        outputString = outputString + "Got it. I've added this task:";
+        outputString = outputString + "Got it. I've added it as an Event:";
         outputString = outputString + "\n" + this.taskList.get(taskList.size() - 1).toString();
         outputString = outputString + "\nNow you have " + this.taskList.size() + " tasks in the list.";
 
@@ -306,7 +306,7 @@ public class Parser {
 
         this.taskList.readFromFile();
 
-        outputString = outputString + "Here are the tasks in your list:";
+        outputString = outputString + "Here is everything in your list:";
         for (int i = 0; i < this.taskList.size(); i++) {
             assert i >= 0 && i < this.taskList.size();
             outputString = outputString + "\n " + (i + 1) + ". " + this.taskList.get(i).toString();

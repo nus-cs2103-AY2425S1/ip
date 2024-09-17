@@ -8,8 +8,6 @@ import java.util.Scanner;
  */
 
 public class Ui {
-    static final String HORIZONTAL_LINE = "____________________________________________________________";
-
     private String name;
     private Parser parser;
 
@@ -35,21 +33,6 @@ public class Ui {
      * @return String The greeting message.
      */
     public String getGreeting() {
-        return "Hello! I'm " + name + " (simulated).\nWhat can I do for you?";
-    }
-
-    /**
-     * Prints a goodbye/ending message.
-     */
-    public void printBye() {
-        System.out.println("Bye.");
-        showLine();
-    }
-
-    /**
-     * Prints a horizontal line / border.
-     */
-    public void showLine() {
-        System.out.println(HORIZONTAL_LINE);
+        return "Hello! I'm " + name + " (simulated).\nWhat brings you here today?";
     }
 }
