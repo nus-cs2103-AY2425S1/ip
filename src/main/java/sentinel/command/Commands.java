@@ -252,7 +252,7 @@ public enum Commands {
     };
 
     /**
-     * Abstract run command method.
+     * Executes the command.
      *
      * @param sentinel Sentinel to act on.
      * @param args Arguments sent in.
@@ -261,9 +261,10 @@ public enum Commands {
     public abstract void run(Sentinel sentinel, String args) throws SentinelException;
 
     /**
-     * Method to map command strings to the command methods.
+     * Maps command strings to the command methods.
      *
      * @param commandString Command string received.
+     * @return Command corresponding to the command string.
      */
     public static Commands getCommand(String commandString) {
         return switch (commandString) {
