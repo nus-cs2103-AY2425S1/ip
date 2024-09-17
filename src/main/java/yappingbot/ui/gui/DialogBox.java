@@ -80,6 +80,7 @@ public class DialogBox extends HBox {
     public static DialogBox getReplyDialog(String text, Image img) throws IOException {
         var db = new DialogBox(text, img);
         db.flip();
+        db.getStyleClass().add("reply-label");
         return db;
     }
 }
