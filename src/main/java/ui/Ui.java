@@ -91,4 +91,7 @@ public class Ui {
     public String updateSuccess(int index) {
         return String.format("Successfully updated task %d\n", index);
     }
+    public String invalidListCommandMessage() {
+        return "To view the list of tasks, type in <list>";
+    }
 }
