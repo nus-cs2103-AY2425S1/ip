@@ -1,8 +1,8 @@
-# BrainRot PRO
+# brainrot PRO
 
 >"Home is where you don't have to wipe your toilet seat before shitting" -Martin Ng([source](https://www.youtube.com/watch?v=xvFZjo5PgG0))
 
-BrainRot PRO can
+brainrot PRO can
 - skibidi gyat
 - ohio rizz
 - fanum tax

@@ -1,9 +1,13 @@
-package BrainRot;
+package brainrot;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import BrainRot.exceptions.*;
+import brainrot.exceptions.UnknownLoadingError;
 
 /**
  * The Storage class handles the reading and writing of tasks to and from a file.
@@ -59,6 +63,8 @@ public class Storage {
                         }
                         arr.add(E);
                         break;
+                    default :
+                        System.out.println("error");
                 }
             }
         } catch (IOException e) {

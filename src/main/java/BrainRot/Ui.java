@@ -1,4 +1,4 @@
-package BrainRot;
+package brainrot;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -13,8 +13,13 @@ import java.util.Scanner;
 public class Ui {
 
 
+    protected static final String ACTIVITYERROR =
+            "OOPS!!! The description of an activity cannot be empty.\n";
 
-    private static final String LINE = "____________________________________________________________\n";
+    protected static final String COMMANDERROR =
+            "OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+
+
 
     protected static final String GREETING =
             "Hello! I'm fanumTaxRizzlerOhioSigmaLooksmaxxer\n"
@@ -23,11 +28,7 @@ public class Ui {
     protected static final String GOODBYE =
             "Bye. Hope to see you again soon!\n";
 
-    protected static final String COMMANDERROR =
-            "OOPS!!! I'm sorry, but I don't know what that means :-(\n";
-
-    protected static final String ACTIVITYERROR =
-            "OOPS!!! The description of an activity cannot be empty.\n";
+    private static final String LINE = "____________________________________________________________\n";
 
     protected static final String LOADINGERROR =
             "OOPS!!! I'm sorry, your database is not loading properly :-(\n";

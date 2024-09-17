@@ -1,4 +1,4 @@
-package BrainRot;
+package brainrot;
 
 /**
  * The BrainRot.Task class represents a generic task with a description and a completion status.

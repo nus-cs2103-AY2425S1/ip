@@ -1,6 +1,6 @@
-package BrainRot;
+package brainrot;
 
-import BrainRot.exceptions.*;
+import brainrot.exceptions.*;
 import java.io.IOException;
 
 /**
