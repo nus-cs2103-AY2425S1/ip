@@ -12,6 +12,10 @@ public class Ui {
     public static String showWelcome() {
         String response = "";
         response += "Hello! I'm the emperor of shurima!\n";
+        response += "Here are the available commands to communicate with the emperor\n" +
+                "1. list\n2. mark [task number]\n3. unmark[task number]\n" +
+                "4. delete[task number]\n5. todo [description]\n6. deadline [description] /by [yyyy-mm-dd]\n" +
+                "7. event [description] /from [date] /to [date]\n8. find [keyword]\n";
         response += "What can I do for you my soldier?";
         return response;
     }
