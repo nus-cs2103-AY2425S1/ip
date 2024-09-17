@@ -30,6 +30,7 @@ public class Kira {
 
         try {
             Parser.CommandType command = parser.intepreteCommand(input);
+            assert command != null : "command returned cannot be null";
             Task task = parser.execute(command, input);
             this.storage.save(this.list);
             return parser.getResponse(command, input, task);
