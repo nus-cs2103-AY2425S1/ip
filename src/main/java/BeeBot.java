@@ -9,7 +9,6 @@ import exceptions.MissingDeadlineException;
 import exceptions.TaskNotFoundException;
 import exceptions.MissingEventTimeException;
 
-
 /**
  * Represents the main application for managing tasks.
  * <p>
