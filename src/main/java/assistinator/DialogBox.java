@@ -53,10 +53,17 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getAssistinatorDialog(String text, Image img) {
+    public static DialogBox getAssistinatorDialog(String text, Image img, boolean isError) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(isError);
         return db;
+    }
+
+    private void changeDialogStyle(boolean isError) {
+        if (isError) {
+            dialog.getStyleClass().add("error-label");
+        }
     }
 }
 

@@ -28,8 +28,10 @@ public class MainWindow extends AnchorPane {
 
     private Assistinator assistinator;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image assistinatorImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/doof.jpg"));
+    private Image assistinatorImage = new Image(
+            this.getClass().getResourceAsStream("/images/assistinator.png")
+    );
 
     /**
      * Initialises app and shows welcome message
@@ -40,7 +42,8 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getAssistinatorDialog(
                         "Hello! I'm Assistinator. What can I do for you?",
-                        assistinatorImage
+                        assistinatorImage,
+                        false
                 )
         );
     }
@@ -58,9 +61,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = assistinator.getResponse(input);
+        boolean isError = assistinator.isError();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAssistinatorDialog(response, assistinatorImage)
+                DialogBox.getAssistinatorDialog(response, assistinatorImage,isError)
         );
         userInput.clear();
         if (response.toLowerCase().contains("bye")) {

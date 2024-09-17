@@ -29,11 +29,11 @@ public class TaskList {
     /**
      * Delete specified task
      * @param index Index of task
-     * @throws AssitinatorExceptions If index is invalid
+     * @throws AssitinatorException If index is invalid
      */
-    public void deleteTask(int index) throws AssitinatorExceptions {
+    public void deleteTask(int index) throws AssitinatorException {
         if (index < 0 || index >= tasks.size()) {
-            throw new AssitinatorExceptions("Invalid task index");
+            throw new AssitinatorException("Invalid task index");
         }
         tasks.remove(index);
     }
@@ -42,11 +42,11 @@ public class TaskList {
      * Marks specified task as done or undone
      * @param index Task index
      * @param isDone Whether task is done or not done
-     * @throws AssitinatorExceptions If task index is invalid
+     * @throws AssitinatorException If task index is invalid
      */
-    public void markTask(int index, boolean isDone) throws AssitinatorExceptions {
+    public void markTask(int index, boolean isDone) throws AssitinatorException {
         if (index < 0 || index >= tasks.size()) {
-            throw new AssitinatorExceptions("Invalid task index");
+            throw new AssitinatorException("Invalid task index");
         }
         if (isDone) {
             tasks.get(index).markAsDone();

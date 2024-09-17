@@ -13,7 +13,7 @@ public class StorageTest {
 
         try {
             storage.loadTasks();
-            fail("Expected AssitinatorExceptions to be thrown");
+            fail("Expected AssitinatorException to be thrown");
         } catch (AssitinatorExceptions e) {
             assertEquals("File not found", e.getMessage());
         }

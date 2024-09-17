@@ -28,9 +28,9 @@ public class CommandExecutor {
      *
      * @param fullCommand the full user input
      * @return the parsed command
-     * @throws AssitinatorExceptions if the command cannot be parsed
+     * @throws AssitinatorException if the command cannot be parsed
      */
-    public Command parseCommand(String fullCommand) throws AssitinatorExceptions {
+    public Command parseCommand(String fullCommand) throws AssitinatorException {
         return parser.parseCommand(fullCommand);
     }
 
@@ -40,9 +40,9 @@ public class CommandExecutor {
      * @param command     the command to execute
      * @param fullCommand the full user input
      * @return the response to the executed command
-     * @throws AssitinatorExceptions if the command cannot be executed
+     * @throws AssitinatorException if the command cannot be executed
      */
-    public String executeCommand(Command command, String fullCommand) throws AssitinatorExceptions {
+    public String executeCommand(Command command, String fullCommand) throws AssitinatorException {
         switch (command) {
         case BYE:
             storage.saveTasks(tasks.getTasks());
@@ -71,7 +71,7 @@ public class CommandExecutor {
         case FIND:
             return tasks.filterTasks(fullCommand.substring(fullCommand.indexOf(' ') + 1));
         default:
-            throw new AssitinatorExceptions("Command does not exist");
+            throw new AssitinatorException("Command does not exist");
         }
     }
 }

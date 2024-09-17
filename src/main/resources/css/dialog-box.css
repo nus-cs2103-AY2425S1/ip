@@ -23,7 +23,7 @@
     -fx-rotate: 0;
 }
 
-.reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
+
+.error-label {
+    -fx-background-color: #FF3300;
 }

@@ -8,6 +8,7 @@ public class Assistinator {
     private final Ui ui;
     private TaskList tasks;
     private final CommandExecutor commandExecutor;
+    private boolean isError;
 
     /**
      * Initialising an Assistinator class
@@ -18,11 +19,12 @@ public class Assistinator {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadTasks());
-        } catch (AssitinatorExceptions e) {
+        } catch (AssitinatorException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
         commandExecutor = new CommandExecutor(ui, tasks, storage);
+        isError = false;
     }
 
     /**
@@ -41,7 +43,7 @@ public class Assistinator {
                 if (command == Command.BYE) {
                     isRunning = false;
                 }
-            } catch (AssitinatorExceptions e) {
+            } catch (AssitinatorException e) {
                 ui.showError(e.getMessage());
             }
         }
@@ -51,11 +53,17 @@ public class Assistinator {
         try {
             Command command = commandExecutor.parseCommand(input);
             String response = commandExecutor.executeCommand(command, input);
+            isError = false;
             assert response != null : "Response should not be null";
             return response;
-        } catch (AssitinatorExceptions e) {
+        } catch (AssitinatorException e) {
+            isError = true;
             return e.getMessage();
         }
+    }
+
+    public boolean isError() {
+        return isError;
     }
 
     public static void main(String[] args) {

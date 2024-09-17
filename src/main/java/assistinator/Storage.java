@@ -38,9 +38,9 @@ public class Storage {
     /**
      * Loads task list from file
      * @return task list
-     * @throws AssitinatorExceptions If file not in provided file path
+     * @throws AssitinatorException If file not in provided file path
      */
-    public ArrayList<Task> loadTasks() throws AssitinatorExceptions {
+    public ArrayList<Task> loadTasks() throws AssitinatorException {
         try {
             return Files.lines(Paths.get(filePath))
                     .map(line -> {
@@ -50,7 +50,7 @@ public class Storage {
                     })
                     .collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
-            throw new AssitinatorExceptions("File not found");
+            throw new AssitinatorException("File not found");
         }
     }
 
