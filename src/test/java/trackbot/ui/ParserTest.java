@@ -11,6 +11,7 @@ import trackbot.commands.AddCommand;
 import trackbot.commands.Command;
 import trackbot.commands.DeleteCommand;
 import trackbot.commands.ExitCommand;
+import trackbot.commands.InvalidCommand;
 import trackbot.commands.ListCommand;
 import trackbot.commands.MarkCommand;
 import trackbot.commands.UnmarkCommand;
@@ -29,7 +30,9 @@ public class ParserTest {
 
     @Test
     public void parse_list_fail() throws TrackBotException {
-        assertThrows(TrackBotException.class, () -> parser.parse("list extra"));
+        //assertThrows(TrackBotException.class, () -> parser.parse("list extra"));
+        Command command = parser.parse("list extra");
+        assertInstanceOf(InvalidCommand.class, command);
     }
 
     @Test

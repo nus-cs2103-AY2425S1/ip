@@ -8,8 +8,6 @@ import trackbot.task.TrackList;
 import trackbot.ui.Parser;
 import trackbot.ui.Ui;
 
-
-
 /**
  * The main class for TrackBot.
  * This class initializes the storage, tasks list, parser and UI.
@@ -33,12 +31,9 @@ public class TrackBot {
             storage = new TrackBotStorage(filePath);
             trackList = new TrackList(storage);
         } catch (IOException e) {
-            System.out.println("File not found");
+            ui.showFileNotFoundError();
         }
         assert trackList != null;
-        // if (trackList == null) {
-        //     System.out.println("Failed to initialize TrackList.");
-        // }
     }
 
     /**
@@ -68,16 +63,13 @@ public class TrackBot {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        // return "Duke heard: " + input;
         String output = "";
-        boolean isExit = false;
         try {
             Command command = parser.parse(input);
             assert command != null;
             output = command.execute(trackList, ui, storage);
-            // isExit = command.isExit();
         } catch (TrackBotException e) {
-            System.out.println(e.getMessage());
+            return ui.getErrorMessage(e.getMessage());
         }
         return output;
     }

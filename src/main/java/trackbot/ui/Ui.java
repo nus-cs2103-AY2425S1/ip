@@ -9,25 +9,31 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public String showWelcome() {
-        // System.out.println("************************************************************");
-        // System.out.println("Hello from trackbot.trackbot!\n" + "How may I assist you?");
-        return "Hello from trackbot.trackbot!\n" + "How may I assist you?";
+        return "Hello from TrackBot!\n" + "How may I assist you?";
     }
 
     /**
      * Displays a goodbye message to the user.
      */
     public String showBye() {
-        // System.out.println("Bye. Hope to see you again soon!");
-        // System.out.println("************************************************************");
         return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Prints a line.
+     * Displays a message to indicate a file not found error.
      */
-    public void printLine() {
-        System.out.println("````````````````````````````````````````````````````````````");
+    public void showFileNotFoundError() {
+        System.out.println("File not found.");
+    }
+
+    /**
+     * Returns an error message in string format.
+     *
+     * @param message The error message to display.
+     * @return The formatted error message.
+     */
+    public String getErrorMessage(String message) {
+        return "Error: " + message;
     }
 
 }
