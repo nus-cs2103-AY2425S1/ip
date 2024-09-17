@@ -235,7 +235,7 @@ public class Alexer {
 
     /**
      * Starts the chatbot, load all the necessary
-     * data and greets the user.
+     * data and prepares the chatbot for operation.
      */
     public void start() {
         prompter.buildLogo().printToConsole();
@@ -244,8 +244,18 @@ public class Alexer {
         promptLoop();
     }
 
+    /**
+     * Starts the console chatbot routine for text-based usage
+     */
+    public void promptConsole() {
+        prompter.buildLogo().printToConsole();
+        prompter.buildGreeting().printToConsole();
+        promptLoop();
+    }
+
     public static void main(String[] args) {
         Alexer alexer = new Alexer();
         alexer.start();
+        alexer.promptConsole();
     }
 }
