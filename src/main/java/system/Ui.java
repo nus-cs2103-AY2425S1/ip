@@ -85,14 +85,14 @@ public class Ui {
             if (t.getCurrentStatus() == Task.Status.MARKED) {
                 response.append("[T][X] ").append(t.getName()).append("\n");
             } else {
-                response.append("[T][ ] ").append(t.getName()).append("\n");
+                response.append("[T][_] ").append(t.getName()).append("\n");
             }
         } else if (t instanceof Deadlines) {
             if (t.getCurrentStatus() == Task.Status.MARKED) {
                 response.append("[D][X] ").append(t.getName()).append(" (by: ")
                         .append(dateTimeSystem.formatLocalTimeDate(t.getDate())).append(")\n");
             } else {
-                response.append("[D][ ] ").append(t.getName()).append(" (by: ")
+                response.append("[D][_] ").append(t.getName()).append(" (by: ")
                         .append(dateTimeSystem.formatLocalTimeDate(t.getDate())).append(")\n");
             }
         } else if (t instanceof Events) {
@@ -101,7 +101,7 @@ public class Ui {
                         .append(dateTimeSystem.formatLocalTimeDate(t.getStart())).append(" to: ")
                         .append(dateTimeSystem.formatLocalTimeDate(t.getEnd())).append(")\n");
             } else {
-                response.append("[E][ ] ").append(t.getName()).append(" (from: ")
+                response.append("[E][_] ").append(t.getName()).append(" (from: ")
                         .append(dateTimeSystem.formatLocalTimeDate(t.getStart())).append(" to: ")
                         .append(dateTimeSystem.formatLocalTimeDate(t.getEnd())).append(")\n");
             }
@@ -125,7 +125,7 @@ public class Ui {
     }
 
     public String viewTaskMessage(String date, StringBuilder sb) {
-        return "Here are the matching tasks in for this date: "
+        return "Here are the matching tasks for this date: "
                 + date + "\n"
                 + sb.toString();
     }
@@ -198,7 +198,7 @@ public class Ui {
      * @return a String message displaying the unmarking of a task.
      */
     public String unmark_message(String s) {
-        return "OK, I've marked this task as not done yet:\n"
+        return "OK, I've unmarked this task as not done yet:\n"
                 + "[_] " + s;
     }
 

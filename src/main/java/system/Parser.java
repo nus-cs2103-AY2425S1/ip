@@ -218,7 +218,6 @@ public class Parser {
         int listNo;
         if (containUnmark(trimmedInput)) {
             listNo = Integer.parseInt(trimmedInput.substring(7));
-            System.out.println("===debug=== listno: " + listNo);
             if (listNo != TaskList.tasks.size() && listNo <= 0) {
                 return ui.indexOutOfBounds();
             }
