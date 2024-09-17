@@ -13,8 +13,8 @@ public class Parse {
     private static final String deadlineSplitBy = " /by ";
     private static final String eventSplitBy = " /from | /to ";
     private static final String parseTodoErrorMessage = "Please enter a task for Todo";
-    private static final String parseDeadlineErrorMessage = "Wrong number of arguments for deadline task!";
-    private static final String parseEventErrorMessage = "Wrong number of arguments for event task!";
+    private static final String parseDeadlineErrorMessage = "Wrong number/format of arguments for deadline task!";
+    private static final String parseEventErrorMessage = "Wrong number/format of arguments for event task!";
     /**
      * Parses a Todo input string to get the task description.
      *
