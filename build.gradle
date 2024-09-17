@@ -63,4 +63,4 @@ shadowJar {
     archiveFileName = 'strand.jar'
 }
 
-mainClassName = 'strand.Strand'
+mainClassName = 'Launcher'
