@@ -32,88 +32,39 @@ public class Parser {
 
     public static String parse(String text, TaskList taskList, Storage storage) throws IncorrectInputException,
             TaskNotFoundException {
-
         String[] inputs = text.split(" ", 2);
         String command = inputs[0];
 
         switch (command) {
         case "list" -> {
-            if (inputs.length != 1) {
-                throw new IncorrectInputException("You should not have anything after your request. "
-                        + "(e.g. \"list\")");
-            }
-
-            return Ui.listUi(taskList);
+            return handleListCommand(inputs, taskList);
         }
         case "mark" -> {
-            if (inputs.length != 2) {
-                throw new IncorrectInputException("You should have only 1 number after your request. "
-                        + "(e.g. \"mark 1\")");
-            }
-
-            return parseMark(inputs[1], taskList);
+            return handleMarkCommand(inputs, taskList);
         }
         case "unmark" -> {
-            if (inputs.length != 2) {
-                throw new IncorrectInputException("You should have only 1 number after your request. "
-                        + "(e.g. \"unmark 1\")");
-            }
-
-            return parseUnmark(inputs[1], taskList);
+            return handleUnmarkCommand(inputs, taskList);
         }
         case "todo" -> {
-            if (inputs.length != 2) {
-                throw new IncorrectInputException("You should have a description after your request. "
-                        + "(e.g. \"todo your_description\")");
-            }
-
-            return parseToDo(inputs[1], taskList);
+            return handleToDoCommand(inputs, taskList);
         }
         case "deadline" -> {
-            if (inputs.length != 2) {
-                throw new IncorrectInputException("You should have a description after your request. "
-                        + "(e.g. \"todo your_description /by your_deadline\")");
-            }
-
-            return parseDeadline(inputs[1], taskList);
+            return handleDeadlineCommand(inputs, taskList);
         }
         case "event" -> {
-            if (inputs.length != 2) {
-                throw new IncorrectInputException("You should have a description after your request. "
-                        + "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
-            }
-
-            return parseEvent(inputs[1], taskList);
+            return handleEventCommand(inputs, taskList);
         }
         case "delete" -> {
-            if (inputs.length != 2) {
-                throw new IncorrectInputException("You should have only 1 number after your request. "
-                        + "(e.g. \"delete 1\")");
-            }
-
-            return parseDelete(inputs[1], taskList);
+            return handleDeleteCommand(inputs, taskList);
         }
-
         case "find" -> {
-            if (inputs.length != 2) {
-                throw new IncorrectInputException("You should input what you're searching for after \"find\""
-                        + " (e.g. \"find task\")");
-            }
-
-            return parseFind(inputs[1], taskList);
+            return handleFindCommand(inputs, taskList);
         }
-
         case "save" -> {
-            return parseSave(taskList, storage);
+            return handleSaveCommand(taskList, storage);
         }
-
         case "recurring" -> {
-            if (inputs.length != 2) {
-                throw new IncorrectInputException("You should have a description after your request. "
-                        + "(e.g. \"todo your_description /event your_frequency\")");
-            }
-
-            return parseRecurring(inputs[1], taskList);
+            return handleRecurringCommand(inputs, taskList);
         }
         default -> {
             return Ui.unknownUi();
@@ -121,10 +72,73 @@ public class Parser {
         }
     }
 
-    public static String parseDeadline(String input, TaskList taskList) throws IncorrectInputException {
+    private static String handleListCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
+        if (inputs.length != 1) {
+            throw new IncorrectInputException("You should not have anything after your request. (e.g. \"list\")");
+        }
+        return Ui.listUi(taskList);
+    }
 
+    private static String handleMarkCommand(String[] inputs, TaskList taskList) throws IncorrectInputException,
+            TaskNotFoundException {
+        if (inputs.length != 2) {
+            throw new IncorrectInputException("You should have only 1 number after your request. (e.g. \"mark 1\")");
+        }
+        try {
+            int index = Integer.parseInt(inputs[1]) - 1;
 
-        String[] parts = input.split(" /by ");
+            if (index < 0 || index >= taskList.getSize()) {
+                throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
+            }
+
+            Task currTask = taskList.markTask(index);
+            return Ui.markUi(currTask);
+        } catch (NumberFormatException e) {
+            return Ui.errorUi(e);
+        }
+    }
+
+    private static String handleUnmarkCommand(String[] inputs, TaskList taskList) throws IncorrectInputException,
+            TaskNotFoundException {
+        if (inputs.length != 2) {
+            throw new IncorrectInputException("You should have only 1 number after your request. " +
+                    "(e.g. \"unmark 1\")");
+        }
+
+        try {
+            int index = Integer.parseInt(inputs[1]) - 1;
+
+            if (index < 0 || index >= taskList.getSize()) {
+                throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
+            }
+
+            Task currTask = taskList.unmarkTask(index);
+
+            return Ui.unmarkUi(currTask);
+        } catch (NumberFormatException e) {
+            return Ui.errorUi(e);
+        }
+    }
+
+    private static String handleToDoCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
+        if (inputs.length != 2) {
+            throw new IncorrectInputException("You should have a description after your request. " +
+                    "(e.g. \"todo your_description\")");
+        }
+
+        Task addedTask = taskList.addToDoToList(inputs[1]);
+        int sizeOfList = taskList.getSize();
+
+        return Ui.addTaskUi(addedTask, sizeOfList);
+    }
+
+    private static String handleDeadlineCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
+        if (inputs.length != 2) {
+            throw new IncorrectInputException("You should have a description after your request. " +
+                    "(e.g. \"deadline your_description /by your_deadline\")");
+        }
+
+        String[] parts = inputs[1].split(" /by ");
 
         if (parts.length != 2) {
             throw new IncorrectInputException("You should have a timing after your request. "
@@ -144,8 +158,13 @@ public class Parser {
         }
     }
 
-    public static String parseEvent(String input, TaskList taskList) throws IncorrectInputException {
-        String[] parts = input.split(" /");
+    private static String handleEventCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
+        if (inputs.length != 2) {
+            throw new IncorrectInputException("You should have a description after your request. " +
+                    "(e.g. \"event your_description /from your_start_time /to your_end_time\")");
+        }
+
+        String[] parts = inputs[1].split(" /");
 
         if (parts.length != 3) {
             throw new IncorrectInputException("You should have 2 timings after your request. "
@@ -167,57 +186,41 @@ public class Parser {
         }
     }
 
-    public static String parseMark(String input, TaskList taskList) throws TaskNotFoundException {
-        int index = Integer.parseInt(input) - 1;
-
-        if (index < 0 || index >= taskList.getSize()) {
-            throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
+    private static String handleDeleteCommand(String[] inputs, TaskList taskList) throws IncorrectInputException,
+            TaskNotFoundException {
+        if (inputs.length != 2) {
+            throw new IncorrectInputException("You should have only 1 number after your request. " +
+                    "(e.g. \"delete 1\")");
         }
 
-        Task currTask = taskList.markTask(index);
+        try {
+            int index = Integer.parseInt(inputs[1]) - 1;
 
-        return Ui.markUi(currTask);
+            if (index < 0 || index >= taskList.getSize()) {
+                throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
+            }
+
+            Task deletedTask = taskList.deleteTask(index);
+            int size = taskList.getSize();
+
+            return Ui.deleteUi(deletedTask, size);
+        } catch (NumberFormatException e) {
+            return Ui.errorUi(e);
+        }
     }
 
-    public static String parseUnmark(String input, TaskList taskList) throws TaskNotFoundException {
-        int index = Integer.parseInt(input) - 1;
-
-        if (index < 0 || index >= taskList.getSize()) {
-            throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
+    private static String handleFindCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
+        if (inputs.length != 2) {
+            throw new IncorrectInputException("You should input what you're searching for " +
+                    "after \"find\" (e.g. \"find task\")");
         }
 
-        Task currTask = taskList.unmarkTask(index);
-
-        return Ui.unmarkUi(currTask);
-    }
-
-    public static String parseToDo(String input, TaskList taskList) {
-        Task addedTask = taskList.addToDoToList(input);
-        int sizeOfList = taskList.getSize();
-
-        return Ui.addTaskUi(addedTask, sizeOfList);
-    }
-
-    public static String parseDelete(String input, TaskList taskList) throws TaskNotFoundException {
-        int index = Integer.parseInt(input) - 1;
-
-        if (index < 0 || index >= taskList.getSize()) {
-            throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
-        }
-
-        Task deletedTask = taskList.deleteTask(index);
-        int size = taskList.getSize();
-
-        return Ui.deleteUi(deletedTask, size);
-    }
-
-    public static String parseFind(String input, TaskList taskList) {
-        List<Task> matchingTasks = taskList.findTasks(input);
+        List<Task> matchingTasks = taskList.findTasks(inputs[1]);
 
         return Ui.findUi(matchingTasks);
     }
 
-    public static String parseSave(TaskList taskList, Storage storage) {
+    private static String handleSaveCommand(TaskList taskList, Storage storage) {
         try {
             storage.save(taskList);
             return Ui.saveUi();
@@ -226,8 +229,13 @@ public class Parser {
         }
     }
 
-    public static String parseRecurring(String input, TaskList taskList) throws IncorrectInputException {
-        String[] parts = input.split(" /every ", 2);
+    private static String handleRecurringCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
+        if (inputs.length != 2) {
+            throw new IncorrectInputException("You should have a description after your request. " +
+                    "(e.g. \"recurring your_description /event your_frequency\")");
+        }
+
+        String[] parts = inputs[1].split(" /every ", 2);
 
         if (parts.length != 2) {
             throw new IncorrectInputException("You should have a timing after your request. "
