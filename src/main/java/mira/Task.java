@@ -49,7 +49,7 @@ public abstract class Task {
     }
 
     /**
-     * Return the string format of task to be saved for storage.
+     * Returns the string format of task to be saved for storage.
      *
      * @return A specified format string for storage.
      */
