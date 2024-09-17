@@ -48,7 +48,7 @@ public abstract class UserCommand {
     }
 
     /**
-     * Execute command that user inputs
+     * Executes command that user inputs
      * @param userInput String representing the user input
      * @param ui Ui to print output
      * @param storage Storage where tasks are saved

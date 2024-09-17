@@ -14,6 +14,18 @@ import ui.Ui;
  * The UpdateStatusCommand updates the status of a task in the task list and storage file
  */
 public class UpdateStatusCommand extends UserCommand {
+    private void updateTaskStatus(String command, Task t, Ui ui) {
+        if (command.equals("mark")) {
+            t.mark();
+            this.setResponse("Nice! I've marked this task as done:\n" + t);
+            ui.printSuccessfulMark(t);
+        } else {
+            t.unmark();
+            this.setResponse("OK, I've marked this task as not done yet:\n" + t);
+            ui.printSuccessfulUnmark(t);
+        }
+    }
+
     /**
      * Updates status of the task at user specified index from storage and task list
      * @param userInput String representing the line that user inputs
@@ -44,15 +56,7 @@ public class UpdateStatusCommand extends UserCommand {
         try {
             int idx = Integer.parseInt(words[1]) - 1;
             Task t = taskList.getTaskList().get(idx);
-            if (command.equals("mark")) {
-                t.mark();
-                this.setResponse("Nice! I've marked this task as done:\n" + t);
-                ui.printSuccessfulMark(t);
-            } else {
-                t.unmark();
-                this.setResponse("OK, I've marked this task as not done yet:\n" + t);
-                ui.printSuccessfulUnmark(t);
-            }
+            this.updateTaskStatus(command, t, ui);
             storage.update(taskList.getTaskList());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             LevelHundredException exception = new InvalidArgumentException("task index", words[1]);
