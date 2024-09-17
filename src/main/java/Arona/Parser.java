@@ -213,10 +213,17 @@ public class Parser {
             throw new MissingArgumentException(Command.ARCHIVE);
         }
 
+        // Check if task list is empty
+        if (taskList.size() == 0) {
+            throw new AronaException("Umm... theres nothing to archive, Sensei");
+        }
+
         // Process and Reply
-        storage.save(taskList, data[1]);
-        taskList.deleteAll();
-        storage.save(taskList);
+        if (!data[1].equals("data")) {
+            storage.save(taskList, data[1]);
+            taskList.deleteAll();
+            storage.save(taskList);
+        }
         return ui.showArchive(data[1]);
     }
 }
