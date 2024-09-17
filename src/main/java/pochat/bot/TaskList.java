@@ -54,6 +54,11 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Gets the Task object at the index specified
+     * @param index where the Task object is located
+     * @return Task object
+     */
     public Task get(int index) {
         return this.listTasks.get(index);
     }
@@ -94,18 +99,32 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Marks task as done and returns the Task object
+     * @param index of the task to mark as done
+     * @return Task object that has been marked as done
+     */
     public Task markTaskAsDone(int index) {
         Task task = this.listTasks.get(index);
         task.markAsDone();
         return task;
     }
 
+    /**
+     * Marks task as undone and returns the Task object
+     * @param index of the task to mark as undone
+     * @return Task object that has been marked as undone
+     */
     public Task unmarkTaskAsDone(int index) {
         Task task = this.listTasks.get(index);
         task.unmarkAsDone();
         return task;
     }
 
+    /**
+     * Returns the Task objects in the tasklist as an ArrayList
+     * @return ArrayList of Task objects in taskList
+     */
     public ArrayList<Task> toList() {
         return this.listTasks;
     }
