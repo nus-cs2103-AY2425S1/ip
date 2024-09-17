@@ -49,6 +49,28 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    private void changeDialogStyle(String commandType) {
+        switch (commandType) {
+        case "invalid":
+            dialog.getStyleClass().add("error-label");
+            break;
+        case "help":
+            dialog.getStyleClass().add("help-label");
+            break;
+        case "mark":
+            dialog.getStyleClass().add("mark-label");
+            break;
+        case "unmark":
+            dialog.getStyleClass().add("unmark-label");
+            break;
+        case "delete":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        default:
+            // Do nothing
+        }
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
@@ -56,6 +78,13 @@ public class DialogBox extends HBox {
     public static DialogBox getMeepDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        return db;
+    }
+
+    public static DialogBox getMeepDialog(String text, Image img, String commandType) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
 }
