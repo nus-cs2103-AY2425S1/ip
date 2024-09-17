@@ -35,8 +35,7 @@ public class TaskList {
         for (int i = 0; i < index; i++) {
             output.append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
-        String taskList = output.toString();
-        return taskList;
+        return output.toString();
     }
 
     /**
@@ -91,16 +90,5 @@ public class TaskList {
     public void unmarkTask(int idx) {
         Task task = tasks.get(idx - 1);
         task.markAsUndone();
-    }
-
-    /**
-     * Debug method for printing all tasks in the tasklist
-     * @param msg
-     */
-    private void debugPrint(Object... msg) {
-        for (Object item : msg) {
-            System.out.print(item);
-        }
-        System.out.println();
     }
 }

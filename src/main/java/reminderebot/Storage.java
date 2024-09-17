@@ -32,8 +32,8 @@ public class Storage {
     public ArrayList<Task> readFileContents() throws ReminderebotException {
         ArrayList<Task> contents = new ArrayList<>();
         try {
-            File f = new File(filePath); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
                 contents.add(readEntry(s.nextLine()));
             }
@@ -51,9 +51,7 @@ public class Storage {
      */
     private Task readEntry(String entry) {
         String[] fields = entry.split("\\|");
-        //  System.out.println(Arrays.toString(fields));  // debug
         Task taskToAdd;
-
         // @@author david-eom
         // Reused from https://github.com/david-eom/CS2103T-IP
         // with minor modifications
@@ -83,17 +81,9 @@ public class Storage {
 
     public void saveData(TaskList tasklist) {
         try {
-            // System.out.println("Added tasklist to" + filePath);
             File file = new File(filePath);
-
-            // This storage location is relative: If run from .bat script,
-            // the txt file will be stored at ip/text-ui-test/data/
-            // On the other hand, if Reminderebot.java is run directly,
-            // the txt file will be stored at ip/data
             File dir = new File(file.getParent());
-
             boolean dirCreated = dir.mkdirs();
-            // System.out.println(dirCreated);
             // @@author david-eom
             // Reused from https://github.com/david-eom/CS2103T-IP
             // with minor modifications

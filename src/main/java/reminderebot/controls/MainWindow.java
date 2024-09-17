@@ -28,22 +28,23 @@ public class MainWindow extends AnchorPane {
     private Image reminderebotImage = new Image(this.getClass().getResourceAsStream("/images/Remindere.png"));
 
     /**
-     * Initial message for Reminderebot GUI.
+     * Initialise Reminderebot GUI.
      */
     @FXML
     public void initialize() {
-        String greeting = " Hello! I'm ***" + "Reminderebot" + "***\n" + " What can I do for you?\n "
-                + "Enter /help for more commands";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(
-                DialogBox.getReminderebotDialog(greeting, reminderebotImage)
-        );
     }
 
-    /** Injects the Reminderebot instance */
+    /**
+     * Injects the Reminderebot instance with greeting message
+     * */
     public void setReminderebot(Reminderebot reminderebot) {
         assert reminderebot != null;
         this.reminderebot = reminderebot;
+        String greeting = reminderebot.start();
+        dialogContainer.getChildren().add(
+                DialogBox.getReminderebotDialog(greeting, reminderebotImage)
+        );
     }
 
     /**
@@ -60,9 +61,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getReminderebotDialog(response, reminderebotImage)
         );
         userInput.clear();
-        // Exit if user says bye
-        if (response.equals(" Bye. Hope to see you again soon!")) {
-            reminderebot.shutdown();
-        }
     }
 }

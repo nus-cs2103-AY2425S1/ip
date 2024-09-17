@@ -13,7 +13,7 @@ public class ToDoTest {
      * @throws Exception
      */
     @Test
-    public void toFile_success() throws Exception {
+    public void testToFile() throws Exception {
         // test if ToFile converts to required format for storage
         String description = "blah";
         ToDo toDo = new ToDo(description);

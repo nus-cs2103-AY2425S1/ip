@@ -1,9 +1,9 @@
 package reminderebot;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for Parser class.
@@ -18,10 +18,10 @@ public class ParserTest {
         // Test that invalid input will throw the correct Reminderebot exception
         String line = "abcd";
         ReminderebotException exception = assertThrows(ReminderebotException.class, () -> Parser.parse(line));
-        assertEquals("Oops! I'm sorry, but I don't know what that means. :(\n" +
-                "Please enter a command below:\n" +
-                " bye\n list\n mark <int>\n unmark <int>\n todo <taskname>\n" +
-                " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>",
+        assertEquals("I'm sorry, but I don't know what that means. :(\n"
+                        + "Please enter a command below:\n"
+                        + " help\n bye\n list\n mark <int>\n unmark <int>\n find <keyword>\n todo <taskname>\n"
+                        + " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>",
                 exception.getMessage());
     }
 }

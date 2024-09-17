@@ -1,17 +1,17 @@
 package reminderebot;
 
-import org.junit.jupiter.api.Test;
-import reminderebot.task.Deadline;
-import reminderebot.task.Event;
-import reminderebot.task.Task;
-import reminderebot.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import reminderebot.task.Deadline;
+import reminderebot.task.Event;
+import reminderebot.task.Task;
+import reminderebot.task.ToDo;
 
 /**
  * Test for TaskList class.

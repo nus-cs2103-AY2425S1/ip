@@ -31,6 +31,9 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
         ArrayList<Task> tasksFound = new ArrayList<>();
+        if (tasklist.length() == 0) {
+            throw new ReminderebotException("There are no tasks in your list!");
+        }
         for (int i = 0; i < tasklist.length(); i++) {
             Task task = tasklist.getTask(i);
             if (task.contains(keyword)) {
@@ -38,9 +41,6 @@ public class FindCommand extends Command {
             }
         }
         return ui.findTask(tasksFound);
-
-        // if not found:
-        // handle error
     }
 
     /**
