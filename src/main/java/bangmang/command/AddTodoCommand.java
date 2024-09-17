@@ -6,9 +6,18 @@ import bangmang.ui.Ui;
 import bangmang.exception.InvalidCommandException;
 import bangmang.tasks.Todo;
 
-public class AddTodoCommand extends Command {
-    private String description;
+/**
+ * Represents a command to add a todo task.
+ */
 
+public class AddTodoCommand extends Command {
+    private final String description;
+
+    /**
+     * Constructs an AddTodoCommand with the specified description.
+     *
+     * @param description A description of the todo task.
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }

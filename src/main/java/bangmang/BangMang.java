@@ -1,3 +1,11 @@
+/**
+ * BangMang is the main class for the BangMang chatbot application.
+ * It manages the interaction between the user, tasks, and storage system.
+ * The application loads tasks from storage, parses user input commands, 
+ * and provides appropriate responses through its UI.
+ *
+ * Author: Chooi Shao Xian
+ */
 package bangmang;
 
 import bangmang.command.Command;
@@ -12,6 +20,12 @@ public class BangMang {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for BangMang class.
+     * Initializes the UI, loads tasks from storage, and handles any loading errors.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public BangMang(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,10 +40,12 @@ public class BangMang {
         assert tasks != null : "List of tasks should not be null";
     }
 
+    /**
+     * Returns a greeting message when the application starts.
+     *
+     * @return A welcome message string.
+     */
     public String getGreeting() {
-        /**
-         * Returns string greeting
-         */
         try {
             return ui.showWelcome();
         } catch (Exception e) {
@@ -37,13 +53,13 @@ public class BangMang {
         }
     }
 
+    /**
+     * Processes user input and returns the corresponding response.
+     *
+     * @param input The user input command string.
+     * @return The response message string.
+     */
     public String getResponse(String input) {
-        /**
-         * Returns response given input command
-         *
-         * @param input refers to user-input in chatbot
-         */
-
         // Assert that input should not be null or empty
         assert input != null && !input.isEmpty() : "Input should not be null or empty";
 

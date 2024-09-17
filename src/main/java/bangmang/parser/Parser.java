@@ -3,14 +3,25 @@ package bangmang.parser;
 import bangmang.command.*;
 import bangmang.exception.InvalidCommandException;
 
+/**
+ * The Parser class handles the parsing of user input into specific commands.
+ * It reads the user input, validates it, and returns the corresponding Command object
+ * based on the command type (e.g., add task, mark task, delete task).
+ */
+
 public class Parser {
+    /**
+     * Parses the full command input from the user and returns the appropriate command object.
+     *
+     * @param fullCommand The full user input string.
+     * @return The command corresponding to the user input.
+     * @throws InvalidCommandException If the input is not valid or the command is not recognized.
+     */
     public static Command parse(String fullCommand) throws InvalidCommandException {
-        /**
-         * Reads user input and returns command
-         */
         String[] inputList = fullCommand.split(" ", 2);
         String command = inputList[0].toLowerCase();
 
+        // If the command is a single word command (like "bye", "list", or "help")
         if (inputList.length < 2) {
             if (command.equals("bye")) {
                 return new ExitCommand();
@@ -23,6 +34,7 @@ public class Parser {
             }
         }
 
+        // Commands with additional parameters (like "mark", "todo", "deadline")
         String item = inputList[1];
         switch (command) {
             case "mark":

@@ -10,10 +10,20 @@ import bangmang.ui.Ui;
 import bangmang.exception.InvalidCommandException;
 import bangmang.tasks.Deadline;
 
+/**
+ * Represents a command to add a deadline task.
+ */
+
 public class AddDeadlineCommand extends Command {
     private String description;
     private String byString;
 
+    /**
+     * Constructs an AddDeadlineCommand with the specified description and deadline time.
+     *
+     * @param description A description of the deadline task.
+     * @param byString The deadline time as a String, which may be in the format 'yyyy-MM-ddTHH:mm' or 'yyyy-MM-dd'.
+     */
     public AddDeadlineCommand(String description, String byString) {
         this.description = description;
         this.byString = byString;

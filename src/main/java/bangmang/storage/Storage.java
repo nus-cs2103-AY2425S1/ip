@@ -1,4 +1,5 @@
 package bangmang.storage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
@@ -11,6 +12,11 @@ import bangmang.exception.InvalidCommandException;
 import bangmang.exception.InvalidTaskFormatException;
 import bangmang.tasks.Task;
 
+/**
+ * The Storage class handles the loading and saving of task data from and to the hard drive.
+ * It manages reading tasks from a file, creating task objects, and saving tasks back to the file.
+ */
+
 public class Storage {
     private String filePath;
 
@@ -18,15 +24,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads task data from the hard drive and returns an array list of tasks.
+     *
+     * @return ArrayList of Task objects.
+     * @throws InvalidCommandException if there is an error reading the file.
+     * @throws InvalidTaskFormatException if the task format is invalid.
+     */
     public ArrayList<Task> load() throws InvalidCommandException {
-        /**
-         * Loads task data from harddrive and returns an array list of tasks
-         * 
-         * @return Array List of Tasks
-         * @Throws InvalidCommandException if cannot read file
-         * @Throws InvalidTaskFormatException if task cannot be created
-         */
-
         ArrayList<Task> list = new ArrayList<>();
         File dataFile = new File(filePath);
         if (!dataFile.getParentFile().exists()) {
@@ -50,14 +55,14 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves task data to the hard drive.
+     *
+     * @param list The list of tasks to save.
+     * @throws InvalidCommandException if there is an error writing to the file.
+     * @throws InvalidTaskFormatException if a task cannot be saved.
+     */
     public void save(ArrayList<Task> list) throws InvalidCommandException {
-        /**
-         * Saves task data into harddrive
-         * 
-         * @Throws InvalidCommandException if cannot save file
-         * @Throws InvalidTaskFormatException if task cannot be saved
-         */
-
         File dataFile = new File(filePath);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(dataFile))) {
             for (Task task : list) {
