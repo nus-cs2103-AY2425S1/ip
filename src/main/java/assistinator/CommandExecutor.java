@@ -63,15 +63,16 @@ public class CommandExecutor {
                 return String.format("Warning: This event clashes with %s.", clashingTask.getDescription());
             }
             tasks.addTask(newTask);
-            return "Task added successfully\nNumber of Tasks: " + tasks.size();
+            return "Task added successfully\nYour evil agenda contains " + tasks.size() + " tasks";
         case DELETE:
             int deleteIndex = parser.parseIndex(fullCommand);
             tasks.deleteTask(deleteIndex);
-            return "Task " + (deleteIndex + 1) + " deleted successfully. Number of Tasks: " + tasks.size();
+            return "Task " + (deleteIndex + 1) + " deleted successfully\n" +
+                    "Your evil agenda contains " + tasks.size() + " tasks";
         case FIND:
             return tasks.filterTasks(fullCommand.substring(fullCommand.indexOf(' ') + 1));
         default:
-            throw new AssitinatorException("Command does not exist");
+            throw new AssitinatorException("This command does not exist doctor");
         }
     }
 }

@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getAssistinatorDialog(
-                        "Hello! I'm Assistinator. What can I do for you?",
+                        "Greetings. How may I assist you with your evil scheming today?",
                         assistinatorImage,
                         false
                 )
