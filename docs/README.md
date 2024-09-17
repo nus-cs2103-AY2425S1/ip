@@ -4,6 +4,12 @@
 
 Genji frees your mind of having to remember things you need to do.
 
+## Help manual
+
+Show the format of all commands
+
+Example: `help`
+
 ## Adding todos
 
 Add todo tasks to task list
