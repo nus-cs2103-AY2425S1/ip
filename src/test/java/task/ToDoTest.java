@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test ToDo Class for its public methodds with return values.
+ */
 public class ToDoTest {
     @Test
     public void toDo_toStringNotDone_success() {
