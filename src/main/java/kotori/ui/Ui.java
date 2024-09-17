@@ -1,6 +1,6 @@
 package kotori.ui;
 
-import kotori.taskList.TaskList;
+import kotori.tasklist.TaskList;
 
 /**
  * This class represent some actions of printing

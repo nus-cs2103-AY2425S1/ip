@@ -3,7 +3,7 @@ package kotori.command;
 import static kotori.ui.Ui.printListWithMessages;
 import static kotori.ui.Ui.printMessages;
 
-import kotori.taskList.TaskList;
+import kotori.tasklist.TaskList;
 
 /**
  * This is a find command.

@@ -1,7 +1,7 @@
 package kotori.command;
 
 import kotori.storage.Storage;
-import kotori.taskList.TaskList;
+import kotori.tasklist.TaskList;
 import kotori.ui.Ui;
 
 /**

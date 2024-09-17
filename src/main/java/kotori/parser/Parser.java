@@ -2,7 +2,7 @@ package kotori.parser;
 
 import kotori.command.*;
 import kotori.storage.Storage;
-import kotori.taskList.TaskList;
+import kotori.tasklist.TaskList;
 /**
  * This class represents a parser that will
  * parse a String of command line into a command Object

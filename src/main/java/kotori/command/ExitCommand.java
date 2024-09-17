@@ -2,7 +2,7 @@ package kotori.command;
 
 import static kotori.ui.Ui.printExit;
 
-import kotori.taskList.TaskList;
+import kotori.tasklist.TaskList;
 
 
 /**

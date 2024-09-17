@@ -4,7 +4,7 @@ import kotori.command.Command;
 import kotori.command.GreetCommand;
 import kotori.parser.Parser;
 import kotori.storage.Storage;
-import kotori.taskList.TaskList;
+import kotori.tasklist.TaskList;
 
 
 

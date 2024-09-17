@@ -1,4 +1,4 @@
-package kotori.taskList;
+package kotori.tasklist;
 
 /**
  * This class in thrown wen the command is not readable.

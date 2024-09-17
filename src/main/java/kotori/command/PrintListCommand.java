@@ -1,8 +1,8 @@
 package kotori.command;
 
-import static kotori.ui.Ui.printList;
+import static kotori.ui.Ui.printListWithMessages;
 
-import kotori.taskList.TaskList;
+import kotori.tasklist.TaskList;
 
 /**
  * This class represents the command of printing the list.
@@ -21,6 +21,7 @@ public class PrintListCommand extends Command {
 
     @Override
     public String execute() {
-        return printList(taskList);
+        return printListWithMessages(taskList, String.format("Now you have %d tasks in list",
+                taskList.size()));
     }
 }

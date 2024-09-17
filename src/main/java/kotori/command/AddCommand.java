@@ -4,10 +4,10 @@ import static kotori.ui.Ui.printMessages;
 import java.time.format.DateTimeParseException;
 
 import kotori.storage.Storage;
-import kotori.taskList.InvalidInputException;
-import kotori.taskList.MissingInformationException;
-import kotori.taskList.Task;
-import kotori.taskList.TaskList;
+import kotori.tasklist.InvalidInputException;
+import kotori.tasklist.MissingInformationException;
+import kotori.tasklist.Task;
+import kotori.tasklist.TaskList;
 
 
 

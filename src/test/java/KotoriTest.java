@@ -3,8 +3,8 @@ package kotori;
 import kotori.command.*;
 import kotori.parser.Parser;
 import kotori.storage.Storage;
-import kotori.taskList.Task;
-import kotori.taskList.TaskList;
+import kotori.tasklist.Task;
+import kotori.tasklist.TaskList;
 import org.junit.jupiter.api.Test;
 
 
@@ -33,7 +33,8 @@ public class KotoriTest {
             list.add(Task.of("todo me"));
             list.mark(0);
         } catch (Exception e) { }
-        assertEquals( "1. [T][X] me\n", new PrintListCommand(list).execute());
+        assertEquals( "Now you have 1 tasks in list\n"
+                + "1. [T][X] me\n", new PrintListCommand(list).execute());
     }
 
     @Test
@@ -102,7 +103,8 @@ public class KotoriTest {
         assertEquals(
                 "These are the tasks related to this date 2020-10-10\n"
                 + "1. [D][ ] something  (by: 2020-10-11)\n"
-                + "2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)\n" , new SearchCommand(list, "2020-10-10").execute());
+                + "2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)\n",
+                new SearchCommand(list, "2020-10-10").execute());
     }
 
     @Test
@@ -114,8 +116,8 @@ public class KotoriTest {
         } catch (Exception e) { }
         assertEquals("These are(is) the task(s) that match the description\n"
                 + "1. [D][ ] something  (by: 2020-10-11)\n"
-                + "2. [E][ ] project meeting for something (from: 2020-10-08 to: 2020-10-26)\n"
-                , new FindCommand(list, "something").execute());
+                + "2. [E][ ] project meeting for something (from: 2020-10-08 to: 2020-10-26)\n",
+                new FindCommand(list, "something").execute());
     }
 
     @Test

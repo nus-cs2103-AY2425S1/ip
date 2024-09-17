@@ -1,4 +1,4 @@
-package kotori.taskList;
+package kotori.tasklist;
 
 /**
  * This class is thrown when the certain commands miss some information.

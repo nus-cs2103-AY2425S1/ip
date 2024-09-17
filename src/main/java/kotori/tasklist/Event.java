@@ -1,4 +1,4 @@
-package kotori.taskList;
+package kotori.tasklist;
 
 import java.time.LocalDate;
 

@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import kotori.taskList.Task;
-import kotori.taskList.TaskList;
+import kotori.tasklist.Task;
+import kotori.tasklist.TaskList;
 import kotori.ui.Ui;
 
 /**

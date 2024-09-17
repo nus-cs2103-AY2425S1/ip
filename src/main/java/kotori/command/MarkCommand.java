@@ -3,8 +3,8 @@ package kotori.command;
 import static kotori.ui.Ui.printMessages;
 
 import kotori.storage.Storage;
-import kotori.taskList.IncorrectStateException;
-import kotori.taskList.TaskList;
+import kotori.tasklist.IncorrectStateException;
+import kotori.tasklist.TaskList;
 
 
 /**

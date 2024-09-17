@@ -1,4 +1,4 @@
-package kotori.taskList;
+package kotori.tasklist;
 
 /**
  * This is the exception thrown when marking a marked task

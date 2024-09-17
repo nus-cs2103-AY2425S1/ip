@@ -3,8 +3,8 @@ package kotori.command;
 import static kotori.ui.Ui.printMessages;
 
 import kotori.storage.Storage;
-import kotori.taskList.Task;
-import kotori.taskList.TaskList;
+import kotori.tasklist.Task;
+import kotori.tasklist.TaskList;
 
 
 /**
