@@ -7,8 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import skywalker.MainWindow;
-import skywalker.Skywalker;
+
 
 /**
  * A GUI for Duke using FXML.
@@ -25,7 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setSkywalker(skywalker);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setSkywalker(skywalker);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
