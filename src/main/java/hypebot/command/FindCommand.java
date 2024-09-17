@@ -1,5 +1,6 @@
 package hypebot.command;
 
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import hypebot.storage.StorageManager;
@@ -35,7 +36,7 @@ public class FindCommand extends Command {
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) throws NoSuchElementException {
         Tasklist tasksWithSearchQuery = tasks.getNameContains(searchQuery);
         return uiCli.showTasksWithSearchQuery(String.valueOf(searchQuery), tasksWithSearchQuery);
     }

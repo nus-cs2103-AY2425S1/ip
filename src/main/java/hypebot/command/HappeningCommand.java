@@ -1,6 +1,7 @@
 package hypebot.command;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
@@ -34,7 +35,7 @@ public class HappeningCommand extends Command {
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) throws NoSuchElementException {
         Tasklist tasksHappening = tasks.getHappeningOn(searchDate);
         return uiCli.showTasksHappeningOnDate(searchDate, tasksHappening);
     }

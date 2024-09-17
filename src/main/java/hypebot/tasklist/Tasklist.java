@@ -1,18 +1,16 @@
 package hypebot.tasklist;
 
-import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS;
-import static hypebot.common.Messages.ERROR_DUPLICATE_TASK;
-import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS;
-import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import com.sun.jdi.request.DuplicateRequestException;
 
 import hypebot.task.Task;
+
+import static hypebot.common.Messages.*;
 
 /**
  * Represents the Tasklist containing all Task objects entered by user.
@@ -122,13 +120,18 @@ public class Tasklist {
     }
 
     /**
-     * Takes in a LocalDate, returns all Tasks in TASKS that occur on given date.
+     * Takes in a {@code LocalDate}, returns all {@code Task}s
+     * in the {@code Tasklist} that occur on the given date.
      * <p>Uses stream().filter().toList().</p>
      *
-     * @param date LocalDate object created by CommandParser from user input.
-     * @return Tasklist containing Tasks occurring on given date.
+     * @param date {@code LocalDate} object created by {@code CommandParser} from user input.
+     * @return {@code Tasklist} containing {@code Task}s occurring on given date.
+     * @throws NoSuchElementException If there are no {@code Task}s occurring on given date.
      */
-    public Tasklist getHappeningOn(LocalDate date) {
+    public Tasklist getHappeningOn(LocalDate date) throws NoSuchElementException {
+        if (tasks.isEmpty() || tasks.stream().noneMatch(task -> task.isHappeningOn(date))) {
+            throw new NoSuchElementException(ERROR_NO_TASKS_HAPPENING);
+        }
         List<Task> tasksOnDate = tasks.stream().filter(task -> task.isHappeningOn(date)).toList();
         return new Tasklist(tasksOnDate);
     }
@@ -140,7 +143,10 @@ public class Tasklist {
      * @param searchQuery Search query from user to search Tasks with the search query in the name.
      * @return Tasklist of Tasks containing search query in name.
      */
-    public Tasklist getNameContains(Pattern searchQuery) {
+    public Tasklist getNameContains(Pattern searchQuery) throws NoSuchElementException {
+        if (tasks.stream().noneMatch(task -> task.nameContains(searchQuery))) {
+            throw new NoSuchElementException(ERROR_NO_TASKS_MATCH_SEARCH);
+        }
         List<Task> tasksWithSearchQuery = tasks.stream().filter(task -> task.nameContains(searchQuery)).toList();
         return new Tasklist(tasksWithSearchQuery);
     }
