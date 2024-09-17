@@ -56,18 +56,28 @@ public class Talker {
      *
      * @param input user input into chatbot
      * @return String reponse depending on user's input
+     * @throws TalkerException for any error based on the input
      */
-    public String getResponse(String input) {
+    public String getResponse(String input) throws TalkerException {
         String output = "";
-
         try {
             Command c = Parser.parseInput(input);
             commandType = c.getClass().getSimpleName();
             output = c.execute(list, ui, storage);
             return output;
         } catch (TalkerException | NullPointerException e) {
-            return ui.printError(e);
+            throw new TalkerException(e.getMessage());
         }
+    }
+
+    /**
+     * Generates error response based on the user's error
+     *
+     * @param error error found
+     * @return String representing type of error found
+     */
+    public String getError(Exception error) {
+        return ui.printError(error);
     }
 
     /**

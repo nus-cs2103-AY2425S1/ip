@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import talker.Talker;
+import talker.TalkerException;
 
 /**
  * Controller for the main GUI
@@ -62,11 +63,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
-        String talkerText = talker.getResponse(userText);
-        String commandType = talker.getCommandType();
+        boolean isError = false;
+        String talkerText;
+        try {
+            talkerText = talker.getResponse(userText);
+        } catch (TalkerException e) {
+            talkerText = talker.getError(e);
+            isError = true;
+        }
+        DialogBox talkerDialog = isError ? DialogBox.getErrorDialog(talkerText, talkerImage)
+                                         : DialogBox.getTalkerDialog(talkerText, talkerImage, talker.getCommandType());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getTalkerDialog(talkerText, talkerImage, commandType));
+                talkerDialog);
         userInput.clear();
     }
 
