@@ -23,10 +23,10 @@ public class Ui {
                 "\n";
     }
 
-    public String getDeleteTaskMessage(TaskList taskList, int index) {
+    public String getDeleteTaskMessage(TaskList taskList, Task task) {
         return "Task deleted :/\n" +
-                taskList.getSpecificTask(index).toString() + "\n" +
-                "Now you have " + (taskList.getSize() - 1) + " task(s).\n";
+                task.toString() + "\n" +
+                "Now you have " + (taskList.getSize()) + " task(s).\n";
     }
 
     public String getMarkTaskMessage(TaskList taskList, int index) {
@@ -59,7 +59,11 @@ public class Ui {
         return message;
     }
 
-    public String getExceptionMessage(Exception e) {
+    public String getExceptionMessage(EchoaException e) {
         return e.getMessage() + "\n" + "Please try again.\n";
+    }
+
+    public String getExceptionMessage(Exception e) {
+        return e.getClass().getName() + ": " + e.getMessage();
     }
 }

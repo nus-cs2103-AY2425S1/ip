@@ -210,33 +210,35 @@ public class Parser {
      * @param line line to be parsed.
      * @return instruction keyword.
      */
-    public String parseCommand(String line) {
-        String command;
+    public Command parseCommand(String line, Ui ui, Parser parser, TaskList taskList, Storage storage) throws InvalidInstructionException {
         line = line.trim();
-        if (line.isBlank()) {
-            command = "";
+        Command command;
+        if (line.startsWith("hi")) {
+            command = new HiCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("list")) {
-            command = "list";
+            command = new ListCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("find")) {
-            command = "find";
+            command = new FindCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("mark")) {
-            command = "mark";
+            command = new MarkCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("unmark")) {
-            command = "unmark";
+            command = new UnmarkCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("delete")) {
-            command = "delete";
+            command = new DeleteCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("update")) {
-            command = "update";
+            command = new UpdateCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("todo")) {
-            command = "todo";
+            command = new ToDoCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("deadline")) {
-            command = "deadline";
+            command = new DeadlineCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("event")) {
-            command = "event";
+            command = new EventCommand(ui, parser, taskList, storage);
         } else if (line.startsWith("bye")) {
-            command = "bye";
+            command = new ByeCommand(ui, parser, taskList, storage);
+        } else if (line.isEmpty()) {
+            throw new InvalidInstructionException("Blank");
         } else {
-            command = line;
+            throw new InvalidInstructionException(line);
         }
         return command;
     }

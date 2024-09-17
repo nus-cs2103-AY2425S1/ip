@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response;
-        echoa.start(input);
+        echoa.run(input);
         response = echoa.getResponse();
 
         dialogContainer.getChildren().addAll(
