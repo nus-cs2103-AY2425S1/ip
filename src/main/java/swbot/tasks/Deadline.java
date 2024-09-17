@@ -1,9 +1,10 @@
 package swbot.tasks;
-import swbot.BuzzException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import swbot.BuzzException;
 
 /**
  * A type of task that lets the user create a deadline. A deadline task has
@@ -38,7 +39,8 @@ public class Deadline extends Task {
      */
     public String toFileFormat() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + this.date.format(dateTimeFormatter);
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + this.date.format(dateTimeFormatter);
     }
 
     /**

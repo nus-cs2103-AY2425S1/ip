@@ -1,30 +1,30 @@
 package swbot.command;
+
+import java.util.ArrayList;
+
 import swbot.BuzzException;
 import swbot.tasks.Deadline;
 import swbot.tasks.Event;
 import swbot.tasks.Task;
 import swbot.tasks.Todo;
 
-import java.util.ArrayList;
-
 /**
  * A class that handles all the inputs given by the user and parses through them switching between
  * different commands from the user.
  */
 public class InputHandler {
+    /* commands available in the chatbot */
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_FIND = "find";
+    private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_MARK = "mark";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_UNMARK = "unmark";
     private ArrayList<Task> data;
     private Storage storage;
-    
-    /* commands available in the chatbot */
-    private static final String MARK = "mark";
-    private static final String UNMARK = "unmark";
-    private static final String DELETE = "delete";
-    private static final String LIST = "list";
-    private static final String TODO = "todo";
-    private static final String DEADLINE = "deadline";
-    private static final String EVENT = "event";
-    private static final String FIND = "find";
-    private static final String HELP = "help";
 
     /**
      * Creates an inputHandler object that will take care of all the user inputs
@@ -36,7 +36,6 @@ public class InputHandler {
         this.data = data;
         this.storage = storage;
     }
-    
     /**
      * Persists the current list of tasks to the storage medium.
      * This method calls the `saveTasks` method from the `storage` object,
@@ -56,33 +55,33 @@ public class InputHandler {
     public String overallHandler(String input) throws BuzzException {
         String command = input.split(" ")[0];
         switch (command) {
-            case MARK:
-                saveTasks();
-                return this.markHandle(input);
-            case UNMARK:
-                saveTasks();
-                return this.unmarkHandle(input);
-            case DELETE:
-                saveTasks();
-                return this.deleteHandle(input);
-            case LIST:
-                return getString();
-            case TODO:
-                saveTasks();
-                return this.todoHandle(input);
-            case DEADLINE:
-                saveTasks();
-                return this.deadlineHandle(input);
-            case EVENT:
-                saveTasks();
-                return this.eventHandle(input);
-            case FIND:
-                saveTasks();
-                return this.findHandle(input);
-            case HELP:
-                return this.helpHandle();
-            default:
-                throw new BuzzException("GRRR! I do not know what that means. Try again! *bzzrg*");
+        case COMMAND_MARK:
+            saveTasks();
+            return this.markHandle(input);
+        case COMMAND_UNMARK:
+            saveTasks();
+            return this.unmarkHandle(input);
+        case COMMAND_DELETE:
+            saveTasks();
+            return this.deleteHandle(input);
+        case COMMAND_LIST:
+            return getString();
+        case COMMAND_TODO:
+            saveTasks();
+            return this.todoHandle(input);
+        case COMMAND_DEADLINE:
+            saveTasks();
+            return this.deadlineHandle(input);
+        case COMMAND_EVENT:
+            saveTasks();
+            return this.eventHandle(input);
+        case COMMAND_FIND:
+            saveTasks();
+            return this.findHandle(input);
+        case COMMAND_HELP:
+            return this.helpHandle();
+        default:
+            throw new BuzzException("GRRR! I do not know what that means. Try again! *bzzrg*");
         }
     }
 
@@ -228,7 +227,7 @@ public class InputHandler {
         int tasks = 1;
         for (int i = 0; i < data.size(); i++) {
             Task task = data.get(i);
-            if (task.description.contains(wordSearch)) {
+            if (task.getDescription().contains(wordSearch)) {
                 result.append(tasks).append(".").append(task.toString()).append("\n");
                 tasks++;
             }

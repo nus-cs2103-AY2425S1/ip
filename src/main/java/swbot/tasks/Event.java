@@ -1,9 +1,10 @@
 package swbot.tasks;
-import swbot.BuzzException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import swbot.BuzzException;
 
 /**
  * A type of task that lets the user create an event to plan for. An event task
@@ -60,7 +61,8 @@ public class Event extends Task {
      */
     public String toFileFormat() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + this.startDate.format(dateTimeFormatter)
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + this.startDate.format(dateTimeFormatter)
                 + " | " + this.endDate.format(dateTimeFormatter);
     }
 

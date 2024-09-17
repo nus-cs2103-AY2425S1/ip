@@ -6,8 +6,8 @@ package swbot.tasks;
  * class.
  */
 public abstract class Task {
-    public String description;
-    public boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * Creates a task object that contains the description of the task itself
@@ -43,6 +43,24 @@ public abstract class Task {
      * @return a string representing the task in a format that can be saved to a file
      */
     public abstract String toFileFormat();
+
+    /**
+     * Retrieves the description of the task.
+     *
+     * @return a string representing the description of the task
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Indicates whether the task is completed.
+     *
+     * @return true if the task is completed, false otherwise.
+     */
+    public boolean isDone() {
+        return isDone;
+    }
 
     /**
      * Returns a string representing the task along with its status

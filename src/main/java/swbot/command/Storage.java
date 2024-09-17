@@ -1,11 +1,5 @@
 package swbot.command;
 
-import swbot.BuzzException;
-import swbot.tasks.Deadline;
-import swbot.tasks.Event;
-import swbot.tasks.Task;
-import swbot.tasks.Todo;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,6 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import swbot.BuzzException;
+import swbot.tasks.Deadline;
+import swbot.tasks.Event;
+import swbot.tasks.Task;
+import swbot.tasks.Todo;
 
 /**
  * A class that takes care of loading and saving the tasks to the database of the chatbot
@@ -134,22 +134,22 @@ public class Storage {
      * @param parts breakdown of the text provided by the user
      * @param database to keep track of the tasks in the todo list currently
      * @throws BuzzException if any of the creation of the tasks lead to an error regarding
-     * descriptions and formatting
+     *                       descriptions and formatting
      */
     private void parserHandle(Task task, String[] parts, ArrayList<Task> database) throws BuzzException {
         switch (parts[0]) {
-            case "T":
-                task = new Todo(parts[2]);
-                break;
-            case "D":
-                task = new Deadline(parts[2], parts[3]);
-                break;
-            case "E":
-                task = new Event(parts[2], parts[3], parts[4]);
-                break;
-            default:
-                task = task;
-                break;
+        case "T":
+            task = new Todo(parts[2]);
+            break;
+        case "D":
+            task = new Deadline(parts[2], parts[3]);
+            break;
+        case "E":
+            task = new Event(parts[2], parts[3], parts[4]);
+            break;
+        default:
+            task = task;
+            break;
         }
         if (task != null) {
             task.setDone(parts[1].equals("1")); // Set the task's done status

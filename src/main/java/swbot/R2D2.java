@@ -1,10 +1,10 @@
 package swbot;
 
+import java.util.ArrayList;
+
 import swbot.command.InputHandler;
 import swbot.command.Storage;
 import swbot.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * The R2D2 class represents a chatbot that processes user commands and maintains a list of tasks.
