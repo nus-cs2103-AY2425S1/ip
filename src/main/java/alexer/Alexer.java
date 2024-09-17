@@ -158,18 +158,6 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
-    public void unmarkTaskDone(int index) {
-        // assume input here is valid, we will handle exceptions later
-        tasks.getTask(index - 1).unmarkDone();
-        tasks.saveTasks();
-
-        System.out.println(BREAK);
-        System.out.println("Alright, it seems you are not done with that yet.");
-        System.out.println("I have unmarked it for you.");
-        System.out.format("\t%s\n", tasks.getTask(index - 1));
-        System.out.println(BREAK);
-    }
-
     /**
      * Processes the user input provided, and executes the
      * relevant commands/operations
@@ -190,10 +178,6 @@ public class Alexer {
                 case "bye":
                     prompter.buildGoodbye().printToConsole();
                     System.exit(0);
-                    break;
-                case "unmark":
-                    int taskNum = Integer.parseInt(arguments.get(0));
-                    unmarkTaskDone(taskNum);
                     break;
                 case "todo":
                     addTodo(arguments);

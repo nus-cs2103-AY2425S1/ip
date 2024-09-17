@@ -49,5 +49,6 @@ public class CommandHandler {
         registerCommand(new FindTaskCommand());
         registerCommand(new DeleteTaskCommand());
         registerCommand(new MarkTaskCommand());
+        registerCommand(new UnmarkTaskCommand());
     }
 }
