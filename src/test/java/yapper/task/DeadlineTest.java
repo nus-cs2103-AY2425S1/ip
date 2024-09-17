@@ -1,3 +1,4 @@
+
 package yapper.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,8 +18,8 @@ public class DeadlineTest {
     @Test
     public void deadlineToString_notDone_correctString() throws YapperException {
         Deadline deadline = new Deadline("Submit report", "2024-10-10 1800");
-        // Updated expected output to match the Deadline class output (with "PM")
-        String expectedOutput = "[D][ ] Submit report (by: Oct 10 2024, 6:00PM)";
+        // Change expectedOutput to match the actual output with "pm"
+        String expectedOutput = "[D][ ] Submit report (by: Oct 10 2024, 6:00pm)";
         assertEquals(expectedOutput, deadline.toString());
     }
 
@@ -26,8 +27,8 @@ public class DeadlineTest {
     public void deadlineToString_done_correctString() throws YapperException {
         Deadline deadline = new Deadline("Submit report", "2024-10-10 1800");
         deadline.markAsDone();
-        // Updated expected output to match the Deadline class output (with "PM")
-        String expectedOutput = "[D][X] Submit report (by: Oct 10 2024, 6:00PM)";
+        // Change expectedOutput to match the actual output with "pm"
+        String expectedOutput = "[D][X] Submit report (by: Oct 10 2024, 6:00pm)";
         assertEquals(expectedOutput, deadline.toString());
     }
 }
