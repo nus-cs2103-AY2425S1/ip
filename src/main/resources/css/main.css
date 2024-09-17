@@ -1,5 +1,5 @@
 .root {
-    main-color: #E6E6FA;       /* Create a looked-up color called "main-color" within root. */
+    main-color: #E6E6FA; /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .button:pressed {
-    -fx-background-color:orange;
+    -fx-background-color: orange;
     -fx-font-size: 20px;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .scroll-bar {
-    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-font-size: 10px; /* Change width of scroll bar. */
     -fx-background-color: main-color;
 }
 
