@@ -1,6 +1,6 @@
 # Jade User Guide
 
-![Product Screenshot](/images/Ui.png)
+![Product Screenshot](Ui.png)
 
 Welcome to **Jade**, a task management application designed to help you keep track of your tasks efficiently. 
 You can add, list, mark, delete, and find tasks, as well as sort them based on different criteria.
