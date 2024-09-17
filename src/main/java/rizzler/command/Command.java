@@ -36,7 +36,7 @@ public abstract class Command {
         return shouldEnd;
     }
 
-    protected void setShouldEnd(boolean shouldEnd) {
+    void setShouldEnd(boolean shouldEnd) {
         this.shouldEnd = shouldEnd;
     }
 
