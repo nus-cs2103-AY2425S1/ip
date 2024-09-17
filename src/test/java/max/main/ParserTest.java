@@ -42,7 +42,8 @@ public class ParserTest {
         MaxException exception = assertThrows(MaxException.class, () -> {
             parser.parseDate("12-02-2024 1800");
         });
-        assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'", exception.getMessage());
+        assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'",
+                exception.getMessage());
     }
 
     // Test parsing with missing time
@@ -51,7 +52,8 @@ public class ParserTest {
         MaxException exception = assertThrows(MaxException.class, () -> {
             parser.parseDate("2/12/2024");
         });
-        assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'", exception.getMessage());
+        assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'",
+                exception.getMessage());
     }
 
     // Test parsing with empty string
@@ -60,7 +62,8 @@ public class ParserTest {
         MaxException exception = assertThrows(MaxException.class, () -> {
             parser.parseDate("");
         });
-        assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'", exception.getMessage());
+        assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'",
+                exception.getMessage());
     }
 
 

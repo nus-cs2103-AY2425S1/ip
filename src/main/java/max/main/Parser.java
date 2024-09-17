@@ -45,14 +45,12 @@ public class Parser {
     }
 
     /**
-     * Parses user input and processes commands.
-     * It executes commands like "bye", "hi", "hello", "list", "mark", "unmark", "deadline",
-     * "todo", "event", "delete", and "find", handling each accordingly.
-     * If the command is invalid, it throws a MaxException.
+     * Parses the input text and performs the corresponding action.
+     * It handles various commands such as 'bye', 'list', 'todo', 'deadline', etc.
      *
-     * @param text The user input text to be parsed.
-     * @return A boolean indicating whether the application should exit (true if "bye" command is issued).
-     * @throws MaxException If an invalid command is given or an error occurs during execution.
+     * @param text the input command from the user
+     * @return true if the command is 'bye', indicating the application should exit, false otherwise
+     * @throws MaxException if the input command is invalid
      */
     public boolean parseText(String text) throws MaxException {
 
@@ -61,39 +59,18 @@ public class Parser {
         assert storage != null : "Storage is not initialized.";
 
         try {
-            if (text.equals("bye")) {
-                ui.printBye();
-                return true;
-            } else if (text.equals("hi") || text.equals("hello")) {
-                ui.printHello();
-            } else if (text.equals("list")) {
-                handleList();
-            } else if (text.equals("help")) {
-                handleHelp();
-            } else if (text.startsWith("mark")) {
-                int index = Integer.parseInt(text.replace("mark ", "")) - 1;
-                handleMark(index);
-            } else if (text.startsWith("unmark")) {
-                int index = Integer.parseInt(text.replace("unmark ", "")) - 1;
-                handleUnmark(index);
-            } else if (text.startsWith("deadline")) {
-                handleDeadline(text);
-            } else if (text.startsWith("todo")) {
-                handleTodo(text);
-            } else if (text.startsWith("event")) {
-                handleEvent(text);
-            } else if (text.startsWith("delete")) {
-                int index = Integer.parseInt(text.replace("delete ", "")) - 1;
-                handleDelete(index);
-            } else if (text.startsWith("find")) {
-                String toFind = text.replaceFirst("find", "").trim();
-                handleFind(toFind);
-            } else if (text.startsWith("tag")) {
-                handleTag(text);
-            } else if (text.startsWith("untag")) {
-                handleUntag(text);
-            } else if (text.startsWith("searchtag")) {
-                handleSearchtag(text);
+            if (isByeCommand(text)) {
+                return handleByeCommand();
+            } else if (isSimpleCommand(text)) {
+                handleSimpleCommand(text);
+            } else if (isIndexCommand(text)) {
+                handleIndexCommand(text);
+            } else if (isTaskCommand(text)) {
+                handleTaskCommand(text);
+            } else if (isFindCommand(text)) {
+                handleFindCommand(text);
+            } else if (isTagCommand(text)) {
+                handleTagCommand(text);
             } else {
                 throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
             }
@@ -104,6 +81,159 @@ public class Parser {
 
         return false;
 
+    }
+
+    /**
+     * Handles the 'bye' command.
+     * It outputs the goodbye message and signals that the application should exit.
+     *
+     * @return true to indicate the application should exit
+     */
+    private boolean handleByeCommand() {
+        ui.printBye();
+        return true;
+    }
+
+    /**
+     * Checks if the given command is 'bye'.
+     *
+     * @param text the input command
+     * @return true if the command is 'bye', false otherwise
+     */
+    private static boolean isByeCommand(String text) {
+        return text.equals("bye");
+    }
+
+    /**
+     * Checks if the given command is a simple command ('hi', 'hello', 'list', or 'help').
+     *
+     * @param text the input command
+     * @return true if the command is a simple command, false otherwise
+     */
+    private boolean isSimpleCommand(String text) {
+        return text.equals("hi") || text.equals("hello") || text.equals("list") || text.equals("help");
+    }
+
+    /**
+     * Executes a simple command such as 'hi', 'hello', 'list', or 'help'.
+     *
+     * @param text the input command
+     */
+    private void handleSimpleCommand(String text) {
+        switch (text) {
+        case "hi":
+        case "hello":
+            ui.printHello();
+            break;
+        case "list":
+            handleList();
+            break;
+        case "help":
+            handleHelp();
+            break;
+        }
+    }
+
+    /**
+     * Checks if the given command is an index-based command ('mark', 'unmark', or 'delete').
+     *
+     * @param text the input command
+     * @return true if the command is an index-based command, false otherwise
+     */
+    private boolean isIndexCommand(String text) {
+        return text.startsWith("mark") || text.startsWith("unmark") || text.startsWith("delete");
+    }
+
+
+    /**
+     * Executes an index-based command ('mark', 'unmark', or 'delete').
+     * It extracts the index and performs the appropriate action.
+     *
+     * @param text the input command
+     * @throws MaxException if the index is invalid
+     */
+    private void handleIndexCommand(String text) throws MaxException {
+        int index = Integer.parseInt(text.split(" ")[1]) - 1;
+        if (text.startsWith("mark")) {
+            handleMark(index);
+        } else if (text.startsWith("unmark")) {
+            handleUnmark(index);
+        } else if (text.startsWith("delete")) {
+            handleDelete(index);
+        }
+    }
+
+    /**
+     * Checks if the given command is a task-based command ('todo', 'deadline', or 'event').
+     *
+     * @param text the input command
+     * @return true if the command is a task-based command, false otherwise
+     */
+    private boolean isTaskCommand(String text) {
+        return text.startsWith("deadline") || text.startsWith("todo") || text.startsWith("event");
+    }
+
+    /**
+     * Executes a task-based command ('todo', 'deadline', or 'event').
+     *
+     * @param text the input command
+     * @throws MaxException if the task command is invalid
+     */
+    private void handleTaskCommand(String text) throws MaxException {
+        if (text.startsWith("deadline")) {
+            handleDeadline(text);
+        } else if (text.startsWith("todo")) {
+            handleTodo(text);
+        } else if (text.startsWith("event")) {
+            handleEvent(text);
+        }
+    }
+
+    /**
+     * Checks if the given command is a find command ('find').
+     *
+     * @param text the input command
+     * @return true if the command is a find command, false otherwise
+     */
+    private boolean isFindCommand(String text) {
+        return text.startsWith("find");
+    }
+
+    /**
+     * Executes a find command to search for tasks matching the given keyword.
+     *
+     * @param text the input command
+     * @throws MaxException if the find command is invalid
+     */
+    private void handleFindCommand(String text) throws MaxException {
+        String toFind = text.replaceFirst("find", "").trim();
+        handleFind(toFind);
+    }
+
+    /**
+     * Checks if the given command is a tag-based command ('tag', 'untag', or 'searchtag').
+     *
+     * @param text the input command
+     * @return true if the command is a tag-based command, false otherwise
+     */
+    private boolean isTagCommand(String text) {
+        return text.startsWith("tag") || text.startsWith("untag") || text.startsWith("searchtag");
+    }
+
+    /**
+     * Executes a tag-based command ('tag', 'untag', or 'searchtag').
+     *
+     * @param text the input command
+     * @throws MaxException if the tag command is invalid
+     */
+    private void handleTagCommand(String text) throws MaxException {
+        if (text.startsWith("tag")) {
+            handleTag(text);
+        } else if (text.startsWith("untag")) {
+            handleUntag(text);
+        } else if (text.startsWith("searchtag")) {
+            handleSearchtag(text);
+        }
     }
 
     /**

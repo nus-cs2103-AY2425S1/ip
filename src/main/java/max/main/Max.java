@@ -44,7 +44,7 @@ public class Max {
         Parser parser = new Parser(tasks, ui, storage);
         try {
             ui.resetOutput();
-            isExit = parser.parseText(text);
+            isExit = parser.parseText(text.trim());
         } catch (MaxException e) {
             return e.getMessage();
         }

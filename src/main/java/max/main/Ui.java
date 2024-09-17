@@ -181,57 +181,29 @@ public class Ui {
      * Prints the help information to guide users on how to use the application.
      */
     public void printHelp() {
-        printToMax("Welcome to Max Help Page!");
-        printToMax("Here are some commands you can use:");
+        String[] commands = {
+                "'todo <description>'\n    Adds a new todo item.",
+                "'deadline <description> /by <date>'\n    Adds a new deadline item.",
+                "'event <description> /from <start> /to <end>'\n    Adds a new event item.",
+                "'mark <index>'\n    Marks the task at the given index as done.",
+                "'unmark <index>'\n    Marks the task at the given index as not done.",
+                "'delete <index>'\n    Deletes the task at the given index.",
+                "'list'\n    Lists all tasks.",
+                "'find <keyword>'\n    Finds tasks containing the specified keyword.",
+                "'searchtag <tag>'\n    Finds tasks containing the specified tag.",
+                "'tag <index> <tag>'\n    Adds a tag to the task at the given index.",
+                "'untag <index> <tag>'\n    Removes a tag from the task at the given index.",
+                "'help'\n    Shows this help page."
+        };
+
+        printToMax("  Welcome to Max Help Page!");
+        printToMax("  Here are some commands you can use:");
         printToMax("");
 
-        printToMax("'todo <description>'");
-        printToMax("    Adds a new todo item.");
-        printToMax("");
-
-        printToMax("'deadline <description> /by <date>'");
-        printToMax("    Adds a new deadline item.");
-        printToMax("");
-
-        printToMax("'event <description> /from <start> /to <end>'");
-        printToMax("    Adds a new event item.");
-        printToMax("");
-
-        printToMax("'mark <index>'");
-        printToMax("    Marks the task at the given index as done.");
-        printToMax("");
-
-        printToMax("'unmark <index>'");
-        printToMax("    Marks the task at the given index as not done.");
-        printToMax("");
-
-        printToMax("'delete <index>'");
-        printToMax("    Deletes the task at the given index.");
-        printToMax("");
-
-        printToMax("'list'");
-        printToMax("    Lists all tasks.");
-        printToMax("");
-
-        printToMax("'find <keyword>'");
-        printToMax("    Finds tasks containing the specified keyword.");
-        printToMax("");
-
-        printToMax("'searchtag <tag>'");
-        printToMax("    Finds tasks containing the specified tag.");
-        printToMax("");
-
-        printToMax("'tag <index> <tag>'");
-        printToMax("    Adds a tag to the task at the given index.");
-        printToMax("");
-
-        printToMax("'untag <index> <tag>'");
-        printToMax("    Removes a tag from the task at the given index.");
-        printToMax("");
-
-        printToMax("'help'");
-        printToMax("    Shows this help page.");
-        printToMax("");
+        for (String command : commands) {
+            printToMax("  " + command);
+            printToMax("");
+        }
 
     }
 }
