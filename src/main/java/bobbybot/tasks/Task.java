@@ -3,7 +3,7 @@ package bobbybot.tasks;
 /**
  * Represents an abstract task in the task list.
  */
-public abstract class Task {
+public abstract class Task implements Cloneable {
 
     private final String description;
     private boolean isDone;
@@ -45,4 +45,15 @@ public abstract class Task {
      * @return String representation of the task to be saved in the file.
      */
     public abstract String getFileString();
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            // It should never reach here
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -32,7 +32,14 @@ public class TaskList {
      * @param taskList TaskList to be copied over.
      */
     public void copyOver(TaskList taskList) {
-        this.tasks = new ArrayList<>(taskList.tasks);
+        tasks = new ArrayList<>();
+        for (Task task : taskList.tasks) {
+            Object taskClone = task.clone();
+            // It should always be a Task, but for sanity check purposes
+            if (taskClone instanceof Task) {
+                tasks.add((Task) task.clone());
+            }
+        }
     }
 
     /**
