@@ -73,7 +73,9 @@ public class InputHandler {
             saveTasks();
             return this.deadlineHandle(input);
         case COMMAND_EVENT:
+            System.out.println("I AM HERE!");
             saveTasks();
+            System.out.println("ALSO HERE?");
             return this.eventHandle(input);
         case COMMAND_FIND:
             saveTasks();
@@ -201,12 +203,18 @@ public class InputHandler {
      * @throws BuzzException if description of the event is empty
      */
     public String eventHandle(String input) throws BuzzException {
-        String[] parts = input.split("/");
-        if (parts.length < 3 || parts[0].length() <= 6) {
-            throw new BuzzException("OOPS!!! The description of an event cannot be empty.");
+        String[] parts = input.split(" /from | /to ");
+        if (parts.length != 3) {
+            throw new BuzzException("Invalid event format. Correct format is: event description /from startTime "
+                    + "/to endTime");
         }
-        Task task = new Event(parts[0].substring(6), parts[1].substring(5),
-                parts[2].substring(3));
+        String description = parts[0].trim();
+        String fromDateTime = parts[1].trim();
+        String toDateTime = parts[2].trim();
+
+        validate(description, fromDateTime, toDateTime);
+
+        Task task = new Event(description, fromDateTime, toDateTime);
         data.add(task);
         return "Understood boss. Added!\n" + task.toString() + "\n"
                 + "You currently have " + data.size() + " missions available *reeeee*";
@@ -236,5 +244,25 @@ public class InputHandler {
             return "Sorry boss can't find anything :(";
         }
         return result.toString();
+    }
+
+    /**
+     * Validates the description and time fields for an event.
+     *
+     * @param description the description of the event
+     * @param fromDateTime the start date and time of the event
+     * @param toDateTime the end date and time of the event
+     * @throws BuzzException if any of the provided fields are empty
+     */
+    private void validate(String description, String fromDateTime, String toDateTime) throws BuzzException {
+        if (description.isEmpty()) {
+            throw new BuzzException("OOPS!!! The description of an event cannot be empty.");
+        }
+        if (fromDateTime.isEmpty()) {
+            throw new BuzzException("OOPS!!! The start time of an event cannot be empty.");
+        }
+        if (toDateTime.isEmpty()) {
+            throw new BuzzException("OOPS!!! The end time of an event cannot be empty.");
+        }
     }
 }
