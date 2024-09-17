@@ -9,7 +9,7 @@ import drbrown.command.Command;
 import drbrown.task.Deadline;
 import drbrown.task.Task;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Responses;
+import drbrown.utils.Ui;
 
 /**
  * A parser that handles the "deadline" command input.
@@ -36,12 +36,12 @@ public class DeadlineParser extends Parsing {
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit().length == 1) {
-                throw new DrBrownException(Responses.getDeadlineExceptionNoDescription());
+                throw new DrBrownException(Ui.getDeadlineExceptionNoDescription());
             }
 
             String[] deadlineSplit = this.getInputSplit()[1].split("/by | /priority");
             if (deadlineSplit.length == 1) {
-                throw new DrBrownException(Responses.getDeadlineExceptionNoDate());
+                throw new DrBrownException(Ui.getDeadlineExceptionNoDate());
             }
 
             Task deadline = new Deadline(false, deadlineSplit[0].trim(),
@@ -50,7 +50,7 @@ public class DeadlineParser extends Parsing {
 
             return new AddCommand(deadline);
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
-            throw new DrBrownException(Responses.getDeadlineExceptionOthers());
+            throw new DrBrownException(Ui.getDeadlineExceptionOthers());
         }
     }
 

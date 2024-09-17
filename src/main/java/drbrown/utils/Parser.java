@@ -38,7 +38,7 @@ public class Parser {
         case "delete" -> new DeleteParser(inputSplit).parse();
         case "bye" -> new ByeParser(inputSplit).parse();
         case "find" -> new FindParser(inputSplit).parse();
-        default -> throw new DrBrownException("I'm from the future, and even I don't know what that means.");
+        default -> throw new DrBrownException(Ui.getDefaultException());
         };
 
     }

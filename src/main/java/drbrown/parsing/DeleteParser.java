@@ -5,7 +5,7 @@ import static java.lang.Integer.parseInt;
 import drbrown.command.Command;
 import drbrown.command.DeleteCommand;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Responses;
+import drbrown.utils.Ui;
 
 /**
  * A parser that handles the "delete" command input.
@@ -27,12 +27,12 @@ public class DeleteParser extends Parsing {
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit().length == 1) {
-                throw new DrBrownException(Responses.getDeleteExceptionNoIndex());
+                throw new DrBrownException(Ui.getDeleteExceptionNoIndex());
             }
             int itemDeleteIndex = parseInt(this.getInputSplit()[1]) - 1;
             return new DeleteCommand(itemDeleteIndex);
         } catch (NumberFormatException e) {
-            throw new DrBrownException(Responses.getExceptionNotNumber());
+            throw new DrBrownException(Ui.getExceptionNotNumber());
         }
     }
 

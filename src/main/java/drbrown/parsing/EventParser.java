@@ -9,7 +9,7 @@ import drbrown.command.Command;
 import drbrown.task.Event;
 import drbrown.task.Task;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Responses;
+import drbrown.utils.Ui;
 
 /**
  * A parser that handles the "event" command input.
@@ -48,7 +48,7 @@ public class EventParser extends Parsing {
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit().length == 1) {
-                throw new DrBrownException(Responses.getEventExceptionNoDescription());
+                throw new DrBrownException(Ui.getEventExceptionNoDescription());
             }
 
             boolean containsValidString = this.userInput.contains("/from") || this.userInput.contains("/to")
@@ -56,7 +56,7 @@ public class EventParser extends Parsing {
             boolean correctOrderString = this.userInput.indexOf("/from") > this.userInput.indexOf("/to");
 
             if (!containsValidString || correctOrderString) {
-                throw new DrBrownException(Responses.getEventExceptionNoDate());
+                throw new DrBrownException(Ui.getEventExceptionNoDate());
             }
 
             String[] eventSplit = this.getInputSplit()[1].split("/from | /to | /priority");
@@ -68,7 +68,7 @@ public class EventParser extends Parsing {
 
             return new AddCommand(event);
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
-            throw new DrBrownException(Responses.getEventExceptionOthers());
+            throw new DrBrownException(Ui.getEventExceptionOthers());
         }
     }
 }

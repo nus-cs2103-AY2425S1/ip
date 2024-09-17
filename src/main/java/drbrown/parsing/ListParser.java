@@ -3,7 +3,7 @@ package drbrown.parsing;
 import drbrown.command.Command;
 import drbrown.command.ListCommand;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Responses;
+import drbrown.utils.Ui;
 
 /**
  * A parser that handles the "list" command input.
@@ -24,7 +24,7 @@ public class ListParser extends Parsing {
     public Command parse() throws DrBrownException {
         assert this.getInputSplit() != null : "Input string array should not be null";
         if (this.getInputSplit().length != 1) {
-            throw new DrBrownException(Responses.getListException());
+            throw new DrBrownException(Ui.getListException());
         }
         return new ListCommand();
     }

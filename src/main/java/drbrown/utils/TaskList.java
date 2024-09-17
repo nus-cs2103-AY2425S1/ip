@@ -64,6 +64,7 @@ public class TaskList {
      * @param index The index of the task to be removed.
      * @param ui    The Ui object to display messages to the user.
      * @return A string message confirming the deletion of the task.
+     * @throws DrBrownException If the index is out of bounds or the list is empty.
      */
     public String removeItem(int index, Ui ui) throws DrBrownException {
         try {
@@ -73,8 +74,7 @@ public class TaskList {
             tasks.remove(deleteTask);
             return ui.showDeleteTask(this, deleteTask);
         } catch (IndexOutOfBoundsException e) {
-            throw new DrBrownException("You got the count wrong! That's not how you calculate time "
-                    + "travel - you're off by a few gigawatts!");
+            throw new DrBrownException(Ui.getExceptionWrongIndex());
         }
     }
 
@@ -85,16 +85,15 @@ public class TaskList {
      * @param keyword The keyword to search for in the tasks' descriptions.
      * @param ui      The Ui object to display messages to the user.
      * @return A string containing the list of matching tasks or a message indicating no matches.
+     * @throws DrBrownException If the task list is empty.
      */
     public String findMatching(String keyword, Ui ui) throws DrBrownException {
         assert keyword != null : "Keyword should not be null";
         assert ui != null : "Ui should not be null";
         if (this.getCount() == 0) {
-            throw new DrBrownException("Wait a minute, Doc! There's nothing here! We can't go "
-                    + "anywhere until you add something to the list!");
+            throw new DrBrownException(Ui.getExceptionEmptyList());
         }
         StringBuilder result = new StringBuilder().append(ui.showFind()).append("\n");
-        boolean isMatching = false;
         int listCount = 1;
         for (Task item : this.tasks) {
             if (item.getDescription().contains(keyword)) {
@@ -111,12 +110,12 @@ public class TaskList {
      *
      * @param ui The Ui object to display messages to the user.
      * @return A string containing all tasks in the TaskList.
+     * @throws DrBrownException If the task list is empty.
      */
     public String listOut(Ui ui) throws DrBrownException {
         assert ui != null : "Ui should not be null";
         if (this.getCount() == 0) {
-            throw new DrBrownException("Wait a minute, Doc! There's nothing here! "
-                    + "We can't go anywhere until you add something to the list!");
+            throw new DrBrownException(Ui.getExceptionEmptyList());
         }
         StringBuilder result = new StringBuilder();
         int listCount = 1;
@@ -134,6 +133,7 @@ public class TaskList {
      * @param itemIndex The index of the task to be marked as completed.
      * @param ui        The Ui object to display messages to the user.
      * @return A string message confirming the task has been marked as completed.
+     * @throws DrBrownException If the index is out of bounds or the list is empty.
      */
     public String markTask(int itemIndex, Ui ui) throws DrBrownException {
         assert itemIndex >= 0 && itemIndex < tasks.size() : "Index should be within bounds of tasklist";
@@ -143,8 +143,7 @@ public class TaskList {
             markTask.setStatus(true);
             return ui.showMarkTask(markTask);
         } catch (IndexOutOfBoundsException e) {
-            throw new DrBrownException("You got the count wrong! That's not how you calculate "
-                    + "time travel - you're off by a few gigawatts!");
+            throw new DrBrownException(Ui.getExceptionWrongIndex());
         }
     }
 
@@ -155,6 +154,7 @@ public class TaskList {
      * @param itemIndex The index of the task to be unmarked as incomplete.
      * @param ui        The Ui object to display messages to the user.
      * @return A string message confirming the task has been unmarked as incomplete.
+     * @throws DrBrownException If the index is out of bounds or the list is empty.
      */
     public String unmarkTask(int itemIndex, Ui ui) throws DrBrownException {
         assert itemIndex >= 0 && itemIndex < tasks.size() : "Index should be within bounds of tasklist";
@@ -164,8 +164,7 @@ public class TaskList {
             unmarkTask.setStatus(false);
             return ui.showUnmarkTask(unmarkTask);
         } catch (IndexOutOfBoundsException e) {
-            throw new DrBrownException("You got the count wrong! That's not how you "
-                    + "calculate time travel – you're off by a few gigawatts!");
+            throw new DrBrownException(Ui.getExceptionWrongIndex());
         }
     }
 }

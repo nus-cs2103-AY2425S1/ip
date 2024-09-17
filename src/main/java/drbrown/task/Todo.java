@@ -1,5 +1,7 @@
 package drbrown.task;
 
+import drbrown.utils.Ui;
+
 /**
  * Represents a Todo task in the DrBrown application.
  * A Todo task has a description, a completion status (completed or not), and a priority level.
@@ -37,8 +39,7 @@ public class Todo extends Task {
      */
     @Override
     public String toUiString() {
-        return "Doc, you don't just walk into a store and buy plutonium! "
-                + "But you sure can add this task to your list!\n";
+        return Ui.getTodoUiString();
     }
 
     /**

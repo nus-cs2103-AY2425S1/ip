@@ -3,6 +3,8 @@ package drbrown.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import drbrown.utils.Ui;
+
 /**
  * Represents a task with a deadline in the DrBrown application.
  * A Deadline task has a description, a status (completed or not), a priority level, and an end date and time.
@@ -23,7 +25,6 @@ public class Deadline extends Task {
      * @param endDateTime  A {@link LocalDateTime} object representing the end date and time of the deadline;
      *                    must not be null.
      * @param priority     A {@link Priority} enum value representing the priority level of the task.
-     * @throws IllegalArgumentException if the end date and time is null.
      */
     public Deadline(boolean isCompleted, String description, LocalDateTime endDateTime, Priority priority) {
         super(isCompleted, description, priority);
@@ -50,8 +51,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toUiString() {
-        return "Last night, Darth Vader came down from Planet Vulcan and told me that "
-                + "if you don't meet this deadline... he'd melt your brain! So, better get moving!\n";
+        return Ui.getDeadlineUiString();
     }
 
     /**

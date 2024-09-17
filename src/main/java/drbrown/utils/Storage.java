@@ -68,13 +68,11 @@ public class Storage {
                             Task.Priority.valueOf(sentenceSplit[3])));
                     break;
                 default:
-                    throw new DrBrownException("The file provided might be corrupted since it does not "
-                            + "follow the specified format.");
+                    throw new DrBrownException(Ui.getExceptionFileCorrupted());
                 }
             }
         } catch (IOException e) {
-            throw new DrBrownException("Oops! It seems like this is your first time. "
-                    + "No worries, I've created a brand new file to get you started.");
+            throw new DrBrownException(Ui.getExceptionFileFirstTime());
         }
         return taskList;
     }
@@ -100,7 +98,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("Seems like you messed up the file path somehow!");
+            System.out.println(Ui.getExceptionFileWrongPath());
         }
     }
 }

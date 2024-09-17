@@ -3,7 +3,7 @@ package drbrown.parsing;
 import drbrown.command.Command;
 import drbrown.command.ExitCommand;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Responses;
+import drbrown.utils.Ui;
 
 /**
  * A parser that handles the "bye" command input.
@@ -26,7 +26,7 @@ public class ByeParser extends Parsing {
     public Command parse() throws DrBrownException {
         assert this.getInputSplit() != null : "Input string array should not be null";
         if (this.getInputSplit().length != 1) {
-            throw new DrBrownException(Responses.getByeException());
+            throw new DrBrownException(Ui.getByeException());
         }
         return new ExitCommand();
     }

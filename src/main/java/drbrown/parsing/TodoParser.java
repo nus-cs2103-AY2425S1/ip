@@ -5,7 +5,7 @@ import drbrown.command.Command;
 import drbrown.task.Task;
 import drbrown.task.Todo;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Responses;
+import drbrown.utils.Ui;
 
 /**
  * A parser that handles the "todo" command input.
@@ -27,20 +27,20 @@ public class TodoParser extends Parsing {
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit()[1].trim().isEmpty()) {
-                throw new DrBrownException(Responses.getTodoExceptionNoDescription());
+                throw new DrBrownException(Ui.getTodoExceptionNoDescription());
             }
 
             String[] todoSplit = this.getInputSplit()[1].split("/priority");
 
             if (todoSplit.length == 1) {
-                throw new DrBrownException(Responses.getTodoExceptionNoPriority());
+                throw new DrBrownException(Ui.getTodoExceptionNoPriority());
             }
 
             Task todo = new Todo(false, todoSplit[0].trim(), Task.Priority.valueOf(todoSplit[1].trim()));
 
             return new AddCommand(todo);
         } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
-            throw new DrBrownException(Responses.getTodoExceptionOthers());
+            throw new DrBrownException(Ui.getTodoExceptionOthers());
         }
     }
 

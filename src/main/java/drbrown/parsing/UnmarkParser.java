@@ -5,7 +5,7 @@ import static java.lang.Integer.parseInt;
 import drbrown.command.Command;
 import drbrown.command.UnmarkCommand;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Responses;
+import drbrown.utils.Ui;
 
 /**
  * A parser that handles the "unmark" command input.
@@ -27,12 +27,12 @@ public class UnmarkParser extends Parsing {
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit().length == 1) {
-                throw new DrBrownException(Responses.getUnmarkException());
+                throw new DrBrownException(Ui.getUnmarkException());
             }
             int itemUnmarkIndex = parseInt(this.getInputSplit()[1]) - 1;
             return new UnmarkCommand(itemUnmarkIndex);
         } catch (NumberFormatException e) {
-            throw new DrBrownException(Responses.getExceptionNotNumber());
+            throw new DrBrownException(Ui.getExceptionNotNumber());
         }
     }
 

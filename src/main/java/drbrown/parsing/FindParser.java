@@ -3,7 +3,7 @@ package drbrown.parsing;
 import drbrown.command.Command;
 import drbrown.command.FindCommand;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Responses;
+import drbrown.utils.Ui;
 
 /**
  * A parser that handles the "find" command input.
@@ -24,7 +24,7 @@ public class FindParser extends Parsing {
     public Command parse() throws DrBrownException {
         assert this.getInputSplit() != null : "Input string array should not be null";
         if (this.getInputSplit().length == 1) {
-            throw new DrBrownException(Responses.getFindException());
+            throw new DrBrownException(Ui.getFindException());
         }
         return new FindCommand(this.getInputSplit()[1]);
     }

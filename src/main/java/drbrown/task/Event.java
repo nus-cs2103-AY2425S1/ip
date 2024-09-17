@@ -3,6 +3,8 @@ package drbrown.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import drbrown.utils.Ui;
+
 /**
  * Represents an event task in the DrBrown application.
  * An event task has a description, a completion status (completed or not), a priority level,
@@ -27,7 +29,6 @@ public class Event extends Task {
      * @param endDateTime  A {@link LocalDateTime} object representing the end date and time of the event;
      *                    must not be null.
      * @param priority  A {@link Priority} enum value representing the priority level of the task.
-     * @throws IllegalArgumentException if the start or end date/time is null.
      */
     public Event(boolean isCompleted, String description, LocalDateTime startDateTime,
                  LocalDateTime endDateTime, Priority priority) {
@@ -60,7 +61,7 @@ public class Event extends Task {
      */
     @Override
     public String toUiString() {
-        return "The appropriate question is: 'When the hell are they?' Your event is now set in time!\n";
+        return Ui.getEventUiString();
     }
 
     /**
