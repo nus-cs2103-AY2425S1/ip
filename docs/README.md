@@ -192,7 +192,7 @@ Here are the matching tasks in your list:
 1. [T][ ] this is my first todo task!
 ```
 
-## Deleteing a task
+## Deleting a task
 
 Deletes an existing task using the index of the task.
 
