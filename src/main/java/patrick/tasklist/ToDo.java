@@ -57,7 +57,7 @@ public class ToDo extends Task {
         response = Ui.showUserMsg(task.toString());
 
         try {
-            if (!Storage.getList().isEmpty()) {
+            if (Storage.getList().size() > 1) {
                 Storage.appendToFile("\n");
             }
             Storage.appendToFile(task.toString());

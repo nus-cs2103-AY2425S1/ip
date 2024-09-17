@@ -59,7 +59,7 @@ public class Deadline extends Task {
             throw new Parser.PatrickException("You are missing a '/by' in your details!!");
         }
 
-        String taskDescription = newInput.substring(0, newInput.indexOf("/") - 1);
+        String taskDescription = newInput.substring(0, newInput.indexOf("/")).trim();
         if (taskDescription.isEmpty()) {
             throw new Parser.PatrickException("Deadline Task Description cannot be empty!!");
         }
@@ -82,7 +82,10 @@ public class Deadline extends Task {
         Storage.addList(task);
         response = Ui.showUserMsg(task.toString());
         try {
-            Storage.appendToFile("\n" + task);
+            if (Storage.getList().size() > 1) {
+                Storage.appendToFile("\n");
+            }
+            Storage.appendToFile(task.toString());
         } catch (IOException e) {
             response = Ui.THERE_IS_AN_ERROR + e.getMessage();
         }

@@ -61,7 +61,7 @@ public class Event extends Task {
         Task task;
         checkInvalidEventInput(newInput);
 
-        String taskDescription = newInput.substring(0, newInput.indexOf("/from") - 1);
+        String taskDescription = newInput.substring(0, newInput.indexOf("/from")).trim();
         String from = newInput.substring(newInput.indexOf("/from"),
                 newInput.indexOf("/to") - 1).replace("/from ", "");
         String to = newInput.substring(newInput.indexOf("/to")).replace("/to ", "");
@@ -74,7 +74,10 @@ public class Event extends Task {
         response = Ui.showUserMsg(task.toString());
 
         try {
-            Storage.appendToFile("\n" + task);
+            if (Storage.getList().size() > 1) {
+                Storage.appendToFile("\n");
+            }
+            Storage.appendToFile(task.toString());
         } catch (IOException e) {
             response = Ui.THERE_IS_AN_ERROR + e.getMessage();
         }
@@ -94,7 +97,7 @@ public class Event extends Task {
             throw new Parser.PatrickException("You are missing a '/to' in your details!!");
         }
 
-        String taskDescription = newInput.substring(0, newInput.indexOf("/from") - 1);
+        String taskDescription = newInput.substring(0, newInput.indexOf("/from")).trim();
         if (taskDescription.isEmpty()) {
             throw new Parser.PatrickException("Event Task Description cannot be empty!!");
         }
