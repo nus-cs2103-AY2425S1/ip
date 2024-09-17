@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("puke.Puke")
+    mainClassName = 'puke.ui.Launcher'
 }
 
 shadowJar {
