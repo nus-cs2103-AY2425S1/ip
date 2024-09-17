@@ -113,8 +113,8 @@ public class Parser {
             return new AddCommand(task);
         }
 
-        if (input.startsWith("Summarise")) {
-            if (input.equals("Summarise week")) {
+        if (input.startsWith("summarise")) {
+            if (input.equals("summarise week")) {
                 return new SummariseWeekCommand();
             }
             String from = input.substring(

@@ -29,7 +29,7 @@ public class SummariseWeekCommand extends SummariseCommand {
         TaskList completedTasks = tasks.getCompleted(from, to);
         String completionSummary = String.format(
                 "This week, in the past 7 days, you completed a total of %s tasks, "
-                        + "listed below:\n %s\n Great Job!",
+                        + "listed below:\n%s\n Great Job!",
                 completedTasks.size(),
                 completedTasks);
         return completionSummary;

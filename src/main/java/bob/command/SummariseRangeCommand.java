@@ -25,7 +25,7 @@ public class SummariseRangeCommand extends SummariseCommand {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         TaskList completedTasks = tasks.getCompleted(from, to);
         String completionSummary = String.format(
-                "From %s to %s, you completed a total of %s tasks, listed below:\n %s\n Great Job!",
+                "From %s to %s, you completed a total of %s tasks, listed below:\n%s\n Great Job!",
                 from.format(formatter),
                 to.format(formatter),
                 completedTasks.size(),
