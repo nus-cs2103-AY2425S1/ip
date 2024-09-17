@@ -9,7 +9,7 @@ public class Parser {
     /**
      * Parses the text command and maps it to one of the available commands
      *
-     *
+     * <br>
      * This command helps Ava interpret text commands.
      * @param command Command entered by user as text
      * @return Command corresponding to user's input.
