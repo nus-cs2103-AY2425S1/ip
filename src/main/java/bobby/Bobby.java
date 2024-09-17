@@ -83,7 +83,7 @@ public class Bobby {
     }
 
     /**
-     * The main method that serves as the entry point of the application.
+     * Serves as the entry point of the application.
      * It creates a new instance of {@code Bobby} and runs the application.
      *
      * @param args command-line arguments (not used)
