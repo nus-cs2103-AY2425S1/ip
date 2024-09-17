@@ -1,5 +1,6 @@
 # Talkie 👽
 
+## Snippet of Talkie 🌚 
 ![Screenshot of a snippet of Talkie](https://jereeemyyyy.github.io/ip/Ui.png)
 
 ## Quick Start 🤖
@@ -23,6 +24,8 @@ Talkie is packed with various features, such as:
 * Searching tasks with keywords
 * Sorting tasks alphabetically
 
+<br>
+
 ### Adding a Todo: `todo`
 Adds a Todo Task into the task list.
 
@@ -38,6 +41,7 @@ Got it. I've added this task:
    [T][ ] CS2103T Week 6 Assignment
 You have 1 tasks in the list.
 ```
+<br>
 
 ### Adding a Deadline: `deadline`
 Adds a Deadline Task into the task list.
@@ -55,6 +59,7 @@ Got it. I've added this task:
    [D][ ] CS2101 Slides (by: Sep 17 2024 23:59)
 You have 2 tasks in the list.
 ```
+<br>
 
 ### Adding an Event: `event`
 Adds a Event Task into the task list.
@@ -72,6 +77,7 @@ Got it. I've added this task:
    [E][ ] John's Birthday Party (from: Sep 17 2024 16:00 to: Sep 17 2024 2200)
 You have 3 tasks in the list.
 ```
+<br>
 
 ### Listing all tasks: `list`
 Shows a list of all tasks
@@ -87,6 +93,7 @@ Here are the tasks in your list:
 2. [D][ ] CS2101 Slides (by: Sep 17 2024 23:59)
 3. [E][ ] John's Birthday Party (from: Sep 17 2024 16:00 to: Sep 17 2024 2200)
 ```
+<br>
 
 ### Deleting a task: `delete`
 Deletes an existing task from the task list
@@ -104,6 +111,7 @@ Noted! I've removed this task:
   [D][ ] CS2101 Slides (by: Sep 17 2024 23:59)
 Now you have 2 tasks in the list.
 ```
+<br>
 
 ### Locating tasks by description: `find`
 Finds task whose description contain any of the given keywords. 
@@ -121,6 +129,7 @@ eg. `Han Solo` will match `Solo Han`
 Here are the matching tasks in your list:
 1. [D][ ] CS2101 Slides (by: Sep 17 2024 23:59)
 ```
+<br>
 
 ### Marking a task: `mark`
 Marks an existing task from the task list
@@ -137,6 +146,7 @@ The index **must be a positive integer** 1,2,3,...
 Nice! I've marked this task as done:
  [D][X] CS2101 Slides (by: Sep 17 2024 23:59)
 ```
+<br>
 
 ### Unmarking a task: `unmark`
 Marks an existing task from the task list.
@@ -153,6 +163,7 @@ Marks an existing task from the task list.
 Nice! I've marked this task as done:
  [D][ ] CS2101 Slides (by: Sep 17 2024 23:59)
 ```
+<br>
 
 ### Sorting a task list: `sort`
 Sorts the task list in alphanumerical order.
@@ -167,6 +178,7 @@ Your task list after sorting:
 2. [D][ ] CS2101 Slides (by: Sep 17 2024 23:59)
 3. [E][ ] John's Birthday Party (from: Sep 17 2024 16:00 to: Sep 17 2024 2200)
 ```
+<br>
 
 ### Exiting the program: `bye`
 Exits the program and saves the changes.
