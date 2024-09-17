@@ -8,23 +8,34 @@ import beeboo.components.TimeConverter;
 import beeboo.exception.InvalidDateException;
 import beeboo.exception.NoDescriptionException;
 
-
 /**
- * The Events class represents an event task with a start date and an end date. It extends the
- * Tasks class and provides functionality for managing events.
+ * The Events class represents an event task with a start date and an end date.
+ * It extends the Tasks class and provides functionality for managing events,
+ * including creation, formatting, and updating times.
  */
 public class Events extends Tasks {
 
+    /**
+     * A formatter used for displaying date and time in the pattern "MMM dd yyyy 'at' hh:mm a".
+     */
     static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mm a");
-    private LocalDateTime endDate;
+
+    /**
+     * The start date and time of the event.
+     */
     private LocalDateTime startDate;
+
+    /**
+     * The end date and time of the event.
+     */
+    private LocalDateTime endDate;
 
     /**
      * Constructs an Events instance with the specified description, start date, and end date.
      *
      * @param description the description of the event
-     * @param startDate   the LocalDateTime representing the start date and time of the event
-     * @param endDate     the LocalDateTime representing the end date and time of the event
+     * @param startDate   the start date and time of the event
+     * @param endDate     the end date and time of the event
      */
     public Events(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
@@ -43,8 +54,8 @@ public class Events extends Tasks {
     }
 
     /**
-     * Returns a String representation of the Events instance, including the description, start date,
-     * and end date formatted using the predefined formatter.
+     * Returns a String representation of the Events instance, including the description,
+     * start date, and end date formatted using the predefined formatter.
      *
      * @return a String representation of the event
      */
@@ -55,52 +66,87 @@ public class Events extends Tasks {
     }
 
     /**
-     * Creates an Events instance from the given text input. The input should include a description and
-     * start and end dates in the format "from startDate to endDate". The method parses the input, validates
-     * the description and dates, and returns a new Events object.
+     * Creates an Events instance based on a given string input.
      *
-     * @param text the input text containing the description and event dates
-     * @return an Events instance
-     * @throws InvalidDateException if the dates are invalid or improperly formatted
-     * @throws NoDescriptionException if the description is missing or empty
+     * @param text the string containing the event description, start date, and end date
+     * @return a new Events object
+     * @throws InvalidDateException  if the date format is invalid
+     * @throws NoDescriptionException if the description is missing
      */
     public static Events createEvent(String text) throws InvalidDateException, NoDescriptionException {
-        int descriptionEnd = text.indexOf('/');
-        if (descriptionEnd == -1) {
-            throw new InvalidDateException(text);
-        }
-        String description = text.substring(0, descriptionEnd).trim();
-
-        if (descriptionEnd == -1 || description.isEmpty()) {
-            throw new NoDescriptionException("No description");
-        }
-
-        String dateSubstring = text.substring(descriptionEnd + 1).trim();
-        if (!dateSubstring.startsWith("from")) {
-            throw new InvalidDateException(text);
-        }
-
-        int startDateEnd = dateSubstring.indexOf('/');
-        String startDate = dateSubstring.substring(4, startDateEnd).trim();
-        LocalDateTime startDateTime;
-        try {
-            startDateTime = TimeConverter.convertTime(startDate);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateException(text);
-        }
-        String endDateCommand = dateSubstring.substring(startDateEnd + 1);
-        if (!endDateCommand.startsWith("to")) {
-            throw new InvalidDateException(text);
-        }
-
-        String endDate = endDateCommand.substring(2).trim();
-        String[] endDates = endDate.split(" ");
-        LocalDateTime endDateTime = (endDates.length == 1)
-                ? TimeConverter.convertTime(startDateTime.toLocalDate().toString()
-                + " " + endDate)
-                : TimeConverter.convertTime(endDate);
+        String[] parts = splitEventText(text);
+        String description = extractDescription(parts[0]);
+        LocalDateTime startDateTime = parseDateTime(parts[1], "from");
+        LocalDateTime endDateTime = parseEndDateTime(parts[2], startDateTime);
 
         return new Events(description, startDateTime, endDateTime);
+    }
+
+    /**
+     * Splits the event string into description, start date, and end date parts.
+     *
+     * @param text the input string to be split
+     * @return an array containing the description, start date, and end date
+     * @throws InvalidDateException if the string does not follow the correct event format
+     */
+    private static String[] splitEventText(String text) throws InvalidDateException {
+        String[] parts = text.split("/");
+        if (parts.length != 3) {
+            throw new InvalidDateException("Invalid event format: " + text);
+        }
+        return parts;
+    }
+
+    /**
+     * Extracts the description part of the event.
+     *
+     * @param descriptionPart the part of the string containing the description
+     * @return the description of the event
+     * @throws NoDescriptionException if the description is missing
+     */
+    private static String extractDescription(String descriptionPart) throws NoDescriptionException {
+        String description = descriptionPart.trim();
+        if (description.isEmpty()) {
+            throw new NoDescriptionException("No description provided");
+        }
+        return description;
+    }
+
+    /**
+     * Parses the date and time string to extract the LocalDateTime object.
+     *
+     * @param datePart       the part of the string containing the date and time
+     * @param expectedPrefix the expected prefix in the string (e.g., "from")
+     * @return the parsed LocalDateTime object
+     * @throws InvalidDateException if the date format is invalid or does not start with the expected prefix
+     */
+    private static LocalDateTime parseDateTime(String datePart, String expectedPrefix) throws InvalidDateException {
+        datePart = datePart.trim();
+        if (!datePart.startsWith(expectedPrefix)) {
+            throw new InvalidDateException("Invalid date format: " + datePart);
+        }
+        String dateString = datePart.substring(expectedPrefix.length()).trim();
+        try {
+            return TimeConverter.convertTime(dateString);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException("Invalid date: " + dateString);
+        }
+    }
+
+    /**
+     * Parses the end date and time part of the event string.
+     *
+     * @param endDatePart   the part of the string containing the end date and time
+     * @param startDateTime the start date and time of the event
+     * @return the parsed LocalDateTime object for the end date
+     */
+    private static LocalDateTime parseEndDateTime(String endDatePart, LocalDateTime startDateTime) {
+        String endDate = endDatePart.substring(2).trim();
+        String[] endDates = endDate.split(" ");
+        LocalDateTime endDateTime = (endDates.length == 1)
+                ? TimeConverter.convertTime(startDateTime.toLocalDate().toString() + " " + endDate)
+                : TimeConverter.convertTime(endDate);
+        return endDateTime;
     }
 
     /**
@@ -115,9 +161,13 @@ public class Events extends Tasks {
                 + description + " | " + startDate + " | " + endDate;
     }
 
-    //Update 2 from 2024-09-09 1200 /to 2024-09-09 14:00
-    //Update 2 from 2024-09-09 1200
-    //Update 2 to 2024-09-09 14:00
+    /**
+     * Updates the start and end times of the event based on the provided string.
+     * The string can update both the "from" (start date) and "to" (end date) times,
+     * or either one individually.
+     *
+     * @param time the string specifying the time update
+     */
     @Override
     public void updateTime(String time) {
         if (time.contains("from")) {
