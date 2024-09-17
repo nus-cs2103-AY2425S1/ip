@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -47,8 +48,24 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
 
-        Circle clip = new Circle(32, 32, 32);
+        Circle clip = new Circle(25, 25, 25);
         displayPicture.setClip(clip);
+
+        adjustPadding();
+    }
+
+    /**
+     * Adjusts padding dynamically based on the height of the children.
+     */
+    private void adjustPadding() {
+        this.heightProperty().addListener((observable, oldValue, newValue) -> {
+            double currentHeight = newValue.doubleValue();
+            if (currentHeight <= 60) {
+                this.setPadding(new Insets(0, 5, 10, 5));
+            } else {
+                this.setPadding(new Insets(12, 5, 12, 5));
+            }
+        });
     }
 
     /**

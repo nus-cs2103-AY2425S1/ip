@@ -1,6 +1,8 @@
 package jade.command;
 
 import jade.exception.JadeException;
+import jade.task.Event;
+import jade.task.Task;
 import jade.task.TaskManager;
 import jade.ui.Ui;
 
@@ -64,7 +66,15 @@ public class MarkCommand extends Command {
             StringBuilder message = new StringBuilder();
             message.append(status).append("\n");
             indentIfNotGui(forGui, message);
-            message.append(" ".repeat(2)).append(taskManager.getTask(taskIndex));
+            message.append(" ".repeat(2));
+
+            Task task = taskManager.getTask(taskIndex);
+            if (forGui && task instanceof Event) {
+                Event temp = (Event) task;
+                message.append(temp.toStringForGui());
+            } else {
+                message.append(task);
+            }
 
             return displayMessage(forGui, message.toString());
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {

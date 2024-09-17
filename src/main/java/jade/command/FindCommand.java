@@ -79,7 +79,7 @@ public class FindCommand extends Command {
             StringBuilder message = new StringBuilder();
             message.append("Please specify a valid keyword in the format:\n");
             indentIfNotGui(forGui, message);
-            message.append("  find <keyword>");
+            message.append(" ".repeat(2)).append("find <keyword>");
 
             throw new JadeException(message.toString());
         }

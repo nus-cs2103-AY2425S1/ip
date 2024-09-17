@@ -2,6 +2,7 @@ package jade.command;
 
 import jade.exception.JadeException;
 import jade.parser.Parser;
+import jade.task.Event;
 import jade.task.Task;
 import jade.task.TaskManager;
 import jade.ui.Ui;
@@ -61,7 +62,14 @@ public class AddCommand extends Command {
         StringBuilder message = new StringBuilder();
         message.append("Got it. I've added this task:\n");
         indentIfNotGui(forGui, message);
-        message.append(" ".repeat(2)).append(newTask);
+        message.append(" ".repeat(2));
+
+        if (forGui && newTask instanceof Event) {
+            Event temp = (Event) newTask;
+            message.append(temp.toStringForGui());
+        } else {
+            message.append(newTask);
+        }
 
         message.append("\n");
         indentIfNotGui(forGui, message);

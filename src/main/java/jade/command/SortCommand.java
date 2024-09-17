@@ -68,7 +68,7 @@ public class SortCommand extends Command {
             StringBuilder message = new StringBuilder();
             message.append("Please specify a valid sort type in the format:\n");
             indentIfNotGui(forGui, message);
-            message.append("  sort by <type>");
+            message.append(" ".repeat(2)).append("sort by <type>");
 
             throw new JadeException(message.toString());
         }

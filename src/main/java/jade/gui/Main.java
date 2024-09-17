@@ -6,6 +6,7 @@ import jade.Jade;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -29,6 +30,10 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Jade");
+
+            Image icon = new Image(this.getClass().getResourceAsStream("/images/LogoIcon.png"));
+            stage.getIcons().add(icon);
 
             assert fxmlLoader.getController() instanceof MainWindow : "Controller should be an instance of MainWindow";
             fxmlLoader.<MainWindow>getController().setJade(jade);

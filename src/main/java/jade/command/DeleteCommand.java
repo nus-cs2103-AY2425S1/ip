@@ -1,6 +1,7 @@
 package jade.command;
 
 import jade.exception.JadeException;
+import jade.task.Event;
 import jade.task.Task;
 import jade.task.TaskManager;
 import jade.ui.Ui;
@@ -61,7 +62,14 @@ public class DeleteCommand extends Command {
             StringBuilder message = new StringBuilder();
             message.append("Noted. I've removed this task:\n");
             indentIfNotGui(forGui, message);
-            message.append(" ".repeat(2)).append(removedTask);
+            message.append(" ".repeat(2));
+
+            if (forGui && removedTask instanceof Event) {
+                Event temp = (Event) removedTask;
+                message.append(temp.toStringForGui());
+            } else {
+                message.append(removedTask);
+            }
 
             message.append("\n");
             indentIfNotGui(forGui, message);
