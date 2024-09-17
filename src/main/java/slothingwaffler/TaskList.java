@@ -177,28 +177,44 @@ public class TaskList {
     }
 
     public String sortTasksByDeadline() {
+        ArrayList<Deadline> deadlineTasks = getDeadlineTasks();
+
+        if (deadlineTasks.isEmpty()) {
+            return "You currently have no deadlines to meet! Keep waffling!";
+        }
+
+        sortDeadlines(deadlineTasks);
+
+        return buildSortedTasksMessage(deadlineTasks);
+    }
+
+    private ArrayList<Deadline> getDeadlineTasks() {
         ArrayList<Deadline> deadlineTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.hasDeadline()) {
                 deadlineTasks.add((Deadline) task);
             }
         }
+        return deadlineTasks;
+    }
 
-        if (deadlineTasks.isEmpty()) {
-            return "You currently have no deadlines to meet! Keep waffling!";
-        }
-
+    private void sortDeadlines(ArrayList<Deadline> deadlineTasks) {
         for (int i = 0; i < deadlineTasks.size() - 1; i++) {
             for (int j = i + 1; j < deadlineTasks.size(); j++) {
                 if (deadlineTasks.get(i).compareTo(deadlineTasks.get(j)) > 0) {
-                    Deadline temp1 = deadlineTasks.get(i);
-                    Deadline temp2 = deadlineTasks.get(j);
-                    deadlineTasks.set(i, temp2);
-                    deadlineTasks.set(j, temp1);
+                    swapDeadlines(deadlineTasks, i, j);
                 }
             }
         }
+    }
 
+    private void swapDeadlines(ArrayList<Deadline> deadlineTasks, int i, int j) {
+        Deadline temp = deadlineTasks.get(i);
+        deadlineTasks.set(i, deadlineTasks.get(j));
+        deadlineTasks.set(j, temp);
+    }
+
+    private String buildSortedTasksMessage(ArrayList<Deadline> deadlineTasks) {
         StringBuilder msg = new StringBuilder("Here are all your tasks with deadlines, sorted by their deadlines:\n");
         for (int i = 0; i < deadlineTasks.size(); i++) {
             msg.append(i + 1).append(". ").append(deadlineTasks.get(i).toString()).append("\n");
