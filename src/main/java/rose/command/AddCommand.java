@@ -20,8 +20,14 @@ import rose.task.Todo;
  * <p>An <code>AddCommand</code> object is represented by its task type and description of the task.
  */
 public class AddCommand extends Command {
+    private static final String DEADLINE_DELIMITER = " /by ";
+    private static final String EVENT_FROM_DELIMITER = " /from ";
+    private static final String EVENT_TO_DELIMITER = " /to ";
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     private final TaskType taskType;
     private final String taskName;
+
 
     public AddCommand(TaskType taskType, String taskName) {
         this.taskType = taskType;
@@ -38,49 +44,61 @@ public class AddCommand extends Command {
      * @throws RoseException If input is incomplete or tasktype is unknown.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        Task newTask;
-        final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
         try {
-            switch (taskType) {
-            case TODO:
-                newTask = new Todo(taskName);
-                break;
-            case DEADLINE:
-                String[] deadlineParts = taskName.split(" /by ");
-                if (deadlineParts.length < 2) {
-                    throw new RoseException("Deadline task is missing '/by'.");
-                }
-                newTask = new Deadline(deadlineParts[0], LocalDate.parse(deadlineParts[1], INPUT_FORMAT));
-                break;
-            case EVENT:
-                String[] eventPartsA = taskName.split(" /from ");
-                if (eventPartsA.length < 2) {
-                    throw new RoseException("Event task is missing '/from'.");
-                }
-                String[] eventPartsB = eventPartsA[1].split(" /to ");
-                if (eventPartsB.length < 2) {
-                    throw new RoseException("Event task is missing '/to'.");
-                }
-                newTask = new Event(eventPartsA[0],
-                        LocalDate.parse(eventPartsB[0], INPUT_FORMAT),
-                        LocalDate.parse(eventPartsB[1], INPUT_FORMAT));
-                break;
-            default:
-                throw new RoseException("Unknown task type.");
-            }
-
+            Task newTask = createTask(taskType, taskName);
             tasks.addTask(newTask);
-            try {
-                storage.save(tasks.getTaskList());
-            } catch (IOException e) {
-                ui.showError("We cannot save the tasks: " + e.getMessage());
-            }
+            saveTasks(storage, tasks, ui);
             return ui.showAdd(newTask, tasks.size());
         } catch (DateTimeParseException e) {
             return ui.showError("Please enter a valid date in the format yyyy-MM-dd.");
         } catch (RoseException e) {
             return ui.showError("OOPS!!! " + e.getMessage());
+        }
+    }
+
+    private Task createTask(TaskType taskType, String taskName) throws RoseException, DateTimeParseException {
+        switch (taskType) {
+        case TODO:
+            return createTodoTask(taskName);
+        case DEADLINE:
+            return createDeadlineTask(taskName);
+        case EVENT:
+            return createEventTask(taskName);
+        default:
+            throw new RoseException("Unknown task type.");
+        }
+    }
+
+    private Task createTodoTask(String taskName) {
+        return new Todo(taskName);
+    }
+
+    private Task createDeadlineTask(String taskName) throws RoseException {
+        String[] parts = taskName.split(DEADLINE_DELIMITER);
+        if (parts.length < 2) {
+            throw new RoseException("Deadline task is missing '" + DEADLINE_DELIMITER + "'.");
+        }
+        return new Deadline(parts[0], LocalDate.parse(parts[1], INPUT_FORMAT));
+    }
+
+    private Task createEventTask(String taskName) throws RoseException {
+        String[] partsA = taskName.split(EVENT_FROM_DELIMITER);
+        if (partsA.length < 2) {
+            throw new RoseException("Event task is missing '" + EVENT_FROM_DELIMITER + "'.");
+        }
+        String[] partsB = partsA[1].split(EVENT_TO_DELIMITER);
+        if (partsB.length < 2) {
+            throw new RoseException("Event task is missing '" + EVENT_TO_DELIMITER + "'.");
+        }
+        return new Event(partsA[0], LocalDate.parse(partsB[0], INPUT_FORMAT),
+                LocalDate.parse(partsB[1], INPUT_FORMAT));
+    }
+
+    private void saveTasks(Storage storage, TaskList tasks, Ui ui) {
+        try {
+            storage.save(tasks.getTaskList());
+        } catch (IOException e) {
+            ui.showError("We cannot save the tasks: " + e.getMessage());
         }
     }
 }
