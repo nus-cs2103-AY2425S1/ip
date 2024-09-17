@@ -14,7 +14,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public Response run(String[] arguments) {
+    public Response run(String... arguments) {
         int fromIndex = 0;
         int toIndex = 0;
         for (int i = 0; i < arguments.length; i++) {

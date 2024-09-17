@@ -37,5 +37,5 @@ public abstract class Command {
      * @param arguments string array of arguments to be provided
      * @return the response for the command
      */
-    public abstract Response run(String[] arguments);
+    public abstract Response run(String... arguments);
 }

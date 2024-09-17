@@ -25,7 +25,7 @@ public class ListTaskCommand extends Command {
      * @return the response of the command
      */
     @Override
-    public Response run(String[] arguments) {
+    public Response run(String... arguments) {
         Alexer alexer = Alexer.getInstance();
         Prompter prompter = alexer.getPrompter();
 

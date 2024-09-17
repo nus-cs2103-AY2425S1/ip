@@ -16,7 +16,7 @@ public class MarkTaskCommand extends Command {
     }
 
     @Override
-    public Response run(String[] arguments) {
+    public Response run(String... arguments) {
         int index = Integer.parseInt(arguments[0]); // assume index is valid integer, will handle error later
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
 

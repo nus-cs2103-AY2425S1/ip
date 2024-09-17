@@ -10,7 +10,7 @@ public class UnmarkTaskCommand extends Command {
     }
 
     @Override
-    public Response run(String[] arguments) {
+    public Response run(String... arguments) {
         int index = Integer.parseInt(arguments[0]); // assume valid integer provided here
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
 

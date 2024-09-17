@@ -17,7 +17,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public Response run(String[] arguments) {
+    public Response run(String... arguments) {
         int keywordIndex = 0;
         for (int i = 0; i < arguments.length; i++) {
             if (arguments[i].equals("/by")) keywordIndex = i;

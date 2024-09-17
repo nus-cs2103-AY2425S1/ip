@@ -14,7 +14,7 @@ public class FindTaskCommand extends Command {
     }
 
     @Override
-    public Response run(String[] arguments) {
+    public Response run(String... arguments) {
         if (arguments.length == 0) {
             return null;
         }

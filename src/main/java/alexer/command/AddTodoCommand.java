@@ -11,7 +11,7 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public Response run(String[] arguments) {
+    public Response run(String... arguments) {
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
         String description = String.join(" ", arguments);
         if (description.isEmpty()) {

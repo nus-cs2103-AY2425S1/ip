@@ -12,7 +12,7 @@ public class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public Response run(String[] arguments) {
+    public Response run(String... arguments) {
         int index = Integer.parseInt(arguments[0]) - 1;
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
         Task task = taskManager.removeTask(index);
