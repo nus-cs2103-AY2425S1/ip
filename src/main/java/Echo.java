@@ -1,3 +1,4 @@
+import command.*;
 import parser.Parser;
 import tasks.Task;
 import storage.Storage;
@@ -7,6 +8,11 @@ import ui.Ui;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the chatbot echoing out the replies based on the
+ * input command word.
+ *
+ */
 public class Echo {
     private String word;
     private TaskList list;
@@ -27,122 +33,56 @@ public class Echo {
 
     /**
      * Sets the word for the echo object.
-     * @param word used to initialise the word of an echo object.
+     * @param word Input command by the user.
      */
     public void setWord(String word) {
         this.word = word;
     }
 
     /**
-     * Main logic for the entire chatbot. Handles all the different commands.
+     * Returns the reply of the chatbot back to the user.
+     * @return Reply by the chatbot.
      */
     public String echoOut() {
 
         String[] parts = word.split(" ", 2);
-        String command = parts[0];
+        String commandWord = parts[0];
+        Command command;
 
-        switch (command) {
+        switch (commandWord) {
         case "list":
-            return list.printList() + "\n" + ui.line();
+            command = new ListCommand();
+            break;
         case "mark":
-            if (parts.length < 2) {
-                return "Please specify the task number to mark \n" + ui.line();
-            } else {
-                try {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    assert index >= 0 : "Please enter a valid task number\n";
-                    return list.mark(index) + ui.line();
-                } catch (NumberFormatException e) {
-                    return ui.NumberFormatExceptionMessage() + ui.line();
-                }
-            }
+            command = new MarkCommand();
+            break;
         case "unmark":
-            if (parts.length < 2) {
-                return "Please specify the task number to unmark \n" + ui.line();
-            } else {
-                try {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    assert index >= 0 : "Please enter a valid task number\n";
-                    return list.unmark(index) + ui.line();
-                } catch (NumberFormatException e) {
-                    return ui.NumberFormatExceptionMessage() + ui.line();
-                }
-            }
+            command = new UnmarkCommand();
+            break;
         case "find":
-            try {
-                return list.find(parts[1]).printList() + ui.line();
-            } catch (StringIndexOutOfBoundsException e) {
-                return "No such items in the list!\n" + ui.line();
-            }
-
+            command = new FindCommand();
+            break;
         case "todo":
-            try {
-                Task toDoTask = parser.parseToDoTask(parts[1]);
-                list.addTask(toDoTask);
-                return ui.affirm() + toDoTask.getDescription() + "\n" + ui.line() +
-                        String.format("Now you have %d tasks in the list\n", list.size());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return "Oh no! Please input a ToDo description!";
-            }
-
+            command = new ToDoCommand();
+            break;
         case "deadline":
-            try {
-                Task deadlineTask = parser.parseDeadlineTask(parts[1]);
-                list.addTask(deadlineTask);
-                return ui.affirm() + deadlineTask.getDescription() +
-                        "\n" + ui.line() + String.format("Now you have %d tasks in the list\n", list.size());
-            } catch (StringIndexOutOfBoundsException e) {
-                return ui.DeadlineOutOfBoundsExceptionMessage();
-            } catch (DateTimeParseException e) {
-                return ui.DeadlineDateTimeParseExceptionMessage();
-            }
-
+            command = new DeadlineCommand();
+            break;
         case "event":
-            try {
-                Task eventTask = parser.parseEventTask(parts[1]);
-                list.addTask(eventTask);
-
-                return ui.affirm() + eventTask.getDescription() +
-                        "\n" + ui.line() + String.format("Now you have %d tasks in the list\n", list.size());
-            } catch (StringIndexOutOfBoundsException e) {
-                return ui.EventOutOfBoundsExceptionMessage();
-            } catch (DateTimeParseException e) {
-                return ui.EventDateTimeParseExceptionMessage();
-            }
-
-            case "update":
-                if (parts.length < 2) {
-                    return "Please input a task to update!!";
-                } else {
-                    try {
-                        int index = Integer.parseInt(parts[1].substring(0, 1)) - 1;
-                        Task taskToUpdate = list.getTask(index);
-                        taskToUpdate =  parser.parseUpdateTask(parts[1], taskToUpdate);
-                        this.list.update(index, taskToUpdate);
-                        return ui.updateSuccess(index + 1);
-                    } catch (IllegalArgumentException e) {
-                        return e.getMessage();
-                    }
-                }
-
+            command = new EventCommand();
+            break;
+        case "update":
+            command = new UpdateCommand();
+            break;
         case "delete":
-            try {
-                int index = Integer.parseInt(parts[1]) - 1;
-                assert index >= 0 : "Please input a valid task number!";
-                return list.removeTask(index);
-            } catch (NumberFormatException e) {
-                return ui.NumberFormatExceptionMessage() + ui.line();
-            }
-
+            command = new DeleteCommand();
+            break;
         case "bye":
-            try {
-                storage.saveTasksToFile(this.list);
-                return ui.goodbye();
-            } catch (IOException e) {
-                return "Unable to save chat data to local disk!\n";
-            }
+            command = new ByeCommand();
+            break;
         default:
-            return ui.invalidCommand();
+            command = new InvalidCommand();
         }
+        return command.execute(parts, list, ui, storage, parser);
     }
 }

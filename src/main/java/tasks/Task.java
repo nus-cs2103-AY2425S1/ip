@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import update.Updatable;
 
+/**
+ * Represents a task to be saved to the task list. A task
+ * has its own description and whether it has been completed.
+ */
 public abstract class Task implements Updatable {
     protected String description;
     protected boolean isDone;

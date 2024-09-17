@@ -1,8 +1,10 @@
 package ui;
 
+/**
+ * Represents the chatbot's replies to the user.
+ *
+ */
 public class Ui {
-
-    private final String line = "_______________________________________________________\n";
 
     public Ui() {}
     /**
@@ -10,21 +12,21 @@ public class Ui {
      * @return the greeting to the user.
      */
     public String greet() {
-        return line() + "Hello! I'm Meeks! Your friendly chatbot!\n" + "What can I do for you?\n";
+        return "Hello! I'm Meeks! Your friendly chatbot!\n" + "What can I do for you?\n";
     }
     /**
      * Prints the goodbye message to the user.
      * @return the goodbye message to the user.
      */
     public String goodbye() {
-        return "Bye. Hope to see you again soon!\n" + line();
+        return "Bye. Hope to see you again soon!\n";
     }
     /**
      * Prints the unknown command message to the user.
      * @return the unknown command message to the user.
      */
     public String invalidCommand() {
-        return "Oh no! You have input an unknown command!\n" + line();
+        return "Oh no! You have input an unknown command!\n";
     }
 
     /**
@@ -35,7 +37,7 @@ public class Ui {
      */
     public String DeadlineOutOfBoundsExceptionMessage() {
         return "Incorrect format of adding deadline tasks. " +
-                "Use '/by to specify the deadline after the task description";
+                "Use '/by to specify the deadline after the task description\n";
     }
 
     /**
@@ -45,7 +47,7 @@ public class Ui {
      * relating to the Format of the Date and Time.
      */
     public String DeadlineDateTimeParseExceptionMessage() {
-        return "Please input the correct deadline format /by yyyy-MM-dd XXXX <- Time";
+        return "Please input the correct deadline format /by yyyy-MM-dd XXXX <- Time\n";
     }
     /**
      * Prints the error message when there is an incorrect format of the
@@ -77,13 +79,7 @@ public class Ui {
     public String NumberFormatExceptionMessage() {
         return "Please enter a valid task number\n";
     }
-    /**
-     * A line to separate messages.
-     * @return a string message of the segmentation between messages.
-     */
-    public String line() {
-        return this.line;
-    }
+
     /**
      * A message to denote successful addition of the task to the TaskList.
      * @return a string to affirm the user.
@@ -93,6 +89,6 @@ public class Ui {
     }
 
     public String updateSuccess(int index) {
-        return String.format("Successfully updated task %d", index);
+        return String.format("Successfully updated task %d\n", index);
     }
 }

@@ -1,7 +1,5 @@
 package tasks;
 
-import tasks.EventTask;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +7,7 @@ public class TaskList {
     private final List<Task> taskList;
 
     public TaskList() {
-        this.taskList = new ArrayList<Task>();
+        this.taskList = new ArrayList<>();
     }
     /**
      * Adds the task to the list of tasks.
@@ -29,7 +27,7 @@ public class TaskList {
             return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.\n",
                     deletedTask.getDescription(), taskList.size());
         } else {
-            return "There is no such task number!";
+            return "There is no such task number!\n";
         }
     }
     /**
@@ -97,8 +95,7 @@ public class TaskList {
         if (index >= 0 && index < taskList.size()) {
             Task t = taskList.get(index);
             t.markAsDone();
-            return String.format("Nice I've marked this task as not done yet: \n%s %s",
-                    line(), t.getDescription());
+            return String.format("Nice I've marked this task as done!: \n %s", t.getDescription());
         } else {
             return "Invalid Task Number.\n";
         }
@@ -112,8 +109,7 @@ public class TaskList {
             Task t = taskList.get(index);
             t.unMark();
             String response = String.format("%s", t.getDescription());
-            return "OK, I've marked this task as not done yet: \n"
-                    + line() + response;
+            return "OK, I've marked this task as not done yet: \n" + response;
         } else {
             return "Invalid Task Number.\n";
         }
@@ -140,14 +136,5 @@ public class TaskList {
     public void update(int index, Task updatedTask) {
         this.taskList.remove(index);
         this.taskList.add(index, updatedTask);
-    }
-
-    /**
-     * A line to separate messages.
-     * @return a string message of the segmentation between messages.
-     */
-    public String line() {
-        return "_______________________________________________________\n";
-
     }
 }
