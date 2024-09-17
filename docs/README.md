@@ -9,7 +9,7 @@ Graphical User Interface (GUI).
 
 ## Quick start  
 1. Ensure you have Java 17 or above installed in your computer.
-2. Download the latest `.jar` file from [here](../build/libs/janet.jar).
+2. Download the latest `.jar` file from [here]().
 3. Copy the file to the folder you want to use as the home folder for Janet.
 4. Double-click on the `.jar` file to start! (Alternatively, you could open 
 a command terminal, `cd` into the folder you put the jar file in, and use `java -jar janet.jar`
