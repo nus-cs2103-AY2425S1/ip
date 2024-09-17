@@ -25,6 +25,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private SlothingWaffler slothingWaffler;
+    private final String exitMessage = "See you next time! Remember to get a waffle!";
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/sleeper.png"));
     private final Image slothImage = new Image(this.getClass().getResourceAsStream("/images/sloth.png"));
@@ -57,7 +58,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (response.equals("See you next time! Remember to get a waffle!")) {
+        if (response.equals(exitMessage)) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
             pause.setOnFinished(event -> Platform.exit());
             pause.play();
