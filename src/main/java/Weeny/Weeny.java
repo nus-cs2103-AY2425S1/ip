@@ -82,12 +82,14 @@ public class Weeny extends Application {
                     break;
 
                 case "mark":
+                    validateMarkUnmarkDeleteInput(input);
                     int markIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(markIndex, taskList.size(), "mark");
                     taskList.markAsDone(markIndex);
                     return ui.showMarkMessage(taskList.getTask(markIndex));
 
                 case "unmark":
+                    validateMarkUnmarkDeleteInput(input);
                     int unmarkIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(unmarkIndex, taskList.size(), "unmark");
                     taskList.markAsNotDone(unmarkIndex);
@@ -121,6 +123,7 @@ public class Weeny extends Application {
                     return ui.printTaskAddedMessage(deadlineTask, taskList.size());
 
                 case "delete":
+                    validateMarkUnmarkDeleteInput(input);
                     int initialDeleteSize = taskList.size();
                     int deleteIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(deleteIndex, taskList.size(), "delete");
@@ -130,10 +133,12 @@ public class Weeny extends Application {
                     return ui.showTaskDeletedMessage(removedTask, taskList.size());
 
                 case "find":
+                    validateFindScheduleInput(input, "find");
                     String keyWord = input.substring(5);
                     return ui.showSearchResult(taskList.findTask(keyWord));
 
                 case "schedule":
+                    validateFindScheduleInput(input, "schedule");
                     String date = input.substring(9);
                     return ui.showScheduleMessage(taskList.getSchedule(date), date);
 
@@ -197,4 +202,29 @@ public class Weeny extends Application {
             throw new IllegalArgumentException("Deadline details are incomplete.");
         }
     }
+
+    /**
+     * Validates input for a "find" and "schedule" command.
+     *
+     * @param input The command input.
+     * @throws IllegalArgumentException if the input lacks necessary details.
+     */
+    private void validateFindScheduleInput(String input, String command) {
+        if (input.length() <= (command.equals("find") ? 5 : 9)) {
+            throw new IllegalArgumentException((command.equals("find") ? "Search keyword" : "Date") + " is missing.");
+        }
+    }
+
+    /**
+     * Validates input for a "mark", "unmark" and "delete" command.
+     *
+     * @param input The command input.
+     * @throws IllegalArgumentException if the input lacks necessary details.
+     */
+    private void validateMarkUnmarkDeleteInput(String input) {
+        if (input.length() <= 5 || !input.substring(5).matches("\\d+")) {
+            throw new IllegalArgumentException("Index is missing or invalid.");
+        }
+    }
+
 }
