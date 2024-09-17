@@ -46,6 +46,6 @@ public class YapperBot {
      */
     public String getResponse(String input) {
         assert input != null && !input.trim().isEmpty() : "Input should not be null or empty";
-        return parser.executeCommandAndGetResponse(input, tasks, ui, storage);
+        return parser.executeCommandAndGetResponse(input, tasks, storage);
     }
 }

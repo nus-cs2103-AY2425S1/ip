@@ -16,11 +16,10 @@ public class Parser {
      *
      * @param userInput The raw input from the user.
      * @param tasks The TaskList object to manipulate tasks.
-     * @param ui The Ui object to handle user interactions.
      * @param storage The Storage object to handle saving and loading of tasks.
      * @return A string response to the user command.
      */
-    public String executeCommandAndGetResponse(String userInput, TaskList tasks, Ui ui, Storage storage) {
+    public String executeCommandAndGetResponse(String userInput, TaskList tasks, Storage storage) {
         StringBuilder response = new StringBuilder();
         Commands command = parseCommand(userInput);
         assert command != null : "Parsed command should not be null";
