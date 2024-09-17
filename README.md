@@ -24,4 +24,20 @@ Features:
 
 If you are a Java programmer, you can use it for practicing Java as well!
 
-Here is the `main` method: 
+Here is the `main` method in `stelle.ui.Main`: 
+```
+   @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setStelle(stelle); // inject the Duke instance
+            stage.setTitle("Stelle (simulated)");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
