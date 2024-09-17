@@ -39,12 +39,14 @@ public class BrainRot {
     public String run(String userInput) {
 
         String[] parsedInput = Parser.parse(userInput);
+        assert parsedInput.length == 2 : "There should only be two parts of the input";
         String action = parsedInput[0];
         String details = parsedInput[1];
         System.out.println(action);
         System.out.println(details);
 
         try {
+
             return switch (action) {
                 case "list" -> ui.showTaskList(tasks);
                 case "bye" -> ui.showExit();
