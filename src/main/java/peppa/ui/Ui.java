@@ -22,8 +22,7 @@ public class Ui {
      * Shows welcome message to the user.
      */
     public static String showWelcome() {
-        String logo = "Peppa";
-        return "Hello! My name is Peppa. " + logo + "\n" + "What can I do for you?";
+        return "Hello! My name is Peppa." + "\n" + "What can I do for you?";
     }
 
     /**
