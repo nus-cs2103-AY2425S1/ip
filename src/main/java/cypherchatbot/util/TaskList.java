@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import cypherchatbot.CypherException;
 import cypherchatbot.task.Task;
 import cypherchatbot.task.TaskComparator;
 
@@ -50,7 +51,7 @@ public class TaskList {
      * @param storage The Storage object used to update the task's status in the respective file.
      * @return A String message confirming that the task has been marked as completed.
      */
-    public Task markTask(int i, Storage storage) {
+    public Task markTask(int i, Storage storage) throws CypherException {
         Task task = this.taskList.get(i);
         String oldLine = task.toStringInFile();
         task.markAsComplete();
@@ -66,7 +67,7 @@ public class TaskList {
      * @param storage The Storage object used to update the task's status in the respective file.
      * @return A String message confirming that the task has been marked as uncompleted.
      */
-    public Task unmarkTask(int i, Storage storage) {
+    public Task unmarkTask(int i, Storage storage) throws CypherException {
         Task task = this.taskList.get(i);
         String oldLine = task.toStringInFile();
         task.markAsIncomplete();

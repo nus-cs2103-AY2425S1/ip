@@ -1,5 +1,6 @@
 package cypherchatbot.util;
 
+import cypherchatbot.CypherException;
 import cypherchatbot.task.Deadline;
 import cypherchatbot.task.Task;
 import cypherchatbot.task.ToDo;
@@ -33,7 +34,7 @@ public class StorageTest {
             writeToFile.close();
 
             Task task1 = new ToDo("testTask1");
-            task1.completeTask();
+            task1.markAsComplete();
             Task task2 = new ToDo("testTask2");
             Task deadline = new Deadline("dTask", LocalDateTime.parse("2015-11-12 14:11", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             ArrayList<Task> output = new ArrayList<>();
@@ -42,7 +43,7 @@ public class StorageTest {
             output.add(deadline);
 
             assertEquals(output,new Storage(filepath).load());
-        } catch (IOException e) {
+        } catch (IOException | CypherException e) {
             System.out.println(e.toString());
         }
 

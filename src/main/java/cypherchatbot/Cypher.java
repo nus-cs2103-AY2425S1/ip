@@ -41,6 +41,8 @@ public class Cypher {
         } catch (FileNotFoundException e) {
             tasks = new TaskList();
             this.sendDialog(ui.showLoadingError(filePath));
+        } catch (CypherException e) {
+            this.sendDialog(ui.showError(e.getMessage()));
         }
     }
 

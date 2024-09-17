@@ -11,14 +11,14 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        String str = this.completed ? "[T][X] " : "[T][ ] ";
+        String str = this.isComplete ? "[T][X] " : "[T][ ] ";
         str += this.description;
         return str;
     }
 
     @Override
     public String toStringInFile() {
-        int val = this.completed ? 1 : 0;
+        int val = this.isComplete ? 1 : 0;
         return String.format("T|%d|%s", val, this.description);
     }
 
