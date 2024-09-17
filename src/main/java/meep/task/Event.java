@@ -6,18 +6,22 @@ package meep.task;
  */
 public class Event extends Task {
 
-    /** The start time of the event. */
+    /**
+     * The start time of the event.
+     */
     private final String from;
 
-    /** The end time of the event. */
+    /**
+     * The end time of the event.
+     */
     private final String to;
 
     /**
      * Constructs an {@code Event} task with the specified description, start time, and end time.
      *
      * @param description A description of the event.
-     * @param from The start time of the event.
-     * @param to The end time of the event.
+     * @param from        The start time of the event.
+     * @param to          The end time of the event.
      */
     public Event(String description, String from, String to) {
         super(description);
