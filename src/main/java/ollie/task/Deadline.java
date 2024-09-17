@@ -32,16 +32,27 @@ public class Deadline extends Task {
      * @param command The command entered by the user.
      * @throws OllieException If the description is empty or the deadline is not provided.
      */
-    @Override
-    public void validateDescription(String command) throws OllieException {
-        String[] parts = command.split(" /by ");
-        if (parts.length != 2) {
-            throw new OllieException("Please enter a name and deadline for the task! ☺");
-        }
-        if (parts[0].trim().isEmpty()) {
+    public static void validateDescription(String command) throws OllieException {
+        if (command.trim().equalsIgnoreCase("deadline")) {
             throw new EmptyDescriptionException("deadline");
         }
-        if (parts[1].trim().isEmpty()) {
+
+        if (!command.contains(" /by:")) {
+            throw new OllieException("Please enter in the format:\n"
+                    + "deadline <description> /by: <date>\n"
+                    + "Example: deadline return book /by: 2021-09-30 18:00");
+        }
+
+        String description = command.substring(8, command.indexOf(" /by:")).trim();
+        String deadline = command.substring(command.indexOf(" /by:") + 5).trim();
+
+        // Handles Empty Description, e.g., "deadline /by: 2021-09-30 18:00"
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("deadline");
+        }
+
+        // Handles Missing Deadline, e.g., "deadline return book /by:"
+        if (deadline.isEmpty()) {
             throw new OllieException("Please enter a deadline for the task! ☺");
         }
     }
@@ -54,13 +65,9 @@ public class Deadline extends Task {
      * @throws OllieException If the command is in the wrong format or the date is invalid.
      */
     public static Deadline createTask(String command) throws OllieException {
-        String[] parts = command.substring(8).split(" /by:");
+        validateDescription(command);
 
-        if (parts.length != 2) {
-            throw new OllieException("Please enter in the format:\n"
-                    + "deadline <description> /by: <date>\n"
-                    + "Example: deadline return book /by: 2021-09-30 18:00");
-        }
+        String[] parts = command.substring(8).split(" /by:");
 
         DateTimeFormatter inputDate = Task.getInputDate();
 

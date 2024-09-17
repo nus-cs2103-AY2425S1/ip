@@ -54,13 +54,6 @@ public class Ui {
     }
 
     /**
-     * Shows the empty description error message based on the task type.
-     */
-    public static String showEmptyDescriptionError(String taskType) {
-        return "Please add a name for a " + taskType + " task!";
-    }
-
-    /**
      * Adds a Task object to the specified list of tasks.
      * @param task The task to add.
      * @param taskNumber The number of tasks in the list.

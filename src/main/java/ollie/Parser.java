@@ -18,11 +18,21 @@ public class Parser {
      * @param userCommand  The command entered by the user.
      * @param prefixLength The length of the prefix to trim.
      * @return The parsed task number.
-     * @throws OllieException If the task number is invalid.
+     * @throws OllieException If the task number is invalid or not provided.
      */
     public static int parseTaskNumber(String userCommand, int prefixLength) throws OllieException {
+        if (userCommand.length() <= prefixLength) {
+            throw new OllieException("Please specify a task number! ☺");
+        }
+
+        String remainingCommand = userCommand.substring(prefixLength).trim();
+
+        if (remainingCommand.isEmpty()) {
+            throw new OllieException("Please specify a task number! ☺");
+        }
+
         try {
-            return Integer.parseInt(userCommand.substring(prefixLength).trim()) - 1;
+            return Integer.parseInt(remainingCommand) - 1;
         } catch (NumberFormatException e) {
             throw new OllieException("Please enter a valid task number! ☺");
         }

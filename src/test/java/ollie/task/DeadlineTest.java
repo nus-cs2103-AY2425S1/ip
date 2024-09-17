@@ -42,19 +42,14 @@ public class DeadlineTest {
     public void createTask_missingDescription_exceptionThrown() {
         String command = "deadline";
         OllieException exception = assertThrows(OllieException.class, () -> Deadline.createTask(command));
-        assertEquals(
-                "Please enter in the format:\n"
-                        + "deadline <description> /by: <date>\n"
-                        + "Example: deadline return book /by: 2021-09-30 18:00",
-                exception.getMessage()
-        );
+        assertEquals("Please add a name for a deadline task!", exception.getMessage());
     }
 
     @Test
     public void createTask_missingDeadline_exceptionThrown() {
         String command = "deadline Submit report /by: ";
         OllieException exception = assertThrows(OllieException.class, () -> Deadline.createTask(command));
-        assertEquals("Please enter the date in the format: yyyy-MM-dd HH:mm", exception.getMessage());
+        assertEquals("Please enter a deadline for the task! ☺", exception.getMessage());
     }
 
     @Test

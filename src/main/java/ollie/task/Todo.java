@@ -24,8 +24,7 @@ public class Todo extends Task {
      * @param command The command entered by the user.
      * @throws EmptyDescriptionException If the description is empty.
      */
-    @Override
-    public void validateDescription(String command) throws EmptyDescriptionException {
+    public static void validateDescription(String command) throws EmptyDescriptionException {
         if (command.trim().isEmpty()) {
             throw new EmptyDescriptionException("todo");
         }
@@ -40,9 +39,7 @@ public class Todo extends Task {
      */
     public static Todo createTask(String command) throws EmptyDescriptionException {
         String description = command.substring(4).trim();
-        if (description.isEmpty()) {
-            throw new EmptyDescriptionException("todo");
-        }
+        validateDescription(description);
         return new Todo(description);
     }
 }
