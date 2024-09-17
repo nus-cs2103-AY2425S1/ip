@@ -70,7 +70,9 @@ public class Storage {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         ArrayList<Task> taskList = new ArrayList<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datFileName))) {
-            taskList.addAll((ArrayList<Task>) ois.readObject());
+            @SuppressWarnings("unchecked")
+            ArrayList<Task> loadedTasks = (ArrayList<Task>) ois.readObject();
+            taskList.addAll(loadedTasks);
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("An error occurred while loading tasks from file: " + e.getMessage());
         }
