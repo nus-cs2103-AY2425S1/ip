@@ -11,7 +11,7 @@ public class Ui {
     //=================================================================================================================
 
     /**
-     * Generic say method that takes in any String.
+     * Takes in any String and prints it out.
      *
      * @param output to be printed.
      * @return String to be printed.
@@ -83,7 +83,7 @@ public class Ui {
     }
 
     /**
-     * Formatted Exception message.
+     * Formats Exception message.
      *
      * @param output The exception message to be printed.
      * @return formatted String containing exception message.
