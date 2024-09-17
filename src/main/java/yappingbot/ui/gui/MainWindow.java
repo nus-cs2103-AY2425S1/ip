@@ -31,6 +31,7 @@ public class MainWindow extends VBox {
             this.getClass().getResourceAsStream("/images/DaDuke.png");
     private Image userImage;
     private Image ypImage;
+    private DialogBox lastDialogAdded;
 
     private volatile UiGui ui;
     private boolean updateOutput = false;
@@ -86,9 +87,12 @@ public class MainWindow extends VBox {
             assert ui.hasOutputLines();
             String response = ui.getNextOutputLine();
             assert response != null;
-
-            DialogBox replyDialogBox = DialogBox.getReplyDialog(response, ypImage);
-            dialogContainer.getChildren().add(replyDialogBox);
+            if (lastDialogAdded != null && lastDialogAdded.isReplyDialog()) {
+                lastDialogAdded.addLabel(response);
+            } else {
+                lastDialogAdded = DialogBox.getReplyDialog(response, ypImage);
+                dialogContainer.getChildren().add(lastDialogAdded);
+            }
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
@@ -108,7 +112,12 @@ public class MainWindow extends VBox {
 
         ui.pushInputLine(input);
         try {
-            dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+            if (lastDialogAdded != null && !lastDialogAdded.isReplyDialog()) {
+                lastDialogAdded.addLabel(input);
+            } else {
+                lastDialogAdded = DialogBox.getUserDialog(input, userImage);
+                dialogContainer.getChildren().add(lastDialogAdded);
+            }
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
