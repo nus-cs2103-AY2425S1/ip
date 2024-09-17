@@ -21,8 +21,8 @@ public class Event extends Task {
     /**
      * Constructor for an stelle.task.Event object. Sets name upon creation.
      * @param name Name of stelle.task.Event object.
-     * @param from A string indicating starting date and time of event.
-     * @param to A string indicating end date and time of event.
+     * @param from Starting date and time of event.
+     * @param to End date and time of event.
      */
     public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name, TaskType.EVENT);

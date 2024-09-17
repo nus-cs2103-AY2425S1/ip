@@ -19,6 +19,12 @@ public class ToDoTest {
     public void toString_constructorParams_correctName() {
         ToDo toDo = new ToDo("A todo");
         assertEquals("[T][ ] A todo", toDo.toString());
+
+        ToDo toDo2 = new ToDo("A                todo with   weird spacing");
+        assertEquals("[T][ ] A                todo with   weird spacing", toDo2.toString());
+
+        ToDo toDo3 = new ToDo("t");
+        assertEquals("[T][ ] t", toDo3.toString());
     }
 
     /**
@@ -27,11 +33,19 @@ public class ToDoTest {
     @Test
     public void markUnmark_noParams_correctStatus() {
         ToDo toDo = new ToDo("A todo");
+        ToDo toDo2 = new ToDo("A                todo with   weird spacing");
         toDo.mark();
         assertEquals("[T][X] A todo", toDo.toString());
         assertEquals(true, toDo.getIsDone());
         toDo.unmark();
         assertEquals("[T][ ] A todo", toDo.toString());
         assertEquals(false, toDo.getIsDone());
+
+        toDo2.unmark();
+        assertEquals("[T][ ] A                todo with   weird spacing", toDo2.toString());
+        assertEquals(false, toDo2.getIsDone());
+        toDo2.mark();
+        assertEquals("[T][X] A                todo with   weird spacing", toDo2.toString());
+        assertEquals(true, toDo2.getIsDone());
     }
 }

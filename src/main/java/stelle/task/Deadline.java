@@ -20,7 +20,7 @@ public class Deadline extends Task {
     /**
      * Constructor for a stelle.task.Deadline object. Sets name upon creation.
      * @param name Name of stelle.task.Deadline object.
-     * @param by A string containing the date the deadline must be accomplished by.
+     * @param by The date the deadline must be accomplished by.
      */
     public Deadline(String name, LocalDateTime by) {
         super(name, TaskType.DEADLINE);
