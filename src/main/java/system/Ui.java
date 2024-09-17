@@ -37,6 +37,26 @@ public class Ui {
     }
 
     /**
+     * Displays a message saying hello as a salutation.
+     * @return a String message displaying hello.
+     */
+    public String hi() {
+        return "Hello! What can I do for you?";
+    }
+    /**
+     * Displays a message giving self introduction.
+     * @return a String message displaying an introduction message.
+     */
+    public String introduction() {
+        return "My name is Tanjiro and I can do many things, such as:\n"
+                + "todo *_name_* \n"
+                + "deadline *_name_* /by *_date_* [Date Format: yyyy-mm-dd hhmm]\n"
+                + "event *_name_* /from *_date_* /to *_date_* [Date Format: yyyy-mm-dd hhmm]\n"
+                + "find *_name_*\n"
+                + "view *_date_* [Date Format: yyyy-mm-dd]\n";
+    }
+
+    /**
      * Displays a message indicating that the task list is currently empty.
      * @return a String message displaying empty list.
      */

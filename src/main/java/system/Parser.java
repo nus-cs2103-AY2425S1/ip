@@ -33,13 +33,22 @@ public class Parser {
     }
 
     /**
-     * Checks if the provided input string equals, ignoring case sensitivity, to the keyword "list".
+     * Checks if the provided input string contains the keyword "list".
      *
      * @param input The String input to be checked.
      * @return true if the input string contains the substring "list"; false otherwise.
      */
     public boolean containList(String input) {
         return input.contains("list");
+    }
+    /**
+     * Checks if the provided input string contains the keyword "hello" or "hi".
+     *
+     * @param input The String input to be checked.
+     * @return true if the input string contains the substring "hello" or "hi"; false otherwise.
+     */
+    public boolean containHi(String input) {
+        return input.contains("hi") || input.contains("hello");
     }
 
     /**
@@ -188,6 +197,14 @@ public class Parser {
      */
     public String performListTasks() throws FileNotFoundException {
         return Task.list_task();
+    }
+
+    /**
+     * Display a hello message to the user.
+     * @return A String containing the hello message from Tanjiro
+     */
+    public String performHi() {
+        return ui.hi() + "\n" + ui.introduction();
     }
 
     /**

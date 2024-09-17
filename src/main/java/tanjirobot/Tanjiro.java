@@ -22,6 +22,7 @@ public class Tanjiro {
         Ui ui = new Ui();
         return ui.greet();
     }
+
     /**
      * Processes the user input and executes the corresponding command.
      * This method interprets the user's input using the Parser class,
@@ -61,6 +62,8 @@ public class Tanjiro {
         } else if (parser.containBye(userInput)) {
             response.append(ui.goodbye());
             parser.performBye();
+        } else if (parser.containHi(userInput)) {
+            response.append(parser.performHi());
         } else {
             response.append(ui.invalidInput());
         }
