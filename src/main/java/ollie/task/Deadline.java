@@ -11,6 +11,9 @@ public class Deadline extends Task {
 
     private LocalDate by;
 
+    /**
+     * Constructs a deadline object which represents a deadline task with description and due date.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;

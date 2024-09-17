@@ -13,7 +13,7 @@ import ollie.exception.OllieException;
 public class UndoCommand extends Command {
 
     /**
-     * Execute the undoing of a display task
+     * Executes the undoing of a task
      *
      * @param tasks   List of tasks.
      * @param ui      User interface controller.

@@ -13,7 +13,7 @@ import ollie.exception.OllieException;
 public class EmptyCommand extends Command {
 
     /**
-     * Execute the undoing of a display task
+     * Executes the undoing of a display task
      *
      * @param tasks   List of tasks.
      * @param ui      User interface controller.

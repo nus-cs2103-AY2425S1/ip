@@ -15,6 +15,13 @@ public class FindCommand extends Command {
         this.filterParameter = filterParameter;
     }
 
+    /**
+     * Executes the command to save find a task with description containing the specified keyword.
+     *
+     * @param tasks   List of tasks.
+     * @param ui      User interface controller.
+     * @param storage Storage controller for file manipulation.
+     */
     @Override
     public Response execute(TaskList tasks, Ui ui, Storage storage, History history) throws OllieException {
         assert(filterParameter != null);

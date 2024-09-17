@@ -12,7 +12,7 @@ import ollie.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Execute the call for Ui to print the list of tasks.
+     * Executes the call for Ui to print the list of tasks.
      *
      * @param tasks   List of tasks.
      * @param ui      User interface controller.
