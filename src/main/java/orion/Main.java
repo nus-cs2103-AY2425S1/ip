@@ -95,7 +95,12 @@ public class Main extends Application {
      * clearing the user input text box.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String orionText = orion.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(orionText, orionImage));
+
         userInput.clear();
     }
 
