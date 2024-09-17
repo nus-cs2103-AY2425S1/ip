@@ -26,6 +26,13 @@ public class TaskList {
         return tasks.size();
     }
     /**
+     * Check if the tasklist is empty or not
+     * @return true if the tasklist is empty
+     */
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+    /**
      * Gets task at a specific index in the task list
      * @param i The index to be retrieve
      * @return The task at the given index

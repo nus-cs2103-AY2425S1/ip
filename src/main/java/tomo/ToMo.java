@@ -26,11 +26,14 @@ public class ToMo {
         storage = new Storage(fileName);
         try {
             tasks = storage.load();
-            ui.println("Successfully loaded " + tasks.size() + " tasks");
+            if (tasks.size() == 0) {
+                ui.println("Oops, your file is empty, you have no task");
+            } else {
+                ui.println("Successfully loaded, you have " + tasks.size() + " tasks");
+            }
         } catch (ToMoException e) {
-            ui.println(e);
             tasks = new TaskList();
-            ui.println("Successfully loaded 0 task");
+            ui.println("Oops, your file is not found, you have no task");
         }
     }
 
@@ -67,6 +70,6 @@ public class ToMo {
     }
 
     public static void main(String[] args) {
-        new ToMo("../../../data/ToMo.txt").run();
+        new ToMo("data/ToMo.txt").run();
     }
 }

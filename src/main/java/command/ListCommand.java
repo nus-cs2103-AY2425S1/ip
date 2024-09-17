@@ -21,9 +21,13 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui) {
-        ui.println("The tasks list as follow:");
-        for (int i = 0; i < tasks.size(); ++i) {
-            ui.println((i + 1) + ". " + tasks.get(i));
+        if (tasks.isEmpty()) {
+            ui.println("Oops, you have no task");
+        } else {
+            ui.println("You have " + tasks.size() + " tasks as follow:");
+            for (int i = 0; i < tasks.size(); ++i) {
+                ui.println((i + 1) + ". " + tasks.get(i));
+            }
         }
     }
 }

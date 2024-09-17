@@ -1,3 +1,2 @@
-[T][ ] born
-[D][ ] borb (by: Jul 10 2002, 02:00 AM)
-[E][ ] live (from: Jul 10 2002, 02:00 AM to: Sep 02 2024, 11:00 PM)
+[T][ ] x
+[T][ ] y

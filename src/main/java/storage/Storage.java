@@ -17,9 +17,12 @@ import tasklist.TaskList;
 /**
  * Handles loading tasks from and storing tasks to from file
 */
-
 public class Storage {
     private File file;
+    /**
+     * Constructor of the storage
+     * @param fileName The to load and store tasks
+     */
     public Storage(String fileName) {
         this.file = new File(fileName);
     }

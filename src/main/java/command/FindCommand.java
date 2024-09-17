@@ -25,9 +25,13 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui) {
         TaskList filteredTasks = tasks.find(this.pattern);
-        ui.println("The filtered tasks list as follow:");
-        for (int i = 0; i < filteredTasks.size(); ++i) {
-            ui.println((i + 1) + ". " + filteredTasks.get(i));
+        if (filteredTasks.isEmpty()) {
+            ui.println("You have no task that contains pattern " + pattern);
+        } else {
+            ui.println("You have " + tasks.size() + " tasks that contains pattern " + pattern + " as follow:");
+            for (int i = 0; i < filteredTasks.size(); ++i) {
+                ui.println((i + 1) + ". " + filteredTasks.get(i));
+            }
         }
     }
 }
