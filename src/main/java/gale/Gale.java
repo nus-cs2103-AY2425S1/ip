@@ -162,7 +162,7 @@ public class Gale {
      */
     public String findTasks(String input) throws GaleException {
         String keyword = Parser.parseKeyword(input);
-        ArrayList<Task> foundTasks = taskList.findTasks(keyword);
+        TaskList foundTasks = taskList.findTasks(keyword);
         return ui.showFoundTasks(foundTasks, keyword);
     }
 

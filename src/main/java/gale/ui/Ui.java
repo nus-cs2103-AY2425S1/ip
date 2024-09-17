@@ -66,16 +66,11 @@ public class Ui {
      * @return the message to the user as a String
      */
     public String displayTaskList(TaskList taskList) {
-        StringBuilder sb = new StringBuilder();
         if (taskList.isEmpty()) {
-            sb.append("No tasks breezing around now!\n");
+            return "No tasks breezing around now!\n";
         } else {
-            sb.append("You are breezy with these tasks:\n");
-            for (int i = 0; i < taskList.size(); i++) {
-                sb.append(" ").append(i + 1).append(". ").append(taskList.getTask(i)).append("\n");
-            }
+            return "You are breezy with these tasks:\n" + formatTaskList(taskList);
         }
-        return sb.toString();
     }
 
     /**
@@ -117,15 +112,23 @@ public class Ui {
      * @param keyword the keyword the user is searching for
      * @return the message to the user as a String
      */
-    public String showFoundTasks(ArrayList<Task> foundTasks, String keyword) {
-        StringBuilder sb = new StringBuilder();
+    public String showFoundTasks(TaskList foundTasks, String keyword) {
         if (foundTasks.isEmpty()) {
-            sb.append("Oops. I combed through the clouds, but there were no tasks found with that keyword.\n");
+            return "Oops. I combed through the clouds, but there were no tasks found with that keyword.\n";
         } else {
-            sb.append("Whoosh! Here are your matching tasks!\n");
-            for (int i = 0; i < foundTasks.size(); i++) {
-                sb.append(" ").append(i + 1).append(". ").append(foundTasks.get(i)).append("\n");
-            }
+            return "Whoosh! Here are your matching tasks!\n" + formatTaskList(foundTasks);
+        }
+    }
+
+    /**
+     * Returns a formatted String that contains the list of tasks in the task list.
+     * @param taskList the list of tasks to be formatted into a String
+     * @return the formatted list of tasks as a String
+     */
+    public String formatTaskList(TaskList taskList) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            sb.append(" ").append(i + 1).append(". ").append(taskList.getTask(i)).append("\n");
         }
         return sb.toString();
     }

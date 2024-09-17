@@ -20,7 +20,7 @@ import gale.task.ToDo;
  */
 public class Parser {
 
-    private static ArrayList<DateTimeFormatter> formatters = new ArrayList<>(
+    public static ArrayList<DateTimeFormatter> formatters = new ArrayList<>(
             List.of(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                     DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"))
     );
@@ -91,18 +91,9 @@ public class Parser {
         if (description.isEmpty()) {
             throw new GaleException(exceptionMsg);
         }
-        if (description.startsWith("high")) {
-            description = description.substring(5).trim();
-            return new ToDo(description, Priority.HIGH);
-        } else if (description.startsWith("medium")) {
-            description = description.substring(7).trim();
-            return new ToDo(description, Priority.MEDIUM);
-        } else if (description.startsWith("low")) {
-            description = description.substring(4).trim();
-            return new ToDo(description, Priority.LOW);
-        } else {
-            return new ToDo(description, Priority.NONE);
-        }
+        Priority priority = extractPriority(description);
+        description = removePriorityPrefix(description);
+        return new ToDo(description, priority);
     }
 
     /**
@@ -113,30 +104,13 @@ public class Parser {
      * @throws GaleException if the input string does not match the Deadline format
      */
     public static Deadline parseDeadline(String input) throws GaleException {
-        String exceptionMsg = "Your deadline got tossed by the wind! "
-            + "Please use 'deadline [description] /by [date]'.";
-        if (input.length() <= 9) {
-            throw new GaleException(exceptionMsg);
-        }
-        String[] strA = input.substring(9).split("/by");
-        if (strA.length != 2 || strA[0].trim().isEmpty() || strA[1].trim().isEmpty()) {
-            throw new GaleException(exceptionMsg);
-        }
-        String description = strA[0].trim();
-        String by = strA[1].trim();
-        Priority priority;
-        if (description.startsWith("high")) {
-            description = description.substring(5).trim();
-            priority = Priority.HIGH;
-        } else if (description.startsWith("medium")) {
-            description = description.substring(7).trim();
-            priority = Priority.MEDIUM;
-        } else if (description.startsWith("low")) {
-            description = description.substring(4).trim();
-            priority = Priority.LOW;
-        } else {
-            priority = Priority.NONE;
-        }
+        String[] parts = splitInput(input, "deadline", 9, "/by", 2,
+    "Your deadline is lost in the wind! "
+                + "Please use 'deadline [priority] [description] /by [date and time]'.");
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        Priority priority = extractPriority(description);
+        description = removePriorityPrefix(description);
         try {
             return new Deadline(description, by, priority);
         } catch (DateTimeParseException e) {
@@ -153,37 +127,64 @@ public class Parser {
      * @throws GaleException if the input string does not match any of the task types
      */
     public static Event parseEvent(String input) throws GaleException {
-        String exceptionMsg = "Your event is lost in the wind! "
-            + "Please use 'event [description] /from [start] /to [end]'.";
-        if (input.length() <= 6) {
-            throw new GaleException(exceptionMsg);
-        }
-        String[] strA = input.substring(6).split("/from|/to");
-        if (strA.length != 3 || strA[0].trim().isEmpty() || strA[1].trim().isEmpty()
-                || strA[2].trim().isEmpty()) {
-            throw new GaleException(exceptionMsg);
-        }
-        String description = strA[0].trim();
-        String from = strA[1].trim();
-        String to = strA[2].trim();
-        Priority priority;
-        if (description.startsWith("high")) {
-            description = description.substring(5).trim();
-            priority = Priority.HIGH;
-        } else if (description.startsWith("medium")) {
-            description = description.substring(7).trim();
-            priority = Priority.MEDIUM;
-        } else if (description.startsWith("low")) {
-            description = description.substring(4).trim();
-            priority = Priority.LOW;
-        } else {
-            priority = Priority.NONE;
-        }
+        String[] parts = splitInput(input, "event", 6, "/from|/to", 3,
+    "Your event is lost in the wind! "
+                + "Please use 'event [priority] [description] /from [start date] /to [end date]'.");
+        String description = parts[0].trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        Priority priority = extractPriority(description);
+        description = removePriorityPrefix(description);
         try {
             return new Event(description, from, to, priority);
         } catch (DateTimeParseException e) {
             throw new GaleException("Oops! The wind blew away your date. "
                 + "Please use 'yyyy-MM-dd HH:mm' or 'd/M/yyyy HH:mm'.");
+        }
+    }
+
+    public static String[] splitInput(String input, String command, int prefixLen, String regex, int partsNum,
+            String errorMsg) throws GaleException {
+        if (input.length() <= prefixLen) {
+            throw new GaleException(errorMsg);
+        }
+        if (!input.contains(regex)) {
+            throw new GaleException(errorMsg);
+        }
+        String[] parts = input.substring(prefixLen).split(regex);
+        boolean isPriorityInvalid;
+        boolean isInvalidCommand = parts.length != partsNum || parts[0].trim().isEmpty() || parts[1].trim().isEmpty();
+        if (command.equals("event")) {
+            isPriorityInvalid = parts[2].trim().isEmpty();
+            isInvalidCommand = isInvalidCommand || isPriorityInvalid;
+        }
+        if (isInvalidCommand) {
+            throw new GaleException(errorMsg);
+        }
+        return parts;
+    }
+
+    public static Priority extractPriority(String desc) {
+        if (desc.startsWith("high")) {
+            return Priority.HIGH;
+        } else if (desc.startsWith("medium")) {
+            return Priority.MEDIUM;
+        } else if (desc.startsWith("low")) {
+            return Priority.LOW;
+        } else {
+            return Priority.NONE;
+        }
+    }
+
+    public static String removePriorityPrefix(String desc) {
+        if (desc.startsWith("high")) {
+            return desc.substring(5).trim();
+        } else if (desc.startsWith("medium")) {
+            return desc.substring(7).trim();
+        } else if (desc.startsWith("low")) {
+            return desc.substring(4).trim();
+        } else {
+            return desc;
         }
     }
 
