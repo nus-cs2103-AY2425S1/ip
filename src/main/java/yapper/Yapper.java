@@ -39,7 +39,9 @@ public class Yapper {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(
+                storage.load()
+            );
         } catch (IOException e) {
             ui.printLoadingError();
             tasks = new TaskList();
@@ -52,13 +54,16 @@ public class Yapper {
 
     /**
      * Processes the user's command and returns the appropriate response.
-     * @param fullCommand
-     * @param commandType
-     * @param expectedParts
-     * @return
-     * @throws YapperException
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @param commandType The type of the command.
+     * @param expectedParts The expected number of parts of the command.
+     * @return The parts of the command.
+     * @throws YapperException If the command is incomplete.
      */
-    private String[] splitAndValidateCommand(String fullCommand, String commandType, int expectedParts) throws YapperException {
+    private String[] splitAndValidateCommand(
+        String fullCommand, String commandType, int expectedParts
+    ) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < expectedParts) {
             throw new EmptyDescriptionException(commandType);
@@ -74,7 +79,7 @@ public class Yapper {
      * @throws YapperException If the task number is invalid or no task number is provided.
      */
     private String handleMark(String fullCommand) throws YapperException {
-        String[] parts = splitAndValidateCommand(fullCommand, "mark", 2);  
+        String[] parts = splitAndValidateCommand(fullCommand, "mark", 2);
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new InvalidTaskNumberException(taskIndex);
@@ -84,7 +89,7 @@ public class Yapper {
         ui.printTaskMarked(task);
         assert task.isDone() : "Task should be marked as done";
         return "Awesome job, Boss! I've marked this task as complete:\n  "
-               + task;
+            + task;
     }
 
     /**
@@ -95,10 +100,7 @@ public class Yapper {
      * @throws YapperException If the task number is invalid or no task number is provided.
      */
     private String handleUnmark(String fullCommand) throws YapperException {
-        String[] parts = splitAndValidateCommand(fullCommand, "unmark", 2);  
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("unmark");
-        }
+        String[] parts = splitAndValidateCommand(fullCommand, "unmark", 2);
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new InvalidTaskNumberException(taskIndex);
@@ -107,7 +109,7 @@ public class Yapper {
         task.markAsNotDone();
         assert !task.isDone() : "Task should be marked as not done";
         return "Understood, Boss! I've marked this task as not done yet:\n  "
-               + task;
+            + task;
     }
 
     /**
@@ -118,12 +120,12 @@ public class Yapper {
      * @throws YapperException If the task description is empty.
      */
     private String handleTodo(String fullCommand) throws YapperException {
-        String[] parts = splitAndValidateCommand(fullCommand, "todo", 2);  
+        String[] parts = splitAndValidateCommand(fullCommand, "todo", 2);
         Task task = new Todo(parts[1]);
         tasks.addTask(task);
         assert tasks.getSize() > 0 : "Task should be added to the list";
         return "Got it, Boss! I've added this task to your list:\n  "
-               + task + "\nNow you have " + tasks.getSize() + " tasks to crush!";
+            + task + "\nNow you have " + tasks.getSize() + " tasks to crush!";
     }
 
     /**
@@ -131,27 +133,19 @@ public class Yapper {
      *
      * @param fullCommand The full command string entered by the user.
      * @return A confirmation message that the Deadline task has been added.
-     * @throws YapperException If the deadline description or date is missing.
+     * @throws YapperException If the deadline description or date is missing, or the format is incorrect.
      */
-/**
- * Handles the "deadline" command by adding a new Deadline task.
- *
- * @param fullCommand The full command string entered by the user.
- * @return A confirmation message that the Deadline task has been added.
- * @throws YapperException If the deadline description or date is missing, or the format is incorrect.
- */
     private String handleDeadline(String fullCommand) throws YapperException {
         if (!fullCommand.contains("/by")) {
             throw new YapperException("Boss, you need to specify a deadline using '/by'.");
         }
 
         String[] descriptionAndDeadline = fullCommand.split(" /by ");
-        String description = descriptionAndDeadline[0].substring(9).trim(); 
+        String description = descriptionAndDeadline[0].substring(9).trim();
 
         if (descriptionAndDeadline.length < 2) {
             throw new YapperException("Boss, you need to provide both the description and the deadline.");
         }
-
 
         String deadline = descriptionAndDeadline[1].trim();
 
@@ -163,7 +157,6 @@ public class Yapper {
             + task + "\nNow you have " + tasks.getSize() + " tasks on the clock.";
     }
 
-
     /**
      * Handles the "event" command by adding a new Event task.
      *
@@ -172,33 +165,33 @@ public class Yapper {
      * @throws YapperException If the event description, start time, or end time is missing.
      */
     private String handleEvent(String fullCommand) throws YapperException {
-        // Validate if the command contains both /from and /to parts
         if (!fullCommand.contains("/from") || !fullCommand.contains("/to")) {
             throw new YapperException("Boss, the event command needs both a start and end time.");
         }
-    
+
         String[] descriptionAndTimes = fullCommand.split(" /from ");
-        String description = descriptionAndTimes[0].substring(6).trim();  // Extract the description part
-    
+        String description = descriptionAndTimes[0].substring(6).trim();
+
         if (descriptionAndTimes.length < 2) {
             throw new YapperException("Boss, the event command needs both a start and end time.");
         }
-    
+
         String[] times = descriptionAndTimes[1].split(" /to ");
         if (times.length < 2) {
             throw new YapperException("Boss, the event command needs both a start and end time.");
         }
-    
+
         String from = times[0].trim();
         String to = times[1].trim();
-    
+
         Task task = new Event(description, from, to);
         tasks.addTask(task);
-    
+
         assert tasks.getSize() > 0 : "Task should be added to the list";
         return "Got it, Boss! Event added to your schedule:\n  "
-               + task + "\nNow you have " + tasks.getSize() + " tasks to manage!";
+            + task + "\nNow you have " + tasks.getSize() + " tasks to manage!";
     }
+
     /**
      * Handles the "delete" command by removing a task from the list.
      *
@@ -207,7 +200,7 @@ public class Yapper {
      * @throws YapperException If the task number is invalid or no task number is provided.
      */
     private String handleDelete(String fullCommand) throws YapperException {
-        String[] parts = splitAndValidateCommand(fullCommand, "delete", 2);  
+        String[] parts = splitAndValidateCommand(fullCommand, "delete", 2);
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         assert taskIndex >= 0 : "Task index should be positive";
         if (taskIndex >= tasks.getSize()) {
@@ -216,7 +209,7 @@ public class Yapper {
         Task task = tasks.getTask(taskIndex);
         tasks.deleteTask(taskIndex);
         return "Task removed, Boss! I've taken care of this:\n  "
-               + task + "\nNow you have " + tasks.getSize() + " tasks left on the list.";
+            + task + "\nNow you have " + tasks.getSize() + " tasks left on the list.";
     }
 
     /**
@@ -228,8 +221,8 @@ public class Yapper {
      */
     private String handleFind(String fullCommand) throws YapperException {
         String[] parts = splitAndValidateCommand(fullCommand, "find", 2);
-        String keyword = parts[1].toLowerCase(); // Convert the keyword to lowercase once
-        List<Task> matchingTasks = tasks.findTasks(keyword); // Case-insensitive search
+        String keyword = parts[1].toLowerCase();
+        List<Task> matchingTasks = tasks.findTasks(keyword);
 
         if (matchingTasks.isEmpty()) {
             return "Sorry, Boss. I couldn't find any tasks matching the keyword '" + keyword + "'.";
@@ -274,25 +267,23 @@ public class Yapper {
 
         Task task = tasks.getTask(taskIndex);
 
-        if (!(task instanceof Deadline)) {
+        if (!(task instanceof Deadline deadlineTask)) {
             throw new YapperException("Snooze is only applicable for deadlines.");
         }
 
-        Deadline deadlineTask = (Deadline) task;
         String snoozeAmount = parts[2];
 
         deadlineTask.snoozeDeadline(snoozeAmount);
 
-        return "Task snoozed, Boss! New deadline: " + deadlineTask.toString();
+        return "Task snoozed, Boss! New deadline: " + deadlineTask;
     }
-
 
     /**
      * Parses the user's command and executes the appropriate action.
      *
      * @param fullCommand The full command string entered by the user.
-     * @param tasks       The task list that stores all the tasks.
-     * @param storage     The storage mechanism to save and load tasks.
+     * @param tasks The task list that stores all the tasks.
+     * @param storage The storage mechanism to save and load tasks.
      * @return The result of executing the command as a string message.
      * @throws YapperException If an error occurs while processing the command.
      */
@@ -323,7 +314,7 @@ public class Yapper {
                 storage.save(tasks.getTasks());
                 return exitApplication();
             case "snooze":
-                return handleSnooze(fullCommand); 
+                return handleSnooze(fullCommand);
             default:
                 throw new UnknownCommandException(command);
             }

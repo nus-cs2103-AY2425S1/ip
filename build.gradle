@@ -28,28 +28,28 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-test {
-    enabled = false // Disable all tests
-}
-
-
 // test {
-//     useJUnitPlatform()
-
-//     testLogging {
-//         events "passed", "skipped", "failed"
-
-//         showExceptions true
-//         exceptionFormat "full"
-//         showCauses true
-//         showStackTraces true
-//         showStandardStreams = false
-//     }
+//     enabled = false // Disable all tests
 // }
 
-tasks.withType(Checkstyle) {
-    enabled = false
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
 }
+
+// tasks.withType(Checkstyle) {
+//     enabled = false
+// }
 
 application {
     mainClass.set("yapper.Launcher")

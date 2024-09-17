@@ -50,7 +50,7 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
     }
 
-     /**
+    /**
      * Snoozes the deadline by a specified number of days or hours.
      *
      * @param snoozeAmount The amount to snooze by, e.g., "2d" for 2 days or "3h" for 3 hours.
@@ -64,7 +64,8 @@ public class Deadline extends Task {
             int hoursToSnooze = Integer.parseInt(snoozeAmount.replace("h", ""));
             this.by = this.by.plusHours(hoursToSnooze);
         } else {
-            throw new YapperException("Invalid snooze format. Use 'd' for days or 'h' for hours. Example: snooze 1 2d (for 2 days) or snooze 2 3h (for 3 hours).");
+            throw new YapperException("Invalid snooze format. Use 'd' for days or 'h' for hours. "
+                + "Example: snooze 1 2d (for 2 days) or snooze 2 3h (for 3 hours).");
         }
     }
 

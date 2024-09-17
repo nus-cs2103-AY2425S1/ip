@@ -1,6 +1,11 @@
 package yapper.storage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import yapper.exception.YapperException;
@@ -91,14 +96,14 @@ public class Storage {
      */
     private Task createTaskFromParts(String[] parts) throws YapperException {
         switch (parts[0]) {
-            case "T":
-                return new Todo(parts[2]);
-            case "D":
-                return new Deadline(parts[2], parts[3]);
-            case "E":
-                return new Event(parts[2], parts[3], parts[4]);
-            default:
-                throw new YapperException("Unknown task type: " + parts[0]);
+        case "T":
+            return new Todo(parts[2]);
+        case "D":
+            return new Deadline(parts[2], parts[3]);
+        case "E":
+            return new Event(parts[2], parts[3], parts[4]);
+        default:
+            throw new YapperException("Unknown task type: " + parts[0]);
         }
     }
 

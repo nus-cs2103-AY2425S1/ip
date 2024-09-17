@@ -22,7 +22,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
     @FXML
-    private Label nameLabel;  
+    private Label nameLabel;
 
     /**
      * Constructs a DialogBox with the given text, image, and speaker name.
@@ -43,7 +43,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        nameLabel.setText(name);  // Set the speaker's name
+        nameLabel.setText(name); // Set the speaker's name
     }
 
     /**
@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
      * @return A DialogBox containing the user's input.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img, "User");  // Pass "User" as the speaker name
+        return new DialogBox(text, img, "User"); // Pass "User" as the speaker name
     }
 
     /**
@@ -65,7 +65,7 @@ public class DialogBox extends HBox {
      * @return A DialogBox containing the system's response.
      */
     public static DialogBox getYapperDialog(String text, Image img) {
-        var db = new DialogBox(text, img, "Yapper");  // Pass "Yapper" as the speaker name
+        var db = new DialogBox(text, img, "Yapper"); // Pass "Yapper" as the speaker name
         db.flip();
         return db;
     }
