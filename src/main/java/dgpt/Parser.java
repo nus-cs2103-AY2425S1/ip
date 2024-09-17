@@ -91,16 +91,7 @@ public class Parser {
                         + "(e.g. \"delete 1\")");
             }
 
-            int index = Integer.parseInt(inputs[1]) - 1;
-
-            if (index < 0 || index >= taskList.getSize()) {
-                throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
-            }
-
-            Task deletedTask = taskList.deleteTask(index);
-            int size = taskList.getSize();
-
-            return Ui.deleteUi(deletedTask, size);
+            return parseDelete(inputs[1], taskList);
         }
 
         case "find" -> {
@@ -225,5 +216,18 @@ public class Parser {
         int sizeOfList = taskList.getSize();
 
         return Ui.addTaskUi(addedTask, sizeOfList);
+    }
+
+    public static String parseDelete(String input, TaskList taskList) throws TaskNotFoundException {
+        int index = Integer.parseInt(input) - 1;
+
+        if (index < 0 || index >= taskList.getSize()) {
+            throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
+        }
+
+        Task deletedTask = taskList.deleteTask(index);
+        int size = taskList.getSize();
+
+        return Ui.deleteUi(deletedTask, size);
     }
 }
