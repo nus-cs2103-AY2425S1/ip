@@ -59,7 +59,7 @@ public class Event extends Task {
     @Override
     public boolean isOnDate(String date) {
         LocalDate testDate = parser.convertDate(date);
-        if (this.startDate.isBefore(testDate) && this.endDate.isBefore(testDate)) {
+        if (!this.startDate.isAfter(testDate) && !this.endDate.isBefore(testDate)) {
             return true;
         } else {
             return false;

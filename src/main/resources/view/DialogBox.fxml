@@ -60,7 +60,6 @@
                 strokeType="INSIDE"
                 width="9.0"/>
 
-        <!-- Display picture -->
         <ImageView
                 fx:id="displayPicture"
                 fitHeight="62.0"

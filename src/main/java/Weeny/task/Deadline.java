@@ -47,7 +47,7 @@ public class Deadline extends Task {
     @Override
     public boolean isOnDate(String date) {
         LocalDate testDate = parser.convertDate(date);
-        return this.endDate.isEqual(testDate);
+        return !this.endDate.isBefore(testDate);
     }
 
     /**
