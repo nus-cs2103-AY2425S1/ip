@@ -34,6 +34,12 @@ Did I mention it's **FREE**? (Free of Charge, Free of Dom)
 - [x] GUI
 - [x] CLI mode fallback (pass `-c`)
 - [x] Change savefile path (pass `-s <filepath>`)
+- [X] Add custom aliases
+- [ ] Add CSS to make things pretty
+- [ ] Add more personality
+- [ ] Persistant settings (ie for aliases)
+- [ ] Autosave
+- [ ] Flexible date formatting
 - [ ] More coming soon...
 ---
 If you're bored and want to stress yourself, look no further!
