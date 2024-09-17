@@ -53,6 +53,14 @@ public class Event extends Task {
         }
     }
 
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
     /**
      * Returns a string representation of the event, including its status, description,
      * start time, and end time formatted as "MMM dd yyyy h:mm a".
