@@ -1,5 +1,6 @@
 package features.gui;
 
+import config.Config;
 import features.Susan;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,6 +33,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        DialogBox susanDialog = DialogBox.getSusanDialog(Config.intro, susanImage);
+        susanDialog.getStyleClass().add("bot-dialog");
+        dialogContainer.getChildren().addAll(susanDialog);
     }
 
     /** Injects the Susan instance */

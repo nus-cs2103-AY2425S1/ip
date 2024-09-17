@@ -51,6 +51,8 @@ public class CommandHandler {
 				res = handleDeleteTask(command);
 			} else if (command.startsWith(CommandType.FIND.getType())) {
 				res = handleFind(command);
+			} else if (Config.handleHelloMessage(command)) {
+				res = handleHello(command);
 			} else {
 				throw new Exception("Unknown message :(. Please see below for the list of available commands:\n\n" + Config.commands);
 			}
@@ -161,6 +163,13 @@ public class CommandHandler {
 
 		String res = tm.getPrintTasks(result);
 		return "Matching tasks in your list: \n" + res;
+	}
+
+	/**
+	 * Handles a hello message.
+	 */
+	private String handleHello(String hello) {
+		return hello + "!\n" + Config.intro;
 	}
 
 	/**

@@ -1,6 +1,11 @@
 package config;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import features.command.CommandDescriptor;
 
 public class Config {
@@ -31,6 +36,16 @@ public class Config {
 		new CommandDescriptor("delete <taskNumber>", "Deletes the task with taskNumber."),
 		new CommandDescriptor("deleteMany <id1> <id2> ... <idn>", "Deletes all the tasks with IDs from the list of IDs.")
 	));
+
+	public static boolean handleHelloMessage(String message) {
+		String regex = "\\b(hello|hola|bonjour|hallo|ciao|olá|namaste|salve|konnichiwa|nǐ hǎo|annyeonghaseyo|merhaba|szia|salām|privet|ahoj|god dag|sawubona|shalom)\\b";
+		// Compile the pattern with case-insensitive flag
+		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+		// Create matcher for the test string
+		Matcher matcher = pattern.matcher(message);
+
+		return matcher.find();
+	}
 
 	public static String makeCommandMessage(List<CommandDescriptor> cmds) {
 		StringBuilder sb = new StringBuilder();
