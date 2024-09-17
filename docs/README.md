@@ -38,7 +38,6 @@ than traditional GUI apps.
 ---
 ## Features
 
-<div class="warning"> 
 Notes about the command format:
 
 1. Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
@@ -48,7 +47,7 @@ Notes about the command format:
 3. Parameters must be in the specified order.<br>
      e.g. if the command specifies `DESCRIPTION from/DATE`, it needs to follow this format strictly.
 4. If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
+
 
 ### Adding todos: `todo`
 Adds a task of type `todo` to the task list.
