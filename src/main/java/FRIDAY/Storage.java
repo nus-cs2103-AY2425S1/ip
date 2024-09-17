@@ -43,14 +43,12 @@ public class Storage {
     private void createDatabase() throws FRIDAYException {
         File db = new File(this.filePath);
         File dir = new File(db.getParent());
-
         // Check to see if parent folder("storage") exists. if it doesnt then create it
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
                 throw new FRIDAYException("Failed to create parent folders");
             }
         }
-
         try {
             // Create the database file if it doesn't exist
             if (!db.exists()) {
