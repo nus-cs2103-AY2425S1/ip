@@ -51,15 +51,7 @@ public class Parser {
                         + "(e.g. \"mark 1\")");
             }
 
-            int index = Integer.parseInt(inputs[1]) - 1;
-
-            if (index < 0 || index >= taskList.getSize()) {
-                throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
-            }
-
-            Task currTask = taskList.markTask(index);
-
-            return Ui.markUi(currTask);
+            return parseMark(inputs[1], taskList);
         }
         case "unmark" -> {
             if (inputs.length != 2) {
@@ -67,15 +59,7 @@ public class Parser {
                         + "(e.g. \"unmark 1\")");
             }
 
-            int index = Integer.parseInt(inputs[1]) - 1;
-
-            if (index < 0 || index >= taskList.getSize()) {
-                throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
-            }
-
-            Task currTask = taskList.unmarkTask(index);
-
-            return Ui.unmarkUi(currTask);
+            return parseUnmark(inputs[1], taskList);
         }
         case "todo" -> {
             if (inputs.length != 2) {
@@ -83,11 +67,7 @@ public class Parser {
                         + "(e.g. \"todo your_description\")");
             }
 
-            String description = inputs[1];
-            Task addedTask = taskList.addToDoToList(description);
-            int sizeOfList = taskList.getSize();
-
-            return Ui.addTaskUi(addedTask, sizeOfList);
+            return parseToDo(inputs[1], taskList);
         }
         case "deadline" -> {
             if (inputs.length != 2) {
@@ -95,24 +75,7 @@ public class Parser {
                         + "(e.g. \"todo your_description /by your_deadline\")");
             }
 
-            String[] parts = inputs[1].split(" /by ");
-
-            if (parts.length != 2) {
-                throw new IncorrectInputException("You should have a timing after your request. "
-                        + "(e.g. \"todo your_description /event your_deadline\")");
-            }
-
-            try {
-                String description = parts[0];
-                String deadline = parts[1];
-
-                Task addedTask = taskList.addDeadlineToList(description, deadline);
-                int sizeOfList = taskList.getSize();
-
-                return Ui.addTaskUi(addedTask, sizeOfList);
-            } catch (DateTimeParseException e) {
-                return Ui.errorUi(e);
-            }
+            return parseDeadline(inputs[1], taskList);
         }
         case "event" -> {
             if (inputs.length != 2) {
@@ -120,26 +83,7 @@ public class Parser {
                         + "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
             }
 
-            String[] parts = inputs[1].split(" /");
-            if (parts.length != 3) {
-                throw new IncorrectInputException("You should have 2 timings after your request. "
-                        + "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
-            }
-
-            try {
-
-                String description = parts[0];
-                String startTime = parts[1].substring(5);
-                String endTime = parts[2].substring(3);
-
-                Task addedTask = taskList.addEventToList(description, startTime, endTime);
-                int sizeOfList = taskList.getSize();
-
-
-                return Ui.addTaskUi(addedTask, sizeOfList);
-            } catch (DateTimeParseException e) {
-                return Ui.errorUi(e);
-            }
+            return parseEvent(inputs[1], taskList);
         }
         case "delete" -> {
             if (inputs.length != 2) {
@@ -204,5 +148,82 @@ public class Parser {
             return Ui.unknownUi();
         }
         }
+    }
+
+    public static String parseDeadline(String input, TaskList taskList) throws IncorrectInputException {
+
+
+        String[] parts = input.split(" /by ");
+
+        if (parts.length != 2) {
+            throw new IncorrectInputException("You should have a timing after your request. "
+                    + "(e.g. \"todo your_description /event your_deadline\")");
+        }
+
+        try {
+            String description = parts[0];
+            String deadline = parts[1];
+
+            Task addedTask = taskList.addDeadlineToList(description, deadline);
+            int sizeOfList = taskList.getSize();
+
+            return Ui.addTaskUi(addedTask, sizeOfList);
+        } catch (DateTimeParseException e) {
+            return Ui.errorUi(e);
+        }
+    }
+
+    public static String parseEvent(String input, TaskList taskList) throws IncorrectInputException {
+        String[] parts = input.split(" /");
+
+        if (parts.length != 3) {
+            throw new IncorrectInputException("You should have 2 timings after your request. "
+                    + "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
+        }
+
+        try {
+            String description = parts[0];
+            String startTime = parts[1].substring(5);
+            String endTime = parts[2].substring(3);
+
+            Task addedTask = taskList.addEventToList(description, startTime, endTime);
+            int sizeOfList = taskList.getSize();
+
+
+            return Ui.addTaskUi(addedTask, sizeOfList);
+        } catch (DateTimeParseException e) {
+            return Ui.errorUi(e);
+        }
+    }
+
+    public static String parseMark(String input, TaskList taskList) throws TaskNotFoundException {
+        int index = Integer.parseInt(input) - 1;
+
+        if (index < 0 || index >= taskList.getSize()) {
+            throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
+        }
+
+        Task currTask = taskList.markTask(index);
+
+        return Ui.markUi(currTask);
+    }
+
+    public static String parseUnmark(String input, TaskList taskList) throws TaskNotFoundException {
+        int index = Integer.parseInt(input) - 1;
+
+        if (index < 0 || index >= taskList.getSize()) {
+            throw new TaskNotFoundException("There doesn't seem to be a Task at that position.");
+        }
+
+        Task currTask = taskList.unmarkTask(index);
+
+        return Ui.unmarkUi(currTask);
+    }
+
+    public static String parseToDo(String input, TaskList taskList) {
+        Task addedTask = taskList.addToDoToList(input);
+        int sizeOfList = taskList.getSize();
+
+        return Ui.addTaskUi(addedTask, sizeOfList);
     }
 }
