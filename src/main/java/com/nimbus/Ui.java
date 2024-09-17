@@ -113,9 +113,9 @@ public class Ui extends Application {
      * @param tasks All found tasks to be shown.
      */
     public void showFoundTask(TaskList tasks) {
-        StringBuilder msg = new StringBuilder("Here are the matching tasks in your list:");
+        StringBuilder msg = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); ++i) {
-            msg.append(i + 1).append(". ").append(tasks.get(i));
+            msg.append(i + 1).append(". ").append(tasks.get(i)).append('\n');
         }
         Ui.mainWindowController.showBotMessage(msg.toString());
     }
