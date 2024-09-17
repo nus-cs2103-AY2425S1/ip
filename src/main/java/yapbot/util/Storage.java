@@ -1,7 +1,6 @@
 package yapbot.util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -9,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import yapbot.exceptions.TaskParseException;
 import yapbot.exceptions.YapBotException;
 import yapbot.tasks.Deadline;
 import yapbot.tasks.Event;
@@ -43,15 +43,19 @@ public class Storage {
      * @throws YapBotException If the file cannot be parsed or the file cannot be created.
      */
     public ArrayList<Task> load() throws YapBotException {
+        Scanner s = null;
         try {
 
             // Creates the file if it does not exist
             if (!file.exists()) {
-                file.getParentFile().mkdirs();
+                if (file.getParentFile() != null) {
+                    file.getParentFile().mkdirs();
+                }
+
                 file.createNewFile();
             }
 
-            Scanner s = new Scanner(file);
+            s = new Scanner(file);
             ArrayList<Task> result = new ArrayList<>();
 
             while (s.hasNext()) {
@@ -79,25 +83,20 @@ public class Storage {
 
                 // Handles the case where the tasktype may not exist due to file corruption
                 default: {
-                    this.file.delete();
-
-                    this.file.createNewFile();
-
-                    throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
-                            + "\nYapBot will execute without prior data.");
+                    throw new TaskParseException("Corrupted File Found.");
                 }
 
                 }
 
             }
-
             s.close();
             return result;
         } catch (IOException e) {
             throw new YapBotException("Error, save file could not be created."
                     + "\nYour tasks from this session will not be saved.");
-        } catch (NumberFormatException | DateTimeParseException e) {
+        } catch (NumberFormatException | DateTimeParseException | TaskParseException e) {
             // Covers parsing errors due to file corruption
+            s.close();
 
             this.file.delete();
 
@@ -112,10 +111,9 @@ public class Storage {
         }
     }
 
-    private Task generateToDo(String[] taskData) throws YapBotException, NumberFormatException {
+    private Task generateToDo(String[] taskData) throws TaskParseException, YapBotException, NumberFormatException {
         if (taskData.length < 3) {
-            throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
-                    + "\nYapBot will execute without prior data.");
+            throw new TaskParseException("Corrupted File Found.");
         }
 
         int isDone = Integer.parseInt(taskData[1]);
@@ -128,10 +126,11 @@ public class Storage {
         }
     }
 
-    private Task generateDeadline(String[] taskData) throws YapBotException, DateTimeParseException, NumberFormatException {
+    private Task generateDeadline(String[] taskData) throws TaskParseException, YapBotException, DateTimeParseException,
+            NumberFormatException {
+
         if (taskData.length < 4) {
-            throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
-                    + "\nYapBot will execute without prior data.");
+            throw new TaskParseException("Corrupted File Found.");
         }
 
         int isDone = Integer.parseInt(taskData[1]);
@@ -145,10 +144,11 @@ public class Storage {
         }
     }
 
-    private Task generateEvent(String[] taskData) throws YapBotException, DateTimeParseException, NumberFormatException {
+    private Task generateEvent(String[] taskData) throws TaskParseException, YapBotException,
+            NumberFormatException {
+
         if (taskData.length < 5) {
-            throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
-                    + "\nYapBot will execute without prior data.");
+            throw new TaskParseException("Corrupted File Found.");
         }
 
         int isDone = Integer.parseInt(taskData[1]);

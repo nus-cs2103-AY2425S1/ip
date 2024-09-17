@@ -17,5 +17,5 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-# Saved task file
-/data/tasks.txt
+# Saved task files
+/data/
