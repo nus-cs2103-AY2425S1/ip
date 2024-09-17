@@ -1,4 +1,5 @@
 package elon;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -20,18 +21,18 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Elon elon;
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(DialogBox.greetUser(dukeImage));
     }
 
     /** Injects the Elon instance */
     public void setElon(Elon e) {
-        elon = e;
+        this.elon = e;
     }
 
     /**
@@ -41,7 +42,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = elon.getResponse(input);
+        String[] inputArr = input.split(" ");
+        String response = elon.getResponse(inputArr);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getElonDialog(response, dukeImage)

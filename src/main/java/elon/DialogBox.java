@@ -58,5 +58,10 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    public static DialogBox greetUser(Image img) {
+        var db = new DialogBox(Ui.greetMessage(), img);
+        return db;
+    }
 }
 

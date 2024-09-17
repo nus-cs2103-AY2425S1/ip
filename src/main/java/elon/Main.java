@@ -12,23 +12,22 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
+    private final Elon elon = new Elon("./Data.txt");
     @Override
     public void start(Stage stage) {
         try {
-            Storage storage = new Storage("./Data.txt");
-            Elon elon = new Elon(storage);
-
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setMaxWidth(417);
 
             fxmlLoader.<MainWindow>getController().setElon(elon);  // inject the Elon instance
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 }

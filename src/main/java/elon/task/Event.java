@@ -1,4 +1,6 @@
-package elon;
+package elon.task;
+
+import elon.task.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

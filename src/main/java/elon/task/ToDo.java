@@ -1,4 +1,6 @@
-package elon;
+package elon.task;
+
+import elon.task.Task;
 
 /**
  * Represents a ToDo task, which is a specific type of Task.

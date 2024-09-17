@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("elon.Main")
+    mainClass.set("elon.Launcher")
 }
 
 shadowJar {
@@ -53,6 +53,8 @@ shadowJar {
     archiveClassifier = null
     archiveFileName = 'elon.jar'
 }
+
+mainClassName = 'elon.Launcher'
 
 run{
     standardInput = System.in

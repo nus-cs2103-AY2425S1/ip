@@ -1,5 +1,6 @@
 package elon;
 
+import elon.task.Deadline;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
