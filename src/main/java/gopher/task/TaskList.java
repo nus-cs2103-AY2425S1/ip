@@ -26,6 +26,20 @@ public class TaskList {
      */
     private ArrayList<Task> tasks;
 
+    /**
+     * Default task list constructor.
+     * Tasks are loaded directly from the Task Manager.
+     */
+    public TaskList() {
+        load();
+    }
+
+    /**
+     * Alternative task list constructor for other task listing purpose
+     * such as listing the matched tasks from a search.
+     *
+     * @param tasks ArrayList of task Objects
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -76,15 +90,10 @@ public class TaskList {
      */
     public void delete(int... taskNumbers)
             throws InvalidTaskNumberException {
-        // Map task number to actual task in the taskList
+        // Map the task numbers to their corresponding task in the task list
         Task[] tasksToBeDeleted = new Task[taskNumbers.length];
         for (int i = 0; i < taskNumbers.length; i++) {
-            int taskNumber = taskNumbers[i];
-            Task task = this.getTask(taskNumber);
-            if (task == null) {
-                throw new InvalidTaskNumberException(taskNumber);
-            }
-            tasksToBeDeleted[i] = this.getTask(taskNumbers[i]);
+            tasksToBeDeleted[i] = this.tasks.get(i);
         }
 
         // Delete tasks by reference
@@ -94,6 +103,7 @@ public class TaskList {
         for (Task task: tasksToBeDeleted) {
             tasks.remove(task);
         }
+
         TaskManager.saveTasks(tasks);
     }
 
@@ -158,6 +168,20 @@ public class TaskList {
             throw new InvalidTaskNumberException(taskNumber);
         }
         return this.tasks.get(taskNumber - 1);
+    }
+
+    /**
+     * Save current tasks into the Task Manager.
+     */
+    public void save() {
+        TaskManager.saveTasks(tasks);
+    }
+
+    /**
+     * Load current tasks from the Task Manager.
+     */
+    public void load() {
+        this.tasks = TaskManager.loadTasks();
     }
 
     /**
