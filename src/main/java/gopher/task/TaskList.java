@@ -195,11 +195,6 @@ public class TaskList {
 
     @Override
     public String toString() {
-        // Show no task message to user if task list is empty
-        if (tasks.isEmpty()) {
-            return "Good job! There's no pending tasks to be done!";
-        }
-
         // List out the tasks if list not empty
         StringBuilder list = new StringBuilder();
         for (int i = 1; i <= tasks.size(); i++) {
