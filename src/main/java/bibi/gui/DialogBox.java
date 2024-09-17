@@ -12,7 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.TextAlignment;
 
 /** Represents a horizontal bibi.gui.DialogBox with an ImageView for icons and Label for text*/
 public class DialogBox extends HBox {
@@ -37,12 +39,9 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        this.setMaxWidth(USE_PREF_SIZE);
         dialog.setText(s);
         displayPicture.setImage(i);
-        displayPicture.setClip(new Circle(displayPicture.getFitWidth() / 2,
-                displayPicture.getFitHeight() / 2,
-                displayPicture.getFitWidth() / 2));
     }
 
     public static DialogBox getUserDialogBox(String s, Image i) {
@@ -57,6 +56,7 @@ public class DialogBox extends HBox {
 
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
+        dialog.setAlignment(Pos.CENTER_LEFT);
         ObservableList<Node> nodes = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(nodes);
         this.getChildren().setAll(nodes);

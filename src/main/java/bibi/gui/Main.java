@@ -3,6 +3,7 @@ package bibi.gui;
 import java.io.IOException;
 
 import bibi.Bibi;
+
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     public static final String DEFAULT_FILE_PATH = "./data/list.txt";
+
+    private final double MIN_WIDTH = 544;
+    private final double MIN_HEIGHT = 600;
 
     private Bibi bibi;
     private VBox dialogContainer;
@@ -45,6 +49,11 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("Bibi");
             stage.setScene(scene);
+
+            // Prevent Resizing beyond a certain limit
+            stage.setMinWidth(MIN_WIDTH);
+            stage.setMinHeight(MIN_HEIGHT);
+
             fxmlLoader.<MainWindow>getController().setDuke(bibi); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
