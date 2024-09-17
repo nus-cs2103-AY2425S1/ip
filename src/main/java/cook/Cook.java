@@ -72,6 +72,6 @@ public class Cook {
      * Creates a new Cook chatbot and runs it.
      */
     public static void main(String[] args) {
-        new Cook(new File("data", "tasks.txt")).run();
+        new Cook(new File("data", "tasks")).run();
     }
 }

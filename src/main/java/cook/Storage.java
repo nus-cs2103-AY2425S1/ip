@@ -43,6 +43,8 @@ public class Storage {
      * @throws IOException If file cannot be written to.
      */
     public void writeFile(TaskList tasks) throws IOException {
+        this.file.getParentFile().mkdirs();
+        this.file.createNewFile();
         // Solution below adapted from https://stackoverflow.com/questions/10404698/saving-arrays-to-the-hard-disk
         ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(this.file));
         out.writeObject(tasks);

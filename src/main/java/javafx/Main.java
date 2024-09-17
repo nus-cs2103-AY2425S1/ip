@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Cook cook = new Cook(new File("data", "tasks.txt"));
+    private Cook cook = new Cook(new File("data", "tasks"));
 
     @Override
     public void start(Stage stage) {
