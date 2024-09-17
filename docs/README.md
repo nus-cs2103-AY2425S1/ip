@@ -1,6 +1,6 @@
 # Bimo User Guide
 
-![Screenshot of product Ui](/docs/Ui.png)
+![Screenshot of product Ui](./Ui.png)
 
 Bimo is a *task management* chat bot that helps you remember 
 your tasks in a **simple** and **fuss free manner**. All you need is a Command Line Interface to open 
