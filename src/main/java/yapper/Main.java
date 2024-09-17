@@ -35,8 +35,9 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-
-            stage.setTitle("Yapper");
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
+            stage.setTitle("Yapper Chatbot");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setYapper(yapper);
             stage.show();
