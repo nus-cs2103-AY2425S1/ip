@@ -59,7 +59,7 @@ public class TaskList {
      * Remove the task in its ArrayList of Task as specified by the task and
      * return the task.
      *
-     * @param task Task represents the the task to be removed within the list.
+     * @param task Task represents the task to be removed within the list.
      * @return Task which has been removed.
      * @throws OllieException If the index given does not exist.
      */
@@ -77,7 +77,7 @@ public class TaskList {
      * Mark the task, in its ArrayList of Task specified by the index, as done
      * and return the task.
      *
-     * @param index Index represents the indexition of the task to be mark as done.
+     * @param index Index represents the index of the task in list to be mark as done.
      * @return Task which has been marked as done.
      */
     public Task markAsDone(int index) throws OllieException {
@@ -94,7 +94,7 @@ public class TaskList {
      * Mark the task, in its ArrayList of Task specified by the index, as undone
      * and return the task.
      *
-     * @param index index reprsents the indexition of the task to be mark as undone.
+     * @param index index reprsents the index of the task in list to be mark as undone.
      * @return Task which has been marked as done.
      */
     public Task markAsUndone(int index) throws OllieException{
