@@ -1,6 +1,6 @@
 # Henry User Guide
 
-![Screenshot of the app when user adds in a deadline, enters wrong input and marks the task](https://github.com/user-attachments/assets/ef2fc712-5ad5-433e-8338-c893bf89ca90)
+![Screenshot of the app when user adds in a deadline, enters wrong input and marks the task](Ui.png)
 
 ## Introduction
 Henry is a personal assistant chatbot designed to help you manage and track tasks efficiently. It supports task input, deadlines, events, and even task searches. Henry helps you stay organized by providing simple commands to mark, unmark, delete, and find tasks.
