@@ -44,6 +44,13 @@ public class BocchiWrapper {
         }
     }
 
+    /**
+     * Performs clean up before exiting.
+     */
+    public void onExit() {
+        BOCCHI.exit();
+    }
+
     public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         mainWindow.respond(BOCCHI.greet());

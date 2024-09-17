@@ -88,7 +88,7 @@ public class Bocchi {
      *
      * @return The response to the command.
      */
-    private String exit() {
+    public String exit() {
         taskList.saveTasks();
         return EXIT_MESSAGE;
     }
@@ -231,7 +231,7 @@ public class Bocchi {
      * @param tags  The tags to be added to the task.
      * @return The response to the command.
      */
-    public String tag(int index, List<String> tags) throws BocchiException {
+    private String tag(int index, List<String> tags) throws BocchiException {
         index--;
 
         checkTaskIndex(index);
@@ -252,7 +252,7 @@ public class Bocchi {
      * @param tags  The tags to be removed from the task.
      * @return The response to the command.
      */
-    public String untag(int index, List<String> tags) throws BocchiException {
+    private String untag(int index, List<String> tags) throws BocchiException {
         index--;
 
         checkTaskIndex(index);
