@@ -20,7 +20,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Objects;
 
 /**
  * Represents the DateTimeParser that parses all dates and times
@@ -114,7 +113,8 @@ public class DateTimeParser {
         if (alias(dates[0].toLowerCase()) == null) {
             return LocalDate.parse(dates[0], FORMATTER_DUE_DATE);
         }
-        return parseAlias(Objects.requireNonNull(alias(dates[0].toLowerCase())));
+        assert alias(dates[0].toLowerCase()) != null : "Code should not reach here if no aliasing resulted.";
+        return parseAlias(alias(dates[0].toLowerCase()));
     }
 
     /**
@@ -222,7 +222,8 @@ public class DateTimeParser {
         if (alias(startDateString) == null) {
             startTime = LocalDateTime.parse(dates[0], FORMATTER_EVENT_TIME);
         } else {
-            startTime = LocalDateTime.of(parseAlias(Objects.requireNonNull(alias(startDateString))),
+            assert alias(startDateString) != null : "Code should not reach here if no aliasing resulted.";
+            startTime = LocalDateTime.of(parseAlias(alias(startDateString)),
                     LocalTime.parse(dates[0].split(" ")[1], DateTimeFormatter.ofPattern("HHmm")));
         }
 
@@ -231,7 +232,8 @@ public class DateTimeParser {
         if (alias(endDateString) == null) {
             endTime = LocalDateTime.parse(dates[1], FORMATTER_EVENT_TIME);
         } else {
-            endTime = LocalDateTime.of(parseAlias(Objects.requireNonNull(alias(endDateString))),
+            assert alias(endDateString) != null : "Code should not reach here if no aliasing resulted.";
+            endTime = LocalDateTime.of(parseAlias(alias(endDateString)),
                     LocalTime.parse(dates[1].split(" ")[1], DateTimeFormatter.ofPattern("HHmm")));
         }
 
@@ -319,7 +321,8 @@ public class DateTimeParser {
         if (alias(dates[0].toLowerCase()) == null) {
             return LocalDate.parse(dates[0], FORMATTER_DUE_DATE);
         }
-        return parseAlias(Objects.requireNonNull(alias(dates[0].toLowerCase())));
+        assert alias(dates[0].toLowerCase()) != null : "Code should not reach here if no aliasing resulted.";
+        return parseAlias(alias(dates[0].toLowerCase()));
     }
 
     /**
