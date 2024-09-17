@@ -17,7 +17,7 @@ User-friendly ✅
 
 **Add a simple to-do task to your list**
 
-Usage: "todo [Task Name]"
+Format: "todo [TASK_NAME]"
 
 _Example: `todo Buy Groceries`_
 
@@ -31,7 +31,8 @@ Growl... Honeyboo added 'Buy Groceries' to the list!"
 
 **Add a task with a Deadline to your list**
 
-Usage: "deadline [Task Name] /by [YYYY-MM-DD]"
+
+Format: "deadline [TASK_NAME] /by [YYYY-MM-DD]"
 
 _Example: `deadline Buy new Calculator /by 2024-09-18`_
 
@@ -46,7 +47,7 @@ BZZZZZ... Honeyboo added 'Buy new Calculator' to the list!"
 
 **Add a task with a start and end date to your list**
 
-Usage: "event [Task Name] /from [YYYY-MM-DD] /to [YYYY-MM-DD]"
+Format: "event [TASK_NAME] /from [YYYY-MM-DD] /to [YYYY-MM-DD]"
 
 _Example: `event Attend Football Camp /from 2024-09-18 /to 2024-09-21`_
 
@@ -60,7 +61,7 @@ Grrrr... Honeyboo added 'Attend Football Camp' to the list!
 
 **Mark a task as complete**
 
-Usage: "mark [Task Number]"
+Format: "mark [TASK_NUMBER]"
 
 *Example: `mark 1`*
 
@@ -75,7 +76,7 @@ Usage: "mark [Task Number]"
 
 **Unmark a task as complete**
 
-Usage: "unmark [Task Number]"
+Format: "unmark [TASK_NUMBER]"
 
 *Example: `unmark 1`*
 
@@ -90,7 +91,7 @@ Usage: "unmark [Task Number]"
 
 **View all tasks in the list**
 
-Usage: "list"
+Format: "list"
 
 *Example: `list`*
 
@@ -106,7 +107,7 @@ Usage: "list"
 
 **Find a task by part of its name**
 
-Usage: "find [Part of Task Name]"
+Format: "find [PART_OF_TASK_NAME]"
 
 *Example: `find Buy`*
 
@@ -121,7 +122,7 @@ Usage: "find [Part of Task Name]"
 
 **Update a Task Name**
 
-Usage: "update [Task Number] /to [new Task Name]"
+Format: "update [TASK NUMBER] /to [NEW_TASK_NAME]"
 
 *Example: `update 1 /to Buy Milk`*
 
@@ -135,7 +136,7 @@ Task updated!
 
 **Delete a Task**
 
-Usage: "delete [Task Number]"
+Format: "delete [TASK_NUMBER]"
 
 *Example: `delete 1`*
 
@@ -149,8 +150,6 @@ Yum yum in my tum tum! Task eaten!
 
 **Exit the Application**
 
-_Usage: "bye"_
+_Format: "bye"_
 
 _Example: `bye`_
-
-
