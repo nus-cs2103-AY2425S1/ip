@@ -33,29 +33,37 @@ If you need help, type 'help' or '?' for a list of available commands.
 
 There are 3 types of tasks can be added to the list:
 
-**To-do's**
+**1. To-do's**
 
-Format: ```todo TASK_DESCRIPTION```
-
-Example: ```todo Getting started on the assignment```
+- **Format**:
+  - ```todo TASK_DESCRIPTION```
+- **Examples**:
+  - ```todo Getting started on the assignment```
+  - ```todo Revise for exams```
 
 **Deadlines**
 
-Format: ```deadline TASK_DESCRIPTION /by DEADLINE```
-
-Example: ```deadline Individual project /by Friday```
+- **Format**:
+  - ```deadline TASK_DESCRIPTION /by DEADLINE```
+- **Examples**:
+  - ```deadline Individual project /by Friday```
+  - ```deadline Do homework /by tomorrow```
 
 **Events**
 
-Format: ```event TASK_DESCRIPTION /from START_DATE /to END_DATE```
-
-Example: ```event Comicon /from This Monday /to This Wednesday```
+- **Format**:
+  - ```event TASK_DESCRIPTION /from START_DATE /to END_DATE```
+- **Examples**:
+  - ```event Comicon /from This Monday /to This Wednesday```
+  - ```event Meetup with friends /from 2 pm /to 6 pm```
 
 For deadlines and events, **Yapper** is able to read the input of dates and times and convert them accordingly.
 
-Example:
+Examples:
 
-```event Comicon /from 24/11/2024 0900 /to 26/11/2024 2359``` will be converted into:
+```event Comicon /from 24/11/2024 0900 /to 26/11/2024 2359```
+
+will be converted into:
 
 ```[E][ ] Comicon (from: Nov 24 2024 09:00 am to: Nov 26 2024 11:59 pm)```
 
@@ -63,53 +71,72 @@ Example:
 
 List out the existing tasks that were created.
 
-Format: ```list```
+- **Format**: ```list```
 
 ### Mark tasks
 
 Tasks can be marked one at a time by referencing their index (1-indexed) on the task list.
 
-Format: ```mark TASK_INDEX```
+- **Format**:
+  - ```mark TASK_INDEX```
+- **Examples**:
+  - ```mark 1```
+  - ```mark 2```
+  - ```mark 3```
 
 Tasks can also be unmarked.
 
-Format: ```unmark TASK_INDEX```
+- **Format**:
+  - ```unmark TASK_INDEX```
+- **Examples**:
+  - ```unmark 1```
+  - ```unmark 2```
+  - ```unmark 3```
 
 The ```TASK_INDEX``` should also be a **positive integer** (e.g. 1, 2, 3, ...)
 
 ### Find tasks
 
-Find and list out tasks containing a certain keyword.
+Find and list out tasks containing a certain keyword. The keyword may match any word in the task
+description or dates given.
 
-Format: ```find KEYWORD```
+- **Format**:
+  - ```find KEYWORD```
+- **Examples**:
+  - ```find Read```
+  - ```find today```
+
+The keyword is also case-insensitive.
 
 ### Delete tasks
 
 Similar to mark/unmark, delete tasks based on their index on the list.
 
-Format: ```delete TASK_INDEX```
+- **Format**: ```delete TASK_INDEX```
 
 ### Clear tasks
 
 Clear all the task list using the following command.
 
-Format: ```clear```
+- **Format**: ```clear```
 
 ### Help menu
 
 A help menu is available in case you forget any commands. The correct format for each command is
 also provided.
 
-Format: ```help```
+- **Format**: ```help```
 
 ### Bind custom command names
     
 Bind a provided alias to an existing command
+- **Format**:
+  - ```bind ALIAS COMMAND_TO_ALIAS```
+- **Example**:
+  - ```bind addTodo todo```
+  - ```bind td todo```
 
-Format: ```bind ALIAS COMMAND_TO_ALIAS```
-Example: ```bind addTodo todo```
-
-Executing the above example will make ```addTodo``` usable for adding to-do's.
+Executing the first example will make ```addTodo``` usable for adding to-do's.
 Executing ```addTodo Some task``` will result in the following being added to the task list:
 
 ```[T][ ] Some task```
