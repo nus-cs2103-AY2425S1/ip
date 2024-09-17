@@ -2,13 +2,12 @@
 
 ---
 
-![Yapper UI](./Ui.png?raw=true "Yapper Chatbot")
-
 **Yapper** is a desktop chatbot designed to help users stay organized with their tasks and events.
 It offers **quick setup, intuitive commands, and real-time data saving**,
 all optimized for users who prefer a Command Line Interface (CLI) while still benefiting from a
 Graphical User Interface (GUI).
 
+![Yapper UI](./Ui.png?raw=true "Yapper Chatbot")
 
 ## Setup
 
