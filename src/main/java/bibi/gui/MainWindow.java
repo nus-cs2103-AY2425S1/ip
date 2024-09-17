@@ -13,8 +13,6 @@ import javafx.scene.layout.VBox;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
-    public static ErrorMessage errorMessage;
-
     @FXML
     private Label errorLabel;
     @FXML
@@ -31,14 +29,18 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/PFP1.gif"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/bot.jfif"));
 
+    /**
+     * Initializes the scrollPane that represents the dialog container as well as the
+     * error message label.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        errorMessage = new ErrorMessage(errorLabel);
+        clearErrorMessage();
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Bibi bibi) {
+    /** Injects the Bibi instance */
+    public void setBibi(Bibi bibi) {
         this.bibi = bibi;
     }
 
@@ -53,10 +55,30 @@ public class MainWindow extends AnchorPane {
 
         String input = userInput.getText();
         String response = bibi.getResponse(input);
+
+        // Error messages, don't display dialog box, display error instead
+        if (response.startsWith("ERROR")) {
+            showErrorMessage(response.substring(5));
+            return;
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialogBox(input, userImage),
                 DialogBox.getBotDialogBox(response, botImage)
         );
+        clearErrorMessage();
         userInput.clear();
+    }
+
+    private void showErrorMessage(String msg) {
+        userInput.clear();
+        errorLabel.setText(msg);
+    }
+
+    /**
+     * Clears the error message on screen if any.
+     */
+    private void clearErrorMessage() {
+        errorLabel.setText("");
     }
 }

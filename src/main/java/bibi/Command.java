@@ -11,6 +11,7 @@ import bibi.task.TaskList;
 public class Command {
     private String cmd;
     private String args;
+    private boolean isError;
 
     /**
      * Constructs a new Command with specified command and relevant parameters.
@@ -35,8 +36,15 @@ public class Command {
      *
      * @return isExit
      */
-    public boolean isExit() {
-        return cmd.equals("bye");
+    public boolean isError() {
+        return this.isError;
+    }
+
+    /**
+     * Sets a flag to indicate that an error has occurred, so that GUI displays a different message.
+     */
+    public void setErrorFlag() {
+        this.isError = true;
     }
 
     /**
@@ -47,6 +55,7 @@ public class Command {
      * @param storage The Storage instance handling modification of the save file.
      */
     public String execute(TaskList tasks, Processor processor, Storage storage) {
+        this.isError = false;
         // Preconfigured commands
         switch (cmd) {
         case "bye":
@@ -54,12 +63,14 @@ public class Command {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
+                setErrorFlag();
                 return e.getMessage();
             }
             return processor.getExitMessage();
         case "list", "mark", "unmark", "todo", "deadline", "event", "remove", "find":
             return processor.processCommand(this, tasks, storage);
         default:
+            setErrorFlag();
             return String.format("%s is an unknown command%n", cmd);
         }
     }

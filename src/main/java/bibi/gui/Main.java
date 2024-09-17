@@ -3,9 +3,7 @@ package bibi.gui;
 import java.io.IOException;
 
 import bibi.Bibi;
-
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,9 +18,6 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     public static final String DEFAULT_FILE_PATH = "./data/list.txt";
-
-    private final double MIN_WIDTH = 544;
-    private final double MIN_HEIGHT = 600;
 
     private Bibi bibi;
     private VBox dialogContainer;
@@ -51,24 +46,15 @@ public class Main extends Application {
             stage.setScene(scene);
 
             // Prevent Resizing beyond a certain limit
-            stage.setMinWidth(MIN_WIDTH);
-            stage.setMinHeight(MIN_HEIGHT);
+            double minWidth = 544;
+            stage.setMinWidth(minWidth);
+            double minHeight = 600;
+            stage.setMinHeight(minHeight);
 
-            fxmlLoader.<MainWindow>getController().setDuke(bibi); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setBibi(bibi); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    /**
-     * Creates a new dialog box with user input and appends it to the
-     * dialog container(VBox). Clears the input in the TextField afterwards.
-     */
-    @FXML
-    private void handleUserInput() {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialogBox(userInput.getText(), userImage),
-                DialogBox.getBotDialogBox(bibi.getResponse(userInput.getText()), botImage));
-        userInput.clear();
     }
 }

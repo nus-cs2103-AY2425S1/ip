@@ -12,9 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.TextAlignment;
 
 /** Represents a horizontal bibi.gui.DialogBox with an ImageView for icons and Label for text*/
 public class DialogBox extends HBox {
