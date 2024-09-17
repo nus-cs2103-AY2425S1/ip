@@ -72,7 +72,7 @@ Expected output:
       [E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
     Now you have 3 tasks in the list.
 ```
-## Mark a Task as done: `mark`
+## Mark a task as done: `mark`
 Mark a task as done.
 
 Format: `mark <index>`
@@ -85,7 +85,7 @@ Expected output:
       [D][X] return book (by: Dec 02 2019, 18:00)
 ```
 
-## Mark a Task as not done: `unmark`
+## Mark a task as not done: `unmark`
 Mark a task as not done.
 
 Format: `unmark <index>`
