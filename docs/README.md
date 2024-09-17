@@ -7,7 +7,7 @@ allowing you to mark, unmark, add, delete and list these tasks.
 In addition, he can help to summarise the tasks you have completed in the
 past week, or any range you specify.
 
-For information on each function, to the sections below:
+For information on each function, refer to the sections below:
 
 Note: A **task** refers to a **deadline**, **event**, or **todo**.
 
@@ -145,7 +145,7 @@ This week, in the past 7 days, you completed a total of 2 tasks, listed below:
 ### Summary of tasks completed in a specified date range:
 Format: `summarise /from <dd/MM/yy HHmm> /to <dd/MM/yy HHmm>`
 
-Example: `summarise /from 17/09/24 1000 /to 0000`
+Example: `summarise /from 17/09/24 1000 /to 17/09/24 2359`
 
 Expected output:
 ```
