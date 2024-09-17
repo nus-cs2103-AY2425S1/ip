@@ -97,7 +97,7 @@ Delete the specified task by removing in from the list.
 
 ### Set Priority `priority`
 Set the priority of the task in the list.
-- Format: priority (level) (number)
+- Format: `priority (level) (number)`
 - The level must only be 'low', 'medium' or 'high'
 - The level input is case in-sensitive
 - The number corresponds to the number as shown by command `list`

@@ -49,7 +49,7 @@ public class TakoException extends Exception {
                            + " where x is an integer";
             break;
         case "todo":
-            errorMessage = "Wrong format! Todo command should have the form 'mark x',"
+            errorMessage = "Wrong format! Todo command should have the form 'todo x',"
                            + " where x is not empty";
             break;
         case "deadline":
