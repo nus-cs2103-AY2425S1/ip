@@ -1,7 +1,8 @@
-import java.time.LocalDate;
+package bangmang.tasks;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
+import bangmang.exception.InvalidTaskFormatException;
 
 public class Task {
     protected String description;
@@ -15,6 +16,20 @@ public class Task {
     public Task (String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+    }
+
+    public String getDescription() {
+        /**
+         * Returns description
+         */
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        /**
+         * Returns isDone status
+         */
+        return isDone;
     }
 
     public Task markTask() {
