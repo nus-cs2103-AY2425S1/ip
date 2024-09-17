@@ -111,7 +111,7 @@ public class Ui {
      * @param message The error message to display.
      */
     public String showError(String message) {
-        return String.format("Error:" + message + "\n");
+        return String.format("Error: " + message + "\n");
     }
 
     /**
