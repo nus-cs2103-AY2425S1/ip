@@ -1,16 +1,27 @@
-package kotori;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import kotori.command.*;
+import java.io.File;
+import java.util.Scanner;
+
+import org.junit.jupiter.api.Test;
+
+import kotori.command.AddCommand;
+import kotori.command.Command;
+import kotori.command.DeleteCommand;
+import kotori.command.ExitCommand;
+import kotori.command.FindCommand;
+import kotori.command.GreetCommand;
+import kotori.command.MarkCommand;
+import kotori.command.PrintListCommand;
+import kotori.command.SearchCommand;
+import kotori.command.SortCommand;
+import kotori.command.UnmarkCommand;
 import kotori.parser.Parser;
 import kotori.storage.Storage;
 import kotori.tasklist.Task;
 import kotori.tasklist.TaskList;
-import org.junit.jupiter.api.Test;
 
 
-import java.io.File;
-import java.util.Scanner;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KotoriTest {
 
