@@ -1,7 +1,10 @@
 # Jade User Guide
 
 Welcome to **Jade**, a task management application designed to help you keep track of your tasks efficiently. 
-You can add, list, mark, delete, and find tasks, as well as sort them based on different criteria.
+You can [add](#adding-a-todo-task), [list](#listing-all-tasks), [mark](#marking-a-task-as-done), 
+[delete](#deleting-a-task), [find](#finding-a-task) and [sort](#sorting-the-tasks) tasks.
+
+Prerequisites: JDK 17
 
 Download the latest version of the Jade project from the [Releases page](https://github.com/wubojin/ip/releases/tag/A-Release).
 
