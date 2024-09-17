@@ -46,7 +46,7 @@ public class Storage {
     }
 
     /**
-     * Checks if file exists
+     * Checks if file exists.
      * @return True if file exists and false otherwise.
      */
     public boolean fileExists() {
@@ -54,7 +54,7 @@ public class Storage {
     }
 
     /**
-     * If file does not exist, this function creates a new file.
+     * Creates a new file if the file does not exist.
      * @throws IOException Exception thrown if there is a difficulty creating file.
      */
     public void createNewDataFile() throws IOException {

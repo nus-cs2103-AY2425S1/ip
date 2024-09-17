@@ -20,10 +20,10 @@ public class Parser {
 
     /**
      * Method parses the input string to determine what command is required.
-     * @param text The input text
-     * @return The response text
-     * @throws NoInputException Thrown when no input has been detected after a keyword
-     * @throws DateTimeException Thrown when the wrong date format has been keyed in
+     * @param text The input text.
+     * @return The response text.
+     * @throws NoInputException Thrown when no input has been detected after a keyword.
+     * @throws DateTimeException Thrown when the wrong date format has been keyed in.
      */
     public String parse(String text) throws NoInputException, InvalidInputException, DateTimeException {
         assert text != null : "Input text must be a string";
