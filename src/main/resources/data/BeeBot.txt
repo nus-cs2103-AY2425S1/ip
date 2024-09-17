@@ -1,5 +1,7 @@
-Event | 0 | bye | 10 September 2024 1600 | 11 September 2024 1600
-Deadline | 0 | bye | 02 October 2024
-ToDo | 0 | run
-Event | 1 | buy groceries | 11 September 2024 | 12 September 2024
-ToDo | 0 | walk my bee
+ToDo | 1 | Submit 2100 Assignment
+Deadline | 0 | Submit 2105 Assignment | 18 September 2024
+Event | 0 | Buy Milk | 18 September 2024 | 18 September 2024
+ToDo | 0 | Buy new pen
+Deadline | 0 | Buy new Calculator | 18 September 2024
+Deadline | 0 | Buy new Calculator | 18 September 2024
+Event | 0 | Attend Football Camp | 18 September 2024 | 21 September 2024

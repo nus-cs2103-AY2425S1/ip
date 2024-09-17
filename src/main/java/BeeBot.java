@@ -86,7 +86,7 @@ public class BeeBot {
                     String todoName = Parser.concatenate(parts, 1);
                     TaskList.createToDo(todoName, taskList);
                     storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "Growl... Honeyboo added " + todoName + " to the list!";
+                    return "Growl... Honeyboo added '" + todoName + "' to the list!";
                 case "deadline":
                     if (parts.length == 1) {
                         throw new EmptyDescriptionException("Enter a description for the Deadline Task.\n");
@@ -95,7 +95,7 @@ public class BeeBot {
                     String deadlineDate = Parser.dateConverter(Parser.getFollowingDate(parts, "/by"));
                     TaskList.createDeadline(deadlineName, deadlineDate, taskList);
                     storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "BZZZZZ... Worker bee " + deadlineName + " to the list!";
+                    return "BZZZZZ... Honeyboo added  '"  + deadlineName + "' to the list!";
                 case "event":
                     if (parts.length == 1) {
                         throw new EmptyDescriptionException("Enter a description for the Event Task.\n");
@@ -105,7 +105,7 @@ public class BeeBot {
                     String endTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/to", ""));
                     TaskList.createEvent(eventName, startTime, endTime, taskList);
                     storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "Grrrr... Honeyboo added " + eventName + " to the list!";
+                    return "Grrrr... Honeyboo added '" + eventName + "' to the list!";
                 case "delete":
                     int deletionNumber = Integer.parseInt(parts[1]) - 1;
                     assert deletionNumber >= 0 && deletionNumber < taskList.size() : "Task number is out of range";
@@ -139,14 +139,15 @@ public class BeeBot {
                 default:
                     return """
                             Please enter a valid command for worker bee to follow:
-                            1. todo [task-name]
-                            2. deadline [task-name] /by [due-date]
-                            3. event [task-name] /from [start-date] /to [end-date]
-                            4. mark [index]
-                            5. unmark [index]
+                            1. todo <task name>
+                            2. deadline <task name> /by <due date>
+                            3. event <task-name> /from <start date> /to <end date>
+                            4. mark <index>
+                            5. unmark <index>
                             6. list
-                            7. find
-                            8. update [task number] /to [new name]
+                            7. find <part of task name>
+                            8. update <task number> /to <new name>
+                            9. delete <task number>
                             9. bye""";
             }
         } catch (EmptyDescriptionException | MissingDeadlineException
