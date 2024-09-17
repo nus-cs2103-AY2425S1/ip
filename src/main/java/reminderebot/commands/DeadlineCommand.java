@@ -42,7 +42,6 @@ public class DeadlineCommand extends Command {
             tasklist.addTask(deadline);
             return ui.addTask(deadline, tasklist.length());
         } catch (DateTimeParseException e) {
-            // if datetime not in correct format
             throw new ReminderebotException("/by <datetime> should be of format dd/MM/yy HHmm");
         }
     }
