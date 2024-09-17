@@ -32,8 +32,6 @@ public class ScoobyDoo {
         } catch (IOException e) {
             ui.printErrorMessage("cannot parse data from file");
             taskList = new TaskList();
-        } finally {
-            assert taskList != null : "taskList should not be null";
         }
     }
 
