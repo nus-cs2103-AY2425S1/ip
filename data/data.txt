@@ -1,0 +1,6 @@
+E | 0 | Dinner with Ming | 2024-09-19 13:00-2024-09-19 15:00
+T | 0 | Buy bread
+T | 0 | Clean my room
+D | 0 | Complete CS2103T iP | 2024-09-20
+D | 0 | Buy birthday gift | 2024-10-12
+D | 0 | Complete CS2100 quiz | 2024-09-17
