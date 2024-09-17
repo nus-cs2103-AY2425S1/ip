@@ -57,11 +57,10 @@ public class Storage {
         return data;
     }
 
-
     /**
-     * Saves tasks from taskList as text in data.txt
+     * Saves tasks from taskList as text in specified file
      * @param  taskList  arraylist where each element is from Task class
-     * @param  name  varargs array, if empty, use data.txt, else, use name given in index 0 (from archive command)
+     * @param  name  varargs array, if empty, use data.txt, else, use name given in index 0 (for archive command)
      * @exception InvalidPathException thrown when filepath isn't in the correct format
      * @exception java.io.IOException thrown when file can't be opened or parent directory doesn't exit
      * @exception SecurityException thrown when file can't be accessed due to system security settings

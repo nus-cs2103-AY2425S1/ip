@@ -33,6 +33,12 @@ public class Parser {
             return ui.showFarewell();
         }
 
+        // Storage command
+        else if (input.equalsIgnoreCase("storage")) {
+            // Reply
+            return ui.showStorage(storage);
+        }
+
         // List command
         else if (input.equalsIgnoreCase("list")) {
             // Reply
@@ -188,7 +194,7 @@ public class Parser {
 
         // All other unrecognised commands
         else {
-            throw new AronaException("Error, unrecognised command.");
+            throw new AronaException("Uwaa >.< Arona doesn't understand this!");
         }
     }
 }

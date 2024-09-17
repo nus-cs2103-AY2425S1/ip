@@ -22,12 +22,15 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Arona arona;
-    private Image aronaImage = new Image(this.getClass().getResourceAsStream("/images/Sensei_Icon.png"));
-    private Image senseiImage = new Image(this.getClass().getResourceAsStream("/images/Arona_Icon.png"));
+    private Image aronaImage = new Image(this.getClass().getResourceAsStream("/images/Arona_Icon.png"));
+    private Image senseiImage = new Image(this.getClass().getResourceAsStream("/images/Sensei_Icon.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAronaDialog(Ui.showGreeting(), aronaImage)
+        );
     }
 
     /** Injects the Arona instance */
@@ -44,8 +47,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = arona.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, senseiImage),
-                DialogBox.getDukeDialog(response, aronaImage)
+                DialogBox.getSenseiDialog(input, senseiImage),
+                DialogBox.getAronaDialog(response, aronaImage)
         );
         userInput.clear();
     }

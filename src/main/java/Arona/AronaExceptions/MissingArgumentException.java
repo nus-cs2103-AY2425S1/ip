@@ -14,17 +14,17 @@ public class MissingArgumentException extends AronaException {
     private static String process(Command type) {
         switch (type) {
         case DELETE, MARK:
-            return "Error! Please input a number.";
+            return "Sensei, tell me a task number!";
         case TODO:
-            return "Error! Please input a task description.";
+            return "Please input a task description, Sensei!";
         case DEADLINE:
-            return "Error! Please input description and by date.";
+            return "Please input description and by date, Sensei!.";
         case EVENT:
-            return "Error! Please input description, from date, and to date.";
+            return "Please input description, from date, and to date, Sensei!.";
         case FIND:
-            return "Error! Please input a keyword";
+            return "Sensei, tell me a keyword to look for!";
         case ARCHIVE:
-            return "Error! Please input a file name shorter than 260 characters";
+            return "Please input a file name shorter than 260 characters, Sensei!";
         default:
             return "";
         }
