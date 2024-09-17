@@ -135,6 +135,15 @@ public class TaskList implements Iterable<Task> {
         return this.tasks;
     }
 
+    /**
+     * Sorts the list of tasks chronologically.
+     * Tasks with no specific date (e.g., Todos) are placed at the beginning,
+     * followed by tasks with deadlines (e.g., Deadlines) sorted by their deadline dates,
+     * and then events sorted by their start dates.
+     *
+     * The sorting places tasks with null dates first, followed by tasks with dates in
+     * natural chronological order.
+     */
     public void sortTasksChronologically() {
         tasks.sort(Comparator.comparing(task -> {
             if (task instanceof Todo) {
