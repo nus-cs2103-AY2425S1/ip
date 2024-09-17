@@ -13,7 +13,6 @@ import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
-
 import exception.BlitzCommandDoesNotExistException;
 import exception.BlitzException;
 import exception.BlitzInvalidParameterMoreThanOneException;

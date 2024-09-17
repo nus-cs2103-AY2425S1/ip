@@ -6,10 +6,8 @@ import java.util.stream.Collectors;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
-
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
-
 import task.Task;
 
 /**
