@@ -1,0 +1,78 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Java CI for push to master
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  # This tests if the application can be built on all platforms (no tests / checkstyle)
+  buildOnAllPlatforms:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+    - name: Build with Gradle Wrapper
+      run: ./gradlew clean build -x test -x checkstyleMain -x checkStyleTest
+
+    - name: Smoke Test Application
+      run: |
+        # Start the application in the background
+        ./gradlew run &
+        APP_PID=$!
+        
+        # Wait for a few seconds to simulate a smoke test duration
+        sleep 10
+          
+        # Check if the application is running and kill it if no exceptions are thrown
+        if ps -p $APP_PID > /dev/null
+        then
+          echo "Smoke test passed, killing application."
+          kill $APP_PID
+        else
+          echo "Application failed to start."
+          exit 1
+        fi
+
+  # this tests to check if commit is compliant with checkstyle and jUnit tests
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+
+      - name: run checkstyle
+        run: ./gradlew checkstyleTest checkstyleMain
+
+      - name: run gradle test
+        run: ./gradlew test
