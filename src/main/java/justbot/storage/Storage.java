@@ -121,49 +121,10 @@ public class Storage {
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().toLowerCase();
-                String[] parts = line.split("\\|");
-
-                if (parts.length < 4) {
-                    System.out.println("Skipping malformed line: " + line);
-                    continue;
-                }
-
-                CommandType type = CommandType.fromString(parts[0].trim());
-                String isDoneString = parts[1].trim();
-                String description = parts[2].trim();
-                String timeConstraint = parts[3].trim();
-
-                Task task;
                 try {
-                    switch (type) {
-                    case TODO:
-                        task = new Todo(description);
-                        break;
-                    case DEADLINE:
-                        String deadlineDateTimeString = timeConstraint.replace("by:", "").trim();
-                        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
-                        task = new Deadline(description, deadlineDateTime);
-                        break;
-                    case EVENT:
-                        String[] timeParts = timeConstraint.split(" to ");
-                        if (timeParts.length < 2) {
-                            throw new IllegalArgumentException("Event time constraint is malformed: " + timeConstraint);
-                        }
-                        LocalDateTime start = LocalDateTime.parse(timeParts[0].replace("from ", "").trim(), formatter);
-                        LocalDateTime end = LocalDateTime.parse(timeParts[1].trim(), formatter);
-                        task = new Event(description, start, end);
-                        break;
-                    default:
-                        System.out.println(line);
-                        System.out.println("Skipping unknown task type: " + type);
-                        continue;
-                    }
-
-                    if (isDoneString.equals("x")) {
-                        task.setIsDone(true);
-                    }
+                    Task task = parseTask(line);
                     tasks.add(task);
-                } catch (DateTimeParseException | IllegalArgumentException e) {
+                } catch (Exception e) {
                     System.out.println("Skipping malformed task due to error: " + e.getMessage());
                 }
             }
@@ -174,4 +135,59 @@ public class Storage {
         }
         return tasks;
     }
+
+    private Task parseTask(String line) throws Exception {
+        String[] parts = line.split("\\|");
+
+        if (parts.length < 4) {
+            throw new Exception("Malformed line: " + line);
+        }
+
+        CommandType type = CommandType.fromString(parts[0].trim());
+        String isDoneString = parts[1].trim();
+        String description = parts[2].trim();
+        String timeConstraint = parts[3].trim();
+
+        Task task;
+        switch (type) {
+        case TODO:
+            task = parseTodoTask(description);
+            break;
+        case DEADLINE:
+            task = parseDeadlineTask(description, timeConstraint);
+            break;
+        case EVENT:
+            task = parseEventTask(description, timeConstraint);
+            break;
+        default:
+            throw new Exception("Unknown task type: " + type);
+        }
+
+        if (isDoneString.equals("x")) {
+            task.setIsDone(true);
+        }
+
+        return task;
+    }
+
+    private Todo parseTodoTask(String description) {
+        return new Todo(description);
+    }
+
+    private Deadline parseDeadlineTask(String description, String timeConstraint) throws DateTimeParseException {
+        String deadlineDateTimeString = timeConstraint.replace("by:", "").trim();
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
+        return new Deadline(description, deadlineDateTime);
+    }
+
+    private Event parseEventTask(String description, String timeConstraint) throws DateTimeParseException {
+        String[] timeParts = timeConstraint.split(" to ");
+        if (timeParts.length < 2) {
+            throw new IllegalArgumentException("Event time constraint is malformed: " + timeConstraint);
+        }
+        LocalDateTime start = LocalDateTime.parse(timeParts[0].replace("from ", "").trim(), formatter);
+        LocalDateTime end = LocalDateTime.parse(timeParts[1].trim(), formatter);
+        return new Event(description, start, end);
+    }
+
 }
