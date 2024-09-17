@@ -44,17 +44,26 @@ public class Bocchi {
                     "Because it seems to be out of bounds. ＞﹏＜";
 
     private static final String COMMAND_SUMMARY = """
-            - bye: ends the conversation;
-            - list [/type <type>+] [/tag <tag>+]: lists out all tasks, optionally filtered by task type and/or tag;
-            - mark <index>: mark the task in the specified index as done;
-            - unmark <index>: mark the task in the specified index as not done;
-            - todo <description>: adds a new todo with the specified description;
-            - ddl/deadline <description> /by <dueDateTime>: adds a new deadline with the given description and due date/time;
-            - event <description> /from <fromDateTime> /to <toDateTime>: adds a new event with the specified description,
-                 start date/time and end date/time;
-            - del/delete <index>: delete the task in the specified index.
-            - tag <index> /tag <tag>+ : tags the task in the specified index with the specified tags.
-            - untag <index> /tag <tag>+ : removes the specified tags from the task in the specified index.
+            - bye
+                ends the conversation;
+            - list [/type <type>+] [/tag <tag>+]
+                lists out all tasks, optionally filtered by task type and/or tag;
+            - mark <index>
+                mark the task in the specified index as done;
+            - unmark <index>
+                mark the task in the specified index as not done;
+            - todo <description>
+                adds a new todo with the specified description;
+            - ddl/deadline <description> /by <dueDateTime>
+                adds a new deadline with the given description and due date/time;
+            - event <description> /from <fromDateTime> /to <toDateTime>
+                adds a new event with the specified description, start date/time and end date/time;
+            - del/delete <index>
+                delete the task in the specified index.
+            - tag <index> /tag <tag>+
+                tags the task in the specified index with the specified tags.
+            - untag <index> /tag <tag>+
+                removes the specified tags from the task in the specified index.
             """;
     private static final String GREET_MESSAGE = """
             Hi! I'm Bocchi! Nice to see you!");
@@ -220,7 +229,9 @@ public class Bocchi {
      * @return The greeting message.
      */
     public String greet() {
-        return GREET_MESSAGE + "\n" + COMMAND_SUMMARY;
+        return GREET_MESSAGE +
+                "\n-------------------------------------------------------\n" +
+                COMMAND_SUMMARY;
     }
 
 
