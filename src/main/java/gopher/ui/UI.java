@@ -12,15 +12,19 @@ public class UI {
      * Get the greeting message to show to the user
      */
     public static String getGreetMessage() {
-        return "Hi, welcome to Gopher!\n"
-                + "Here are the available commands:\n"
+        return "Hi, nice to meet you! I am Gopher!\n"
+                + "I will be your task managing assistant for today!\n"
+                + "If you want me to handle any task-related issues, here are the available commands:\n\n"
                 + """
-                1. todo/deadline/event - Create event of these types
-                2. mark/unmark X - Mark X-th task as done/not done
-                3. find [keyword] - Find matching tasks based on keywords
-                4. delete X - Delete X-th task
-                5. list - List out the current tasks
-                6. bye - End the interaction
+                1. todo [name] - Create a todo task
+                2. deadline [name] /by [due date] - Create a deadline that due by the given date
+                3. event [name] /from [start date] /to [end date] - Create an Event with specified start and end dates
+                4. mark/unmark X Y Z... - Mark tasks at position X Y Z as done/not done
+                5. find [keyword] - Find matching tasks based on keywords
+                6. delete X Y Z - Delete tasks at position X Y Z
+                7. list - List out the current tasks
+                8. update X [name] [fields] [detail] - update task at position X with the specified name and fields
+                9. bye - End the interaction
                 """;
     }
 
@@ -30,7 +34,7 @@ public class UI {
      * @param tasks TaskList object to be printed
      */
     public static String getTaskListMessage(TaskList tasks) {
-        return String.format("You currently have %d %s in the list\n%s",
+        return String.format("You currently have %d %s in the task list\n%s",
                 tasks.getSize(),
                 tasks.getSize() == 1 ? "task" : "tasks",
                 tasks);
@@ -42,7 +46,7 @@ public class UI {
      * @param tasks TaskList object containing all the matched tasks
      */
     public static String getMatchedTasksMessage(TaskList tasks) {
-        return String.format("Found %d matching %s in your list:\n%s",
+        return String.format("I have found %d matching %s in your task list:\n%s",
                 tasks.getSize(),
                 tasks.getSize() == 1 ? "task" : "tasks",
                 tasks
@@ -55,7 +59,7 @@ public class UI {
      * @param task     task to be added
      */
     public static String getAddTaskMessage(Task task) {
-        return "Got it! I have added this task:\n" + task;
+        return "Got it! I have added this task for you:\n" + task;
     }
 
     /**
@@ -64,7 +68,7 @@ public class UI {
      * @param task task to be marked as done
      */
     public static String getMarkAsDoneMessage(Task task) {
-        return String.format("Nice! I've marked this task as done:\n%s\n", task);
+        return String.format("I've marked this task as done:\n%s\nWell done! Keep up the good work!", task);
     }
 
     /**
@@ -101,26 +105,30 @@ public class UI {
         return e.getMessage()
                 +
                 """
-                    Current Supported Commands:
+                    Currently I can understand the following commands:
                         1. todo - Create a ToDo Task
                         2. deadline - Create a Deadline Task
                         3. event - Create an Event Task
-                        4. mark - Mark a task as done
-                        5. unmark - Mark a task as not done
+                        4. mark - Mark tasks as done
+                        5. unmark - Mark tasks as not done
                         6. find - Find tasks based on keywords
-                        7. bye - Exit the chatbot
+                        7. update - Update a task with provided information
+                        8. delete - Delete tasks from the task list
+                        9. bye - Exit the chatbot
 
-                    Note: The command is case-insensitive,
+                    Note that the command is case-insensitive,
                     as long as the input characters match,
-                    the chatbot would be able to respond to the given command""";
+                    I would be able to respond to the given command""";
     }
 
     /**
      * Get the helping message when user inputs invalid date.
      */
     public static String getInvalidDateWarning() {
-        return ("Oops...Seems like you have passed in invalid date...\n"
-                + "Please try again with valid date and correct format...\n"
-                + "Current accepted date format: YYYY-MM-DD or YYYY-MM-DD hh:mm");
+        return ("Oops...Seems like you have provided me an invalid date...\n"
+                + "Please try again with a valid date in correct format...\n"
+                + "Currently I can read date inputs in the following formats:\n"
+                + "    1. YYYY-MM-DD\n"
+                + "    2. YYYY-MM-DD hh:mm");
     }
 }
