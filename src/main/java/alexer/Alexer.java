@@ -127,9 +127,7 @@ public class Alexer {
      * data and prepares the chatbot for operation.
      */
     public void start() {
-        prompter.buildLogo().printToConsole();
         tasks.loadTasks();
-        prompter.buildGreeting().printToConsole();
     }
 
     /**
