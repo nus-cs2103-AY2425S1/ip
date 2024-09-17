@@ -1,6 +1,10 @@
 package bob;
 
 import bob.exception.FileCorruptedException;
+import bob.task.Deadline;
+import bob.task.Event;
+import bob.task.Task;
+import bob.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

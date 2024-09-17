@@ -1,6 +1,10 @@
 package bob;
 
 import bob.exception.*;
+import bob.task.Deadline;
+import bob.task.Event;
+import bob.task.Task;
+import bob.task.Todo;
 
 import java.io.IOException;
 import java.time.LocalDate;
