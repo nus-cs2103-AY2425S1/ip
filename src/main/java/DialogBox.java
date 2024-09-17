@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
+
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's
  * face
@@ -40,7 +41,7 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
-      
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */

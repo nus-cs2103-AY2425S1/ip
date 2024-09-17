@@ -4,23 +4,12 @@ package ai;
  * Prints output to the user.
  */
 public class Ui {
-    public String returnLine() {
-        return "____________________________________________________________\n";
-    }
-    /**
-     * Prints the line separator.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________\n");
-    }
-
     /**
      * Prints the first line user sees when booting up Ai.
      */
     public String showGreeting() {
-        return returnLine() + "Hi, I'm your favourite idol, Ai!!!\n"
-                + "What shall we do today? Teehee o(◠u◠)o\n"
-                + returnLine();
+        return "Hi, I'm your favourite idol, Ai!!!\n"
+                + "What shall we do today? Teehee o(◠u◠)o\n";
     }
 
     /**

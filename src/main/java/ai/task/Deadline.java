@@ -3,9 +3,9 @@ package ai.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 import ai.exception.AiException;
+
 
 /**
  * A subtype of Task that has a due date.
@@ -16,8 +16,9 @@ public class Deadline extends Task {
 
     /**
      * Creates a new Deadline object.
+     *
      * @param input String to be stored as description.
-     * @param date in the format of d/M/yyyy HHmm or YYYY-MM-DD.
+     * @param date  in the format of d/M/yyyy HHmm or YYYY-MM-DD.
      * @throws AiException if the date format is incorrect.
      */
     public Deadline(String input, String date) throws AiException {
@@ -38,8 +39,9 @@ public class Deadline extends Task {
 
     /**
      * Creates a new Deadline object.
-     * @param input String to be stored as description.
-     * @param date in the format of YYYY-MM-DD.
+     *
+     * @param input  String to be stored as description.
+     * @param date   in the format of YYYY-MM-DD.
      * @param isDone whether the task is done.
      * @throws AiException if the date format is incorrect.
      */

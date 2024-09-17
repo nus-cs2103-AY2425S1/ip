@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class Task {
     private boolean isDone = false;
-    protected String description;
+    private String description;
 
     public Task(String description) {
         this.description = description;
@@ -17,7 +17,7 @@ public class Task {
      * Creates a new Task object.
      *
      * @param description String to be stored as description.
-     * @param isDone whether the task is done.
+     * @param isDone      whether the task is done.
      */
     public Task(String description, Boolean isDone) {
         this.description = description;

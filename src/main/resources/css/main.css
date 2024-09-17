@@ -1,5 +1,5 @@
 .root {
-    main-color: rgb(250, 238, 250);       /* Create a looked-up color called "main-color" within root. */
+    main-color: rgb(250, 238, 250); /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .scroll-bar {
-    -fx-font-size: 15px;  /* Change width of scroll bar. */
+    -fx-font-size: 15px; /* Change width of scroll bar. */
     -fx-background-color: #ab9fcc;
 }
 
