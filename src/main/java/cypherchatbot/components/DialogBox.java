@@ -59,15 +59,15 @@ public class DialogBox extends HBox {
     public static DialogBox getCypherDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-
         for (var node : db.getChildren()) {
             if (node instanceof Label chatBox) {
-                chatBox.setStyle("-fx-background-color: #f88379; -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2; "
+                chatBox.setStyle("-fx-background-color: #ADD8E6; -fx-border-color: #cc79a7 #0072b2 #d55e00 #009e73; "
                         + "-fx-border-width: 2px; -fx-background-radius: 1em 1em 1em 0; "
                             + "-fx-border-radius: 1em 1em 1em 0;");
             }
         }
         return db;
     }
+
 }
 
