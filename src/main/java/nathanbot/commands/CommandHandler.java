@@ -169,7 +169,7 @@ public abstract class CommandHandler {
 
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
-            return "Invalid deadline format."
+            return "Invalid deadline format. "
                 + "Use: deadline <description> /by <date>\n";
         }
 
