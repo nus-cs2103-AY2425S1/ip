@@ -56,7 +56,7 @@ public class DeadlineCommand extends Command {
     private void handleDeadline(String input, TaskList taskList, Storage storage, Ui ui)
             throws PrinceException {
         if (input.equals("deadline")) {
-            throw new PrinceException("Please describe your deadline task in more detail!");
+            throw new PrinceException("Please do describe your deadline task in more detail Master Sir");
         }
         ui.showAdd();
         String desc = getDeadline(input);

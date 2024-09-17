@@ -7,7 +7,7 @@ import main.util.Storage;
 import main.util.Ui;
 
 /**
- * Command that finds exact match for tasks containing 
+ * Command that finds exact match for tasks containing
  * the keyword/phrase as inputted by the user.
  */
 public class FindExactCommand extends Command {

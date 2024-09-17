@@ -32,11 +32,13 @@ public class MarkCommand extends Command {
      */
     private void mark(String input, TaskList taskList, Storage storage, Ui ui) throws PrinceException {
         if (input.equals("mark")) {
-            throw new PrinceException("Don't forget to include the number of the task!");
+            throw new PrinceException("Master Sir, I would require the number of the task,"
+                    + " if you may so.");
         }
         String checkMark = input.substring(0, 4);
         if (!checkMark.equals("mark")) {
-            throw new PrinceException("Please ensure that your input begins with 'mark'!");
+            throw new PrinceException("Master Sir, your input should begin with 'mark'."
+                    + "Allow me to carry out my task");
         }
         int index = getIndex(input);
         Task task = taskList.get(index);

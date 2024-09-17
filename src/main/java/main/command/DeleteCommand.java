@@ -33,7 +33,8 @@ public class DeleteCommand extends Command {
         // extra check to make sure the start of input is "delete"
         String checkDelete = input.substring(0, 6);
         if (!checkDelete.equals("delete")) {
-            throw new PrinceException("Please ensure that your input begins with 'delete'!");
+            throw new PrinceException("Master Sir, your input should begin with 'delete'."
+                    + "Allow me to carry out my task");
         }
         storage.deleteFromFile(input, taskList);
         int index = getIndex(input);

@@ -48,8 +48,8 @@ public class Parser {
         case "findexact":
             return new FindExactCommand(input);
         default:
-            throw new PrinceException("Sorry, I am not sure what '" + input
-                    + "' means. Please try again!");
+            throw new PrinceException("I sincerely apologise Master Sir as I am not aware of what '"
+                    + input + "' means. Pardon me for my foolishness.");
         }
     }
 }

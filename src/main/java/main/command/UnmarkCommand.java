@@ -32,11 +32,13 @@ public class UnmarkCommand extends Command {
      */
     private void unmark(String input, TaskList taskList, Storage storage, Ui ui) throws PrinceException {
         if (input.equals("unmark")) {
-            throw new PrinceException("Don't forget to include the number of the task!");
+            throw new PrinceException("Master Sir, I would require the number of the task,"
+                    + " if you may so.");
         }
         String checkUnmark = input.substring(0, 6);
-        if (checkUnmark.equals("unmark")) {
-            throw new PrinceException("Please ensure that your input begins with 'unmark'!");
+        if (!checkUnmark.equals("unmark")) {
+            throw new PrinceException("Master Sir, your input should begin with 'unmark'."
+                    + "Allow me to carry out my task");
         }
         int index = getIndex(input);
         Task task = taskList.get(index);

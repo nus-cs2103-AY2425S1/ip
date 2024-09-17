@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
 
     private Prince prince;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/king.png"));
     private Image princeImage = new Image(this.getClass().getResourceAsStream("/images/frogprince.png"));
 
     /**
@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void showWelcome() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getPrinceDialog("Hello! I'm Prince :p\nWhat can I do for you?\n",
+                DialogBox.getPrinceDialog("Greetings Master Sir. Prince here, at your service.\n",
                         princeImage));
     }
 }
