@@ -94,4 +94,8 @@ public class TaskList {
         });
         return list;
     }
+
+    public void deleteAllTasks() {
+        this.taskList.clear();
+    }
 }

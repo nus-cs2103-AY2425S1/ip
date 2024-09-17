@@ -115,6 +115,13 @@ public class FRIDAY {
             return ui.displaySearchResults(searchResults);
             //if there is no input then nothing added to list
         //add a keyword for archive that archives all tasks and removes it from the storage and program list
+        case("archive"):
+            ArrayList<Task> archivedTasks = this.taskList.getList();
+            assert archivedTasks != null : "list not found";
+            archive.updateStorage(archivedTasks);
+            this.taskList.deleteAllTasks();
+            storage.updateStorage(this.taskList.getList());
+            return "I've archived all your tasks. Please check the archives file to find them";
         case (""):
             return "Please input a command";
         //to handle all normal inputs less empty strings
