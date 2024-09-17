@@ -29,6 +29,9 @@ public class Parser {
      * @param messageBuilder the MessageBuilder to construct and send messages
      */
     public Parser(TaskList taskList, MessageBuilder messageBuilder) {
+        assert taskList != null : "TaskList should not be null";
+        assert messageBuilder != null : "MessageBuilder should not be null";
+
         this.taskList = taskList;
         this.messageBuilder = messageBuilder;
     }
@@ -40,6 +43,8 @@ public class Parser {
      * @return a message resulting from the execution of the command
      */
     public String handleInput(String input) {
+        assert input != null : "Input should not be null";
+
         input = input.trim();
         if (input.isEmpty()) {
             return messageBuilder.sendMessage(new EmptyInputException().getMessage());
@@ -65,6 +70,9 @@ public class Parser {
      * @throws PukeException if the command is unknown or invalid
      */
     private Command parseCommand(String command, String args) throws PukeException {
+        assert command != null : "Command should not be null";
+        assert args != null : "Args should not be null";
+
         switch (command.toLowerCase()) {
         case "todo":
             return new AddTodoCommand(args);

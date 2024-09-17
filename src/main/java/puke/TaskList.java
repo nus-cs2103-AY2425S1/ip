@@ -21,6 +21,7 @@ public class TaskList {
      * @param loadedFromStorage the tasks loaded from storage
      */
     public TaskList(ArrayList<Task> loadedFromStorage) {
+        assert loadedFromStorage != null : "Task list loaded from storage should not be null";
         this.tasks = loadedFromStorage;
     }
 
@@ -33,6 +34,8 @@ public class TaskList {
      * @return a message indicating the task has been added
      */
     public String addTask(String type, String description, String... timeInfo) {
+        assert description != null && !description.isEmpty() : "Task description should not be null or empty";
+
         Task task = null;
         switch (type) {
         case "todo":
