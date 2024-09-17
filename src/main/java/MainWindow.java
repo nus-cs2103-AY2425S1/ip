@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -28,10 +29,15 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImg.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Fret.png"));
+    
+    @FXML
+    private ImageView imageView;
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Image image = new Image("/images/person.png");
+        imageView.setImage(image);
     }
 
     public void setBot(Fret f) {
@@ -53,14 +59,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        Pair<String, Boolean> response = fret.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response.getKey(), dukeImage)
-        );
-        userInput.clear();
-        if (response.getValue()) {
-            // stage.close();
+        if (!input.isBlank()) {
+            Pair<String, Boolean> response = fret.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getBotDialog(response.getKey(), dukeImage)
+            );
+            userInput.clear();
+            if (response.getValue()) {
+                // stage.close();
+            }
         }
     }
 }
