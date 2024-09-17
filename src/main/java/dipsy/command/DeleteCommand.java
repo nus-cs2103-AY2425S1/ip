@@ -46,9 +46,25 @@ public class DeleteCommand extends Command {
         }
 
         int userGivenIndex = Integer.parseInt(matcher.group(1));
-        int taskIndex = userGivenIndex - 1;
+        int taskIndex = calculateTaskIndex(userGivenIndex);
         Task deletedTask = tasks.deleteTask(taskIndex);
 
         return ui.getTaskDeletedMessage(deletedTask, tasks.getSize());
+    }
+
+    /**
+     * Converts the 1-based user input task index into a 0-based task index for internal task list operations.
+     *
+     * @param userGivenIndex The 1-based index provided by the user in the input.
+     * @return The 0-based index used internally for the task list.
+     * @throws InvalidCommandException If the user-given index is out of bounds (i.e., less than 1 or greater
+     *      than the task list size).
+     */
+    private int calculateTaskIndex(int userGivenIndex) throws InvalidCommandException {
+        int taskIndex = userGivenIndex - 1; // Since tasks are 0-indexed.
+        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_INDEX);
+        }
+        return taskIndex;
     }
 }
