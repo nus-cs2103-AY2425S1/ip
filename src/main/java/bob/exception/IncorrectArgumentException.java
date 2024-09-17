@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class IncorrectArgumentException extends BobException {
     public IncorrectArgumentException(String expectedArgument) {

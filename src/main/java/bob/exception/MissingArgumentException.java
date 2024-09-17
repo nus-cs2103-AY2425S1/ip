@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class MissingArgumentException extends BobException {
     public MissingArgumentException(String missingArgument) {

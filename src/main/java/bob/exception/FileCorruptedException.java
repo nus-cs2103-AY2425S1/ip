@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class FileCorruptedException extends BobException {
     public FileCorruptedException() {

@@ -1,5 +1,7 @@
 package bob;
 
+import bob.exception.FileCorruptedException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

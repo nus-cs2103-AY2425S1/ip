@@ -1,5 +1,7 @@
 package bob;
 
+import bob.exception.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -201,7 +203,7 @@ public class Bob {
     }
 
     private static void greet() {
-        say("Hey there! Bob.Bob at your service.\n" +
+        say("Hey there! Bob at your service.\n" +
                 "Let's roll up our sleeves and get to work!");
     }
 
