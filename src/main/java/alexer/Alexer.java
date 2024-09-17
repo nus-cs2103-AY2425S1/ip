@@ -86,78 +86,6 @@ public class Alexer {
         return tasks;
     }
 
-    public void addTodo(List<String> arguments) {
-        String description = String.join(" ", arguments);
-        if (description.isEmpty()) {
-            System.out.println(BREAK);
-            System.out.println("Oh-no! You forgot to include a description for your task!");
-            System.out.println(BREAK);
-            return;
-        }
-
-        Todo todo = new Todo(description);
-        tasks.addTask(todo);
-        tasks.saveTasks();
-
-        System.out.println(BREAK);
-        System.out.format("Sure! I’ve added the todo to your list:\n\n\t%s\n", todo);
-        System.out.format("\nYou have %d tasks now.\n", tasks.getTaskCount());
-        System.out.println(BREAK);
-    }
-
-    public void addDeadline(List<String> arguments) {
-        int keywordIndex = 0;
-        for (int i = 0; i < arguments.size(); i++) {
-            if (arguments.get(i).equals("/by")) keywordIndex = i;
-        }
-
-        String description = arguments.stream().limit(keywordIndex)
-                .collect(Collectors.joining(" "));
-        String by = arguments.stream().skip(keywordIndex + 1).collect(Collectors.joining(" "));
-
-        LocalDateTime dateTime;
-        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        try {
-            dateTime = LocalDateTime.parse(by, dateTimeFormat);
-        } catch (DateTimeException e) {
-            new Response("Uh-oh, I failed to understand what is the task deadline!").printToConsole();
-            return;
-        }
-
-        Deadline deadline = new Deadline(description, dateTime);
-        tasks.addTask(deadline);
-        tasks.saveTasks();
-
-        System.out.println(BREAK);
-        System.out.format("No problems! I’ve added the task to your list:\n\n\t%s\n", deadline);
-        System.out.format("\nYou have %d tasks now.\n", tasks.getTaskCount());
-        System.out.println(BREAK);
-    }
-
-    public void addEvent(List<String> arguments) {
-        int fromIndex = 0;
-        int toIndex = 0;
-        for (int i = 0; i < arguments.size(); i++) {
-            if (arguments.get(i).equals("/from")) fromIndex = i;
-            if (arguments.get(i).equals("/to")) toIndex = i;
-        }
-
-        String description = arguments.stream().limit(fromIndex)
-                .collect(Collectors.joining(" "));
-        String from = arguments.stream().limit(toIndex).skip(fromIndex + 1)
-                .collect(Collectors.joining(" "));
-        String to = arguments.stream().skip(toIndex + 1).collect(Collectors.joining(" "));
-
-        Event event = new Event(description, from, to);
-        tasks.addTask(event);
-        tasks.saveTasks();
-
-        System.out.println(BREAK);
-        System.out.format("Noted! I’ve added a new event to your tasks:\n\n\t%s\n", event);
-        System.out.format("\nYou have %d tasks now.\n", tasks.getTaskCount());
-        System.out.println(BREAK);
-    }
-
     /**
      * Processes the user input provided, and executes the
      * relevant commands/operations
@@ -174,24 +102,12 @@ public class Alexer {
                 response.printToConsole();
             }
         } else {
-            switch (command) {
-                case "bye":
-                    prompter.buildGoodbye().printToConsole();
-                    System.exit(0);
-                    break;
-                case "todo":
-                    addTodo(arguments);
-                    break;
-                case "deadline":
-                    addDeadline(arguments);
-                    break;
-                case "event":
-                    addEvent(arguments);
-                    break;
-                default:
-                    Response response = new Response("Uh-oh, I did not understand what you are trying to do.");
-                    response.printToConsole();
-                    break;
+            if (command.equals("bye")) {
+                prompter.buildGoodbye().printToConsole();
+                System.exit(0);
+            } else {
+                Response response = new Response("Uh-oh, I did not understand what you are trying to do.");
+                response.printToConsole();
             }
         }
     }

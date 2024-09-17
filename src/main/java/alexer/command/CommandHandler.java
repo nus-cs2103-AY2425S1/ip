@@ -50,5 +50,8 @@ public class CommandHandler {
         registerCommand(new DeleteTaskCommand());
         registerCommand(new MarkTaskCommand());
         registerCommand(new UnmarkTaskCommand());
+        registerCommand(new AddTodoCommand());
+        registerCommand(new AddDeadlineCommand());
+        registerCommand(new AddEventCommand());
     }
 }
