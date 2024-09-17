@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTaskNumberException;
 import gopher.exception.MissingTokenException;
@@ -71,7 +72,7 @@ public class Gopher {
                 message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
             }
             return message.toString();
-        } catch (MissingTaskNumberException e) {
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return e.getMessage();
         }
     }
@@ -91,7 +92,7 @@ public class Gopher {
                 message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
             }
             return message.toString();
-        } catch (MissingTaskNumberException e) {
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return e.getMessage();
         }
     }
@@ -111,7 +112,7 @@ public class Gopher {
             }
             taskList.delete(taskNumbers);
             return message.toString();
-        } catch (MissingTaskNumberException e) {
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return e.getMessage();
         }
     }
@@ -159,9 +160,8 @@ public class Gopher {
             return taskList.update(tokens);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
-        } catch (InvalidTokenException e) {
-            return e.getMessage();
-        } catch (MissingTaskNumberException e) {
+        } catch (InvalidTokenException | MissingTaskNumberException
+                 | InvalidTaskNumberException e) {
             return e.getMessage();
         }
     }

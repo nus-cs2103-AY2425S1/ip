@@ -1,10 +1,10 @@
 package gopher.task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTaskNumberException;
 import gopher.storage.TaskManager;
@@ -50,7 +50,8 @@ public class TaskList {
      * @return UI message showing the detail of the updated task
      */
     public String update(String[] tokens)
-            throws InvalidTokenException, MissingTaskNumberException {
+            throws InvalidTokenException, MissingTaskNumberException,
+            InvalidTaskNumberException {
         try {
             if (tokens.length < 2) {
                 throw new MissingTaskNumberException();
@@ -73,18 +74,24 @@ public class TaskList {
      *
      * @param taskNumbers numbers of the tasks to be deleted
      */
-    public void delete(int... taskNumbers) {
+    public void delete(int... taskNumbers)
+            throws InvalidTaskNumberException {
         // Map task number to actual task in the taskList
-        Task[] deleteTaskList = Arrays
-                .stream(taskNumbers)
-                .mapToObj(this::getTask)
-                .toArray(Task[]::new);
+        Task[] tasksToBeDeleted = new Task[taskNumbers.length];
+        for (int i = 0; i < taskNumbers.length; i++) {
+            int taskNumber = taskNumbers[i];
+            Task task = this.getTask(taskNumber);
+            if (task == null) {
+                throw new InvalidTaskNumberException(taskNumber);
+            }
+            tasksToBeDeleted[i] = this.getTask(taskNumbers[i]);
+        }
 
         // Delete tasks by reference
         // Do not use task number for deletion directly because
         // items in ArrayList will shift left after deletion
         // causing the indexes of the items to be messed up
-        for (Task task: deleteTaskList) {
+        for (Task task: tasksToBeDeleted) {
             tasks.remove(task);
         }
         TaskManager.saveTasks(tasks);
@@ -115,7 +122,8 @@ public class TaskList {
      *
      * @param taskNumbers numbers of the tasks to be marked as done
      */
-    public void markAsDone(int... taskNumbers) {
+    public void markAsDone(int... taskNumbers)
+            throws InvalidTaskNumberException {
         for (int taskNumber: taskNumbers) {
             Task task = getTask(taskNumber);
             task.markAsDone();
@@ -129,7 +137,8 @@ public class TaskList {
      *
      * @param taskNumbers numbers of the tasks to be marked as not done
      */
-    public void markAsUndone(int... taskNumbers) {
+    public void markAsUndone(int... taskNumbers)
+            throws InvalidTaskNumberException {
         for (int taskNumber: taskNumbers) {
             Task task = getTask(taskNumber);
             task.markAsNotDone();
@@ -143,7 +152,11 @@ public class TaskList {
      * @param taskNumber number of the task wanted
      * @return task with the specified number
      */
-    public Task getTask(int taskNumber) {
+    public Task getTask(int taskNumber)
+            throws InvalidTaskNumberException {
+        if (taskNumber <= 0 || taskNumber > this.tasks.size()) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
         return this.tasks.get(taskNumber - 1);
     }
 
