@@ -49,7 +49,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = majimabot.getResponse(input); // Get response from Majimabot
+        String response = majimabot.getResponse(input); //Get the corresponding response
+        //for a particular input
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
