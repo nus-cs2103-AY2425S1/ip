@@ -30,14 +30,15 @@ public abstract class Task {
      * @return a <code>Task</code> object of the right subclass type
      */
     public static Task of(String taskObjectString) {
+        int xIndex = 4;
         if (taskObjectString.startsWith("[T]")) {
-            boolean isDone = taskObjectString.charAt(4) == 'X';
+            boolean isDone = taskObjectString.charAt(xIndex) == 'X';
             String taskDescription = taskObjectString.substring(7);
 
             return new ToDo(taskDescription, isDone);
 
         } else if (taskObjectString.startsWith("[D]")) {
-            boolean isDone = taskObjectString.charAt(4) == 'X';
+            boolean isDone = taskObjectString.charAt(xIndex) == 'X';
             int byIndex = taskObjectString.indexOf("by");
 
             String taskDescription = taskObjectString.substring(7, byIndex - 2);
@@ -46,7 +47,7 @@ public abstract class Task {
             return new Deadline(taskDescription, formatLoadedDateTime(deadline), isDone);
 
         } else if (taskObjectString.startsWith("[E]")) {
-            boolean isDone = taskObjectString.charAt(4) == 'X';
+            boolean isDone = taskObjectString.charAt(xIndex) == 'X';
             int fromIndex = taskObjectString.indexOf("from");
             int toIndex = taskObjectString.indexOf("to");
 
