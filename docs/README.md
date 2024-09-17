@@ -221,3 +221,14 @@ task in the `TaskList` array.
 >
 >[T][ ] sleep twice | [sleep 8 hours]
 >1. sleep 8 hours
+
+## Bye
+The feature allows you to exit the program.
+
+### Command Format
+
+`bye`
+
+>`bye`
+> 
+>Bye. Hope to see you again soon!
