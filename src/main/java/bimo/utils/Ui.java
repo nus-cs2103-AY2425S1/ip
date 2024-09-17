@@ -36,7 +36,7 @@ public class Ui {
                 + "4. mark <task number>\n\n5. unmark <task number>\n\n"
                 + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
                 + "8. list\n\n"
-                + "9. set <high, medium, low>\n\n10.help\n\n"
+                + "9. set <high, medium, low>\n\n10. help\n\n"
                 + "11. bye\n";
         return list;
     }
@@ -195,7 +195,7 @@ public class Ui {
      * @return Response to set command
      */
     public String printPrioritisedTaskMessage(Task task) {
-        String response = "OKAYY I have set the priority level!\n"
+        String response = "OKAYY I have set the priority level for this task!\n"
                 + "    " + task.toString();
         return response;
     }
