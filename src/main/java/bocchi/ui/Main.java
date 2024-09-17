@@ -36,6 +36,8 @@ public class Main extends Application {
                 stage.getIcons().add(icon);
             }
 
+            stage.setTitle("Bocchi Chatbot");
+
             fxmlLoader.<MainWindow>getController().setBocchiWrapper(bocchiWrapper);  // inject the Duke instance
             bocchiWrapper.setStage(stage);
             stage.show();
