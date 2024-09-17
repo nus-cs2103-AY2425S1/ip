@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import cypherchatbot.CypherException;
 import cypherchatbot.task.Deadline;
 import cypherchatbot.task.Event;
 import cypherchatbot.task.Task;
@@ -59,7 +60,7 @@ public class Storage {
      * @throws FileNotFoundException If the file at the specified path does not exist.
      */
 
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> load() throws FileNotFoundException, CypherException {
 
         assert this.filepath != null : "File Path has not been initialised";
         ArrayList<Task> taskList = new ArrayList<>();

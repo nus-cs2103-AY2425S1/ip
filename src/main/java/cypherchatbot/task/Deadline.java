@@ -13,7 +13,7 @@ public class Deadline extends Task implements Comparable<Deadline>{
 
     @Override
     public String toString() {
-        String str = this.completed ? "[D][X] " : "[D][ ] ";
+        String str = this.isComplete ? "[D][X] " : "[D][ ] ";
         str += String.format("%s (by: %s)", this.description,
                 this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
         return str;
@@ -21,7 +21,7 @@ public class Deadline extends Task implements Comparable<Deadline>{
 
     @Override
     public String toStringInFile() {
-        int val = this.completed ? 1 : 0;
+        int val = this.isComplete ? 1 : 0;
         return String.format("D|%d|%s|%s", val, this.description,
                 this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }

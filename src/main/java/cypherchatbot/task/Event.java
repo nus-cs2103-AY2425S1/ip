@@ -16,7 +16,7 @@ public class Event extends Task implements Comparable<Event> {
 
     @Override
     public String toString() {
-        String str = this.completed ? "[E][X] " : "[E][ ] ";
+        String str = this.isComplete ? "[E][X] " : "[E][ ] ";
         str += String.format("%s (from: %s || to: %s)", this.description,
                 this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
                     this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
@@ -25,7 +25,7 @@ public class Event extends Task implements Comparable<Event> {
 
     @Override
     public String toStringInFile() {
-        int val = this.completed ? 1 : 0;
+        int val = this.isComplete ? 1 : 0;
         return String.format("E|%d|%s|%s|%s", val, this.description,
                 this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                     this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
