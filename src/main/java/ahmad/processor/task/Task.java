@@ -71,7 +71,8 @@ public abstract class Task {
         return new Deadline(deadlineArgs.get(0), deadline);
     }
 
-    private static Event createEvent(String arg) throws EventEmptyNameException, EventInvalidArgsException, EventInvalidTimeException {
+    private static Event createEvent(String arg) throws EventEmptyNameException, EventInvalidArgsException,
+            EventInvalidTimeException {
 
         final List<String> eventArgs = Arrays.asList(arg.split("/"));
         if (eventArgs.get(0).replaceAll("\\s+", "").isEmpty()) {
