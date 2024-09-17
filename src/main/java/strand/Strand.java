@@ -62,6 +62,7 @@ public class Strand {
                 ui.showLine();
             }
         }
+        scan.close();
     }
 
     public String getResponse(String input) {
