@@ -3,6 +3,8 @@
 
 YappingBot **FREES** your mind of having to remember things you need to do.
 
+![](Ui.png)
+
 - Text-based
 - Questionable learning curve
 - _SUPER_ FAST to ~~crash~~ use (I'm kidding, it's Java. You only get that* in C)

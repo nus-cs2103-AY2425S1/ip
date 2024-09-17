@@ -3,6 +3,9 @@
 
 YappingBot **FREES** your mind of having to remember things you need to do.
 
+
+![](Ui.png)
+
 ---
 <details> 
 <summary> **Quick Links** </summary>
