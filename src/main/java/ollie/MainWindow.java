@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Ollie instance
+     * Injects the Ollie instance.
      */
     public void setOllie(Ollie o) {
         ollie = o;
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Set callback function
+     * Sets callback function.
      */
     public void setExitHandler(ExitHandler exitHandler) {
         this.exitHandler = exitHandler;

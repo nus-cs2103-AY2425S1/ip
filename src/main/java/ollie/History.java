@@ -13,16 +13,14 @@ public class History {
 
 
     /**
-     * Add command
-     *
-     * @param command
+     * Adds command.
      */
     public void add(Command command) {
         history.add(command);
     }
 
     /**
-     * Remove the latest added task in its ArrayList of Task and executeit.
+     * Removes the latest added task in its ArrayList of Task and execute it.
      *
      * @throws OllieException If no task is left to be undone
      */

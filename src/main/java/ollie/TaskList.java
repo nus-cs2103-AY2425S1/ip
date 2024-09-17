@@ -94,13 +94,13 @@ public class TaskList {
      * Mark the task, in its ArrayList of Task specified by the index, as undone
      * and return the task.
      *
-     * @param Index index reprsents the indexition of the task to be mark as undone.
+     * @param index index reprsents the indexition of the task to be mark as undone.
      * @return Task which has been marked as done.
      */
     public Task markAsUndone(int index) throws OllieException{
         assert(tasks != null);
         if (!isIndexValid(index)) {
-            throw new OllieException("Invalid Serial number given!");
+            throw new OllieException("Invalid serial number given!");
         }
         Task task = tasks.get(index);
         task.markAsUndone();

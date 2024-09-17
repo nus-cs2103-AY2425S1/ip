@@ -38,10 +38,10 @@ public class Parser {
 
         if (input.matches("list")) {
             return new ListCommand();
-        } else if (input.matches("^mark.*")) {
+        } else if (input.matches("^mark .*")) {
             int index = Parser.getIndex(input);
             return new MarkCommand(index);
-        } else if (input.matches("^unmark.*")) {
+        } else if (input.matches("^unmark .*")) {
             int index = Parser.getIndex(input);
             return new UnmarkCommand(index);
         } else if (input.matches("^(deadline|event|todo).*")) {
@@ -63,92 +63,101 @@ public class Parser {
     }
 
     private static int getIndex(String s) throws OllieException {
-        if (!s.matches(".* \\d+")) {
-            throw new OllieException("Missing Serial Number after command.");
+        String[] splitString = s.split(" ", 2);
+        if (splitString[1].isEmpty()) {
+            throw new OllieException("Missing serial number after command!");
         }
-        return Integer.parseInt(s.replaceAll("\\D+", "")) - 1;
+
+        try {
+            return Integer.parseInt(splitString[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new OllieException("Invalid serial number given!");
+        }
     }
 
     private static Task parseTask(String s) throws OllieException {
-        Task task;
-
-        // Input parser:
         if (s.matches("^deadline.*$")) {
-            if (!s.contains("/by")) {
-                throw new OllieException("Use deadline with a \"/by\" keyword and a date.");
-            }
-
-            String[] splitString = s.split("/by", 2);
-            String byInString = splitString[1].trim();
-            String desc = splitString[0].replaceFirst("deadline", "").trim();
-            if (desc.isEmpty()) {
-                throw new OllieException("Description of deadline cannot be empty!");
-            }
-            if (byInString.isEmpty()) {
-                throw new OllieException("date of deadline cannot be empty!");
-            }
-
-            LocalDate by;
-            try {
-                by = LocalDate.parse(byInString, Parser.formatter);
-            } catch (DateTimeException e) {
-                throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
-            }
-            assert(by != null);
-            task = new Deadline(desc, by);
+            return parseDeadline(s);
         } else if (s.matches("^event.*")) {
-            if (!s.contains("/from")) {
-                throw new OllieException("Use deadline with a \"/from\" keyword and a date.");
-            }
-            if (!s.contains("/to")) {
-                throw new OllieException("Use deadline with a \"/to\" keyword and a date.");
-            }
-            if (!s.matches(".*/from.*/to.*")) {
-                throw new OllieException("\"/from\" keyword must come before \"/to\" keyword.");
-            }
-
-            String[] splitString = s.split("/from|/to", 3);
-            String desc = splitString[0].replaceFirst("event", "").trim();
-            String fromInString = splitString[1].trim();
-            String toInString = splitString[2].trim();
-            if (desc.isEmpty()) {
-                throw new OllieException("Description of event cannot be empty!");
-            }
-            if (fromInString.isEmpty()) {
-                throw new OllieException("date after /from cannot be empty!");
-            }
-            if (toInString.isEmpty()) {
-                throw new OllieException("date after /to cannot be empty!");
-            }
-
-            LocalDate from, to;
-            try {
-                from = LocalDate.parse(fromInString, Parser.formatter);
-                to = LocalDate.parse(toInString, Parser.formatter);
-            } catch (DateTimeException e) {
-                throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
-            }
-            assert(from != null);
-            assert (to != null);
-            if (!from.isBefore(to)) {
-                throw new OllieException("/from's date must be before /to's date!");
-            }
-
-            assert(from != null);
-            assert(to != null);
-            task = new Event(desc, from, to);
+            return parseEvent(s);
         } else if (s.matches("^todo.*")){
-            String desc = s.replaceFirst("todo", "").trim();
-            if (desc.isEmpty()) {
-                throw new OllieException("Description of todo cannot be empty!");
-            }
-
-            task = new Todo(desc);
+            return parseTodo(s);
         } else {
             throw new OllieException("Invalid Task");
         }
-        assert(task != null);
-        return task;
+    }
+
+    private static Deadline parseDeadline(String s) throws OllieException {
+        if (!s.contains("/by")) {
+            throw new OllieException("Use deadline with a \"/by\" keyword and a date.");
+        }
+
+        String[] splitString = s.split("/by", 2);
+        String byInString = splitString[1].trim();
+        String desc = splitString[0].replaceFirst("deadline", "").trim();
+        if (desc.isEmpty()) {
+            throw new OllieException("Description of deadline cannot be empty!");
+        }
+        if (byInString.isEmpty()) {
+            throw new OllieException("Date of deadline cannot be empty!");
+        }
+
+        LocalDate by;
+        try {
+            by = LocalDate.parse(byInString, Parser.formatter);
+        } catch (DateTimeException e) {
+            throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
+        }
+        assert(by != null);
+        return new Deadline(desc, by);
+    }
+
+    private static Event parseEvent(String s) throws OllieException {
+        if (!s.contains("/from")) {
+            throw new OllieException("Use deadline with a \"/from\" keyword and a date.");
+        }
+        if (!s.contains("/to")) {
+            throw new OllieException("Use deadline with a \"/to\" keyword and a date.");
+        }
+        if (!s.matches(".*/from.*/to.*")) {
+            throw new OllieException("\"/from\" keyword must come before \"/to\" keyword.");
+        }
+
+        String[] splitString = s.split("/from|/to", 3);
+        String desc = splitString[0].replaceFirst("event", "").trim();
+        String fromInString = splitString[1].trim();
+        String toInString = splitString[2].trim();
+        if (desc.isEmpty()) {
+            throw new OllieException("Description of event cannot be empty!");
+        }
+        if (fromInString.isEmpty()) {
+            throw new OllieException("Date after /from cannot be empty!");
+        }
+        if (toInString.isEmpty()) {
+            throw new OllieException("Date after /to cannot be empty!");
+        }
+
+        LocalDate from, to;
+        try {
+            from = LocalDate.parse(fromInString, Parser.formatter);
+            to = LocalDate.parse(toInString, Parser.formatter);
+        } catch (DateTimeException e) {
+            throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
+        }
+        assert(from != null);
+        assert (to != null);
+        if (!from.isBefore(to)) {
+            throw new OllieException("/from's date must be before /to's date!");
+        }
+        return new Event(desc, from, to);
+    }
+
+    private static Todo parseTodo(String s) throws OllieException {
+        String desc = s.replaceFirst("todo", "").trim();
+        if (desc.isEmpty()) {
+            throw new OllieException("Description of todo cannot be empty!");
+        }
+        return new Todo(desc);
     }
 
     private static String getBody(String prefix, String s) throws OllieException {
