@@ -22,7 +22,7 @@ public class Ui {
      * Shows welcome message to the user.
      */
     public static String showWelcome() {
-        return "Hello! My name is Peppa." + "\n" + "What can I do for you?";
+        return "Hello! My name is Peppa. Oink Oink" + "\n" + "What can I do for you?";
     }
 
     /**
