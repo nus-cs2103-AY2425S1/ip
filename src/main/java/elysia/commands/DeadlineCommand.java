@@ -10,6 +10,7 @@ import elysia.Parser.DateTimeParser;
 import elysia.ui.Message;
 
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class DeadlineCommand extends Command {
     String[] args;
@@ -37,6 +38,7 @@ public class DeadlineCommand extends Command {
             throw new WrongArgumentException("date");
         }
         taskList.addTask(deadline);
+        assert(!Objects.equals(taskList.getSizeAsString(), "0"));
         output.append("Added the task below to your list~\n").append(deadline.toString()).append("\n");
         output.append("Wow! You now have ").append(taskList.getSizeAsString()).append(" tasks in your list!");
         return output.toString();

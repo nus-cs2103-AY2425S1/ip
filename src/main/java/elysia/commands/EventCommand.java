@@ -7,6 +7,8 @@ import elysia.tasks.Event;
 import elysia.tasks.TaskList;
 import elysia.ui.Message;
 
+import java.util.Objects;
+
 public class EventCommand extends Command {
     String[] args;
 
@@ -27,6 +29,7 @@ public class EventCommand extends Command {
         }
         Event event = new Event(eventArgs[0], eventArgs[1], eventArgs[2]);
         taskList.addTask(event);
+        assert(!Objects.equals(taskList.getSizeAsString(), "0"));
         output.append("Added the task below to your list~\n").append(event.toString()).append("\n");
         output.append("Wow! You now have ").append(taskList.getSizeAsString()).append(" tasks in your list!");
         return output.toString();
