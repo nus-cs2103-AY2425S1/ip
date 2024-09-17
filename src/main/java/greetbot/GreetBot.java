@@ -56,7 +56,8 @@ public class GreetBot {
      * @throws RandomInputException exception when non-command input passes in through keyboard.
      * @throws EmptyDescriptionException exception when nothing follows the command.
      */
-    public String getResponse(String input) throws RandomInputException, EmptyDescriptionException {
+    public String getResponse(String input) throws RandomInputException,
+            EmptyDescriptionException, NumberFormatException {
         final int keywordPart = 0;
         final int markUnmarkDeletePosition = 1;
         final int argumentsPart = 1;
@@ -111,12 +112,12 @@ public class GreetBot {
      * @param position The position in task list which needs to be marked.
      * @return A response from ui.
      */
-    private String markAsDone(int position) {
+    private String markAsDone(int position) throws IndexOutOfBoundsException {
         this.tasks.get(position).mark();
         return ui.showMarked(tasks.get(position), tasks.getLength());
     }
 
-    private String markAsNotDone(int position) {
+    private String markAsNotDone(int position) throws IndexOutOfBoundsException {
         this.tasks.get(position).unmark();
         return ui.showUnmarked(tasks.get(position), tasks.getLength());
     }
@@ -126,7 +127,7 @@ public class GreetBot {
      * @param position The position in task list which needs to be deleted.
      * @return A response from ui.
      */
-    private String deleteTask(int position) {
+    private String deleteTask(int position) throws IndexOutOfBoundsException {
         Task deletedTask = tasks.get(position - 1);
         this.tasks.delete(position);
         return ui.showDelete(deletedTask, tasks.getLength());
@@ -169,6 +170,11 @@ public class GreetBot {
             return (e.getMessage());
         } catch (EmptyDescriptionException e) {
             return (e.getMessage());
+        } catch (NumberFormatException e) {
+            return String.format("Oops! There is something wrong with your argument! "
+                    + "Please make sure it is a number and the format is correct");
+        } catch (IndexOutOfBoundsException e) {
+            return String.format("You are manipulating position out of bound!");
         }
     }
 

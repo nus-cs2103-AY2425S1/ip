@@ -24,7 +24,7 @@ public class Parser {
      * @param input The argument for mark/unmark/delete keyword.
      * @return The position to mark/unmark/delete.
      */
-    public static int parseMarkUnmarkDelete(String input) {
+    public static int parseMarkUnmarkDelete(String input) throws NumberFormatException {
         return Integer.parseInt(input.trim());
     }
 
