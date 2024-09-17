@@ -1,0 +1,8 @@
+todo buy shoes
+deadline homework /by 30th August
+list
+event meeting /from 31st August /to 1st Sep
+list
+unmark 2
+list
+bye
