@@ -1,28 +1,25 @@
-# Duke project template
+# Ah Bang Mang
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a Singaporean uncle helper chatbot.
 
-## Setting up in Intellij
+## Features
+1. View task list
+2. Add varied tasks to task list
+   1. Todo: regular task that only displays a description
+   2. Deadline: task that can include a deadline 
+   3. Event: task that has a start and end date
+3. Mark tasks as done/ undone
+4. Delete tasks from list 
+5. Find tasks within list 
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Bonus
+* Appealing GUI
+* Singlish responses by chatbot 
+* Task list is saved to computer hard drive to retrieve when needed
+* Asking "help" will provide the full list of commands and respective notations
 
-Acknowledgements:
+
+## Acknowledgements:
 1. ChatGPT: Writing JUnit command tests
 2. SE-EDU JavaFX Tutorial: GUI base code
