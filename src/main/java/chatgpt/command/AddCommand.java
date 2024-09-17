@@ -50,33 +50,35 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage)
             throws ChatBotException {
-        Task newTask = null;
+        Task newTask = processNewTask();
+        tasks.add(newTask);
+        storage.save(tasks);
+        return ui.showAddTask(newTask, tasks.size());
+    }
+
+    private Task processNewTask() throws ChatBotException {
         String task;
         switch (taskType) {
         case TODO:
-            newTask = new ToDos(input);
-            break;
+            return new ToDos(input);
 
         case DEADLINE:
             task = input.split("/by")[0];
             String deadline = input.split("/by")[1];
-            newTask = new Deadlines(task, deadline);
-            break;
+            return new Deadlines(task, deadline);
 
         case EVENT:
             task = input.split("/from")[0];
             String date = input.split("/from")[1];
             String startDate = date.split("/to")[0];
             String endDate = date.split("/to")[1];
-            newTask = new Events(task, startDate, endDate);
-            break;
-        default:
-        }
+            return new Events(task, startDate, endDate);
 
-        tasks.add(newTask);
-        storage.save(tasks);
-        return ui.showAddTask(newTask, tasks.size());
+        default:
+            return null;
+        }
     }
+
     /**
      * {@inheritDoc}
      *

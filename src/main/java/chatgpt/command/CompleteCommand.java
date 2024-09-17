@@ -42,17 +42,22 @@ public class CompleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage)
             throws ChatBotException {
-        if (index > tasks.size()) {
-            throw new ChatBotException("\tNo task exists for that index");
-        }
-        Task task = tasks.get(index - 1);
-        task.setCompleted(isCompleted);
+        Task task = updateCompletion(tasks);
         storage.save(tasks);
         if (isCompleted) {
             return ui.showCompleteTask(task);
         } else {
             return ui.showUncompleteTask(task);
         }
+    }
+
+    private Task updateCompletion(TaskList tasks) throws ChatBotException {
+        if (index > tasks.size()) {
+            throw new ChatBotException("\tNo task exists for that index");
+        }
+        Task task = tasks.get(index - 1);
+        task.setCompleted(isCompleted);
+        return task;
     }
 
     /**

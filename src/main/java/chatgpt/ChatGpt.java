@@ -20,6 +20,8 @@ public class ChatGpt {
     /** Stores the list of task **/
     private TaskList tasks;
 
+    private boolean hasErrorLoading = false;
+
     /**
      * Constructor for the chatbot, initialised with the given filePath as the path
      * to the save file. Save file is also read and stored to the TaskList.
@@ -32,7 +34,7 @@ public class ChatGpt {
         try {
             tasks = new TaskList(storage.load());
         } catch (ChatBotException e) {
-            ui.showLoadingError();
+            hasErrorLoading = true;
             tasks = new TaskList();
         }
     }
@@ -46,7 +48,15 @@ public class ChatGpt {
         }
     }
 
+    public boolean hasErrorLoading() {
+        return this.hasErrorLoading;
+    }
+
     public static String getWelcome() {
         return Ui.showWelcome();
+    }
+
+    public static String getLoadingError(){
+        return Ui.showLoadingError();
     }
 }
