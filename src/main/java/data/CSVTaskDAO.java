@@ -6,15 +6,11 @@ import features.task.EventTask;
 import features.task.TodoTask;
 import features.task.Task;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -24,7 +20,6 @@ import config.Config;
  * A class that implements the TaskDAO interface using CSV files for persistence.
  */
 public class CSVTaskDAO implements TaskDAO {
-
     private List<Task> tasks;
     private static final String CSV_FILE = Config.CSV_FILE_PATH;
 
@@ -52,6 +47,17 @@ public class CSVTaskDAO implements TaskDAO {
 
         // Use a FileWriter to write to the CSV file
         File csvFile = csvFilePath.toFile();
+
+        if (!csvFile.exists()) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFile))) {
+                String header = "id,type,isMarked,description,extraData";
+                bw.write(header);
+                bw.newLine();
+                System.out.println("File created with headers: " + header);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         br.readLine();
