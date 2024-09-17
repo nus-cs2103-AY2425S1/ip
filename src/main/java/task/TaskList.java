@@ -111,13 +111,13 @@ public class TaskList {
         if (i >= TaskList.length()) {
             return Ui.noSuchTaskMessage();
         }
-        if (priority.equals("low")) {
+        if (priority.equalsIgnoreCase("low")) {
             taskLists.get(i).setPriority(Task.Priority.LOW);
         }
-        if (priority.equals("medium")) {
+        if (priority.equalsIgnoreCase("medium")) {
             taskLists.get(i).setPriority(Task.Priority.MEDIUM);
         }
-        if (priority.equals("high")) {
+        if (priority.equalsIgnoreCase("high")) {
             taskLists.get(i).setPriority(Task.Priority.HIGH);
         }
         TaskList.rearrangeTaskList();
