@@ -62,7 +62,7 @@ public class TaskListTest {
                 3. [T][X] do laundry
                 4. [D][ ] submit assignment (by: Dec 12 2024 11:59 pm)
                 5. [E][ ] project meeting (from: Dec 10 2024 02:00 pm to: Dec 10 2024 04:00 pm)
-                6. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)""";
+                6. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)\n""";
         assertEquals(expected, taskList.printTasks());
     }
 
@@ -73,7 +73,7 @@ public class TaskListTest {
     }
 
     @Test
-    void testGetRelevantTasks_validDate() throws BobException {
+    void testPrintRelevantTasksByDate_validDate() throws BobException {
         String validDate1 = "2024-12-12";
         String expected1 = """
                 1. [D][ ] submit assignment (by: Dec 12 2024 11:59 pm)
@@ -95,23 +95,52 @@ public class TaskListTest {
     }
 
     @Test
-    void testGetRelevantTasks_noRelevantTasks() throws BobException {
+    void testPrintRelevantTasksByDate_noRelevantTasks() throws BobException {
         String irrelevantDate = "2025-01-01";
         String expected = "Total number of relevant tasks for Jan 01 2025: 0";
         assertEquals(expected, taskList.printRelevantTasksByDate(irrelevantDate));
     }
 
     @Test
-    void getRelevantTasks_invalidDateFormat_exceptionThrown() {
+    void printRelevantTasksByDate_invalidDateFormat_exceptionThrown() {
         String invalidDate = "01-01-2025";
         BobException e = assertThrows(BobException.class, () -> taskList.printRelevantTasksByDate(invalidDate));
         assertEquals("Invalid date format. Required format: relevant yyyy-MM-dd", e.getMessage());
     }
 
     @Test
-    void getRelevantTasks_emptyDate_exceptionThrown() {
+    void printRelevantTasksByDate_emptyDate_exceptionThrown() {
         String emptyDateStr = "";
         BobException e = assertThrows(BobException.class, () -> taskList.printRelevantTasksByDate(emptyDateStr));
         assertEquals("Invalid date format. Required format: relevant yyyy-MM-dd", e.getMessage());
+    }
+
+    @Test
+    void testPrintTasksByKeyword_applicableKeyword() throws BobException {
+        String applicableKeyword1 = "trip";
+        String expected1 = """
+                1. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)
+                Total number of tasks containing "trip": 1""";
+        assertEquals(expected1, taskList.printTasksByKeyword(applicableKeyword1));
+
+        String applicableKeyword2 = "pencil";
+        String expected2 = """
+                1. [T][ ] buy pencil
+                Total number of tasks containing "pencil": 1""";
+        assertEquals(expected2, taskList.printTasksByKeyword(applicableKeyword2));
+    }
+
+    @Test
+    void printTasksByKeyword_emptyKeyword_exceptionThrown() {
+        String emptyKeyword = "";
+        BobException e = assertThrows(BobException.class, () -> taskList.printTasksByKeyword(emptyKeyword));
+        assertEquals("Please provide a keyword or a phrase.", e.getMessage());
+    }
+
+    @Test
+    void testPrintTasksByKeyword_inapplicableKeyword() throws BobException {
+        String inapplicableKeyword = "mop floor";
+        String expected = "Total number of tasks containing \"mop floor\": 0";
+        assertEquals(expected, taskList.printTasksByKeyword(inapplicableKeyword));
     }
 }

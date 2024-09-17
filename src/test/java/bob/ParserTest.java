@@ -1,12 +1,12 @@
 package bob;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
 
@@ -40,7 +40,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseCommand_blankInput_exceptionThrown() {
+    public void parseCommand_blankInput_exceptionThrown() {
         BobException e = assertThrows(BobException.class, () -> Parser.parseCommand(" "));
         assertEquals("You did not key in anything...", e.getMessage());
     }

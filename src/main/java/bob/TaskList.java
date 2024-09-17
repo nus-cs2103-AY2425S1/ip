@@ -156,7 +156,7 @@ public class TaskList {
      * @throws BobException If the keyword is empty.
      */
     String printTasksByKeyword(String keyword) throws BobException {
-        if (keyword.isEmpty()) {
+        if (keyword.trim().isEmpty()) {
             throw new BobException("Please provide a keyword or a phrase.");
         }
 
