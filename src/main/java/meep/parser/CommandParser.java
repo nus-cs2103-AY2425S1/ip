@@ -31,4 +31,15 @@ public class CommandParser {
     public static boolean checkCommandWithoutArgument(String input, String command) {
         return input.equalsIgnoreCase(command);
     }
+
+    /**
+     * Checks if the given input string contains illegal characters.
+     *
+     * @param input The full input string provided by the user.
+     * @return {@code true} if the input contains illegal characters, {@code false} otherwise.
+     */
+    public static boolean checkIllegalCharacters(String input) {
+        // "|" is used as a delimiter in the save format of tasks
+        return input.contains("|");
+    }
 }
