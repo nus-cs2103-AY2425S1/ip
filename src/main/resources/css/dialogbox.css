@@ -28,11 +28,11 @@
     -fx-text-fill: text-color;
     -fx-background-color: #292e4f;
     -fx-border-color: #3d59a1;
-
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
     -fx-padding: 6px;
+    -fx-margin: 6px;
     -fx-border-insets: 0px 7px 0px 7px;
     -fx-background-insets: 0px 7px 0px 7px;
 }
@@ -46,8 +46,23 @@
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
     -fx-padding: 6px;
+    -fx-margin: 6px;
     -fx-border-insets: 0px 7px 0px 7px;
     -fx-background-insets: 0px 7px 0px 7px;
+}
+
+.labelsVbox {
+    all: unset;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-alignment: center-right;
+}
+
+.labelsVbox-reply {
+    all: unset;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-alignment: top-left;
 }
 
 #displayPicture {

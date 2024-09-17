@@ -5,13 +5,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21.0.3-internal" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21.0.3-internal" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
     </padding>
-    <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS" />
-    <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
+   <VBox id="labelsVbox" fx:id="labelsVbox" prefHeight="200.0" spacing="5.0" HBox.hgrow="ALWAYS">
+      <children>
+          <Label fx:id="dialog" alignment="TOP_LEFT" minHeight="-Infinity" text="Label" wrapText="true" />
+      </children>
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
+   </VBox>
+    <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
    <stylesheets>
       <URL value="@../css/dialogbox.css" />
       <URL value="@../css/mainwindow.css" />

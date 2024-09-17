@@ -37,6 +37,7 @@ public class Parser {
     public Parser() {
         commandsHashMap = new HashMap<>();
         commandsHashMap.put("find", CommandTypes.FIND);
+        commandsHashMap.put("filter", CommandTypes.FIND);
         commandsHashMap.put("/", CommandTypes.FIND);
 
         commandsHashMap.put("reset", CommandTypes.RESET_LIST);

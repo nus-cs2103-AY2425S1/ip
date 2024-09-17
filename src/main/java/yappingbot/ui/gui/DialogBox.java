@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -24,6 +25,10 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private VBox labelsVbox;
+
+    private boolean isReplyDialog;
 
     /**
      * Constructor for DialogBox that holds a user image and text.
@@ -32,7 +37,7 @@ public class DialogBox extends HBox {
      * @param img Image of user
      * @throws IOException Exception if anything goes wrong trying to read fxml
      */
-    private DialogBox(String text, Image img) throws IOException {
+    private DialogBox(String text, Image img, boolean isReplyDialog) throws IOException {
         URL fxmlSource = MainWindow.class.getResource("/view/DialogBox.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlSource);
 
@@ -45,6 +50,20 @@ public class DialogBox extends HBox {
 
         assert img != null;
         displayPicture.setImage(img);
+
+        this.isReplyDialog = isReplyDialog;
+        if (isReplyDialog) {
+            dialog.getStyleClass().add("reply-label");
+            labelsVbox.getStyleClass().add("labelsVbox-reply");
+            flip();
+        } else {
+            dialog.getStyleClass().add("label");
+            labelsVbox.getStyleClass().add("labelsVbox");
+        }
+    }
+
+    public boolean isReplyDialog() {
+        return this.isReplyDialog;
     }
 
     /**
@@ -57,6 +76,17 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    public void addLabel(String text) {
+        assert text != null;
+        Label l = new Label();
+        l.setText(text);
+        l.getStyleClass().add("label");
+        if (isReplyDialog) {
+            l.getStyleClass().add("reply-label");
+        }
+        labelsVbox.getChildren().add(l);
+    }
+
     /**
      * Factory method to represent what the user said.
      *
@@ -66,7 +96,7 @@ public class DialogBox extends HBox {
      * @throws IOException if DialogBox constructor throws error
      */
     public static DialogBox getUserDialog(String text, Image img) throws IOException {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, false);
     }
 
     /**
@@ -78,9 +108,7 @@ public class DialogBox extends HBox {
      * @throws IOException if DialogBox constructor throws error
      */
     public static DialogBox getReplyDialog(String text, Image img) throws IOException {
-        var db = new DialogBox(text, img);
-        db.getChildren().get(0).getStyleClass().add("reply-label");
-        db.flip();
-        return db;
+        return new DialogBox(text, img, true);
     }
+
 }
