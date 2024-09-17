@@ -8,6 +8,7 @@ import jbot.command.DeadlineCommand;
 import jbot.command.DeleteCommand;
 import jbot.command.EventCommand;
 import jbot.command.FindCommand;
+import jbot.command.HelpCommand;
 import jbot.command.InvalidCommandException;
 import jbot.command.JBotCommand;
 import jbot.command.ListCommand;
@@ -19,8 +20,6 @@ import jbot.command.UnmarkCommand;
 /**
  * A utility class for parsing user input into commands. This class cannot be instantiated.
  */
-@SuppressWarnings({"StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
-
 public class Parser {
     private Parser() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
@@ -43,7 +42,7 @@ public class Parser {
         Parser.commandMap.put("event", EventCommand.getInstance());
         Parser.commandMap.put("delete", DeleteCommand.getInstance());
         Parser.commandMap.put("find", FindCommand.getInstance());
-
+        Parser.commandMap.put("help", HelpCommand.getInstance());
     }
 
     /**
