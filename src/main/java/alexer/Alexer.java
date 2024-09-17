@@ -245,7 +245,6 @@ public class Alexer {
         prompter.buildLogo().printToConsole();
         tasks.loadTasks();
         prompter.buildGreeting().printToConsole();
-        promptLoop();
     }
 
     /**
