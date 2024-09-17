@@ -26,6 +26,7 @@ public class UnmarkCommand extends Command {
      *
      * @param list The current list of tasks.
      * @param ui The UI object to interact with the user.
+     * @return The message to be displayed after executing the command.
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {

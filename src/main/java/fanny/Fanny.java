@@ -62,7 +62,7 @@ public class Fanny {
     }
 
     /**
-     * The main method to launch Fanny.
+     * Launches the Fanny application.
      *
      * @param args Arguments.
      */
@@ -72,18 +72,21 @@ public class Fanny {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input The input to be responded by the chatbot.
+     * @return The response after processing the input.
      */
     public String generateResponse(String input) {
-        String capturedOutput = "";
+        String output = "";
 
         try {
             Command c = Parser.parse(input);
-            capturedOutput = c.executeCmd(tasks, ui);
+            output = c.executeCmd(tasks, ui);
         } catch (FannyException e) {
-            capturedOutput = ui.showMessage(e.getMessage());
+            output = ui.showMessage(e.getMessage());
         }
 
-        return capturedOutput;
+        return output;
     }
 
     /**

@@ -14,7 +14,7 @@ public class EventCommand extends Command {
 
     /** String representation of the description of the event task. */
     private String description;
-
+    /** The event task to be created */
     private Event event;
 
     /**
@@ -34,6 +34,7 @@ public class EventCommand extends Command {
      *
      * @param list The task list to which the event task is added.
      * @param ui The UI object to interact with the user.
+     * @return The message to be displayed after executing the command.
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {

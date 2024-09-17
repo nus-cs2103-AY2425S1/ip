@@ -31,6 +31,7 @@ public class FindCommand extends Command {
      *
      * @param list The task list to which the event task is added.
      * @param ui The UI object to interact with the user.
+     * @return The message to be displayed after executing the command.
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {

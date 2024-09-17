@@ -11,13 +11,13 @@ public class ToDoCommand extends Command {
 
     /** String representation of the description of the todo task. */
     private String description;
+    /** The todo task to be created */
     private ToDo todo;
 
     /**
      * Constructs an {@code ToDoCommand} with the specified description.
      *
      * @param description The description of the todo task.
-     *
      */
     public ToDoCommand(String description) {
         this.description = description;
@@ -29,6 +29,7 @@ public class ToDoCommand extends Command {
      *
      * @param list The task list to which the event task is added.
      * @param ui The UI object to interact with the user.
+     * @return The message to be displayed after executing the command.
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {

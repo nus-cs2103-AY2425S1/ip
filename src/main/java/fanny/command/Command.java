@@ -15,17 +15,16 @@ public abstract class Command {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
-     * An abstract method that executes the command
-     * with the given task list and user interface.
+     * Executes the command with the given task list and user interface.
      *
      * @param list The task list to be modified by the command.
      * @param ui The user interface to interact with the user.
+     * @return The string representation of the message to be displayed.
      */
     public abstract String executeCmd(TaskList list, Ui ui);
 
     /**
-     * An abstract method that indicates whether this command
-     * should cause the application to exit.
+     * Indicates whether this command should cause the application to exit.
      *
      * @return {@code true} if the command should cause the application to exit,
      *     {@code false} otherwise.

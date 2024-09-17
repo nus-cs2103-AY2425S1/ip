@@ -55,6 +55,11 @@ public class Deadline extends Task {
         return deadline.format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm"));
     }
 
+    /**
+     * Returns the due date and time of the event.
+     *
+     * @return The due date and time in LocalDateTime type.
+     */
     public LocalDateTime getDeadlineTime() {
         return this.deadline;
     }

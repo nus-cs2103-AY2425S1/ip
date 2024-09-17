@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 class EventTest {
 
     private Event event;
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     @BeforeEach
     public void setUp() {
-        from = LocalDateTime.of(2024, 12, 12, 12, 0);
-        to = LocalDateTime.of(2024, 12, 12, 13, 0);
-        event = new Event("Dinner", from, to);
+        startTime = LocalDateTime.of(2024, 12, 12, 12, 0);
+        endTime = LocalDateTime.of(2024, 12, 12, 13, 0);
+        event = new Event("Dinner", startTime, endTime);
     }
 
     @Test
@@ -28,12 +28,12 @@ class EventTest {
 
     @Test
     public void testGetFrom() {
-        assertEquals("Dec 12, 2024 12:00", event.getFrom());
+        assertEquals("Dec 12, 2024 12:00", event.getStartTime());
     }
 
     @Test
     public void testGetTo() {
-        assertEquals("Dec 12, 2024 13:00", event.getTo());
+        assertEquals("Dec 12, 2024 13:00", event.getEndTime());
     }
 
 }

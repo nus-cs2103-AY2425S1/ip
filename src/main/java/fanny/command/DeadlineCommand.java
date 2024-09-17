@@ -14,6 +14,7 @@ public class DeadlineCommand extends Command {
 
     /** String representation of the description of the deadline task. */
     private String description;
+    /** Deadline task to be created. */
     private Deadline deadline;
 
     /**
@@ -33,6 +34,7 @@ public class DeadlineCommand extends Command {
      *
      * @param list The task list to which the event task is added.
      * @param ui The UI object to interact with the user.
+     * @return The message to be displayed when executing the command.
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {

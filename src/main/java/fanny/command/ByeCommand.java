@@ -13,6 +13,7 @@ public class ByeCommand extends Command {
      *
      * @param list The current list of tasks.
      * @param ui The UI object to interact with the user.
+     * @return The goodbye message to be displayed.
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {
