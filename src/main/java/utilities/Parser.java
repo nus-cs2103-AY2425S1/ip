@@ -10,15 +10,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * The Parser class processes user input and executes the corresponding actions in the Bigmouth chatbot.
+ */
 public class Parser {
     private Storage s;
     private Ui ui;
     private TaskList tasks;
     private Scanner scanner;
 
-
-
-
+    /**
+     * Constructs a new Parser with the specified Ui, TaskList, Storage, and Scanner.
+     *
+     * @param ui The user interface handler.
+     * @param tasks The task list that stores all the tasks.
+     * @param s The storage handler for saving and loading tasks.
+     * @param scanner The scanner to capture user input.
+     */
     public Parser(Ui ui, TaskList tasks, Storage s, Scanner scanner) {
         this.ui = ui;
         this.tasks = tasks;
@@ -26,6 +34,13 @@ public class Parser {
         this.scanner = scanner;
     }
 
+    /**
+     * Parses a date/time string and returns the corresponding LocalDateTime object.
+     *
+     * @param input The input string in the format 'M/d/yyyy HHmm'.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws BigmouthException If the input format is incorrect.
+     */
     static LocalDateTime parseDateTime(String input) throws BigmouthException {
         try {
             return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
@@ -34,6 +49,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Continuously reads user input, parses commands, and performs actions such as adding tasks,
+     * marking tasks as done, or displaying the task list. Terminates when the user types 'bye'.
+     */
     protected void parseInput() {
         while (true) {
             String userInput = scanner.nextLine();
@@ -131,6 +150,4 @@ public class Parser {
 
         scanner.close();
     }
-
 }
-
