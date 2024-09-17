@@ -8,6 +8,7 @@ import jbot.command.DeadlineCommand;
 import jbot.command.DeleteCommand;
 import jbot.command.EventCommand;
 import jbot.command.FindCommand;
+import jbot.command.HelpCommand;
 import jbot.command.InvalidCommandException;
 import jbot.command.JBotCommand;
 import jbot.command.ListCommand;
@@ -44,6 +45,7 @@ public class Parser {
         Parser.commandMap.put("event", EventCommand.getInstance());
         Parser.commandMap.put("delete", DeleteCommand.getInstance());
         Parser.commandMap.put("find", FindCommand.getInstance());
+        Parser.commandMap.put("help", HelpCommand.getInstance());
 
         // Assert that all expected commands are present in the map
         assert Parser.commandMap.size() == 9 : "Command map size should be 9 after initialization";
