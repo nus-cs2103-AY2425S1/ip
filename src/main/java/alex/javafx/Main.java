@@ -3,6 +3,7 @@ package alex.javafx;
 import java.io.IOException;
 
 import alex.Alex;
+import alex.AlexException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,8 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
@@ -27,8 +28,10 @@ public class Main extends Application {
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setAlex(alex); // inject the Alex instance
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.alex.loadTasksFromFile();
+        } catch (IOException | AlexException e) {
+            fxmlLoader.<MainWindow>getController().showErrorMsgOnStart(e);
+            MainWindow.exitApplication(2);
         }
     }
 }

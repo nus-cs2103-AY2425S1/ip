@@ -3,6 +3,7 @@ package alex.command;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import alex.AlexException;
 import alex.Storage;
 import alex.Ui;
 import alex.task.TaskList;
@@ -33,7 +34,7 @@ public class FindCommand extends Command {
      * @return A string representing the search results.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException {
         ArrayList<String> arrOfStr = new ArrayList<>();
         while (this.lineScanner.hasNext()) {
             arrOfStr.add(this.lineScanner.next());

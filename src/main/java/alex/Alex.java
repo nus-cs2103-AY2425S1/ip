@@ -6,7 +6,18 @@ import java.io.InputStream;
 import java.time.format.DateTimeParseException;
 
 import alex.command.Command;
+import alex.javafx.DialogBox;
+import alex.javafx.Main;
+import alex.javafx.MainWindow;
 import alex.task.TaskList;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Represents the chatbot Alex which handles user interactions, processes commands, and manages tasks.
@@ -26,10 +37,13 @@ public class Alex {
     public Alex(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+    }
+
+    public void loadTasksFromFile() throws AlexException {
         try {
             this.tasks = new TaskList(storage.load());
-        } catch (AlexException | FileNotFoundException | DateTimeParseException e) {
-            ui.showError(e);
+        } catch (AlexException | DateTimeParseException | IOException e) {
+            throw new AlexException(e.getMessage());
         }
     }
 

@@ -3,6 +3,7 @@ package alex.task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import alex.AlexException;
 import alex.Storage;
 import alex.Ui;
 
@@ -100,6 +101,7 @@ public class TaskList {
      * @return A String representation of the list of tasks.
      */
     public String showTasks(String message) {
+        assert this.list != null : "tasklist is null";
         StringBuilder sb = new StringBuilder();
         sb.append(message);
         sb.append("\n");

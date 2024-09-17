@@ -24,8 +24,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Alex alex;
 
@@ -56,6 +54,12 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    public void showErrorMsgOnStart(Exception e) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAlexDialog(ui.showError(e), alexImage, "Error")
+        );
+    }
+
     /**
      * Handles user input by creating and displaying two dialog boxes: one for the user's input and one for Alex's
      * response. Clears the user input field after processing. If the command type indicates an exit command, a delay
@@ -75,11 +79,15 @@ public class MainWindow extends AnchorPane {
 
         if (commandType.equals("ExitCommand")) {
             // Create a PauseTransition to delay the exit
-            PauseTransition delay = new PauseTransition(Duration.seconds(1));
-            delay.setOnFinished(event -> Platform.exit()); // Exit after the delay
-
-            delay.play(); // Start the delay
+            exitApplication(1);
         }
+    }
+
+    public static void exitApplication(int duration) {
+        PauseTransition delay = new PauseTransition(Duration.seconds(duration));
+        delay.setOnFinished(event -> Platform.exit()); // Exit after the delay
+
+        delay.play(); // Start the delay
     }
 }
 
