@@ -6,7 +6,7 @@ weight when it comes to keeping track of your life :)
 Getting started
 --------
 
-When using PoChat for the first time, ensure that you have the file `chat_data.txt` set up
+When using PoChat for the *first time*, ensure that you have the file `chat_data.txt` set up
 in the `main` directory. This can be an empty `.txt` file to begin with.
 
 Once the file is set up, do a gradle build to ensure that the files are properly set up
@@ -30,7 +30,7 @@ These features include
 
 ## Add tasks
 
-Add a todo, a task without a fixed timeline: 
+Add a todo, a task *without* a fixed timeline: 
 
 `todo some_task`
 
@@ -40,7 +40,7 @@ Got it. I've added this task:
 Now you have 1 tasks in the list
 ```
 
-Add a deadline, a task with a fixed deadline: 
+Add a deadline, a task *with* a fixed deadline: 
 
 `deadline some_deadline /by 09/09/2024 1800 `
 
@@ -50,7 +50,7 @@ Got it. I've added this task:
 Now you have 2 tasks in the list
 ```
 
-Add an event, a task with a start and end time: 
+Add an event, a task *with* a start and end time: 
 
 `todo some_event /from 09/09/2024 1800 to /to 09/09/2024 2100`
 
