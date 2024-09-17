@@ -33,7 +33,7 @@ Molly frees your mind from remembering tasks and lets you focus on what truly ma
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar Molly.jar` command to run the application.
    A GUI similar to the below should appear in a few seconds.
    ![Initial GUI upon running Molly](./initialUI.PNG)
-5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
+5. Type the command in the command box and press Enter to execute it. e.g. typing `/help` and pressing Enter will open the help window.
 6. Refer to the [Features](#features) below for details of each command
 
 # Features:
