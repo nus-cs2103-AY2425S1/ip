@@ -11,14 +11,14 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructor for TaskList, initializes an empty task list.
+     * Creates a new TaskList object and initialises an empty task list.
      */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
     /**
-     * Constructor for TaskList, initializes the task list with the given tasks.
+     * Creates a new TaskList object and initialises the task list with the given tasks.
      *
      * @param tasks List of tasks to be added to the task list.
      */
@@ -27,7 +27,7 @@ public class TaskList {
     }
 
     /**
-     * Copy TaskList over to this TaskList.
+     * Copies TaskList over to this TaskList.
      *
      * @param taskList TaskList to be copied over.
      */

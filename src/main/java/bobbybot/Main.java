@@ -8,7 +8,9 @@ import javafx.application.Application;
 public class Main {
 
     /**
-     * Main entry-point for the bobbybot application.
+     * Starts the bobbybot application.
+     *
+     * @param args Command-line arguments.
      */
     public static void main(String[] args) {
         Application.launch(BobbyBotApplication.class, args);

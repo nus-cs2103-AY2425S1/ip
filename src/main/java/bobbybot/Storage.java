@@ -18,7 +18,7 @@ public class Storage {
     private final File taskListFile;
 
     /**
-     * Constructor for Storage.
+     * Creates a new Storage object.
      *
      * @param filePath Path of the file to store the task list.
      */

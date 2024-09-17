@@ -18,7 +18,7 @@ public class Deadline extends Task {
     private final LocalDate by;
 
     /**
-     * Constructor for Deadline.
+     * Creates a new Deadline object.
      *
      * @param description Description of the task.
      * @param by          Deadline of the task.

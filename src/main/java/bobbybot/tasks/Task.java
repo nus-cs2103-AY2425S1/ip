@@ -9,7 +9,7 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructor for Task.
+     * Creates a new Task object.
      *
      * @param description Description of the task.
      */

@@ -18,7 +18,7 @@ public class Event extends Task {
     private final LocalDate end;
 
     /**
-     * Constructor for Event.
+     * Creates a new Event object.
      *
      * @param description Description of the task.
      * @param start       Start date of the event.

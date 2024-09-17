@@ -42,7 +42,8 @@ public abstract class Command {
     }
 
     /**
-     * Check if the command is to undo the previous command.
+     * Checks if the command is to undo the previous command.
+     *
      * @return True if the command is to undo the previous command, false otherwise.
      */
     public boolean isUndo() {
@@ -50,7 +51,8 @@ public abstract class Command {
     }
 
     /**
-     * Check if the command is undoable.
+     * Checks if the command is undoable.
+     *
      * @return True if the command is undoable, false otherwise.
      */
     public boolean isUndoable() {

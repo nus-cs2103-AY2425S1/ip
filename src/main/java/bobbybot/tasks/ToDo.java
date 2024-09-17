@@ -9,7 +9,7 @@ public class ToDo extends Task {
     public static final String TASK_TYPE = "T";
 
     /**
-     * Constructor for ToDo.
+     * Creates a new ToDo object.
      *
      * @param description Description of the task.
      */
