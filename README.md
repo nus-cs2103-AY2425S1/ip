@@ -22,3 +22,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+Acknowledgements:
+1. ChatGPT: Writing JUnit command tests
+2. SE-EDU JavaFX Tutorial: GUI base code

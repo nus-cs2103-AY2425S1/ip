@@ -9,8 +9,12 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    // JUnit Jupiter API
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+
+    // Mockito
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0' // Mockito for JUnit Jupiter
 
     // Use platform-specific JavaFX dependencies based on the operating system
     String javaFxVersion = '17.0.7'
