@@ -8,15 +8,24 @@ package rose.task;
 public class Task {
     protected final String taskName;
     protected boolean isDone;
+    protected String tag;
 
     Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
+        this.tag = "";
     }
 
-    Task(String taskName, boolean isDone) {
+    Task(String taskName, boolean isDone, String tag) {
         this.taskName = taskName;
         this.isDone = isDone;
+        this.tag = tag;
+    }
+
+    Task(String taskName, String tag) {
+        this.taskName = taskName;
+        this.isDone = false;
+        this.tag = tag;
     }
 
     public String toString() {
@@ -53,6 +62,10 @@ public class Task {
      */
     public void unmark() {
         this.isDone = false;
+    }
+
+    public String getTag() {
+        return this.tag;
     }
 
     public boolean hasWord(String keyword) {

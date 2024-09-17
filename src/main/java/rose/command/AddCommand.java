@@ -57,32 +57,40 @@ public class AddCommand extends Command {
     }
 
     private Task createTask(TaskType taskType, String taskName) throws RoseException, DateTimeParseException {
+        String tag = "";
+        String taskDesc = taskName;
+        if (taskName.contains("#")) {
+            String[] parts = taskName.split("#");
+            tag = parts[1];
+            taskDesc = parts[0];
+        }
+
         switch (taskType) {
         case TODO:
-            return createTodoTask(taskName);
+            return createTodoTask(taskDesc, tag);
         case DEADLINE:
-            return createDeadlineTask(taskName);
+            return createDeadlineTask(taskDesc, tag);
         case EVENT:
-            return createEventTask(taskName);
+            return createEventTask(taskDesc, tag);
         default:
             throw new RoseException("Unknown task type.");
         }
     }
 
-    private Task createTodoTask(String taskName) {
-        return new Todo(taskName);
+    private Task createTodoTask(String taskDesc, String tag) {
+        return new Todo(taskDesc, tag);
     }
 
-    private Task createDeadlineTask(String taskName) throws RoseException {
-        String[] parts = taskName.split(DEADLINE_DELIMITER);
+    private Task createDeadlineTask(String taskDesc, String tag) throws RoseException {
+        String[] parts = taskDesc.split(DEADLINE_DELIMITER);
         if (parts.length < 2) {
             throw new RoseException("Deadline task is missing '" + DEADLINE_DELIMITER + "'.");
         }
-        return new Deadline(parts[0], LocalDate.parse(parts[1], INPUT_FORMAT));
+        return new Deadline(parts[0], LocalDate.parse(parts[1], INPUT_FORMAT), tag);
     }
 
-    private Task createEventTask(String taskName) throws RoseException {
-        String[] partsA = taskName.split(EVENT_FROM_DELIMITER);
+    private Task createEventTask(String taskDesc, String tag) throws RoseException {
+        String[] partsA = taskDesc.split(EVENT_FROM_DELIMITER);
         if (partsA.length < 2) {
             throw new RoseException("Event task is missing '" + EVENT_FROM_DELIMITER + "'.");
         }
@@ -91,7 +99,7 @@ public class AddCommand extends Command {
             throw new RoseException("Event task is missing '" + EVENT_TO_DELIMITER + "'.");
         }
         return new Event(partsA[0], LocalDate.parse(partsB[0], INPUT_FORMAT),
-                LocalDate.parse(partsB[1], INPUT_FORMAT));
+                LocalDate.parse(partsB[1], INPUT_FORMAT), tag);
     }
 
     private void saveTasks(Storage storage, TaskList tasks, Ui ui) {

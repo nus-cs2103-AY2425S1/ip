@@ -16,16 +16,21 @@ public class Deadline extends Task {
         this.byDate = byDate;
     }
 
-    public Deadline(String taskName, LocalDate byDate, boolean isDone) {
-        super(taskName, isDone);
+    public Deadline(String taskName, LocalDate byDate, String tag) {
+        super(taskName, tag);
+        this.byDate = byDate;
+    }
+    public Deadline(String taskName, LocalDate byDate, boolean isDone, String tag) {
+        super(taskName, isDone, tag);
         this.byDate = byDate;
     }
 
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return String.format("[D]%s (by: %s)",
-                super.toString(), this.byDate.format(formatter));
+        String tagString = tag.isEmpty() ? "" : " #" + tag;
+        return String.format("[D]%s (by: %s)%s",
+                super.toString(), this.byDate.format(formatter), tagString);
     }
 
     /**
@@ -40,7 +45,11 @@ public class Deadline extends Task {
     @Override
     public String commaString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return String.format("D,%s,%s",
-                super.commaString(), this.byDate.format(formatter));
+        return String.format("D,%s,%s,%s",
+                super.commaString(), this.byDate.format(formatter), tag);
+    }
+
+    public LocalDate getDate() {
+        return this.byDate;
     }
 }

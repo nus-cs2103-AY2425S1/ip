@@ -52,21 +52,21 @@ public class Storage {
 
             try {
                 for (String entry : entries) {
-                    String[] parts = entry.split(",");
+                    String[] parts = entry.split(",", -1);
                     switch (parts[0]) {
                     case "T":
-                        tasks.add(new Todo(parts[2], parts[1].equals("X")));
+                        tasks.add(new Todo(parts[2], parts[1].equals("X"), parts[3]));
                         break;
                     case "D":
                         tasks.add(new Deadline(parts[2],
                                 LocalDate.parse(parts[3], INPUT_FORMAT),
-                                parts[1].equals("X")));
+                                parts[1].equals("X"), parts[4]));
                         break;
                     case "E":
                         tasks.add(new Event(parts[2],
                                 LocalDate.parse(parts[3], INPUT_FORMAT),
                                 LocalDate.parse(parts[4], INPUT_FORMAT),
-                                parts[1].equals("X")));
+                                parts[1].equals("X"), parts[5]));
                         break;
                     }
                 }

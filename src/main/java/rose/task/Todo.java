@@ -12,13 +12,18 @@ public class Todo extends Task {
         super(taskName);
     }
 
-    public Todo(String taskName, boolean isDone) {
-        super(taskName, isDone);
+    public Todo(String taskName, boolean isDone, String tag) {
+        super(taskName, isDone, tag);
+    }
+
+    public Todo(String taskName, String tag) {
+        super(taskName, tag);
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        String tagString = tag.isEmpty() ? "" : " #" + tag;
+        return "[T]" + super.toString() + tagString;
     }
 
     /**
@@ -31,6 +36,6 @@ public class Todo extends Task {
      */
     @Override
     public String commaString() {
-        return String.format("T,%s", super.commaString());
+        return String.format("T,%s,%s", super.commaString(), tag);
     }
 }
