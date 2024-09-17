@@ -13,5 +13,15 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Excludes class files
+*.class
+
+# Exclude database file
+/data/tasks.txt
+
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+#Exclude all jar files
+/build/libs/*.jar

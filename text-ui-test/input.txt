@@ -1,0 +1,12 @@
+list
+todo do work
+event school /from tomorrow 1pm /to 5pm evening
+deadline complete SE homework /by 6pm
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 1
+unmark 2
+bye

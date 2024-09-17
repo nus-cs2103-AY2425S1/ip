@@ -1,0 +1,74 @@
+.root {
+    main-color: rgb(240, 255, 255);       /* Lighter Pastel Aqua */
+    -fx-background-color: main-color;     /* Very Light Pastel Aqua */
+        -fx-background-image: url("../images/backgroundImage.jpg"); /* Set image */
+        -fx-background-size: cover;
+}
+
+.text-field {
+    -fx-background-color: #F5F5F5; /* Light Grey, similar to ChatGPT input field */
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: #D4E6F1; /* Light Blue */
+    -fx-font: italic bold 16px "Arial";
+}
+
+
+.button:hover {
+    -fx-background-color: #87CEEB;        /* Sky Blue */
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #4682B4;        /* Steel Blue */
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;                  /* Change width of scroll bar. */
+    -fx-background-color: main-color;     /* Matches the root background */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #B2DFDB;        /* Pastel Teal */
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.button {
+    -fx-background-color: #ADD8E6; /* Light Blue */
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #87CEEB; /* Sky Blue */
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #4682B4; /* Steel Blue */
+    -fx-font-size: 20px;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(255,255,255,.8);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+
