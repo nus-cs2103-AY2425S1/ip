@@ -116,8 +116,9 @@ Exit the chatbot application. The GUI will close in 3 seconds.
   ```
 
 ## Command Summary
+
 | Action            | Format                                        |
-|-------------------|-----------------------------------------------|
+| ----------------- | --------------------------------------------- |
 | Add ToDo          | `todo <description>`                          |
 | Add Deadline      | `deadline <description> /by <date>`           |
 | Add Event         | `event <description> /from <date> /to <date>` |
