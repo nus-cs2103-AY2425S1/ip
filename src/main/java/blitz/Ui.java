@@ -48,7 +48,7 @@ public class Ui {
      * @return String message indicating that a task has been unmarked.
      */
     public String getStringForTaskUnmarked(Task task) {
-        return "Ok, I've marked this task as not done yet\n:"
+        return "Ok, I've marked this task as not done yet:\n"
                 + "[" + task.getType() + "]" + "[ ] " + task;
     }
 

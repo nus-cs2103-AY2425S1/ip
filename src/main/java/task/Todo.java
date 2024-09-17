@@ -25,7 +25,7 @@ public class Todo extends Task {
      */
     @Override
     public String convertTaskToString() {
-        return this.type + "::" + super.isDone() + "::" + super.getDescription() + "\n";
+        return this.type + "::" + super.isDone() + "::" + super.getDescription();
     }
 
     /**
