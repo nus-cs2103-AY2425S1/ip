@@ -8,11 +8,6 @@ import henry.util.Ui;
  */
 public class ExitCommand extends Command {
 
-    @Override
-    public boolean isExit() {
-        return true;
-    }
-
     /**
      * Returns a string informing user that the chat has ended.
      *

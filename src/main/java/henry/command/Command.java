@@ -17,10 +17,6 @@ public abstract class Command {
 
     public abstract String execute(TaskList tasks, Ui ui) throws HenryException;
 
-    public boolean isExit() {
-        return false;
-    }
-
     /**
      * Writes text into file.
      *
