@@ -29,10 +29,6 @@ public class Stelle {
         ui = new Ui(NAME, FILE_PATH);
     }
 
-    public void run() {
-        ui.run();
-    }
-
     /**
      * Gets the chatbot's response as a string.
      * @param input User input / prompt, as a string.
