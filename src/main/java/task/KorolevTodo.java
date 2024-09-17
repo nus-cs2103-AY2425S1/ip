@@ -6,7 +6,7 @@ import task.KorolevTask;
  * Represents a task of Todo type
  */
 public class KorolevTodo extends KorolevTask {
-    private String tag;
+    private String type;
 
     /**
      * Constructs an object of KorolevTodo.
@@ -17,7 +17,7 @@ public class KorolevTodo extends KorolevTask {
         super(name);
 
         assert !name.isEmpty();
-        this.tag = "T";
+        this.type = "T";
     }
 
     /**
@@ -28,7 +28,7 @@ public class KorolevTodo extends KorolevTask {
     @Override
     public String toString() {
         String base = super.toString();
-        String head = "[" + this.tag + "]";
+        String head = "[" + this.type + "]";
 
         return head + base + "  " + super.showTag();
     }

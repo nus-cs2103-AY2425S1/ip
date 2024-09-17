@@ -22,18 +22,18 @@ import java.nio.file.Files;
  * Represents a manager of interaction between the application and local storage
  */
 public class KorolevStorage {
-    private static final String home = System.getProperty("user.dir");
+    private static final String HOME = System.getProperty("user.dir");
 
-    private static final Path dir = Paths.get(
-            home, "src", "main", "java", "data");
+    private static final Path DIR = Paths.get(
+            HOME, "src", "main", "java", "data");
 
     private static final Path PATH = Paths.get(
-            home, "src", "main", "java", "data", "korolev.txt");
+            HOME, "src", "main", "java", "data", "korolev.txt");
 
     private void createNewFile() {
         if (!java.nio.file.Files.exists(PATH)) {
             try {
-                Files.createDirectories(KorolevStorage.dir);
+                Files.createDirectories(KorolevStorage.DIR);
                 Files.createFile(PATH);
                 File record = new File(String.valueOf(PATH));
                 boolean test = record.createNewFile();

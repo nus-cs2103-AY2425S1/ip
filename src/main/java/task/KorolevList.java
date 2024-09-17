@@ -13,17 +13,17 @@ import java.util.ArrayList;
  * Represents a list of KorolevTask
  */
 public class KorolevList {
-    private static final String outOfIndexError = "The index is out of bound!";
-    private static final String listNotice = "Here are the tasks in your list:\n";
-    private static final String markNotice = "Nice! I've marked this task as done:";
-    private static final String unmarkNotice = "OK, I've marked this task as not done yet:";
-    private static final String deleteNotice = "Noted. I've removed this task:";
-    private static final String filteredNotice = "Here are the matching tasks in your list:";
-    private static final String tagNotice = "Noted, here is the tagged task:";
-    private static final String untagNotice = "Noted, here is the untagged task:";
-    private static final String statsNotice = "Here is the summary of tasks: ";
-    private static final String finishedMsg = "Number of finished tasks: ";
-    private static final String unfinishedMsg = "Number of unfinished tasks: ";
+    private static String outOfIndexError = "The index is out of bound!";
+    private static String listNotice = "Here are the tasks in your list:\n";
+    private static String markNotice = "Nice! I've marked this task as done:";
+    private static String unmarkNotice = "OK, I've marked this task as not done yet:";
+    private static String deleteNotice = "Noted. I've removed this task:";
+    private static String filteredNotice = "Here are the matching tasks in your list:";
+    private static String tagNotice = "Noted, here is the tagged task:";
+    private static String untagNotice = "Noted, here is the untagged task:";
+    private static String statsNotice = "Here is the summary of tasks: ";
+    private static String finishedMsg = "Number of finished tasks: ";
+    private static String unfinishedMsg = "Number of unfinished tasks: ";
 
     private ArrayList<KorolevTask> events;
 

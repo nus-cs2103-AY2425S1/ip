@@ -8,7 +8,7 @@ import java.util.Locale;
  */
 public class KorolevDeadline extends KorolevTask {
     private LocalDateTime deadline;
-
+    private String type;
     /**
      * Constructs new object of KorolevDeadline.
      *
@@ -19,6 +19,7 @@ public class KorolevDeadline extends KorolevTask {
         super(name);
         assert !date.isEmpty();
         this.deadline = LocalDateTime.parse(date);
+        this.type = "D";
     }
 
     /**
@@ -29,8 +30,7 @@ public class KorolevDeadline extends KorolevTask {
     @Override
     public String toString() {
         String base = super.toString();
-        String tag = "D";
-        String head = "[" + tag + "]";
+        String head = "[" + type + "]";
         String deadlines;
         deadlines = "by " + this.deadline.format(
             DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH)
