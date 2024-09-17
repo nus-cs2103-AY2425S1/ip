@@ -8,10 +8,20 @@ class CommandNotFoundException extends JamesException {
     /**
      * Constructs a CommandNotFoundException with the specified detail message.
      *
-     * @param message The detail message.
+     * @param command The unrecognised command.
      */
 
-    public CommandNotFoundException(String message) {
-        super(message);
+    public CommandNotFoundException(String command) {
+        super("Sorry! I don't understand what you mean by (" + command + "). " +
+                "Here are a list of commands i understand!\n" +
+                "list\n" +
+                "mark\n" +
+                "unmark\n" +
+                "todo\n" +
+                "deadline\n" +
+                "event\n" +
+                "delete\n" +
+                "find\n" +
+                "bye");
     }
 }

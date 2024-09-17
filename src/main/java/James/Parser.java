@@ -3,6 +3,7 @@ package james;
 import java.time.LocalDateTime;
 import java.lang.NumberFormatException;
 import java.lang.IndexOutOfBoundsException;
+import java.time.format.DateTimeParseException;
 
 /**
  * Handles parsing and executing user commands.
@@ -59,13 +60,13 @@ class Parser {
             return handleUnmark(words, taskList, stringBuilder);
 
         case "todo":
-            return handleTodo(command, taskList, stringBuilder);
+            return handleTodo(command, words, taskList, stringBuilder);
 
         case "deadline":
-            return handleDeadline(command, taskList,stringBuilder);
+            return handleDeadline(command, words, taskList,stringBuilder);
 
         case "event":
-            return handleEvent(command, taskList, stringBuilder);
+            return handleEvent(command, words,taskList, stringBuilder);
 
         case "delete":
             return handleDelete(words, taskList, stringBuilder);
@@ -74,8 +75,7 @@ class Parser {
             return handleFind(words,taskList, stringBuilder);
 
         default:
-            throw new CommandNotFoundException("Sorry! I don't understand what you mean by (" + command + "). " +
-                    "Please try a different command!");
+            throw new CommandNotFoundException(action);
         }
     }
 
@@ -158,13 +158,17 @@ class Parser {
      * Handles the "todo" command, which adds a new to-do task to the TaskList.
      *
      * @param command The full user command, including the task description.
+     * @param words The array of command words.
      * @param taskList The TaskList instance to which the task will be added.
      * @param stringBuilder A StringBuilder instance for building the response string.
      * @return A string response confirming the to-do task has been added.
-     * @throws MissingDescriptionException If the task description is missing.
+     * @throws JamesException If the task description is missing.
      */
-    public String handleTodo(String command, TaskList taskList, StringBuilder stringBuilder)
-            throws MissingDescriptionException{
+    public String handleTodo(String command, String[] words, TaskList taskList, StringBuilder stringBuilder)
+            throws JamesException{
+        if (words.length < 2) {
+            throw new MissingDescriptionException("Oops! looks like you missed out the task description");
+        }
         String todoDescription = command.substring(4).trim();
         Task todoTask = new Todo(todoDescription, false);
         taskList.addTask(todoTask);
@@ -178,45 +182,73 @@ class Parser {
      * Handles the "deadline" command, which adds a new deadline task to the TaskList.
      *
      * @param command The full user command, including the task description and deadline.
+     * @param words The array of command words.
      * @param taskList The TaskList instance to which the task will be added.
      * @param stringBuilder A StringBuilder instance for building the response string.
      * @return A string response confirming the deadline task has been added.
-     * @throws MissingDescriptionException If the task description or deadline is missing.
+     * @throws JamesException If the task description or deadline is missing.
      */
-    public String handleDeadline(String command, TaskList taskList, StringBuilder stringBuilder)
-            throws MissingDescriptionException{
+    public String handleDeadline(String command, String[] words, TaskList taskList, StringBuilder stringBuilder)
+            throws JamesException{
+        if (words.length < 2) {
+            throw new MissingDescriptionException("Oops! looks like you missed out the task description");
+        }
+
+        if (!command.contains("/by")) {
+            throw new MissingDeadlineException();
+        }
+
         String deadlineDescription = command.substring(8, command.lastIndexOf("/by")).trim();
         String deadline = command.substring(command.lastIndexOf("/by") + 4).trim();
-        Task deadlineTask = new Deadline(deadlineDescription, false, LocalDateTime.parse(deadline));
-        taskList.addTask(deadlineTask);
-        stringBuilder.append("Task added:\n" + deadlineTask.printTask() + "\n");
-        stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
-        storage.saveTasks(taskList.getTasks());
-        return stringBuilder.toString();
+
+        try {
+            Task deadlineTask = new Deadline(deadlineDescription, false, LocalDateTime.parse(deadline));
+            taskList.addTask(deadlineTask);
+            stringBuilder.append("Task added:\n" + deadlineTask.printTask() + "\n");
+            stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
+            storage.saveTasks(taskList.getTasks());
+            return stringBuilder.toString();
+        } catch (DateTimeParseException e) {
+            throw new IncorrectTimeFormatException();
+        }
     }
 
     /**
      * Handles the "event" command, which adds a new event task to the TaskList.
      *
      * @param command The full user command, including the task description, start time, and end time.
+     * @param words The array of command words.
      * @param taskList The TaskList instance to which the task will be added.
      * @param stringBuilder A StringBuilder instance for building the response string.
      * @return A string response confirming the event task has been added.
-     * @throws MissingDescriptionException If the task description, start time, or end time is missing.
+     * @throws JamesException If the task description, start time, or end time is missing.
      */
-    public String handleEvent(String command, TaskList taskList, StringBuilder stringBuilder)
-            throws MissingDescriptionException{
+    public String handleEvent(String command, String[] words, TaskList taskList, StringBuilder stringBuilder)
+            throws JamesException{
+        if (words.length < 2) {
+            throw new MissingDescriptionException("Oops! looks like you missed out the task description");
+        }
+
+        if (!command.contains("/from") || !command.contains("/to")) {
+            throw new MissingEventTimeException();
+        }
+
         String eventDescription = command.substring(5, command.lastIndexOf("/from")).trim();
         String start = command.substring(command.lastIndexOf("/from") + 6,
                 command.lastIndexOf("/to")).trim();
         String end = command.substring(command.lastIndexOf("/to") + 4).trim();
-        Task eventTask = new Event(eventDescription, false, LocalDateTime.parse(start),
-                LocalDateTime.parse(end));
-        taskList.addTask(eventTask);
-        stringBuilder.append("Task added:\n" + eventTask.printTask() + "\n");
-        stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
-        storage.saveTasks(taskList.getTasks());
-        return stringBuilder.toString();
+
+        try {
+            Task eventTask = new Event(eventDescription, false, LocalDateTime.parse(start),
+                    LocalDateTime.parse(end));
+            taskList.addTask(eventTask);
+            stringBuilder.append("Task added:\n" + eventTask.printTask() + "\n");
+            stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
+            storage.saveTasks(taskList.getTasks());
+            return stringBuilder.toString();
+        } catch (DateTimeParseException e) {
+            throw new IncorrectTimeFormatException();
+        }
     }
 
     /**

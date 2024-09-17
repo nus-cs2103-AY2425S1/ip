@@ -18,7 +18,8 @@ abstract class Task {
      */
     public Task(String desc, Boolean mark) throws MissingDescriptionException {
         if (desc.isEmpty()) {
-            throw new MissingDescriptionException("Looks like you left out the description of the task, please try again.");
+            throw new MissingDescriptionException("Looks like you left out the description of the task, " +
+                    "please try again.");
         }
         this.description = desc;
         this.isMarked = mark;
