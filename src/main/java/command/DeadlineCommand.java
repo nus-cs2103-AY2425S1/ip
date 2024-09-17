@@ -28,6 +28,8 @@ public class DeadlineCommand extends Command {
             return ui.DeadlineOutOfBoundsExceptionMessage();
         } catch (DateTimeParseException e) {
             return ui.DeadlineDateTimeParseExceptionMessage();
+        } catch (AssertionError e) {
+            return ui.DeadlineOutOfBoundsExceptionMessage();
         }
     }
 }

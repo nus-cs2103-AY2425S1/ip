@@ -79,7 +79,7 @@ public class EventTask extends Task {
             this.end = parseTime(newValue);
             break;
         default:
-            throw new IllegalArgumentException("Invalid fields to update for Event Tasks!" +
+            throw new IllegalArgumentException("Invalid fields to update for Event Tasks!\n" +
                     "Correct way to update task: update <task number> <field> <new value>\n");
         }
     }

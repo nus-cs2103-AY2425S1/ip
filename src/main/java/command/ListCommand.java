@@ -15,6 +15,9 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(String[] parts, TaskList list, Ui ui, Storage storage, Parser parser) {
+        if (parts.length > 1) {
+            return ui.invalidListCommandMessage();
+        }
         return list.printList() + "\n";
     }
 }

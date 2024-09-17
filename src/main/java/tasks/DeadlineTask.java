@@ -75,7 +75,7 @@ public class DeadlineTask extends Task {
             this.deadline = parseTime(newValue);
             break;
         default:
-            throw new IllegalArgumentException("Invalid fields to update for Deadline Tasks!" +
+            throw new IllegalArgumentException("Invalid fields to update for Deadline Tasks!\n" +
                     "Correct way to update task: update <task number> <field> <new value>\n");
         }
 
