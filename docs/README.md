@@ -66,7 +66,7 @@ Format: `find [description]`
 Example: `find read`
 
 ### Bye
-Exits the application.
+Exits the application in 5 seconds.
 
 Format: `bye`  
 Example: `bye`
