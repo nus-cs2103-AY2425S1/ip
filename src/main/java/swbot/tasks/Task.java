@@ -37,6 +37,11 @@ public abstract class Task {
         this.isDone = setter;
     }
 
+    /**
+     * Converts the task object to a string format suitable for file storage.
+     *
+     * @return a string representing the task in a format that can be saved to a file
+     */
     public abstract String toFileFormat();
 
     /**

@@ -24,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Initializes a DialogBox with the specified text and image.
+     *
+     * @param text the text to be displayed in the dialog box
+     * @param img the image to be displayed in the dialog box
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,10 +55,25 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates a DialogBox instance representing the user's dialog.
+     *
+     * @param text the text to be displayed in the dialog box
+     * @param img the image to be displayed in the dialog box
+     * @return a new DialogBox instance containing the provided text and image
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates and returns a dialog box for Duke with the specified text and image.
+     * The dialog box is flipped such that the image appears on the left side.
+     *
+     * @param text the text to be displayed in the dialog box
+     * @param img the image to be displayed in the dialog box
+     * @return a DialogBox object designed for Duke's responses
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -16,6 +16,12 @@ public class Main extends Application {
 
     private R2D2 r2d2 = new R2D2();
 
+    /**
+     * Initializes and displays the main window of the application.
+     *
+     * @param stage the primary stage for this application, onto which
+     *              the application scene can be set
+     */
     @Override
     public void start(Stage stage) {
         try {
