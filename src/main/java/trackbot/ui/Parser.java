@@ -65,13 +65,11 @@ public class Parser {
             return new ExitCommand();
         default:
             return new UnknownCommand();
-            // throw new TrackBotException("Sorry, I did not understand that command.");
         }
     }
 
     private static Command attemptListCommand(String otherWord) {
         if (!otherWord.isEmpty()) {
-            // throw TrackBotException.invalidFormat("list", "list");
             return new InvalidCommand("list", "list");
         }
         return new ListCommand();
@@ -79,7 +77,6 @@ public class Parser {
 
     private static Command attemptToDoCommand(String otherWord) {
         if (otherWord.isEmpty()) {
-            // throw TrackBotException.invalidFormat("todo", "todo <task description>");
             return new InvalidCommand("todo", "todo <task description>");
         }
         return new AddCommand(new ToDo(otherWord));
@@ -88,7 +85,6 @@ public class Parser {
     private static Command attemptDeadlineCommand(String otherWord) {
         String[] deadlineParts = otherWord.split(" /by ");
         if (deadlineParts.length < 2) {
-            // throw TrackBotException.invalidFormat("deadline", "deadline <task description> /by <date/time>");
             return new InvalidCommand("deadline", "deadline <task description> /by <date/time>");
         }
         return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
@@ -98,7 +94,6 @@ public class Parser {
     private static Command attemptEventCommand(String otherWord) {
         String[] eventParts = otherWord.split(" /from | /to ");
         if (eventParts.length < 3) {
-            // throw TrackBotException.invalidFormat("event", "event <description> /from <start> /to <end>");
             return new InvalidCommand("event", "event <description> /from <start> /to <end>");
         }
         return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
@@ -106,14 +101,12 @@ public class Parser {
 
     private static Command attemptDeleteCommand(String otherWord) {
         if (otherWord.isEmpty()) {
-            // throw TrackBotException.invalidFormat("delete", "delete <task number>");
             return new InvalidCommand("delete", "delete <task number>");
         }
         try {
             int num = Integer.parseInt(otherWord) - 1;
             return new DeleteCommand(num);
         } catch (NumberFormatException e) {
-            // throw TrackBotException.invalidFormat("delete", "delete <task number>");
             return new InvalidCommand("delete", "delete <task number>");
         }
     }
@@ -126,7 +119,6 @@ public class Parser {
                 int num = Integer.parseInt(otherWord) - 1;
                 return new MarkCommand(num);
             } catch (NumberFormatException e) {
-                // throw TrackBotException.invalidFormat("mark", "mark <task number>");
                 return new InvalidCommand("mark", "mark <task number>");
             }
         }
@@ -140,7 +132,6 @@ public class Parser {
                 int num = Integer.parseInt(otherWord) - 1;
                 return new UnmarkCommand(num);
             } catch (NumberFormatException e) {
-                // throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
                 return new InvalidCommand("unmark", "unmark <task number>");
             }
         }
@@ -148,7 +139,6 @@ public class Parser {
 
     private static Command attemptFindCommand(String otherWord) {
         if (otherWord.isEmpty()) {
-            // throw TrackBotException.invalidFormat("find", "find <task keyword>");
             return new InvalidCommand("find", "find <task keyword>");
         }
         return new FindCommand(otherWord);

@@ -21,7 +21,7 @@ public abstract class Command {
     public abstract String execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException;
 
     /**
-     * Boolean function to exit trackbot.
+     * Changes isExit for trackbot to exit.
      *
      * @return true If user want to exit trackbot.
      */

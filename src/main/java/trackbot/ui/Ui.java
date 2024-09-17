@@ -9,8 +9,6 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public String showWelcome() {
-        // System.out.println("************************************************************");
-        // System.out.println("Hello from trackbot.trackbot!\n" + "How may I assist you?");
         return "Hello from trackbot.trackbot!\n" + "How may I assist you?";
     }
 
@@ -18,8 +16,6 @@ public class Ui {
      * Displays a goodbye message to the user.
      */
     public String showBye() {
-        // System.out.println("Bye. Hope to see you again soon!");
-        // System.out.println("************************************************************");
         return "Bye. Hope to see you again soon!";
     }
 

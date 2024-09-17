@@ -71,11 +71,6 @@ public class TrackList {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         Task existingTask = findDuplicate(task);
-        // if (task == null) {
-        //     // throw new TrackBotException("No task found.");
-        //     writer.println("No task found.");
-        //     return stringWriter.toString();
-        // }
         if (existingTask != null) {
             writer.println("Failed to add task. This task already exists: \n" + existingTask);
             writer.println("Please delete the existing task to add a new one :D");
@@ -212,7 +207,6 @@ public class TrackList {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (tasks.isEmpty()) {
-            // throw new TrackBotException("The list is currently empty.");
             writer.println("The list is currently empty.");
             return stringWriter.toString();
         }
