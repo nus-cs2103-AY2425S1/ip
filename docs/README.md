@@ -1,8 +1,8 @@
 # Bwead User Guide
 
-// Product screenshot goes here
+![/docs/Ui.png]
 
-// Bwead is a chatbox which helps you keep track of your Todos, Deadlines, and Events!
+Bwead is a chatbox which helps you keep track of your Todos, Deadlines, and Events!
 
 ## Adding Todos
 
