@@ -127,6 +127,7 @@ Expected output:
 The list of tasks is saved in the hard drive after any changes are made to it.
 
 ## Command summary
+
 | Command       | Format, Example                                                                                        |
 |---------------|--------------------------------------------------------------------------------------------------------|
 | **todo**      | todo DESCRIPTION<br/>e.g. todo read book                                                               |
