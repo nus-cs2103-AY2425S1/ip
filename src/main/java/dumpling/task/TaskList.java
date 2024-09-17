@@ -39,6 +39,10 @@ public class TaskList {
      * @return String-representation of the list of items
      */
     public String list() {
+        if (this.items.isEmpty()) {
+            return "      I'm hungry cause there are no tasks in your list...";
+        }
+
         return "     Hungry? Here are the tasks in your list:\n"
                 + IntStream.range(1, this.items.size() + 1)
                     .mapToObj(idx -> String.format("     %d.%s", idx, this.items.get(idx - 1)))
@@ -56,7 +60,7 @@ public class TaskList {
      */
     public String mark(int itemIdx) throws IndexOutOfBoundsException {
         String message = "     Slurp! I've marked this task as done:\n";
-        if (itemIdx > this.items.size()) {
+        if (itemIdx < 1 || itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();
         }
         this.items.get(itemIdx - 1).markAsDone();
@@ -73,7 +77,7 @@ public class TaskList {
      */
     public String unmark(int itemIdx) throws IndexOutOfBoundsException {
         String message = "     Slurp! I've marked this task as not done yet:\n";
-        if (itemIdx > this.items.size()) {
+        if (itemIdx < 1 || itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();
         }
         this.items.get(itemIdx - 1).markAsUndone();
@@ -89,7 +93,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If given index is out of range
      */
     public String delete(int itemIdx) throws IndexOutOfBoundsException {
-        if (itemIdx > this.items.size()) {
+        if (itemIdx < 1 || itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();
         }
         Task deletedTask = this.items.remove(itemIdx - 1);
@@ -107,7 +111,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException thrown if item index given is more than the number of items in the list
      */
     public String updateTaskNotes(int itemIdx, String notes) throws IndexOutOfBoundsException {
-        if (itemIdx > this.items.size()) {
+        if (itemIdx < 1 || itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();
         }
         this.items.get(itemIdx - 1).updateNotes(notes);
