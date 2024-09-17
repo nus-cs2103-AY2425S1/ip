@@ -70,9 +70,6 @@ public class Rose {
             return e.getMessage();
         }
     }
-    //public static void main(String... args) {
-        //new Rose().run();
-    //}
 }
 
 
