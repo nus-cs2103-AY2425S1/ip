@@ -169,7 +169,7 @@ public class Storage {
      * @throws CitadelException If the input string is invalid or incomplete.
      */
     private static Task createEvent(String input, String[] tagLists) throws CitadelException {
-        // Process the current event line in the ouput
+        // Process the current event line in the output
         String[] words = input.split(" \\(from: ");
         if (words.length < 2) {
             throw new CitadelTaskNoInput();
