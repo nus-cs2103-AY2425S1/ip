@@ -193,7 +193,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new TalkerException("Unmark format wrong. Try again with: unmark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
-            throw new TalkerException("Task not found!");
+            throw new TalkerException("Task not found!!!");
         }
     }
 
@@ -214,7 +214,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new TalkerException("Delete format wrong. Try again with: delete <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
-            throw new TalkerException("Task not found!");
+            throw new TalkerException("Task not found!!!");
         }
     }
 

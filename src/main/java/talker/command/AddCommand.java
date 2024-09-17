@@ -46,7 +46,7 @@ public class AddCommand extends Command {
         case EVENT:
             return list.createEvent(input, ui);
         default:
-            throw new TalkerException("Invalid task type");
+            throw new TalkerException("Wrong task type!!!");
         }
 
     }
