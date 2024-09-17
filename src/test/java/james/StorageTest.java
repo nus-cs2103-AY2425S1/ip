@@ -26,8 +26,11 @@ public class StorageTest {
     public void testSaveAndLoadTasks() throws MissingDescriptionException {
         ArrayList<Task> taskList = new ArrayList<>();
         Task todo = new Todo("Read a book", false);
-        Task deadline = new Deadline("Submit assignment", false, LocalDateTime.of(2024, 8, 31, 23, 59));
-        Task event = new Event("Project meeting", false, LocalDateTime.of(2024, 8, 30, 10, 0), LocalDateTime.of(2024, 8, 30, 12, 0));
+        Task deadline = new Deadline("Submit assignment", false,
+                LocalDateTime.of(2024, 8, 31, 23, 59));
+        Task event = new Event("Project meeting", false,
+                LocalDateTime.of(2024, 8, 30, 10, 0),
+                LocalDateTime.of(2024, 8, 30, 12, 0));
 
         taskList.add(todo);
         taskList.add(deadline);
@@ -44,9 +47,12 @@ public class StorageTest {
         // Verify that the tasks were saved and loaded correctly
         assertEquals(3, loadedTaskList.size(), "Task list size should be 3 after loading saved data.");
 
-        assertEquals(todo.printTask(), loadedTaskList.get(0).printTask(), "The first task should be the same.");
-        assertEquals(deadline.printTask(), loadedTaskList.get(1).printTask(), "The second task should be the same.");
-        assertEquals(event.printTask(), loadedTaskList.get(2).printTask(), "The third task should be the same.");
+        assertEquals(todo.printTask(), loadedTaskList.get(0).printTask(),
+                "The first task should be the same.");
+        assertEquals(deadline.printTask(), loadedTaskList.get(1).printTask(),
+                "The second task should be the same.");
+        assertEquals(event.printTask(), loadedTaskList.get(2).printTask(),
+                "The third task should be the same.");
     }
 
 
