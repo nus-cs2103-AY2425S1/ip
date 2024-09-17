@@ -18,10 +18,6 @@ import strand.task.Todo;
  * The {@code Storage} class handles the loading and saving of tasks to and from
  * a file. It is responsible for reading tasks from the file during initialization
  * and updating the file whenever the task list is modified.
- * <p>
- * This class may throw exceptions if the file is not found or if there is an
- * error in processing the data.
- * </p>
  */
 public class Storage {
     private static final String TODO_TYPE = "T";
@@ -57,6 +53,7 @@ public class Storage {
         if (split[1].equals("1")) {
             newTask.markAsDone();
         }
+        // if priority of task is HIGH, MEDIUM or LOW, assign the respective priority to the task
         if (!split[3].equals(Task.PriorityEnum.NONE.toString())) {
             newTask.markPriority(Task.PriorityEnum.valueOf(split[3]));
         }

@@ -8,7 +8,7 @@ import strand.exception.StrandWrongCommandException;
 import strand.task.Task;
 
 /**
- * The {@code MarkCommand} class represents a command to mark a task as done or not done.
+ * The {@code MarkCommand} class represents a command to mark status and priority of a task.
  */
 public class MarkCommand extends Command {
     private final Integer index;

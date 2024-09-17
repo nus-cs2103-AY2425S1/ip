@@ -9,9 +9,6 @@ import strand.task.Task;
 /**
  * The {@code TaskList} class interacts keeps track of the list of tasks and
  * edits it according to the commands.
- * <p>
- * This class may throw exceptions if the index of the task is invalid.
- * </p>
  */
 public class TaskList {
     private final ArrayList<Task> listOfTasks;
@@ -81,7 +78,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as a certain priority based on the provided index.
+     * Assigns a task with a certain priority based on the provided index.
      *
      * @param index    The index of the task to be marked or unmarked (1-based index).
      * @param priority The priority to be assigned to the task.

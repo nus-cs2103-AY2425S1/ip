@@ -15,9 +15,6 @@ import strand.exception.StrandWrongCommandException;
 /**
  * The {@code Parser} class interprets user input and converts it into
  * corresponding commands within the Strand application.
- * <p>
- * This class may throw exceptions if the input is invalid or unrecognized.
- * </p>
  */
 public class Parser {
 
@@ -62,10 +59,10 @@ public class Parser {
     }
 
     /**
-     * Parses commands that require an index (DELETE, MARK, UNMARK).
+     * Parses commands that require an index (i.e. DELETE, MARK, UNMARK).
      *
      * @param command The command enum.
-     * @param split   The split input string.
+     * @param split   The split input string containing the command and index.
      * @return The command object based on the index.
      * @throws StrandNumberNotFoundException If the index is missing or invalid.
      */
@@ -93,10 +90,13 @@ public class Parser {
     }
 
     /**
-     * Parses task-related commands (TODO, DEADLINE, EVENT).
+     * Parses task-related commands (TODO, DEADLINE, EVENT, FIND).
+     * <p>
+     * These commands typically require a description and sometimes additional details (e.g., deadline, event time).
+     * </p>
      *
      * @param command The command enum.
-     * @param split   The split input string.
+     * @param split   The split input string containing the command and task details.
      * @return The command object based on the task details.
      * @throws StrandDescNotFoundException If the description or other task details are missing.
      */
@@ -152,6 +152,9 @@ public class Parser {
 
     /**
      * Enumeration of possible command types.
+     * <p>
+     * These represent the various commands that the {@code Parser} class can interpret and handle.
+     * </p>
      */
     enum CommandEnums {
         TODO,
