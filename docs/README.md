@@ -98,6 +98,20 @@ Here are the tasks in your list:
 3.[T][ ] Go grocery shopping
 ```
 
+### Viewing Upcoming Deadlines
+
+Peppa allows you to view all upcoming tasks within the next 7 days in the list.
+
+Action: View all upcoming deadlines in the list.
+
+Example: `remind`
+
+```
+Here are the upcoming deadlines in your list:
+1.[D][ ] Submit report (by: Sep 30 2024 4:00pm)
+2.[E][ ] Birthday party (from: Sep 30 2024 4:00pm to: Sep 31 2024 5:00pm)
+```
+
 ### Exiting Peppa
 
 Peppa allows you to exit the program.
