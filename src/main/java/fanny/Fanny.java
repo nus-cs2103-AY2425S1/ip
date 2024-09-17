@@ -24,8 +24,6 @@ public class Fanny {
     /** Handles the storing and loading of tasks */
     private Storage storage;
 
-
-
     public Fanny() {
         this(FILEPATH);
     }
@@ -45,14 +43,15 @@ public class Fanny {
      */
     public void run() {
         ui.printHello();
-        boolean isExit = false;
-        while (!isExit) {
+        boolean shouldExit = false;
+
+        while (!shouldExit) {
             try {
                 String input = ui.getUserInput();
                 ui.showHorizontalLine();
                 Command c = Parser.parse(input);
                 c.executeCmd(tasks, ui);
-                isExit = c.shouldExit();
+                shouldExit = c.shouldExit();
             } catch (FannyException e) {
                 ui.showMessage(e.getMessage());
             } finally {

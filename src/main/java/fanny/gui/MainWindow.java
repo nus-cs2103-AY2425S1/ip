@@ -9,7 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
+
+import java.util.Objects;
 
 
 /**
@@ -57,6 +61,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getFannyDialog(response, fannyImage)
         );
         userInput.clear();
+        handleExit(input);
+    }
+
+    private void handleExit(String input) {
+        if (input.trim().equals("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(event -> javafx.application.Platform.exit());
+            delay.play();
+        }
     }
 
     /**
