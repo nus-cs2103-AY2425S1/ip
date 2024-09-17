@@ -1,4 +1,4 @@
-package swbot;
+package swbot.tasks;
 
 /**
  * A type of task that the user can add to the todo list.

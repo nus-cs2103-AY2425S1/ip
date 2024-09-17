@@ -1,4 +1,4 @@
-package swbot;
+package swbot.ui;
 
 import javafx.application.Application;
 

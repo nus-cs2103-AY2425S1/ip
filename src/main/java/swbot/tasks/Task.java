@@ -1,4 +1,4 @@
-package swbot;
+package swbot.tasks;
 
 /**
  * An abstract class that has methods that the inherited classes use.
@@ -6,8 +6,8 @@ package swbot;
  * class.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    public String description;
+    public boolean isDone;
 
     /**
      * Creates a task object that contains the description of the task itself

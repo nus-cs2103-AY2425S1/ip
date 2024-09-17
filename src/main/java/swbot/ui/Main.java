@@ -1,4 +1,4 @@
-package swbot;
+package swbot.ui;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import swbot.R2D2;
 
 /**
  * A GUI for R2D2 using FXML.

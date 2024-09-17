@@ -3,6 +3,9 @@ package swbot;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import swbot.tasks.Deadline;
+import swbot.tasks.Task;
+import swbot.tasks.Todo;
 
 public class SwbotTest {
     @Test

@@ -1,7 +1,10 @@
 package swbot;
 
+import swbot.command.InputHandler;
+import swbot.command.Storage;
+import swbot.tasks.Task;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Main class that contains the main program for the chatbot. It takes in input from the
