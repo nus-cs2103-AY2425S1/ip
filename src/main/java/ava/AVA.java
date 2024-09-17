@@ -8,7 +8,7 @@ import ava.task.TaskManager;
 import java.io.PrintStream;
 import java.util.List;
 
-import static ava.commands.Parser.parseToDo;
+import static ava.commands.Parser.*;
 
 public class AVA {
 
@@ -57,85 +57,86 @@ public class AVA {
      * //TODO:refactor mark and unmark to remove redundancy
      */
     public void respond(PrintStream out) {
-        Command userInput = Parser.parseCommand(currentInput);
-        switch (userInput) {
-        case LIST: {
-            List<Task> list = taskManager.getTasks();
-            out.println("Here are your tasks:");
-            out.println(list);
-            break;
+        Command userInput;
+        try {
+             userInput = Parser.parseCommand(currentInput);
+        } catch(IllegalArgumentException e){
+            out.println("I am sorry, but I am not capable of doing that yet 😢.");
+            return;
         }
-        case MARK: {
-            int taskId;
-            try {
-                taskId = Integer.parseInt(currentInput.substring(5));
-            } catch (NumberFormatException e) {
-                out.println("I am sorry, but you need to provide me a task id to mark or unmark something.");
-                return;
+        try {
+            switch (userInput) {
+            case LIST: {
+                List<Task> list = taskManager.getTasks();
+                out.println("Here are your tasks:");
+                out.println(list);
+                break;
             }
-            Task task = taskManager.getTasks().get(taskId - 1);
-            task.markDone();
-            //TODO: use string format
-            out.println("Alright I have marked this task as done");
-            out.println(taskId + ". " + task);
+            case MARK: {
+                int taskId = Parser.parseMark(currentInput);
+                Task task = taskManager.getTasks().get(taskId - 1);
+                task.markDone();
+                out.println("Alright I have marked this task as done");
+                out.printf("%d. %s %n",taskId,task);
+                break;
+            }
+            case UNMARK: {
+                int taskId = Parser.parseUnmark(currentInput);
+                Task task = taskManager.getTasks().get(taskId - 1);
+                task.markNotDone();
+                out.println("Alright I have marked this task as not done");
+                out.printf("%d. %s %n",taskId,task);
+                break;
+            }
+            case DELETE: {
+                int taskId = Parser.parseDelete(currentInput);
+                Task task = taskManager.getTasks().get(taskId - 1);
+                taskManager.removeTask(taskId);
+                out.println("Alright I have deleted this task");
+                out.printf("%d. %s %n",taskId,task);
+                break;
+            }
+            case TODO: {
+                String todo = Parser.parseToDo(currentInput, taskManager);
+                out.println("----------------------------------------------------------------");
+                out.println("Added todo: " + todo);
+                out.println("----------------------------------------------------------------");
+                break;
+            }
+            case EVENT: {
+                String event = Parser.parseEvent(currentInput, taskManager);
+                out.println("----------------------------------------------------------------");
+                out.println("Added event: " + event);
+                out.println("----------------------------------------------------------------");
+                break;
+            }
+            case DEADLINE: {
+                String deadline = Parser.parseDeadline(currentInput, taskManager);
+                out.println("----------------------------------------------------------------");
+                out.println("Added deadline: " + deadline);
+                out.println("----------------------------------------------------------------");
+                break;
+            }
+            case FIND: {
+                Parser.parseFind(currentInput);
+                break;
+            }
+            default: {
+                taskManager.addTask(currentInput);
 
-            break;
-        }
-        case UNMARK: {
-            int taskId;
-            try {
-                taskId = Integer.parseInt(currentInput.substring(5));
-            } catch (NumberFormatException e) {
-                out.println("I am sorry, but you need to provide me a task id to mark or unmark something.");
-                return;
             }
-            Task task = taskManager.getTasks().get(taskId - 1);
-            task.markNotDone();
-            //TODO: use string format
-            out.println("Alright I have marked this task as not done");
-            out.println(taskId + ". " + task);
-            break;
-        }
-        case DELETE: {
-            int taskId;
-            try {
-                taskId = Integer.parseInt(currentInput.substring(7));
-            } catch (NumberFormatException e) {
-                out.println("I am sorry, but you need to provide me a task id to delete something.");
-                return;
             }
-            Task task = taskManager.getTasks().get(taskId - 1);
-            taskManager.removeTask(taskId);
-            //TODO: use string format
-            out.println("Alright I have deleted this task");
-            out.println(taskId + ". " + task);
-            break;
-        } case TODO:{
-            String todo = Parser.parseToDo(currentInput,taskManager);
-            out.println("----------------------------------------------------------------");
-            out.println("Added todo: " + todo);
-            out.println("----------------------------------------------------------------");
-            break;
-        } case EVENT:{
-            String event = Parser.parseEvent(currentInput,taskManager);
-            out.println("----------------------------------------------------------------");
-            out.println("Added event: " + event);
-            out.println("----------------------------------------------------------------");
-            break;
-        } case DEADLINE: {
-            String deadline = Parser.parseDeadline(currentInput,taskManager);
-            out.println("----------------------------------------------------------------");
-            out.println("Added deadline: " + deadline);
-            out.println("----------------------------------------------------------------");
-            break;
-        } case FIND:{
-            Parser.parseFind(currentInput);
-            break;
-        }
-        default: {
-            taskManager.addTask(currentInput);
-
-        }
+        } catch (IllegalArgumentException e){
+            /* The responsibility of handling the error
+             * is delegated to the respective parser methods
+             *
+             * An IllegalArgumentException is thrown to exit the
+             * switch case forcefully while maintaining encapsulation
+             *
+             * This is why this catch block is empty
+             * as the error has already been handled
+             */
+            return;
         }
     }
 

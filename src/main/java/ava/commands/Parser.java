@@ -48,6 +48,12 @@ public class Parser {
     public static String parseToDo(String command, TaskManager taskManager){
         final int TODO_LENGTH = 5;
         String todo = command.substring(TODO_LENGTH);
+
+        if(todo.isEmpty()){
+            System.out.println("The description of a todo cannot be empty.");
+            throw new IllegalArgumentException("Empty todo description");
+        }
+
         taskManager.addTask(todo);
         return todo;
     }
@@ -64,12 +70,29 @@ public class Parser {
         final int DEADLINE_LENGTH = 9;
         String deadline = command.substring(DEADLINE_LENGTH);
         String[] arguments = deadline.split("/by");
+        if (arguments.length != 2) {
+            System.out.println("Invalid deadline format. Please use /by to separate the description and time");
+            throw new IllegalArgumentException("Invalid deadline format");
+        }
+
         String description = arguments[0].trim();
+        if(description.isEmpty()){
+            System.out.println("The description of a deadline cannot be empty.");
+            throw new IllegalArgumentException("Empty deadline description");
+        }
+
         String time = arguments[1].trim();
+        if(time.isEmpty()){
+            System.out.println("You need to provide a time for the task.");
+            throw new IllegalArgumentException("No time provided");
+        }
+
+
         try {
             taskManager.addTask(description, time);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Please use the format yyyy-mm-ddThh:mm:ss");
+            throw new IllegalArgumentException("Invalid deadline format");
         }
         return description + " by " + time;
     }
@@ -89,27 +112,91 @@ public class Parser {
 
         String event = command.substring(EVENT_LENGTH);
         String[] arguments = event.split("/");
+
+        if (arguments.length != 2) {
+            System.out.println("Invalid deadline format. Please use /by to separate the description and time");
+            throw new IllegalArgumentException("Invalid deadline format");
+        }
+
         String description = arguments[0].trim();
+        if(description.isEmpty()){
+            System.out.println("The description of an event cannot be empty.");
+            throw new IllegalArgumentException("Empty event description");
+        }
+
         String startTime = arguments[1].substring(FROM_LENGTH).trim();
+        if(startTime.isEmpty()){
+            System.out.println("You need to provide a start time for the task.");
+            throw new IllegalArgumentException("No time provided");
+        }
+
         String endTime = arguments[2].substring(TO_LENGTH).trim();
+        if(endTime.isEmpty()){
+            System.out.println("You need to provide an endTime for the task.");
+            throw new IllegalArgumentException("No time provided");
+        }
 
         try {
             taskManager.addTask(description, startTime, endTime);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Please use the format yyyy-mm-ddThh:mm:ss");
+            throw new IllegalArgumentException("Invalid deadline format");
         }
         return description + " from " + startTime + " to " + endTime;
     }
-    public static void parseMark(String command){
 
+    /**
+     * Parses the mark command and returns the task id
+     *
+     * @param command the mark command
+     * @return the task id of the task to be marked
+     */
+    public static int parseMark(String command){
+        final int MARK_LENGTH = 5;
+        int taskId;
+        try {
+            taskId = Integer.parseInt(command.substring(MARK_LENGTH));
+        } catch (NumberFormatException e) {
+            System.out.println("I am sorry, but you need to provide me a task id to mark something.");
+            throw new IllegalArgumentException("No task id provided");
+        }
+        return taskId;
     }
 
-    public static void parseUnmark(String command){
-
+    /**
+     * Parses the unmark command and returns the task id
+     *
+     * @param command the unmark command
+     * @return the task id of the task to be unmarked
+     */
+    public static int parseUnmark(String command){
+        final int UNMARK_LENGTH = 7;
+        int taskId;
+        try {
+            taskId = Integer.parseInt(command.substring(UNMARK_LENGTH));
+        } catch (NumberFormatException e) {
+            System.out.println("I am sorry, but you need to provide me a task id to unmark something.");
+            throw new IllegalArgumentException("No task id provided");
+        }
+        return taskId;
     }
 
-    public static void parseDelete(String command){
-
+    /**
+     * Parses the delete command and returns the task id
+     *
+     * @param command the delete command
+     * @return the task id of the task to be deleted
+     */
+    public static int parseDelete(String command){
+        final int DELETE_LENGTH = 7;
+        int taskId;
+        try {
+            taskId = Integer.parseInt(command.substring(DELETE_LENGTH));
+        } catch (NumberFormatException e) {
+            System.out.println("I am sorry, but you need to provide me a task id to delete something.");
+            throw new IllegalArgumentException("No task id provided");
+        }
+        return taskId;
     }
 
     public static void parseFind(String command){
