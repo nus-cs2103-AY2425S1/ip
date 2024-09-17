@@ -1,4 +1,4 @@
-package toothless.GUI;
+package toothless.gui;
 
 import javafx.application.Application;
 

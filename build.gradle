@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("toothless.GUI.Launcher")
+    mainClass.set("toothless.gui.Launcher")
 }
 
 shadowJar {
