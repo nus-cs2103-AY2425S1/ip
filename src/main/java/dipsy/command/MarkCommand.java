@@ -86,7 +86,6 @@ public class MarkCommand extends Command {
         task.markAsDone();
         saveTasksToLocalDisk();
         return ui.getMarkTaskDoneMessage(task);
-
     }
 
     /**
