@@ -6,6 +6,10 @@ import java.time.format.DateTimeParseException;
 
 import exceptions.BrockException;
 
+/**
+ * Class with commonly used utility functions for storage
+ *      to reduce code duplication.
+ */
 public class StorageUtility {
     /**
      * Removes closing bracket from the body string of each task.

@@ -1,7 +1,9 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.TaskStorage.TaskStorage;
+import storage.task.TaskStorage;
+import storage.temp.TempStorage;
+import task.Task;
 import task.TaskList;
 import utility.CommandUtility;
 
@@ -18,30 +20,6 @@ public class DeleteCommand extends Command {
         super(command);
     }
 
-
-    private String[] processCommand() {
-        String command = super.getCommand();
-        return command.split(" ");
-    }
-
-    private void checkLength(String[] commandWords) throws BrockException {
-        int commandLength = commandWords.length;
-        if (commandLength == 1) {
-            throw new BrockException("Missing task number!");
-        }
-        if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
-            throw new BrockException("Delete command is in the form delete <task-number>!");
-        }
-    }
-
-    private void checkTaskNumber(String[] commandWords, TaskList tasks) throws BrockException {
-        int taskNumber = Integer.parseInt(commandWords[1]);
-        int totalTasks = tasks.numTasks();
-        if (taskNumber > totalTasks || taskNumber < 1) {
-            throw new BrockException("Task number does not exist!");
-        }
-    }
-
     /**
      * Checks if the delete command is valid.
      *
@@ -51,16 +29,30 @@ public class DeleteCommand extends Command {
      */
     private void validateDelete(TaskList tasks) throws BrockException {
         String[] commandWords = this.processCommand();
-        checkLength(commandWords);
-        checkTaskNumber(commandWords, tasks);
+        CommandUtility.validateLength(commandWords, "Delete ");
+        CommandUtility.validateTaskNumber(commandWords, tasks);
     }
 
+    /**
+     * Removes the deleted task from save file.
+     *
+     * @param taskStorage Instance that interfaces with save file.
+     * @param tasks List of current {@code Task} objects.
+     * @throws BrockException If writing to file fails.
+     */
     private void updateSaveFile(TaskStorage taskStorage, TaskList tasks) throws BrockException {
         String remainingTasks = tasks.listTasks();
         taskStorage.writeToFile("", false);
         taskStorage.writeToFile(remainingTasks, true);
     }
 
+    /**
+     * Gets the chatbot response to delete command.
+     *
+     * @param tasks List of current {@code Task} objects.
+     * @param deletedTaskDetails Details of the deleted task.
+     * @return Chatbot response.
+     */
     private String getResponse(TaskList tasks, String deletedTaskDetails) {
         return "Noted. I've removed this task:\n"
                 + "  " + deletedTaskDetails + '\n'
@@ -79,15 +71,25 @@ public class DeleteCommand extends Command {
      * @throws BrockException If delete command is invalid.
      */
     @Override
-    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) throws BrockException {
         this.validateDelete(tasks);
 
         String command = super.getCommand();
         int taskIndex = CommandUtility.getTaskIndex(command);
+        Task deletedTask = tasks.getTask(taskIndex);
         String deletedTaskDetails = tasks.getTaskDetails(taskIndex);
         tasks.removeFromList(taskIndex);
 
+        tempStorage.setLastDeletedTask(deletedTask);
         this.updateSaveFile(taskStorage, tasks);
         return this.getResponse(tasks, deletedTaskDetails);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getType() {
+        return "delete";
     }
 }

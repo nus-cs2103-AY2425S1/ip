@@ -20,6 +20,11 @@ public class Main extends Application {
     private static final int MIN_HEIGHT = 555;
     private static final int MIN_WIDTH = 777;
 
+    /**
+     * Handles the creation of the save file.
+     *
+     * @param mainController Controller tied to the main GUI view.
+     */
     private void handleCreateSaveFile(MainWindow mainController) {
         // Creates the save file
         Pair<Boolean, String> createResult = BROCK.createSaveFile();
@@ -37,6 +42,11 @@ public class Main extends Application {
         mainController.showInitialResponse(fileResponse);
     }
 
+    /**
+     * Handles the loading of tasks from save file.
+     *
+     * @param mainController Controller tied to the main GUI view.
+     */
     private void handleLoadFromSaveFile(MainWindow mainController) {
         // Load the tasks from the save file
         Pair<TaskList, String> loadResult = BROCK.loadTasksFromFile();
@@ -51,10 +61,36 @@ public class Main extends Application {
         mainController.showInitialResponse(loadResponse);
     }
 
+    /**
+     * Handles the displaying of welcome message.
+     *
+     * @param mainController Controller tied to the main GUI view.
+     */
     private void handleWelcomeMessage(MainWindow mainController) {
         String welcomeResponse = "Hello! I'm Brock\n"
                 + "What can I do for you?";
         mainController.showInitialResponse(welcomeResponse);
+    }
+
+    /**
+     * Sets the GUI title and icon.
+     *
+     * @param stage A platform of sorts, as the backbone for the GUI application.
+     */
+    private void setTitleAndIcon(Stage stage) {
+        stage.setTitle("Brock Chatbot");
+        Image programIcon = new Image("images/ProgramIcon.jpg");
+        stage.getIcons().add(programIcon);
+    }
+
+    /**
+     * Sets the GUI minimum dimensions.
+     *
+     * @param stage A platform of sorts, as the backbone for the GUI application.
+     */
+    private void setMinDimmensions(Stage stage) {
+        stage.setMinHeight(MIN_HEIGHT);
+        stage.setMinWidth(MIN_WIDTH);
     }
 
     /**
@@ -79,12 +115,9 @@ public class Main extends Application {
 
             // Finish setup
             Scene scene = new Scene(ap);
-            stage.setTitle("Brock Chatbot");
-            Image programIcon = new Image("images/ProgramIcon.jpg");
-            stage.getIcons().add(programIcon);
+            this.setTitleAndIcon(stage);
+            this.setMinDimmensions(stage);
             stage.setScene(scene);
-            stage.setMinHeight(MIN_HEIGHT);
-            stage.setMinWidth(MIN_WIDTH);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

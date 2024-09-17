@@ -1,4 +1,4 @@
-package storage.TaskStorage;
+package storage.task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 import exceptions.BrockException;
-import storage.TaskStorage.TaskManager.DeadlineManager;
-import storage.TaskStorage.TaskManager.EventManager;
-import storage.TaskStorage.TaskManager.TaskManager;
-import storage.TaskStorage.TaskManager.TodoManager;
+import storage.task.manager.DeadlineManager;
+import storage.task.manager.EventManager;
+import storage.task.manager.TaskManager;
+import storage.task.manager.TodoManager;
 import task.Task;
 
 /**
@@ -25,6 +25,9 @@ public class TaskStorage {
 
     private static final Map<Character, TaskManager> TASK_MANAGERS = new HashMap<>();
 
+    /**
+     * Initializes the various task managers for each task type.
+     */
     public TaskStorage() {
         TASK_MANAGERS.put('T', new TodoManager());
         TASK_MANAGERS.put('D', new DeadlineManager());
@@ -45,7 +48,13 @@ public class TaskStorage {
                 + "Save file is corrupted. File has been reset!");
     }
 
-
+    /**
+     * Checks if the taskString is valid.
+     *
+     * @param taskString Task string to be examined.
+     * @return The components within the task string, if found to be valid.
+     * @throws BrockException If its invalid.
+     */
     public static String[] processTaskString(String taskString) throws BrockException {
         String[] taskComponents = taskString.split("\\. ", 2);
         if (taskComponents.length < 2) {

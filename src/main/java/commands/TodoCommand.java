@@ -1,7 +1,8 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.TaskStorage.TaskStorage;
+import storage.task.TaskStorage;
+import storage.temp.TempStorage;
 import task.Task;
 import task.TaskList;
 import task.ToDo;
@@ -19,11 +20,13 @@ public class TodoCommand extends Command {
         super(command);
     }
 
-    private String[] processCommand() {
-        String command = super.getCommand();
-        return command.split(" ");
-    }
-
+    /**
+     * Gets the command description.
+     *
+     * @param commandWords Command words from which to extract description.
+     * @return Command description.
+     * @throws BrockException If description is missing.
+     */
     private String getDescription(String[] commandWords) throws BrockException {
         int commandLength = commandWords.length;
         StringBuilder description = new StringBuilder();
@@ -38,7 +41,6 @@ public class TodoCommand extends Command {
         return description.toString();
     }
 
-
     /**
      * Creates an {@code ToDo} object encapsulating details about the todo task.
      *
@@ -51,12 +53,27 @@ public class TodoCommand extends Command {
         return new ToDo(description);
     }
 
+    /**
+     * Updates the save file with the todo task.
+     *
+     * @param taskStorage Instance that interfaces with save file.
+     * @param tasks List of current {@code Task} objects.
+     * @param todoTask Todo task to be added.
+     * @throws BrockException If writing to save file fails.
+     */
     private void updateSaveFile(TaskStorage taskStorage, TaskList tasks, Task todoTask) throws BrockException {
         taskStorage.writeToFile(tasks.numTasks() + ". "
-                        + tasks.getTaskDetails(todoTask) + '\n',
+                + tasks.getTaskDetails(todoTask) + '\n',
                 true);
     }
 
+    /**
+     * Gets the chatbot response to todo command.
+     *
+     * @param tasks List of current {@code Task} objects.
+     * @param todoTask Todo task created.
+     * @return Chatbot response.
+     */
     private String getResponse(TaskList tasks, Task todoTask) {
         return "Got it. I've added this task:\n"
                 + "  " + tasks.getTaskDetails(todoTask) + '\n'
@@ -76,11 +93,20 @@ public class TodoCommand extends Command {
      * @throws BrockException If todo command is invalid.
      */
     @Override
-    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) throws BrockException {
         Task todoTask = this.createTodo();
         tasks.addToList(todoTask);
 
+        tempStorage.setLastCreatedTaskNum(tasks.numTasks());
         this.updateSaveFile(taskStorage, tasks, todoTask);
         return this.getResponse(tasks, todoTask);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getType() {
+        return "todo";
     }
 }

@@ -1,8 +1,11 @@
-package storage.TaskStorage.TaskManager;
+package storage.task.manager;
 
 import task.Task;
 import task.ToDo;
 
+/**
+ * Class to manage todo strings in task storage.
+ */
 public class TodoManager extends TaskManager {
     /**
      * Creates a {@code ToDo} object corresponding to a todo task.

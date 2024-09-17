@@ -13,20 +13,20 @@ public class MarkCommandTest extends BaseCommandTest {
     public void execute_missingNumber_throwsException() {
         MarkCommand mc = new MarkCommand("mark");
         assertThrows(BrockException.class, () ->
-                mc.execute(TASK_STORAGE, TASKS));
+                mc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS));
     }
 
     @Test
     public void execute_invalidNumber_throwsException() {
         MarkCommand mc = new MarkCommand("mark 5");
         assertThrows(BrockException.class, () ->
-                mc.execute(TASK_STORAGE, TASKS));
+                mc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS));
     }
 
     @Test
     public void execute_unmarkedTask_marksTask() {
         TodoCommand tc = new TodoCommand("todo borrow book");
-        assertDoesNotThrow(() -> tc.execute(TASK_STORAGE, TASKS));
+        assertDoesNotThrow(() -> tc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS));
 
         String expectedOutput = "Nice! I've marked this task as done:\n"
                 + "  [T][X] borrow book ";
@@ -35,7 +35,7 @@ public class MarkCommandTest extends BaseCommandTest {
         final String[] actualOutput = new String[1];
         MarkCommand mc = new MarkCommand("mark 1");
         assertDoesNotThrow(() -> {
-            actualOutput[0] = mc.execute(TASK_STORAGE, TASKS);
+            actualOutput[0] = mc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
         });
         assertEquals(expectedOutput, actualOutput[0]);
     }

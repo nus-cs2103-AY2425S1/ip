@@ -1,15 +1,18 @@
-package storage.TaskStorage.TaskManager;
+package storage.task.manager;
 
 import exceptions.BrockException;
 import task.Deadline;
 import task.Task;
 import utility.StorageUtility;
 
+/**
+ * Class to manage deadline strings in task storage.
+ */
 public class DeadlineManager extends TaskManager {
     private String[] processDeadlineBody(String deadlineBody) throws BrockException {
         String[] parts = deadlineBody.split("\\(by: ", 2);
         if (parts.length < 2) {
-           throw new BrockException("Invalid deadline entry - missing due date!");
+            throw new BrockException("Invalid deadline entry - missing due date!");
         }
         return parts;
     }

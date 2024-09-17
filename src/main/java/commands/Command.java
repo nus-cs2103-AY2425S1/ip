@@ -1,7 +1,8 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.TaskStorage.TaskStorage;
+import storage.task.TaskStorage;
+import storage.temp.TempStorage;
 import task.TaskList;
 
 /**
@@ -20,6 +21,15 @@ public abstract class Command {
     }
 
     /**
+     * Breaks the command string down into words.
+     *
+     * @return Command words.
+     */
+    protected String[] processCommand() {
+        return this.command.split(" ");
+    }
+
+    /**
      * Fetches the stored command string.
      * To be examined within the user command subclass.
      *
@@ -32,10 +42,18 @@ public abstract class Command {
     /**
      * Runs the user command.
      *
-     * @param taskStorage {@code Storage} object that creates and interfaces with save file.
+     * @param taskStorage {@code TaskStorage} object that creates and interfaces with save file.
      * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
      * @return Response string after executing the command.
      * @throws BrockException If there are any issues with running the command.
      */
-    public abstract String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException;
+    public abstract String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks)
+            throws BrockException;
+
+    /**
+     * Gets the type associated with the command.
+     *
+     * @return Command type.
+     */
+    public abstract String getType();
 }
