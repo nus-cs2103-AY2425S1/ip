@@ -113,13 +113,15 @@ public class Storage implements IStorage {
      */
     private void ensureFileExists() {
         try {
-            if (!file.exists()) {
-                if (!this.file.getParentFile().mkdirs()) {
-                    throw new IOException("Failed to create the necessary directories for the file");
-                }
-                if (!this.file.createNewFile()) {
-                    throw new IOException("Failed to create file");
-                }
+            if (file.exists()) {
+                return;
+            }
+
+            if (!this.file.getParentFile().mkdirs()) {
+                throw new IOException("Failed to create the necessary directories for the file");
+            }
+            if (!this.file.createNewFile()) {
+                throw new IOException("Failed to create file");
             }
         } catch (IOException e) {
             System.err.println("Error creating file: " + e.getMessage());
@@ -134,14 +136,11 @@ public class Storage implements IStorage {
      */
     private Task convertStringToTask(String line) {
         try {
-            String[] parts = line.split(" \\| ");
-            if (parts.length < 3) {
-                throw new InvalidTaskException("Missing data in:" + line);
-            }
-
+            String[] parts = getParts(line);
             String taskType = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
+
             Task task = createTask(line, taskType, description, parts);
             if (task != null) {
                 task.setDone(isDone);
@@ -151,6 +150,21 @@ public class Storage implements IStorage {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * Splits the provided string into parts based on the delimiter " | " and returns an array of these parts.
+     *
+     * @param line the string to be split, representing a line of task data.
+     * @return a string array containing the parts of the input line.
+     * @throws InvalidTaskException if the line contains fewer than three parts, indicating missing data.
+     */
+    private static String[] getParts(String line) throws InvalidTaskException {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            throw new InvalidTaskException("Missing data in:" + line);
+        }
+        return parts;
     }
 
     /**
@@ -173,33 +187,77 @@ public class Storage implements IStorage {
         Task task = null;
         switch (taskType) {
         case "T":
-            task = new Todo(description);
+            task = createTodo(description);
             break;
         case "D":
-            if (parts.length < 4) {
-                throw new InvalidTaskException("Deadline missing for: " + line);
-            }
-            LocalDateTime deadline = DateTimeUtility.parse(parts[3]);
-            task = new Deadline(description, deadline);
+            task = createDeadline(line, description, parts);
             break;
         case "E":
-            if (parts.length < 4) {
-                throw new InvalidTaskException("Event date missing for: " + line);
-            }
-
-            String date = parts[3];
-            String[] dateParts = date.split("-");
-            if (dateParts.length != 2) {
-                throw new InvalidTaskException("Invalid date format for: " + line);
-            }
-
-            LocalDateTime startDate = DateTimeUtility.parse(dateParts[0]);
-            LocalDateTime endDate = DateTimeUtility.parse(dateParts[1]);
-            task = new Event(description, startDate, endDate);
+            task = createEvent(line, description, parts);
             break;
         default:
             throw new InvalidTaskException("Invalid task type for: " + line);
         }
+        return task;
+    }
+
+    /**
+     * Creates a new {@code Todo} instance with the specified description.
+     *
+     * @param description the description of the todo task.
+     * @return a {@code Todo} instance with the given description.
+     */
+    private static Todo createTodo(String description) {
+        return new Todo(description);
+    }
+
+    /**
+     * Creates a new {@code Deadline} instance based on the provided line, description, and parts of the line.
+     *
+     * @param line the original line of task data from which the deadline will be extracted.
+     * @param description the description of the deadline task.
+     * @param parts an array of string parts extracted from the line, which should include the deadline.
+     * @return a {@code Deadline} instance with the specified description and deadline.
+     * @throws InvalidTaskException if the parts array does not contain sufficient data.
+     * @throws InvalidDateException if the deadline cannot be parsed into a {@code LocalDateTime} object.
+     */
+    private static Task createDeadline(String line, String description, String[] parts)
+            throws InvalidTaskException, InvalidDateException {
+        Task task;
+        if (parts.length < 4) {
+            throw new InvalidTaskException("Deadline missing for: " + line);
+        }
+        LocalDateTime deadline = DateTimeUtility.parse(parts[3]);
+        task = new Deadline(description, deadline);
+        return task;
+    }
+
+    /**
+     * Creates a new {@code Event} instance based on the provided line, description, and parts of the line.
+     *
+     * @param line the original line of task data from which the event date will be extracted.
+     * @param description the description of the event task.
+     * @param parts an array of string parts extracted from the line, which should include the start and end dates.
+     * @return an {@code Event} instance with the specified description, start date, and end date.
+     * @throws InvalidTaskException if the parts array does not contain sufficient data.
+     * @throws InvalidDateException if the start or end date cannot be parsed into {@code LocalDateTime} objects.
+     */
+    private static Task createEvent(String line, String description, String[] parts)
+            throws InvalidTaskException, InvalidDateException {
+        Task task;
+        if (parts.length < 4) {
+            throw new InvalidTaskException("Event date missing for: " + line);
+        }
+
+        String date = parts[3];
+        String[] dateParts = date.split("-");
+        if (dateParts.length != 2) {
+            throw new InvalidTaskException("Invalid date format for: " + line);
+        }
+
+        LocalDateTime startDate = DateTimeUtility.parse(dateParts[0]);
+        LocalDateTime endDate = DateTimeUtility.parse(dateParts[1]);
+        task = new Event(description, startDate, endDate);
         return task;
     }
 }

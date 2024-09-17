@@ -32,20 +32,30 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {
-        String[] detailsArr = this.getArgument().split(" /by ");
-        if (detailsArr.length != 2) {
-            throw new InvalidCommandException("Invalid input format.");
-        }
-
         try {
+            String[] detailsArr = getDetailsArr();
             String description = detailsArr[0];
             LocalDateTime date = DateTimeUtility.parse(detailsArr[1]);
+
             Deadline deadline = new Deadline(description, date);
             taskList.add(deadline);
             return generateTaskAddedResponse(deadline, taskList.size());
         } catch (InvalidDateException e) {
             throw new InvalidCommandException(e.getMessage());
         }
+    }
 
+    /**
+     * Splits the input argument string into task details and due date.
+     *
+     * @return A string array where the first element is the task description and the second element is the due date.
+     * @throws InvalidCommandException if the input format does not contain exactly one " /by " delimiter.
+     */
+    private String[] getDetailsArr() throws InvalidCommandException {
+        String[] detailsArr = this.getArgument().split(" /by ");
+        if (detailsArr.length != 2) {
+            throw new InvalidCommandException("Invalid input format.");
+        }
+        return detailsArr;
     }
 }

@@ -26,15 +26,8 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {
-        if (this.getArgument().isEmpty()) {
-            throw new InvalidCommandException("No task index provided.");
-        }
-
-        if (this.getArgument().split(" ").length != 1) {
-            throw new InvalidCommandException("Invalid input format.");
-        }
-
         try {
+            checkArgument();
             int index = Integer.parseInt(this.getArgument()) - 1;
             Task task = taskList.unmark(index);
             return String.format("OK, I've marked this task as not done yet:\n  %s\n", task);
@@ -42,6 +35,21 @@ public class UnmarkCommand extends Command {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is out of range.");
+        }
+    }
+
+    /**
+     * Validates the task index argument provided by the user.
+     *
+     * @throws InvalidCommandException if no task index is provided or if the input format is invalid.
+     */
+    private void checkArgument() throws InvalidCommandException {
+        if (this.getArgument().isEmpty()) {
+            throw new InvalidCommandException("No task index provided.");
+        }
+
+        if (this.getArgument().split(" ").length != 1) {
+            throw new InvalidCommandException("Invalid input format.");
         }
     }
 }
