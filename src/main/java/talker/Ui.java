@@ -48,7 +48,7 @@ public class Ui {
      * @return String representing goodbye message
      */
     public String printGoodBye() {
-        return String.format("Bye. Hope to see you again soon!");
+        return String.format("Bye. Was great having you! See you soon!");
     }
 
     /**
@@ -78,7 +78,7 @@ public class Ui {
     public String printTaskList(Task... tasks) {
         StringBuilder output = new StringBuilder();
 
-        output.append("Here are the tasks in your list:\n");
+        output.append("This is what you need to accomplish!\n");
         for (int i = 0; i < tasks.length; i++) {
             output.append(String.format("%d. %s\n", i + 1, tasks[i]));
         }
@@ -106,9 +106,9 @@ public class Ui {
     public String printTaskDelete(Task task, int size) {
         StringBuilder output = new StringBuilder();
 
-        output.append("Noted. I've removed this task:\n");
+        output.append("You don't have to do this anymore:\n");
         output.append(task.toString() + "\n");
-        output.append(String.format("Now you have %d tasks in the list.\n", size));
+        output.append(String.format("Now you have to do %d things!\n", size));
 
         return output.toString();
     }
@@ -123,9 +123,9 @@ public class Ui {
     public String printTaskAdd(Task task, int size) {
         StringBuilder output = new StringBuilder();
 
-        output.append("Got it. I've added this task:\n");
+        output.append("Now you have to do this!\n");
         output.append(task.toString() + "\n");
-        output.append(String.format("Now you have %d tasks in the list.\n", size));
+        output.append(String.format("Now you have to do %d things!\n", size));
 
         return output.toString();
     }
@@ -137,7 +137,7 @@ public class Ui {
      * @return String response before list of tasks shown
      */
     public String printTasksOn(String date) {
-        return "These are your tasks on " + date + ":\n";
+        return "You've got to do these things on " + date + ":\n";
     }
 
     /**
@@ -147,7 +147,7 @@ public class Ui {
      * @return String showing that there are no tasks on target date
      */
     public String printNoTasksOn(String date) {
-        return "There are no tasks on " + date + "!";
+        return "You're free for the whole day on " + date + "!";
     }
 
     /**
@@ -189,11 +189,11 @@ public class Ui {
      */
     public String printMatchingTasks(Task... tasks) throws TalkerException {
         if (tasks.length == 0) {
-            throw new TalkerException("No matching tasks found!");
+            throw new TalkerException("Can't find anything like this!");
         } else {
             StringBuilder output = new StringBuilder();
 
-            output.append("Here are the matching tasks in your list:\n");
+            output.append("Found these things you gotta do:\n");
             for (int i = 0; i < tasks.length; i++) {
                 output.append(String.format("%d. %s\n", i + 1, tasks[i]));
             }
@@ -212,11 +212,11 @@ public class Ui {
      */
     public String printPriorityTasks(PriorityType priority, Task... tasks) throws TalkerException {
         if (tasks.length == 0) {
-            throw new TalkerException("No tasks of " + priority.toString() + " priority found!");
+            throw new TalkerException("Can't find anything " + priority.toString() + " to do!");
         } else {
             StringBuilder output = new StringBuilder();
 
-            output.append("Here are the tasks of " + priority.toString() + " priority in your list:\n");
+            output.append("Here are the " + priority.toString() + " things you gotta do:\n");
             for (int i = 0; i < tasks.length; i++) {
                 output.append(String.format("%d. %s\n", i + 1, tasks[i]));
             }
