@@ -91,24 +91,21 @@ public class Alexer {
      * relevant commands/operations
      * @param input the user input string
      */
-    public void processInput(String input) {
+    public Response processInput(String input) {
         List<String> arguments = new ArrayList<>(List.of(input.split(" ")));
         String command = arguments.remove(0);
 
         Command cmd = commandHandler.getCommand(command.toLowerCase());
         if (cmd != null) {
-            Response response = cmd.run(arguments.toArray(String[]::new));
-            if (response != null) {
-                response.printToConsole();
-            }
+            return cmd.run(arguments.toArray(String[]::new));
+        }
+
+        if (command.equals("bye")) {
+            prompter.buildGoodbye().printToConsole();
+            System.exit(0);
+            return null;
         } else {
-            if (command.equals("bye")) {
-                prompter.buildGoodbye().printToConsole();
-                System.exit(0);
-            } else {
-                Response response = new Response("Uh-oh, I did not understand what you are trying to do.");
-                response.printToConsole();
-            }
+            return new Response("Uh-oh, I did not understand what you are trying to do.");
         }
     }
 
@@ -120,7 +117,10 @@ public class Alexer {
     public void promptLoop() {
         String input = scanner.nextLine();
 
-        processInput(input);
+        Response response = processInput(input);
+        if (response != null) {
+            response.printToConsole();
+        }
         promptLoop();
     }
 
