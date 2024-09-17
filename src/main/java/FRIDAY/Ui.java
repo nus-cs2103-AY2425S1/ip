@@ -36,6 +36,16 @@ public class Ui {
     public String printUncheck() {
         return DIVIDER + "Noted. I've marked this task as incomplete\n" + DIVIDER;
     }
+
+    public String printArchive() {
+        return DIVIDER + "I've archived all your tasks. Please check the archives file to find them\n" + DIVIDER;
+    }
+    public String printFarewell() {
+        return DIVIDER + "Bye! See you again!\n" + DIVIDER;
+    }
+    public String emptyInput() {
+        return DIVIDER + "Please input a command\n" + DIVIDER;
+    }
     /**
      * method displays the list of tasks in a specific format
      * @param searchResults array list of tasks

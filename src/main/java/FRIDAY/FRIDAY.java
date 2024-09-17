@@ -105,7 +105,7 @@ public class FRIDAY {
             ArrayList<Task> list = this.taskList.getList();
             assert list != null : "list not found";
             storage.updateStorage(list);
-            return "Bye! See you again!";
+            return ui.printFarewell();
         case ("list"):
             return taskList.displayTasks();
         case("search"):
@@ -121,9 +121,9 @@ public class FRIDAY {
             archive.updateStorage(archivedTasks);
             this.taskList.deleteAllTasks();
             storage.updateStorage(this.taskList.getList());
-            return "I've archived all your tasks. Please check the archives file to find them";
+            return ui.printArchive();
         case (""):
-            return "Please input a command";
+            return ui.emptyInput();
         //to handle all normal inputs less empty strings
         default:
             throw new FRIDAYException("It appears that you have attempted to log an unrecognized class type. Please try again");
