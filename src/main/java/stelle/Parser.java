@@ -214,6 +214,10 @@ public class Parser {
 
     private String addDeadline(String input) throws TaskException, IOException {
         String noCommandInput = input.replace(DEADLINE_COMMAND, "").strip();
+        if (!(noCommandInput.contains("/by"))) {
+            throw new NoDateTagException();
+        }
+
         String taskName = noCommandInput.split("/by")[0].strip();
         if (taskName.isEmpty()) {
             throw new DeadlineNoDescriptionException();
@@ -245,10 +249,15 @@ public class Parser {
 
     private String addEvent(String input) throws TaskException, IOException {
         String noCommandInput = input.replace(EVENT_COMMAND, "").strip();
+        if (!(noCommandInput.contains("/from") && noCommandInput.contains("/to"))) {
+            throw new NoDateTagException();
+        }
+
         String taskName = noCommandInput.split("/from")[0].strip();
         if (taskName.isEmpty()) {
             throw new EventNoDescriptionException();
         }
+
         if (!taskList.find(taskName, true).isEmpty()) {
             return "There is already a task with this name...";
         }
