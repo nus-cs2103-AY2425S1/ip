@@ -1,16 +1,27 @@
 # Janet User Guide
 
-// Product screenshot goes here  
 ![Screenshot of the GUI of Janet](./Ui.png)
 
-// Product intro goes here  
 Janet is an application for managing your daily tasks such as ToDos, Deadlines and Events.
 It is super easy to use and most importantly, it is FREE!
 Janet is optimized for use via a Command Line Interface (CLI) but also comes with a
 Graphical User Interface (GUI). 
 
-## Features
-// add common notes to all the features here, such as command format etc.
+## Quick start  
+1. Ensure you have Java 17 or above installed in your computer.
+2. Download the latest `.jar` file from here.
+3. Copy the file to the folder you want to use as the home folder for Janet.
+4. Double-click on the `.jar` file to start! (Alternatively, you could open 
+a command terminal, `cd` into the folder you put the jar file in, and use `java -jar janet.jar`
+command to run the application.
+
+## Overview of features
+- add tasks.
+- mark/unmark tasks.
+- delete tasks.
+- find tasks.
+- sort specific tasks.
+- view schedule.
 
 ## Adding ToDos  
 Adds a ToDo task to the list of tasks.  
@@ -154,7 +165,12 @@ Here are your tasks on 2024-09-17:
 ```  
 
 ## Closing Janet: `bye`
-Exits the program.  
+Exits the program and close the window manually.  
 **Format**: `bye`  
 
-## Editing the data file
+## Editing the data file  
+All the tasks data are saved in a text filed titled `janet.txt`.  
+It is not recommended to update data directly through this .txt file. 
+If your changes to the .txt file makes the format invalid, Janet might 
+encounter issues in reading the data. So update the data through the
+.txt file only if you are confident, else update the data by running Janet.
