@@ -43,7 +43,7 @@ public class Storage {
     /**
      * Loads tasks from the file, or returns an empty list if the file is empty.
      *
-     * @return ArrayList<Task> the list of tasks loaded from the file.
+     * @return ArrayList&lt;Task&gt; the list of tasks loaded from the file.
      */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
