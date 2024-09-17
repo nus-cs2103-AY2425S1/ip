@@ -54,11 +54,12 @@ public class Storage {
         File f = new File(this.filePath);
         try {
             if (!f.getParentFile().exists()) {
-                f.getParentFile().mkdirs();
-
+                boolean parentDirMade = f.getParentFile().mkdirs();
+                assert parentDirMade : "Parent dir should be made";
             }
             if (!f.exists()) {
-                f.createNewFile();
+                boolean fileMade = f.createNewFile();
+                assert fileMade : "File should be made";
             }
         } catch (IOException e) {
             System.out.println("An file error occurred while trying to create new data file");
