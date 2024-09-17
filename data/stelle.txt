@@ -1,3 +1,3 @@
-T | 1 | Revise CS2109S Lecture 6
 D | 0 | CS2103T iP final ver. | 2024-09-22 23:59
-E | 0 | Revise for midterms | 2024-09-22 10:00to2024-09-28 19:00
+E | 0 | Recess week revisions | 2024-09-22 10:00to2024-09-27 19:00
+T | 0 | Revise CS2109S Lecture 6
