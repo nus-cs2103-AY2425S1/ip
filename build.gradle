@@ -9,7 +9,10 @@ test {
     useJUnitPlatform()
 }
 
+mainClassName = 'katheryne.gui.Launcher'
+
 shadowJar {
+    archiveFileName = 'Katheryne.jar'
     archiveBaseName = "katheryne"
     archiveClassifier = null
 }

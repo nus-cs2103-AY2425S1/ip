@@ -1,1 +1,3 @@
-T | 0 | read
+T | 0 |   read
+E | 0 |   movie   |   6pm-7pm
+D | 1 |  hw 1   | Sep 17 2024
