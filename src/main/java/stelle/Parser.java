@@ -266,6 +266,10 @@ public class Parser {
             throw new WrongDateFormatException();
         }
 
+        if (from.isAfter(to)) {
+            throw new EventIllogicalDateException();
+        }
+
         this.taskList.add(new Event(taskName, from, to));
         this.taskList.writeToFile();
 
