@@ -3,6 +3,9 @@ package echobot.command;
 import echobot.exception.EchoBotException;
 import echobot.task.Task;
 
+/**
+ * Represents an unmark command.
+ */
 public class UnMarkCommand extends Command implements Undoable {
     public final static String COMMAND = "unmark";
     private final int index;

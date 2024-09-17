@@ -9,6 +9,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * Represents a list by date command.
+ */
 public class ListByDateCommand extends ListCommand {
 
     private final String on;

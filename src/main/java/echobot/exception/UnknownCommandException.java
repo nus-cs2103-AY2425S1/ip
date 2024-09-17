@@ -1,5 +1,8 @@
 package echobot.exception;
 
+/**
+ * Represents an UnknownCommandException.
+ */
 public class UnknownCommandException extends EchoBotException {
     public UnknownCommandException() {
         super("OOPS!!! I don't know what this command means...");

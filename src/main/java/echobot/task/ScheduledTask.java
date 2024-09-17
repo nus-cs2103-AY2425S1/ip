@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a scheduled task.
+ */
 public abstract class ScheduledTask extends Task {
     private final String DATE_TIME_INPUT_FORMAT = "dd-MM-yyyy HH:mm";
     private final String DATE_TIME_OUTPUT_FORMAT = "MMM dd yyyy HH:mm";

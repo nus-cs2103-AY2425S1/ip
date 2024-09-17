@@ -1,5 +1,8 @@
 package echobot.exception;
 
+/**
+ * Represents an EventStartEndDateEmptyException.
+ */
 public class EventStartEndDateEmptyException extends EchoBotException {
     public EventStartEndDateEmptyException() {
         super("task.Event start date and end date must both be stated!!!");

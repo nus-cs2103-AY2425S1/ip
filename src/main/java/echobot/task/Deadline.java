@@ -7,6 +7,9 @@ import echobot.exception.TaskNameEmptyException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends ScheduledTask {
     private final LocalDateTime deadline;
 

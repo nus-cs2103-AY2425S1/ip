@@ -11,21 +11,26 @@ import echobot.exception.UnknownCommandException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a command parser.
+ */
 public class CommandParser {
+    /**
+     * Parses the command from user input.
+     *
+     * @param input User input.
+     * @return Specific command.
+     * @throws EchoBotException If any EchoBotException is thrown.
+     */
     public Command parse(String input) throws EchoBotException {
-        input = input.trim();
-        final String REGEX = "(?<command>\\S+)(?<arguments>.*)";
-        Pattern pattern = Pattern.compile(REGEX);
-        Matcher commandMatcher = pattern.matcher(input);
+        input = this.processUserInput(input);
+        String[] decodedCommand = this.decodeCommand(input);
+        return this.getCommand(decodedCommand);
+    }
 
-        if (!commandMatcher.find()) {
-            throw new UnknownCommandException();
-        }
-        String command = commandMatcher.group("command");
-        String arguments = "";
-        if (!ListCommand.COMMAND.equals(input)) {
-            arguments = commandMatcher.group("arguments").trim();
-        }
+    private Command getCommand(String[] decodedCommand) throws EchoBotException {
+        String command = decodedCommand[0];
+        String arguments = decodedCommand[1];
 
         return switch (command) {
             case AddCommand.COMMAND -> this.getAddCommand(arguments);
@@ -38,6 +43,26 @@ public class CommandParser {
             case UndoCommand.COMMAND -> this.getUndoCommand(arguments);
             default -> throw new UnknownCommandException(command);
         };
+    }
+
+    private String processUserInput(String input) {
+        return input.trim();
+    }
+
+    private String[] decodeCommand(String input) throws UnknownCommandException {
+        final String REGEX = "(?<command>\\S+)(?<arguments>.*)";
+        Pattern pattern = Pattern.compile(REGEX);
+        Matcher commandMatcher = pattern.matcher(input);
+
+        if (!commandMatcher.find()) {
+            throw new UnknownCommandException();
+        }
+        String command = commandMatcher.group("command");
+        String arguments = "";
+        if (!ListCommand.COMMAND.equals(input)) {
+            arguments = commandMatcher.group("arguments").trim();
+        }
+        return new String[]{command, arguments};
     }
 
     private UndoCommand getUndoCommand(String arguments) throws EchoBotException {
@@ -104,7 +129,7 @@ public class CommandParser {
         return new AddCommand(description);
     }
 
-    public ListCommand getListCommand(String arguments) throws InvalidDeadlineFormatException {
+    private ListCommand getListCommand(String arguments) throws InvalidDeadlineFormatException {
         if (arguments.isBlank()) {
             return new ListAllCommand();
         }

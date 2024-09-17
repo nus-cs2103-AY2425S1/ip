@@ -1,5 +1,8 @@
 package echobot.exception;
 
+/**
+ * Represents a TaskNameEmptyException.
+ */
 public class TaskNameEmptyException extends EchoBotException {
     public TaskNameEmptyException() {
         super("OOPS!!! The task name could not be left empty!!!");

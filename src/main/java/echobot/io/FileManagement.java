@@ -15,6 +15,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Manages persistent storage.
+ */
 public class FileManagement {
     private TaskList taskList;
     private final Path path;

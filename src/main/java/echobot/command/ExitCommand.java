@@ -2,6 +2,9 @@ package echobot.command;
 
 import echobot.exception.EchoBotException;
 
+/**
+ * Represents an exit command.
+ */
 public class ExitCommand extends Command {
     public final static String COMMAND = "bye";
     private final CommandType commandType = CommandType.EXIT;

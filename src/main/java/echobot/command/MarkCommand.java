@@ -3,6 +3,9 @@ package echobot.command;
 import echobot.exception.EchoBotException;
 import echobot.task.Task;
 
+/**
+ * Represents a mark command
+ */
 public class MarkCommand extends Command implements Undoable {
     public final static String COMMAND = "mark";
     private final CommandType commandType = CommandType.MARK;

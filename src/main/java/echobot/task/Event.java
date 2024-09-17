@@ -7,6 +7,9 @@ import echobot.exception.TaskNameEmptyException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends ScheduledTask {
     private final LocalDateTime from;
     private final LocalDateTime to;

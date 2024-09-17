@@ -1,5 +1,8 @@
 package echobot.exception;
 
+/**
+ * Represents a NullKeywordException.
+ */
 public class NullKeywordException extends EchoBotException {
     public NullKeywordException() {
         super("Keyword cannot be left empty!");

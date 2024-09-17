@@ -5,6 +5,9 @@ import echobot.task.Task;
 
 import java.util.List;
 
+/**
+ * Represents a list all command.
+ */
 public class ListAllCommand extends ListCommand {
     @Override
     public CommandResponse execute() throws EchoBotException {

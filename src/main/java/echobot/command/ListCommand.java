@@ -5,6 +5,9 @@ import echobot.task.Task;
 
 import java.util.List;
 
+/**
+ * Represents a list command.
+ */
 public abstract class ListCommand extends Command {
     public final static String COMMAND = "list";
     private final CommandType commandType = CommandType.LIST;
@@ -13,6 +16,12 @@ public abstract class ListCommand extends Command {
     @Override
     public abstract CommandResponse execute() throws EchoBotException;
 
+    /**
+     * Generates task list response.
+     *
+     * @param taskList The list of task.
+     * @return CommandResponse.
+     */
     public CommandResponse getTaskListResponse(List<Task> taskList) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:\n\t\t\t");

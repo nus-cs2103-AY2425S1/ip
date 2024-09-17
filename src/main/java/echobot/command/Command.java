@@ -6,6 +6,9 @@ import echobot.task.TaskList;
 
 import java.util.Stack;
 
+/**
+ * Represents a command.
+ */
 public class Command {
     protected FileManagement fileManagement;
     protected TaskList taskList;

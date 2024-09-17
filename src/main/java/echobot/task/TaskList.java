@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a task list.
+ */
 public class TaskList implements Saveable {
     private final List<Task> taskList;
 

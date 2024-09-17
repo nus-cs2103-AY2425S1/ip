@@ -10,6 +10,9 @@ import echobot.task.ToDo;
 import echobot.task.Task;
 import echobot.task.Event;
 
+/**
+ * Represents an add command.
+ */
 public class AddCommand extends Command implements Undoable {
     public final static String COMMAND = "add";
     public final static String TODO_COMMAND = "todo";

@@ -3,6 +3,9 @@ package echobot.command;
 import echobot.exception.EchoBotException;
 import echobot.task.Task;
 
+/**
+ * Represents a delete command.
+ */
 public class DeleteCommand extends Command implements Undoable {
     public final static String COMMAND = "delete";
     private final int index;

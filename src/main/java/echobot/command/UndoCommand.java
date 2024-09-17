@@ -2,6 +2,9 @@ package echobot.command;
 
 import echobot.exception.EchoBotException;
 
+/**
+ * Represents an undo command.
+ */
 public class UndoCommand extends Command {
     public final static String COMMAND = "undo";
     private final CommandType commandType = CommandType.UNDO;

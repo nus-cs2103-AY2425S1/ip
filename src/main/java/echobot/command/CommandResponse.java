@@ -2,6 +2,9 @@ package echobot.command;
 
 import echobot.command.Command.CommandType;
 
+/**
+ * Represents a command response.
+ */
 public class CommandResponse {
     private final CommandType commandType;
     private final String response;
@@ -19,6 +22,11 @@ public class CommandResponse {
         return this.commandType;
     }
 
+    /**
+     * Checks if the command is an exit command.
+     *
+     * @return True if the command is an exit command, otherwise false.
+     */
     public boolean isExitCommand() {
         return this.commandType.equals(CommandType.EXIT);
     }

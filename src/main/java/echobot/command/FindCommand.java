@@ -7,6 +7,9 @@ import echobot.task.Task;
 
 import java.util.List;
 
+/**
+ * Represents a find command.
+ */
 public class FindCommand extends Command {
     public final static String COMMAND = "find";
     private final String keyword;

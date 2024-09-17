@@ -5,6 +5,9 @@ import echobot.io.Saveable;
 
 import java.util.Arrays;
 
+/**
+ * Represents a task.
+ */
 public class Task implements Saveable {
     private final String taskName;
     private boolean isDone;
@@ -44,7 +47,7 @@ public class Task implements Saveable {
     public boolean isKeywordContained(String keyword) {
         return Arrays.asList(taskName.split(" ")).contains(keyword);
     }
-    
+
     public boolean isDone() {
         return this.isDone;
     }
