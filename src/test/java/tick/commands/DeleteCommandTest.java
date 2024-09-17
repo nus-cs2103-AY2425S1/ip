@@ -11,16 +11,20 @@ import tick.storage.TaskList;
 import tick.tasks.ToDo;
 import tick.ui.Ui;
 
+import java.io.IOException;
+
 public class DeleteCommandTest {
     @Test
     public void executeDelete_correctInput() {
-        TaskList taskList = new TaskList(new ToDo("test"));
-        DeleteCommand deleteCommand = new DeleteCommand(0);
         try {
+            Storage storage = new Storage("data/test.txt");
+            TaskList taskList = new TaskList(storage.loadData());
+            taskList.addTask(new ToDo("homework"));
+            DeleteCommand deleteCommand = new DeleteCommand(0);
             deleteCommand.execute(taskList, new Ui(), new Storage("data/test.txt"));
-        } catch (TickException e) {
+            assertEquals(0, taskList.getSize());
+        } catch (TickException | IOException e) {
             fail("Exception thrown when it should not have been thrown.");
         }
-        assertEquals(0, taskList.getSize());
     }
 }
