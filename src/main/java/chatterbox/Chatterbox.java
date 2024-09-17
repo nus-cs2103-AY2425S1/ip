@@ -18,7 +18,7 @@ import tasks.Todo;
 import ui.UI;
 
 /**
- * main class that encapsulates all chatbot functionality
+ * main class that encapsulates all chatbot functionality using the CLI
  */
 public class Chatterbox {
     private final UI ui;

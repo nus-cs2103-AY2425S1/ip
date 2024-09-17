@@ -124,11 +124,11 @@ public class Parser {
     /**
      * Parses a string of text to check if text has a valid command listed in ValidCommandS
      * by checking the first word
-     * @param text to be parsed,
+     * @param input to be parsed,
      * @return corresponding Command object enum to the command in text
      */
-    public Command parseCommandType(String text) {
-        //TODO: Implement this
+    public Command parseCommandType(String input) {
+        String text = input.trim().toLowerCase();
         if (text.startsWith("bye")) {
             return new ByeCommand();
         } else if (text.startsWith("list")) {

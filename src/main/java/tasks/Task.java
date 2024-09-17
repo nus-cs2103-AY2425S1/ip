@@ -45,15 +45,8 @@ public abstract class Task {
         for (Tag tag : tags) {
             tagString.append(tag.toString()).append(" ");
         }
-        //        for (int i = 0; i < tags.size(); i++) {
-        //            tagString.append(tags.get(i).toString());
-        //
-        //            // Add a space after each string except the last one
-        //            if (i < tags.size() - 1) {
-        //                tagString.append(" ");
-        //            }
-        //        }
-        return " /tags: " + tagString.toString();
+
+        return "\n/tags: " + tagString.toString();
     }
 
     /**
