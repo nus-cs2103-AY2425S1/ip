@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import snah.commands.Bye;
 import snah.commands.Clear;
 import snah.commands.Command;
 import snah.commands.CreateDeadline;
@@ -39,6 +40,7 @@ public class Parser {
         commandMap.put("DELETE", Delete::new);
         commandMap.put("FIND", Find::new);
         commandMap.put("HELP", Help::new);
+        commandMap.put("BYE", Bye::new);
     }
 
     /**

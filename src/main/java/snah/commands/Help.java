@@ -65,6 +65,10 @@ public class Help extends Command {
                 response += String.format("Usage: %s\n", Event.getFormatDescription());
                 response += "Description: Adds an event task to the task list\n";
                 break;
+            case "BYE":
+                response += String.format("Usage: %s\n", "bye");
+                response += "Description: Exits the chatbot\n";
+                break;
             default:
                 break;
             }

@@ -15,6 +15,8 @@ import snah.util.Ui;
  */
 public class Snah {
 
+    public static final String EXIT_STRING = "EXIT";
+
     private Storage storage;
     private TaskList tasksList;
     private Ui ui;

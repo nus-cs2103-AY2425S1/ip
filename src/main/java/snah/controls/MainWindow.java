@@ -49,6 +49,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = snah.getResponse(input);
+        if (response.equals(Snah.EXIT_STRING)) {
+            System.exit(0);
+        }
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSnahDialog(response, snahImage));
         userInput.clear();
