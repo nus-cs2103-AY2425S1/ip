@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 // Asked ChatGPT to suggest kind of tests to do
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
-// Asked ChatGPT how to test for Exceptions
+// Asked ChatGPT how to test for Exception
 /**
  * Test class for TaskList. Contains unit tests to verify the behavior
  * of the TaskList class, including adding tasks, marking tasks as done,
