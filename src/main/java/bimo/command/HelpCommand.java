@@ -14,11 +14,11 @@ public class HelpCommand extends Command {
      * @param tasks List of user tasks.
      * @param ui User interface that interacts with users.
      * @param storage Storage that writes and load files.
-     * @return Response of chatbot when there is invalid command.
+     * @return Response of chatbot when help command is used.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        String response = ui.printInvalidCommandMessage();
+        String response = ui.printHelpCommandMessage();
         return response;
     }
 }
