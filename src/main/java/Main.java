@@ -13,7 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        String taskFileUrl = "src/main/resources/data/BeeBot.txt";
+        String taskFileUrl = "build/resources/main/data/BeeBot.txt";
+                //"src/main/resources/data/BeeBot.txt";
         if (taskFileUrl != null) {
             beebot = new BeeBot(taskFileUrl);
         } else {
