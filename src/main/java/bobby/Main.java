@@ -16,6 +16,13 @@ public class Main extends Application {
 
     private Bobby bobby = new Bobby();
 
+    /**
+     * Starts the JavaFX application and sets up the primary stage (window) for
+     * the GUI. Loads the FXML layout, sets the scene, and initializes the
+     * controller for handling user interactions.
+     *
+     * @param stage The primary stage for this JavaFX application.
+     */
     @Override
     public void start(Stage stage) {
         try {

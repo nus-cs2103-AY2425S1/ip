@@ -96,7 +96,7 @@ public class TestParser {
      * Verifies that an {@code InvalidDateException} is thrown for an incorrect date format.
      */
     @Test
-    public void testParseDateInvalid() {
+    public void testParseDate_invalidDate() {
         assertThrows(InvalidDateException.class, () -> parser.parseDate("invalid-date"));
     }
 
