@@ -69,11 +69,9 @@ public class DialogBox extends HBox {
         }
     }
 
-
     public static DialogBox getUserDialog(String text) {
         return new DialogBox(text, new Image(DialogBox.class.getResourceAsStream("/images/user.png")));
     }
-
 
     public static DialogBox getEchobotDialog(CommandResponse commandResponse) {
         DialogBox db = new DialogBox(commandResponse.getResponse(), new Image(DialogBox.class.getResourceAsStream("/images/echobot.png")));
