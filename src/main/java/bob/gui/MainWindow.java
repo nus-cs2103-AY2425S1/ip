@@ -47,6 +47,8 @@ public class MainWindow extends AnchorPane {
         terminateIfBye(input);
         String response = bob.getResponse(input);
         String commandType = bob.getCommandType();
+        assert response != null : "Response from execution not null";
+        assert commandType != null : "Command Type not null.";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage, commandType)
