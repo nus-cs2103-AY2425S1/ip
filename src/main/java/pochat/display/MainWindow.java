@@ -53,6 +53,10 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         this.poChat.save(chatData);
+
+        if (input.equals("bye")) {
+            dialogContainer.getChildren().clear();
+        }
     }
 }
 
