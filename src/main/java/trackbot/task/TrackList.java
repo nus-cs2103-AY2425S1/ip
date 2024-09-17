@@ -47,6 +47,21 @@ public class TrackList {
     }
 
     /**
+     * Checks if the given task already exists in the list and returns the existing task if found.
+     *
+     * @param newTask The task to check.
+     * @return The existing duplicate task if found, null otherwise.
+     */
+    private Task findDuplicate(Task newTask) {
+        for (Task task : tasks) {
+            if (task.getDesc().equalsIgnoreCase(newTask.getDesc())) {
+                return task;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds a new task to the list and saves the updated list to storage.
      *
      * @param task The task to be added to the list.
@@ -55,14 +70,20 @@ public class TrackList {
         assert task != null : "Task must not be null";
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
+        Task existingTask = findDuplicate(task);
         // if (task == null) {
         //     // throw new TrackBotException("No task found.");
         //     writer.println("No task found.");
         //     return stringWriter.toString();
         // }
+        if (existingTask != null) {
+            writer.println("Failed to add task. This task already exists: \n" + existingTask);
+            writer.println("Please delete the existing task to add a new one :D");
+            return stringWriter.toString();
+        }
         tasks.add(task);
         saveList();
-        writer.println("Successfully added this task:\n  " + task);
+        writer.println("Successfully added this task:\n  " + "  " + task);
         writer.println("Now you have " + tasks.size() + " tasks in the list.");
         return stringWriter.toString();
     }
