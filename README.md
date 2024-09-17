@@ -20,4 +20,4 @@
 - For further information, please refer to the AI.md
 
 ### Notes from Author
-I hope you enjoy using this bot, and find that it is helpful. :+1:
+I hope you enjoy using this bot, and find that it is helpful.
