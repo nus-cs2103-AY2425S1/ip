@@ -67,6 +67,12 @@ public class Parser {
         };
     }
 
+    /**
+     * Attempts to parse the user input and returns a ListCommand if valid.
+     *
+     * @param otherWord The additional user input after the command word.
+     * @return A ListCommand if the input is valid, or an InvalidCommand if additional input is present.
+     */
     private static Command attemptListCommand(String otherWord) {
         if (!otherWord.isEmpty()) {
             return new InvalidCommand(LIST, LIST);
@@ -74,6 +80,12 @@ public class Parser {
         return new ListCommand();
     }
 
+    /**
+     * Attempts to parse the user input for a ToDo task and returns an AddCommand if valid.
+     *
+     * @param otherWord The task description provided by the user.
+     * @return An AddCommand with a ToDo task if the input is valid, or an InvalidCommand if no description is provided.
+     */
     private static Command attemptToDoCommand(String otherWord) {
         if (otherWord.isEmpty()) {
             return new InvalidCommand(TODO, "todo <task description>");
@@ -81,6 +93,13 @@ public class Parser {
         return new AddCommand(new ToDo(otherWord));
     }
 
+    /**
+     * Attempts to parse the user input for a Deadline task and returns an AddCommand if valid.
+     *
+     * @param otherWord The task description and due date provided by the user.
+     * @return An AddCommand with a Deadline task if the input is valid,
+     *     or an InvalidCommand if the format is incorrect.
+     */
     private static Command attemptDeadlineCommand(String otherWord) {
         String[] deadlineParts = otherWord.split(" /by ");
         if (deadlineParts.length < 2) {
@@ -89,7 +108,12 @@ public class Parser {
         return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
     }
 
-
+    /**
+     * Attempts to parse the user input for an Event task and returns an AddCommand if valid.
+     *
+     * @param otherWord The event description, start time, and end time provided by the user.
+     * @return An AddCommand with an Event task if the input is valid, or an InvalidCommand if the format is incorrect.
+     */
     private static Command attemptEventCommand(String otherWord) {
         String[] eventParts = otherWord.split(" /from | /to ");
         if (eventParts.length < 3) {
@@ -98,6 +122,12 @@ public class Parser {
         return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
     }
 
+    /**
+     * Attempts to parse the user input for deleting a task and returns a DeleteCommand if valid.
+     *
+     * @param otherWord The task number provided by the user.
+     * @return A DeleteCommand if the input is valid, or an InvalidCommand if the format is incorrect.
+     */
     private static Command attemptDeleteCommand(String otherWord) {
         if (otherWord.isEmpty()) {
             return new InvalidCommand(DELETE, "delete <task number>");
@@ -109,6 +139,13 @@ public class Parser {
             return new InvalidCommand(DELETE, "delete <task number>");
         }
     }
+
+    /**
+     * Attempts to parse the user input for marking a task as completed and returns a MarkCommand if valid.
+     *
+     * @param otherWord The task number provided by the user.
+     * @return A MarkCommand if the input is valid, or an InvalidCommand if the format is incorrect.
+     */
     private static Command attemptMarkCommand(String otherWord) {
         if (otherWord.isEmpty()) {
             // throw TrackBotException.invalidFormat("mark", "mark <task number>");
@@ -122,6 +159,13 @@ public class Parser {
             }
         }
     }
+
+    /**
+     * Attempts to parse the user input for unmarking a task and returns an UnmarkCommand if valid.
+     *
+     * @param otherWord The task number provided by the user.
+     * @return An UnmarkCommand if the input is valid, or an InvalidCommand if the format is incorrect.
+     */
     private static Command attemptUnmarkCommand(String otherWord) {
         if (otherWord.isEmpty()) {
             return new InvalidCommand(UNMARK, "unmark <task number>");
@@ -135,13 +179,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Attempts to parse the user input for finding tasks and returns a FindCommand if valid.
+     *
+     * @param otherWord The keyword provided by the user to search tasks.
+     * @return A FindCommand if the input is valid, or an InvalidCommand if no keyword is provided.
+     */
     private static Command attemptFindCommand(String otherWord) {
         if (otherWord.isEmpty()) {
             return new InvalidCommand(FIND, "find <task keyword>");
         }
         return new FindCommand(otherWord);
     }
-
 
     /**
      * Parses a task string from storage into a Task object.
@@ -175,6 +224,13 @@ public class Parser {
 
         return task;
     }
+
+    /**
+     * Checks if the given date string matches the specified regex pattern.
+     * @param regex The regular expression pattern to check against.
+     * @param time The date string to be validated against the regex pattern.
+     * @return true if the date string matches the regex pattern.
+     */
     public static boolean checkDatePatternMatches(String regex, String time) {
         return Pattern.matches(regex, time);
     }
