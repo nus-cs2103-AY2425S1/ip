@@ -1,6 +1,6 @@
 # Nimbus User Guide
 
-![img](/docs/Ui.png)
+![img](https://rimgik.github.io/ip/Ui.png)
 
 Nimbus is a helpful chatbot that helps you keep track of all your tasks
 
