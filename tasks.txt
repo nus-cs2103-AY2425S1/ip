@@ -1,4 +1,5 @@
-D | Done | assignment 1 | 2022-12-22 |  | null
-T | Not done | drink coffee |  |  | null
-E | Not done | concert | 2022-12-27 | 2022-12-27 | entertainment
-T | Not done | hiking |  |  | null
+T | Not done | hiking |  |  | sport
+D | Not done | ip | 2024-09-20 |  | CS2103T
+T | Not done | swimming |  |  | sport
+D | Not done | assignment 1 | 2024-09-20 |  | null
+D | Not done | assignment 1 | 2024-09-20 |  | importatnt

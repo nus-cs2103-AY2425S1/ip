@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("socchat.Launcher")
+    mainClass.set("socchat.ui.Launcher")
     applicationDefaultJvmArgs = ['-ea']
 }
 

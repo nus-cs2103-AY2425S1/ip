@@ -1,4 +1,4 @@
-package socchat;
+package socchat.ui;
 
 import javafx.application.Application;
 

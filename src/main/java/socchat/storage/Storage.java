@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 import parser.DateParser;
@@ -87,9 +86,9 @@ public class Storage {
 
     public static Task createTodo(String desc, boolean isDone, String tag) {
         if (!(tag.isEmpty())) {
-            return new Todo(desc, isDone);
+            return new Todo(desc, isDone, tag);
         }
-        return new Todo(desc, isDone, tag);
+        return new Todo(desc, isDone);
     }
 
     public static Task loadEvent(String desc, boolean isDone, String from, String to, String tag) {

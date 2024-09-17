@@ -36,14 +36,14 @@ public class StorageTest {
             assertEquals(tasks, Storage.processStorageLine());
             fail();
         } catch (SocchatException e) {
-            assertEquals("Storage file not found", e.getMessage());
+            assertEquals("Storage file not found!", e.getMessage());
         }
     }
 
     @Test
     public void updateTest() throws IOException {
         String fileName = "update_test.txt";
-        String expectedContent = "T | Not done | test check\n";
+        String expectedContent = "T | Not done | test check |  |  | null\n";
         File file = new File(fileName);
         Task t = new Todo("test check");
         ArrayList<Task> tasks = new ArrayList<>();

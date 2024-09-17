@@ -1,4 +1,4 @@
-package socchat;
+package socchat.ui;
 import java.io.IOException;
 import java.util.Collections;
 

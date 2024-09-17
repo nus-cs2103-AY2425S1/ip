@@ -20,7 +20,7 @@ public class DateParser {
         try {
             return LocalDate.parse(date, FORMATTER);
         } catch (DateTimeException e) {
-            throw new SocchatException("Please enter your dateTime as this format --- yyyy-MM-dd");
+            throw new SocchatException("Please enter your date as this format --- yyyy-MM-dd");
         }
 
     }

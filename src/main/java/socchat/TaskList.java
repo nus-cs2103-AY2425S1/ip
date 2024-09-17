@@ -65,7 +65,7 @@ public class TaskList {
      * Lists all tasks in the task list.
      */
     public String list() {
-        String respond = "Meow~\nYour task list:\n";
+        String respond = "Meow~ Here is your task list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
             respond += (i + 1) + ": ";
@@ -87,7 +87,7 @@ public class TaskList {
      * Creates a response string confirming that the task has been successfully added
      */
     public String addingTaskAcknowledgement(Task t) {
-        String respond = "Meow~\nadded: ";
+        String respond = "Meow~ added: ";
         respond += (t.toString() + "\n");
         respond += ("Now you have " + tasks.size() + " task(s).\n");
         return respond;
