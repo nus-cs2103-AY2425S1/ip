@@ -31,6 +31,15 @@ public class Parser {
 
     static final String DEFAULT_DATE_FORMAT = "MMM d yyyy";
     static final String DEFAULT_DATE_TIME_FORMAT = "MMM d yyyy HH:mm";
+    static final String TODO = "todo";
+    static final String DEADLINE = "deadline";
+    static final String EVENT = "event";
+    static final String MARK = "mark";
+    static final String UNMARK = "unmark";
+    static final String DELETE = "delete";
+    static final String LIST = "list";
+    static final String FIND = "find";
+    static final String BYE = "bye";
 
     /**
      * Parses the user input and returns the corresponding Command.
@@ -44,83 +53,143 @@ public class Parser {
         String commandWord = splitInput[0].toLowerCase();
         String otherWord = splitInput.length > 1 ? splitInput[1].trim() : "";
 
-        switch (commandWord) {
-        case "list":
-            if (!otherWord.isEmpty()) {
-                // throw TrackBotException.invalidFormat("list", "list");
-                return new InvalidCommand("list", "list");
-            }
-            return new ListCommand();
-        case "todo":
-            if (otherWord.isEmpty()) {
-                // throw TrackBotException.invalidFormat("todo", "todo <task description>");
-                return new InvalidCommand("todo", "todo <task description>");
-            }
-            return new AddCommand(new ToDo(otherWord));
-        case "deadline":
-            String[] deadlineParts = otherWord.split(" /by ");
-            if (deadlineParts.length < 2) {
-                // throw TrackBotException.invalidFormat("deadline", "deadline <task description> /by <date/time>");
-                return new InvalidCommand("deadline", "deadline <task description> /by <date/time>");
-            }
-            return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
-        case "event":
-            String[] eventParts = otherWord.split(" /from | /to ");
-            if (eventParts.length < 3) {
-                // throw TrackBotException.invalidFormat("event", "event <description> /from <start> /to <end>");
-                return new InvalidCommand("event", "event <description> /from <start> /to <end>");
-            }
-            return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
-        case "delete":
-            if (otherWord.isEmpty()) {
-                // throw TrackBotException.invalidFormat("delete", "delete <task number>");
-                return new InvalidCommand("delete", "delete <task number>");
-            }
+        return switch (commandWord) {
+        case LIST -> attemptListCommand(otherWord);
+        case TODO -> attemptToDoCommand(otherWord);
+        case DEADLINE -> attemptDeadlineCommand(otherWord);
+        case EVENT -> attemptEventCommand(otherWord);
+        case DELETE -> attemptDeleteCommand(otherWord);
+        case MARK -> attemptMarkCommand(otherWord);
+        case UNMARK -> attemptUnmarkCommand(otherWord);
+        case FIND -> attemptFindCommand(otherWord);
+        case BYE -> new ExitCommand();
+        default -> new UnknownCommand();
+        };
+    }
+
+    /**
+     * Attempts to parse the user input and returns a ListCommand if valid.
+     *
+     * @param otherWord The additional user input after the command word.
+     * @return A ListCommand if the input is valid, or an InvalidCommand if additional input is present.
+     */
+    private static Command attemptListCommand(String otherWord) {
+        if (!otherWord.isEmpty()) {
+            return new InvalidCommand(LIST, LIST);
+        }
+        return new ListCommand();
+    }
+
+    /**
+     * Attempts to parse the user input for a ToDo task and returns an AddCommand if valid.
+     *
+     * @param otherWord The task description provided by the user.
+     * @return An AddCommand with a ToDo task if the input is valid, or an InvalidCommand if no description is provided.
+     */
+    private static Command attemptToDoCommand(String otherWord) {
+        if (otherWord.isEmpty()) {
+            return new InvalidCommand(TODO, "todo <task description>");
+        }
+        return new AddCommand(new ToDo(otherWord));
+    }
+
+    /**
+     * Attempts to parse the user input for a Deadline task and returns an AddCommand if valid.
+     *
+     * @param otherWord The task description and due date provided by the user.
+     * @return An AddCommand with a Deadline task if the input is valid,
+     *     or an InvalidCommand if the format is incorrect.
+     */
+    private static Command attemptDeadlineCommand(String otherWord) {
+        String[] deadlineParts = otherWord.split(" /by ");
+        if (deadlineParts.length < 2) {
+            return new InvalidCommand(DEADLINE, "deadline <task description> /by <date/time>");
+        }
+        return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
+    }
+
+    /**
+     * Attempts to parse the user input for an Event task and returns an AddCommand if valid.
+     *
+     * @param otherWord The event description, start time, and end time provided by the user.
+     * @return An AddCommand with an Event task if the input is valid, or an InvalidCommand if the format is incorrect.
+     */
+    private static Command attemptEventCommand(String otherWord) {
+        String[] eventParts = otherWord.split(" /from | /to ");
+        if (eventParts.length < 3) {
+            return new InvalidCommand(EVENT, "event <description> /from <start> /to <end>");
+        }
+        return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+    }
+
+    /**
+     * Attempts to parse the user input for deleting a task and returns a DeleteCommand if valid.
+     *
+     * @param otherWord The task number provided by the user.
+     * @return A DeleteCommand if the input is valid, or an InvalidCommand if the format is incorrect.
+     */
+    private static Command attemptDeleteCommand(String otherWord) {
+        if (otherWord.isEmpty()) {
+            return new InvalidCommand(DELETE, "delete <task number>");
+        }
+        try {
+            int num = Integer.parseInt(otherWord) - 1;
+            return new DeleteCommand(num);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(DELETE, "delete <task number>");
+        }
+    }
+
+    /**
+     * Attempts to parse the user input for marking a task as completed and returns a MarkCommand if valid.
+     *
+     * @param otherWord The task number provided by the user.
+     * @return A MarkCommand if the input is valid, or an InvalidCommand if the format is incorrect.
+     */
+    private static Command attemptMarkCommand(String otherWord) {
+        if (otherWord.isEmpty()) {
+            // throw TrackBotException.invalidFormat("mark", "mark <task number>");
+            return new InvalidCommand(MARK, "mark <task number>");
+        } else {
             try {
                 int num = Integer.parseInt(otherWord) - 1;
-                return new DeleteCommand(num);
+                return new MarkCommand(num);
             } catch (NumberFormatException e) {
-                // throw TrackBotException.invalidFormat("delete", "delete <task number>");
-                return new InvalidCommand("delete", "delete <task number>");
+                return new InvalidCommand(MARK, "mark <task number>");
             }
-        case "mark":
-            if (otherWord.isEmpty()) {
-                // throw TrackBotException.invalidFormat("mark", "mark <task number>");
-                return new InvalidCommand("mark", "mark <task number>");
-            } else {
-                try {
-                    int num = Integer.parseInt(otherWord) - 1;
-                    return new MarkCommand(num);
-                } catch (NumberFormatException e) {
-                    // throw TrackBotException.invalidFormat("mark", "mark <task number>");
-                    return new InvalidCommand("mark", "mark <task number>");
-                }
-            }
-        case "unmark":
-            if (otherWord.isEmpty()) {
-                // throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
-                return new InvalidCommand("unmark", "unmark <task number>");
-            } else {
-                try {
-                    int num = Integer.parseInt(otherWord) - 1;
-                    return new UnmarkCommand(num);
-                } catch (NumberFormatException e) {
-                    // throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
-                    return new InvalidCommand("unmark", "unmark <task number>");
-                }
-            }
-        case "find":
-            if (otherWord.isEmpty()) {
-                // throw TrackBotException.invalidFormat("find", "find <task keyword>");
-                return new InvalidCommand("find", "find <task keyword>");
-            }
-            return new FindCommand(otherWord);
-        case "bye":
-            return new ExitCommand();
-        default:
-            return new UnknownCommand();
-            // throw new TrackBotException("Sorry, I did not understand that command.");
         }
+    }
+
+    /**
+     * Attempts to parse the user input for unmarking a task and returns an UnmarkCommand if valid.
+     *
+     * @param otherWord The task number provided by the user.
+     * @return An UnmarkCommand if the input is valid, or an InvalidCommand if the format is incorrect.
+     */
+    private static Command attemptUnmarkCommand(String otherWord) {
+        if (otherWord.isEmpty()) {
+            return new InvalidCommand(UNMARK, "unmark <task number>");
+        } else {
+            try {
+                int num = Integer.parseInt(otherWord) - 1;
+                return new UnmarkCommand(num);
+            } catch (NumberFormatException e) {
+                return new InvalidCommand(UNMARK, "unmark <task number>");
+            }
+        }
+    }
+
+    /**
+     * Attempts to parse the user input for finding tasks and returns a FindCommand if valid.
+     *
+     * @param otherWord The keyword provided by the user to search tasks.
+     * @return A FindCommand if the input is valid, or an InvalidCommand if no keyword is provided.
+     */
+    private static Command attemptFindCommand(String otherWord) {
+        if (otherWord.isEmpty()) {
+            return new InvalidCommand(FIND, "find <task keyword>");
+        }
+        return new FindCommand(otherWord);
     }
 
     /**
@@ -157,14 +226,23 @@ public class Parser {
     }
 
     /**
+     * Checks if the given date string matches the specified regex pattern.
+     * @param regex The regular expression pattern to check against.
+     * @param time The date string to be validated against the regex pattern.
+     * @return true if the date string matches the regex pattern.
+     */
+    public static boolean checkDatePatternMatches(String regex, String time) {
+        return Pattern.matches(regex, time);
+    }
+
+    /**
      * Validates and reformat a date/time string into a consistent format.
      *
-     * @param time The raw date/time string.
+     * @param inputDateTime The raw date/time string.
      * @return The reformatted date/time string.
      */
-    public static String checkDateFormat(String time) {
-        LocalDate date;
-        LocalDateTime dateTime;
+    public static String checkDateFormat(String inputDateTime) {
+        Ui ui = new Ui();
         // Match dates in the format "YYYY-MM-DD"
         String regexYear = "^([0-9]{4})-([0-9]{2})-([0-9]{2})$";
         // Match dates in the format "MM-DD-YYYY"
@@ -178,42 +256,58 @@ public class Parser {
 
         try {
             // Reformat as date only
-            if (Pattern.matches(regexYear, time)) {
-                date = LocalDate.parse(time);
-                time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
-                return time;
+            if (checkDatePatternMatches(regexYear, inputDateTime)) {
+                return getFormattedDateString("YYY-MM-DD", inputDateTime);
             }
 
-            if (Pattern.matches(regexMonth, time)) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-                date = LocalDate.parse(time, formatter);
-                time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
-                return time;
+            if (checkDatePatternMatches(regexMonth, inputDateTime)) {
+                return getFormattedDateString("MM-dd-yyyy", inputDateTime);
             }
 
-            if (Pattern.matches(regexDay1, time)) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                date = LocalDate.parse(time, formatter);
-                time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
-                return time;
+            if (checkDatePatternMatches(regexDay1, inputDateTime)) {
+                return getFormattedDateString("dd-MM-yyyy", inputDateTime);
             }
-            if (Pattern.matches(regexDay2, time)) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-                date = LocalDate.parse(time, formatter);
-                time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
-                return time;
+            if (checkDatePatternMatches(regexDay2, inputDateTime)) {
+                return getFormattedDateString("dd-MMM-yyyy", inputDateTime);
             }
 
             // Reformat as date and time only
-            if (Pattern.matches(regexTime, time)) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                dateTime = LocalDateTime.parse(time, formatter);
-                time = dateTime.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT));
-                return time;
+            if (checkDatePatternMatches(regexTime, inputDateTime)) {
+                return getFormattedDateTimeString("yyyy-MM-dd HH:mm", inputDateTime);
             }
         } catch (DateTimeParseException e) {
-            throw new RuntimeException(e);
+            return ui.getErrorMessage(e.getMessage());
         }
-        return time;
+        return inputDateTime;
+    }
+
+    /**
+     * Formats the given date-time string according to the specified pattern
+     * and converts it to a standardized date-time format.
+     * @param pattern The pattern in which the input string follows.
+     * @param inputDateTime The input string to be formatted.
+     * @return The formatted date-time string.
+     */
+    private static String getFormattedDateTimeString(String pattern, String inputDateTime) {
+        LocalDateTime dateTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        dateTime = LocalDateTime.parse(inputDateTime, formatter);
+        inputDateTime = dateTime.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT));
+        return inputDateTime;
+    }
+
+    /**
+     * Formats the given date string according to the specified pattern
+     * and converts it to a standardized date format.
+     * @param pattern The pattern in which the input string follows.
+     * @param inputDate The input string to be formatted.
+     * @return The formatted date string.
+     */
+    private static String getFormattedDateString(String pattern, String inputDate) {
+        LocalDate date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        date = LocalDate.parse(inputDate, formatter);
+        inputDate = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
+        return inputDate;
     }
 }
