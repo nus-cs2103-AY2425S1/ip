@@ -1,7 +1,5 @@
 package stelle;
 
-import java.util.Scanner;
-
 /**
  * Represents the UI handler of the chatbot.
  * @author Lee Ze Hao (A0276123J)

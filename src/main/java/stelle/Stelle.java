@@ -47,6 +47,6 @@ public class Stelle {
     }
 
     public static void main(String[] args) {
-        // new Stelle(NAME, FILE_PATH).run();
+
     }
 }
