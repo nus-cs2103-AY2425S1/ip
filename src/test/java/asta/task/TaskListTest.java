@@ -1,10 +1,11 @@
 package asta.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import asta.AstaException;
 
 public class TaskListTest {
+
     private TaskList taskList;
 
     @BeforeEach
@@ -20,77 +22,88 @@ public class TaskListTest {
     }
 
     @Test
-    public void testMarkTaskAsDone() {
-        try {
-            taskList.addTodoTask("Read a book");
-            taskList.markTask(0, true);
-
-            boolean isDone = taskList.getTask(0).isDone;
-
-            assertTrue(isDone, "Task should be marked as done.");
-
-        } catch (AstaException e) {
-            fail("Exception should not be thrown: " + e.getMessage());
-        }
+    public void testAddTodoTask() throws AstaException {
+        taskList.addTodoTask("Buy groceries");
+        assertEquals(1, taskList.getSize());
+        assertEquals("Buy groceries", taskList.getTask(0).getDescription());
     }
 
     @Test
-    public void testUnmarkTaskAsNotDone() {
-        try {
-            taskList.addTodoTask("Read a book");
-            taskList.markTask(0, true);
-            taskList.markTask(0, false);
-
-            boolean isNotDone = !taskList.getTask(0).isDone;
-
-            assertTrue(isNotDone, "Task should be marked as not done.");
-
-        } catch (AstaException e) {
-            fail("Exception should not be thrown: " + e.getMessage());
-        }
+    public void testAddDeadlineTask() throws AstaException {
+        taskList.addDeadlineTask("Submit report", "12/09/2024 1800");
+        assertEquals(1, taskList.getSize());
+        assertEquals("Submit report", taskList.getTask(0).getDescription());
     }
 
     @Test
-    public void testAddDeadlineTask() {
-        try {
-            taskList.addDeadlineTask("Finish assignment", "28/08/2024 1800");
+    public void testAddEventTask() throws AstaException {
+        taskList.addEventTask("Project meeting", "12/09/2024 1400", "12/09/2024 1600");
+        assertEquals(1, taskList.getSize());
+        assertEquals("Project meeting", taskList.getTask(0).getDescription());
+    }
 
-            assertEquals(1, taskList.getSize(), "Task list should have one task.");
-            assertInstanceOf(Deadline.class, taskList.getTask(0), "Task should be of type Deadline.");
-            assertEquals("Finish assignment", taskList.getTask(0).description, "Task description should match.");
+    @Test
+    public void testAddRecurringDeadlineTask() throws AstaException {
+        taskList.addRecurringDeadlineTask("Weekly report", "12/09/2024 1800", 7);
+        assertEquals(1, taskList.getSize());
+        assertEquals("Weekly report", taskList.getTask(0).getDescription());
+    }
 
-        } catch (AstaException e) {
-            fail("Exception should not be thrown: " + e.getMessage());
-        }
+    @Test
+    public void testDeleteTask() throws AstaException {
+        taskList.addTodoTask("Buy groceries");
+        taskList.deleteTask(0);
+        assertEquals(0, taskList.getSize());
+    }
+
+    @Test
+    public void testMarkTask() throws AstaException {
+        taskList.addTodoTask("Buy groceries");
+        taskList.markTask(0, true);
+        assertTrue(taskList.getTask(0).isDone());
+
+        taskList.markTask(0, false);
+        assertFalse(taskList.getTask(0).isDone());
+    }
+
+    @Test
+    public void testGetTaskNumber() throws AstaException {
+        taskList.addTodoTask("Buy groceries");
+        int taskNumber = taskList.getTaskNumber("mark 1", "mark");
+        assertEquals(0, taskNumber);
+    }
+
+    @Test
+    public void testFindTasks() throws AstaException {
+        taskList.addTodoTask("Buy groceries");
+        taskList.addTodoTask("Submit report");
+        List<Task> foundTasks = taskList.findTasks("report");
+        assertEquals(1, foundTasks.size());
+        assertEquals("Submit report", foundTasks.get(0).getDescription());
     }
 
     @Test
     public void testAddDeadlineTaskInvalidDate() {
-        assertThrows(AstaException.class, () -> {
-            taskList.addDeadlineTask("Finish assignment", "invalid date");
-        }, "Should throw an exception for invalid date format.");
+        AstaException exception = assertThrows(AstaException.class, () -> {
+            taskList.addDeadlineTask("Submit report", "invalid date");
+        });
+        assertEquals("Invalid date format. Please use dd/MM/yyyy HHmm format.", exception.getMessage());
     }
 
     @Test
-    public void testDeleteTask() {
-        try {
-            taskList.addTodoTask("Complete homework");
-            taskList.addTodoTask("Read a book");
-
+    public void testDeleteTaskInvalidNumber() {
+        AstaException exception = assertThrows(AstaException.class, () -> {
             taskList.deleteTask(0);
-
-            assertEquals(1, taskList.getSize(), "Task list should have one task left after deletion.");
-            assertEquals("Read a book", taskList.getTask(0).description, "Remaining task should be 'Read a book'.");
-
-        } catch (AstaException e) {
-            fail("Exception should not be thrown: " + e.getMessage());
-        }
+        });
+        assertEquals("Unfortunately, the task number provided doesn't seem valid for deletion...",
+                exception.getMessage());
     }
 
     @Test
-    public void testDeleteTaskInvalidIndex() {
-        assertThrows(AstaException.class, () -> {
-            taskList.deleteTask(-1);
-        }, "Should throw an exception for invalid task index.");
+    public void testAddTodoTaskEmptyDescription() {
+        AstaException exception = assertThrows(AstaException.class, () -> {
+            taskList.addTodoTask("");
+        });
+        assertEquals("Unfortunately, Asta can't add a todo without a description...", exception.getMessage());
     }
 }
