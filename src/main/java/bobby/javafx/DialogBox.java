@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
+import javafx.scene.shape.Circle;
 
 
 /**
@@ -39,6 +39,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        applyImageStyle();
     }
 
     /**
@@ -52,12 +54,34 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    private void applyImageStyle() {
+        // Increase the size to ensure the full image is visible
+        double size = 120.0;
+        displayPicture.setFitWidth(size);
+        displayPicture.setFitHeight(size);
+
+        // Center the image within the ImageView
+        displayPicture.setPreserveRatio(true);
+        displayPicture.setSmooth(true);
+        displayPicture.setCache(true);
+
+        // Apply circular clipping
+        Circle clip = new Circle(size / 2, size / 2, size / 2);
+        displayPicture.setClip(clip);
+
+        // Ensure the HBox gives enough space to the ImageView
+        setMinHeight(size);
+        setPrefHeight(size);
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        return db;
+
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
         return db;
     }
