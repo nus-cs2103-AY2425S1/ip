@@ -89,7 +89,7 @@ public class Tasklist {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
-        assert index > 0 : "Index given cannot be negative";
+        assert index >= 0 : "Index given cannot be negative";
         return this.tasklist.get(index);
     }
 

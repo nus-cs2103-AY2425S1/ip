@@ -1,19 +1,20 @@
 package bottleopener;
 
-import bottleopener.myapp.Storage;
-import bottleopener.task.Deadline;
-import bottleopener.task.Event;
-import bottleopener.task.Tasklist;
-import bottleopener.task.ToDo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import bottleopener.myapp.Storage;
+import bottleopener.task.Deadline;
+import bottleopener.task.Event;
+import bottleopener.task.Tasklist;
+import bottleopener.task.ToDo;
 
 class StorageTest {
     private static final String TEST_FILE_PATH = "data/BottleOpenerTest.txt";
