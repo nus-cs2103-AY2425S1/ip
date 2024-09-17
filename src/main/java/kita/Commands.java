@@ -214,7 +214,7 @@ public class Commands {
         System.out.println(finalOutput);
         saveSystem.writeTasksToFile(this.tasks.getAllTasks());
 
-        return output.toString();
+        return finalOutput.toString();
     }
 
     /**

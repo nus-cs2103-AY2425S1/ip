@@ -1,6 +1,7 @@
 package kita;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 
 import javafx.collections.FXCollections;
@@ -11,8 +12,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -23,7 +25,7 @@ public class ChatBubble extends HBox {
     private Label dialog;
 
     @FXML
-    private ImageView displayPicture;
+    private Circle circleImage;
 
     private ChatBubble(String text, Image img) {
         try {
@@ -35,8 +37,15 @@ public class ChatBubble extends HBox {
             e.printStackTrace();
         }
 
+        long lines = Arrays.stream(text.split("\n")).count();
+        long heightToSet = 150 + (lines > 4 ? lines * 15 : 0);
+        setMinHeight(heightToSet);
+        setHeight(heightToSet);
+        setMaxHeight(heightToSet);
+        setAlignment(Pos.CENTER_RIGHT);
+        dialog.setMaxHeight(50 + (lines * 20));
         dialog.setText(text);
-        displayPicture.setImage(img);
+        circleImage.setFill(new ImagePattern(img));
     }
 
     /**
@@ -46,7 +55,8 @@ public class ChatBubble extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.CENTER_LEFT);
+        dialog.setAlignment(Pos.CENTER_LEFT);
     }
 
     public static ChatBubble getUserDialog(String text, Image img) {
