@@ -32,6 +32,8 @@ public class GUIParser {
             return findTasks(input);
         } else if (checkRemindCommand(input)) {
             return remindAboutDeadlineTasks(input);
+        } else if (checkSortCommand(input)) {
+            return sort();
         } else {
             // Want to parse and add task into task list
             String successMessage = parseTaskAddition(input);
@@ -55,6 +57,12 @@ public class GUIParser {
         }
         GUIStorage.updateFile();
         return list;
+    }
+
+    private static String sort() {
+        GUITaskList.sort();
+        GUIStorage.updateFile();
+        return "Your task list has been sorted successfully! \n" + returnList();
     }
 
     private static String resolveTask(String input) {
@@ -90,17 +98,15 @@ public class GUIParser {
 
     private static String remindAboutDeadlineTasks(String input) {
         String[] arr = input.split(" ", 2);
-        int withinDays = Integer.valueOf(arr[1]);
+        int withinDays = Integer.parseInt(arr[1]);
         String list = String.format("These deadlines are due within the next %d days\n", withinDays);
-        for (int i = 1; i <= GUITaskList.getSize(); i++) {
-            Task currTask = GUITaskList.getTasks().get(i - 1);
-            if (currTask instanceof Deadline) {
-                Deadline d = (Deadline) currTask;
-                // Gets deadline tasks that are due within withinDays
-                if (ChronoUnit.DAYS.between(LocalDate.now(), d.getDeadline()) <= withinDays)
-                    list += String.format("%d. %s\n", i, d.toStringFormatted());
-            } else {
-                list += String.format("%d. %s\n", i, currTask.toString());
+        ArrayList<Deadline> deadlines = GUITaskList.getSortedDeadlineTasks(GUITaskList.getTasks());
+
+        int index = 1;
+        for (Deadline d : deadlines) {
+            if (ChronoUnit.DAYS.between(LocalDate.now(), d.getDeadline()) <= withinDays) {
+                list += String.format("%d. %s\n", index, d.toStringFormatted());
+                index++;
             }
         }
         GUIStorage.updateFile();
@@ -120,6 +126,11 @@ public class GUIParser {
         } else {
             return false;
         }
+    }
+
+    private static boolean checkSortCommand(String targetString) {
+        String[] arr = targetString.split(" ");
+        return arr[0].equals("sort") && arr.length == 1;
     }
 
     private static boolean checkDeleteCommand(String targetString) {

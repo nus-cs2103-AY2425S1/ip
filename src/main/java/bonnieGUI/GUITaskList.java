@@ -1,6 +1,9 @@
 package bonnieGUI;
 
 import java.util.ArrayList;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import Tasks.*;
 
 public class GUITaskList {
@@ -79,5 +82,63 @@ public class GUITaskList {
             }
         }
         return foundTasks;
+    }
+
+    protected static void sort() {
+        ArrayList<Task> nonDeadlineTasks = getTasks().stream() // Get non deadline tasks
+                .filter(task -> !(task instanceof Deadline))
+                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Task> deadlineTasks = new ArrayList<>(getSortedDeadlineTasks(getTasks())); // Get sorted deadline tasks
+        ArrayList<Task> combinedList = new ArrayList<>(deadlineTasks); // Arrange deadline tasks first
+        combinedList.addAll(nonDeadlineTasks); // Put the rest later
+        taskList = combinedList;
+        return;
+    }
+
+    protected static ArrayList<Deadline> getSortedDeadlineTasks(ArrayList<Task> tasks) {
+        ArrayList<Deadline> deadlineTasks = tasks.stream()
+                                            .filter(task -> task instanceof Deadline)
+                                            .map(task -> (Deadline) task)
+                                            .collect(Collectors.toCollection(ArrayList::new));
+        if (deadlineTasks.size() <= 1) {
+            return deadlineTasks;
+        } else if (deadlineTasks.size() == 2) {
+            Deadline first = deadlineTasks.get(0);
+            Deadline second = deadlineTasks.get(1);
+            if (first.compareTo(second) > 0) {
+                deadlineTasks.set(0, second);
+                deadlineTasks.set(1, first);
+            }
+            return deadlineTasks;
+        } else {
+            int mid = deadlineTasks.size() / 2;
+            ArrayList<Task> subList1 = new ArrayList<>(deadlineTasks.subList(0, mid));
+            ArrayList<Task> subList2 = new ArrayList<>(deadlineTasks.subList(mid, deadlineTasks.size()));
+            ArrayList<Deadline> wish1 = getSortedDeadlineTasks(subList1);
+            ArrayList<Deadline> wish2 = getSortedDeadlineTasks(subList2);
+            return zipDeadlineTasks(wish1, wish2);
+        }
+    }
+
+    private static ArrayList<Deadline> zipDeadlineTasks(ArrayList<Deadline> l1, ArrayList<Deadline> l2) {
+        if (l1.isEmpty() && l2.isEmpty()) {
+            return new ArrayList<Deadline>();
+        } else if (l1.isEmpty() && !l2.isEmpty()) {
+            return l2;
+        } else if (!l1.isEmpty() && l2.isEmpty()) {
+            return l1;
+        } else {
+            Deadline first = l1.get(0);
+            Deadline second = l2.get(0);
+            ArrayList<Deadline> singleton = new ArrayList<>();
+            if (first.compareTo(second) < 0) {
+                singleton.add(first);
+                singleton.addAll(zipDeadlineTasks(new ArrayList<>(l1.subList(1, l1.size())), l2));
+            } else {
+                singleton.add(second);
+                singleton.addAll(zipDeadlineTasks(l1, new ArrayList<>(l2.subList(1, l2.size()))));
+            }
+            return singleton;
+        }
     }
 }
