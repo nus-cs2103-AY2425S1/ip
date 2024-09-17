@@ -107,7 +107,8 @@ public class Parser {
      * @param commandName The name of the command.
      * @param commandBody The parameter of the command.
      * @return A Command object corresponding to the specified commandName.
-     * @throws BlitzException If error occurs during the parsing process or commandName does not match any existing command.
+     * @throws BlitzException If error occurs during the parsing process or commandName does not match any existing
+     *     command.
      */
     private static Command parseCommands(String command, String commandName, String commandBody) throws BlitzException {
         switch (commandName) {
