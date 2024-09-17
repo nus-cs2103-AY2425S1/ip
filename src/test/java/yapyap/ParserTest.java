@@ -19,6 +19,8 @@ public class ParserTest {
         assertEquals(Commands.MARK, parser.parseCommand("mark 1"));
         assertEquals(Commands.UNMARK, parser.parseCommand("unmark 1"));
         assertEquals(Commands.DELETE, parser.parseCommand("delete 1"));
+        assertEquals(Commands.FIND, parser.parseCommand("find something"));
+        assertEquals(Commands.HELP, parser.parseCommand("help"));
     }
 
     @Test
