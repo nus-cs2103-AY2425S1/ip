@@ -1,3 +1,7 @@
+For all classes, the use of the auto complete function built into VSCode was used frequently.
+For many classes, the code has been refined using the prompt below (Prompt 1)
+
+
 Prompt 1:
 
 Follow the Coding Standard as documented in Java Coding Standard. Include JavaDocs where necessary, as per the Java Coding Standard.
