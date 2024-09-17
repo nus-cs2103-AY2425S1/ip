@@ -36,6 +36,7 @@ public class DialogBoxController extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.getStyleClass().add("displayPicture");
     }
 
     /**

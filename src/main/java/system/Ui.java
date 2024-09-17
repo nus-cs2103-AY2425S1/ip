@@ -18,7 +18,7 @@ public class Ui {
      * Displays messages greeting the user as well as providing instructions to use the chatbot.
      */
     public String greet() {
-        String response = "Hello! I'm Tanjiro!\n"
+        return "Hello! I'm Tanjiro!\n"
                 + "What can I do for you?\n"
                 + "Instructions:\n"
                 + "todo *_name_* \n"
@@ -26,7 +26,6 @@ public class Ui {
                 + "event *_name_* /from *_date_* /to *_date_* [Date Format: yyyy-mm-dd hhmm]\n"
                 + "find *_name_*\n"
                 + "view *_date_* [Date Format: yyyy-mm-dd]\n";
-        return response;
     }
 
     /**
