@@ -5,9 +5,8 @@ To start using Reminderebot, you can:
 
 1. Ensure you have Java 17 or above installed in your computer
 2. Download the .jar file under Releases
-3. Navigate to the directory in terminal,
-run `java -jar reminderebot.jar`
-4. Easy peasy!
+3. Navigate to the directory where the jar file is downloaded.
+4. Run `reminderebot.jar` by clicking on the icon. Easy peasy!
 
 ## Features
 Reminderebot is packed with various features:
