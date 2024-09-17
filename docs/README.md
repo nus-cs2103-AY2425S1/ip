@@ -5,7 +5,7 @@
 **Dipsy** (named after my cat) is a task management chatbot that helps users manage tasks, deadlines, and events using a command-line interface. 
 
 The chatbot allows users to add, manage, and list tasks, as well as mark them as completed.   
-Users can view a command guide by clicking on the `?` button at the bottom right of the GUI for further instructions.
+Users can view a command guide by clicking on the `?` button at the bottom right of the GUI.
 
 ---
 
@@ -188,6 +188,9 @@ Dipsy will display a farewell message and close the application.
 Fur-well friend, stay paw-sitive!
 ```
 
+### Command Guide 
+The command guide can be viewed  by clicking on the `?` button at the bottom right of the GUI.
+
 ### Saving the data
 
 Task list data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -196,9 +199,13 @@ Task list data are saved in the hard disk automatically after any command that c
 
 Task list data are saved automatically as a CSV file `[JAR file location]/data/taskTable.csv`. Advanced users are welcome to update data directly by editing that data file.
 
+---
+
 ## FAQ
 **Q**: How do I transfer my data to another Computer?  
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous `Dipsy` folder. The data file can be found at `[JAR file location]/data/taskTable.csv`.
+
+---
 
 ## Command Summary
 
