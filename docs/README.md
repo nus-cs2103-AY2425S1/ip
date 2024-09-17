@@ -174,14 +174,15 @@ delete the pre-existing task in the list.
 
 ## Colour Coding
 Generally, the GUI employs textbox background colour coding as such:
-|Type of Message     |Colour of textbox background|
-|:------------------:|:-------------------:|
-|User input          | Light blue `#87CEFA`|
-|Errors              |Red `#F19595`        |
-|List operations     |Orange `#f1cfa2`     |
-|Task operations     |Green `90EE90`       |
-|Startup and Shutdown|Blue-Green gradient `#96e4d9` and `#c2f3c2`|
-|Other Jackson responses|Purple `CBC3E3`|
+
+|Type of Message        |Colour of textbox background               |
+|:---------------------:|:-----------------------------------------:|
+|User input             |Light blue `#87CEFA`                       |
+|Errors                 |Red `#F19595`                              |
+|List operations        |Orange `#f1cfa2`                           |
+|Task operations        |Green `90EE90`                             |
+|Startup and Shutdown   |Blue-Green gradient `#96e4d9` and `#c2f3c2`|
+|Other Jackson responses|Purple `CBC3E3`                            |
 
 # FAQ
 **Q**: How do I transfer my data to another computer?\
