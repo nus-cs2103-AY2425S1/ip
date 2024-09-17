@@ -26,6 +26,7 @@ public class MainGui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Elliot");
             fxmlLoader.<MainWindow>getController().setElliot(elliot); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
