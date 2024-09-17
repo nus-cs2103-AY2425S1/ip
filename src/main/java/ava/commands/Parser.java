@@ -43,11 +43,13 @@ public class Parser {
      * Stores a To-Do task in the task list
      * @param command a To - Do task
      * @param taskManager Task Manager to store the task
+     * @return description of the To-Do task
      */
-    public static void parseToDo(String command, TaskManager taskManager){
+    public static String parseToDo(String command, TaskManager taskManager){
         final int TODO_LENGTH = 5;
         String todo = command.substring(TODO_LENGTH);
         taskManager.addTask(todo);
+        return todo;
     }
 
     /**
@@ -58,7 +60,7 @@ public class Parser {
      * @param command a Deadline task
      * @param taskManager Task Manager to store the task
      */
-    public static void parseDeadline(String command, TaskManager taskManager){
+    public static String parseDeadline(String command, TaskManager taskManager){
         final int DEADLINE_LENGTH = 9;
         String deadline = command.substring(DEADLINE_LENGTH);
         String[] arguments = deadline.split("/by");
@@ -67,8 +69,9 @@ public class Parser {
         try {
             taskManager.addTask(description, time);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use the format yyyy-mm-dd");
+            System.out.println("Invalid date format. Please use the format yyyy-mm-ddThh:mm:ss");
         }
+        return description + " by " + time;
     }
 
     /**
@@ -76,15 +79,26 @@ public class Parser {
      *
      * <br>
      * Stores an Event task in the task list
-     * @param command a Deadline task
+     * @param command an Event task
      * @param taskManager Task Manager to store the task
      */
-    public static void parseEvent(String command, TaskManager taskManager){
+    public static String parseEvent(String command, TaskManager taskManager){
         final int EVENT_LENGTH = 6;
+        final int FROM_LENGTH = 5;
+        final int TO_LENGTH = 3;
+
         String event = command.substring(EVENT_LENGTH);
+        String[] arguments = event.split("/");
+        String description = arguments[0].trim();
+        String startTime = arguments[1].substring(FROM_LENGTH).trim();
+        String endTime = arguments[2].substring(TO_LENGTH).trim();
 
-
-
+        try {
+            taskManager.addTask(description, startTime, endTime);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use the format yyyy-mm-ddThh:mm:ss");
+        }
+        return description + " from " + startTime + " to " + endTime;
     }
     public static void parseMark(String command){
 

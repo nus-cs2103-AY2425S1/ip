@@ -111,13 +111,22 @@ public class AVA {
             out.println(taskId + ". " + task);
             break;
         } case TODO:{
-            Parser.parseToDo(currentInput,taskManager);
+            String todo = Parser.parseToDo(currentInput,taskManager);
+            out.println("----------------------------------------------------------------");
+            out.println("Added todo: " + todo);
+            out.println("----------------------------------------------------------------");
             break;
         } case EVENT:{
-            Parser.parseEvent(currentInput,taskManager);
+            String event = Parser.parseEvent(currentInput,taskManager);
+            out.println("----------------------------------------------------------------");
+            out.println("Added event: " + event);
+            out.println("----------------------------------------------------------------");
             break;
         } case DEADLINE: {
-            Parser.parseDeadline(currentInput,taskManager);
+            String deadline = Parser.parseDeadline(currentInput,taskManager);
+            out.println("----------------------------------------------------------------");
+            out.println("Added deadline: " + deadline);
+            out.println("----------------------------------------------------------------");
             break;
         } case FIND:{
             Parser.parseFind(currentInput);
@@ -125,9 +134,7 @@ public class AVA {
         }
         default: {
             taskManager.addTask(currentInput);
-            out.println("----------------------------------------------------------------");
-            out.println("Added " + currentInput);
-            out.println("----------------------------------------------------------------");
+
         }
         }
     }
