@@ -40,26 +40,30 @@ public class Storage {
     }
 
     /**
-     * Saves the tasks in the provided {@code TaskList} to the file.
-     * Each task is written in a format that allows easy loading in the future.
-     * If an I/O error occurs during the save process, an error message is displayed.
+     * Writes the tasks to the file using the provided FileWriter.
      *
-     * @param tasks the {@code TaskList} containing tasks to be saved
+     * @param writer the {@code FileWriter} object used to write the tasks
+     * @param tasks  the {@code TaskList} containing the tasks to be written
+     */
+    private void writeTasksToFile(FileWriter writer, TaskList tasks) {
+        tasks.getTasks().forEach(task -> {
+            try {
+                writer.write(task.toFileString() + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println("Error writing to file: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        System.out.println("Tasks successfully saved to file.");
+    }
+    /**
+     * Saves the list of tasks to a file.
+     *
+     * @param tasks the {@code TaskList} containing the tasks to be saved
      */
     public void saveTasks(TaskList tasks) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            tasks.getTasks().stream()
-                    .map(Task::toFileString)
-                    .forEach(taskString -> {
-                        try {
-                            writer.write(taskString + System.lineSeparator());
-                        } catch (IOException e) {
-                            // Handle exception
-                            System.out.println("Error writing to file: " + e.getMessage());
-                            e.printStackTrace();
-                        }
-                    });
-            System.out.println("Tasks successfully saved to file.");
+            writeTasksToFile(writer, tasks);
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
             e.printStackTrace();
