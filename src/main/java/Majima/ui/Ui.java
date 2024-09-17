@@ -47,7 +47,7 @@ public class Ui {
         }
     }
 
-    public void showTaskAdded(Task task) {/appendLine();
+    public void showTaskAdded(Task task) {
         output.append("Understood, Kiryu-chan! This is goin' into the list: ").append(task).append("\n");
     }
 
