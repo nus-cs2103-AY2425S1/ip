@@ -1,6 +1,9 @@
 package toothless.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import toothless.exceptions.ToothlessExceptions;
 import toothless.ui.Ui;
@@ -36,14 +39,18 @@ public class TaskList {
      * @param task     The task to be added.
      * @param ui       The user interface.
      * @param taskList The task list.
+     * @return The message to be displayed after adding the task.
      */
     public String addTask(Task task, Ui ui, TaskList taskList) {
+        assert task != null : "Task should not be null";
         list.add(task);
         return ui.addTaskMessage(task, taskList.getList().size());
     }
 
     /**
      * Prints the tasks in the task list.
+     *
+     * @return The tasks in the task list.
      */
     public String printTask() {
         StringBuilder response = new StringBuilder("""
@@ -68,8 +75,11 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param index The index of the task to be marked as done.
+     * @return The message to be displayed after marking the task as done.
+     * @throws ToothlessExceptions If the index is out of range.
      */
     public String markDone(int index, Ui ui) throws ToothlessExceptions {
+        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
@@ -83,8 +93,11 @@ public class TaskList {
      * Mark a task as undone.
      *
      * @param index The index of the task to be marked as undone.
+     * @return The message to be displayed after marking the task as undone.
+     * @throws ToothlessExceptions If the index is out of range.
      */
     public String markUndone(int index, Ui ui) throws ToothlessExceptions {
+        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
@@ -98,9 +111,11 @@ public class TaskList {
      * Deletes a task from the task list.
      *
      * @param index The index of the task to be deleted.
+     * @return The message to be displayed after deleting the task.
      * @throws ToothlessExceptions If the index is out of range.
      */
     public String deleteTask(int index) throws ToothlessExceptions {
+        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
@@ -117,22 +132,24 @@ public class TaskList {
     /**
      * Finds a task that matches the keyword.
      *
-     * @param keyword The keyword to be searched.
+     * @param keywords The keyword to be searched.
+     * @return The message to be displayed after finding the task.
      */
-    public String findTask(String keyword) {
-        StringBuilder response = new StringBuilder("Here are the quests that match your keyword:\n");
-        int taskCount = 0;
-        for (Task task : list) {
-            if (task.getDescription().contains(keyword)) {
-                response.append(String.format("%d. %s\n", list.indexOf(task) + 1, task));
-                taskCount++;
-            }
-        }
+    public String findTask(String... keywords) {
+        List<String> keywordList = Arrays.stream(keywords)
+                .flatMap(keyword -> Arrays.stream(keyword.split("\\s+")))
+                .collect(Collectors.toList());
 
-        if (taskCount == 0) {
+        String response = list.stream()
+                              .filter(task -> keywordList.stream()
+                              .anyMatch(keyword -> task.getDescription().contains(keyword)))
+                              .map(task -> String.format("%d. %s\n", list.indexOf(task) + 1, task))
+                              .collect(Collectors.joining());
+
+        if (response.isEmpty()) {
             return "Oopsie! Seems like there are no quests that match your keyword!\n\n";
         }
 
-        return response.toString();
+        return "Here are the quests that match your keyword:\n\n" + response;
     }
 }
