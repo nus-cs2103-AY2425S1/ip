@@ -19,7 +19,11 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+
+    // Images for both human and bot are taken from http://www.freepik.com
+
     private Image humanImage = new Image(this.getClass().getResourceAsStream("images/human.jpg"));
+
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
 
     @FXML
