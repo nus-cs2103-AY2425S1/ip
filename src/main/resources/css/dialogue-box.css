@@ -1,0 +1,24 @@
+.label {
+    -fx-background-color: #cbe2fa;
+    -fx-border-color: #ffffff #cc79a7 #cc79a7 #ffffff;
+    -fx-border-width: 3px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font: 12px "Courier New";
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
+

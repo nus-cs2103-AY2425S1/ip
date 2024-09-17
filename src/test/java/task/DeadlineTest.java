@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Test the Deadline Class for its public methods with return values.
+ */
 public class DeadlineTest {
     @Test
     public void deadline_toStringNotDone_success() throws Exception {
