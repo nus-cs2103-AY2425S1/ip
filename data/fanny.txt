@@ -1,7 +1,5 @@
-D | 1 | eat|Apr 04, 2021 19:00
-D | 0 | eat|Sep 11, 2024 00:00
-T | 0 | eat
-T | 0 | eat
-T | 0 | 
-T | 0 | eat
-D | 0 | sleep |Sep 17, 2024 23:00
+D | 1 | CS2103T iP|Sep 20, 2024 23:59
+T | 0 | eat breakfast
+T | 0 | eat lunch
+E | 0 | Mid Autumn Festival|Sep 17, 2024 20:00|Sep 17, 2024 22:00
+T | 0 | sleep

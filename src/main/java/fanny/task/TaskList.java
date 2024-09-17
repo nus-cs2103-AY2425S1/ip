@@ -80,11 +80,13 @@ public class TaskList {
     public String printList() {
         String message = "Here are the tasks in your list:\n";
 
+        if (this.list.isEmpty()) {
+            message = "Your list is empty.";
+        }
         for (int i = 0; i < this.list.size(); i++) {
             message = message + (i + 1) + "." + list.get(i).toString() + "\n";
         }
 
-        System.out.println(message);
         return message;
     }
 
