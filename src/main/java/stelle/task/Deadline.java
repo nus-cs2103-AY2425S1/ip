@@ -3,8 +3,6 @@ package stelle.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import stelle.exception.WrongDateFormatException;
-
 /**
  * This class represents a stelle.task.Deadline. It is child of the stelle.task.Task class.
  * @author Lee Ze Hao (A0276123J)
@@ -24,14 +22,9 @@ public class Deadline extends Task {
      * @param name Name of stelle.task.Deadline object.
      * @param by A string containing the date the deadline must be accomplished by.
      */
-    public Deadline(String name, String by) {
+    public Deadline(String name, LocalDateTime by) {
         super(name, TaskType.DEADLINE);
-        try {
-            this.by = LocalDateTime.parse(by.strip(), dateTimeInputFormatter);
-        } catch (Exception e) {
-            throw new WrongDateFormatException();
-        }
-
+        this.by = by;
     }
 
     /**

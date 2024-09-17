@@ -1,17 +1,11 @@
 package stelle;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import stelle.exception.DeadlineNoDescriptionException;
-import stelle.exception.DeletionNotSpecifiedException;
-import stelle.exception.EventNoDescriptionException;
-import stelle.exception.MarkNotSpecifiedException;
-import stelle.exception.NoSuchTaskException;
-import stelle.exception.StelleException;
-import stelle.exception.TaskException;
-import stelle.exception.ToDoNoDescriptionException;
-import stelle.exception.WrongCommandException;
+import stelle.exception.*;
 import stelle.task.Deadline;
 import stelle.task.Event;
 import stelle.task.Task;
@@ -33,6 +27,13 @@ public class Parser {
     static final String TODO_COMMAND = "todo";
     static final String DEADLINE_COMMAND = "deadline";
     static final String EVENT_COMMAND = "event";
+
+    private static final String DATE_TIME_INPUT_FORMATTER_PATTERN = "yyyy-MM-dd HH:mm";
+    private static final String DATE_TIME_OUTPUT_FORMATTER_PATTERN = "d LLLL yyyy HH:mm";
+    private static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter
+            .ofPattern(DATE_TIME_INPUT_FORMATTER_PATTERN);
+    private static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter
+            .ofPattern(DATE_TIME_OUTPUT_FORMATTER_PATTERN);
 
     enum TaskType {
         TODO,
@@ -213,6 +214,10 @@ public class Parser {
 
     private String addDeadline(String input) throws TaskException, IOException {
         String noCommandInput = input.replace(DEADLINE_COMMAND, "").strip();
+        if (!(noCommandInput.contains("/by"))) {
+            throw new NoDateTagException();
+        }
+
         String taskName = noCommandInput.split("/by")[0].strip();
         if (taskName.isEmpty()) {
             throw new DeadlineNoDescriptionException();
@@ -221,7 +226,15 @@ public class Parser {
             return "There is already a task with this name though...";
         }
 
-        String date = noCommandInput.split("/by")[1].strip();
+        String dateString = noCommandInput.split("/by")[1].strip();
+
+        // parse date
+        LocalDateTime date;
+        try {
+            date = LocalDateTime.parse(dateString.strip(), dateTimeInputFormatter);
+        } catch (Exception e) {
+            throw new WrongDateFormatException();
+        }
 
         this.taskList.add(new Deadline(taskName, date));
         this.taskList.writeToFile();
@@ -236,10 +249,15 @@ public class Parser {
 
     private String addEvent(String input) throws TaskException, IOException {
         String noCommandInput = input.replace(EVENT_COMMAND, "").strip();
+        if (!(noCommandInput.contains("/from") && noCommandInput.contains("/to"))) {
+            throw new NoDateTagException();
+        }
+
         String taskName = noCommandInput.split("/from")[0].strip();
         if (taskName.isEmpty()) {
             throw new EventNoDescriptionException();
         }
+
         if (!taskList.find(taskName, true).isEmpty()) {
             return "There is already a task with this name...";
         }
@@ -247,7 +265,21 @@ public class Parser {
         String fromDate = fromAndTo.split("/to")[0].strip();
         String toDate = fromAndTo.split("/to")[1].strip();
 
-        this.taskList.add(new Event(taskName, fromDate, toDate));
+        // parse dates
+        LocalDateTime from;
+        LocalDateTime to;
+        try {
+            from = LocalDateTime.parse(fromDate.strip(), dateTimeInputFormatter);
+            to = LocalDateTime.parse(toDate.strip(), dateTimeInputFormatter);
+        } catch (Exception e) {
+            throw new WrongDateFormatException();
+        }
+
+        if (from.isAfter(to)) {
+            throw new EventIllogicalDateException();
+        }
+
+        this.taskList.add(new Event(taskName, from, to));
         this.taskList.writeToFile();
 
         String outputString = "";
