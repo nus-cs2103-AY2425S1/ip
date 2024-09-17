@@ -13,7 +13,7 @@ public class ToDos extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("T | %d | %s", this.done ? 1 : 0, this.description);
+        return String.format("T | %d | %s", this.isDone ? 1 : 0, this.description);
     }
 
 }

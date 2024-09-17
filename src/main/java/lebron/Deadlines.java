@@ -47,7 +47,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("D | %d | %s | %s", this.done ? 1 : 0, this.description, this.deadline);
+        return String.format("D | %d | %s | %s", this.isDone ? 1 : 0, this.description, this.deadline);
     }
 
 }

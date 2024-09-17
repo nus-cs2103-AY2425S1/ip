@@ -54,7 +54,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s | %s to %s", this.done ? 1 : 0, this.description,
+        return String.format("E | %d | %s | %s to %s", this.isDone ? 1 : 0, this.description,
                 this.start, this.end);
     }
 
