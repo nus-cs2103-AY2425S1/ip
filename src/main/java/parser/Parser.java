@@ -15,9 +15,11 @@ import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
 import command.FindCommand;
+import command.FindTagCommand;
 import command.InvalidCommand;
 import command.ListCommand;
 import command.MarkCommand;
+import command.RemoveTagCommand;
 import command.TagCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
@@ -145,12 +147,16 @@ public class Parser {
             return new EventCommand();
         } else if (text.startsWith("delete")) {
             return new DeleteCommand();
+        } else if (text.startsWith("findtag")) {
+            return new FindTagCommand();
         } else if (text.startsWith("find")) {
             return new FindCommand();
         } else if (text.startsWith("tag")) {
             return new TagCommand();
         } else if (text.startsWith("alltags")) {
             return new AllTagsCommand();
+        } else if (text.startsWith("removetag")) {
+            return new RemoveTagCommand();
         } else {
             return new InvalidCommand();
 
@@ -277,30 +283,9 @@ public class Parser {
         return new String[] {plainDesc.toString().trim(), startDate.toString().trim(), endDate.toString().trim()};
     }
 
-    //    public String[] parseEvent(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
-    //
-    //        int fromStart = desc.indexOf("/from");
-    //        if (fromStart < 0) {
-    //            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Event Start Date");
-    //        }
-    //
-    //        int toStart = desc.indexOf("/to");
-    //        if (toStart < 0) {
-    //            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Event End Date");
-    //        }
-    //
-    //        // Extract the event description
-    //        String plainDesc = desc.substring(desc.indexOf('{') + 1, desc.indexOf('}')).trim();
-    //
-    //        // Extract the start date string after "/from"
-    //        String startDate = desc.substring(fromStart + 5, toStart).trim();
-    //
-    //        // Extract the end date string after "/to"
-    //        String endDate = desc.substring(toStart + 3).trim();
-    //
-    //        // Return the parsed elements
-    //        return new String[] { plainDesc, startDate, endDate };
-    //    }
+    public String parseTagName(String desc) {
+        return desc.substring(7).trim();
+    }
 
 
 
@@ -315,6 +300,7 @@ public class Parser {
         if (start < 0) {
             throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag text missing");
         }
+
         return desc.substring(start + 2).trim();
     }
 
@@ -330,10 +316,12 @@ public class Parser {
         if (start < 0 || end < 0) {
             throw new ChatterboxExceptions.ChatterBoxMissingParameter("tag / index missing");
         }
-        if (start < 0 || end < 0) {
-            end = desc.length();
+        String sub = desc.substring(start + 2, end).trim();
+        if (sub.isEmpty() || !sub.matches("\\d+")) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("missing index");
         }
-        return Integer.parseInt(desc.substring(start + 2, end).trim());
+
+        return Integer.parseInt(sub.trim());
 
     }
 
@@ -347,6 +335,37 @@ public class Parser {
         return command.substring(4);
     }
 
+
+    /**
+     * Parses for index in a delete command
+     * @param desc input of format removetag /i {index} /t {text}
+     * @return the index of task to delete tag from
+     */
+    public int parseRemoveTagIndex(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
+        int start = desc.indexOf("/i");
+        int end = desc.indexOf("/t");
+        if (start < 0 || end < 0) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag index missing");
+        }
+        String sub = desc.substring(start + 2, end).trim();
+        if (sub.isEmpty() || !sub.matches("\\d+")) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("missing tag index");
+        }
+        return Integer.parseInt(sub);
+    }
+
+    /**
+     * Parses for tag name in a remove tag command
+     * @param desc input of format removetag /i {index} /t {text}
+     * @return the tag name
+     */
+    public String parseRemoveTagName(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
+        int start = desc.indexOf("/t");
+        if (start < 0) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag text missing");
+        }
+        return desc.substring(start + 2).trim();
+    }
     /**
      * Returns a DateTimeFormatter used for printing LocalDateTime objects
      * @return PRINTDATEFORMATTER, standard formatter for dates in Chatterbox

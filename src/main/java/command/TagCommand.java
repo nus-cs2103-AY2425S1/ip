@@ -38,11 +38,12 @@ public class TagCommand extends Command {
             tag = tagList.getTag(tagText);
         } else {
             tag = new Tag(tagText);
+            tagList.addTag(tag);
         }
-        tagList.addTag(tag);
-        taskList.getTask(tagIndex).addTag(new Tag(tagText));
-        System.out.println("Tagged task: " + taskList.getTask(tagIndex).getDescription() + " with tag: " + tagText);
-        result = guiResponses.taggedTasks(taskList.getTask(tagIndex), tagText);
+
+        tag.tagTask(taskList.getTask(tagIndex));
+        taskList.getTask(tagIndex).addTag(tag);
+        result = guiResponses.tagTaskMsg(taskList.getTask(tagIndex), tagText);
 
 
         return result;

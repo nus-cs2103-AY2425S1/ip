@@ -46,7 +46,7 @@ public abstract class Task {
             tagString.append(tag.toString()).append(" ");
         }
 
-        return "\n/tags: " + tagString.toString();
+        return "/tags: " + tagString.toString();
     }
 
     /**
@@ -87,6 +87,14 @@ public abstract class Task {
      */
     public void addTag(Tag tag) {
         this.tags.add(tag);
+    }
+
+    /**
+     * removes the tag from the task
+     * @param tag the tag to be removed
+     */
+    public void removeTag(Tag tag) {
+        this.tags.remove(tag);
     }
     @Override
     public String toString() {

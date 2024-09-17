@@ -1,0 +1,35 @@
+package command;
+
+import chatterboxexceptions.ChatterboxExceptions;
+import gui.GuiResponses;
+import parser.Parser;
+import tags.TagList;
+import tasks.Task;
+import tasks.TaskList;
+
+/**
+ * Represents the command to delete a tag.
+ */
+public class RemoveTagCommand extends Command {
+    public RemoveTagCommand() {
+
+    }
+
+    @Override
+    public String execute(String input, GuiResponses guiResponses,
+                          TagList tagList,
+                          TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
+            ChatterboxExceptions.ChatterBoxMissingParameter {
+        // input will be in format "removeTag /i <index> /t <tag>"
+        int index = parser.parseRemoveTagIndex(input);
+        String tagName = parser.parseRemoveTagName(input).trim().toLowerCase();
+        //remove tag from both taglist and task
+        Task taggedTask = taskList.getTask(index);
+        tagList.getTag(tagName).untagTask(taggedTask);
+        if (tagList.getTag(tagName).getTaggedTasks().isEmpty()) {
+            tagList.removeTag(tagName);
+        }
+        taggedTask.removeTag(tagList.getTag(tagName));
+        return guiResponses.untagTagMsg(taggedTask, tagName);
+    }
+}

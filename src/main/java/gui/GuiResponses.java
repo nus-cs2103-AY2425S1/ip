@@ -147,13 +147,40 @@ public class GuiResponses {
 
     }
 
+    public String getTaggedTasks(Set<Task> tasks) {
+        StringBuilder toReturn = new StringBuilder("Here are the tasks that have been tagged:\n");
+        if (tasks.size() == 0) {
+            toReturn.append("...It seems there are no tasks that have been tagged at this moment. "
+                    + "Sometimes, the answers we seek remain hidden.");
+        }
+        for (Task task : tasks) {
+            toReturn.append(String.format("[%s][%s] %s",
+                    task.getTaskSymbol(),
+                    task.getStatus() ? "X" : " ",
+                    task.getDescription()) + "\n");
+        }
+        return toReturn.toString();
+    }
+
     /**
      * Gets String representation of tagged task
      * @param task Task that is tagged
      * @param tagName name of tag
      * @return String representation of tagged task
      */
-    public String taggedTasks(Task task, String tagName) {
+    public String untagTagMsg(Task task, String tagName) {
+        return String.format("Ah, it appears the tag '%s' has been removed from the task \n%s. "
+                + "\nSometimes, the tools at our disposal may seem somewhat inadequate. "
+                + "Rest assured, even in these moments of apparent simplicity, "
+                + "there is always room for growth and improvement.", tagName, task.getDescription());
+    }
+    /**
+     * Gets String representation of tagged task
+     * @param task Task that is tagged
+     * @param tagName name of tag
+     * @return String representation of tagged task
+     */
+    public String tagTaskMsg(Task task, String tagName) {
         return String.format("The task has been tagged with '%s'.\n"
                 + "This addition might change how you perceive and approach this task, "
                 + "adding another layer to its significance:\n"
@@ -175,6 +202,15 @@ public class GuiResponses {
             tagsString.append(tag).append("\n");
         }
         return tagsString.toString();
+    }
+
+    /**
+     * Gets String representation of tag not found
+     * @param tagName name of tag
+     * @return String representation of tag not found
+     */
+    public String tagNotFoundMsg(String tagName) {
+        return String.format("The tag '%s' was not found. Sometimes, the answers we seek remain hidden.", tagName);
     }
 
     /**
