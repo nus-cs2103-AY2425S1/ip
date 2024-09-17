@@ -45,7 +45,7 @@ public class Ui {
      * @return String of Rasputin's greeting.
      */
     public static String printGreeting() {
-        return "Hello, I'm Rasputin!\nWhat can I do for you?";
+        return "Hello, I'm Rasputin!\nHow can I help you today?";
     }
 
     /**
