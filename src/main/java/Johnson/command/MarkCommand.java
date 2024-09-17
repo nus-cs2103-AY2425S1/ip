@@ -5,19 +5,24 @@ import Johnson.utils.Utilities;
 /**
  * Represents a command to mark a task as completed.
  */
-public class MarkCommand extends Command {
+public class MarkCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "mark";
 
     private static final String COMMAND_MSG = "Bullseye! Bogey down:\n";
-    private final int index;
 
     public MarkCommand(int index) {
-        this.index = index;
+        super(index);
+        assert index > 0 : "Index should be greater than 0";
     }
 
     @Override
     public String executeCommand() {
+        String checkIndex = checkIndex();
+        if (checkIndex != null) {
+            return checkIndex;
+        }
+
         Command.taskList.markTask(index - 1 );
         assert taskList.getTask(index - 1).getTaskStatus() : "Task should be marked as complete";
         Utilities.OutlineMessage(COMMAND_MSG + index + " :"

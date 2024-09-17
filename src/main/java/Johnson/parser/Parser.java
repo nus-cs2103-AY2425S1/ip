@@ -208,12 +208,18 @@ public class Parser {
      */
     private int prepIndexedCommand(String arguments) {
         Matcher indexMatcher = INDEXED_COMMAND_PATTERN.matcher(arguments);
-        if (indexMatcher.matches()) {
-            String index = indexMatcher.group("index");
-            return Integer.parseInt(index);
-        } else {
+
+        if (!indexMatcher.matches()) {
             return -1;
         }
+
+        String index = indexMatcher.group("index").trim();
+
+        if (index.isEmpty()) {
+            return -1;
+        }
+
+        return Integer.parseInt(index);
     }
 
     /**

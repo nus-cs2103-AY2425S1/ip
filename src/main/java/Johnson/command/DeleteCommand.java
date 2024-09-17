@@ -5,21 +5,24 @@ import Johnson.utils.Utilities;
 /**
  * Represents a command to delete a task from the task list.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "delete";
 
     private static final String COMMAND_MSG = "Roger that! Taking out the trash:\n";
 
-    private final int index;
-
     public DeleteCommand(int index) {
+        super(index);
         assert index > 0 : "Index should be greater than 0";
-        this.index = index;
     }
 
     @Override
     public String executeCommand() {
+        String checkIndex = checkIndex();
+        if (checkIndex != null) {
+            return checkIndex;
+        }
+
         Utilities.OutlineMessage(COMMAND_MSG +
                 index + ": " + Command.taskList.getTask(index - 1).toString());
         String msg = (COMMAND_MSG + index + ": " + Command.taskList.getTask(index - 1).toString());
