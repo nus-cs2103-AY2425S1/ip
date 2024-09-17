@@ -77,8 +77,8 @@ public class Parser {
         if (text.length() <= 5 || Character.isWhitespace(text.charAt(5))) {
             throw new InvalidInputException("Invalid input for todo");
         }
-        String[] taskAndDescription = text.split(" ");
-        Todo newTodo = new Todo(taskAndDescription[1], false);
+        String description = text.substring(5);
+        Todo newTodo = new Todo(description, false);
         return list.addTask(newTodo);
     }
 
