@@ -10,7 +10,7 @@ import rizzler.ui.parser.DateTimeParser;
  * that it should be finished by.
  */
 public class Deadline extends Task {
-    private final LocalDate deadlineTime;
+    private final String deadlineTime;
 
     /**
      * Constructor for a <code>Deadline</code> object.
@@ -18,7 +18,7 @@ public class Deadline extends Task {
      * @param deadlineTime <code>String</code> describing the time/date of the deadline.
      * @throws DateTimeParseException If the user entered deadlineTime is of the wrong format.
      */
-    public Deadline(String deadlineDesc, String deadlineTime) throws DateTimeParseException {
+    public Deadline(String deadlineDesc, String deadlineTime) {
         this(deadlineDesc, deadlineTime, false);
     }
 
@@ -29,9 +29,14 @@ public class Deadline extends Task {
      * @param isDone Boolean to indicate if the task being created has been marked as done.
      * @throws DateTimeParseException If the user entered deadlineTime is of the wrong format.
      */
-    public Deadline(String deadlineDesc, String deadlineTime, boolean isDone) throws DateTimeParseException {
+    public Deadline(String deadlineDesc, String deadlineTime, boolean isDone) {
         super(deadlineDesc, isDone);
-        this.deadlineTime = DateTimeParser.to_datetime(deadlineTime);
+        if (DateTimeParser.canParse(deadlineTime)) {
+            LocalDate deadlineDatetime = LocalDate.parse(deadlineTime);
+            this.deadlineTime = DateTimeParser.toStr(deadlineDatetime);
+        } else {
+            this.deadlineTime = deadlineTime;
+        }
     }
 
     /**
@@ -40,7 +45,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + DateTimeParser.to_str(this.deadlineTime) + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadlineTime + ")";
     }
 
     @Override

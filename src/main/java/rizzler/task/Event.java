@@ -36,14 +36,14 @@ public class Event extends Task {
      */
     public Event(String eventDesc, String eventStart, String eventEnd, boolean isDone) throws DateTimeParseException {
         super(eventDesc, isDone);
-        this.eventStart = DateTimeParser.to_datetime(eventStart);
-        this.eventEnd = DateTimeParser.to_datetime(eventEnd);
+        this.eventStart = DateTimeParser.toDatetime(eventStart);
+        this.eventEnd = DateTimeParser.toDatetime(eventEnd);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + DateTimeParser.to_str(eventStart)
-                + " to: " + DateTimeParser.to_str(eventEnd) + ")";
+        return "[E]" + super.toString() + " (from: " + DateTimeParser.toStr(eventStart)
+                + " to: " + DateTimeParser.toStr(eventEnd) + ")";
     }
 
     @Override

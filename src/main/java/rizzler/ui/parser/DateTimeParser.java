@@ -15,10 +15,17 @@ public class DateTimeParser {
      * @return <code>LocalDate</code> object representing the same date provided by the user.
      * @throws DateTimeParseException If the user's input string cannot be interpreted as a date.
      */
-    public static LocalDate to_datetime(String inputStr) throws DateTimeParseException {
-        // String[] splitInput = input_str.split(" ");
-        LocalDate date = LocalDate.parse(inputStr);
-        return date;
+    public static LocalDate toDatetime(String inputStr) throws DateTimeParseException {
+        return LocalDate.parse(inputStr);
+    }
+
+    public static boolean canParse(String inputStr) {
+        try {
+            toDatetime(inputStr);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     /**
@@ -26,7 +33,7 @@ public class DateTimeParser {
      * @param inputDate LocalDate object representing the date.
      * @return Nicely formatting string for a particular date.
      */
-    public static String to_str(LocalDate inputDate) {
+    public static String toStr(LocalDate inputDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy");
         return inputDate.format(formatter);
     }
