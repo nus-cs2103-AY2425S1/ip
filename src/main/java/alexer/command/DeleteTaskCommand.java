@@ -12,7 +12,7 @@ public class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public void run(String[] arguments) {
+    public Response run(String[] arguments) {
         int index = Integer.parseInt(arguments[0]) - 1;
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
         Task task = taskManager.removeTask(index);
@@ -22,6 +22,6 @@ public class DeleteTaskCommand extends Command {
                 String.format("\t%s\n", task) +
                 String.format("\nYou have %d tasks remaining.\n", taskManager.getTaskCount());
 
-        new Response(response).printToConsole();
+        return new Response(response);
     }
 }

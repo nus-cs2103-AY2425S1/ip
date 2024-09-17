@@ -238,9 +238,9 @@ public class Alexer {
      * data and greets the user.
      */
     public void start() {
-        prompter.printLogo();
+        prompter.buildLogo().printToConsole();
         tasks.loadTasks();
-        prompter.printGreeting();
+        prompter.buildGreeting().printToConsole();
         promptLoop();
     }
 

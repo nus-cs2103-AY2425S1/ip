@@ -4,8 +4,8 @@ import alexer.Alexer;
 import alexer.Prompter;
 import alexer.task.Task;
 import alexer.task.TaskManager;
+import alexer.ui.Response;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class FindTaskCommand extends Command {
@@ -14,9 +14,9 @@ public class FindTaskCommand extends Command {
     }
 
     @Override
-    public void run(String[] arguments) {
+    public Response run(String[] arguments) {
         if (arguments.length == 0) {
-            return;
+            return null;
         }
 
         String keyword = arguments[0];
@@ -29,6 +29,6 @@ public class FindTaskCommand extends Command {
         }
 
         Prompter prompter = Alexer.getInstance().getPrompter();
-        prompter.buildFilteredTaskList(output.toString()).printToConsole();
+        return prompter.buildFilteredTaskList(output.toString());
     }
 }
