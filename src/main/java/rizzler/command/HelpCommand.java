@@ -27,8 +27,8 @@ public class HelpCommand extends Command {
             "here are a few of the things you can do with this bot.",
             "you can enter \"list\" to view all tasks you have at the moment",
             "you can also enter \"todo\", \"deadline\", or \"event\" to create tasks of those types",
-            "once you've completed a task, you can \"mark\" it as done, or \"unmark\" it if you" +
-                    " realise afterwards that it's not quite done yet.",
+            "once you've completed a task, you can \"mark\" it as done, or \"unmark\" it if you "
+                    + "realise afterwards that it's not quite done yet.",
             "if you'd like, you can delete tasks that you no longer want to see with \"delete\"",
             "and lastly, if ya' ever get bored of lil' ol' me, you can enter \"bye\" to exit the program.",
             "",
