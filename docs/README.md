@@ -90,7 +90,8 @@ The commands are as follows:
 - `e [Event task description] /from [start date in YYYY-MM-DD] [Optional: time] /to [end date in YYYY-MM-DD] [Optional: time]`
 - `m [index to be Marked]`
 - `um [index to be Unmarked]`
-- `del [index to be Deleted`
+- `del [index to be Deleted]`
+- `ls (Lists out all the current tasks)`
 
 ## Evelyn Development Timeline
 Below is the order in which Evelyn was developed

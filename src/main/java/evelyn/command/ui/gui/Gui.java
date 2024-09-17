@@ -70,6 +70,7 @@ public class Gui extends Application {
                     + "m [index to be Marked]\n"
                     + "um [index to be Unmarked]\n"
                     + "del [index to be Deleted]\n"
+                    + "ls (Lists out all the current tasks)\n"
             );
         } catch (IOException e) {
             System.err.println("Error starting application: " + e);
