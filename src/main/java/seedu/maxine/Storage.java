@@ -1,16 +1,25 @@
 package seedu.maxine;
 
-import seedu.maxine.task.Task;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Storage {
-    
+import seedu.maxine.task.Task;
+
+/**
+ * Manages the storage of tasks in a file.
+ * <p>
+ * The Storage class provides functionality to load tasks from a file,
+ * refresh the file with updated task lists, and query tasks based on a search keyword.
+ * </p>
+ */
+public class Storage implements MaxineStorage {
     private String filePath;
     private FileParser fileParser;
-
     /**
      * Constructs new instance of Storage class
      * @param filePath The path to the file where the data is stored or will be stored.
@@ -19,28 +28,10 @@ public class Storage {
         this.filePath = filePath;
         this.fileParser = new FileParser();
     }
-
     /**
-     * Returns a collection of tasks from TaskList which matches the input keyword
-     * @param search Keyword to be searched
-     * @return a collection of tasks which matches the input keyword
-     */
-    public ArrayList<Task> queryStorage(String search) {
-        ArrayList<Task> currList = this.load();
-        ArrayList<Task> results = new ArrayList<>();
-        for (Task task : currList) {
-            if (task.toString().contains(search)) {
-                results.add(task);
-            }
-        }
-        return results;
-    }
-
-
-    /**
-     * Returns the most updated collection of tasks. 
-     * The method reads the txt file and parses it to convert it into 
-     * its corresponding task. The tasks are then added to an ArrayList 
+     * Returns the most updated collection of tasks.
+     * The method reads the txt file and parses it to convert it into
+     * its corresponding task. The tasks are then added to an ArrayList
      * @return ArrayList of collection of current tasks
      */
     public ArrayList<Task> load() {
@@ -55,16 +46,14 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Oh no! I can't seem to find the file :(");
-        } 
+        }
         return list;
     }
-
-
     /**
      * Adds new lines to the txt file, based on updated list.
      * @param list updated TaskList
      */
-    public void refreshStorage(TaskList list) {
+    public void refreshStorage(MaxineList list) {
 
         File file = new File(filePath);
 

@@ -1,16 +1,16 @@
-package seedu.maxine;
+package seedu.maxine.stubs;
 
+import seedu.maxine.MaxineList;
+import seedu.maxine.MaxineUi;
 import seedu.maxine.task.Task;
 
 import java.util.ArrayList;
 
-public class Ui implements MaxineUi {
-    private Storage storage = new Storage("data/maxine.txt");
-
+public class UiStub implements MaxineUi {
     /**
      * Constructs new instance of Ui class
      */
-    public Ui() {
+    public UiStub() {
         // nothing
     }
 
@@ -20,7 +20,7 @@ public class Ui implements MaxineUi {
      * This method outputs a friendly greeting message to the console, introducing
      * the application or object as "Maxine" and expressing a pleasant welcome to the user.
      * </p>
-     * 
+     *
      * */
     public String greet() {
         return "Hi! Nice to meet you :) I am Maxine";
@@ -30,7 +30,7 @@ public class Ui implements MaxineUi {
      * Prints a farewell message to the console.
      */
     public String goodbye() {
-        return "\nBye! I have been maxed out and am going to sleep. " 
+        return "\nBye! I have been maxed out and am going to sleep. "
                 + "Hope to see you again soon!";
     }
 
@@ -46,7 +46,7 @@ public class Ui implements MaxineUi {
      *             The task's string representation will be included in the output message.
      *
      * @throws NullPointerException if {@code task} is {@code null}.
-     * 
+     *
      */
     public String delete(Task task) {
         return "Deleting this task: " + task;
@@ -83,14 +83,7 @@ public class Ui implements MaxineUi {
      *             Each task in the list is printed with its index and details.
      */
     public String showList(MaxineList list) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(i + 1)
-                    .append(". ")
-                    .append(list.get(i))
-                    .append("\n");
-        }
-        return sb.toString();
+        return "1. [T][ ] test command class";
     }
 
     /**
@@ -132,20 +125,8 @@ public class Ui implements MaxineUi {
      * @param search The search term to use for querying tasks. Only tasks that contain this
      *               term in their description will be included in the results.
      */
-    public String search(ArrayList<Task> tasks) {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Here are the results to your search:\n");
-        int count = 1;
-        for (Task task : tasks) {
-            sb.append(count)
-                    .append(". ")
-                    .append(task.toString())
-                    .append("\n");
-            count++;
-        }
-
-        return sb.toString();
+    public String search(ArrayList<Task> search) {
+        return "[search results]";
     }
     public String deleteAll() {
         return "All tasks have been deleted!";

@@ -24,11 +24,23 @@ public class FileParser {
         String[] input = string.split(" / ");
         switch (input[0]) {
         case ("T"):
-            return new Todo(input[2]);
+            Task todo = new Todo(input[2]);
+            if (input[1].equals("1")) {
+                todo.markDone();
+            }
+            return todo;
         case ("D"):
-            return new Deadline(input[2], input[3]);
+            Task deadline = new Deadline(input[2], input[3]);
+            if (input[1].equals("1")) {
+                deadline.markDone();
+            }
+            return deadline;
         case ("E"):
-            return new Event(input[2], input[3], input[4]);
+            Task event = new Event(input[2], input[3], input[4]);
+            if (input[1].equals("1")) {
+                event.markDone();
+            }
+            return event;
         default:
             return null;
         }

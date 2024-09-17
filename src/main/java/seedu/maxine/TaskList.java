@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import seedu.maxine.task.Task;
 
-public class TaskList implements Iterable<Task> {
+public class TaskList implements MaxineList {
     private ArrayList<Task> list;
     private Storage storage;
 
@@ -13,7 +13,7 @@ public class TaskList implements Iterable<Task> {
      * Constructs new instance of TaskList class
      */
     public TaskList() {
-        Storage storage = new Storage("data/maxine.txt");
+        this.storage = new Storage("data/maxine.txt");
         this.list = storage.load();
     }
     public void addTask(Task task) {
@@ -24,12 +24,8 @@ public class TaskList implements Iterable<Task> {
      * @param key The number that is tagged to the task that os to be deleted
      */
     public void delete(int key) {
-        try {
-            Task task = list.get(key);
-            list.remove(task);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Task task = list.get(key);
+        list.remove(task);
     }
 
     /**

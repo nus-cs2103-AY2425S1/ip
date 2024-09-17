@@ -1,12 +1,10 @@
 package seedu.maxine.command;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.maxine.Storage;
-import seedu.maxine.TaskList;
-import seedu.maxine.Ui;
+import seedu.maxine.*;
 import seedu.maxine.exception.MaxineException;
 import seedu.maxine.task.Deadline;
 import seedu.maxine.task.Event;
@@ -14,11 +12,11 @@ import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
 
 public class Command {
-    private Storage storage;
-    private Ui ui;
-    private TaskList list;
+    private MaxineStorage storage;
+    private MaxineUi ui;
+    private MaxineList list;
     private static boolean isRunning = true;
-    public Command(Storage storage, Ui ui, TaskList list) {
+    public Command(MaxineStorage storage, MaxineUi ui, MaxineList list) {
         this.storage = storage;
         this.ui = ui;
         this.list = list;
@@ -45,7 +43,7 @@ public class Command {
             Task task = list.get(mark);
             task.markDone();
             storage.refreshStorage(list);
-            return ui.changeMark(task);
+            return ui.mark(task);
         } catch (MaxineException e) {
             return e.getMessage();
         }
@@ -61,7 +59,7 @@ public class Command {
             Task task = list.get(mark);
             task.markUndone();
             storage.refreshStorage(list);
-            return ui.changeMark(task);
+            return ui.unmark(task);
         } catch (MaxineException e) {
             return e.getMessage();
         }
@@ -150,7 +148,21 @@ public class Command {
         }
     }
     public String handleFind(String input) {
-        return ui.search(input.substring(5));
+        ArrayList<Task> currList = storage.load();
+        if (currList == null) {
+            return "Oops, current list is empty!";
+        }
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Task task : currList) {
+            String keywords = input.substring(5);
+            if (task.toString().contains(keywords)) {
+                tasks.add(task);
+            }
+        }
+        if (tasks.isEmpty()) {
+            return "Oh no! I can't find anything on this...";
+        }
+        return ui.search(tasks);
     }
     public String handleDeleteAll() {
         list.deleteAll();

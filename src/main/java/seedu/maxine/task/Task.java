@@ -21,6 +21,7 @@ public class Task {
     static {
         FORMATS.add(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         FORMATS.add(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        FORMATS.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         FORMATS.add(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         FORMATS.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
