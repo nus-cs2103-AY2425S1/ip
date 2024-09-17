@@ -29,6 +29,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setStelle(stelle); // inject the Duke instance
+            stage.setTitle("Stelle (simulated)");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
