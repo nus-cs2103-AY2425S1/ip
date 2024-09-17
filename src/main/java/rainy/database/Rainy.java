@@ -10,8 +10,6 @@ import rainy.rainyexceptions.InvalidDeadlineParametersException;
 import rainy.rainyexceptions.InvalidEventParametersException;
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
-import rainy.tasks.Deadline;
-import rainy.tasks.Event;
 import rainy.tasks.TaskTracker;
 
 /**
@@ -53,8 +51,12 @@ public class Rainy {
         Storage storage = new Storage();
         TaskTracker tm;
         Parser ps = new Parser();
-        File newFile = new File("src/main/java/rainy.txt");
-        tm = storage.copyPreviousFiles(newFile);
+        try {
+            File newFile = new File("data/rainy.txt");
+            tm = storage.copyPreviousFiles(newFile);
+        } catch (Exception e) {
+            tm = new TaskTracker();
+        }
         tm.receivedFirstInput();
         ps.firstInput(scanCommand);
         String[] input = ps.getInput();
@@ -130,7 +132,7 @@ public class Rainy {
         default:
             ui.noCategoryDeclared();
         }
-        File f = new File("src/main/java/rainy.txt");
+        File f = new File("data/rainy.txt");
         storage.writeOverFile(f, tm);
         System.out.print(END_OF_OUTPUT);
     }
