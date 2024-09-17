@@ -29,6 +29,16 @@ public class DeadlineTest {
                 LocalDateTime.of(LocalDate.of(2024, 8, 29), LocalTime.of(5,27))
         );
         assertEquals("[D][ ] A deadline (by: 29 August 2024 05:27)", deadline.toString());
+        Deadline deadline2 = new Deadline(
+                "A second deadline",
+                LocalDateTime.of(LocalDate.of(2024, 9, 20), LocalTime.of(20,30))
+        );
+        assertEquals("[D][ ] A second deadline (by: 20 September 2024 20:30)", deadline2.toString());
+        Deadline deadline3 = new Deadline(
+                "A third     deadline with a big space",
+                LocalDateTime.of(LocalDate.of(2040, 1, 5), LocalTime.of(0,0))
+        );
+        assertEquals("[D][ ] A third     deadline with a big space (by: 5 January 2040 00:00)", deadline3.toString());
     }
 
     /**
