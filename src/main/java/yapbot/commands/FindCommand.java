@@ -10,7 +10,7 @@ import yapbot.util.TaskList;
 public class FindCommand extends Command {
 
     private String query;
-    private boolean multiwordQuery;
+    private boolean isMultiwordQuery;
 
     /**
      * Creates an EventCommand instance.
@@ -27,10 +27,10 @@ public class FindCommand extends Command {
         int spacePos = query.indexOf(" ");
         if (spacePos != -1) {
             this.query = query.substring(0, query.indexOf(" "));
-            this.multiwordQuery = true;
+            this.isMultiwordQuery = true;
         } else {
             this.query = query;
-            this.multiwordQuery = false;
+            this.isMultiwordQuery = false;
         }
 
     }
@@ -40,7 +40,7 @@ public class FindCommand extends Command {
         String matchingTasks = tasks.getMatchingTasks(query);
         String successMessage = "Querying Database for \"" + query + "\"...Success\nMatching Tasks:\n";
 
-        if (multiwordQuery) {
+        if (isMultiwordQuery) {
             successMessage = "Multiple words detected, only first word will be queried.\n\n" + successMessage;
         }
 
