@@ -68,18 +68,6 @@ public class Task {
         this.isDone = false;
     }
 
-    /**
-     * Returns the status of the task.
-     * <p>
-     * Returns {@code true} if the task is done, otherwise {@code false}.
-     * </p>
-     *
-     * @return {@code true} if the task is done, {@code false} otherwise.
-     */
-    public boolean getStatus() {
-        return isDone;
-    }
-
 
     /**
      * Returns the status icon of the task.

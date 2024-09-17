@@ -7,9 +7,7 @@ import seedu.maxine.stubs.TaskListStub;
 import seedu.maxine.stubs.UiStub;
 import seedu.maxine.task.Task;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CommandTest {
     private Command command;
@@ -97,11 +95,17 @@ class CommandTest {
         assertEquals("follow this format: delete [task no.] or delete all",
                 command.handleDelete("delete"));
     }
+    @Test
+    void testFindValid() {
+        assertEquals("Here are the results to your search:\n"
+                        + "[T][ ] test command class",
+                command.handleFind("find command"));
+    }
 
     @Test
-    void testFind() {
-        assertEquals("Oops, current list is empty!",
-                command.handleFind("find project"));
+    void testFindInvalid() {
+        assertEquals("Oh no! I can't find anything on this...",
+                command.handleFind("find fish"));
     }
 
     @Test
@@ -111,6 +115,14 @@ class CommandTest {
     }
 
     @Test
-    void getStatus() {
+    void testGetStatusTrue() {
+        assertTrue(command.getStatus(), 
+                "Expected the command status to be true but it was false");
+    }
+    @Test
+    void testGetStatusFalse() {
+        command.handleBye();
+        assertFalse(command.getStatus(),
+                "Expected the command status to be false but it was true");
     }
 }

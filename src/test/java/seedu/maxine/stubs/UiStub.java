@@ -126,7 +126,8 @@ public class UiStub implements MaxineUi {
      *               term in their description will be included in the results.
      */
     public String search(ArrayList<Task> search) {
-        return "[search results]";
+        return "Here are the results to your search:\n"
+                + "[T][ ] test command class";
     }
     public String deleteAll() {
         return "All tasks have been deleted!";

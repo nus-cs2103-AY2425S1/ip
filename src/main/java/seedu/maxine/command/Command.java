@@ -15,8 +15,9 @@ public class Command {
     private MaxineStorage storage;
     private MaxineUi ui;
     private MaxineList list;
-    private static boolean isRunning = true;
+    private static boolean isRunning;
     public Command(MaxineStorage storage, MaxineUi ui, MaxineList list) {
+        isRunning = true;
         this.storage = storage;
         this.ui = ui;
         this.list = list;
@@ -150,6 +151,7 @@ public class Command {
     public String handleFind(String input) {
         ArrayList<Task> currList = storage.load();
         if (currList == null) {
+            // currList should not be null
             return "Oops, current list is empty!";
         }
         ArrayList<Task> tasks = new ArrayList<>();

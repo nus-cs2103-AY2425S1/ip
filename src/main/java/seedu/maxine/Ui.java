@@ -129,7 +129,7 @@ public class Ui implements MaxineUi {
      * search results.
      * </p>
      *
-     * @param search The search term to use for querying tasks. Only tasks that contain this
+     * @param tasks The search term to use for querying tasks. Only tasks that contain this
      *               term in their description will be included in the results.
      */
     public String search(ArrayList<Task> tasks) {

@@ -3,6 +3,7 @@ package seedu.maxine.stubs;
 import seedu.maxine.MaxineList;
 import seedu.maxine.MaxineStorage;
 import seedu.maxine.task.Task;
+import seedu.maxine.task.Todo;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,10 @@ public class StorageStub implements MaxineStorage {
      * @return ArrayList of collection of current tasks
      */
     public ArrayList<Task> load() {
-        return null;
+        ArrayList<Task> tasks = new ArrayList<>();
+        Task task = new Todo("test command class");
+        tasks.add(task);
+        return tasks;
     }
     /**
      * Adds new lines to the txt file, based on updated list.
