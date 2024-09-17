@@ -2,7 +2,7 @@ package alexer.command;
 
 import alexer.Alexer;
 import alexer.Prompter;
-import alexer.command.Command;
+import alexer.ui.Response;
 
 /**
  * Command to list all the tasks in the chatbot
@@ -22,9 +22,10 @@ public class ListTaskCommand extends Command {
      * output after formatting.
      *
      * @param arguments string array of arguments given
+     * @return the response of the command
      */
     @Override
-    public void run(String[] arguments) {
+    public Response run(String[] arguments) {
         Alexer alexer = Alexer.getInstance();
         Prompter prompter = alexer.getPrompter();
 
@@ -35,6 +36,6 @@ public class ListTaskCommand extends Command {
             response.append(String.format("\t%d: %s\n", i + 1, task));
         }
 
-        prompter.buildTaskList(response.toString()).printToConsole();
+        return prompter.buildTaskList(response.toString());
     }
 }

@@ -1,5 +1,7 @@
 package alexer.command;
 
+import alexer.ui.Response;
+
 /**
  * Represents a command that can be processed by the chatbot
  *
@@ -33,6 +35,7 @@ public abstract class Command {
      * implementation in the command subclass.
      *
      * @param arguments string array of arguments to be provided
+     * @return the response for the command
      */
-    public abstract void run(String[] arguments);
+    public abstract Response run(String[] arguments);
 }

@@ -40,7 +40,7 @@ public class Prompter {
      * @return the response instance with the list of tasks
      */
     public Response buildTaskList(String tasks) {
-        return new Response(String.format("Sure thing! Here is your task list:\n\n" + tasks));
+        return new Response("Sure thing! Here is your task list:\n\n" + tasks);
     }
 
     /**
