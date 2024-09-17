@@ -12,11 +12,8 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Bob {
-    private static final String SEPARATOR = "____________________________________________________________";
-    private static final String LINE_PREFIX = "    ";
     private static final DateTimeFormatter INPUT_FORMATTER =
             new DateTimeFormatterBuilder()
                     .append(DateTimeFormatter.ofPattern("d[d]/M[M][/uuuu][ HHmm]"))
@@ -26,6 +23,7 @@ public class Bob {
                     .toFormatter();
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("'{'dd-MMM-uuuu HHmm'}'");
     private static final Storage STORAGE = new Storage("data/Bob.txt");
+    private static final Ui UI = new Ui();
     private static String argument = "";
     private static List<Task> list;
 
@@ -38,14 +36,15 @@ public class Bob {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                exit();
+                UI.printExit();
+                System.exit(0);
             }
         },
         LIST("list") {
             @Override
             public void run() {
                 if (list.isEmpty()) {
-                    say("You have not added any tasks yet.");
+                    UI.printWithFormat("You have not added any tasks yet.");
                 } else {
                     StringBuilder text = new StringBuilder();
                     int i;
@@ -53,7 +52,7 @@ public class Bob {
                         text.append(i + 1).append(".").append(list.get(i)).append("\n");
                     }
                     text.append(i + 1).append(".").append(list.get(i));
-                    say(text.toString());
+                    UI.printWithFormat(text.toString());
                 }
             }
         },
@@ -65,7 +64,7 @@ public class Bob {
                 }
                 Task task = new Todo(argument.strip());
                 list.add(task);
-                say("added: " + task);
+                UI.printWithFormat("added: " + task);
             }
         },
         DEADLINE("deadline") {
@@ -86,7 +85,7 @@ public class Bob {
                         parseDateTime(by)
                 );
                 list.add(task);
-                say("added: " + task);
+                UI.printWithFormat("added: " + task);
             }
         },
         EVENT("event") {
@@ -99,7 +98,7 @@ public class Bob {
                 } else {
                     Task task = getTask(fromIndex, toIndex);
                     list.add(task);
-                    say("added: " + task);
+                    UI.printWithFormat("added: " + task);
                 }
             }
 
@@ -138,7 +137,7 @@ public class Bob {
                     throw new IncorrectArgumentException("a valid index");
                 }
                 list.get(i).mark();
-                say("Nice! I've marked this task as done:\n  " +
+                UI.printWithFormat("Nice! I've marked this task as done:\n  " +
                         list.get(i));
             }
         },
@@ -158,7 +157,7 @@ public class Bob {
                     throw new IncorrectArgumentException("a valid index");
                 }
                 list.get(i).unmark();
-                say("OK, I've marked this task as not done yet:\n  " +
+                UI.printWithFormat("OK, I've marked this task as not done yet:\n" +
                         list.get(i));
             }
         },
@@ -178,7 +177,7 @@ public class Bob {
                     throw new IncorrectArgumentException("a valid index");
                 }
                 Task task = list.remove(i);
-                say("OK, I've removed this task:\n  " +
+                UI.printWithFormat("OK, I've removed this task:\n" +
                         task + "\n" +
                         "Now you have " + list.size() + " tasks in the list.");
             }
@@ -196,21 +195,6 @@ public class Bob {
         Command(String cmd) {
             CMD = cmd;
         }
-    }
-
-    private static void say(String text) {
-        String t = SEPARATOR + "\n " + text.replace("\n", "\n ") + "\n" + SEPARATOR;
-        System.out.println(LINE_PREFIX + t.replace("\n", "\n" + LINE_PREFIX) + "\n");
-    }
-
-    private static void greet() {
-        say("Hey there! Bob at your service.\n" +
-                "Let's roll up our sleeves and get to work!");
-    }
-
-    private static void exit() {
-        say("I'll be here if you need me. Catch you later!");
-        System.exit(0);
     }
 
     public static LocalDateTime parseDateTime(String string) {
@@ -234,36 +218,20 @@ public class Bob {
     }
 
     public static void main(String[] args) {
-        String logo = """
-         .----------------. .----------------. .----------------.
-        | .--------------. | .--------------. | .--------------. |
-        | |   ______     | | |     ____     | | |   ______     | |
-        | |  |_   _ \\    | | |   .'    `.   | | |  |_   _ \\    | |
-        | |    | |_) |   | | |  /  .--.  \\  | | |    | |_) |   | |
-        | |    |  __'.   | | |  | |    | |  | | |    |  __'.   | |
-        | |   _| |__) |  | | |  \\  `--'  /  | | |   _| |__) |  | |
-        | |  |_______/   | | |   `.____.'   | | |  |_______/   | |
-        | |              | | |              | | |              | |
-        | '--------------' | '--------------' | '--------------' |
-        '----------------' '----------------' '----------------'
-        """;
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println(logo);
-        greet();
+        UI.printGreeting();
 
         try {
             list = STORAGE.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (BobException e) {
-            say(e.getMessage());
+            UI.printError(e.getMessage());
             list = new ArrayList<>();
         }
 
         while (true) {
             boolean executed = false;
-            String[] input = scanner.nextLine().split(" ", 2);
+            String[] input = UI.readInput().split(" ", 2);
             String command = input[0];
             argument = input.length == 1 ? "" : input[1];
             try {
@@ -278,7 +246,7 @@ public class Bob {
                     Command.CATCH_ALL.run();
                 }
             } catch (BobException e) {
-                say(e.getMessage());
+                UI.printError(e.getMessage());
             }
         }
     }
