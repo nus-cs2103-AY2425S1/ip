@@ -127,7 +127,7 @@ public class TaskList {
      */
     public TaskList find(String targetWord) {
         ArrayList<Task> matchedTask = this.list.stream().filter(task -> task.find(targetWord))
-                .collect(Collectors.toCollection(ArrayList<Task>::new));
+                .collect(Collectors.toCollection(ArrayList<Task>::new));//stream is useful for filtering out from ArrayList
         return new TaskList(matchedTask);
     }
 
