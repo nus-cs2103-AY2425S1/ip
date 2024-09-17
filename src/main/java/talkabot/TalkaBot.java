@@ -228,7 +228,10 @@ public class TalkaBot {
         if (!isValidNumber(input, 7)) {
             throw new InvalidEditException("delete");
         }
+        int origSize = this.taskList.size();
+        assert origSize > 0;
         Task task = this.taskList.delete(Integer.parseInt(input.substring(7)) - 1);
+        assert this.taskList.size() == origSize - 1;
         storage.save(this.taskList);
         return this.ui.delete(task, this.taskList.size());
     }
