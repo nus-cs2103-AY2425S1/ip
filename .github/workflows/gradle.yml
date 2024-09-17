@@ -30,5 +30,9 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+        if: runner.os != 'Windows'
+
       - name: Build and check with Gradle
         run: ./gradlew check
