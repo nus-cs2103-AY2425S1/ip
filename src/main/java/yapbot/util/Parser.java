@@ -1,16 +1,8 @@
 package yapbot.util;
 
-import yapbot.commands.ByeCommand;
-import yapbot.commands.Command;
-import yapbot.commands.DeadlineCommand;
-import yapbot.commands.DeleteCommand;
-import yapbot.commands.EventCommand;
-import yapbot.commands.FindCommand;
-import yapbot.commands.ListCommand;
-import yapbot.commands.MarkCommand;
-import yapbot.commands.ToDoCommand;
-import yapbot.commands.UnmarkCommand;
+import yapbot.commands.*;
 import yapbot.exceptions.YapBotException;
+import yapbot.main.YapBot;
 
 /**
  * Processes user input and passes input accordingly to relevant classes.
@@ -24,7 +16,7 @@ public class Parser {
      * @return A Command instance based on user's entered command.
      * @throws YapBotException If no command was entered or if the command is invalid.
      */
-    public static Command parse(String input) throws YapBotException {
+    public static Command parse(String input, YapBot yapBot) throws YapBotException {
         if (input.isEmpty()) {
             throw new YapBotException("Error, User Input Prediction module offline.\nManual input required.");
         }
@@ -70,6 +62,12 @@ public class Parser {
 
         case "find":
             return new FindCommand(commandDetails);
+
+        case "load":
+            return new LoadCommand(commandDetails, yapBot);
+
+        case "save":
+            return new SaveCommand();
 
         default:
             throw new YapBotException("Error, supporting module for user command: \"" + command + "\" not "

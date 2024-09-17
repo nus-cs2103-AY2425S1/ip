@@ -1,5 +1,6 @@
 package yapbot.main;
 
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import yapbot.commands.ByeCommand;
@@ -55,9 +56,25 @@ public class YapBot {
      */
     public boolean close() {
         try {
-            new ByeCommand().execute(taskList, storage);
+            storage.save(taskList.saveTasks());
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public boolean changeLoadFile(String filepath) {
+        Storage tempStorage = this.storage;
+        TaskList tempTaskList = this.taskList;
+
+        try {
+            this.storage = new Storage(filepath);
+            this.taskList = new TaskList(storage.load());
             return true;
         } catch (YapBotException e) {
+            this.storage = tempStorage;
+            this.taskList = tempTaskList;
+
             return false;
         }
     }
@@ -76,7 +93,7 @@ public class YapBot {
         assert this.taskList != null: "TaskList not instantiated";
         assert this.storage != null: "Storage not instantiated";
 
-        Command c = Parser.parse(input);
+        Command c = Parser.parse(input, this);
         shouldExit = c.isExit();
 
         return c.execute(taskList, storage);
