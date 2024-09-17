@@ -68,7 +68,7 @@ public class Parser {
             List<String> todoParams = parseEvents(Command.TODO, result);
             addedTask = todoParams.size() == 1
                     ? list.addTask(Command.TODO, todoParams.get(0))
-                    : list.addTask(Command.TODO, todoParams.get(1), todoParams.get(1));
+                    : list.addTask(Command.TODO, todoParams.get(0), todoParams.get(1));
             break;
         case DEADLINE:
             List<String> deadlineParams = parseEvents(Command.DEADLINE, result);
