@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import exception.ElliotException;
+import javafx.concurrent.Task;
 import task.EventTask;
 import utility.CustomDateTimeFormatter;
 import utility.Storage;
 import utility.Strip;
+import utility.Tag;
 import utility.TaskList;
 import utility.Ui;
 
@@ -18,6 +20,7 @@ public class EventCommand extends Command {
     private final String taskDescription;
     private final LocalDateTime fromDateTime;
     private final LocalDateTime toDateTime;
+    private final Tag taskTag;
 
     /**
      * Creates a {@link EventCommand} object without any information on the details
@@ -28,13 +31,15 @@ public class EventCommand extends Command {
         this.taskDescription = "";
         this.fromDateTime = LocalDateTime.now();
         this.toDateTime = LocalDateTime.now();
+        this.taskTag = new Tag();
     }
 
     private EventCommand(String taskDescription, LocalDateTime fromDateTime,
-            LocalDateTime toDateTime) {
+            LocalDateTime toDateTime, Tag taskTag) {
         this.taskDescription = taskDescription;
         this.fromDateTime = fromDateTime;
         this.toDateTime = toDateTime;
+        this.taskTag = taskTag;
     }
 
     /**
@@ -73,12 +78,14 @@ public class EventCommand extends Command {
             fromDateTimeString = secondSplit[1];
             toDateTimeString = secondSplit[0];
         }
+        Tag extractedTaskTag = Tag.parseTagFromRawString(unparsedArguments);
         try {
             LocalDateTime resolvedFromDateTime = LocalDateTime.parse(fromDateTimeString,
                     CustomDateTimeFormatter.DATE_TIME_FORMATTER);
             LocalDateTime resolvedToDateTime = LocalDateTime.parse(toDateTimeString,
                     CustomDateTimeFormatter.DATE_TIME_FORMATTER);
-            return new EventCommand(firstSplit[0], resolvedFromDateTime, resolvedToDateTime);
+            return new EventCommand(firstSplit[0], resolvedFromDateTime,
+                    resolvedToDateTime, extractedTaskTag);
         } catch (DateTimeParseException e) {
             throw new ElliotException("date format incorrect. try dd-MM-yyyy hhmm (24hr)\n", e);
         }
@@ -94,7 +101,7 @@ public class EventCommand extends Command {
     @Override
     public TaskList runCommand(TaskList taskList, Storage storage) {
         TaskList newTaskList = taskList
-            .addTask(new EventTask(taskDescription, fromDateTime, toDateTime));
+            .addTask(new EventTask(taskDescription, fromDateTime, toDateTime, taskTag));
         Ui.say("Got it. I've added this task:\n"
                 + newTaskList.get(newTaskList.size() - 1) + "\n"
                 + "Now you have " + newTaskList.size() + " tasks in the list.\n");

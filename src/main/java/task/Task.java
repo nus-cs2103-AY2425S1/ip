@@ -3,6 +3,8 @@ package task;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
+import utility.Tag;
+
 /**
  * Provides a single task in a form of an object with properties such as task description and
  * a marker for whether a task is done. Serves as a parent class for all tasks related
@@ -11,20 +13,24 @@ import java.util.regex.Pattern;
 public class Task implements Serializable {
     protected final boolean isDone;
     protected final String taskDescription;
+    protected final Tag taskTag;
+
 
     /**
      * Default task constructor which will always initially be not done.
-     *
      * @param taskDescription a string to describe the task.
+     * @param taskTag a tag for the task
      */
-    public Task(String taskDescription) {
+    public Task(String taskDescription, Tag taskTag) {
         this.isDone = false;
         this.taskDescription = taskDescription;
+        this.taskTag = taskTag;
     }
 
-    protected Task(boolean isDone, String taskDescription) {
+    protected Task(boolean isDone, String taskDescription, Tag taskTag) {
         this.isDone = isDone;
         this.taskDescription = taskDescription;
+        this.taskTag = taskTag;
     }
 
     /**
@@ -36,6 +42,10 @@ public class Task implements Serializable {
         return searchTerm.matcher(taskDescription).find();
     }
 
+    public boolean ifTagMatch(String searchTerm) {
+        return taskTag.isMatch(searchTerm);
+    }
+
     /**
      * Marks task as done.
      *
@@ -44,7 +54,7 @@ public class Task implements Serializable {
     public Task markAsDone() {
         return isDone
             ? this
-            : new Task(true, this.taskDescription);
+            : new Task(true, this.taskDescription, this.taskTag);
     }
 
     /**
@@ -54,7 +64,7 @@ public class Task implements Serializable {
      */
     public Task markAsUndone() {
         return isDone
-            ? new Task(this.taskDescription)
+            ? new Task(this.taskDescription, this.taskTag)
             : this;
     }
 

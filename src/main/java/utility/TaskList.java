@@ -72,7 +72,7 @@ public class TaskList implements Serializable {
     public Task get(int taskIndex) {
         return taskIndex < imTaskList.size() && taskIndex >= 0
             ? imTaskList.get(taskIndex)
-            : new Task("");
+            : new Task("", new Tag());
     }
 
     /**

@@ -3,6 +3,7 @@ package task;
 import java.time.LocalDateTime;
 
 import utility.CustomDateTimeFormatter;
+import utility.Tag;
 
 /**
  * The deadline task is a specific implementation of {@link Task} with one additional date
@@ -14,13 +15,14 @@ public class DeadlineTask extends Task {
     /**
      * {@inheritDoc}
      */
-    public DeadlineTask(String taskDescription, LocalDateTime deadlineDateTime) {
-        super(taskDescription);
+    public DeadlineTask(String taskDescription, LocalDateTime deadlineDateTime, Tag taskTag) {
+        super(taskDescription, taskTag);
         this.deadlineDateTime = deadlineDateTime;
     }
 
-    private DeadlineTask(boolean isDone, String taskDescription, LocalDateTime deadlineDateTime) {
-        super(isDone, taskDescription);
+    private DeadlineTask(boolean isDone, String taskDescription,
+            LocalDateTime deadlineDateTime, Tag taskTag) {
+        super(isDone, taskDescription, taskTag);
         this.deadlineDateTime = deadlineDateTime;
     }
 
@@ -31,7 +33,8 @@ public class DeadlineTask extends Task {
     public Task markAsDone() {
         return super.isDone
             ? this
-            : new DeadlineTask(true, super.taskDescription, this.deadlineDateTime);
+            : new DeadlineTask(true, super.taskDescription,
+                    this.deadlineDateTime, this.taskTag);
     }
 
     /**
@@ -40,7 +43,8 @@ public class DeadlineTask extends Task {
     @Override
     public Task markAsUndone() {
         return super.isDone
-            ? new DeadlineTask(false, super.taskDescription, this.deadlineDateTime)
+            ? new DeadlineTask(false, super.taskDescription,
+                    this.deadlineDateTime, this.taskTag)
             : this;
     }
 

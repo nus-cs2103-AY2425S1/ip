@@ -15,7 +15,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.size());
         assertFalse(taskList.isValidIndex(0));
-        taskList = taskList.addTask(new Task("test"));
+        taskList = taskList.addTask(new Task("test", new Tag()));
         assertFalse(taskList.isValidIndex(1));
         assertTrue(taskList.isValidIndex(0));
     }

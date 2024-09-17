@@ -14,7 +14,8 @@ public enum CommandType {
     DEADLINE("deadline", new DeadlineCommand()),
     EVENT("event", new EventCommand()),
     BYE("bye", new ByeCommand()),
-    FIND("find", new FindCommand());
+    FIND("find", new FindCommand()),
+    FINDTAG("findtag", new FindTagCommand());
 
     private final String commandString;
     private final Command command;
