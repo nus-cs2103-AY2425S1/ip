@@ -9,6 +9,7 @@ import easton.exception.DateTimeFormatException;
 import easton.exception.EmptyDescriptionException;
 import easton.exception.InvalidFormatException;
 import easton.exception.InvalidIndexException;
+import easton.exception.InvalidParseInputException;
 import easton.model.Deadline;
 import easton.model.Event;
 import easton.model.Task;
@@ -226,50 +227,65 @@ public class Easton {
      * @return A list of tasks.
      */
     public ArrayList<Task> retrieveTasks() {
-        ArrayList<Task> taskArrayList = new ArrayList<>();
         ArrayList<String> records = new ArrayList<>();
-        Task task;
         try {
             records = storage.retrieveRecords();
         } catch (IOException e) {
             Ui.displayToConsole("Could not retrieve tasks from storage.");
         }
 
+        ArrayList<Task> taskArrayList = new ArrayList<>();
         for (String record : records) {
-            String[] data = record.split(",");
-            switch (data[0]) {
-            case "T":
-                task = new ToDo(data[2]);
-                break;
-            case "D":
-                try {
-                    task = new Deadline(data[2], data[3]);
-                } catch (DateTimeFormatException e) {
-                    Ui.displayToConsole("easton.model.Deadline ("
-                            + data[2]
-                            + ") is using the wrong DateTime Format, the record is voided.");
-                    continue;
-                }
-                break;
-            case "E":
-                try {
-                    task = new Event(data[2], data[3], data[4]);
-                } catch (DateTimeFormatException e) {
-                    Ui.displayToConsole("easton.model.Event ("
-                            + data[2]
-                            + ") is using the wrong DateTime Format, the record is voided.");
-                    continue;
-                }
-                break;
-            default:
-                continue;
+            try {
+                Task task = parseTask(record);
+                taskArrayList.add(task);
+            } catch (DateTimeFormatException | InvalidParseInputException e) {
+                Ui.displayToConsole(e.getMessage());
             }
-
-            task.setDone(data[1].equals("1"));
-            taskArrayList.add(task);
         }
 
         return taskArrayList;
+    }
+
+    /**
+     * Parses a record of type string into a task object.
+     * If the datetime format is wrong, an exception is thrown.
+     * If the record cannot be parsed to any kind of task, an exception is thrown.
+     *
+     * @param record Record to be parsed.
+     * @return A new task object.
+     * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
+     * @throws InvalidParseInputException If the record to be parsed is invalid.
+     */
+    public static Task parseTask(String record) throws DateTimeFormatException, InvalidParseInputException {
+        String[] data = record.split(",");
+
+        Task task;
+        switch (data[0]) {
+        case "T":
+            if (data.length != 3) {
+                throw new InvalidParseInputException(record, "Task");
+            }
+            task = new ToDo(data[2]);
+            break;
+        case "D":
+            if (data.length != 4) {
+                throw new InvalidParseInputException(record, "Task");
+            }
+            task = new Deadline(data[2], data[3]);
+            break;
+        case "E":
+            if (data.length != 5) {
+                throw new InvalidParseInputException(record, "Task");
+            }
+            task = new Event(data[2], data[3], data[4]);
+            break;
+        default:
+            throw new InvalidParseInputException(record, "Task");
+        }
+
+        task.setDone(data[1].equals("1"));
+        return task;
     }
 
     /**
@@ -279,7 +295,7 @@ public class Easton {
         ArrayList<String> records = new ArrayList<>();
 
         for (Task task : tasks) {
-            records.add(task.getCsvFormat() + "\n");
+            records.add(task.getCsvFormat());
         }
 
         storage.saveRecords(records);
