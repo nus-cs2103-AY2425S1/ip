@@ -26,6 +26,25 @@ public class Deadline extends Task {
     }
 
     /**
+     * Compares this deadline task with another object to check for equality.
+     * Deadline tasks are considered equal if their descriptions, status (isDone), and deadlines are the same.
+     *
+     * @param obj The object to compare with this deadline task.
+     * @return true if the given object is equal to this deadline task, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Deadline) {
+            Deadline other = (Deadline) obj;
+            return this.description.equals(other.description) && this.by.equals(other.by);
+        }
+        return false;
+    }
+
+    /**
      * Returns a string representation of the Deadline in a user-readable format.
      *
      * @return A string representation of the Deadline, including its status, description, and due date/time.

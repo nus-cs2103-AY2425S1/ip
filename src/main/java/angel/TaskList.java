@@ -28,12 +28,31 @@ public class TaskList {
     }
 
     /**
+     * Checks if the given task is a duplicate of an existing task.
+     *
+     * @param task The task to check for duplication.
+     * @return true if the task is a duplicate, false otherwise.
+     */
+    public boolean isDuplicateTask(Task task) {
+        for (Task existingTask : tasks) {
+            if (existingTask.equals(task)) {
+                return true; // Duplicate task found
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a new task to the list and saves the updated list.
+     * If the task is a duplicate, it will not be added.
      *
      * @param task The task to be added.
      * @throws AngelException If there is an error while saving tasks.
      */
     public void addTask(Task task) throws AngelException {
+        if (isDuplicateTask(task)) {
+            throw new AngelException("Duplicate task detected: This task already exists.");
+        }
         tasks.add(task);
         saveTasks();
     }

@@ -62,4 +62,23 @@ public abstract class Task {
     public String toSaveFormat() {
         return (isDone ? "1" : "0") + " | " + description;
     }
+
+    /**
+     * Compares this task with another object to check for equality.
+     * Tasks are considered equal if their descriptions and status (isDone) are the same.
+     *
+     * @param obj The object to compare with this task.
+     * @return true if the given object is equal to this task, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Task) {
+            Task otherTask = (Task) obj;
+            return this.description.equals(otherTask.description);
+        }
+        return false;
+    }
 }
