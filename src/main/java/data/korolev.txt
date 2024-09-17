@@ -1,2 +1,3 @@
-[T][ ] t1  [tag:]
-[T][ ] t2  [tag:]
+[E][ ] project sputnik  (from: 00:00 Jan 1 1990 to: 00:00 Jan 1 1991)  [tag:urgent ]
+[D][ ] meet Yuri Gagarin  (by 21:00 Jan 1 1950)  [tag:important ]
+[T][ ] read Das Kapital    [tag:]

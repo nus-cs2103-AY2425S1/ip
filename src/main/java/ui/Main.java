@@ -24,6 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            stage.setTitle("Duke Korolev");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
