@@ -28,8 +28,8 @@ public class Deadline extends Task {
      */
     public String toString() {
         String byDateTimeToString = this.byDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
-        String doneSymbol = super.getIsDone() ? "[X]" : "[ ]";
-        return String.format("[T]%s %s (BY: %s)", doneSymbol, super.getName(), byDateTimeToString);
+        String doneSymbol = super.getIsDone() ? Task.DONE_SYMBOL : Task.UNDONE_SYMBOL;
+        return String.format("[D]%s %s (BY: %s)", doneSymbol, super.getName(), byDateTimeToString);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Deadline extends Task {
      * @return String representation of the Deadline object.
      */
     public String toFile() {
-        String fileDoneSymbol = super.getIsDone() ? "D" : "N";
+        String fileDoneSymbol = super.getIsDone() ? Task.FILE_DONE_SYMBOL : Task.FILE_UNDONE_SYMBOL;
         return String.format("D %s--%s--%s", fileDoneSymbol, super.getName(), this.byDateTime);
     }
 
