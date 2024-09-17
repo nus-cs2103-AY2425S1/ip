@@ -42,7 +42,8 @@ public class FindCommand extends Command {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             Task specificTask = taskList.get(i);
-            if (specificTask.description.toLowerCase().contains(wordToMatch.toLowerCase())) {
+            String specificTaskString = specificTask.description.toLowerCase();
+            if (specificTaskString.contains(wordToMatch.toLowerCase())) {
                 integerList.add(i);
             }
         }
