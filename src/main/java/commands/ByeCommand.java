@@ -1,6 +1,7 @@
 package commands;
 
-import storage.TaskStorage.TaskStorage;
+import storage.task.TaskStorage;
+import storage.temp.TempStorage;
 import task.TaskList;
 
 /**
@@ -29,7 +30,9 @@ public class ByeCommand extends Command {
      * </p>
      */
     @Override
-    public String execute(TaskStorage taskStorage, TaskList tasks) {
+    public String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) {
+        tempStorage.setPreviousCommand("bye");
+
         return this.getResponse();
     }
 }

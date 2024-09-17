@@ -1,4 +1,4 @@
-package storage.TaskStorage.TaskManager;
+package storage.task.manager;
 
 import task.Task;
 import task.ToDo;

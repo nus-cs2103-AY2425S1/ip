@@ -9,6 +9,7 @@ import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.TodoCommand;
+import commands.UndoCommand;
 import commands.UnmarkCommand;
 import exceptions.BrockException;
 
@@ -42,6 +43,7 @@ public class Parser {
             case "deadline" -> new DeadlineCommand(command);
             case "event" -> new EventCommand(command);
             case "find" -> new FindCommand(command);
+            case "undo" -> new UndoCommand(command);
             default -> throw new BrockException("Invalid command!");
         };
         // CHECKSTYLE.ON: Indentation

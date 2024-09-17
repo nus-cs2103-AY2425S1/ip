@@ -1,4 +1,4 @@
-package storage.TaskStorage.TaskManager;
+package storage.task.manager;
 
 import exceptions.BrockException;
 import task.Event;
@@ -55,7 +55,7 @@ public class EventManager extends TaskManager {
         String dateTime = parts[1];
         String[] dateTimeParts = dateTime.split(" \\| ", 2);
         if (dateTimeParts.length < 2) {
-           throw new BrockException("Invalid event entry - missing start end date separator!");
+            throw new BrockException("Invalid event entry - missing start end date separator!");
         }
 
         String[] startValues = this.processStartDateTime(dateTimeParts[0]);

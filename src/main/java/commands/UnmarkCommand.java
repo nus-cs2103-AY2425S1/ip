@@ -1,7 +1,8 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.TaskStorage.TaskStorage;
+import storage.task.TaskStorage;
+import storage.temp.TempStorage;
 import task.TaskList;
 import utility.CommandUtility;
 
@@ -24,10 +25,7 @@ public class UnmarkCommand extends Command {
         taskStorage.writeToFile(tasksString, true);
     }
 
-    private String getResponse(TaskList tasks, int taskIndex, boolean isSuccessful) {
-        if (!isSuccessful) {
-            return "Task has not been marked yet!";
-        }
+    private String getResponse(TaskList tasks, int taskIndex) {
         return "OK, I've marked this task as not done yet:\n"
                 + "  " + tasks.getTaskDetails(taskIndex);
     }
@@ -44,13 +42,20 @@ public class UnmarkCommand extends Command {
      * @throws BrockException If unmark command is invalid.
      */
     @Override
-    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) throws BrockException {
         String command = super.getCommand();
         CommandUtility.validateStatus(command, CommandUtility.Action.UNMARK, tasks);
         int taskIndex = CommandUtility.getTaskIndex(command);
+
         boolean isSuccessful = tasks.unmarkTask(taskIndex);
+        if (!isSuccessful) {
+            throw new BrockException("Task has not been marked yet!");
+        }
+
+        tempStorage.setPreviousCommand("unmark");
+        tempStorage.setLastToggledTaskNum(taskIndex + 1);
 
         this.updateSaveFile(taskStorage, tasks);
-        return this.getResponse(tasks, taskIndex, isSuccessful);
+        return this.getResponse(tasks, taskIndex);
     }
 }

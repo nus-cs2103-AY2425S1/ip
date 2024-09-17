@@ -1,5 +1,1 @@
-1. [T][ ] sex 
-2. [D][ ] asdas (by: Oct 11 2024)
-3. [D][ ] alskd a (by: Oct 11 2024, 10:00)
-4. [E][X] asda (from: Oct 10 2024 | to: Oct 11 2024)
-5. [E][ ] asd as (from: Oct 10 2024, 10:00 | to: Oct 10 2024, 10:22)
+1. [T][X] asda 

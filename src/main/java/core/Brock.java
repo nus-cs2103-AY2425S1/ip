@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import commands.Command;
 import exceptions.BrockException;
 import parser.Parser;
-import storage.TaskStorage.TaskStorage;
+import storage.task.TaskStorage;
+import storage.temp.TempStorage;
 import task.Task;
 import task.TaskList;
 import utility.Pair;
@@ -17,6 +18,7 @@ import utility.Pair;
  */
 public class Brock {
     private static final TaskStorage TASK_STORAGE = new TaskStorage();
+    private static final TempStorage TEMP_STORAGE = new TempStorage();
     private static final Parser PARSER = new Parser();
 
     /**
@@ -87,7 +89,7 @@ public class Brock {
         isExit = processedCommand.equalsIgnoreCase("bye");
         try {
             Command commandObj = PARSER.handleCommand(processedCommand);
-            overallResponse = commandObj.execute(TASK_STORAGE, tasks);
+            overallResponse = commandObj.execute(TASK_STORAGE, TEMP_STORAGE, tasks);
 
         } catch (BrockException e) {
             overallResponse = e.getMessage();

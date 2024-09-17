@@ -1,4 +1,4 @@
-package storage.TaskStorage;
+package storage.task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 import exceptions.BrockException;
-import storage.TaskStorage.TaskManager.DeadlineManager;
-import storage.TaskStorage.TaskManager.EventManager;
-import storage.TaskStorage.TaskManager.TaskManager;
-import storage.TaskStorage.TaskManager.TodoManager;
+import storage.task.manager.DeadlineManager;
+import storage.task.manager.EventManager;
+import storage.task.manager.TaskManager;
+import storage.task.manager.TodoManager;
 import task.Task;
 
 /**

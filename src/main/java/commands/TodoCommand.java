@@ -1,7 +1,8 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.TaskStorage.TaskStorage;
+import storage.task.TaskStorage;
+import storage.temp.TempStorage;
 import task.Task;
 import task.TaskList;
 import task.ToDo;
@@ -76,9 +77,12 @@ public class TodoCommand extends Command {
      * @throws BrockException If todo command is invalid.
      */
     @Override
-    public String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException {
+    public String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) throws BrockException {
         Task todoTask = this.createTodo();
         tasks.addToList(todoTask);
+
+        tempStorage.setPreviousCommand("todo");
+        tempStorage.setLastCreatedTaskNum(tasks.numTasks());
 
         this.updateSaveFile(taskStorage, tasks, todoTask);
         return this.getResponse(tasks, todoTask);

@@ -1,7 +1,8 @@
 package commands;
 
 import exceptions.BrockException;
-import storage.TaskStorage.TaskStorage;
+import storage.task.TaskStorage;
+import storage.temp.TempStorage;
 import task.TaskList;
 
 /**
@@ -37,5 +38,5 @@ public abstract class Command {
      * @return Response string after executing the command.
      * @throws BrockException If there are any issues with running the command.
      */
-    public abstract String execute(TaskStorage taskStorage, TaskList tasks) throws BrockException;
+    public abstract String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) throws BrockException;
 }

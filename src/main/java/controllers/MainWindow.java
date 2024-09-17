@@ -5,8 +5,6 @@ import java.util.Objects;
 import core.Brock;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -24,6 +22,8 @@ import utility.Pair;
  * Controller class for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    private static final double SCROLL_AMOUNT = 0.0007;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -43,9 +43,6 @@ public class MainWindow extends AnchorPane {
     private final Image brockImage =
             new Image(Objects.requireNonNull(this.getClass()
                     .getResourceAsStream("/images/DaBrock.jpg")));
-
-    private static final double SCROLL_AMOUNT = 0.0007;
-
     /**
      * Initializes the controller class.
      */
@@ -58,7 +55,7 @@ public class MainWindow extends AnchorPane {
 
     private void setupScroll() {
         // Add listener function that listens to height of dialog container
-        // When height varies (ie: user + brock dialog added)
+        // When height increases (ie: user + brock dialog added), apply the listener function
         // Scroll to the very bottom
         this.dialogContainer.heightProperty().addListener((obs, oldBounds, newBounds) -> {
             scrollPane.setVvalue(scrollPane.getVmax());
