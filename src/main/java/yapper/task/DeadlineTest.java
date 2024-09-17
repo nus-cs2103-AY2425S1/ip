@@ -1,7 +1,8 @@
 package yapper.task;
 
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import yapper.exception.YapperException;
 
 public class DeadlineTest {
@@ -39,6 +40,5 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("Submit report", "2024-10-10 1800");
         deadline.markAsDone();
         assertTrue(deadline.isDone(), "Deadline should be marked as done");
-    }
+    }d
 }
-
