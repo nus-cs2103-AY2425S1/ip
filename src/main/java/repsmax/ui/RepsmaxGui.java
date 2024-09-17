@@ -1,10 +1,11 @@
-package repsmax;
+package repsmax.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import repsmax.logic.Repsmax;
 
 public class RepsmaxGui extends Application {
 

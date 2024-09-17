@@ -1,4 +1,7 @@
-package repsmax;
+package repsmax.storage;
+
+import repsmax.logic.TaskList;
+import repsmax.model.Task;
 
 import java.io.File;
 import java.io.FileWriter;

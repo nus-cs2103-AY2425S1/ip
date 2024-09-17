@@ -1,6 +1,7 @@
-package repsmax;
+package repsmax.ui;
 
 import javafx.application.Application;
+import repsmax.ui.RepsmaxGui;
 
 /**
  * A launcher class to workaround classpath issues.

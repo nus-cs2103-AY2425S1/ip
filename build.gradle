@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("repsmax.Launcher")
+    mainClass.set("repsmax.ui.Launcher")
 }
 
 shadowJar {

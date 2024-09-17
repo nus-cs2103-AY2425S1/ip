@@ -1,6 +1,7 @@
-package repsmax;
+package repsmax.logic;
 
-import javafx.application.Application;
+import repsmax.storage.Storage;
+import repsmax.ui.Ui;
 
 /**
  * Represents the main class of the Repsmax application.

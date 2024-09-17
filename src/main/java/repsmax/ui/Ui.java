@@ -1,6 +1,7 @@
-package repsmax;
+package repsmax.ui;
 
-import java.util.Scanner;
+import repsmax.model.Task;
+
 import java.util.List;
 
 /**

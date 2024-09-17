@@ -11,7 +11,7 @@
             prefHeight="600.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="repsmax.MainWindow">
+            fx:controller="repsmax.ui.MainWindow">
     <children>
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER"

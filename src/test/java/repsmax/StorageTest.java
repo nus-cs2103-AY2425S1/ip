@@ -1,9 +1,12 @@
 package repsmax;
 
 import org.junit.jupiter.api.Test;
+import repsmax.logic.TaskList;
+import repsmax.model.Task;
+import repsmax.storage.Storage;
+
 import java.io.File;
-import java.io.FileWriter;
-import java.util.Scanner;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {

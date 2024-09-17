@@ -1,4 +1,4 @@
-package repsmax;
+package repsmax.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,6 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import repsmax.logic.Repsmax;
 
 /**
  * The main window controller for the Repsmax application.

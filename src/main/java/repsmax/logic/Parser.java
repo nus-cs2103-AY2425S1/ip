@@ -1,6 +1,18 @@
-package repsmax;
+package repsmax.logic;
+
+import repsmax.storage.Storage;
+import repsmax.model.Deadline;
+import repsmax.model.Event;
+import repsmax.model.Task;
+import repsmax.model.Todo;
+import repsmax.ui.Ui;
+
 
 import java.util.List;
+import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Parses user inputs and executes the corresponding commands.
@@ -183,28 +195,66 @@ public class Parser {
      */
     private String handleDeadlineCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
+            if (splitInput.length < 2) {
+                return "OOPS!!! The deadline command must include a description, '/by <date/time>' and optional '/priority <level>'";
+            }
+
             String[] parts = splitInput[1].split("/by ", 2);
-            String description = parts[0];
-            String by = parts[1];
+            if (parts.length < 2) {
+                return "OOPS!!! The deadline command must include '/by <date/time>'";
+            }
+
+            String description = parts[0].trim();
+            String byPart = parts[1].trim();
             int priority = 3; // Default priority is low
-            if (parts.length > 1) {
+
+            // Check for priority and split appropriately
+            if (byPart.contains("/priority")) {
+                String[] byPriorityParts = byPart.split("/priority", 2);
+                byPart = byPriorityParts[0].trim();
+                String priorityStr = byPriorityParts[1].trim();
+
+                // Validate priority
                 try {
-                    priority = Integer.parseInt(parts[1].trim());
+                    priority = Integer.parseInt(priorityStr);
                     if (priority < 1 || priority > 3) {
-                        return "OOPS!!! Priority level must be 1, 2, or 3.";
+                        return "OOPS!!! Priority level must be 1 (high), 2 (medium), or 3 (low).";
                     }
                 } catch (NumberFormatException e) {
-                    return "OOPS!!! The priority level must be an integer.";
+                    return "OOPS!!! The priority level must be a valid integer.";
                 }
             }
-            tasks.add(new Deadline(description, by, priority));
+
+            // Debugging output (optional)
+            System.out.println("Description: " + description);
+            System.out.println("By: " + byPart);
+            System.out.println("Priority: " + priority);
+
+            // Validate and parse the date and time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime deadlineDateTime;
+            try {
+                deadlineDateTime = LocalDateTime.parse(byPart, formatter);
+            } catch (DateTimeParseException e) {
+                return "OOPS!!! The date/time format should be 'yyyy-MM-dd HHmm'.";
+            }
+
+            // Add the new deadline task to the task list
+            Deadline newDeadline = new Deadline(description, deadlineDateTime, priority);
+            tasks.add(newDeadline);
             storage.save(tasks);
-            return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
-                    "\nNow you have " + tasks.size() + " tasks in the list.";
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return "OOPS!!! The deadline command must include '/by <date/time>' and optional '/priority <level>'";
+
+            return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
+                    newDeadline, tasks.size());
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Print the stack trace for debugging purposes
+            return "Something went wrong while processing the command.";
         }
     }
+
+
+
 
 
     /**
@@ -218,30 +268,54 @@ public class Parser {
      */
     private String handleEventCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
+            // Split the input on "/from "
             String[] parts = splitInput[1].split("/from ", 2);
-            String[] fromTo = parts[1].split("/to ", 2);
-            String description = parts[0];
-            String from = fromTo[0];
-            String to = fromTo[1];
+
+            // Check if the input contains "/priority" and handle accordingly
+            String[] fromTo;
+            String description;
             int priority = 3; // Default priority is low
-            if (parts.length > 1) {
+
+            if (parts[1].contains("/priority")) {
+                // Split by "/priority " and process priority
+                String[] fromToPriority = parts[1].split("/priority ", 2);
+                fromTo = fromToPriority[0].split("/to ", 2);
+                description = parts[0];
+                String from = fromTo[0].trim();
+                String to = fromTo[1].trim();
+
                 try {
-                    priority = Integer.parseInt(parts[1].trim());
+                    priority = Integer.parseInt(fromToPriority[1].trim());
                     if (priority < 1 || priority > 3) {
                         return "OOPS!!! Priority level must be 1, 2, or 3.";
                     }
                 } catch (NumberFormatException e) {
                     return "OOPS!!! The priority level must be an integer.";
                 }
+
+            } else {
+                // If no "/priority", proceed normally
+                fromTo = parts[1].split("/to ", 2);
+                description = parts[0];
             }
+
+            String from = fromTo[0].trim();
+            String to = fromTo[1].trim();
+
+            // Add the event to the task list
             tasks.add(new Event(description, from, to, priority));
             storage.save(tasks);
+
             return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
                     "\nNow you have " + tasks.size() + " tasks in the list.";
+
         } catch (ArrayIndexOutOfBoundsException e) {
             return "OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>' and optional '/priority <level>'";
         }
     }
+
+
+
 
     /**
      * Handles the "delete" command, removing a task from the list.

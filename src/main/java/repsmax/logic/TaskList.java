@@ -1,8 +1,8 @@
-package repsmax;
+package repsmax.logic;
 
 import java.util.List;
 import java.util.ArrayList;
-import repsmax.Task;
+import repsmax.model.Task;
 import java.util.stream.Collectors;
 
 /**

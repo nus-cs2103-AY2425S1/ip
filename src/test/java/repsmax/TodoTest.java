@@ -1,6 +1,8 @@
 package repsmax;
 
 import org.junit.jupiter.api.Test;
+import repsmax.model.Todo;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TodoTest {

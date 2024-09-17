@@ -1,4 +1,4 @@
-package repsmax;
+package repsmax.model;
 
 /**
  * Represents a task with a description and completion status.

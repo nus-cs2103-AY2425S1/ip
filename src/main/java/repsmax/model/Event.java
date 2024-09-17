@@ -1,4 +1,8 @@
-package repsmax;
+package repsmax.model;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task that occurs within a specific time frame.
@@ -7,10 +11,10 @@ package repsmax;
 public class Event extends Task {
 
     /** The start date/time of the event. */
-    protected String from;
+    private LocalDateTime from;
 
     /** The end date/time of the event. */
-    protected String to;
+    private LocalDateTime to;
 
     /**
      * Constructs a new Event object with the specified description, start time, and end time.
@@ -21,8 +25,22 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to, int priority) {
         super(description, priority);
-        this.from = from;
-        this.to = to;
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
+
+        if (this.from == null || this.to == null) {
+            throw new IllegalArgumentException("Invalid date format. Use 'yyyy-MM-dd HHmm'.");
+        }
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            return LocalDateTime.parse(dateTime, formatter);
+        } catch (DateTimeParseException e) {
+            // Return null if parsing fails
+            return null;
+        }
     }
 
     /**
@@ -32,7 +50,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+        // Check for null values before formatting
+        String fromStr = (from != null) ? from.format(formatter) : "Invalid start time";
+        String toStr = (to != null) ? to.format(formatter) : "Invalid end time";
+
+        return "[E]" + super.toString() + " (from: " + fromStr + " to: " + toStr + ")";
     }
 
     /**

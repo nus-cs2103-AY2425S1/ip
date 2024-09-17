@@ -1,3 +1,5 @@
+package repsmax.exceptions;
+
 /**
  * Represents a custom exception for the Repsmax application.
  * This class extends the standard {@link Exception} class to provide
@@ -6,7 +8,7 @@
 public class RepsmaxException extends Exception {
 
     /**
-     * Constructs a new RepsmaxException with the specified detail message.
+     * Constructs a new repsmax.exceptions.RepsmaxException with the specified detail message.
      * The detail message is a string that describes the error or exception
      * that occurred.
      *
