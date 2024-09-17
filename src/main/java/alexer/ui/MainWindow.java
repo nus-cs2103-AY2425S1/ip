@@ -1,5 +1,6 @@
 package alexer.ui;
 
+import alexer.Alexer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -36,11 +37,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = "Okay";
-        dialogContainer.getChildren().addAll(
-                MessageBox.createUserDialog(input, userImage),
-                MessageBox.createBotDialog(response, dukeImage)
-        );
+        Response response = Alexer.getInstance().processInput(input);
+        dialogContainer.getChildren().add(MessageBox.createUserDialog(input, userImage));
+        if (response != null) {
+            dialogContainer.getChildren().add(MessageBox.createBotDialog(response.toString(), dukeImage));
+        }
         userInput.clear();
     }
 }
