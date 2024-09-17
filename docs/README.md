@@ -1,7 +1,7 @@
 # User Guide to Ollie :dog:
 
 ## Key Commands
-***
+
 ### 1. Displaying List
 To display the list of tasks: `/list` 
 
@@ -9,7 +9,7 @@ To display the list of tasks: `/list`
 ```
 /list
 ```
-***
+---
 ### 2. Adding Todo Task
 To add a todo task:  `/todo <Your Task>`  
 
@@ -17,7 +17,7 @@ To add a todo task:  `/todo <Your Task>`
 ```
 /todo Clean room
 ```
-***
+---
 ### 3. Adding Deadline Task
 To add a deadline task: `/deadline <Your Task> /by <Date in yyyy-mm-dd>`  
 
@@ -25,7 +25,7 @@ To add a deadline task: `/deadline <Your Task> /by <Date in yyyy-mm-dd>`
 ```
 /deadline Submit project /by 2024-09-30
 ```
-***
+---
 ### 4. Adding Event Task
 To add an event task: `/event <Your Task> /from <Date in yyyy-mm-dd> /to <Date in yyyy-mm-dd>`  
 
@@ -33,7 +33,7 @@ To add an event task: `/event <Your Task> /from <Date in yyyy-mm-dd> /to <Date i
 ```
 /event Attend conference /from 2024-10-01 /to 2024-10-03
 ```
-***
+---
 ### 5. Deleting a Task
 To delete a task: `/delete <Task's Serial Number>`  
 
@@ -41,7 +41,7 @@ To delete a task: `/delete <Task's Serial Number>`
 ```
 /delete 2
 ```
-***
+---
 ### 6. Marking a Task as Completed
 To mark a task as completed: `/mark <Task's Serial Number>`
 
@@ -49,7 +49,7 @@ To mark a task as completed: `/mark <Task's Serial Number>`
 ```
 /mark 1
 ```
-***
+---
 ### 7. Unmarking a Task
 To mark a task as not completed: `/unmark <Task's Serial Number>`  
 
@@ -57,7 +57,7 @@ To mark a task as not completed: `/unmark <Task's Serial Number>`
 ```
 /unmark 1
 ```
-***
+---
 ### 8. Finding a Task
 To find a task based on a keyword: `/find <Keyword>`  
 
@@ -65,7 +65,7 @@ To find a task based on a keyword: `/find <Keyword>`
 ```
 /find project
 ```
-***
+---
 ### 9. Undoing the Previous Command
 To undo the previous command: `/undo`  
 
@@ -73,7 +73,7 @@ To undo the previous command: `/undo`
 ```
 /undo
 ```
-***
+---
 ### 10. Exiting the Program
 To exit the program and save your progress: `/bye`  
 
