@@ -44,6 +44,8 @@ public class Dgpt {
             return Parser.parse(s, tasks, storage);
         } catch (TaskNotFoundException | IncorrectInputException e) {
             return Ui.errorUi(e);
+        } catch (Exception e) {
+            return "Unknown Error!";
         }
     }
 }

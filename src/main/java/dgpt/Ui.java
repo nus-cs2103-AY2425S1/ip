@@ -79,7 +79,7 @@ public class Ui {
      * @return A formatted string of the exception message.
      */
     public static String errorUi(Exception e) {
-        return e.getMessage() + "\n";
+        return "Error: " + e.getMessage() + "\n";
     }
 
     /**
