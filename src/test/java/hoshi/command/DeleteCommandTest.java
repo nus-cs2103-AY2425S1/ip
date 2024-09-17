@@ -56,7 +56,7 @@ public class DeleteCommandTest {
         String response = deleteCommand.execute(tasks, ui, storage);
 
         // assert
-        assertEquals("OK, Hoshi has removed ( Mocked Description )!", response);
+        assertEquals("OK, Hoshi has removed (Mocked Description)!", response);
 
     }
 
