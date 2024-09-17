@@ -1,10 +1,13 @@
 # Jade User Guide
 
-![Product Screenshot](Ui.png)
-
 Welcome to **Jade**, a task management application designed to help you keep track of your tasks efficiently. 
 You can add, list, mark, delete, and find tasks, as well as sort them based on different criteria.
 
+Download the latest version of the Jade project from the [Releases page](https://github.com/wubojin/ip/releases/tag/v1.0.0).
+
+Here's a preview of the product:
+
+![Product Screenshot](Ui.png)
 
 ## Adding a Todo task
 
