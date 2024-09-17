@@ -1,4 +1,4 @@
-package Arona.Tasks;
+package arona.Tasks;
 
 public class Todo extends Task {
     protected String by;

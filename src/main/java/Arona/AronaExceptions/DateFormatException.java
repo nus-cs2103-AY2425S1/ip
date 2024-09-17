@@ -1,4 +1,4 @@
-package Arona.AronaExceptions;
+package arona.AronaExceptions;
 
 public class DateFormatException extends AronaException {
     /**

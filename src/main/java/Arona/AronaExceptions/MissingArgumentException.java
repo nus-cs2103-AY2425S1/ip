@@ -1,6 +1,6 @@
-package Arona.AronaExceptions;
+package arona.AronaExceptions;
 
-import Arona.Command;
+import arona.Command;
 
 public class MissingArgumentException extends AronaException {
     /**
@@ -18,9 +18,9 @@ public class MissingArgumentException extends AronaException {
         case TODO:
             return "Please input a task description, Sensei!";
         case DEADLINE:
-            return "Please input description and by date, Sensei!.";
+            return "Please input description and by date, Sensei!";
         case EVENT:
-            return "Please input description, from date, and to date, Sensei!.";
+            return "Please input description, from date, and to date, Sensei!";
         case FIND:
             return "Sensei, tell me a keyword to look for!";
         case ARCHIVE:

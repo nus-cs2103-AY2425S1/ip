@@ -1,4 +1,4 @@
-package Arona;
+package arona;
 
 import javafx.application.Application;
 

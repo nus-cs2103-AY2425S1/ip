@@ -1,4 +1,4 @@
-package Arona;
+package arona;
 
 public enum Command {
     DELETE,

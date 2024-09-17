@@ -1,4 +1,4 @@
-package Arona;
+package arona;
 
 import java.io.IOException;
 import java.util.Collections;

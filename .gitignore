@@ -2,7 +2,6 @@
 /.idea/
 /out/
 /*.iml
-*.MF
 
 # Gradle build files
 /.gradle/

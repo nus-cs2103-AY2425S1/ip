@@ -1,6 +1,6 @@
-package Arona;
+package arona;
 
-import Arona.AronaExceptions.AronaException;
+import arona.AronaExceptions.AronaException;
 import java.nio.file.InvalidPathException;
 
 public class Arona {
@@ -31,7 +31,7 @@ public class Arona {
     }
 
     /**
-     * Overloaded constructor for JavaFX
+     * Constructor for JavaFX, overloaded
      */
     public Arona() {
         this(".\\data.txt");
@@ -40,6 +40,7 @@ public class Arona {
     /**
      * Entry to main logic from GUI
      * @param  input  the unprocessed String input from the user
+     * @return A String message which is displayed by GUI
      */
     public String getResponse(String input) {
         assert storage != null : "storage should be instantiated";
@@ -47,28 +48,21 @@ public class Arona {
         assert parser != null : "parser should be instantiated";
         assert ui != null : "ui should be instantiated";
 
-        String reply = "";
-
         // Process inputs
         try {
-            reply = parser.parse(input);
-            return reply;
-
+            return parser.parse(input);
         } catch (Exception e) {
-            // User Error
             if (e instanceof AronaException) {
+                // User Error
                 return ui.showException(e);
-            }
-            // File not found or cant be read/write to
-            else if (e instanceof java.io.IOException || e instanceof SecurityException) {
+            } else if (e instanceof java.io.IOException || e instanceof SecurityException) {
+                // File not found or cant be read/write to
                 return ui.showFileException();
-            }
-            // Path in arona::main not correct
-            else if (e instanceof InvalidPathException) {
+            } else if (e instanceof InvalidPathException) {
+                // Path in arona::main not correct
                 return ui.showPathException();
-            }
-            // Other exception
-            else {
+            } else {
+                // Other exception
                 return ui.showException(e);
             }
         }

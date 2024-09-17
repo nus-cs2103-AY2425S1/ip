@@ -1,12 +1,12 @@
-package Arona;
+package arona;
 
-import Arona.AronaExceptions.AronaException;
-import Arona.AronaExceptions.ListIndexException;
+import arona.AronaExceptions.AronaException;
+import arona.AronaExceptions.ListIndexException;
 
-import Arona.Tasks.Task;
-import Arona.Tasks.Todo;
-import Arona.Tasks.Event;
-import Arona.Tasks.Deadline;
+import arona.Tasks.Task;
+import arona.Tasks.Todo;
+import arona.Tasks.Event;
+import arona.Tasks.Deadline;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -62,21 +62,27 @@ public class TaskList {
     }
 
     /**
-     * Overloaded method, adds to do task
+     * Adds a new to do to, overloaded method
+     * @param  data  task description
      */
     public void add(String data) {
         list.add(new Todo(data));
     }
 
     /**
-     * Overloaded method, adds deadline task
+     * Adds a new to deadline, overloaded method
+     * @param  data  task description
+     * @param  byDate  by date in LocalDate format
      */
     public void add(String data, LocalDate byDate) {
         list.add(new Deadline(data, byDate));
     }
 
     /**
-     * Overloaded method, adds event task
+     * Adds a new to event, overloaded method
+     * @param  data  task description
+     * @param  fromDate  from date in LocalDate format
+     * @param  toDate  to date in LocalDate format
      */
     public void add(String data, LocalDate fromDate, LocalDate toDate) {
         list.add(new Event(data, fromDate, toDate));

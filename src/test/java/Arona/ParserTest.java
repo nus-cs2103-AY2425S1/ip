@@ -1,4 +1,4 @@
-package Arona;
+package arona;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ public class ParserTest {
             parser.parse("delete ABC");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input a number.", e.getMessage());
+            assertEquals("Sensei, tell me a task number!", e.getMessage());
         }
 
         // Delete a task that doesn't exist
@@ -60,7 +60,7 @@ public class ParserTest {
             parser.parse("mark ABC");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input a number.", e.getMessage());
+            assertEquals("Sensei, tell me a task number!", e.getMessage());
         }
 
         // Delete a task that doesn't exist
@@ -81,7 +81,7 @@ public class ParserTest {
             parser.parse("deadline   ");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input description and by date.", e.getMessage());
+            assertEquals("Please input description and by date, Sensei!", e.getMessage());
         }
 
         // No by date
@@ -89,7 +89,7 @@ public class ParserTest {
             parser.parse("deadline /by");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input description and by date.", e.getMessage());
+            assertEquals("Please input description and by date, Sensei!", e.getMessage());
         }
 
         // Wrong date format
@@ -110,7 +110,7 @@ public class ParserTest {
             parser.parse("event   ");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input description, from date, and to date.", e.getMessage());
+            assertEquals("Please input description, from date, and to date, Sensei!", e.getMessage());
         }
 
         // No from and to date
@@ -118,7 +118,7 @@ public class ParserTest {
             parser.parse("event party /from /to");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input description, from date, and to date.", e.getMessage());
+            assertEquals("Please input description, from date, and to date, Sensei!", e.getMessage());
         }
 
         // Wrong date format

@@ -1,8 +1,8 @@
-package Arona;
+package arona;
 
-import Arona.AronaExceptions.AronaException;
+import arona.AronaExceptions.AronaException;
 
-import Arona.Tasks.Task;
+import arona.Tasks.Task;
 import java.util.ArrayList;
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package Arona;
+package arona;
 
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.InvalidPathException;
@@ -84,7 +84,7 @@ public class Storage {
     }
 
     /**
-     * Used for debugging related to data.txt location
+     * Use for debugging related to data.txt location
      * @return A string that shows the absolute file path of data.txt
      */
     public String getStorageLocation() {

@@ -41,14 +41,14 @@ test {
     }
 }
 
-mainClassName = 'Arona.Launcher'
+mainClassName = 'arona.Launcher'
 
 application {
-    mainClass.set("Arona.Launcher")
+    mainClass.set("arona.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "Arona"
+    archiveBaseName = "arona"
     archiveClassifier = null
 }
 

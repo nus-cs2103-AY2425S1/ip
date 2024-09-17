@@ -1,4 +1,4 @@
-package Arona.AronaExceptions;
+package arona.AronaExceptions;
 
 public class ListIndexException extends AronaException {
     /**
