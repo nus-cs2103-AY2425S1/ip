@@ -22,12 +22,12 @@ public class Donk {
      * @param filePath The path to the file where tasks are stored.
      */
     public Donk(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (DonkException e) {
-            ui.showLoadingError();
+
             tasks = new TaskList();
         }
     }

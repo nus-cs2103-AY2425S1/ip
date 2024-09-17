@@ -55,6 +55,9 @@ public class Parser {
      */
 
     public static String parse(String fullCommand, TaskList tasks, Storage storage, Ui ui) throws Exception {
+        assert ui != null;
+        assert storage != null;
+        assert fullCommand != "";
         String[] inputArray = fullCommand.split("\\s+");
         String command = inputArray[0];
         if (fullCommand.isBlank()) {

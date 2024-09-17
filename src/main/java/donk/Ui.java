@@ -97,8 +97,9 @@ public class Ui {
      * @param tasks TaskList to display
      */
     public String listTasks(TaskList tasks) {
+        assert tasks != null;
         if (tasks.size() == 0) {
-            return "    You've got not tasks yet bro. Add todo, deadline, or event tasks.";
+            return "You've got not tasks yet bro. Add todo, deadline, or event tasks.";
         }
 
         String tasksString = "";
