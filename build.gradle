@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def javaFxVersion = '17.0.2'
+    implementation "org.openjfx:javafx-controls:$javaFxVersion"
+    implementation "org.openjfx:javafx-fxml:$javaFxVersion"
+    implementation "org.openjfx:javafx-base:$javaFxVersion"
+    implementation "org.openjfx:javafx-graphics:$javaFxVersion"
+    def junitVersion = '5.10.0'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    def testFxVersion = '4.0.16-alpha'
+    testImplementation "org.testfx:testfx-core:$testFxVersion"
+    testImplementation "org.testfx:testfx-junit5:$testFxVersion"
+    ['win', 'mac', 'linux'].each { platform ->
+        implementation "org.openjfx:javafx-base:$javaFxVersion:$platform"
+        implementation "org.openjfx:javafx-controls:$javaFxVersion:$platform"
+        implementation "org.openjfx:javafx-fxml:$javaFxVersion:$platform"
+        implementation "org.openjfx:javafx-graphics:$javaFxVersion:$platform"
+    }
+}
+checkstyle {
+    toolVersion = '10.2'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+
+    jvmArgs = [
+            '--add-exports', 'javafx.graphics/com.sun.javafx.application=ALL-UNNAMED',
+            '--add-opens', 'javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED',
+            '--add-opens', 'javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED',
+            '--add-opens', 'javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED',
+    ]
+}
+
+application {
+    mainClass.set("tars.Launcher")
+}
+
+shadowJar {
+    archiveBaseName = "tars"
+    archiveClassifier = null
+}
+
+run{
+    standardInput = System.in
+}
