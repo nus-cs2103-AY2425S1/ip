@@ -47,6 +47,10 @@ public class Expense {
         return Objects.equals(this.tag, tag);
     }
 
+    public String getTag() {
+        return this.tag;
+    }
+
     /**
      * Converts each expense into a string to be stored in a file.
      * @return Expense to be saved in file format as a String.

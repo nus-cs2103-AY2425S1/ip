@@ -25,6 +25,9 @@ public class Expenses {
      */
     public void addExpense(Expense expense) {
         expenses.add(expense);
+        if (!tags.contains(expense.getTag())) {
+            tags.add(expense.getTag());
+        }
         Storage.saveExpenses(expenses);
     }
 
