@@ -26,11 +26,19 @@ public class Command {
      *
      * @return
      */
-    public String handleBye() {
+    public String handleBye(String input) {
+        String[] answer = input.split(" ");
+        if (answer.length > 1) {
+            return "To say bye to Maxine, just type bye";
+        }
         isRunning = false;
         return ui.goodbye();
     }
-    public String handleList() {
+    public String handleList(String input) {
+        String[] answer = input.split(" ");
+        if (answer.length > 1) {
+            return "To list things out, just type list";
+        }
         return ui.showList(list);
     }
     public String handleMark(String input) {

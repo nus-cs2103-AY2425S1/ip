@@ -33,9 +33,9 @@ public class Parser {
             String[] answer = input.toLowerCase().split(" ");
             switch (answer[0]) {
             case ("bye"):
-                return command.handleBye();
+                return command.handleBye(input);
             case ("list"):
-                return command.handleList();
+                return command.handleList(input);
             case ("mark"):
                 return command.handleMark(input);
             case ("unmark"):

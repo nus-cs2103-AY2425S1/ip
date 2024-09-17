@@ -1,12 +1,10 @@
 package seedu.maxine;
 
-import seedu.maxine.task.Task;
-
 import java.util.ArrayList;
 
-public class Ui implements MaxineUi {
-    private Storage storage = new Storage("data/maxine.txt");
+import seedu.maxine.task.Task;
 
+public class Ui implements MaxineUi {
     /**
      * Constructs new instance of Ui class
      */
@@ -30,7 +28,7 @@ public class Ui implements MaxineUi {
      * Prints a farewell message to the console.
      */
     public String goodbye() {
-        return "\nBye! I have been maxed out and am going to sleep. " 
+        return "\nBye! I have been maxed out and am going to sleep. "
                 + "Hope to see you again soon!";
     }
 

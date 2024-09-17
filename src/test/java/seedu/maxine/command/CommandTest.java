@@ -23,12 +23,23 @@ class CommandTest {
     @Test
     void testBye() {
         assertEquals("\nBye! I have been maxed out and am going to sleep. " 
-                + "Hope to see you again soon!", command.handleBye());
+                + "Hope to see you again soon!", command.handleBye("bye"));
+    }
+    @Test
+    void testInvalidBye() {
+        assertEquals("To say bye to Maxine, just type bye",
+                command.handleBye("bye maxine"));
     }
 
     @Test
     void testList() {
-        assertEquals("1. [T][ ] test command class", command.handleList());
+        assertEquals("1. [T][ ] test command class",
+                command.handleList("list"));
+    }
+    @Test
+    void testInvalidList() {
+        assertEquals("To list things out, just type list",
+                command.handleList("list maxine"));
     }
 
     @Test
@@ -121,7 +132,7 @@ class CommandTest {
     }
     @Test
     void testGetStatusFalse() {
-        command.handleBye();
+        command.handleBye("bye");
         assertFalse(command.getStatus(),
                 "Expected the command status to be false but it was true");
     }
