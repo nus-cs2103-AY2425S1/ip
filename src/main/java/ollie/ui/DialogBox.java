@@ -46,8 +46,11 @@ public class DialogBox extends HBox {
      * @param image the image to make circular
      */
     private void makeCircular(ImageView image) {
-        double radius = image.getFitWidth() / 2;
-        Circle clip = new Circle(radius, radius, radius);
+        double width = image.getFitWidth();
+        double height = image.getFitHeight();
+        double radius = Math.min(width, height) / 2;
+
+        Circle clip = new Circle(width / 2, height / 2, radius);
         image.setClip(clip);
     }
 
