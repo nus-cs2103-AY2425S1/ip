@@ -2,7 +2,7 @@ package Azir;
 
 /**
  * Parser deals with manipulating the user's input
- * for easy use
+ * for easy use.
  */
 public class Parser {
 
@@ -104,12 +104,12 @@ public class Parser {
     }
 
     /**
-     * Parses the user input into an array for easy access
+     * Parses the user input into an array for easy access.
      *
-     * @param command User's input
-     * @param size Size of the task list
-     * @return Array of command arguments
-     * @throws AzirException If user input in wrong format
+     * @param command User's input.
+     * @param size Size of the task list.
+     * @return Array of command arguments.
+     * @throws AzirException If user input in wrong format.
      */
     public static String[] parse(String command, int size) throws AzirException {
         if (command.equals("list")) {

@@ -1,13 +1,13 @@
 package Azir;
 
 /**
- * Ui deals with interactions with the user
+ * Ui deals with interactions with the user.
  */
 public class Ui {
     /**
-     * Returns the chatbot welcome message
+     * Returns the chatbot welcome message.
      *
-     * @return Welcome message
+     * @return Welcome message.
      */
     public static String showWelcome() {
         String response = "";
@@ -21,10 +21,10 @@ public class Ui {
     }
 
     /**
-     * Returns message for list and find command
+     * Returns message for list and find command.
      *
-     * @param command User input
-     * @return Ending chatbot message
+     * @param command User input.
+     * @return Ending chatbot message.
      */
     public String showCommandEndMessage(String command) {
         switch (command) {
@@ -41,11 +41,11 @@ public class Ui {
     }
 
     /**
-     * Returns message for all commands except list
+     * Returns message for all commands except list.
      *
-     * @param command User input
-     * @param task Corresponding task for command
-     * @return Ending chatbot message
+     * @param command User input.
+     * @param task Corresponding task for command.
+     * @return Ending chatbot message.
      */
     public String showCommandEndMessage(String command, String task) {
         String botOutput = "";
@@ -87,20 +87,20 @@ public class Ui {
     }
 
     /**
-     * Returns number of tasks in tasklist
+     * Returns number of tasks in tasklist.
      *
-     * @param size Size of task list
-     * @return Number of tasks as a string
+     * @param size Size of task list.
+     * @return Number of tasks as a string.
      */
     public String showTaskNumber(int size) {
         return String.format("Now you have %d %s in the list\n", size, size == 1 ? "task" : "tasks");
     }
 
     /**
-     * Returns the error message
+     * Returns the error message.
      *
-     * @param message The error message
-     * @return Error message
+     * @param message The error message.
+     * @return Error message.
      */
     public String showError(String message) {
         return message;

@@ -12,11 +12,16 @@ import java.util.Scanner;
 
 /**
  * Storage deals with loading tasks from the file
- * and saving tasks in the file
+ * and saving tasks in the file.
  */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new storage
+     *
+     * @param filePath Path where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -31,11 +36,11 @@ public class Storage {
     }
 
     /**
-     * Reads tasks from the hard disk
+     * Reads tasks from the hard disk.
      *
-     * @param filePath Path of current hard disk file
-     * @return List of tasks in the hard disk
-     * @throws FileNotFoundException If there is no hard disk file at filePath
+     * @param filePath Path of current hard disk file.
+     * @return List of tasks in the hard disk.
+     * @throws FileNotFoundException If there is no hard disk file at filePath.
      */
     public static ArrayList<Task> readFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
@@ -59,10 +64,10 @@ public class Storage {
     }
 
     /**
-     * Helper method for write, writes content to hard disk
+     * Helper method for write, writes content to hard disk.
      *
-     * @param filePath Path of current hard disk file
-     * @param lines List of formatted Task strings
+     * @param filePath Path of current hard disk file.
+     * @param lines List of formatted Task strings.
      */
     public static void writeToFile(String filePath, ArrayList<String> lines) {
         try {
@@ -73,21 +78,21 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the hard disk
+     * Loads tasks from the hard disk.
      *
-     * @return List of tasks in the hard disk
-     * @throws IOException If there are errors with the file
+     * @return List of tasks in the hard disk.
+     * @throws IOException If there are errors with the file.
      */
     public ArrayList<Task> load() throws IOException {
         return readFileContents(this.filePath);
     }
 
     /**
-     * Saves tasks to hardDisk
+     * Saves tasks to hardDisk.
      *
-     * @param filePath Location of hard disk file
-     * @param lines List of tasks that have been formatted
-     * @throws IOException If there are errors with the file
+     * @param filePath Location of hard disk file.
+     * @param lines List of tasks that have been formatted.
+     * @throws IOException If there are errors with the file.
      */
     public void write(String filePath, ArrayList<String> lines) throws IOException {
         if (!Files.exists(Paths.get("./data"))) {

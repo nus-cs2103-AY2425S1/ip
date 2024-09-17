@@ -21,6 +21,12 @@ public class Azir {
     private Ui ui;
     private String loadMessage = "";
 
+    /**
+     * Constructs a new Azir and checks for tasks at the specified file path.
+     *
+     * @param filePath file path of stored tasks.
+     * @throws IOException If some error occurs.
+     */
     public Azir(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -148,6 +154,8 @@ public class Azir {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input User's chat input.
      */
     public String getResponse(String input) throws IOException {
         String response = "";

@@ -1,12 +1,18 @@
 package Azir;
 
 /**
- * Representation of a task
- * Able to set if a task has been completed
+ * Representation of a task.
+ * Able to set if a task has been completed.
  */
 public class Task {
     private String description;
     private boolean isDone;
+
+    /**
+     * Constructs a tasks with task description.
+     *
+     * @param description Task description.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

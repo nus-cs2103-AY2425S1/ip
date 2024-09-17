@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents a list of tasks in the chatbot
+ * Represents a list of tasks in the chatbot.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a task list from a preexisting list.
+     *
+     * @param tasks Preexisting tasklist.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -18,18 +23,18 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the taskList
+     * Adds a task to the taskList.
      *
-     * @param task Task to be added
+     * @param task Task to be added.
      */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
     /**
-     * Removes a task from the tasklist
+     * Removes a task from the tasklist.
      *
-     * @param index Position of the task in the tasklist
+     * @param index Position of the task in the tasklist.
      */
     public void DeleteTask(int index) {
         tasks.remove(index);
@@ -44,9 +49,9 @@ public class TaskList {
     }
 
     /**
-     * Checks if task is in tasklist
+     * Checks if task is in tasklist.
      *
-     * @param task Task to check
+     * @param task Task to check.
      */
     public boolean isInTaskList(Task task) {
         String[] descriptionArray = this.tasks.stream().map(t -> t.getDescription()).toArray(String[]::new);
