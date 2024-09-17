@@ -3,6 +3,8 @@ package tick.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
 import tick.exceptions.TickException;
@@ -10,8 +12,6 @@ import tick.storage.Storage;
 import tick.storage.TaskList;
 import tick.tasks.ToDo;
 import tick.ui.Ui;
-
-import java.io.IOException;
 
 public class DeleteCommandTest {
     @Test
