@@ -3,7 +3,6 @@ package bobby;
 
 import bobby.javafx.DialogBox;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -20,13 +19,10 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     private Bobby bobby;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/mbj.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/ye.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/homer.png"));
+    private Image bobbyImage = new Image(this.getClass().getResourceAsStream("/images/ai.png"));
 
     @FXML
     public void initialize() {
@@ -39,7 +35,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Bobby's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -48,7 +44,7 @@ public class MainWindow extends AnchorPane {
         String response = bobby.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBobbyDialog(response, bobbyImage)
         );
         userInput.clear();
     }
