@@ -104,11 +104,12 @@ public class Storage {
             }
 
             taskFileReader.close();
+        } catch (DateTimeException d) {
+            System.out.println("Seems like the datetimes in the file are messed up. Please delete the task file and try again.");
         } catch (FileNotFoundException e) {
             try {
                 taskFile.createNewFile();
-            } catch (IOException | DateTimeException f) {
-                f.printStackTrace();
+            } catch (IOException f) {
                 System.out.println("Error with task file. Please delete the task file and try again.");
             }
         }
