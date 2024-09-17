@@ -45,8 +45,9 @@ public class DeleteCommand extends Command {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_COMMAND);
         }
 
-        int index = Integer.parseInt(matcher.group(1));
-        Task deletedTask = tasks.deleteTask(index);
+        int userGivenIndex = Integer.parseInt(matcher.group(1));
+        int taskIndex = userGivenIndex - 1;
+        Task deletedTask = tasks.deleteTask(taskIndex);
 
         return ui.getTaskDeletedMessage(deletedTask, tasks.getSize());
     }
