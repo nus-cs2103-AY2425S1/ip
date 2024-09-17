@@ -1,4 +1,4 @@
-Greetings! I'm sentinel.Sentinel.
+Greetings! I'm Sentinel. 
 What can I do for you?
 Added the following todo: 
 [T][ ] borrow book
