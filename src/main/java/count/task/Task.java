@@ -39,7 +39,9 @@ public class Task {
         return (this.isCompleted ? "X" : " ");
     }
 
-    public boolean getCompletion() { return isCompleted; }
+    public boolean getCompletion() {
+        return this.isCompleted;
+    }
 
     @Override
     public String toString() {

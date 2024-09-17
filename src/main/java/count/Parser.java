@@ -96,18 +96,19 @@ public class Parser {
             case "unmark":
                 return new Unmark(this.ls, Integer.parseInt(rest));
             case "delete":
-                return new Delete(this.ls, Integer.parseInt(rest));
+                return new Delete(this.ls, Integer.parseInt(rest), this.filePath);
             case "remind":
                 return new Remind(this.ls, Integer.parseInt(rest));
             case "todo":
-                return new AddTask(this.ls, new ToDo(rest));
+                return new AddTask(this.ls, new ToDo(rest), this.filePath);
             case "deadline":
                 String[] commandSplitD = rest.split(" /by ", 2);
-                return new AddTask(this.ls, new Deadline(commandSplitD[0], commandSplitD[1]));
+                return new AddTask(this.ls, new Deadline(commandSplitD[0], commandSplitD[1]), this.filePath);
             case "event":
                 String[] commandSplitE = rest.split(" /from ", 2);
                 String[] startEndTime = commandSplitE[1].split(" /to ", 2);
-                return new AddTask(this.ls, new Event(commandSplitE[0], startEndTime[1], startEndTime[0]));
+                return new AddTask(this.ls,
+                        new Event(commandSplitE[0], startEndTime[1], startEndTime[0]), this.filePath);
             case "find":
                 return new Find(this.ls, rest);
             default:
