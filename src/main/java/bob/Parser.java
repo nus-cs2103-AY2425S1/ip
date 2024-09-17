@@ -116,7 +116,7 @@ public class Parser {
         try {
             return LocalDate.parse(dateStr, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new BobException("Invalid date format. Required format: relevant yyyy-MM-dd\"");
+            throw new BobException("Invalid date format. Required format: relevant yyyy-MM-dd");
         }
     }
 
