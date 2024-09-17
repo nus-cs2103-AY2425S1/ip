@@ -95,9 +95,12 @@ public class TaskList {
      *
      * @param index The 1-based index of the task to be marked as done.
      * @return A string representing the task after it has been marked as done.
+     * @throws IllegalArgumentException if the index is less than 1 or greater than the list size.
      */
-    public String markAsDone(int index) {
-        assert index > 0 && index <= this.list.size() : "Index out of bounds.";
+    public String markAsDone(int index) throws IllegalArgumentException {
+        if (index < 1 || index > this.list.size()) {
+            throw new IllegalArgumentException("Index out of bounds: " + index);
+        }
         Task taskToMark = this.list.get(index - 1);
         try {
             taskToMark.markAsDone();
