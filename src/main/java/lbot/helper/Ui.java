@@ -35,7 +35,7 @@ public class Ui {
      * @return formatted farewell String.
      */
     public String sayBye() {
-        return "Bye-bi!!";
+        return "Bye-bi!!\nI'll be right here if you need me!";
     }
 
     /**

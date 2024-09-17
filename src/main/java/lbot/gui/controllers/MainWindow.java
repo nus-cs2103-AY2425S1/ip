@@ -52,9 +52,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLBotDialog(response, lbotImage)
         );
-        if (response.equals("Bye-bi!!")) {
-            Platform.exit();
-        }
         userInput.clear();
     }
 
