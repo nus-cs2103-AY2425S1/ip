@@ -54,7 +54,7 @@ public class FileManager {
             boolean fileExists = file.createNewFile();
             if(!fileExists){
                 //TODO: log error
-                System.out.println("Error creating file");
+//                System.out.println("new file created");
             }
 
 
