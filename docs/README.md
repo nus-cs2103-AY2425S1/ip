@@ -152,7 +152,8 @@ deadline Submit assignment /by 20/9/2024 2359
 d Submit assignment /by 20/9/2024 2359
 D Submit assignment /by 20/9/2024 2359
 ```
-All produce the same output of adding a deadline due 20 Sep 2024 11:59 pm.
+All produce the same output of adding a deadline with a task description "Submit assignment"
+due 20 Sep 2024 11:59 pm.
 
 
 | Command  | Aliases   | Format                                                     |
