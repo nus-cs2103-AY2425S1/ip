@@ -35,12 +35,20 @@ public class Evan {
 
         try {
             storage = new Storage(filePath);
+
+            // Attempt to create a TaskList with the currently saved tasks
             taskList = new TaskList(storage.load());
         } catch (FileCreationException e) {
             System.out.println(e.getMessage());
+
+            // A FileCreationException means that the tasks.txt save file could not be created
+            // This is a fatal error since no tasks can be created and saved
+            // Hence, the program should be terminated
             System.exit(1);
         } catch (LoadingException e) {
             System.out.println(e.getMessage());
+
+            // Create a new, empty TaskList since an error occurred while trying to load the saved tasks
             taskList = new TaskList();
         }
     }
