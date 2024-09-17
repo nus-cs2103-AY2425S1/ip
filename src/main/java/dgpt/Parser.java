@@ -101,8 +101,8 @@ public class Parser {
     private static String handleUnmarkCommand(String[] inputs, TaskList taskList) throws IncorrectInputException,
             TaskNotFoundException {
         if (inputs.length != 2) {
-            throw new IncorrectInputException("You should have only 1 number after your request. " +
-                    "(e.g. \"unmark 1\")");
+            throw new IncorrectInputException("You should have only 1 number after your request. "
+                    + "(e.g. \"unmark 1\")");
         }
 
         try {
@@ -122,8 +122,8 @@ public class Parser {
 
     private static String handleToDoCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
         if (inputs.length != 2) {
-            throw new IncorrectInputException("You should have a description after your request. " +
-                    "(e.g. \"todo your_description\")");
+            throw new IncorrectInputException("You should have a description after your request. "
+                    + "(e.g. \"todo your_description\")");
         }
 
         Task addedTask = taskList.addToDoToList(inputs[1]);
@@ -134,8 +134,8 @@ public class Parser {
 
     private static String handleDeadlineCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
         if (inputs.length != 2) {
-            throw new IncorrectInputException("You should have a description after your request. " +
-                    "(e.g. \"deadline your_description /by your_deadline\")");
+            throw new IncorrectInputException("You should have a description after your request. "
+                    + "(e.g. \"deadline your_description /by your_deadline\")");
         }
 
         String[] parts = inputs[1].split(" /by ");
@@ -160,8 +160,8 @@ public class Parser {
 
     private static String handleEventCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
         if (inputs.length != 2) {
-            throw new IncorrectInputException("You should have a description after your request. " +
-                    "(e.g. \"event your_description /from your_start_time /to your_end_time\")");
+            throw new IncorrectInputException("You should have a description after your request. "
+                    + "(e.g. \"event your_description /from your_start_time /to your_end_time\")");
         }
 
         String[] parts = inputs[1].split(" /");
@@ -189,8 +189,8 @@ public class Parser {
     private static String handleDeleteCommand(String[] inputs, TaskList taskList) throws IncorrectInputException,
             TaskNotFoundException {
         if (inputs.length != 2) {
-            throw new IncorrectInputException("You should have only 1 number after your request. " +
-                    "(e.g. \"delete 1\")");
+            throw new IncorrectInputException("You should have only 1 number after your request. "
+                    + "(e.g. \"delete 1\")");
         }
 
         try {
@@ -211,8 +211,8 @@ public class Parser {
 
     private static String handleFindCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
         if (inputs.length != 2) {
-            throw new IncorrectInputException("You should input what you're searching for " +
-                    "after \"find\" (e.g. \"find task\")");
+            throw new IncorrectInputException("You should input what you're searching for "
+                    + "after \"find\" (e.g. \"find task\")");
         }
 
         List<Task> matchingTasks = taskList.findTasks(inputs[1]);
@@ -231,8 +231,8 @@ public class Parser {
 
     private static String handleRecurringCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
         if (inputs.length != 2) {
-            throw new IncorrectInputException("You should have a description after your request. " +
-                    "(e.g. \"recurring your_description /event your_frequency\")");
+            throw new IncorrectInputException("You should have a description after your request. "
+                    + "(e.g. \"recurring your_description /event your_frequency\")");
         }
 
         String[] parts = inputs[1].split(" /every ", 2);

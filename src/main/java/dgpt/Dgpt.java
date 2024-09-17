@@ -39,6 +39,16 @@ public class Dgpt {
         }
     }
 
+    /**
+     * Processes the user's input text, and returns the output that is constructed by the bot.
+     * <p>
+     * It is utilised by the MainWindow class to handle the user's input that is provided through the input box.
+     * It will provide the return message that is meant to be the bot's response for the MainWindow to display.
+     * </p>
+     *
+     * @param s the entire string input given by the user.
+     * @return the string output that is returned by the bot.
+     */
     public String getResponse(String s) {
         try {
             return Parser.parse(s, tasks, storage);

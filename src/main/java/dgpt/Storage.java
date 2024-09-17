@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import dgpt.exception.DgptFileNotFoundException;
-import dgpt.exception.TaskNotFoundException;
 import dgpt.task.Deadline;
 import dgpt.task.Event;
 import dgpt.task.Recurring;
@@ -102,58 +101,67 @@ public class Storage {
      */
     public void save(TaskList taskList) throws IOException {
         assert taskList != null : "taskList cannot be null";
-        File file = new File(this.filePath);
 
-        // Handle the case where parent directory does not exist
+        File file = new File(this.filePath);
+        ensureParentDirectoryExists(file);
+
+        try (FileWriter fw = new FileWriter(filePath)) {
+            String content = buildTaskListString(taskList);
+            fw.write(content);
+        } catch (IOException e) {
+            throw new IOException("An error occurred while writing to the file: " + e.getMessage(), e);
+        }
+    }
+
+    private void ensureParentDirectoryExists(File file) throws IOException {
         File parentDir = file.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             if (!parentDir.mkdirs()) {
                 throw new IOException("Failed to create directory: " + parentDir.getAbsolutePath());
             }
         }
+    }
 
-        try {
-            FileWriter fw = new FileWriter(filePath);
-            StringBuilder s = new StringBuilder();
+    private String buildTaskListString(TaskList taskList) throws IOException {
+        StringBuilder sb = new StringBuilder();
 
-            for (Task t : taskList.getTaskList()) {
-                if (t instanceof ToDo) {
-                    s.append("T | ")
-                            .append(t.getIsDone() ? "1 | " : "0 | ")
-                            .append(t.getDescription())
-                            .append("\n");
-                } else if (t instanceof Deadline) {
-                    s.append("D | ")
-                            .append(t.getIsDone() ? "1 | " : "0 | ")
-                            .append(t.getDescription())
-                            .append(" | ")
-                            .append(((Deadline) t).getDueDateString())
-                            .append("\n");
-                } else if (t instanceof Event) {
-                    s.append("E | ")
-                            .append(t.getIsDone() ? "1 | " : "0 | ")
-                            .append(t.getDescription())
-                            .append(" | ")
-                            .append(((Event) t).getFromTimeString())
-                            .append(" | ")
-                            .append(((Event) t).getToTimeString())
-                            .append("\n");
-                } else if (t instanceof Recurring) {
-                    s.append("R | ")
-                            .append(t.getIsDone() ? "1 | " : "0 | ")
-                            .append(t.getDescription())
-                            .append(" | ")
-                            .append(((Recurring) t).getFrequency())
-                            .append("\n");
-                } else {
-                    throw new IOException("Unfamiliar Task Type found");
-                }
-            }
-
-            fw.write(s.toString());
-            fw.close();
-        } catch (IOException e) {
-            throw new IOException("An error occurred while writing to the file: " + e.getMessage(), e);
+        for (Task task : taskList.getTaskList()) {
+            sb.append(convertTaskToString(task)).append("\n");
         }
+
+        return sb.toString();
+    }
+
+    private String convertTaskToString(Task task) throws IOException {
+        if (task instanceof ToDo) {
+            return formatToDoTask((ToDo) task);
+        } else if (task instanceof Deadline) {
+            return formatDeadlineTask((Deadline) task);
+        } else if (task instanceof Event) {
+            return formatEventTask((Event) task);
+        } else if (task instanceof Recurring) {
+            return formatRecurringTask((Recurring) task);
+        } else {
+            throw new IOException("Unfamiliar Task Type found");
+        }
+    }
+
+    private String formatToDoTask(ToDo task) {
+        return String.format("T | %s | %s", task.getIsDone() ? "1" : "0", task.getDescription());
+    }
+
+    private String formatDeadlineTask(Deadline task) {
+        return String.format("D | %s | %s | %s", task.getIsDone() ? "1" : "0", task.getDescription(),
+                task.getDueDateString());
+    }
+
+    private String formatEventTask(Event task) {
+        return String.format("E | %s | %s | %s | %s", task.getIsDone() ? "1" : "0", task.getDescription(),
+                task.getFromTimeString(), task.getToTimeString());
+    }
+
+    private String formatRecurringTask(Recurring task) {
+        return String.format("R | %s | %s | %s", task.getIsDone() ? "1" : "0", task.getDescription(),
+                task.getFrequency());
     }
 }
