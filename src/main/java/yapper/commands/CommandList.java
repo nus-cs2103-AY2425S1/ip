@@ -49,7 +49,6 @@ public class CommandList {
         // Delete task command
         addCommandWithAliases("delete", new DeleteTaskCommand(), "del");
         addCommandWithAliases("clear", new ClearTaskListCommand());
-
         // Termination command
         addCommandWithAliases("bye", new TerminationCommand(), "exit", "quit");
     }
