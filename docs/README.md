@@ -17,7 +17,7 @@ Expected output:
     4.[D][ ] do homework (by: Sept 09 9090, 00:00)
 ```
 
-## Adding a TODO Task: `todo`
+## Adding a TODO task: `todo`
 Adds a task with a description to the list.
 
 Format: `todo <description>`
@@ -31,7 +31,7 @@ Expected output:
     Now you have 2 tasks in the list.
 ```
 
-## Adding a DEADLINE Task: `deadline`
+## Adding a DEADLINE task: `deadline`
 Adds a task with a description and a deadline to the list.
 
 Format: `deadline <description> /by <deadline>`
@@ -45,7 +45,7 @@ Expected output:
     Now you have 3 tasks in the list.
 ```
 
-## Adding an EVENT Task: `event`
+## Adding an EVENT task: `event`
 Adds a task with a description, a start date and an end date to the list.
 
 Format: `event <description> /by <deadline>`
@@ -59,7 +59,7 @@ Expected output:
     Now you have 4 tasks in the list.
 ```
 
-## Deleting a Task: `delete`
+## Deleting a task: `delete`
 Deletes a task from the list.
 
 Format: `delete <index>`
