@@ -3,6 +3,7 @@ package meep.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import meep.task.Deadline;
 import meep.task.Event;
@@ -77,13 +78,21 @@ public class Parser {
      * @return The formatted date and time string.
      * @throws DateTimeParseException if the input string cannot be parsed.
      */
-    public String formatDate(String dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime localDate = LocalDateTime.parse(dateTime, formatter);
+    public String formatDate(String dateTime) throws DateTimeParseException {
+        // Use STRICT resolver style to ensure date validation
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm")
+                .withResolverStyle(ResolverStyle.STRICT);
+
+        LocalDateTime localDate;
+        try {
+            localDate = LocalDateTime.parse(dateTime, inputFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Invalid date: " + dateTime, e.getParsedString(), e.getErrorIndex());
+        }
+
         String dayOfMonth = String.valueOf(localDate.getDayOfMonth());
         String suffix = getDayOfMonthSuffix(localDate.getDayOfMonth());
 
-        // The following code snippet is suggested by ChatGPT
         // Format the date and time
         String formattedDate = localDate.format(DateTimeFormatter.ofPattern("MMMM uuuu, h:mm"));
         String amPm = localDate.format(DateTimeFormatter.ofPattern("a")).toLowerCase();
@@ -101,7 +110,9 @@ public class Parser {
      * @return response from Ui class based on the user's input
      */
     public String checkCommand(String input, TaskList taskList) {
-        if (CommandParser.checkCommandWithoutArgument(input, Command.BYE.toString())) {
+        if (CommandParser.checkIllegalCharacters(input)) {
+            return ui.invalidCharacter();
+        } else if (CommandParser.checkCommandWithoutArgument(input, Command.BYE.toString())) {
             this.commandType = Command.BYE.toString();
             return ui.bye();
 
