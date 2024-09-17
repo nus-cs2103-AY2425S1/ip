@@ -45,10 +45,13 @@ public class TaskList {
         return text.toString();
     }
 
-    public TaskList getCompleted() {
-        return new TaskList(list.stream().filter(x -> x.getCompletedAt() != null).toList());
-    }
-
+    /**
+     * Gets a tasklist of all tasks completed in the specified date range.
+     *
+     * @param from Start date and time of date range.
+     * @param to End date and time of date range.
+     * @return Tasklist of all completed tasks.
+     */
     public TaskList getCompleted(LocalDateTime from, LocalDateTime to) {
         return new TaskList(list.stream().filter(x -> x.getCompletedAt() != null &&
                 x.getCompletedAt().isAfter(from) &&

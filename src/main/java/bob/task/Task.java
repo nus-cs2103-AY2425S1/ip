@@ -2,6 +2,9 @@ package bob.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a task.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -11,7 +14,7 @@ public abstract class Task {
     /**
      * Creates a task from text that is correctly formatted.
      *
-     * @param text correctly formatted text from which tasks can be created.
+     * @param text Correctly formatted text from which tasks can be created.
      * @return Created task.
      */
     public static Task from(String text) {
@@ -34,6 +37,11 @@ public abstract class Task {
      */
     public abstract String toText();
 
+    /**
+     * Creates a Task, implicitly setting the createdAt field to the time the task was created.
+     *
+     * @param description Task description.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -41,6 +49,9 @@ public abstract class Task {
 
     }
 
+    /**
+     * Creates a Task with all fields explicitly defined by parameters.
+     */
     public Task(String description, boolean isDone, LocalDateTime createdAt, LocalDateTime completedAt) {
         this.description = description;
         this.isDone = isDone;

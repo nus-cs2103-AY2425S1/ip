@@ -4,14 +4,24 @@ import bob.Storage;
 import bob.TaskList;
 import bob.task.Task;
 
+/**
+ * Represents a command that finds tasks containing the specified keyword.
+ */
 public class FindCommand extends Command {
 
     private final String keyword;
 
+    /**
+     * Returns a FindCommand object.
+     * @param keyword Keyword for finding tasks.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Executes the command, finding tasks containing the specified keyword.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) {
         TaskList results = new TaskList();

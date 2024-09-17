@@ -7,6 +7,9 @@ import bob.Storage;
 import bob.TaskList;
 import bob.task.Task;
 
+/**
+ * Represents a command that marks tasks.
+ */
 public class MarkCommand extends Command {
     private int taskIndex;
 

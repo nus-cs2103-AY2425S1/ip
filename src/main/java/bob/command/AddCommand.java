@@ -6,13 +6,24 @@ import bob.Storage;
 import bob.TaskList;
 import bob.task.Task;
 
+/**
+ * Represents a command that adds a task.
+ */
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Returns an AddCommand object to be executed.
+     *
+     * @param task Task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }
 
+    /**
+     * Executes the command, adding the task.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) {
         try {

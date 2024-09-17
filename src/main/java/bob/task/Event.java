@@ -24,6 +24,12 @@ public class Event extends Task {
         this.from = from;
     }
 
+    /**
+     * Creates an Event object from text that is correctly formatted.
+     *
+     * @param text Correctly formatted text from which Event can be created.
+     * @return Created Event object.
+     */
     public static Task from(String text) {
         String[] parameters = text.split("\\s\\|\\s");
         assert parameters.length == 7 : "Number of elements after splitting should be 7";

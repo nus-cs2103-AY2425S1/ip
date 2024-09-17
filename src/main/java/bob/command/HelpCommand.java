@@ -3,7 +3,14 @@ package bob.command;
 import bob.Storage;
 import bob.TaskList;
 
+/**
+ * Represents a command that displays a help list.
+ */
 public class HelpCommand extends Command {
+
+    /**
+     * Executes the task, returning the help list.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) {
         return "Here are the list of commands:\n" +

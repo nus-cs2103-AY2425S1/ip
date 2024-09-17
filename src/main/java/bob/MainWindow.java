@@ -30,7 +30,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Bob instance */
+    /**
+     * Injects the Bob instance.
+     */
     public void setBob(Bob b) {
         this.bob = b;
     }

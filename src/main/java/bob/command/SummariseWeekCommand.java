@@ -7,6 +7,9 @@ import bob.Storage;
 import bob.TaskList;
 import bob.task.Task;
 
+/**
+ * Represents a command used to summarise the tasks completed in the past 7 days.
+ */
 public class SummariseWeekCommand extends SummariseCommand {
     private LocalDateTime from;
 
@@ -18,6 +21,9 @@ public class SummariseWeekCommand extends SummariseCommand {
         this.to = now;
     }
 
+    /**
+     * Executes the command, listing all tasks completed in the past 7 days.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) {
         TaskList completedTasks = tasks.getCompleted(from, to);

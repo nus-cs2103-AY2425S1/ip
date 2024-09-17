@@ -11,6 +11,12 @@ public class ToDo extends Task {
         super(description, isDone, createdAt, completedAt);
     }
 
+    /**
+     * Creates a ToDo object from text that is correctly formatted.
+     *
+     * @param text Correctly formatted text from which Todo can be created.
+     * @return Created ToDo object.
+     */
     public static Task from(String text) {
         String[] parameters = text.split("\\s\\|\\s");
         assert parameters.length == 5 : "Number of elements after splitting should be 5";

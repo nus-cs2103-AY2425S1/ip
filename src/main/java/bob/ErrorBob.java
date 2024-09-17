@@ -18,6 +18,12 @@ public class ErrorBob extends Bob {
         this.error = error;
     }
 
+    /**
+     * Returns the error message, given an input.
+     *
+     * @param input Query to Bob.
+     * @return Error message ErrorBob instance was instantiated with.
+     */
     @Override
     public String getResponse(String input) {
         return this.error;

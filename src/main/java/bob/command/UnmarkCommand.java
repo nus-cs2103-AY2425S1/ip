@@ -6,6 +6,9 @@ import bob.Storage;
 import bob.TaskList;
 import bob.task.Task;
 
+/**
+ * Represents a command used to unmark tasks.
+ */
 public class UnmarkCommand extends Command {
     private int taskIndex;
 

@@ -11,7 +11,9 @@ import bob.exception.EmptyFieldException;
 import bob.exception.InvalidCommandException;
 import bob.task.Task;
 
-
+/**
+ * Represents Bob, the chatbot.
+ */
 public class Bob {
 
     private Storage storage;
@@ -30,6 +32,12 @@ public class Bob {
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Returns response, given an input string.
+     *
+     * @param input Query to Bob.
+     * @return Bob's response.
+     */
     public String getResponse(String input) {
         String response = "";
         try {
@@ -57,6 +65,9 @@ public class Bob {
         }
     }
 
+    /**
+     * Shows welcome message.
+     */
     public String showWelcome() {
         return "Hello! I'm your chatbot, Bob.\n"
                 + "How may I assist you?\n"
@@ -65,6 +76,9 @@ public class Bob {
 
     private static final String HELP_MESSAGE = "Key in \"I need help.\" for additional help.";
 
+    /**
+     * Runs Bob as a CLI.
+     */
     public void run() {
         ui.showBar();
         ui.show(showWelcome());

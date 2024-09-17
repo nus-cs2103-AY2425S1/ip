@@ -7,5 +7,8 @@ import java.util.List;
 import bob.Storage;
 import bob.TaskList;
 
+/**
+ * Represents a summarise command.
+ */
 public abstract class SummariseCommand extends Command {
 }

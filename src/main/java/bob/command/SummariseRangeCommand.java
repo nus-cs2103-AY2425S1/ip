@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 import bob.Storage;
 import bob.TaskList;
 
+/**
+ * Represents a command that summarises the number of tasks completed within the specified
+ * date range.
+ */
 public class SummariseRangeCommand extends SummariseCommand {
     private LocalDateTime from;
 

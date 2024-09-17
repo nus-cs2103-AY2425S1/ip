@@ -6,6 +6,9 @@ import bob.Storage;
 import bob.TaskList;
 import bob.task.Task;
 
+/**
+ * Represents a command that deletes the specified task.
+ */
 public class DeleteCommand extends Command {
     private int taskIndex;
 
@@ -18,6 +21,10 @@ public class DeleteCommand extends Command {
         this.taskIndex = taskIndex;
     }
 
+
+    /**
+     * Executes the command, deleting the task.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) {
         try {
