@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for the main GUI.
+ * Controller for the main GUI. This class handles user interactions with the graphical user interface.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -26,6 +26,10 @@ public class MainWindow extends AnchorPane {
     private Image userImage;
     private Image guttiImage;
 
+    /**
+     * Initializes the MainWindow controller.
+     * Sets up the images for the user and Gutti avatars and binds the scroll pane to scroll as new dialog entries are added.
+     */
     @FXML
     public void initialize() {
         // Initialize images here
@@ -35,7 +39,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Gutti instance */
+    /**
+     * Injects the Gutti instance into the MainWindow controller.
+     *
+     * @param g The Gutti instance to handle responses.
+     */
     public void setGutti(Gutti g) {
         gutti = g;
         guiGreetings();
@@ -57,6 +65,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Displays a greeting message from Gutti when the application starts.
+     */
     private void guiGreetings() {
         String msg = "Hello! I'm Gutti What can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getGuttiDialog(msg,guttiImage));
