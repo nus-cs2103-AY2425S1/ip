@@ -66,14 +66,14 @@ Edith also helps you keep track of your expenses, categorize them, and view an o
 Command: `todo Read a book`  
 Expected Output: 
 `nice! ive added this task:`  
-` [T][ ] Read a book`  
+`[T][ ] Read a book`  
 `There are currently 1 tasks in your todo list.`  
 
 ### Marking a Task as Done
-Command: `mark 1`
+Command: `mark 1`  
 Expected Output:
 `yay! i've marked this task as done #productive`  
-` [T][ ] Read a book`  
+`[T][ ] Read a book`  
 
 ### Viewing Expenses
 Command: `expense overview`  
