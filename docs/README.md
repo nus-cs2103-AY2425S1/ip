@@ -202,15 +202,13 @@ Task list data are saved automatically as a CSV file `[JAR file location]/data/t
 
 ## Command Summary
 
-| Action       | Format, Examples                                                                                            |
-|--------------|-------------------------------------------------------------------------------------------------------------|
-| **Add**      | `todo <description>` <br> e.g., `todo Buy treats for Dipsy`                                                 |
-| **Deadline** | `deadline <description> /by <date>` <br> e.g., `deadline Submit report /by 2024-05-12`                      |
-| **Event**    | `event <description> /from <start> /to <end>` <br> e.g., `event Conference /from 2024-08-12 /to 2024-08-14` |
-| **Clear**    | `clear`                                                                                                     |
-| **Delete**   | `delete <index>` <br> e.g., `delete 3`                                                                      |
-| **Mark**     | `mark <index>` <br> e.g., `mark 1`                                                                          |
-| **Unmark**   | `unmark <index>` <br> e.g., `unmark 1`                                                                      |
-| **List**     | `list` <br> `list <date>` <br> e.g., `list 2024-05-12`                                                      |
-| **Help**     | `help`                                                                                                      |
-| **Exit**     | `bye`                                                                                                       |
+| Action           | Format, Examples                                                                                            |
+|------------------|-------------------------------------------------------------------------------------------------------------|
+| **Add Todo**     | `todo <description>` <br> e.g., `todo Buy treats for Dipsy`                                                 |
+| **Add Deadline** | `deadline <description> /by <date>` <br> e.g., `deadline Submit report /by 2024-05-12`                      |
+| **Add Event**    | `event <description> /from <start> /to <end>` <br> e.g., `event Conference /from 2024-08-12 /to 2024-08-14` |
+| **Delete**       | `delete <index>` <br> e.g., `delete 3`                                                                      |
+| **Mark**         | `mark <index>` <br> e.g., `mark 1`                                                                          |
+| **Unmark**       | `unmark <index>` <br> e.g., `unmark 1`                                                                      |
+| **List**         | `list` <br> `list <date>` <br> e.g., `list 2024-05-12`                                                      |
+| **Exit**         | `bye`                                                                                                       |
