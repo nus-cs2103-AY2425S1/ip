@@ -117,7 +117,7 @@ public class TaskList {
         }
         Task task = tasks.get(taskNum - 1);
         task.markAsDone();
-        return "Great job!. I've marked this task as done:\n" + task;
+        return "Great job! I've marked this task as done:\n" + task;
     }
 
     public String deleteTask(int taskNum) throws SlothingWafflerException {
