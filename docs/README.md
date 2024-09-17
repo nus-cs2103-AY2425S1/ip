@@ -17,15 +17,15 @@ To view all tasks, simply use the list command as seen below.
 
 ### Completing tasks
 Use the mark command to mark a task as complete.
-- mark *index* where *index* is the number of your task according to the list.
+- mark *index* (where *index* is the number of your task according to the list)
 
 ### Uncompleting tasks
 Use the unmark command to mark a task as complete.
-- unmark *index* where *index* is the number of your task according to the list.
+- unmark *index* (where *index* is the number of your task according to the list)
 
 ### Deleting tasks
 Use the delete command to mark a task as complete.
-- delete *index* where *index* is the number of your task according to the list.
+- delete *index* (where *index* is the number of your task according to the list)
 
 ### Searching for tasks
 Use the find command to search for a task that contains your find query. Do note that the query
