@@ -20,7 +20,7 @@ public class ListCommand extends Command {
         String message = "";
 
         ui.showHorizontalLine();
-        message = ui.showMessage("Fanny:\n") + list.printList();
+        message = ui.showMessage(list.printList());
         ui.showHorizontalLine();
 
         return message;
