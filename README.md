@@ -8,7 +8,7 @@ Stelle (Chat bot simulation) frees your mind of having to remember things you ne
 - BLAZING FAST to use :fire: :fire: :fire:
 
 All you need to do to use Stelle is:
-1. Download it from here
+1. Download it from [here](https://github.com/LeeZeHao/ip/releases)
 2. Double click the .jar file.
 3. Add your tasks.
 4. Enjoy improved task management!
@@ -16,4 +16,12 @@ All you need to do to use Stelle is:
 And it's <b>FREE</b>!
 
 Features:
+- [X] Manage general tasks
+- [X] Manage deadlines
+- [ ] Reminders (Coming soon!)
 
+---
+
+If you are a Java programmer, you can use it for practicing Java as well!
+
+Here is the `main` method: 
