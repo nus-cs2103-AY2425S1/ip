@@ -68,6 +68,14 @@ Marks the `[task-number]` as **not** done.
 
 Example: `unmark 21`
 
+## Finding a Task by Keyword
+
+`find [keyword]`
+
+Searches tasks by the keyword name.
+
+Example: `find Dinner`
+
 ## Deleting Tasks
 
 `delete [task-number]`
