@@ -15,6 +15,7 @@ Format: `todo <description>`
         [T][ ] buy bread
       You now have 1 task(s) to do.
       ```
+
 ### Add Deadlines: `deadline`
 Add a task with a specific deadline to your task list.
 
@@ -26,6 +27,7 @@ Format: `deadline <description> /by <deadline>`
         [D][ ] complete assignment 4 (by: Aug 25 2024)
       You now have 2 task(s) to do.
       ```
+
 ### Add Events: `event`
 Add a task/event with a specific timeline to your task list.
 
@@ -37,6 +39,7 @@ Format: `event <description> /from <start_date_time> /to <end_date_time>`
         [E][ ] dinner with Jonathan (from: Oct 20 2024 16:00 to: Oct 20 2024 18:00)
       You now have 3 task(s) to do.
       ```
+
 ### List tasks: `list`
 Display a list of all tasks in your task list.
 
@@ -49,6 +52,7 @@ Format: `list`
       2.[D][ ] complete assignment 4 (by: Aug 25 2024)
       3.[E][ ] dinner with Jonathan (from: Oct 20 2024 16:00 to: Oct 20 2024 18:00)
       ```
+
 ### Mark tasks: `mark`
 Mark a particular task as done.
 
@@ -59,6 +63,7 @@ Format: `mark <task_number>`
       Great job! I've marked this task as done:
       [T][X] buy bread
       ```
+
 ### Find tasks: `find`
 Find tasks containing a specific keyword
 
@@ -69,6 +74,7 @@ Format: `find <keyword>`
       Here are the matching tasks in your list:
       1.[T][ ] dinner with Jonathan (from: Oct 20 2024 16:00 to: Oct 20 2024 18:00)
       ```
+
 ### Delete tasks: `delete`
 Delete a specific task from your task list
 
@@ -80,6 +86,7 @@ Format: `delete <task_number>`
       [T][X] buy bread
       You now have 2 task(s) to do.
       ```
+
 ### Prioritise tasks: `priority`
 Pushes a particular task to the top of your task list.
 
@@ -91,6 +98,7 @@ Format: `priority <task_number>`
       I have put this task at the top of your task list:
       [E][ ] dinner with Jonathan (from: Oct 20 2024 16:00 to: Oct 20 2024 18:00)
       ```
+
 ### Sort tasks by deadline: `sortdeadlines`
 Provide a concise list of tasks with deadlines sorted in chronological order.
 
@@ -101,6 +109,7 @@ Format: `sortdeadlines`
       Here are all your tasks with deadlines, sorted by their deadlines:
       1. [D][ ] complete assignment 4 (by: Aug 25 2024)
       ```
+
 ### Exit the program: `bye`
 Close the chatbot. The application will exit automatically.
 
