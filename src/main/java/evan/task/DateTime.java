@@ -171,6 +171,8 @@ public class DateTime {
         default -> result = "";
         }
 
+        assert (result != null) : "result should be non-null";
+
         return result;
     }
 

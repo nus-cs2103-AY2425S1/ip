@@ -53,6 +53,11 @@ public class Evan {
      */
     public String getResponse(String input) {
         String response;
+
+        assert (userInputParser != null) : "userInputParser should be non-null";
+        assert (storage != null) : "storage should be non-null";
+        assert (taskList != null) : "taskList should be non-null";
+
         try {
             Command command = userInputParser.parse(input);
             response = command.execute(taskList);
