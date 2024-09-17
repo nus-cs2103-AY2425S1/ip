@@ -73,7 +73,7 @@ public class Parser {
 
         case "delete":
             if (input.trim().length() < MIN_DELETE_LENGTH) {
-                return ui.displayError(INPUT_ERROR_MESSAGE);
+                return ui.displayTaskToDelete();
             }
             int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
             command = new DeleteCommand(deleteIndex);

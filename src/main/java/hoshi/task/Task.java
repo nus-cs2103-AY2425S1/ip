@@ -55,6 +55,15 @@ public abstract class Task {
     }
 
     /**
+     * Gets boolean isDone of the task.
+     *
+     * @return isDone Boolean indicating whether task is done or not
+     */
+    public Boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
      * Sets whether the task is done or not.
      *
      * @param bool Boolean which indicates whether to mark the task as done or not done.

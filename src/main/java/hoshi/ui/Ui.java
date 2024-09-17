@@ -40,21 +40,28 @@ public class Ui {
      * Displays text indicating text has been marked as done
      */
     public String displayTaskMarked(Task task) {
-        return "Nice! I've marked this task as done: \n" + task.toString() + "\n";
+        return "Nice! Hoshi has marked this task as done: \n" + task.toString();
     }
 
     /**
      * Displays text indicating text has been unmarked
      */
     public String displayTaskUnmarked(Task task) {
-        return "Nice! I've marked this task as not done: \n" + task.toString() + "\n";
+        return "Nice! Hoshi has marked this task as not done: \n" + task.toString();
+    }
+
+    /**
+     * Displays text requesting user to specify which task to delete
+     */
+    public String displayTaskToDelete() {
+        return "Please specify the task number to delete!";
     }
 
     /**
      * Displays text indicating which task was deleted
      */
     public String displayTaskDeleted(Task task) {
-        return "OK, Hoshi has removed ( " + task.getDesc() + " )! \n";
+        return "OK, Hoshi has removed ( " + task.getDesc() + " )!";
     }
 
     /**
@@ -69,6 +76,20 @@ public class Ui {
      */
     public String displayMatchingList() {
         return "Hoshi has found the following tasks matching your search!";
+    }
+
+    /**
+     * Displays text indicating that task has already been marked
+     */
+    public String displayAlreadyMarked() {
+        return "Hoshi has already marked this task!";
+    }
+
+    /**
+     * Displays text indicating that task has already been unmarked
+     */
+    public String displayAlreadyUnmarked() {
+        return "Hoshi has already unmarked this task!";
     }
 
     /**

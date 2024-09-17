@@ -130,6 +130,7 @@ public class AddCommand implements Command {
         try {
             String desc = "";
             int splitInputLength = splitInput.length;
+
             switch (taskType) {
             case "todo":
                 //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
@@ -138,7 +139,7 @@ public class AddCommand implements Command {
                         DESCRIPTION_INDEX, splitInputLength));
                 break;
             case "deadline":
-                if (splitInputLength - 1 <= DESCRIPTION_INDEX) {
+                if (splitInputLength - 1 == DESCRIPTION_INDEX) {
                     throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the deadline.");
                 }
                 //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
@@ -147,8 +148,8 @@ public class AddCommand implements Command {
                         DESCRIPTION_INDEX, splitInputLength - 1));
                 break;
             case "event":
-                if (splitInputLength - 1 <= DESCRIPTION_INDEX) {
-                    throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the deadline.");
+                if (splitInputLength - 1 == DESCRIPTION_INDEX) {
+                    throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the event.");
                 }
                 //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
                 // Concatenate elements from index 2 to the 3rd element hence -2

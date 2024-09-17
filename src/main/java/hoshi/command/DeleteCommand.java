@@ -37,7 +37,7 @@ public class DeleteCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             // invalid index
-            if (taskIndex >= tasks.size()) {
+            if (taskIndex >= tasks.size() || taskIndex < 0) {
                 throw new HoshiException("Hoshi doesn't have such a task!");
             }
             // delete and display deleted task name

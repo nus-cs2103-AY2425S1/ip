@@ -1,6 +1,7 @@
 package hoshi.command;
 
 import hoshi.exception.HoshiException;
+import hoshi.task.Task;
 import hoshi.task.TaskList;
 import hoshi.ui.Ui;
 import hoshi.utils.Storage;
@@ -43,16 +44,26 @@ public class MarkCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             // if index is invalid
-            if (taskIndex >= tasks.size()) {
+            if (taskIndex >= tasks.size() || taskIndex < 0) {
                 throw new HoshiException("Hoshi doesn't have such a task!");
             }
 
             // assert retrieved index is not out of bounds
-            assert taskIndex < tasks.size() && taskIndex >= 0 : "Index is out of bounds for tasks";
+            assert taskIndex < tasks.size() : "Index is out of bounds for tasks";
+
+            // get the specified task
+            Task task = tasks.get(taskIndex);
+
+            // check current status and update only if needed
+            if (isMark && task.isDone()) {
+                return ui.displayAlreadyMarked();
+            } else if (!isMark && !task.isDone()) {
+                return ui.displayAlreadyUnmarked();
+            }
 
             // mark or unmark the specified task
             Boolean isMark = this.isMark;
-            tasks.get(taskIndex).setIsDone(isMark);
+            task.setIsDone(isMark);
             CommandUtils.handleSave(tasks, storage, ui);
 
             // display corresponding UI to mark or unmark command

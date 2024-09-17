@@ -22,9 +22,8 @@ import hoshi.utils.Storage;
 public class DeleteCommandTest {
 
     private TaskList tasks;
-    private Ui ui;
     private Storage storage;
-
+    private final Ui ui = new Ui();
 
     /**
      * Set up mocked objects for use in JUnit testing
@@ -32,7 +31,6 @@ public class DeleteCommandTest {
     @BeforeEach
     void setUp() {
         tasks = mock(TaskList.class);
-        ui = mock(Ui.class);
         storage = mock(Storage.class);
     }
 
@@ -50,7 +48,6 @@ public class DeleteCommandTest {
 
         when(tasks.size()).thenReturn(1);
         when(tasks.get(anyInt())).thenReturn(task);
-        when(ui.displayTaskDeleted(task)).thenReturn("OK, Hoshi has removed ( 1 )!");
 
         // mock storage so save is not called
         doNothing().when(storage).save(any(TaskList.class));
@@ -59,12 +56,12 @@ public class DeleteCommandTest {
         String response = deleteCommand.execute(tasks, ui, storage);
 
         // assert
-        assertEquals("OK, Hoshi has removed ( 1 )!", response);
+        assertEquals("OK, Hoshi has removed ( Mocked Description )!", response);
 
     }
 
     /**
-     * Tests the fail case of execute(delete a task) function
+     * Tests the invalid index fail case of execute(delete a task) function
      */
     @Test
     public void executeTest_deleteInvalidIndex_failure() throws IOException {
@@ -74,8 +71,6 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = spy(new DeleteCommand(markIndex));
 
         when(tasks.size()).thenReturn(1);
-        when(ui.displayError("Hoshi doesn't have such a task!"))
-                .thenReturn("Hoshi doesn't have such a task!");
 
         // mock storage so save is not called
         doNothing().when(storage).save(any(TaskList.class));
