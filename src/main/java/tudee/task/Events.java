@@ -74,7 +74,7 @@ public class Events extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (done ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString + " | " + start + " | " + end;
+        return "E | " + (isDone ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString + " | " + start + " | " + end;
     }
 
     /**

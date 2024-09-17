@@ -58,7 +58,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (done ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString + " | " + deadline;
+        return "D | " + (isDone ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString + " | " + deadline;
     }
 
     /**

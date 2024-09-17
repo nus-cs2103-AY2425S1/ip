@@ -24,7 +24,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + (done ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString;
+        return "T | " + (isDone ? MARKED_VALUE : UNMARKED_VALUE) + " | " + taskString;
     }
 
     /**

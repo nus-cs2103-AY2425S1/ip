@@ -7,7 +7,7 @@ package tudee.task;
  */
 public abstract class Task {
     protected String taskString;
-    protected boolean done;
+    protected boolean isDone;
 
     /**
      * Constructs a new Task object with the specified task description.
@@ -17,7 +17,7 @@ public abstract class Task {
      */
     public Task(String taskString) {
         this.taskString = taskString;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -35,21 +35,21 @@ public abstract class Task {
      * @return "[X]" if the task is done, otherwise "[ ]".
      */
     public String getDone() {
-        return (this.done ? "[X]" : "[ ]");
+        return (this.isDone ? "[X]" : "[ ]");
     }
 
     /**
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void markAsNotDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
