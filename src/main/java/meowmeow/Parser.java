@@ -36,7 +36,7 @@ public class Parser {
                 String keyword = initInput.substring(5);
                 System.out.println(keyword);
                 TaskList matchingTasks = new TaskList();
-                for (Task task : list) {
+                for (Task task : tasks) {
                     System.out.println(task.getDescription());
                     if (task.getDescription().contains(keyword)) {
                         matchingTasks.add(task);
