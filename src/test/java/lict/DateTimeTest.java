@@ -12,18 +12,18 @@ public class DateTimeTest {
     @Test
     public void testDateParsing() {
         DateTime dateTime = new DateTime("2024-09-30");
-        assertEquals("Sept 30 2024", dateTime.getString());
+        assertEquals("Sep 30 2024", dateTime.getString());
         assertEquals("2024-09-30", dateTime.getData());
     }
 
     @Test
     public void testDateTimeParsing() {
         DateTime dateTime1 = new DateTime("2024-09-30 2359");
-        assertEquals("Sept 30 2024 11:59pm", dateTime1.getString());
+        assertEquals("Sep 30 2024 11:59pm", dateTime1.getString());
         assertEquals("2024-09-30 2359", dateTime1.getData());
 
         DateTime dateTime2 = new DateTime("2024-09-30 0815");
-        assertEquals("Sept 30 2024 8:15am", dateTime2.getString());
+        assertEquals("Sep 30 2024 8:15am", dateTime2.getString());
         assertEquals("2024-09-30 0815", dateTime2.getData());
     }
 

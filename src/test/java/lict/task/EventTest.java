@@ -23,10 +23,10 @@ public class EventTest {
     @Test
     public void testToString() throws LictException {
         Event event = new Event("Project meeting", "2024-09-01 1400", "2024-10-01 2200");
-        assertEquals("[E][ ] Project meeting (from: Sept 1 2024 2:00pm to: Oct 1 2024 10:00pm)", event.toString());
+        assertEquals("[E][ ] Project meeting (from: Sep 1 2024 2:00pm to: Oct 1 2024 10:00pm)", event.toString());
 
         event.isMarked(true);
-        assertEquals("[E][X] Project meeting (from: Sept 1 2024 2:00pm to: Oct 1 2024 10:00pm)", event.toString());
+        assertEquals("[E][X] Project meeting (from: Sep 1 2024 2:00pm to: Oct 1 2024 10:00pm)", event.toString());
     }
 
     /**
@@ -142,7 +142,7 @@ public class EventTest {
     @Test
     public void testEventAutoDate() throws LictException {
         Event event = new Event("Team meeting", "2024-09-01 1000", "1200");
-        assertEquals("[E][ ] Team meeting (from: Sept 1 2024 10:00am to: Sept 1 2024 12:00pm)", event.toString());
+        assertEquals("[E][ ] Team meeting (from: Sep 1 2024 10:00am to: Sep 1 2024 12:00pm)", event.toString());
         assertEquals("EVENT | 0 | Team meeting | 2024-09-01 1000 | 2024-09-01 1200\n", event.toData());
     }
 }
