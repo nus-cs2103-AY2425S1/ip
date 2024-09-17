@@ -15,7 +15,7 @@ public class TaskManager {
     private int taskCount;
     private List<Task> tasks;
     private Storage storage;
-    private boolean taskStatus;
+    private boolean istaskStatus;
 
     /**
      * Constructs a <code> TaskManager </code> with the specified storage.
@@ -129,6 +129,6 @@ public class TaskManager {
      * @return "X" if the task is completed, otherwise {@code " "}.
      */
     public String checkStatus() {
-        return taskStatus ? "X" : " ";
+        return istaskStatus ? "X" : " ";
     }
 }
