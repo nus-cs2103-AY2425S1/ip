@@ -16,7 +16,7 @@ public class Main extends Application {
 
     private Sentinel sentinel = new Sentinel();
 
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
+    private Image sentinelImage = new Image(this.getClass().getResourceAsStream("/images/DaSentinel.jpg"));
 
     @Override
     public void start(Stage stage) {
@@ -26,7 +26,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Sentinel");
-            stage.getIcons().add(dukeImage);
+            stage.getIcons().add(sentinelImage);
             fxmlLoader.<MainWindow>getController().setSentinel(sentinel); // inject the Duke instance
             stage.show();
             fxmlLoader.<MainWindow>getController().sentinelGreeting();

@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Sentinel sentinel;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
+    private final Image sentinelImage = new Image(this.getClass().getResourceAsStream("/images/DaSentinel.jpg"));
 
     @FXML
     public void initialize() {
@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
         String response = sentinel.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getSentinelDialog(response, sentinelImage)
         );
         userInput.clear();
     }
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
     public void sentinelGreeting() {
         String response = sentinel.greet();;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getSentinelDialog(response, sentinelImage)
         );
         userInput.clear();
     }
