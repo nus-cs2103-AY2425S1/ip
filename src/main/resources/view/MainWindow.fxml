@@ -6,21 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="600.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="toothless.GUI.MainWindow"
-            stylesheets="../style.css">
+            stylesheets="@../css/main.css"
+            fx:controller="toothless.gui.MainWindow">
     <children>
         <TextField fx:id="userInput"
                    layoutY="558.0"
                    onAction="#handleUserInput"
                    prefHeight="41.0"
                    prefWidth="324.0"
-                   AnchorPane.bottomAnchor="1.0" />
+                   promptText="Type here..."
+                   AnchorPane.rightAnchor="76.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0" />
         <Button fx:id="sendButton"
                 layoutX="324.0"
                 layoutY="558.0"
@@ -28,12 +30,19 @@
                 onAction="#handleUserInput"
                 prefHeight="41.0"
                 prefWidth="76.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="1.0"
                 text="Send" />
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER"
                     hvalue="1.0"
                     prefHeight="557.0"
                     prefWidth="400.0"
+                    fitToWidth="true"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.bottomAnchor="41.0"
                     vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer"

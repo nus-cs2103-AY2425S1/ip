@@ -1,4 +1,4 @@
-package toothless.GUI;
+package toothless.gui;
 
 import toothless.command.Command;
 import toothless.command.Parser;
