@@ -1,0 +1,5 @@
+E | 0 | Training  | 9pm | 11pm
+T | 0 | Lab 5
+D | 1 | proposal  | Sep 19 2024
+D | 1 | proposal  | Sep 29 2024
+T | 0 | class readings

@@ -1,0 +1,7 @@
+ todo cs2103t quiz
+ deadline tutorial /by 24 august
+ event holiday /from 2 september /to 9 september
+ list
+ mark 2
+ list
+ bye
