@@ -25,6 +25,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("TrackBot");
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setDuke(trackBot); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
