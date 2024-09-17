@@ -2,6 +2,7 @@ package zaibot.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
 import zaibot.exception.ZaibotException;
@@ -62,7 +63,11 @@ public class TaskAdditionCommand extends Command {
                 throw new ZaibotException("Deadline must have option /by.");
             }
             String by = optionMap.get("by");
-            task = new DeadlineTask(taskName, LocalDateTime.parse(by, formatter));
+            try {
+                task = new DeadlineTask(taskName, LocalDateTime.parse(by, formatter));
+            } catch (DateTimeParseException exception) {
+                throw new ZaibotException("Invalid date format, use YYYY-MM-DD HH:MM");
+            }
             break;
         case "event":
             if (!optionMap.containsKey("from") || !optionMap.containsKey("to")) {
@@ -70,7 +75,13 @@ public class TaskAdditionCommand extends Command {
             }
             String from = optionMap.get("from");
             String to = optionMap.get("to");
-            task = new EventTask(taskName, LocalDateTime.parse(from, formatter), LocalDateTime.parse(to, formatter));
+            try {
+                task = new EventTask(taskName,
+                        LocalDateTime.parse(from, formatter),
+                        LocalDateTime.parse(to, formatter));
+            } catch (DateTimeParseException exception) {
+                throw new ZaibotException("Invalid date format, use YYYY-MM-DD HH:MM");
+            }
             break;
         default:
             throw new ZaibotException("Invalid task");
