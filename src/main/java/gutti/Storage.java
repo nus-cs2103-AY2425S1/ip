@@ -20,6 +20,37 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        createFileIfNotExists();
+    }
+
+    /**
+     * Ensures the file and its directory exist, creating them if necessary.
+     */
+    private void createFileIfNotExists() {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+
+        // Create directory if it doesn't exist
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created: " + directory.getPath());
+            } else {
+                System.out.println("Failed to create directory: " + directory.getPath());
+            }
+        }
+
+        // Create file if it doesn't exist
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getPath());
+                } else {
+                    System.out.println("Failed to create file: " + file.getPath());
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
+        }
     }
 
     /**
