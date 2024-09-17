@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import lemon.exception.DescriptionException;
 import lemon.task.Deadline;
 import lemon.task.Event;
 import lemon.task.Todo;
@@ -68,9 +67,6 @@ public class Storage {
             System.out.print(" Im sowwy... Something went wrong, QwQ. Unable to create file.\n"
                     + " I dont think i can do this anymore");
             return false;
-        } catch (DescriptionException e) {
-            System.out.println(e.getMessage());
-            return false;
         }
     }
 
@@ -84,7 +80,7 @@ public class Storage {
             FileWriter fw = new FileWriter(filePath);
 
             for (int i = 0; i < tasks.size(); i++) {
-                fw.write(tasks.get(i).toFileString());
+                fw.write(tasks.get(i + 1).toFileString());
             }
 
             fw.close();

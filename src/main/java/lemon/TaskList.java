@@ -2,7 +2,6 @@ package lemon;
 
 import java.util.ArrayList;
 
-import lemon.exception.DescriptionException;
 import lemon.task.Task;
 /**
  * Represents the list of tasks stored
@@ -23,14 +22,8 @@ public class TaskList {
     /**
      * Add a new task to arraylist
      * @param t task that is added into the list
-     * @throws DescriptionException Exception when the description of the task is empty
      */
-    public boolean addNewTask(Task t) throws DescriptionException {
-        if (t.getDescription().isEmpty() || t.getDescription().equals(" ")) {
-            throw new DescriptionException(" OOPS!!! The description of a " + t.getType() + " cannot be empty");
-        }
-
-
+    public boolean addNewTask(Task t) {
         list.add(t);
         numTasks++;
 
@@ -53,9 +46,8 @@ public class TaskList {
      * Find tasks from the list with description of matching keyword
      * @param text keyword to find
      * @return TaskList that contain tasks with matching keyword
-     * @throws DescriptionException Error when adding a task with empty description
      */
-    public TaskList findTasks(String text) throws DescriptionException {
+    public TaskList findTasks(String text) {
         TaskList matchingTasks = new TaskList();
         for (Task task : list) {
             String description = task.getDescription();
@@ -81,7 +73,7 @@ public class TaskList {
      * @return task with the corresponding index
      */
     public Task get(int i) {
-        return list.get(i);
+        return list.get(i - 1);
     }
 
     @Override

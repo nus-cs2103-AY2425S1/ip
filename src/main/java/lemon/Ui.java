@@ -1,4 +1,7 @@
 package lemon;
+
+import lemon.task.Task;
+
 /**
  * Represents the user interface class for displaying information
  * @author He Yiheng
@@ -6,7 +9,7 @@ package lemon;
 public class Ui {
     private static final String INTRO_MSG = "____________________________________________________________\n"
             + " Hello! I'm Lemon\n"
-            + " What can I do for you?\n";
+            + " What can I do for you?";
     private static final String END_MSG = " Bye. Hope to see you again soon!\n"
             + "____________________________________________________________\n";
     private static final String BAR = "____________________________________________________________";
@@ -54,21 +57,29 @@ public class Ui {
      */
     public void printListMsg(String listStr) {
         System.out.println(LIST_MSG);
-        System.out.println(listStr);
+        System.out.print(listStr);
     }
+
+    /*
+    public void printTask(Task task) {
+        System.out.println("   " + task.toString());
+    }
+     */
 
     /**
      * Prints the message when marking a task
      */
-    public void printMarkMsg() {
+    public void printMarkMsg(String task) {
         System.out.println(MARK_MSG);
+        System.out.println("   " + task);
     }
 
     /**
      * Prints the message when unmarking a task
      */
-    public void printUnmarkMsg() {
+    public void printUnmarkMsg(String task) {
         System.out.println(UNMARK_MSG);
+        System.out.println("   " + task);
     }
 
     /**
@@ -95,11 +106,11 @@ public class Ui {
 
     /**
      * Prints message with all tasks that have matching keyword
-     * @param matchingTasks String representation of the found tasks
+     * @param matchingTasksStr String representation of the found tasks
      */
-    public void printMatchingTaskMsg(String matchingTasks) {
+    public void printMatchingTaskMsg(String matchingTasksStr) {
         System.out.println(MATCHING_TASK_MSG);
-        System.out.println(matchingTasks);
+        System.out.print(matchingTasksStr);
     }
 
     /**
@@ -109,12 +120,29 @@ public class Ui {
         System.out.println(NO_MATCHING_MSG);
     }
 
+    public void printInvalidCommand() {
+        System.out.println(" OOPS!!! I'm sowwy, but I don't know what that means :-(\n\n"
+                + " I can help you add tasks with \"todo\", \"deadline\", \"event\"\n"
+                + " I can also keep track of all your tasks with \"list\"\n"
+                + " If you wanna update certain tasks, use \"mark\" or \"unmark\" and then its number");
+    }
+
+    public void printNotInitialisedCorrectly() {
+        System.out.print(" Ouhiiee, my head hurrrtt, i dont think im initialized properly ;-;\n"
+                + " Please check the database and try again...");
+    }
 
     public void printException(Exception e) {
-        System.out.println(e.toString());
+        System.out.println(e.getMessage());
     }
 
     public void printException(String errorMsg) {
         System.out.println(errorMsg);
+    }
+    public void printUnexpectedException(Exception e, String errorMsg) {
+        System.out.println(" " + errorMsg);
+        System.out.println("\n Unexpected error of type:");
+        System.out.println(" " + e.getClass().getName());
+        System.out.println(" o no, please contact a programmer to fix me!");
     }
 }

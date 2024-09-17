@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import lemon.exception.DescriptionException;
 import lemon.task.Task;
 
 public class StorageTest {
@@ -23,13 +22,8 @@ public class StorageTest {
         Task test2 = new TaskStub();
         TaskList tl = new TaskList();
 
-        try {
-            tl.addNewTask(test1);
-            tl.addNewTask(test2);
-        } catch (DescriptionException e) {
-            throw new RuntimeException(e);
-        }
-
+        tl.addNewTask(test1);
+        tl.addNewTask(test2);
         assertTrue(s.saveTasks(tl));
     }
 
