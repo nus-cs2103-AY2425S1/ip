@@ -12,7 +12,7 @@ public class UnknownCommandException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Unknown Command: "
+        return "Sorry, but I can't recognize this command: "
                 + this.command
                 + "\nPlease try again...\n\n";
     }
