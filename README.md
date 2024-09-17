@@ -1,5 +1,4 @@
 # Evelyn User Guide
-![Ui.png](Ui.png)
 
 Welcome to Evelyn. Evelyn is a text based chat bot that allows you to key in important information to help you remember things better!
 
