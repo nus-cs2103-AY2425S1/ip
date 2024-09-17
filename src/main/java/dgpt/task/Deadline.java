@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
+    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
     private LocalDate dueDate;
 
     /**
@@ -27,6 +27,10 @@ public class Deadline extends Task {
     public Deadline(String description, String dueDate) throws DateTimeParseException {
         super(description);
         this.dueDate = LocalDate.parse(dueDate, inputFormatter);
+    }
+
+    public String getDueDateInInputFormat() {
+        return this.dueDate.format(inputFormatter);
     }
 
     public String getDueDateString() {

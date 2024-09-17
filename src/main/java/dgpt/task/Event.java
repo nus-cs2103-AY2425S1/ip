@@ -16,7 +16,7 @@ public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, h:mma");
+    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy, h:mma");
 
     /**
      * Constructs a {@code Event} task with the specified description, start time and end time.
@@ -32,6 +32,14 @@ public class Event extends Task {
         super(description);
         this.startTime = LocalDateTime.parse(startTime, inputFormatter);
         this.endTime = LocalDateTime.parse(endTime, inputFormatter);
+    }
+
+    public String getFromTimeInInputFormat() {
+        return this.startTime.format(inputFormatter);
+    }
+
+    public String getToTimeInInputFormat() {
+        return this.endTime.format(inputFormatter);
     }
 
     public String getFromTimeString() {

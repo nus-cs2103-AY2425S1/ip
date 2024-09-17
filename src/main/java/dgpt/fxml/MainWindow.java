@@ -24,7 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Dgpt dgpt;
 
-    private Image userImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new javafx.scene.image.Image(this.getClass()
+            .getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML

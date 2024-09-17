@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("DGPT");
             fxmlLoader.<dgpt.fxml.MainWindow>getController().setDgpt(dgpt); // inject the Dgpt instance
             stage.show();
         } catch (IOException e) {

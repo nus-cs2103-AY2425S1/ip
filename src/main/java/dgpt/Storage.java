@@ -152,12 +152,12 @@ public class Storage {
 
     private String formatDeadlineTask(Deadline task) {
         return String.format("D | %s | %s | %s", task.getIsDone() ? "1" : "0", task.getDescription(),
-                task.getDueDateString());
+                task.getDueDateInInputFormat());
     }
 
     private String formatEventTask(Event task) {
         return String.format("E | %s | %s | %s | %s", task.getIsDone() ? "1" : "0", task.getDescription(),
-                task.getFromTimeString(), task.getToTimeString());
+                task.getFromTimeInInputFormat(), task.getToTimeInInputFormat());
     }
 
     private String formatRecurringTask(Recurring task) {
