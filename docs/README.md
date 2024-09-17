@@ -226,8 +226,7 @@ Here are the tasks on the 2025-09-17:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
-Action | Format, Examples
---------|------------------
+Action | Format, Examples--------|------------------
 **List** | `list`
 **Mark as done** | `mark INDEX` <br> e.g., `mark 1`
 **Unmark as not done** | `unmark INDEX` <br> e.g., `unmark 1`
