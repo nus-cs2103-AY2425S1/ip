@@ -31,7 +31,7 @@ Adds a To-Do to your tasks.
 
 A To-Do has a name.
 
-The bot will save the To-Do, then respond with:
+Stelle will save the To-Do, then respond with:
 
 ```
 Got it. I've added it as a To Do:
@@ -52,7 +52,7 @@ Adds a Deadline to your tasks.
 
 A Deadline has a name and a "by" date (when it should be done by).
 
-The bot will save the Deadline, then respond with: 
+Stelle will save the Deadline, then respond with: 
 
 ```
 Got it. I've added it as a Deadline:
@@ -73,7 +73,7 @@ Adds an Event to your tasks.
 
 An Event has a name and "from" and "to" dates (denoting period when the event is taking place).
 
-The bot will save the Event, then respond with:
+Stelle will save the Event, then respond with:
 
 ```
 Got it. I've added it as an Event:
@@ -81,12 +81,72 @@ Got it. I've added it as an Event:
 Now you have 3 tasks in the list.
 ```
 
-## Saving Tasks to file
+## Saving Tasks to File
 
 Stelle automatically updates task storage during usage, and there is no need to manually save data.
 
 Note: Data is stored at `/data/stelle.txt` within the directory `stelle.jar` is stored at.
 
-## Feature XYZ
+## Marking Tasks as Done
+```
+mark [task number in list]
+```
+Marks a task as done. Indicated by an 'X' next to the task.
 
-// Feature details
+Stelle will mark the task, then respond with:
+
+```
+Nice! I've marked this task as done:
+[T][X] Revise CS2109S Lecture 6
+```
+
+## Listing All Tasks
+
+```
+list
+```
+Lists all tasks that Stelle has.
+
+Stelle will respond with:
+```
+Here is everything in your list:
+1. [E][ ] Recess week revisions (from: 22 September 2024 10:00 to: 27 September 2024 19:00)
+2. [D][ ] Submit Project (by: 19 September 2024 23:59)
+3. [T][ ] Revise CS2109S Lecture 6
+```
+(tasks given are examples)
+
+## Marking Tasks as undone
+```
+unmark [task number in list]
+```
+Marks a task as not done. Indicated by an ' ' next to the task.
+
+Stelle will unmark the task, then respond with:
+
+```
+OK, I've marked this task as not done yet:
+[T][ ] Revise CS2109S Lecture 6
+```
+
+## Deleting Tasks
+```
+delete [task number in list]
+```
+Example: `delete 3`  
+IMPORTANT: Numbering of tasks may shift after a deletion!
+
+Deletes a task.
+
+Stelle will delete the task, then respond with:
+
+```
+Alright. Removed the task:
+[T][ ] Revise CS2109S Lecture 6
+```
+
+## Exiting
+```
+bye
+```
+Stelle will close.
