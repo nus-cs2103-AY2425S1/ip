@@ -30,14 +30,14 @@ public class MainWindow extends AnchorPane {
     private Ui ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image henryImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /** Sets up the chat. */
     @FXML
     public void initialize() {
         ui = new Ui();
         dialogContainer.getChildren().addAll(
-                DialogBox.getHenryDialog(ui.greetings(), dukeImage));
+                DialogBox.getHenryDialog(ui.greetings(), henryImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
     }
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = henry.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getHenryDialog(response, dukeImage)
+                DialogBox.getHenryDialog(response, henryImage)
         );
         if (input.equals("bye")) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
