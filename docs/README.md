@@ -2,7 +2,7 @@
 
 **OuiOuiBaguette** is a chatbot designed to help you manage and track various tasks. With an intuitive command-line interface and a friendly French persona, OuiOuiBaguette allows you to effortlessly handle tasks, deadlines, events, and more.
 
-![Screenshot of OuiOuiBaguette showing the list, todo, and mark commands](docs/Ui.png)
+![Screenshot of OuiOuiBaguette showing the list, todo, and mark commands](ui.png)
 
 ### Example Commands
 Here are a few examples to get started:
@@ -116,7 +116,6 @@ Exit the chatbot application. The GUI will close in 3 seconds.
   ```
 
 ## Command Summary
-
 | Action            | Format                                        |
 |-------------------|-----------------------------------------------|
 | Add ToDo          | `todo <description>`                          |
