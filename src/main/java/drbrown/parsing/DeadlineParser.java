@@ -9,6 +9,7 @@ import drbrown.command.Command;
 import drbrown.task.Deadline;
 import drbrown.task.Task;
 import drbrown.utils.DrBrownException;
+import drbrown.utils.Responses;
 
 /**
  * A parser that handles the "deadline" command input.
@@ -35,15 +36,12 @@ public class DeadlineParser extends Parsing {
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit().length == 1) {
-                throw new DrBrownException("Great Scott! You can't add a deadline without a "
-                        + "description and date!\nUse the format: deadline {description} /by "
-                        + "{date} /priority {priority}");
+                throw new DrBrownException(Responses.getDeadlineExceptionNoDescription());
             }
 
             String[] deadlineSplit = this.getInputSplit()[1].split("/by | /priority");
             if (deadlineSplit.length == 1) {
-                throw new DrBrownException("Hello? Hello? Anybody home? Looks like something's missing "
-                        + "here!\nUse the format: deadline {description} /by {date} /priority {priority}");
+                throw new DrBrownException(Responses.getDeadlineExceptionNoDate());
             }
 
             Task deadline = new Deadline(false, deadlineSplit[0].trim(),
@@ -52,9 +50,7 @@ public class DeadlineParser extends Parsing {
 
             return new AddCommand(deadline);
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
-            throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... "
-                    + "and you missed the date! Let's fix that deadline!\nUse the format: deadline "
-                    + "{description} /by {MMM dd yyyy HH:mm} /priority {priority}");
+            throw new DrBrownException(Responses.getDeadlineExceptionOthers());
         }
     }
 

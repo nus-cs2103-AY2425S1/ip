@@ -5,7 +5,7 @@ import static java.lang.Integer.parseInt;
 import drbrown.command.Command;
 import drbrown.command.MarkCommand;
 import drbrown.utils.DrBrownException;
-import drbrown.utils.Parser;
+import drbrown.utils.Responses;
 
 /**
  * A parser that handles the "mark" command input.
@@ -20,7 +20,6 @@ public class MarkParser extends Parsing {
     /**
      * Parses the input to create a {@link MarkCommand} that marks a task as completed.
      *
-     * @param inputSplit An array of strings containing the user's input split by spaces.
      * @return An instance of {@link MarkCommand} for marking the specified task as completed.
      * @throws DrBrownException If the input is invalid, such as missing the index or providing a non-numeric value.
      */
@@ -28,14 +27,12 @@ public class MarkParser extends Parsing {
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit().length == 1) {
-                throw new DrBrownException("Great Scott! You can't complete a task without a count!\n"
-                        + "Use the format: mark {count}");
+                throw new DrBrownException(Responses.getMarkException());
             }
             int itemMarkIndex = parseInt(this.getInputSplit()[1]) - 1;
             return new MarkCommand(itemMarkIndex);
         } catch (NumberFormatException e) {
-            throw new DrBrownException("That's not a number! Without the right input, "
-                    + "we're never going to get this DeLorean off the ground!");
+            throw new DrBrownException(Responses.getExceptionNotNumber());
         }
     }
 

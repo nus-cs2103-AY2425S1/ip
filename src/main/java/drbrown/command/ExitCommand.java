@@ -23,7 +23,7 @@ public class ExitCommand extends Command {
      * @return A string message indicating that the application is exiting.
      */
     @Override
-    public String executeCommand(TaskList tasks, Ui ui, Storage storage) {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         assert tasks != null : "Tasks should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";

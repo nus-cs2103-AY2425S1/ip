@@ -5,6 +5,7 @@ import static java.lang.Integer.parseInt;
 import drbrown.command.Command;
 import drbrown.command.DeleteCommand;
 import drbrown.utils.DrBrownException;
+import drbrown.utils.Responses;
 
 /**
  * A parser that handles the "delete" command input.
@@ -26,14 +27,12 @@ public class DeleteParser extends Parsing {
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit().length == 1) {
-                throw new DrBrownException("You can't erase something from history without a count!\n"
-                        + "Use the format: delete {count}");
+                throw new DrBrownException(Responses.getDeleteExceptionNoIndex());
             }
             int itemDeleteIndex = parseInt(this.getInputSplit()[1]) - 1;
             return new DeleteCommand(itemDeleteIndex);
         } catch (NumberFormatException e) {
-            throw new DrBrownException("That's not a number! Without the right input, we're never going to get "
-                    + "this DeLorean off the ground!");
+            throw new DrBrownException(Responses.getExceptionNotNumber());
         }
     }
 

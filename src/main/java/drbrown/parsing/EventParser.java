@@ -9,19 +9,29 @@ import drbrown.command.Command;
 import drbrown.task.Event;
 import drbrown.task.Task;
 import drbrown.utils.DrBrownException;
+import drbrown.utils.Responses;
 
 /**
  * A parser that handles the "event" command input.
  * Responsible for parsing the input to create an {@link Event} task
  * with a description, start date, and end date.
  */
-public class EventParser extends Parsing{
+public class EventParser extends Parsing {
 
-    /** The formatter for parsing date and time in the specific format "MMM dd yyyy HH:mm". */
+    /**
+     * The formatter for parsing date and time in the specific format "MMM dd yyyy HH:mm".
+     */
     static final DateTimeFormatter FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /** The user input string to be parsed. */
     private String userInput;
 
+    /**
+     * Constructs an {@code EventParser} with the given user input and input split array.
+     *
+     * @param userInput The full user input string.
+     * @param inputSplit The user input split into parts for parsing.
+     */
     public EventParser(String userInput, String[] inputSplit) {
         super(inputSplit);
         this.userInput = userInput;
@@ -38,9 +48,7 @@ public class EventParser extends Parsing{
         assert this.getInputSplit() != null : "Input string array should not be null";
         try {
             if (this.getInputSplit().length == 1) {
-                throw new DrBrownException("Great Scott! You can't add an event without a description "
-                        + "and from and to date!\nUse the format: "
-                        + "event {description} /from {date} /to {date} /priority {priority}");
+                throw new DrBrownException(Responses.getEventExceptionNoDescription());
             }
 
             boolean containsValidString = this.userInput.contains("/from") || this.userInput.contains("/to")
@@ -48,9 +56,7 @@ public class EventParser extends Parsing{
             boolean correctOrderString = this.userInput.indexOf("/from") > this.userInput.indexOf("/to");
 
             if (!containsValidString || correctOrderString) {
-                throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... "
-                        + "and you missed the date! Let's fix that event!\nUse the format: "
-                        + "event {description} /from {date} /to {date} /priority {priority}");
+                throw new DrBrownException(Responses.getEventExceptionNoDate());
             }
 
             String[] eventSplit = this.getInputSplit()[1].split("/from | /to | /priority");
@@ -62,10 +68,7 @@ public class EventParser extends Parsing{
 
             return new AddCommand(event);
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
-            throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... "
-                    + "and you missed the date! Let's fix that event!\nUse the format: "
-                    + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {priority}");
+            throw new DrBrownException(Responses.getEventExceptionOthers());
         }
     }
-
 }
