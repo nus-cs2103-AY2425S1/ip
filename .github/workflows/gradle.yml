@@ -34,6 +34,25 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew clean build -x test -x checkstyleMain -x checkStyleTest
 
+    - name: Smoke Test Application
+      run: |
+        # Start the application in the background
+        ./gradlew run &
+        APP_PID=$!
+        
+        # Wait for a few seconds to simulate a smoke test duration
+        sleep 10
+          
+        # Check if the application is running and kill it if no exceptions are thrown
+        if ps -p $APP_PID > /dev/null
+        then
+          echo "Smoke test passed, killing application."
+          kill $APP_PID
+        else
+          echo "Application failed to start."
+          exit 1
+        fi
+
   # this tests to check if commit is compliant with checkstyle and jUnit tests
   test:
     strategy:
@@ -57,22 +76,3 @@ jobs:
 
       - name: run gradle test
         run: ./gradlew test
-
-      - name: Smoke Test Application
-        run: |
-          # Start the application in the background
-          ./gradlew run &
-          APP_PID=$!
-          
-          # Wait for a few seconds to simulate a smoke test duration
-          sleep 10
-          
-          # Check if the application is running and kill it if no exceptions are thrown
-          if ps -p $APP_PID > /dev/null
-          then
-            echo "Smoke test passed, killing application."
-            kill $APP_PID
-          else
-            echo "Application failed to start."
-            exit 1
-          fi
