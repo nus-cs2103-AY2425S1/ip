@@ -19,7 +19,6 @@ public class Ui {
 
     /**
      * Reads command from user
-     * 
      * @return
      */
     public String nextLine() {
@@ -28,7 +27,6 @@ public class Ui {
 
     /**
      * Sends output to user
-     * 
      * @param obj
      */
     public void println(Object obj) {

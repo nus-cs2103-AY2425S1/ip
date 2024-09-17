@@ -6,7 +6,6 @@ package exception;
 public class ToMoException extends Exception {
     /**
      * Constructor for the exception
-     * 
      * @param message The error message
      */
     public ToMoException(String message) {

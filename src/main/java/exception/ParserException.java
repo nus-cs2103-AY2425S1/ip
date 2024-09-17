@@ -6,7 +6,6 @@ package exception;
 public class ParserException extends ToMoException {
     /**
      * Constructor of StorageException
-     * 
      * @param message
      */
     public ParserException(String message) {

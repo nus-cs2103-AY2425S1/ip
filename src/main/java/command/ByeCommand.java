@@ -1,19 +1,24 @@
 package command;
 
-import tasklist.TaskList;
 import exception.ParserException;
-import ui.Ui;
 
-public class ByeCommand implements Command {
+/**
+ * Handle related issues to the command bye
+ */
+public class ByeCommand extends Command {
+    /**
+     * Gets a ByeCommand instance from command line
+     * @param cmdline Command line read from user
+     * @throws ParserException If wrong format found for the constructor
+     */
     public ByeCommand(String cmdline) throws ParserException {
         if (!cmdline.equals("bye")) {
             throw new ParserException("Too much arguments for bye command");
         }
-    } 
-
-    public void execute(TaskList tasks, Ui ui) {
-        // do nothing
     }
 
-    public boolean isExit() { return true; }
+    @Override
+    public boolean isExit() {
+        return true;
+    }
 }

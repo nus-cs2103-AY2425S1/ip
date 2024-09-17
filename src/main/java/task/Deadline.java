@@ -10,7 +10,6 @@ public class Deadline extends Task {
 
     /**
      * Constructor for the Deadline
-     * 
      * @param description Description of task
      * @param deadline The deadline for the task
      */
@@ -21,16 +20,15 @@ public class Deadline extends Task {
 
     /**
      * Constructor for the Deadline
-     * 
      * @param description Description of task
      * @param deadline The deadline for the task (In string format, to be converted)
      */
     public Deadline(String description, String deadline) {
-        this(description, Converter.InputToDateTime(deadline));
+        this(description, Converter.inputToDateTime(deadline));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Converter.DateTimeToOutput(deadline) + ")";
+        return "[D]" + super.toString() + " (by: " + Converter.dateTimeToOutput(deadline) + ")";
     }
 }

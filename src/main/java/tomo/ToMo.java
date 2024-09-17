@@ -1,12 +1,14 @@
 package tomo;
 
-
+import command.Command;
 import exception.ToMoException;
 import storage.Storage;
-import ui.Ui;
 import tasklist.TaskList;
-import command.Command;
+import ui.Ui;
 
+/**
+ * Handles everything about the conversation with user
+ */
 public class ToMo {
     private Parser parser;
     private Storage storage;
@@ -15,7 +17,6 @@ public class ToMo {
 
     /**
      * Constructor of the chatbot
-     * 
      * @param fileName The file to load and store tasks
      */
 

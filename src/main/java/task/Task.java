@@ -9,7 +9,6 @@ public class Task {
 
     /**
      * Constructor the task
-     * 
      * @param description The description for the task
      */
     Task(String description) {
