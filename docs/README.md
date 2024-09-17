@@ -15,9 +15,10 @@
 ## Add Todo Task: `todo`
 
 Adds a task to Socchat.
+
 **Format:** `todo <task_description> [-tag <your_tag>]`
 
-Example: 
+**Example:** 
 - todo assignment 1 
 - todo swimming -tag sport
 
@@ -31,8 +32,10 @@ Now you have 3 task(s).
 ## Add Deadline Task: `deadline`
 
 Add a deadline type of task to Socchat.
+
 **Format:** `deadline <task_description> /by <deadline> [-tag <your_tag>]`
-Example:
+
+**Example:**
 - deadline assignment 1 /by 2024-09-20
 - deadline assignment 1 /by 2024-09-20 -tag important
 
@@ -48,7 +51,8 @@ Now you have 4 task(s).
 Add a event type of task to Socchat.
 
 **Format:** `event <task_description> /from <start-date> /to <end-date> [-tag <your_tag>]`
-Example:
+
+**Example:**
 - event party /from 2024-09-20 /to 2024-09-21
 - event party /from 2024-09-20 /to 2024-09-21 -tag entertainment
 
@@ -72,13 +76,18 @@ Find a task with a keyword.
 > - Search can be partially matched e.g. `p` can match `ip` and `party`.
 > - Search is not case-sensitive e.g. `P` cannot match `ip`.
 
-Example: `find p` return all my tasks containing `p`.
-![find example](../src/main/resources/images/find.png)
+**Example:**
+
+`find p` return all my tasks containing `p`.
+<img src="../src/main/resources/images/find.png" alt="find example" height="300" width="400"/>
+
 
 ## Delete a task: `delete`
 Delete a task.
+
 **Format**: `delete <task_number>`
-Example:
+
+**Example:**
 - delete 6
 
 Example Outcome:
@@ -88,9 +97,11 @@ Now you have 5 task(s). Meow~
 ```
 
 ## Mark a task: `mark`
-Mark a task as done. 
+Mark a task as done.
+
 **Format**: `mark <task_number>`
-Example:
+
+**Example:**
 - mark 6
 
 Example Outcome:
@@ -100,9 +111,12 @@ Meow~ Marked "dance" as done
 ```
 
 ## Unmark a task: `unmark`
+
 Unmark a task as not done.
+
 **Format**: `unmark <task_number>`
-Example:
+
+**Example:**
 - unmark 6
 
 Example Outcome:
@@ -112,9 +126,12 @@ Meow~ Marked "dance" as not done
 ```
 
 ## Exit the program: `bye`
+
 Exits the program. Program will automatically closed after a few seconds.
+
 **Format**: `bye`
 
 ## Saving data
+
 Socchat tasks are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
