@@ -1,5 +1,7 @@
 package yapyap;
 
+import javafx.scene.layout.VBox;
+
 /**
  * Main class for the YapperBot application. This class initializes the necessary components
  * and provides methods to process user inputs and generate appropriate responses.
@@ -15,9 +17,11 @@ public class YapperBot {
      * Constructs a YapperBot instance, initializing the user interface, storage, parser,
      * and task list. Loads tasks from the specified file path if available.
      * If loading fails, it starts with an empty task list.
+     *
+     * @param dialogContainer The VBox dialog container from the FXML, used for displaying messages.
      */
-    public YapperBot() {
-        ui = new Ui();
+    public YapperBot(VBox dialogContainer) {
+        ui = new Ui(dialogContainer);
         storage = new Storage(FILE_PATH);
         parser = new Parser();
 

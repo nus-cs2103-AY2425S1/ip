@@ -26,11 +26,16 @@ public class Main extends Application {
             stage.show();
 
             MainWindow controller = fxmlLoader.getController();
-            controller.setYapperBot(new YapperBot());
+
+            controller.setYapperBot(new YapperBot(controller.getDialogContainer()));
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error loading fxml file");
+            System.out.println("Error loading FXML file");
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

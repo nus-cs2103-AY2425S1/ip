@@ -18,6 +18,7 @@ public class MainWindow extends VBox {
     private TextField userInput;
 
     private YapperBot yapperBot;
+    private Ui ui;
 
     private Image userImage = loadImage("/images/User.png");
     private Image yapperBotImage = loadImage("/images/YapperBot.png");
@@ -33,8 +34,24 @@ public class MainWindow extends VBox {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the YapperBot instance and initializes the Ui.
+     *
+     * @param yapperBot The YapperBot instance to set.
+     */
     public void setYapperBot(YapperBot yapperBot) {
         this.yapperBot = yapperBot;
+        this.ui = new Ui(dialogContainer);
+        ui.displayWelcomeMessage();
+    }
+
+    /**
+     * Returns the dialog container VBox.
+     *
+     * @return The VBox containing dialog entries.
+     */
+    public VBox getDialogContainer() {
+        return dialogContainer;
     }
 
     /**
