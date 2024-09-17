@@ -33,16 +33,6 @@ public class Bwead {
         assert history != null;
         assert tasks != null;
     }
-    /*
-    /**
-     * Starts the chatbot by calling ui.handleCommands(input) to handle the command inputs.
-     *
-     * @throws IOException when a failure occurs while performing read or write operations
-     *     from the handleCommands() method.
-     *
-    public void run() throws IOException {
-        System.out.println("Hello from " + name + "!");
-    }*/
 
     public String getResponse(String input) {
         try {
@@ -51,17 +41,5 @@ public class Bwead {
             return e.getMessage();
         }
     }
-
-    /*
-    /**
-     * Main method of Bwead.
-     *
-     * @param args
-     * @throws IOException when a failure occurs while performing read or write operations
-     *     from the run() method.
-     *
-    public static void main(String[] args) throws IOException {
-        new Bwead("./src/main/java/Bwead/historyFile.txt").run();
-    }*/
 }
 
