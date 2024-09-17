@@ -1,5 +1,6 @@
 package alex.tasklist;
 
+import alex.parser.Parser;
 import alex.task.Deadline;
 import alex.task.Event;
 import alex.task.Task;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> list;
-
+    private Parser parser = new Parser();
     public TaskList(ArrayList<Task> tasks) {
         this.list = tasks;
     }
@@ -40,7 +41,7 @@ public class TaskList {
      */
     public String handleMark(String input) {
         String reply = "";
-        int index = Integer.parseInt(input.substring(5)) - 1;
+        int index = parser.extractIndexForMark(input);
         boolean isLessThanSizeOfList = index < list.size();
         boolean isGreaterThanZero = index >= 0;
         boolean isValidIndex = isGreaterThanZero && isLessThanSizeOfList;
@@ -62,7 +63,7 @@ public class TaskList {
      */
     public String handleUnmark(String input) {
         String reply = "";
-        int index = Integer.parseInt(input.substring(7)) - 1;
+        int index = parser.extractIndexForUnmark(input);
         boolean isLessThanSizeOfList = index < list.size();
         boolean isGreaterThanZero = index >= 0;
         boolean isValidIndex = isGreaterThanZero && isLessThanSizeOfList;
@@ -86,7 +87,7 @@ public class TaskList {
      */
     public String handleTodo(String input) {
         String reply = "";
-        String description = input.substring(4).trim();
+        String description = parser.extractDescriptionForTodo(input);
         if (description.isEmpty()) {
             reply = "You missed out some details. Try again";
         } else {
@@ -109,16 +110,15 @@ public class TaskList {
      */
     public String handleDeadline(String input) {
         String reply = "";
-        String description = input.substring(8).trim();
+        String description = parser.extractDescriptionForDeadline(input);
         if (description.isEmpty()) {
             reply = "You missed out the details of the deadline task. Try again";
         } else {
             try {
-                String[] details = description.split("/", 2);
+                String[] details = parser.parseIntoArrayOfDetailsForDeadline(description);
                 String task = details[0].trim();
-                String dueInter = details[1].substring(2).trim();
-                LocalDate dueDate = LocalDate.parse(dueInter);
-                if (task.isEmpty() || dueInter.isEmpty()) {
+                LocalDate dueDate = parser.extractEndDate(details[1]);
+                if (task.isEmpty()) {
                     reply = "You missed out some details. Try again";
                 } else {
                     Deadline deadline = new Deadline(task, dueDate);
@@ -144,18 +144,16 @@ public class TaskList {
      */
     public String handleEvent(String input) {
         String reply = "";
-        String description = input.substring(5).trim();
+        String description = parser.extractDescriptionForEvent(input);
         if (description.isEmpty()) {
             reply = "You missed out the details of the event task. Try again";
         } else {
             try {
-                String[] details = description.split("/", 3);
+                String[] details = parser.parseIntoArrayOfDetailsForEvent(description);
                 String task = details[0].trim();
-                String startInter = details[1].substring(4).trim();
-                LocalDate startDate = LocalDate.parse(startInter);
-                String endInter = details[2].substring(2).trim();
-                LocalDate endDate = LocalDate.parse(endInter);
-                if (task.isEmpty() || startInter.isEmpty() || endInter.isEmpty()) {
+                LocalDate startDate = parser.extractStartDate(details[1]);
+                LocalDate endDate = parser.extractEndDate(details[2]);
+                if (task.isEmpty()) {
                     reply = "You missed out some details. Try again";
                 } else {
                     Event event = new Event(task, startDate, endDate);
@@ -180,7 +178,7 @@ public class TaskList {
      */
     public String handleDelete(String input) {
         String reply = "";
-        int index = Integer.parseInt(input.substring(7)) - 1;
+        int index = parser.extractIndexForDelete(input);
         boolean isLessThanSizeOfList = index < list.size();
         boolean isGreaterThanZero = index >= 0;
         boolean isValidIndex = isGreaterThanZero && isLessThanSizeOfList;
@@ -204,7 +202,7 @@ public class TaskList {
     public String handleDate(String input) {
         String reply = "";
         try {
-            LocalDate dateToFind = LocalDate.parse(input.substring(9).trim());
+            LocalDate dateToFind = parser.extractDateForDateCommand(input);
             @SuppressWarnings("unchecked")
             ArrayList<Task> newList = (ArrayList<Task>) list.clone();
             newList.removeIf(task -> task.dueDate == null);
@@ -227,7 +225,7 @@ public class TaskList {
      */
     public String handleFind(String input) {
         String reply = "";
-        String keyword = input.substring(5).trim();
+        String keyword = parser.extractKeywordForFind(input);
         @SuppressWarnings("unchecked")
         ArrayList<Task> newList = (ArrayList<Task>) list.clone();
         newList.removeIf(task -> !task.description.toLowerCase().contains(keyword.toLowerCase()));
@@ -253,9 +251,9 @@ public class TaskList {
      */
     public String handleTag(String input) {
         String reply = "";
-        int index = Integer.parseInt(input.substring(4,5)) - 1;
-        String tagAs = input.substring(5).trim();
-        if (tagAs.isEmpty()) {
+        int index = parser.extractIndexForTag(input);
+        String label = parser.extractLabelForTag(input);
+        if (label.isEmpty()) {
             reply = "You missed out the name of the tag. Try again.";
         } else {
             boolean isLessThanSizeOfList = index < list.size();
@@ -263,7 +261,7 @@ public class TaskList {
             boolean isValidIndex = isGreaterThanZero && isLessThanSizeOfList;
             if (isValidIndex) {
                 Task task = list.get(index);
-                task.addTag(tagAs);
+                task.addTag(label);
                 reply = "OK, I've tagged this task: \n" +
                         task.toString();
             } else {
