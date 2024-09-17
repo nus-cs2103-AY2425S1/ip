@@ -1,4 +1,3 @@
-
 # Tick User Guide
 
 > Introducing Tick, your friendly, capable task manager!
@@ -9,6 +8,7 @@
 * Fast and Efficient :dash:
 * Easy to use :+1:
 * Cute :space_invader:
+
 ---
 
 <p align="center">
@@ -23,10 +23,11 @@
 4. Open a command terminal, navigate to the folder where `tick.jar` is located. and use the command
    `java -jar tick.jar` to interact with Tick!
 ---
+
 ## Tick's features & usage
 
 ### Create Tasks
-### `todo`
+#### `todo`
 Create a quick Todo to help track tasks with no specific date/time.
 
 **Format**: `todo <description>`
@@ -40,7 +41,7 @@ Ding ding! I've added this task:
 Now you have 1 tasks in the list.
 ```
 ---
-### `deadline`
+#### `deadline`
 Create tasks that need to be done before a specific date.
 
 **Format**: `deadline <description> /by <yyyy-mm-dd>`
@@ -54,7 +55,7 @@ Ding ding! I've added this task:
 Now you have 2 tasks in the list.
 ```
 ---
-### `event`
+#### `event`
 Create tasks that start at a specific date and ends at a specific date.
 
 **Format**: `event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
@@ -70,7 +71,7 @@ Now you have 3 tasks in the list.
 
 ---
 ### View Tasks
-### `list`
+#### `list`
 Lists all your tasks in a neat list.
 
 **Format**: `list`
@@ -83,7 +84,7 @@ Here are the tasks in your list:
 3.[E][ ] Brawl Stars World Finals (from: 1 Nov 2024 to: 3 Nov 2024)
 ```
 ---
-### `find`
+#### `find`
 Find a task by searching for a keyword in the task description.
 
 **Format**: `find <keyword>`
@@ -98,7 +99,7 @@ Ding ding! Here are the matching tasks in your list:
 
 ---
 ### Manage Tasks
-### `mark`
+#### `mark`
 Mark a task in the task list as completed.
 
 **Format**: `mark <index>`
@@ -113,7 +114,7 @@ Ding ding! I've marked this task as done:
 [T][X] use hypercharge
 ```
 ---
-### `unmark`
+#### `unmark`
 Mark a task in the task list as incomplete.
 
 **Format**: `unmark <index>`
@@ -128,7 +129,7 @@ OK, I've marked this task as undone:
 [T][ ] use hypercharge
 ```
 ---
-### `delete`
+#### `delete`
 Delete a task.
 
 **Format**: `delete <index>`
