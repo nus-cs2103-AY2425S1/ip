@@ -5,7 +5,9 @@ package easton.exception;
  */
 public class InvalidIndexException extends Exception {
     /**
-     * Construct a new exception with a generated detail message.
+     * Constructs a new exception with a specified detail message.
+     *
+     * @param input Input that was given.
      */
     public InvalidIndexException(String input) {
         super(input + " is an invalid index!");

@@ -5,7 +5,7 @@ package easton.exception;
  */
 public class InvalidFormatException extends Exception {
     /**
-     * Construct a new exception with a generated detail message.
+     * Constructs a new exception with a generated detail message.
      */
     public InvalidFormatException() {
         super("This description is in the wrong format!");
