@@ -192,7 +192,10 @@ public class Alexer {
 
         Command cmd = commandHandler.getCommand(command.toLowerCase());
         if (cmd != null) {
-            cmd.run(arguments.toArray(String[]::new));
+            Response response = cmd.run(arguments.toArray(String[]::new));
+            if (response != null) {
+                response.printToConsole();
+            }
         } else {
             switch (command) {
                 case "bye":
