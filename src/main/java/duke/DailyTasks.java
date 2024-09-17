@@ -13,13 +13,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * The main class for the DailyTasks application, which acts as a task manager.
- * It handles initializing the application, managing the task list, and saving
- * the application state before exiting.
+ * Main class for the DailyTasks application, a task management tool.
+ * Initializes core components such as task list, storage, and UI.
+ * Manages the application life cycle and ensures task data is saved on exit.
  *
- * <p>This class extends {@link javafx.application.Application}.
- * It initializes core components such as the task list, storage, and user interface,
- * and passes these components to the {@link duke.javafx.MainWindow} for UI management.</p>
+ * <p>This class extends {@link javafx.application.Application} and initializes
+ * components for the JavaFX user interface, linking them with {@link duke.javafx.MainWindow}.</p>
  */
 public class DailyTasks extends Application {
     private TaskList taskList;
@@ -27,11 +26,10 @@ public class DailyTasks extends Application {
     private Storage storage;
 
     /**
-     * The entry point of the JavaFX application. This method is called after the
-     * application is launched and is responsible for initializing core components
-     * and setting up the main window.
+     * Entry point of the JavaFX application.
+     * Initializes the primary application components and sets up the main UI window.
      *
-     * @param stage The primary stage for this application, onto which the main application scene can be set.
+     * @param stage Primary stage for this application where the main application scene is set.
      */
     @Override
     public void start(Stage stage) {

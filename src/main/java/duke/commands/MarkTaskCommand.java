@@ -13,7 +13,7 @@ import duke.ui.Ui;
 public class MarkTaskCommand extends Command {
 
     /** A flag indicating whether to mark the task as done or not done. */
-    private boolean markAsDone;
+    private boolean isDone;
 
     /** The index of the task to be marked or unmarked. */
     private int taskIndex;
@@ -21,12 +21,12 @@ public class MarkTaskCommand extends Command {
     /**
      * Constructs a new MarkTaskCommand with the specified action (mark as done or not done) and task index.
      *
-     * @param markAsDone True to mark the task as done, false to mark it as not done.
+     * @param isDone True to mark the task as done, false to mark it as not done.
      * @param taskIndex The index of the task to be marked or unmarked.
      */
-    public MarkTaskCommand(boolean markAsDone, int taskIndex) {
+    public MarkTaskCommand(boolean isDone, int taskIndex) {
         super();
-        this.markAsDone = markAsDone;
+        this.isDone = isDone;
         this.taskIndex = taskIndex;
         // Assert that the taskIndex is not negative
         assert taskIndex >= 0 : "Task index must not be negative";
@@ -60,7 +60,7 @@ public class MarkTaskCommand extends Command {
             // Assert that the task is not null
             assert task != null : "Task should not be null";
 
-            if (this.markAsDone) {
+            if (this.isDone) {
                 task.setDone();
                 return ui.formatMarkTask(task);
             } else {
