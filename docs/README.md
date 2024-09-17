@@ -6,7 +6,9 @@ Sentinel can handle it all!
 
 Sentinel can also function as a **client tracker**, enabling you 
 to track the information of your customers such as their name and their phone numbers.
----
+
+___
+
 # 📋 Feature List
 * ## ✅ Task Manager
   * [Adding todos](#adding-todos-todo)
@@ -23,7 +25,9 @@ to track the information of your customers such as their name and their phone nu
   * [Finding customers by name](#finding-customer-by-name-findc)
   * [Listing all customers](#list-all-customers-listc)
 * ## [Miscellaneous ⚠️](#miscellaneous-commands)
----
+
+___
+
 # ✅ Task Manager
 ## Adding todos `todo`
 Adds a todo to the list of tasks.
