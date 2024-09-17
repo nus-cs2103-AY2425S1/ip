@@ -2,6 +2,7 @@ package gopher.gui;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +38,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setFitHeight(64);
+        displayPicture.setPreserveRatio(true);
     }
 
     /**
@@ -50,9 +53,25 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Render the background of the gopher dialog box based whether the message
+     * is a normal conversation or a warning
+     *
+     * @param text text within the gopher's dialog box
+     */
+    private void renderBackground(String text) {
+        Pattern warningPattern = Pattern.compile("Please try again",
+                Pattern.CASE_INSENSITIVE);
+        if (warningPattern.matcher(text).find()) {
+            dialog.getStyleClass().add("warning-color");
+        } else {
+            dialog.getStyleClass().add("reply-color");
+        }
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        Circle clip = new Circle(50, 50, 50);
+        Circle clip = new Circle(32, 32, 32);
         db.displayPicture.setClip(clip);
         return db;
     }
@@ -60,6 +79,7 @@ public class DialogBox extends HBox {
     public static DialogBox getGopherDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.renderBackground(text);
         return db;
     }
 }

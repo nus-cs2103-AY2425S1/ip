@@ -22,6 +22,7 @@ public class InvalidTokenException extends Exception {
     @Override
     public String getMessage() {
         return String.format("Sorry, %s task cannot accept %s token as part of command\n"
+                        + "Please try again...\n"
                         + "Tokens supported by %s are: //to be done",
                 this.taskType,
                 this.token,
