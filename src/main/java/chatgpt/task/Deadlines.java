@@ -36,8 +36,8 @@ public class Deadlines extends Task {
                     .substring(0, 2);
             String minutes = deadline.split(" ")[2]
                     .substring(2);
-            LocalTime time = LocalTime.of(Integer.valueOf(hours),
-                    Integer.valueOf(minutes));
+            LocalTime time = LocalTime.of(Integer.parseInt(hours),
+                    Integer.parseInt(minutes));
             this.deadline = LocalDateTime.of(date, time);
         } catch (DateTimeException e) {
             throw new ChatBotException("\t Please enter the deadline in the following format:"
@@ -67,8 +67,8 @@ public class Deadlines extends Task {
                     .substring(0, 2);
             String minutes = deadline.split(" ")[2]
                     .substring(2);
-            LocalTime time = LocalTime.of(Integer.valueOf(hours),
-                    Integer.valueOf(minutes));
+            LocalTime time = LocalTime.of(Integer.parseInt(hours),
+                    Integer.parseInt(minutes));
             this.deadline = LocalDateTime.of(date, time);
         } catch (DateTimeException e) {
             throw new ChatBotException("\t Please enter the deadline in the following format:"

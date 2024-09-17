@@ -40,8 +40,8 @@ public class Events extends Task {
                     .substring(0, 2);
             String sMinutes = startDate.split(" ")[2]
                     .substring(2);
-            LocalTime sTime = LocalTime.of(Integer.valueOf(sHours),
-                    Integer.valueOf(sMinutes));
+            LocalTime sTime = LocalTime.of(Integer.parseInt(sHours),
+                    Integer.parseInt(sMinutes));
             this.startDate = LocalDateTime.of(sDate, sTime);
 
             LocalDate eDate = LocalDate.parse(endDate.split(" ")[1]);
@@ -49,8 +49,8 @@ public class Events extends Task {
                     .substring(0, 2);
             String eMinutes = endDate.split(" ")[2]
                     .substring(2);
-            LocalTime eTime = LocalTime.of(Integer.valueOf(eHours),
-                    Integer.valueOf(eMinutes));
+            LocalTime eTime = LocalTime.of(Integer.parseInt(eHours),
+                    Integer.parseInt(eMinutes));
             this.endDate = LocalDateTime.of(eDate, eTime);
         } catch (DateTimeException e) {
             throw new ChatBotException("\t Please enter the start and end timings "
@@ -79,15 +79,15 @@ public class Events extends Task {
             LocalDate sDate = LocalDate.parse(startDate.split(" ")[1]);
             String sHours = startDate.split(" ")[2].substring(0, 2);
             String sMinutes = startDate.split(" ")[2].substring(2);
-            LocalTime sTime = LocalTime.of(Integer.valueOf(sHours),
-                    Integer.valueOf(sMinutes));
+            LocalTime sTime = LocalTime.of(Integer.parseInt(sHours),
+                    Integer.parseInt(sMinutes));
             this.startDate = LocalDateTime.of(sDate, sTime);
 
             LocalDate eDate = LocalDate.parse(endDate.split(" ")[1]);
             String eHours = endDate.split(" ")[2].substring(0, 2);
             String eMinutes = endDate.split(" ")[2].substring(2);
-            LocalTime eTime = LocalTime.of(Integer.valueOf(eHours),
-                    Integer.valueOf(eMinutes));
+            LocalTime eTime = LocalTime.of(Integer.parseInt(eHours),
+                    Integer.parseInt(eMinutes));
             this.endDate = LocalDateTime.of(eDate, eTime);
         } catch (DateTimeException e) {
             throw new ChatBotException("\t Please enter the start and end timings "

@@ -89,6 +89,7 @@ public class Storage {
                     data.add(new Events(taskName, startDate, endDate, isCompleted));
                     break;
                 default:
+                    assert false : "Data stored as wrong format";
                 }
 
             }
