@@ -1,5 +1,4 @@
-package task;
-import exception.InputFormatException;
+package ScoobyDoo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -45,11 +44,5 @@ public class Deadline extends Task{
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:ma");
         return String.format("[D] %s (by: %s)\n", super.toString(), byDate.format(formatter));
-    }
-
-
-
-    public static boolean matchDeadline(String s) {
-        return s.startsWith("deadline");
     }
 }

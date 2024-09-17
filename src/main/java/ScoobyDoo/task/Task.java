@@ -1,5 +1,4 @@
-package task;
-import exception.InputFormatException;
+package ScoobyDoo.task;
 
 /**
  * Represents a task with a description and a completion status.
@@ -63,43 +62,4 @@ public abstract class Task {
         return (done ? "X" : " "); // mark done task with X
     }
 
-    /**
-     * Checks if the input string matches the pattern for unmarking a task.
-     * The expected input format is "unmark {number}".
-     *
-     * @param input The input string to be checked.
-     * @return The number following the "unmark" keyword.
-     * @throws InputFormatException If the input format is incorrect.
-     */
-    public static int matchesUnmark(String input) throws InputFormatException{
-        String[] inputArr = input.split(" ");
-        if (inputArr.length != 2) {
-            throw new InputFormatException("Please specify a number after \"unmark\"");
-        }
-        try {
-            return Integer.parseInt(inputArr[1]);
-        } catch (NumberFormatException e){
-            throw new InputFormatException("Please input a number after \"unmark\"");
-        }
-    }
-
-    /**
-     * Checks if the input string matches the pattern for marking a task as done.
-     * The expected input format is "mark {number}".
-     *
-     * @param input The input string to be checked.
-     * @return The number following the "mark" keyword.
-     * @throws InputFormatException If the input format is incorrect.
-     */
-    public static int matchesMark(String input) throws InputFormatException{
-        String[] inputArr = input.split(" ");
-        if (inputArr.length != 2) {
-            throw new InputFormatException("Please specify a number after \"mark\"");
-        }
-        try {
-            return Integer.parseInt(inputArr[1]);
-        } catch (NumberFormatException e){
-            throw new InputFormatException("Please input a number after \"mark\"");
-        }
-    }
 }
