@@ -35,19 +35,15 @@ public class TagCommand extends Command {
         int tagIndex = parser.parseTagIndex(input) - 1;
         Tag tag;
         if (tagList.containsTag(tagText)) {
-            tag = tagList.getTag(tagText); //finds the tag
-            taskList.getTask(tagIndex).addTag(tag); //adds tag to the task object
-            tag.tagTask(taskList.getTask(tagIndex)); //adds task to the tag object
-
-
-            result = guiResponses.taggedTasks(taskList.getTask(tagIndex), tagText);
-
+            tag = tagList.getTag(tagText);
         } else {
             tag = new Tag(tagText);
-            tagList.addTag(tag);
-            taskList.getTask(tagIndex).addTag(new Tag(tagText));
-            result = guiResponses.taggedTasks(taskList.getTask(tagIndex), tagText);
         }
+        tagList.addTag(tag);
+        taskList.getTask(tagIndex).addTag(new Tag(tagText));
+        System.out.println("Tagged task: " + taskList.getTask(tagIndex).getDescription() + " with tag: " + tagText);
+        result = guiResponses.taggedTasks(taskList.getTask(tagIndex), tagText);
+
 
         return result;
     }

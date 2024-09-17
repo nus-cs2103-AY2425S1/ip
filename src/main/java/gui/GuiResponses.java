@@ -110,7 +110,7 @@ public class GuiResponses {
     public String addTaskMsg(String type, int size) {
         return String.format("Added %s to Tasks", type) + "\n"
                 + String.format("Currently %d tasks in List. ", size)
-                + String.format("Sometimes, I wonder if you have too much time on your hands... (¬_¬)", size);
+                + String.format("Sometimes, I wonder if you have too much time on your hands... ", size);
 
     }
 
