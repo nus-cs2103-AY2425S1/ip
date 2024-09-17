@@ -3,10 +3,12 @@ package bocchi.ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A GUI for Duke using FXML.
@@ -27,6 +29,12 @@ public class Main extends Application {
             stage.setMinWidth(500);
 
             stage.setOnCloseRequest(e -> bocchiWrapper.onExit());
+
+            InputStream is = this.getClass().getResourceAsStream("/images/bocchi.jpg");
+            if (is != null) {
+                Image icon = new Image(is);
+                stage.getIcons().add(icon);
+            }
 
             fxmlLoader.<MainWindow>getController().setBocchiWrapper(bocchiWrapper);  // inject the Duke instance
             bocchiWrapper.setStage(stage);
