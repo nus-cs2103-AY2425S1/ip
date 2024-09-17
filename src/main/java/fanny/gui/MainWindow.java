@@ -27,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Fanny fanny;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/profile-avatar.png"));
+    private Image fannyImage = new Image(this.getClass().getResourceAsStream("/images/fanny-avatar.png"));
 
     /**
      * Initializes the main window of the application.
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String response = fanny.generateResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getFannyDialog(response, dukeImage)
+                DialogBox.getFannyDialog(response, fannyImage)
         );
         userInput.clear();
     }
@@ -68,7 +68,7 @@ public class MainWindow extends AnchorPane {
         String startUpMessage = welcomeMessage + "\n" + reminderMessage;
 
         dialogContainer.getChildren().add(
-                DialogBox.getFannyDialog(startUpMessage, dukeImage)
+                DialogBox.getFannyDialog(startUpMessage, fannyImage)
         );
     }
 
