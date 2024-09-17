@@ -3,50 +3,76 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainLayout"
-            maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="weeny.ui.WeenyGui"
-            prefHeight="600.0" prefWidth="400.0"
-            style="-fx-background-color: lightgray;">
+<AnchorPane
+        fx:id="mainLayout"
+        maxHeight="-Infinity"
+        maxWidth="-Infinity"
+        minHeight="-Infinity"
+        minWidth="-Infinity"
+        prefHeight="600.0"
+        prefWidth="400.0"
+        style="-fx-background-color: white smoke;"
+        xmlns="http://javafx.com/javafx/22"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="weeny.ui.WeenyGui">
+
     <children>
-        <TextField fx:id="userInput"
-                   onAction="#handleUserInput"
-                   prefWidth="340.0"
-                   prefHeight="30.0"
-                   AnchorPane.bottomAnchor="1.0"
-                   AnchorPane.leftAnchor="1.0"
-                   style="-fx-background-color: lightblue;">
+        <ImageView
+                fx:id="sendIcon"
+                fitHeight="28.0"
+                fitWidth="32.0"
+                layoutX="351.0"
+                layoutY="566.0"
+                preserveRatio="true" />
+        <TextField
+                fx:id="userInput"
+                alignment="TOP_LEFT"
+                layoutX="3.3333333333333335"
+                layoutY="571.6666666666666"
+                onAction="#handleUserInput"
+                onKeyPressed="#clearDefaultText"
+                prefWidth="341.0"
+                style="-fx-background-color: ghostwhite; -fx-background-radius: 15;"
+                text="Oink here"
+                AnchorPane.bottomAnchor="6.333333333333371"
+                AnchorPane.leftAnchor="3.3333333333333335">
+            <font>
+                <Font name="Berlin Sans FB" size="12.0" />
+            </font>
         </TextField>
-        <Button fx:id="sendButton"
-                text="Send"
-                prefWidth="55.0"
-                AnchorPane.bottomAnchor="1.0"
-                AnchorPane.rightAnchor="1.0"
-                style="-fx-background-color: white;">
-        </Button>
-        <ScrollPane fx:id="scrollPane"
-                    hbarPolicy="NEVER"
-                    hvalue="1.0"
-                    prefHeight="570"
-                    prefWidth="400"
-                    vbarPolicy="ALWAYS"
-                    vvalue="1.0"
-                    fitToHeight="true"
-                    AnchorPane.topAnchor="1.0"
-                    style="-fx-background-color: white;">
+        <ScrollPane
+                fx:id="scrollPane"
+                fitToHeight="true"
+                hbarPolicy="NEVER"
+                hvalue="1.0"
+                prefHeight="565.0"
+                prefWidth="400"
+                style="-fx-background: whitesmoke; -fx-background-color: whitesmoke;"
+                vbarPolicy="ALWAYS"
+                vvalue="1.0"
+                AnchorPane.topAnchor="1.0">
             <content>
-                <VBox fx:id="dialogContainer"
-                      prefHeight="552.0"
-                      prefWidth="388.0"
-                      style="-fx-background-color: lightblue;">
-                </VBox>
+                <VBox
+                        fx:id="dialogContainer"
+                        prefHeight="571.0"
+                        prefWidth="388.0"
+                        style="-fx-background-color: whitesmoke;" />
             </content>
         </ScrollPane>
+        <Button
+                fx:id="sendButton"
+                layoutX="343.0"
+                layoutY="565.3333333333333"
+                onMouseClicked="#handleUserInput"
+                prefHeight="35.0"
+                prefWidth="54.0"
+                style="-fx-background-color: transparent; -fx-shape: 'M150 0 A 75 75 0 1 1 149.99 0 Z';"
+                AnchorPane.bottomAnchor="-0.6666666666666288"
+                AnchorPane.rightAnchor="3.0" />
     </children>
 </AnchorPane>
