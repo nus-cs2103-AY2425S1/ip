@@ -36,6 +36,7 @@
                 <VBox fx:id="dialogContainer"
                       prefWidth="388.0"
                       minHeight="552.0"
+                      style="-fx-background-color: cyan;"
                       AnchorPane.topAnchor="0.0"/>
             </content>
         </ScrollPane>
