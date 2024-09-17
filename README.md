@@ -25,7 +25,7 @@ Features:
 If you are a Java programmer, you can use it for practicing Java as well!
 
 Here is the `main` method in `stelle.ui.Main`: 
-```
+```java
    @Override
     public void start(Stage stage) {
         try {
