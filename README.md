@@ -1,6 +1,6 @@
 # Dipsy User Guide
 
-![Dipsy Product Screenshot](Ui.png)
+![Dipsy Product Screenshot](docs/Ui.png)
 
 **Dipsy** (named after my cat) is a task management chatbot that helps users manage tasks, deadlines, and events using a command-line interface. 
 
