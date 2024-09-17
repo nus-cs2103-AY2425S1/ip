@@ -7,7 +7,7 @@ import javafx.application.Application;
  */
 public class Launcher {
     /**
-     * The main method that serves as the entry point of the Java application.
+     * Entry point of the Jade JavaFX application.
      *
      * @param args The command-line arguments passed to the application.
      */

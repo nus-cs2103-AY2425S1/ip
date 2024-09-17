@@ -21,7 +21,7 @@ public class Jade {
     private static final Parser PARSER = new Parser(TASK_MANAGER);
 
     /**
-     * Main method to start the Jade text-based UI application.
+     * Starts the Jade text-based UI application.
      * Initialises the Storage, TaskManager, and UI, and then runs the UI.
      *
      * @param args Command line arguments (not used).
