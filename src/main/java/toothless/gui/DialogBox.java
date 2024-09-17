@@ -48,10 +48,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a dialog box with the user's text and image.
+     *
+     * @param text the user's text
+     * @param img the user's image
+     * @return a dialog box with the user's text and image
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a dialog box with Toothless' text and image.
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     *
+     * @param text the Toothless' text
+     * @param img the Toothless' image
+     * @return a dialog box with Toothless' text and image
+     */
     public static DialogBox getToothlessDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
