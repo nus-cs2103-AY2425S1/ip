@@ -43,7 +43,7 @@ than traditional GUI apps.
 ---
 ## Features
 
-Notes about the command format:
+ℹ️ Notes about the command format:
 
 1. Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
  e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo borrow book`.
@@ -52,7 +52,7 @@ Notes about the command format:
 3. Parameters must be in the specified order.<br>
      e.g. if the command specifies `DESCRIPTION from/DATE`, it needs to follow this format strictly.
 4. If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-
+---
 
 ### Adding todos: `todo`
 Adds a task of type `todo` to the task list.
@@ -108,6 +108,10 @@ Finds tasks whose descriptions contain the given keyword.
 
 Format: `find KEYWORD`
 
+- The search is case-insensitive. e.g. `book` will match `Book`.
+- Only the description is searched.
+- Partial words will be matched. e.g. `book` will match `bookstore`.
+
 Example: `find book` returns a list of tasks with the word `book` in their description.
 
 ### Create a tag: `create`
@@ -120,7 +124,9 @@ Example: `create important`
 ### Tag a task: `tag`
 Tags a task with an already existing tag.
 
-**Note**: The tag must already exist and one task can only have one tag.
+> ℹ️ **NOTE**  
+> The tag must already exist before it can be used to tag a task.
+> Only one tag can be used to tag a task.
 
 Format: `tag TASK_NUMBER /with TAG_NAME`
 
@@ -130,7 +136,7 @@ Untags a task with an already existing tag.
 Format: `untag TASK_NUMBER`
 
 ### Exiting the program: `bye`
-Exits the program after a 3 second delay.
+Exits the program after a 3-second delay.
 
 Format: `bye`
 
