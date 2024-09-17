@@ -102,7 +102,3 @@ Let's get to work!"
 
 
 LeBron James - ChatBot keeps you focused and prepared, just like the King on the court. Stay organized, stay efficient, and keep dominating your day with LeBron's help!
-
----
-
-This plain text README guide provides detailed instructions and examples for users of your LeBron-themed chatbot, using language that ties into LeBron's basketball persona. Adjust the descriptions and examples as needed to better fit your chatbot's specific functionality and style.
