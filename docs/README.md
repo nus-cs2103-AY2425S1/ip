@@ -129,3 +129,4 @@ Example: `bye`
 GoodBye!
 ```
 
+The chatbot will close after a short period of time (around 3 seconds).
