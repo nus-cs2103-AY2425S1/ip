@@ -1,4 +1,7 @@
 package storage;
+import getTask.getDeadlineTask;
+import getTask.getEventTask;
+import getTask.getToDoTask;
 import prince.Prince;
 
 
@@ -135,33 +138,20 @@ public class Storage {
         boolean isDone = splits[1].equals("1");
 
         if (taskType.equals("T")) {
-            ToDoTask task = new ToDoTask(taskdes);
-            if(isDone) {
-                task.markDone();
-            }
-            return task;
+
+            getToDoTask tsk = new getToDoTask(taskdes, isDone);
+            return tsk.getHelperTaskFromFile();
 
         } else if (taskType.equals("D")) {
-            try {
-                String deadline = splits[3];
-                DeadlinesTask task = new DeadlinesTask(taskdes, deadline);
-                if (isDone) {
-                    task.markDone();
-                }
-                return task;
-            } catch (InvalidDeadlineException e) {
-                System.out.println(e.getMessage());
-                return null;
-            }
+
+            getDeadlineTask tsk = new getDeadlineTask(taskdes, isDone, splits[3]);
+            return tsk.getHelperTaskFromFile();
 
         } else if (taskType.equals("E")){
-            String from = splits[3];
-            String to = splits[4];
-            EventTask task = new EventTask(taskdes, from, to);
-            if (isDone) {
-                task.markDone();
-            }
-            return task;
+
+            getEventTask tsk = new getEventTask(taskdes, isDone, splits[3], splits[4]);
+            return tsk.getHelperTaskFromFile();
+
         } else {
             System.out.println("Unknown task description included. Use only existing task types - T, D, E");
             return null;
