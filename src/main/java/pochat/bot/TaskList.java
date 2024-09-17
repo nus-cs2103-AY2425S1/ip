@@ -44,12 +44,14 @@ public class TaskList {
     }
 
     /**
-     * Removes the task specified from the TaskList
-     * @param task to be removed from the TaskList
+     * Removes the task at the index specified from the TaskList
+     * @param index of the task to be removed
+     * @return the task of type <code>Task</code>
      */
-    public void remove(Task task) {
+    public Task remove(int index) {
+        Task task = this.listTasks.get(index);
         this.listTasks.remove(task);
-        assert !this.listTasks.contains(task);
+        return task;
     }
 
     public Task get(int index) {
@@ -90,6 +92,18 @@ public class TaskList {
         }
 
         return false;
+    }
+
+    public Task markTaskAsDone(int index) {
+        Task task = this.listTasks.get(index);
+        task.markAsDone();
+        return task;
+    }
+
+    public Task unmarkTaskAsDone(int index) {
+        Task task = this.listTasks.get(index);
+        task.unmarkAsDone();
+        return task;
     }
 
     public ArrayList<Task> toList() {

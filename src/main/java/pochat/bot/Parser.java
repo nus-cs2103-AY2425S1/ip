@@ -8,6 +8,7 @@ import pochat.tasks.ToDo;
 
 class Parser {
     private final TaskList taskList;
+    private final Ui ui = new Ui();
 
     private Parser(TaskList taskList) {
         this.taskList = taskList;
@@ -42,65 +43,13 @@ class Parser {
             int taskIndex = Integer.parseInt(textInput.substring(7)) - 1;
             return replyAndDeleteTask(taskIndex);
         } else if (textInput.startsWith("todo")) {
-            try {
-                int taskDescriptionStart = 5;
-                String taskDescription = textInput.substring(taskDescriptionStart);
-
-                if (taskDescription.isEmpty()) {
-                    throw new TaskDescriptionEmptyException();
-                }
-                return replyAndAddTask(taskDescription);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new TaskDescriptionEmptyException();
-            }
+            return replyAndAddToDo(textInput);
         } else if (textInput.startsWith("deadline")) {
-            try {
-                int byIndex = textInput.indexOf("/by");
-
-                int taskDescriptionStart = 9;
-                int taskDescriptionEnd = byIndex - 1;
-                String taskDescription = textInput.substring(taskDescriptionStart, taskDescriptionEnd);
-
-                int deadlineStart = byIndex + 4;
-                String deadline = textInput.substring(deadlineStart);
-
-                if (taskDescription.isEmpty()) {
-                    throw new TaskDescriptionEmptyException();
-                }
-
-                return replyAndAddTask(taskDescription, deadline);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new TaskDescriptionEmptyException();
-            }
+            return replyAndAddDeadline(textInput);
         } else if (textInput.startsWith("event")) {
-            try {
-                int fromIndex = textInput.indexOf("/from");
-                int toIndex = textInput.indexOf("/to");
-
-                int taskDescriptionStart = 6;
-                int taskDescriptionEnd = fromIndex - 1;
-                String taskDescription = textInput.substring(taskDescriptionStart, taskDescriptionEnd);
-
-                int startDateStart = fromIndex + 6;
-                int startDateEnd = toIndex - 1;
-                String startDate = textInput.substring(startDateStart, startDateEnd);
-
-                int endDateStart = toIndex + 4;
-                String endDate = textInput.substring(endDateStart);
-
-                if (taskDescription.isEmpty()) {
-                    throw new TaskDescriptionEmptyException();
-                }
-
-                return replyAndAddTask(taskDescription, startDate, endDate);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new TaskDescriptionEmptyException();
-            }
+            return replyAndAddEvent(textInput);
         } else if (textInput.startsWith("find")) {
-            int keywordStart = 5;
-            String keyword = textInput.substring(keywordStart);
-
-            return this.taskList.findMatchingTasks(keyword);
+            return replyToFind(textInput);
         } else {
             return replyToInvalidInput();
         }
@@ -110,19 +59,17 @@ class Parser {
      * Prints the goodbye message to the user
      */
     private String replyGoodbye() {
-        return "Bye. Hope to see you again soon!";
+        return this.ui.getGoodbyeMessage();
     }
 
     private String addTask(Task task) {
-        if (taskList.contains(task)) {
-            return "Sorry! You already have this task in your list. Please try adding "
-                        + "another task";
+        if (this.taskList.contains(task)) {
+            return this.ui.getDuplicateTaskMessage();
         }
 
-        taskList.add(task);
+        this.taskList.add(task);
         assert taskList.toList().contains(task);
-        return "Got it. I've added this task:\n" + task + "\nNow you have "
-                + this.getNumTasks() + " tasks in the list.";
+        return this.ui.getAddTaskMessage(task, this.getNumTasks());
     }
 
     private String replyAndAddTask(String textInput) {
@@ -141,38 +88,93 @@ class Parser {
     }
 
     private String replyWithListOfTextsEntered() {
-        StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < this.taskList.size(); i++) {
-            message.append((i + 1) + ". " + this.taskList.get(i) + "\n");
-        }
-
-        return message.toString();
+        return this.ui.getListOfTextsEntered(this.taskList);
     }
 
     private String replyAndMarkTaskDone(int index) {
-        Task task = this.taskList.get(index);
-        task.markAsDone();
-        return "Nice! I've marked this task as done:\n" + task;
+        Task task = this.taskList.markTaskAsDone(index);
+        return this.ui.getMarkTaskDoneMessage(task);
     }
 
     private String replyAndMarkTaskUndone(int index) {
-        Task task = this.taskList.get(index);
-        task.unmarkAsDone();
-        return "OK, I've marked this task as not done yet:\n" + task;
+        Task task = this.taskList.unmarkTaskAsDone(index);
+        return this.ui.getMarkTaskUndoneMessage(task);
     }
 
     private String replyToInvalidInput() {
-        return "Please enter a valid input and try again! Some examples of valid inputs are:\n"
-                + "todo [description]\ndeadline [description] /by [deadline]\n"
-                + "event [description] /from [start time] /to [end time]";
+        return this.ui.getInvalidInputMessage();
     }
 
     private String replyAndDeleteTask(int index) {
-        Task task = this.taskList.get(index);
-        this.taskList.remove(task);
+        Task task = this.taskList.remove(index);
+        return ui.getDeleteTaskMessage(task, this.getNumTasks());
+    }
 
-        return "Noted. I've removed this task:\n" + task + "\nNow you have "
-                + this.getNumTasks() + " tasks in the list.";
+    private String replyAndAddToDo(String textInput) throws TaskDescriptionEmptyException {
+        try {
+            int taskDescriptionStart = 5;
+            String taskDescription = textInput.substring(taskDescriptionStart);
+
+            if (taskDescription.isEmpty()) {
+                throw new TaskDescriptionEmptyException();
+            }
+            return replyAndAddTask(taskDescription);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new TaskDescriptionEmptyException();
+        }
+    }
+
+    private String replyAndAddDeadline(String textInput) throws TaskDescriptionEmptyException {
+        try {
+            int byIndex = textInput.indexOf("/by");
+
+            int taskDescriptionStart = 9;
+            int taskDescriptionEnd = byIndex - 1;
+            String taskDescription = textInput.substring(taskDescriptionStart, taskDescriptionEnd);
+
+            int deadlineStart = byIndex + 4;
+            String deadline = textInput.substring(deadlineStart);
+
+            if (taskDescription.isEmpty()) {
+                throw new TaskDescriptionEmptyException();
+            }
+
+            return replyAndAddTask(taskDescription, deadline);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new TaskDescriptionEmptyException();
+        }
+    }
+
+    private String replyAndAddEvent(String textInput) throws TaskDescriptionEmptyException {
+        try {
+            int fromIndex = textInput.indexOf("/from");
+            int toIndex = textInput.indexOf("/to");
+
+            int taskDescriptionStart = 6;
+            int taskDescriptionEnd = fromIndex - 1;
+            String taskDescription = textInput.substring(taskDescriptionStart, taskDescriptionEnd);
+
+            int startDateStart = fromIndex + 6;
+            int startDateEnd = toIndex - 1;
+            String startDate = textInput.substring(startDateStart, startDateEnd);
+
+            int endDateStart = toIndex + 4;
+            String endDate = textInput.substring(endDateStart);
+
+            if (taskDescription.isEmpty()) {
+                throw new TaskDescriptionEmptyException();
+            }
+
+            return replyAndAddTask(taskDescription, startDate, endDate);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new TaskDescriptionEmptyException();
+        }
+    }
+
+    private String replyToFind(String textInput) {
+        int keywordStart = 5;
+        String keyword = textInput.substring(keywordStart);
+        return this.ui.findMatchingTasks(keyword, this.taskList);
     }
 
     private int getNumTasks() {
