@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 public class Deadline extends Task {
-    private static final String format = "M/d/yyyy HHmm";
+    private static final String format = "d/M/yyyy HHmm";
     LocalDateTime by;
     String savedBy;
     public Deadline(String description, String by) {
@@ -32,7 +32,7 @@ public class Deadline extends Task {
         assert by != null:"empty due time";
 
         return "[D]" + super.toString() + " (by: " +
-                by.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH)) + ")";
+                by.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, h:mm a", Locale.ENGLISH)) + ")";
     }
     /**
      * Returns a string representation of the Deadline task to be saved in a file

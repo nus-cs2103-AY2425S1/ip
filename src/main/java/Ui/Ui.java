@@ -38,6 +38,6 @@ public class Ui {
         return "OK, I've marked this task as not done yet:\n" + t.toString();
     }
     public static String uiDelete(Task t, int size) {
-        return "Noted. I've removed this task:\n" + t.toString() + "Now you have " + size +" tasks in the list.";
+        return "Noted. I've removed this task:\n" + t.toString() + "\n" + "Now you have " + size +" tasks in the list.";
     }
 }

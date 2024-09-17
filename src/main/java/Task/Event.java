@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 public class Event extends Task {
-    private static final String format = "M/d/yyyy HHmm";
+    private static final String format = "d/M/yyyy HHmm";
     protected String to;
     LocalDateTime dateTo;
     protected String from;
@@ -36,8 +36,8 @@ public class Event extends Task {
         assert dateTo != null : "empty dateTo";
 
         return "[E]" + super.toString() + " (from: "
-                + dateFrom.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH))
-                        + " to: " +  dateTo.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH)) + ")";
+                + dateFrom.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, h:mm a", Locale.ENGLISH))
+                        + " to: " +  dateTo.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, h:mm a", Locale.ENGLISH)) + ")";
     }
     /**
      * Returns a string representation of the Event task in a format to save in a file.

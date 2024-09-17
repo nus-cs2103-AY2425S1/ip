@@ -5,9 +5,9 @@ import java.util.List;
 import Exception.*;
 import Ui.Ui;
 import Parse.Parse;
-import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 import java.util.Comparator;
-import java.util.List;
+
 public class TaskList {
     private List<Task> array;
     private static final String keywordError = "Wrong keyword";
@@ -48,7 +48,7 @@ public class TaskList {
                 array.add(x);
                 storage.writeFile(array);
                 return Ui.uiDeadline(array.size(), x);
-            } catch (MissingArg e) {
+            } catch (MissingArg | DateTimeParseException e) {
                 return e.getMessage();
             }
         } else if (input.startsWith("event")) {
@@ -58,7 +58,7 @@ public class TaskList {
                 array.add(x);
                 storage.writeFile(array);
                 return Ui.uiEvent(array.size(), x);
-            } catch (MissingArg e) {
+            } catch (MissingArg | DateTimeParseException e) {
                 return e.getMessage();
             }
         } else {
