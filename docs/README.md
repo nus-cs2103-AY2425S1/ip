@@ -14,7 +14,7 @@ The features of Itadel includes:
 6. search with keywords
 7. manage tags in tasks
 
-## list
+## List
 The feature allows you to see existing tasks (Todo, Deadline, Event) in your
 list.
 
