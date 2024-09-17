@@ -171,6 +171,16 @@ public class Ui {
     }
 
     /**
+     * Returns a message when an invalid character is entered.
+     */
+    public String invalidCharacter() {
+        return """
+                Sorry, your input contains illegal characters ("|").
+                Please try again.
+                """;
+    }
+
+    /**
      * Returns a message when an invalid archive command is entered.
      */
     public String invalidArchiveCommand() {
