@@ -4,17 +4,62 @@
 Blitz is a **desktop app for managing tasks** via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 ## Command Summary
-| Action   | Format                                                            | Example                                                                      |
-|:---------|:------------------------------------------------------------------|:-----------------------------------------------------------------------------|
-| todo     | todo [description]                                                | todo this is my first todo task!                                             |
-| deadline | deadline [description] /by [yyyy-mm-dd hhmm]                      | deadline this is my first deadline task! /to 2024-07-19 1200                 |
-| event    | event [description] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm] | event this is my first event task! /from 2024-07-19 1200 /to 2024-07-20 1200 |
-| list     | list                                                              | list                                                                         |
-| mark     | mark [index]                                                      | mark 1                                                                       |
-| unmark   | unmark [index]                                                    | unmark 1                                                                     |
-| find     | find [keywords]                                                   | find first                                                                   |
-| delete   | delete [index]                                                    | delete 1                                                                     |
-| bye      | bye                                                               | bye                                                                          |
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Format</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>todo</td>
+      <td>todo [description]</td>
+      <td>todo this is my first todo task!</td>
+    </tr>
+    <tr>
+      <td>deadline</td>
+      <td>deadline [description] /by [yyyy-mm-dd hhmm]</td>
+      <td>deadline this is my first deadline task! /to 2024-07-19 1200</td>
+    </tr>
+    <tr>
+      <td>event</td>
+      <td>event [description] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]</td>
+      <td>event this is my first event task! /from 2024-07-19 1200 /to 2024-07-20 1200</td>
+    </tr>
+    <tr>
+      <td>list</td>
+      <td>list</td>
+      <td>list</td>
+    </tr>
+    <tr>
+      <td>mark</td>
+      <td>mark [index]</td>
+      <td>mark 1</td>
+    </tr>
+    <tr>
+      <td>unmark</td>
+      <td>unmark [index]</td>
+      <td>unmark 1</td>
+    </tr>
+    <tr>
+      <td>find</td>
+      <td>find [keywords]</td>
+      <td>find first</td>
+    </tr>
+    <tr>
+      <td>delete</td>
+      <td>delete [index]</td>
+      <td>delete 1</td>
+    </tr>
+    <tr>
+      <td>bye</td>
+      <td>bye</td>
+      <td>bye</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Adding a todo task
 
