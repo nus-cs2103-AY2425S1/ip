@@ -98,8 +98,8 @@ public class Main extends Application {
         String userText = userInput.getText();
         String orionText = orion.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(orionText, orionImage));
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getOrionDialog(orionText, orionImage));
 
         userInput.clear();
     }
