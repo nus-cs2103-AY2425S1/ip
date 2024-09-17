@@ -1,6 +1,6 @@
 /**
  * This code has been refined with the assistance of Copilot to comply with the Java Style Guide.
- * For further information, please refer to the Academic Declarations.
+ * For further information, please refer to the Ai.md.
  */
 package nathanbot;
 
