@@ -138,6 +138,17 @@ PoChat will let you know :P
 Sorry! You already have this task in your list. Please try adding another task
 ```
 
+## Error handling
+
+Forgot something? Like.. maybe a description for the todo you are working on? No worries, PoChat has got you
+covered as well!
+
+`todo`
+
+```
+Task description cannot be empty!! Please try again
+```
+
 ## Exiting the bot
 
 Done with PoChat? Well, all good things come to an end :( At this point simply enter:
