@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
 /**
  * This class represents a Dialog box JavaFX UI control, to be used along with MainWindow.
@@ -24,6 +25,9 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    private Font userFont = Font.font("Calibri", 14);
+    private Font stelleFont = Font.font("Consolas", 14);
+
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -35,6 +39,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setFont(userFont);
         displayPicture.setImage(img);
     }
 
@@ -43,6 +48,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
+        this.dialog.setFont(stelleFont);
     }
 
     /**
