@@ -18,7 +18,7 @@ import tasks.Todo;
 public class Parser {
 
     /**
-     * Responds according to user input and return a bot response.
+     * Responds according to user input and returns a bot response.
      *
      * @param response User response.
      * @param taskList Tasklist to store tasks.
