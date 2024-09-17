@@ -5,6 +5,9 @@ package ollie.task;
  */
 public class Todo extends Task {
 
+    /**
+     * Constructs a todo object which represents a todo task.
+     */
     public Todo(String description) {
         super(description);
     }

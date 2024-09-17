@@ -12,14 +12,23 @@ import java.util.stream.Collectors;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs a tasklist object using a given arraylist of task.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Constructs a tasklist object using an empty arraylist of task.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Returns the size of the tasklist.
+     */
     public int getSize() {
         return tasks.size();
     }
@@ -46,7 +55,7 @@ public class TaskList {
      * @throws OllieException If the index given does not exist.
      */
     public Task delete(int index) throws OllieException {
-        assert(tasks != null);
+        assert (tasks != null);
         if (!isIndexValid(index)) {
             throw new OllieException("Invalid Serial number given!");
         }
@@ -64,7 +73,7 @@ public class TaskList {
      * @throws OllieException If the index given does not exist.
      */
     public Task delete(Task task) throws OllieException {
-        assert(tasks != null);
+        assert (tasks != null);
         int indexOfTask = tasks.indexOf(task);
         if (indexOfTask < 0) {
             throw new OllieException("Invalid task given!");
@@ -81,7 +90,7 @@ public class TaskList {
      * @return Task which has been marked as done.
      */
     public Task markAsDone(int index) throws OllieException {
-        assert(tasks != null);
+        assert (tasks != null);
         if (!isIndexValid(index)) {
             throw new OllieException("Invalid Serial number given!");
         }
@@ -97,8 +106,8 @@ public class TaskList {
      * @param index index reprsents the index of the task in list to be mark as undone.
      * @return Task which has been marked as done.
      */
-    public Task markAsUndone(int index) throws OllieException{
-        assert(tasks != null);
+    public Task markAsUndone(int index) throws OllieException {
+        assert (tasks != null);
         if (!isIndexValid(index)) {
             throw new OllieException("Invalid serial number given!");
         }
@@ -118,13 +127,13 @@ public class TaskList {
      * @param index
      */
     private boolean isIndexValid(int index) {
-        assert(tasks != null);
+        assert (tasks != null);
         return (index > -1 & index < tasks.size());
     }
 
     @Override
     public String toString() {
-        assert(tasks != null);
+        assert (tasks != null);
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             list.add(String.format("%d.%s%s", i + 1, tasks.get(i), i == tasks.size() - 1 ? "" : "\n"));

@@ -3,12 +3,14 @@ package ollie.task;
 /**
  * Represents a task. A task contains a description and a boolean value
  * which represents the task's completion status.
- *
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task object which represents a general task with a description.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -19,15 +21,14 @@ public class Task {
     }
 
     /**
-     * Set task to done.
-     *
+     * Sets task to done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Set task to undone.
+     * Sets task to undone.
      */
     public void markAsUndone() {
         this.isDone = false;
@@ -43,7 +44,7 @@ public class Task {
     }
 
     /**
-     * Return true if description contains the string input
+     * Returns true if description contains the string input
      */
     public boolean doesDescContain(String s) {
         return this.description.contains(s);

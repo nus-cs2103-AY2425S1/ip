@@ -10,6 +10,9 @@ import ollie.task.Task;
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a command object for marking of task as complete.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }

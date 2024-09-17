@@ -15,7 +15,7 @@ public class Event extends Task {
     private LocalDate to;
 
     /**
-     * Constructs an event object which represents an event task with description, from date and to date.
+     * Constructs an event object which represents an event task which has an additional from date and to date.
      */
     public Event(String description, LocalDate from, LocalDate to) throws OllieException {
         super(description);

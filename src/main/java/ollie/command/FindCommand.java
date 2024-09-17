@@ -11,6 +11,9 @@ import ollie.task.Task;
 public class FindCommand extends Command {
     String filterParameter;
 
+    /**
+     * Constructs a find object for filtering of task based on its description.
+     */
     public FindCommand(String filterParameter) {
         this.filterParameter = filterParameter;
     }
@@ -24,7 +27,7 @@ public class FindCommand extends Command {
      */
     @Override
     public Response execute(TaskList tasks, Ui ui, Storage storage, History history) throws OllieException {
-        assert(filterParameter != null);
+        assert (filterParameter != null);
         history.add(new EmptyCommand());
         return new Response(ui.getTaskListMessage(tasks.filterByString(this.filterParameter)), false);
     }

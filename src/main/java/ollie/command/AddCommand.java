@@ -13,6 +13,9 @@ import ollie.Ui;
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Constructs a command object for adding of task.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }

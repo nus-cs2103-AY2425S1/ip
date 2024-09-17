@@ -15,8 +15,11 @@ public class DeleteCommand extends Command {
         this.Index = Index;
     }
 
+    /**
+     * Constructs a command object for deleting of task.
+     */
     public DeleteCommand(Task taskToDelete) {
-        assert(taskToDelete != null);
+        assert (taskToDelete != null);
         this.taskToDelete = taskToDelete;
     }
 
@@ -35,7 +38,7 @@ public class DeleteCommand extends Command {
         } else {
             task = tasks.delete(Index);
         }
-        assert(task != null);
+        assert (task != null);
         history.add(new AddCommand(task));
         return new Response(ui.getRemoveTaskMessage(task, tasks.getSize()), false);
     }

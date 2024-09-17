@@ -16,6 +16,9 @@ public class Ollie {
     private History history;
     private String initialMessage;
 
+    /**
+     * Constructs an Ollie object, which represents our chatbot.
+     */
     public Ollie(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

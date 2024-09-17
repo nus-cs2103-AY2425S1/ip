@@ -10,6 +10,9 @@ import ollie.task.Task;
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a command object for marking a task as not complete.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }

@@ -38,7 +38,7 @@ public class ParserTest {
             fail(); // Should not reach this line
         } catch (OllieException e) {
             // Fail the test if an exception is thrown
-            assertEquals("OOPS!!! Use deadline with a \"/by\" keyword and a date/time.", e.getMessage());
+            assertEquals("OOPS!!! Use deadline with a \"/by\" keyword and a date.", e.getMessage());
         }
     }
 
@@ -49,7 +49,7 @@ public class ParserTest {
             fail(); // Should not reach this line
         } catch (OllieException e) {
             // Fail the test if an exception is thrown
-            assertEquals("OOPS!!! Date/Time of deadline cannot be empty!", e.getMessage());
+            assertEquals("OOPS!!! Date of deadline cannot be empty!", e.getMessage());
         }
     }
 

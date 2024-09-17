@@ -23,6 +23,9 @@ public class Storage {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String filePath;
 
+    /**
+     * Constructs a storage object which interacts with the file specified by the filepath.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -89,7 +92,7 @@ public class Storage {
      * @throws OllieException If there are issues with writing to the file.
      */
     public void save(ArrayList<Task> tasks) throws OllieException {
-        assert(tasks != null);
+        assert (tasks != null);
         try {
             FileWriter fw = new FileWriter(this.filePath);
             for (Task t : tasks) {

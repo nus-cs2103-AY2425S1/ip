@@ -52,8 +52,8 @@ public class Parser {
             return new DeleteCommand(index);
         } else if (input.matches("^find.*")) {
             String findQuery = Parser.getBody("find", input);
-            return new FindCommand(findQuery);}
-        else if (input.matches("undo")) {
+            return new FindCommand(findQuery);
+        } else if (input.matches("undo")) {
             return new UndoCommand();
         } else if (input.matches("bye")) {
             return new ExitCommand();
@@ -80,7 +80,7 @@ public class Parser {
             return parseDeadline(s);
         } else if (s.matches("^event.*")) {
             return parseEvent(s);
-        } else if (s.matches("^todo.*")){
+        } else if (s.matches("^todo.*")) {
             return parseTodo(s);
         } else {
             throw new OllieException("Invalid Task");
@@ -108,7 +108,7 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
         }
-        assert(by != null);
+        assert (by != null);
         return new Deadline(desc, by);
     }
 
@@ -144,7 +144,7 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
         }
-        assert(from != null);
+        assert (from != null);
         assert (to != null);
         if (!from.isBefore(to)) {
             throw new OllieException("/from's date must be before /to's date!");
