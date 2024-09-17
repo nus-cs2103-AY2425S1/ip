@@ -168,6 +168,8 @@ task in the `TaskList` array.
 `<Tag Name>` refers to the name of the tag
 added.
 ____
+
+
 `removetag <Task Index> <Tag Index>`
 
 Removes the tag in the tag index from the task.
@@ -178,6 +180,8 @@ task in the `TaskList` array.
 `<Tag Index>` refers to the index of the
 tag in the tag list associated with the task.
 ____
+
+
 `gettag <Task Index>`
 
 Gets all the tags associated with the task.
