@@ -1,13 +1,13 @@
 package elsa.ui;
 
-import elsa.command.Command;
-import elsa.ElsaException;
-import elsa.Storage;
-import elsa.task.Task;
-import elsa.task.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import elsa.ElsaException;
+import elsa.Storage;
+import elsa.command.Command;
+import elsa.task.Task;
+import elsa.task.TaskList;
 
 /**
  * Represents elsa.ui.Elsa, a chatbot.
@@ -59,8 +59,8 @@ public class Elsa {
             Storage storage = new Storage(); // Initialisation of the storage may throw an ElsaException
             storage.saveTasksToDataFile(tasks);
         } catch (ElsaException e) {
-            ui.showError("Oops, it appears that an error has occurred while writing to the data file:\n" +
-                    e.getMessage());
+            ui.showError("Oops, it appears that an error has occurred while writing to the data file:\n"
+                    + e.getMessage());
         }
     }
 

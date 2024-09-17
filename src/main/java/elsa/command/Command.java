@@ -6,7 +6,7 @@ import elsa.ui.Ui;
 
 /**
  * Represents an abstract command that can be executed in the application.
- * Each subclass of elsa.command.Command will implement the specific behavior for its command by overriding the abstract methods.
+ * Each subclass of Command will implement the specific behavior for its command by overriding the abstract methods.
  * Commands interact with a task list and the user interface during their execution.
  *
  * @author Aaron

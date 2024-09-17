@@ -1,8 +1,8 @@
 package elsa.task;
 
-import elsa.ui.Ui;
-
 import java.util.List;
+
+import elsa.ui.Ui;
 
 /**
  * Manages the list of tasks in the application.
@@ -38,8 +38,8 @@ public class TaskList {
         Todo newTodo = new Todo(description, false);
         tasks.add(newTodo);
         Ui.addLine();
-        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have " +
-                tasks.size() + " tasks in our list now.");
+        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
+                + tasks.size() + " tasks in our list now.");
         Ui.addLine();
     }
 
@@ -53,8 +53,8 @@ public class TaskList {
         Deadline newDeadline = new Deadline(description, false, dueBy);
         tasks.add(newDeadline);
         Ui.addLine();
-        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have " +
-                tasks.size() + " tasks in our list now.");
+        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
+                + tasks.size() + " tasks in our list now.");
         Ui.addLine();
     }
 
@@ -69,8 +69,8 @@ public class TaskList {
         Event newEvent = new Event(description, false, start, end);
         tasks.add(newEvent);
         Ui.addLine();
-        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have " +
-                tasks.size() + " tasks in our list now.");
+        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
+                + tasks.size() + " tasks in our list now.");
         Ui.addLine();
     }
 
@@ -82,8 +82,8 @@ public class TaskList {
     public void deleteTask(int index) {
         // Informs the user that the task has been deleted
         Ui.addLine();
-        System.out.println("Okay, I've removed this task:\n  " + tasks.get(index).toString() + "\nWe have " +
-                (tasks.size() - 1) + " tasks in our list now.");
+        System.out.println("Okay, I've removed this task:\n  " + tasks.get(index).toString() + "\nWe have "
+                + (tasks.size() - 1) + " tasks in our list now.");
         Ui.addLine();
         // Deletes the task from the list
         tasks.remove(index);

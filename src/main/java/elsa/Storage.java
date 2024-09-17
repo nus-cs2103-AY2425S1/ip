@@ -1,23 +1,21 @@
 package elsa;
 
-import elsa.task.Deadline;
-import elsa.task.Event;
-import elsa.task.Task;
-import elsa.task.TaskList;
-import elsa.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import elsa.task.Deadline;
+import elsa.task.Event;
+import elsa.task.Task;
+import elsa.task.TaskList;
+import elsa.task.Todo;
 
 /**
  * Handles the loading of tasks from the data file and saving tasks to the file.
@@ -54,8 +52,8 @@ public class Storage {
                 Files.createFile(DATA_FILE);
             }
         } catch (IOException e) {
-            String message = ElsaException.addSeparatorLines("Oops, it seems like an error has occurred while " +
-                    "creating directories or files:\n" + e.getMessage());
+            String message = ElsaException.addSeparatorLines("Oops, it seems like an error has occurred while "
+                    + "creating directories or files:\n" + e.getMessage());
             throw new ElsaException(message);
         }
     }
@@ -74,8 +72,8 @@ public class Storage {
                 tasks.add(convertStringToTask(line));
             }
         } catch (IOException e) {
-            String message = ElsaException.addSeparatorLines("Oops, it appears that an error has occurred " +
-                    "while reading the data file:\n" + e.getMessage());
+            String message = ElsaException.addSeparatorLines("Oops, it appears that an error has occurred "
+                    + "while reading the data file:\n" + e.getMessage());
             throw new ElsaException(message);
         }
         return tasks;
@@ -96,26 +94,26 @@ public class Storage {
         boolean isDone = parts[1].equals("1");
 
         switch (taskType) {
-            case "T":
-                // Create a elsa.task.Todo task
-                return new Todo(description, isDone);
+        case "T":
+            // Create a elsa.task.Todo task
+            return new Todo(description, isDone);
 
-            case "D":
-                // Create a elsa.task.Deadline task
-                String dueBy = parts[3];
-                return new Deadline(description, isDone, dueBy);
+        case "D":
+            // Create a elsa.task.Deadline task
+            String dueBy = parts[3];
+            return new Deadline(description, isDone, dueBy);
 
-            case "E":
-                // Create an elsa.task.Event task
-                String[] eventTimes = parts[3].split(" - ");
-                String start = eventTimes[0].trim();
-                String end = eventTimes[1].trim();
-                return new Event(description, isDone, start, end);
+        case "E":
+            // Create an elsa.task.Event task
+            String[] eventTimes = parts[3].split(" - ");
+            String start = eventTimes[0].trim();
+            String end = eventTimes[1].trim();
+            return new Event(description, isDone, start, end);
 
-            default:
-                String message = ElsaException.addSeparatorLines("Oops, it appears that the tasks saved " +
-                        "in our data file are of an invalid task type:\n" + taskType);
-                throw new ElsaException(message);
+        default:
+            String message = ElsaException.addSeparatorLines("Oops, it appears that the tasks saved "
+                    + "in our data file are of an invalid task type:\n" + taskType);
+            throw new ElsaException(message);
         }
     }
 
@@ -132,8 +130,8 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            String message = ElsaException.addSeparatorLines("Oops, it appears that an error has occurred while " +
-                    "writing to the data file:\n" + e.getMessage());
+            String message = ElsaException.addSeparatorLines("Oops, it appears that an error has occurred while "
+                    + "writing to the data file:\n" + e.getMessage());
             throw new ElsaException(message);
         }
     }
@@ -149,14 +147,14 @@ public class Storage {
         if (task instanceof Todo) {
             return "T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline deadline) {
-            return "D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription() + " | " +
-                    deadline.getDueBy();
+            return "D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription() + " | "
+                    + deadline.getDueBy();
         } else if (task instanceof Event event) {
-            return "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription() + " | " +
-                    event.getStart() + " - " + event.getEnd();
+            return "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription() + " | "
+                    + event.getStart() + " - " + event.getEnd();
         } else {
-            String message = ElsaException.addSeparatorLines("Oops, it appears that this task saved in our list " +
-                    "is of an unknown type:\n" + task.getClass().getSimpleName());
+            String message = ElsaException.addSeparatorLines("Oops, it appears that this task saved in our list "
+                    + "is of an unknown type:\n" + task.getClass().getSimpleName());
             throw new ElsaException(message);
         }
     }
