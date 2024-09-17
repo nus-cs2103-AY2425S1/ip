@@ -20,11 +20,15 @@ public class EventCommand extends Command {
         this.event = new Event(task, date, tags);
     }
 
-
+    public Event getEvent() {
+        return this.event;
+    }
     @Override
     public String executeCommand() {
         Utilities.OutlineMessage(COMMAND_MSG + event);
         Command.taskList.addTask(event);
         return (COMMAND_MSG + event);
     }
+
+
 }

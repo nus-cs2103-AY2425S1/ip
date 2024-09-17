@@ -13,7 +13,6 @@ public class UnmarkCommand extends IndexedCommand {
 
     public UnmarkCommand(int index) {
         super(index);
-        assert index > 0 : "Index should be greater than 0";
     }
 
     @Override

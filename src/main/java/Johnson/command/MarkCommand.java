@@ -13,7 +13,6 @@ public class MarkCommand extends IndexedCommand {
 
     public MarkCommand(int index) {
         super(index);
-        assert index > 0 : "Index should be greater than 0";
     }
 
     @Override

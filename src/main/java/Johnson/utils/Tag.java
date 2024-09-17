@@ -13,6 +13,6 @@ public class Tag {
 
     @Override
     public String toString() {
-        return "#" + tag;
+        return tag;
     }
 }

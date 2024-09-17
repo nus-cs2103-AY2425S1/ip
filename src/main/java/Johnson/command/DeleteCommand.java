@@ -13,7 +13,6 @@ public class DeleteCommand extends IndexedCommand {
 
     public DeleteCommand(int index) {
         super(index);
-        assert index > 0 : "Index should be greater than 0";
     }
 
     @Override

@@ -98,6 +98,20 @@ public abstract class Task {
     }
 
     /**
+     * adds a tag to the task.
+     * @param tag the tag to add.
+     */
+    public void addTag(String tag) {
+        tags.add(new Tag(tag));
+    }
+
+    /**
+     * returns the tags of the task.
+     */
+    public ArrayList<Tag> getTags() {
+        return tags;
+    }
+    /**
      * Returns a string representation of the task.
      *
      * @return a string representation of the task.
