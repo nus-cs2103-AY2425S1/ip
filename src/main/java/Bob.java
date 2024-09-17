@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
@@ -209,7 +210,11 @@ public class Bob {
     }
 
     public static LocalDateTime parseDateTime(String string) {
-        return LocalDateTime.from(INPUT_FORMATTER.parse(string));
+        try {
+            return LocalDateTime.from(INPUT_FORMATTER.parse(string));
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
+        }
     }
 
     public static String formatDateTime(LocalDateTime dateTime) {
