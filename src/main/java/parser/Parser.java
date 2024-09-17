@@ -272,17 +272,20 @@ public class Parser {
      */
     public static LocalDate changeDateToLocalDate(String date) {
 
-        int firstSpace = date.indexOf(' ');
-        String month = date.substring(0, firstSpace);
-        int intMonth = Month.valueOf(month).getValue();
-        String stringMonth;
+        String[] dates = date.split(" ");
+        assert(dates.length == 3);
+        int intMonth = Month.valueOf(dates[0]).getValue();
+        String month;
         if (intMonth < 10) {
-            stringMonth = "0" + Integer.toString(intMonth);
+            month = "0" + intMonth;
         } else {
-            stringMonth = Integer.toString(intMonth);
+            month = Integer.toString(intMonth);
         }
-        String day = date.substring(firstSpace + 1, firstSpace + 3);
-        String year = date.substring(firstSpace + 4);
-        return LocalDate.parse(year + "-" + stringMonth + "-" + day);
+        String day = dates[1];
+        if (day.length() == 1) {
+            day = "0" + day;
+        }
+        String year = dates[2];
+        return LocalDate.parse(year + "-" + month + "-" + day);
     }
 }

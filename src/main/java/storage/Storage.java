@@ -55,7 +55,6 @@ public class Storage {
                 char typeOfTask = task.charAt(1);
                 char isTaskDone = task.charAt(4);
                 char priorityOfTask = task.charAt(7);
-                System.out.println(priorityOfTask);
                 if (typeOfTask == 'T') {
                     loadTodoTask(task, isTaskDone, priorityOfTask);
                 }
@@ -115,7 +114,7 @@ public class Storage {
      */
     public void loadDeadlineTask(String task, char isTaskDone, char priorityOfTask) {
         int byPosition = task.indexOf("(by:");
-        String description = task.substring(10, byPosition - 1);
+        String description = task.substring(10, byPosition).trim();
         String by = task.substring(byPosition + 5, task.length() - 1);
         TaskList.addTaskLoad(new Deadline(description, Parser.changeDateToLocalDate(by)));
         if (isTaskDone == 'X') {
@@ -138,8 +137,8 @@ public class Storage {
     public void loadEventTask(String task, char isTaskDone, char priorityOfTask) {
         int fromPosition = task.indexOf("(from:");
         int toPosition = task.indexOf("to:");
-        String description = task.substring(10, fromPosition - 1);
-        String from = task.substring(fromPosition + 7, toPosition - 1);
+        String description = task.substring(10, fromPosition).trim();
+        String from = task.substring(fromPosition + 7, toPosition).trim();
         String to = task.substring(toPosition + 4, task.length() - 1);
         TaskList.addTaskLoad(new Event(description, Parser.changeDateToLocalDate(from),
                                        Parser.changeDateToLocalDate(to)));

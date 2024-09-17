@@ -18,14 +18,14 @@ public class Ui {
      * Greets the user when the chatbot just starts and ask them for an input.
      */
     public static String greet() {
-        return "Hello! I'm Tako! What can I do for you?\n";
+        return "Ehh wassup, hows life?\n";
     }
 
     /**
      * Says goodbye to the user.
      */
     public static String exit() {
-        return "Bye! Have a nice day!";
+        return "I zao first, see you soon!";
     }
 
     /**
@@ -34,7 +34,7 @@ public class Ui {
      */
     public static String printList() {
         assert TaskList.length() >= 0;
-        String output = "Here are your list of tasks:\n";
+        String output = "So many things, sien la:\n";
         for (int i = 0; i < TaskList.length(); i++) {
             output += TaskList.listTask(i) + "\n";
         }
@@ -48,9 +48,9 @@ public class Ui {
      * @param task task that is being added to the list.
      */
     public static String addTaskMessage(Task task) {
-        String output = "Task Received! I've added this task:\n" +
+        String output = "Got it. Thanks ah!\n" +
                           task.toString() + "\n" +
-                          "Now, you have " + TaskList.length() + " tasks in your list!";
+                          "You now got " + TaskList.length() + " things to do!";
         Storage.store(TaskList.getAllTask());
         return output;
     }
@@ -62,7 +62,7 @@ public class Ui {
      * @param task task that is being marked on the list.
      */
     public static String markTaskMessage(Task task) {
-        String output = "Task has been marked as complete! \n" +
+        String output = "Mark alr! \n" +
                            task.toString();
         Storage.store(TaskList.getAllTask());
         return output;
@@ -75,7 +75,7 @@ public class Ui {
      * @param task task that is being unmark on the list.
      */
     public static String unmarkTaskMessage(Task task) {
-        String output = "Task has been marked as incomplete! \n" +
+        String output = "Unmark alr! \n" +
                            task.toString();
         Storage.store(TaskList.getAllTask());
         return output;
@@ -88,9 +88,9 @@ public class Ui {
      * @param task task that is being deleted on the list.
      */
     public static String deleteTaskMessage(Task task) {
-        String output = "Task has been deleted!\n" +
+        String output = "Delete liao!\n" +
                            task.toString() + "\n" +
-                           "Now, you have " + TaskList.length() + " tasks in your list!";
+                           "Now, you have " + TaskList.length() + " things left!";
         Storage.store(TaskList.getAllTask());
         return output;
     }
@@ -108,7 +108,7 @@ public class Ui {
                 filteredTask.add(TaskList.get(i));
             }
         }
-        String output = "Here are the matching results:\n";
+        String output = "I can only find all these ah:\n";
         for (int i = 0; i < filteredTask.size(); i++) {
             output += filteredTask.get(i).toString() + "\n";
         }
@@ -121,11 +121,11 @@ public class Ui {
      *
      */
     public static String noSuchTaskMessage() {
-        return "There is no such task!";
+        return "Where got such thing?";
     }
 
     public static String changePriorityMessage(String priority, int taskNumber) {
         Storage.store(TaskList.getAllTask());
-        return "Task " + (taskNumber + 1) + " has been updated to " + priority + " priority!";
+        return "Ok, change " + (taskNumber + 1) + " to " + priority + " priority!";
     }
 }
