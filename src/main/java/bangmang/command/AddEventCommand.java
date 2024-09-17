@@ -47,7 +47,7 @@ public class AddEventCommand extends Command {
             return ui.showAddedNewTask(event, tasks);
 
         } catch (DateTimeParseException e) {
-            throw new InvalidCommandException("Invalid date format. Please use 'yyyy-MM-ddTHH:mm' or 'yyyy-MM-dd'.");
+            throw new InvalidCommandException("Alamak, invalid date format. Please use 'yyyy-MM-ddTHH:mm' or 'yyyy-MM-dd'.");
         }
     }
 

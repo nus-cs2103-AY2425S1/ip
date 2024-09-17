@@ -79,7 +79,7 @@ public class Task {
     public static Task readSavedTask(String taskString) throws InvalidTaskFormatException {
         String[] parts = taskString.split(" \\| ");
         if (parts.length < 3) {
-            throw new InvalidTaskFormatException("Invalid task format: " + taskString);
+            throw new InvalidTaskFormatException("Alamak, invalid task format: " + taskString);
         }
 
         String taskType = parts[0];
@@ -92,21 +92,21 @@ public class Task {
 
             case "D":
                 if (parts.length != 4) {
-                    throw new InvalidTaskFormatException("Invalid Deadline format: " + taskString);
+                    throw new InvalidTaskFormatException("Alamak, invalid Deadline format: " + taskString);
                 }
                 LocalDateTime by = LocalDateTime.parse(parts[3]);
                 return new Deadline(description, isDone, by);
 
             case "E":
                 if (parts.length != 5) {
-                    throw new InvalidTaskFormatException("Invalid Event format: " + taskString);
+                    throw new InvalidTaskFormatException("Alamak, invalid Event format: " + taskString);
                 }
                 LocalDateTime from = LocalDateTime.parse(parts[3]);
                 LocalDateTime to = LocalDateTime.parse(parts[4]);
                 return new Event(description, isDone, from, to);
 
             default:
-                throw new InvalidTaskFormatException("Unknown task type: " + taskType);
+                throw new InvalidTaskFormatException("Alamak, unknown task type: " + taskType);
         }
     }
 
@@ -130,7 +130,7 @@ public class Task {
             return "E" + spacer + isDone + spacer + e.description + spacer + e.from + spacer + e.to;
 
         } else {
-            throw new InvalidTaskFormatException("Cannot write task: " + this.toString());
+            throw new InvalidTaskFormatException("Alamak, cannot write task: " + this.toString());
         }
     }
 }

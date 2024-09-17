@@ -46,7 +46,7 @@ public class AddDeadlineCommand extends Command {
                 LocalDate deadlineDate = LocalDate.parse(byString);
                 by = deadlineDate.atTime(23, 59);
             } catch (DateTimeParseException ex) {
-                throw new InvalidCommandException("Invalid date format for deadline. Please use 'yyyy-MM-ddTHH:mm' or 'yyyy-MM-dd'.");
+                throw new InvalidCommandException("Alamak, invalid date format for deadline. Please use 'yyyy-MM-ddTHH:mm' or 'yyyy-MM-dd'.");
             }
         }
 

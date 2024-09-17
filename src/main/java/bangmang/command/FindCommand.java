@@ -47,7 +47,7 @@ public class FindCommand extends Command {
             }
             return ui.showSearchResults(searchResults);
         } catch (InvalidTaskFormatException e) {
-            throw new InvalidCommandException("Task number out of range. Please provide a valid task number.");
+            throw new InvalidCommandException("Alamak, task number out of range. Please provide a valid task number.");
         }
     }
 

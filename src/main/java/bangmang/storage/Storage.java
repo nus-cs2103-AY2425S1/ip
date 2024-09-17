@@ -45,11 +45,11 @@ public class Storage {
                         Task task = Task.readSavedTask(line);
                         list.add(task);
                     } catch (InvalidTaskFormatException e) {
-                        System.out.println("Warning: Skipping invalid task format: " + line);
+                        System.out.println("Alamak, warning: Skipping invalid task format: " + line);
                     }
                 }
             } catch (IOException e) {
-                throw new InvalidCommandException("Error reading the file: " + e.getMessage());
+                throw new InvalidCommandException("Alamak, error reading the file: " + e.getMessage());
             }
         }
         return list;
@@ -70,11 +70,11 @@ public class Storage {
                     bw.write(task.writeSavedTask());
                     bw.newLine();
                 } catch (InvalidTaskFormatException e) {
-                    System.out.println("Warning: Cannot write task: " + task.toString());
+                    System.out.println("Alamak, warning: Cannot write task: " + task.toString());
                 }
             }
         } catch (IOException e) {
-            throw new InvalidCommandException("Error writing to the file: " + e.getMessage());
+            throw new InvalidCommandException("Alamak, error writing to the file: " + e.getMessage());
         }
     }
 }

@@ -36,7 +36,7 @@ public class TaskList {
      */
     public void delete(int index) throws InvalidTaskFormatException {
         if (index < 0 || index >= tasks.size()) {
-            throw new InvalidTaskFormatException("Task number out of range.");
+            throw new InvalidTaskFormatException("Alamak, task number out of range.");
         }
         tasks.remove(index);
     }
@@ -50,7 +50,7 @@ public class TaskList {
      */
     public Task get(int index) throws InvalidTaskFormatException {
         if (index < 0 || index >= tasks.size()) {
-            throw new InvalidTaskFormatException("Task number out of range.");
+            throw new InvalidTaskFormatException("Alamak, task number out of range.");
         }
         return tasks.get(index);
     }
@@ -81,7 +81,7 @@ public class TaskList {
      */
     public void markTask(int index) throws InvalidTaskFormatException {
         if (index < 0 || index >= tasks.size()) {
-            throw new InvalidTaskFormatException("Task number out of range.");
+            throw new InvalidTaskFormatException("Alamak, task number out of range.");
         }
         Task t = tasks.get(index).markTask();
         tasks.set(index, t);
@@ -95,7 +95,7 @@ public class TaskList {
      */
     public void unmarkTask(int index) throws InvalidTaskFormatException {
         if (index < 0 || index >= tasks.size()) {
-            throw new InvalidTaskFormatException("Task number out of range.");
+            throw new InvalidTaskFormatException("Alamak, task number out of range.");
         }
         Task t = tasks.get(index).unmarkTask();
         tasks.set(index, t);

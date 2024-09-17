@@ -30,7 +30,7 @@ public class Parser {
             } else if (command.equals("help")) {
                 return new HelpCommand();
             } else {
-                throw new InvalidCommandException("Invalid command. Please provide a valid command.");
+                throw new InvalidCommandException("Alamak, invalid command. Please provide a valid command.");
             }
         }
 
@@ -55,7 +55,7 @@ public class Parser {
             case "deadline":
                 String[] deadlineParts = item.split("/by", 2);
                 if (deadlineParts.length < 2) {
-                    throw new InvalidCommandException("Invalid deadline format. Use 'deadline description /by date'.");
+                    throw new InvalidCommandException("Alamak, invalid deadline format. Use 'deadline description /by date'.");
                 }
                 String deadlineDesc = deadlineParts[0].trim();
                 String deadlineBy = deadlineParts[1].trim();
@@ -64,7 +64,7 @@ public class Parser {
             case "event":
                 String[] eventParts = item.split("/from | /to", 3);
                 if (eventParts.length < 3) {
-                    throw new InvalidCommandException("Invalid event format. Use 'event description /from start /to end'.");
+                    throw new InvalidCommandException("Alamak, invalid event format. Use 'event description /from start /to end'.");
                 }
                 String eventDesc = eventParts[0].trim();
                 String eventFrom = eventParts[1].trim();
@@ -72,7 +72,7 @@ public class Parser {
                 return new AddEventCommand(eventDesc, eventFrom, eventTo);
 
             default:
-                throw new InvalidCommandException("Invalid command. Please provide a valid command.");
+                throw new InvalidCommandException("Alamak, invalid command. Please provide a valid command.");
         }
     }
 }
