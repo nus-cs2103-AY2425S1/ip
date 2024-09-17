@@ -79,8 +79,8 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getReplyDialog(String text, Image img) throws IOException {
         var db = new DialogBox(text, img);
+        db.getChildren().get(0).getStyleClass().add("reply-label");
         db.flip();
-        db.getStyleClass().add("reply-label");
         return db;
     }
 }
