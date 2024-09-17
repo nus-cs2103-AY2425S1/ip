@@ -54,9 +54,28 @@ public class InputHandler {
         } else if (input.startsWith("find")) {
             this.storage.saveTasks(data);
             return this.findHandle(input);
+        } else if (input.startsWith("help")) {
+            return this.helpHandle();
         } else {
             throw new BuzzException("GRRR! I do not know what that means. Try again! *bzzrg*");
         }
+    }
+
+    /**
+     * Provides a help message showing the available commands for the chatbot.
+     *
+     * @return a string containing the help message with the list of available commands
+     */
+    private String helpHandle() {
+        return "Welcome to the Help Page! Here are some commands you can use:\n"
+                + "- list : To view all your tasks\n"
+                + "- mark/unmark : To complete or unmark a task\n"
+                + "- delete : To delete a task\n"
+                + "- find : To find a task matching a keyword\n"
+                + "- todo [task] : Add a todo task\n"
+                + "- deadline [task] /by [date] : Add a task with a deadline\n"
+                + "- event [task] /at [date] : Add an event\n"
+                + "- help : Display this help page";
     }
 
     /**
