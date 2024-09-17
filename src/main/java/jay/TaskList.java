@@ -7,6 +7,7 @@ import jay.command.InvalidCommandException;
 import jay.storage.DataIOException;
 import jay.storage.InvalidDataFormatException;
 import jay.storage.Storage;
+import jay.task.InvalidTaskException;
 import jay.task.Task;
 
 /**

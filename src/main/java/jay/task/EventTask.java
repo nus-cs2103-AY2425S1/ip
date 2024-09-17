@@ -28,11 +28,15 @@ public class EventTask extends Task {
      */
     public EventTask(String description, boolean isDone, Priority priority, String date,
                      String startTime, String endTime)
-            throws InvalidDateException, InvalidTimeException {
+            throws InvalidDateException, InvalidTimeException, InvalidTaskException {
         super(description, isDone, priority);
         this.date = Parser.parseDate(date);
         this.startTime = Parser.parseTime(startTime);
         this.endTime = Parser.parseTime(endTime);
+
+        if (this.startTime.isAfter(this.endTime)) {
+            throw new InvalidTaskException("OOPS!!! The start time cannot be after the end time. :-(");
+        }
     }
 
     @Override

@@ -9,10 +9,7 @@ import java.util.ArrayList;
 
 import jay.parser.InvalidDateException;
 import jay.parser.InvalidTimeException;
-import jay.task.DeadlineTask;
-import jay.task.EventTask;
-import jay.task.Task;
-import jay.task.ToDoTask;
+import jay.task.*;
 
 /**
  * Represents the storage of tasks.
@@ -138,6 +135,8 @@ public class Storage {
         } catch (InvalidDateException | InvalidTimeException e) {
             throw new InvalidDataFormatException("OOPS!!! There was an error loading the tasks from the file."
                     + " Please check the date and time format.");
+        } catch (InvalidTaskException e) {
+            throw new InvalidDataFormatException("OOPS!!! There was an error loading the tasks from the file.");
         }
     }
 }
