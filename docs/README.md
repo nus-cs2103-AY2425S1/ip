@@ -115,6 +115,7 @@ Adds a new alias for a command.
 - **Required**
 - **No spaces allowed**
 - *The new alias that will run command*
+
 ---
 
 ### List
@@ -128,6 +129,7 @@ Lists all the tasks in the current filter
 #### Note:
 If you have a filter, list will show the tasks matching the filter. Use [`reset`](#Reset) to remove
 the filter and view the entire list. A filtered list will have the filter listed before the tasks.
+
 ---
 
 ### Reset
@@ -151,6 +153,7 @@ Exits the program and ends the bot.
 - On the GUI, the input will be disabled. The window can be closed after this.
 - The bot saves the tasks to a savefile that is usually where the application was executed. This 
   can be used when launching the bot next time. See [Launching](#running-the-bot).
+
 ---
 
 ### Filter
@@ -222,6 +225,7 @@ Unmarks a task in the current view as done
 #### Note:
 If you have a filter, the index will be based on that filter. Use [`list`](#List) to see the
 currently filtered tasks, and [`reset`](#Reset) to remove the filter and view the entire list
+
 ---
 
 ### Deadline
