@@ -1,4 +1,4 @@
-package BrainRot;
+package brainrot;
 
 /**
  * The ToDo class represents a basic task without a specific deadline.

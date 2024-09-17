@@ -1,4 +1,4 @@
-package BrainRot;
+package brainrot;
 
 /**
  * The Parser class is responsible for interpreting user input and breaking it down

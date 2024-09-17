@@ -1,4 +1,4 @@
-package BrainRot;
+package brainrot;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +11,11 @@ import javafx.scene.layout.VBox;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+
+    protected static final String GREETING =
+        "Hello! I'm fanumTaxRizzlerOhioSigmaLooksmaxxer\n"
+                + "What can I do for you?\n";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -21,9 +26,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private BrainRot brainRot;
-    protected static final String GREETING =
-            "Hello! I'm fanumTaxRizzlerOhioSigmaLooksmaxxer\n"
-                    + "What can I do for you?\n";
+
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));

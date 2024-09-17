@@ -1,4 +1,4 @@
-package BrainRot;
+package brainrot;
 
 /**
  * The Event class represents a task that occurs over a specific time period.

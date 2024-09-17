@@ -1,4 +1,4 @@
-package BrainRot;
+package brainrot;
 
 import java.util.ArrayList;
 

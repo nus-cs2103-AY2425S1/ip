@@ -1,4 +1,4 @@
-package BrainRot;
+package brainrot;
 
 import java.io.IOException;
 
@@ -43,7 +43,7 @@ public class Main extends Application{
 
             // Set up the stage
             stage.setScene(scene);
-            stage.setTitle("brainRot");
+            stage.setTitle("brainrot");
             stage.show();
 
         } catch (IOException e) {
