@@ -32,6 +32,10 @@ application {
     mainClass.set("elsa.ui.Elsa")
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 shadowJar {
     archiveBaseName = "Elsa"
     archiveClassifier = null

@@ -65,10 +65,9 @@ public class Elsa {
     }
 
     /**
-     * The main entry point of the Elsa application.
-     * Creates an Elsa instance and starts its run method.
+     * Initialises a new instance of Elsa and invokes its run method.
      *
-     * @param args Command-line arguments (not used).
+     * @param args Command-line arguments.
      */
     public static void main(String[] args) {
         new Elsa().run();
