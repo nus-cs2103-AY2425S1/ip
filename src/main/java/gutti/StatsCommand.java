@@ -4,8 +4,20 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.Duration;
 
+/**
+ * Represents a command to show statistics of tasks completed in the past week.
+ */
 public class StatsCommand extends Command{
 
+    /**
+     * Executes the stats command, calculating the number of tasks completed in the last week.
+     *
+     * @param tasks   The list of tasks to retrieve statistics from.
+     * @param ui      The user interface that displays the results of the command.
+     * @param storage The storage handler that manages loading and saving tasks.
+     * @return A string representing the number of tasks completed in the past week.
+     * @throws GuttiException If there is an error during execution.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
         ArrayList<Task> taskList = tasks.getTasks();
