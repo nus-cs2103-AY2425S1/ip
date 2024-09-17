@@ -64,6 +64,9 @@ public class DialogBox extends HBox {
             // Do nothing
         }
     }
+    private void setErrorDialog() {
+        text.getStyleClass().add("error-label");
+    }
     public static DialogBox getUserDialog(String s, Image i) {
         DialogBox db = new DialogBox(s, i);
         return db;
@@ -72,6 +75,12 @@ public class DialogBox extends HBox {
         DialogBox db = new DialogBox(s, i);
         db.flip();
         db.changeDialogStyle(commandType);
+        return db;
+    }
+    public static DialogBox getErrorDialog(String s, Image i) {
+        DialogBox db = new DialogBox(s, i);
+        db.flip();
+        db.setErrorDialog();
         return db;
     }
 }

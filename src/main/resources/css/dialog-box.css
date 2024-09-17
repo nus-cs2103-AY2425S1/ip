@@ -27,4 +27,10 @@
     -fx-background-color: rgb(224, 164, 164);
 }
 
+.error-label {
+    -fx-background-color: rgb(252, 204, 204);
+    -fx-text-fill: rgb(156, 33, 33);
+    -fx-font-size: 15px;
+}
+
 
