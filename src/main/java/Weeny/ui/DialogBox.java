@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
@@ -19,6 +20,11 @@ public class DialogBox extends HBox {
     private Label text;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private HBox textBubble;
+
+    private static final String USER_STYLE = "-fx-background-radius: 15; -fx-background-color: white; -fx-border-color: smokegray; -fx-border-width: 2; -fx-border-radius: 15;";
+    private static final String WEENY_STYLE = "-fx-background-radius: 15; -fx-background-color: lightpink; -fx-border-color: smokegray; -fx-border-width: 2; -fx-border-radius: 15;";
 
     public DialogBox(String s, Image i) {
         try {
@@ -32,6 +38,7 @@ public class DialogBox extends HBox {
         }
         text.setText(s);
         displayPicture.setImage(i);
+        clipDisplayPicture();
     }
     @FXML
     private void flip() {
@@ -42,13 +49,25 @@ public class DialogBox extends HBox {
     }
     @FXML
     public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+        DialogBox userDialog = new DialogBox(s, i);
+        userDialog.textBubble.setStyle(USER_STYLE);
+        return userDialog;
     }
     @FXML
     public static DialogBox getWeenyDialog(String s, Image i) {
         var db = new DialogBox(s, i);
         db.flip();
+        db.textBubble.setStyle(WEENY_STYLE);
         return db;
+    }
+
+    /**
+     * Clips display picture into a circle
+     */
+    private void clipDisplayPicture() {
+        double radius = displayPicture.getFitHeight() / 2;
+        Circle clip = new Circle(radius, radius, radius);
+        displayPicture.setClip(clip);
     }
 
 }

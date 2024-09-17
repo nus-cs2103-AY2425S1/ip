@@ -1,10 +1,8 @@
 package weeny.ui;
 
 import weeny.Weeny;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.image.Image;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,13 +11,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.scene.image.ImageView;
 import java.io.IOException;
 
 /**
  * GUI for Weeny application
  * Manages all GUI elements and actions
- *
  */
 public class WeenyGui extends AnchorPane {
     // Other class instances
@@ -29,6 +26,7 @@ public class WeenyGui extends AnchorPane {
     private Weeny weenyApp;
     private final Image userImage;
     private final Image weenyImage;
+    private final Image sendImage;
     @FXML
     private VBox dialogContainer;
     @FXML
@@ -39,11 +37,14 @@ public class WeenyGui extends AnchorPane {
     private Button sendButton;
     @FXML
     private AnchorPane mainLayout;
+    @FXML
+    private ImageView sendIcon;
 
     public WeenyGui() {
         this.weenyApp = new Weeny();
-        userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-        weenyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+        userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+        weenyImage = new Image(this.getClass().getResourceAsStream("/images/Weeny.png"));
+        sendImage = new Image(this.getClass().getResourceAsStream("/images/send.png"));
     }
 
     /**
@@ -65,7 +66,6 @@ public class WeenyGui extends AnchorPane {
         }
     }
 
-
     /**
      *  Injects weeny into the Application
      *
@@ -81,6 +81,9 @@ public class WeenyGui extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        sendIcon.setImage(sendImage);
+        sendIcon.setFitHeight(sendButton.getPrefHeight());
+        sendIcon.setFitWidth(sendButton.getPrefWidth());
         dialogContainer.getChildren().add(DialogBox.getWeenyDialog(ui.showWelcomeMessage(), weenyImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
@@ -98,5 +101,16 @@ public class WeenyGui extends AnchorPane {
                 DialogBox.getWeenyDialog(weenyText, weenyImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Display default test on text field
+     * Clears when user types
+     */
+    @FXML
+    private void clearDefaultText() {
+        if (userInput.getText().equals("Oink here")) {
+            userInput.setText("");
+        }
     }
 }
