@@ -210,10 +210,18 @@ public class Bob {
     }
 
     public static LocalDateTime parseDateTime(String string) {
-        try {
-            return LocalDateTime.from(INPUT_FORMATTER.parse(string));
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException();
+        switch (string) {
+        case "now":
+            return LocalDateTime.now();
+        case "tmr":
+        case "tomorrow":
+            return LocalDateTime.now().plusDays(1);
+        default:
+            try {
+                return LocalDateTime.from(INPUT_FORMATTER.parse(string));
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeException();
+            }
         }
     }
 
