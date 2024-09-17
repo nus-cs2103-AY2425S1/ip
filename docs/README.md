@@ -31,5 +31,6 @@ Use the delete command to mark a task as complete.
 Use the find command to search for a task that contains your find query. Do note that the query
 can only be **1** word.
 - find *something*
+
 Use the findexact command to search for a task that exactly matches your query.
 - findexact *your task*
