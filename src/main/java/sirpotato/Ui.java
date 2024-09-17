@@ -173,7 +173,7 @@ public class Ui {
 
         for (int i = 0; i < tasks.getList().size(); i++) {
             if (tasks.getList().get(i).containsString(searchString)) {
-                response = response + (i+1) + ". " + tasks.getTask(i);
+                response = response + (i+1) + ". " + tasks.getTask(i) +"\n";
             }
         }
         System.out.println(response);
