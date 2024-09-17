@@ -16,9 +16,11 @@ Example Usage:
 
 Expected Outcome:
 
-"Alright, I got you! I've added this task to your list:
+```
+Gotchu, added the task:
   [D][ ] Finish CS2103T Project (by: Sep 30 2024)
-Now you have X tasks to tackle! Keep grinding!"
+Now you have 7 tasks in the list
+```
 
 ## Adding Events
 
@@ -34,9 +36,11 @@ Example Usage:
 
 Expected Outcome:
 
-"Stay ready! I've added this event to your schedule:
+```
+Stay ready! I've added this event to your schedule:
   [E][ ] NUS Hackathon (from: Oct 1 2024 to: Oct 2 2024)
 Keep grinding like LeBron!"
+```
 
 ## Feature: Task Management (Like a LeBron Stat Sheet)
 
@@ -80,9 +84,12 @@ Example Usage:
 
 Expected Outcome:
 
-"Here are the tasks that match 'Hackathon':
+```
+Here are the tasks that match 'Hackathon':
   [E][ ] NUS Hackathon (at: Oct 1 2024, 10:00 to 18:00)
-Stay ready to dominate!"
+Stay ready to dominate!
+```
+
 
 ## Feature: List (Your Game Plan Overview)
 
@@ -94,11 +101,13 @@ Example Usage:
 
 Expected Outcome:
 
-"Here's your game plan:
+```
+Here's your game plan:
 1. [T][ ] Study for Finals
 2. [D][ ] Finish CS2103T Project (by: Sep 30 2024)
 3. [E][ ] NUS Hackathon (at: Oct 1 2024, 10:00 to 18:00)
 Let's get to work!"
+```
 
 
 LeBron James - ChatBot keeps you focused and prepared, just like the King on the court. Stay organized, stay efficient, and keep dominating your day with LeBron's help!

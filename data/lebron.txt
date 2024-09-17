@@ -4,3 +4,4 @@ D | 1 | return CD | 2011-10-09
 E | 0 | project meeting | 2019-12-10 to 2020-11-12
 E | 0 | meeting | 2010-09-09 to 2012-11-11
 T | 0 | Study for Finals
+D | 0 | Finish CS2103T Project | 2024-10-09
