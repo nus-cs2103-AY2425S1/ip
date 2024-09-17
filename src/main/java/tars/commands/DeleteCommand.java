@@ -23,6 +23,12 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(String input, TaskList tasks) {
         Task t = tasks.deleteTask(input);
-        return String.format("Wow you're freeing yourself up\n   %s\nYou now have %s tasks left", t, tasks.noOfTasks());
+        int numTasks = tasks.noOfTasks();
+
+        String outputWording = "tasks";
+        if (numTasks == 1) {
+            outputWording = "task";
+        }
+        return String.format("Wow you're freeing yourself up\n   %s\nYou now have %d %s left", t, numTasks, outputWording);
     }
 }

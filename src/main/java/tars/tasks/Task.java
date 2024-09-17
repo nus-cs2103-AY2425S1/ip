@@ -14,7 +14,7 @@ import java.util.Date;
 public abstract class Task implements Comparable<Task> {
 
     private final String taskName;
-    private boolean completeStatus;
+    private boolean isComplete;
 
     /**
      * Constructs a {@code Task} with the specified name.
@@ -30,14 +30,14 @@ public abstract class Task implements Comparable<Task> {
      * Marks the task as completed.
      */
     public void markDone() {
-        completeStatus = true;
+        isComplete = true;
     }
 
     /**
      * Marks the task as not completed.
      */
     public void markUndone() {
-        completeStatus = false;
+        isComplete = false;
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class Task implements Comparable<Task> {
      * @return "1" if the task is complete, otherwise "0".
      */
     public String getStatus() {
-        return completeStatus ? "1" : "0";
+        return isComplete ? "1" : "0";
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class Task implements Comparable<Task> {
     public String toString() {
         String status;
 
-        if (completeStatus) {
+        if (isComplete) {
             status = "[X]";
 
         } else {

@@ -24,8 +24,13 @@ public class AddCommand extends Command {
     @Override
     public String execute(String input, TaskList tasks) {
         Task t = tasks.addTask(input);
+        int numTasks = tasks.noOfTasks();
 
-        return String.format("Added yet another task\n   %s\nYou now have %d tasks. Are you gonna do any of them?", t, tasks.noOfTasks());
+        String outputWording = "tasks";
+        if (numTasks == 1) {
+            outputWording = "task";
+        }
+        return String.format("Added yet another task\n   %s\nYou now have %d %s. Are you gonna do any of them?", t, numTasks, outputWording);
 
     }
 }

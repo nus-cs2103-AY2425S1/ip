@@ -90,7 +90,7 @@ public class Response {
      */
     public String displayIntro() {
         return ("""
-                \nGreetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
+                Greetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
                 Let's get this chat started! Just remember, my humor setting is at 75%, so things might get a bit cheeky.""");
     }
 
