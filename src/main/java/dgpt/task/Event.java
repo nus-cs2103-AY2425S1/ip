@@ -43,11 +43,13 @@ public class Event extends Task {
     }
 
     public String getFromTimeString() {
-        return this.startTime.format(outputFormatter);
+        return this.startTime.format(outputFormatter).replace("am", "AM")
+                .replace("pm", "PM");
     }
 
     public String getToTimeString() {
-        return this.endTime.format(outputFormatter);
+        return this.endTime.format(outputFormatter).replace("am", "AM")
+                .replace("pm", "PM");
     }
 
     @Override

@@ -77,7 +77,7 @@ Format: `event DESCRIPTION /from START_TIME /to END_TIME`
 
 Example: `event attend coffee conference /from 19/09/2024 1200 /to 19/09/2024 1800` creates
 ```
-[E][] attend coffee conference (from: 19 Sep 2024, 12:00pm to: 19 Sep 2024, 6:00pm)
+[E][] attend coffee conference (from: 19 Sep 2024, 12:00PM to: 19 Sep 2024, 6:00PM)
 ```
 
 ### Create a Recurring task: `recurring`
