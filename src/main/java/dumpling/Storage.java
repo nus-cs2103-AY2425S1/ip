@@ -39,6 +39,7 @@ public class Storage {
 
     /**
      * Loads the data from harddisk
+     *
      * @return List of Task objects
      * @throws DumplingException Thrown when there are issues with loading the harddisk data
      */

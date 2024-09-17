@@ -20,6 +20,7 @@ public enum CommandEnum {
     /**
      * Converts the given string into one of the CommandEnums.
      * Throws a DumplingException if provided string is not a CommandEnum
+     *
      * @param commandString String of command to be converted
      * @return CommandEnum corresponding to the string
      * @throws DumplingException Thrown when a command provided is not a CommandEnum

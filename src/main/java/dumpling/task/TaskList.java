@@ -105,6 +105,7 @@ public class TaskList {
 
     /**
      * Update notes of a task in the task list
+     *
      * @param itemIdx target item index of task to be added
      * @param notes updated notes to be added
      * @return message of successful update
@@ -121,6 +122,7 @@ public class TaskList {
 
     /**
      * Find tasks with description that has teh target substring
+     *
      * @param targetSubstring Target substring to search for
      * @return String with the list of matching tasks, or a default message if no tasks found.
      */

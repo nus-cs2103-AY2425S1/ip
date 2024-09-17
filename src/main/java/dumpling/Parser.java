@@ -31,11 +31,12 @@ public class Parser {
     private static final String EVENT_TO_SEPARATOR = "/to";
 
     /**
-     * Parse a given full command from the user and stores its information into the relevant Command object
+     * Parse a given full command from the user and stores
+     * its information into the relevant Command object
      *
      * @param stringCommand user's input
-     * @return Command object that stores the information of the command. Resulting Command object can be executed.
-     * @throws DumplingException Message includes information about the error experienced.
+     * @return Command object can be executed
+     * @throws DumplingException Message includes information about the error experienced
      */
     public static Command parse(String stringCommand) throws DumplingException {
         String commandString = stringCommand.split(" ")[0];
@@ -226,7 +227,7 @@ public class Parser {
      * @param terminalString String to stop forming the subsection
      * @return Pair of formed string and ending index of this traversal
      */
-    public static Pair<String, Integer> formSubSection(
+    private static Pair<String, Integer> formSubSection(
             String[] splitDescription,
             int startIdx,
             String terminalString

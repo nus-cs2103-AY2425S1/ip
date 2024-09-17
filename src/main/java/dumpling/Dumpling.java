@@ -24,6 +24,7 @@ public class Dumpling {
 
     /**
      * Constructor that takes in a filepath as where the data is stored
+     *
      * @param filePath Filepath of data file
      */
     public Dumpling(String filePath) {
@@ -39,6 +40,7 @@ public class Dumpling {
 
     /**
      * Obtain response from Dumpling when given the user input. Used for GUI version.
+     *
      * @param input User input string
      * @return Message from Dumpling, which is the output from Dumpling upon completing the task.
      */
@@ -48,7 +50,7 @@ public class Dumpling {
     }
 
     /**
-     * Method to run the chatbot. Used for CLI version.
+     * Runs the chatbot in the CLI version.
      */
     public void run() {
         this.ui.showWelcome();

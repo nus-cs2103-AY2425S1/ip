@@ -11,6 +11,11 @@ public class FindCommand extends Command {
 
     private String targetSubstring;
 
+    /**
+     * Constructor for find command class
+     *
+     * @param targetSubstring Substring to search in task descriptions
+     */
     public FindCommand(String targetSubstring) {
         this.targetSubstring = targetSubstring;
     }

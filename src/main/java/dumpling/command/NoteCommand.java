@@ -15,12 +15,13 @@ public class NoteCommand extends Command {
 
     /**
      * Constructor of NoteCommand
+     *
      * @param itemIdx target item index
      * @param note updated note to be added to task
      */
     public NoteCommand(int itemIdx, String note) {
         this.itemIdx = itemIdx;
-        this.note = note;
+        this.note = note.trim();
     }
 
     @Override
