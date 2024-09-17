@@ -7,7 +7,7 @@
 Stelle (Chat bot simulation) frees your mind of having to remember things you need to do. It is:
 - text-based
 - easy to learn
-- BLAZING FAST to use :fire: :fire: :fire:
+- BLAZING FAST to use  
 
 Stelle functions using commands typed into the text box! A list of functional commands are provided below!
 
