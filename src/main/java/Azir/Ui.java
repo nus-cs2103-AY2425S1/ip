@@ -11,8 +11,12 @@ public class Ui {
      */
     public static String showWelcome() {
         String response = "";
-        response += "Hello! I'm Azir\n";
-        response += "What can I do for you?";
+        response += "Hello! I'm the emperor of shurima!\n";
+        response += "Here are the available commands to communicate with the emperor\n" +
+                "1. list\n2. mark [task number]\n3. unmark[task number]\n" +
+                "4. delete[task number]\n5. todo [description]\n6. deadline [description] /by [yyyy-mm-dd]\n" +
+                "7. event [description] /from [date] /to [date]\n8. find [keyword]\n";
+        response += "What can I do for you my soldier?";
         return response;
     }
 
@@ -50,32 +54,32 @@ public class Ui {
         String botOutput = "";
         switch (command) {
         case "mark":
-            botOutput += "Nice! I've marked this task as done:\n";
+            botOutput += "Well done solider! I've marked this task as done:\n";
             botOutput += task + "\n";
             return botOutput;
 
         case "unmark":
-            botOutput += "OK, I've marked this task as not done yet:\n";
+            botOutput += "I've marked this task as not done yet, keep up soldier\n";
             botOutput += task + "\n";
             return botOutput;
 
         case "delete":
-            botOutput += "Noted. I've removed this task:\n";
+            botOutput += "I have removed this task:\n";
             botOutput += task + "\n";
             return botOutput;
 
         case "todo":
-            botOutput += "Got it. I've added this task:\n";
+            botOutput += "More work for my soldiers! I've added this task:\n";
             botOutput += task + "\n";
             return botOutput;
 
         case "deadline":
-            botOutput += "Got it. I've added this task:\n";
+            botOutput += "More work for my soldiers! I've added this task:\n";
             botOutput += task + "\n";
             return botOutput;
 
         case "event":
-            botOutput += "Got it. I've added this task:\n";
+            botOutput += "More work for my soldiers! I've added this task:\n";
             botOutput += task + "\n";
             return botOutput;
 
