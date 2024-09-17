@@ -14,7 +14,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public String showWelcomeMessage() {
-        return String.format("Hello! I'm Weeny\nWhat can I do for you?\n");
+        return String.format("Oink! I'm Weeny\nWhat can I do for you?\n");
     }
 
     /**
@@ -24,7 +24,7 @@ public class Ui {
      */
     public String showTaskList(List<Task> tasks) {
         assert tasks != null : "Task list should not be null";
-        String taskList = "Here are the tasks in your list:\n";
+        String taskList = "Here you go! All the tasks you have are here:\n";
         for (int i = 0; i < tasks.size(); i++) {
             taskList = taskList + String.format((i + 1) + ". " + tasks.get(i).toString() + "\n");
         }
@@ -38,7 +38,7 @@ public class Ui {
      */
     public String showSearchResult(List<Task> tasks) {
         assert tasks != null : "Search result list should not be null";
-        String resultList = "Here are the matching tasks in your list:\n";
+        String resultList = "Hmm.. these are the tasks that matches what you want:\n";
         for (int i = 0; i < tasks.size(); i++) {
             resultList = resultList + String.format((i + 1) + ". " + tasks.get(i).toString() + "\n");
         }
@@ -52,7 +52,7 @@ public class Ui {
      * @param date String of the particular date
      */
     public String showScheduleMessage(List<Task> tasks, String date) {
-        String scheduleList = "Here are the tasks you have on " + date + ":\n";
+        String scheduleList = "I have gathered all the tasks you have on " + date + ":\n";
         for (int i = 0; i < tasks.size(); i++) {
             scheduleList = scheduleList + String.format((i + 1) + " " + tasks.get(i).toString() + "\n");
         }
@@ -67,8 +67,8 @@ public class Ui {
      */
     public String printTaskAddedMessage(Task task, int size) {
         assert task != null : "Task should not be null";
-        return String.format("Got it. I've added this task:\n" + task.toString() +
-                "\n" +"Now you have " + size + " tasks in the list.\n");
+        return String.format("Gotcha, I have added:\n" + task.toString() +
+                "\n" +"You have a total of " + size + " tasks in the list.\n");
     }
 
     /**
@@ -80,7 +80,7 @@ public class Ui {
     public String showTaskDeletedMessage(Task task, int size) {
         assert task != null : "Task should not be null";
         return String.format("Spooof! The task magically disappeared:\n" +
-                task.toString() + "\n" + "Now you have " + size + " tasks in the list.\n");
+                task.toString() + "\n" + "You have a total of " + size + " tasks in the list.\n");
     }
 
     /**
@@ -90,7 +90,7 @@ public class Ui {
      */
     public String showUnmarkMessage(Task task) {
         assert task != null : "Task should not be null";
-        return String.format("OK, I've marked this task as not done yet:\n" +
+        return String.format("You're going back on your words? Tsk I have unmarked:\n" +
                 task.toString() + "\n");
     }
 
@@ -118,7 +118,7 @@ public class Ui {
      * Displays a goodbye message to the user.
      */
     public String showGoodbyeMessage() {
-        return String.format("Bye. Hope to see you soon!\n");
+        return String.format("I guess it's my meal time! Bye!\n");
     }
 
 }
