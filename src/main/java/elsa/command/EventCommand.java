@@ -41,7 +41,7 @@ public class EventCommand extends Command {
      * Executes the command to add a new eventTask to the task list.
      *
      * @param tasks The task list where the new eventTask will be added.
-     * @param ui The elsa.ui.Ui instance, which is not used in this command but is included for method signature consistency.
+     * @param ui The Ui instance, which is not used in this command but is included for method signature consistency.
      */
     @Override
     public void execute(TaskList tasks, Ui ui) {

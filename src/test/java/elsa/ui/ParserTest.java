@@ -1,11 +1,13 @@
 package elsa.ui;
 
-import elsa.command.*;
-import elsa.ElsaException;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import elsa.ElsaException;
+import elsa.command.Command;
+import elsa.command.DeleteCommand;
 
 public class ParserTest {
     @Test
