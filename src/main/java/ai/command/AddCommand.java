@@ -24,7 +24,7 @@ public class AddCommand extends Command {
             }
         }
         tasks.add(task);
-        return "Task added!!\n" + task + "\n" + String.format("You better finish your %d tasks!! ehe :3\n",
+        return "Task added!!\n\n" + task + "\n\n" + String.format("You better finish your %d tasks!! ehe :3\n",
                 tasks.size());
     }
 

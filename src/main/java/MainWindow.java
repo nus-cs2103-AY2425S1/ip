@@ -30,7 +30,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Ai instance */
+    /**
+     * Injects the Ai instance
+     */
     public void setAi(Ai ai) {
         this.ai = ai;
     }

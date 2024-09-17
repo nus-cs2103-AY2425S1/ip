@@ -12,6 +12,7 @@ public class Event extends Task {
 
     /**
      * Creates a new Event object.
+     *
      * @param input String to be parsed in description, from, and to.
      */
     public Event(String input) {
@@ -24,9 +25,10 @@ public class Event extends Task {
 
     /**
      * Creates a new Event object.
-     * @param desc String containing description.
-     * @param from String containing starting time of the event.
-     * @param to String containing ending time of the event.
+     *
+     * @param desc   String containing description.
+     * @param from   String containing starting time of the event.
+     * @param to     String containing ending time of the event.
      * @param isDone whether the task is done.
      */
     public Event(String desc, String from, String to, Boolean isDone) {

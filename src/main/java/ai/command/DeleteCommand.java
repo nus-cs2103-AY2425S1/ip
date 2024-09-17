@@ -25,8 +25,8 @@ public class DeleteCommand extends Command {
         Task temp = tasks.get(i);
         tasks.delete(i);
 
-        return "Gotchyaa, task removed!!\n"
-                + temp + "\n"
+        return "Gotchyaa, task removed!!\n\n"
+                + temp + "\n\n"
                 + String.format("You have %d tasks in your list :p\n", tasks.size());
     }
 

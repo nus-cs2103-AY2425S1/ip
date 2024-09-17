@@ -23,8 +23,8 @@ public class Parser {
     /**
      * Checks whether given arguments string is empty. If empty, throws EmptyArgumentAiException.
      *
-     * @param arguments String containing arguments for the command.
-     * @param command String of command type.
+     * @param arguments  String containing arguments for the command.
+     * @param command    String of command type.
      * @param suggestion String of suggestion for correct input.
      * @throws EmptyArgumentAiException Throws exception if arguments is empty.
      */
@@ -68,17 +68,28 @@ public class Parser {
         String arguments = (parsedCommand.length > 1) ? parsedCommand[1] : "";
 
         switch (command) {
-        case "list": return new ListCommand();
-        case "unmark": return new UnmarkCommand(arguments);
-        case "mark": return new MarkCommand(arguments);
-        case "todo": return parseTodoCommand(arguments);
-        case "deadline": return parseDeadlineCommand(arguments);
-        case "event": return parseEventCommand(arguments);
-        case "due": return parseDueCommand(arguments);
-        case "find": return new FindCommand(arguments);
-        case "delete": return new DeleteCommand(arguments);
-        case "bye": return new ByeCommand();
-        default: return new DefaultCommand();
+        case "list":
+            return new ListCommand();
+        case "unmark":
+            return new UnmarkCommand(arguments);
+        case "mark":
+            return new MarkCommand(arguments);
+        case "todo":
+            return parseTodoCommand(arguments);
+        case "deadline":
+            return parseDeadlineCommand(arguments);
+        case "event":
+            return parseEventCommand(arguments);
+        case "due":
+            return parseDueCommand(arguments);
+        case "find":
+            return new FindCommand(arguments);
+        case "delete":
+            return new DeleteCommand(arguments);
+        case "bye":
+            return new ByeCommand();
+        default:
+            return new DefaultCommand();
         }
     }
 }

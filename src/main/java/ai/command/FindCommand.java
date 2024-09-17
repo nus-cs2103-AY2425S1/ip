@@ -23,7 +23,14 @@ public class FindCommand extends Command {
                 list += temp;
             }
         }
-        return list;
+
+        if (list == "") {
+            return "Sorry >.< no tasks found :p\n";
+        }
+
+        return "I found your tasks!!!\n\n"
+                + list + "\n"
+                + "Tell me if you need anyth else, ehe :3\n";
     }
 
     @Override
