@@ -1,5 +1,6 @@
 package dumpling.command;
 
+import dumpling.DumplingException;
 import dumpling.Storage;
 import dumpling.task.TaskList;
 import dumpling.ui.Ui;
@@ -29,9 +30,15 @@ public class NoteCommand extends Command {
 
     @Override
     public String executeAndReturnLog(TaskList taskList, Storage storage) {
-        String message = taskList.updateTaskNotes(this.itemIdx, this.note);
-        storage.save(taskList);
-        return message;
+        try {
+            String message = taskList.updateTaskNotes(this.itemIdx, this.note);
+            storage.save(taskList);
+            return message;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DumplingException(
+                    "    Grrr... You tried to add a note at an index out of range! "
+                            + String.format("There are only %d items.", taskList.getNumItems()));
+        }
     }
 
     @Override
