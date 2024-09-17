@@ -25,12 +25,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DumplingException {
         ui.echo(executeAndReturnLog(taskList, storage));
     }
 
     @Override
-    public String executeAndReturnLog(TaskList taskList, Storage storage) {
+    public String executeAndReturnLog(TaskList taskList, Storage storage) throws DumplingException {
         String message = "";
         try {
             if (commandEnum == CommandEnum.MARK) {

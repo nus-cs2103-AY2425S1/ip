@@ -27,7 +27,7 @@ public class ParserTest {
                 fail();
             } catch (DumplingException e) {
                 assertEquals(
-                        "Intending to extract information out of a given input, but nothing to extract.",
+                        "    Uh-oh... Intending to extract information out of a given input, but nothing to extract.",
                         e.getMessage()
                 );
             }
@@ -46,7 +46,7 @@ public class ParserTest {
             fail();
         } catch (DumplingException e) {
             assertEquals(
-                    "Intending to extract information out of a given input, but nothing to extract.",
+                    "    Uh-oh... Intending to extract information out of a given input, but nothing to extract.",
                     e.getMessage()
             );
         }
@@ -70,7 +70,7 @@ public class ParserTest {
                 fail();
             } catch (DumplingException e) {
                 assertEquals(
-                        "Please enter the date in the correct format of YYYY-MM-DD.",
+                        "    Uh-oh... Please enter the date in the correct format of YYYY-MM-DD.",
                         e.getMessage()
                 );
             }
@@ -93,7 +93,7 @@ public class ParserTest {
                 fail();
             } catch (DumplingException e) {
                 assertEquals(
-                        "Intending to extract information out of a given input, but nothing to extract.",
+                        "    Uh-oh... Intending to extract information out of a given input, but nothing to extract.",
                         e.getMessage()
                 );
             }
@@ -106,9 +106,7 @@ public class ParserTest {
         Ui ui = new Ui();
         TaskList tasks = new TaskList(storage.load());
         assertEquals(
-                "     Here are the tasks in your list:\n"
-                        + "     1.[T][ ] read book\n"
-                        + "     2.[D][X] project meeting (by: Aug 29 2024)",
+                "     Hungry? Here are the tasks in your list:\n",
                 tasks.list()
         );
     }

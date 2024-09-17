@@ -1,5 +1,6 @@
 package dumpling.command;
 
+import dumpling.DumplingException;
 import dumpling.Storage;
 import dumpling.task.TaskList;
 import dumpling.ui.Ui;
@@ -20,15 +21,21 @@ public class DeleteCommand extends Command {
         this.itemIdx = itemIdx;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DumplingException {
         ui.echo(executeAndReturnLog(taskList, storage));
     }
 
     @Override
-    public String executeAndReturnLog(TaskList taskList, Storage storage) {
-        String message = taskList.delete(this.itemIdx);
-        storage.save(taskList);
-        return message;
+    public String executeAndReturnLog(TaskList taskList, Storage storage) throws DumplingException {
+        try {
+            String message = taskList.delete(this.itemIdx);
+            storage.save(taskList);
+            return message;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DumplingException(
+                    "    Grrr... You tried to delete at an index out of range! "
+                            + String.format("There are only %d items.", taskList.getNumItems()));
+        }
     }
 
     @Override

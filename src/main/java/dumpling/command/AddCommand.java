@@ -1,5 +1,6 @@
 package dumpling.command;
 
+import dumpling.DumplingException;
 import dumpling.Pair;
 import dumpling.Parser;
 import dumpling.Storage;
@@ -26,12 +27,12 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DumplingException {
         ui.echo(executeAndReturnLog(taskList, storage));
     }
 
     @Override
-    public String executeAndReturnLog(TaskList taskList, Storage storage) {
+    public String executeAndReturnLog(TaskList taskList, Storage storage) throws DumplingException {
         Pair<Task, String> pair = Parser.add(this.userInput, this.commandEnum, taskList.getNumItems());
         taskList.add(pair.getFirst());
         storage.save(taskList);
