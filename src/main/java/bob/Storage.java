@@ -25,7 +25,7 @@ public class Storage {
     }
 
     private Task decode(String encodedString) {
-        Task task = null;
+        Task task;
         int n;
         String desc;
 
@@ -59,8 +59,7 @@ public class Storage {
             task = new Event(desc, parsedFrom, parsedTo);
             break;
         default:
-            // TODO: throw error
-            break;
+            throw new IllegalArgumentException();
         }
 
         if (encodedString.charAt(1) == '1') {

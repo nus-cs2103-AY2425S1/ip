@@ -176,6 +176,13 @@ public class Bob {
                         "Now you have " + tasks.size() + " tasks in the list.");
             }
         },
+        RESET("reset") {
+            @Override
+            public void run() {
+                tasks = new TaskList();
+                UI.printWithFormat("OK, I've removed all your tasks.");
+            }
+        },
         CATCH_ALL("") {
             @Override
             public void run() {
