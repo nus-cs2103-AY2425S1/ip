@@ -75,10 +75,10 @@ public class TaskList {
 
     public static TaskList getTutorialTasks() {
         TaskList tutorialTasks = new TaskList();
-        tutorialTasks.add(new ToDo("Create a new task with the command => todo <task description>"));
-        tutorialTasks.add(new ToDo("List all tasks with the command => list"));
+        tutorialTasks.add(new ToDo("Create a new task with the command: todo <task description>"));
+        tutorialTasks.add(new ToDo("List all tasks with the command: list"));
 
-        ToDo markedTodo = new ToDo("Mark a task as done with the command => mark <task number>");
+        ToDo markedTodo = new ToDo("Mark a task as done with the command: mark <task number>");
         markedTodo.markAsDone();
 
         tutorialTasks.add(markedTodo);
