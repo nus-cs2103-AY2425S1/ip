@@ -9,7 +9,7 @@ task management with minimal effort.
 
 ## Features
 
-### Adding todos
+### Adding Todos
 
 Peppa allows you to add simple to-dos to your task list without any due date.
 
@@ -23,7 +23,7 @@ Got it! I've added this task:
 You now have 1 task in the list.
 ```
 
-### Adding deadlines
+### Adding Deadlines
 
 Peppa allows you to add deadlines for tasks, ensuring that you stay on top of important dates.
 You can specify both the task and the deadline date.
@@ -38,7 +38,7 @@ Got it! I've added this task:
 You now have 1 task in the list.
 ```
 
-### Adding events
+### Adding Events
 
 Peppa allows you to add events for tasks, ensuring that you stay on top of important dates.
 
