@@ -10,18 +10,18 @@ Command Line Interface (CLI) while still maintaining an aesthetic Graphical User
 - [Quick Start Guide](#quick-start-guide)
 - [Features](#features)
 - [Usage](#usage)
-  - [Adding Tasks](#adding-tasks)
-  - [Marking Tasks as Done](#marking-tasks-as-done)
-  - [Unmarking Tasks](#unmarking-tasks)
-  - [Deleting Tasks](#deleting-tasks)
-  - [Listing Tasks](#listing-tasks)
-  - [Sorting Tasks](#sorting-tasks)
-- [Saving Data](#saving-data)
+  - [Adding Tasks: `add`](#adding-tasks)
+  - [Marking Tasks as Done: `mark`](#marking-tasks-as-done)
+  - [Unmarking Tasks: `unmark`](#unmarking-tasks)
+  - [Deleting Tasks: `delete`](#deleting-tasks)
+  - [Listing Task: `list`](#listing-tasks)
+  - [Sorting Tasks: `sort`](#sorting-tasks)
+- [Saving Data: `bye`](#saving-data)
 - [Command Summary](#command-summary)
 
 ## Quick start guide
 
-1. Ensure you have Java 17 installed on your computer.
+1. Ensure you have Java 17 installed on your computer. You can check this by using the command `java -version`
 2. Download the latest jar file
 3. Copy the file to the folder you want to use as the *home folder*
 4. Open your terminal, `cd` into the folder you put the jar file in, and use the following command:
@@ -125,5 +125,6 @@ Once you are finished with the chatbot, simply type ```bye```. SirPotato will th
 | `delete <task_number>`             | Deletes a task                                             | `delete 2`                                               |
 | `sort description`                 | Sorts tasks by description                                 | `sort description`                                       |
 | `sort deadline`                    | Sorts tasks by deadline                                    | `sort deadline`                                          |
+| `bye` | Saves your data | `bye`
 
 
