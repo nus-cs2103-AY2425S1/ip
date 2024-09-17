@@ -47,7 +47,7 @@ public class TaskList {
     }
 
     /**
-     * List all tasks in the task list.
+     * Lists all tasks in the task list.
      *
      * @return The list of tasks.
      */

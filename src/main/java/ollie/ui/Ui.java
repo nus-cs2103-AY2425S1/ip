@@ -50,7 +50,7 @@ public class Ui {
      * @param error The error message.
      */
     public static String returnErrorAsString(OllieException error) {
-        return error.toString();
+        return error.getMessage();
     }
 
     /**

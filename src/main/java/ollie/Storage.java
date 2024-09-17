@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import ollie.exception.OllieException;
 import ollie.task.Deadline;
@@ -65,7 +66,7 @@ public class Storage {
             // Split the taskData by " | " and collect parts into a list
             List<String> parts = Arrays.stream(taskData.trim().split(" \\| "))
                     .map(String::trim)
-                    .toList();
+                    .collect(Collectors.toList());
 
             // Extract information from parts
             String taskType = parts.get(0);

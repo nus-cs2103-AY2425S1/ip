@@ -81,10 +81,9 @@ public class Event extends Task {
     public static Event createTask(String command) throws OllieException {
         String[] parts = command.substring(5).split(" /from:| /to:");
         if (parts.length != 3) {
-            throw new OllieException("""
-                    Please enter in the format:
-                    event event_name /from: start_time /to: end_time
-                    Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00""");
+            throw new OllieException("Please enter in the format:\n"
+                    + "event <description> /from: <start time> /to: <end time>"
+                    + "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00");
         }
         DateTimeFormatter inputDate = Task.getInputDate();
         try {
