@@ -14,6 +14,7 @@ import bimo.command.ListCommand;
 import bimo.command.MarkCommand;
 import bimo.command.Priority;
 import bimo.command.SetCommand;
+import bimo.command.UnknownCommand;
 import bimo.command.UnmarkCommand;
 import bimo.exception.BimoException;
 import bimo.exception.InvalidDateFormatException;
@@ -70,8 +71,10 @@ public class Parser {
             return new SetCommand(priority, index);
         case BYE:
             return new ByeCommand();
-        default:
+        case HELP:
             return new HelpCommand();
+        default:
+            return new UnknownCommand();
         }
     }
 
@@ -85,7 +88,7 @@ public class Parser {
         try {
             return CommandType.valueOf(input);
         } catch (IllegalArgumentException e) {
-            return CommandType.HELP;
+            return CommandType.UNKNOWN;
         }
     }
 

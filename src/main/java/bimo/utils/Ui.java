@@ -18,7 +18,7 @@ public class Ui {
      * @return Response message when chatbot starts.
      */
     public String printUserIntroduction(String name) {
-        String introduction = String.format("Hello! I'm %s.", name)
+        String introduction = String.format("Good day! I'm %s.", name)
                 + " What can I do for you? \n \n"
                 + "(Type help to see the list of available commands)";
         return introduction;
@@ -36,7 +36,7 @@ public class Ui {
                 + "4. mark <task number>\n\n5. unmark <task number>\n\n"
                 + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
                 + "8. list\n\n"
-                + "9. set <high, medium, low>\n\n10. help\n\n"
+                + "9. set <task number> <high, medium, low>\n\n10. help\n\n"
                 + "11. bye\n";
         return list;
     }
@@ -58,7 +58,7 @@ public class Ui {
      */
     public String sendAddTaskMessage(int size, Task task) {
         String word = wordFormat(size);
-        String message = "Got it. I've added this task for you\n" + "    " + task.toString()
+        String message = "Roger that. I've added this task for you\n" + "    " + task.toString()
                 + "\n" + String.format("Now you have %d %s in the list.",
                 size, word);
         return message;
@@ -73,7 +73,7 @@ public class Ui {
      */
     public String sendDeleteTaskMessage(int size, Task task) {
         String word = wordFormat(size);
-        String message = "Noted. I've removed this task for you\n    "
+        String message = "Roger that. I've removed this task for you\n    "
                 + task.toString() + String.format("\nNow you have %d %s in the list.",
                 size, word);
         return message;
@@ -84,7 +84,7 @@ public class Ui {
      * @return Response to bye command
      */
     public String sendExitMessage() {
-        return "Bye!!! Thanks for chatting!";
+        return "Bye Bye!!! Have a good day!";
     }
 
     /**
@@ -110,7 +110,7 @@ public class Ui {
      * @return Response to Mark command.
      */
     public String printTaskMarked(Task task) {
-        String response = "Good job! I've crossed out this task for you!\n"
+        String response = "Wow! Good job! I've crossed out this task for you!\n"
                 + "    " + task.toString();
         return response;
     }
@@ -145,7 +145,7 @@ public class Ui {
     }
 
     /**
-     * Formats word gramatically based on number of tasks in the list.
+     * Formats word grammatically based on number of tasks in the list.
      *
      * @param size The number of tasks.
      * @return "task" if there is only one task in list else "tasks".
@@ -156,18 +156,12 @@ public class Ui {
     }
 
     /**
-     * Represents a general error message.
+     * Represents response for the help command.
+     *
+     * @return Response for help command.
      */
-    public String printErrorMessage() {
-        String message = "Something went wrong.";
-        return message;
-    }
-
-    /**
-     * Represents error message for invalid commands.
-     */
-    public String printInvalidCommandMessage() {
-        String response = "Take a look at this!\n"
+    public String printHelpCommandMessage() {
+        String response = "Take a look at what I can do!\n\n"
                 + getListOfCommands();
         return response;
     }
@@ -180,7 +174,7 @@ public class Ui {
      * @return String representation of tasks with numbering.
      */
     public String printResultsList(ArrayList<Task> results) {
-        String message = "Here are the matching tasks in your list:";
+        String message = "Here are the matching tasks you requested:";
         String response = IntStream.range(1, results.size() + 1)
                 .mapToObj(index -> String.format("\n    %d. %s", index,
                         results.get(index - 1).toString()))
@@ -192,11 +186,22 @@ public class Ui {
      * Creates response for setting of task priority.
      *
      * @param task Task to have priority level set.
-     * @return Response to set command
+     * @return Response to set command.
      */
     public String printPrioritisedTaskMessage(Task task) {
         String response = "OKAYY I have set the priority level for this task!\n"
                 + "    " + task.toString();
+        return response;
+    }
+
+    /**
+     * Creates response for invalid commands.
+     *
+     * @return Response to invalid user inputs.
+     */
+    public String printUnknownCommandMessage() {
+        String response = "ERROR 101: No such command!\n\n"
+                + this.getListOfCommands();
         return response;
     }
 }
