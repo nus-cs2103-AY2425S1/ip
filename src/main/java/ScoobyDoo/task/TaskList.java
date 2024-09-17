@@ -1,9 +1,8 @@
-package ScoobyDoo;
+package ScoobyDoo.task;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import exception.InputFormatException;
-import task.Task;
+import ScoobyDoo.exception.InputFormatException;
 
 /**
  * The TaskList class manages a list of tasks.
@@ -41,7 +40,7 @@ public class TaskList {
                     "Got it. I've added this task:\n   %s\nNow you have %d %s in the list.",
                     task.toString(),
                     list.size(),
-                    list.size() == 1? "task": "tasks");
+                    list.size() == 1? "ScoobyDoo/task" : "tasks");
         } else return "Too many tasks !!!";
     }
 
@@ -106,24 +105,7 @@ public class TaskList {
                 , deletedTask.toString(), list.size());
     }
 
-    /**
-     * Extracts the task number to be deleted from the input string.
-     *
-     * @param input The input string containing the delete command and task number.
-     * @return The task number to be deleted.
-     * @throws InputFormatException If the input format is invalid or the task number cannot be parsed.
-     */
-    public static int getDeleteNumber(String input) throws InputFormatException{
-        String[] splitDelete = input.split(" ", 2);
-        if (splitDelete.length != 2) {
-            throw new InputFormatException("Oops! Please specify a number after \"delete\"");
-        }
-        try {
-            return Integer.parseInt(splitDelete[1]);
-        } catch (NumberFormatException e){
-            throw new InputFormatException("Please input a number after \"delete\"");
-        }
-    }
+
 
     /**
      * Converts the task list to a string format suitable for file storage.

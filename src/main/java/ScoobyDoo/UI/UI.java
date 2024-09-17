@@ -1,4 +1,4 @@
-package ScoobyDoo;
+package ScoobyDoo.UI;
 
 /**
  * The UI class handles the user interface output formatting for the ScoobyDoo application.
@@ -10,16 +10,7 @@ public class UI {
      *
      * @param response The string message to be printed in a formatted manner.
      */
-    public String printFormattedResponse(String response) {
-//        for (int i = 0; i < 60; i++) {
-//            System.out.print("_");
-//        }
-//        System.out.print("\n");
-//        System.out.println(response);
-//        for (int i = 0; i < 60; i++) {
-//            System.out.print("_");
-//        }
-//        System.out.println("\n");
+    public String response(String response) {
         return response;
     }
 
@@ -48,7 +39,4 @@ public class UI {
         return String.format("Oops! An error has occurred " + s);
     }
 
-    public String printNoInputMatchedMessage() {
-        return String.format("No matched input, The available inputs are\n deadline\n event\n todo\n mark\n unmark\n list\n delete\n bye");
-    }
 }

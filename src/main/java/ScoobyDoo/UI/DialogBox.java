@@ -1,4 +1,4 @@
-package ScoobyDoo;
+package ScoobyDoo.UI;
 
 import java.io.IOException;
 import java.util.Collections;

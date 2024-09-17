@@ -1,4 +1,4 @@
-package ScoobyDoo;
+package ScoobyDoo.UI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

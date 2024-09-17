@@ -1,4 +1,4 @@
-package storage;
+package ScoobyDoo.storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,11 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import task.Task;
-import task.Todo;
-import task.Deadline;
-import task.Event;
-import exception.InputFormatException;
+import ScoobyDoo.task.Task;
+import ScoobyDoo.task.Todo;
+import ScoobyDoo.task.Deadline;
+import ScoobyDoo.task.Event;
+import ScoobyDoo.exception.InputFormatException;
 
 /**
  * The Storage class handles file operations for saving and loading tasks.
@@ -72,10 +72,20 @@ public class Storage {
      *
      * @param text The text to write to the file.
      */
+    public void updateFile(String text) {
+        try {
+            FileWriter fw = new FileWriter(this.filePath, true); // create a FileWriter in append mode
+            fw.write(String.format("%s\n", text) );
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
     public void writeFile(String text) {
         try {
             FileWriter fw = new FileWriter(this.filePath); // create a FileWriter in append mode
-            fw.write(text );
+            fw.write(String.format("%s", text) );
             fw.close();
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());

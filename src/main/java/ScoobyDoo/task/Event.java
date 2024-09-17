@@ -1,5 +1,4 @@
-package task;
-import exception.InputFormatException;
+package ScoobyDoo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -46,11 +45,5 @@ public class Event extends Task{
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:ma");
         return String.format("[E] %s (from: %s to: %s)\n",super.toString(), fromDate.format(formatter), toDate.format(formatter));
-    }
-
-
-
-    public static boolean matchEvent(String s) {
-        return s.startsWith("event");
     }
 }
