@@ -30,47 +30,12 @@ public class Ui {
         }
     }
 
-    public String wrapWithBorder(String text) {
-        return HORIZONTAL_LINE + "\n" + text + "\n" + HORIZONTAL_LINE + "\n";
-    }
-
-    /**
-     * Handles input and responds with output from stelle.Parser.
-     * Used for text UI.
-     */
-    public void run() {
-        printGreeting();
-
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            String input = scanner.nextLine();
-
-            showLine();
-            try {
-                parser.processInput(input);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            showLine();
-        }
-    }
-
     /**
      * Returns a greeting message.
      * @return String The greeting message.
      */
     public String getGreeting() {
-        return "Hello! I'm " + name + ".\nWhat can I do for you?";
-    }
-
-    /**
-     * Prints a greeting message.
-     */
-    public void printGreeting() {
-        showLine();
-        System.out.println("Hello! I'm " + name + ".\nWhat can I do for you?");
-        showLine();
+        return "Hello! I'm " + name + " (simulated).\nWhat can I do for you?";
     }
 
     /**

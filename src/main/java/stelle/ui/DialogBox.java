@@ -6,13 +6,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  * This class represents a Dialog box JavaFX UI control, to be used along with MainWindow.
@@ -21,12 +27,21 @@ import javafx.scene.text.Font;
 public class DialogBox extends HBox {
 
     @FXML
+    private HBox panel;
+    @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
-    private Font userFont = Font.font("Calibri", 14);
-    private Font stelleFont = Font.font("Consolas", 14);
+    private static final Background userBackground = new Background(
+            new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)
+    );
+    private static final Background stelleBackground = new Background(
+            new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)
+    );
+
+    private static final Font userFont = Font.font("Consolas", FontWeight.BOLD, 14);
+    private static final Font stelleFont = Font.font("Consolas", 14);
 
     private DialogBox(String text, Image img) {
         try {
@@ -38,6 +53,7 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        panel.setBackground(userBackground);
         dialog.setText(text);
         dialog.setFont(userFont);
         displayPicture.setImage(img);
@@ -48,6 +64,8 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
+
+        this.panel.setBackground(stelleBackground);
         this.dialog.setFont(stelleFont);
     }
 
