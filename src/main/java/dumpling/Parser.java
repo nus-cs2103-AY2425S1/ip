@@ -59,10 +59,11 @@ public class Parser {
                 return new MarkCommand(commandEnum, itemIdx);
             } catch (NumberFormatException e) {
                 throw new DumplingException(
-                        "There was an issue when marking / unmarking a task! The argument provided was not a number.");
+                        "    There was an issue when marking / unmarking a task! "
+                        + "The argument provided was not a number.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DumplingException(
-                        "There was an issue with indexing! Try listing the items first!");
+                        "    There was an issue with indexing! Try listing the items first!");
             }
         case DELETE:
             try {
@@ -70,10 +71,10 @@ public class Parser {
                 return new DeleteCommand(itemIdx);
             } catch (NumberFormatException e) {
                 throw new DumplingException(
-                        "There was an issue when deleting a task! The argument provided was not a number.");
+                        "    There was an issue when deleting a task! The argument provided was not a number.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DumplingException(
-                        "There was an issue with indexing! Try listing the items first!");
+                        "    There was an issue with indexing! Try listing the items first!");
             }
         case FIND:
             Pair<String, Integer> pair = Parser.formSubSection(
@@ -87,13 +88,14 @@ public class Parser {
                         stringCommand.split(stringCommand.split(" ")[1] + " ")[1]);
             } catch (NumberFormatException e) {
                 throw new DumplingException(
-                        "There was an issue when marking / unmarking a task! The argument provided was not a number.");
+                        "    There was an issue when marking / unmarking a task! "
+                        + "The argument provided was not a number.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DumplingException(
-                        "There was an issue with indexing! Try listing the items first!");
+                        "    There was an issue with indexing! Try listing the items first!");
             }
         default:
-            throw new DumplingException("An invalid command was given! Try again.");
+            throw new DumplingException("    An invalid command was given! Try again.");
         }
     }
 
@@ -239,7 +241,7 @@ public class Parser {
         }
         if (formedSection.isEmpty()) {
             throw new DumplingException(
-                    "Intending to extract information out of a given input, but nothing to extract."
+                    "    Intending to extract information out of a given input, but nothing to extract."
             );
         }
         return new Pair<>(formedSection, currIdx);
