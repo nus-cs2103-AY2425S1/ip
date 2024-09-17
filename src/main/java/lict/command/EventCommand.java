@@ -14,6 +14,8 @@ import lict.task.Task;
  * The command also updates the UI and storage with the new task.
  */
 public class EventCommand extends Command {
+    private static final String REQUIRED_INPUT_FORMAT_MESSAGE =
+            "Please ensure that your input is in the format: event {description} /from {start} /to {end}";
     private String info;
 
     public EventCommand(String info) {
@@ -49,27 +51,18 @@ public class EventCommand extends Command {
         String[] messageParts = info.split("/from", 2);
         String description = messageParts[0].trim();
         if (description.isEmpty()) {
-            throw new LictException(
-                    """
-                    OOPS!!! The description of an event cannot be empty.
-                     Please ensure that your input is in the format: event {description} /from {start} /to {end}"""
-            );
+            throw new LictException("OOPS!!! The description of an event cannot be empty. "
+                    + REQUIRED_INPUT_FORMAT_MESSAGE);
         }
-        if (messageParts.length != 2) {
-            throw new LictException(
-                    """
-                    OOPS!!! The start of the event needs to be indicated.
-                     Please ensure that your input is in the format: event {description} /from {start} /to {end}"""
-            );
+        if (messageParts.length != 2 || messageParts[1].trim().isEmpty() || messageParts[1].trim().startsWith("/to")) {
+            throw new LictException("OOPS!!! The start of the event needs to be indicated. "
+                    + REQUIRED_INPUT_FORMAT_MESSAGE);
         }
         String start = messageParts[1].trim();
         String[] eventInfo = start.split("/to", 2);
-        if (eventInfo.length != 2) {
-            throw new LictException(
-                    """
-                    OOPS!!! The end of the event needs to be indicated.
-                     Please ensure that your input is in the format: event {description} /from {start} /to {end}"""
-            );
+        if (eventInfo.length != 2 || eventInfo[1].trim().isEmpty()) {
+            throw new LictException("OOPS!!! The end of the event needs to be indicated. "
+                    + REQUIRED_INPUT_FORMAT_MESSAGE);
         }
         return new String[] {description, eventInfo[0].trim(), eventInfo[1].trim()};
     }

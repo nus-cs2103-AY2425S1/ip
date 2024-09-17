@@ -34,10 +34,8 @@ public class TodoCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LictException {
         if (description.isEmpty()) {
-            throw new LictException(
-                    """
-                    OOPS!!! The description of a todo cannot be empty.
-                    Please ensure that your input is in the format: todo {description}""");
+            throw new LictException("OOPS!!! The description of a todo cannot be empty. "
+                    + "Please ensure that your input is in the format: todo {description}");
         }
         Task newTask = new Todo(description);
         tasks.addTask(newTask);

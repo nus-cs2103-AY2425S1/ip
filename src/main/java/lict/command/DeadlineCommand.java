@@ -13,6 +13,8 @@ import lict.task.Task;
  * The command also updates the UI and storage with the new task.
  */
 public class DeadlineCommand extends Command {
+    private static final String REQUIRED_INPUT_FORMAT_MESSAGE =
+            "Please ensure that your input is in the format: deadline {description} /by {your deadline}";
     private String info;
 
     public DeadlineCommand(String info) {
@@ -31,18 +33,12 @@ public class DeadlineCommand extends Command {
         String[] messageParts = info.split("/by", 2);
         String description = messageParts[0].trim();
         if (description.isEmpty()) {
-            throw new LictException(
-                    """
-                    OOPS!!! The description of a deadline cannot be empty.
-                     Please ensure that your input is in the format: deadline {description} /by {your deadline}"""
-            );
+            throw new LictException("OOPS!!! The description of a deadline cannot be empty. "
+                    + REQUIRED_INPUT_FORMAT_MESSAGE);
         }
         if (messageParts.length != 2) {
-            throw new LictException(
-                    """
-                    OOPS!!! The deadline needs to be indicated.
-                     Please ensure that your input is in the format: deadline {description} /by {your deadline}"""
-            );
+            throw new LictException("OOPS!!! The deadline needs to be indicated. "
+                    + REQUIRED_INPUT_FORMAT_MESSAGE);
         }
         Task newTask = new Deadline(description, messageParts[1].trim());
         tasks.addTask(newTask);

@@ -14,6 +14,11 @@ import lict.Ui;
  */
 public class Event extends Task {
     private static final String TIME_ONLY_REGEX = "\\d{4}";
+    private static final String INVALID_EVENT_FORMAT_MESSAGE = "Invalid format for event start date or event end date. "
+            + "Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.";
+    private static final String INVALID_SNOOZE_EVENT_MESSAGE =
+            "Please include the new event details you wish to set in the following format:\n"
+            + "snooze {task number} /from {new event start} /to {new event end}";
     protected DateTime from;
     protected DateTime to;
 
@@ -37,10 +42,7 @@ public class Event extends Task {
                 this.to = new DateTime(to);
             }
         } catch (DateTimeException e) {
-            throw new LictException(
-                    "Invalid format for event start date or event end date. Please ensure that Event date and "
-                            + "time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'."
-            );
+            throw new LictException(INVALID_EVENT_FORMAT_MESSAGE);
         }
     }
     @Override
@@ -63,13 +65,11 @@ public class Event extends Task {
     @Override
     public void snoozeTask(Ui ui, String info) throws LictException {
         if (!info.startsWith("/from")) {
-            throw new LictException("Please include the new event details you wish to set in the following format:\n"
-                    + "snooze {task number} /from {new event start} /to {new event end}");
+            throw new LictException(INVALID_SNOOZE_EVENT_MESSAGE);
         }
         String[] newEventInfo = info.substring(5).split("/to", 2);
-        if (newEventInfo.length != 2 || newEventInfo[0].isEmpty() || newEventInfo[1].isEmpty()) {
-            throw new LictException("Please include the new event details you wish to set in the following format:\n"
-                    + "snooze {task number} /from {new event start} /to {new event end}");
+        if (newEventInfo.length != 2 || newEventInfo[0].trim().isEmpty() || newEventInfo[1].trim().isEmpty()) {
+            throw new LictException(INVALID_SNOOZE_EVENT_MESSAGE);
         }
         String newFrom = newEventInfo[0].trim();
         String newTo = newEventInfo[1].trim();
@@ -83,10 +83,7 @@ public class Event extends Task {
                 this.to = new DateTime(newTo);
             }
         } catch (DateTimeException e) {
-            throw new LictException(
-                    "Invalid format for event start date or event end date. Please ensure that Event date and "
-                            + "time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'."
-            );
+            throw new LictException(INVALID_EVENT_FORMAT_MESSAGE);
         }
     }
 

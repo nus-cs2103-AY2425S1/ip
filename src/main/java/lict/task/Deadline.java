@@ -12,6 +12,8 @@ import lict.Ui;
  * the {@code toString} and {@code toData} methods.
  */
 public class Deadline extends Task {
+    private static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Invalid format for deadline. "
+            + "Please ensure that deadline is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.";
     protected DateTime by;
 
     /**
@@ -26,11 +28,7 @@ public class Deadline extends Task {
         try {
             this.by = new DateTime(by);
         } catch (DateTimeException e) {
-            throw new LictException(
-                    """
-                    Invalid format for deadline.
-                    Please ensure that deadline is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'."""
-            );
+            throw new LictException(INVALID_DEADLINE_FORMAT_MESSAGE);
         }
     }
 
@@ -61,11 +59,7 @@ public class Deadline extends Task {
         try {
             this.by = new DateTime(newDeadline);
         } catch (DateTimeException e) {
-            throw new LictException(
-                    """
-                    Invalid format for deadline.
-                    Please ensure that deadline is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'."""
-            );
+            throw new LictException(INVALID_DEADLINE_FORMAT_MESSAGE);
         }
     }
     @Override
