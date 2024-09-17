@@ -3,7 +3,7 @@ package tasklist;
 import java.util.ArrayList;
 import java.util.List;
 
-import command.CommandNotFoundException;
+import command.UnknownCommandException;
 import ouiouibaguette.OuiOuiBaguetteException;
 import storage.Storage;
 import tasks.Deadline;
@@ -79,7 +79,7 @@ public class TaskList {
                     task.mark();
                 }
             } else {
-                throw new CommandNotFoundException("Command not found: " + taskParts[0]);
+                throw new UnknownCommandException("Command not found: " + taskParts[0]);
             }
 
         } catch (OuiOuiBaguetteException e) {

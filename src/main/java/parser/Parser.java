@@ -9,6 +9,7 @@ import command.DeleteCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
+import command.UnknownCommandException;
 import command.UnmarkCommand;
 import ouiouibaguette.OuiOuiBaguetteException;
 import tasks.DeadlineException;
@@ -46,7 +47,7 @@ public class Parser {
 
         if (cmdFound == null) {
             // Unknown command
-            throw new UnknownCommandException();
+            throw new UnknownCommandException("I'm sorry, but I don't know what that means :-(");
         }
 
         return cmdFound;

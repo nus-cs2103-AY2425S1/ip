@@ -1,4 +1,4 @@
-package parser;
+package command;
 
 import ouiouibaguette.OuiOuiBaguetteException;
 
@@ -10,7 +10,7 @@ public class UnknownCommandException extends OuiOuiBaguetteException {
     /**
      * Constructs an UnknownCommandException with a default error message.
      */
-    public UnknownCommandException() {
-        super("I'm sorry, but I don't know what that means :-(");
+    public UnknownCommandException(String msg) {
+        super(msg);
     }
 }
