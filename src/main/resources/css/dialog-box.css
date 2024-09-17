@@ -1,24 +1,48 @@
+/* Dialog Box Styling */
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-background-color: white; /* White background */
+    -fx-border-color: #000000; /* Black border */
     -fx-border-width: 2px;
-    -fx-background-radius: 1em 1em 0 1em;
+    -fx-background-radius: 1em 1em 0 1em; /* Rounded corners */
     -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #000000; /* Black text */
+    -fx-font-size: 16px;
+    -fx-font-family: "Courier New", Courier, monospace; /* Monospace font for tech feel */
 }
 
 .reply-label {
+    -fx-background-color: #f0f0f0; /* Light grey background for replies */
+    -fx-border-color: #000000; /* Black border */
+    -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: #000000; /* Black text */
+    -fx-font-size: 16px;
+    -fx-font-family: "Courier New", Courier, monospace; /* Monospace font */
 }
 
 #displayPicture {
-    /* Shadow effect on image. */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
-
-    /* Change size of image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 15, 0.5, 5, 5); /* Shadow effect */
     -fx-scale-x: 1;
     -fx-scale-y: 1;
-
-    /* Rotate image clockwise by degrees. */
-    -fx-rotate: 0;
 }
+
+/* Main Application Styling */
+.root {
+    -fx-background-color: linear-gradient(to top, #1a1a1a, #808080, #e6e600); /* Gradient background */
+}
+
+.text-field {
+    -fx-background-color: #333333; /* Dark grey input background */
+    -fx-text-fill: #e6e600; /* Bright yellow text */
+    -fx-font: 20px "Arial"; /* Font styling */
+    -fx-border-color: #ffcc00; /* Border color */
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+
+
+
+

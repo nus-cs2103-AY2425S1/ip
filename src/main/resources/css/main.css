@@ -1,47 +1,104 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
-    -fx-background-color: main-color;
+    /* Background gradient from dark grey to yellow */
+    -fx-background-color: linear-gradient(to top, #1a1a1a, #808080, #e6e600);
 }
 
+/* Styling for text fields (input bar) */
 .text-field {
-    -fx-background-color: #d9ffe2;
+    /* Grey background for the input bar to match the high-tech feel */
+    -fx-background-color: #333333;
+    -fx-text-fill: #e6e600;  /* Neon yellow text */
     -fx-font: 20px "Arial";
+    -fx-border-color: #ffcc00;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
 }
 
+/* General button styling */
 .button {
-    -fx-background-color: mediumspringgreen;
+    /* Neon green button with italic bold font */
+    -fx-background-color: #FFFF00;
     -fx-font: italic bold 16px "Arial";
+    -fx-text-fill: #1a1a1a;  /* Dark text for contrast */
+    -fx-border-color: #e6e600;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 0, 0.5), 10, 0.5, 0, 0);
 }
 
+/* Hover state for button */
 .button:hover {
-    -fx-background-color:cyan;
+    /* Neon cyan color when hovered */
+    -fx-background-color: #808080;
     -fx-font-size: 18px;
 }
 
+/* Pressed state for button */
 .button:pressed {
-    -fx-background-color:orange;
+    /* Orange color when pressed */
+    -fx-background-color: #ff6600;
     -fx-font-size: 20px;
 }
 
+/* Scroll pane styling with transparent background */
 .scroll-pane,
 .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
 
+/* Scroll bar styling */
 .scroll-bar {
-    -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+    -fx-font-size: 10px;  /* Keep the scroll bar narrow */
+    -fx-background-color: transparent;
 }
 
+/* Thumb of the scroll bar with neon effect */
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: #FFFF00;  /* Pink thumb */
     -fx-background-radius: 1em;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 255, 0.5), 10, 0.5, 0, 0);
 }
 
-/* Hides the increment and decrement buttons. */
+/* Hide the increment and decrement buttons */
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
     -fx-pref-height: 0;
     -fx-opacity: 0;
 }
+
+/* Dialog box style */
+.label {
+    /* Synchronized with dialog box design */
+    -fx-background-color: linear-gradient(to bottom right, #1a1a1a, #808080, #e6e600);
+    -fx-border-color: #e6e600 #808080 #1a1a1a #ffcc00;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 0.5em;
+    -fx-border-radius: 1em 1em 1em 0.5em;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 0, 0.8), 10, 0.5, 0, 0);
+    -fx-padding: 10px;
+}
+
+.reply-label {
+    /* Reply box styling */
+    -fx-background-color: linear-gradient(to top left, #333333, #00ff99);
+    -fx-border-color: #ffcc00 #1a1a1a #00ff99 #ff6600;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0.5em 1em;
+    -fx-border-radius: 1em 1em 0.5em 1em;
+    -fx-padding: 10px;
+}
+
+/* Display picture style */
+#displayPicture {
+    /* Neon glow effect around the image */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 0, 0.5), 20, 0.5, 0, 0);
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-rotate: 0;
+}
+
+
+
 
