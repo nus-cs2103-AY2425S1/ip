@@ -17,6 +17,8 @@ public class Parser {
     public Command parseCommand(String input) {
         if (input.equals("bye")) {
             return Command.BYE;
+        } else if (input.equals("hi")) {
+            return Command.HI;
         } else if (input.equals("list")) {
             return Command.LIST;
         } else if (input.equals("list contacts")) {

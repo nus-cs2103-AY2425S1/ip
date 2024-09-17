@@ -17,8 +17,14 @@ public class Ui {
      */
     public String greet() {
         return "Hello! I'm MrIncredible\n"
-                + "What can I do for you?";
+                + "Here are some things you can ask me to do:\n\n"
+                + "1. Add a Todo: todo <description>\n"
+                + "2. Add a Deadline: deadline <description> /by <time>\n"
+                + "3. Add an Event: event <description> /from <start> /to <end>\n"
+                + "4. Add a Contact: contact <name> <details>\n\n"
+                + "Tasks can also be retrieved even after you close the program!";
     }
+    
 
     /**
      * Builds a farewell message when the user exits the chatbot.

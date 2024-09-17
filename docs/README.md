@@ -1,30 +1,31 @@
 # MrIncredible User Guide
 
-// Update the title above to match the actual product name
+Mr. Incredible is an all-in-one task manager that helps you remember the things you might forget!
 
-// Product screenshot goes here
+Just enter "hi" to get started!
 
-// Product intro goes here
+![Mr Incredible UI](./Ui.png)
 
-## Adding deadlines
+## Features
 
-// Describe the action and its outcome.
+### Adding of Tasks
 
-// Give examples of usage
+Mr. Incredible supports 3 different task types. You can use the following commands to add tasks:
 
-Example: `keyword (optional arguments)`
+| Task Type  | Command Format                        |
+|------------|---------------------------------------|
+| **Todo**   | `todo <description>`                  |
+| **Deadline**| `deadline <description> /by <time>`  |
+| **Event**  | `event <description> /from <start> /to <end>` |
 
-// A description of the expected outcome goes here
+Tasks can also be retrieved even after you close the program!
 
-```
-expected output
-```
+### Adding of Contacts
 
-## Feature ABC
+Mr. Incredible also supports adding contacts to keep track of important details.
 
-// Feature details
+**Command Format:**  
+`contact <name> <details>`
 
-
-## Feature XYZ
-
-// Feature details
+---
+With these features, Mr. Incredible ensures that you're always on top of your tasks and contacts!

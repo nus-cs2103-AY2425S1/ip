@@ -32,6 +32,9 @@ public class MrIncredible {
 
     private static String handleCommand(Command command, String input) {
         switch (command) {
+            case HI -> {
+                return handleGreet();
+            }
             case BYE -> {
                 return handleBye();
             }
@@ -72,9 +75,13 @@ public class MrIncredible {
         return ui.sayBye();
     }
 
+    public static String handleGreet() {
+        return ui.greet();
+    }
+
     private static String handleToDoCommand(String input) {
         String description = extractDescription(input, 5, "todo");
-        if (description != null) {
+        if (description != "") {
             return addToDoTask(description);
         }
         return ui.handleError("The description of a todo cannot be empty.");
@@ -197,7 +204,8 @@ public class MrIncredible {
         if (input.length() > commandLength) {
             return input.substring(commandLength).trim();
         } else {
-            return ui.handleError("The description of a " + commandName + " cannot be empty.");
+            ui.handleError("The description of a " + commandName + " cannot be empty.");
+            return "";
         }
     }
 
