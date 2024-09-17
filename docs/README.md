@@ -1,5 +1,6 @@
 # Alice User Guide
 ![Ui](https://github.com/user-attachments/assets/7bfb4362-c75f-4ebf-b0d6-3528215d1526)
+
 Alice can help you to manage your tasks with simple commands.
 
 ## Add Tasks
@@ -23,6 +24,7 @@ Now you have X tasks in the list.
 
 ## Delete Tasks
 Delete a task based on the task number and the list it is in.
+
 Command: `delete {taskNumber} {priority}`
 
 Some notes on the commands: 
@@ -38,6 +40,7 @@ Now you have X tasks in the list.
 
 ## Mark and Unmark Tasks
 Change the status of the task based on the task number and the list it is in.
+
 Commands: 
 - mark: `mark {taskNumber} {priority}`
 - unmark: `unmark {taskNumber} {priority}`
@@ -61,6 +64,7 @@ Ok, I've marked this task as not done yet:
 
 ## Set Priority of Task
 Changes the priority of the task numbered taskNumber in the list containing prioritylist. Sets new priority as newPriority.
+
 Command: `priority {taskNumber} {prioritylist} {newPriority}`
 
 Some notes on the commands: 
@@ -76,6 +80,7 @@ Sure, I've changed the priority for this task to {newPriority}:
 
 ## List All Tasks
 Lists all the tasks in the list separated by their priority.
+
 Command: `list`
 
 The list would be formatted as follows:
@@ -93,6 +98,7 @@ LOW PRIORITY:
 
 ## Find Tasks By Keyword
 Find tasks whose description contains the keyword.
+
 Command: `find {keyword}`
 
 The tasks would be formatted as follows:
