@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("lemon.Lemon")
+    mainClass.set("lemon.app.Launcher")
 }
 
 shadowJar {

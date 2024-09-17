@@ -13,9 +13,7 @@ import lemon.Lemon;
  * A GUI for Duke using FXML.
  */
 public class LemonFx extends Application {
-
     private Lemon lemon = new Lemon();
-
     @Override
     public void start(Stage stage) {
         try {
@@ -23,7 +21,7 @@ public class LemonFx extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<LemonFxWindow>getController().setLemon(lemon);  // inject the Duke instance
+            fxmlLoader.<LemonFxWindow>getController().setLemon(lemon);  // inject the Lemon instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

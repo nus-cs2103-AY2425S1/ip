@@ -66,9 +66,17 @@ public class Lemon {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * JavaFx Implementation
      */
     public String getResponse(String input) {
+        try {
+            Command command = Parser.parseInputIntoCommand(input);
+            command.run(this);
+        } catch (IllegalArgumentException e) {
+            ui.printInvalidCommand();
+        } catch (Exception e) {
+            ui.printUnexpectedException(e, "UNEXPECTED ERROR FOUND");
+        }
         return "Lemon heard: " + input;
     }
 
