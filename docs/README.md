@@ -34,7 +34,7 @@ Format: `event <description> /from <start_date_time> /to <end_date_time>`
     - Expected outcome:
       ```
       Keep it up! I've added this new task:
-      [E][ ] dinner with Jonathan (from: Oct 20 2024 16:00 to: Oct 20 2024 18:00)
+        [E][ ] dinner with Jonathan (from: Oct 20 2024 16:00 to: Oct 20 2024 18:00)
       You now have 3 task(s) to do.
       ```
 ### List tasks: `list`
@@ -57,7 +57,7 @@ Format: `mark <task_number>`
     - Expected outcome:
       ```
       Great job! I've marked this task as done:
-        [T][X] buy bread
+      [T][X] buy bread
       ```
 ### Find tasks: `find`
 Find tasks containing a specific keyword
