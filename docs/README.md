@@ -79,3 +79,24 @@ Lists all the tasks in the list separated by their priority.
 Command: `list`
 
 The list would be formatted as follows:
+```
+Here are the tasks in your list:
+HIGH PRIORITY:
+{task}
+
+MEDIUM PRIORITY:
+{task}
+
+LOW PRIORITY:
+{task}
+```
+
+## Find Tasks By Keyword
+Find tasks whose description contains the keyword.
+Command: `find {keyword}`
+
+The tasks would be formatted as follows:
+```
+Here are the matching tasks in your list:
+{task}
+```
