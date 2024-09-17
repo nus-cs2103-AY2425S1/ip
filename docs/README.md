@@ -3,6 +3,8 @@
 Welcome to PoChat, the little chatbot in your pocket that is lightweight but definitely pulls its
 weight when it comes to keeping track of your life :) 
 
+![Ui.png](Ui.png)
+
 Getting started
 --------
 
