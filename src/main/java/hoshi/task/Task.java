@@ -46,7 +46,12 @@ public abstract class Task {
      * @return isDone String which is either X or blank that indicates the task is done or not.
      */
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
+        // mark done task with X
+        if (this.isDone) {
+            return "X";
+        } else {
+            return " ";
+        }
     }
 
     /**

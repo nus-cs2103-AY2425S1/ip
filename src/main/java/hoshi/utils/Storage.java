@@ -130,7 +130,6 @@ public class Storage {
                 Task task = tasks.get(i);
                 String taskData = formatTask(task);
                 fileWriter.write(taskData);
-
             }
         }
     }

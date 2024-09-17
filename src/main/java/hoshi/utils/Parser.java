@@ -19,7 +19,6 @@ public class Parser {
     private static final int MIN_MARK_LENGTH = 5;
     private static final int MIN_UNMARK_LENGTH = 7;
     private static final int MIN_DELETE_LENGTH = 7;
-
     private static final String INPUT_ERROR_MESSAGE = "Hoshi doesn't understand, try a different input?";
 
     private final Storage storage = new Storage("./data/Hoshi.txt");
@@ -39,7 +38,7 @@ public class Parser {
         if (input.isEmpty()) {
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
-
+        // begin to parse input
         String[] splitInput = input.split(" ");
         String commandInput = splitInput[0].toLowerCase();
         Command command;

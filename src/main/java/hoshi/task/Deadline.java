@@ -57,6 +57,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        // format datetime before printing
         String endTime = this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[D]" + super.toString() + " (by: " + endTime + ")";
     }

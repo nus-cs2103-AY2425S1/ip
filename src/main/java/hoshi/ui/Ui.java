@@ -12,24 +12,21 @@ public class Ui {
      * Displays all tasks that the user has previously added to Hoshi
      */
     public String displayTasks(TaskList tasks) {
-
         if (!tasks.isEmpty()) {
             return tasks.toString();
-        } else {
-            return "Hoshi doesn't have anything stored! Please add a task first";
         }
+        return "Hoshi doesn't have anything stored! Please add a task first";
     }
 
     /**
      * Displays all tasks that the user has previously added to Hoshi that match the search query
      */
     public String displayFoundTasks(TaskList tasks) {
-
         if (!tasks.isEmpty()) {
             return displayMatchingList() + "\n" + tasks;
-        } else {
-            return "Hoshi couldn't find tasks with that keyword, please try again!";
         }
+
+        return "Hoshi couldn't find tasks with that keyword, please try again!";
     }
 
     /**
@@ -51,7 +48,6 @@ public class Ui {
      */
     public String displayTaskUnmarked(Task task) {
         return "Nice! I've marked this task as not done: \n" + task.toString() + "\n";
-
     }
 
     /**

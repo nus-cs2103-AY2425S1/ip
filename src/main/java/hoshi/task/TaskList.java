@@ -74,7 +74,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
-
+        // format all tasks as a string before printing
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             result.append(i + 1).append(". ").append(this.tasks.get(i).toString()).append("\n");
