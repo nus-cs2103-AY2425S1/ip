@@ -19,12 +19,13 @@ public class FindCommand extends Command {
         super(command);
     }
 
-    private String[] processCommand() {
-        String command = super.getCommand();
-        return command.split(" ");
-    }
-
-    private String checkLength(String[] commandWords) throws BrockException {
+    /**
+     * Checks the find command for a keyword.
+     * @param commandWords Find command to be checked.
+     * @return Keyword, if any.
+     * @throws BrockException If keyword not found, or multiple keywords found.
+     */
+    private String checkKeyword(String[] commandWords) throws BrockException {
         int commandLength = commandWords.length;
         if (commandLength == 1) {
             throw new BrockException("Missing keyword!");
@@ -43,9 +44,15 @@ public class FindCommand extends Command {
      */
     private String validateFindCommand() throws BrockException {
         String[] commandWords = this.processCommand();
-        return checkLength(commandWords);
+        return this.checkKeyword(commandWords);
     }
 
+    /**
+     * Gets the chatbot response to the find command.
+     *
+     * @param findResult Result of the find command.
+     * @return Chatbot response.
+     */
     private String getResponse(String[] findResult) {
         String resultString = findResult[0];
         int numMatching = Integer.parseInt(findResult[1]);
@@ -74,8 +81,15 @@ public class FindCommand extends Command {
     public String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) throws BrockException {
         String keyword = this.validateFindCommand();
         String[] findResult = tasks.findMatchingTasks(keyword);
-        tempStorage.setPreviousCommand("find");
 
         return this.getResponse(findResult);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getType() {
+        return "find";
     }
 }

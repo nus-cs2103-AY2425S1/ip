@@ -5,6 +5,9 @@ import task.Deadline;
 import task.Task;
 import utility.StorageUtility;
 
+/**
+ * Class to manage deadline strings in task storage.
+ */
 public class DeadlineManager extends TaskManager {
     private String[] processDeadlineBody(String deadlineBody) throws BrockException {
         String[] parts = deadlineBody.split("\\(by: ", 2);

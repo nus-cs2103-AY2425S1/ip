@@ -90,7 +90,7 @@ public class Brock {
         try {
             Command commandObj = PARSER.handleCommand(processedCommand);
             overallResponse = commandObj.execute(TASK_STORAGE, TEMP_STORAGE, tasks);
-
+            TEMP_STORAGE.setPreviousCommand(commandObj.getType());
         } catch (BrockException e) {
             overallResponse = e.getMessage();
         }

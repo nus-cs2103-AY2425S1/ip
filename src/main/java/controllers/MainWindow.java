@@ -53,10 +53,13 @@ public class MainWindow extends AnchorPane {
         this.setupButtonIcon();
     }
 
+    /**
+     * Sets up the scroll and auto-scroll mechanism;
+     */
     private void setupScroll() {
         // Add listener function that listens to height of dialog container
         // When height increases (ie: user + brock dialog added), apply the listener function
-        // Scroll to the very bottom
+        // Auto-scroll to the very bottom
         this.dialogContainer.heightProperty().addListener((obs, oldBounds, newBounds) -> {
             scrollPane.setVvalue(scrollPane.getVmax());
         });
@@ -70,6 +73,9 @@ public class MainWindow extends AnchorPane {
         });
     }
 
+    /**
+     * Creates a button icon within the send button.
+     */
     private void setupButtonIcon() {
         // Approach was adopted from https://edencoding.com/how-to-add-an-image-to-a-button/
         // To add an icon within the send button
@@ -104,7 +110,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Shows initial Brock response from set up procedure.
+     * Shows initial Brock response from set up procedure on the GUI.
      * Which entails creating save file, loading from save file and welcome message.
      *
      * @param response Initial Brock response to be displayed.
@@ -128,6 +134,12 @@ public class MainWindow extends AnchorPane {
                 .replaceAll(" +", " ");
     }
 
+    /**
+     * Shows both user input and Brock response on the GUI.
+     *
+     * @param rawCommand Raw user input string.
+     * @param brockResponse Brock response string.
+     */
     private void showBothDialog(String rawCommand, String brockResponse) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(rawCommand, userImage),

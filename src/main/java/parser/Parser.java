@@ -1,5 +1,9 @@
 package parser;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
 import commands.ByeCommand;
 import commands.Command;
 import commands.DeadlineCommand;
@@ -17,6 +21,30 @@ import exceptions.BrockException;
  * Class to identify user commands, and create associated {@code Command} objects.
  */
 public class Parser {
+    private static final Map<String, Function<String, Command>> COMMAND_OBJS = new HashMap<>();
+
+    /**
+     * Initializes the various constructors for each command type.
+     */
+    public Parser() {
+        COMMAND_OBJS.put("bye", ByeCommand::new);
+        COMMAND_OBJS.put("list", ListCommand::new);
+        COMMAND_OBJS.put("mark", MarkCommand::new);
+        COMMAND_OBJS.put("unmark", UnmarkCommand::new);
+        COMMAND_OBJS.put("delete", DeleteCommand::new);
+        COMMAND_OBJS.put("todo", TodoCommand::new);
+        COMMAND_OBJS.put("deadline", DeadlineCommand::new);
+        COMMAND_OBJS.put("event", EventCommand::new);
+        COMMAND_OBJS.put("find", FindCommand::new);
+        COMMAND_OBJS.put("undo", UndoCommand::new);
+    }
+
+    /**
+     * Gets the command type from the user command.
+     *
+     * @param command User command.
+     * @return Command type.
+     */
     private String getCommandType(String command) {
         String[] parts = command.split(" ", 2);
         return parts[0].toLowerCase();
@@ -31,21 +59,10 @@ public class Parser {
      */
     public Command handleCommand(String command) throws BrockException {
         String commandType = this.getCommandType(command);
-
-        // CHECKSTYLE.OFF: Indentation
-        return switch (commandType) {
-            case "bye" -> new ByeCommand(command);
-            case "list" -> new ListCommand(command);
-            case "mark" -> new MarkCommand(command);
-            case "unmark" -> new UnmarkCommand(command);
-            case "delete" -> new DeleteCommand(command);
-            case "todo" -> new TodoCommand(command);
-            case "deadline" -> new DeadlineCommand(command);
-            case "event" -> new EventCommand(command);
-            case "find" -> new FindCommand(command);
-            case "undo" -> new UndoCommand(command);
-            default -> throw new BrockException("Invalid command!");
-        };
-        // CHECKSTYLE.ON: Indentation
+        Function<String, Command> commandConstructor = COMMAND_OBJS.get(commandType);
+        if (commandConstructor == null) {
+            throw new BrockException("Unrecognized command!");
+        }
+        return commandConstructor.apply(command);
     }
 }

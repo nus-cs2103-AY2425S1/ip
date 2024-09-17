@@ -31,8 +31,14 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) {
-        tempStorage.setPreviousCommand("bye");
-
         return this.getResponse();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getType() {
+        return "bye";
     }
 }

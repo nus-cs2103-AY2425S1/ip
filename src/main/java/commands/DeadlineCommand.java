@@ -21,12 +21,13 @@ public class DeadlineCommand extends Command {
         super(command);
     }
 
-
-    private String[] processCommand() {
-        String command = super.getCommand();
-        return command.split(" ");
-    }
-
+    /**
+     * Gets the command description.
+     *
+     * @param commandWords Command words from which to extract description.
+     * @return Command description.
+     * @throws BrockException If description is missing.
+     */
     private String getDescription(String[] commandWords) throws BrockException {
         int commandLength = commandWords.length;
         StringBuilder description = new StringBuilder();
@@ -44,6 +45,13 @@ public class DeadlineCommand extends Command {
         return description.toString();
     }
 
+    /**
+     * Gets the due datetime for deadline command.
+     *
+     * @param commandWords Command words from which to extract due datetime.
+     * @return Due datetime.
+     * @throws BrockException If due datetime is missing.
+     */
     private String getDueDateTime(String[] commandWords) throws BrockException {
         StringBuilder dateTime = new StringBuilder();
         boolean isSeeingDateTime = false;
@@ -86,12 +94,27 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Updates the save file with the deadline task.
+     *
+     * @param taskStorage Instance that interfaces with save file.
+     * @param tasks List of current {@code Task} objects.
+     * @param deadlineTask Deadline task to be added to save file.
+     * @throws BrockException If writing to file fails.
+     */
     private void updateSaveFile(TaskStorage taskStorage, TaskList tasks, Task deadlineTask) throws BrockException {
         taskStorage.writeToFile(tasks.numTasks() + ". "
                         + tasks.getTaskDetails(deadlineTask) + '\n',
                 true);
     }
 
+    /**
+     * Gets the chatbot response to deadline command.
+     *
+     * @param tasks List of current {@code Task} objects.
+     * @param deadlineTask Deadline task created.
+     * @return Chatbot response.
+     */
     private String getResponse(TaskList tasks, Task deadlineTask) {
         return "Got it. I've added this task:\n"
                 + "  " + tasks.getTaskDetails(deadlineTask) + '\n'
@@ -115,10 +138,16 @@ public class DeadlineCommand extends Command {
         Task deadlineTask = this.createDeadline();
         tasks.addToList(deadlineTask);
 
-        tempStorage.setPreviousCommand("deadline");
         tempStorage.setLastCreatedTaskNum(tasks.numTasks());
-
         this.updateSaveFile(taskStorage, tasks, deadlineTask);
         return this.getResponse(tasks, deadlineTask);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getType() {
+        return "deadline";
     }
 }

@@ -13,23 +13,23 @@ public class UnmarkCommandTest extends BaseCommandTest {
     public void execute_missingNumber_throwsException() {
         UnmarkCommand uc = new UnmarkCommand("unmark");
         assertThrows(BrockException.class, () ->
-                uc.execute(TASK_STORAGE, TASKS));
+                uc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS));
     }
 
     @Test
     public void execute_invalidNumber_throwsException() {
         UnmarkCommand uc = new UnmarkCommand("unmark 5");
         assertThrows(BrockException.class, () ->
-                uc.execute(TASK_STORAGE, TASKS));
+                uc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS));
     }
 
     @Test
     public void execute_markedTask_unmarksTask() {
         TodoCommand tc = new TodoCommand("todo borrow book");
         assertDoesNotThrow(() -> {
-            tc.execute(TASK_STORAGE, TASKS);
+            tc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
             MarkCommand mc = new MarkCommand("mark 1");
-            mc.execute(TASK_STORAGE, TASKS);
+            mc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
         });
 
         String expectedOutput = "OK, I've marked this task as not done yet:\n"
@@ -39,7 +39,7 @@ public class UnmarkCommandTest extends BaseCommandTest {
         final String[] actualOutput = new String[1];
         UnmarkCommand uc = new UnmarkCommand("unmark 1");
         assertDoesNotThrow(() -> {
-            actualOutput[0] = uc.execute(TASK_STORAGE, TASKS);
+            actualOutput[0] = uc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
         });
         assertEquals(expectedOutput, actualOutput[0]);
     }

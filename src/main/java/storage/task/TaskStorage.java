@@ -25,6 +25,9 @@ public class TaskStorage {
 
     private static final Map<Character, TaskManager> TASK_MANAGERS = new HashMap<>();
 
+    /**
+     * Initializes the various task managers for each task type.
+     */
     public TaskStorage() {
         TASK_MANAGERS.put('T', new TodoManager());
         TASK_MANAGERS.put('D', new DeadlineManager());
@@ -45,7 +48,13 @@ public class TaskStorage {
                 + "Save file is corrupted. File has been reset!");
     }
 
-
+    /**
+     * Checks if the taskString is valid.
+     *
+     * @param taskString Task string to be examined.
+     * @return The components within the task string, if found to be valid.
+     * @throws BrockException If its invalid.
+     */
     public static String[] processTaskString(String taskString) throws BrockException {
         String[] taskComponents = taskString.split("\\. ", 2);
         if (taskComponents.length < 2) {

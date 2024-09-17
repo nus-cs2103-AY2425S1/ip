@@ -21,11 +21,13 @@ public class EventCommand extends Command {
         super(command);
     }
 
-    private String[] processCommand() {
-        String command = super.getCommand();
-        return command.split(" ");
-    }
-
+    /**
+     * Gets the command description.
+     *
+     * @param commandWords Command words from which to extract description.
+     * @return Command description.
+     * @throws BrockException If description is missing.
+     */
     private String getDescription(String[] commandWords) throws BrockException {
         int commandLength = commandWords.length;
         StringBuilder description = new StringBuilder();
@@ -43,6 +45,13 @@ public class EventCommand extends Command {
         return description.toString();
     }
 
+    /**
+     * Checks the start datetime and end datetime.
+     *
+     * @param startDateTime Start datetime to be checked.
+     * @param endDateTime End datetime to be checked.
+     * @throws BrockException If check fails.
+     */
     private void validateDateTimes(String startDateTime, String endDateTime) throws BrockException {
         if (startDateTime.isEmpty()) {
             throw new BrockException("Missing start date! Remember it is specified after /from!");
@@ -55,10 +64,23 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Counts the number of words for each dateTime string.
+     *
+     * @param dateTime DateTime string of interest.
+     * @return Number of words.
+     */
     private int countWords(String dateTime) {
         return dateTime.isEmpty() ? 0 : dateTime.split("\\s+").length;
     }
 
+    /**
+     * Gets the start dateTime and end dateTime values.
+     *
+     * @param commandWords Command from which to extract values.
+     * @return Start and end values.
+     * @throws BrockException If validation of values fail.
+     */
     private String[] getStartEndDateTimes(String[] commandWords) throws BrockException {
         StringBuilder startDateTime = new StringBuilder();
         StringBuilder endDateTime = new StringBuilder();
@@ -120,12 +142,27 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Updates save file with event task.
+     *
+     * @param taskStorage Instance that interfaces with save file.
+     * @param tasks List of current {@code Task} objects.
+     * @param eventTask Event task to be added to save file.
+     * @throws BrockException If writing to save file fails.
+     */
     private void updateSaveFile(TaskStorage taskStorage, TaskList tasks, Task eventTask) throws BrockException {
         taskStorage.writeToFile(tasks.numTasks() + ". "
                         + tasks.getTaskDetails(eventTask) + '\n',
                 true);
     }
 
+    /**
+     * Gets chatbot response to event command.
+     *
+     * @param tasks List of current {@code Task} objects.
+     * @param eventTask Event task created.
+     * @return Chatbot response.
+     */
     private String getResponse(TaskList tasks, Task eventTask) {
         return "Got it. I've added this task:\n"
                 + "  " + tasks.getTaskDetails(eventTask) + '\n'
@@ -149,10 +186,16 @@ public class EventCommand extends Command {
         Task eventTask = this.createEvent();
         tasks.addToList(eventTask);
 
-        tempStorage.setPreviousCommand("event");
         tempStorage.setLastCreatedTaskNum(tasks.numTasks());
-
         this.updateSaveFile(taskStorage, tasks, eventTask);
         return this.getResponse(tasks, eventTask);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getType() {
+        return "event";
     }
 }

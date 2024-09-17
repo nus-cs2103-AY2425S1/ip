@@ -5,6 +5,9 @@ import task.Event;
 import task.Task;
 import utility.StorageUtility;
 
+/**
+ * Class to manage event strings in task storage.
+ */
 public class EventManager extends TaskManager {
     private String[] processEventBody(String eventBody) throws BrockException {
         String[] parts = eventBody.split("\\(from: ", 2);

@@ -18,6 +18,12 @@ public class ListCommand extends Command {
         super(command);
     }
 
+    /**
+     * Gets the chatbot response to list command.
+     *
+     * @param tasks List of current {@code Task} objects.
+     * @return Chatbot response.
+     */
     private String getResponse(TaskList tasks) {
         String tasksString = tasks.listTasks();
         int totalTasks = tasks.numTasks();
@@ -44,8 +50,14 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskStorage taskStorage, TempStorage tempStorage, TaskList tasks) {
-        tempStorage.setPreviousCommand("list");
-
         return this.getResponse(tasks);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getType() {
+        return "list";
     }
 }

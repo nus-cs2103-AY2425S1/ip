@@ -8,18 +8,9 @@ import task.TaskList;
 
 /**
  * Class with commonly used utility functions for commands
- * to reduce code duplication
+ *      to reduce code duplication
  */
 public class CommandUtility {
-    /**
-     * Enum used to represent mark and unmark actions.
-     * To help validate mark and unmark commands.
-     */
-    public enum Action {
-        MARK,
-        UNMARK
-    }
-
     /**
      * Enum used to represent due, start and end dateTimes.
      * To help validate dateTimes of deadline and event commands.
@@ -62,9 +53,8 @@ public class CommandUtility {
      *
      * @param context       Indicates if method is looking at due dateTime, start dateTime or end dateTime.
      * @return Label based on context.
-     * @throws BrockException If more than 2 words.
      */
-    private static String getLabel(Context context) throws BrockException {
+    private static String getLabel(Context context) {
         String label;
         // CHECKSTYLE.OFF: Indentation
         label = switch (context) {
@@ -76,11 +66,24 @@ public class CommandUtility {
         return label;
     }
 
+    /**
+     * Splits dateTimeString by space.
+     *
+     * @param dateTimeString String to be split.
+     * @return Split string.
+     */
     private static String[] processDateTimeString(String dateTimeString) {
         return dateTimeString.trim()
                 .split(" ");
     }
 
+    /**
+     * Checks if the dateString is valid.
+     *
+     * @param dateString DateString to be checked.
+     * @param label Indicating if its due, start or end date.
+     * @throws BrockException If dateString is invalid.
+     */
     private static void validateDate(String dateString, String label) throws BrockException {
         String[] dateParts = dateString.split("-");
         if (dateParts.length != 3) {
@@ -89,6 +92,13 @@ public class CommandUtility {
         }
     }
 
+    /**
+     * Checks if the timeString is valid.
+     *
+     * @param timeString TimeString to be checked.
+     * @param label Indicating if its due, start or end time.
+     * @throws BrockException If timeString is invalid.
+     */
     private static void validateTime(String timeString, String label) throws BrockException {
         if (CommandUtility.isNotInteger(timeString)) {
             throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
@@ -103,7 +113,6 @@ public class CommandUtility {
         }
     }
 
-
     /**
      * Checks if the dateTime string given is valid or not.
      *
@@ -115,7 +124,7 @@ public class CommandUtility {
     public static String[] validateDateTime(String dateTimeString, Context context)
             throws BrockException {
 
-        String label = getLabel(context);
+        String label = CommandUtility.getLabel(context);
         String[] dateTimeParts = processDateTimeString(dateTimeString);
 
         String dateStringFinal;
@@ -144,21 +153,35 @@ public class CommandUtility {
         }
     }
 
-    private static void validateLength(String[] commandWords, String actionName) throws BrockException {
+    /**
+     * Checks if length is valid (for mark, unmark or delete).
+     *
+     * @param commandWords Command to be checked.
+     * @param label String indication of which command it is.
+     * @throws BrockException If length is not valid.
+     */
+    public static void validateLength(String[] commandWords, String label) throws BrockException {
         int commandLength = commandWords.length;
 
         if (commandLength == 1) {
             throw new BrockException("Missing task number!");
         }
         if (commandLength > 2 || CommandUtility.isNotInteger(commandWords[1])) {
-            throw new BrockException(actionName
+            throw new BrockException(label
                     + " command is in the form "
-                    + actionName.toLowerCase()
+                    + label
                     + " <task-number>!");
         }
     }
 
-    private static void validateTaskNumber(String[] commandWords, TaskList tasks) throws BrockException {
+    /**
+     * Checks if task number specified is valid (for mark, unmark or delete).
+     *
+     * @param commandWords Command to be checked.
+     * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
+     * @throws BrockException If task number is not valid.
+     */
+    public static void validateTaskNumber(String[] commandWords, TaskList tasks) throws BrockException {
         int taskNumber = Integer.parseInt(commandWords[1]);
         int totalTasks = tasks.numTasks();
         if (taskNumber > totalTasks || taskNumber < 1) {
@@ -166,20 +189,4 @@ public class CommandUtility {
         }
     }
 
-    /**
-     * Checks if the mark or unmark command is valid.
-     *
-     * @param command Either the mark or unmark command.
-     * @param action  Specifying which command type.
-     * @param tasks   {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
-     * @throws BrockException If the command is invalid.
-     */
-    public static void validateStatus(String command, Action action, TaskList tasks) throws BrockException {
-        String actionName = action == Action.MARK
-                ? "Mark"
-                : "Unmark";
-        String[] commandWords = command.split(" ");
-        CommandUtility.validateLength(commandWords, actionName);
-        CommandUtility.validateTaskNumber(commandWords, tasks);
-    }
 }

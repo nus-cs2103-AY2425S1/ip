@@ -208,4 +208,11 @@ public class TaskList {
         // Then, there are actually only 4 matching tasks
         return new String[]{result.toString(), Integer.toString(taskNumber - 1)};
     }
+
+    /**
+     * Clears all tasks in the task list.
+     */
+    public void clear() {
+        this.tasks.clear();
+    }
 }
