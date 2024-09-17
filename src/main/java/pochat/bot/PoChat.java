@@ -32,11 +32,6 @@ public class PoChat {
         chatData.save(this.taskList);
     }
 
-    private void sayHello() {
-        System.out.println("Hello! I'm PoChat, the chatbot in your pocket.\n"
-                + "What can I do for you?");
-    }
-
     /**
      * Returns the right response to the user based on the input entered.
      * @param textInput from the user
