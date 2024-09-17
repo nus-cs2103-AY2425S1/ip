@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ollie.exception.OllieException;
-
 /**
  * Tests for the {@link Task} class.
  */
@@ -79,11 +77,6 @@ public class TaskTest {
     private static class TaskStub extends Task {
         public TaskStub(String description, TaskType taskType) {
             super(description, taskType);
-        }
-
-        @Override
-        public void validateDescription(String command) throws OllieException {
-            // Stub implementation; no validation needed for this test.
         }
     }
 }

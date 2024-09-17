@@ -54,19 +54,33 @@ public class Event extends Task {
      * @param command The command entered by the user.
      * @throws OllieException If the description is empty or the start time and end time are not provided.
      */
-    @Override
-    public void validateDescription(String command) throws OllieException {
-        String[] parts = command.split(" /from | /to ");
-        if (parts.length != 3) {
-            throw new OllieException("Please enter the name, start time, and end time for the task! ☺");
-        }
-        if (parts[0].trim().isEmpty()) {
+    public static void validateDescription(String command) throws OllieException {
+        if (command.trim().equalsIgnoreCase("event")) {
             throw new EmptyDescriptionException("event");
         }
-        if (parts[1].trim().isEmpty()) {
+
+        if (!command.contains(" /from:") || !command.contains(" /to:")) {
+            throw new OllieException("Please enter in the format:\n"
+                    + "event <description> /from: <start time> /to: <end time>\n"
+                    + "Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00");
+        }
+
+        String description = command.substring(5, command.indexOf(" /from:")).trim();
+        String startTime = command.substring(command.indexOf(" /from:") + 7, command.indexOf(" /to:")).trim();
+        String endTime = command.substring(command.indexOf(" /to:") + 5).trim();
+
+        // Handles Empty Description, eg: "event /from: 2021-09-30 14:00 /to: 2021-09-30 15:00"
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("event");
+        }
+
+        // Handles Missing Start Date, eg: "event meeting /from: /to: 2021-09-30 15:00"
+        if (startTime.isEmpty()) {
             throw new OllieException("Please enter a start time for the task! ☺");
         }
-        if (parts[2].trim().isEmpty()) {
+
+        // Handles Missing End Date, eg: "event meeting /from: 2021-09-30 14:00 /to:"
+        if (endTime.isEmpty()) {
             throw new OllieException("Please enter an end time for the task! ☺");
         }
     }
@@ -80,11 +94,7 @@ public class Event extends Task {
      */
     public static Event createTask(String command) throws OllieException {
         String[] parts = command.substring(5).split(" /from:| /to:");
-        if (parts.length != 3) {
-            throw new OllieException("Please enter in the format:\n"
-                    + "event <description> /from: <start time> /to: <end time>\n"
-                    + "Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00");
-        }
+        validateDescription(command);
         DateTimeFormatter inputDate = Task.getInputDate();
         try {
             return new Event(parts[0].trim(), LocalDateTime.parse(parts[1].trim(), inputDate),

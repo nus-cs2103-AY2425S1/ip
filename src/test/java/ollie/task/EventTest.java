@@ -49,10 +49,7 @@ public class EventTest {
     public void createTask_missingDescription_exceptionThrown() {
         String command = "event ";
         OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
-        assertEquals("Please enter in the format:\n"
-                        + "event <description> /from: <start time> /to: <end time>\n"
-                        + "Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
-                exception.getMessage());
+        assertEquals("Please add a name for a event task!", exception.getMessage());
     }
 
     @Test
@@ -76,8 +73,12 @@ public class EventTest {
     @Test
     public void validateDescription_missingParts_exceptionThrown() {
         String command = "Project meeting /from: 2023-09-30 14:00";
-        OllieException exception = assertThrows(OllieException.class, () -> eventTask.validateDescription(command));
-        assertEquals("Please enter the name, start time, and end time for the task! ☺", exception.getMessage());
+        OllieException exception = assertThrows(
+                OllieException.class, () -> eventTask.validateDescription(command));
+        assertEquals("Please enter in the format:\n"
+                + "event <description> /from: <start time> /to: <end time>\n"
+                + "Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
+                exception.getMessage());
     }
 
     /**
