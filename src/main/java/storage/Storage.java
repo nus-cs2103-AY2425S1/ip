@@ -6,6 +6,10 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a database such that we can save the list of tasks
+ * and get the saved list of tasks for the user.
+ */
 public class Storage {
     private final String filePath;
     private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a");
@@ -34,7 +38,6 @@ public class Storage {
         return tasks;
     }
 
-    //Method to parse a line into a Task object
     /**
      * Returns a new task that is inserted into the list of tasks.
      * @param line contains the command to be parsed.

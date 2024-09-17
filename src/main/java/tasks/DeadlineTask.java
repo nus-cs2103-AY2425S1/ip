@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Deadline Task where it has its own description, completion status
+ * and deadline.
+ */
 public class DeadlineTask extends Task {
     private LocalDateTime deadline;
 
@@ -23,7 +27,7 @@ public class DeadlineTask extends Task {
         return LocalDateTime.parse(deadline, inputFormatter);
     }
     /**
-     * A symbol denoting the task type.
+     * Returns the symbol denoting the task type.
      * @return a string denoting the task type.
      */
     @Override
@@ -31,7 +35,7 @@ public class DeadlineTask extends Task {
         return "D";
     }
     /**
-     * Gets the description of the task.
+     * Returns the description of the task.
      * @return a string containing all the relevant information of the Task.
      */
     @Override
@@ -43,7 +47,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Description of the task to be parsed.
+     * Returns the description of the task to be parsed.
      * @return a string to be parsed.
      */
     @Override
@@ -52,6 +56,15 @@ public class DeadlineTask extends Task {
         return String.format("%s | %s | %s | %s",
                 this.getTaskType(), getStatusIcon(), super.description, this.deadline.format(outputFormatter));
     }
+
+    /**
+     * Replaces the value of the field with the new value.
+     *
+     * @param field Field that is being replaced with the new value.
+     * @param newValue Value replacing the old value.
+     * @throws IllegalArgumentException If there are invalid fields or incorrect input
+     * of command.
+     */
     @Override
     public void updateTask(String field, String newValue) throws IllegalArgumentException {
         switch(field.toLowerCase()) {
@@ -63,7 +76,7 @@ public class DeadlineTask extends Task {
             break;
         default:
             throw new IllegalArgumentException("Invalid fields to update for Deadline Tasks!" +
-                    "Correct way to update task: update <task number> <field> <new value>");
+                    "Correct way to update task: update <task number> <field> <new value>\n");
         }
 
     }

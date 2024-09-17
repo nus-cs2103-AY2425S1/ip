@@ -14,6 +14,7 @@ public class Meeks extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Meeks");
             FXMLLoader fxmlLoader = new FXMLLoader(Meeks.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
