@@ -1,5 +1,5 @@
 # Edith User Guide
-![Edith demo](Ui.png)
+![Edith demo](Ui.png)  
 Edith is a personal chatbot designed to help you manage your tasks and expenses efficiently. Whether you're looking to keep track of your to-do list, set deadlines, organize events, or manage your expenses, Edith can assist you with simple commands.
 
 ## Features
@@ -63,26 +63,26 @@ Edith also helps you keep track of your expenses, categorize them, and view an o
 ## Examples of Commands and Expected Output
 
 ### Adding a To-Do Task
-Command: `todo Read a book`
+Command: `todo Read a book`  
 Expected Output: 
-`nice! ive added this task:
- [T][ ] Read a book
-There are currently 1 tasks in your todo list.`
+`nice! ive added this task:`  
+` [T][ ] Read a book`  
+`There are currently 1 tasks in your todo list.`  
 
 ### Marking a Task as Done
 Command: `mark 1`
 Expected Output:
-`yay! i've marked this task as done #productive
- [T][ ] Read a book`
+`yay! i've marked this task as done #productive`  
+` [T][ ] Read a book`  
 
 ### Viewing Expenses
-Command: `expense overview`
+Command: `expense overview`  
 Expected Output:
-`here is an overview of your expenses
-misc: $2.3
-transport: $4.2
-food: $3.5
-total: $10.0`
+`here is an overview of your expenses`  
+`misc: $2.3`  
+`transport: $4.2`  
+`food: $3.5`  
+`total: $10.0`  
 
 
 ## Conclusion
