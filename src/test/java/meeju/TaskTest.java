@@ -9,7 +9,8 @@ public class TaskTest {
     //CHECKSTYLE.OFF: MethodName
     @Test
     public void createNewTodoTask_Success() {
-        assertEquals("[T][ ] Test Todo", new Todo("Test Todo").toString());
+        assertEquals("[T][ ] Test Todo",
+                new Todo("Test Todo").toString());
     }
 
     @Test
@@ -75,6 +76,32 @@ public class TaskTest {
             assertEquals(message, e.getMessage());
         }
     }
+
+    @Test
+    public void serializeEventTask_Success() {
+        try {
+            Task eventTask = new Event("Test Event", "20/12/2023 1800", "20/12/2023 1900");
+            String expectedOutcome = "E!-false!-Test Event!-20/12/2023 1800!-20/12/2023 1900\n";
+            assertEquals(expectedOutcome, eventTask.serializeDetails());
+        } catch (MeejuException e) {
+            System.out.println(e.getMessage());
+            fail();
+        }
+    }
+
+    @Test
+    public void todoIsDone_Success() {
+        Task todoTask = new Todo("Test Todo");
+        assertEquals(false, todoTask.getIsDone());
+        todoTask.setIsDone(true);
+        assertEquals(true, todoTask.getIsDone());
+    }
+
+    @Test
+    public void getTaskIdentifier_Success() {
+        Task todo = new Todo("Walk the dog");
+        String taskIdentifier = todo.getTaskIdentifier();
+        assertEquals("T", taskIdentifier);
+    }
     //CHECKSTYLE.ON: MethodName
 }
-
