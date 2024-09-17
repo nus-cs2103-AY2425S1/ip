@@ -13,6 +13,7 @@ public class Event extends Task {
      */
     public Event(String desc) throws TaskException {
         super("", desc);
+        assert desc.startsWith("event");
         try {
             String[] section = desc.substring(6).split("/from | /to ");
             super.description = section[0] + "(from: " + section[1] + " to: " + section[2] + ")";
