@@ -99,7 +99,7 @@ public class AddCommand implements Command {
     }
 
     /**
-     * Adds a event to the taskList
+     * Adds an event to the taskList
      *
      * @param taskList   TaskList of 3 types of tasks that will be added to in this method.
      * @param ui         Ui responsible for displaying text to the user
@@ -138,12 +138,18 @@ public class AddCommand implements Command {
                         DESCRIPTION_INDEX, splitInputLength));
                 break;
             case "deadline":
+                if (splitInputLength - 1 <= DESCRIPTION_INDEX) {
+                    throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the deadline.");
+                }
                 //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
                 // Concatenate elements from index 2 to the 2nd last element hence - 1
                 desc = String.join(" ", Arrays.copyOfRange(splitInput,
                         DESCRIPTION_INDEX, splitInputLength - 1));
                 break;
             case "event":
+                if (splitInputLength - 1 <= DESCRIPTION_INDEX) {
+                    throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the deadline.");
+                }
                 //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
                 // Concatenate elements from index 2 to the 3rd element hence -2
                 desc = String.join(" ", Arrays.copyOfRange(splitInput,
@@ -156,8 +162,8 @@ public class AddCommand implements Command {
                 throw new HoshiException("Hoshi doesn't understand! The task description is empty.");
             }
             return desc;
-        } catch (IndexOutOfBoundsException e) {
-            throw new HoshiException("Hoshi needs a task description!");
+        } catch (IllegalArgumentException e) {
+            throw new HoshiException("Hoshi doesn't understand! The task description is empty.");
         }
     }
 
