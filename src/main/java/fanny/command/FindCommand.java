@@ -35,11 +35,15 @@ public class FindCommand extends Command {
      */
     @Override
     public String executeCmd(TaskList list, Ui ui) {
-        List<Task> filteredList = list.findTasks(this.keyword);
         String message = "";
 
-        ui.showHorizontalLine();
-        message = ui.showFindTaskMsg(filteredList);
+        try {
+            List<Task> filteredList = list.findTasks(this.keyword);
+            ui.showHorizontalLine();
+            message = ui.showFindTaskMsg(filteredList);
+        } catch (IllegalArgumentException e) {
+            message = ui.showMessage(e.getMessage());
+        }
         ui.showHorizontalLine();
 
         return message;

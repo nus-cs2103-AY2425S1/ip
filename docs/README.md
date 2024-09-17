@@ -5,11 +5,17 @@
 Fanny is a personalised task management chatbot.
 
 Below is a list of supported commands:
+```
+Note:
+Words in UPPER_CASE are the parameters to be supplied by the user.
+e.g. in todo DESCRIPTION, DESCRIPTION is a parameter which can be used as todo eat.
+```
+
 ## Adding todo tasks
 
 Create a todo task using the `todo` command.
 
-Input: `todo description`
+Input: `todo DESCRIPTION`
 
 Example: `todo Sleep`
 
@@ -23,7 +29,7 @@ Now you have 1 tasks in the list.
 
 Create a task with deadline using the `deadline` command.
 
-Input: `deadline description /by YYYY-MM-DD HH:MM`
+Input: `deadline DESCRIPTION /by YYYY-MM-DD HH:MM`
 
 Example: `deadline Homework /by 2024-09-18 23:59`
 
@@ -37,7 +43,7 @@ Now you have 2 tasks in the list.
 
 Create a event task using the `event` command.
 
-Input: `event description /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM`
+Input: `event DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM`
 
 Example: `event Celebration /from 2024-09-20 20:00 /to 2024-09-20 23:00`
 
@@ -66,7 +72,7 @@ Here are the tasks in your list:
 
 Mark a task as completed using the `mark` command.
 
-Input: `mark index`
+Input: `mark INDEX`
 
 Example: `mark 1`
 
@@ -79,7 +85,7 @@ Awesome! I've marked this task as done:
 
 Mark a task as not completed using the `unmark` command.
 
-Input: `unmark index`
+Input: `unmark INDEX`
 
 Example: `unmark 1`
 
@@ -88,11 +94,25 @@ Expected outcome:
 Sadly, I've marked this task as not done yet:
 [T][ ] Sleep
 ```
+## Deleting a task
+
+Delete a task using the `delete` command.
+
+Input: `delete INDEX`
+
+Example: `delete 1`
+
+Expected outcome:
+```
+Noted. I've removed this task:
+[T][ ] Sleep
+Now you have 2 tasks in the list.
+```
 ## Finding a task
 
 Find a task with a keyword using the `find` command.
 
-Input: `find keyword`
+Input: `find KEYWORD`
 
 Example: `find Homework`
 

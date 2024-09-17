@@ -49,6 +49,7 @@ public class Storage {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             Task task = parseTask(line);
+            assert task != null : "Loaded task should not be null";
             tasks.add(task);
         }
 
@@ -67,6 +68,9 @@ public class Storage {
             writer.write(taskToString(task) + "\n");
         }
         writer.close();
+
+        List<Task> loadedTasks = loadTask();
+        assert tasks.size() == loadedTasks.size() : "Number of tasks saved should match the number of tasks loaded";
     }
 
     /**

@@ -141,9 +141,12 @@ public class TaskList {
      *
      * @param keyword The keyword to search for.
      * @return A list of filtered tasks that contains the keyword.
+     * @throws IllegalArgumentException if keyword is empty.
      */
-    public List<Task> findTasks(String keyword) {
-        assert keyword != null : "Keyword is null.";
+    public List<Task> findTasks(String keyword) throws IllegalArgumentException {
+        if (keyword == null || keyword.isEmpty()) {
+            throw new IllegalArgumentException("Keyword cannot be empty");
+        }
         return list.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .toList();
