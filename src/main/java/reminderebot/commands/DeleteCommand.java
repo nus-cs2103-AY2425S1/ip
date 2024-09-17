@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
-        if (index > tasklist.length() || index < 1) { // index is out of bounds
+        if (index > tasklist.length() || index < 1) {
             throw new ReminderebotException("Item selected to be deleted is not in list.\n"
                     + "Syntax: delete <int>");
         }
