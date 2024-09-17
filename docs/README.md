@@ -37,16 +37,18 @@ than traditional GUI apps.
 
 ---
 ## Features
-> [!NOTE]
-> Notes about the command format:<br>
-> 1. Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo borrow book`.
-> 2. `DATE` must always be in the format `YYYY-MM-DD HH:mm`.
-      e.g. in `deadline DESCRIPTION /by DATE`, it should be `deadline return book /by 2024-11-23 12:00`.
-> 3. Parameters must be in the specified order.<br>
-      e.g. if the command specifies `DESCRIPTION from/DATE`, it needs to follow this format strictly.
-> 4. If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
+<div class="warning"> 
+Notes about the command format:
+
+1. Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+ e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo borrow book`.
+2. `DATE` must always be in the format `YYYY-MM-DD HH:mm`.
+     e.g. in `deadline DESCRIPTION /by DATE`, it should be `deadline return book /by 2024-11-23 12:00`.
+3. Parameters must be in the specified order.<br>
+     e.g. if the command specifies `DESCRIPTION from/DATE`, it needs to follow this format strictly.
+4. If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+</div>
 
 ### Adding todos: `todo`
 Adds a task of type `todo` to the task list.
