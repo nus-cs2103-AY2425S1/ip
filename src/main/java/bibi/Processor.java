@@ -40,12 +40,26 @@ public class Processor {
         int index;
         String[] input;
         switch (c.getCmd()) {
+        case "help":
+            return "Welcome! Here are the commands you can use:\n"
+                    + "help: lists all commands"
+                    + "list: lists all current tasks\n"
+                    + "mark: marks task at index <int> as done\n"
+                    + "unmark: marks task at index <int> as not done\n"
+                    + "todo: adds a ToDo type task with given description to list\n"
+                    + "deadline: adds a Deadline task with given description and deadline to list\n"
+                    + "event: adds an Event task with specified time interval\n"
+                    + "remove: removes task at index <int> from list\n"
+                    + "find: lists tasks with descriptions that contain keywords";
         case "list":
             if (tasks.getTaskCount() == 0) {
                 return "Good for you, nothing to do :D";
             }
             for (int i = 1; i <= tasks.getTaskCount(); i++) {
-                sb.append(String.format("%d.%s%n", i, tasks.getTask(i - 1)));
+                sb.append(String.format("%d.%s", i, tasks.getTask(i - 1)));
+                if (i != tasks.getTaskCount()) {
+                    sb.append("\n");
+                }
             }
             return sb.toString();
         case "mark":

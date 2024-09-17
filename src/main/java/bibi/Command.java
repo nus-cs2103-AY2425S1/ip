@@ -67,7 +67,7 @@ public class Command {
                 return e.getMessage();
             }
             return processor.getExitMessage();
-        case "list", "mark", "unmark", "todo", "deadline", "event", "remove", "find":
+        case "help", "list", "mark", "unmark", "todo", "deadline", "event", "remove", "find":
             return processor.processCommand(this, tasks, storage);
         default:
             setErrorFlag();

@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="544.0" prefHeight="600.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bibi.gui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bibi.gui.MainWindow">
    <VBox alignment="BOTTOM_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="509.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-          <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="509.0" vvalue="1.0" VBox.vgrow="ALWAYS">
+          <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" maxWidth="1000.0" minWidth="-Infinity" prefHeight="525.0" prefWidth="509.0" vvalue="1.0" VBox.vgrow="ALWAYS">
             <content>
-                  <VBox fx:id="dialogContainer" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="516.0" />
+                  <VBox fx:id="dialogContainer" alignment="TOP_CENTER" />
             </content>
           </ScrollPane>
          <VBox prefHeight="200.0" prefWidth="100.0">

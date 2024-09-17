@@ -42,6 +42,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Bibi instance */
     public void setBibi(Bibi bibi) {
         this.bibi = bibi;
+        dialogContainer.getChildren().add(DialogBox.getBotDialogBox(bibi.getResponse("help"), botImage));
     }
 
     /**
@@ -61,7 +62,6 @@ public class MainWindow extends AnchorPane {
             showErrorMessage(response.substring(5));
             return;
         }
-
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialogBox(input, userImage),
                 DialogBox.getBotDialogBox(response, botImage)
