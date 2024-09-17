@@ -59,11 +59,11 @@ public class Parser {
                 return new MarkCommand(commandEnum, itemIdx);
             } catch (NumberFormatException e) {
                 throw new DumplingException(
-                        "    There was an issue when marking / unmarking a task! "
-                        + "The argument provided was not a number.");
+                        "    Uh-oh... There was an issue when marking / unmarking a task! "
+                                + "The argument provided was not a number.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DumplingException(
-                        "    There was an issue with indexing! Try listing the items first!");
+                        "    Uh-oh... There was an issue with indexing! Try listing the items first!");
             }
         case DELETE:
             try {
@@ -71,10 +71,11 @@ public class Parser {
                 return new DeleteCommand(itemIdx);
             } catch (NumberFormatException e) {
                 throw new DumplingException(
-                        "    There was an issue when deleting a task! The argument provided was not a number.");
+                        "    Uh-oh... There was an issue when deleting a task! "
+                                + "The argument provided was not a number.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DumplingException(
-                        "    There was an issue with indexing! Try listing the items first!");
+                        "    Uh-oh... There was an issue with indexing! Try listing the items first!");
             }
         case FIND:
             Pair<String, Integer> pair = Parser.formSubSection(
@@ -88,14 +89,14 @@ public class Parser {
                         stringCommand.split(stringCommand.split(" ")[1] + " ")[1]);
             } catch (NumberFormatException e) {
                 throw new DumplingException(
-                        "    There was an issue when marking / unmarking a task! "
-                        + "The argument provided was not a number.");
+                        "    Uh-oh... There was an issue when marking / unmarking a task! "
+                                + "The argument provided was not a number.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DumplingException(
-                        "    There was an issue with indexing! Try listing the items first!");
+                        "    Uh-oh... There was an issue with indexing! Try listing the items first!");
             }
         default:
-            throw new DumplingException("    An invalid command was given! Try again.");
+            throw new DumplingException("    Grrr... An invalid command was given! Try again.");
         }
     }
 
@@ -124,7 +125,7 @@ public class Parser {
             break;
         default:
             throw new DumplingException(
-                    String.format("%s is not a valid task type. Data might be corrupted.", lineSplit[0]));
+                    String.format("    Uh-oh... %s is not a valid task type. Data might be corrupted.", lineSplit[0]));
         }
         // since the message is not used when loading in the data, we can ignore the numItems argument
         Pair<Task, String> pair = Parser.add(simulatedTaskStringInput, commandEnum, 0);
@@ -168,7 +169,7 @@ public class Parser {
         try {
             return new Deadline(taskDescription, deadline);
         } catch (DateTimeParseException e) {
-            throw new DumplingException("Please enter the date in the correct format of YYYY-MM-DD.");
+            throw new DumplingException("    Uh-oh... Please enter the date in the correct format of YYYY-MM-DD.");
         }
     }
 
@@ -210,9 +211,9 @@ public class Parser {
         case EVENT -> createEventTaskFromString(splitDescription);
         default -> createTodoTaskFromString(splitDescription);
         };
-        String message = "     Got it. I've added this task:\n"
+        String message = "     Nom, nom, nom. I've added this task:\n"
                 + String.format("       %s\n", task)
-                + String.format("     Now you have %d %s in the list.",
+                + String.format("     Now you have %d %s in the list. Dumpling's getting a bit fuller!",
                         numItems + 1, (numItems + 1 == 1 ? "task" : "tasks"));
         return new Pair<>(task, message);
     }
@@ -241,7 +242,7 @@ public class Parser {
         }
         if (formedSection.isEmpty()) {
             throw new DumplingException(
-                    "    Intending to extract information out of a given input, but nothing to extract."
+                    "    Uh-oh... Intending to extract information out of a given input, but nothing to extract."
             );
         }
         return new Pair<>(formedSection, currIdx);
