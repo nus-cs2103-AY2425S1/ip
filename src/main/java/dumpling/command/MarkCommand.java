@@ -43,7 +43,7 @@ public class MarkCommand extends Command {
             storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new DumplingException(
-                    "You tried to mark / unmark at an index out of range! "
+                    "    Grrr... You tried to mark / unmark at an index out of range! "
                     + String.format("There are only %d items.", taskList.getNumItems()));
         }
         return message;

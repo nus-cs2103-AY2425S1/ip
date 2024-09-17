@@ -39,7 +39,7 @@ public class TaskList {
      * @return String-representation of the list of items
      */
     public String list() {
-        return "     Here are the tasks in your list:\n"
+        return "     Hungry? Here are the tasks in your list:\n"
                 + IntStream.range(1, this.items.size() + 1)
                     .mapToObj(idx -> String.format("     %d.%s", idx, this.items.get(idx - 1)))
                     .reduce((resultString, currString) -> resultString
@@ -55,7 +55,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If given index is out of range
      */
     public String mark(int itemIdx) throws IndexOutOfBoundsException {
-        String message = "     Nice! I've marked this task as done:\n";
+        String message = "     Slurp! I've marked this task as done:\n";
         if (itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();
         }
@@ -72,7 +72,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If given index is out of range
      */
     public String unmark(int itemIdx) throws IndexOutOfBoundsException {
-        String message = "     OK, I've marked this task as not done yet:\n";
+        String message = "     Slurp! I've marked this task as not done yet:\n";
         if (itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();
         }
@@ -93,7 +93,7 @@ public class TaskList {
             throw new IndexOutOfBoundsException();
         }
         Task deletedTask = this.items.remove(itemIdx - 1);
-        return "     Noted. I've removed this task:\n"
+        return "     Glup-glup. I've removed this task:\n"
                 + String.format("       %s\n", deletedTask.toString())
                 + String.format("     Now you have %d %s in the list.",
                     this.items.size(), (this.items.size() == 1 ? "task" : "tasks"));
@@ -111,7 +111,7 @@ public class TaskList {
             throw new IndexOutOfBoundsException();
         }
         this.items.get(itemIdx - 1).updateNotes(notes);
-        return "     Noted. I've updated the notes for this task:\n"
+        return "     Nom, nom, nom. I've updated the notes for this task:\n"
                 + String.format("       %s\n", this.items.get(itemIdx - 1).toString());
     }
 
@@ -130,9 +130,9 @@ public class TaskList {
                             currIdx,
                             resultPair.getSecond() + String.format("\n     %d.%s", currIdx, currentPair.getSecond()));
                 })
-                .map(pair -> "     Here are the matching tasks in your list:"
+                .map(pair -> "     Waaa! Here are the matching tasks in your list:"
                         + "\n     1." + pair.getSecond())
-                .orElse("     There are no tasks that has the substring provided.");
+                .orElse("     There are no tasks that has the substring provided. I'm hungry...");
     }
 
     /**
