@@ -42,7 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveFile() {
-        return String.format("D:%s:%s:%s", isDone() ? "x" : "", getDescription(), by);
+        return String.format("D;%s;%s;%s", isDone() ? "x" : "", getDescription(), by);
     }
 
     /**

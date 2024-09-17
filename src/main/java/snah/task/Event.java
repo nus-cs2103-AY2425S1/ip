@@ -42,7 +42,7 @@ public class Event extends Task {
      */
     @Override
     public String toSaveFile() {
-        return String.format("E:%s:%s:%s:%s", isDone() ? "x" : "", getDescription(), from, to);
+        return String.format("E;%s;%s;%s;%s", isDone() ? "x" : "", getDescription(), from, to);
     }
 
     /**
