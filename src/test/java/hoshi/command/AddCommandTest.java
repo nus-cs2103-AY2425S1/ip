@@ -120,6 +120,44 @@ public class AddCommandTest {
     }
 
     /**
+     * Tests the fail case of execute(unknown task type) function
+     */
+    @Test
+    public void executeTest_unknownTaskType_failure() {
+        // prepare mocked objects/behaviour and input
+        String[] splitInput = {"add", "random"};
+        AddCommand addCommand = spy(new AddCommand(splitInput));
+
+        when(ui.displayError("Hoshi doesn't understand! Unknown task type."))
+                .thenReturn("Hoshi doesn't understand! Unknown task type.");
+
+        // execute
+        String response = addCommand.execute(taskList, ui, storage);
+
+        // assert
+        assertEquals("Hoshi doesn't understand! Unknown task type.", response);
+    }
+
+    /**
+     * Tests the fail case of execute(no task type) function
+     */
+    @Test
+    public void executeTest_noTaskType_failure() {
+        // prepare mocked objects/behaviour and input
+        String[] splitInput = {"add"};
+        AddCommand addCommand = spy(new AddCommand(splitInput));
+
+        when(ui.displayError("Hoshi wants you to try specifying the task!"))
+                .thenReturn("Hoshi wants you to try specifying the task!");
+
+        // execute
+        String response = addCommand.execute(taskList, ui, storage);
+
+        // assert
+        assertEquals("Hoshi wants you to try specifying the task!", response);
+    }
+
+    /**
      * Tests the fail case of execute(add deadline) function
      */
     @Test
