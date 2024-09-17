@@ -42,8 +42,8 @@ public class WeenyGui extends AnchorPane {
 
     public WeenyGui() {
         this.weenyApp = new Weeny();
-        userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-        weenyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+        userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+        weenyImage = new Image(this.getClass().getResourceAsStream("/images/Weeny.png"));
     }
 
     /**
