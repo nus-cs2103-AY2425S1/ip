@@ -52,6 +52,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert fence != null : "Fence should already be iniitialised";
         String input = userInput.getText();
         String response = fence.getResponse(input);
         dialogContainer.getChildren().addAll(
