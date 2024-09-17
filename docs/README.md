@@ -1,4 +1,4 @@
-# Prince User Guide - A ChatBot cum TaskManager cum Sevant blended into one!
+# Prince User Guide - A TaskManager cum Servant blended into one!
 > "I was homeless. But Prince saved my life, pulled me out of poverty. 
 Now I am a CEO of a multi-billion dollar company... All thanks to my loyal servant, Prince." ~ Novak Bojovic
 
