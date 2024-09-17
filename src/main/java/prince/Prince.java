@@ -26,8 +26,6 @@ import java.util.Scanner;
 
 public class Prince {
 
-    //private static final String dirPath = "./data";
-    //private static final String filePath = dirPath + File.separator + "prince.txt";
     //prince.txt is a file that will automatically be created if it doesnt exist
     //stores the tasks
 
@@ -92,7 +90,6 @@ public class Prince {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        //return "Duke heard: " + input;
         try {
             if(input.equals("bye")) {
                 return ui.terminationMessage();
@@ -101,7 +98,6 @@ public class Prince {
             assert response != null : "Response should not be null";
             Storage.pushTasksToFile(TaskList.getList());
             return response;
-            //System.out.println("How else would you like me to edit your TODO list today?");
         } catch (IncompleteDescException | UnknownWordException e) {
             return ui.printErrorMessage(e.getMessage());
         }
