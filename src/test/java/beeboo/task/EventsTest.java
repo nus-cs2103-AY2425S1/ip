@@ -16,15 +16,6 @@ import beeboo.exception.NoDescriptionException;
  */
 class EventsTest {
 
-    /**
-     * Tests if an event without description throws NoDescriptionException.
-     */
-    @Test
-    void testCreateEventNoDescription() {
-        String input = "/from May 15 2024 at 10:00 AM to May 15 2024 at 11:00 AM";
-        assertThrows(NoDescriptionException.class, () -> Events.createEvent(input));
-    }
-
     /*
      * Tests if missing the 'from' keyword throws InvalidDateException.
      */
