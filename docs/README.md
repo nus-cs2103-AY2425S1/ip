@@ -121,7 +121,7 @@ Here are the items that matches your keyword:
 ```
 
 ## Exiting the program
-Exits the program
+Exits the program when executing the command : `bye`
 
-Format: `bye`
+
 
