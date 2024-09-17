@@ -26,114 +26,15 @@ To download the latest version of David,
 > 
 > The easiest way to see all available commands is simply calling the `help` command
 
-<table>
-  <tr>
-    <th>Command</th><th>Arguments</th><th>Action</th>
-  </tr>
-  <tr>
-    <td>
 
-`todo`
-</td>
-<td>
+| Command  | Arguments  | Action |
+| ----------- | ----------- | ----------- |
+| `todo`       | `TASK_NAME`       |  Adds todo task       |
+| `deadline`       | `/by YYYY-MM-DD HHHH`       | Adds deadline task       |
 
-`TASK_NAME`
-</td>
-<td>Adds todo task</td>
-
-<tr>
-    <td>
-
-`deadline`
-</td>
-<td>
-
-`/by YYYY-MM-DD HHHH`
-</td>
-<td>Adds deadline task</td>
-  </tr>
-
-  <tr>
-    <td>
-
-`event`
-</td>
-<td>
-
-`/from YYYY-MM-DD HHHH`
-
-`/to YYYY-MM-DD HHHH`
-</td>
-<td>Adds event task</td>
-  </tr>
-
-  <tr>
-    <td>
-
-`mark` and `unmark`
-</td>
-<td>
-
-`INDEX`
-
-</td>
-<td>Marks and unmarks a task</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`delete`
-</td>
-<td>
-
-`INDEX`
-
-</td>
-<td>Deletes a task</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`list`
-</td>
-<td> - 
-</td>
-<td>Lists all task</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`find`
-</td>
-<td> 
-
-`TASK_NAME`
-</td>
-<td>Finds all task corresponding to the specified string</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`sort`
-</td>
-<td> 
-
-`ORDER_BY`
-</td>
-<td>Sorts tasks in the order specified</td>
-  </tr>
-</table>
 
 ## Features
-> **NOTE**
+> ![NOTE]
 > - Words in `UPPER_CASE` are required parameters supplied by the user.
 > - Words in `lower_case` are action specifiers for commands
 
