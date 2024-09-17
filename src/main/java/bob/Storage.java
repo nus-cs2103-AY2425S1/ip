@@ -1,10 +1,7 @@
 package bob;
 
 import bob.exception.FileCorruptedException;
-import bob.task.Deadline;
-import bob.task.Event;
-import bob.task.Task;
-import bob.task.Todo;
+import bob.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -81,29 +78,29 @@ public class Storage {
         if (task instanceof Todo) {
             // Bob.Todo: T<isDone><desc>
             str.append("T");
-            str.append(task.isDone ? 1 : 0);
-            str.append(task.description);
+            str.append(task.getIsDone() ? 1 : 0);
+            str.append(task.getDescription());
         } else if (task instanceof Deadline deadline) {
             // Bob.Deadline: D<isDone><len(desc)#4><desc><by>
             str.append("D");
-            str.append(task.isDone ? 1 : 0);
-            str.append(String.format("%04d", deadline.description.length()));
-            str.append(deadline.description);
+            str.append(task.getIsDone() ? 1 : 0);
+            str.append(String.format("%04d", deadline.getDescription().length()));
+            str.append(deadline.getDescription());
 
-            String formattedBy = deadline.by.format(DATE_TIME_FORMATTER);
+            String formattedBy = deadline.getBy().format(DATE_TIME_FORMATTER);
             str.append(formattedBy);
         } else if (task instanceof Event event) {
             // Bob.Event: E<isDone><len(desc)#4><desc><len(from)#4><from><to>
             str.append("E");
-            str.append(task.isDone ? 1 : 0);
-            str.append(String.format("%04d", event.description.length()));
-            str.append(event.description);
+            str.append(task.getIsDone() ? 1 : 0);
+            str.append(String.format("%04d", event.getDescription().length()));
+            str.append(event.getDescription());
 
-            String formattedFrom = event.from.format(DATE_TIME_FORMATTER);
+            String formattedFrom = event.getFrom().format(DATE_TIME_FORMATTER);
             str.append(String.format("%04d", formattedFrom.length()));
             str.append(formattedFrom);
 
-            String formattedTo = event.to.format(DATE_TIME_FORMATTER);
+            String formattedTo = event.getTo().format(DATE_TIME_FORMATTER);
             str.append(formattedTo);
         }
 

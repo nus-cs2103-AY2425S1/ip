@@ -14,6 +14,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
+    }
+
     @Override
     public String toString() {
         String formattedFrom = Bob.formatDateTime(from);
