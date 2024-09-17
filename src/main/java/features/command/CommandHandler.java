@@ -1,5 +1,8 @@
 package features.command;
 
+import exceptions.InvalidCommandUsageException;
+import exceptions.InvalidTaskException;
+import exceptions.UnknownMessageException;
 import features.task.DeadlineTask;
 import features.task.EventTask;
 import features.task.TaskManagement;
@@ -54,7 +57,7 @@ public class CommandHandler {
 			} else if (Config.handleHelloMessage(command)) {
 				res = handleHello(command);
 			} else {
-				throw new Exception("Unknown message :(. Please see below for the list of available commands:\n\n" + Config.commands);
+				throw new UnknownMessageException();
 			}
 		} catch (Exception ex) {
 			res = ex.getMessage();
@@ -84,7 +87,7 @@ public class CommandHandler {
 	private String handleMark(String command) throws Exception {
 		String[] parts = command.split(" ");
 		if (parts.length != 2) {
-			throw new Exception("Invalid command. Usage: mark/unmark <id>");
+			throw new InvalidCommandUsageException("mark/unmark <id>");
 		}
 
 		String action = parts[0];
@@ -111,7 +114,7 @@ public class CommandHandler {
 	private String handleDeleteTask(String command) throws Exception {
 		String[] parts = command.split(" ");
 		if (parts.length != 2) {
-			throw new Exception("Invalid command. Usage: delete <id>");
+			throw new InvalidCommandUsageException("delete <id>");
 		}
 
 		int id = Integer.parseInt(parts[1]);
@@ -128,7 +131,7 @@ public class CommandHandler {
 	private String handleDeleteManyTask(String command) throws Exception {
 		String[] parts = command.split(" ");
 		if (parts.length < 2) {
-			throw new Exception("Invalid command. Usage: deleteMany <id1> <id2> ... <idn>");
+			throw new InvalidCommandUsageException("deleteMany <id1> <id2> ... <idn>");
 		}
 
 		List<Integer> ids = new ArrayList<>();
@@ -150,7 +153,7 @@ public class CommandHandler {
 	private String handleFind(String command) throws Exception {
 		String[] parts = command.split(" ");
 		if (parts.length <= 1) {
-			throw new Exception("Invalid command. Usage: find <query>.");
+			throw new InvalidCommandUsageException("find <query>.");
 		}
 
 		List<Task> result = new ArrayList<>();
@@ -190,7 +193,7 @@ public class CommandHandler {
 						.skip(1)
 						.collect(Collectors.joining(" "));
 				if (taskDescription.equals("")) {
-					throw new Exception("Invalid command. Usage: todo <description>.");
+					throw new InvalidCommandUsageException("todo <description>.");
 				}
 				t = new TodoTask(taskDescription);
 
@@ -208,7 +211,7 @@ public class CommandHandler {
 						.collect(Collectors.joining(" "));
 
 				if (taskDescription.equals("") || deadline.equals("")) {
-					throw new Exception("Invalid command. Usage: deadline <description> /by <deadline>.");
+					throw new InvalidCommandUsageException("deadline <description> /by <deadline>.");
 				}
 
 				t = new DeadlineTask(taskDescription, deadline);
@@ -232,14 +235,14 @@ public class CommandHandler {
 						.collect(Collectors.joining(" "));
 
 				if (taskDescription.equals("") || from.equals("") || to.equals("")) {
-					throw new Exception("Invalid command. Usage: event <description> /from <start> /to <end>.");
+					throw new InvalidCommandUsageException("event <description> /from <start> /to <end>.");
 				}
 
 				t = new EventTask(taskDescription, from, to);
 			}
 			default ->
-				// not possible to reach here
-					throw new Exception("Invalid task type.");
+				//not possible to reach here
+				throw new InvalidTaskException();
 		}
 
 		tm.add(t);
