@@ -97,8 +97,12 @@ public class TaskList {
      * @param index Index of the task in the list to be marked.
      */
     public String markTask(int index) {
-        Task task = list.get(index);
-        return task.mark();
+        if (index < list.size()) {
+            Task task = list.get(index);
+            return task.mark();
+        } else {
+            return "You don't have a task at this index!";
+        }
     }
 
     /**
@@ -106,8 +110,12 @@ public class TaskList {
      * @param index Index of the task to be unmarked.
      */
     public String unmarkTask(int index) {
-        Task task = list.get(index);
-        return task.unmark();
+        if (index < list.size()) {
+            Task task = list.get(index);
+            return task.unmark();
+        } else {
+            return "You don't have a task at this index!";
+        }
     }
 
     /**
