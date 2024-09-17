@@ -30,6 +30,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Snah Chat Bot");
             fxmlLoader.<MainWindow>getController().setSnah(snah); // inject the Snah instance
             stage.show();
 
