@@ -1,30 +1,25 @@
-# Duke User Guide
+# Nimbus User Guide
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
 
-// Product intro goes here
+Nimbus is a helpful chatbot that helps you keep track of all your tasks
+
+## Adding todo
+To add a new `todo` task, use the following command:
+```
+todo your_task_description
+```
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+To add a new `deadline` task, use the following command:
 ```
-expected output
+deadline your_task_description /by deadline
 ```
 
-## Feature ABC
+## Adding event
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+To add a new `event` task, use the following command:
+```
+event your_task_description /from from_date /to to_date
+```
