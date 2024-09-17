@@ -1,4 +1,3 @@
 medium | D | 1 | BCD Extension | 2024-09-15 1800
 low | E | 0 | India trip | 2024-09-22 0900 | 2024-09-28 0300
-high | T | 0 | figure out life
 high | D | 0 | IP Submission | 2024-09-20 2359
