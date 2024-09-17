@@ -33,9 +33,7 @@ public class Ui {
      * Displays welcome message to user.
      */
     public void showWelcome() {
-        String helloString = "Hello! I'm Prince :p\n";
-        String questionString = "What can I do for you?\n";
-        append(String.format(helloString + questionString));
+        append("Greetings Master Sir. Prince here, at your service.\n");
     }
 
     /**
@@ -44,11 +42,12 @@ public class Ui {
      */
     public void showTaskList(TaskList taskList) {
         if (taskList.isEmpty()) {
-            append("There are no tasks in the list!\n");
+            append("My sincere apologies Master Sir.\n");
+            append("It appears to me that there are no tasks in your list.\n");
             return;
         }
-        String taskGreetingString = "Here are the tasks in your list:\n";
-        builder.append(taskGreetingString);
+        append("\"Why of course Master Sir.\n");
+        append("It would be my greatest pleasure to display the tasks in your list.\n");
         int length = taskList.size();
         for (int i = 0; i < length; i++) {
             Task task = taskList.get(i);
@@ -66,11 +65,12 @@ public class Ui {
      */
     public void showMatchingTaskList(TaskList taskList) {
         if (taskList.isEmpty()) {
-            append("There are no matching tasks in the list!\n");
+            append("My sincere apologies Master Sir.\n");
+            append("It appears to me that there are no matching tasks in your list.\n");
             return;
         }
-        String taskGreetingString = "Here are the matching tasks in your list:\n";
-        builder.append(taskGreetingString);
+        append("\"Why of course Master Sir.\n");
+        append("It would be my greatest pleasure to display the matching tasks in your list.\n");
         int length = taskList.size();
         for (int i = 0; i < length; i++) {
             Task task = taskList.get(i);
@@ -82,20 +82,28 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a list of tasks that match the keyword as specified by the user.
+     */
     public void showNoMatchingTasks() {
-        append("There are no tasks that match your keyword!\n");
+        append("My sincere apologies Master Sir.\n");
+        append("It appears to me that there are no matching tasks in your list.\n");
     }
 
     public void showError(String msg) {
         append(msg + "\n");
     }
 
+    /**
+     * Displays error message for the user when loading fails.
+     */
     public void showLoadingError() {
-        append("Error loading tasks from storage!\n");
+        append("My sincere apologies Master Sir.\n");
+        append("It appears as though there has been an error while loading tasks from the storage.\n");
     }
 
     public void showAdd() {
-        append("Got it. I've added this task:\n");
+        append("The task has been appended to the list, Your Highness.\n");
     }
 
     public void showTaskToString(Task task) {
@@ -107,23 +115,28 @@ public class Ui {
      * @param taskList List of tasks.
      */
     public void showNumberOfTasks(TaskList taskList) {
-        append(taskList.size() + " tasks in the list.\n");
+        append("Master Sir, there are " + taskList.size() + " tasks in your list.\n");
     }
 
     public void showDelete() {
-        append("Noted. I've removed this task:\n");
+        append("Noted Master Sir. I've removed this task as you have requested.\n");
     }
 
     public void showMark() {
-        append("Nice! I've marked this task as done:\n");
+        append("Upon hearing your request, I've marked this task as done Master Sir.\n");
     }
 
     public void showUnmark() {
-        append("OK, I've marked this task as not done yet:\n");
+        append("Upon hearing your request, I've marked this task as not done Master Sir.\n");
     }
 
+    /**
+     * Displays a farewell greeting for the user.
+     */
     public void showBye() {
-        append("Bye. Hope to see you again soon!\n");
+        append("Farewell Master Sir, I do hope to see you again soon. ");
+        append("Do forgive me for any wrongdoings, Master Sir. ");
+        append("For I am just a mere servant, and nothing more.\n");
     }
 
 }

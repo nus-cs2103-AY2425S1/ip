@@ -44,18 +44,19 @@ public abstract class Command {
         String indexAsString = "";
         if (input.contains("unmark")) {
             indexAsString = input.substring(7);
-        }
-        if (input.contains("mark")) {
+            int index = Integer.valueOf(indexAsString) - 1;
+            return index;
+        } else if (input.contains("mark")) {
             indexAsString = input.substring(5);
-        }
-        if (input.contains("delete")) {
+            int index = Integer.valueOf(indexAsString) - 1;
+            return index;
+        } else if (input.contains("delete")) {
             indexAsString = input.substring(7);
-        }
-        if (indexAsString.equals("")) {
+            int index = Integer.valueOf(indexAsString) - 1;
+            return index;
+        } else {
             return -1;
         }
-        int index = Integer.valueOf(indexAsString) - 1;
-        return index;
     }
 
     /**

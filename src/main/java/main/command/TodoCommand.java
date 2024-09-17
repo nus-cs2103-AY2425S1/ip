@@ -45,7 +45,7 @@ public class TodoCommand extends Command {
     private void handleTodo(String input, TaskList taskList, Storage storage, Ui ui)
             throws PrinceException {
         if (input.equals("todo")) {
-            throw new PrinceException("Please describe your todo task in more detail!");
+            throw new PrinceException("Please do describe your todo task in more detail Master Sir.");
         }
         ui.showAdd();
         String desc = getTodo(input);

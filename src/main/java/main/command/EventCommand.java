@@ -66,7 +66,7 @@ public class EventCommand extends Command {
     private void handleEvent(String input, TaskList taskList, Storage storage, Ui ui)
             throws PrinceException {
         if (input.equals("event")) {
-            throw new PrinceException("Please describe your event task in more detail!");
+            throw new PrinceException("Please do describe your event task in more detail Master Sir.");
         }
         ui.showAdd();
         String desc = getEvent(input);
