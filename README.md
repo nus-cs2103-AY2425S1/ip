@@ -10,7 +10,7 @@
   <p align="center">
     Susan bot helps you manage tasks well.
     <br />
-    <a href="https://nus-cs2103-ay2425s1.github.io/website/schedule/week3/project.html"><strong>Explore the docs »</strong></a>
+    <a href="https://nus-cs2103-ay2425s1.github.io/website/schedule/week6/project.html"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
@@ -39,6 +39,8 @@
 
 Susan Bot is a simple lightweight chat bot that lets you manage tasks easily from your desktop.
 
+[![Product Name Screen Shot][product-screenshot-search-light]](./screenshot.png)
+
 ## Features
 
 1. `todo <description>`: Adds tasks without any date/time attached to it e.g., visit new theme park
@@ -49,7 +51,7 @@ Susan Bot is a simple lightweight chat bot that lets you manage tasks easily fro
 6. `unmark <taskNumber>`: Checks the task with taskNumber as undone.
 7. `bye`: Exits the program.
 8. `delete <taskNumber>`: Deletes the task with taskNumber.
-
+9. `deleteMany <id1> <id2> ... <idn>`: Deletes all the tasks with IDs from the list of IDs.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
@@ -59,7 +61,7 @@ Susan Bot is a simple lightweight chat bot that lets you manage tasks easily fro
 1. Set up tools: https://nus-cs2103-ay2425s1.github.io/website/schedule/week1/admin.html
 2. `git clone https://github.com/raihahahan/ip.git`
 3. Gradle build
-4. Run ip [run] with Gradle.
+4. Run `ip [run]` with Gradle.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -72,13 +74,6 @@ Susan Bot is a simple lightweight chat bot that lets you manage tasks easily fro
 - [x] Week 3 Tasks
 - [x] Week 4 Tasks
 - [x] Week 5 Tasks
-- [ ] Week 6 Tasks
-- [ ] Week 7 Tasks
-- [ ] Week 8 Tasks
-- [ ] Week 9 Tasks
-- [ ] Week 10 Tasks
-- [ ] Week 11 Tasks
-- [ ] Week 12 Tasks
-- [ ] Week 13 Tasks
+- [x] Week 6 Tasks
 
 <p align="right">(<a href="#top">back to top</a>)</p>
