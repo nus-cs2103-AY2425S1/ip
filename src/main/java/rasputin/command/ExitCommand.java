@@ -17,6 +17,12 @@ public class ExitCommand extends Command {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructor for the class ExitCommand
+     *
+     * @param storage Storage to write the TaskList to
+     * @param tasks TaskList to be written to file
+     */
     public ExitCommand(Storage storage, TaskList tasks) {
         isTerminated = false;
         this.storage = storage;

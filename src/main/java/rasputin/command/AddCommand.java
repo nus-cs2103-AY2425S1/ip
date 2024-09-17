@@ -19,6 +19,12 @@ public class AddCommand extends Command implements Undoable {
     private TaskList tasks;
     private String input;
 
+    /**
+     * Constructor for class AddCommand
+     *
+     * @param tasks TaskList to execute the adding of task to
+     * @param input The String input from the user
+     */
     public AddCommand(TaskList tasks, String input) {
         this.tasks = tasks;
         this.input = input;
@@ -28,6 +34,7 @@ public class AddCommand extends Command implements Undoable {
      * Checks the task to be added into the TaskList.
      * If the task is valid with correct parameters, adds the task to the TaskList.
      *
+     * @return Rasputin's response as a String in case of successful or failed addition.
      * @throws RasputinException If task has incorrect parameters such as empty description or invalid time and date.
      */
     @Override
@@ -92,6 +99,11 @@ public class AddCommand extends Command implements Undoable {
 
     }
 
+    /**
+     * Undoes the command ie. remove the added the task.
+     *
+     * @return Rasputin's response as a String
+     */
     @Override
     public String undo() {
         tasks.remove(tasks.size() - 1);

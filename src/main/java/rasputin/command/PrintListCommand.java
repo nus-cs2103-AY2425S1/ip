@@ -16,7 +16,7 @@ public class PrintListCommand extends Command {
     }
 
     /**
-     * Prints the current list of tasks.
+     * @return List of tasks as a String.
      */
     @Override
     public String execute() {

@@ -17,6 +17,12 @@ public class DeleteCommand extends Command implements Undoable {
     private int index;
     private Task deletedTask;
 
+    /**
+     * Constructor for the class DeleteCommand
+     *
+     * @param tasks TaskList to execute the deletion of task
+     * @param index Index in list to be deleted
+     */
     public DeleteCommand(TaskList tasks, int index) {
         this.tasks = tasks;
         this.index = index;
@@ -25,6 +31,7 @@ public class DeleteCommand extends Command implements Undoable {
     /**
      * Removes the task at the given index from the TaskList.
      *
+     * @return Rasputin's response as a String in case of successful or failed deletion.
      * @throws InvalidTaskException If the given index is out of bounds of TaskList.
      */
     @Override
@@ -39,6 +46,13 @@ public class DeleteCommand extends Command implements Undoable {
         }
     }
 
+    /**
+     * Undoes the command ie. adds back the deleted task.
+     * Note that the task will end up at the bottom of the TaskList.
+     *
+     * @return Rasputin's response as a String
+     * @throws RasputinException
+     */
     @Override
     public String undo() throws RasputinException {
         tasks.add(deletedTask);

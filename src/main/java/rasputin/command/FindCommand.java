@@ -14,6 +14,12 @@ public class FindCommand extends Command {
     private TaskList tasks;
     private TaskList foundTasks;
 
+    /**
+     * Constructor for the class FindCommand.
+     *
+     * @param input User's input as a string
+     * @param tasks TaskList to look for the input keyword
+     */
     public FindCommand(String input, TaskList tasks) {
         this.input = input;
         this.tasks = tasks;
@@ -25,6 +31,7 @@ public class FindCommand extends Command {
      * If no matching tasks are found, print a message saying no found matches.
      * Else, print TaskList of matching tasks.
      *
+     * @returns Rasputin's response as a String
      * @throws RasputinException If command is missing the keyword to search with.
      */
     @Override

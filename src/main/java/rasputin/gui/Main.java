@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import rasputin.Rasputin;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Rasputin using FXML.
  */
 public class Main extends Application {
 

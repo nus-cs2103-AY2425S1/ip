@@ -15,7 +15,8 @@ public class InvalidCommand extends Command {
     }
 
     /**
-     * Prints the error message thrown by the exception.
+     *
+     * @return Error message as a String for the UI.
      */
     @Override
     public String execute() {

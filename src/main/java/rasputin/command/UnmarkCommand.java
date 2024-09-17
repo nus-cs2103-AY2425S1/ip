@@ -14,6 +14,12 @@ public class UnmarkCommand extends Command implements Undoable {
     private TaskList tasks;
     private int index;
 
+    /**
+     * Constructor for class UndoCommand.
+     *
+     * @param tasks TaskList in which the task is to be unmarked
+     * @param index Index of task to be unmarked
+     */
     public UnmarkCommand(TaskList tasks, int index) {
         this.tasks = tasks;
         this.index = index;
@@ -22,6 +28,7 @@ public class UnmarkCommand extends Command implements Undoable {
     /**
      * Marks the task at the given index of the TaskList as not done.
      *
+     * @return Rasputin's response as a String in case of successful or failed marking.
      * @throws InvalidTaskException If the given index is out of bounds of the TaskList.
      */
     @Override
@@ -36,6 +43,12 @@ public class UnmarkCommand extends Command implements Undoable {
         }
     }
 
+    /**
+     * Undoes the command ie. marks the specified task.
+     *
+     * @return Rasputin's
+     * @throws RasputinException
+     */
     @Override
     public String undo() throws RasputinException {
         tasks.mark(index);
