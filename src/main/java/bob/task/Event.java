@@ -1,8 +1,10 @@
+package bob.task;
+
+import bob.Bob;
+
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAccessor;
 
 public class Event extends Task {
-
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -10,6 +12,14 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
     }
 
     @Override

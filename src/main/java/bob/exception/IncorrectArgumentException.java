@@ -1,3 +1,5 @@
+package bob.exception;
+
 public class IncorrectArgumentException extends BobException {
     public IncorrectArgumentException(String expectedArgument) {
         super("WHOA! That's not quite right.\n" +
