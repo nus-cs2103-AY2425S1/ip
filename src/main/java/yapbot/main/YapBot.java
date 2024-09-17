@@ -3,7 +3,6 @@ package yapbot.main;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
-import yapbot.commands.ByeCommand;
 import yapbot.commands.Command;
 import yapbot.exceptions.YapBotException;
 import yapbot.util.Parser;
@@ -30,7 +29,7 @@ public class YapBot {
     }
 
     /**
-     * Starts the YapBot instance and returns the appropriate startup message.
+     * Starts the {@code YapBot} instance and returns the appropriate startup message.
      */
     public String run() {
         String startupMessage = "Powering up...System booted successfully.\nYapBot online.\nExtensive damage detected."
@@ -49,8 +48,7 @@ public class YapBot {
     }
 
     /**
-     * Saves tasks to file.
-     * Intended for use when YapBot app is not closed using ByeCommand.
+     * Saves tasks to file to terminate the {@code YapBot} instance.
      *
      * @return true if tasks are saved and false otherwise.
      */
@@ -63,6 +61,14 @@ public class YapBot {
         }
     }
 
+    /**
+     * Changes the save file location for this {@code YapBot} instance.
+     * Tries to load tasks (if any) from the specified file.
+     * If unsuccessful, reverts back to original save file location and tasks.
+     *
+     * @param filepath Path of the file to load from and save to.
+     * @return true if the save file location is changed and false otherwise.
+     */
     public boolean changeLoadFile(String filepath) {
         Storage tempStorage = this.storage;
         TaskList tempTaskList = this.taskList;
@@ -80,18 +86,18 @@ public class YapBot {
     }
 
     /**
-     * Returns the String response of YapBot based on input supplied.
+     * Returns the String response of {@code YapBot} based on input supplied.
      *
      * @param input User input
-     * @return Response from YapBot
+     * @return Response from {@code YapBot}
      *
      * @throws YapBotException If user input is invalid, eg. invalid command or insufficient arguments
      * @throws NumberFormatException When input uses strings instead of numbers, causing Integer parse to fail.
      * @throws DateTimeParseException When Dates and Times are not inputted in the correct format.
      */
     public String getResponse(String input) throws YapBotException, NumberFormatException, DateTimeParseException {
-        assert this.taskList != null: "TaskList not instantiated";
-        assert this.storage != null: "Storage not instantiated";
+        assert this.taskList != null : "TaskList not instantiated";
+        assert this.storage != null : "Storage not instantiated";
 
         Command c = Parser.parse(input, this);
         shouldExit = c.isExit();
@@ -100,7 +106,7 @@ public class YapBot {
     }
 
     /**
-     * Returns if this YapBot instance should be terminated.
+     * Returns if this {@code YapBot} instance should be terminated.
      */
     public boolean shouldExit() {
         return this.shouldExit;

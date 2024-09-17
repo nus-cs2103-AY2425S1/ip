@@ -1,13 +1,22 @@
 package yapbot.commands;
 
+import java.io.IOException;
+
 import yapbot.exceptions.YapBotException;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
-import java.io.IOException;
-
+/**
+ * Command for saving tasks to current file.
+ */
 public class SaveCommand extends Command {
 
+    /**
+     * {@inheritDoc}
+     * Saves tasks to current file.
+     *
+     * @throws YapBotException If tasks cannot be saved to the file.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) throws YapBotException {
         String message = "Saving Tasks...";

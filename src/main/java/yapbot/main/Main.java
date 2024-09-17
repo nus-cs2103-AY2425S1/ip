@@ -23,7 +23,7 @@ public class Main extends Application {
             stage.setTitle("YapBot");
             stage.getIcons().add(new Image("/images/robot.png"));
 
-            fxmlLoader.<MainWindow>getController().setYapBot(yapBot); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setYapBot(yapBot);
             stage.show();
             fxmlLoader.<MainWindow>getController().printYapBotDialog(yapBot.run());
         } catch (IOException e) {

@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
 
         try {
             String response = yapBot.getResponse(input);
-            assert !response.isEmpty(): "No Response from YapBot";
+            assert !response.isEmpty() : "No Response from YapBot";
 
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
