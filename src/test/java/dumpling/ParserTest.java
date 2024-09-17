@@ -106,7 +106,7 @@ public class ParserTest {
         Ui ui = new Ui();
         TaskList tasks = new TaskList(storage.load());
         assertEquals(
-                "     Hungry? Here are the tasks in your list:\n",
+                "      I'm hungry cause there are no tasks in your list...",
                 tasks.list()
         );
     }
