@@ -41,7 +41,8 @@ public class Parser {
         case "sortdeadlines":
             return tasks.sortTasksByDeadline();
         default:
-            throw new SlothingWafflerException("Please give instructions that the Slothing Waffler can understand :(");
+            throw new SlothingWafflerException("Stop Waffling! " +
+                    "Please give instructions that the Slothing Waffler can understand :(");
         }
     }
 

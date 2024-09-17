@@ -100,7 +100,7 @@ public class TaskList {
      */
     public String displayTaskList() {
         if (tasks.isEmpty()) {
-            return "Great job!! You are on track with everything! You have no tasks on your list currently.";
+            return "Great job!! You are on track with everything! Continue to waffle around! :)";
         }
         StringBuilder msg = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
@@ -172,7 +172,7 @@ public class TaskList {
         Task task = tasks.get(taskNum - 1);
         tasks.remove(task);
         tasks.add(0, task);
-        return "Good to see you getting your priorities straight! " +
+        return "Good job waffler! You are getting your priorities straight! " +
                 "I have put this task at the top of your task list:\n" + task;
     }
 
