@@ -7,42 +7,82 @@
 > They'll fly with great, strong wings
 > .” – µ’s ([source](https://genius.com/Genius-english-translations-s-start-dash-english-translation-lyrics))
 
-Kotori Minami is now in your computer to help you keep track of your task list
-It's,
-
-- text-based
-- simple to use, can be learned by ***monkeys*** 🐵
-- completely **FREE**!
-- coded in Java
-
-All you need to do to enjoy this bot is,
-
-1. download it from [here](https://nus-cs2103-ay2425s1.github.io/website/schedule/week4/project.html).
-2. double-click it.
-3. add your tasks.
-4. let Kotori manage your tasks for you 😉
-
-Features:
-
-- [x]  Managing tasks
-- [x]  A better GUI
-- [x]  Dialog reflex the Personality of ***Kotori Minami***
-
 ## How to use the bot:
 ### 1. Basic Features commands:
 1. `Add` a task:
-    1. `Todo`: todo `description`
-    2. `Deadline`: deadline `description` /by `YYYY-MM-DD`
-    3. `Event`: event `description` /from  `YYYY-MM-DD` /to `YYYY-MM-DD`
-2. `View` all task: list
-3. `Mark/Unmark` a task: mark/unmark `task index`
-4. `Exit` the bot: bye
-5. `Delete` a task : delete `task index`
-
+    1. `Todo`
+       - Format : todo `description`
+       - Example : todo wash clothes
+       - Example output : 
+       ```
+       Now you have 1 tasks in list
+       1. [T][ ] wash clothes
+       ```
+   2. `Deadline`: 
+      - Format : deadline `description` /by `YYYY-MM-DD\`
+      - Example : deadline CS2103T ip /by 2024-09-26
+      - Example output :
+       ```
+       Now you have 1 tasks in list
+       1. [D][ ] CS2103T ip (by: 2024-09-26)
+       ```
+   3. `Event`: 
+      - Format : event `description` /from  `YYYY-MM-DD` /to `YYYY-MM-DD`
+      - Example : event CS2103T ip /from 2024-08-16 /to 2024-09-26
+      - Example output :
+       ```
+       Now you have 1 tasks in list
+       1. [E][ ] CS2103T ip (from 2024-08-16 to: 2024-09-26)
+       ```
+2. `View` all tasks
+   - Format : list
+   - Example output:
+   ```
+   Now you have 1 tasks in list
+   1. [T][ ] CS2103T weekly work
+   ```
+3. `Mark/Unmark` a task: 
+   - Format : mark/unmark `task index`
+   - Example : mark 1
+   - Example output 
+   ```
+   Nice Job, Job 1 has been marked as done!
+   [T][X]  CS2103T weekly work
+   ```
+4. `Delete` a task : 
+   - Format : delete `task index`
+   - Example : delete 1
+   - Example output:
+   ``` 
+   OK~. I've deleted this task: 
+   [T][X] me
+   Now you have 0 tasks in the list
+   ```
+5. `Exit` the bot:
+   - Format : bye
+   - Example 
+   ``` 
+   Bye! Hope to see you again soon.
+   ```
 ### 2. Advanced Features commands
-1. `Find` tasks related to a keyword: find `keyword`
-2. `Search` tasks that need to be done before a date:
-    - search `date`
+1. `Search` tasks related to a keyword: 
+   - Format : search `keyword`
+   - Example : search CS2103T
+   - Example output: 
+   ```
+   These are(is) the task(s) that match the description
+   1. [D][ ] CS2103T weekly work  (by: 2020-10-11)
+   2. [E][ ] project meeting for CS2103T (from: 2020-10-08 to: 2020-10-26)
+   ```
+2. `Find` tasks that need to be done before a date:
+    - find `date`
+    - Example find 2020-10-10
+    - Example output :
+    ```
+    These are the tasks related to this date 2020-10-10
+    1. [D][ ] something  (by: 2020-10-11)
+    2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)
+   ```
 3. `Sort` all tasks based on due time: sort
 
 ```java
