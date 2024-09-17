@@ -1,1 +1,4 @@
 T | 0 | kms
+T | 0 | kms then ascend
+T | 0 | kms then descend
+T | 0 | eat shit

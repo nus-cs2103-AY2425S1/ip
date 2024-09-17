@@ -115,6 +115,10 @@ public class Parser {
                     System.out.println("   " + removedTask);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                } else if (userInput.startsWith("find ")) {
+                    String keyword = userInput.substring(5).trim();
+                    TaskList foundTasks = tasks.find(keyword);
+                    ui.showMatchingTasks(foundTasks);
                 } else {
                     throw new BigmouthException("OOPS! I don't know what that means. Please try again.");
                 }

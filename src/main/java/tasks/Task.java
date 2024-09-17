@@ -29,4 +29,15 @@ public abstract class Task {
     public String toSaveFormat() {
         return (isDone ? "1" : "0") + " | " + description;
     }
+
+    /**
+     * Returns the description of the task, including its status and description.
+     *
+     * @return A string description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+
 }

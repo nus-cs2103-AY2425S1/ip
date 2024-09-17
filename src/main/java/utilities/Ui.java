@@ -15,9 +15,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
-//    public String readCommand() {
-//        return scanner.nextLine();
-//    }
+
 
     public void showLine() {
         System.out.println("____________________________________________________________");
@@ -71,6 +69,24 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Displays tasks that match the search keyword.
+     *
+     * @param tasks The list of tasks that match the search.
+     */
+    public void showMatchingTasks(TaskList tasks) {
+        System.out.println("____________________________________________________________");
+        if (tasks.isEmpty()) {
+            System.out.println("There are no matching tasks in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + tasks.get(i));
+            }
+        }
         System.out.println("____________________________________________________________");
     }
 }
