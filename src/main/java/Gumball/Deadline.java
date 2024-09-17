@@ -13,6 +13,7 @@ public class Deadline extends Task {
      */
     public Deadline(String desc) throws TaskException {
         super("", desc);
+        assert desc.startsWith("deadline");
         try {
             String[] section = desc.substring(9).split("/by ");
             LocalDate d1 = LocalDate.parse(section[1]);
