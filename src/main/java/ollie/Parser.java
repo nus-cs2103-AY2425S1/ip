@@ -38,10 +38,10 @@ public class Parser {
 
         if (input.matches("list")) {
             return new ListCommand();
-        } else if (input.matches("^mark .*")) {
+        } else if (input.matches("^mark.*")) {
             int index = Parser.getIndex(input);
             return new MarkCommand(index);
-        } else if (input.matches("^unmark .*")) {
+        } else if (input.matches("^unmark.*")) {
             int index = Parser.getIndex(input);
             return new UnmarkCommand(index);
         } else if (input.matches("^(deadline|event|todo).*")) {
