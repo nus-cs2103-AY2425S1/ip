@@ -1,8 +1,7 @@
-package Parse;
+package parse;
 
-import Exception.MissingArg;
+import exception.MissingArg;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParseTest {

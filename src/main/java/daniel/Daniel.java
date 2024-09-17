@@ -2,11 +2,10 @@ package daniel;
 
 import java.util.ArrayList;
 import java.io.File;
-import Storage.Storage;
-import Task.TaskList;
-import Ui.Ui;
-import Parse.Parse;
-
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+import parse.Parse;
 public class Daniel {
     private Storage storage;
     private TaskList tasks;

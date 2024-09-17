@@ -6,9 +6,9 @@ The app provides you with multiple commands to add and manage your task under 3 
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-    - [Add Todo Task](#add-todo-task)
-    - [Add Deadline Task](#add-deadline-task)
-    - [Add Event Task](#add-event-task)
+    - [Add Todo task](#add-todo-task)
+    - [Add Deadline task](#add-deadline-task)
+    - [Add Event task](#add-event-task)
     - [List All Tasks](#list-all-tasks)
     - [Mark Tasks](#mark-tasks)
     - [Unmark Tasks](#unmark-tasks)

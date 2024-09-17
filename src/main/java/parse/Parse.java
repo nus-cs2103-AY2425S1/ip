@@ -1,10 +1,10 @@
-package Parse;
+package parse;
 
-import Storage.Storage;
-import Task.TaskList;
-import Ui.Ui;
-import Exception.MissingArg;
-import Exception.WrongKeyword;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+import exception.MissingArg;
+import exception.WrongKeyword;
 public class Parse {
     private static final int todoParseSplitIndex = 5;
     private static final int deadlineParseSplitIndex = 9;
@@ -12,58 +12,70 @@ public class Parse {
     private static final int findParseSplitIndex = 5;
     private static final String deadlineSplitBy = " /by ";
     private static final String eventSplitBy = " /from | /to ";
+    private static final String parseTodoErrorMessage = "Please enter a task for Todo";
+    private static final String parseDeadlineErrorMessage = "Wrong number of arguments for deadline task!";
+    private static final String parseEventErrorMessage = "Wrong number of arguments for event task!";
     /**
      * Parses a Todo input string to get the task description.
      *
-     * @param input the input string
-     * @return the task description as a string
+     * @param input the input string.
+     * @return the task description as a string.
+     * @throws MissingArg if the input string does not contain a task description.
      */
-    public static String parseTodo(String input) throws MissingArg{
+    public static String parseTodo(String input) throws MissingArg {
         if (input.replaceAll("\\s", "").length() <= 4) {
-            throw new MissingArg("Please enter a task for Todo");
+            throw new MissingArg(parseTodoErrorMessage);
         }
         return input.substring(todoParseSplitIndex);
     }
     /**
      * Parses a Deadline input string to get the task description and the deadline.
      *
-     * @param input the input string
-     * @return an array of strings
+     * @param input the input string.
+     * @return an array of strings.
+     * @throws MissingArg if the input string does not contain a valid task description format.
      */
-    public static String[] parseDeadline(String input) throws MissingArg{
+    public static String[] parseDeadline(String input) throws MissingArg {
         String[] s = input.substring(deadlineParseSplitIndex).split(deadlineSplitBy);
         if (s.length != 2) {
-            throw new MissingArg("Wrong number of arguments for deadline task!");
+            throw new MissingArg(parseDeadlineErrorMessage);
         }
         return s;
     }
     /**
      * Parses an Event input string to get the task description, start time, and end time.
      *
-     * @param input the input string
-     * @return an array of strings
+     * @param input the input string.
+     * @return an array of strings.
+     * @throws MissingArg if the input string does not contain a valid task description format.
      */
-    public static String[] parseEvent(String input) throws MissingArg{
+    public static String[] parseEvent(String input) throws MissingArg {
         if (!input.contains("/from") || !input.contains("/to")) {
-            throw new MissingArg("Wrong number of arguments for event task!");
+            throw new MissingArg(parseEventErrorMessage);
         }
         String[] s = input.substring(eventParseSplitIndex).split(eventSplitBy);
         if (s.length != 3) {
-            throw new MissingArg("Wrong number of arguments for event task!");
+            throw new MissingArg(parseEventErrorMessage);
         }
         return s;
     }
+    /**
+     * Parses the input string to extract the search keyword for the "find" command.
+     *
+     * @param input the input string containing the find command and search keyword.
+     * @return the search keyword as a string.
+     */
     public static String parseFind(String input) {
         return input.substring(findParseSplitIndex);
     }
     /**
-     * Initial parsing of user commands and updates the task list,storage and ui accordingly.
+     * Parses user commands and updates the task list,storage and ui accordingly.
      *
-     * @param input the user input
-     * @param ui the user interface class instance
-     * @param tasks the task list class instance
-     * @param storage the storage class instance
-     * @return false if user entered "bye" and true oterwise
+     * @param input the user input.
+     * @param ui the user interface class instance.
+     * @param tasks the task list class instance.
+     * @param storage the storage class instance.
+     * @return String after handling the input.
      */
     public static String initialParse(String input, Ui ui, TaskList tasks, Storage storage) {
         if (input.equals("bye")) {
@@ -87,8 +99,5 @@ public class Parse {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
-
-
     }
-
 }

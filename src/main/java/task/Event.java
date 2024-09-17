@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,9 +6,9 @@ import java.util.Locale;
 public class Event extends Task {
     private static final String format = "d/M/yyyy HHmm";
     protected String to;
-    LocalDateTime dateTo;
+    private LocalDateTime dateTo;
     protected String from;
-    LocalDateTime dateFrom;
+    private LocalDateTime dateFrom;
     public Event(String description, String from, String to) {
         super(description);
         this.to = to;
@@ -26,15 +26,13 @@ public class Event extends Task {
     /**
      * Returns a string representation of the Event task.
      *
-     * @return a string representation of the Event task
+     * @return a string representation of the Event task.
      */
     @Override
     public String toString() {
-
         assert description != null : "empty description";
         assert dateFrom != null : "empty dateFrom";
         assert dateTo != null : "empty dateTo";
-
         return "[E]" + super.toString() + " (from: "
                 + dateFrom.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, h:mm a", Locale.ENGLISH))
                         + " to: " +  dateTo.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, h:mm a", Locale.ENGLISH)) + ")";
@@ -42,7 +40,7 @@ public class Event extends Task {
     /**
      * Returns a string representation of the Event task in a format to save in a file.
      *
-     * @return a string representation of the Event task for saving
+     * @return a string representation of the Event task for saving.
      */
     @Override
     public String save() {
@@ -53,6 +51,6 @@ public class Event extends Task {
 
     @Override
     public LocalDateTime getDateTime() {
-        return dateTo; // Sort by the start time of the event
+        return dateTo;
     }
 }
