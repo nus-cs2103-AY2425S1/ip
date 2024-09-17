@@ -131,4 +131,19 @@ public class UI {
                 + "    1. YYYY-MM-DD\n"
                 + "    2. YYYY-MM-DD hh:mm");
     }
+
+    /**
+     * Get the message when a given task is successfully updated with the given information.
+     */
+    public static String getUpdateTaskMessage(Task task) {
+        return String.format("Alright! I have already updated this task with the given information:\n%s",
+                task);
+    }
+
+    /**
+     * Get the warning message when user inputs an update command without any information.
+     */
+    public static String getEmptyUpdateCommandWarning() {
+        return "Sorry, I don't know how you want the task to be updated...\nPlease try again...";
+    }
 }

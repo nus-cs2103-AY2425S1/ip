@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.FileCorruptedException;
 import gopher.exception.InvalidTokenException;
+import gopher.exception.MissingTaskNumberException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.task.Deadline;
 import gopher.task.Event;
 import gopher.task.Task;
 import gopher.task.ToDo;
+
 
 /**
  * Groups the logic and functions for parsing input, command and data from
@@ -79,6 +81,16 @@ public class Parser {
         return type.equalsIgnoreCase("todo")
                 || type.equalsIgnoreCase("deadline")
                 || type.equalsIgnoreCase("event");
+    }
+
+    /**
+     * Check for whether at least one task number is supplied in the given command.
+     */
+    public static void hasTaskNumber(int[] taskNumbers)
+            throws MissingTaskNumberException {
+        if (taskNumbers.length == 0) {
+            throw new MissingTaskNumberException();
+        }
     }
 
     /**
@@ -237,9 +249,10 @@ public class Parser {
      * @param tokens tokens within the given update command
      * @return new name to be updated
      */
-    public static String parseUpdateTodoTaskCommand(String[] tokens)
+    public static String[] parseUpdateTodoTaskCommand(String[] tokens)
             throws InvalidTokenException {
         StringBuilder taskName = new StringBuilder();
+        String[] result = new String[1];
         for (int i = 2; i < tokens.length; i++) {
             // If other tasks tokens are used, remind user that
             // he/she may be updating the undesired task
@@ -253,8 +266,8 @@ public class Parser {
                 taskName.append(" ");
             }
         }
-
-        return taskName.toString();
+        result[0] = taskName.toString();
+        return result;
     }
 
     /**
@@ -438,13 +451,19 @@ public class Parser {
     * @param command mark task command
     * @return task number of the task marked as done
     */
-    public static int[] parseMarkCommand(String command) {
-        String[] tokens = command.split(" ");
-        int[] taskNumbers = new int[tokens.length - 1];
-        for (int i = 1; i < tokens.length; i++) {
-            taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+    public static int[] parseMarkCommand(String command)
+            throws MissingTaskNumberException {
+        try {
+            String[] tokens = command.split(" ");
+            int[] taskNumbers = new int[tokens.length - 1];
+            for (int i = 1; i < tokens.length; i++) {
+                taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+            }
+            hasTaskNumber(taskNumbers);
+            return taskNumbers;
+        } catch (NumberFormatException e) {
+            throw new MissingTaskNumberException();
         }
-        return taskNumbers;
     }
 
     /**
@@ -453,13 +472,19 @@ public class Parser {
      * @param command unmark task command
      * @return task number of the task marked as not done
      */
-    public static int[] parseUnmarkCommand(String command) {
-        String[] tokens = command.split(" ");
-        int[] taskNumbers = new int[tokens.length - 1];
-        for (int i = 1; i < tokens.length; i++) {
-            taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+    public static int[] parseUnmarkCommand(String command)
+            throws MissingTaskNumberException {
+        try {
+            String[] tokens = command.split(" ");
+            int[] taskNumbers = new int[tokens.length - 1];
+            for (int i = 1; i < tokens.length; i++) {
+                taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+            }
+            hasTaskNumber(taskNumbers);
+            return taskNumbers;
+        } catch (NumberFormatException e) {
+            throw new MissingTaskNumberException();
         }
-        return taskNumbers;
     }
 
     /**
@@ -468,13 +493,19 @@ public class Parser {
      * @param command delete task command
      * @return task number of the task to be deleted
      */
-    public static int[] parseDeleteCommand(String command) {
-        String[] tokens = command.split(" ");
-        int[] taskNumbers = new int[tokens.length - 1];
-        for (int i = 1; i < tokens.length; i++) {
-            taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+    public static int[] parseDeleteCommand(String command)
+            throws MissingTaskNumberException {
+        try {
+            String[] tokens = command.split(" ");
+            int[] taskNumbers = new int[tokens.length - 1];
+            for (int i = 1; i < tokens.length; i++) {
+                taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+            }
+            hasTaskNumber(taskNumbers);
+            return taskNumbers;
+        } catch (NumberFormatException e) {
+            throw new MissingTaskNumberException();
         }
-        return taskNumbers;
     }
 
     /**

@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.InvalidTokenException;
+import gopher.exception.MissingTaskNumberException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.parser.Parser;
@@ -62,13 +63,17 @@ public class Gopher {
      * @return response by gopher after successful action
      */
     public static String executeMarkTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseMarkCommand(userInput);
-        taskList.markAsDone(taskNumbers);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
+        try {
+            int[] taskNumbers = Parser.parseMarkCommand(userInput);
+            taskList.markAsDone(taskNumbers);
+            StringBuilder message = new StringBuilder();
+            for (int taskNumber : taskNumbers) {
+                message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
+            }
+            return message.toString();
+        } catch (MissingTaskNumberException e) {
+            return e.getMessage();
         }
-        return message.toString();
     }
 
     /**
@@ -78,13 +83,17 @@ public class Gopher {
      * @return response by gopher after successful action
      */
     public static String executeUnmarkTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
-        taskList.markAsUndone(taskNumbers);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
+        try {
+            int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
+            taskList.markAsUndone(taskNumbers);
+            StringBuilder message = new StringBuilder();
+            for (int taskNumber : taskNumbers) {
+                message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
+            }
+            return message.toString();
+        } catch (MissingTaskNumberException e) {
+            return e.getMessage();
         }
-        return message.toString();
     }
 
     /**
@@ -94,13 +103,17 @@ public class Gopher {
      * @return response by gopher after successful action
      */
     public static String executeDeleteTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseDeleteCommand(userInput);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+        try {
+            int[] taskNumbers = Parser.parseDeleteCommand(userInput);
+            StringBuilder message = new StringBuilder();
+            for (int taskNumber : taskNumbers) {
+                message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+            }
+            taskList.delete(taskNumbers);
+            return message.toString();
+        } catch (MissingTaskNumberException e) {
+            return e.getMessage();
         }
-        taskList.delete(taskNumbers);
-        return message.toString();
     }
 
     /**
@@ -143,14 +156,15 @@ public class Gopher {
     public static String executeUpdateTaskCommand(String userInput) {
         try {
             String[] tokens = userInput.split(" ");
-            if (tokens.length < 2) {
-                return "I don't know how you want the task to be updated\nPlease try again...";
+            if (tokens.length < 3) {
+                return UI.getEmptyUpdateCommandWarning();
             }
-            taskList.update(tokens);
-            return "Hi I have updated this task for you already!";
+            return taskList.update(tokens);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
         } catch (InvalidTokenException e) {
+            return e.getMessage();
+        } catch (MissingTaskNumberException e) {
             return e.getMessage();
         }
     }

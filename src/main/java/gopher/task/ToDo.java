@@ -20,7 +20,7 @@ public class ToDo extends Task {
     @Override
     public void update(String[] tokens) throws InvalidTokenException {
         // Extract task name from the given tokens
-        String taskName = Parser.parseUpdateTodoTaskCommand(tokens);
+        String taskName = Parser.parseUpdateTodoTaskCommand(tokens)[0];
         if (!taskName.isEmpty()) {
             this.name = taskName;
         }

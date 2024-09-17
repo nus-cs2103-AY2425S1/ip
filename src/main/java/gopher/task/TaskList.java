@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import gopher.exception.InvalidTokenException;
+import gopher.exception.MissingTaskNumberException;
 import gopher.storage.TaskManager;
+import gopher.ui.UI;
 
 /**
  * Represents TaskList that tracks user input tasks.
@@ -41,15 +43,23 @@ public class TaskList {
     }
 
     /**
-     * Updates the task with the given task number with the relevant information.
+     * Updates the task with the given task number with the relevant information,
+     * and respond with the detail of the updated task
      *
      * @param tokens tokens from the update command
+     * @return UI message showing the detail of the updated task
      */
-    public void update(String[] tokens)
-            throws InvalidTokenException {
-        int taskNumber = Integer.parseInt(tokens[1]);
-        this.getTask(taskNumber).update(tokens);
-        TaskManager.saveTasks(tasks);
+    public String update(String[] tokens)
+            throws InvalidTokenException, MissingTaskNumberException {
+        try {
+            int taskNumber = Integer.parseInt(tokens[1]);
+            Task task = this.getTask(taskNumber);
+            task.update(tokens);
+            TaskManager.saveTasks(tasks);
+            return UI.getUpdateTaskMessage(task);
+        } catch (NumberFormatException e) {
+            throw new MissingTaskNumberException();
+        }
     }
 
     /**
