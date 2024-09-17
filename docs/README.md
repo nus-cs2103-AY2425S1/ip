@@ -1,7 +1,19 @@
 # Blitz User Guide
-// Product screenshot goes here
+![image](https://github.com/user-attachments/assets/49890732-48ff-4b09-90b8-d676f6faa495)
 
 Blitz is a **desktop app for managing tasks** via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+Please use the below hyperlinks for quick access:
+- [Command Summary](https://github.com/gohsl99/ip/edit/master/docs/README.md#command-summary)
+- [Adding a todo task: todo](https://github.com/gohsl99/ip/edit/master/docs/README.md#adding-a-todo-task)
+- [Adding a deadline task: deadline](https://github.com/gohsl99/ip/edit/master/docs/README.md#adding-a-deadline-task)
+- [Adding a event task: event](https://github.com/gohsl99/ip/edit/master/docs/README.md#adding-a-event-task)
+- [Listing existing tasks: list](https://github.com/gohsl99/ip/edit/master/docs/README.md#listing-existing-tasks)
+- [Marking a task as done: mark](https://github.com/gohsl99/ip/edit/master/docs/README.md#marking-a-task-as-done)
+- [Unmarking a task to undone: unmark](https://github.com/gohsl99/ip/edit/master/docs/README.md#unmarking-a-task-to-undone)
+- [Finding a task: find](https://github.com/gohsl99/ip/edit/master/docs/README.md#finding-a-task)
+- [Deleting a task: delete](https://github.com/gohsl99/ip/edit/master/docs/README.md#deleting-a-task)
+- [Exiting the application: bye](https://github.com/gohsl99/ip/edit/master/docs/README.md#exiting-the-application)
 
 ## Command Summary
 <table>
