@@ -35,7 +35,7 @@ public class Gopher {
         assert Files.exists(Paths.get("./task/task.txt"))
                 : "Task save file should exist after successful initialization";
 
-        taskList = new TaskList(TaskManager.loadTasks());
+        taskList = new TaskList();
     }
 
     /**
@@ -74,6 +74,8 @@ public class Gopher {
             return message.toString();
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return e.getMessage();
+        } finally {
+            taskList.save();
         }
     }
 
@@ -94,6 +96,8 @@ public class Gopher {
             return message.toString();
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return e.getMessage();
+        } finally {
+            taskList.save();
         }
     }
 
@@ -114,6 +118,8 @@ public class Gopher {
             return message.toString();
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return e.getMessage();
+        } finally {
+            taskList.save();
         }
     }
 
