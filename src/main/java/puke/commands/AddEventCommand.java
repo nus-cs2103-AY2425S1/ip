@@ -3,7 +3,12 @@ package puke.commands;
 import puke.TaskList;
 import puke.exceptions.EmptyDescriptionException;
 import puke.exceptions.MissingEventTimeException;
+import puke.exceptions.WrongDateTimeFormatException;
 import puke.message.MessageBuilder;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Command to add a new Event task.
@@ -13,17 +18,23 @@ public class AddEventCommand extends Command {
     private String from;
     private String to;
 
+    private static final String DATE_TIME_PATTERN = "dd/MM/yyyy HHmm";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+
     /**
-     * Constructs a new AddEventCommand with specified arguments.
+     * Constructs a new {@code AddEventCommand} with the specified arguments.
      *
      * @param args the string containing the task description followed by '/from' for start time and '/to' for end time.
-     * @throws EmptyDescriptionException if the task description is empty.
-     * @throws MissingEventTimeException if the start or end time are missing or empty.
+     *             The expected format is: "description /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm"
+     * @throws EmptyDescriptionException    if the task description is empty.
+     * @throws MissingEventTimeException   if either the start time (`/from`) or end time (`/to`) is missing or empty.
+     * @throws WrongDateTimeFormatException if either the start time or end time does not match the required "dd/MM/yyyy HHmm" format.
      */
-    public AddEventCommand(String args) throws EmptyDescriptionException, MissingEventTimeException {
+    public AddEventCommand(String args) throws EmptyDescriptionException, MissingEventTimeException, WrongDateTimeFormatException {
         if (args.isEmpty()) {
             throw new EmptyDescriptionException("event");
         }
+        // Split the input based on " /from " and " /to " delimiters
         String[] parts = args.split(" /from | /to ");
         if (parts.length < 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
             throw new MissingEventTimeException();
@@ -31,6 +42,24 @@ public class AddEventCommand extends Command {
         this.description = parts[0].trim();
         this.from = parts[1].trim();
         this.to = parts[2].trim();
+
+        // Validate the 'from' and 'to' datetime formats
+        validateDateTimeFormat(this.from);
+        validateDateTimeFormat(this.to);
+    }
+
+    /**
+     * Validates that the provided datetime string matches the required "dd/MM/yyyy HHmm" format.
+     *
+     * @param dateTimeStr the datetime string to validate.
+     * @throws WrongDateTimeFormatException if the datetime string does not match the required format.
+     */
+    private void validateDateTimeFormat(String dateTimeStr) throws WrongDateTimeFormatException {
+        try {
+            LocalDateTime.parse(dateTimeStr, FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new WrongDateTimeFormatException(DATE_TIME_PATTERN);
+        }
     }
 
     /**
@@ -47,3 +76,4 @@ public class AddEventCommand extends Command {
         return messageBuilder.sendMessage(taskList.addTask("event", description, from, to));
     }
 }
+
