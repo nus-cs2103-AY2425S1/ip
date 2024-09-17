@@ -1,4 +1,2 @@
-EVENT | 0 | overseas trip | 2024-12-01 | 2024-12-10
-DEADLINE | 0 | coding assignment | 2024-09-25
-TODO | 1 | clean my room
-TODO | 0 | buy groceries
+TODO | 0 | read book
+EVENT | 0 | staycation | 2024-09-20 1400 | 2024-09-22 1200

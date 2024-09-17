@@ -67,7 +67,7 @@ public class Ui {
             StringBuilder listOutput = new StringBuilder();
             listOutput.append("Here are the tasks in your list:\n");
             for (int i = 0; i < size; i++) {
-                listOutput.append((i + 1) + ". " + tasks.get(i) + "\n");
+                listOutput.append(tab + (i + 1) + ". " + tasks.get(i) + "\n");
             }
             lastOutput = listOutput.toString();
             System.out.println(lastOutput);
@@ -107,7 +107,7 @@ public class Ui {
             StringBuilder matchingTasksOutput = new StringBuilder();
             matchingTasksOutput.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < size; i++) {
-                matchingTasksOutput.append((i + 1) + ". " + filteredTasks.get(i) + "\n");
+                matchingTasksOutput.append(tab + (i + 1) + ". " + filteredTasks.get(i) + "\n");
             }
             lastOutput = matchingTasksOutput.toString();
             System.out.println(lastOutput);
