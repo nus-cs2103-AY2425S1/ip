@@ -44,8 +44,8 @@ public class DeadlineTest {
         OllieException exception = assertThrows(OllieException.class, () -> Deadline.createTask(command));
         assertEquals(
                 "Please enter in the format:\n"
-                        + "deadline task_name /by: due_date\n"
-                        + "Example: deadline assignment /by: 2021-09-30 23:59",
+                        + "deadline <description> /by: <date>\n"
+                        + "Example: deadline return book /by: 2021-09-30 18:00",
                 exception.getMessage()
         );
     }

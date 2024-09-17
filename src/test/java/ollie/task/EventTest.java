@@ -50,8 +50,8 @@ public class EventTest {
         String command = "event ";
         OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
         assertEquals("Please enter in the format:\n"
-                + "event event_name /from: start_time /to: end_time"
-                + "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
+                        + "event <description> /from: <start time> /to: <end time>\n"
+                        + "Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
                 exception.getMessage());
     }
 
@@ -60,8 +60,8 @@ public class EventTest {
         String command = "event Project meeting /from: ";
         OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
         assertEquals("Please enter in the format:\n"
-                + "event event_name /from: start_time /to: end_time"
-                + "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
+                        + "event <description> /from: <start time> /to: <end time>\n"
+                        + "Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
                 exception.getMessage());
     }
 
