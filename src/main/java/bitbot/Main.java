@@ -24,7 +24,7 @@ public class Main extends Application {
      *
      * @throws FileNotFoundException if the file is not found
      */
-    public Main() throws FileNotFoundException {
+    public Main() throws FileNotFoundException, BitBotException {
         bitbot = new BitBot();
     }
 

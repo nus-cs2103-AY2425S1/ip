@@ -10,7 +10,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -82,7 +81,7 @@ public class Storage {
      * @return an arrayList of tasks which contains all the tasks from the storage file.
      * @throws FileNotFoundException if the file is not found
      */
-    public static ArrayList<Task> readTasksFromFile(String filePath) throws FileNotFoundException {
+    public static ArrayList<Task> readTasksFromFile(String filePath) throws BitBotException, FileNotFoundException {
         ArrayList<Task> listFromFile = new ArrayList<>();
         try {
             File file = new File(filePath);
@@ -117,7 +116,7 @@ public class Storage {
      * @param partsOfInput A String array which consists of the type of task and the relevant details.
      * @return the Task object corresponding to the task type.
      */
-    private static Task parseTask(String[] partsOfInput) {
+    private static Task parseTask(String[] partsOfInput) throws BitBotException {
         Task task = null;
         String typeOfTask = partsOfInput[0].trim();
 
@@ -136,6 +135,7 @@ public class Storage {
             break;
         default:
             // there should not be any other task
+            throwUnknownTaskError();
             break;
         }
         return task;
@@ -213,5 +213,9 @@ public class Storage {
      */
     private static Task parseTodoTask(String[] partsOfInput) {
         return new Todo(partsOfInput[2].trim());
+    }
+
+    private static void throwUnknownTaskError() throws BitBotException {
+        throw new BitBotException("OOPS!! Unknown task");
     }
 }

@@ -30,6 +30,6 @@ public class TodoTest {
 
     @Test
     public void toFileFormat_withDescription() {
-        assertEquals("T| |Do Homework|NIL| NIL|", toDos.toFileFormat());
+        assertEquals("T| |Do Homework|NIL|NIL|NIL", toDos.toFileFormat());
     }
 }

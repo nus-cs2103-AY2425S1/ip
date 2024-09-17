@@ -1,3 +1,7 @@
+# @@author SwaminathanViswa - resued
+# Resued from https://github.com/se-edu/duke/blob/full-template/.github/workflows/gradle.yml
+# with minor modifications
+
 name: Java CI
 
 on: [push, pull_request]
@@ -33,18 +37,9 @@ jobs:
       - name: Build and check with Gradle
         run: ./gradlew check
 
-      - name: Perform IO redirection test (*NIX)
-        if: runner.os == 'Linux'
-        working-directory:  ${{ github.workspace }}/text-ui-test
-        run: ./runtest.sh
-
-      - name: Perform IO redirection test (MacOS)
-        if: always() && runner.os == 'macOS'
-        working-directory:  ${{ github.workspace }}/text-ui-test
-        run: ./runtest.sh
-
       - name: Perform IO redirection test (Windows)
         if: always() && runner.os == 'Windows'
         working-directory:  ${{ github.workspace }}/text-ui-test
         shell: cmd
         run: runtest.bat
+# @@author

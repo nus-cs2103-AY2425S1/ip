@@ -1,6 +1,7 @@
 package bitbot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -69,39 +70,33 @@ class StorageTest {
 
     @Test
     void testReadTodoTaskDescription() throws IOException, FileNotFoundException {
-        // Verify the first task (Todo)
-        assertTrue(tasks.get(0) instanceof Todo);
+        assertInstanceOf(Todo.class, tasks.get(0));
         assertEquals("Read book", tasks.get(0).taskDescription);
     }
 
     @Test
     void testReadDeadlineTaskDescription() throws IOException {
-        // Verify the second task (Deadline)
-        assertTrue(tasks.get(1) instanceof Deadline);
+        assertInstanceOf(Deadline.class, tasks.get(1));
         assertEquals("Submit assignment", tasks.get(1).taskDescription);
     }
 
     @Test
     void testReadEventTaskDescription() throws IOException, FileNotFoundException {
-        // Verify the third task (Event)
-        assertTrue(tasks.get(2) instanceof Events);
+        assertInstanceOf(Events.class, tasks.get(2));
         assertEquals("Attend meeting", tasks.get(2).taskDescription);
     }
 
     @Test
     void testReadDeadlineTaskFinalString() throws IOException, FileNotFoundException {
-        // Verify the third task (Event)
-        assertTrue(tasks.get(1) instanceof Deadline);
+        assertInstanceOf(Deadline.class, tasks.get(1));
         assertEquals("[D][ ] Submit assignment (by: Sep 20 2024 18:00)",
                 tasks.get(1).finalString());
     }
     @Test
     void testReadEventsTaskFinalString() throws IOException, FileNotFoundException {
-        // Verify the third task (Event)
-        assertTrue(tasks.get(2) instanceof Events);
+        assertInstanceOf(Events.class, tasks.get(2));
         assertEquals("[E][ ] Attend meeting (from: Sep 22 2024 10:00 to: Sep 22 2024 12:00)",
                 tasks.get(2).finalString());
     }
-
 
 }

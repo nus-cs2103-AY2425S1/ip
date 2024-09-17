@@ -15,9 +15,6 @@ However, line 1 is also included in this reuse.
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<!--
-@@author
--->
 
 <AnchorPane maxHeight="-Infinity"
             maxWidth="-Infinity"
@@ -66,3 +63,7 @@ However, line 1 is also included in this reuse.
         </ScrollPane>
     </children>
 </AnchorPane>
+
+<!--
+@@author
+-->

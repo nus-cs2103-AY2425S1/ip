@@ -31,7 +31,7 @@ public class TaskHandler {
      * @param toTime the ending time of the event
      * @return a Task
      */
-    private static Task createEvent(String description, String fromTime, String toTime) throws BitBotException{
+    private static Task createEvent(String description, String fromTime, String toTime) throws BitBotException {
         LocalDateTime startDateTime = parseDateTime(fromTime);
         LocalDateTime endDateTime = parseDateTime(toTime);
 
@@ -251,7 +251,8 @@ public class TaskHandler {
             }
 
             /*
-            Used the assistance of ChatGPT to solve the error of being unable to key in many words as the tag description
+            Used the assistance of ChatGPT to solve the error of being unable
+            to key in many words as the tag description
             So, I used GPT to help me with the joining of the input list from the second index onwards.
              */
             String tag = String.join(" ", Arrays.copyOfRange(input, 2, input.length));

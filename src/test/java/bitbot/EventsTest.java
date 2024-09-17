@@ -45,7 +45,7 @@ public class EventsTest {
         LocalDateTime dateTime = LocalDateTime.of(2024, 8, 30, 16, 0);
         LocalDateTime dateTime1 = LocalDateTime.of(2024, 8, 30, 18, 0);
         Events event = new Events("Conference", dateTime, dateTime1);
-        String expected = "E| |Conference|Aug 30 2024 16:00|Aug 30 2024 18:00|";
+        String expected = "E| |Conference|Aug 30 2024 16:00|Aug 30 2024 18:00|NIL";
         assertEquals(expected, event.toFileFormat());
     }
     @Test
@@ -53,7 +53,7 @@ public class EventsTest {
         LocalDate date = LocalDate.of(2024, 8, 30);
         LocalDate date1 = LocalDate.of(2024, 8, 30);
         Events event = new Events("Conference", date, date1);
-        String expected = "E| |Conference|Aug 30 2024|Aug 30 2024|";
+        String expected = "E| |Conference|Aug 30 2024|Aug 30 2024|NIL";
         assertEquals(expected, event.toFileFormat());
     }
     @Test
@@ -61,7 +61,7 @@ public class EventsTest {
         LocalTime time = LocalTime.of(16, 0);
         LocalTime time1 = LocalTime.of(18, 0);
         Events event = new Events("Conference", time, time1);
-        String expected = "E| |Conference|16:00|18:00|";
+        String expected = "E| |Conference|16:00|18:00|NIL";
         assertEquals(expected, event.toFileFormat());
     }
 

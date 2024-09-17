@@ -42,7 +42,7 @@ public class DeadlineTest {
     public void toFileFormat_withLocalDateTime() {
         LocalDateTime dateTime = LocalDateTime.of(2024, 8, 30, 16, 0);
         Deadline deadline = new Deadline("Submit report", dateTime);
-        String expected = "D| |Submit report|Aug 30 2024 16:00|NIL|";
+        String expected = "D| |Submit report|Aug 30 2024 16:00|NIL|NIL";
         assertEquals(expected, deadline.toFileFormat());
     }
 
@@ -51,7 +51,7 @@ public class DeadlineTest {
         LocalDate date = LocalDate.of(2024, 8, 30);
         Deadline deadline = new Deadline("Submit report", date);
         deadline.markAsDone();
-        String expected = "D|X|Submit report|Aug 30 2024|NIL|";
+        String expected = "D|X|Submit report|Aug 30 2024|NIL|NIL";
         assertEquals(expected, deadline.toFileFormat());
     }
 
@@ -59,7 +59,7 @@ public class DeadlineTest {
     public void toFileFormat_withLocalTime() {
         LocalTime time = LocalTime.of(16, 0);
         Deadline deadline = new Deadline("Submit report", time);
-        String expected = "D| |Submit report|16:00|NIL|";
+        String expected = "D| |Submit report|16:00|NIL|NIL";
         assertEquals(expected, deadline.toFileFormat());
     }
 

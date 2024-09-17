@@ -22,7 +22,7 @@ public class BitBot {
     private static final String PATH_TO_FILE = "./data/Bitbot.txt";
     private ArrayList<Task> arrayList;
 
-    public BitBot() throws FileNotFoundException {
+    public BitBot() throws FileNotFoundException, BitBotException {
         arrayList = Storage.readTasksFromFile(PATH_TO_FILE);
     }
     public String getResponse(String input) {
@@ -92,8 +92,7 @@ public class BitBot {
                 }
 
             } else {
-                textPart = input.trim();
-                keyWord = textPart;
+                throwUnknownWordError();
             }
 
         } catch (BitBotException e) {
