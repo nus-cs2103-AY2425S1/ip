@@ -25,6 +25,7 @@ public class MarkUndoneCommand extends Command {
 
     @Override
     public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
+        assert description != null : "Description cannot be null";
         if (description.isEmpty()) {
             throw new MissingIndexExceptions("unmark", "unmark <index>");
         }

@@ -27,6 +27,7 @@ public class Parser {
      * @return the CommandType based on the user input
      */
     public static Command getCommandType(String command) {
+        assert command != null : "Command cannot be null";
         CommandType commandType;
         String trimmedCommand = command.trim();
         String[] splitCommand = trimmedCommand.split(" ", 2);
@@ -75,6 +76,8 @@ public class Parser {
      * @return the Command based on the CommandType and description
      */
     private static Command handleCommand(CommandType commandType, String description) {
+        assert commandType != null : "CommandType cannot be null";
+        assert description != null : "Description cannot be null";
         switch (commandType) {
         case TODO:
             return new ToDoCommand(description);
