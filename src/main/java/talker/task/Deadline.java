@@ -80,4 +80,18 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMAT) + ")";
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Deadline) {
+            Deadline deadline = (Deadline) object;
+            boolean isSameDescription = this.description.equals(deadline.description);
+            boolean isSameBy = this.by.equals(deadline.by);
+
+            if (isSameDescription && isSameBy) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

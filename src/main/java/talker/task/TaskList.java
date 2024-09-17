@@ -268,6 +268,7 @@ public class TaskList {
         try {
             String desc = input.substring(5);
             Task newTask = new ToDo(desc);
+            checkDuplicateTask(newTask);
             list.add(newTask);
             return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
@@ -292,6 +293,7 @@ public class TaskList {
             String by = parsed[1];
 
             Task newTask = new Deadline(desc, by);
+            checkDuplicateTask(newTask);
             list.add(newTask);
             return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
@@ -320,12 +322,28 @@ public class TaskList {
 
             Task newTask = new Event(desc, from, to);
 
+            checkDuplicateTask(newTask);
+
             list.add(newTask);
             return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
                     "Event format wrong. Try again with: event <description> "
                             + "/from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>");
+        }
+    }
+
+    /**
+     * Checks task list for any tasks matching the newTask to be added
+     *
+     * @param newTask new Task to be added to the list
+     * @throws TalkerException duplicate task trying to be added
+     */
+    private void checkDuplicateTask(Task newTask) throws TalkerException {
+        for (Task task: list) {
+            if (newTask.equals(task)) {
+                throw new TalkerException("You already have this task added!");
+            }
         }
     }
 
