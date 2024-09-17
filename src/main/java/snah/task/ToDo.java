@@ -19,7 +19,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toSaveFile() {
-        return String.format("T:%s:%s", isDone() ? "x" : "", getDescription());
+        return String.format("T;%s;%s", isDone() ? "x" : "", getDescription());
     }
 
     /**

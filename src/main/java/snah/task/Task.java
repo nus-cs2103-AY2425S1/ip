@@ -37,7 +37,7 @@ public class Task {
      * @return Task in the format to save to file
      */
     public String toSaveFile() {
-        return String.format("T:%s:%s", isDone() ? "x" : "", getDescription());
+        return String.format("T;%s;%s", isDone() ? "x" : "", getDescription());
     }
 
     /**

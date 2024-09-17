@@ -52,7 +52,7 @@ public class Storage {
         try {
             List<String> lines = Files.readAllLines(Paths.get(SAVE_FILE_NAME));
             for (String line : lines) {
-                String[] data = line.split(":");
+                String[] data = line.split(";");
 
                 if (data[0].startsWith("T")) {
                     ToDo newTask = new ToDo(data[2]);

@@ -75,9 +75,10 @@ public class Parser {
     public static String[] getTodoPayload(String input) throws ParsingException {
         String[] todoPayload = input.split(" ", 2);
         if (todoPayload.length == 1) {
-            throw new ParsingException("The todo command should be in the format: " + ToDo.getFormatDescription());
+            throw new ParsingException("The todo command should be in the format:\n" + ToDo.getFormatDescription());
         }
         String todoDescription = input.split(" ", 2)[1];
+        todoDescription = todoDescription.strip();
         if (todoDescription.length() == 0) {
             throw new ParsingException("The description of a todo cannot be empty.");
         }
@@ -97,8 +98,32 @@ public class Parser {
         String[] splitInput = deadlinePayload[1].split(" /by ");
         if (splitInput.length != 2) {
             throw new ParsingException(
-                    "The deadline command should be in the format: " + Deadline.getFormatDescription());
+                    "The deadline command should be in the format:\n" + Deadline.getFormatDescription());
         }
+        if (splitInput[0].strip().length() == 0) {
+            throw new ParsingException("The description of a deadline cannot be empty.");
+        }
+        if (splitInput[1].strip().length() == 0) {
+            throw new ParsingException("The deadline of a deadline cannot be empty.");
+        }
+        splitInput[0] = splitInput[0].strip();
+        splitInput[1] = splitInput[1].strip();
+
+        try {
+            String[] date = splitInput[1].split("-");
+            if (date.length != 3) {
+                throw new ParsingException("The deadline should be in the format yyyy-mm-dd.");
+            }
+            int year = Integer.parseInt(date[0]);
+            int month = Integer.parseInt(date[1]);
+            int day = Integer.parseInt(date[2]);
+            if (year < 0 || month < 1 || month > 12 || day < 1 || day > 31) {
+                throw new ParsingException("The deadline date should be in the format yyyy-mm-dd.");
+            }
+        } catch (NumberFormatException e) {
+            throw new ParsingException("The deadline date should be in the format yyyy-mm-dd.");
+        }
+
         return new String[] { splitInput[0], splitInput[1] };
     }
 
@@ -114,12 +139,24 @@ public class Parser {
         }
         String[] splitInput = eventPayload[1].split(" /from ");
         if (splitInput.length != 2) {
-            throw new ParsingException("The event command should be in the format: " + Event.getFormatDescription());
+            throw new ParsingException("The event command should be in the format:\n" + Event.getFormatDescription());
         }
         String[] finalSplit = splitInput[1].split(" /to ");
         if (finalSplit.length != 2) {
-            throw new ParsingException("The event command should be in the format: " + Event.getFormatDescription());
+            throw new ParsingException("The event command should be in the format:\n" + Event.getFormatDescription());
         }
+        if (splitInput[0].strip().length() == 0) {
+            throw new ParsingException("The description of an event cannot be empty.");
+        }
+        if (finalSplit[0].strip().length() == 0) {
+            throw new ParsingException("The start time of an event cannot be empty.");
+        }
+        if (finalSplit[1].strip().length() == 0) {
+            throw new ParsingException("The end time of an event cannot be empty.");
+        }
+        splitInput[0] = splitInput[0].strip();
+        finalSplit[0] = finalSplit[0].strip();
+        finalSplit[1] = finalSplit[1].strip();
         return new String[] { splitInput[0], finalSplit[0], finalSplit[1] };
     }
 
