@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Lict lict;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image lictImage = new Image(this.getClass().getResourceAsStream("/images/Lict.png"));
 
     @FXML
     public void initialize() {
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String response = lict.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getLictDialog(response, lictImage)
         );
         userInput.clear();
     }
