@@ -5,6 +5,41 @@
     -fx-border-radius: 1em 1em 0 1em;
 }
 
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #F1959B, #F1959B);
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.help-label {
+    -fx-background-color: linear-gradient(to bottom right, #F0E68C, #F0E68C);
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.mark-label {
+    -fx-background-color: linear-gradient(to bottom right, #B0E57C, #B0E57C);
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.unmark-label {
+    -fx-background-color: linear-gradient(to bottom right, #FFD580, #FFD580);
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.delete-label {
+    -fx-background-color: linear-gradient(to bottom right, #FFA07A, #FFA07A);
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
