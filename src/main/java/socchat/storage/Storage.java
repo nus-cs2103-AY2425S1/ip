@@ -5,11 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
-import Parser.Parser;
+import parser.DateParser;
 import socchat.SocchatException;
 import socchat.task.Task;
 import socchat.task.deadline.Deadline;
@@ -93,9 +94,10 @@ public class Storage {
 
     public static Task loadEvent(String desc, boolean isDone, String from, String to, String tag) {
         try {
-//            String[] dateToken = date.split("to");
-            LocalDateTime formatted_from = Parser.parseDate(from.trim());
-            LocalDateTime formatted_to = Parser.parseDate(to.trim());
+            LocalDate formatted_from = DateParser.parseDate(from.trim());
+            LocalDate formatted_to = DateParser.parseDate(to.trim());
+            assert !formatted_from.isAfter(formatted_to);
+
             if (!(tag.isEmpty())) {
                 return new Event(desc, formatted_from, formatted_to, isDone, tag);
             }
@@ -108,7 +110,7 @@ public class Storage {
     }
     public static Task createDeadline(String desc, boolean isDone, String date, String tag) {
         try {
-            LocalDateTime by = Parser.parseDate(date);
+            LocalDate by = DateParser.parseDate(date);
             if (!(tag.isEmpty())) {
                 return new Deadline(desc, by, isDone, tag);
             }

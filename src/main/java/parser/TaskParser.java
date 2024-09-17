@@ -1,4 +1,4 @@
-package Parser;
+package parser;
 
 import socchat.SocchatException;
 import socchat.task.Task;
@@ -6,7 +6,7 @@ import socchat.task.deadline.Deadline;
 import socchat.task.event.Event;
 import socchat.task.todo.Todo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class TaskParser {
 
@@ -38,7 +38,7 @@ public class TaskParser {
             String desc = strToken[0].trim();
             checkEmptyDescription(desc);
             String by = strToken[1].trim();
-            LocalDateTime formattedBy = Parser.parseDate(by);
+            LocalDate formattedBy = DateParser.parseDate(by);
 
             if (deadlineDetails.contains("-tag")) {
                 String tagName = getTag(strToken, 2);
@@ -62,8 +62,9 @@ public class TaskParser {
             checkEmptyDescription(desc);
             String from  = strToken[1].trim();
             String to = strToken[2].trim();
-            LocalDateTime formattedFrom = Parser.parseDate(from);
-            LocalDateTime formattedTo = Parser.parseDate(to);
+            LocalDate formattedFrom = DateParser.parseDate(from);
+            LocalDate formattedTo = DateParser.parseDate(to);
+            DateParser.checkEndDate(formattedFrom, formattedTo);
 
             if (eventDetails.contains("-tag")) {
                 String tagName = getTag(strToken, 3);

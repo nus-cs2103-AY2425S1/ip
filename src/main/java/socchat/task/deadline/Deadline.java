@@ -1,8 +1,8 @@
 package socchat.task.deadline;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-import Parser.Parser;
+import parser.DateParser;
 import socchat.task.Task;
 
 /**
@@ -10,7 +10,7 @@ import socchat.task.Task;
  * It extends the Task class and includes a date and time by which the task must be completed.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    protected LocalDate by;
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.
@@ -19,11 +19,11 @@ public class Deadline extends Task {
      * @param description the description of the task
      * @param by          the deadline (due date) of the task
      */
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
-    public Deadline(String description, LocalDateTime by, String tagName) {
+    public Deadline(String description, LocalDate by, String tagName) {
         super(description, tagName);
         this.by = by;
     }
@@ -35,12 +35,12 @@ public class Deadline extends Task {
      * @param by          the deadline of the task
      * @param isDone      the initial completion status of the task
      */
-    public Deadline(String description, LocalDateTime by, Boolean isDone) {
+    public Deadline(String description, LocalDate by, Boolean isDone) {
         super(description, isDone);
         this.by = by;
     }
 
-    public Deadline(String description, LocalDateTime by, Boolean isDone, String tagName) {
+    public Deadline(String description, LocalDate by, Boolean isDone, String tagName) {
         super(description, isDone, tagName);
         this.by = by;
     }
@@ -48,7 +48,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + " (by: " + Parser.dateToString(by) + ")"
+                + " (by: " + DateParser.dateToString(by) + ")"
                 + "<tag: " + tagName + ">";
     }
 
@@ -56,7 +56,7 @@ public class Deadline extends Task {
     public String toSave() {
         return "D" + " | " + super.getDoneStatus()
                 + " | " + super.getDescription()
-                + " | " + Parser.dateToString(by)
+                + " | " + DateParser.dateToString(by)
                 + " | "
                 +  " | " + super.getTagName();
     }
