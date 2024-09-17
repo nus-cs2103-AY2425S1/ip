@@ -14,7 +14,7 @@ To check your Java version, open your terminal or command prompt and run:
 java --version
 ```
 
-1. Download the `Lict.jar` file from [here](https://github.com/yockcheng/ip/releases/tag/A-Jar).
+1. Download the `Lict.jar` file from [here](https://github.com/yockcheng/ip/releases/tag/A-Release).
 2. Copy the file to the folder you want to use as the home folder for your Lict chatbot.
 3. Open a command terminal, `cd` into the folder you put the jar file in, 
 and use the `java -jar Lict.jar` command to run the application. 
