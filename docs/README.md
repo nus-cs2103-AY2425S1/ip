@@ -18,6 +18,8 @@ Command Line Interface (CLI) while still maintaining an aesthetic Graphical User
   - [Sorting Tasks: `sort`](#sorting-tasks)
   - [Finding a task: `find`](#finding-a-task)
 - [Saving Data: `bye`](#saving-data)
+- [Known Issues](#known-issues)
+- [FAQS](#faqs)
 - [Command Summary](#command-summary)
 
 ## Quick start guide
@@ -141,6 +143,15 @@ The above command will return any tasks which have a description that contains '
 
 Once you are finished with the chatbot, simply type ```bye```. SirPotato will then automatically save your data to the file it loaded earlier. Nothing else is needed from you and you may then close the application by hitting the x in the top left corner of the window. 
 
+## Known issues 
+
+1. **Forgetting to use `bye` when finished.** If you forget to use the `bye` command when exiting, it will not save your data to the file.
+
+## FAQs
+
+**Q:** How do I transfer my data to another Computer?
+**A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+
 ## Command summary
 
 | Command                        | Description      |Example                               |
@@ -153,7 +164,9 @@ Once you are finished with the chatbot, simply type ```bye```. SirPotato will th
 | `unmark <task_number>`             | Unmarks a task as not done                                 | `unmark 1`                                               |
 | `delete <task_number>`             | Deletes a task                                             | `delete 2`                                               |
 | `sort description`                 | Sorts tasks by description                                 | `sort description`                                       |
-| `sort deadline`                    | Sorts tasks by deadline                                    | `sort deadline`                                          |
+| `sort deadline`                    | Sorts tasks by deadline                                    | `sort deadline` 
+| `find <search_string>`       |  Finds tasks matching the search_string | `search book`
 | `bye` | Saves your data | `bye`
+
 
 
