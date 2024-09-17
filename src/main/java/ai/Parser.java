@@ -40,7 +40,8 @@ public class Parser {
     }
 
     private static Command parseDeadlineCommand(String arguments) throws AiException {
-        checkArgumentNotEmpty(arguments, "deadline", "deadline date w Ai <3 /by Wed");
+        checkArgumentNotEmpty(arguments, "deadline",
+                "deadline date w Ai <3 /by 30/08/2001 2359\n");
         String[] parsedInput = arguments.split(" /by ", 2);
         return new AddCommand(new Deadline(parsedInput[0], parsedInput[1]));
     }
