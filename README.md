@@ -1,4 +1,6 @@
-# kita project template
+# Kita project template
+
+### [User Documentation](https://tkaixiang.github.io/ip/)
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
@@ -71,5 +73,5 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 
     - This runs `checkstyle` and unit tests in our case
     - ```
-    .\gradlew check
-    ```
+      .\gradlew check
+      ```
