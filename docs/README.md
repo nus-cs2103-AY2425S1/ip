@@ -77,7 +77,7 @@ Format: `mark <task_index>`
       ```
 
 ### Unmark tasks: `unmark`
-Unmark a specific task as not done
+Mark a specific task as not done
 
 Format: `unmark <task_index>`
 
