@@ -226,18 +226,19 @@ Here are the tasks on the 2025-09-17:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
-Action | Format, Examples
---------|------------------
-**List** | `list`
-**Mark as done** | `mark INDEX` <br> e.g., `mark 1`
-**Unmark as not done** | `unmark INDEX` <br> e.g., `unmark 1`
-**Delete** | `delete INDEX` <br> e.g. `delete 1`
-**Find Tasks with matching keyword** | `find KEYWORD` <br> e.g. `find assignment`
-**Todo** | `todo DESCRIPTION` <br> e.g. `todo sleep`
-**Deadline** | `deadline DESCRIPTION /by DATE TIME` <br> e.g. `deadline finish assignment /by 17/09/2025 2359`
-**Event** | `event DESCRIPTION /from DATE TIME /to DATE TIME` <br> e.g. `event project meeting /from 17/09/2025 1400 /to 17/09/2025 1500`
-**Bye** | `bye`
-**Save** | `save`
-**Help** | `help`
-**Query Date** | `query DATE` <br> e.g. `query 17/09/2025`
+
+| Action                               | Format, Examples                                                                                                               |
+|--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| **List**                             | `list`                                                                                                                         |
+| **Mark as done**                     | `mark INDEX` <br> e.g., `mark 1`                                                                                               |
+| **Unmark as not done**               | `unmark INDEX` <br> e.g., `unmark 1`                                                                                           |
+| **Delete**                           | `delete INDEX` <br> e.g., `delete 1`                                                                                           |
+| **Find Tasks with matching keyword** | `find KEYWORD` <br> e.g., `find assignment`                                                                                    |
+| **Todo**                             | `todo DESCRIPTION` <br> e.g. `todo sleep`                                                                                      |
+| **Deadline**                         | `deadline DESCRIPTION /by DATE TIME` <br> e.g., `deadline finish assignment /by 17/09/2025 2359`                               |
+| **Event**                            | `event DESCRIPTION /from DATE TIME /to DATE TIME` <br> e.g., `event project meeting /from 17/09/2025 1400 /to 17/09/2025 1500` |
+| **Bye**                              | `bye`                                                                                                                          |
+| **Save**                             | `save`                                                                                                                         |
+| **Help**                             | `\help`                                                                                                                        |
+| **Query Date**                       | `query DATE` <br> e.g., `query 17/09/2025`                                                                                     |
     
