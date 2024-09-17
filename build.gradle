@@ -46,7 +46,12 @@ application {
 
 shadowJar {
     archiveBaseName = "Ollie"
+    archiveFileName = "Ollie.jar"
     archiveClassifier = null
+}
+
+tasks.named('jar').configure {
+    enabled = false
 }
 
 run{

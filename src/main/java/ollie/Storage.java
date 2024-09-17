@@ -39,7 +39,7 @@ public class Storage {
     public ArrayList<Task> load() throws OllieException {
         try {
             File f = new File(filePath);
-            f.createNewFile();
+            createDirectoryAndFile(f);
             Scanner s = new Scanner(f);
             ArrayList<Task> tasks = new ArrayList<>();
             parseFile(f, s, tasks);
@@ -47,6 +47,16 @@ public class Storage {
         } catch (IOException e) {
             throw new OllieException(e.getMessage());
         }
+    }
+
+    private void createDirectoryAndFile(File f) throws IOException {
+        // Ensure parent directories exist
+        File parentDir = f.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();  // Create directories if they don't exist
+        }
+
+        f.createNewFile();
     }
 
     private void parseFile(File f, Scanner s, ArrayList tasks) throws CorruptFileException {
