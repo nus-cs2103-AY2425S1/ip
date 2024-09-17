@@ -7,6 +7,10 @@ import bing.task.TaskList;
 import bing.ui.Ui;
 import bing.parser.Parser;
 
+/**
+ * Bing is the main class that initializes and runs the task management system.
+ * It handles interactions between the user, storage, tasks, and parser.
+ */
 public class Bing {
 
     private Storage storage;
@@ -14,6 +18,12 @@ public class Bing {
     private Ui ui;
     private Parser parser;
 
+
+    /**
+     * Initializes a new Bing instance and loads tasks from the specified file.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Bing(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +36,9 @@ public class Bing {
         }
     }
 
+    /**
+     * Starts the task management system and processes user commands
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -37,6 +50,11 @@ public class Bing {
         }
     }
 
+    /**
+     * Main entry point for the application.
+     *
+     * @param args command-line arguments
+     */
     public static void main(String[] args) {
         new Bing("data/tasks.txt").run();
     }
