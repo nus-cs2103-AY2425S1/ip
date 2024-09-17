@@ -33,6 +33,10 @@ public class TaskList implements Iterable<Task> {
         return TASKS.size();
     }
 
+    public void reset() {
+        TASKS.clear();
+    }
+
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
