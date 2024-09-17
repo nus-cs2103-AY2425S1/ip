@@ -11,6 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
     <children>
+    <!-- Used ChatGPT here to help construct the layout of the banner image and the chat window next to it -->
         <HBox layoutX="10.0" layoutY="10.0" prefHeight="650.0" prefWidth="600.0" spacing="20.0">
             <ImageView fx:id="imageView" fitHeight="650.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
             

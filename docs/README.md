@@ -18,6 +18,7 @@ The tone of the bot when you give it commands mimics its voice lines in-game and
  * [Finding Tasks](#finding-tasks)
  * [Marking Tasks](#marking-tasks)
  * [Other commands](#other-commands)
+ * [Help](#help)
  * [Datetimes](#datetimes)
  * [FAQs](#faqs)
 
@@ -86,6 +87,18 @@ An equivalent command `unmark` can be used to mark a completed task as incomplet
 ## Other commands
  * `list`: This command lists out all the tasks that are currently in the task list, along with the task type, completion status, description, and any associated datetime(s).
  * `bye`: This command saves the current task list to the file `data/taskList.txt` and exits the chatbot.
+
+## Help
+The `help` command can be used to get the usage of a particular command: `help <commandName>`.
+
+Example: `help event`
+
+Output:
+```
+Usage: event <task> /from <datetime> /to <datetime>
+Datetimes formatted as follows: dd/mm/yy h[:m]am/pm
+See user guide for more details: https://dinoman44.github.io/ip
+```
 
 ## Datetimes
 All datetimes need to be entered in the following format:

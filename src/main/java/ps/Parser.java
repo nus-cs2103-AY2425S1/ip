@@ -24,6 +24,8 @@ public class Parser {
             = Pattern.compile("find (.+)");
     private static final Pattern UPDATE_CMD_PATTERN
             = Pattern.compile("update (\\d+)");
+    private static final Pattern HELP_CMD_PATTERN
+            = Pattern.compile("help (.+)");
 
     /**
      * Takes in a string representing a date and time and returns a representative LocalDateTime object
@@ -228,6 +230,14 @@ public class Parser {
                     );
                 } else {
                     return new ErrorCommand("Hang on I don't get what you want do update!");
+                }
+            } else if (userInput.startsWith("help")) {
+                Matcher helpMatch = HELP_CMD_PATTERN.matcher(userInput);
+
+                if (helpMatch.find()) {
+                    return new HelpCommand(helpMatch.group(1));
+                } else {
+                    return new HelpCommand();
                 }
             } else {
                 return new ErrorCommand("Uhhh I did not get that so I'm just gonna say yes!");
