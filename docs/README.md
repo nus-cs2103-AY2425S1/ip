@@ -1,23 +1,24 @@
-# Duke User Guide
+# Terminator User Guide
 
-// Update the title above to match the actual product name
+![Product screenshot](Ui.png)
 
-// Product screenshot goes here
+The Terminator Chatbot is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).  
 
-// Product intro goes here
+## Viewing Help
+
+Shows a message explaning how to access the help page.
+
+Format: `help`
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Adds a deadline task to the task list.
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: `deadline destroy aliens /by 01/01/2000 0900`
 
 ```
-expected output
+Mission parameters updated. Added new objective:
+[D][ ] destroy aliens by: Jan 1 2000 09:00
 ```
 
 ## Feature ABC
