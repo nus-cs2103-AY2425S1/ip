@@ -40,99 +40,21 @@ public class Parser {
 
         switch (commandType) {
         case TODO:
-            assert words.length == 2 : "todo command needs a description";
-            if (words.length < 2 || words[1].trim().isEmpty()) {
-                throw new JustbotException("Hey man the description for todo blank!");
-            }
-            return new TodoCommand(words[1].trim());
+            return createTodoCommand(words);
         case DEADLINE:
-            if (words.length != 2) {
-                throw new JustbotException(
-                        "Invalid deadline command format. Use: deadline [task description] /by [dd/MM/yyyy HH:mm]");
-            }
-            String[] deadlineParts = words[1].split("/by", 2);
-            if (deadlineParts.length < 2) {
-                throw new JustbotException(
-                        "Invalid deadline command format. Use: deadline [task description] /by [dd/MM/yyyy HH:mm]");
-            }
-            assert deadlineParts.length == 2 : "deadline format is wrong";
-            String deadlineDescription = deadlineParts[0].trim();
-            if (deadlineDescription.isBlank()) {
-                throw new JustbotException("Hey man you can't leave the description for deadline blank!");
-            }
-            LocalDateTime byDateTime = parseDateTime(deadlineParts[1].trim());
-            return new DeadlineCommand(deadlineDescription, byDateTime);
+            return createDeadlineCommand(words);
         case EVENT:
-            if (words.length < 2) {
-                throw new JustbotException(
-                        "Invalid event command format. Use: event [task description] "
-                                + "/from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
-            }
-            String[] eventParts = words[1].split("/from", 2);
-            assert eventParts.length == 2 : "event format is wrong";
-            if (eventParts.length < 2) {
-                throw new JustbotException(
-                        "Invalid event command format. Use: event [task description] "
-                                + "/from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
-            }
-            String eventDescription = eventParts[0].trim();
-            if (eventDescription.isBlank()) {
-                throw new JustbotException("Hey man you can't leave the description for deadline blank!");
-            }
-            String[] timeParts = eventParts[1].split("/to", 2);
-            if (timeParts.length < 2) {
-                throw new JustbotException(
-                        "Invalid event time format. Use: /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
-            }
-            LocalDateTime startDateTime = parseDateTime(timeParts[0].trim());
-            LocalDateTime endDateTime = parseDateTime(timeParts[1].trim());
-            if (!startDateTime.isBefore(endDateTime)) {
-                throw new JustbotException("Hey man, why is the end date and time before the start date and time?");
-            }
-            return new EventCommand(eventDescription, startDateTime, endDateTime);
+            return createEventCommand(words);
         case LIST:
             return new ListCommand();
         case FIND:
-            if (words.length < 2) {
-                throw new JustbotException("Hey man, follow the format:\n" + "find [task description]");
-            }
-            String keywordString = words[1];
-            String[] keywordsArr = keywordString.split(" ");
-            assert keywordsArr.length > 0 : "find command needs at least one keyword";
-            return new FindCommand(keywordsArr);
+            return createFindCommand(words);
         case MARK:
-            if (words.length < 2) {
-                throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
-            }
-            try {
-                int markNumber = Integer.parseInt(words[1].trim());
-                assert markNumber > 0 : "mark number cannot be negative";
-                return new MarkCommand(markNumber);
-            } catch (NumberFormatException e) {
-                throw new JustbotException("Hey man, follow the format:\n" + "mark [task number]");
-            }
+            return createMarkCommand(words);
         case UNMARK:
-            if (words.length < 2) {
-                throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
-            }
-            try {
-                int unmarkNumber = Integer.parseInt(words[1].trim());
-                assert unmarkNumber > 0 : "unmark number cannot be negative";
-                return new UnmarkCommand(unmarkNumber);
-            } catch (NumberFormatException e) {
-                throw new JustbotException("Hey man, follow the format:\n" + "unmark [task number]");
-            }
+            return createUnmarkCommand(words);
         case DELETE:
-            if (words.length < 2) {
-                throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
-            }
-            try {
-                int deleteNumber = Integer.parseInt(words[1].trim());
-                assert deleteNumber > 0 : "delete number cannot be negative";
-                return new DeleteCommand(deleteNumber);
-            } catch (NumberFormatException e) {
-                throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
-            }
+            return createDeleteCommand(words);
         case BYE:
             return new ByeCommand();
         case UNKNOWN:
@@ -156,4 +78,112 @@ public class Parser {
             throw new JustbotException("Invalid date and time format. Please use [dd/MM/yyyy HH:mm].");
         }
     }
+
+    public TodoCommand createTodoCommand(String[] words) throws JustbotException {
+        assert words.length == 2 : "todo command needs a description";
+        if (words.length < 2 || words[1].trim().isEmpty()) {
+            throw new JustbotException("Hey man the description for todo blank!");
+        }
+        return new TodoCommand(words[1].trim());
+    }
+
+    public DeadlineCommand createDeadlineCommand(String[] words) throws JustbotException {
+        if (words.length != 2) {
+            throw new JustbotException(
+                    "Invalid deadline command format. Use: deadline [task description] /by [dd/MM/yyyy HH:mm]");
+        }
+        String[] deadlineParts = words[1].split("/by", 2);
+        if (deadlineParts.length < 2) {
+            throw new JustbotException(
+                    "Invalid deadline command format. Use: deadline [task description] /by [dd/MM/yyyy HH:mm]");
+        }
+        assert deadlineParts.length == 2 : "deadline format is wrong";
+        String deadlineDescription = deadlineParts[0].trim();
+        if (deadlineDescription.isBlank()) {
+            throw new JustbotException("Hey man you can't leave the description for deadline blank!");
+        }
+        LocalDateTime byDateTime = parseDateTime(deadlineParts[1].trim());
+        return new DeadlineCommand(deadlineDescription, byDateTime);
+    }
+
+    public EventCommand createEventCommand(String[] words) throws JustbotException {
+        if (words.length < 2) {
+            throw new JustbotException(
+                    "Invalid event command format. Use: event [task description] "
+                            + "/from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
+        }
+        String[] eventParts = words[1].split("/from", 2);
+        assert eventParts.length == 2 : "event format is wrong";
+        if (eventParts.length < 2) {
+            throw new JustbotException(
+                    "Invalid event command format. Use: event [task description] "
+                            + "/from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
+        }
+        String eventDescription = eventParts[0].trim();
+        if (eventDescription.isBlank()) {
+            throw new JustbotException("Hey man you can't leave the description for deadline blank!");
+        }
+        String[] timeParts = eventParts[1].split("/to", 2);
+        if (timeParts.length < 2) {
+            throw new JustbotException(
+                    "Invalid event time format. Use: /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
+        }
+        LocalDateTime startDateTime = parseDateTime(timeParts[0].trim());
+        LocalDateTime endDateTime = parseDateTime(timeParts[1].trim());
+        if (!startDateTime.isBefore(endDateTime)) {
+            throw new JustbotException("Hey man, why is the end date and time before the start date and time?");
+        }
+        return new EventCommand(eventDescription, startDateTime, endDateTime);
+    }
+
+    public FindCommand createFindCommand(String[] words) throws JustbotException {
+        if (words.length < 2) {
+            throw new JustbotException("Hey man, follow the format:\n" + "find [task description]");
+        }
+        String keywordString = words[1];
+        String[] keywordsArr = keywordString.split(" ");
+        assert keywordsArr.length > 0 : "find command needs at least one keyword";
+        return new FindCommand(keywordsArr);
+    }
+
+    public MarkCommand createMarkCommand(String[] words) throws JustbotException {
+        if (words.length < 2) {
+            throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
+        }
+        try {
+            int markNumber = Integer.parseInt(words[1].trim());
+            assert markNumber > 0 : "mark number cannot be negative";
+            return new MarkCommand(markNumber);
+        } catch (NumberFormatException e) {
+            throw new JustbotException("Hey man, follow the format:\n" + "mark [task number]");
+        }
+    }
+
+    public UnmarkCommand createUnmarkCommand(String[] words) throws JustbotException {
+        if (words.length < 2) {
+            throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
+        }
+        try {
+            int unmarkNumber = Integer.parseInt(words[1].trim());
+            assert unmarkNumber > 0 : "unmark number cannot be negative";
+            return new UnmarkCommand(unmarkNumber);
+        } catch (NumberFormatException e) {
+            throw new JustbotException("Hey man, follow the format:\n" + "unmark [task number]");
+        }
+    }
+
+    public DeleteCommand createDeleteCommand(String[] words) throws JustbotException {
+        if (words.length < 2) {
+            throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
+        }
+        try {
+            int deleteNumber = Integer.parseInt(words[1].trim());
+            assert deleteNumber > 0 : "delete number cannot be negative";
+            return new DeleteCommand(deleteNumber);
+        } catch (NumberFormatException e) {
+            throw new JustbotException("Hey man, follow the format:\n" + "delete [task number]");
+        }
+    }
+
+
 }
