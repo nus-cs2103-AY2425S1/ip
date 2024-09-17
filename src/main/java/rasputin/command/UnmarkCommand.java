@@ -46,7 +46,7 @@ public class UnmarkCommand extends Command implements Undoable {
     /**
      * Undoes the command ie. marks the specified task.
      *
-     * @return Rasputin's
+     * @return Rasputin's response as a String
      * @throws RasputinException
      */
     @Override

@@ -36,7 +36,7 @@ public class Rasputin {
     /**
      * Parses the input from the user, executes the command given and returns the bot's output message.
      * @param input String input from the user
-     * @return String output of the bot
+     * @return String output of Rasputin
      */
     public String getResponse(String input) {
         try {

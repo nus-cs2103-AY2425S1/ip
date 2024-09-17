@@ -35,7 +35,7 @@ public class MarkCommand extends Command implements Undoable {
     public String execute() throws InvalidTaskException {
         try {
             tasks.mark(index);
-            String output = "Marked that as done for you.\n" + tasks.get(index).toString();
+            String output = "Good job! Marked that as done for you.\n" + tasks.get(index).toString();
             tasks.setLastCommand(this);
             return output;
         } catch (IndexOutOfBoundsException e) {
@@ -46,7 +46,7 @@ public class MarkCommand extends Command implements Undoable {
     /**
      * Undoes the command ie. unmarks the specified task.
      *
-     * @return Rasputin's
+     * @return Rasputin's response as a String
      * @throws RasputinException
      */
     @Override
