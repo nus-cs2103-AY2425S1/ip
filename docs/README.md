@@ -15,7 +15,7 @@ The design is inspired by [Arona from Blue Archive](https://bluearchive.fandom.c
 
 5. Use this command to run the application, a GUI should appear in a few seconds.
 ```
-java -jar Arona.jar
+java -jar arona.jar
 ``` 
 
 6. Type the command in the command box and press Enter to execute it.
