@@ -25,6 +25,9 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(300);
             stage.setMinWidth(500);
+
+            stage.setOnCloseRequest(e -> bocchiWrapper.onExit());
+
             fxmlLoader.<MainWindow>getController().setBocchiWrapper(bocchiWrapper);  // inject the Duke instance
             bocchiWrapper.setStage(stage);
             stage.show();
