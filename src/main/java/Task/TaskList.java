@@ -10,7 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 public class TaskList {
     private List<Task> array;
-    private static final String argumentsCountError = "Wrong number of Arguments";
     private static final String keywordError = "Wrong keyword";
     public TaskList(List<Task> array) {
         this.array = array;
@@ -30,9 +29,8 @@ public class TaskList {
      *
      * @param input the input string
      * @throws WrongKeyword if the input string does not start with a valid task keyword
-     * @throws MissingArg if there are wrong number of arguments in the input string
      */
-    public String handleTask(String input, Storage storage) throws WrongKeyword, MissingArg {
+    public String handleTask(String input, Storage storage) throws WrongKeyword{
         assert array != null : "empty list";
         if (input.startsWith("todo")) {
             try {
@@ -40,8 +38,8 @@ public class TaskList {
                 array.add(x);
                 storage.writeFile(array);
                 return Ui.uiTodo(array.size(), x);
-            } catch(Exception e) {
-                throw new MissingArg(argumentsCountError);
+            } catch(MissingArg e) {
+                return e.getMessage();
             }
         } else if (input.startsWith("deadline")) {
             try {
@@ -50,8 +48,8 @@ public class TaskList {
                 array.add(x);
                 storage.writeFile(array);
                 return Ui.uiDeadline(array.size(), x);
-            } catch (Exception e) {
-                throw new MissingArg(argumentsCountError);
+            } catch (MissingArg e) {
+                return e.getMessage();
             }
         } else if (input.startsWith("event")) {
             try {
@@ -60,8 +58,8 @@ public class TaskList {
                 array.add(x);
                 storage.writeFile(array);
                 return Ui.uiEvent(array.size(), x);
-            } catch (Exception e) {
-                throw new MissingArg(argumentsCountError);
+            } catch (MissingArg e) {
+                return e.getMessage();
             }
         } else {
             throw new WrongKeyword(keywordError);
@@ -73,11 +71,16 @@ public class TaskList {
      * @param input the input string containing the index of the task to be marked as done
      */
     public String markDone(String input, Storage storage) {
-        int index = input.charAt(input.length() - 1) - '0';
-        assert index >= 0: "wrong indexing";
-        array.get(index - 1).markAsDone();
-        storage.writeFile(this.array);
-        return Ui.uiMark(array.get(index - 1));
+        try {
+            int index = getIndex(input, array.size());
+            assert index >= 0: "wrong indexing";
+            array.get(index - 1).markAsDone();
+            storage.writeFile(this.array);
+            return Ui.uiMark(array.get(index - 1));
+        } catch (WrongIndex e) {
+            return e.getMessage();
+        }
+
     }
     /**
      * Marks a task as not done.
@@ -85,11 +88,16 @@ public class TaskList {
      * @param input the input string containing the index of the task to be marked as not done
      */
     public String markUnDone(String input, Storage storage) {
-        int index = input.charAt(input.length() - 1) - '0';
-        assert index >= 0: "wrong indexing";
-        array.get(index - 1).markAsNotDone();
-        storage.writeFile(this.array);
-        return Ui.uiUnMark(array.get(index - 1));
+        try {
+            int index = getIndex(input, array.size());
+            assert index >= 0: "wrong indexing";
+            array.get(index - 1).markAsNotDone();
+            storage.writeFile(this.array);
+            return Ui.uiUnMark(array.get(index - 1));
+        } catch (WrongIndex e) {
+            return e.getMessage();
+        }
+
     }
     /**
      * Deletes a task from the list.
@@ -97,15 +105,24 @@ public class TaskList {
      * @param input the input string containing the index of the task to be deleted
      */
     public String delete(String input, Storage storage) {
-        int index = input.charAt(input.length() - 1) - '0';
-        assert index >= 0: "wrong indexing";
-        Task t = array.get(index - 1);
-        array.remove(index - 1);
-        storage.writeFile(this.array);
-        return Ui.uiDelete(t, array.size());
+        try {
+            int index = getIndex(input, array.size());
+            assert index >= 0: "wrong indexing";
+            Task t = array.get(index - 1);
+            array.remove(index - 1);
+            storage.writeFile(this.array);
+            return Ui.uiDelete(t, array.size());
+        } catch (WrongIndex e) {
+            return e.getMessage();
+        }
     }
-    public List<Task> getArray() {
-        return this.array;
+
+    public static int getIndex(String input, int arrayLength) throws WrongIndex {
+        int index = input.charAt(input.length() - 1) - '0';
+        if (index <= 0 || index > arrayLength) {
+            throw new WrongIndex("Please enter a valid index. Index cannot be longer than size of list or negative");
+        }
+        return index;
     }
     public String search(String input) {
         String matchingWord = Parse.parseFind(input);

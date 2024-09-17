@@ -1,3 +1,1 @@
-E | 1 | project meeting | 2/12/2019 1400 | 2/12/2019 1800
-D | 0 | return book | 7/12/2019 1800
-D | 1 | return book | 7/12/2019 2200
+T | 1 | hi

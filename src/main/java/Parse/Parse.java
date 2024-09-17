@@ -18,7 +18,10 @@ public class Parse {
      * @param input the input string
      * @return the task description as a string
      */
-    public static String parseTodo(String input) {
+    public static String parseTodo(String input) throws MissingArg{
+        if (input.replaceAll("\\s", "").length() <= 4) {
+            throw new MissingArg("Please enter a task for Todo");
+        }
         return input.substring(todoParseSplitIndex);
     }
     /**
@@ -27,8 +30,12 @@ public class Parse {
      * @param input the input string
      * @return an array of strings
      */
-    public static String[] parseDeadline(String input) {
-        return input.substring(deadlineParseSplitIndex).split(deadlineSplitBy);
+    public static String[] parseDeadline(String input) throws MissingArg{
+        String[] s = input.substring(deadlineParseSplitIndex).split(deadlineSplitBy);
+        if (s.length != 2) {
+            throw new MissingArg("Wrong number of arguments for deadline task!");
+        }
+        return s;
     }
     /**
      * Parses an Event input string to get the task description, start time, and end time.
@@ -36,8 +43,12 @@ public class Parse {
      * @param input the input string
      * @return an array of strings
      */
-    public static String[] parseEvent(String input) {
-        return input.substring(eventParseSplitIndex).split(eventSplitBy);
+    public static String[] parseEvent(String input) throws MissingArg{
+        String[] s = input.substring(eventParseSplitIndex).split(eventSplitBy);
+        if (s.length != 3 || !input.contains("/from") || !input.contains("/to")) {
+            throw new MissingArg("Wrong number of arguments for event task!");
+        }
+        return s;
     }
     public static String parseFind(String input) {
         return input.substring(findParseSplitIndex);
@@ -64,15 +75,17 @@ public class Parse {
             return tasks.delete(input, storage);
         } else if (input.startsWith("find")) {
             return tasks.search(input);
-        } else if (input.startsWith("sort")) {
+        } else if (input.equals("sort")) {
             return tasks.sort(storage);
         }
-            try {
-                return tasks.handleTask(input, storage);
-            } catch (WrongKeyword | MissingArg e) {
-                System.out.println(e.getMessage());
-            }
+        try {
+            return tasks.handleTask(input, storage);
+        } catch (WrongKeyword e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
 
-        return "Please enter a valid command";
+
     }
+
 }
