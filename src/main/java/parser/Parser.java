@@ -7,6 +7,7 @@ import command.ByeCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.FindCommand;
+import command.InvalidIndexCommandException;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnknownCommandException;
@@ -87,14 +88,22 @@ public class Parser {
      * @param cmd The user input string representing the command.
      * @return A MarkCommand object or null if the command does not match.
      */
-    public Command parseIfMarkCommand(String cmd) {
-        if (!cmd.startsWith("mark")) {
+    public Command parseIfMarkCommand(String cmd) throws InvalidIndexCommandException {
+        if (!cmd.startsWith("mark ")) {
             return null;
         }
 
         // Parse command to get the index of the task
-        int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
-        return new MarkCommand(index);
+        if (cmd.length() <= ("mark ").length()) {
+            throw new InvalidIndexCommandException("Please enter a valid index.");
+        }
+
+        try {
+            int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
+            return new MarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new InvalidIndexCommandException("Please enter a valid index.");
+        }
     }
 
     /**
@@ -103,14 +112,22 @@ public class Parser {
      * @param cmd The user input string representing the command.
      * @return An UnmarkCommand object or null if the command does not match.
      */
-    public Command parseIfUnmarkCommand(String cmd) {
-        if (!cmd.startsWith("unmark")) {
+    public Command parseIfUnmarkCommand(String cmd) throws InvalidIndexCommandException {
+        if (!cmd.startsWith("unmark ")) {
             return null;
         }
 
         // Parse command to get the index of the task
-        int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
-        return new UnmarkCommand(index);
+        if (cmd.length() <= ("unmark ").length()) {
+            throw new InvalidIndexCommandException("Please enter a valid index.");
+        }
+
+        try {
+            int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
+            return new UnmarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new InvalidIndexCommandException("Please enter a valid index.");
+        }
     }
 
     /**
@@ -231,15 +248,22 @@ public class Parser {
      * @param cmd The user input string representing the command.
      * @return A DeleteCommand object or null if the command does not match.
      */
-    public Command parseIfDeleteCommand(String cmd) {
+    public Command parseIfDeleteCommand(String cmd) throws InvalidIndexCommandException {
         if (!cmd.startsWith("delete ")) {
             return null;
         }
 
         // Parse command to get the index of the task
-        int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
+        if (cmd.length() <= ("delete ").length()) {
+            throw new InvalidIndexCommandException("Please enter a valid index.");
+        }
 
-        return new DeleteCommand(index);
+        try {
+            int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
+            return new DeleteCommand(index);
+        } catch (NumberFormatException e) {
+            throw new InvalidIndexCommandException("Please enter a valid index.");
+        }
     }
 
     /**

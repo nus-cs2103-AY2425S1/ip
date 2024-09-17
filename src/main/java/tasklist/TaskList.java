@@ -114,7 +114,7 @@ public class TaskList {
      */
     public Task getTask(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new TaskListOutOfBoundsException(index + 1, size());
+            throw new TaskListOutOfBoundsException(size());
         }
         return tasklist.get(index);
     }
@@ -128,7 +128,7 @@ public class TaskList {
      */
     public Task mark(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new TaskListOutOfBoundsException(index + 1, size());
+            throw new TaskListOutOfBoundsException(size());
         }
 
         Task task = tasklist.get(index);
@@ -148,7 +148,7 @@ public class TaskList {
      */
     public Task unmark(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new TaskListOutOfBoundsException(index + 1, size());
+            throw new TaskListOutOfBoundsException(size());
         }
 
         Task task = tasklist.get(index);
@@ -168,7 +168,7 @@ public class TaskList {
      */
     public Task delete(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new TaskListOutOfBoundsException(index + 1, size());
+            throw new TaskListOutOfBoundsException(size());
         }
 
         Task task = tasklist.remove(index);

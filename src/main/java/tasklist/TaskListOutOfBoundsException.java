@@ -15,7 +15,7 @@ public class TaskListOutOfBoundsException extends OuiOuiBaguetteException {
      * @param index The index that was out of bounds.
      * @param size  The size of the task list.
      */
-    public TaskListOutOfBoundsException(int index, int size) {
-        super("Index " + index + " out of bounds for size " + size);
+    public TaskListOutOfBoundsException(int size) {
+        super("Invalid index for Tasklist of size " + size);
     }
 }
