@@ -2,7 +2,6 @@ package ScoobyDoo.UI;
 
 import java.io.IOException;
 
-import ScoobyDoo.UI.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

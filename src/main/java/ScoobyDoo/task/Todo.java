@@ -35,8 +35,4 @@ public class Todo extends Task{
         return String.format("[T] %s\n", super.toString());
     }
 
-
-    public static boolean matchTodo(String s) {
-        return s.startsWith("todo");
-    }
 }

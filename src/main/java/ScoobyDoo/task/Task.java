@@ -1,5 +1,4 @@
 package ScoobyDoo.task;
-import ScoobyDoo.exception.InputFormatException;
 
 /**
  * Represents a task with a description and a completion status.

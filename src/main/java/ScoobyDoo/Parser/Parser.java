@@ -2,10 +2,6 @@ package ScoobyDoo.Parser;
 import static ScoobyDoo.Parser.DeadlineParser.getDeadlineDate;
 import static ScoobyDoo.Parser.EventParser.getEventFromAndToDate;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import ScoobyDoo.Command.ByeCommand;
 import ScoobyDoo.Command.DeadlineCommand;
 import ScoobyDoo.Command.DeleteCommand;

@@ -45,10 +45,4 @@ public class Deadline extends Task{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:ma");
         return String.format("[D] %s (by: %s)\n", super.toString(), byDate.format(formatter));
     }
-
-
-
-    public static boolean matchDeadline(String s) {
-        return s.startsWith("deadline");
-    }
 }

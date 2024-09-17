@@ -46,10 +46,4 @@ public class Event extends Task{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:ma");
         return String.format("[E] %s (from: %s to: %s)\n",super.toString(), fromDate.format(formatter), toDate.format(formatter));
     }
-
-
-
-    public static boolean matchEvent(String s) {
-        return s.startsWith("event");
-    }
 }

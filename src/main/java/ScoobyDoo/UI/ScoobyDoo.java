@@ -3,22 +3,15 @@ import ScoobyDoo.Command.Command;
 import ScoobyDoo.Parser.Parser;
 import ScoobyDoo.exception.InputFormatException;
 import ScoobyDoo.storage.Storage;
-import ScoobyDoo.task.Event;
-import ScoobyDoo.task.Task;
 import ScoobyDoo.task.TaskList;
-import ScoobyDoo.task.Todo;
-import ScoobyDoo.task.Deadline;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 /**
  * The ScoobyDoo class represents the main application for managing tasks.
  * It handles user input, task management, and interaction with storage and UI components.
  */
 public class ScoobyDoo {
-    /** The name of the application. */
-    private final String name = "Scooby-Doo";
     /** The list of tasks managed by the application. */
     private TaskList taskList;
     /** The storage component for saving and loading tasks. */
