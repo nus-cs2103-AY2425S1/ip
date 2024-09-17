@@ -1,5 +1,7 @@
 package alisa.task;
 
+import java.time.LocalDateTime;
+
 public abstract class Task {
     private String taskDescription;
     private boolean isDone;
@@ -76,5 +78,9 @@ public abstract class Task {
      */
     public boolean containsWord(String keyword) {
         return taskDescription.contains(keyword);
+    }
+
+    public void changeDescription(String description) {
+        taskDescription = description;
     }
 }

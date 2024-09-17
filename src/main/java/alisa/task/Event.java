@@ -54,4 +54,22 @@ public class Event extends Task {
         return "E | " + this.getFileStatus() + " | "
                 + this.getTask() + " | " + startTime + "-" + endTime + "\n";
     }
+
+    public void changeStartTime(String time) throws AlisaException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm");
+            startTime = LocalDateTime.parse(time, formatter);
+        } catch (DateTimeParseException e) {
+            throw new AlisaException("Please write the deadline in the following format: yyyy-mm-dd hh:mm");
+        }
+    }
+
+    public void changeEndTime(String time) throws AlisaException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm");
+            endTime = LocalDateTime.parse(time, formatter);
+        } catch (DateTimeParseException e) {
+            throw new AlisaException("Please write the deadline in the following format: yyyy-mm-dd hh:mm");
+        }
+    }
 }
