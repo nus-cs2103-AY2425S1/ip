@@ -14,7 +14,7 @@ import tick.ui.Ui;
 
 public class DeleteCommandTest {
     @Test
-    public void testDelete() {
+    public void executeDelete_correctInput() {
         TaskList taskList = new TaskList(new ToDo("test"));
         DeleteCommand deleteCommand = new DeleteCommand(0);
         try {

@@ -95,4 +95,14 @@ public class Storage {
         }
         return taskList;
     }
+
+    /**
+     * Deletes the file.
+     *
+     * @throws IOException If an error occurs while deleting the file.
+     */
+    public void deleteFile() throws IOException {
+        File file = new File(this.filePath);
+        file.delete();
+    }
 }
