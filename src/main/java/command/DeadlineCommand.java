@@ -8,6 +8,7 @@ import task.DeadlineTask;
 import utility.CustomDateTimeFormatter;
 import utility.Storage;
 import utility.Strip;
+import utility.Tag;
 import utility.TaskList;
 import utility.Ui;
 
@@ -17,6 +18,7 @@ import utility.Ui;
 public class DeadlineCommand extends Command {
     private final String taskDescription;
     private final LocalDateTime deadlineDateTime;
+    private final Tag taskTag;
 
     /**
      * Creates a {@link DeadlineCommand} object without any information on
@@ -26,11 +28,14 @@ public class DeadlineCommand extends Command {
         super();
         this.taskDescription = "";
         this.deadlineDateTime = LocalDateTime.now();
+        this.taskTag = new Tag();
     }
 
-    private DeadlineCommand(String taskDescription, LocalDateTime deadlineDateTime) {
+    private DeadlineCommand(String taskDescription, LocalDateTime deadlineDateTime,
+            Tag taskTag) {
         this.taskDescription = taskDescription;
         this.deadlineDateTime = deadlineDateTime;
+        this.taskTag = taskTag;
     }
 
     /**
@@ -52,10 +57,11 @@ public class DeadlineCommand extends Command {
             throw new ElliotException("when is this due by?\n");
         }
         assert(splittedArguments.length == 2);
+        Tag extractedTaskTag = Tag.parseTagFromRawString(unparsedArguments);
         try {
             LocalDateTime resolvedDateTime = LocalDateTime.parse(splittedArguments[1],
                     CustomDateTimeFormatter.DATE_TIME_FORMATTER);
-            return new DeadlineCommand(splittedArguments[0], resolvedDateTime);
+            return new DeadlineCommand(splittedArguments[0], resolvedDateTime, extractedTaskTag);
         } catch (DateTimeParseException e) {
             throw new ElliotException("date format incorrect. try dd-MM-yyyy hhmm (24hr)\n", e);
         }
@@ -72,7 +78,7 @@ public class DeadlineCommand extends Command {
     public TaskList runCommand(TaskList taskList, Storage storage) {
         assert(taskDescription != "");
         TaskList newTaskList = taskList
-            .addTask(new DeadlineTask(taskDescription, deadlineDateTime));
+            .addTask(new DeadlineTask(taskDescription, deadlineDateTime, taskTag));
         Ui.say("Got it. I've added this task:\n"
                 + newTaskList.get(newTaskList.size() - 1) + "\n"
                 + "Now you have " + newTaskList.size() + " tasks in the list.\n");

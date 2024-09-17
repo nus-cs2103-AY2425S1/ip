@@ -1,5 +1,7 @@
 package task;
 
+import utility.Tag;
+
 /**
  * A Todo Task is a more specific implementation of {@link Task}.
  */
@@ -8,12 +10,12 @@ public class TodoTask extends Task {
     /**
      * {@inheritDoc}
      */
-    public TodoTask(String taskDescription) {
-        super(taskDescription);
+    public TodoTask(String taskDescription, Tag taskTag) {
+        super(taskDescription, taskTag);
     }
 
-    private TodoTask(boolean isDone, String taskDescription) {
-        super(isDone, taskDescription);
+    private TodoTask(boolean isDone, String taskDescription, Tag taskTag) {
+        super(isDone, taskDescription, taskTag);
     }
 
     /**
@@ -23,7 +25,7 @@ public class TodoTask extends Task {
     public Task markAsDone() {
         return super.isDone
             ? this
-            : new TodoTask(true, super.taskDescription);
+            : new TodoTask(true, super.taskDescription, taskTag);
     }
 
     /**
@@ -32,7 +34,7 @@ public class TodoTask extends Task {
     @Override
     public Task markAsUndone() {
         return super.isDone
-            ? new TodoTask(super.taskDescription)
+            ? new TodoTask(super.taskDescription, this.taskTag)
             : this;
     }
 
