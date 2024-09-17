@@ -18,7 +18,7 @@ import rizzler.command.TodoCommand;
 import rizzler.command.UnmarkCommand;
 
 /**
- * Takes in user input and processes it into the appropriate command type.
+ * Parser to take in user input and process it into the appropriate command type.
  * Also logs all past user inputs.
  */
 public class Parser {
