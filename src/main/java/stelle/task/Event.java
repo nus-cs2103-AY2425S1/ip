@@ -3,8 +3,6 @@ package stelle.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import stelle.exception.WrongDateFormatException;
-
 /**
  * This class represents an stelle.task.Event. It is child of the stelle.task.Task class.
  * @author Lee Ze Hao (A0276123J)
@@ -26,14 +24,10 @@ public class Event extends Task {
      * @param from A string indicating starting date and time of event.
      * @param to A string indicating end date and time of event.
      */
-    public Event(String name, String from, String to) {
+    public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name, TaskType.EVENT);
-        try {
-            this.from = LocalDateTime.parse(from.strip(), dateTimeInputFormatter);
-            this.to = LocalDateTime.parse(to.strip(), dateTimeInputFormatter);
-        } catch (Exception e) {
-            throw new WrongDateFormatException();
-        }
+        this.from = from;
+        this.to = to;
     }
 
     /**

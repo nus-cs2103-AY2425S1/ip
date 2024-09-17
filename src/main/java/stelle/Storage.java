@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import stelle.exception.StorageWriteException;
 import stelle.exception.TaskException;
 import stelle.exception.TaskWithoutTypeException;
+import stelle.exception.WrongDateFormatException;
 import stelle.task.Deadline;
 import stelle.task.Event;
 import stelle.task.Task;
@@ -22,6 +25,13 @@ import stelle.task.ToDo;
 
 public class Storage {
     private final String filePath;
+
+    private static final String DATE_TIME_INPUT_FORMATTER_PATTERN = "yyyy-MM-dd HH:mm";
+    private static final String DATE_TIME_OUTPUT_FORMATTER_PATTERN = "d LLLL yyyy HH:mm";
+    private static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter
+            .ofPattern(DATE_TIME_INPUT_FORMATTER_PATTERN);
+    private static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter
+            .ofPattern(DATE_TIME_OUTPUT_FORMATTER_PATTERN);
 
     /**
      * Creates a new stelle.Storage object.
@@ -130,7 +140,15 @@ public class Storage {
                 taskList.add(toDoTask);
                 break;
             case DEADLINE:
-                String by = taskString.split(" \\| ")[3];
+                String byString = taskString.split(" \\| ")[3];
+
+                // parse date
+                LocalDateTime by;
+                try {
+                    by = LocalDateTime.parse(byString.strip(), dateTimeInputFormatter);
+                } catch (Exception e) {
+                    throw new WrongDateFormatException();
+                }
                 Deadline deadlineTask = new Deadline(taskName, by);
                 if (taskIsDone) {
                     deadlineTask.mark();
@@ -141,8 +159,18 @@ public class Storage {
                 break;
             case EVENT:
                 String dates = taskString.split(" \\| ")[3];
-                String from = dates.split("to")[0];
-                String to = dates.split("to")[1];
+                String fromDate = dates.split("to")[0];
+                String toDate = dates.split("to")[1];
+                // parse dates
+                LocalDateTime from;
+                LocalDateTime to;
+                try {
+                    from = LocalDateTime.parse(fromDate.strip(), dateTimeInputFormatter);
+                    to = LocalDateTime.parse(toDate.strip(), dateTimeInputFormatter);
+                } catch (Exception e) {
+                    throw new WrongDateFormatException();
+                }
+
                 Event eventTask = new Event(taskName, from, to);
                 if (taskIsDone) {
                     eventTask.mark();
