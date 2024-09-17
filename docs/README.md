@@ -6,7 +6,20 @@ It is a desktop app for **managing tasks, optimized for use via a Command Line I
 than traditional GUI apps.
 
 * Table of Contents
-  {:toc}
+  * [Quick Start](#quick-start)
+  * [Features](#features)
+    * [Adding todos: `todo`](#adding-todos-todo)
+    * [Adding deadlines: `deadline`](#adding-deadlines-deadline)
+    * [Adding events: `event`](#adding-events-event)
+    * [Listing all tasks: `list`](#listing-all-tasks-list)
+    * [Deleteing a task: `delete`](#deleteing-a-task-delete)
+    * [Marking a task as done: `mark`](#marking-a-task-as-done-mark)
+    * [Unmarking a task as done: `unmark`](#unmarking-a-task-as-done-unmark)
+    * [Locating tasks by name: `find`](#locating-tasks-by-name-find)
+    * [Create a tag: `create`](#create-a-tag-create)
+    * [Tag a task: `tag`](#tag-a-task-tag)
+    * [Untag a task: `untag`](#untag-a-task-untag)
+    * [Exiting the program: `bye`](#exiting-the-program-bye)
 
 
 ---
