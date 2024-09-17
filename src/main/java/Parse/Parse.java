@@ -44,8 +44,11 @@ public class Parse {
      * @return an array of strings
      */
     public static String[] parseEvent(String input) throws MissingArg{
+        if (!input.contains("/from") || !input.contains("/to")) {
+            throw new MissingArg("Wrong number of arguments for event task!");
+        }
         String[] s = input.substring(eventParseSplitIndex).split(eventSplitBy);
-        if (s.length != 3 || !input.contains("/from") || !input.contains("/to")) {
+        if (s.length != 3) {
             throw new MissingArg("Wrong number of arguments for event task!");
         }
         return s;
