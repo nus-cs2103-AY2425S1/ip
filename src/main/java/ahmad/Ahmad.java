@@ -68,6 +68,7 @@ public class Ahmad extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Ahmad.class.getResource("/fx/MainView.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
+            stage.setTitle("Ahmad BOT");
             mainController = fxmlLoader.getController();
             mainController.pushBotMessage(WELCOME_MESSAGE);
             stage.show();
