@@ -3,7 +3,6 @@ package count;
 import java.io.FileNotFoundException;
 
 import count.action.Action;
-import count.action.Deactivate;
 import count.exception.CountException;
 import count.exception.IncorrectFormatException;
 import count.exception.InvalidTimelineException;
@@ -24,15 +23,14 @@ public class Count {
      */
     public Count(String filePath) {
         this.isOn = true;
-
         this.storage = new Storage(filePath);
-
         try {
             this.taskList = new TaskList(this.storage.load());
         } catch (FileNotFoundException | IncorrectFormatException | InvalidTimelineException e) {
             this.taskList = new TaskList();
         }
         this.parser = new Parser(this.taskList, filePath);
+        this.storage.setTaskList(this.taskList);
     }
 
     /**
@@ -45,10 +43,8 @@ public class Count {
         String response = "";
         try {
             Action curr = parser.parse(input);
-            if (curr instanceof Deactivate) {
-                this.isOn = false;
-            }
             response = curr.run();
+            this.storage.autoSave(curr);
         } catch (CountException e) {
             response = e.getMessage();
         }

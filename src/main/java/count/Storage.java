@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.PatternSyntaxException;
 
+import count.action.Action;
+import count.action.AddTask;
+import count.action.Delete;
+import count.action.Mark;
+import count.action.Save;
+import count.action.Unmark;
+import count.exception.CountException;
 import count.exception.IncorrectFormatException;
 import count.exception.InvalidTimelineException;
 import count.task.Deadline;
@@ -23,11 +30,11 @@ import count.task.ToDo;
  * @author Kieran Koh Jun Wei
  */
 public class Storage {
+    protected TaskList taskList;
     protected File file;
     protected String filePath;
     protected Scanner sc;
     protected DateTimeFormatter readerFormat = DateTimeFormatter.ofPattern("LLLL dd yyyy");
-
     /**
      * Constructs Storage object
      * @param filePath String filePath in which Storage will read from
@@ -36,6 +43,14 @@ public class Storage {
     public Storage(String filePath) {
         this.file = new File(filePath);
         this.filePath = filePath;
+    }
+
+    /**
+     * Setter for storage taskList
+     * @param taskList to be set
+     */
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
     }
 
     /**
@@ -94,5 +109,19 @@ public class Storage {
 
         }
         return listOfTasksRead;
+    }
+    /**
+     * Checks if the action modifies the taskList
+     * if so, creates and runs a Save object
+     * @param action to be checked
+     */
+    public void autoSave(Action action) throws CountException {
+        boolean isAddTask = action instanceof AddTask;
+        boolean isMarkUnmark = action instanceof Mark || action instanceof Unmark;
+        boolean isDelete = action instanceof Delete;
+        if (isAddTask || isMarkUnmark || isDelete) {
+            Save saveObject = new Save(this.taskList, this.filePath);
+            saveObject.run();
+        }
     }
 }
