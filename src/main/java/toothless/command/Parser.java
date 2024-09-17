@@ -16,6 +16,7 @@ public class Parser {
         UNMARK,
         DELETE,
         FIND,
+        HELP,
         UNKNOWN
     }
 
@@ -57,6 +58,9 @@ public class Parser {
         case "find":
             commandType = CommandType.FIND;
             break;
+        case "help":
+            commandType = CommandType.HELP;
+            break;
         default:
             commandType = CommandType.UNKNOWN;
         }
@@ -91,6 +95,8 @@ public class Parser {
             return new DeleteCommand(description);
         case FIND:
             return new FindCommand(description);
+        case HELP:
+            return new HelpCommand();
         default:
             return new UnknownCommand();
         }
