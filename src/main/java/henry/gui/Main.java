@@ -29,7 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Henry's Chatbot");
+            stage.setTitle("Henry");
             fxmlLoader.<MainWindow>getController().setHenry(henry); // inject the Henry instance
             stage.show();
         } catch (IOException e) {
