@@ -25,6 +25,9 @@ public class RemoveTagCommand extends Command {
         String tagName = parser.parseRemoveTagName(input).trim().toLowerCase();
         //remove tag from both taglist and task
         Task taggedTask = taskList.getTask(index);
+        if (!tagList.containsTag(tagName)) {
+            return guiResponses.tagNotFoundMsg(tagName);
+        }
         tagList.getTag(tagName).untagTask(taggedTask);
         if (tagList.getTag(tagName).getTaggedTasks().isEmpty()) {
             tagList.removeTag(tagName);

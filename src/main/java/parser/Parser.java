@@ -283,7 +283,12 @@ public class Parser {
         return new String[] {plainDesc.toString().trim(), startDate.toString().trim(), endDate.toString().trim()};
     }
 
-    public String parseTagName(String desc) {
+    /**
+     * Parses the tag name from a tag command
+     * @param desc of format findtag {text}
+     * @return the text
+     */
+    public String findTagParseTagName(String desc) {
         return desc.substring(7).trim();
     }
 
@@ -294,7 +299,7 @@ public class Parser {
      * @param desc of format tag /i{index} /t{text}
      * @return the text after /t
      */
-    public String parseTagText(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
+    public String tagCommandParseTagName(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
 
         int start = desc.indexOf("/t");
         if (start < 0) {
@@ -310,7 +315,7 @@ public class Parser {
      * @return the index after /i
      * @throws ChatterboxExceptions.ChatterBoxMissingParameter if no index is found
      */
-    public int parseTagIndex(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
+    public int tagCommandParseTaskIndex(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
         int start = desc.indexOf("/i");
         int end = desc.indexOf("/t");
         if (start < 0 || end < 0) {
@@ -345,7 +350,7 @@ public class Parser {
         int start = desc.indexOf("/i");
         int end = desc.indexOf("/t");
         if (start < 0 || end < 0) {
-            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag index missing");
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag input missing");
         }
         String sub = desc.substring(start + 2, end).trim();
         if (sub.isEmpty() || !sub.matches("\\d+")) {

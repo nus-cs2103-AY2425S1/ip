@@ -31,8 +31,8 @@ public class TagCommand extends Command {
                            TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
             ChatterboxExceptions.ChatterBoxMissingParameter {
         String result;
-        String tagText = parser.parseTagText(input);
-        int tagIndex = parser.parseTagIndex(input) - 1;
+        String tagText = parser.tagCommandParseTagName(input);
+        int tagIndex = parser.tagCommandParseTaskIndex(input) - 1;
         Tag tag;
         if (tagList.containsTag(tagText)) {
             tag = tagList.getTag(tagText);

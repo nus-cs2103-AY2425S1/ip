@@ -20,7 +20,7 @@ public class FindTagCommand extends Command {
                           TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
             ChatterboxExceptions.ChatterBoxMissingParameter {
         // input will be in format "findtag <tag>"
-        String tagName = parser.parseTagName(input).trim().toLowerCase();
+        String tagName = parser.findTagParseTagName(input).trim().toLowerCase();
         if (!tagList.containsTag(tagName)) {
             return guiResponses.tagNotFoundMsg(tagName);
         }
