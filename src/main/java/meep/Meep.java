@@ -79,6 +79,11 @@ public class Meep {
         }
     }
 
+    /**
+     * Returns the type of command that was last executed.
+     *
+     * @return The type of command that was last executed.
+     */
     public String getCommandType() {
         return this.commandType;
     }
