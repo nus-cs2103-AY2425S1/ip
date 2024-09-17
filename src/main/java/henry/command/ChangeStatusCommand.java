@@ -43,6 +43,12 @@ public class ChangeStatusCommand extends Command {
         }
     }
 
+    /**
+     * Validates the user's command input to ensure it contains at least one task.
+     *
+     * @param inputList The array of command input strings to be validated.
+     * @throws HenryException If the input does not contain enough arguments to mark or unmark a task.
+     */
     private void checkValidCommand(String[] inputList) throws HenryException {
         if (inputList.length <= 1) {
             throw new HenryException("You need to input at least one task to be marked or unmarked! "
