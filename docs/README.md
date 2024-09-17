@@ -1,10 +1,12 @@
-# JustBot User Guide
+# JustBot :man: User Guide
 
-> **JustBot** takes the weight off your shoulders by keeping track of your tasks. It’s literally your bro, helping you navigate your day-to-day responsibilities!
+![JustBot](Ui.png)
+
+> :muscle: **JustBot** takes the weight off your shoulders by keeping track of your tasks. It’s literally your bro, helping you navigate your day-to-day responsibilities!
 
 **JustBot** is:
 - text-based (u gotta bro language ***him***)
-- easy to learn
+- easy to learn 
 - ~~FAST~~ **SUPER FAST** to use
 ---
 # Adding tasks 
@@ -30,7 +32,7 @@ JustBot can display all your current tasks or provide details on a specific task
 - Command: `find [task description]`
 - JustBot returns you tasks matching the task description you provided him
 
-# Task Management
+# Task Management 
 JustBot can help you delete, mark and unmark your tasks 
 1. `delete`
 - Command: `delete [task number]`
@@ -49,5 +51,6 @@ When it is time to part ways with JustBot
 - Closes JustBot after 2 secs 
 ---
 # JustBot in action! 
+
 
 
