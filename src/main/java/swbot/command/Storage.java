@@ -54,6 +54,9 @@ public class Storage {
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> database = new ArrayList<>();
         File file = new File(this.file);
+        if (!file.exists() || file.length() == 0) {
+            return database;
+        }
         File directory = new File(file.getParent());
         checkFile(file);
         checkDirectory(directory);
@@ -156,6 +159,4 @@ public class Storage {
             database.add(task); // Add task to the database
         }
     }
-
-
 }
