@@ -120,3 +120,8 @@ Here are the items that matches your keyword:
 [D][] borrow books
 ```
 
+## Exiting the program
+Exits the program
+
+Format: `bye`
+
