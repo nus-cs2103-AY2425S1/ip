@@ -26,6 +26,13 @@ import justbot.exception.JustbotException;
  */
 public class Parser {
 
+    /**
+     * Parses the user input to determine and create the appropriate command.
+     *
+     * @param userInput The input entered by the user.
+     * @return The command created based on the parsed input.
+     * @throws JustbotException If an error occurs during command parsing.
+     */
     public Command parseCommand(String userInput) throws JustbotException {
         String[] words = userInput.split(" ", 2);
         CommandType commandType = CommandType.fromString(words[0].trim());
@@ -56,6 +63,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date and time string into a {@code LocalDateTime} object.
+     * The expected format for the date and time string is "dd/MM/yyyy HH:mm".
+     *
+     * @param dateTimeStr The date and time string to parse.
+     * @return A {@code LocalDateTime} object representing the parsed date and time.
+     * @throws JustbotException If the input string does not match the expected format.
+     */
     public LocalDateTime parseDateTime(String dateTimeStr) throws JustbotException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
