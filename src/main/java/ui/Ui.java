@@ -29,6 +29,10 @@ public class Ui {
         return "Oh no! You have input an unknown command!\n";
     }
 
+    public String saved() {
+        return "Successfully saved to database!";
+    }
+
     /**
      * Prints the error message when there is an incorrect format of the
      * command for deadline tasks.
@@ -77,7 +81,7 @@ public class Ui {
      */
 
     public String NumberFormatExceptionMessage() {
-        return "Please enter a valid task number\n";
+        return "Please enter a task number!\n";
     }
 
     /**
