@@ -32,15 +32,19 @@ public class YapBot {
      * Driver function to start the YapBot instance.
      */
     public String run() {
+        String startupMessage = "Powering up...System booted successfully.\nYapBot online.\nExtensive damage detected."
+                + "\nCore Systems 28% functional.";
 
         // Tries to load up tasks from hard drive
         try {
             this.taskList = new TaskList(storage.load());
+            String successMessage = "\n\nSave data detected...loaded successfully."
+                    + "\nYapBot will execute with data from previous instance.";
+            return startupMessage + successMessage;
         } catch (YapBotException e) {
-            return e.getMessage();
+            return startupMessage + "\n\n" + e.getMessage();
         }
-        return "Powering up...System booted successfully.\nYapBot online.\nExtensive damage detected."
-                + "\nCore Systems 28% functional.";
+
     }
 
     /**
@@ -69,6 +73,9 @@ public class YapBot {
      * @throws DateTimeParseException When Dates and Times are not inputted in the correct format.
      */
     public String getResponse(String input) throws YapBotException, NumberFormatException, DateTimeParseException {
+        assert this.taskList != null: "TaskList not instantiated";
+        assert this.storage != null: "Storage not instantiated";
+
         Command c = Parser.parse(input);
         shouldExit = c.isExit();
 

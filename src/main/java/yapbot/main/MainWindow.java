@@ -52,8 +52,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
         try {
             String response = yapBot.getResponse(input);
+            assert !response.isEmpty(): "No Response from YapBot";
+
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getYapBotDialog(response, yapBotImage, false)
