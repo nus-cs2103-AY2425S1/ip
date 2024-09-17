@@ -32,6 +32,8 @@ public class Ui extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle(APP_NAME);
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             Qwerty qwerty = new Qwerty();
             fxmlLoader.<MainWindow>getController().setQwerty(qwerty); // inject the Qwerty instance
             qwerty.start();
