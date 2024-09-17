@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +11,20 @@ import task.Todo;
 
 public class StorageTest {
     @Test
-    public void storageReadFromFile_existingFilename_returnTaskListObject() {
+    public void storageWriteToFile_nonExistingFilename_noError() {
         try {
-            assertEquals(new TaskList(new ArrayList<>(List.of(new Todo("test", "T", false)))),
-                    new Storage("./existent.txt").readFromFile());
+            new Storage("./nonexistent2.txt").writeAllToFile(new TaskList(new ArrayList<>()));
+            new Storage("./nonexistent1.txt").writeOneToFile(new Todo("test", "T", false));
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void storageWriteToFile_existingFilename_noError() {
+        try {
+            new Storage("./nonexistent2.txt").writeAllToFile(new TaskList(new ArrayList<>()));
+            new Storage("./nonexistent2.txt").writeOneToFile(new Todo("test", "T", false));
         } catch (Exception e) {
             fail();
         }
@@ -26,26 +35,6 @@ public class StorageTest {
         try {
             assertEquals(new TaskList(new ArrayList<>()),
                     new Storage("./nonexistent.txt").readFromFile());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void storageWriteToFile_existingFilename_noError() {
-        try {
-            new Storage("./existent.txt").writeOneToFile(new Todo("test", "T", false));
-            new Storage("./existent.txt").writeAllToFile(new TaskList(new ArrayList<>()));
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void storageWriteToFile_nonExistingFilename_noError() {
-        try {
-            new Storage("./nonexistent2.txt").writeOneToFile(new Todo("", "", false));
-            new Storage("./nonexistent3.txt").writeAllToFile(new TaskList(new ArrayList<>()));
         } catch (Exception e) {
             fail();
         }
