@@ -19,13 +19,10 @@ import jbot.task.EventTask;
 import jbot.task.Task;
 import jbot.task.ToDoTask;
 
-
 /**
  * A utility class for managing the storage of tasks in a JSON file.
  * This class cannot be instantiated.
  */
-
-@SuppressWarnings({"FeatureEnvy", "StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
 
 public class Storage {
     private Storage() {
@@ -40,6 +37,8 @@ public class Storage {
      */
     public static void init() {
         storageFile = Storage.getStorageFile();
+        assert storageFile != null : "Storage file should be initialized";
+        assert storageFile.exists() : "Storage file must exist after initialization";
     }
 
     /**
@@ -55,6 +54,7 @@ public class Storage {
         if (!file.exists()) {
             try {
                 // Ensure the parent directories exist
+                assert file.getParentFile() != null : "Parent directory of the file must not be null";
                 file.getParentFile().mkdirs();
 
                 // Create the file
@@ -71,6 +71,7 @@ public class Storage {
             System.out.println("File already exists: " + file.getAbsolutePath());
         }
 
+        assert file.exists() : "Storage file must exist after being retrieved or created";
         return file;
     }
 
@@ -79,12 +80,15 @@ public class Storage {
      * Converts tasks to JSON format and writes them to the file.
      */
     public static void updateData() {
+        assert storageFile != null : "Storage file must be initialized before updating data";
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(Storage.storageFile))) {
             StringBuilder json = new StringBuilder();
             json.append("[");
 
             for (int i = 0; i < TaskList.size(); i++) {
                 Task task = TaskList.get(i);
+                assert task != null : "Task in TaskList should not be null";
                 if (i > 0) {
                     json.append(",");
                 }
@@ -106,6 +110,8 @@ public class Storage {
      * @return The JSON string representing the task.
      */
     private static String taskToJson(Task task) {
+        assert task != null : "Task to convert to JSON must not be null";
+
         String type = task.getTaskTypeSymbol();
         String name = task.getName();
         String status = task.isDone() ? "X" : " ";
@@ -127,6 +133,8 @@ public class Storage {
      * Handles various task types and updates the task list accordingly.
      */
     public static void parseData() {
+        assert storageFile != null : "Storage file must be initialized before parsing data";
+
         ArrayList<Task> tasks = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(Storage.storageFile))) {
@@ -143,6 +151,7 @@ public class Storage {
             }
 
             JSONArray jsonArray = new JSONArray(json.toString());
+            assert jsonArray.length() >= 0 : "Parsed JSON array should not have negative length";
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -164,12 +173,13 @@ public class Storage {
                     String deadline = jsonObject.getString("deadline");
                     task = new DeadlineTask(name, deadline);
                     break;
+                default:
+                    assert false : "Unknown task type: " + type;
                 }
 
-                if (task != null) {
-                    if (done) task.markAsDone();
-                    tasks.add(task);
-                }
+                assert task != null : "Parsed task should not be null";
+                if (done) task.markAsDone();
+                tasks.add(task);
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
@@ -191,6 +201,7 @@ public class Storage {
      * @return The extracted value.
      */
     private static String getValue(String field) {
+        assert field != null && field.contains(":") : "Field must contain a valid key-value format";
         return field.split(":")[1].replace("\"", "").trim();
     }
 }
