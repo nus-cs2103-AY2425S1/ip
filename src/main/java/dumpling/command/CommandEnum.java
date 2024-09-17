@@ -31,7 +31,7 @@ public enum CommandEnum {
         } catch (IllegalArgumentException e) {
             throw new DumplingException(
                     String.format(
-                            "%s is not a valid command!\n"
+                            "    %s is not a valid command!\n"
                                     + "     To list items, use 'list'.\n"
                                     + "     To mark or unmark an item as done, use '<mark/unmark> <item index>'.\n"
                                     + "     To add a new item, use '<todo/deadline/event> <task name> <args>'.",

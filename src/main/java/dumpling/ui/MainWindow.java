@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
         dumpling = d;
         ui = new Ui();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDumplingDialog(ui.getWelcomeMessage(), dumplingImage)
+                DialogBox.getDumplingDialog(ui.getWelcomeMessage(), dumplingImage, false)
         );
     }
 
@@ -53,14 +53,17 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response;
+        boolean isErrorMessage;
         try {
             response = dumpling.getResponse(input);
+            isErrorMessage = false;
         } catch (DumplingException e) {
             response = e.getMessage();
+            isErrorMessage = true;
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDumplingDialog(response, dumplingImage)
+                DialogBox.getDumplingDialog(response, dumplingImage, isErrorMessage)
         );
         userInput.clear();
         // TODO: how to close the window :')

@@ -47,15 +47,19 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDumplingDialog(String text, Image img) {
+    public static DialogBox getDumplingDialog(String text, Image img, boolean isErrorMessage) {
         var db = new DialogBox(text, img);
         db.flip();
+        if (isErrorMessage) {
+            db.getStyleClass().add("error-label");
+        }
         return db;
     }
 }
