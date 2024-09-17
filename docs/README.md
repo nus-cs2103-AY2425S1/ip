@@ -1,7 +1,6 @@
 # Bwead User Guide
 
-![screenshot of gui]
-(https://jiaaaaen.github.io/ip/Ui.png)
+![Ui](https://github.com/user-attachments/assets/cdb08fb4-0196-4223-84c1-b2d1a7e566a8)
 
 Bwead is a chatbox which helps you keep track of your Todos, Deadlines, and Events!
 
