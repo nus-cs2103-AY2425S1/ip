@@ -11,7 +11,6 @@ public class Event extends Task {
 
     /**
      * Constructor of the Event
-     * 
      * @param description Description of the event
      * @param start The starting time of the event
      * @param end The ending time of the event
@@ -24,17 +23,18 @@ public class Event extends Task {
 
     /**
      * Constructor of the Event
-     * 
      * @param description Description of the event
      * @param start The starting time of the event (In string format, to be converted later)
      * @param end The ending time of the event (In string format, to be converted later)
      */
     public Event(String description, String start, String end) {
-        this(description, Converter.InputToDateTime(start), Converter.InputToDateTime(end));
+        this(description, Converter.inputToDateTime(start), Converter.inputToDateTime(end));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Converter.DateTimeToOutput(start) + " to: " + Converter.DateTimeToOutput(end) + ")";
+        return "[E]" + super.toString()
+            + " (from: " + Converter.dateTimeToOutput(start)
+            + " to: " + Converter.dateTimeToOutput(end) + ")";
     }
 }

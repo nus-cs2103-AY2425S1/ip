@@ -1,16 +1,25 @@
 package command;
 
-import task.Task;
-import task.Event;
-import exception.ParserException;
-import task.Converter;
-import tasklist.TaskList;
-import ui.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class EventCommand implements Command {
+import exception.ParserException;
+import task.Converter;
+import task.Event;
+import task.Task;
+import tasklist.TaskList;
+import ui.Ui;
+
+/**
+ * Handles related issues to the event command
+ */
+public class EventCommand extends Command {
     private Task event;
+    /**
+     * Constructor for the command from command line
+     * @param cmdline The command line from user
+     * @throws ParserException If invalid format found in the command line
+     */
     public EventCommand(String cmdline) throws ParserException {
         String[] args = cmdline.split(" ", 2);
         if (args.length == 1) {
@@ -24,30 +33,27 @@ public class EventCommand implements Command {
         if (args2.length >= 4) {
             throw new ParserException("Too much argument end for event command");
         }
-        
         String description = args2[0];
         LocalDateTime start;
         LocalDateTime end;
         try {
-            start = Converter.InputToDateTime(args2[1]);
+            start = Converter.inputToDateTime(args2[1]);
         } catch (DateTimeParseException e) {
             throw new ParserException("Invalid format for argument start");
         }
 
         try {
-            end = Converter.InputToDateTime(args2[2]);
+            end = Converter.inputToDateTime(args2[2]);
         } catch (DateTimeParseException e) {
             throw new ParserException("Invalid format for argument end");
         }
-            
         this.event = new Event(description, start, end);
     }
 
+    @Override
     public void execute(TaskList tasks, Ui ui) {
         tasks.add(this.event);
         ui.println("A task is added");
         ui.println(this.event);
     }
-
-    public boolean isExit() { return true; }
 }

@@ -6,7 +6,6 @@ package task;
 public class ToDo extends Task {
     /**
      * Constructor for the ToDo
-     * 
      * @param description description of the task
      */
     public ToDo(String description) {

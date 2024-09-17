@@ -1,20 +1,21 @@
 package storage;
 
-import tasklist.TaskList;
-import exception.StorageException;
-import task.Converter;
-import task.Event;
-import task.Deadline;
-import task.Task;
-import task.ToDo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import exception.StorageException;
+import task.Converter;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+import tasklist.TaskList;
+
 /**
- * Handles loading tasks from and storing tasks to from file 
+ * Handles loading tasks from and storing tasks to from file
 */
 
 public class Storage {
@@ -25,8 +26,7 @@ public class Storage {
 
     /**
      * Loads the task list from file
-     * 
-     * @return The task list loaded from the file 
+     * @return The task list loaded from the file
      * @throws StorageException If the storage file is not found
      */
     public TaskList load() throws StorageException {
@@ -37,7 +37,7 @@ public class Storage {
             scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
             throw new StorageException(e.getMessage());
-        } 
+        }
 
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
@@ -49,15 +49,19 @@ public class Storage {
                 }
                 tasks.add(task);
             } else if (args[1].equals("D")) {
-                args = line.split("\\[|\\]\\[|\\] | \\(by: |\\)");
-                Task task = new Deadline(args[3], Converter.OutputToDateTime(args[4]));
+                String regex = "\\[|\\]\\[|\\] | \\(by: |\\)";
+                args = line.split(regex);
+                Task task = new Deadline(args[3], Converter.outputToDateTime(args[4]));
                 if (args[2].equals("X")) {
                     task.mark();
                 }
                 tasks.add(task);
             } else {
-                args = line.split("\\[|\\]\\[|\\] | \\(from: | to: |\\)");
-                Task task = new Event(args[3], Converter.OutputToDateTime(args[4]), Converter.OutputToDateTime(args[5]));
+                String regex = "\\[|\\]\\[|\\] | \\(from: | to: |\\)";
+                args = line.split(regex);
+                Task task = new Event(args[3],
+                                        Converter.outputToDateTime(args[4]),
+                                        Converter.outputToDateTime(args[5]));
                 if (args[2].equals("X")) {
                     task.mark();
                 }
@@ -67,15 +71,13 @@ public class Storage {
         scanner.close();
         return tasks;
     }
-    
     /**
      * Stores the task into file
-     * 
-     * @param tasks The task list to be stored 
+     * @param tasks The task list to be stored
      * @throws StorageException When encounters problem when trying writing to file
      */
     public void store(TaskList tasks) throws StorageException {
-        FileWriter writer; 
+        FileWriter writer;
         try {
             writer = new FileWriter(file);
             for (int i = 0; i < tasks.size(); ++i) {

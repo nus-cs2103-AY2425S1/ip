@@ -1,17 +1,17 @@
 package tomo;
 
-import exception.ParserException;
-
 import command.ByeCommand;
 import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.ToDoCommand;
 import command.UnmarkCommand;
-import command.DeleteCommand;
-import command.DeadlineCommand;
-import command.EventCommand;
-import command.FindCommand;
+import exception.ParserException;
+
 /**
  *  Understands of input command
  */
@@ -19,8 +19,7 @@ import command.FindCommand;
 public class Parser {
     /**
      * Parses the user command
-     * 
-     * @param cmd The command input from user
+     * @param cmdline The command input from user
      * @return Type of command and additional arguments to support next step
      * @throws ParserException If the command has invalid format
      */
