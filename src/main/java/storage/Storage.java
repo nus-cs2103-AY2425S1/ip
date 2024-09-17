@@ -1,10 +1,6 @@
 package storage;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import task.Task;
 import todo.ToDo;
@@ -18,14 +14,38 @@ import event.Event;
  * </p>
  */
 public class Storage {
+    private String filePath;
+
+    /**
+     * Constructor for Storage class that initializes the filePath.
+     *
+     * @param filePath The initial file path to be used.
+     */
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     /**
      * Loads tasks from a specified file path into an array list of tasks.
      *
-     * @param filePath The file path to read the data from.
      * @return Returns an array list of tasks that has been read from the filePath.
      */
-    public ArrayList<Task> loadTaskListFromFile(String filePath) {
+    public ArrayList<Task> loadTaskListFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                File dir = new File(file.getParent());
+                if (!dir.exists()) {
+                    dir.mkdir();
+                }
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+                return null;
+            }
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -57,6 +77,7 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while loading the task list: " + e.getMessage());
+            return null;
         }
         return taskList;
     }
@@ -64,10 +85,23 @@ public class Storage {
     /**
      * Saves files from an array list of tasks to the specified file path.
      *
-     * @param filePath The file path to save the array list of tasks to.
      * @param taskList The array list of tasks to be saved in the specified file path.
      */
-    public void saveTaskListToFile(String filePath, ArrayList<Task> taskList) {
+    public void saveTaskListToFile(ArrayList<Task> taskList) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                File dir = new File(file.getParent());
+                if (!dir.exists()) {
+                    dir.mkdir();
+                }
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+                return;
+            }
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList) {
                 writer.write(taskToString(task));

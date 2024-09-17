@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.net.URL;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,14 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        String taskFileUrl = "build/resources/main/data/BeeBot.txt";
-                //"src/main/resources/data/BeeBot.txt";
-        if (taskFileUrl != null) {
-            beebot = new BeeBot(taskFileUrl);
-        } else {
-            System.out.println("File not found!");
-            return;
-        }
+        beebot = new BeeBot("./data/BeeBot.txt");
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));

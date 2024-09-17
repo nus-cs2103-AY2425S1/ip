@@ -19,7 +19,6 @@ import exceptions.MissingEventTimeException;
 public class BeeBot {
     private static Storage storage;
     private static ArrayList<Task> taskList;
-    private static String FILEPATH;
 
     /**
      * Constructs a {@code BeeBot} instance with the specified file path.
@@ -32,10 +31,9 @@ public class BeeBot {
      */
     public BeeBot(String filePath) {
         assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
-        FILEPATH = filePath;
-        storage = new Storage();
+        storage = new Storage(filePath);
         try {
-            taskList = storage.loadTaskListFromFile(filePath);
+            taskList = storage.loadTaskListFromFile();
             System.out.println(taskList);
         } catch (Exception e) {
             System.out.println("Error loading file: " + e.getMessage());
@@ -64,26 +62,26 @@ public class BeeBot {
                 assert Integer.parseInt(parts[1]) > 0 && Integer.parseInt(parts[1]) <= taskList.size() : "Task number is out of range";
                 Task doneTask = Parser.getTask(taskList, Integer.parseInt(parts[1]));
                 doneTask.markAsDone();
-                storage.saveTaskListToFile(FILEPATH, taskList);
+                storage.saveTaskListToFile(taskList);
                 return "🐝-utiful! Honeyboo marked this task as done:\n" + doneTask;
             case "unmark":
                 assert Integer.parseInt(parts[1]) > 0 && Integer.parseInt(parts[1]) <= taskList.size() : "Task number is out of range";
                 Task undoneTask = Parser.getTask(taskList, Integer.parseInt(parts[1]));
                 undoneTask.markAsUndone();
-                storage.saveTaskListToFile(FILEPATH, taskList);
+                storage.saveTaskListToFile(taskList);
                 return "🐝-utiful! Honeyboo marked this task as not done yet:\n" + undoneTask;
             case "todo":
                 if (parts.length == 1) throw new EmptyDescriptionException("Enter a description for the Todo Task.\n");
                 String todoName = Parser.concatenate(parts, 1);
                 TaskList.createToDo(todoName, taskList);
-                storage.saveTaskListToFile(FILEPATH, taskList);
+                storage.saveTaskListToFile(taskList);
                 return "Growl... Honeyboo added '" + todoName + "' to the list!";
             case "deadline":
                 if (parts.length == 1) throw new EmptyDescriptionException("Enter a description for the Deadline Task.\n");
                 String deadlineName = Parser.concatenateUntil(parts, "/by");
                 String deadlineDate = Parser.dateConverter(Parser.getFollowingDate(parts, "/by"));
                 TaskList.createDeadline(deadlineName, deadlineDate, taskList);
-                storage.saveTaskListToFile(FILEPATH, taskList);
+                storage.saveTaskListToFile(taskList);
                 return "BZZZZZ... Honeyboo added  '"  + deadlineName + "' to the list!";
             case "event":
                 if (parts.length == 1) throw new EmptyDescriptionException("Enter a description for the Event Task.\n");
@@ -91,12 +89,12 @@ public class BeeBot {
                 String startTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/from", "/to"));
                 String endTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/to", ""));
                 TaskList.createEvent(eventName, startTime, endTime, taskList);
-                storage.saveTaskListToFile(FILEPATH, taskList);
+                storage.saveTaskListToFile(taskList);
                 return "Grrrr... Honeyboo added '" + eventName + "' to the list!";
             case "delete":
                 assert Integer.parseInt(parts[1]) - 1 >= 0 && Integer.parseInt(parts[1]) - 1 < taskList.size() : "Task number is out of range";
                 TaskList.deleteEvent(Integer.parseInt(parts[1]) - 1, taskList);
-                storage.saveTaskListToFile(FILEPATH, taskList);
+                storage.saveTaskListToFile(taskList);
                 return "Yum yum in my tum tum! Task eaten!";
             case "find":
                 String taskName = Parser.concatenate(parts, 1);
@@ -116,7 +114,7 @@ public class BeeBot {
             case "update":
                 String updateTo = Parser.getUpdatedName(parts);
                 TaskList.updateTask(Integer.parseInt(parts[1]) - 1, updateTo, taskList);
-                storage.saveTaskListToFile(FILEPATH, taskList);
+                storage.saveTaskListToFile(taskList);
                 return "Task updated!";
             case "bye":
                 System.exit(0);
