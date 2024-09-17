@@ -38,6 +38,7 @@ enum Command {
 public class Parser {
     private final Ui ui;
     private final Storage storage;
+    private String commandType;
 
     /**
      * Constructs a {@code Parser} with a specified user interface.
@@ -45,6 +46,7 @@ public class Parser {
     public Parser(Storage storage) {
         this.ui = new Ui();
         this.storage = storage;
+        this.commandType = "";
     }
 
     /**
@@ -100,12 +102,14 @@ public class Parser {
      */
     public String checkCommand(String input, TaskList taskList) {
         if (CommandParser.checkCommandWithoutArgument(input, Command.BYE.toString())) {
+            this.commandType = Command.BYE.toString();
             return ui.bye();
 
         } else if (CommandParser.checkCommandWithArgument(input, Command.MARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsDone(index);
+                this.commandType = Command.MARK.toString();
                 return ui.doneTask(taskList.getTask(index));
             } catch (Exception e) {
                 return ui.invalidMarkCommand();
@@ -115,6 +119,7 @@ public class Parser {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsUndone(index);
+                this.commandType = Command.UNMARK.toString();
                 return ui.undoneTask(taskList.getTask(index));
             } catch (Exception e) {
                 return ui.invalidUnmarkCommand();
@@ -125,6 +130,7 @@ public class Parser {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 String output = ui.deleteTask(taskList.getTask(index), taskList.getSize());
                 taskList.deleteItem(index);
+                this.commandType = Command.DELETE.toString();
                 return output;
             } catch (Exception e) {
                 return ui.invalidDeleteCommand();
@@ -136,6 +142,7 @@ public class Parser {
                 String description = input.split(" ", 2)[1].split(" /by ")[0];
                 String by = formatDate(input.split(" /by ")[1]);
                 taskList.addItem(new Deadline(description, by));
+                this.commandType = Command.DEADLINE.toString();
                 return ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
                 return ui.invalidDeadlineCommand();
@@ -151,6 +158,7 @@ public class Parser {
                 String from = formatDate(input.split(" /from ")[1].split(" /to ")[0]);
                 String to = formatDate(input.split(" /to ")[1]);
                 taskList.addItem(new Event(description, from, to));
+                this.commandType = Command.EVENT.toString();
                 return ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
                 return ui.invalidEventCommand();
@@ -161,33 +169,43 @@ public class Parser {
             try {
                 String description = input.split(" ", 2)[1];
                 taskList.addItem(new Todo(description));
+                this.commandType = Command.TODO.toString();
                 return ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
                 return ui.invalidTodoCommand();
             }
 
         } else if (CommandParser.checkCommandWithoutArgument(input, Command.LIST.toString())) {
+            this.commandType = Command.LIST.toString();
             return ui.listTasks(taskList.getList());
         } else if (CommandParser.checkCommandWithArgument(input, Command.FIND.toString())) {
             try {
                 String keyword = input.split(" ", 2)[1];
+                this.commandType = Command.FIND.toString();
                 return ui.findTasks(taskList.findTasks(keyword));
             } catch (ArrayIndexOutOfBoundsException e) {
                 return ui.invalidFindCommand();
             }
         } else if (CommandParser.checkCommandWithoutArgument(input, Command.HELP.toString())) {
+            this.commandType = Command.HELP.toString();
             return ui.help();
         } else if (CommandParser.checkCommandWithArgument(input, Command.ARCHIVE.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 String output = ui.archiveTask(taskList.getTask(index), taskList.getSize());
                 taskList.archiveItem(storage, index);
+                this.commandType = Command.ARCHIVE.toString();
                 return output;
             } catch (Exception e) {
                 return ui.invalidArchiveCommand();
             }
         }
         // Any other command will be considered invalid
+        this.commandType = "invalid";
         return ui.invalidCommand();
+    }
+
+    public String getCommandType() {
+        return this.commandType.toLowerCase();
     }
 }

@@ -1,5 +1,5 @@
 .root {
-    main-color: #DDDDDD;       /* Create a looked-up color called "main-color" within root. */
+    main-color: #E6E6FA;       /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
 }
 
@@ -9,12 +9,12 @@
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: #BDB5D5;
     -fx-font: italic bold 16px "Arial";
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color: #D8BFD8;
     -fx-font-size: 18px;
 }
 

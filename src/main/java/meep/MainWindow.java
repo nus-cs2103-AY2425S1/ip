@@ -48,9 +48,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = this.meep.getResponse(input);
+        String commandType = this.meep.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMeepDialog(response, meepImage)
+                DialogBox.getMeepDialog(response, meepImage, commandType)
         );
         userInput.clear();
     }

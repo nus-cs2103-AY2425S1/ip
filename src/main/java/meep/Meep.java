@@ -18,6 +18,7 @@ public class Meep {
     private TaskList taskList;
     private final Ui ui;
     private final Parser parser;
+    private String commandType;
 
     /**
      * Initializes a new instance of the {@code Meep} application with the specified file path.
@@ -45,6 +46,7 @@ public class Meep {
         try {
             String output = this.parser.checkCommand(input, taskList);
             storage.saveTasks(taskList);
+            this.commandType = this.parser.getCommandType();
             return output;
         } catch (MeepException e) {
             return ui.error();
@@ -75,6 +77,10 @@ public class Meep {
                 System.out.println(ui.error());
             }
         }
+    }
+
+    public String getCommandType() {
+        return this.commandType;
     }
 
     public static void main(String[] args) {

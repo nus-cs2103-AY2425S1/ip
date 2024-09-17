@@ -5,6 +5,26 @@
     -fx-border-radius: 1em 1em 0 1em;
 }
 
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #F1959B, #F1959B);
+}
+
+.help-label {
+    -fx-background-color: linear-gradient(to bottom right, #F0E68C, #F0E68C);
+}
+
+.mark-label {
+    -fx-background-color: linear-gradient(to bottom right, #B0E57C, #B0E57C);
+}
+
+.unmark-label {
+    -fx-background-color: linear-gradient(to bottom right, #FFD580, #FFD580);
+}
+
+.delete-label {
+    -fx-background-color: linear-gradient(to bottom right, #FFA07A, #FFA07A);
+}
+
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
