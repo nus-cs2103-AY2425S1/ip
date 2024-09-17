@@ -110,7 +110,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleHelpButton() {
         Alert alert = new Alert(AlertType.INFORMATION);
-
         alert.setTitle("Help Information");
         alert.setHeaderText(null);
 
@@ -119,9 +118,14 @@ public class MainWindow extends AnchorPane {
         grid.setHgap(10); // Horizontal gap between columns
         grid.setVgap(10); // Vertical gap between rows
 
-        // Add commands and descriptions in rows
-        grid.add(new Label("Command"), 0, 0);
-        grid.add(new Label("Description"), 1, 0);
+        // Command name, format and utility section
+        Label commandLabel = new Label("Command");
+        commandLabel.setStyle("-fx-font-weight: bold;");
+        grid.add(commandLabel, 0, 0);
+
+        Label descriptionLabel = new Label("Description");
+        descriptionLabel.setStyle("-fx-font-weight: bold;");
+        grid.add(descriptionLabel, 1, 0);
 
         grid.add(new Label("todo <description>"), 0, 1);
         grid.add(new Label("Create a new todo item"), 1, 1);
@@ -147,11 +151,25 @@ public class MainWindow extends AnchorPane {
         grid.add(new Label("bye"), 0, 8);
         grid.add(new Label("Exit the program"), 1, 8);
 
-        // Set the content of the alert to the GridPane
+        // Examples section
+        Label examplesLabel = new Label("\nExamples:");
+        examplesLabel.setStyle("-fx-font-weight: bold;");
+        grid.add(examplesLabel, 0, 9, 2, 1); // Span across 2 columns
+
+        grid.add(new Label("todo Buy treats for Dipsy"), 0, 10, 2, 1); // Span across 2 columns
+        grid.add(new Label("deadline Submit report /by 2024-05-12"), 0, 11, 2, 1);
+        grid.add(new Label("event Conference /from 2024-08-12 /to 2024-08-14"), 0, 12, 2, 1);
+        grid.add(new Label("mark 1"), 0, 13, 2, 1);
+
+        // Date format section
+        Label dateFormatLabel = new Label("\nDate format: yyyy-MM-dd");
+        dateFormatLabel.setStyle("-fx-font-weight: bold;");
+        grid.add(dateFormatLabel, 0, 14, 2, 1); // Span across 2 columns
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.setContent(grid);
 
         alert.showAndWait();
-
     }
+
 }
