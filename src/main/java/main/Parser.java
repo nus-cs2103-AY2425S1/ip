@@ -1,5 +1,6 @@
 package main;
 
+import command.*;
 import exception.CommandFoundButInvalidException;
 import exception.CommandNotFoundException;
 import exception.EmptyStringException;
@@ -60,40 +61,25 @@ public class Parser {
         Commands cmd = Commands.fromString(command);
         switch(cmd) {
         case TODO:
-            allTasks.addTodo(remainder);
-            storage.put(allTasks);
-            return ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize());
+            return new AddTodoCommand(remainder).execute(allTasks, ui, storage);
         case DEADLINE:
-            allTasks.addDeadline(remainder);
-            storage.put(allTasks);
-            return ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize());
+            return new AddDeadlineCommand(remainder).execute(allTasks, ui, storage);
         case EVENT:
-            allTasks.addEvent(remainder);
-            storage.put(allTasks);
-            return ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize());
+            return new AddEventCommand(remainder).execute(allTasks, ui, storage);
         case DELETE:
-            allTasks.delete(remainder);
-            storage.put(allTasks);
-            return ui.deleteMessage(this.allTasks.getLastDeleted(), this.allTasks.getSize());
+            return new DeleteCommand(remainder).execute(allTasks, ui, storage);
         case LIST:
-            return allTasks.list(remainder);
+            return new ListCommand(remainder).execute(allTasks, ui, storage);
         case MARK:
-            allTasks.mark(remainder);
-            storage.put(allTasks);
-            return ui.markedMessage(allTasks.getLastMarked());
+            return new MarkCommand(remainder).execute(allTasks, ui, storage);
         case UNMARK:
-            allTasks.unmark(remainder);
-            storage.put(allTasks);
-            return ui.unmarkedMessage(allTasks.getLastUnmarked());
+            return new UnmarkCommand(remainder).execute(allTasks, ui, storage);
         case FIND:
-            Stream<Task> result = allTasks.find(remainder);
-            return ui.findMessage() + "\n"
-                    + new TaskList(result.toList()).list("");
+            return new FindCommand(remainder).execute(allTasks, ui, storage);
         case BYE:
-            return ui.bye();
+            return new ByeCommand().execute(allTasks, ui, storage);
         case SORT:
-            return ui.sortMessage() + "\n"
-                    + new TaskList(allTasks.sort(remainder)).list("");
+            return new SortCommand(remainder).execute(allTasks, ui, storage);
         default:
             throw new CommandNotFoundException(command);
         }
