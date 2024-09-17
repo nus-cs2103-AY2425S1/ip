@@ -14,6 +14,7 @@ public class Deadline extends Task {
      */
     public Deadline(String desc) throws TaskException {
         super("", desc);
+        assert desc.startsWith("deadline");
         try {
             super.description = deadlineInputFormatter(desc);
             taskType = "[D]";

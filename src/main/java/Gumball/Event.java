@@ -14,6 +14,7 @@ public class Event extends Task {
      */
     public Event(String desc) throws TaskException {
         super("", desc);
+        assert desc.startsWith("event");
         try {
             super.description = eventInputFormatter(desc);
             taskType = "[E]";
@@ -30,3 +31,4 @@ public class Event extends Task {
         return output;
     }
 }
+
