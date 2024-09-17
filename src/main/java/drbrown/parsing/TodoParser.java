@@ -10,7 +10,11 @@ import drbrown.utils.DrBrownException;
  * A parser that handles the "todo" command input.
  * Responsible for parsing the input to create a {@link Todo} task.
  */
-public class TodoParser {
+public class TodoParser extends Parsing {
+
+    public TodoParser(String[] inputSplit) {
+        super(inputSplit);
+    }
 
     /**
      * Parses the input to create an {@link AddCommand} that adds a {@link Todo} task.
@@ -19,15 +23,15 @@ public class TodoParser {
      * @return An instance of {@link AddCommand} containing the {@link Todo} task.
      * @throws DrBrownException If the input is invalid, such as missing the description.
      */
-    public static Command parse(String[] inputSplit) throws DrBrownException {
-        assert inputSplit != null : "Input string array should not be null";
+    public Command parse() throws DrBrownException {
+        assert this.getInputSplit() != null : "Input string array should not be null";
         try {
-            if (inputSplit[1].trim().isEmpty()) {
+            if (this.getInputSplit()[1].trim().isEmpty()) {
                 throw new DrBrownException("Great Scott! You can't add a to-do without a "
                         + "description!\n\nUse the format: todo {description} /priority {priority}");
             }
 
-            String[] todoSplit = inputSplit[1].split("/priority");
+            String[] todoSplit = this.getInputSplit()[1].split("/priority");
 
             if (todoSplit.length == 1) {
                 throw new DrBrownException("Whoa, this priority is heavy! Set it to 1, 2, or 3 to "

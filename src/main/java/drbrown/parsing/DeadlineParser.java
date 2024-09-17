@@ -15,29 +15,32 @@ import drbrown.utils.DrBrownException;
  * Responsible for parsing the input to create a {@link Deadline} task
  * with a description and a date.
  */
-public class DeadlineParser {
+public class DeadlineParser extends Parsing {
 
     /** The formatter for parsing date and time in the specific format "MMM dd yyyy HH:mm". */
     static final DateTimeFormatter FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    public DeadlineParser(String[] inputSplit) {
+        super(inputSplit);
+    }
+
     /**
      * Parses the input to create an {@link AddCommand} that adds a {@link Deadline} task.
      *
-     * @param inputSplit An array of strings containing the user's input split by spaces.
      * @return An instance of {@link AddCommand} containing the {@link Deadline} task.
      * @throws DrBrownException If the input is invalid, such as missing description or date,
      *                          or if the date format is incorrect.
      */
-    public static Command parse(String[] inputSplit) throws DrBrownException {
-        assert inputSplit != null : "Input string array should not be null";
+    public Command parse() throws DrBrownException {
+        assert this.getInputSplit() != null : "Input string array should not be null";
         try {
-            if (inputSplit.length == 1) {
+            if (this.getInputSplit().length == 1) {
                 throw new DrBrownException("Great Scott! You can't add a deadline without a "
                         + "description and date!\nUse the format: deadline {description} /by "
                         + "{date} /priority {priority}");
             }
 
-            String[] deadlineSplit = inputSplit[1].split("/by | /priority");
+            String[] deadlineSplit = this.getInputSplit()[1].split("/by | /priority");
             if (deadlineSplit.length == 1) {
                 throw new DrBrownException("Hello? Hello? Anybody home? Looks like something's missing "
                         + "here!\nUse the format: deadline {description} /by {date} /priority {priority}");

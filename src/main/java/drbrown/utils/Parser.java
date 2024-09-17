@@ -29,15 +29,15 @@ public class Parser {
         String[] inputSplit = userInput.split(" ", 2);
 
         return switch (inputSplit[0]) {
-        case "todo" -> TodoParser.parse(inputSplit);
-        case "deadline" -> DeadlineParser.parse(inputSplit);
-        case "event" -> EventParser.parse(userInput, inputSplit);
-        case "mark" -> MarkParser.parse(inputSplit);
-        case "unmark" -> UnmarkParser.parse(inputSplit);
-        case "list" -> ListParser.parse(inputSplit);
-        case "delete" -> DeleteParser.parse(inputSplit);
-        case "bye" -> ByeParser.parse(inputSplit);
-        case "find" -> FindParser.parse(inputSplit);
+        case "todo" -> new TodoParser(inputSplit).parse();
+        case "deadline" -> new DeadlineParser(inputSplit).parse();
+        case "event" -> new EventParser(userInput, inputSplit).parse();
+        case "mark" -> new MarkParser(inputSplit).parse();
+        case "unmark" -> new UnmarkParser(inputSplit).parse();
+        case "list" -> new ListParser(inputSplit).parse();
+        case "delete" -> new DeleteParser(inputSplit).parse();
+        case "bye" -> new ByeParser(inputSplit).parse();
+        case "find" -> new FindParser(inputSplit).parse();
         default -> throw new DrBrownException("I'm from the future, and even I don't know what that means.");
         };
 
