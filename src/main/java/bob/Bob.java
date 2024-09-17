@@ -1,7 +1,8 @@
+package bob;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
@@ -200,7 +201,7 @@ public class Bob {
     }
 
     private static void greet() {
-        say("Hey there! Bob at your service.\n" +
+        say("Hey there! Bob.Bob at your service.\n" +
                 "Let's roll up our sleeves and get to work!");
     }
 

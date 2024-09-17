@@ -1,8 +1,8 @@
+package bob;
+
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAccessor;
 
 public class Event extends Task {
-
     protected LocalDateTime from;
     protected LocalDateTime to;
 
