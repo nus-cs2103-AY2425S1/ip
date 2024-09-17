@@ -1,5 +1,6 @@
 package kietwoforone.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -43,7 +44,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing KieTwoForOne's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -54,6 +55,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getKieDialog(response, chatbotImage)
         );
+        if (response == "Bye. Hope to see you again soon!") {
+            Platform.exit();
+        }
         userInput.clear();
     }
 }
