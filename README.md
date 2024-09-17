@@ -1,5 +1,5 @@
 # SkD User Guide
-![UI.png](..%2F..%2F..%2F..%2FScreenshots%2FUI.png)
+![Ui.png](docs%2FUi.png)
 
 Welcome to *SKD* (Simple Keeptracker Duke).  
 *SKD* is a personal task manager chatbot designed to help you track tasks easily.  
