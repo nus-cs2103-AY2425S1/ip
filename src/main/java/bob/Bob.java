@@ -10,8 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Bob {
     private static final DateTimeFormatter INPUT_FORMATTER =
@@ -25,14 +23,14 @@ public class Bob {
     private static final Storage STORAGE = new Storage("data/Bob.txt");
     private static final Ui UI = new Ui();
     private static String argument = "";
-    private static List<Task> list;
+    private static TaskList tasks;
 
     private enum Command {
         BYE("bye") {
             @Override
             public void run() {
                 try {
-                    STORAGE.save(list);
+                    STORAGE.save(tasks);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -43,16 +41,10 @@ public class Bob {
         LIST("list") {
             @Override
             public void run() {
-                if (list.isEmpty()) {
+                if (tasks.isEmpty()) {
                     UI.printWithFormat("You have not added any tasks yet.");
                 } else {
-                    StringBuilder text = new StringBuilder();
-                    int i;
-                    for (i = 0; i < list.size() - 1; ++i) {
-                        text.append(i + 1).append(".").append(list.get(i)).append("\n");
-                    }
-                    text.append(i + 1).append(".").append(list.get(i));
-                    UI.printWithFormat(text.toString());
+                    UI.printWithFormat(tasks.toString());
                 }
             }
         },
@@ -63,7 +55,7 @@ public class Bob {
                     throw new MissingArgumentException("description of the todo");
                 }
                 Task task = new Todo(argument.strip());
-                list.add(task);
+                tasks.add(task);
                 UI.printWithFormat("added: " + task);
             }
         },
@@ -84,7 +76,7 @@ public class Bob {
                         desc,
                         parseDateTime(by)
                 );
-                list.add(task);
+                tasks.add(task);
                 UI.printWithFormat("added: " + task);
             }
         },
@@ -97,7 +89,7 @@ public class Bob {
                     throw new MissingArgumentException("'from' and 'to' arguments to add an event");
                 } else {
                     Task task = getTask(fromIndex, toIndex);
-                    list.add(task);
+                    tasks.add(task);
                     UI.printWithFormat("added: " + task);
                 }
             }
@@ -127,18 +119,20 @@ public class Bob {
                 if (argument.isBlank()) {
                     throw new MissingArgumentException("index of the task that you want to mark");
                 }
+
                 int i;
                 try {
                     i = Integer.parseInt(argument) - 1;
                 } catch (NumberFormatException e) {
                     throw new IncorrectArgumentException("an integer");
                 }
-                if (i < 0 || i >= list.size()) {
+                if (i < 0 || i >= tasks.size()) {
                     throw new IncorrectArgumentException("a valid index");
                 }
-                list.get(i).mark();
+
+                tasks.get(i).mark();
                 UI.printWithFormat("Nice! I've marked this task as done:\n  " +
-                        list.get(i));
+                        tasks.get(i));
             }
         },
         UNMARK("unmark") {
@@ -153,12 +147,12 @@ public class Bob {
                 } catch (NumberFormatException e) {
                     throw new IncorrectArgumentException("an integer");
                 }
-                if (i < 0 || i >= list.size()) {
+                if (i < 0 || i >= tasks.size()) {
                     throw new IncorrectArgumentException("a valid index");
                 }
-                list.get(i).unmark();
+                tasks.get(i).unmark();
                 UI.printWithFormat("OK, I've marked this task as not done yet:\n" +
-                        list.get(i));
+                        tasks.get(i));
             }
         },
         DELETE("delete") {
@@ -173,13 +167,13 @@ public class Bob {
                 } catch (NumberFormatException e) {
                     throw new IncorrectArgumentException("an integer");
                 }
-                if (i < 0 || i >= list.size()) {
+                if (i < 0 || i >= tasks.size()) {
                     throw new IncorrectArgumentException("a valid index");
                 }
-                Task task = list.remove(i);
+                Task task = tasks.remove(i);
                 UI.printWithFormat("OK, I've removed this task:\n" +
                         task + "\n" +
-                        "Now you have " + list.size() + " tasks in the list.");
+                        "Now you have " + tasks.size() + " tasks in the list.");
             }
         },
         CATCH_ALL("") {
@@ -221,12 +215,12 @@ public class Bob {
         UI.printGreeting();
 
         try {
-            list = STORAGE.load();
+            tasks = STORAGE.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (BobException e) {
             UI.printError(e.getMessage());
-            list = new ArrayList<>();
+            tasks = new TaskList();
         }
 
         while (true) {

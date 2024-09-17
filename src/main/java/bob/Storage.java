@@ -9,12 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
-    private File file;
+    private final File file;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuuHHmm");
 
     public Storage(String filepath) {
@@ -108,12 +106,12 @@ public class Storage {
         return str.toString();
     }
 
-    public List<Task> load() throws IOException {
+    public TaskList load() throws IOException {
         if (!file.exists()) {
             createFile();
         }
 
-        List<Task> list = new ArrayList<>();
+        TaskList list = new TaskList();
         Scanner scanner;
         try {
             scanner = new Scanner(file);
@@ -132,7 +130,7 @@ public class Storage {
         return list;
     }
 
-    public void save(List<Task> tasksList) throws IOException {
+    public void save(TaskList tasksList) throws IOException {
         if (!file.exists()) {
             createFile();
         }
