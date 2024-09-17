@@ -38,6 +38,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setFitHeight(64);
+        displayPicture.setPreserveRatio(true);
     }
 
     /**
@@ -69,7 +71,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        Circle clip = new Circle(50, 50, 50);
+        Circle clip = new Circle(32, 32, 32);
         db.displayPicture.setClip(clip);
         return db;
     }
