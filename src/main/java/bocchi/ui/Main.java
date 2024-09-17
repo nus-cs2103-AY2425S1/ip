@@ -26,7 +26,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setMinHeight(300);
-            stage.setMinWidth(500);
+            stage.setMinWidth(600);
 
             stage.setOnCloseRequest(e -> bocchiWrapper.onExit());
 
