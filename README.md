@@ -1,8 +1,11 @@
-# Duke project template
+# Stelle
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> When there is a chance to make a choice, make one that you know you won't regret... - Stelle (Honkai: Star Rail)
 
-## Setting up in Intellij
+Stelle (Chat bot simulation) frees your mind of having to remember things you need to do. It is:
+*text-based
+*easy to learn
+*FAST to use
 
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
