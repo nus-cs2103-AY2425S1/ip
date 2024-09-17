@@ -1,4 +1,4 @@
-package skd.components;
+package fx;
 
 import java.io.IOException;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package skd;
+package fx;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import skd.components.MainWindow;
+import skd.SkD;
 
 /**
  * A GUI for Duke using FXML.

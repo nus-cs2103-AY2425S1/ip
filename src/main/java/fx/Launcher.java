@@ -1,4 +1,4 @@
-package skd;
+package fx;
 
 import javafx.application.Application;
 
