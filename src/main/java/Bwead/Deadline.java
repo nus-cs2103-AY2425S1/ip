@@ -38,6 +38,11 @@ public class Deadline extends Task {
         return this.text;
     }
 
+    public void setDateTime(LocalDate date, LocalTime time) {
+        this.date = date;
+        this.time = time;
+    }
+
     /**
      * Returns the string representation of a deadline task.
      *

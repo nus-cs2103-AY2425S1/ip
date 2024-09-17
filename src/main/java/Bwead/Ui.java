@@ -1,6 +1,8 @@
 package Bwead;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -81,6 +83,10 @@ public class Ui {
                 return handleDelete(parser);
             } else if (input.startsWith("find")) {
                 return handleFind(parser);
+            } else if (input.startsWith("snooze deadline")) {
+                return handleDeadlineSnooze(parser);
+            } else if (input.startsWith("snooze event")) {
+                return handleEventSnooze(parser);
             }
         } catch (BweadException e) {
             return (e.getMessage());
@@ -203,6 +209,58 @@ public class Ui {
             matchingTasksString = matchingTasksString + (i + 1) + "." + matches.get(i) + "\n";
         }
         return matchingTasksString;
+    }
+
+    /**
+     * Handles a snooze deadline command.
+     *
+     * @param parser
+     * @return string to return to user.
+     */
+    public String handleDeadlineSnooze(Parser parser) throws IOException {
+        String taskName = parser.getDeadlineTaskToEdit();
+        LocalDate newDate = parser.getNewDeadlineDate();
+        LocalTime newTime = parser.getNewDeadlineTime();
+        Task toEdit = null;
+        for (int i = 0; i < taskList.getCurrentList().size(); i++) {
+            if (taskList.getCurrentList().get(i).getName().contains(taskName)) {
+                toEdit = taskList.getCurrentList().get(i);
+            }
+        }
+        if (toEdit == null) {
+            return "task not found";
+        }
+        Deadline deadlineToEdit = (Deadline) toEdit;
+        deadlineToEdit.setDateTime(newDate, newTime);
+        history.updateFile(taskList.getCurrentList());
+        return "deadline task " + deadlineToEdit.getName() + "'s date and time is updated!";
+    }
+
+    /**
+     * Handles a snooze event command.
+     *
+     * @param parser
+     * @return string to return to user.
+     */
+    public String handleEventSnooze(Parser parser) throws IOException {
+        String taskName = parser.getEventTaskToEdit();
+        LocalDate newStartDate = parser.getNewEventStartDate();
+        LocalDate newEndDate = parser.getNewEventEndDate();
+        LocalTime newStartTime = parser.getNewEventStartTime();
+        LocalTime newEndTime = parser.getNewEventEndTime();
+        Task toEdit = null;
+        for (int i = 0; i < taskList.getCurrentList().size(); i++) {
+            if (taskList.getCurrentList().get(i).getName().contains(taskName)) {
+                toEdit = taskList.getCurrentList().get(i);
+            }
+        }
+        if (toEdit == null) {
+            return taskName;
+        }
+        Event eventToEdit = (Event) toEdit;
+        eventToEdit.setDatesTimes(newStartDate, newStartTime, newEndDate, newEndTime);
+        history.updateFile(taskList.getCurrentList());
+        return "event task " + eventToEdit.getName() + "'s date and time is updated!";
     }
 }
 

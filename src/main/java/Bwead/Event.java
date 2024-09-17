@@ -38,6 +38,13 @@ public class Event extends Task {
         return this.text;
     }
 
+    public void setDatesTimes(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
+        this.start = startDate;
+        this.end = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     /**
      * Returns the string representation of an event task.
      *

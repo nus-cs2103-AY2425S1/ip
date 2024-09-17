@@ -1,2 +1,4 @@
 [T][ ] return file
 [T][ ] return
+[E][ ] lend book (from: Oct 10 2020, 10.00 to: Mar 3 2021, 10.00)
+[D][ ] return book (by: Dec 16 2020, 19:00)
