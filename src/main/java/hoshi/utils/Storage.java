@@ -19,8 +19,8 @@ import hoshi.task.Todo;
  */
 public class Storage {
 
+    private static final String DIRECTORY = "data";
     private final String filePath;
-
 
     /**
      * Constructs a new instance of Storage.
@@ -39,14 +39,15 @@ public class Storage {
      * @param taskList ArrayList of 3 types of tasks to be retrieved from hoshi txt file.
      */
     public void load(TaskList taskList) throws FileNotFoundException {
+        // Create the directory if it does not exist
+        createDirectoryIfNotExists();
+
         // get file from the file path
         File file = new File(this.filePath);
 
         if (!file.exists()) {
-            System.out.println("Hoshi has detected a new user! Welcome!");
             return;
         }
-
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -167,6 +168,16 @@ public class Storage {
             return ", " + event.getEndTime() + ", " + event.getStartTime();
         }
         return "";
+    }
+
+    /**
+     * Checks if the data directory exists and creates it if it does not.
+     */
+    private void createDirectoryIfNotExists() {
+        File directory = new File(DIRECTORY);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
     }
 
 }
