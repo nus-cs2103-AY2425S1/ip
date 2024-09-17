@@ -26,53 +26,64 @@ public class ChangeStatusCommand extends Command {
      * @throws HenryException If user input is not a number.
      */
     public String execute(TaskList taskList, Ui ui) throws HenryException {
+        checkValidCommand(this.inputList);
+
         int numOfTasks = taskList.getTasks().size();
         //check for invalid number
         try {
             Task task = getTask(taskList, numOfTasks);
             if ((this.inputList)[0].equals("mark")) {
-                markTask(task);
-                return "Nice! I've marked this task as done:\n"
-                        + task
-                        + "\n";
+                return markTask(task);
             } else {
                 assert (this.inputList)[0].equals("unmark");
-                unmarkTask(task);
-                return "OK, I've marked this task as not done yet:\n"
-                        + task
-                        + "\n";
+                return unmarkTask(task);
             }
         } catch (NumberFormatException e) {
             throw new HenryException("This is not a number!!");
         }
     }
 
+    private void checkValidCommand(String[] inputList) throws HenryException {
+        if (inputList.length <= 1) {
+            throw new HenryException("You need to input at least one task to be marked or unmarked! "
+                    + "Example: mark 2");
+        }
+    }
+
     /**
-     * Unmarks task based on user input.
+     * Returns a string telling user that the specified task is unmarked if it is not already unmarked.
      *
      * @param task A Task object that is stored in taskList.
+     * @return A confirmation message indicating that the task has been successfully unmarked.
      * @throws HenryException If task is already unmarked.
      */
-    private static void unmarkTask(Task task) throws HenryException {
+    private static String unmarkTask(Task task) throws HenryException {
         //check if task is already unmarked
         if (!task.isDone()) {
             throw new HenryException("The task is already unmarked!");
         }
         task.unmark();
+        return "OK, I've marked this task as not done yet:\n"
+                + task
+                + "\n";
     }
 
     /**
-     * Marks task based on user input.
+     * Returns a string telling user that the specified task is marked if it is not already marked.
      *
-     * @param task A Task object that is stored in taskList.
-     * @throws HenryException If task is already marked.
+     * @param task The Task object to be marked as done.
+     * @return A confirmation message indicating that the task has been successfully marked.
+     * @throws HenryException If the task is already marked as done.
      */
-    private static void markTask(Task task) throws HenryException {
+    private static String markTask(Task task) throws HenryException {
         //check if task is already marked
         if (task.isDone()) {
             throw new HenryException("The task is already marked!");
         }
         task.mark();
+        return "Nice! I've marked this task as done:\n"
+                + task
+                + "\n";
     }
 
     /**
