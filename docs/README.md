@@ -1,6 +1,6 @@
 # Strand User Guide
 
-![img.png](img.png)
+![img.png](Ui.png)
 
 Strand is a chatbot which helps users track their tasks.
 
