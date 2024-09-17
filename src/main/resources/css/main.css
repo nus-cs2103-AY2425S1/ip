@@ -6,12 +6,12 @@
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: #E6E6FA;
     -fx-font: 20px "Arial";
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: #00FFFF;
     -fx-font: italic bold 16px "Arial";
     -fx-border-radius: 1em, 1em, 1em, 1em;
 }
