@@ -110,7 +110,7 @@ Format: `sortdeadlines`
       1. [D][ ] complete assignment 4 (by: Aug 25 2024)
       ```
 
-### Exit the program: `bye`
+### Exit the application: `bye`
 Close the chatbot. The application will exit automatically.
 
 Format: `bye`
