@@ -18,7 +18,7 @@ public class ParserTest {
         // Test that invalid input will throw the correct Reminderebot exception
         String line = "abcd";
         ReminderebotException exception = assertThrows(ReminderebotException.class, () -> Parser.parse(line));
-        assertEquals("I'm sorry, but I don't know what that means. :(\n"
+        assertEquals("Oops! I'm sorry, but I don't know what that means. :(\n"
                         + "Please enter a command below:\n"
                         + " help\n bye\n list\n mark <int>\n unmark <int>\n find <keyword>\n todo <taskname>\n"
                         + " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>",

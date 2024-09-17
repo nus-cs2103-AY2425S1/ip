@@ -3,11 +3,6 @@ package reminderebot;
 import java.util.ArrayList;
 
 import reminderebot.task.Task;
-import reminderebot.task.ToDo;
-import reminderebot.task.Deadline;
-import reminderebot.task.Event;
-
-
 
 /**
  * TaskList represents the task manager for Reminderebot.

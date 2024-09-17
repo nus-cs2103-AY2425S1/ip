@@ -24,8 +24,8 @@ public class Event extends Task {
      */
     @Override
     public String toFile() {
-        return "E|" + getStatusIcon() + "|" + description + "|" +
-                from + "|" + to;
+        return "E|" + getStatusIcon() + "|" + description + "|"
+                + from + "|" + to;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(formatter) +
-                " to: " + to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(formatter)
+                + " to: " + to.format(formatter) + ")";
     }
 }
