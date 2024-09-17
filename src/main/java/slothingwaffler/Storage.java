@@ -92,47 +92,14 @@ public class Storage {
     private Task convertStringToTask(String line) {
         try {
             String[] parts = line.split(" \\| ");
-            if (parts.length < 3) {
-                throw new SlothingWafflerException("Missing data in:" + line);
-            }
+            validateParts(parts, line);
 
             String taskType = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            Task task = null;
 
-            switch (taskType) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length < 4) {
-                    throw new SlothingWafflerException("Deadline missing for: " + line);
-                }
-                String deadline = parts[3];
-                if (deadline != null) {
-                    task = new Deadline(description, deadline);
-                }
-                break;
-            case "E":
-                if (parts.length < 4) {
-                    throw new SlothingWafflerException("Event date missing for: " + line);
-                }
+            Task task = createTask(taskType, description, parts, line);
 
-                String date = parts[3];
-                String[] dateParts = date.split("-");
-                if (dateParts.length != 6) {
-                    throw new SlothingWafflerException("Invalid date format for: " + line);
-                }
-                String startDate = dateParts[0] + "-" + dateParts[1] + "-" + dateParts[2];
-                String endDate = dateParts[3] + "-" + dateParts[4] + "-" + dateParts[5];
-                if (startDate != null && endDate != null) {
-                    task = new Event(description, startDate, endDate);
-                }
-                break;
-            default:
-                throw new SlothingWafflerException("Invalid task type for: " + line);
-            }
             if (task != null && isDone) {
                 task.markAsDone();
             }
@@ -141,6 +108,51 @@ public class Storage {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    private void validateParts(String[] parts, String line) throws SlothingWafflerException {
+        if (parts.length < 3) {
+            throw new SlothingWafflerException("Missing data in: " + line);
+        }
+    }
+
+    private Task createTask(String taskType, String description, String[] parts, String line) throws SlothingWafflerException {
+        switch (taskType) {
+        case "T":
+            return new Todo(description);
+        case "D":
+            return createDeadline(description, parts, line);
+        case "E":
+            return createEvent(description, parts, line);
+        default:
+            throw new SlothingWafflerException("Invalid task type for: " + line);
+        }
+    }
+
+    private Task createDeadline(String description, String[] parts, String line) throws SlothingWafflerException {
+        if (parts.length < 4) {
+            throw new SlothingWafflerException("Deadline missing for: " + line);
+        }
+        String deadline = parts[3];
+        return new Deadline(description, deadline);
+    }
+
+    private Task createEvent(String description, String[] parts, String line) throws SlothingWafflerException {
+        if (parts.length < 4) {
+            throw new SlothingWafflerException("Event date missing for: " + line);
+        }
+
+        String date = parts[3];
+        String[] dateParts = date.split("-");
+
+        if (dateParts.length != 6) {
+            throw new SlothingWafflerException("Invalid date format for: " + line);
+        }
+
+        String startDate = String.join("-", dateParts[0], dateParts[1], dateParts[2]);
+        String endDate = String.join("-", dateParts[3], dateParts[4], dateParts[5]);
+
+        return new Event(description, startDate, endDate);
     }
 
 }
