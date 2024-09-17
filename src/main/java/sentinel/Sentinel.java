@@ -45,7 +45,7 @@ public class Sentinel {
         try {
             this.taskList = Storage.loadTaskList();
         } catch (IOException exception) {
-            ui.showError("OOPS NO FILE???");
+            ui.showError("OOPS NO TEXT FILE??? CREATING A NEW ONE");
             this.taskList = new TaskList();
         }
     }
@@ -69,7 +69,7 @@ public class Sentinel {
         try {
             this.customerList = Storage.loadCustomerList();
         } catch (IOException exception) {
-            ui.showError("OOPS NO FILE???");
+            ui.showError("OOPS NO CUSTOMER FILE??? CREATING A NEW ONE");
             this.customerList = new CustomerList();
         }
     }
@@ -130,8 +130,7 @@ public class Sentinel {
 
         assert(customerSearchList != null) : "Search customer list does not exist";
         say("Here are the list of your matching customers \n" + this.customerSearchList.toString()
-                + String.format("\n You have %d customers matching that name.", this.customerSearchList.getTotal())
-                + "\n\n You are now indexing the search list.\n Type list to back to indexing the original list.");
+                + String.format("\n You have %d customers matching that name.", this.customerSearchList.getTotal()));
     }
 
     /**
