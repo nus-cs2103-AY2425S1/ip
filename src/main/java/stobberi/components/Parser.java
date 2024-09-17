@@ -81,7 +81,7 @@ public class Parser {
         case "?":
             return new HelpCommand();
         default:
-            throw new NoSuchTaskStobberiException("I'm sorry! That is NOT an executable command");
+            throw new NoSuchTaskStobberiException("I'm sowwwy! I just don't know how to do that yettt.");
         }
     }
 }
