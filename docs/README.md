@@ -87,19 +87,6 @@ Stelle automatically updates task storage during usage, and there is no need to 
 
 Note: Data is stored at `/data/stelle.txt` within the directory `stelle.jar` is stored at.
 
-## Marking Tasks as Done
-```
-mark [task number in list]
-```
-Marks a task as done. Indicated by an 'X' next to the task.
-
-Stelle will mark the task, then respond with:
-
-```
-Nice! I've marked this task as done:
-[T][X] Revise CS2109S Lecture 6
-```
-
 ## Listing All Tasks
 
 ```
@@ -115,6 +102,20 @@ Here is everything in your list:
 3. [T][ ] Revise CS2109S Lecture 6
 ```
 (tasks given are examples)
+
+## Marking Tasks as Done
+```
+mark [task number in list]
+```
+Marks a task as done. Indicated by an 'X' next to the task.
+
+Stelle will mark the task, then respond with:
+
+```
+Nice! I've marked this task as done:
+[T][X] Revise CS2109S Lecture 6
+```
+
 
 ## Marking Tasks as undone
 ```
