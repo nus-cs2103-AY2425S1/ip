@@ -16,7 +16,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * The method takes in the details and update the task accordingly.
+     * Updates task according to input details.
      *
      * @param details containing new description
      */

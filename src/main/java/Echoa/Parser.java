@@ -14,15 +14,22 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
+    private static final String DATE_REGEX = "\\b\\d{4}-\\d{2}-\\d{2}\\b";
+    private static final String TIME_REGEX = "\\b([01]\\d|2[0-3]):[0-5]\\d\\b";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
+    /**
+     * Returns a String in the given time format.
+     *
+     * @param s that may contain date in yyyy-MM-dd format
+     * @return a String in the yyyy-MM-dd format, null if no date in yyyy-MM-dd is found.
+     */
     private static String findDate(String s) {
         String date = null;
 
-        String timeRegex = "\\b\\d{4}-\\d{2}-\\d{2}\\b";
-        Pattern pattern = Pattern.compile(timeRegex);
+        Pattern pattern = Pattern.compile(DATE_REGEX);
         Matcher matcher = pattern.matcher(s);
 
         if (matcher.find()) {
@@ -32,11 +39,16 @@ public class Parser {
         return date;
     }
 
+    /**
+     * Returns a String in the HH:MM format.
+     *
+     * @param s that may contain a time in HH:mm format.
+     * @return a String in the HH:MM form, null if no time in HH:mm is found.
+     */
     private static String findTime(String s) {
         String time = null;
 
-        String timeRegex = "\\b([01]\\d|2[0-3]):[0-5]\\d\\b";
-        Pattern pattern = Pattern.compile(timeRegex);
+        Pattern pattern = Pattern.compile(TIME_REGEX);
         Matcher matcher = pattern.matcher(s);
 
         if (matcher.find()) {
@@ -46,40 +58,109 @@ public class Parser {
         return time;
     }
 
-
     /**
-     * The method removes excess white space in all the Strings within the commandArray.
+     * Returns a LocalDate of any date found in the input String s.
+     * Returns a LocalDate of null if no date is found in the input String s.
      *
-     * @param commandArray Array containing the different Strings of commands.
+     * @param s String which may contain a date.
+     * @return LocalDate of the Date in the String or null.
+     * @throws DateFormatException if the date is not in the correct date format.
      */
-    public static void trimSplitCommands(String[] commandArray) {
-        for (int i = 0; i < commandArray.length; i++) {
-            commandArray[i] = commandArray[i].trim();
+    private static LocalDate getLocalDate(String s) throws DateFormatException {
+        LocalDate d = null;
+        if (findDate(s) != null) {
+            try {
+                d = LocalDate.parse(findDate(s), DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                throw new DateFormatException();
+            }
         }
+        return d;
     }
 
     /**
-     * The method creates a LocalDateTime with the given dateString and timeString.
+     * Returns a LocalTime of any time found in the input String s.
+     * Returns a LocalTime of null if no time is found in the input String s.
+     *
+     * @param s String which may contain a time.
+     * @return LocalDate of the Time in the String or null.
+     * @throws TimeFormatException if they time is not in the ocrrect time format.
+     */
+    private static LocalTime getLocalTime(String s) throws TimeFormatException {
+        LocalTime t = null;
+        if (findTime(s) != null) {
+            try {
+                t = LocalTime.parse(findTime(s), TIME_FORMATTER);
+            } catch (DateTimeParseException e) {
+                throw new TimeFormatException();
+            }
+        }
+        return t;
+    }
+
+    /**
+     * Checks if the given taskLine contains a Date.
+     *
+     * @param taskLine taskLine which may contain a Date.
+     * @return true if taskLine contains Date, and false otherwise.
+     */
+    private static boolean hasDate(String taskLine) {
+        return findTime(taskLine) != null;
+    }
+
+    /**
+     * Checks if the given taskLine contains a Time.
+     *
+     * @param taskLine taskLine which may contain a Time.
+     * @return true if taskLine contains Time, and false otherwise.
+     */
+    private static boolean hasTime(String taskLine) {
+        return findTime(taskLine) != null;
+    }
+
+    /**
+     * Checks if the given taskLine contains a Date and Time.
+     *
+     * @param taskLine taskLine which may contain a Date and Time.
+     * @return true if taskLine contains Date and time, and false otherwise.
+     */
+    private static boolean hasDateAndTime(String taskLine) {
+        return hasDate(taskLine) && hasTime(taskLine);
+    }
+
+    /**
+     * Creates a LocalDateTime with the given dateString and timeString.
      *
      * @param dateString String representation of date.
      * @param timeString Time representation of date.
      * @return LocalDateTime of the dateString and timeString.
      * @throws DateTimeParseException when dateString and timeString are not in the correct format.
      */
-    public static LocalDateTime createDateTime(String dateString, String timeString) throws DateTimeParseException {
+    private static LocalDateTime createDateTime(String dateString, String timeString) throws DateTimeParseException {
         LocalDate date = LocalDate.parse(dateString, DATE_FORMATTER);
         LocalTime time = LocalTime.parse(timeString, TIME_FORMATTER);
         return LocalDateTime.of(date, time);
     }
 
     /**
-     * The method removes the first occurrence of a given letter in a string.
+     * Removes excess white space in all the Strings within the commandArray.
+     *
+     * @param commandArray Array containing the different Strings of commands.
+     */
+    private static void trimSplitCommands(String[] commandArray) {
+        for (int i = 0; i < commandArray.length; i++) {
+            commandArray[i] = commandArray[i].trim();
+        }
+    }
+
+    /**
+     * Removes the first occurrence of a given letter in a string.
      *
      * @param str string from which letter has be removed from.
      * @param letter letter that has to be removed.
      * @return String without the first occurrence of the letter.
      */
-    public static String removeFirstOccurrence(String str, char letter) {
+    private static String removeFirstOccurrence(String str, char letter) {
         int index = str.indexOf(letter);
 
         if (index == -1) {
@@ -89,8 +170,42 @@ public class Parser {
         return str.substring(0, index) + str.substring(index + 1);
     }
 
+    public static String[] splitAndTrimCommand(String taskLine) {
+         String[] taskArray = taskLine.split("/");
+         trimSplitCommands(taskArray);
+         return taskArray;
+    }
+
+    public static boolean isCorrectInputFormat(String[] taskArray, String taskType) {
+        switch (taskType) {
+        case "todo":
+            if (taskArray.length != 1) {
+                return false;
+            }
+            break;
+        case "deadline":
+            if (taskArray.length != 2) {
+                return false;
+            }
+            break;
+        case "event":
+            if (taskArray.length != 3) {
+                return false;
+            }
+            break;
+        default:
+            // do nothing
+        }
+        for (String s : taskArray) {
+            if (s.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
-     * The method parses the line for specific instructions.
+     * Parses the line for specific instructions.
      *
      * @param line line to be parsed.
      * @return instruction keyword.
@@ -127,7 +242,7 @@ public class Parser {
     }
 
     /**
-     * The method parses for indexes in lines with instructions:
+     * Parses for indexes in lines with instructions:
      * mark, unmark and delete.
      *
      * @param indexString indexString contains a possible label
@@ -164,7 +279,7 @@ public class Parser {
     }
 
     /**
-     * The method searches for tasks in the taskList that contains the specified keyword.
+     * Returns a Tasklist with tasks containing the specified keyword.
      *
      * @param taskList taskList to be searched.
      * @param keyword keyword to be searched.
@@ -180,26 +295,26 @@ public class Parser {
                 tasks.addTask(t);
             }
         }
-
         return tasks;
     }
 
     /**
-     * The method parses for description from the task line.
+     * Parses for description from the task line.
      *
      * @param task task line.
      * @return an array containing description.
      * @throws InvalidToDoContentException when the input format for todo is incorrect.
      */
     public Object[] parseToDoTask(String task) throws InvalidToDoContentException {
-        if (task.isBlank() || task.isEmpty()) {
+        String[] taskArray = splitAndTrimCommand(task);
+        if (!isCorrectInputFormat(taskArray, "todo")) {
             throw new InvalidToDoContentException();
         }
-        return new Object[] {task};
+        return new Object[]{taskArray[0]};
     }
 
     /**
-     * The method parses for description, dateAndTime from the task line.
+     * Parses for description, dateAndTime from the task line.
      *
      * @param task task line
      * @return an array containing description, dateAndTime.
@@ -207,29 +322,27 @@ public class Parser {
      * @throws DateTimeParseException when the input format for date and time is incorrect.
      */
     public Object[] parseDeadlineTask(String task) throws InvalidDeadlineContentException, DateTimeParseException {
-        String[] taskArray = task.split("/");
-        trimSplitCommands(taskArray);
-        if (taskArray.length != 2) {
+        String[] taskArray = splitAndTrimCommand(task);
+        if (!isCorrectInputFormat(taskArray, "deadline")) {
             throw new InvalidDeadlineContentException();
         }
 
-        String taskDescription = taskArray[0];
-        String taskDate = taskArray[1];
+        String description = taskArray[0];
+        String dateTimeLine = taskArray[1];
 
-        String[] taskDateArray = taskDate.split("\\s+");
-        if (taskDateArray.length != 2) {
+        if (!hasDateAndTime(dateTimeLine)) {
             throw new InvalidDeadlineContentException();
         }
 
-        String date = taskDateArray[0];
-        String time = taskDateArray[1];
+        String date = findDate(dateTimeLine);
+        String time = findTime(dateTimeLine);
         LocalDateTime dateAndTime = createDateTime(date, time);
 
-        return new Object[] {taskDescription, dateAndTime};
+        return new Object[] {description, dateAndTime};
     }
 
     /**
-     * The method parses for description, startDateAndTime, endDateAndTime from the task line.
+     * Parses for description, startDateAndTime, endDateAndTime from the task line.
      *
      * @param task task line
      * @return an array containing description, startDateAndTime, endDateAndTime.
@@ -237,54 +350,52 @@ public class Parser {
      * @throws DateTimeParseException when the input format for date and time is incorrect.
      */
     public Object[] parseEventTask(String task) throws InvalidEventContentException, DateTimeParseException {
-        String[] taskArray = task.split("/");
-        trimSplitCommands(taskArray);
-        if (taskArray.length != 3) {
+        String[] taskArray = splitAndTrimCommand(task);
+        if (!isCorrectInputFormat(taskArray, "event")) {
             throw new InvalidEventContentException();
         }
 
-        String taskDescription = taskArray[0];
-        String taskStart = taskArray[1];
-        String taskEnd = taskArray[2];
+        String description = taskArray[0];
+        String startDateTimeLine = taskArray[1];
+        String endDateTimeLine = taskArray[2];
 
-        String[] taskStartArray = taskStart.split("\\s+");
-        String[] taskEndArray = taskEnd.split("\\s+");
-
-        if (taskStartArray.length != 2 || taskEndArray.length != 2) {
+        if (!hasDateAndTime(startDateTimeLine) || !hasDateAndTime(endDateTimeLine)) {
             throw new InvalidEventContentException();
         }
 
-        String startDate = taskStartArray[0];
-        String startTime = taskStartArray[1];
+        String startDate = findDate(startDateTimeLine);
+        String startTime = findTime(startDateTimeLine);
         LocalDateTime startDateAndTime = createDateTime(startDate, startTime);
 
-        String endDate = taskEndArray[0];
-        String endTime = taskEndArray[1];
+        String endDate = findDate(endDateTimeLine);
+        String endTime = findTime(endDateTimeLine);
         LocalDateTime endDateAndTime = createDateTime(endDate, endTime);
 
-        return new Object[] {taskDescription, startDateAndTime, endDateAndTime};
+        return new Object[] {description, startDateAndTime, endDateAndTime};
     }
 
     /**
-     * The method parses for any description from the toDoUpdates.
+     * Parses for any description from the toDoUpdates.
      *
      * @param toDoUpdates updated ToDo content
      * @return an array of description
      */
-    public Object[] parseToDoUpdate(String toDoUpdates) throws EchoaException {
+    public Object[] parseToDoUpdate(String toDoUpdates) throws ToDoUpdateFormatException {
 
         String description = null;
 
-        String[] updatesArray = toDoUpdates.split("/");
-        trimSplitCommands(updatesArray);
+        String[] updatesArray = splitAndTrimCommand(toDoUpdates);
 
         for (String s : updatesArray) {
-            if (s.equals("")) {
-                // do nothing
-            } else if (s.startsWith("d")) {
-                s = removeFirstOccurrence(s, 'd').trim();
-                description = s;
-            } else {
+            if (s.isEmpty()) {
+                continue;
+            }
+            switch (s.charAt(0)) {
+            case 'd':
+            s = removeFirstOccurrence(s, 'd').trim();
+            description = s;
+            break;
+            default:
                 throw new ToDoUpdateFormatException();
             }
         }
@@ -293,12 +404,12 @@ public class Parser {
     }
 
     /**
-     * The method parses for any description, date or time from the deadlineUpdates.
+     * Parses for any description, date or time from the deadlineUpdates.
      *
      * @param deadlineUpdates updated Deadline content
      * @return an array of description, date, time
      */
-    public Object[] parseDeadlineUpdate(String deadlineUpdates) throws EchoaException {
+    public Object[] parseDeadlineUpdate(String deadlineUpdates) throws DeadlineUpdateFormatException, DateFormatException, TimeFormatException {
 
         String description = null;
         LocalDate endDate = null;
@@ -308,31 +419,20 @@ public class Parser {
         trimSplitCommands(updatesArray);
 
         for (String s : updatesArray) {
-            if (s.equals("")) {
-                //do nothing
-            } else if (s.startsWith("d")) {
+            if (s.isEmpty()) {
+                continue;
+            }
+            switch (s.charAt(0)) {
+            case 'd':
                 s = removeFirstOccurrence(s, 'd').trim();
                 description = s;
-            } else if (s.startsWith("e")) {
+                break;
+            case 'e':
                 s = removeFirstOccurrence(s, 'e').trim();
-
-                if (findDate(s) != null) {
-                    try {
-                        endDate = LocalDate.parse(findDate(s), DATE_FORMATTER);
-                    } catch (DateTimeParseException e) {
-                        throw new DateFormatException();
-                    }
-                }
-
-                if (findTime(s) != null) {
-                    try {
-                        endTime = LocalTime.parse(findTime(s), TIME_FORMATTER);
-                    } catch (DateTimeParseException e) {
-                        throw new TimeFormatException();
-                    }
-                }
-
-            } else {
+                endDate = getLocalDate(s);
+                endTime = getLocalTime(s);
+                break;
+            default:
                 throw new DeadlineUpdateFormatException();
             }
         }
@@ -340,12 +440,12 @@ public class Parser {
     }
 
     /**
-     * The method parses for any description, startDate, startTime, endDate, endTime from the eventUpdates.
+     * Parses for any description, startDate, startTime, endDate, endTime from the eventUpdates.
      *
      * @param eventUpdates updated Event content
      * @return an array of description, startDate, startTime, endDate, endTime
      */
-    public Object[] parseEventUpdate(String eventUpdates) throws EchoaException {
+    public Object[] parseEventUpdate(String eventUpdates) throws EventUpdateFormatException, DateFormatException, TimeFormatException {
         String description = null;
         LocalDate startDate = null;
         LocalTime startTime = null;
@@ -354,52 +454,24 @@ public class Parser {
 
         String[] updatesArray = eventUpdates.split("/");
         trimSplitCommands(updatesArray);
-        for (int i = 1; i < updatesArray.length; i++) {
-            String s = updatesArray[i];
-            if (s.equals("")) {
-                // do nothing
-            } else if (s.startsWith("d")) {
+        for (String s : updatesArray) {
+            if (s.isEmpty()) {
+                continue;
+            }
+            switch (s.charAt(0)) {
+            case 'd':
                 s = removeFirstOccurrence(s, 'd').trim();
                 description = s;
-            } else if (s.startsWith("s")) {
-                s = removeFirstOccurrence(s, 's').trim();
-
-                if (findDate(s) != null) {
-                    try {
-                        startDate = LocalDate.parse(findDate(s), DATE_FORMATTER);
-                    } catch (DateTimeParseException e) {
-                        throw new DateFormatException();
-                    }
-                }
-
-                if (findTime(s) != null) {
-                    try {
-                        startTime = LocalTime.parse(findTime(s), TIME_FORMATTER);
-                    } catch (DateTimeParseException e) {
-                        throw new TimeFormatException();
-                    }
-                }
-
-            } else if (s.startsWith("e")) {
-                s = removeFirstOccurrence(s, 'e').trim();
-
-                if (findDate(s) != null) {
-                    try {
-                        endDate = LocalDate.parse(findDate(s), DATE_FORMATTER);
-                    } catch (DateTimeParseException e) {
-                        throw new DateFormatException();
-                    }
-                }
-
-                if (findTime(s) != null) {
-                    try {
-                        endTime = LocalTime.parse(findTime(s), TIME_FORMATTER);
-                    } catch (DateTimeParseException e) {
-                        throw new TimeFormatException();
-                    }
-                }
-
-            } else {
+                break;
+            case 's':
+                startDate = getLocalDate(s);
+                startTime = getLocalTime(s);
+                break;
+            case 'e':
+                endDate = getLocalDate(s);
+                endTime = getLocalTime(s);
+                break;
+            default:
                 throw new EventUpdateFormatException();
             }
         }

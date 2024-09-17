@@ -2,6 +2,7 @@ package echoa;
 
 /**
  * This class encapsulates time formatting errors.
+ * It extends from EchoaException.
  */
 
 public class DateFormatException extends EchoaException {

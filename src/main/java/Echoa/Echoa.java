@@ -132,13 +132,12 @@ public class Echoa {
             default:
                 throw new InvalidInstructionException(command);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             response = "An error has occurred to the IO.";
         } catch (EchoaException e) {
             response = ui.getExceptionMessage(e);
         } catch (Exception e) {
-            response = e.getClass().getName() + " " + e.getMessage();
+            response = e.getClass().getName() + ": " + e.getMessage();
         }
     }
 

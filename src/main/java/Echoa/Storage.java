@@ -30,7 +30,7 @@ public class Storage {
     }
 
     /**
-     * The method creates a LocalDateTime with the given dateString and timeString.
+     * Creates a LocalDateTime with the given dateString and timeString.
      *
      * @param dateString String representation of date.
      * @param timeString Time representation of date.
@@ -49,7 +49,6 @@ public class Storage {
      * Else, any necessary folders and files will be created, and returned.
      * Returns the file to input data into.
      *
-     * @return File that is going to be read and written into.
      */
     public void setUpFile() {
         File f = new File(filePath);
@@ -74,7 +73,7 @@ public class Storage {
     }
 
     /**
-     * The method loads the relevant tasks into the taskList
+     * Loads the relevant tasks into the taskList
      * based on the given file.
      *
      * @param taskList taskList is where information are loaded into.
@@ -116,7 +115,7 @@ public class Storage {
     }
 
     /**
-     * The method loops through the taskList and updates the given file.
+     * Updates the given file.
      *
      * @param  taskList TaskList is the reference for which contents are written from.
      * @throws IOException when there are issues writing into the file.

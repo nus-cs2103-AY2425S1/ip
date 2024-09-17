@@ -44,7 +44,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * The method takes in the details and update the task accordingly.
+     * Updates task according to input details.
      *
      * @param details containing new description, new date and new time.
      */
@@ -72,7 +72,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * The method converts the task to its text representation in the file.
+     * Returns a String (file text) representation of the Deadline task.
      *
      * @return String representation of text.
      */

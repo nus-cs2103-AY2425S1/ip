@@ -2,6 +2,10 @@ package echoa;
 
 import java.util.ArrayList;
 
+/**
+ * This class encapsulates information relating to a tasklist.
+ */
+
 public class TaskList {
     ArrayList<Task> taskList;
 
@@ -10,8 +14,7 @@ public class TaskList {
     }
 
     /**
-     * The method takes in an index (0-indexed) and
-     * returns the Task at that particular index.
+     * Returns the Task at a particular index.
      *
      * @param index Index is a number reference (0-indexed) in the list of task.
      * @return Task is the task at the particular index in the taskList.
@@ -21,7 +24,7 @@ public class TaskList {
     }
 
     /**
-     * The method returns the number of tasks in the taskList.
+     * Returns the number of tasks in the taskList.
      *
      * @return number of tasks in the taskList.
      */
@@ -30,7 +33,7 @@ public class TaskList {
     }
 
     /**
-     * The method adds the inputted task into the taskList.
+     * Adds the inputted task into the taskList.
      *
      * @param task task to be added to taskList.
      */
@@ -39,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * The method deletes the task at the particular index in the list.
+     * Deletes the task at the particular index in the list.
      *
      * @param index index of task to be deleted.
      * @throws ListOutOfBoundsException when the index is less than 0 or more than or equal to the size of the taskList.
@@ -52,7 +55,7 @@ public class TaskList {
     }
 
     /**
-     * The method marks the task at the particular index in the list as done.
+     * Marks the task at the particular index in the list as done.
      *
      * @param index index of the task to be marked as done.
      * @throws ListOutOfBoundsException when the index is less than 0 or more than or equal to the size of the taskList.
@@ -66,7 +69,7 @@ public class TaskList {
     }
 
     /**
-     * The  method marks the tasks at the particular index in the list and undone.
+     * Unmarks the tasks at the particular index in the list and undone.
      *
      * @param index index of the task to be marked as undone.
      * @throws ListOutOfBoundsException when the index is less than 0 or more than or equal to the size of the taskList.

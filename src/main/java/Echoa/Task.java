@@ -6,6 +6,7 @@ import java.time.LocalDate;
  * Task is a class that encapsulates the characteristics of a Task.
  * It contains the field, description and isDone.
  */
+
 public abstract class Task {
     protected String description;
     protected boolean isDone = false;
@@ -20,7 +21,7 @@ public abstract class Task {
     }
 
     /**
-     * The method reformat the given date into MONTH-DD-YYYY.
+     * Reformat the given date into MONTH-DD-YYYY.
      *
      * @param date LocalDate to be reformatted.
      * @return String representation of reformatted date.
@@ -40,21 +41,21 @@ public abstract class Task {
     }
 
     /**
-     * The method marks the task as done.
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * The method marks the task as not done.
+     * Unmarks the task as not done.
      */
     public void unmarkAsUndone() {
         this.isDone = false;
     }
 
     /**
-     * The method converts the isDone status to an icon,
+     * Converts the isDone status to an icon,
      * with X representing done.
      *
      * @return String representation of status icon.
@@ -66,7 +67,7 @@ public abstract class Task {
     public abstract void update(Object[] details);
 
     /**
-     * The method converts the task to its text representation in the file.
+     * Returns a String (file text) representation of the task.
      *
      * @return String representation of text.
      */

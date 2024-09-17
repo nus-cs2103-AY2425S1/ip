@@ -2,7 +2,8 @@ package echoa;
 
 /**
  * This class encapsulates errors relating to update instructions.
- * It has 3 subclasses:
+ * It extends from EchoaExcpetion.
+ * It has subclasses:
  * ToDoUpdateFormatException, DeadlineUpdateFormatException, EventUpdateFormatException.
  */
 
@@ -11,5 +12,6 @@ public abstract class UpdateFormatException extends EchoaException {
         super();
     }
 
+    @Override
     public abstract String getMessage();
 }

@@ -2,6 +2,7 @@ package echoa;
 
 /**
  * This class encapsulates errors relating to a deadline update instruction.
+ * It extends from class UpdateFormatException.
  */
 
 public class DeadlineUpdateFormatException extends UpdateFormatException {

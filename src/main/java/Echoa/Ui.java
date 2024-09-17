@@ -1,5 +1,9 @@
 package echoa;
 
+/**
+ * This class encapsulates information relating to the User Interface (UI).
+ */
+
 public class Ui {
     public static final String[] INSTRUCTION_LIST = {"todo", "deadline", "event", "mark", "unmark", "delete", "list", "bye"};
 
@@ -36,16 +40,11 @@ public class Ui {
     }
 
     public String getUpdateTaskMessage(Task task, int label) {
-        return "Task" + label + " updated: "
-                + task.toString();
+        return "Task " + label + " updated: " +
+                task.toString() +
+                "\n";
     }
 
-
-    /**
-     * The method prints the list of tasks in the taskList.
-     *
-     * @param taskList taskList to be printed.
-     */
     public String getListOfTasksMessage(TaskList taskList) {
         String message = "";
         for (int i = 0; i < taskList.getSize(); i++) {
@@ -54,17 +53,13 @@ public class Ui {
             message += taskList.getSpecificTask(i).toString() + "\n";
         }
         if (taskList.getSize() == 0) {
-            message = "No tasks in the requested list.";
+            message = "No tasks in the requested list.\n";
         }
 
-        return message += "\n";
-    }
-
-    public String getNumberOfTasksMessage(TaskList taskList) {
-        return "Now you have " + (taskList.getSize()) + " task(s).\n";
+        return message;
     }
 
     public String getExceptionMessage(Exception e) {
-        return e.getMessage() + "\n" + e.getClass().getName() + "\n" + "Please try again.\n";
+        return e.getMessage() + "\n" + "Please try again.\n";
     }
 }

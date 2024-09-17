@@ -69,7 +69,7 @@ public class Event extends Task {
     }
 
     /**
-     * The method takes in the details and update the task accordingly.
+     * Updates task according to input details.
      *
      * @param details containing new description, new start date, new start time, new end date, new end time.
      */
@@ -109,7 +109,7 @@ public class Event extends Task {
     }
 
     /**
-     * The method converts the task to its text representation in the file.
+     * Returns a String (file text) representation in the Event task.
      *
      * @return String representation of text.
      */

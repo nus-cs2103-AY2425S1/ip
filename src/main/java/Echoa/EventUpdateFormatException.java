@@ -1,5 +1,10 @@
 package echoa;
 
+/**
+ * This class encapsulates errors relating to an event update instruction.
+ * It extends from UpdateFormatException.
+ */
+
 public class EventUpdateFormatException extends  UpdateFormatException {
     public EventUpdateFormatException() {
         super();
