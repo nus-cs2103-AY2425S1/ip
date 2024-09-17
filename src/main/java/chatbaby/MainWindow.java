@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -21,8 +23,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     private ChatBaby baby;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image babyImage = new Image(this.getClass().getResourceAsStream("/images/chatBaby.png"));
+    private final Image userImage;
+    private final Image babyImage;
+
+    /**
+     * Constructs an MainWindow that handles NullPointer Exception
+     */
+    public MainWindow() {
+        userImage = loadImage("/images/user.png");
+        babyImage = loadImage("/images/chatBaby.png");
+    }
 
     @FXML
     public void initialize() {
@@ -51,5 +61,24 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBabyDialog(response, babyImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Attempts to load an image from the folder 'resources'.
+     * If the image cannot be found or loaded, returns an empty/transparent image.
+     *
+     * @param path The path to the image resource.
+     * @return The loaded Image or a transparent fallback Image.
+     */
+    private Image loadImage(String path) {
+        try {
+            return new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(path),
+                    "Image resource not found: " + path));
+        } catch (NullPointerException | IllegalArgumentException e) {
+            System.err.println("Failed to load image at: " + path + ". Using an empty image.");
+            // Return an empty 1x1 transparent image as fallback
+            return new Image("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA"
+                    + "BCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/woL9Y4AAAAASUVORK5CYII=");
+        }
     }
 }
