@@ -33,8 +33,10 @@ public class Parser {
      * @throws TalkerException
      */
     public static Command parseInput(String input) throws TalkerException {
-        String[] parsed = input.split(" ");
-        switch (parsed[0]) {
+        String stripped = input.strip();
+        String[] parsed = stripped.split(" ");
+        String command = parsed[0].toLowerCase();
+        switch (command) {
         case "list":
             return new ListCommand();
         case "mark":
@@ -44,18 +46,18 @@ public class Parser {
         case "delete":
             return new DeleteCommand(parsed);
         case "todo":
-            return new AddCommand(input, TaskType.TODO);
+            return new AddCommand(stripped, TaskType.TODO);
         case "deadline":
-            return new AddCommand(input, TaskType.DEADLINE);
+            return new AddCommand(stripped, TaskType.DEADLINE);
         case "event":
-            return new AddCommand(input, TaskType.EVENT);
+            return new AddCommand(stripped, TaskType.EVENT);
         case "date":
-            return new DateCommand(input);
+            return new DateCommand(stripped);
         case "find":
             return new FindCommand(parsed);
-        case "setPriority":
+        case "setpriority":
             return new SetPriorityCommand(parsed);
-        case "findPriority":
+        case "findpriority":
             return new FindPriorityCommand(parsed);
         case "bye":
             return new ExitCommand();

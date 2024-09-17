@@ -31,6 +31,7 @@ public class Event extends Task {
         try {
             this.from = LocalDateTime.parse(from, INPUT_FORMAT);
             this.to = LocalDateTime.parse(to, INPUT_FORMAT);
+            this.isStartBeforeEnd();
         } catch (DateTimeException e) {
             throw new TalkerException("Invalid date-time format. Use dd-MM-yyyy HH:mm (01-01-2024 00:00)");
         }
@@ -44,6 +45,7 @@ public class Event extends Task {
      * @param to ending date/time
      * @param isComplete status of task
      * @param priorityType priority of task
+     * @throws TalkerException showing invalid event parameters
      */
     public Event(String description,
                  String from,
@@ -54,8 +56,20 @@ public class Event extends Task {
         try {
             this.from = LocalDateTime.parse(from, INPUT_FORMAT);
             this.to = LocalDateTime.parse(to, INPUT_FORMAT);
+            this.isStartBeforeEnd();
         } catch (DateTimeException e) {
             throw new TalkerException("Invalid date-time format. Use dd-MM-yyyy HH:mm (01-01-2024 00:00)");
+        }
+    }
+
+    /**
+     * Checks if start of event is before end of event
+     *
+     * @throws TalkerException start of event must come before end
+     */
+    private void isStartBeforeEnd() throws TalkerException {
+        if (from.isAfter(to)) {
+            throw new TalkerException("Start of event has to be before end of event!");
         }
     }
 
@@ -99,4 +113,18 @@ public class Event extends Task {
                 + " to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Event) {
+            Event event = (Event) object;
+            boolean isSameDescription = this.description.equals(event.description);
+            boolean isSameFrom = this.from.equals(event.from);
+            boolean isSameTo = this.to.equals(event.to);
+
+            if (isSameDescription && isSameFrom && isSameTo) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
