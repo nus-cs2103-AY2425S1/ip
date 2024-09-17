@@ -38,16 +38,18 @@ public class Parser {
             return list.removeTask(index);
         } else if (Objects.equals(text, "list")) {
             return list.listTask();
+        } else if (Objects.equals(text, "ls")) {
+            return list.listTask();
         } else if (text.startsWith("mark")) {
             int index = Integer.parseInt(text.substring(5)) - 1;
             return list.markTask(index);
-        } else if (text.startsWith("m") && Character.isDigit(text.charAt(2))) {
+        } else if (text.startsWith("m ") && Character.isDigit(text.charAt(2))) {
             int index = Integer.parseInt(text.substring(2)) - 1;
             return list.markTask(index);
         } else if (text.startsWith("unmark")) {
             int index = Integer.parseInt(text.substring(7)) - 1;
             return list.unmarkTask(index);
-        } else if (text.startsWith("um") && Character.isDigit(text.charAt(3))) {
+        } else if (text.startsWith("um ") && Character.isDigit(text.charAt(3))) {
             int index = Integer.parseInt(text.substring(3)) - 1;
             return list.unmarkTask(index);
         } else if (text.startsWith("find")) {
@@ -62,11 +64,11 @@ public class Parser {
             return handleDeadline(text);
         } else if (text.startsWith("event")) {
             return handleEvent(text);
-        } else if (text.startsWith("t")) {
+        } else if (text.startsWith("t ")) {
             return handleShortTodo(text);
-        } else if (text.startsWith("d")) {
+        } else if (text.startsWith("d ")) {
             return handleShortDeadline(text);
-        } else if (text.startsWith("e")) {
+        } else if (text.startsWith("e ")) {
             return handleShortEvent(text);
         } else {
             throw new NoInputException("no input!");
