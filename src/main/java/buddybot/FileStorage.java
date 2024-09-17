@@ -1,5 +1,5 @@
 package buddybot;
-//extension
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,6 +27,9 @@ public class FileStorage {
      */
     public ArrayList<Task> readFileContents() throws BuddyBotException {
         ArrayList<Task> contents = new ArrayList<>();
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         try {
             File f = new File(filePath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -48,11 +51,10 @@ public class FileStorage {
     private Task readEntry(String entry) {
         String trimmed = entry.trim().trim();
         String[] fields = trimmed.split("\\|");
-        //  System.out.println(Arrays.toString(fields));  // debug
         Task taskToAdd;
-//        for (String field: fields) {
-//            System.out.println(field);
-//        }
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         switch (fields[0]) {
             case "E":
                 taskToAdd = new Event(fields[2], LocalDate.parse(fields[3]), LocalDate.parse(fields[4]));
@@ -79,6 +81,9 @@ public class FileStorage {
             File file = new File(this.filePath);
             File directory = new File(file.getParent());
             boolean dirCreated = directory.mkdirs();
+            //@@author david-eom
+            //Reused from https://github.com/david-eom/CS2103T-IP
+            //with minor modifications
             FileWriter fileWriter = new FileWriter(this.filePath, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
            bufferedWriter.write(myTasks);

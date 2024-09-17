@@ -19,6 +19,9 @@ public class BuddyBot {
      * Constructor for BuddyBot
      */
     public BuddyBot() {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         this.storage = new FileStorage(BuddyBot.FILEPATH);
         this.ui = new Ui();
         this.isRunning = true;
@@ -31,6 +34,9 @@ public class BuddyBot {
     }
 
     private void run() {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         System.out.println(this.ui.welcomeMsg());
         while (this.isRunning) {
             String input = this.ui.readInput();
@@ -42,6 +48,9 @@ public class BuddyBot {
      * Method to run BuddyBot, taking in the user input and making sense of the commands
      */
     protected String getResponse(String userInput) {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
             try {
                 //String userInput = this.ui.readInput();
                 switch (Parser.parseCmd(userInput)) {
@@ -75,6 +84,9 @@ public class BuddyBot {
      * Saves the existing list to a txt file
      */
     private void exit() {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         this.ui.closeInput();
         this.storage.writeToTxt(this.taskList.toFile());
     }
@@ -85,6 +97,9 @@ public class BuddyBot {
      * @throws BuddyBotException
      */
     private String addTodo(String description) throws BuddyBotException {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         try {
             Task todo = new Todo(description);
             this.taskList.add(todo);
@@ -100,6 +115,9 @@ public class BuddyBot {
      * @throws BuddyBotException
      */
     private String addEvent(String args) throws BuddyBotException {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String[] splits = args.split(" /from ", 2);
@@ -128,6 +146,9 @@ public class BuddyBot {
      * @throws BuddyBotException
      */
     private String addDeadline(String args) throws BuddyBotException {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String[] splits = args.split(" /by ", 2);
@@ -149,6 +170,9 @@ public class BuddyBot {
      * @throws BuddyBotException
      */
     private String markAsDone(String args) throws BuddyBotException {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         try {
             int taskNum = Integer.parseInt(args);
             if (taskNum > this.taskList.size()) {
@@ -169,6 +193,9 @@ public class BuddyBot {
      * @throws BuddyBotException
      */
     private String delete(String args) throws BuddyBotException {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         try {
             int taskNum = Integer.parseInt(args);
             if (taskNum > this.taskList.size()) {
@@ -195,6 +222,9 @@ public class BuddyBot {
      * @param args
      */
     public static void main(String[] args) {
+        //@@author david-eom
+        //Reused from https://github.com/david-eom/CS2103T-IP
+        //with minor modifications
         new BuddyBot().run();
     }
 

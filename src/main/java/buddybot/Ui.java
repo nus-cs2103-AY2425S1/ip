@@ -7,6 +7,9 @@ import java.util.Scanner;
  * Class for UI
  */
 public class Ui {
+    //@@author david-eom
+    //Reused from https://github.com/david-eom/CS2103T-IP
+    //with minor modifications
     private Scanner myObj = new Scanner(System.in);
 //test
     /**
@@ -126,7 +129,7 @@ public class Ui {
      * Print message when date is in the wrong format
      */
     public String showInvalidDateFormat() {
-        return "\tPlease enter the start/end time in the format of <YYYY/MM/DD>!\n";
+        return "\tPlease enter the start/end time in the format of <YYYY-MM-DD>!\n";
     }
 
 }

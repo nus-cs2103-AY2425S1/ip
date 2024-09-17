@@ -16,6 +16,7 @@ import java.util.TimerTask;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    //Solution below inspired by https://se-education.org/guides/tutorials/javaFx.html
     @FXML
     private ScrollPane scrollPane;
     @FXML
