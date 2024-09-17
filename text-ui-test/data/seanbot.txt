@@ -1,0 +1,4 @@
+E | 0 | project meeting | 2024-08-26T14:00 | 2024-08-26T16:00
+T | 0 | borrow book
+D | 0 | return book | 2024-08-25
+E | 0 | project meeting | 2024-08-26T14:00 | 2024-08-26T16:00
