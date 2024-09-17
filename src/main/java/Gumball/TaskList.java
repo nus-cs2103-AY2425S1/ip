@@ -19,14 +19,14 @@ public class TaskList {
     public String add(Task adding) throws InputErrorException {
         tasks.add(adding);
         n++;
-        return getSpecific(n);
+        return getTaskString(n);
     }
 
     /**
      * Returns number of tasks in list.
      * @return number of tasks in list.
      */
-    public int getN() {
+    public int getNumOfTasks() {
         return n;
     }
 
@@ -56,7 +56,7 @@ public class TaskList {
      * @return String which provides information on Task.
      * @throws InputErrorException
      */
-    public String getSpecific(int i) throws InputErrorException {
+    public String getTaskString(int i) throws InputErrorException {
         if (tasks.isEmpty()) {
             throw new InputErrorException("Sorry your task list is currently empty");
         }
@@ -104,7 +104,7 @@ public class TaskList {
      * Returns String which is a list of the information of all the tasks in the list.
      * @return List of information on all tasks.
      */
-    public String get() {
+    public String getListAsString() {
         String temp = "";
         for (int i = 0; i < n; i++) {
             Task task = tasks.get(i);
@@ -128,7 +128,7 @@ public class TaskList {
      * @throws InputErrorException
      */
     public String delete(int i) throws InputErrorException {
-        String str = getSpecific(i);
+        String str = getTaskString(i);
         tasks.remove(i - 1);
         n--;
         return str;
@@ -142,6 +142,6 @@ public class TaskList {
                 tempList.add(tempTask);
             }
         }
-        return tempList.get();
+        return tempList.getListAsString();
     }
 }

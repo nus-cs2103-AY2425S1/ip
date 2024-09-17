@@ -16,42 +16,43 @@ public class AddCommand extends Command {
     /**
      *
      * @param list The taskList where the task will be stored.
-     * @param ui Class which contains ui functions.
      * @param fileManager The location where the information on the list is stored.
      * @throws InputErrorException
      * @throws IOException
      */
     @Override
-    public String execute(TaskList list, UI ui, FileManager fileManager)
+    public String execute(TaskList list, FileManager fileManager)
             throws InputErrorException, IOException {
-        if (input.startsWith("todo")) {
-            String temp = addToList(new ToDo(input), list, ui);
-            fileManager.updateFile(list);
-            return temp;
-        } else if (input.startsWith("deadline")) {
-            String temp = addToList(new Deadline(input), list, ui);
-            fileManager.updateFile(list);
-            return temp;
-        } else if (input.startsWith("event")) {
-            String temp = addToList(new Event(input), list, ui);
-            fileManager.updateFile(list);
-            return temp;
-        }
-        return null;
+        Task task = null;
+        task = checkTaskType(input);
+        String output = addToList(task, list, fileManager);
+        return output;
+
     }
 
     /**
      *
      * @param task The task which will be added to the list.
      * @param list The list which the task will be added to.
-     * @param ui A class which contains ui functions.
      * @throws InputErrorException
      */
-    public String addToList(Task task, TaskList list, UI ui) throws InputErrorException {
+    private String addToList(Task task, TaskList list, FileManager fileManager) throws InputErrorException, IOException {
         String str = "Got it. I've added this task:\n" + list.add(task) +
-                String.format("\nNow you have %d tasks in the list.", list.getN());
-        UI.print(str);
+                String.format("\nNow you have %d tasks in the list.", list.getNumOfTasks());
+        fileManager.updateFile(list);
         return str;
+    }
+
+    private Task checkTaskType(String input) throws TaskException {
+        Task task = null;
+        if (input.startsWith("todo")) {
+            task = new ToDo(input);
+        } else if (input.startsWith("deadline")) {
+            task = new Deadline(input);
+        } else if (input.startsWith("event")) {
+            task = new Event(input);
+        }
+        return task;
     }
 
 }
