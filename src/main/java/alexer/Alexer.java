@@ -217,9 +217,8 @@ public class Alexer {
                     addEvent(arguments);
                     break;
                 default:
-                    System.out.println(BREAK);
-                    System.out.println("Uh-oh, I did not understand what you are trying to do.");
-                    System.out.println(BREAK);
+                    Response response = new Response("Uh-oh, I did not understand what you are trying to do.");
+                    response.printToConsole();
                     break;
             }
         }
