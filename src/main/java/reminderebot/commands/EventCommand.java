@@ -44,7 +44,6 @@ public class EventCommand extends Command {
             tasklist.addTask(event);
             return ui.addTask(event, tasklist.length());
         } catch (DateTimeParseException e) {
-            // if datetime not in correct format
             throw new ReminderebotException("/from <datetime> and /to <datetime> should be of format dd/MM/yy HHmm");
         }
     }
