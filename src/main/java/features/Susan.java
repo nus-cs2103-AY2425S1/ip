@@ -6,7 +6,9 @@ import features.command.Command;
 import features.command.CommandHandler;
 import features.task.TaskManagement;
 import features.ui.Ui;
-import java.util.*;
+
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Susan {
     private TaskManagement tm;
@@ -21,8 +23,14 @@ public class Susan {
     }
 
     public static Susan init() throws Exception {
-        TaskDAO taskDAO = new CSVTaskDAO();
-        return new Susan(taskDAO);
+        try {
+            TaskDAO taskDAO = new CSVTaskDAO();
+            return new Susan(taskDAO);
+        } catch (FileNotFoundException e) {
+            System.out.println("Usage: Place data.csv file in the same directory as this file.");
+            System.exit(1);
+            return null;
+        }
     }
 
     public static void main(String[] args) {

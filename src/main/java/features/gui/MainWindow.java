@@ -2,6 +2,7 @@ package features.gui;
 
 import config.Config;
 import features.Susan;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 import java.util.Objects;
 
@@ -58,5 +61,13 @@ public class MainWindow extends AnchorPane {
         DialogBox.getUserDialog(input, userImage).getStyleClass().add("user-dialog");
         dialogContainer.getChildren().addAll(userDialog, susanDialog);
         userInput.clear();
+
+        if (input.equals("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(5));
+            // Set the action to perform after the delay (exit the program)
+            delay.setOnFinished(event -> System.exit(0));
+            // Start the transition, allowing the "bye" message to be shown
+            delay.play();
+        }
     }
 }

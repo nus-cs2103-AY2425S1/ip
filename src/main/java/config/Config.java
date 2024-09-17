@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 import features.command.CommandDescriptor;
 
 public class Config {
@@ -23,8 +25,8 @@ public class Config {
 			    \\::/  /       \\::/  /       \\::/  /        /:/  /        /:/  /  \s
 			     \\/__/         \\/__/         \\/__/         \\/__/         \\/__/   \s
 			""";
-	public static final String intro = "Meow. I'm features.Susan!\n" + INDENTATION + "What can I do for you?";
-	public static final String outro = "Meow. Hope to see you again soon!";
+	public static final String intro = "Meow. I'm Susan!\n" + INDENTATION + "What can I do for you?";
+	public static final String outro = "Meow. Hope to see you again soon! This program will turn off automatically in 5 seconds...";
 	public static final ArrayList<CommandDescriptor> cmds = new ArrayList<>(Arrays.asList(
 		new CommandDescriptor("todo <description>", "Adds tasks without any date/time attached to it e.g., visit new theme park"),
 		new CommandDescriptor("deadline <description> /by <deadline>", "adds tasks that need to be done before a specific date/time e.g., submit report by 11/10/2019 5pm"),
@@ -58,7 +60,7 @@ public class Config {
 		return sb.toString();
 	}
 
-	public static final String CSV_FILE_PATH = "src/main/java/data/data.csv";
+	public static final String CSV_FILE_PATH = "data.csv";
 
 	public static final String commands = makeCommandMessage(cmds); 
 }	

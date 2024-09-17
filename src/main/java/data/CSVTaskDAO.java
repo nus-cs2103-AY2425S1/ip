@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import config.Config;
 
@@ -42,8 +45,15 @@ public class CSVTaskDAO implements TaskDAO {
      */
     public static List<Task> readTasksFromCSV() throws Exception {
         List<Task> tasks = new ArrayList<>();
+        Path jarDir = Paths.get(System.getProperty("user.dir"));
 
-        BufferedReader br = new BufferedReader(new FileReader(CSV_FILE));
+        // Resolve the path to the CSV file in the same directory as the JAR
+        Path csvFilePath = jarDir.resolve(CSV_FILE);
+
+        // Use a FileWriter to write to the CSV file
+        File csvFile = csvFilePath.toFile();
+
+        BufferedReader br = new BufferedReader(new FileReader(csvFile));
         br.readLine();
         String line;
 
@@ -154,7 +164,11 @@ public class CSVTaskDAO implements TaskDAO {
      * Writes tasks to the CSV file.
      */
     private void writeTasksToCSV() {
-        try (FileWriter writer = new FileWriter(CSV_FILE, false)) {
+        Path jarDir = Paths.get(System.getProperty("user.dir"));
+        // Resolve the path to the CSV file in the same directory as the JAR
+        Path csvFilePath = jarDir.resolve(CSV_FILE);
+        File csvFile = csvFilePath.toFile();
+        try (FileWriter writer = new FileWriter(csvFile, false)) {
             writer.write("id,type,isMarked,description,extraData\n");
             for (Task task : tasks) {
                 writer.write(convertTaskToCSVFormat(task));

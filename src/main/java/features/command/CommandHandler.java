@@ -56,6 +56,8 @@ public class CommandHandler {
 				res = handleFind(command);
 			} else if (Config.handleHelloMessage(command)) {
 				res = handleHello(command);
+			} else if (command.equals("bye")) {
+				res = handleExitCommand();
 			} else {
 				throw new UnknownMessageException();
 			}
@@ -65,6 +67,10 @@ public class CommandHandler {
 
 		return res;
 
+	}
+
+	private String handleExitCommand() {
+		return Config.outro;
 	}
 
 	/**
