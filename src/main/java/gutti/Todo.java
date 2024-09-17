@@ -1,5 +1,7 @@
 package gutti;
 
+import java.time.LocalDateTime;
+
 /**
  * The {@code Todo} class represents a type of task that only has a description and no specific deadline or time frame.
  * <p>
@@ -15,6 +17,10 @@ public class Todo extends Task {
      */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
+    }
+
+    public Todo(String description, boolean isDone, LocalDateTime markedDate) {
+        super(description, isDone ,markedDate);
     }
 
     /**

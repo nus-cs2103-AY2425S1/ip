@@ -24,10 +24,12 @@ public class StatsCommand extends Command{
         int totalTasksCompleted = 0;
         for (int i = 0; i < taskList.size(); i++) {
             Task specificTask = taskList.get(i);
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            Duration duration = Duration.between(currentDateTime, specificTask.completionDate);
-            if (specificTask.isDone && duration.toDays() <= 7) {
-                totalTasksCompleted ++;
+            if (specificTask.isDone) {
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                Duration duration = Duration.between(currentDateTime, specificTask.completionDate);
+                if (specificTask.isDone && duration.toDays() <= 7) {
+                    totalTasksCompleted++;
+                }
             }
         }
         return "You have completed " + totalTasksCompleted + " tasks in the past week!";

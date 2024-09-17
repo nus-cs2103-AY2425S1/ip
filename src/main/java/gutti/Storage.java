@@ -3,6 +3,7 @@ package gutti;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,6 +31,7 @@ public class Storage {
         assert tasks != null : "Task list cannot be null";
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
+                writer.write(String.valueOf(task.completionDate));
                 writer.write(task.toString());
                 writer.write(System.lineSeparator());
             }
@@ -46,16 +48,19 @@ public class Storage {
     public void loadTasksFromFile(TaskList taskList) {
         try (Scanner sc = new Scanner(new File(filePath))) {
             while (sc.hasNextLine()) {
-                String line = sc.nextLine();
+                String tempLine = sc.nextLine();
+                int index = tempLine.indexOf("[");
+                String markedDateString = tempLine.substring(0,index);
+                String line = tempLine.substring(index);
                 if (line.isEmpty()) {
                     continue;
                 }
                 if (line.startsWith("[T]")) { // Todo list
-                    TodoParse(taskList, line);
+                    TodoParse(taskList, line,markedDateString);
                 } else if (line.startsWith("[E]")) {
-                    EventParse(taskList, line);
+                    EventParse(taskList, line,markedDateString);
                 } else if (line.startsWith("[D]")) {
-                    DeadLineParse(taskList, line);
+                    DeadLineParse(taskList, line,markedDateString);
                 }
             }
         } catch (IOException e) {
@@ -63,20 +68,26 @@ public class Storage {
         }
     }
 
-    private static void DeadLineParse(TaskList taskList, String line) {
+    private static void DeadLineParse(TaskList taskList, String line, String markedDateString) {
         int byIndex = line.indexOf("(by: ") + 5;
         int byEndIndex = line.indexOf(')');
         if (byIndex != -1) {
             String description = line.substring(6, line.indexOf("(by:")).trim();
             String by = line.substring(byIndex, byEndIndex).trim();
             boolean isDone = line.charAt(4) == 'X';
-            taskList.addTask(new Deadline(description, by, isDone));
+            if (markedDateString.equals("null")) {
+                taskList.addTask(new Deadline(description, by, isDone));
+            }
+            else {
+                LocalDateTime markedDate = LocalDateTime.parse(markedDateString);
+                taskList.addTask(new Deadline(description,by,isDone,markedDate));
+            }
         } else {
             System.out.println("Corrupted Deadline line: " + line);
         }
     }
 
-    private static void EventParse(TaskList taskList, String line) {
+    private static void EventParse(TaskList taskList, String line, String markedDateString) {
         int fromIndex = line.indexOf("(from: ");
         int toIndex = line.indexOf(" to: ");
         if (fromIndex != -1 && toIndex != -1) {
@@ -84,15 +95,25 @@ public class Storage {
             String from = line.substring(fromIndex + 6, toIndex).trim();
             String to = line.substring(toIndex + 4, line.length() - 1).trim();
             boolean isDone = line.charAt(4) == 'X';
-            taskList.addTask(new Event(description, from, to, isDone));
+            if (markedDateString.equals("null")) {
+                taskList.addTask(new Event(description, from, to, isDone));
+            } else {
+                LocalDateTime markedDate = LocalDateTime.parse(markedDateString);
+                taskList.addTask(new Event(description, from, to, isDone, markedDate));
+            }
         } else {
             System.out.println("Corrupted Event line: " + line);
         }
     }
 
-    private static void TodoParse(TaskList taskList, String line) {
+    private static void TodoParse(TaskList taskList, String line, String markedDateString) {
         String description = line.substring(6).trim();
         boolean isDone = line.charAt(4) == 'X';
-        taskList.addTask(new Todo(description, isDone));
+        if (markedDateString.equals("null")) {
+            taskList.addTask(new Todo(description, isDone));
+        } else {
+            LocalDateTime markedDate = LocalDateTime.parse(markedDateString);
+            taskList.addTask(new Todo(description, isDone, markedDate));
+        }
     }
 }

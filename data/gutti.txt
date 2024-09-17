@@ -1,3 +1,2 @@
-[T][X] tonight
-[T][X] tomorrow
-[T][X] following day
+2024-09-17T23:44:24.632134300[T][X] tomorrow
+null[E][ ] jeromes (from: Sep 17 2024 11:46AM to: Sep 18 2024 11:46AM)

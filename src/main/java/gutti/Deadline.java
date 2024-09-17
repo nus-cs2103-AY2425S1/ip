@@ -35,6 +35,10 @@ public class Deadline extends Task {
         super(description, isDone);
         this.by = parseDateTime(by);
     }
+    public Deadline(String description, String by, boolean isDone,LocalDateTime markedTime) {
+        super(description, isDone,markedTime);
+        this.by = parseDateTime(by);
+    }
 
     /**
      * Parses the date/time string into a {@code LocalDateTime} object using multiple predefined formats.

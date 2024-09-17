@@ -42,6 +42,12 @@ public class Event extends Task {
         this.to = parseDateTime(to);
     }
 
+    public Event(String description, String from, String to, boolean isDone, LocalDateTime markedDate) {
+        super(description, isDone, markedDate);
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
+    }
+
     /**
      * Parses the date/time string into a {@code LocalDateTime} object using multiple predefined formats.
      * If none of the formats match, returns {@code null}.

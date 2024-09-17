@@ -29,6 +29,11 @@ public class Task {
         this.isDone = isDone;
         this.completionDate = null;
     }
+    public Task(String description, boolean isDone, LocalDateTime markedTime) {
+        this.description = description;
+        this.isDone = isDone;
+        this.completionDate = markedTime;
+    }
 
     /**
      * Returns the status icon of the task.
