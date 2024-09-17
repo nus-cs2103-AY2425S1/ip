@@ -64,7 +64,7 @@ public class ParserTest {
         JustbotException exception = assertThrows(JustbotException.class, () -> {
             parser.parseCommand(input);
         });
-        assertEquals("Hey man you can't leave the description for deadline blank!", exception.getMessage());
+        assertEquals("Hey man, you can't leave the description blank!", exception.getMessage());
     }
 
 
