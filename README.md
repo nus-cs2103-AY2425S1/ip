@@ -3,7 +3,7 @@
 
 YappingBot **FREES** your mind of having to remember things you need to do.
 
-![](Ui.png)
+![](docs/Ui.png)
 
 - Text-based
 - Questionable learning curve

@@ -67,6 +67,7 @@ Did I mention it's **FREE**? (Free of Charge, Free of Dom)
 - [ ] Autosave
 - [ ] Flexible date formatting
 - [ ] More coming soon...
+
 ---
 # Usage
 
