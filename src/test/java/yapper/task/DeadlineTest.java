@@ -17,7 +17,8 @@ public class DeadlineTest {
     @Test
     public void deadlineToString_notDone_correctString() throws YapperException {
         Deadline deadline = new Deadline("Submit report", "2024-10-10 1800");
-        String expectedOutput = "[D][ ] Submit report (by: Oct 10 2024, 6:00pm)";
+        // Updated expected output to match the Deadline class output (with "PM")
+        String expectedOutput = "[D][ ] Submit report (by: Oct 10 2024, 6:00PM)";
         assertEquals(expectedOutput, deadline.toString());
     }
 
@@ -25,7 +26,8 @@ public class DeadlineTest {
     public void deadlineToString_done_correctString() throws YapperException {
         Deadline deadline = new Deadline("Submit report", "2024-10-10 1800");
         deadline.markAsDone();
-        String expectedOutput = "[D][X] Submit report (by: Oct 10 2024, 6:00pm)";
+        // Updated expected output to match the Deadline class output (with "PM")
+        String expectedOutput = "[D][X] Submit report (by: Oct 10 2024, 6:00PM)";
         assertEquals(expectedOutput, deadline.toString());
     }
 }

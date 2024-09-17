@@ -1,7 +1,7 @@
 package yapper.task;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TodoTest {
 
@@ -15,7 +15,7 @@ public class TodoTest {
     public void todoMarkAsDone_markedAsDone_success() {
         Todo todo = new Todo("Finish assignment");
         todo.markAsDone();
-        assertEquals(true, todo.isDone());
+        assertTrue(todo.isDone(), "Todo should be marked as done");
     }
 
     @Test
