@@ -1,10 +1,13 @@
 package papadom;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import papadom.utils.Papadom;
 import papadom.utils.Ui;
 
@@ -28,7 +31,12 @@ public class MainController {
     // Constructor initializes the Papadom chatbot
     public MainController() {}
 
-    // Called automatically when the controller is initialized (after FXML is loaded)
+    /**
+     * Initializes the chat interface.
+     * This method is called automatically after the FXML file is loaded.
+     * It sets up the chat area, displays the bot's welcome message, and ensures
+     * that the chat scrolls to the bottom as new messages are added.
+     */
     @FXML
     public void initialize() {
         // Display bot's welcome message (aligned to the left)
@@ -40,9 +48,22 @@ public class MainController {
         chatArea.heightProperty().addListener((observable, oldValue, newValue) -> {
             scrollPane.setVvalue(1.0); // Scroll to the bottom
         });
+
+        // Add key event listener to inputField to listen for Enter key press
+        inputField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+            case ENTER -> handleSendAction(); // Call the send action when Enter is pressed
+            default -> System.out.println("Unhandled key pressed: " + event.getCode());
+            }
+        });
     }
 
-    // Called when the user clicks the "Send" button
+    /**
+     * Handles the action triggered when the user clicks the "Send" button.
+     * The method retrieves the user's input, displays it in the chat, processes
+     * it through the bot, and displays the bot's response. If the input is "bye",
+     * the window is closed.
+     */
     @FXML
     private void handleSendAction() {
         String userInput = inputField.getText().trim();
@@ -60,9 +81,15 @@ public class MainController {
             // Clear the input field after sending
             inputField.clear();
 
-            // If the command is "bye", disable further input
+            // If the command is "bye", disable input and close the window after 3 seconds
             if (userInput.equalsIgnoreCase(BYE)) {
-                inputField.setDisable(true); // Disable further input
+                inputField.setDisable(true); // Disable input field
+                PauseTransition pause = new PauseTransition(Duration.seconds(2)); // Wait for 3 seconds
+                pause.setOnFinished(event -> {
+                    Stage stage = (Stage) inputField.getScene().getWindow(); // Get the current window (Stage)
+                    stage.close(); // Close the window after 3 seconds
+                });
+                pause.play(); // Start the pause timer
             }
         }
     }
