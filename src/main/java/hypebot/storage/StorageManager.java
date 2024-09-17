@@ -44,6 +44,7 @@ public class StorageManager {
      * @throws TaskDateTimeParseException If date-related data is not in expected format.
      */
     public Tasklist load() throws FileNotFoundException, TaskDateTimeParseException {
+        assert tasklistFile.exists() : "Tasklist file does not exist at './src/main/data/tasks.txt'";
         TasklistDecoder decoder = new TasklistDecoder(tasklistFile);
         return decoder.decode();
     }
@@ -57,6 +58,7 @@ public class StorageManager {
      * @throws IOException If specified file not found.
      */
     public void save(Tasklist tasklist) throws IOException {
+        assert tasklistFile.exists() : "Tasklist file does not exist at './src/main/data/tasks.txt'";
         TasklistEncoder encoder = new TasklistEncoder(tasklistFile, tasklist);
         encoder.encode();
     }
