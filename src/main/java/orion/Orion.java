@@ -1,12 +1,8 @@
 // prettier-ignore-file
 package orion;
 
-import java.io.IOException;
-
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+
 import orion.commands.Command;
 import orion.orionexceptions.FileInitializationException;
 import orion.orionexceptions.OrionException;
@@ -16,7 +12,6 @@ import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
 import orion.task.Task;
 import orion.tasklist.TaskList;
-import orion.ui.MainWindow;
 
 /**
  * The main class for the Orion application.
@@ -25,7 +20,7 @@ import orion.ui.MainWindow;
  * This class is responsible for setting up the UI and the TaskList.
  * </p>
  */
-public class Orion extends Application {
+public class Orion {
     private TaskList taskList;
     private Parser parser;
 
@@ -51,32 +46,6 @@ public class Orion extends Application {
      * Starts the Orion application.
      *
      * <p>
-     * Loads the main window from an FXML file and sets up the UI.
-     * </p>
-     *
-     * @param stage the primary stage for the application.
-     */
-    @Override
-    public void start(Stage stage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Orion.class.getResource("/view/MainWindow.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setScene(scene);
-
-            MainWindow mainWindow = fxmlLoader.getController();
-            mainWindow.setOrion(this);
-
-            stage.setTitle("Orion Task Manager");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Starts the Orion application.
-     *
-     * <p>
      * This is the entry point for the application. It simply calls the
      * {@link Application#launch(String[])} method to start the application.
      * </p>
@@ -84,7 +53,7 @@ public class Orion extends Application {
      * @param args the command line arguments passed to the application.
      */
     public static void main(String[] args) {
-        launch(args);
+        Application.launch(Main.class, args);
     }
 
     /**
@@ -106,16 +75,16 @@ public class Orion extends Application {
 
             // prettier-ignore
             return switch (command) {
-            case LIST -> handleList(parts);
-            case MARK -> handleMark(parts);
-            case UNMARK -> handleUnmark(parts);
-            case TODO -> handleTodo(parts);
-            case EVENT -> handleEvent(parts);
-            case DEADLINE -> handleDeadline(parts);
-            case DELETE -> handleDelete(parts);
-            case FIND -> handleFind(parts);
-            case BYE -> "Goodbye!";
-            default -> "Unknown command: " + parts[0];
+                case LIST -> handleList(parts);
+                case MARK -> handleMark(parts);
+                case UNMARK -> handleUnmark(parts);
+                case TODO -> handleTodo(parts);
+                case EVENT -> handleEvent(parts);
+                case DEADLINE -> handleDeadline(parts);
+                case DELETE -> handleDelete(parts);
+                case FIND -> handleFind(parts);
+                case BYE -> "Goodbye!";
+                default -> "Unknown command: " + parts[0];
             };
         } catch (OrionException e) {
             return "Error: " + e.getMessage() + "\n";
