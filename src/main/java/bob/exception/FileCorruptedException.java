@@ -1,3 +1,5 @@
+package bob.exception;
+
 public class FileCorruptedException extends BobException {
     public FileCorruptedException() {
         super("Yikes, looks like the data file's busted.\n" +

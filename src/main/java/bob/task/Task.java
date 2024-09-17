@@ -1,3 +1,5 @@
+package bob.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -5,6 +7,14 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public String getStatusIcon() {

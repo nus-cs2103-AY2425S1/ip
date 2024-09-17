@@ -1,5 +1,6 @@
-public class Todo extends Task {
+package bob.task;
 
+public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
