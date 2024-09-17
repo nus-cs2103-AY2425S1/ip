@@ -54,7 +54,6 @@ public class Storage {
      */
     public Task parseTask(String taskData) {
         assert taskData != null : "Task data should not be null";
-
         if (taskData.startsWith("[T]")) {
             String description = taskData.substring(7);
             assert description != null && !description.isEmpty() : "Task description should not be null or empty";
@@ -92,7 +91,6 @@ public class Storage {
                 return event;
             }
         }
-
         return null;
     }
 
