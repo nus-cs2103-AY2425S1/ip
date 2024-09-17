@@ -26,124 +26,18 @@ To download the latest version of David,
 > [!NOTE]
 >
 > The easiest way to see all available commands is simply calling the `help` command
->
 
-<table>
-  <tr>
-    <th>Command</th><th>Arguments</th><th>Action</th>
-  </tr>
-  <tr>
-    <td>
-
-`todo`
-</td>
-<td>
-
-`TASK_NAME`
-</td>
-<td>Adds todo task</td>
-
-<tr>
-    <td>
-
-`deadline`
-</td>
-<td>
-
-`/by YYYY-MM-DD HHHH`
-</td>
-<td>Adds deadline task</td>
-  </tr>
-
-  <tr>
-    <td>
-
-`event`
-</td>
-<td>
-
-`/from YYYY-MM-DD HHHH`
-
-`/to YYYY-MM-DD HHHH`
-</td>
-<td>Adds event task</td>
-  </tr>
-
-  <tr>
-    <td>
-
-`mark` and `unmark`
-</td>
-<td>
-
-`INDEX`
-
-</td>
-<td>Marks and unmarks a task</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`delete`
-</td>
-<td>
-
-`INDEX`
-
-</td>
-<td>Deletes a task</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`list`
-</td>
-<td> - 
-</td>
-<td>Lists all task</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`find`
-</td>
-<td> 
-
-`TASK_NAME`
-</td>
-<td>Finds all task corresponding to the specified string</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`sort`
-</td>
-<td> 
-
-`ORDER_BY`
-</td>
-<td>Sorts tasks in the order specified</td>
-  </tr>
-
-
-  <tr>
-    <td>
-
-`help`
-</td>
-<td> -
-</td>
-<td>Displays a list of available commands</td>
-  </tr>
-</table>
+| Command  | Arguments                                         | Action             |
+| ----------- |---------------------------------------------------|--------------------|
+| `todo`       | `TASK_NAME`                                       | Adds todo task     |
+| `deadline`       | `/by YYYY-MM-DD HHHH`                             | Adds deadline task |
+| `event`       | `/from YYYY-MM-DD HHHH` and  `/to YYYY-MM-DD HHHH` | Adds event task    |
+| `mark` and `unmark`       | `INDEX`                                           | Marks and unmarks a task |
+| `delete`       | `INDEX`                                           | Deletes a task |
+| `list`       | -                                                 | Lists all task |
+| `find`       | `TASK_NAME`                             | Finds all task corresponding to the specified string |
+| `sort`       | `ORDER_BY`                             | Sorts tasks in the order specified |
+| `help`       | -                              | Displays a list of available commands |
 
 
 ## Features

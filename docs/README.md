@@ -7,12 +7,12 @@ David is a task list tracker, enhanced and optimised for users who prefer
 typing. 
 
 The features David provides include:
-- [x] Add tasks (Todo tasks, Deadline tasks and event tasks)
-- [x] Delete tasks
-- [x] Local caching of tasks 
-- [x] Sort of tasks
-- [x] Find tasks
-- [x] Mark and unmark of tasks
+-  Add tasks (Todo tasks, Deadline tasks and event tasks)
+-  Delete tasks
+-  Local caching of tasks 
+-  Sort of tasks
+-  Find tasks
+-  Mark and unmark of tasks
 
 # Installation
 To download the latest version of David,
@@ -26,15 +26,20 @@ To download the latest version of David,
 > 
 > The easiest way to see all available commands is simply calling the `help` command
 
-
-| Command  | Arguments  | Action |
-| ----------- | ----------- | ----------- |
-| `todo`       | `TASK_NAME`       |  Adds todo task       |
-| `deadline`       | `/by YYYY-MM-DD HHHH`       | Adds deadline task       |
-
+| Command  | Arguments                                         | Action             |
+| ----------- |---------------------------------------------------|--------------------|
+| `todo`       | `TASK_NAME`                                       | Adds todo task     |
+| `deadline`       | `/by YYYY-MM-DD HHHH`                             | Adds deadline task |
+| `event`       | `/from YYYY-MM-DD HHHH` and  `/to YYYY-MM-DD HHHH` | Adds event task    |
+| `mark` and `unmark`       | `INDEX`                                           | Marks and unmarks a task |
+| `delete`       | `INDEX`                                           | Deletes a task |
+| `list`       | -                                                 | Lists all task |
+| `find`       | `TASK_NAME`                             | Finds all task corresponding to the specified string |
+| `sort`       | `ORDER_BY`                             | Sorts tasks in the order specified |
+| `help`       | -                              | Displays a list of available commands |
 
 ## Features
-> ![NOTE]
+> **NOTE**
 > - Words in `UPPER_CASE` are required parameters supplied by the user.
 > - Words in `lower_case` are action specifiers for commands
 
