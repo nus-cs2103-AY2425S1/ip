@@ -61,6 +61,7 @@ public class Storage {
         }
 
         try {
+            // Break the encoded Task string into its various parts for further processing
             String taskType = parts[0]; // "T", "D", or "E"
             String taskStatus = parts[1]; // "1" or "0"
             String description = parts[2];
