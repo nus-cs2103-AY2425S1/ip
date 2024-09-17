@@ -49,6 +49,8 @@ public class EventCommand extends Command {
             message = ui.showMessage("Event description and duration cannot be empty");
         } catch (DateTimeParseException e) {
             message = ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
+        } catch (IllegalArgumentException e) {
+            message = ui.showMessage(e.getMessage());
         } finally {
             ui.showHorizontalLine();
         }
@@ -59,13 +61,18 @@ public class EventCommand extends Command {
     /**
      * Parses the description to extract the event information and duration.
      * Generate an event based on the extracted information.
+     *
+     * @throws IllegalArgumentException if start time is after end time.
      */
-    public void generateEvent() {
+    public void generateEvent() throws IllegalArgumentException {
         String[] cmdEvent = this.description.split("/from ", 2);
         String info = cmdEvent[0];
         String[] duration = cmdEvent[1].split(" /to ", 2);
         LocalDateTime startTime = LocalDateTime.parse(duration[0], super.getFormatter());
         LocalDateTime endTime = LocalDateTime.parse(duration[1], super.getFormatter());
+        if (startTime.isAfter(endTime)) {
+            throw new IllegalArgumentException("Start time must be before end time.");
+        }
         this.event = new Event(info, startTime, endTime);
     }
 
