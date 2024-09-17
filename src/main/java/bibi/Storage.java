@@ -100,7 +100,10 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
 
         for (int i = 0; i < tasks.getTaskCount(); i++) {
-            fw.write(String.format("%s\n", tasks.getTask(i).toString()));
+            fw.write(String.format("%s", tasks.getTask(i).toString()));
+            if (i != tasks.getTaskCount() - 1) {
+                fw.write("\n");
+            }
         }
 
         fw.close();

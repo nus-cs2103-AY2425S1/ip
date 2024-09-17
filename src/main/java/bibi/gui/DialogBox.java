@@ -6,12 +6,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /** Represents a horizontal bibi.gui.DialogBox with an ImageView for icons and Label for text*/
 public class DialogBox extends HBox {
@@ -37,7 +46,21 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        setMaxHeight(Double.MAX_VALUE);
+        setPrefHeight(USE_COMPUTED_SIZE);
+        dialog.setPrefWidth(USE_COMPUTED_SIZE);
+        dialog.setPrefHeight(USE_COMPUTED_SIZE);
+        dialog.setMinHeight(displayPicture.getFitHeight());
+        dialog.setMaxHeight(Double.MAX_VALUE);
+        setMargin(dialog, new Insets(10, 5, 10, 5));
+
+        dialog.setBorder(new Border(new BorderStroke(
+                Color.BLACK,
+                BorderStrokeStyle.SOLID,
+                new CornerRadii(20),
+                BorderWidths.DEFAULT)));
         dialog.setText(s);
+        dialog.setPadding(new Insets(20, 20, 20, 20));
         displayPicture.setImage(i);
     }
 
@@ -53,6 +76,7 @@ public class DialogBox extends HBox {
 
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
+        dialog.setAlignment(Pos.CENTER_LEFT);
         ObservableList<Node> nodes = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(nodes);
         this.getChildren().setAll(nodes);

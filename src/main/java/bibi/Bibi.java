@@ -34,6 +34,13 @@ public class Bibi {
     }
 
     public String getResponse(String input) {
-        return Parser.parseCommand(input).execute(tasks, processor, storage);
+        Command c = Parser.parseCommand(input.trim());
+        String response = c.execute(tasks, processor, storage);
+
+        if (c.isError()) {
+            return "ERROR" + response;
+        } else {
+            return response;
+        }
     }
 }

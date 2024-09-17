@@ -24,34 +24,6 @@ public class Processor {
     }
 
     /**
-     * Prints the welcome message when the chat bot is launched.
-     */
-    public void printWelcomeMessage() {
-        String logo =
-                          """
-                          ########   #######   ########   #######\s
-                          #       #     #      #       #     #   \s
-                          ########      #      ########      #   \s
-                          #       #     #      #       #     #   \s
-                          #       #     #      #       #     #   \s
-                          ########   #######   ########   #######\s
-                          """;
-
-        System.out.println("Hello from\n" + logo + "\n"
-                + "How can I help you?");
-    }
-
-    /**
-     * Returns the inputs entered into the console as a String.
-     * String ends when a newline character is encountered.
-     *
-     * @return input as String.
-     */
-    public String readInput() {
-        return s.nextLine();
-    }
-
-    /**
      * Returns the exit message when the "bye" command is used.
      */
     public String getExitMessage() {
@@ -68,18 +40,34 @@ public class Processor {
         int index;
         String[] input;
         switch (c.getCmd()) {
+        case "help":
+            return "Welcome! Here are the commands you can use:\n"
+                    + "help: lists all commands"
+                    + "list: lists all current tasks\n"
+                    + "mark: marks task at index <int> as done\n"
+                    + "unmark: marks task at index <int> as not done\n"
+                    + "todo: adds a ToDo type task with given description to list\n"
+                    + "deadline: adds a Deadline task with given description and deadline to list\n"
+                    + "event: adds an Event task with specified time interval\n"
+                    + "remove: removes task at index <int> from list\n"
+                    + "find: lists tasks with descriptions that contain keywords";
         case "list":
             if (tasks.getTaskCount() == 0) {
                 return "Good for you, nothing to do :D";
             }
             for (int i = 1; i <= tasks.getTaskCount(); i++) {
-                sb.append(String.format("%d.%s%n", i, tasks.getTask(i - 1)));
+                sb.append(String.format("%d.%s", i, tasks.getTask(i - 1)));
+                if (i != tasks.getTaskCount()) {
+                    sb.append("\n");
+                }
             }
             return sb.toString();
         case "mark":
             if (!args.matches("\\d+")) {
+                c.setErrorFlag();
                 return "Please use \"mark <int>\"";
             } else if ((index = Integer.parseInt(args)) - 1 >= tasks.getTaskCount() || index <= 0) {
+                c.setErrorFlag();
                 return "Invalid task index";
             } else {
                 t = tasks.getTask(index - 1);
@@ -90,13 +78,16 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                c.setErrorFlag();
+                return e.getMessage();
             }
             return sb.toString();
         case "unmark":
             if (!args.matches("\\d+")) {
+                c.setErrorFlag();
                 return "Please use \"unmark <int>\"";
             } else if ((index = Integer.parseInt(args)) - 1 >= tasks.getTaskCount() || index <= 0) {
+                c.setErrorFlag();
                 return "Invalid task index";
             } else {
                 t = tasks.getTask(index - 1);
@@ -106,13 +97,15 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                c.setErrorFlag();
+                return e.getMessage();
             }
             sb.append("Unmarked the following for you:\n")
                     .append(t);
             return sb.toString();
         case "todo":
             if (!args.matches(".+")) {
+                c.setErrorFlag();
                 return "Please use \"todo <description>\"";
             } else {
                 ToDo td = new ToDo(c.getArgs().stripIndent());
@@ -124,12 +117,14 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                c.setErrorFlag();
+                return e.getMessage();
             }
 
             return sb.toString();
         case "deadline":
             if (!args.matches(".+ /by .+")) {
+                c.setErrorFlag();
                 return "Please use \"deadline <description> /by <deadline>\"";
             } else {
                 input = args.split(" /by ");
@@ -142,12 +137,14 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                c.setErrorFlag();
+                return e.getMessage();
             }
 
             return sb.toString();
         case "event":
             if (!args.matches(".+ /from .+ /to .+")) {
+                c.setErrorFlag();
                 return "Please use \"event <description> /from <time> /to <time>\"";
             } else {
                 input = args.split(" /from ");
@@ -161,16 +158,19 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException err) {
-                System.out.println(err.getMessage());
+                c.setErrorFlag();
+                return err.getMessage();
             }
 
             return sb.toString();
         case "remove":
             if (!args.matches("\\d+")) {
+                c.setErrorFlag();
                 return "Please use \"remove <index>\"";
             } else {
                 t = tasks.removeFromTaskList(Integer.parseInt(args));
                 if (t == null) {
+                    c.setErrorFlag();
                     return "Invalid task index";
                 } else {
                     sb.append(getTaskRemovedMessage(t, tasks.getTaskCount()));
@@ -180,13 +180,15 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException err) {
-                System.out.println(err.getMessage());
+                c.setErrorFlag();
+                return err.getMessage();
             }
 
             return sb.toString();
         case "find":
             // No pattern specified
             if (args.isEmpty()) {
+                c.setErrorFlag();
                 return "Please use \"find <pattern>\"";
             } else {
                 sb.append("Here's what we found: \n");

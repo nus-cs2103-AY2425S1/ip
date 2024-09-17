@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import bibi.Bibi;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -45,21 +44,17 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("Bibi");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(bibi); // inject the Duke instance
+
+            // Prevent Resizing beyond a certain limit
+            double minWidth = 544;
+            stage.setMinWidth(minWidth);
+            double minHeight = 600;
+            stage.setMinHeight(minHeight);
+
+            fxmlLoader.<MainWindow>getController().setBibi(bibi); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    /**
-     * Creates a new dialog box with user input and appends it to the
-     * dialog container(VBox). Clears the input in the TextField afterwards.
-     */
-    @FXML
-    private void handleUserInput() {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialogBox(userInput.getText(), userImage),
-                DialogBox.getBotDialogBox(bibi.getResponse(userInput.getText()), botImage));
-        userInput.clear();
     }
 }
