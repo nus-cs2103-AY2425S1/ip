@@ -44,10 +44,10 @@ public class Storage {
         File db = new File(this.filePath);
         File dir = new File(db.getParent());
 
-        // Create directory and handle if it fails
+        // Check to see if parent folder("storage") exists. if it doesnt then create it
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                throw new FRIDAYException("Failed to create directory structure");
+                throw new FRIDAYException("Failed to create parent folders");
             }
         }
 
@@ -55,11 +55,11 @@ public class Storage {
             // Create the database file if it doesn't exist
             if (!db.exists()) {
                 if (!db.createNewFile()) {
-                    throw new FRIDAYException("Failed to create database file");
+                    throw new FRIDAYException("Failed to create storage file");
                 }
             }
         } catch (IOException e) {
-            throw new FRIDAYException("Error occurred while creating database file");
+            throw new FRIDAYException("Error occurred while creating storage file");
         }
     }
 
