@@ -26,6 +26,7 @@ public class Easton {
     public static final String LIST_HEADER_RESPONSE = "Here are the tasks in your list:";
     public static final String MARK_HEADER_RESPONSE = "Nice! I've marked this task as done:";
     public static final String UNMARK_HEADER_RESPONSE = "OK, I've marked this task as not done yet:";
+    public static final String ARCHIVE_HEADER_RESPONSE = "The following item(s) were archived:";
     private ArrayList<Task> tasks = new ArrayList<>();
     private Storage storage;
 
@@ -433,6 +434,10 @@ public class Easton {
         case FIND:
             response.append(findTasks(body));
             break;
+        case ARCHIVE:
+            response.append(archiveTasks(body));
+            saveTasks();
+            break;
         case INVALID:
             response.append(INVALID_RESPONSE);
             break;
@@ -459,5 +464,37 @@ public class Easton {
             }
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * Stores task(s) into a archive file.
+     *
+     * @param body Body from the prompt.
+     * @return Response to be displayed to users.
+     */
+    public String archiveTasks(String body) {
+        StringBuilder response = new StringBuilder();
+        response.append(ARCHIVE_HEADER_RESPONSE);
+        ArrayList<String> records = new ArrayList<>();
+        if (body.equals("all")) {
+            for (Task task : tasks) {
+                records.add(task.getCsvFormat());
+            }
+            response.append(toNumberedTaskList(x -> true));
+            tasks.clear();
+        } else {
+            try {
+                int index = getIndexFromBody(body);
+                Task task = tasks.remove(index);
+                records.add(task.getCsvFormat());
+                response.append("\n").append(task);
+            } catch (InvalidIndexException e) {
+                return e.getMessage();
+            }
+        }
+
+        storage.archiveRecords(records);
+
+        return response.toString();
     }
 }
