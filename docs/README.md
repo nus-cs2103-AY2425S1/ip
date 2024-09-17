@@ -148,16 +148,4 @@ Now you have 3 tasks in the list.
   **A**: Yes, use the `find [keyword]` command to search for tasks.
 - **Q**: Will my tasks be saved automatically?  
   **A**: Yes, tasks are automatically saved after every change.
-## Adding deadlines
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
