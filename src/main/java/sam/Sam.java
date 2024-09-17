@@ -12,13 +12,6 @@ import java.util.Scanner;
  * The application provides a command-line interface for users to interact with.
  * Users can input commands to perform various operations on the tasks.
  * The application also supports saving and loading tasks from a file.
- *
- * The Sam class contains methods to handle user commands and perform the corresponding operations.
- * It uses the Ui class to display messages to the user.
- * It uses the Storage class to save and load tasks from a file.
- * It uses the Items class to store and manage the list of tasks.
- *
- * The main method creates an instance of the Sam class and starts the application.
  */
 public class Sam {
     private Ui ui;
@@ -30,12 +23,11 @@ public class Sam {
      * Constructs a new instance of the Sam class.
      */
     public Sam() {
-        String filePath = "data/Sam.txt";
+        
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("data/Sam.txt");
 
         try {
-            // Initialize Items with tasks loaded from storage
             List<Item> loadedItems = storage.load();
             items = new Items(loadedItems);
         } catch (IOException e) {
@@ -51,55 +43,138 @@ public class Sam {
      * @return the response based on the input
      */
     public String getResponse(String input) {
-        StringBuilder response = new StringBuilder();
         try {
             CommandType commandType = parseCommandType(input);
-
-            switch (commandType) {
-            case BYE:
-                response.append("Goodbye!\n");
-                isExit = true;
-                saveTasks();
-                break;
-            case LIST:
-                response.append("Here are the tasks in your list:\n");
-                response.append(items.toString()).append("\n");
-                break;
-            case MARK:
-                response.append(markItemDone(input));
-                saveTasks();
-                break;
-            case UNMARK:
-                response.append(markItemUndone(input));
-                saveTasks();
-                break;
-            case DELETE:
-                response.append(deleteItem(input));
-                saveTasks();
-                break;
-            case FIND:
-                response.append(findItem(input));
-                break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                response.append(addItem(input));
-                saveTasks();
-                break;
-            case HELP:
-                response.append(getHelpMessage());
-                break;
-            default:
-                throw new SamException("I'm sorry, but I don't know what that means.");
-            }
+            return handleCommand(commandType, input);
         } catch (SamException e) {
-            response.append(e.getMessage()).append("\n");
+            return e.getMessage() + "\n";
         } catch (IOException e) {
-            response.append("An error occurred while saving the tasks.\n");
+            return "An error occurred while saving the tasks.\n";
         } catch (DateTimeParseException e) {
-            response.append("Invalid date format. Please use dd-MM-yyyy.\n");
+            return "Invalid date format. Please use dd-MM-yyyy.\n";
         }
-        return response.toString();
+    }
+
+    /**
+     * Handles the command based on the CommandType.
+     *
+     * @param commandType the type of the command
+     * @param input       the user input
+     * @return the appropriate response for the command
+     * @throws IOException  if an I/O error occurs
+     * @throws SamException if an invalid command is given
+     */
+    private String handleCommand(CommandType commandType, String input) throws IOException, SamException {
+        switch (commandType) {
+        case BYE:
+            return handleByeCommand();
+        case LIST:
+            return handleListCommand();
+        case MARK:
+            return handleMarkCommand(input);
+        case UNMARK:
+            return handleUnmarkCommand(input);
+        case DELETE:
+            return handleDeleteCommand(input);
+        case FIND:
+            return handleFindCommand(input);
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            return handleAddCommand(commandType, input);
+        case HELP:
+            return getHelpMessage();
+        default:
+            throw new SamException("I'm sorry, but I don't know what that means.");
+        }
+    }
+
+    /**
+     * Handles the 'bye' command.
+     *
+     * @return the goodbye message and saves tasks
+     * @throws IOException if an I/O error occurs
+     */
+    private String handleByeCommand() throws IOException {
+        isExit = true;
+        saveTasks();
+        return "Goodbye!\n";
+    }
+
+    /**
+     * Handles the 'list' command.
+     *
+     * @return the list of tasks
+     */
+    private String handleListCommand() {
+        return "Here are the tasks in your list:\n" + items.toString() + "\n";
+    }
+
+    /**
+     * Handles the 'mark' command.
+     *
+     * @param input the user input containing the task number
+     * @return the response indicating the task is marked
+     * @throws SamException if an invalid task number is provided
+     * @throws IOException  if an I/O error occurs
+     */
+    private String handleMarkCommand(String input) throws SamException, IOException {
+        String response = markItemDone(input);
+        saveTasks();
+        return response;
+    }
+
+    /**
+     * Handles the 'unmark' command.
+     *
+     * @param input the user input containing the task number
+     * @return the response indicating the task is unmarked
+     * @throws SamException if an invalid task number is provided
+     * @throws IOException  if an I/O error occurs
+     */
+    private String handleUnmarkCommand(String input) throws SamException, IOException {
+        String response = markItemUndone(input);
+        saveTasks();
+        return response;
+    }
+
+    /**
+     * Handles the 'delete' command.
+     *
+     * @param input the user input containing the task number
+     * @return the response indicating the task is deleted
+     * @throws SamException if an invalid task number is provided
+     * @throws IOException  if an I/O error occurs
+     */
+    private String handleDeleteCommand(String input) throws SamException, IOException {
+        String response = deleteItem(input);
+        saveTasks();
+        return response;
+    }
+
+    /**
+     * Handles the 'find' command.
+     *
+     * @param input the user input containing the keyword
+     * @return the response with the tasks that match the keyword
+     */
+    private String handleFindCommand(String input) {
+        return findItem(input);
+    }
+
+    /**
+     * Handles the addition of tasks (ToDo, Deadline, Event).
+     *
+     * @param commandType the type of task (TODO, DEADLINE, EVENT)
+     * @param input       the user input containing the task details
+     * @return the response indicating the task is added
+     * @throws SamException if the task details are invalid
+     * @throws IOException  if an I/O error occurs
+     */
+    private String handleAddCommand(CommandType commandType, String input) throws SamException, IOException {
+        String response = addItem(input);
+        saveTasks();
+        return response;
     }
 
     /**

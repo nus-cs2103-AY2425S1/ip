@@ -14,12 +14,12 @@ public class Event extends Item {
     /**
      * Constructs an Event object with the specified name, start date, and end date.
      *
-     * @param newname the name of the event
+     * @param name the name of the event
      * @param from the start date of the event in the format "dd-MM-yyyy"
      * @param to the end date of the event in the format "dd-MM-yyyy"
      */
-    public Event(String newname, String from, String to) {
-        super(newname);
+    public Event(String name, String from, String to) {
+        super(name);
         this.from = LocalDate.parse(from, DATE_FORMAT);
         this.to = LocalDate.parse(to, DATE_FORMAT);
     }

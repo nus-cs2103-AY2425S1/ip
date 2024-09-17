@@ -8,10 +8,10 @@ public class ToDo extends Item {
     /**
      * Constructs a new ToDo object with the given name.
      *
-     * @param newname The name of the to-do item.
+     * @param name The name of the to-do item.
      */
-    public ToDo(String newname) {
-        super(newname);
+    public ToDo(String name) {
+        super(name);
     }
 
     /**

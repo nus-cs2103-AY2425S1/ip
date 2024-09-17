@@ -1,4 +1,6 @@
 package sam;
+
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,46 +37,17 @@ public class Storage {
         File file = new File(filePath);
 
         if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-            return items; // Return empty list if file didn't exist
+            createNewFile(file);
+            return items;
         }
 
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] data = line.split(" \\| ");
-            String itemType = data[0];
-            boolean isDone = data[1].equals("1");
-            String name = data[2];
-
-            switch (itemType) {
-            case "T":
-                ToDo todo = new ToDo(name);
-                if (isDone) {
-                    todo.markAsDone();
-                }
-                items.add(todo);
-                break;
-            case "D":
-                Deadline deadline = new Deadline(name, data[3]);
-                if (isDone) {
-                    deadline.markAsDone();
-                }
-                items.add(deadline);
-                break;
-            case "E":
-                Event event = new Event(name, data[3], data[4]);
-                if (isDone) {
-                    event.markAsDone();
-                }
-                items.add(event);
-                break;
-            default:
-                throw new IOException("Unknown item type in storage file.");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                items.add(parseItem(line));
             }
         }
-        reader.close();
+
         return items;
     }
 
@@ -85,12 +58,94 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     public void save(List<Item> items) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-
-        for (Item item : items) {
-            writer.write(item.toData());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Item item : items) {
+                writer.write(item.toData());
+            }
         }
+    }
 
-        writer.close();
+    /**
+     * Parses a line from the file and converts it to an Item object.
+     *
+     * @param line The line to be parsed.
+     * @return The corresponding Item object.
+     * @throws IOException If the line contains an unknown item type.
+     */
+    private Item parseItem(String line) throws IOException {
+        String[] data = line.split(" \\| ");
+        String itemType = data[0];
+        boolean isDone = data[1].equals("1");
+        String name = data[2];
+
+        switch (itemType) {
+        case "T":
+            return createToDoItem(isDone, name);
+        case "D":
+            return createDeadlineItem(isDone, name, data[3]);
+        case "E":
+            return createEventItem(isDone, name, data[3], data[4]);
+        default:
+            throw new IOException("Unknown item type in storage file.");
+        }
+    }
+
+    /**
+     * Creates a new file if it does not exist.
+     *
+     * @param file The file to be created.
+     * @throws IOException If an I/O error occurs during file creation.
+     */
+    private void createNewFile(File file) throws IOException {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+    }
+
+    /**
+     * Creates a ToDo item.
+     *
+     * @param isDone The done status of the item.
+     * @param name   The name of the item.
+     * @return The created ToDo item.
+     */
+    private ToDo createToDoItem(boolean isDone, String name) {
+        ToDo todo = new ToDo(name);
+        if (isDone) {
+            todo.markAsDone();
+        }
+        return todo;
+    }
+
+    /**
+     * Creates a Deadline item.
+     *
+     * @param isDone The done status of the item.
+     * @param name   The name of the item.
+     * @param by     The deadline of the item.
+     * @return The created Deadline item.
+     */
+    private Deadline createDeadlineItem(boolean isDone, String name, String by) {
+        Deadline deadline = new Deadline(name, by);
+        if (isDone) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
+
+    /**
+     * Creates an Event item.
+     *
+     * @param isDone The done status of the item.
+     * @param name   The name of the item.
+     * @param from   The start time of the event.
+     * @param to     The end time of the event.
+     * @return The created Event item.
+     */
+    private Event createEventItem(boolean isDone, String name, String from, String to) {
+        Event event = new Event(name, from, to);
+        if (isDone) {
+            event.markAsDone();
+        }
+        return event;
     }
 }
