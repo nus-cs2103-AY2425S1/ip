@@ -20,8 +20,6 @@
     /* Change size of image. */
     -fx-scale-x: 1;
     -fx-scale-y: 1;
-    -fx-fit-to-height: 120;
-        -fx-fit-to-width: 120;
 
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;

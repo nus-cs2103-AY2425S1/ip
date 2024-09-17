@@ -2,6 +2,7 @@ package bobby;
 
 
 import bobby.javafx.DialogBox;
+import bobby.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -21,6 +22,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     private Bobby bobby;
 
+    private Ui ui;
+
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/homer.png"));
     private Image bobbyImage = new Image(this.getClass().getResourceAsStream("/images/ai.png"));
 
@@ -29,9 +32,12 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the bobby instance */
     public void setBobby(Bobby b) {
         bobby = b;
+        ui = new Ui();
+        String helloMessage = ui.getGreetingMessage();
+        dialogContainer.getChildren().add(DialogBox.getBobbyDialog(helloMessage, bobbyImage));
     }
 
     /**
