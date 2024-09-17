@@ -51,27 +51,35 @@ public class Storage {
         Path dataFilePath = Paths.get("data", "JBotStorage.json");
         File file = dataFilePath.toFile();
 
-        // Create the file if it doesn't exist
-        if (!file.exists()) {
-            try {
-                // Ensure the parent directories exist
-                file.getParentFile().mkdirs();
-
-                // Create the file
-                if (file.createNewFile()) {
-                    System.out.println("File created: " + file.getAbsolutePath());
-                } else {
-                    System.out.println("Failed to create file: " + file.getAbsolutePath());
-                }
-            } catch (IOException e) {
-                System.out.println("An error occurred while creating the file.");
-                e.printStackTrace();
-            }
-        } else {
+        if (file.exists()) {
             System.out.println("File already exists: " + file.getAbsolutePath());
+            return file;
         }
 
+        createFile(file);
         return file;
+    }
+
+    /**
+     * Creates the file and ensures its parent directories exist.
+     *
+     * @param file The file to be created.
+     */
+    private static void createFile(File file) {
+        try {
+            // Ensure the parent directories exist
+            file.getParentFile().mkdirs();
+
+            // Create the file
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getAbsolutePath());
+            } else {
+                System.out.println("Failed to create file: " + file.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file.");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -130,47 +138,15 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(Storage.storageFile))) {
-            StringBuilder json = new StringBuilder();
-            String line;
-            //noinspection NestedAssignment
-            while ((line = reader.readLine()) != null) {
-                json.append(line);
-            }
+            String jsonContent = readFileContent(reader);
 
-            if (json.length() == 0) {
+            if (jsonContent.isEmpty()) {
                 TaskList.setList(tasks);
-                return; // Exit if file is empty
+                return;
             }
 
-            JSONArray jsonArray = new JSONArray(json.toString());
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String type = jsonObject.getString("type");
-                String name = jsonObject.getString("name");
-                boolean done = jsonObject.getString("done").equals("X");
-
-                Task task = null;
-                switch (type) {
-                case "T":
-                    task = new ToDoTask(String.format("todo %s", name));
-                    break;
-                case "E":
-                    String from = jsonObject.getString("from");
-                    String to = jsonObject.getString("to");
-                    task = new EventTask(String.format("event /from %s /to %s", from, to));
-                    break;
-                case "D":
-                    String deadline = jsonObject.getString("deadline");
-                    task = new DeadlineTask(name, deadline);
-                    break;
-                }
-
-                if (task != null) {
-                    if (done) task.markAsDone();
-                    tasks.add(task);
-                }
-            }
+            JSONArray jsonArray = new JSONArray(jsonContent);
+            tasks.addAll(parseTasksFromJson(jsonArray));
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
             e.printStackTrace();
@@ -182,6 +158,71 @@ public class Storage {
         }
 
         TaskList.setList(tasks);
+    }
+
+    /**
+     * Reads the content of the file into a single string.
+     *
+     * @param reader The BufferedReader to read from.
+     * @return The content of the file as a string.
+     * @throws IOException If an I/O error occurs.
+     */
+    private static String readFileContent(BufferedReader reader) throws IOException {
+        StringBuilder json = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            json.append(line);
+        }
+        return json.toString();
+    }
+
+    /**
+     * Parses the JSON array into a list of tasks.
+     *
+     * @param jsonArray The JSONArray containing the task data.
+     * @return A list of tasks parsed from the JSON array.
+     */
+    private static ArrayList<Task> parseTasksFromJson(JSONArray jsonArray) throws EmptyToDoDescriptionException {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            Task task = createTaskFromJson(jsonObject);
+
+            if (task != null) {
+                if (jsonObject.getString("done").equals("X")) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+            }
+        }
+
+        return tasks;
+    }
+
+    /**
+     * Creates a task from the JSON object.
+     *
+     * @param jsonObject The JSON object containing the task data.
+     * @return The created task.
+     */
+    private static Task createTaskFromJson(JSONObject jsonObject) throws EmptyToDoDescriptionException {
+        String type = jsonObject.getString("type");
+        String name = jsonObject.getString("name");
+
+        switch (type) {
+        case "T":
+            return new ToDoTask(String.format("todo %s", name));
+        case "E":
+            String from = jsonObject.getString("from");
+            String to = jsonObject.getString("to");
+            return new EventTask(String.format("event /from %s /to %s", from, to));
+        case "D":
+            String deadline = jsonObject.getString("deadline");
+            return new DeadlineTask(name, deadline);
+        default:
+            return null;
+        }
     }
 
     /**
