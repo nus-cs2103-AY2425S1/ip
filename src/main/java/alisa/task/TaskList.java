@@ -1,6 +1,11 @@
 package alisa.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
 
 import alisa.exception.AlisaException;
 
@@ -134,6 +139,58 @@ public class TaskList {
             }
         }
         return tasks;
+    }
+
+    public String editTask(int index, String featureToEdit, String editedContent) throws AlisaException {
+        try {
+            Task taskToEdit = taskList.get(index);
+            if (taskToEdit.getClass() == Todo.class) {
+                Todo editingTask = (Todo) taskToEdit;
+
+                switch (featureToEdit) {
+                case "description":
+                    editingTask.changeDescription(editedContent);
+                    break;
+                default:
+                    throw new AlisaException("That's not a feature that can be edited for this task");
+                }
+            } else if (taskToEdit.getClass() == Deadline.class) {
+                Deadline editingTask = (Deadline) taskToEdit;
+
+                switch (featureToEdit) {
+                case "description":
+                    editingTask.changeDescription(editedContent);
+                    break;
+                case "deadline":
+                    editingTask.changeDueDate(editedContent);
+                    break;
+                default:
+                    throw new AlisaException("That's not a feature that can be edited for this task");
+                }
+            } else {
+                Event editingTask = (Event) taskToEdit;
+
+                switch (featureToEdit) {
+                case "description":
+                    editingTask.changeDescription(editedContent);
+                    break;
+                case "start":
+                    editingTask.changeStartTime(editedContent);
+                    break;
+                case "end":
+                    editingTask.changeEndTime(editedContent);
+                    break;
+                default:
+                    throw new AlisaException("That's not a feature that can be edited for this task");
+                }
+            }
+
+            return "Task #" + index + " has been successfully edited. Now the task looks like this:\n"
+                    + taskList.get(index);
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new AlisaException("There isn't a task that belongs to the index in the task list.");
+        }
     }
 
 }

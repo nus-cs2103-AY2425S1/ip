@@ -50,4 +50,13 @@ public class Deadline extends Task{
         return "D | " + this.getFileStatus() + " | "
                 + this.getTask() + " | " + dueDate + "\n";
     }
+
+    public void changeDueDate(String date) throws AlisaException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm");
+            dueDate = LocalDateTime.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            throw new AlisaException("Please write the deadline in the following format: yyyy-mm-dd hh:mm");
+        }
+    }
 }

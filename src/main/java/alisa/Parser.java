@@ -1,6 +1,7 @@
 package alisa;
 
 import alisa.command.Command;
+import alisa.command.EditCommand;
 import alisa.command.MarkCommand;
 import alisa.command.UnmarkCommand;
 import alisa.command.AddCommand;
@@ -45,6 +46,11 @@ public class Parser {
                 return new ExitCommand();
             case "find":
                 return new FindCommand(commandArray[1]);
+            case "edit":
+                //edit [1 description "hello there"]
+                String[] editDescription = commandArray[1].split(" ", 3);
+                String editedContent = editDescription[2].substring(1, editDescription[2].length() - 1);
+                return new EditCommand(Integer.parseInt(editDescription[0]), editDescription[1], editedContent);
             default:
                 throw new AlisaException("Sorry, I didn't quite catch that. Put in a command that I understand");
         }
