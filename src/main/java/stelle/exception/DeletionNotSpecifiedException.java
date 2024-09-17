@@ -8,6 +8,6 @@ package stelle.exception;
 
 public class DeletionNotSpecifiedException extends StelleException {
     public DeletionNotSpecifiedException() {
-        super("Deletion must specify a task!");
+        super("You have to specify a task before I can delete it!");
     }
 }
