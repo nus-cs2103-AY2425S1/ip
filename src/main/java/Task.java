@@ -1,4 +1,5 @@
 package ip.derrick;
+
 import java.time.LocalDate;
 
 /**
@@ -16,7 +17,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
 
     @Override
     public String toString() {
