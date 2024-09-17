@@ -22,20 +22,20 @@ public class MainWindow extends AnchorPane {
     private MrIncredible mrIncredible;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image mrIncredibleImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image mrIncredibleImage = new Image(this.getClass().getResourceAsStream("/images/MrIncredible.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(MrIncredible d) {
+    /** Injects the MrIncredible instance */
+    public void setMrIncredible(MrIncredible d) {
         mrIncredible = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing MrIncredible's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
         String response = mrIncredible.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, mrIncredibleImage)
+                DialogBox.getMrIncredibleDialog(response, mrIncredibleImage)
         );
         userInput.clear();
     }

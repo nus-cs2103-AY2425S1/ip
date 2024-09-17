@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for MrIncredible using FXML.
  */
 public class Main extends Application {
 
@@ -36,7 +36,7 @@ public class Main extends Application {
             // Ensure the controller is set correctly before showing the stage
             assert fxmlLoader.<MainWindow>getController() != null : "MainWindow controller must not be null";
 
-            fxmlLoader.<MainWindow>getController().setDuke(mrIncredible);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setMrIncredible(mrIncredible);  // inject the MrIncredible instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
