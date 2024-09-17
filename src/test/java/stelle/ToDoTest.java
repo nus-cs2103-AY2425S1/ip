@@ -19,6 +19,12 @@ public class ToDoTest {
     public void toString_constructorParams_correctName() {
         ToDo toDo = new ToDo("A todo");
         assertEquals("[T][ ] A todo", toDo.toString());
+
+        ToDo toDo2 = new ToDo("A                todo with   weird spacing");
+        assertEquals("[T][ ] A                todo with   weird spacing", toDo2.toString());
+
+        ToDo toDo3 = new ToDo("t");
+        assertEquals("[T][ ] t", toDo3.toString());
     }
 
     /**
