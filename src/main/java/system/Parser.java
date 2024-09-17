@@ -4,7 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import task.*;
 
 
@@ -184,6 +188,16 @@ public class Parser {
      */
     public String performListTasks() throws FileNotFoundException {
         return Task.list_task();
+    }
+
+    /**
+     * Closing the application after 1.5 seconds of displaying the bye message.
+     */
+    public void performBye() {
+        // Create a 1-second delay before closing the application
+        PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+        delay.setOnFinished(event -> Platform.exit()); // Close the JavaFX window after 1 second
+        delay.play();
     }
 
     /**

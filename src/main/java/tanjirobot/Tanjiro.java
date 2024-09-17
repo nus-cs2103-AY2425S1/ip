@@ -60,6 +60,7 @@ public class Tanjiro {
             response.append(parser.performView(userInput));
         } else if (parser.containBye(userInput)) {
             response.append(ui.goodbye());
+            parser.performBye();
         } else {
             response.append(ui.invalidInput());
         }
