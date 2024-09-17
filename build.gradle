@@ -19,6 +19,8 @@ dependencies {
 
     String javaFxVersion = '17.0.7'
 
+    implementation 'org.openjfx:javafx-controls:17'
+    implementation 'org.openjfx:javafx-fxml:17'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -51,16 +53,26 @@ application {
     mainClass.set("nimbus.gui.Launcher")
 }
 
+java {
+    modularity.inferModulePath.set(true)
+}
+
 shadowJar {
     archiveBaseName = "nimbus"
     archiveClassifier = null
     archiveFileName = "nimbus.jar"
+
+    manifest {
+        attributes(
+                'Main-Class': 'nimbus.gui.Launcher'
+        )
+    }
 }
 
 run {
     standardInput = System.in
     jvmArgs = [
             '--module-path', classpath.asPath,
-            '--add-modules', 'javafx.controls.javafx.fxml'
+            '--add-modules', 'javafx.controls,javafx.fxml'
     ]
 }
