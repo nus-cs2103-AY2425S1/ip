@@ -22,7 +22,7 @@ Adds a ToDo task to the list of tasks.
 If the ToDo task was successfully added, the message below will be displayed.
 ```
 Got it. I've added this task:  
-T[] TASK_DESCRIPTION
+T[ ] TASK_DESCRIPTION
 Now you have TOTAL_NUMBER_OF_TASKS in the list 
 ```  
 
@@ -37,7 +37,7 @@ in yyyy-MM-dd HH:mm (24hr) format.
 If the Deadline task was successfully added, the message below will be displayed.
 ```
 Got it. I've added this task:  
-D[] TASK_DESCRIPTION (by: DUE_DATE)
+D[ ] TASK_DESCRIPTION (by: DUE_DATE)
 Now you have TOTAL_NUMBER_OF_TASKS in the list 
 ```  
 
@@ -52,7 +52,7 @@ and END_DATE has to be in yyyy-MM-dd HH:mm (24hr) format.
 If the Event task was successfully added, the message below will be displayed.
 ```
 Got it. I've added this task:  
-E[] TASK_DESCRIPTION (from: START_DATE to: END_DATE)
+E[ ] TASK_DESCRIPTION (from: START_DATE to: END_DATE)
 Now you have TOTAL_NUMBER_OF_TASKS in the list 
 ```
 
@@ -63,8 +63,8 @@ If there are existing tasks inside your list, a similar message like the one bel
 will be displayed.
 ```
 Here are the tasks in your list:  
-1. T[] walk the dog
-2. D[] homework (by: Sep 20 2024 22:00 pm)
+1. T[ ] walk the dog
+2. D[ ] homework (by: Sep 20 2024 22:00 pm)
 ```  
 If there are no existing tasks, a similar message like the one below
 will be displayed.
@@ -79,12 +79,10 @@ Marks a task.
 **Examples**:
 - `mark 2`  
 
-If there are existing tasks inside your list, a similar message like the one below
-will be displayed.
+The message below shows an example of a successful mark.
 ```
-Here are the tasks in your list:  
-1. T[] walk the dog
-2. D[] homework (by: Sep 20 2024 22:00 pm)
+Nice! I've marked this task as done:
+D[X] homework (by: Sep 20 2024 22:00 pm)
 ```  
 
 ## Unmark task: `unmark`
@@ -93,39 +91,52 @@ Unmarks a task.
 **Examples**:
 - `unmark 4`  
 
-If there are existing tasks inside your list, a similar message like the one below
-will be displayed.
+The message below shows an example of a successful unmark.
 ```
-Here are the tasks in your list:  
-1. T[] walk the dog
-2. D[] homework (by: Sep 20 2024 22:00 pm)
+Ok, I've unmarked this task:
+D[ ] homework (by: Sep 20 2024 22:00 pm)
 ```  
 
 ## Delete a task: `delete`
 Deletes a task from the list of tasks.  
 **Format**: `delete TASK_NUMBER`  
 **Examples**:
-- `delete 1`
+- `delete 1`  
 
-If there are existing tasks inside your list, a similar message like the one below
-will be displayed.
+The message below shows an example of a successful deletion.
 ```
-Here are the tasks in your list:  
-1. T[] walk the dog
-2. D[] homework (by: Sep 20 2024 22:00 pm)
+Noted. I've removed this task:
+D[ ] return book (by: Sep 20 2024 22:00 pm)
+Now you have 3 tasks in your list
 ```  
 
-## Sort specific tasks: `sort`
-**Format**: `sort TASK_TYPE`  
-If there are existing tasks inside your list, a similar message like the one below
-will be displayed.  
+## Find tasks: `find`
+Find tasks that contains keyword(s).  
+**Format**: `find KEYWORD`   
 **Examples**:
-- `sort deadline`
+- `find book`
+- `find running swimming reading`  
 
+Below shows an example based of the command `find running swimming reading`
 ```
-Here are the tasks in your list:  
-1. T[] walk the dog
-2. D[] homework (by: Sep 20 2024 22:00 pm)
+Here are the matching tasks in your list:  
+1. T[ ] get running shoes
+2. E[ ] swimming meet (from: Sep 20 2024 12:00 pm to: Sep 20 2024 14:00)
+3. D[ ] reading sale (by: Nov 3 2024 09:00 am)
+```  
+
+## Sort specific tasks: `sort`  
+Sort and view a specific task type in chronological order.  
+**Format**: `sort TASK_TYPE`   
+**Examples**:
+- `sort deadline`  
+
+Below shows an example based of the command `sort deadline`
+```
+Here are your sorted deadline tasks:  
+1. D[X] return book (by: Sep 18 2024 14:30 pm)
+2. D[ ] homework (by: Sep 20 2024 22:00 pm)
+3. D[ ] shopping sale (by: Nov 3 2024 09:00 am)
 ```  
 
 ## View schedule: `view`
@@ -134,12 +145,12 @@ View tasks in a schedule (ie., the schedule for a specific date)
 **Examples**:
 - `view 2024-09-17`
 
-If there are existing tasks inside your list, a similar message like the one below
-will be displayed.
+Below shows an example based of the command `view 2024-09-17`
 ```
-Here are the tasks in your list:  
-1. T[] walk the dog
-2. D[] homework (by: Sep 20 2024 22:00 pm)
+Here are your tasks on 2024-09-17:
+1. D[ ] homework (by: Sep 17 2024 22:00 pm)
+2. E[ ] swimming meet (from: Sep 17 2024 12:00 pm to: Sep 20 2024 14:00)
+3. D[ ] project submission (by: Sep 17 2024 12:00 pm)
 ```  
 
 ## Closing Janet: `bye`
