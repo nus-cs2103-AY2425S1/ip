@@ -61,4 +61,57 @@ Here are your damned tasks. Complete them or something.
  
 To mark a task as complete, use `mark <task number>`.
 
-Example 1: `mark 2`
+To instead mark a task as complete, use `unmark <task number>`.
+
+Example 1: `mark 2` (first run)
+```
+Eh. Consider this task done:
+[D] [X] whack table (by: 2024-09-01 12:00)
+```
+
+Example 2: `mark 2` (second run)
+```
+You dingus. This task was already done:
+[D] [X] whack table (by: 2024-09-01 12:00)
+```
+
+Example 3: `unmark 2`
+```
+Sucks to be you. Looks like you haven't done this task:
+[D] [ ] whack table (by: 2024-09-01 12:00)
+```
+
+## Finding tasks
+
+The `find` command can be used to search for tasks containing a particular keyword.
+
+Use it like this:
+
+`find <keyword>`
+
+Example: `find whack`
+```
+These are your damned tasks, that actually match the keywords:
+1. [D] [ ] whack table (by: 2024-09-01 12:00)
+```
+
+## Deleting tasks
+
+Tasks can be deleted in ThatOneGuy using `delete <task number>`.
+Example: `delete 1`
+```
+There goes this dumb task:
+[T] [ ] break something
+Your ass still needs to handle 2 more tasks.
+```
+
+## Built-in help command
+
+Not sure how a command works? Use `help`.
+
+You can choose to append the name of a command to `help`, as in `help <command>`,
+to get a short description of the command and its syntax.
+
+But if you simply type `help`, the application will show the syntax for every command.
+
+## And of course, type `bye` to exit ThatOneGuy.
