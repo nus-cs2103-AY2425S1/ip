@@ -65,7 +65,8 @@ public class Ui {
      */
     public String unmarkMessage(Task task) {
         if (task.isComplete()) {
-            return "ok... I've unmarked:\n" + task;
+            Task markedTask = task.mark();
+            return "ok... I've unmarked:\n" + markedTask;
         } else {
             return "It was already unmarked:\n" + task + "\nI'll keep it unmarked";
         }
