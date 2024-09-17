@@ -24,7 +24,7 @@ public class Socchat {
         new Storage("tasks.txt");
         try {
             // Load tasks history into taskList
-            taskList = new TaskList(Storage.processStorageLine());
+            taskList = new TaskList(Storage.loadTask());
         } catch (SocchatException e) {
             System.out.println(e.getMessage());
             ui.showLoadingError();

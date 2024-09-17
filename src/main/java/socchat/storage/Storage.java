@@ -16,7 +16,6 @@ import socchat.task.deadline.Deadline;
 import socchat.task.event.Event;
 import socchat.task.todo.Todo;
 
-
 /**
  * Handles the loading and saving of tasks from/to a file.
  * Provides methods to read tasks from a file and write tasks to a file.
@@ -41,57 +40,83 @@ public class Storage {
      * @return a list of tasks loaded from the file
      * @throws SocchatException if the file is not found or if there is an error parsing the file
      */
-    public static ArrayList<Task> processStorageLine() throws SocchatException {
+    public static ArrayList<Task> loadTask() throws SocchatException {
         ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            assert filePath != null;
-            File file = new File(filePath);
-            Scanner s = new Scanner(file);
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
-                String[] strToken = line.split("\\|");
-
-                assert strToken.length == 6;
-                String type = strToken[0].trim();
-                String done = strToken[1].trim();
-                String desc = strToken[2].trim();
-                String from = strToken[3].trim();
-                String to = strToken[4].trim();
-                String tag = strToken[5].trim();
-
-                Task t;
-                boolean isDone;
-                isDone = done.equals("Done");
-
-                if (type.equals("T")) {
-                    t = createTodo(desc, isDone, tag);
-                } else if (type.equals("E")) {
-
-                    t = loadEvent(desc, isDone, from, to, tag);
-                } else if (type.equals("D")) {
-
-                    t = createDeadline(desc, isDone, from, tag);
-                } else {
-                    throw new SocchatException("Unknown task type: " + type);
+        File file = new File(filePath);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isEmpty()) {
+                    continue;
                 }
-                tasks.add(t);
+                Task task = parseTaskFromFile(line);
+                tasks.add(task);
             }
         } catch (FileNotFoundException e) {
             throw new SocchatException("Storage file not found!");
         }
-
         return tasks;
-
     }
 
-    public static Task createTodo(String desc, boolean isDone, String tag) {
+    /**
+     * Parses a line from the storage file into a Task object.
+     *
+     * @param line the line read from the storage file
+     * @return the corresponding Task object
+     * @throws SocchatException if the task type is unknown or if the format is invalid
+     */
+    private static Task parseTaskFromFile(String line) throws SocchatException {
+        String[] strToken = line.split("\\|");
+
+        assert strToken.length == 6;
+
+        String type = strToken[0].trim();
+        boolean isDone = "Done".equals(strToken[1].trim());
+        String desc = strToken[2].trim();
+        String from = strToken[3].trim();
+        String to = strToken[4].trim();
+        String tag = strToken[5].trim();
+
+        switch (type) {
+        case "T":
+            return createTodo(desc, isDone, tag);
+        case "E":
+            return createEvent(desc, isDone, from, to, tag);
+        case "D":
+            return createDeadline(desc, isDone, from, tag);
+        default:
+            throw new SocchatException("Unknown task type: " + type);
+        }
+    }
+
+
+    /**
+     * Creates a Todo task from the given parameters.
+     *
+     * @param desc   the task description
+     * @param isDone the completion status
+     * @param tag    the task tag
+     * @return the created {@link Todo} task
+     */
+    private static Task createTodo(String desc, boolean isDone, String tag) {
         if (!(tag.isEmpty())) {
             return new Todo(desc, isDone, tag);
         }
         return new Todo(desc, isDone);
     }
 
-    public static Task loadEvent(String desc, boolean isDone, String from, String to, String tag) {
+    /**
+     * Creates an Event task from the given parameters.
+     *
+     * @param desc   the task description
+     * @param isDone the completion status
+     * @param from   the start date of the event
+     * @param to     the end date of the event
+     * @param tag    the task tag
+     * @return the created {@link Event} task
+     * @throws SocchatException if there is an error parsing the dates
+     */
+    private static Task createEvent(String desc, boolean isDone, String from, String to, String tag) {
         try {
             LocalDate formatted_from = DateParser.parseDate(from.trim());
             LocalDate formatted_to = DateParser.parseDate(to.trim());
@@ -105,9 +130,19 @@ public class Storage {
             System.out.println(e.getMessage());
             return null;
         }
-
     }
-    public static Task createDeadline(String desc, boolean isDone, String date, String tag) {
+
+    /**
+     * Creates a Deadline task from the given parameters.
+     *
+     * @param desc   the task description
+     * @param isDone the completion status
+     * @param date   the deadline date
+     * @param tag    the task tag
+     * @return the created {@link Deadline} task
+     * @throws SocchatException if there is an error parsing the date
+     */
+    private static Task createDeadline(String desc, boolean isDone, String date, String tag) {
         try {
             LocalDate by = DateParser.parseDate(date);
             if (!(tag.isEmpty())) {

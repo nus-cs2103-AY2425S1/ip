@@ -7,8 +7,9 @@ import socchat.task.Task;
 import static socchat.Socchat.exit;
 
 /**
- * Provides utility methods for parsing and formatting date and time,
- * as well as tokenizing command strings.
+ * The {@code Parser} class is responsible for interpreting user commands and executing
+ * the corresponding actions on the provided {@link TaskList}. It handles string tokenization,
+ * command parsing, and exception handling.
  */
 public class Parser {
     private final TaskList taskList;
@@ -16,6 +17,7 @@ public class Parser {
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
+
     /**
      * Enum representing all available commands in the Socchat application.
      */
@@ -40,6 +42,13 @@ public class Parser {
 
     }
 
+    /**
+     * Tokenizes the user input string into command and argument parts.
+     * If the input contains no spaces, the second part of the result will be an empty string.
+     *
+     * @param input the full input command string
+     * @return a string array where the first element is the command and the second is the remaining input
+     */
     public static String[] extractCommand(String input) {
         int firstSpaceIndex = input.indexOf(' ');
         String[] commandTokens = new String[2];
@@ -64,50 +73,72 @@ public class Parser {
      * @return the generated response as a String.
      */
     public String getResponse(String... input) {
-        String respond = "";
         assert input.length == 2;
+        String commandInput = input[0];
+        String remaining = input[1];
         try {
-            String commandInput = input[0];
-            String remaining = input[1];
             Command command = getCommand(commandInput);
             switch (command) {
             case BYE:
                 return exit();
             case LIST:
-                respond = taskList.list();
-                break;
+                return taskList.list();
             case MARK:
-                respond = taskList.setMark(remaining, true);
-                break;
+                return taskList.setMark(remaining, true);
             case UNMARK:
-                respond = taskList.setMark(remaining, false);
-                break;
+                return  taskList.setMark(remaining, false);
             case TODO:
-                Task t = TaskParser.todoParser(remaining);
-                respond = taskList.addTask(t);
-                break;
+                return handleTodoCommand(remaining);
             case DEADLINE:
-                Task d = TaskParser.deadlineParser(remaining);
-                respond = taskList.addTask(d);
-                break;
+                return handleDeadlineCommand(remaining);
             case EVENT:
-                Task e = TaskParser.eventParser(remaining);
-                respond = taskList.addTask(e);
-                break;
+                return handleEventCommand(remaining);
             case DELETE:
-                respond = taskList.delete(remaining);
-                break;
+                return taskList.delete(remaining);
             case FIND:
-                respond = taskList.find(remaining);
-                break;
+                return taskList.find(remaining);
             default:
-                respond = "Unrecognized command. Please try again.";
-                break;
+                return "Unrecognized command. Please try again.";
             }
 
         } catch (SocchatException e) {
-            respond = e.getMessage();
+            return e.getMessage();
         }
-        return respond;
+    }
+    /**
+     * Handles the "TODO" command by parsing the task and adding it to the task list.
+     *
+     * @param remaining the remaining input after the "TODO" command
+     * @return the response message after adding the task
+     * @throws SocchatException if the task cannot be parsed or added
+     */
+    private String handleTodoCommand(String remaining) throws SocchatException {
+        Task t = TaskParser.todoParser(remaining);
+        return taskList.addTask(t);
+    }
+
+    /**
+     * Handles the "DEADLINE" command by parsing the deadline task and adding it to the task list.
+     *
+     * @param remaining the remaining input after the "DEADLINE" command
+     * @return the response message after adding the task
+     * @throws SocchatException if the task cannot be parsed or added
+     */
+    private String handleDeadlineCommand(String remaining) throws SocchatException {
+        Task d = TaskParser.deadlineParser(remaining);
+        return taskList.addTask(d);
+    }
+
+    /**
+     * Handles the "EVENT" command by parsing the event task and adding it to the task list.
+     *
+     * @param remaining the remaining input after the "EVENT" command
+     * @return the response message after adding the task
+     * @throws SocchatException if the task cannot be parsed or added
+     */
+    private String handleEventCommand(String remaining) throws SocchatException {
+        Task e = TaskParser.eventParser(remaining);
+        return taskList.addTask(e);
     }
 }
+

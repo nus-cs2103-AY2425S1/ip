@@ -25,7 +25,7 @@ public class StorageTest {
         }
         Storage storage = new Storage("test.txt");
         ArrayList<Task> tasks = new ArrayList<>();
-        assertEquals(tasks, Storage.processStorageLine());
+        assertEquals(tasks, Storage.loadTask());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class StorageTest {
         try {
             Storage storage = new Storage("fake_test.txt");
             ArrayList<Task> tasks = new ArrayList<>();
-            assertEquals(tasks, Storage.processStorageLine());
+            assertEquals(tasks, Storage.loadTask());
             fail();
         } catch (SocchatException e) {
             assertEquals("Storage file not found!", e.getMessage());

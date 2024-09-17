@@ -1,5 +1,4 @@
 T | Not done | hiking |  |  | sport
 D | Not done | ip | 2024-09-20 |  | CS2103T
-T | Not done | swimming |  |  | sport
-D | Not done | assignment 1 | 2024-09-20 |  | null
-D | Not done | assignment 1 | 2024-09-20 |  | importatnt
+
+
