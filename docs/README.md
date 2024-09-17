@@ -43,7 +43,7 @@ Now you have 4 tasks in the list.
 
 Deletes a task from the list according to its index on the list.
 
-Example: delete 2
+Example: `delete 2`
 
 (the second task will be deleted from the list)
 
@@ -57,7 +57,7 @@ Now you have 3 tasks in the list.
 
 Lists all current tasks
 
-Example: list
+Example: `list`
 
 expected output: 
 ```
@@ -70,7 +70,7 @@ expected output:
 
 Marks tasks as done / undone according to their index in the task list.
 
-Example: mark 2
+Example: `mark 2`
 
 expected output: 
 ```
@@ -81,7 +81,7 @@ Nice! I've marked this task as done: go class
 
 reschedules the event dates and times 
 
-Example: snooze event lend book from 2020-10-10 1000 to 2021-03-03 1000
+Example: `snooze event lend book from 2020-10-10 1000 to 2021-03-03 1000`
 
 expected output: 
 ```
@@ -92,7 +92,7 @@ event task lend book 's date and time is updated!
 
 closes the chatbox.
 
-Example: bye
+Example: `bye`
 
 expected output: 
 ```
