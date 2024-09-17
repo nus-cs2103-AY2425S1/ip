@@ -52,103 +52,89 @@ public class BeeBot {
         String cmd = parts[0];
         try {
             switch (cmd) {
-                case "list":
-                    int size = taskList.size();
-                    if (size == 0) {
-                        return "There is currently nothing on the list!";
-                    } else {
-                        String listStr = "";
-                        for (int i = 0; i < size; i++) {
-                            int num = i + 1;
-                            listStr += (num + "." + taskList.get(i).toString());
-                        }
-                        return listStr;
+            case "list":
+                int size = taskList.size();
+                if (size == 0) return "There is currently nothing on the list!";
+                String listStr = "";
+                for (int i = 0; i < size; i++) {
+                    int num = i + 1;
+                    listStr += (num + "." + taskList.get(i).toString());
+                }
+                return listStr;
+            case "mark":
+                assert Integer.parseInt(parts[1]) > 0 && Integer.parseInt(parts[1]) <= taskList.size() : "Task number is out of range";
+                Task doneTask = Parser.getTask(taskList, Integer.parseInt(parts[1]));
+                doneTask.markAsDone();
+                storage.saveTaskListToFile(FILEPATH, taskList);
+                return "🐝-utiful! Honeyboo marked this task as done:\n" + doneTask;
+            case "unmark":
+                assert Integer.parseInt(parts[1]) > 0 && Integer.parseInt(parts[1]) <= taskList.size() : "Task number is out of range";
+                Task undoneTask = Parser.getTask(taskList, Integer.parseInt(parts[1]));
+                undoneTask.markAsUndone();
+                storage.saveTaskListToFile(FILEPATH, taskList);
+                return "🐝-utiful! Honeyboo marked this task as not done yet:\n" + undoneTask;
+            case "todo":
+                if (parts.length == 1) throw new EmptyDescriptionException("Enter a description for the Todo Task.\n");
+                String todoName = Parser.concatenate(parts, 1);
+                TaskList.createToDo(todoName, taskList);
+                storage.saveTaskListToFile(FILEPATH, taskList);
+                return "Growl... Honeyboo added '" + todoName + "' to the list!";
+            case "deadline":
+                if (parts.length == 1) throw new EmptyDescriptionException("Enter a description for the Deadline Task.\n");
+                String deadlineName = Parser.concatenateUntil(parts, "/by");
+                String deadlineDate = Parser.dateConverter(Parser.getFollowingDate(parts, "/by"));
+                TaskList.createDeadline(deadlineName, deadlineDate, taskList);
+                storage.saveTaskListToFile(FILEPATH, taskList);
+                return "BZZZZZ... Honeyboo added  '"  + deadlineName + "' to the list!";
+            case "event":
+                if (parts.length == 1) throw new EmptyDescriptionException("Enter a description for the Event Task.\n");
+                String eventName = Parser.concatenateUntil(parts, "/from");
+                String startTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/from", "/to"));
+                String endTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/to", ""));
+                TaskList.createEvent(eventName, startTime, endTime, taskList);
+                storage.saveTaskListToFile(FILEPATH, taskList);
+                return "Grrrr... Honeyboo added '" + eventName + "' to the list!";
+            case "delete":
+                assert Integer.parseInt(parts[1]) - 1 >= 0 && Integer.parseInt(parts[1]) - 1 < taskList.size() : "Task number is out of range";
+                TaskList.deleteEvent(Integer.parseInt(parts[1]) - 1, taskList);
+                storage.saveTaskListToFile(FILEPATH, taskList);
+                return "Yum yum in my tum tum! Task eaten!";
+            case "find":
+                String taskName = Parser.concatenate(parts, 1);
+                ArrayList<Task> searchResults = new ArrayList<>();
+                for (Task task: taskList) {
+                    if (task.getName().contains(taskName)) {
+                        searchResults.add(task);
                     }
-                case "mark":
-
-                    int markTaskNum = Integer.parseInt(parts[1]);
-                    assert markTaskNum > 0 && markTaskNum <= taskList.size() : "Task number is out of range";
-                    Task doneTask = Parser.getTask(taskList, markTaskNum);
-                    doneTask.markAsDone();
-                    storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "🐝-utiful! Honeyboo marked this task as done:\n" + doneTask;
-                case "unmark":
-                    int unmarkTaskNum = Integer.parseInt(parts[1]);
-                    assert unmarkTaskNum > 0 && unmarkTaskNum <= taskList.size() : "Task number is out of range";
-                    Task undoneTask = Parser.getTask(taskList, unmarkTaskNum);
-                    undoneTask.markAsUndone();
-                    storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "🐝-utiful! Honeyboo marked this task as not done yet:\n" + undoneTask;
-                case "todo":
-                    if (parts.length == 1) {
-                        throw new EmptyDescriptionException("Enter a description for the Todo Task.\n");
-                    }
-                    String todoName = Parser.concatenate(parts, 1);
-                    TaskList.createToDo(todoName, taskList);
-                    storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "Growl... Honeyboo added '" + todoName + "' to the list!";
-                case "deadline":
-                    if (parts.length == 1) {
-                        throw new EmptyDescriptionException("Enter a description for the Deadline Task.\n");
-                    }
-                    String deadlineName = Parser.concatenateUntil(parts, "/by");
-                    String deadlineDate = Parser.dateConverter(Parser.getFollowingDate(parts, "/by"));
-                    TaskList.createDeadline(deadlineName, deadlineDate, taskList);
-                    storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "BZZZZZ... Honeyboo added  '"  + deadlineName + "' to the list!";
-                case "event":
-                    if (parts.length == 1) {
-                        throw new EmptyDescriptionException("Enter a description for the Event Task.\n");
-                    }
-                    String eventName = Parser.concatenateUntil(parts, "/from");
-                    String startTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/from", "/to"));
-                    String endTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/to", ""));
-                    TaskList.createEvent(eventName, startTime, endTime, taskList);
-                    storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "Grrrr... Honeyboo added '" + eventName + "' to the list!";
-                case "delete":
-                    int deletionNumber = Integer.parseInt(parts[1]) - 1;
-                    assert deletionNumber >= 0 && deletionNumber < taskList.size() : "Task number is out of range";
-                    TaskList.deleteEvent(deletionNumber, taskList);
-                    storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "Yum yum in my tum tum! Task eaten!";
-                case "find":
-                    String taskName = Parser.concatenate(parts, 1);
-                    ArrayList<Task> searchResults = new ArrayList<>();
-                    for (Task task: taskList) {
-                        if (task.getName().contains(taskName)) {
-                            searchResults.add(task);
-                        }
-                    }
-                    int searchSize = searchResults.size();
-                    String searchStr = "";
-                    for (int i = 0; i < searchSize; i++) {
-                        int num = i + 1;
-                        searchStr += (num + "." + searchResults.get(i).toString());
-                    }
-                    return searchStr;
-                case "update":
-                    int updateTaskNum = Integer.parseInt(parts[1]) - 1;
-                    String updateTo = Parser.getUpdatedName(parts);
-                    TaskList.updateTask(updateTaskNum, updateTo, taskList);
-                    storage.saveTaskListToFile(FILEPATH, taskList);
-                    return "Task updated!";
-                case "bye":
-                    System.exit(0);
-                    return "Goodbye! The application will now close.";
-                default:
-                    return """
-                            Please enter a valid command for worker bee to follow:
-                            1. todo <task name>
-                            2. deadline <task name> /by <due date>
-                            3. event <task-name> /from <start date> /to <end date>
-                            4. mark <index>
-                            5. unmark <index>
-                            6. list
-                            7. find <part of task name>
-                            8. update <task number> /to <new name>
-                            9. delete <task number>
-                            9. bye""";
+                }
+                int searchSize = searchResults.size();
+                String searchStr = "";
+                for (int i = 0; i < searchSize; i++) {
+                    int num = i + 1;
+                    searchStr += (num + "." + searchResults.get(i).toString());
+                }
+                return searchStr;
+            case "update":
+                String updateTo = Parser.getUpdatedName(parts);
+                TaskList.updateTask(Integer.parseInt(parts[1]) - 1, updateTo, taskList);
+                storage.saveTaskListToFile(FILEPATH, taskList);
+                return "Task updated!";
+            case "bye":
+                System.exit(0);
+                return "Goodbye! The application will now close.";
+            default:
+                return """
+                        Please enter a valid command for worker bee to follow:
+                        1. todo <task name>
+                        2. deadline <task name> /by <due date>
+                        3. event <task-name> /from <start date> /to <end date>
+                        4. mark <index>
+                        5. unmark <index>
+                        6. list
+                        7. find <part of task name>
+                        8. update <task number> /to <new name>
+                        9. delete <task number>
+                        9. bye""";
             }
         } catch (EmptyDescriptionException | MissingDeadlineException
                  | MissingEventTimeException | TaskNotFoundException e) {
