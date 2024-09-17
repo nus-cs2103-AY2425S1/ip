@@ -1,17 +1,13 @@
 # Dipsy User Guide
 
-![Dipsy Product Screenshot](docs/Ui.png)
+![Dipsy Product Screenshot](Ui.png)
 
-**Dipsy** (named after my cat) is a task management chatbot that helps users manage tasks, deadlines, and events using a command-line interface. 
+**Dipsy** (named after my cat) is a task management chatbot that helps users manage tasks, deadlines, and events using a command-line interface.
 
 The chatbot allows users to add, manage, and list tasks, as well as mark them as completed.   
 Users can view a command guide by clicking on the `?` button at the bottom right of the GUI.
 
----
-
 ## Features
-
----
 
 ### Adding a To-do Task
 
@@ -36,8 +32,6 @@ The to-do task will be added to the task list, and Dipsy will display a confirma
 You now have 1 tasks in your list.
 ```
 
----
-
 ### Adding a Deadline
 
 The `deadline` command allows users to add tasks with a specific deadline.
@@ -61,8 +55,6 @@ The deadline task will be added to your task list, and Dipsy will display a conf
 [D][] Submit Report (by: May 12 2024)
 You now have 2 tasks in your list.
 ```
-
----
 
 ### Adding an Event
 
@@ -90,11 +82,9 @@ The event will be added to the task list, and Dipsy will display a confirmation 
 You now have 3 tasks in your list.
 ```
 
----
-
 ### Deleting a Task
 
-The `delete` command allows users to delete a specified task. 
+The `delete` command allows users to delete a specified task.
 
 #### Usage:
 ```
@@ -110,14 +100,12 @@ delete 1
 ```
 
 #### Expected Outcome:
-The task at index 1 will be deleted, and Dipsy will display a confirmation message along with the updated task count. 
+The task at index 1 will be deleted, and Dipsy will display a confirmation message along with the updated task count.
 ```
 Purrr, I've swatted this task away:
 [T][] Buy treats for Dipsy
 You now have 2 tasks in your list.
 ```
-
----
 
 ### Marking a Task as Done
 
@@ -143,8 +131,6 @@ Meow! I've scratched this task off the list!
 [D][X] Submit Report (by: May 12 2024)
 ```
 
----
-
 ### Unmarking a Task
 The `unmark` command allows users to unmark a specified task to indicate that it is not completed.
 
@@ -168,8 +154,6 @@ Mrrreow! I've batted this task back onto the list!
 [D][] Submit Report (by: May 12 2024)
 ```
 
----
-
 ### Listing Tasks
 
 The `list` command allows users to view tasks in two ways:
@@ -178,12 +162,12 @@ The `list` command allows users to view tasks in two ways:
 
 #### Usage:
 
-- To list all tasks: 
+- To list all tasks:
   ```
   list
   ```
-    
-- To list tasks on a specific date: 
+
+- To list tasks on a specific date:
   ```
   list <date>
   ```
@@ -208,8 +192,6 @@ The `list` command allows users to view tasks in two ways:
     1. [D][ ] Submit report (by: May 12 2024)
     ```
 
----
-
 ### Exiting the Program
 
 The `bye` command allows users to exit the Dipsy application.
@@ -226,31 +208,24 @@ Dipsy will display a farewell message and close the application.
 Fur-well friend, stay paw-sitive!
 ```
 
----
-
-### Command Guide 
+### Command Guide
 The command guide can be viewed  by clicking on the `?` button at the bottom right of the GUI.
-
----
 
 ### Saving the data
 
 Task list data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
----
-
 ### Modifying the data file
 
 Task list data are saved automatically as a CSV file `[JAR file location]/data/taskTable.csv`. Advanced users are welcome to update data directly by editing that data file.
 
----
+> [!CAUTION]
+> Certain edits can cause the the application to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 ## FAQ
 **Q**: How do I transfer my data to another Computer?  
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous `Dipsy` folder. 
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous `Dipsy` folder.
 The data file can be found at `[JAR file location]/data/taskTable.csv`.
-
----
 
 ## Command Summary
 
