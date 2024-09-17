@@ -52,6 +52,14 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.from.getString() + " to: " + this.to.getString() + ")";
     }
 
+    /**
+     * Updates the event's start and end times based on the provided information. If only a time is given for
+     * the new end time, it assumes the same date as the new start time.
+     *
+     * @param ui The {@code Ui} object for interaction.
+     * @param info The new event time details in the format "/from {new event start} /to {new event end}".
+     * @throws LictException If the format of the provided information is incorrect or the date/time is invalid.
+     */
     @Override
     public void snoozeTask(Ui ui, String info) throws LictException {
         if (!info.startsWith("/from")) {

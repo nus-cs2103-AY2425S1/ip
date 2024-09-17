@@ -44,6 +44,13 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by.getString() + ")";
     }
 
+    /**
+     * Updates the deadline of the task based on the provided information.
+     *
+     * @param ui The {@code Ui} object for interaction.
+     * @param info The new deadline in the format "/by {new deadline}".
+     * @throws LictException If the format of the provided information is incorrect or the deadline format is invalid.
+     */
     @Override
     public void snoozeTask(Ui ui, String info) throws LictException {
         if (!info.startsWith("/by")) {
