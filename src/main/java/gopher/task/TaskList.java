@@ -52,6 +52,11 @@ public class TaskList {
     public String update(String[] tokens)
             throws InvalidTokenException, MissingTaskNumberException {
         try {
+            if (tokens.length < 2) {
+                throw new MissingTaskNumberException();
+            } else if (tokens.length == 2) {
+                return UI.getEmptyUpdateCommandWarning();
+            }
             int taskNumber = Integer.parseInt(tokens[1]);
             Task task = this.getTask(taskNumber);
             task.update(tokens);

@@ -156,9 +156,6 @@ public class Gopher {
     public static String executeUpdateTaskCommand(String userInput) {
         try {
             String[] tokens = userInput.split(" ");
-            if (tokens.length < 3) {
-                return UI.getEmptyUpdateCommandWarning();
-            }
             return taskList.update(tokens);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
