@@ -39,7 +39,7 @@
 
 Susan Bot is a simple lightweight chat bot that lets you manage tasks easily from your desktop.
 
-[![Product Name Screen Shot][product-screenshot-search-light]](./screenshot.png)
+![screenshot](https://github.com/raihahahan/ip/blob/master/screenshot.png?raw=true)
 
 ## Features
 

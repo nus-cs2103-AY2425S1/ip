@@ -15,6 +15,11 @@ public class TaskDAOStub implements TaskDAO {
     }
 
     @Override
+    public int deleteTasks(List<Integer> ids) {
+        return 0;
+    }
+
+    @Override
     public Task deleteTask(int id) {
         return tasks.remove(id);
     }
