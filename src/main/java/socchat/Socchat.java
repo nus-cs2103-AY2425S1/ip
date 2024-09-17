@@ -1,6 +1,6 @@
 package socchat;
 
-import Parser.Parser;
+import parser.Parser;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;

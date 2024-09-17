@@ -1,8 +1,8 @@
 package socchat.task.event;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-import Parser.Parser;
+import parser.DateParser;
 import socchat.task.Task;
 
 
@@ -13,8 +13,8 @@ import socchat.task.Task;
  * to 'Event' tasks.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDate from;
+    protected LocalDate to;
 
     /**
      * Constructs a new 'Event' task with the specified description, start time, and end time.
@@ -24,13 +24,13 @@ public class Event extends Task {
      * @param from the start time of the event
      * @param to the end time of the event
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, LocalDateTime from, LocalDateTime to, String tagName) {
+    public Event(String description, LocalDate from, LocalDate to, String tagName) {
         super(description, tagName);
         this.from = from;
         this.to = to;
@@ -44,13 +44,13 @@ public class Event extends Task {
      * @param to the end time of the event
      * @param isDone the completion status of the event
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to, Boolean isDone) {
+    public Event(String description, LocalDate from, LocalDate to, Boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.to = to;
 
     }
-    public Event(String description, LocalDateTime from, LocalDateTime to, Boolean isDone, String tagName) {
+    public Event(String description, LocalDate from, LocalDate to, Boolean isDone, String tagName) {
         super(description, isDone, tagName);
         this.from = from;
         this.to = to;
@@ -60,8 +60,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + Parser.dateToString(from) + ", to: "
-                + Parser.dateToString(to) + ")"
+                + DateParser.dateToString(from) + ", to: "
+                + DateParser.dateToString(to) + ")"
                 + "<tag: " + tagName + ">";
     }
 
@@ -74,8 +74,8 @@ public class Event extends Task {
     public String toSave() {
         return "E" + " | " + super.getDoneStatus()
                 + " | " + description
-                + " | " + Parser.dateToString(from)
-                + " | " + Parser.dateToString(to)
+                + " | " + DateParser.dateToString(from)
+                + " | " + DateParser.dateToString(to)
                 + " | " + tagName;
     }
 }

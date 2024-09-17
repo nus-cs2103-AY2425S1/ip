@@ -1,7 +1,5 @@
 package socchat.task;
 
-import Parser.Parser;
-
 /**
  * The abstract Task class represents a task with a description and a completion status.
  * It provides methods to mark and unmark tasks as done, and to get the task's status.
