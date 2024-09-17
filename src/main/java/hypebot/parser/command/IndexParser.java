@@ -1,4 +1,4 @@
-package hypebot.parser;
+package hypebot.parser.command;
 
 import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_MISSING;
 import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_MISSING;

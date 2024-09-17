@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.text.MessageFormat;
 
 import hypebot.command.Command;
-import hypebot.parser.CommandParser;
+import hypebot.parser.command.CommandParser;
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.UiCli;

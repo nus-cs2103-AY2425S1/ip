@@ -1,4 +1,4 @@
-package hypebot.parser;
+package hypebot.parser.command;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -18,6 +18,7 @@ import hypebot.command.MarkCommand;
 import hypebot.command.UnknownCommand;
 import hypebot.command.UnmarkCommand;
 import hypebot.exception.missing.MissingArgumentException;
+import hypebot.parser.Parser;
 import hypebot.parser.datetime.UiDateTimeParser;
 import hypebot.parser.task.UiTaskParser;
 import hypebot.task.Task;

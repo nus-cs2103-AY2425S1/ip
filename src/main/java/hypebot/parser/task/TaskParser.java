@@ -13,6 +13,12 @@ import hypebot.task.Event;
 import hypebot.task.ToDo;
 
 public abstract class TaskParser extends Parser {
+    protected final int taskTypeArrayIdx = 0;
+    protected final int taskCompletedArrayIdx = 1;
+    protected final int taskNameArrayIdx = 2;
+    protected final int dueDateArrayIdx = 3;
+    protected final int startTimeArrayIdx = 3;
+    protected final int endTimeArrayIdx = 4;
     protected DateTimeParser dateTimeParser;
     protected enum TaskType {
         TODO,

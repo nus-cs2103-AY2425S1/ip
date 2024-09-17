@@ -1,5 +1,8 @@
 package hypebot.exception.datetime;
 
+import hypebot.command.HappeningCommand;
+import hypebot.parser.command.CommandParser;
+
 import static hypebot.common.Messages.ERROR_HAPPENING_DATE_WRONG_FORMAT;
 
 import java.time.format.DateTimeParseException;
@@ -10,8 +13,8 @@ import java.time.format.DateTimeParseException;
  * when the user enters 'happening {some_date}'.
  *
  * @see java.time.format.DateTimeParseException
- * @see hypebot.command.HappeningCommand
- * @see hypebot.parser.CommandParser
+ * @see HappeningCommand
+ * @see CommandParser
  * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
  */
 public class HappeningSearchDateParseException extends DateTimeParseException {

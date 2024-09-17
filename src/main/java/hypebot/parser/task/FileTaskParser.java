@@ -26,7 +26,7 @@ public class FileTaskParser extends TaskParser {
     }
 
     private int isCompleteAsANumber(String line) throws IllegalTaskStatusException {
-        String isCompleteMarker = splitLine(line)[1];
+        String isCompleteMarker = splitLine(line)[taskCompletedArrayIdx];
         try {
             return Integer.parseInt(isCompleteMarker);
         } catch (NumberFormatException e) {
@@ -52,7 +52,7 @@ public class FileTaskParser extends TaskParser {
 
     @Override
     protected String parseTaskName(String line) {
-        return splitLine(line)[2];
+        return splitLine(line)[taskNameArrayIdx];
     }
 
     /**
@@ -69,7 +69,7 @@ public class FileTaskParser extends TaskParser {
     }
 
     private String extractDueDateString(String line) {
-        return splitLine(line)[3];
+        return splitLine(line)[dueDateArrayIdx];
     }
 
     /**
@@ -90,7 +90,7 @@ public class FileTaskParser extends TaskParser {
     }
 
     private String parseEventTimesStringFile(String line) {
-        return splitLine(line)[3] + "/" + splitLine(line)[4];
+        return splitLine(line)[startTimeArrayIdx] + "/" + splitLine(line)[endTimeArrayIdx];
     }
 
     /**
@@ -114,7 +114,7 @@ public class FileTaskParser extends TaskParser {
 
     @Override
     protected TaskType extractTaskType(String line) throws IllegalTaskTypeException {
-        String enteredTaskType = splitLine(line)[0];
+        String enteredTaskType = splitLine(line)[taskTypeArrayIdx];
         return switch(enteredTaskType) {
             case "T" -> TaskType.TODO;
             case "D" -> TaskType.DEADLINE;

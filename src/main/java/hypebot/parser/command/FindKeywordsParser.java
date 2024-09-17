@@ -1,4 +1,4 @@
-package hypebot.parser;
+package hypebot.parser.command;
 
 import static hypebot.common.Messages.ERROR_SEARCH_QUERY_EMPTY;
 
@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import hypebot.exception.missing.MissingArgumentException;
 import hypebot.exception.missing.MissingSearchKeywordsException;
+import hypebot.parser.Parser;
 
 public class FindKeywordsParser extends Parser {
     private void checkKeywordsExist(String[] inputBeforeDates) throws MissingSearchKeywordsException {
