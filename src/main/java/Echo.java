@@ -77,6 +77,9 @@ public class Echo {
         case "delete":
             command = new DeleteCommand();
             break;
+        case "save":
+            command = new SaveCommand();
+            break;
         case "bye":
             command = new ByeCommand();
             break;

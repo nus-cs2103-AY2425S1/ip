@@ -95,7 +95,7 @@ public class TaskList {
         if (index >= 0 && index < taskList.size()) {
             Task t = taskList.get(index);
             t.markAsDone();
-            return String.format("Nice I've marked this task as done!: \n %s", t.getDescription());
+            return String.format("Nice I've marked this task as done: \n %s", t.getDescription());
         } else {
             return "Invalid Task Number.\n";
         }
