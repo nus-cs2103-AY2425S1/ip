@@ -38,7 +38,7 @@ public class Kita {
     }
 
     /**
-     * For getting the output as a String given an inputStr (for use with the GUI)
+     * Returns a ParserMessage object given a user's input (to be used in conjunction with the GUI)
      * @param inputStr
      * @return ParserMessage
      * @throws IOException
@@ -56,8 +56,8 @@ public class Kita {
     }
 
     /**
-     * For handling of command line input if the entry point is Kita.java
-     * Will call `setup()` internally to populate the necessary objects
+     * Handles command line input if the entry point is Kita.java
+     * This method calls `setup()` internally to populate the necessary objects
      *
      * @param args
      */
