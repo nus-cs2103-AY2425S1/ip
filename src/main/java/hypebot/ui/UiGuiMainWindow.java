@@ -12,7 +12,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.util.Objects;
+
 public class UiGuiMainWindow extends AnchorPane {
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/user.png")));
+    private final Image hypeBotImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/hypebot.png")));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -21,11 +27,7 @@ public class UiGuiMainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private HypeBot hypeBot;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image hypeBotImage = new Image(this.getClass().getResourceAsStream("/images/hypebot.png"));
 
     @FXML
     public void initialize() {
@@ -36,14 +38,23 @@ public class UiGuiMainWindow extends AnchorPane {
     public void setHypeBot(HypeBot hypeBot) {
         this.hypeBot = hypeBot;
         dialogContainer.getChildren().addAll(
-                UiGuiDialogBox.getHypeBotDialog(hypeBot.getUiCli().showLoadingTasks(), hypeBotImage),
-                UiGuiDialogBox.getHypeBotDialog(hypeBot.getUiCli().showGreeting(), hypeBotImage)
+                UiGuiDialogBox.getHypeBotDialog(hypeBot.getUiCli().showGreeting().show(), hypeBotImage),
+                UiGuiDialogBox.getHypeBotDialog(hypeBot.getUiCli().showLoadingTasks().show(), hypeBotImage)
         );
+        if (hypeBot.hasBootingError()) {
+            dialogContainer.getChildren().add(
+                    UiGuiDialogBox.getHypeBotDialog(hypeBot.getBootingErrorMessage(), hypeBotImage)
+            );
+        } else {
+            dialogContainer.getChildren().add(
+                    UiGuiDialogBox.getHypeBotDialog("DONEZO! Let's CRUSH THOSE TASKS TOGETHER!", hypeBotImage)
+            );
+        }
     }
 
     private void exit() {
         dialogContainer.getChildren().addAll(
-                UiGuiDialogBox.getHypeBotDialog(hypeBot.getUiCli().showSavingTasks(), hypeBotImage)
+                UiGuiDialogBox.getHypeBotDialog(hypeBot.getUiCli().showSavingTasks().show(), hypeBotImage)
         );
         userInput.setDisable(true);
         PauseTransition delay = new PauseTransition(Duration.seconds(2));
@@ -68,7 +79,7 @@ public class UiGuiMainWindow extends AnchorPane {
                 UiGuiDialogBox.getHypeBotDialog(response, hypeBotImage, commandType)
         );
         userInput.clear();
-        if (response.equals(hypeBot.getUiCli().showExit())) {
+        if (commandType.equals("ByeCommand")) {
             exit();
         }
     }

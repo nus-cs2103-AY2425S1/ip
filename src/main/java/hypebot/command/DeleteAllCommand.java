@@ -3,6 +3,7 @@ package hypebot.command;
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.UiCli;
+import hypebot.ui.UiResponse;
 
 /**
  * Represents the DeleteAllCommand created when user prompts 'deleteall'
@@ -25,7 +26,7 @@ public class DeleteAllCommand extends Command {
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public UiResponse execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         tasks.deleteAll();
         return uiCli.showDeletedAllTasks();
     }

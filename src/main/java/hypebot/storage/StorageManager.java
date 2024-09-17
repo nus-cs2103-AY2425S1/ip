@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import hypebot.parser.TaskDateTimeParseException;
+import hypebot.exception.datetime.HypeBotDateTimeParseException;
 import hypebot.tasklist.Tasklist;
 
 /**
@@ -39,12 +39,11 @@ public class StorageManager {
      * Creates a new TasklistDecoder with the File specified to contain task data,
      * and returns the ArrayList of Tasks created by TasklistDecoder.decode() process.
      *
-     * @return ArrayList form of Tasks saved in specified file.
+     * @return Tasklist of Tasks saved in specified file.
      * @throws FileNotFoundException If specified file not found.
-     * @throws TaskDateTimeParseException If date-related data is not in expected format.
+     * @throws RuntimeException If any saved data is not in expected format.
      */
-    public Tasklist load() throws FileNotFoundException, TaskDateTimeParseException {
-        assert tasklistFile.exists() : "Tasklist file does not exist at './src/main/data/tasks.txt'";
+    public Tasklist load() throws FileNotFoundException, RuntimeException {
         TasklistDecoder decoder = new TasklistDecoder(tasklistFile);
         return decoder.decode();
     }
@@ -54,12 +53,11 @@ public class StorageManager {
      * Creates a new TasklistEncoder and calls TasklistEncoder.encode()
      * to save Tasks from Tasklist.
      *
-     * @param tasklist Tasklist containing Tasks to save.
+     * @param tasks Tasklist containing Tasks to save.
      * @throws IOException If specified file not found.
      */
-    public void save(Tasklist tasklist) throws IOException {
-        assert tasklistFile.exists() : "Tasklist file does not exist at './src/main/data/tasks.txt'";
-        TasklistEncoder encoder = new TasklistEncoder(tasklistFile, tasklist);
+    public void save(Tasklist tasks) throws IOException {
+        TasklistEncoder encoder = new TasklistEncoder(tasklistFile, tasks);
         encoder.encode();
     }
 }

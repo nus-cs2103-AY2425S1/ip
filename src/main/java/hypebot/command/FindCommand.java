@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.UiCli;
+import hypebot.ui.UiResponse;
 
 /**
  * Represents the FindCommand created when user prompts 'find {keywords}'.
@@ -30,12 +31,12 @@ public class FindCommand extends Command {
      * keywords in the search query, then triggers UiCli to output Tasks in this
      * Tasklist onto user interface.
      *
-     * @param tasks Tasklist containing Tasks.
-     * @param uiCli User interface that deals with text user interacts with.
+     * @param tasks          Tasklist containing Tasks.
+     * @param uiCli          User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public UiResponse execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         Tasklist tasksWithSearchQuery = tasks.getNameContains(searchQuery);
         return uiCli.showTasksWithSearchQuery(String.valueOf(searchQuery), tasksWithSearchQuery);
     }

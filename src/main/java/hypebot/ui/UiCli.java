@@ -1,6 +1,5 @@
 package hypebot.ui;
 
-import static hypebot.common.Messages.ERROR_INTRO;
 import static hypebot.common.Messages.LOGO;
 import static hypebot.common.Messages.MESSAGE_ADDED_TASK;
 import static hypebot.common.Messages.MESSAGE_DELETED_ALL_TASKS;
@@ -21,10 +20,8 @@ import static hypebot.common.Messages.MESSAGE_UNKNOWN_INTRO;
 import static hypebot.common.Messages.MESSAGE_UNKNOWN_OUTRO;
 import static hypebot.common.Messages.MESSAGE_UNMARKED_TASK;
 
-import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 import hypebot.task.Task;
 import hypebot.tasklist.Tasklist;
@@ -35,34 +32,32 @@ import hypebot.tasklist.Tasklist;
  * @author Youngseo Park (@youngseopark05)
  */
 public class UiCli {
-    private final Scanner in;
-
     /**
      * Creates a new UiCli object that initiates the scanner for user input and output interface.
      */
     public UiCli() {
-        in = new Scanner(System.in);
+        
     }
 
     /**
      * Outputs message shown when loading tasks from tasks.txt.
      */
-    public String showLoadingTasks() {
-        return MESSAGE_LOADING_TASKLIST;
+    public UiResponse showLoadingTasks() {
+        return new UiResponse(MESSAGE_LOADING_TASKLIST);
     }
 
     /**
      * Outputs message shown when saving tasks to tasks.txt.
      */
-    public String showSavingTasks() {
-        return MESSAGE_SAVING_TASKLIST;
+    public UiResponse showSavingTasks() {
+        return new UiResponse(MESSAGE_SAVING_TASKLIST);
     }
 
     /**
      * Outputs help message when user enters 'help' command.
      */
-    public String showHelpMessage() {
-        return MESSAGE_HELP;
+    public UiResponse showHelpMessage() {
+        return new UiResponse(MESSAGE_HELP);
     }
 
     /**
@@ -70,8 +65,8 @@ public class UiCli {
      *
      * @param tasks Tasks to output to user interface.
      */
-    public String showListingTasks(Tasklist tasks) {
-        return MESSAGE_LIST + tasks.toString();
+    public UiResponse showListingTasks(Tasklist tasks) {
+        return new UiResponse(MESSAGE_LIST + tasks.toString());
     }
 
     /**
@@ -81,9 +76,9 @@ public class UiCli {
      * @param addedTask Task that was added to Tasklist.
      * @param tasks Tasklist with the added Task.
      */
-    public String showAddedTask(Task addedTask, Tasklist tasks) {
-        return MESSAGE_ADDED_TASK + addedTask
-                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO;
+    public UiResponse showAddedTask(Task addedTask, Tasklist tasks) {
+        return new UiResponse(MESSAGE_ADDED_TASK + addedTask
+                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO);
     }
 
     /**
@@ -93,13 +88,13 @@ public class UiCli {
      * @param removedTask Task that was deleted from Tasklist.
      * @param tasks Tasklist with corresponding Task removed.
      */
-    public String showDeletedTask(Task removedTask, Tasklist tasks) {
-        return MESSAGE_DELETED_TASK + removedTask
-                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO;
+    public UiResponse showDeletedTask(Task removedTask, Tasklist tasks) {
+        return new UiResponse(MESSAGE_DELETED_TASK + removedTask
+                + MESSAGE_TASKS_LEFT_INTRO + tasks.size() + MESSAGE_TASKS_LEFT_OUTRO);
     }
 
-    public String showDeletedAllTasks() {
-        return MESSAGE_DELETED_ALL_TASKS;
+    public UiResponse showDeletedAllTasks() {
+        return new UiResponse(MESSAGE_DELETED_ALL_TASKS);
     }
 
     /**
@@ -107,8 +102,8 @@ public class UiCli {
      *
      * @param taskToMark Task marked complete.
      */
-    public String showMarkedTask(Task taskToMark) {
-        return MESSAGE_MARKED_TASK + taskToMark + "\n";
+    public UiResponse showMarkedTask(Task taskToMark) {
+        return new UiResponse(MESSAGE_MARKED_TASK + taskToMark + "\n");
     }
 
     /**
@@ -116,8 +111,8 @@ public class UiCli {
      *
      * @param taskToUnmark Task marked incomplete.
      */
-    public String showUnmarkedTask(Task taskToUnmark) {
-        return MESSAGE_UNMARKED_TASK + taskToUnmark + "\n";
+    public UiResponse showUnmarkedTask(Task taskToUnmark) {
+        return new UiResponse(MESSAGE_UNMARKED_TASK + taskToUnmark + "\n");
     }
 
     /**
@@ -127,22 +122,22 @@ public class UiCli {
      * @param searchDate Date (shown to user in MMM d yyyy format) user entered to search.
      * @param tasksHappeningOnDate Tasklist containing tasks occurring on corresponding date.
      */
-    public String showTasksHappeningOnDate(LocalDate searchDate, Tasklist tasksHappeningOnDate) {
-        return MESSAGE_HAPPENING + searchDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + "!\n" + tasksHappeningOnDate.toString();
+    public UiResponse showTasksHappeningOnDate(LocalDate searchDate, Tasklist tasksHappeningOnDate) {
+        return new UiResponse(MESSAGE_HAPPENING + searchDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + "!\n" + tasksHappeningOnDate.toString());
     }
 
     /**
-     * Takes in a String search query from user input parsed by CommandParser sent to a FindCommand,
+     * Takes in a UiResponse search query from user input parsed by CommandParser sent to a FindCommand,
      * a Tasklist with the Tasks containing one or more of the keywords in the search query,
      * then outputs the Tasklist containing the specified keywords.
      *
-     * @param searchQuery Search query containing keywords to find in Task name specified by user.
+     * @param searchQuery String search query containing keywords to find in Task name specified by user.
      * @param tasksWithSearchQuery Tasklist containing Tasks with keyword(s) in their names.
      */
-    public String showTasksWithSearchQuery(String searchQuery, Tasklist tasksWithSearchQuery) {
-        return MESSAGE_FIND_INTRO + " '" + searchQuery + "': \n"
-                + tasksWithSearchQuery.toString();
+    public UiResponse showTasksWithSearchQuery(String searchQuery, Tasklist tasksWithSearchQuery) {
+        return new UiResponse(MESSAGE_FIND_INTRO + " '" + searchQuery + "': \n"
+                + tasksWithSearchQuery.toString());
     }
 
     /**
@@ -150,23 +145,22 @@ public class UiCli {
      *
      * @param command User-entered String that does not correspond to any existing commands.
      */
-    public String showUnknownCommand(String command) {
+    public UiResponse showUnknownCommand(String command) {
         return showError(MESSAGE_UNKNOWN_INTRO + command + MESSAGE_UNKNOWN_OUTRO);
     }
 
     /**
      * Outputs the greeting message and logo to the user interface.
      */
-    public String showGreeting() {
-        return MESSAGE_GREET_INTRO + LOGO + MESSAGE_GREET_OUTRO;
+    public UiResponse showGreeting() {
+        return new UiResponse(MESSAGE_GREET_INTRO + LOGO + MESSAGE_GREET_OUTRO);
     }
 
     /**
      * Outputs the exit message to the user interface.
      */
-    public String showExit() {
-        in.close();
-        return MESSAGE_EXIT;
+    public UiResponse showExit() {
+        return new UiResponse(MESSAGE_EXIT);
     }
 
     /**
@@ -174,21 +168,7 @@ public class UiCli {
      *
      * @param errorMessage Error message to be outputted.
      */
-    public String showError(String errorMessage) {
-        return ERROR_INTRO + errorMessage;
-    }
-
-    /**
-     * Uses the Scanner to read user input to return the full command line entered by user.
-     * In the case that the Scanner cannot detect the line, automatically assigns "start" command.
-     *
-     * @return String user input to be sent to CommandParser.
-     */
-    public String readCommand() {
-        String userEnteredCommand = "start";
-        if (in.hasNextLine()) {
-            userEnteredCommand = in.nextLine();
-        }
-        return userEnteredCommand;
+    public UiResponse showError(String errorMessage) {
+        return new UiErrorResponse(errorMessage);
     }
 }

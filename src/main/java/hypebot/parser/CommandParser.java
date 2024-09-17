@@ -1,8 +1,5 @@
 package hypebot.parser;
 
-import static hypebot.common.Messages.ERROR_SEARCH_QUERY_EMPTY;
-
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
@@ -20,9 +17,10 @@ import hypebot.command.ListCommand;
 import hypebot.command.MarkCommand;
 import hypebot.command.UnknownCommand;
 import hypebot.command.UnmarkCommand;
-import hypebot.task.Deadline;
-import hypebot.task.Event;
-import hypebot.task.ToDo;
+import hypebot.exception.missing.MissingArgumentException;
+import hypebot.parser.datetime.UiDateTimeParser;
+import hypebot.parser.task.UiTaskParser;
+import hypebot.task.Task;
 
 /**
  * Represents the CommandParser which makes sense of user input read form the user interface
@@ -30,26 +28,52 @@ import hypebot.task.ToDo;
  *
  * @author YoungseoPark (@youngseopark05)
  */
-public class CommandParser {
-    private static String parseCommand(String line) {
+public class CommandParser extends Parser {
+    private final UiTaskParser uiTaskParser = new UiTaskParser();
+    private final UiDateTimeParser uiDateTimeParser = new UiDateTimeParser();
+    private enum CommandType {
+        START,
+        HELP,
+        BYE,
+        LIST,
+        DELETEALL,
+        FIND,
+        HAPPENING,
+        TODO,
+        DEADLINE,
+        EVENT,
+        MARK,
+        UNMARK,
+        DELETE,
+        UNKNOWN
+    }
+
+    public CommandParser() {
+        super();
+    }
+
+    private String extractCommandWord(String line) {
         return line.split(" ")[0];
     }
 
-    private static Pattern parseSearchQuery(String line) throws ParseException {
-        String[] inputBeforeDates = line.split(" /")[0].split(" ");
-
-        StringBuilder keywordsSb = new StringBuilder();
-        for (int i = 1; i < inputBeforeDates.length - 1; i++) {
-            keywordsSb.append(inputBeforeDates[i].toLowerCase()).append("|");
-        }
-        keywordsSb.append(inputBeforeDates[inputBeforeDates.length - 1]);
-        String keywordsRegex = keywordsSb.toString().trim();
-
-        if (keywordsRegex.isEmpty()) {
-            throw new ParseException(ERROR_SEARCH_QUERY_EMPTY, 0);
-        }
-
-        return Pattern.compile(keywordsRegex, Pattern.CASE_INSENSITIVE);
+    private CommandType parseCommand(String line) {
+        String commandWord = extractCommandWord(line);
+        return switch(commandWord) {
+        case "start" -> CommandType.START;
+        case "help" -> CommandType.HELP;
+        case "bye" -> CommandType.BYE;
+        case "list" -> CommandType.LIST;
+        case "deleteall" -> CommandType.DELETEALL;
+        case "find" -> CommandType.FIND;
+        case "happening" -> CommandType.HAPPENING;
+        case "todo" -> CommandType.TODO;
+        case "deadline" -> CommandType.DEADLINE;
+        case "event" -> CommandType.EVENT;
+        case "mark" -> CommandType.MARK;
+        case "unmark" -> CommandType.UNMARK;
+        case "delete" -> CommandType.DELETE;
+        default -> CommandType.UNKNOWN;
+        };
     }
 
     /**
@@ -57,55 +81,50 @@ public class CommandParser {
      *
      * @param fullCommand Line read from user interface, given by UiCli.readCommand().
      * @return Corresponding Command object pending execution.
-     * @throws ParseException If a Task's name, Deadline's due date, Event's start or end time,
+     * @throws MissingArgumentException If a Task's name, Deadline's due date, Event's start or end time,
      *                        or date to search tasks for is missing.
      * @throws NumberFormatException If index of Task to mark, unmark, or delete is not a number.
      * @throws DateTimeParseException If Deadline due date, Event start/end time, or search date not properly formatted.
      * @throws IndexOutOfBoundsException If index of Task to mark, unmark, or delete too low/high.
      */
-    public static Command parse(String fullCommand) throws ParseException,
+    @Override
+    public Command parse(String fullCommand) throws MissingArgumentException,
             NumberFormatException, DateTimeParseException, IndexOutOfBoundsException {
-        String command = parseCommand(fullCommand);
+        String commandWord = extractCommandWord(fullCommand);
+        CommandType command = parseCommand(fullCommand);
 
         return switch (command) {
-        case "start" -> new GreetCommand();
-        case "help" -> new HelpCommand();
-        case "bye" -> new ByeCommand();
-        case "list" -> new ListCommand();
-        case "deleteall" -> new DeleteAllCommand();
-        case "todo" -> {
-            ToDo newTodo = TaskParser.parseToDoUi(fullCommand);
-            yield new AddCommand(newTodo);
+        case START -> new GreetCommand();
+        case HELP -> new HelpCommand();
+        case BYE -> new ByeCommand();
+        case LIST -> new ListCommand();
+        case DELETEALL -> new DeleteAllCommand();
+        case TODO, DEADLINE, EVENT -> {
+            Task newTask = uiTaskParser.parse(fullCommand);
+            yield new AddCommand(newTask);
         }
-        case "deadline" -> {
-            Deadline newDeadline = TaskParser.parseDeadlineUi(fullCommand);
-            yield new AddCommand(newDeadline);
-        }
-        case "event" -> {
-            Event newEvent = TaskParser.parseEventUi(fullCommand);
-            yield new AddCommand(newEvent);
-        }
-        case "find" -> {
-            Pattern keywordsRegex = parseSearchQuery(fullCommand);
+        case FIND -> {
+            FindKeywordsParser keywordsParser = new FindKeywordsParser();
+            Pattern keywordsRegex = keywordsParser.parse(fullCommand);
             yield new FindCommand(keywordsRegex);
         }
-        case "mark" -> {
+        case HAPPENING -> {
+            LocalDate searchDate = uiDateTimeParser.parseHappeningDate(fullCommand);
+            yield new HappeningCommand(searchDate);
+        }
+        case MARK -> {
             int idxToMark = IndexParser.parseMarkIndex(fullCommand);
             yield new MarkCommand(idxToMark);
         }
-        case "unmark" -> {
+        case UNMARK -> {
             int idxToMark = IndexParser.parseUnmarkIndex(fullCommand);
             yield new UnmarkCommand(idxToMark);
         }
-        case "delete" -> {
+        case DELETE -> {
             int idxToMark = IndexParser.parseDeleteIndex(fullCommand);
             yield new DeleteCommand(idxToMark);
         }
-        case "happening" -> {
-            LocalDate searchDate = DateTimeParser.parseHappeningDate(fullCommand);
-            yield new HappeningCommand(searchDate);
-        }
-        default -> new UnknownCommand(command);
+        case UNKNOWN -> new UnknownCommand(commandWord);
         };
     }
 }

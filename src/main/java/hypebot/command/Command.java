@@ -3,6 +3,7 @@ package hypebot.command;
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.UiCli;
+import hypebot.ui.UiResponse;
 
 /**
  * Represents the base Command class which all Commands inherit from.
@@ -11,22 +12,13 @@ import hypebot.ui.UiCli;
  */
 public abstract class Command {
     /**
-     * Returns whether the Command is a command that causes termination of HypeBot.
-     *
-     * @return False (except for child ByeCommand).
-     */
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Base method implemented by all children of Command,
      * specifies manipulations on Tasklist, UiCli, or StorageManager
      * of HypeBot according to type of Command.
      *
-     * @param tasks Tasklist containing Tasks.
-     * @param uiCli User interface that deals with text user interacts with.
+     * @param tasks          Tasklist containing Tasks.
+     * @param uiCli          User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
-    public abstract String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager);
+    public abstract UiResponse execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager);
 }

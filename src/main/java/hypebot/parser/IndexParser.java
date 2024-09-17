@@ -12,11 +12,8 @@ import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_MISSING;
 public class IndexParser {
     private static final int INDEX_OFFSET = 1;
 
-    private static int getIndexOffset(String line) throws NumberFormatException, IndexOutOfBoundsException {
-        if (line.isBlank()) {
-            throw new IndexOutOfBoundsException();
-        }
-        return Integer.parseInt(line.strip()) - INDEX_OFFSET;
+    private static int getIndexOffset(String idx) throws NumberFormatException {
+        return Integer.parseInt(idx.strip()) - INDEX_OFFSET;
     }
 
     /**
@@ -31,7 +28,7 @@ public class IndexParser {
         try {
             String idxString = line.split(" ")[1];
             return getIndexOffset(idxString);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             throw new NumberFormatException(ERROR_MARK_TASK_INDEX_MISSING);
         }
     }

@@ -1,6 +1,7 @@
 package hypebot.main;
 
 import java.io.FileNotFoundException;
+import java.text.MessageFormat;
 
 import hypebot.command.Command;
 import hypebot.parser.CommandParser;
@@ -8,16 +9,21 @@ import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.UiCli;
 
+import static hypebot.common.Messages.ERROR_FIX_CORRUPTED_TASK;
+import static hypebot.common.Messages.ERROR_LOAD_TASK;
+
 /**
  * The chatbot which the user interacts with.
  *
  * @author Youngseo Park (@youngseopark05)
  */
 public class HypeBot {
-    private StorageManager storage;
+    private final StorageManager storage;
+    private final UiCli uiCli;
+    private final CommandParser commandParser;
     private Tasklist tasks;
-    private UiCli uiCli;
     private String commandType;
+    private String bootingErrorMessage;
 
     /**
      * Creates a new HypeBot.
@@ -27,9 +33,14 @@ public class HypeBot {
     public HypeBot(String filePath) {
         uiCli = new UiCli();
         storage = new StorageManager(filePath);
+        commandParser = new CommandParser();
         try {
             tasks = storage.load();
-        } catch (FileNotFoundException e) {
+        } catch (RuntimeException | FileNotFoundException e) {
+            commandType = "Error";
+            bootingErrorMessage = uiCli.showError(MessageFormat.format(
+                    "{0}{1}{2}", ERROR_LOAD_TASK, e.getMessage(), ERROR_FIX_CORRUPTED_TASK
+            )).show();
             tasks = new Tasklist();
         }
     }
@@ -46,45 +57,27 @@ public class HypeBot {
         return tasks;
     }
 
-    /**
-     * Runs the main event loop for HypeBot-user interaction.
-     */
-    public void run() {
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = uiCli.readCommand();
-                Command c = CommandParser.parse(fullCommand);
-                String response = c.execute(tasks, uiCli, storage);
-                System.out.println(response);
-                isExit = c.isExit();
-            } catch (Exception e) {
-                System.out.println(uiCli.showError(e.getMessage()));
-            }
-        }
-    }
-
-    /**
-     * Creates a new HypeBot object with the specified file path and runs it.
-     *
-     * @param args Command-line arguments that remain unused.
-     */
-    public static void main(String[] args) {
-        new HypeBot("./src/main/data/tasks.txt").run();
-    }
-
     public String getResponse(String input) {
+        bootingErrorMessage = null;
         try {
-            Command c = CommandParser.parse(input);
+            Command c = commandParser.parse(input);
             commandType = c.getClass().getSimpleName();
-            return c.execute(tasks, uiCli, storage);
+            return c.execute(tasks, uiCli, storage).show();
         } catch (Exception e) {
             commandType = "Error";
-            return uiCli.showError(e.getMessage());
+            return uiCli.showError(e.getMessage()).show();
         }
     }
 
     public String getCommandType() {
         return commandType;
+    }
+
+    public boolean hasBootingError() {
+        return bootingErrorMessage != null;
+    }
+
+    public String getBootingErrorMessage() {
+        return bootingErrorMessage;
     }
 }

@@ -3,6 +3,7 @@ package hypebot.command;
 import hypebot.storage.StorageManager;
 import hypebot.tasklist.Tasklist;
 import hypebot.ui.UiCli;
+import hypebot.ui.UiResponse;
 
 /**
  * Represents the UnmarkCommand created when user prompts 'help'.
@@ -20,12 +21,12 @@ public class HelpCommand extends Command {
     /**
      * Triggers UiCli to output help message showing all possible commands executable by HypeBot.
      *
-     * @param tasks Tasklist containing Tasks.
-     * @param uiCli User interface that deals with text user interacts with.
+     * @param tasks          Tasklist containing Tasks.
+     * @param uiCli          User interface that deals with text user interacts with.
      * @param storageManager StorageManager containing File where tasks are loaded / saved.
      */
     @Override
-    public String execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public UiResponse execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
         return uiCli.showHelpMessage();
     }
 }
