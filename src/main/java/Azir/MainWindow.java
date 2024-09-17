@@ -41,11 +41,11 @@ public class MainWindow extends AnchorPane {
         azir = a;
 
         String greeting = Ui.showWelcome();
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greeting, azirImage));
+        dialogContainer.getChildren().add(DialogBox.getAzirDialog(greeting, azirImage));
 
         String loadMessage = azir.getLoadMessage();
         if (!loadMessage.isEmpty()) {
-            dialogContainer.getChildren().add(DialogBox.getDukeDialog(loadMessage, azirImage));
+            dialogContainer.getChildren().add(DialogBox.getAzirDialog(loadMessage, azirImage));
         }
     }
 
@@ -60,7 +60,7 @@ public class MainWindow extends AnchorPane {
             String response = azir.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, azirImage)
+                    DialogBox.getAzirDialog(response, azirImage)
             );
             userInput.clear();
         } catch (IOException e) {
