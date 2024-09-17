@@ -22,12 +22,5 @@ public class Launcher {
         }
 
         Application.launch(Ahmad.class, args);
-
-        /*
-            Ui.print(welcomeMsg);
-
-
-            startInteraction();
-        */
     }
 }
