@@ -11,16 +11,16 @@ import evelyn.task.Task;
  * Houses all logic for storing and retrieving data from Evelyn.
  */
 public class Storage {
-    private String dataPathFile = null;
+    private java.nio.file.Path dataPathFile = null;
     private File file = null;
 
     /**
      * Constructor for a Storage object.
      * @param dataPathFile The file path of the data to be stored
      */
-    public Storage(String dataPathFile) {
+    public Storage(java.nio.file.Path dataPathFile) {
         this.dataPathFile = dataPathFile;
-        this.file = new File(dataPathFile);
+        this.file = this.dataPathFile.toFile();
     }
 
     /**
@@ -30,7 +30,7 @@ public class Storage {
      */
     public void writeToFile(Task task) throws IOException {
         assert this.dataPathFile != null : "dataPathFile should not be null";
-        FileWriter fw = new FileWriter(this.dataPathFile, true);
+        FileWriter fw = new FileWriter(this.file, true);
         fw.write(task.toString() + System.lineSeparator());
         fw.close();
     }
@@ -67,6 +67,6 @@ public class Storage {
      * @throws IOException Throws exception if there is difficulty reading file.
      */
     public FileReader getFileReader() throws IOException {
-        return new FileReader(dataPathFile);
+        return new FileReader(this.file);
     }
 }

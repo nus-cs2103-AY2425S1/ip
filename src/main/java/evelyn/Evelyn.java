@@ -14,8 +14,8 @@ import javafx.application.Application;
  * Houses all the logic for an Evelyn object
  */
 public class Evelyn {
-
-    private static final String DEFAULT_FILE_PATH = "src/main/data/evelyn.txt";
+    private static final String home = System.getProperty("user.home");
+    private static final java.nio.file.Path DEFAULT_FILE_PATH = java.nio.file.Paths.get(home, "Documents", "Evelyn.txt");
     private TaskList taskList;
     private Parser parser;
 
