@@ -144,7 +144,7 @@ public class Gopher {
         try {
             String[] tokens = userInput.split(" ");
             if (tokens.length < 2) {
-                return "Update command cannot be empty";
+                return "Update command cannot be empty...\nPlease try again...";
             }
             taskList.update(tokens);
             return "Hi I have updated this task for you already!";

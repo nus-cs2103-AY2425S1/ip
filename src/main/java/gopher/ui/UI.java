@@ -120,7 +120,7 @@ public class UI {
      */
     public static String getInvalidDateWarning() {
         return ("Oops...Seems like you have passed in invalid date...\n"
-                + "Please check if your date is of the correct value and format\n"
+                + "Please try again with valid date and correct format...\n"
                 + "Current accepted date format: YYYY-MM-DD or YYYY-MM-DD hh:mm");
     }
 }
