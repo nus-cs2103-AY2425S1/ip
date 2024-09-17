@@ -141,6 +141,19 @@ all your task information will be saved.
 
 ---
 
+The table below contains all available commands, those under the "Aliases" section indicate that they can
+replace the corresponding command and provide the same output.
+
+Example:
+
+```
+deadline Submit assignment /by 20/9/2024 2359
+d Submit assignment /by 20/9/2024 2359
+D Submit assignment /by 20/9/2024 2359
+```
+All produce the same output of adding a deadline due 20 Sep 2024 11:59 pm.
+
+
 | Command  | Aliases   | Format                                                     |
 |----------|-----------|------------------------------------------------------------|
 | todo     | t, T      | ```todo TASK_DESCRIPTION```                                |
