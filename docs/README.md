@@ -79,6 +79,7 @@ Find a task with a keyword.
 **Example:**
 
 `find p` return all my tasks containing `p`.
+
 <img src="../src/main/resources/images/find.png" alt="find example" height="300" width="400"/>
 
 
