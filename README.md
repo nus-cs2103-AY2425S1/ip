@@ -5,8 +5,6 @@
 #### Handle the fire and messiness of life with Monique :)
 Monique is a desktop chat-bot app for managing your todo list
 
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](Ui.png)
-
 ## Quick Guide to using Monique
 
 ### Ensuring required installation of java is fulfilled
