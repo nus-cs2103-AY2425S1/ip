@@ -43,15 +43,23 @@ public class Storage {
     private void createDatabase() throws FRIDAYException {
         File db = new File(this.filePath);
         File dir = new File(db.getParent());
-        if (!dir.mkdir()) {
-            throw new FRIDAYException("Failed to create database");
+
+        // Create directory and handle if it fails
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
+                throw new FRIDAYException("Failed to create directory structure");
+            }
         }
+
         try {
-            if (!db.createNewFile()) {
-                throw new FRIDAYException("Failed to create database file");
+            // Create the database file if it doesn't exist
+            if (!db.exists()) {
+                if (!db.createNewFile()) {
+                    throw new FRIDAYException("Failed to create database file");
+                }
             }
         } catch (IOException e) {
-            System.out.println("Error occured creating database");
+            throw new FRIDAYException("Error occurred while creating database file");
         }
     }
 

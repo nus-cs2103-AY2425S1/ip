@@ -11,6 +11,8 @@ public class FRIDAY {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+    private Storage archive;
+    private TaskList programArchive;
 
     /**
      * constructor for bot
@@ -19,9 +21,12 @@ public class FRIDAY {
         //divider
         this.ui = new Ui();
         String filePath = "./storage/FRIDAY.txt";
+        String archiveFilePath = "./storage/archive.txt";
         this.storage = new Storage(filePath);
+        this.archive = new Storage(archiveFilePath);
         try {
             this.taskList = new TaskList(storage.load());
+            this.programArchive = new TaskList(archive.load());
         } catch (FRIDAYException f) {
             System.out.println("Encountered unrecognizable task type");
         }
@@ -94,7 +99,8 @@ public class FRIDAY {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
             taskList.removeTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
-            return ui.printRemove(taskList.getTaskAt(Integer.parseInt(taskDetails.substring(0, 1)) - 1), taskList.numTasks());
+            return ui.printRemove(taskList.getTaskAt(Integer.parseInt(taskDetails.substring(0, 1)) - 1),
+                    taskList.numTasks());
         case ("bye"):
             ArrayList<Task> list = this.taskList.getList();
             assert list != null : "list not found";
@@ -108,6 +114,7 @@ public class FRIDAY {
             assert searchResults != null : "could not generate search results";
             return ui.displaySearchResults(searchResults);
             //if there is no input then nothing added to list
+        //add a keyword for archive that archives all tasks and removes it from the storage and program list
         case (""):
             return "Please input a command";
         //to handle all normal inputs less empty strings
