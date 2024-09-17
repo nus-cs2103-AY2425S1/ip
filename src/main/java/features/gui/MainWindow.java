@@ -47,10 +47,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = susan.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, susanImage)
-        );
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox susanDialog = DialogBox.getSusanDialog(response, susanImage);
+        userDialog.getStyleClass().add("user-dialog");
+        susanDialog.getStyleClass().add("bot-dialog");
+        DialogBox.getUserDialog(input, userImage).getStyleClass().add("user-dialog");
+        dialogContainer.getChildren().addAll(userDialog, susanDialog);
         userInput.clear();
     }
 }
