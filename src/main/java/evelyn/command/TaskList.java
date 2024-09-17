@@ -163,46 +163,60 @@ public class TaskList {
      * @throws IOException Exception thrown if the file data input is erroneous.
      */
     private void fileDataToList(String data) throws IOException {
-        boolean isMarked;
         if (data.startsWith("[T]")) {
-            if (data.contains("[X]")) {
-                isMarked = true;
-            } else {
-                isMarked = false;
-            }
-            System.out.println(isMarked ? "True" : "False");
-            String description = data.substring(7);
-            Todo newTodo = new Todo(description, isMarked);
-            this.list.add(newTodo);
+            inputTodo(data);
         } else if (data.startsWith("[D]")) {
-            if (data.contains("[X]")) {
-                isMarked = true;
-            } else {
-                isMarked = false;
-            }
-            String descAndDate = data.substring(7);
-            String[] parts = descAndDate.split(" \\(by: ");
-            String description = parts[0];
-            String deadline = parts[1].substring(0, parts[1].length() - 1);
-            Deadline newDeadline = new Deadline(description, deadline, isMarked);
-            this.list.add(newDeadline);
+            inputDeadline(data);
         } else if (data.startsWith("[E]")) {
-            if (data.contains("[X]")) {
-                isMarked = true;
-            } else {
-                isMarked = false;
-            }
-            String descAndDate = data.substring(7);
-            String[] parts1 = descAndDate.split(" \\(from: ");
-            String description = parts1[0];
-            String[] parts2 = parts1[1].split(" to: ");
-            String start = parts2[0];
-            String end = parts2[1].substring(0, parts2[1].length() - 1);
-
-            Event newEvent = new Event(description, start, end, isMarked);
-            this.list.add(newEvent);
+            inputEvent(data);
         } else {
             throw new IOException();
         }
+    }
+
+    private void inputTodo(String data) {
+        boolean isMarked;
+        if (data.contains("[X]")) {
+            isMarked = true;
+        } else {
+            isMarked = false;
+        }
+        System.out.println(isMarked ? "True" : "False");
+        String description = data.substring(7);
+        Todo newTodo = new Todo(description, isMarked);
+        this.list.add(newTodo);
+    }
+
+    private void inputDeadline(String data) {
+        boolean isMarked;
+        if (data.contains("[X]")) {
+            isMarked = true;
+        } else {
+            isMarked = false;
+        }
+        String descAndDate = data.substring(7);
+        String[] parts = descAndDate.split(" \\(by: ");
+        String description = parts[0];
+        String deadline = parts[1].substring(0, parts[1].length() - 1);
+        Deadline newDeadline = new Deadline(description, deadline, isMarked);
+        this.list.add(newDeadline);
+    }
+
+    private void inputEvent(String data) {
+        boolean isMarked;
+        if (data.contains("[X]")) {
+            isMarked = true;
+        } else {
+            isMarked = false;
+        }
+        String descAndDate = data.substring(7);
+        String[] parts1 = descAndDate.split(" \\(from: ");
+        String description = parts1[0];
+        String[] parts2 = parts1[1].split(" to: ");
+        String start = parts2[0];
+        String end = parts2[1].substring(0, parts2[1].length() - 1);
+
+        Event newEvent = new Event(description, start, end, isMarked);
+        this.list.add(newEvent);
     }
 }
