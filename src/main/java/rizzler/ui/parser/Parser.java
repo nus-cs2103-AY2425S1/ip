@@ -1,8 +1,8 @@
 package rizzler.ui.parser;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 import rizzler.command.Command;
 import rizzler.command.DeadlineCommand;
@@ -18,44 +18,27 @@ import rizzler.command.TodoCommand;
 import rizzler.command.UnmarkCommand;
 
 /**
- * Takes in user input and processes it into the appropriate command type
+ * Parser to take in user input and process it into the appropriate command type.
+ * Also logs all past user inputs.
  */
 public class Parser {
-    private final Scanner scanner;
-
+    private ArrayList<String> pastInputs;
 
     /**
-     * Constructor for a Parser object, creating a scanner to take in user input.
+     * Constructor for a <code>Parser</code> object that can parse user input strings.
+     * Initialises <code>pastInputs</code> as an <code>ArrayList</code> of strings.
      */
     public Parser() {
-        scanner = new Scanner(System.in);
+        pastInputs = new ArrayList<String>();
     }
-
     /**
-     * Reads the user input, parses it and returns the appropriate command.
-     * @return Command of varying types depending on user input.
-     */
-    public Command processInput() {
-        String userInput = readInput();
-        return parseInput(userInput);
-    }
-
-    /**
-     * Overloaded method <code>processInput</code> that takes in input as a <code>String</code> rather than
-     * reading it from the default input stream.
+     * Takes in input as a given input <code>String</code>, returning the appropriate command.
+     * Also adds the given user input to a log of all past user inputs.
      * @param userInput <code>String</code> entered by the user.
      * @return Command of varying types depending on user input.
      */
-    public Command processInput(String userInput) {
-        return parseInput(userInput);
-    }
-
-    private String readInput() {
-        String userInput = scanner.nextLine();
-        return userInput;
-    }
-
-    protected Command parseInput(String userInput) {
+    public Command parseInput(String userInput) {
+        pastInputs.add(userInput);
         String[] userInputArr = userInput.split(" ");
         Command outputCommand;
         switch (userInputArr[0].trim().toLowerCase()) {
@@ -203,9 +186,5 @@ public class Parser {
         }
         return outputCommand;
 
-    }
-
-    public void close() {
-        scanner.close();
     }
 }

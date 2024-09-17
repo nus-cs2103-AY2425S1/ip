@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getRizzlerDialog(response, rizzlerImage)
         );
         userInput.clear();
-        if (input.equals("bye")) {
+        if (rizzler.shouldEnd()) {
             Platform.exit();
         }
     }

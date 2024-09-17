@@ -11,17 +11,17 @@ public abstract class Command {
     private final String textInput;
     private boolean shouldEnd;
 
-    protected Command() {
+    Command() {
         this("");
     }
 
-    protected Command(String textInput) {
+    Command(String textInput) {
         this.textInput = textInput;
         this.shouldEnd = false;
     }
 
     /**
-     * Execution of whatever the command specifies, modifying storage and taskLog accordingly.
+     * Executes whatever the command specifies, modifying storage and taskLog accordingly.
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return <code>String[]</code> to be printed in response to execution of this command.
@@ -36,7 +36,7 @@ public abstract class Command {
         return shouldEnd;
     }
 
-    protected void setShouldEnd(boolean shouldEnd) {
+    void setShouldEnd(boolean shouldEnd) {
         this.shouldEnd = shouldEnd;
     }
 

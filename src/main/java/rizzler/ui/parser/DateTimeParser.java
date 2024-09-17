@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 public class DateTimeParser {
 
     /**
-     * Static method to handle conversion of a string in <code>YYYY-MM-DD</code> format to a datetime object.
+     * Handles conversion of a string in <code>YYYY-MM-DD</code> format to a datetime object.
      * @param inputStr String representing a date in <code>YYYY-MM-DD</code> format.
      * @return <code>LocalDate</code> object representing the same date provided by the user.
      * @throws DateTimeParseException If the user's input string cannot be interpreted as a date.
@@ -19,6 +19,12 @@ public class DateTimeParser {
         return LocalDate.parse(inputStr);
     }
 
+    /**
+     * Returns a boolean representing whether the <code>DateTimeParser</code> is able to parse
+     * this particular input string.
+     * @param inputStr User's input string.
+     * @return Whether this input string is possible to parse.
+     */
     public static boolean canParse(String inputStr) {
         try {
             toDatetime(inputStr);
