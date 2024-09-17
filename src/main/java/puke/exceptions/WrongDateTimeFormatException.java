@@ -10,8 +10,8 @@ public class WrongDateTimeFormatException extends PukeException {
      *
      * @param ExpectedPattern the expected date and time format pattern.
      */
-    public WrongDateTimeFormatException(String ExpectedPattern) {
-        super("OOPS!! Please use the date and time format: \"" + ExpectedPattern + "\"");
+    public WrongDateTimeFormatException(String expectedPattern) {
+        super("OOPS!! Please use the date and time format: \"" + expectedPattern + "\"");
     }
 }
 

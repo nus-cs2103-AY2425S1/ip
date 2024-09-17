@@ -1,23 +1,23 @@
 package puke.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import puke.TaskList;
 import puke.exceptions.EmptyDescriptionException;
 import puke.exceptions.MissingTimeException;
 import puke.exceptions.WrongDateTimeFormatException;
 import puke.message.MessageBuilder;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 /**
  * Command to add a new Deadline task.
  */
 public class AddDeadlineCommand extends Command {
-    private String description;
-    private String by;
     private static final String DATE_TIME_PATTERN = "dd/MM/yyyy HHmm";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+    private String description;
+    private String by;
 
     /**
      * Constructs a new AddDeadlineCommand with specified arguments.
@@ -27,7 +27,8 @@ public class AddDeadlineCommand extends Command {
      * @throws MissingTimeException         if the deadline time is missing or empty.
      * @throws WrongDateTimeFormatException if the deadline time does not match the required format.
      */
-    public AddDeadlineCommand(String args) throws EmptyDescriptionException, MissingTimeException, WrongDateTimeFormatException {
+    public AddDeadlineCommand(String args) throws EmptyDescriptionException, MissingTimeException,
+            WrongDateTimeFormatException {
         if (args.isEmpty()) {
             throw new EmptyDescriptionException("deadline");
         }
