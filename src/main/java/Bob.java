@@ -1,7 +1,10 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,10 +12,15 @@ import java.util.Scanner;
 public class Bob {
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String LINE_PREFIX = "    ";
-    private static final Storage STORAGE = new Storage("data/Bob.txt");
+    private static final DateTimeFormatter INPUT_FORMATTER =
+            new DateTimeFormatterBuilder()
+                    .append(DateTimeFormatter.ofPattern("d[d]/M[M][/uuuu][ HHmm]"))
+                    .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                    .toFormatter();
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("'{'dd-MMM-uuuu HHmm'}'");
-    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d[d]/M[M]/uuuu[ HHmm]");
-
+    private static final Storage STORAGE = new Storage("data/Bob.txt");
     private static String argument = "";
     private static List<Task> list;
 
@@ -205,7 +213,7 @@ public class Bob {
     }
 
     public static String formatDateTime(LocalDateTime dateTime) {
-        return dateTime.format(OUTPUT_FORMATTER);
+        return OUTPUT_FORMATTER.format(dateTime);
     }
 
     public static void main(String[] args) {
