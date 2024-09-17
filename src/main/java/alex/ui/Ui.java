@@ -5,7 +5,7 @@ package alex.ui;
  * An Ui object corresponds to an interface.
  */
 public class Ui {
-    private static final String byeMessage = "Bye. Hope to see you again soon!";
+    private static final String byeMessage = "See you later alligator. Hope to see you again soon!";
 
     /**
      * Displays the basic welcome message that greets
@@ -14,7 +14,7 @@ public class Ui {
      * @return string representing the welcome message
      */
     public String welcomeMessage() {
-        return "Hello! I'm Alex 👋🏼🤖 \n" +
+        return "Howdy! I'm Alex 👋🏼🤖 \n" +
                 "What can I do for you? ";
     }
     /**

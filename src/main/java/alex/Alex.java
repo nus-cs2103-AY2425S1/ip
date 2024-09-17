@@ -34,7 +34,6 @@ public class Alex {
      * @return string representing what Alex will display to the user
      */
     public String handleCommand(String userInput) {
-
         if (userInput.equalsIgnoreCase("bye")) {
             return ui.byeMessage();
         } else if (userInput.equalsIgnoreCase("list")) {

@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
     public LocalDate startDate;
-    //public LocalDate dueDate;
     public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;

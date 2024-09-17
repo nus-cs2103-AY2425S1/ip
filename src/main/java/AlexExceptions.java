@@ -1,8 +1,9 @@
 public class AlexExceptions extends Exception {
+    private String description;
     public AlexExceptions(String message) {
-        super(message);
+        this.description = message;
     }
-    public void InvalidInputException(String message) {
-        //super(message);
+    public String getDescription() {
+        return this.description;
     }
 }

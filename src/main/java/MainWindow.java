@@ -1,4 +1,5 @@
 import alex.Alex;
+import alex.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -19,7 +20,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Alex alex;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
@@ -35,6 +35,11 @@ public class MainWindow extends AnchorPane {
      * */
     public void setAlex(Alex a) {
         alex = a;
+        Ui ui = new Ui();
+        String welcomeMessage = ui.welcomeMessage();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAlexDialog(welcomeMessage, alexImage)
+        );
     }
 
     /**

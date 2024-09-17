@@ -1,4 +1,4 @@
 [D][X] rrrr #urgent #cool #fun // by: 2020-02-02
 [T][ ] paint wall #cool
-[E][X] speak // from: 2022-02-03 // to: 2022-12-12
-[D][ ] buy food // by: 2023-03-03
+[E][ ] speak // from: 2022-02-03 // to: 2022-12-12
+[D][X] buy food // by: 2023-03-03

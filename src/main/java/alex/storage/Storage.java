@@ -4,6 +4,7 @@ import alex.task.Deadline;
 import alex.task.Event;
 import alex.task.Task;
 import alex.task.Todo;
+import alex.parser.Parser;
 
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  */
 public class Storage {
     private ArrayList<Task> tasks;
-
+    private Parser parser = new Parser();
     public Storage(String directory, String file) {
         createDirectory(directory);
         loadTasksFromFile(file);
@@ -52,26 +53,23 @@ public class Storage {
             while ((desc = reader.readLine()) != null) {
                 Task task;
                 if (desc.startsWith("[T]")) {
-                    String details = desc.substring(6).trim();
+                    String details = parser.extractDetailsFromSavedFile(desc);
                     task = new Todo(details);
                 } else if (desc.startsWith("[D]")) {
-                    String details = desc.substring(6);
-                    String[] info = details.split("//");
-                    String item = info[0].trim();
-                    String dueInter = info[1].substring(4).trim();
-                    LocalDate dueDate = LocalDate.parse(dueInter);
+                    String details = parser.extractDetailsFromSavedFile(desc);
+                    String[] info = parser.parseIntoArrayOfInfoFromSavedFile(details);
+                    String item = parser.extractNameOfTask(info[0]);
+                    LocalDate dueDate = parser.extractEndDateFromSavedFile(info[1]);
                     task = new Deadline(item, dueDate);
                 } else {
-                    String details = desc.substring(6);
-                    String[] info = details.split("//");
-                    String item = info[0].trim();
-                    String startInter = info[1].substring(6).trim();
-                    LocalDate start = LocalDate.parse(startInter);
-                    String dueInter = info[2].substring(4).trim();
-                    LocalDate dueBy = LocalDate.parse(dueInter);
+                    String details = parser.extractDetailsFromSavedFile(desc);
+                    String[] info = parser.parseIntoArrayOfInfoFromSavedFile(details);
+                    String item = parser.extractNameOfTask(info[0]);
+                    LocalDate start = parser.extractStartDateFromSavedFile(info[1]);
+                    LocalDate dueBy = parser.extractEndDateFromSavedFile(info[2]);
                     task = new Event(item, start, dueBy);
                 }
-                task.isDone = desc.substring(4,5).equals("X") ? true : false;
+                task.isDone = parser.extractStatusOfTaskFromSavedFile(desc).equals("X");
                 list.add(task);
             }
         } catch (IOException e) {

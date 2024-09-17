@@ -116,7 +116,7 @@ public class TaskList {
         } else {
             try {
                 String[] details = parser.parseIntoArrayOfDetailsForDeadline(description);
-                String task = details[0].trim();
+                String task = parser.extractNameOfTask(details[0]);
                 LocalDate dueDate = parser.extractEndDate(details[1]);
                 if (task.isEmpty()) {
                     reply = "You missed out some details. Try again";
@@ -150,7 +150,7 @@ public class TaskList {
         } else {
             try {
                 String[] details = parser.parseIntoArrayOfDetailsForEvent(description);
-                String task = details[0].trim();
+                String task = parser.extractNameOfTask(details[0]);
                 LocalDate startDate = parser.extractStartDate(details[1]);
                 LocalDate endDate = parser.extractEndDate(details[2]);
                 if (task.isEmpty()) {
