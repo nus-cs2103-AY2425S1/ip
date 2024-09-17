@@ -73,7 +73,7 @@ public class Parser {
     public static Command parse(String input) throws InputFormatException{
         return switch (getCommandType(input)) {
                 case "list" -> new ListCommand();
-                case "remove" -> new DeleteCommand(getIndexArgument(input));
+                case "delete" -> new DeleteCommand(getIndexArgument(input));
                 case "mark" -> new MarkCommand(getIndexArgument(input));
                 case "unmark" -> new UnMarkCommand(getIndexArgument(input));
                 case "todo" -> new TodoCommand(getDescription(input));
