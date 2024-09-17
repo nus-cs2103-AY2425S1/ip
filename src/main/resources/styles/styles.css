@@ -1,0 +1,29 @@
+.scroll-pane > .viewport {
+    -fx-background-color: #787FF6;
+}
+
+.scroll-pane {
+    -fx-background-color: #787FF6;
+}
+
+/* Customize the scroll bar thumb and track */
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent; /* Make the track background transparent */
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #4ADEDE; /* Customize the thumb color */
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0; /* Remove any insets around the thumb */
+    -fx-padding: 0; /* Remove any padding around the thumb */
+}
+
+/* Hide the increment and decrement buttons */
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-opacity: 0; /* Make these buttons invisible */
+}

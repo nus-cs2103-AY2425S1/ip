@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -37,7 +36,6 @@ public class MainWindow extends AnchorPane {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
-            System.out.println(this.getClass().getResource("/images/blitz.png"));
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,6 +46,11 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         DialogBox blitzDialogBox = DialogBox.getBlitzDialog(Ui.getStartUpMessage(), blitzImage);
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+        AnchorPane.setBottomAnchor(userInputTextField, 1.0);
+        AnchorPane.setLeftAnchor(userInputTextField, 1.0);
+        AnchorPane.setRightAnchor(userInputTextField, sendButton.getPrefWidth() + 1.0);
         dialogContainer.getChildren().add(blitzDialogBox);
     }
 

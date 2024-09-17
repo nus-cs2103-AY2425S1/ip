@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -33,6 +34,13 @@ public class DialogBox extends HBox {
         }
     }
 
+
+    @FXML
+    public void initialize() {
+        Circle clip = new Circle(25,25,25);
+        profilePic.setClip(clip);
+    }
+
     private void flip() {
         assert !this.getChildren().isEmpty() : "Every dialog box must have children";
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -42,7 +50,7 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String userMessage, Image profilePic) {
-       return new DialogBox(userMessage, profilePic);
+        return new DialogBox(userMessage, profilePic);
     }
 
     public static DialogBox getBlitzDialog(String blitzResponse, Image profilePic) {

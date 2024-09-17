@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+
 <fx:root alignment="TOP_RIGHT"
          maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308"
@@ -13,12 +13,23 @@
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="message" text="Label" wrapText="true" minHeight="-Infinity">
-           <HBox.margin>
-               <Insets right="10.0" left="10.0"/>
-           </HBox.margin>
+        <Label fx:id="message"
+               text="Label"
+               wrapText="true"
+               minHeight="-Infinity"
+               style="-fx-background-color: #7BD5F5;
+                      -fx-background-radius: 15;
+                      -fx-border-radius: 15;
+                      -fx-padding: 5px">
+            <HBox.margin>
+                <Insets right="10.0" left="10.0"/>
+            </HBox.margin>
         </Label>
-        <ImageView fx:id="profilePic" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="profilePic"
+                   fitHeight="50.0"
+                   fitWidth="50.0"
+                   pickOnBounds="true"
+                   preserveRatio="true"/>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0"/>
