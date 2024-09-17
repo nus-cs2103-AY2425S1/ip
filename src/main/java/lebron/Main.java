@@ -19,6 +19,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        stage.setTitle("LeBron James - ChatBot");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(lebron.Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
