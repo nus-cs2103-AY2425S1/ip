@@ -23,8 +23,10 @@ public abstract class Task {
         this.taskName = taskName;
         this.isDone = false;
         this.tags = new ArrayList<>();
-        for (String tag : tags) {
-            this.tags.add(new Tag(tag));
+        if (tags != null) {
+            for (String tag : tags) {
+                this.tags.add(new Tag(tag));
+            }
         }
     }
 

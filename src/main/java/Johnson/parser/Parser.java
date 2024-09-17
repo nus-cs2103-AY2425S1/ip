@@ -142,14 +142,14 @@ public class Parser {
             task = deadlineMatcher.group("task");
             date = deadlineMatcher.group("date");
             time = deadlineMatcher.group("time");
-            tags = prepTags(deadlineMatcher);
+            tags = prepTags(deadlineMatcher.group("tags"));
 
         } else {
             System.out.println("Unknown command in prep method");
             throw new UnknownCommandException("Unknown command");
         }
 
-        if (task == null) {
+        if (task == null || task.trim().isEmpty()) {
             throw new MissingTaskException("missing a task");
         }
         if (date == null) {
@@ -185,13 +185,13 @@ public class Parser {
             task = eventMatcher.group("task");
             date = eventMatcher.group("date");
             time = eventMatcher.group("time");
-            tags = prepTags(eventMatcher);
+            tags = prepTags(eventMatcher.group("tags"));
         } else {
             System.out.println("Unknown command in prep method");
             throw new UnknownCommandException("Unknown command");
         }
 
-        if (task == null) {
+        if (task == null || task.trim().isEmpty()) {
             throw new MissingTaskException("missing a task");
         }
         if (date == null) {
@@ -224,28 +224,35 @@ public class Parser {
      * @throws MissingTaskException if the task is missing.
      */
     private Command prepToDo(String arguments) throws MissingTaskException {
-        if (arguments == null || arguments.isEmpty()) {
-            throw new MissingTaskException("Missing a task to add!");
+        String task = null;
+        String[] tags = null;
+
+        Matcher todoMatcher = TODO_PATTERN.matcher(arguments);
+
+        if (todoMatcher.matches()) {
+            task = todoMatcher.group("task");
+            tags = prepTags(todoMatcher.group("tags"));
         }
-        if (arguments.contains("/")) {
-            String[] tags = prepTags(TODO_PATTERN.matcher(arguments));
-            return new ToDoCommand(arguments.split("/")[0].trim(), tags);
+
+        if (task == null || task.trim().isEmpty()) {
+            throw new MissingTaskException("missing a task");
         }
-        return new ToDoCommand(arguments);
+
+        if (tags == null) {
+            return new ToDoCommand(task);
+        }
+
+        return new ToDoCommand(task, tags);
     }
 
-    private String[] prepTags(Matcher arguments) {
-        String tags = null;
-        if (arguments.matches()) {
-            tags = arguments.group("tags");
-            return Arrays.stream(tags.trim().split("#"))
+    private String[] prepTags(String tags) {
+        if (tags == null) {
+            return null;
+        }
+        return Arrays.stream(tags.trim().split("#"))
                     .map(String::trim)
                     .filter(tag -> !tag.isEmpty())
                     .toArray(String[]::new);
-        }
-        System.out.println("no Matches");
-        return new String[0];
-
     }
 }
 
