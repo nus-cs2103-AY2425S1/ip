@@ -243,7 +243,6 @@ public class Alexer {
      */
     public void start() {
         tasks.loadTasks();
-        promptLoop();
     }
 
     /**
