@@ -8,8 +8,6 @@ import trackbot.task.TrackList;
 import trackbot.ui.Parser;
 import trackbot.ui.Ui;
 
-
-
 /**
  * The main class for TrackBot.
  * This class initializes the storage, tasks list, parser and UI.
@@ -33,7 +31,7 @@ public class TrackBot {
             storage = new TrackBotStorage(filePath);
             trackList = new TrackList(storage);
         } catch (IOException e) {
-            System.out.println("File not found");
+            ui.showFileNotFoundError();
         }
         assert trackList != null;
     }
@@ -71,7 +69,7 @@ public class TrackBot {
             assert command != null;
             output = command.execute(trackList, ui, storage);
         } catch (TrackBotException e) {
-            System.out.println(e.getMessage());
+            return ui.getErrorMessage(e.getMessage());
         }
         return output;
     }

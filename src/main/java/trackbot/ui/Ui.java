@@ -9,7 +9,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public String showWelcome() {
-        return "Hello from trackbot.trackbot!\n" + "How may I assist you?";
+        return "Hello from TrackBot!\n" + "How may I assist you?";
     }
 
     /**
@@ -20,10 +20,20 @@ public class Ui {
     }
 
     /**
-     * Prints a line.
+     * Displays a message to indicate a file not found error.
      */
-    public void printLine() {
-        System.out.println("````````````````````````````````````````````````````````````");
+    public void showFileNotFoundError() {
+        System.out.println("File not found.");
+    }
+
+    /**
+     * Returns an error message in string format.
+     *
+     * @param message The error message to display.
+     * @return The formatted error message.
+     */
+    public String getErrorMessage(String message) {
+        return "Error: " + message;
     }
 
 }
