@@ -1,6 +1,7 @@
 package peppa.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +9,7 @@ public class TodoTaskTest {
     @Test
     public void getDate_success() {
         // getDate() should return null for TodoTask
-        assertEquals(null, new TodoTask("eat lunch").getDate());
+        assertNull(new TodoTask("eat lunch").getDate());
     }
 
     @Test

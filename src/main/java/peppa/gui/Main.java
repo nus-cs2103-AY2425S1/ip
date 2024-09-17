@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Peppa peppa = new Peppa("data/peppa.txt");
+    private final Peppa peppa = new Peppa("data/peppa.txt");
 
     @Override
     public void start(Stage stage) {

@@ -20,7 +20,7 @@ public class Storage {
      * @param filePath the path to the file.
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
+        Storage.filePath = filePath;
     }
 
     /**
