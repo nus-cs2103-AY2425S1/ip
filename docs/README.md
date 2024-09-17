@@ -119,7 +119,7 @@ Ribbit, I have marked this task as incomplete:
 
 ## Save Tasks as a text file
 
-Want to share your task list? Or maybe you just want to view it again later.  
+Want to manually save your tasks?
 Save your task list as a text file right next to the application.
 
 Template: `save`
