@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class Storage {
 
     private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    private static final String ARCHIVE_DIRECTORY = "archive";
     private static final String STORAGE_DIRECTORY = "data";
     private final Path filePath;
 
@@ -76,5 +77,42 @@ public class Storage {
         } catch (IOException e) {
             // No Alternatives to IOException Thrown
         }
+    }
+
+    /**
+     * Writes list of records into an archive file.
+     *
+     * @param records Records to be archived.
+     */
+    public void archiveRecords(ArrayList<String> records) {
+        try {
+            FileWriter fileWriter = new FileWriter(getArchivePath().toFile(), true);
+            for (String record : records) {
+                fileWriter.write(record + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            // No Alternatives to IOException Thrown
+        }
+    }
+
+    /**
+     * Gets the path to the archive copy of the file.
+     *
+     * @return Path to the archive file
+     * @throws IOException If there is input or output failure with the file.
+     */
+    public Path getArchivePath() throws IOException {
+        Path folder = Paths.get(CURRENT_DIRECTORY, STORAGE_DIRECTORY, ARCHIVE_DIRECTORY);
+        if (Files.notExists(folder)) {
+            Files.createDirectory(folder);
+        }
+
+        Path archiveFilePath = Paths.get(folder.toString(), filePath.getFileName().toString());
+        if (Files.notExists(archiveFilePath)) {
+            Files.createFile(archiveFilePath);
+        }
+
+        return archiveFilePath;
     }
 }
