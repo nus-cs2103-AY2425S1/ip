@@ -56,19 +56,5 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
-
-    /**
-     * Adds a dialog box with Ollie's response to the dialog container.
-     *
-     * @param message The message to display.
-     * @param sender  The sender of the message (e.g., "User" or "Ollie").
-     */
-    public void addDialog(String message, String sender) {
-        if ("User".equals(sender)) {
-            dialogContainer.getChildren().add(DialogBox.getUserDialog(message, userImage));
-        } else {
-            dialogContainer.getChildren().add(DialogBox.getOllieDialog(message, ollieImage));
-        }
-    }
 }
 
