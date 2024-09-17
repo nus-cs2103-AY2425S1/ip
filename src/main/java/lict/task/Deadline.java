@@ -57,7 +57,7 @@ public class Deadline extends Task {
             throw new LictException("Please include the new deadline you wish to set in the following format:\n"
                     + "snooze {task number} /by {new deadline}");
         }
-        String newDeadline = info.substring(3);
+        String newDeadline = info.substring(3).trim();
         try {
             this.by = new DateTime(newDeadline);
         } catch (DateTimeException e) {

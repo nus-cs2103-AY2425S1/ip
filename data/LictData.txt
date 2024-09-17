@@ -1,3 +1,3 @@
 TODO | 0 | something
-DEADLINE | 0 | asdoasmdoam | 2019-01-01
-EVENT | 0 | smoetji | 2020-01-01 | 2020-01-01 0900
+DEADLINE | 0 | asdoasmdoam | 2020-01-01
+EVENT | 0 | smoetji | 2020-01-01 | 2020-01-01 2000
