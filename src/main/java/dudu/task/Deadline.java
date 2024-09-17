@@ -7,19 +7,21 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task
  */
 public class Deadline extends Task {
+    private static final String displayDateFormat = "MMM d yyyy";
+    private static final String storageDateFormat = "yyyy-MM-dd";
 
-    private LocalDate by;
+    private LocalDate byDate;
 
     /**
      * Constructs a deadline task with the specified description and due date.
      * By default, the task is uncompleted.
      *
      * @param description The description of the task.
-     * @param by The date by which the task should be completed.
+     * @param byDate The date by which the task should be completed.
      */
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate byDate) {
         super(description);
-        this.by = by;
+        this.byDate = byDate;
     }
 
     /**
@@ -29,7 +31,7 @@ public class Deadline extends Task {
      * @return The formatted string representation of the deadline task for storage.
      */
     public String formatString() {
-        String by = this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String by = this.byDate.format(DateTimeFormatter.ofPattern(storageDateFormat));
         return String.format("D | %s | %s", super.formatString(), by);
     }
 
@@ -41,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String by = this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String by = this.byDate.format(DateTimeFormatter.ofPattern(displayDateFormat));
         return String.format("[D] %s (by: %s)", super.toString(), by);
     }
 
@@ -49,18 +51,20 @@ public class Deadline extends Task {
      * Compares this Task to another object for equality. Two tasks are considered
      * equal if they have the same description, completion status and due date.
      *
-     * @param o The object to compare this Task with.
+     * @param object The object to compare this Task with.
      * @return true if the other object is a Task with the same description, status and due date, false otherwise.
      */
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
         }
-        if (o == null || !(o instanceof Deadline)) {
+        if (!(object instanceof Deadline)) {
             return false;
         }
-        Deadline other = (Deadline) o;
-        return this.by.equals(other.by) && super.equals(other);
+        Deadline castedObject = (Deadline) object;
+        boolean hasSameByDate = this.byDate.equals(castedObject.byDate);
+        boolean hasSameTaskDetails = super.equals(castedObject);
+        return hasSameByDate && hasSameTaskDetails;
     }
 }

@@ -5,7 +5,7 @@ package dudu.task;
  */
 public class Task {
 
-    private boolean marked = false;
+    private boolean isMarked = false;
 
     private String description;
 
@@ -22,14 +22,14 @@ public class Task {
      * Marks the task as completed.
      */
     public void markCompleted() {
-        this.marked = true;
+        this.isMarked = true;
     }
 
     /**
      * Marks the task as uncompleted.
      */
     public void markUncompleted() {
-        this.marked = false;
+        this.isMarked = false;
     }
 
     /**
@@ -54,8 +54,8 @@ public class Task {
      * @return The formatted string representation of the deadline task for storage.
      */
     public String formatString() {
-        String status = this.marked ? "1" : "0";
-        return String.format("%s | %s", status, this.description);
+        String markedString = this.isMarked ? "1" : "0";
+        return String.format("%s | %s", markedString, this.description);
     }
 
     /**
@@ -66,26 +66,28 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = this.marked ? "[X]" : "[ ]";
-        return String.format("%s %s", status, this.description);
+        String markedString = this.isMarked ? "[X]" : "[ ]";
+        return String.format("%s %s", markedString, this.description);
     }
 
     /**
      * Compares this Task to another object for equality. Two tasks are considered
      * equal if they have the same description and completion status.
      *
-     * @param o The object to compare this Task with.
+     * @param object The object to compare this Task with.
      * @return true if the other object is a Task with the same description and status, false otherwise.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || !(o instanceof Task)) {
+        if (!(object instanceof Task)) {
             return false;
         }
-        Task other = (Task) o;
-        return other.marked == this.marked && this.description.equals(other.description);
+        Task castedObject = (Task) object;
+        boolean hasSameMarked = castedObject.isMarked == this.isMarked;
+        boolean hasSameDescription = this.description.equals(castedObject.description);
+        return hasSameMarked && hasSameDescription;
     }
 }

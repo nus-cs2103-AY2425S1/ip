@@ -7,23 +7,25 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task
  */
 public class Event extends Task {
+    private static final String displayDateFormat = "MMM d yyyy";
+    private static final String storageDateFormat = "yyyy-MM-dd";
 
-    private LocalDate from;
+    private LocalDate fromDate;
 
-    private LocalDate to;
+    private LocalDate toDate;
 
     /**
      * Constructs a deadline task with the specified description, start date and due date.
      * By default, the task is uncompleted.
      *
      * @param description
-     * @param from
-     * @param to
+     * @param fromDate
+     * @param toDate
      */
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     /**
@@ -33,9 +35,9 @@ public class Event extends Task {
      * @return The formatted string representation of the deadline task for storage.
      */
     public String formatString() {
-        String from = this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String to = this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        return String.format("E | %s | %s | %s", super.formatString(), from, to);
+        String formattedFromDate = this.fromDate.format(DateTimeFormatter.ofPattern(storageDateFormat));
+        String formattedToDate = this.toDate.format(DateTimeFormatter.ofPattern(storageDateFormat));
+        return String.format("E | %s | %s | %s", super.formatString(), formattedFromDate, formattedToDate);
     }
 
     /**
@@ -46,8 +48,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String from = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String to = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return String.format("[E] %s (from: %s to: %s)", super.toString(), from, to);
+        String formattedFromDate = this.fromDate.format(DateTimeFormatter.ofPattern(displayDateFormat));
+        String formattedToDate = this.toDate.format(DateTimeFormatter.ofPattern(displayDateFormat));
+        return String.format("[E] %s (from: %s to: %s)", super.toString(), formattedFromDate, formattedToDate);
     }
 }
