@@ -100,19 +100,11 @@ public class Parser {
                         + " (e.g. \"find task\")");
             }
 
-            String keyword = inputs[1];
-            List<Task> matchingTasks = taskList.findTasks(keyword);
-
-            return Ui.findUi(matchingTasks);
+            return parseFind(inputs[1], taskList);
         }
 
         case "save" -> {
-            try {
-                storage.save(taskList);
-                return Ui.saveUi();
-            } catch (IOException e) {
-                return Ui.errorUi(e);
-            }
+            return parseSave(taskList, storage);
         }
 
         case "recurring" -> {
@@ -121,19 +113,7 @@ public class Parser {
                         + "(e.g. \"todo your_description /event your_frequency\")");
             }
 
-            String[] parts = inputs[1].split(" /every ", 2);
-
-            if (parts.length != 2) {
-                throw new IncorrectInputException("You should have a timing after your request. "
-                        + "(e.g. \"todo your_description /event your_frequency\")");
-            }
-
-            String description = parts[0];
-            String frequency = parts[1];
-            Task addedTask = taskList.addRecurringToList(description, frequency);
-            int sizeOfList = taskList.getSize();
-
-            return Ui.addTaskUi(addedTask, sizeOfList);
+            return parseRecurring(inputs[1], taskList);
         }
         default -> {
             return Ui.unknownUi();
@@ -229,5 +209,36 @@ public class Parser {
         int size = taskList.getSize();
 
         return Ui.deleteUi(deletedTask, size);
+    }
+
+    public static String parseFind(String input, TaskList taskList) {
+        List<Task> matchingTasks = taskList.findTasks(input);
+
+        return Ui.findUi(matchingTasks);
+    }
+
+    public static String parseSave(TaskList taskList, Storage storage) {
+        try {
+            storage.save(taskList);
+            return Ui.saveUi();
+        } catch (IOException e) {
+            return Ui.errorUi(e);
+        }
+    }
+
+    public static String parseRecurring(String input, TaskList taskList) throws IncorrectInputException {
+        String[] parts = input.split(" /every ", 2);
+
+        if (parts.length != 2) {
+            throw new IncorrectInputException("You should have a timing after your request. "
+                    + "(e.g. \"todo your_description /event your_frequency\")");
+        }
+
+        String description = parts[0];
+        String frequency = parts[1];
+        Task addedTask = taskList.addRecurringToList(description, frequency);
+        int sizeOfList = taskList.getSize();
+
+        return Ui.addTaskUi(addedTask, sizeOfList);
     }
 }
