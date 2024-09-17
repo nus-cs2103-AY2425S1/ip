@@ -2,6 +2,7 @@ package reminderebot.commands;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import reminderebot.ReminderebotException;
 import reminderebot.Storage;
@@ -40,7 +41,7 @@ public class DeadlineCommand extends Command {
             Deadline deadline = new Deadline(dlInfo[0], byTime);
             tasklist.addTask(deadline);
             return ui.addTask(deadline, tasklist.length());
-        } catch (IllegalArgumentException e) {
+        } catch (DateTimeParseException e) {
             // if datetime not in correct format
             throw new ReminderebotException("/by <datetime> should be of format dd/MM/yy HHmm");
         }

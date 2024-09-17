@@ -1,7 +1,6 @@
 package reminderebot;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import reminderebot.task.Task;
 import reminderebot.task.ToDo;
@@ -13,24 +12,19 @@ import reminderebot.task.Event;
  */
 public class Ui {
     private static final String name = "Reminderebot";
-    private static final String topBuffer = "____________________________________________________________\n";
-    private static final String bottomBuffer = "____________________________________________________________";
-    private static final String greetingText = topBuffer
-            + " Hello! I'm [" + name + "]\n"
-            + " What can I do for you?\n" + topBuffer;
+    private static final String greetingText = " Hello! I'm ***" + name + "***\n "
+            + "What can I do for you?\n "
+            + "For more commands you can type: help";
     private static final String goodbyeText =
             " Bye. Hope to see you again soon!";
-    private static final String helpText = "Welcome to the help section! Please enter a command below:\n"
-            + " bye\n list\n mark <int>\n unmark <int>\n find <keyword>\n todo <taskname>\n"
-            + " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>";
-    private Scanner input;
+    private static final String helpText = " Welcome to the help section! Please enter a command below:\n"
+            + " help\n bye\n list\n mark <int>\n unmark <int>\n find <keyword>\n todo <taskname>\n"
+            + " deadline <taskname> /by <dd/MM/yy HHmm>\n event <name> /from <dd/MM/yy HHmm> /to <dd/MM/yy HHmm>";
 
     /**
      * Instantiate the User Interface.
      */
-    public Ui() {
-        this.input = new Scanner(System.in);
-    }
+    public Ui() {}
 
     /**
      * Returns a string representing the welcome message.
@@ -40,26 +34,10 @@ public class Ui {
     }
 
     /**
-     * Returns a string representing the goodbye message and closes Scanner.
+     * Returns a string representing the goodbye message.
      */
     public String goodbye() {
-        input.close();
         return goodbyeText;
-    }
-
-    /**
-     * Reads user input as command.
-     * @return string containing user commands
-     */
-    public String readCommand() {
-        return this.input.nextLine();
-    }
-
-    /**
-     * Prints the buffer seperating messages.
-     */
-    public void showLine() {
-        System.out.println(topBuffer);
     }
 
     /**

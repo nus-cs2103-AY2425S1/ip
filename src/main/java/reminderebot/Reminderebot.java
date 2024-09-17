@@ -1,6 +1,8 @@
 package reminderebot;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import reminderebot.commands.Command;
 import reminderebot.task.Task;
@@ -15,14 +17,6 @@ public class Reminderebot {
     private Storage storage;
     private TaskList tasklist;
     private Ui ui;
-
-    // /**
-    //  * Entry point to program.
-    //  * @param args
-    //  */
-    // public static void main(String[] args) {
-    //     new Reminderebot("./data/Reminderebot.txt").run();
-    // }
 
     /**
      * Initialise Reminderebot for GUI.
@@ -55,36 +49,33 @@ public class Reminderebot {
     }
 
     /**
-     * Run Reminderebot for text based.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasklist, ui, storage);
-                isExit = c.isExit();
-            } catch (ReminderebotException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            if (c.isExit()) {
+                // @@author Jason C
+                // Reused from https://stackoverflow.com/questions/21974415/
+                // how-to-close-this-javafx-application-after-showing-a-message-in-a-text-area-elem
+                new Timer().schedule(new TimerTask() {
+                    public void run() {
+                        shutdown();
+                    }
+                }, 2500);
+            }
             return c.execute(tasklist, ui, storage);
         } catch (ReminderebotException e) {
             return ui.showError(e.getMessage());
         }
+    }
+
+    /**
+     * Shows the welcome message for Remminderebot.
+     * @return welcome message
+     */
+    public String start() {
+        return ui.showWelcome();
     }
 
     /**

@@ -33,7 +33,7 @@ public class Parser {
         if (!getEnums().contains(command)) {
             throw new ReminderebotException("I'm sorry, but I don't know what that means. :(\n"
                     + "Please enter a command below:\n"
-                    + " bye\n list\n mark <int>\n unmark <int>\n find <keyword>\n todo <taskname>\n"
+                    + " help\n bye\n list\n mark <int>\n unmark <int>\n find <keyword>\n todo <taskname>\n"
                     + " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>");
         }
 
