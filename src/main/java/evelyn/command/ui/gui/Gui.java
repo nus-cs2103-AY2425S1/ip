@@ -16,11 +16,7 @@ import javafx.stage.Stage;
 public class Gui extends Application {
     private static final String DEFAULT_FILE_PATH = "src/main/data/evelyn.txt";
     private String filePath;
-    private Scene scene;
     private Evelyn evelyn = new Evelyn();
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Constructor for the GUI.

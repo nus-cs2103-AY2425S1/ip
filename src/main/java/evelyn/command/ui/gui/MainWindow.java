@@ -28,8 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Evelyn evelyn;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image evelynImage = new Image(this.getClass().getResourceAsStream("/images/Evelyn.png"));
 
     @FXML
     public void initialize() {
@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = evelyn.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, evelynImage)
         );
         if (Objects.equals(response, "Bye Bye!!")) {
             Platform.exit();
@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane {
      */
     public void addMessage(String input) {
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(input, dukeImage)
+                DialogBox.getDukeDialog(input, evelynImage)
         );
     }
 }
