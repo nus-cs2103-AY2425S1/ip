@@ -43,6 +43,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Checks if task is in tasklist
+     *
+     * @param task Task to check
+     */
     public boolean isInTaskList(Task task) {
         String[] descriptionArray = this.tasks.stream().map(t -> t.getDescription()).toArray(String[]::new);
         boolean hasDuplicate = Arrays.stream(descriptionArray).anyMatch(description ->
