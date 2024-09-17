@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public class Task {
     protected String description;
-    protected boolean done;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     public void reschedule(LocalDate newDate) {
@@ -16,15 +16,15 @@ public class Task {
     }
 
     public String getStatusIcons() {
-        return done ? "X" : " ";
+        return isDone ? "X" : " ";
     }
 
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getDescription() {
@@ -32,7 +32,7 @@ public class Task {
     }
 
     public boolean getStatus() {
-        return this.done;
+        return this.isDone;
     }
 
     @Override
