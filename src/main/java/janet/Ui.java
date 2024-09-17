@@ -179,7 +179,7 @@ public class Ui {
      * where each Task object is sorted in chronological order (scheduledDateAndTime).
      *
      * @param sortedTaskList A TaskList.
-     * @param taskType A type of a task specified by the user (String)
+     * @param taskType A type of task specified by the user (String)
      * @return A string message showing the tasks sorted in chronological order.
      */
     public String showSortedTasks(TaskList sortedTaskList, String taskType) {
