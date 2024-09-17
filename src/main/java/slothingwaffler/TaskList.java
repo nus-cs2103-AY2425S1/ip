@@ -185,7 +185,11 @@ public class TaskList {
 
         sortDeadlines(deadlineTasks);
 
-        return buildSortedTasksMessage(deadlineTasks);
+        StringBuilder msg = new StringBuilder("Here are all your tasks with deadlines, sorted by their deadlines:\n");
+        for (int i = 0; i < deadlineTasks.size(); i++) {
+            msg.append(i + 1).append(". ").append(deadlineTasks.get(i).toString()).append("\n");
+        }
+        return msg.toString();
     }
 
     private ArrayList<Deadline> getDeadlineTasks() {
@@ -212,14 +216,6 @@ public class TaskList {
         Deadline temp = deadlineTasks.get(i);
         deadlineTasks.set(i, deadlineTasks.get(j));
         deadlineTasks.set(j, temp);
-    }
-
-    private String buildSortedTasksMessage(ArrayList<Deadline> deadlineTasks) {
-        StringBuilder msg = new StringBuilder("Here are all your tasks with deadlines, sorted by their deadlines:\n");
-        for (int i = 0; i < deadlineTasks.size(); i++) {
-            msg.append(i + 1).append(". ").append(deadlineTasks.get(i).toString()).append("\n");
-        }
-        return msg.toString();
     }
 
 }
