@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import ScoobyDoo.task.Event;
+
 public class EventTest {
     @Test
     public void toFileFormatString_normalInput_writtenCorrectly() throws Exception{

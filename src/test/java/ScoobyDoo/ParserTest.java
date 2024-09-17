@@ -1,5 +1,6 @@
 package ScoobyDoo;
-import exception.InputFormatException;
+import ScoobyDoo.Parser.Parser;
+import ScoobyDoo.exception.InputFormatException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

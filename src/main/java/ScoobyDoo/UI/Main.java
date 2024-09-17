@@ -1,13 +1,13 @@
-package ScoobyDoo;
+package ScoobyDoo.UI;
 
 import java.io.IOException;
 
+import ScoobyDoo.UI.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 /**
  * A GUI for ScoobyDoo using FXML.

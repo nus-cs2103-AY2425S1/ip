@@ -1,4 +1,4 @@
-package ScoobyDoo;
+package ScoobyDoo.UI;
 
 import javafx.application.Application;
 

@@ -1,5 +1,4 @@
-package task;
-import exception.InputFormatException;
+package ScoobyDoo.task;
 
 /**
  * The Todo class represents a simple task with only a description.

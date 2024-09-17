@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ScoobyDoo.task.Deadline;
+
 public class DeadlineTest {
     @Test
     public void toFileFormatString_normalInput_writtenCorrectly() throws Exception{

@@ -1,5 +1,4 @@
-package task;
-import exception.InputFormatException;
+package ScoobyDoo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
