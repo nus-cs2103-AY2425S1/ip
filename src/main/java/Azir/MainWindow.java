@@ -34,7 +34,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Azir instance */
+    /**
+     * Injects the Azir instance
+     */
     public void setAzir(Azir a) {
         azir = a;
 
@@ -48,7 +50,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Azir's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
