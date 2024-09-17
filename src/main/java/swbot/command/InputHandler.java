@@ -14,6 +14,17 @@ import java.util.ArrayList;
 public class InputHandler {
     private ArrayList<Task> data;
     private Storage storage;
+    
+    /* commands available in the chatbot */
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
+    private static final String DELETE = "delete";
+    private static final String LIST = "list";
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+    private static final String FIND = "find";
+    private static final String HELP = "help";
 
     /**
      * Creates an inputHandler object that will take care of all the user inputs
@@ -25,6 +36,16 @@ public class InputHandler {
         this.data = data;
         this.storage = storage;
     }
+    
+    /**
+     * Persists the current list of tasks to the storage medium.
+     * This method calls the `saveTasks` method from the `storage` object,
+     * which writes the tasks to an output file, ensuring that the task list
+     * is saved and up-to-date.
+     */
+    private void saveTasks() {
+        this.storage.saveTasks(data);
+    }
 
     /**
      * Handles the majority of the user inputs through other functions in the InputHandler class
@@ -33,38 +54,49 @@ public class InputHandler {
      * @throws BuzzException if any of the commands given by the user is not a valid one
      */
     public String overallHandler(String input) throws BuzzException {
-        if (input.startsWith("mark")) {
-            this.storage.saveTasks(data);
-            return this.markHandle(input);
-        } else if (input.startsWith("unmark")) {
-            this.storage.saveTasks(data);
-            return this.unmarkHandle(input);
-        } else if (input.startsWith("delete")) {
-            this.storage.saveTasks(data);
-            return this.deleteHandle(input);
-        } else if (input.equals("list")) {
-            StringBuilder res = new StringBuilder();
-            for (int i = 0; i < data.size(); i++) {
-                res.append((i + 1)).append(".").append(data.get(i).toString()).append("\n");
-            }
-            return res.toString();
-        } else if (input.startsWith("todo")) {
-            this.storage.saveTasks(data);
-            return this.todoHandle(input);
-        } else if (input.startsWith("deadline")) {
-            this.storage.saveTasks(data);
-            return this.deadlineHandle(input);
-        } else if (input.startsWith("event")) {
-            this.storage.saveTasks(data);
-            return this.eventHandle(input);
-        } else if (input.startsWith("find")) {
-            this.storage.saveTasks(data);
-            return this.findHandle(input);
-        } else if (input.startsWith("help")) {
-            return this.helpHandle();
-        } else {
-            throw new BuzzException("GRRR! I do not know what that means. Try again! *bzzrg*");
+        String command = input.split(" ")[0];
+        switch (command) {
+            case MARK:
+                saveTasks();
+                return this.markHandle(input);
+            case UNMARK:
+                saveTasks();
+                return this.unmarkHandle(input);
+            case DELETE:
+                saveTasks();
+                return this.deleteHandle(input);
+            case LIST:
+                return getString();
+            case TODO:
+                saveTasks();
+                return this.todoHandle(input);
+            case DEADLINE:
+                saveTasks();
+                return this.deadlineHandle(input);
+            case EVENT:
+                saveTasks();
+                return this.eventHandle(input);
+            case FIND:
+                saveTasks();
+                return this.findHandle(input);
+            case HELP:
+                return this.helpHandle();
+            default:
+                throw new BuzzException("GRRR! I do not know what that means. Try again! *bzzrg*");
         }
+    }
+
+    /**
+     * Generates a string representation of the tasks in the list, with each task preceded by its index.
+     *
+     * @return a formatted string of all tasks, each on a new line with an index.
+     */
+    private String getString() {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < data.size(); i++) {
+            res.append((i + 1)).append(".").append(data.get(i).toString()).append("\n");
+        }
+        return res.toString();
     }
 
     /**
