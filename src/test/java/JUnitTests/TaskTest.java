@@ -11,7 +11,7 @@ public class TaskTest {
     public void testMarkAsDone() {
         Task task = new Todo("Submit assignment");
         task.markAsDone();
-        assertEquals(true, task.isDone());
+        assertTrue(task.isDone());
     }
 
     @Test
@@ -19,6 +19,6 @@ public class TaskTest {
         Task task = new Todo("Submit assignment");
         task.markAsDone();  // First, mark it done
         task.markAsNotDone();  // Now, mark it as not done
-        assertEquals(false, task.isDone());
+        assertFalse(task.isDone());
     }
 }
