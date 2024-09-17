@@ -64,10 +64,12 @@ public class Ui {
      * @return A confirmation message including the unmarked task.
      */
     public String unmarkMessage(Task task) {
-        return "ok... I've unmarked:" + task;
+        if (task.isComplete()) {
+            return "ok... I've unmarked:\n" + task;
+        } else {
+            return "It was already unmarked:\n" + task + "\nI'll keep it unmarked";
+        }
     }
-
-
     /**
      * Displays a welcome message when the Monique application starts.
      *

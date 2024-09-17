@@ -27,8 +27,9 @@ Here is a few commands you can try:
 
 #### 5. Refer to the features below to get more in depth explanation of each command.
 
-## Features
 ---
+## Features
+
 ### List Tasks
 To list all current tasks, type `list`. This command will display all tasks along with their statuses.
 ```bash
@@ -45,7 +46,6 @@ mark 1
 ---
 ### Add a Todo Task
 To add a todo item, type `todo {description}`. For instance, `todo read a book` will add "read a book" to your tasks.
-
 
 For example, this adds a todo task of 'homework'
 ```bash
@@ -80,6 +80,15 @@ To delete a task, type `delete {task_number}`. For example, `delete 3` will dele
 For example, this deletes the first task
 ```bash
 delete 1
+```
+---
+### Find a Task
+To find a task that contains a (few) key phrases, type `find {search_key 1} {search_key 2} ...`. 
+If you are only searching for 1 task, you may omit the other search keys.
+
+For example, this command will search for tasks that contain the phrases "homework" or "assignment"
+```bash
+find homework assignment
 ```
 ---
 ### Exit the Application and Save data

@@ -39,8 +39,8 @@ public class UnmarkCommand extends Command {
             throw new MarkException();
         }
         assert (this.taskNum < tasks.getNumItems());
-        tasks.unmarkTask(this.taskNum);
         this.unmarkMessage = ui.unmarkMessage(tasks.getTask(this.taskNum));
+        tasks.unmarkTask(this.taskNum);
     }
 
     /**

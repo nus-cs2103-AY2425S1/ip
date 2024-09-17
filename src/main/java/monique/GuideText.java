@@ -23,12 +23,12 @@ public class GuideText {
 
     public static final String GUIDE =
             "Here are the following commands:\n"
-            + "1. **List Tasks**:\n"
+            + "1. List Tasks:\n"
             + "   To list all current tasks, type:\n"
             + "   \"list\"\n"
             + "   This will display all tasks with their statuses.\n\n"
 
-            + "2. **Mark/Unmark a Task**:\n"
+            + "2. Mark/Unmark a Task:\n"
             + "   To mark a task as complete, type:\n"
             + "   \"mark {task_number}\"\n"
             + "   Example: \"mark 1\" marks task 1 as complete.\n\n"
@@ -39,37 +39,44 @@ public class GuideText {
 
             + "   Note: Tasks are indexed from 1.\n\n"
 
-            + "3. **Add a Todo Task**:\n"
+            + "3. Add a Todo Task:\n"
             + "   To add a todo item, type:\n"
             + "   \"todo {description}\"\n"
             + "   Example: \"todo read a book\" adds \"read a book\" to your tasks.\n\n"
 
-            + "4. **Add a Deadline Task**:\n"
+            + "4. Add a Deadline Task:\n"
             + "   To add a deadline item, type:\n"
             + "   \"deadline {description} /by {date} {optional_time}\"\n"
             + "   Example: \"deadline submit report /by 12-12-2024 1700\" adds a task with a deadline of 12th "
             + "December 2024, 5:00 PM.\n\n"
 
             + "   Valid date formats:\n"
-            + "   - Days of the week: \"Monday\" to \"Sunday\" or abbreviations \"mon\" to \"sun\"\n"
+            + "   - Days of the week: \"Monday\" to \"Sunday\" or 3-letter abbreviations \"mon\" to \"sun\"\n"
             + "   - Date formats: \"DD/MM/YYYY\", \"DD-MM-YYYY\", or \"tomorrow\"\n\n"
 
             + "   Valid time formats:\n"
             + "   - \"HHmm\" (24-hour format)\n"
             + "   - \"h:mmam\" or \"h:mmpm\" (12-hour format with am/pm)\n\n"
 
-            + "5. **Add an Event Task**:\n"
+            + "5. Add an Event Task:\n"
             + "   To add an event item, type:\n"
             + "   \"event {description} /from {start_date} {start_time} /to {end_date} {end_time}\"\n"
             + "   Example: \"event meeting /from tomorrow 1400 /to 12-12-2024 1700\" schedules an event from tomorrow "
             + "at 2:00 PM until 12th December 2024, 5:00 PM.\n\n"
 
-            + "6. **Delete a Task**:\n"
+            + "6. Delete a Task:\n"
             + "   To delete a task, type:\n"
             + "   \"delete {task_number}\"\n"
             + "   Example: \"delete 3\" deletes task number 3.\n\n"
 
-            + "7. **Exit the Application**:\n"
+            + "7. Find a Task:\n"
+            + "   To find a task that contains one or more key phrases, type:\n"
+            + "   \"find {search_key_1} {search_key_2} ...\"\n"
+            + "   You may omit additional search keys if you are only looking for one task.\n"
+            + "   For example, to search for tasks containing the phrases 'homework' or 'assignment', type:\n"
+            + "   \"find homework assignment\"\n\n"
+
+            + "8. Exit the Application:\n"
             + "   To exit the application, type:\n"
             + "   \"bye\"\n"
             + "   This will save your progress and close the application.";
