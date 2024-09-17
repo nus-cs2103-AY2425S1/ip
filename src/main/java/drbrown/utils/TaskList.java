@@ -65,12 +65,17 @@ public class TaskList {
      * @param ui    The Ui object to display messages to the user.
      * @return A string message confirming the deletion of the task.
      */
-    public String removeItem(int index, Ui ui) {
-        assert index >= 0 && index < tasks.size() : "Index should be within bounds of tasklist";
-        assert ui != null : "Ui should not be null";
-        Task deleteTask = this.tasks.get(index);
-        tasks.remove(deleteTask);
-        return ui.showDeleteTask(this, deleteTask);
+    public String removeItem(int index, Ui ui) throws DrBrownException {
+        try {
+            assert index >= 0 && index < tasks.size() : "Index should be within bounds of tasklist";
+            assert ui != null : "Ui should not be null";
+            Task deleteTask = this.tasks.get(index);
+            tasks.remove(deleteTask);
+            return ui.showDeleteTask(this, deleteTask);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DrBrownException("You got the count wrong! That's not how you calculate time "
+                    + "travel - you're off by a few gigawatts!");
+        }
     }
 
     /**
@@ -81,10 +86,13 @@ public class TaskList {
      * @param ui      The Ui object to display messages to the user.
      * @return A string containing the list of matching tasks or a message indicating no matches.
      */
-    public String findMatching(String keyword, Ui ui) {
+    public String findMatching(String keyword, Ui ui) throws DrBrownException {
         assert keyword != null : "Keyword should not be null";
         assert ui != null : "Ui should not be null";
-
+        if (this.getCount() == 0) {
+            throw new DrBrownException("Wait a minute, Doc! There's nothing here! We can't go "
+                    + "anywhere until you add something to the list!");
+        }
         StringBuilder result = new StringBuilder().append(ui.showFind()).append("\n");
         boolean isMatching = false;
         int listCount = 1;
@@ -104,8 +112,12 @@ public class TaskList {
      * @param ui The Ui object to display messages to the user.
      * @return A string containing all tasks in the TaskList.
      */
-    public String listOut(Ui ui) {
+    public String listOut(Ui ui) throws DrBrownException {
         assert ui != null : "Ui should not be null";
+        if (this.getCount() == 0) {
+            throw new DrBrownException("Wait a minute, Doc! There's nothing here! "
+                    + "We can't go anywhere until you add something to the list!");
+        }
         StringBuilder result = new StringBuilder();
         int listCount = 1;
         for (Task item : this.tasks) {
@@ -123,12 +135,17 @@ public class TaskList {
      * @param ui        The Ui object to display messages to the user.
      * @return A string message confirming the task has been marked as completed.
      */
-    public String markTask(int itemIndex, Ui ui) {
+    public String markTask(int itemIndex, Ui ui) throws DrBrownException {
         assert itemIndex >= 0 && itemIndex < tasks.size() : "Index should be within bounds of tasklist";
         assert ui != null : "Ui should not be null";
-        Task markTask = this.tasks.get(itemIndex);
-        markTask.setStatus(true);
-        return ui.showMarkTask(markTask);
+        try {
+            Task markTask = this.tasks.get(itemIndex);
+            markTask.setStatus(true);
+            return ui.showMarkTask(markTask);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DrBrownException("You got the count wrong! That's not how you calculate "
+                    + "time travel - you're off by a few gigawatts!");
+        }
     }
 
     /**
@@ -139,11 +156,16 @@ public class TaskList {
      * @param ui        The Ui object to display messages to the user.
      * @return A string message confirming the task has been unmarked as incomplete.
      */
-    public String unmarkTask(int itemIndex, Ui ui) {
+    public String unmarkTask(int itemIndex, Ui ui) throws DrBrownException {
         assert itemIndex >= 0 && itemIndex < tasks.size() : "Index should be within bounds of tasklist";
         assert ui != null : "Ui should not be null";
-        Task unmarkTask = this.tasks.get(itemIndex);
-        unmarkTask.setStatus(false);
-        return ui.showUnmarkTask(unmarkTask);
+        try {
+            Task unmarkTask = this.tasks.get(itemIndex);
+            unmarkTask.setStatus(false);
+            return ui.showUnmarkTask(unmarkTask);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DrBrownException("You got the count wrong! That's not how you "
+                    + "calculate time travel – you're off by a few gigawatts!");
+        }
     }
 }

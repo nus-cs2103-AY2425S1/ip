@@ -21,10 +21,9 @@ public class ExitCommand extends Command {
      * @param ui      The UI object to display messages to the user and handle UI closure.
      * @param storage The Storage object used to update the saved tasks.
      * @return A string message indicating that the application is exiting.
-     * @throws DrBrownException If there is an error updating the storage.
      */
     @Override
-    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) {
         assert tasks != null : "Tasks should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";

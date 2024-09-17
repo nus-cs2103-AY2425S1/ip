@@ -40,12 +40,7 @@ public class UnmarkCommand extends Command {
         assert tasks != null : "Tasks should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
-        try {
-            return tasks.unmarkTask(itemIndex, ui);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DrBrownException("You got the count wrong! That's not how you "
-                    + "calculate time travel – you're off by a few gigawatts!");
-        }
+        return tasks.unmarkTask(itemIndex, ui);
     }
 
     /**

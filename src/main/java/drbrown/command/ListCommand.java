@@ -26,10 +26,6 @@ public class ListCommand extends Command {
         assert tasks != null : "Tasks should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
-        if (tasks.getCount() == 0) {
-            throw new DrBrownException("Wait a minute, Doc! There's nothing here! "
-                    + "We can't go anywhere until you add something to the list!");
-        }
         return tasks.listOut(ui);
     }
 
