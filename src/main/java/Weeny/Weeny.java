@@ -28,6 +28,11 @@ public class Weeny extends Application {
     private final TaskList taskList;
     private final Parser parser;
 
+    /**
+     * Constructs a Weeny application instance.
+     * Initializes UI, storage, parser, and task list.
+     * Ensures data directory and TaskList.txt file exist and loads existing tasks.
+     */
     public Weeny() {
         ui = new Ui(); // UI for user interactions
         storage = new Storage(); // Manages task data storage
@@ -48,6 +53,7 @@ public class Weeny extends Application {
      * Call start method in WeenyGui
      * Overrides start method in Application to start GUI
      *
+     *
      * @param stage Parsed by javafx.Application
      */
     @Override
@@ -60,15 +66,16 @@ public class Weeny extends Application {
     /**
      * Starts the Weeny application.
      * Initializes UI, storage, parser, and task list. Processes user commands.
+     * Handles commands like "list", "bye", "mark", "unmark", "todo", "event", "deadline", "delete", "find", and "schedule".
+     * Saves tasks to the file when exiting.
      *
      * @param input User input into textbox
      * @return Returns string from calls to different scenarios
      */
     public String executeWeeny(String input) {
-
-        boolean isFarewell = false;
+        boolean isProgramEnd = false;
         int initialSize = 0;
-        while (!isFarewell) {
+        while (!isProgramEnd) {
             String command = parser.extractFirstWord(input);
 
             try {
@@ -77,8 +84,8 @@ public class Weeny extends Application {
                     return ui.showTaskList(taskList.getTasks());
 
                 case "bye":
-                    isFarewell = true;
-                    storage.saveTask("./Data/TaskList.txt", taskList.getTasks());
+                    isProgramEnd = true;
+                    storage.saveTask("/data/TaskList.txt", taskList.getTasks());
                     break;
 
                 case "mark":
@@ -149,7 +156,7 @@ public class Weeny extends Application {
                 return ui.showError(e.getMessage());
             }
         }
-        storage.saveTask("./Data/TaskList.txt", taskList.getTasks());
+        storage.saveTask("./data/TaskList.txt", taskList.getTasks());
         return ui.showGoodbyeMessage();
     }
 
@@ -183,7 +190,7 @@ public class Weeny extends Application {
      * Validates input for an "event" command.
      *
      * @param input The command input.
-     * @throws IllegalArgumentException if the input lacks necessary details.
+     * @throws IllegalArgumentException if the input is missing details like "/from" or "/to".
      */
     private static void validateEventInput(String input) {
         if (input.length() <= EVENT_LENGTH || !input.contains("/from") || !input.contains("/to")) {
@@ -195,7 +202,8 @@ public class Weeny extends Application {
      * Validates input for a "deadline" command.
      *
      * @param input The command input.
-     * @throws IllegalArgumentException if the input lacks necessary details.
+     * @throws IllegalArgumentException if the input is missing the "/by" date.
+     * @throws IllegalArgumentException if the input is missing the "/by" date.
      */
     private static void validateDeadlineInput(String input) {
         if (input.length() <= DEADLINE_LENGTH || !input.contains("/by")) {
@@ -207,7 +215,7 @@ public class Weeny extends Application {
      * Validates input for a "find" and "schedule" command.
      *
      * @param input The command input.
-     * @throws IllegalArgumentException if the input lacks necessary details.
+     * @throws IllegalArgumentException if the input is missing the required keyword or date.
      */
     private void validateFindScheduleInput(String input, String command) {
         if (input.length() <= (command.equals("find") ? 5 : 9)) {
@@ -219,7 +227,7 @@ public class Weeny extends Application {
      * Validates input for a "mark", "unmark" and "delete" command.
      *
      * @param input The command input.
-     * @throws IllegalArgumentException if the input lacks necessary details.
+     * @throws IllegalArgumentException if the index is missing or invalid.
      */
     private void validateMarkUnmarkDeleteInput(String input) {
         if (input.length() <= 5 || !input.substring(5).matches("\\d+")) {

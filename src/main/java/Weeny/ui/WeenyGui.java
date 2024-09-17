@@ -62,7 +62,7 @@ public class WeenyGui extends AnchorPane {
             fxmlLoader.<WeenyGui>getController().setWeeny(this.weenyApp);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Failed to load FXML file: " + e.getMessage());
         }
     }
 
@@ -89,8 +89,8 @@ public class WeenyGui extends AnchorPane {
     }
 
     /**
-     * Display output based on user input
-     * Parse userText into Weeny to get reply
+     * Handles user input from the text field.
+     * Sends the input to the Weeny application and updates the dialog container with the response.
      */
     @FXML
     private void handleUserInput() {

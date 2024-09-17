@@ -30,7 +30,8 @@ public class Event extends Task {
         this.endDate = parser.convertDate(splitEnd[0]);
         this.startTime = parser.convertTime(splitStart[1]);
         this.endTime = parser.convertTime(splitEnd[1]);
-        if ((this.startDate.isAfter(this.endDate)) || (this.startDate.isEqual(this.endDate) && this.startTime.isAfter(this.endTime))) {
+        if ((this.startDate.isAfter(this.endDate)) ||
+                (this.startDate.isEqual(this.endDate) && this.startTime.isAfter(this.endTime))) {
             throw new IllegalArgumentException("Start time/date cannot be after end!");
         }
     }

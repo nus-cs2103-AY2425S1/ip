@@ -42,6 +42,9 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             resultList = resultList + String.format((i + 1) + ". " + tasks.get(i).toString() + "\n");
         }
+        if (tasks.isEmpty()) {
+            return "Sorry I cannot find any tasks with those keywords";
+        }
         return String.format(resultList);
     }
 
@@ -55,6 +58,9 @@ public class Ui {
         String scheduleList = "I have gathered all the tasks you have on " + date + ":\n";
         for (int i = 0; i < tasks.size(); i++) {
             scheduleList = scheduleList + String.format((i + 1) + " " + tasks.get(i).toString() + "\n");
+        }
+        if (tasks.isEmpty()) {
+            return "Hooray you have no task on " + date;
         }
         return String.format(scheduleList);
     }

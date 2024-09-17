@@ -44,7 +44,11 @@ public class TaskList {
      * @param index The index of the task to mark.
      */
     public void markAsDone(int index) {
-        tasks.get(index).setAsDone();
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).setAsDone();
+        } else {
+            throw new IndexOutOfBoundsException("Invalid task index.");
+        }
     }
 
     /**
@@ -53,7 +57,11 @@ public class TaskList {
      * @param index The index of the task to unmark.
      */
     public void markAsNotDone(int index) {
-        tasks.get(index).setAsNotDone();
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).setAsNotDone();
+        } else {
+            throw new IndexOutOfBoundsException("Invalid task index.");
+        }
     }
 
     /**
@@ -63,7 +71,8 @@ public class TaskList {
      * @return ArrayList of tasks that contains keyWord
      */
     public List<Task> findTask(String keyWord) {
-        List<Task> searchResult = getTasks().stream().filter(task -> task.containString(keyWord))
+        List<Task> searchResult = getTasks().stream()
+                .filter(task -> task.containString(keyWord))
                 .collect(Collectors.toList());
         return searchResult;
     }
@@ -72,7 +81,9 @@ public class TaskList {
      *
      */
     public List<Task> getSchedule(String date) {
-        List<Task> schedule = getTimeSortedTasks().stream().filter(task -> task.containsDate(date)).collect(Collectors.toList());
+        List<Task> schedule = getTimeSortedTasks().stream()
+                .filter(task -> task.containsDate(date))
+                .collect(Collectors.toList());
         return schedule;
     }
 
@@ -93,7 +104,7 @@ public class TaskList {
     public List<Task> getTimeSortedTasks() {
         return tasks.stream()
                 .sorted(Comparator
-                        .comparingInt(task -> getTaskTypeOrder((Task) task))
+                        .comparingInt(this::getTaskTypeOrder)
                         .thenComparing(task -> {
                             if (task instanceof Deadline) {
                                 return ((Deadline) task).getDueTime();
@@ -139,6 +150,10 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
-        return tasks.get(index);
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.get(index);
+        } else {
+            throw new IndexOutOfBoundsException("Invalid task index.");
+        }
     }
 }
