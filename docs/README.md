@@ -9,7 +9,7 @@ If you're a fast typist, MoiMoi helps you manage tasks more quickly than traditi
 
 ## Getting started
 
-1. Ensure that Java 17 or above is installed in your computer.
+1. Ensure that Java 17 is installed in your computer.
 2. Download the jar file of the latest release, from [here](https://github.com/wkxcass/ip/releases/).
 3. Move the jar file into an empty folder.
 4. Open a command window in that folder (right-click on the folder, then select "Open in Terminal").
