@@ -1,4 +1,4 @@
-package yapper.gui;
+package yapper;
 
 import java.io.IOException;
 import java.util.Collections;

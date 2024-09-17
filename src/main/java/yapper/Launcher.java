@@ -1,4 +1,4 @@
-package yapper.gui;
+package yapper;
 
 import javafx.application.Application;
 
