@@ -257,7 +257,7 @@ public class Parser {
         try {
             // Reformat as date only
             if (checkDatePatternMatches(regexYear, inputDateTime)) {
-                return getFormattedDateString("YYY-MM-DD", inputDateTime);
+                return getFormattedDateString("yyyy-MM-dd", inputDateTime);
             }
 
             if (checkDatePatternMatches(regexMonth, inputDateTime)) {
