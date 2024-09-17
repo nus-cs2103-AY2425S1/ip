@@ -65,15 +65,15 @@ public class Storage {
         String[] parts = line.trim().split("\\s*\\|\\s*");
 
         if (isValidLine(parts)) {
-            String priority = parts[0];  // Priority is now the first element
-            String taskType = parts[1];  // Task type is now the second element
+            String priority = parts[0];
+            String taskType = parts[1];
             boolean isDone = parts[2].equals("1");
 
-            // Check if parts[3] (description) exists before accessing it
             if (parts.length < 4) {
                 System.out.println("Skipping line due to missing description: " + line);
                 return;
             }
+
             String description = parts[3];
 
             switch (taskType) {
@@ -92,6 +92,7 @@ public class Storage {
             }
         } else {
             System.out.println("Skipping invalid line: " + line);
+            // Fallout
         }
     }
 

@@ -30,7 +30,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return this.getPriorityIcon() + " 📆 | " + this.getStatusIcon() + " | " + this.description + " (by: " + this.dueWhen.format(formatter) + ")";
+        return this.getPriorityIcon()
+                + " 📆 | "
+                + this.getStatusIcon()
+                + " | " + this.description
+                + " (by: " + this.dueWhen.format(formatter) + ")";
     }
 
     /**
@@ -42,6 +46,10 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return this.priority + " | D | " + this.getStatusIcon() + " | " + this.description + " | " + this.dueWhen.format(formatter);
+        return this.priority
+                + " | D | "
+                + this.getStatus()
+                + " | " + this.description
+                + " | " + this.dueWhen.format(formatter);
     }
 }

@@ -22,7 +22,10 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return this.getPriorityIcon() + " 📋 | " + this.getStatusIcon() + " | " + this.description;
+        return this.getPriorityIcon()
+                + " 📋 | "
+                + this.getStatusIcon()
+                + " | " + this.description;
     }
 
     /**
@@ -32,7 +35,10 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return this.priority + " | T | " + this.getStatusIcon() + " | " + this.description;
+        return this.priority
+                + " | T | "
+                + this.getStatus()
+                + " | " + this.description;
     }
 
 

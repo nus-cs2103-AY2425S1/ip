@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import storage.Storage;
+import ui.DialogBox;
 import ui.Ui;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -66,37 +67,90 @@ public class MainWindow {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        if (input.trim().isEmpty()) {
-            return; // No action on empty input
+        String input = getUserInput();
+        if (isEmptyInput(input)) {
+            return;
         }
 
-        // Add user's dialog to the container
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+        displayUserDialog(input);
 
-        // Process user input and get the response
         String response = processInput(input);
 
-        // Add ProYapper's response to the container
-        if (response != null && !response.trim().isEmpty()) {
-            DialogBox proYapperDialog = DialogBox.getProYapperDialog(response, proYapperImage);
-            dialogContainer.getChildren().add(proYapperDialog);
-        }
+        displayProYapperResponse(response);
 
-        // Clear user input field
-        userInput.clear();
+        clearUserInput();
 
-        // Check if the command is to exit
-        if (input.trim().equalsIgnoreCase("bye")) {
-            String farewellMessage = "Hope to see you again soon!";
-            dialogContainer.getChildren().add(DialogBox.getProYapperDialog(farewellMessage, proYapperImage));
-
-            // Close the application after a short delay to display the message
-            PauseTransition delay = new PauseTransition(Duration.seconds(1));
-            delay.setOnFinished(event -> Platform.exit());
-            delay.play();
+        if (isExitCommand(input)) {
+            exit();
         }
     }
+
+    /**
+     * Retrieves and trims the user's input.
+     *
+     * @return The trimmed input from the user.
+     */
+    private String getUserInput() {
+        return userInput.getText().trim();
+    }
+
+    /**
+     * Checks if the input is empty.
+     *
+     * @param input The input string to check.
+     * @return {@code true} if the input is empty, {@code false} otherwise.
+     */
+    private boolean isEmptyInput(String input) {
+        return input.isEmpty();
+    }
+
+    /**
+     * Adds the user's input dialog to the dialog container.
+     *
+     * @param input The user's input to be displayed in the dialog.
+     */
+    private void displayUserDialog(String input) {
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+    }
+
+    /**
+     * Adds ProYapper's response dialog to the dialog container if the response is not empty.
+     *
+     * @param response The response from ProYapper to be displayed in the dialog.
+     */
+    private void displayProYapperResponse(String response) {
+        if (response != null && !response.trim().isEmpty()) {
+            dialogContainer.getChildren().add(DialogBox.getProYapperDialog(response, proYapperImage));
+        }
+    }
+
+    /**
+     * Clears the user input field after the input is processed.
+     */
+    private void clearUserInput() {
+        userInput.clear();
+    }
+
+    /**
+     * Checks if the user's input is the "bye" command, signaling an exit request.
+     *
+     * @param input The user's input string.
+     * @return {@code true} if the input is "bye" (ignoring case), {@code false} otherwise.
+     */
+    private boolean isExitCommand(String input) {
+        return input.equalsIgnoreCase("bye");
+    }
+
+    /**
+     * Exits the application after a short delay.
+     * This method ensures the user sees the goodbye message before the program terminates.
+     */
+    private void exit() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+    }
+
 
     /**
      * Processes user input by parsing it into a command and executing the command.

@@ -33,7 +33,12 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return this.getPriorityIcon() + " 🎉 | " + this.getStatusIcon() + " | " + this.description + " (from: " + this.startWhen.format(formatter) + " to: " + this.endWhen.format(formatter) + ")";
+        return this.getPriorityIcon()
+                + " 🎉 | "
+                + this.getStatusIcon()
+                + " | " + this.description
+                + " (from: " + this.startWhen.format(formatter)
+                + " to: " + this.endWhen.format(formatter) + ")";
     }
 
     /**
@@ -45,6 +50,11 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return this.priority + " | E | " + this.getStatusIcon() + " | " + this.description + " | " + this.startWhen.format(formatter) + " | " + this.endWhen.format(formatter);
+        return this.priority
+                + " | E | "
+                + this.getStatus()
+                + " | " + this.description
+                + " | " + this.startWhen.format(formatter)
+                + " | " + this.endWhen.format(formatter);
     }
 }

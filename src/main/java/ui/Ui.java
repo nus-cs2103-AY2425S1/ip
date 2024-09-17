@@ -2,7 +2,6 @@ package ui;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import main.DialogBox;
 import main.TaskList;
 import tasks.Task;
 
@@ -97,6 +96,37 @@ public class Ui {
             message.append(lstNum).append(". ").append(next.toString()).append("\n");
         }
         showMessage(message.toString());
+    }
+
+    /**
+     * Displays a message indicating that a task has been added to the task list.
+     *
+     * @param newTask  The task that was added.
+     * @param numTasks The total number of tasks in the task list after the addition.
+     */
+    public void showTaskAdded(Task newTask, int numTasks) {
+        showMessage("Got it. I've added this task:"
+                + "\n  "
+                + newTask.toString()
+                + "\nNow you have "
+                + numTasks
+                + " tasks in the list");
+    }
+
+    /**
+     * Displays a message indicating that a task has been deleted from the task list.
+     *
+     * @param deleted  The task that was removed.
+     * @param numTasks The total number of tasks in the task list after the deletion.
+     */
+    public void showTaskDeleted(Task deleted, int numTasks) {
+        showMessage("Noted. I've removed this task:\n"
+                + "  "
+                + deleted.toString()
+                + "\n  "
+                + "\nNow you have "
+                + numTasks
+                + " tasks in the list");
     }
 
     /**

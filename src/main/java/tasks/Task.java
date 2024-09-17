@@ -22,12 +22,22 @@ public abstract class Task {
 
     /**
      * Returns the status icon of the task.
-     * "1" indicates the task is done, "0" indicates it is not done.
+     * "1" indicates the task is done, " " indicates it is not done.
+     *
+     * @return the status icon as a String
+     */
+    public String getStatus() {
+        return (isDone ? "1" : "0");
+    }
+
+    /**
+     * Returns the status icon of the task.
+     * "✔️" indicates the task is done, " " indicates it is not done.
      *
      * @return the status icon as a String
      */
     public String getStatusIcon() {
-        return (isDone ? "1" : "0");
+        return (isDone ? "✔️" : " ");
     }
 
     /**
