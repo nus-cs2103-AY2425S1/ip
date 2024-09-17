@@ -115,17 +115,17 @@ public class Storage {
      */
     public void loadDeadlineTask(String task, char isTaskDone, char priorityOfTask) {
         int byPosition = task.indexOf("(by:");
-        String description = task.substring(7, byPosition);
+        String description = task.substring(10, byPosition - 1);
         String by = task.substring(byPosition + 5, task.length() - 1);
         TaskList.addTaskLoad(new Deadline(description, Parser.changeDateToLocalDate(by)));
         if (isTaskDone == 'X') {
             TaskList.markTaskLoad(TaskList.length() - 1);
         }
         if (priorityOfTask == 'H') {
-            TaskList.priorityMediumTaskLoad(TaskList.length() - 1);
+            TaskList.priorityHighTaskLoad(TaskList.length() - 1);
         }
         if (priorityOfTask == 'M') {
-            TaskList.priorityHighTaskLoad(TaskList.length() - 1);
+            TaskList.priorityMediumTaskLoad(TaskList.length() - 1);
         }
     }
 
@@ -138,7 +138,7 @@ public class Storage {
     public void loadEventTask(String task, char isTaskDone, char priorityOfTask) {
         int fromPosition = task.indexOf("(from:");
         int toPosition = task.indexOf("to:");
-        String description = task.substring(7, fromPosition);
+        String description = task.substring(10, fromPosition - 1);
         String from = task.substring(fromPosition + 7, toPosition - 1);
         String to = task.substring(toPosition + 4, task.length() - 1);
         TaskList.addTaskLoad(new Event(description, Parser.changeDateToLocalDate(from),
@@ -147,10 +147,10 @@ public class Storage {
             TaskList.markTaskLoad(TaskList.length() - 1);
         }
         if (priorityOfTask == 'H') {
-            TaskList.priorityMediumTaskLoad(TaskList.length() - 1);
+            TaskList.priorityHighTaskLoad(TaskList.length() - 1);
         }
         if (priorityOfTask == 'M') {
-            TaskList.priorityHighTaskLoad(TaskList.length() - 1);
+            TaskList.priorityMediumTaskLoad(TaskList.length() - 1);
         }
     }
 }

@@ -108,6 +108,9 @@ public class TaskList {
     }
 
     public static String changePriority(String priority, int i) {
+        if (i >= TaskList.length()) {
+            return Ui.noSuchTaskMessage();
+        }
         if (priority.equals("low")) {
             taskLists.get(i).setPriority(Task.Priority.LOW);
         }

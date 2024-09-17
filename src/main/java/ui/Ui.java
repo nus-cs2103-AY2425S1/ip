@@ -110,7 +110,7 @@ public class Ui {
         }
         String output = "Here are the matching results:\n";
         for (int i = 0; i < filteredTask.size(); i++) {
-            output += filteredTask.get(i) + "\n";
+            output += filteredTask.get(i).toString() + "\n";
         }
         return output;
     }
