@@ -56,7 +56,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox instance with the user's message and image.
      */
     public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+        DialogBox db = new DialogBox(s, i);
+        db.dialog.getStyleClass().add("user-label");
+        return db;
     }
 
     /**
