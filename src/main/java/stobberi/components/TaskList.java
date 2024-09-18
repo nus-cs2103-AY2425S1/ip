@@ -75,13 +75,19 @@ public class TaskList {
      *
      * @param number The number of the task to delete.
      */
-    public String delete(int number) {
+    public String delete(int number) throws StobberiException{
+        if (number > listOfTasks.size()) {
+            throw new InvalidNumberStobberiException("The number you gave is too bigggg!");
+        }
+        if (number < 1) {
+            throw new InvalidNumberStobberiException("The number you gave is too smallllll!");
+        }
+
         Task temp = listOfTasks.get(number - 1);
         listOfTasks.remove(number - 1);
-        String done = "Okiieee! I've removed this task:\n"
+        return "Okiieee! I've removed this task:\n"
                 + "  " + temp
                 + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
-        return done;
     }
 
     /**
@@ -136,7 +142,6 @@ public class TaskList {
      * Adds a task to the list.
      *
      * @param task The task to be added.
-     * @throws StobberiException If an error occurs while adding the task.
      */
     public String addTask(Task task) {
         listOfTasks.add(task);
