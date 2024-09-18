@@ -5,24 +5,48 @@
     -fx-background-repeat: repeat;
 }
 
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url('../fonts/UbuntuMono-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url('../fonts/UbuntuMono-Bold.ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url('../fonts/UbuntuMono-Italic.ttf');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url('../fonts/UbuntuMono-BoldItalic.ttf');
+    font-style: italic;
+    font-weight: bold;
+}
+
 .text-field {
     -fx-background-color: #d9ffe2;
-    -fx-font: 20px "Comic Sans MS";
+    -fx-font: 20px "Ubuntu Mono";
 }
 
 .button {
     -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+    -fx-font: italic bold 18px "Ubuntu Mono";
 }
 
 .button:hover {
     -fx-background-color:cyan;
-    -fx-font-size: 18px;
+    -fx-font-size: 20px;
 }
 
 .button:pressed {
     -fx-background-color:orange;
-    -fx-font-size: 20px;
+    -fx-font-size: 22px;
 }
 
 .scroll-pane {
