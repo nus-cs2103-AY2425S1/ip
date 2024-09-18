@@ -34,7 +34,7 @@ public class Task {
      * Changes the task status to UNDONE.
      */
     public void setUnmark() {
-        this.isDone = true;
+        this.isDone = false;
     }
 
     /**
