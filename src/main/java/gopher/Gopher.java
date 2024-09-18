@@ -149,7 +149,8 @@ public class Gopher {
             return UI.getAddTaskMessage(task);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
-        } catch (EmptyTaskDescriptionException | MissingTokenException e) {
+        } catch (EmptyTaskDescriptionException | MissingTokenException
+                 | InvalidTokenException e) {
             return e.getMessage();
         }
     }

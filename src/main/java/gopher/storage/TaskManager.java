@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import gopher.exception.FileCorruptedException;
+import gopher.exception.InvalidTokenException;
 import gopher.parser.Parser;
 import gopher.task.Task;
 
@@ -77,7 +78,7 @@ public class TaskManager {
             return Parser.parseSavedTaskData(taskString);
         } catch (IOException e) {
             System.out.println("Error when loading tasks...");
-        } catch (FileCorruptedException e) {
+        } catch (FileCorruptedException | InvalidTokenException e) {
             System.out.println("Load File Failed: Task file corrupted...");
         }
         return new ArrayList<>();

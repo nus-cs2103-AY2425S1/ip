@@ -39,7 +39,8 @@ public abstract class Task {
      * @throws MissingTokenException if tokens is missing for the given task type
      */
     public static Task of(String command) throws UnknownCommandException,
-            EmptyTaskDescriptionException, MissingTokenException {
+            EmptyTaskDescriptionException, MissingTokenException,
+            InvalidTokenException {
         return Parser.parseCreateTaskCommand(command);
     }
 

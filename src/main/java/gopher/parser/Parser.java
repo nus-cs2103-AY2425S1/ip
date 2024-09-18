@@ -99,10 +99,14 @@ public class Parser {
      * @param tokens tokens within the given command
      * @return ToDo task with the correct detail
      */
-    public static Task parseCreateToDoCommand(String[] tokens) {
+    public static Task parseCreateToDoCommand(String[] tokens)
+            throws InvalidTokenException {
         // Form task name based on the given tokens
         StringBuilder taskName = new StringBuilder();
         for (int i = 1; i < tokens.length; i++) {
+            if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("todo", tokens[i]);
+            }
             taskName.append(tokens[i]);
             if (i < tokens.length - 1) {
                 taskName.append(" ");
@@ -118,7 +122,7 @@ public class Parser {
      * @return Deadline task with the correct detail
      */
     public static Task parseCreateDeadlineCommand(String[] tokens)
-            throws MissingTokenException {
+            throws MissingTokenException, InvalidTokenException {
         // Index to keep track of the exact position of the command tokens
         int byTokenIndex = -1;
 
@@ -126,6 +130,8 @@ public class Parser {
         for (int i = 1; i < tokens.length; i++) {
             if (tokens[i].equalsIgnoreCase("/by")) {
                 byTokenIndex = i;
+            } else if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("deadline", tokens[i]);
             }
         }
         if (byTokenIndex == -1) {
@@ -160,7 +166,7 @@ public class Parser {
      * @return Event task with the correct detail
      */
     public static Task parseCreateEventCommand(String[] tokens)
-            throws MissingTokenException {
+            throws MissingTokenException, InvalidTokenException {
         // Indexes to track the position of command tokens
         int fromTokenIndex = -1;
         int toTokenIndex = -1;
@@ -169,9 +175,10 @@ public class Parser {
         for (int i = 1; i < tokens.length; i++) {
             if (tokens[i].equalsIgnoreCase("/from")) {
                 fromTokenIndex = i;
-            }
-            if (tokens[i].equalsIgnoreCase("/to")) {
+            } else if (tokens[i].equalsIgnoreCase("/to")) {
                 toTokenIndex = i;
+            } else if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("event", tokens[i]);
             }
         }
         if (fromTokenIndex == -1) {
@@ -220,7 +227,8 @@ public class Parser {
      */
     public static Task parseCreateTaskCommand(String command)
             throws UnknownCommandException, DateTimeParseException,
-            EmptyTaskDescriptionException, MissingTokenException {
+            EmptyTaskDescriptionException, MissingTokenException,
+            InvalidTokenException {
         String[] tokens = command.split(" ");
 
         String taskType = tokens[0];
@@ -400,7 +408,7 @@ public class Parser {
      * @throws FileCorruptedException if file read failed
      */
     public static ArrayList<Task> parseSavedTaskData(String taskData)
-            throws FileCorruptedException {
+            throws FileCorruptedException, InvalidTokenException {
         ArrayList<Task> tasks = new ArrayList<>();
         String[] taskRows = taskData.split("\n");
         String[] tokens;
