@@ -176,7 +176,7 @@ All tasks in the archive have been retrieved.
 
 ## Cute bye message!
 
-Cheers up the user with a cute bye message!
+Cheers up the user with a cute bye message! Program will then exit after three seconds.
 
 Format: `bye`
 
