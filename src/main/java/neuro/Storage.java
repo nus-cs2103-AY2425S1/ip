@@ -110,7 +110,9 @@ public class Storage {
         }
 
         for (String tag : taskTags) {
-            taskToAdd.addTag(tag);
+            if (!tag.isEmpty()) {
+                taskToAdd.addTag(tag);
+            }
         }
 
         return taskToAdd;

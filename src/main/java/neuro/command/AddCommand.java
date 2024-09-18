@@ -45,7 +45,7 @@ public class AddCommand extends Command {
         case EVENT -> getEventTask();
         default ->
                 throw new IllegalArgumentException("UH OH! I'm sorry but I don't recognise that command."
-                        + " Try the following:\n'todo', 'deadline', 'event', 'list', 'find', 'mark', "
+                        + " Try the following:\n'todo', 'deadline', 'event', 'list', 'find', 'tag', 'mark', "
                         + "'unmark', 'delete', 'bye'.");
         };
 
@@ -95,10 +95,10 @@ public class AddCommand extends Command {
 
         if (deadlineDescription.isEmpty()) {
             throw new IllegalArgumentException("UH OH! The description of a 'deadline' cannot be empty! Try adding"
-                    + " a description like 'deadline finish homework /by Mon 2359'.");
+                    + " a description like 'deadline finish homework /by 30/07/2024 1500'.");
         } else if (deadline.isEmpty()) {
             throw new IllegalArgumentException("UH OH! The deadline time/date of a 'deadline' cannot be empty! "
-                    + "Try adding a valid deadline like 'deadline finish homework /by Mon 2359'.");
+                    + "Try adding a valid deadline like 'deadline finish homework /by 30/07/2024 1500'.");
         }
 
         task = new Deadline(deadlineDescription, Parser.parseDateTime(deadline));

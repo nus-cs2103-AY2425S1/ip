@@ -78,7 +78,7 @@ public abstract class Task {
      */
     public String tagsToString() {
         if (tags.isEmpty()) {
-            return "";
+            return " ";
         }
 
         StringBuilder tagsString = new StringBuilder();

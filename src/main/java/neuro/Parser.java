@@ -76,7 +76,8 @@ public class Parser {
             }
         }
 
-        throw new IllegalArgumentException("Invalid date string!");
+        throw new IllegalArgumentException("UH OH! The deadline time/date of the 'deadline' given doesn't follow any "
+                + "expected format! Try adding a valid deadline like 'deadline finish homework /by 30/07/2024 1500'.");
     }
 
     private static DateTimeFormatter[] getDateFormatters() {
@@ -114,7 +115,7 @@ public class Parser {
         // Missing /by
         if (byIndex < 0) {
             throw new IllegalArgumentException("UH OH! The command given is missing the '/by' input for deadline."
-                    + "Try updating the command like 'deadline finish homework /by Mon 2359'.");
+                    + " Try updating the command like 'deadline finish homework /by 30/07/2024 1500'.");
         }
         return byIndex;
     }

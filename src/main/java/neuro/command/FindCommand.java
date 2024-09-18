@@ -16,8 +16,6 @@ public class FindCommand extends Command {
      * @param searchQuery The query used to search for tasks.
      */
     public FindCommand(String searchQuery) {
-        assert !searchQuery.isEmpty() : "Search query should not be empty";
-
         this.searchQuery = searchQuery;
     }
 
@@ -25,6 +23,11 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
             return ui.showMessage("You currently have no tasks.");
+        }
+
+        if (searchQuery.isEmpty()) {
+            return "Missing/blank search query for 'find' command! Include a valid search"
+                    + " query to find, like `find homework`";
         }
 
         StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
