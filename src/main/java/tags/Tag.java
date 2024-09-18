@@ -16,6 +16,10 @@ public class Tag {
     private Set<Task> taggedTasks = new HashSet<>();
 
 
+    /**
+     * Creates a tag with the given name
+     * @param tagName the name of the tag
+     */
     public Tag(String tagName) {
         tagName = tagName.trim();
 

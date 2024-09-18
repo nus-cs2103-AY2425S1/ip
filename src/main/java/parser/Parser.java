@@ -36,7 +36,7 @@ public class Parser {
     private static final DateTimeFormatter DASHFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static final DateTimeFormatter SLASHFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static final DateTimeFormatter SINGLEDIGITDATE = new DateTimeFormatterBuilder()
-            .appendPattern("d/M/yyyy")  // Single or double-digit day and month
+            .appendPattern("d/M/yyyy") // Single or double-digit day and month
             .toFormatter()
             .withResolverStyle(ResolverStyle.SMART);
     private static final DateTimeFormatter DASHONLYDATE = DateTimeFormatter.ofPattern("dd-MM-yyyy");

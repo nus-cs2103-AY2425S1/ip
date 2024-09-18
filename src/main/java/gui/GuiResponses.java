@@ -108,9 +108,15 @@ public class GuiResponses {
      * @return standard template for displaying added task
      */
     public String addTaskMsg(String type, int size) {
-        return String.format("Added task of type %s to your list", type) + "\n"
-                + String.format("There are now %d tasks in total. ", size)
-                + String.format("\nI cannot help but ponder whether this accumulation reflects an abundance of time...", size);
+        if (size > 5) {
+            return String.format("Added task of type %s to your list", type) + "\n"
+                    + String.format("There are now %d tasks in total. ", size)
+                    + String.format("\nI cannot help but ponder whether this accumulation reflects a lack of time"
+                    + "or an inability to manage it...", size);
+        }
+        return String.format("Task of type %s has been added. You now have %d tasks in total. " + "\n"
+                + "It seems your list isn't overwhelming yet. "
+                + "Sometimes, having fewer tasks can be as mundane as having too many.", type, size);
 
     }
 

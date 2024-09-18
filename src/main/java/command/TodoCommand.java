@@ -18,7 +18,8 @@ public class TodoCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                           TagList tagList,
                           TaskList taskList, Parser parser)
-            throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
+            throws ChatterboxExceptions.ChatterBoxNoInput,
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         taskList.addTodo(parser.parseTodo(input));
         return guiResponses.addTaskMsg("Todo", taskList.size());
     }
