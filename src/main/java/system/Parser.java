@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -41,6 +40,7 @@ public class Parser {
     public boolean containList(String input) {
         return input.contains("list");
     }
+
     /**
      * Checks if the provided input string contains the keyword "hello" or "hi".
      *
@@ -201,6 +201,7 @@ public class Parser {
 
     /**
      * Display a hello message to the user.
+     *
      * @return A String containing the hello message from Tanjiro
      */
     public String performHi() {
@@ -295,31 +296,23 @@ public class Parser {
                 response = ui.invalidDeadlineInput();
                 return response;
             }
-
             String name = deadlineArr[0].substring(9);
             String date = deadlineArr[1].substring(3);
-
             String[] tokens = date.split(" ");
             String[] dateTokens = tokens[0].split("-");
 
-            if (tokens.length != 2 && dateTokens.length != 3) {
+            if (tokens.length != 2 || dateTokens.length != 3) {
                 response = ui.invalidDate();
                 return response;
             }
+            System.out.println(tokens.length);
 
             String time = tokens[1];
             String year = dateTokens[0];
             String month = dateTokens[1];
             String day = dateTokens[2];
 
-            boolean isMonthDayValid = Arrays.asList(month, day).stream()
-                    .allMatch(this::isValidMonthDay);
-
-            boolean isYearValid = year.length() == 4;
-            boolean isMonthValid = !month.isEmpty() && month.length() <= 2;
-            boolean isDayValid = !day.isEmpty() && day.length() <= 2;
-
-            if (!isMonthDayValid || !isYearValid || !isMonthValid || !isDayValid) {
+            if (dateValidity(year, month, day)) {
                 response = ui.invalidDate();
                 return response;
             }
@@ -341,9 +334,7 @@ public class Parser {
 
             Deadlines tempDeadline = new Deadlines(name, ldt);
             response = tempDeadline.addTask(tempDeadline);
-            assert Integer.parseInt(year) >= 2024;
-            assert Integer.parseInt(month) > 0 && Integer.parseInt(month) <= 12;
-            assert Integer.parseInt(day) > 0 && Integer.parseInt(day) <= 31;
+            assertDeadlineDateTime(year, month, day);
 
         } catch (StringIndexOutOfBoundsException
                  | IOException e) {
@@ -352,6 +343,53 @@ public class Parser {
         return response;
     }
 
+    /**
+     * Checks the validity of the given date components (year, month, day).
+     * It checks if:
+     * - The year is valid (4 digits long).
+     * - The month is non-empty and at most 2 digits long.
+     * - The day is non-empty and at most 2 digits long.
+     *
+     * @param year  The year part of the date as a string.
+     * @param month The month part of the date as a string.
+     * @param day   The day part of the date as a string.
+     * @return True if any of the date components are invalid, otherwise False.
+     */
+    private boolean dateValidity(String year, String month, String day) {
+        boolean isMonthDayValid = Arrays.asList(month, day).stream()
+                .allMatch(this::isValidMonthDay);
+
+        boolean isYearValid = year.length() == 4;
+        boolean isMonthValid = !month.isEmpty() && month.length() <= 2;
+        boolean isDayValid = !day.isEmpty() && day.length() <= 2;
+
+        return !isMonthDayValid || !isYearValid || !isMonthValid || !isDayValid;
+    }
+
+    /**
+     * Asserts that the provided date components (year, month, day) are valid.
+     * This method uses assertions to enforce that:
+     * - The year is 2024 or later.
+     * - The month is between 1 and 12, inclusive.
+     * - The day is between 1 and 31, inclusive.
+     *
+     * @param year  The year part of the date as a string. Must represent a value greater than or equal to 2024.
+     * @param month The month part of the date as a string. Must represent a value between 1 and 12.
+     * @param day   The day part of the date as a string. Must represent a value between 1 and 31.
+     * @throws AssertionError if the year, month, or day does not meet the required conditions.
+     */
+    private void assertDeadlineDateTime(String year, String month, String day) {
+        assert Integer.parseInt(year) >= 2024;
+        assert Integer.parseInt(month) > 0 && Integer.parseInt(month) <= 12;
+        assert Integer.parseInt(day) > 0 && Integer.parseInt(day) <= 31;
+    }
+
+    /**
+     * Checks the validity of the given month and day.
+     *
+     * @param dateTime The given date and time to be checked.
+     * @return True if date and time is valid.
+     */
     private boolean isValidMonthDay(String dateTime) {
         return dateTime != null && !dateTime.isEmpty() && dateTime.length() <= 2;
     }
@@ -408,23 +446,7 @@ public class Parser {
             String endHour = fullDateTokenEnd[1].substring(0, 2);
             String endMinute = fullDateTokenEnd[1].substring(2);
 
-            boolean isStartYearValid = startYear.length() == 4;
-            boolean isStartMonthValid = !startMonth.isEmpty() && startMonth.length() <= 2;
-            boolean isStartDayValid = !startDay.isEmpty() && startDay.length() <= 2;
-
-            boolean isEndYearValid = endYear.length() == 4;
-            boolean isEndMonthValid = !endMonth.isEmpty() && endMonth.length() <= 2;
-            boolean isEndDayValid = !endDay.isEmpty() && endDay.length() <= 2;
-
-            boolean isStartMonthDayValid = Arrays.asList(startMonth, startDay).stream()
-                    .allMatch(this::isValidMonthDay);
-
-            boolean isEndMonthDayValid = Arrays.asList(endMonth, endDay).stream()
-                    .allMatch(this::isValidMonthDay);
-
-            if (!isStartMonthDayValid || !isEndMonthDayValid
-                    || !isStartYearValid || !isStartMonthValid || !isStartDayValid
-                    || !isEndYearValid || !isEndMonthValid || !isEndDayValid) {
+            if (checkEventDateValidity(startYear, startMonth, startDay, endYear, endMonth, endDay)) {
                 response = ui.invalidDate();
                 return response;
             }
@@ -439,22 +461,12 @@ public class Parser {
             LocalDateTime ldtEnd =
                     dateTimeSystem.createDateTime(endYear, endMonth, endDay, endHour, endMinute);
 
-            boolean isBeforeStart = dateTimeSystem.compareDateTime(ldtStart);
-            boolean isBeforeEnd = dateTimeSystem.compareDateTime(ldtEnd);
-            boolean isEndBeforeStart = ldtEnd.isBefore(ldtStart);
-
-            if (!isBeforeEnd || !isBeforeStart || isEndBeforeStart) {
+            if (checkEventDateBeforeCurrent(ldtStart, ldtEnd)) {
                 response = ui.dateBeforeCurrent();
                 return response;
             }
 
-            assert Integer.parseInt(startYear) >= 2024;
-            assert Integer.parseInt(startMonth) > 0 && Integer.parseInt(startMonth) <= 12;
-            assert Integer.parseInt(startDay) > 0 && Integer.parseInt(startDay) <= 31;
-
-            assert Integer.parseInt(endYear) >= 2024;
-            assert Integer.parseInt(endMonth) > 0 && Integer.parseInt(endMonth) <= 12;
-            assert Integer.parseInt(endDay) > 0 && Integer.parseInt(endDay) <= 31;
+            assertEventDateTime(startYear, startMonth, startDay, endYear, endMonth, endDay);
 
             Events tempEvent = new Events(name, ldtStart, ldtEnd);
             response = tempEvent.addTask(tempEvent);
@@ -465,6 +477,82 @@ public class Parser {
         return response;
     }
 
+    /**
+     * Checks the validity of the event start and end date components (year, month, day).
+     * The year is valid (4 digits long) for both start and end dates.
+     * The month is non-empty and at most 2 digits long for both start and end dates.
+     * The day is non-empty and at most 2 digits long for both start and end dates.
+     *
+     * @param startYear  The start year of the event as a string.
+     * @param startMonth The start month of the event as a string.
+     * @param startDay   The start day of the event as a string.
+     * @param endYear    The end year of the event as a string.
+     * @param endMonth   The end month of the event as a string.
+     * @param endDay     The end day of the event as a string.
+     * @return True if any of the start or end date components are invalid, otherwise False.
+     */
+    private boolean checkEventDateValidity(String startYear, String startMonth, String startDay, String endYear, String endMonth, String endDay) {
+        boolean isStartYearValid = startYear.length() == 4;
+        boolean isStartMonthValid = !startMonth.isEmpty() && startMonth.length() <= 2;
+        boolean isStartDayValid = !startDay.isEmpty() && startDay.length() <= 2;
+
+        boolean isEndYearValid = endYear.length() == 4;
+        boolean isEndMonthValid = !endMonth.isEmpty() && endMonth.length() <= 2;
+        boolean isEndDayValid = !endDay.isEmpty() && endDay.length() <= 2;
+
+        boolean isStartMonthDayValid = Arrays.asList(startMonth, startDay).stream()
+                .allMatch(this::isValidMonthDay);
+
+        boolean isEndMonthDayValid = Arrays.asList(endMonth, endDay).stream()
+                .allMatch(this::isValidMonthDay);
+
+        return !isStartMonthDayValid || !isEndMonthDayValid
+                || !isStartYearValid || !isStartMonthValid || !isStartDayValid
+                || !isEndYearValid || !isEndMonthValid || !isEndDayValid;
+    }
+
+    /**
+     * Verifies if the event start and end date-times are valid compared to the current system date-time.
+     * The start date-time occurs before the current system time.
+     * The end date-time occurs before the current system time.
+     * The end date-time does not occur before the start date-time.
+     *
+     * @param ldtStart The start date-time of the event as a LocalDateTime.
+     * @param ldtEnd   The end date-time of the event as a LocalDateTime.
+     * @return True if any of the date-time comparisons are invalid, otherwise False.
+     */
+    private boolean checkEventDateBeforeCurrent(LocalDateTime ldtStart, LocalDateTime ldtEnd) {
+        boolean isBeforeStart = dateTimeSystem.compareDateTime(ldtStart);
+        boolean isBeforeEnd = dateTimeSystem.compareDateTime(ldtEnd);
+        boolean isEndBeforeStart = ldtEnd.isBefore(ldtStart);
+
+        return !isBeforeEnd || !isBeforeStart || isEndBeforeStart;
+    }
+
+    /**
+     * Asserts that the provided event start and end date components (year, month, day) are valid.
+     * This method enforces through assertions that:
+     * - The start and end years are 2024 or later.
+     * - The start and end months are between 1 and 12, inclusive.
+     * - The start and end days are between 1 and 31, inclusive.
+     *
+     * @param startYear  The start year of the event as a string.
+     * @param startMonth The start month of the event as a string.
+     * @param startDay   The start day of the event as a string.
+     * @param endYear    The end year of the event as a string.
+     * @param endMonth   The end month of the event as a string.
+     * @param endDay     The end day of the event as a string.
+     * @throws AssertionError if the start or end year, month, or day does not meet the required conditions.
+     */
+    private void assertEventDateTime(String startYear, String startMonth, String startDay, String endYear, String endMonth, String endDay) {
+        assert Integer.parseInt(startYear) >= 2024;
+        assert Integer.parseInt(startMonth) > 0 && Integer.parseInt(startMonth) <= 12;
+        assert Integer.parseInt(startDay) > 0 && Integer.parseInt(startDay) <= 31;
+
+        assert Integer.parseInt(endYear) >= 2024;
+        assert Integer.parseInt(endMonth) > 0 && Integer.parseInt(endMonth) <= 12;
+        assert Integer.parseInt(endDay) > 0 && Integer.parseInt(endDay) <= 31;
+    }
 
     /**
      * Deletes a task from the task list based on the input.
