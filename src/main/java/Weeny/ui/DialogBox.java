@@ -26,8 +26,16 @@ public class DialogBox extends HBox {
     @FXML
     private HBox textBubble;
 
-    private static final String USER_STYLE = "-fx-background-radius: 15; -fx-background-color: white; -fx-border-color: smokegray; -fx-border-width: 2; -fx-border-radius: 15;";
-    private static final String WEENY_STYLE = "-fx-background-radius: 15; -fx-background-color: lightpink; -fx-border-color: smokegray; -fx-border-width: 2; -fx-border-radius: 15;";
+    private static final String USER_STYLE = "-fx-background-radius: 15;" +
+            " -fx-background-color: #ffffff;" +
+            " -fx-border-color: #f5f5f5;" +
+            " -fx-border-width: 2;" +
+            " -fx-border-radius: 15;";
+    private static final String WEENY_STYLE = "-fx-background-radius: 15;" +
+            " -fx-background-color: #ffb6c1;" +
+            " -fx-border-color: #f5f5f5;" +
+            " -fx-border-width: 2;" +
+            " -fx-border-radius: 15;";
 
     /**
      * Creates a new DialogBox with the given text and image.
