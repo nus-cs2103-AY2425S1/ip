@@ -69,4 +69,4 @@ run {
     standardInput = System.in
 }
 
-mainClassName = 'alice.Alice'
+mainClassName = 'Launcher'
