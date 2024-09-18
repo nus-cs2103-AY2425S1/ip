@@ -2,6 +2,7 @@ package pixy.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents the list of tasks inputted by the user.
@@ -61,13 +62,9 @@ public class TaskList {
      * @return List of Tasks having the specified description in their description.
      */
     public List<Task> find(String description) {
-        List<Task> matchedTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(description)) {
-                matchedTasks.add(task);
-            }
-        }
-        return matchedTasks;
+        return tasks.stream()
+                .filter(task -> task.getDescription().contains(description))
+                .collect(Collectors.toList());
     }
     /**
      * Returns the task at the specified index of the TaskList.
