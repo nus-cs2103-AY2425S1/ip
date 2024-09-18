@@ -24,7 +24,9 @@ public class ToDo extends Task {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns toString representation of a ToDo.
+     *
+     * @return toString representation of a ToDo.
      */
     @Override
     public String toString() {
