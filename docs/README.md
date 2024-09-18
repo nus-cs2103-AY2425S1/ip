@@ -199,3 +199,12 @@ due SEPT 20 2024 11:59 PM.
 | unbind   |            | ```unbind ALIAS```                                         |
 | reset    |            | ```reset```                                                |
 | bye      | exit, quit | ```bye```                                                  |
+
+## Sources
+
+---
+
+- The speak emoji used for the Yapper chatbot profile and the application icon was taken from
+[here](https://www.vhv.rs/viewpic/iTihbhJ_talking-emoji-hd-png-download/).
+- The kirby profile picture was cropped out from this [YouTube thumbnail](https://www.youtube.com/watch?v=00AtBonL-04)
+and all rights to the character belong to Nintendo.
