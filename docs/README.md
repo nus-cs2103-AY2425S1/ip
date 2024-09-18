@@ -8,19 +8,13 @@ weight when it comes to keeping track of your life :)
 Getting started
 --------
 
-When using PoChat for the *first time*, ensure that you have the file `chat_data.txt` set up
-in the `main` directory. This can be an empty `.txt` file to begin with.
+Ensure that you are running java 17 on your machine. You may check your java version by entering
+`java -version` in the command line.
 
-Once the file is set up, do a gradle build to ensure that the files are properly set up
-
-```
-./gradlew clean build
-```
-
-Now, start the bot
+Copy the jar file into your terminal and run it with the following command:
 
 ```
-./gradlew start
+java -jar PoChat.java
 ```
 
 
