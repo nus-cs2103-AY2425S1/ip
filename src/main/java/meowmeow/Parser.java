@@ -46,6 +46,8 @@ public class Parser {
             return handleDeadline(initInput);
         case "event":
             return handleEvent(initInput);
+        case "doWithin":
+            return handleDoWithin(initInput);
         case "delete":
             return handleDelete(initInput);
         case "bye":
@@ -154,6 +156,22 @@ public class Parser {
             tasks.add(event);
             saver.saveData();
             return Ui.getAddEventMessage(event, tasks.size());
+        }
+    }
+
+    private String handleDoWithin(String input) throws IOException {
+        String[] parts = input.substring(8).split(" /between | /and ");
+        boolean isWrongPartsLength = parts.length <= 1;
+        if (isWrongPartsLength || !(isValidDate(parts[1])) || !(isValidDate(parts[2]))) {
+            return Ui.getInvalidDoWithinMessage();
+        } else {
+            String description = parts[0];
+            String periodStart = parts[1];
+            String periodEnd = parts[2];
+            DoWithin doWithin = new DoWithin(description, periodStart, periodEnd);
+            tasks.add(doWithin);
+            saver.saveData();
+            return Ui.getAddDoWithinMessage(doWithin, tasks.size());
         }
     }
 

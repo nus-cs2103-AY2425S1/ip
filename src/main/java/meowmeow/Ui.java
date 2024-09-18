@@ -111,6 +111,27 @@ public class Ui {
     }
 
     /**
+     * Returns the message for an invalid Do Within input.
+     *
+     * @return The invalid Do Within message.
+     */
+    public static String getInvalidDoWithinMessage() {
+        return "Invalid doWithin.\n Please use this format: \n" +
+                "doWithin taskName /between yyyy-mm-dd /and yyyy-mm-dd \n";
+    }
+
+    /**
+     * Returns the message when adding an Do Within task.
+     *
+     * @param doWithin The do within task added.
+     * @param size  The current number of tasks.
+     * @return The message for adding the task.
+     */
+    public static String getAddDoWithinMessage(DoWithin doWithin, int size) {
+        return "Got it. I've added this task:\n  " + doWithin + "\nNow you have " + size + " tasks in the list.\n";
+    }
+
+    /**
      * Returns the message when deleting a task.
      *
      * @param task The task that was deleted.

@@ -53,6 +53,8 @@ public class Storage {
             case "E":
                 this.loadEvent(parts[2], parts[3], parts[4], parts[1]);
                 break;
+            case "W":
+                this.loadDoWithin(parts[2], parts[3], parts[4], parts[1]);
             default:
                 assert false : "Unknown task type in save file: " + parts[0];
             }
@@ -82,6 +84,14 @@ public class Storage {
             event.markDone();
         }
         tasks.add(event);
+    }
+
+    public void loadDoWithin(String description, String periodStart, String periodEnd, String doneStatus) {
+        DoWithin doWithin = new DoWithin(description, periodStart, periodEnd);
+        if (doneStatus.equals("1")) {
+            doWithin.markDone();
+        }
+        tasks.add(doWithin);
     }
 
     /**
