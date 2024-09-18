@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+
 /**
  * A custom HBox component representing a dialog box used in the ChatterBox application.
  * This class provides a convenient way to display messages and images in a visually

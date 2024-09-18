@@ -100,11 +100,11 @@ public class ChatterBoxResponse {
      * @return An error message for an invalid task.
      */
     public static String showErrorInvalidTaskNumber() {
-        return "\n\t\tInvalid task number.\n";
+        return "\n\t\tOOPS!!! Invalid task number.\n";
     }
 
     public static String showErrorInvalidMerchandiseNumber() {
-        return "\n\t\tInvalid merchandise number.\n";
+        return "\n\t\tOOPS!!! Invalid merchandise number.\n";
     }
 
     /**
@@ -151,7 +151,7 @@ public class ChatterBoxResponse {
      */
     public static String showError(String message) {
         assert message != null : "Message cannot be null";
-        return "\n\t\t" + message + "\n";
+        return "\n\t\t OOPS!!! " + message + "\n";
     }
 
     /**
@@ -187,7 +187,7 @@ public class ChatterBoxResponse {
 
     public String showMerchandiseDescriptionUpdated(Merchandise merchandise) {
         if(merchandise == null) {
-            return "\n\t\t ID DOES'NT MATCH! PLEASE TRY ANOTHER!\n";
+            return "\n\t\tOOPS!!! ID DOES'NT MATCH! PLEASE TRY ANOTHER!\n";
         } else {
             return "\n\t Description of merchandise changed! \n"
                     + merchandise;
@@ -196,7 +196,7 @@ public class ChatterBoxResponse {
 
     public String showMerchandiseNameUpdated(Merchandise merchandise) {
         if(merchandise == null) {
-            return "\n\t\t ID DOES'NT MATCH! PLEASE TRY ANOTHER!\n";
+            return "\n\t\tOOPS!!! ID DOES'NT MATCH! PLEASE TRY ANOTHER!\n";
         } else {
             return "\n\tName of merchandise changed! \n"
                     + merchandise;
