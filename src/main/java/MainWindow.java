@@ -19,19 +19,26 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Luke luke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("images/herrp.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("images/derp.jpeg"));
+    private Image derpImage = new Image(this.getClass().getResourceAsStream("images/derp.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    public void initialMessage() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getLukeDialog(luke.greetUser(), derpImage)
+        );
+    }
+
     /** Injects the Duke instance */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setLuke(Luke d) {
+        luke = d;
+        initialMessage();
     }
 
     /**
@@ -41,10 +48,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = luke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getLukeDialog(response, derpImage)
         );
         userInput.clear();
     }

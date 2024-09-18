@@ -13,4 +13,5 @@ public enum Command {
     note,
     deleteNote,
     bye,
+    parseError,
 }

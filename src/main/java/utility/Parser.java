@@ -99,7 +99,7 @@ public class Parser {
         try {
             this.command = Command.valueOf(tokens[0].trim());
         } catch (IllegalArgumentException e) {
-            throw new LukeException(String.format("Yo! This command \"%s\" doesn't exist.", tokens[0].trim()));
+            this.command = Command.parseError;
         }
     }
 

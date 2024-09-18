@@ -3,7 +3,6 @@ package utility;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import exceptions.LukeException;
 import tasks.Task;
 
 /** Wrapper class for tasks recorded by Luke. */
@@ -34,13 +33,8 @@ public class TaskList {
         tasks.add(t);
     }
 
-    /**
-     * Prints out all the tasks with their corresponding index.
-     */
-    public void listTasks() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d. %s%n", i + 1, tasks.get(i).toString());
-        }
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     /**
@@ -68,7 +62,6 @@ public class TaskList {
      */
     public Task markTask(int index) {
         if (index >= tasks.size() || index < 0) {
-            System.out.println("Dude, Index is out of range.");
             return null;
         }
         Task t = tasks.get(index);
@@ -83,7 +76,6 @@ public class TaskList {
      */
     public Task unMarkTask(int index) {
         if (index >= tasks.size() || index < 0) {
-            System.out.println("Dude, Index is out of range.");
             return null;
         }
         Task t = tasks.get(index);
@@ -98,7 +90,6 @@ public class TaskList {
      */
     public Task deleteTask(int index) {
         if (index >= tasks.size() || index < 0) {
-            System.out.println("Dude, Index is out of range.");
             return null;
         }
         Task t = tasks.get(index);

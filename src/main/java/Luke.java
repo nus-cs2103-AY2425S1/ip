@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import exceptions.LukeException;
 import presentation.Ui;
@@ -32,89 +30,92 @@ public class Luke {
         this.ui = new Ui();
     }
 
-    private boolean parseLine(BufferedReader br) throws IOException {
+    public String greetUser() {
+        return ui.greetDialog();
+    }
+
+    public String handleUserInput(String input) throws IOException, LukeException {
+        parser.parse(input);
+        switch (parser.getCommand()) {
+        case list -> {
+            return ui.listTaskDialog(taskList.getTasks());
+        }
+        case find -> {
+            return ui.findDialog(taskList.findTasks(parser.getDescription()));
+        }
+        case note -> {
+            Note n = new Note(parser.getDescription());
+            this.taskList.addTask(n);
+            return ui.addNoteDialog(n);
+        }
+        case deleteNote -> {
+            Note n = (Note) taskList.deleteTask(parser.getIndex() - 1);
+            if (n != null) {
+                return ui.addNoteDialog(n);
+            } else {
+                return ui.indexOutOfRangeDialog(parser.getIndex());
+            }
+        }
+        case mark -> {
+            Task t = taskList.markTask(parser.getIndex() - 1);
+            if (t != null) {
+                return ui.markDialog(t);
+            } else {
+                return ui.indexOutOfRangeDialog(parser.getIndex());
+            }
+        }
+        case unmark -> {
+            Task t = taskList.unMarkTask(parser.getIndex() - 1);
+            if (t != null) {
+                return ui.unMarkDialog(t);
+            } else {
+                return ui.indexOutOfRangeDialog(parser.getIndex());
+            }
+        }
+        case delete -> {
+            Task deletedTask = this.taskList.deleteTask(parser.getIndex() - 1);
+            if (deletedTask != null) {
+                return ui.deleteTaskDialog(deletedTask, this.taskList.getTaskListSize());
+            } else {
+                return ui.indexOutOfRangeDialog(parser.getIndex());
+            }
+        }
+        case todo -> {
+            Task t = new Todo(parser.getDescription());
+            this.taskList.addTask(t);
+            return ui.addTaskDialog(t, taskList.getTaskListSize());
+        }
+        case event -> {
+            Task t = new Event(parser.getDescription(), parser.getFrom(), parser.getTo());
+            this.taskList.addTask(t);
+            return ui.addTaskDialog(t, taskList.getTaskListSize());
+        }
+        case deadline -> {
+            Task t = new DeadLine(parser.getDescription(), parser.getBy());
+            this.taskList.addTask(t);
+            return ui.addTaskDialog(t, taskList.getTaskListSize());
+        }
+        case bye -> {
+            taskList.save(storage);
+            return ui.closeDialog();
+        }
+
+        case parseError -> {
+            return String.format("Yo! This command \"%s\" doesn't exist.", input.split(" ")[0].trim());
+        }
+
+        default -> {
+            return input;
+        }
+        }
+    }
+
+    public String getResponse(String input) {
         try {
-            parser.parse(br.readLine());
-            return true;
-        } catch (LukeException e) {
-            System.out.println(e.getMessage());
-            return false;
+            return handleUserInput(input);
+        } catch (IOException | LukeException e) {
+            e.printStackTrace();
+            return "An error occurred.";
         }
-    }
-
-    /**
-     * Runs the Luke application
-     */
-    public void run() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        ui.greetDialog();
-        boolean isRunning = true;
-        while (isRunning) {
-            if (!parseLine(br)) {
-                continue;
-            }
-            switch (parser.getCommand()) {
-            case list -> {
-                ui.listTaskDialog();
-                this.taskList.listTasks();
-            }
-            case find -> ui.findDialog(taskList.findTasks(parser.getDescription()));
-            case note -> {
-                Note n = new Note(parser.getDescription());
-                this.taskList.addTask(n);
-                ui.addNoteDialog(n);
-            }
-            case deleteNote -> {
-                Note n = (Note) taskList.deleteTask(parser.getIndex() - 1);
-                if (n != null) {
-                    ui.addNoteDialog(n);
-                }
-            }
-            case mark -> {
-                Task t = taskList.markTask(parser.getIndex() - 1);
-                if (t != null) {
-                    ui.markDialog(t);
-                }
-            }
-            case unmark -> {
-                Task t = taskList.unMarkTask(parser.getIndex() - 1);
-                if (t != null) {
-                    ui.unMarkDialog(t);
-                }
-            }
-            case delete -> {
-                Task deletedTask = this.taskList.deleteTask(parser.getIndex() - 1);
-                if (deletedTask != null) {
-                    ui.deleteTaskDialog(deletedTask, this.taskList.getTaskListSize());
-                }
-            }
-            case todo -> {
-                Task t = new Todo(parser.getDescription());
-                this.taskList.addTask(t);
-                ui.addTaskDialog(t, taskList.getTaskListSize());
-            }
-            case event -> {
-                Task t = new Event(parser.getDescription(), parser.getFrom(), parser.getTo());
-                this.taskList.addTask(t);
-                ui.addTaskDialog(t, taskList.getTaskListSize());
-            }
-            case deadline -> {
-                Task t = new DeadLine(parser.getDescription(), parser.getBy());
-                this.taskList.addTask(t);
-                ui.addTaskDialog(t, taskList.getTaskListSize());
-            }
-            case bye -> isRunning = false;
-
-            default -> { }
-            }
-
-        }
-        taskList.save(storage);
-        ui.closeDialog();
-        br.close();
-    }
-
-    public static void main(String[] args) throws IOException {
-        new Luke("./data/Luke.txt").run();
     }
 }
