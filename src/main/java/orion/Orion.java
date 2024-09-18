@@ -2,7 +2,6 @@
 package orion;
 
 import javafx.application.Application;
-
 import orion.commands.Command;
 import orion.orionexceptions.FileInitializationException;
 import orion.orionexceptions.OrionException;
@@ -75,16 +74,16 @@ public class Orion {
 
             // prettier-ignore
             return switch (command) {
-                case LIST -> handleList(parts);
-                case MARK -> handleMark(parts);
-                case UNMARK -> handleUnmark(parts);
-                case TODO -> handleTodo(parts);
-                case EVENT -> handleEvent(parts);
-                case DEADLINE -> handleDeadline(parts);
-                case DELETE -> handleDelete(parts);
-                case FIND -> handleFind(parts);
-                case BYE -> "Goodbye!";
-                default -> "Unknown command: " + parts[0];
+            case LIST -> handleList(parts);
+            case MARK -> handleMark(parts);
+            case UNMARK -> handleUnmark(parts);
+            case TODO -> handleTodo(parts);
+            case EVENT -> handleEvent(parts);
+            case DEADLINE -> handleDeadline(parts);
+            case DELETE -> handleDelete(parts);
+            case FIND -> handleFind(parts);
+            case BYE -> "Goodbye!";
+            default -> "Unknown command: " + parts[0];
             };
         } catch (OrionException e) {
             return "Error: " + e.getMessage() + "\n";
