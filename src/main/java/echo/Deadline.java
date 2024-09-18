@@ -50,4 +50,22 @@ public class Deadline extends Task {
     public String getTypeLetter() {
         return "D";
     }
+
+    @Override
+    public String editTask(String input) {
+        String[] str = input.split(" ", 2);
+        String command = str[0];
+
+
+        switch (command) {
+        case"name":
+            this.taskDes = str[1];
+            return this.toString();
+        case"deadline":
+            this.by = LocalDate.parse(str[1]);
+        default:
+            return "enter name (new name)\n or deadline (new date)";
+        }
+
+    }
 }

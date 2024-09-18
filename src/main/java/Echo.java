@@ -1,8 +1,10 @@
 import echo.*;
+import javafx.scene.control.TextInputDialog;
 
 import java.io.FileNotFoundException;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * The Echo class is the main entry point for the Echo application.
@@ -14,6 +16,8 @@ public class Echo {
     private TaskList tasks;
     private Ui ui;
     public static final String DOCS_TASKS_TXT = "docs/tasks.txt";
+    private boolean awaitingEditInput = false;  // To track if we are waiting for a follow-up response
+    private Task taskToEdit;  // To store the task that the user wants to edit
 
     /**
      * Constructs an Echo object and initializes the necessary components.
@@ -41,6 +45,12 @@ public class Echo {
      * Runs the main loop of the Echo application, processing user commands and interacting with the user interface.
      */
     public String run(String input) {
+
+        if (awaitingEditInput) {
+            // If we are awaiting an edit response, handle the follow-up here
+            awaitingEditInput = false;  // Reset this after handling
+            return taskToEdit.editTask(input);
+        }
         //ui.showWelcomeMessage();
 
         //while (true) {
@@ -86,6 +96,12 @@ public class Echo {
                     String toFind = parts[1];
                     return tasks.find(toFind);
                     //break;
+                case "edit":
+                    // Ask the user for further input (follow-up question)
+                    awaitingEditInput = true;  // Set to true to track that we're waiting for input
+                    int taskToEditNo = Integer.parseInt(parts[1]);  // Store the task to edit
+                    taskToEdit = tasks.getTask(taskToEditNo);
+                    return "What would you like to edit in task " + taskToEdit + "?";
                 default:
                     return ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
                 }

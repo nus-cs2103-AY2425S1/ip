@@ -16,6 +16,22 @@ public class Todo extends Task {
         return "T";
     }
 
+    @Override
+    public String editTask(String input) {
+        String[] str = input.split(" ", 2);
+        String command = str[0];
+
+
+        switch (command) {
+            case"name":
+                this.taskDes = str[1];
+                return this.toString();
+        default:
+            return "enter name (new name)";
+            }
+
+    }
+
 
     /**
      * Constructs a Todo task with the specified description.
