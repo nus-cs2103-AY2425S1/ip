@@ -1,5 +1,7 @@
 package janet;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -49,6 +54,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJanetDialog(response, janetImage)
         );
+        if (response.equals("Bye. Hope to see you again soon!\n")) {
+            // @@author ZShunRen-reused
+            // Reused from https://github.com/nus-cs2103-AY2425S1/forum/issues/313#issuecomment-2356353182
+            // with minor modifications.
+            PauseTransition delayAnimation = new PauseTransition(Duration.seconds(2));
+            delayAnimation.setOnFinished(event -> Platform.exit());
+            delayAnimation.play();
+            // @@author
+        }
         userInput.clear();
     }
 }
