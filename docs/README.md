@@ -1,30 +1,50 @@
-# Bot.Chicken User Guide
+# README
+# Chicken the Chatbot
+## Preview of Chicken the chatbot
+![chicken preview](Ui.png)
+## Features (Only some)
 
-// Update the title above to match the actual product name
+### 1. Adding Deadlines
 
-// Product screenshot goes here
+You can add a deadline by using the following format:
 
-// Product intro goes here
+- Action Format: `deadline <description> /by <date>`
+- Date Format: `D/MM/YYYY HHMM` (e.g., 2/12/2019 1800) or `YYYY-MM-DD` (e.g 2024-04-03)
 
-## Adding deadlines
+Make sure to use `/by` to specify the deadline.
 
-// Describe the action and its outcome.
+#### Example Usage
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+```plaintext
+deadline return book /by 2/12/2019 1800
 ```
-expected output
+
+#### Expected Outcome
+
+```plaintext
+[D][] return book (by: 2nd of December 2019, 6:00 pm) added
 ```
 
-## Feature ABC
+### 2. Finding Items
 
-// Feature details
+You can find items by their description using:
 
+- **Command Format:** `find <description>`
 
-## Feature XYZ
+This will list all items that match the given description.
 
-// Feature details
+### 3. Listing All Items
+
+To list all your items, use the command:
+
+- **Command Format:** `list`
+
+This will display all items you currently have.
+
+### 4. Marking Items
+
+To mark an item, use the command:
+
+- **Command Format:** `mark <item number>`
+
+This will mark the specified item as completed.
