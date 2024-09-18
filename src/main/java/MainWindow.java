@@ -42,7 +42,8 @@ public class MainWindow extends AnchorPane {
     public void displayWelcomeMessage() {
         // Directly display the welcome message without using getCombinedMessage
         dialogContainer.getChildren().add(
-                DialogBox.getKronaDialog("Hello! I'm Krona\nWhat can I do for you?", kronaImage)
+                DialogBox.getKronaDialog("Hello! I'm Krona"
+                        + "\nWhat can I do for you?\nType \"help\" for a list of available commands.", kronaImage)
         );
     }
 
