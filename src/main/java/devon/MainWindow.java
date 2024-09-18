@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Devon devon;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image devonImage = new Image(this.getClass().getResourceAsStream("/images/DaDevon.png"));
 
     @FXML
     public void initialize() {
@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     public void setDevon(Devon devon) {
         this.devon = devon;
         devon.start();
-        dialogContainer.getChildren().add(DialogBox.getDevonDialog(devon.introduction(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDevonDialog(devon.introduction(), devonImage));
     }
 
     /**
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
         String response = devon.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDevonDialog(response, dukeImage)
+                DialogBox.getDevonDialog(response, devonImage)
         );
         userInput.clear();
     }
