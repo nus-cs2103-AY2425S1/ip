@@ -38,6 +38,7 @@ public class DeleteCommand extends Command {
             ui.showDeletedTask(toPrint);
         } catch (InvalidTaskException e) {
             System.err.println((e.getMessage()));
+            return e.getMessage();
         }
         return toPrint;
     }

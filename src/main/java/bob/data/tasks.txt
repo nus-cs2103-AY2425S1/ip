@@ -1,3 +1,3 @@
-T | 1 | help session
+T | 0 | help session
 T | 1 | jump
 E | 0 | bake cheese cake | Mon | 2pm | 5pm

@@ -37,11 +37,8 @@ public class Storage {
     public ArrayList<Task> loadTaskList() {
         try {
             File file = new File(filePath);
-            System.out.println("File location: " + file.getAbsolutePath());
             if (!file.exists()) {
-
                 boolean isFileCreated = file.createNewFile();
-
                 if (!isFileCreated) {
                     System.out.println("Failed to create file when loading task.");
                 }
@@ -53,17 +50,9 @@ public class Storage {
             ArrayList<Task> tempRecords = new ArrayList<>();
 
             System.out.println("\t====== Current Records =====\n");
-            System.out.println("Current file path = " + this.filePath);
-            for (Task task: tempRecords) {
-                System.out.println("Task in tempRecords: ");
-                System.out.println(task.getTaskListItem());
-            }
-            System.out.println("Hello");
-            System.out.println("Line input = " + line);
 
             while (line != null && !line.equals("")) {
                 Task task = this.loadTask(line);
-                System.out.println(task.getTaskListItem());
                 tempRecords.add(task);
                 System.out.println("\t" + line);
                 line = bufferedReader.readLine();
@@ -119,11 +108,6 @@ public class Storage {
         case "D":
             return new Deadline(parts[2], parts[3], isDone);
         case "E":
-            System.out.println("parts length = " + parts.length);
-            System.out.println("part[0] = " + parts[0]);
-            System.out.println("part[1] = " + parts[1]);
-            System.out.println("part[2] = " + parts[2]);
-            System.out.println("part[3] = " + parts[3]);
             return new Event(parts[2], parts[3], parts[4], parts[5], isDone);
         default:
             throw new IOException("unable to parse Data for loading.");

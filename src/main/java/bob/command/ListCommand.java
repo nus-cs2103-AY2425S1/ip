@@ -11,7 +11,7 @@ import bob.ui.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Constructor to initalise ListCommand
+     * Constructor to initialize ListCommand
      */
     public ListCommand() {
         super();
@@ -25,7 +25,6 @@ public class ListCommand extends Command {
             allRecords += "\n\t" + i + "." + currTask.getTaskListItem();
         }
         ui.showList(allRecords);
-        //storage.saveRecordsToStorage(taskList.getAllRecords());
         return allRecords;
     }
 }
