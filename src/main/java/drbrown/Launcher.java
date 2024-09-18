@@ -11,10 +11,7 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * The main method that serves as the entry point of the application.
-     * It launches the JavaFX application by calling the Application.launch method.
-     *
-     * @param args The command-line arguments passed to the application.
+     * A launcher class to workaround classpath issues.
      */
     public static void main(String[] args) {
         Application.launch(Main.class, args);

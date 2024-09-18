@@ -58,14 +58,4 @@ public class DrBrown {
             return ui.showError(e.getMessage());
         }
     }
-
-    /**
-     * The main method to start the DrBrown application.
-     * It creates a new instance of DrBrown and runs the application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new DrBrown();
-    }
 }
