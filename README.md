@@ -2,7 +2,7 @@
 
 > The smallest feline is a masterpiece - Leonardo da Vinci [Source](https://www.laphamsquarterly.org/roundtable/old-master-cats#:~:text=One%20great%20artist%20who%20did,a%20feature%20of%20a%20painting.)
 
-![Screenshot of app](Ui.png)
+![Screenshot of app](docs/Ui.png)
 # Features implemented:
 - [X] Manage to-do tasks
 - [X] Manage deadlines tasks
