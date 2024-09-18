@@ -61,6 +61,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBabyDialog(response, babyImage)
         );
         userInput.clear();
+        if (response.equals(baby.bye())) {
+            // Close the window after the bye message is shown
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+        }
     }
 
     /**
