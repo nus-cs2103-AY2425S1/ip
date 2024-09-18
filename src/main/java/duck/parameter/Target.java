@@ -34,7 +34,7 @@ public enum Target {
      *
      * @param keyword The keyword to match.
      * @return The target enum that matches the keyword.
-     * @throws IllegalArgumentException If the keyword does not match any target.
+     * @throws DuckException If the keyword does not match any target.
      */
     public static Target fromKeyword(String keyword) throws DuckException {
         for (Target target : values()) {

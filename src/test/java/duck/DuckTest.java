@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import duck.data.exception.DuckException;
 
 
-
 /**
  * Tests the DuckException class.
  */

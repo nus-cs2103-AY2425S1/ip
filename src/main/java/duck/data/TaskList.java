@@ -89,6 +89,7 @@ public class TaskList extends ArrayList<Task> {
      * Finds all the tasks in the task list that contain the specified keyword in description.
      *
      * @param keyword The index of the task to be marked as done.
+     * @return A list of tasks that contain the specified keyword in description.
      */
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
@@ -112,6 +113,7 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param comparator Comparator to sort the specific tasks.
      * @param target The type of tasks to prioritize (todo, deadline, event).
+     * @throws DuckException If the comparator is null.
      */
     public void sortTasks(Comparator<Task> comparator, String target) throws DuckException {
         if (comparator == null) {

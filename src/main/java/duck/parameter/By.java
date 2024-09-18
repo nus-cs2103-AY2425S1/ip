@@ -39,7 +39,7 @@ public enum By {
      *
      * @param keyword The keyword to match.
      * @return The By enum that matches the keyword.
-     * @throws IllegalArgumentException If the keyword does not match any By enum.
+     * @throws DuckException If the keyword does not match any By enum.
      */
     public static By fromKeyword(String keyword) throws DuckException {
         for (By by : values()) {
