@@ -1,4 +1,4 @@
-# OrangeRatchetCat User Guide
+# TheOrangeRatchetCat User Guide
 
 ![Image of GUI](https://github.com/OrangeCatLoves/ip/blob/master/docs/Ui.png?raw=true)
 
