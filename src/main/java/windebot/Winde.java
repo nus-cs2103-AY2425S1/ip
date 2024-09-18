@@ -26,7 +26,6 @@ public class Winde {
      */
 
     Winde(String filePath) {
-        //ui = new Ui();
         history = new History(filePath);
         reminder = new Reminder(history.load());
         commandType = "";
@@ -38,7 +37,6 @@ public class Winde {
      */
 
     public Winde() {
-        //ui = new Ui();
         history = new History();
         reminder = new Reminder(history.load());
         commandType = "";
