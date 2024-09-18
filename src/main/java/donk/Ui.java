@@ -111,5 +111,17 @@ public class Ui {
         return tasksString;
     }
 
+    /**
+     * Returns message to notify user that task has been added
+     * @param t
+     * @param tasks
+     * @return message to show to user
+     */
+    public String notifyAddedTask(Task t, TaskList tasks) {
+        return "Got it. I've added this task:"
+                + "\n" + t.toString()
+                + "You now have " + tasks.size() + " tasks";
+    }
+
 
 }
