@@ -1,7 +1,6 @@
 package bob;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;

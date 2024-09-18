@@ -34,7 +34,8 @@ public abstract class Task {
     }
 
     /**
-     * Check if the given string is contained in the Task Name
+     * Checks if the given string is contained in the Task Name
+     * Returns true if it is contained and false if it is not
      *
      * @param searchString String to search for in the task name
      * @return If the string is in the task name

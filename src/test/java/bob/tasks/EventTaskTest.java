@@ -11,12 +11,21 @@ import org.junit.jupiter.api.Test;
 public class EventTaskTest {
 
     @Test
-    public void eventTaskExportTest() {
+    public void eventTaskExportTestWithoutTime() {
         EventTask eventTaskStandard = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
         assertEquals("event false Test /from 12/01/2001 /to 12/01/2002", eventTaskStandard.export());
 
+        EventTask eventTaskStandardMarked = new EventTask("Test",
+                LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
+        eventTaskStandardMarked.mark();
+        assertEquals("event true Test /from 12/01/2001 /to 12/01/2002", eventTaskStandardMarked.export());
+    }
+
+    @Test
+    public void eventTaskExportTestWithPartialTime() {
         EventTask eventTaskWithStartTime = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")),
@@ -28,19 +37,6 @@ public class EventTaskTest {
                 LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")));
         assertEquals("event false Test /from 12/01/2001 /to 12/01/2002 1800", eventTaskWithEndTime.export());
-
-        EventTask eventTaskComplete = new EventTask("Test",
-                LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
-                LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")),
-                LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
-                LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")));
-        assertEquals("event false Test /from 12/01/2001 1800 /to 12/01/2002 1800", eventTaskComplete.export());
-
-        EventTask eventTaskStandardMarked = new EventTask("Test",
-                LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
-                LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
-        eventTaskStandardMarked.mark();
-        assertEquals("event true Test /from 12/01/2001 /to 12/01/2002", eventTaskStandardMarked.export());
 
         EventTask eventTaskWithStartTimeMarked = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
@@ -55,6 +51,16 @@ public class EventTaskTest {
                 LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")));
         eventTaskWithEndTimeMarked.mark();
         assertEquals("event true Test /from 12/01/2001 /to 12/01/2002 1800", eventTaskWithEndTimeMarked.export());
+    }
+
+    @Test
+    public void eventTaskExportTestWithTime() {
+        EventTask eventTaskComplete = new EventTask("Test",
+                LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")),
+                LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")));
+        assertEquals("event false Test /from 12/01/2001 1800 /to 12/01/2002 1800", eventTaskComplete.export());
 
         EventTask eventTaskCompleteMarked = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
@@ -66,12 +72,21 @@ public class EventTaskTest {
     }
 
     @Test
-    public void eventToStringTest() {
+    public void eventToStringTestWithoutTime() {
         EventTask eventTaskStandard = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
         assertEquals("[E][ ] Test (from: Jan 12 2001 to: Jan 12 2002)", eventTaskStandard.toString());
 
+        EventTask eventTaskStandardMarked = new EventTask("Test",
+                LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
+        eventTaskStandardMarked.mark();
+        assertEquals("[E][X] Test (from: Jan 12 2001 to: Jan 12 2002)", eventTaskStandardMarked.toString());
+    }
+
+    @Test
+    public void eventToStringTestWithPartialTime() {
         EventTask eventTaskWithStartTime = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")),
@@ -83,19 +98,6 @@ public class EventTaskTest {
                 LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")));
         assertEquals("[E][ ] Test (from: Jan 12 2001 to: Jan 12 2002 18:00)", eventTaskWithEndTime.toString());
-
-        EventTask eventTaskComplete = new EventTask("Test",
-                LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
-                LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")),
-                LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
-                LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")));
-        assertEquals("[E][ ] Test (from: Jan 12 2001 18:00 to: Jan 12 2002 18:00)", eventTaskComplete.toString());
-
-        EventTask eventTaskStandardMarked = new EventTask("Test",
-                LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
-                LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
-        eventTaskStandardMarked.mark();
-        assertEquals("[E][X] Test (from: Jan 12 2001 to: Jan 12 2002)", eventTaskStandardMarked.toString());
 
         EventTask eventTaskWithStartTimeMarked = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
@@ -110,6 +112,16 @@ public class EventTaskTest {
                 LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")));
         eventTaskWithEndTimeMarked.mark();
         assertEquals("[E][X] Test (from: Jan 12 2001 to: Jan 12 2002 18:00)", eventTaskWithEndTimeMarked.toString());
+    }
+
+    @Test
+    public void eventToStringTestWithTime() {
+        EventTask eventTaskComplete = new EventTask("Test",
+                LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")),
+                LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                LocalTime.parse("1800", DateTimeFormatter.ofPattern("HHmm")));
+        assertEquals("[E][ ] Test (from: Jan 12 2001 18:00 to: Jan 12 2002 18:00)", eventTaskComplete.toString());
 
         EventTask eventTaskCompleteMarked = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),

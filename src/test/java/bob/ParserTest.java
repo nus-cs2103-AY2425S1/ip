@@ -24,7 +24,8 @@ import bob.tasks.ToDo;
 public class ParserTest {
 
     @Test
-    public void parseCommandTest() throws InvalidInputException, MissingArgumentException, InvalidTaskNumberException, EmptyArgumentException {
+    public void parseCommandTest() throws InvalidInputException, MissingArgumentException,
+            InvalidTaskNumberException, EmptyArgumentException {
         assertInstanceOf(ByeCommand.class, Parser.parseCommand("bye"));
         assertInstanceOf(ListCommand.class, Parser.parseCommand("list"));
         assertInstanceOf(MarkCommand.class, Parser.parseCommand("mark 0"));
