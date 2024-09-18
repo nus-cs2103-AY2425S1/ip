@@ -209,5 +209,5 @@ A: You can just replace the data folder in the new computer with the data folder
 | bye      | `bye`                                                | `bye`                                                  |
 
 
-Have fun managing your tasks with Jay! 🎉
+#### Have fun managing your tasks with Jay! 🎉
 
