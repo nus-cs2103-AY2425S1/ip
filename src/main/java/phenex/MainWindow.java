@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
         String response = phenex.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, phenexImage)
+                DialogBox.getPhenexDialog(response, phenexImage)
         );
         userInput.clear();
     }
