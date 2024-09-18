@@ -16,19 +16,6 @@ import lemon.command.UnmarkTaskCommand;
  * Parse user input into commands
  */
 public class Parser {
-/*
-    public enum Commands {
-        BYE,
-        LIST,
-        MARK,
-        UNMARK,
-        TODO,
-        EVENT,
-        DEADLINE,
-        DELETE,
-        FIND
-    }*/
-
     public static Command parseInputIntoCommand(String input) throws IllegalArgumentException {
         Command command = null;
 

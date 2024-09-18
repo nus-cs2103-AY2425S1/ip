@@ -1,4 +1,4 @@
-package lemon.ui;
+package lemon.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -44,11 +44,23 @@ public class LemonFxWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = lemon.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, lemonImage)
+        dialogContainer.getChildren().add(
+                DialogBox.getUserDialog(input, userImage)
         );
         userInput.clear();
+
+        lemon.respond(input);
+    }
+
+    public void addResponse(String response) {
+        dialogContainer.getChildren().add(
+                DialogBox.getLemonDialog(response, lemonImage)
+        );
+    }
+
+    public void disable() {
+        userInput.setEditable(false);
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
     }
 }

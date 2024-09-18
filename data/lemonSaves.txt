@@ -1,7 +1,7 @@
-T|false|make 1
+T|true|make 1
 T|false|make 2
 T|false|make 3
-T|false|make 4
 T|false|stop make
 T|false|end me
-D|false|fly|2025-03-22
+D|true|fly|2025-03-22
+T|false|add my fav

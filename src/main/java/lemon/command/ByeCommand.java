@@ -8,7 +8,7 @@ public class ByeCommand extends Command{
     }
     @Override
     public void run(Lemon lemonInstance) {
-        lemonInstance.stop();
         lemonInstance.getUi().printEndingMsg();
+        lemonInstance.stop();
     }
 }

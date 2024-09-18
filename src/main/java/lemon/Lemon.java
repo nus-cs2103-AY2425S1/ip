@@ -2,6 +2,7 @@ package lemon;
 
 import java.util.Scanner;
 
+import lemon.app.Launcher;
 import lemon.command.Command;
 
 /**
@@ -34,7 +35,7 @@ public class Lemon {
             return;
         }
 
-        ui.printIntroMsg();
+        intro();
 
         while (isRunning) {
             ui.printBarMsg();
@@ -50,10 +51,17 @@ public class Lemon {
             }
         }
     }
+    public void intro() {
+        ui.printIntroMsg();
+    }
 
     public void stop() {
         boolean isSaved = storage.saveTasks(tasks);
-        isRunning = false;
+        if (Launcher.IS_GUI) {
+            Launcher.exit();
+        } else {
+            isRunning = false;
+        }
         //TODO: Add Storage failed to save exceptions to remove boolean
     }
 
@@ -65,10 +73,11 @@ public class Lemon {
         return tasks;
     }
 
+
     /**
      * JavaFx Implementation
      */
-    public String getResponse(String input) {
+    public void respond(String input) {
         try {
             Command command = Parser.parseInputIntoCommand(input);
             command.run(this);
@@ -77,11 +86,5 @@ public class Lemon {
         } catch (Exception e) {
             ui.printUnexpectedException(e, "UNEXPECTED ERROR FOUND");
         }
-        return "Lemon heard: " + input;
-    }
-
-    public static void main(String[] args) {
-        Lemon lemon = new Lemon();
-        lemon.executeLemon();
     }
 }
