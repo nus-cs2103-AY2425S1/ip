@@ -19,6 +19,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -40,12 +42,14 @@ public class MainWindow extends VBox {
     private Alert alert;
     @FXML
     private Button helpButton;
+    @FXML
 
     private Stage helpStage = new Stage();
     private Denim denim;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image denimImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
 
     @FXML
     private void handleUserInput() {
@@ -92,6 +96,7 @@ public class MainWindow extends VBox {
         Scene scene = new Scene(helpWindow);
         helpStage.setTitle("Help");
         helpStage.setScene(scene);
+        helpStage.setResizable(false);
     }
 
     private void handleExit() {

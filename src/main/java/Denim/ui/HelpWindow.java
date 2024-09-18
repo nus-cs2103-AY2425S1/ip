@@ -24,14 +24,15 @@ public class HelpWindow extends VBox {
         List<String> commandUsages = CommandUsages.COMMAND_USAGES;
         List<String> commandExamples = CommandUsages.COMMAND_EXAMPLES;
 
+        final String prependExample = "Example: ";
+
         assert (CommandUsages.TOTAL_USER_COMMANDS == commandUsages.size());
         assert (CommandUsages.TOTAL_USER_COMMANDS == commandExamples.size());
 
         for (int i = 0; i < commandUsages.size(); i++) {
             String usage = commandUsages.get(i);
             String example = commandExamples.get(i);
-            addInstruction(usage, example);
+            addInstruction(usage, prependExample + example);
         }
-
     }
 }
