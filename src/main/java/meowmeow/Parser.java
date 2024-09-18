@@ -1,6 +1,5 @@
 package meowmeow;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -10,13 +9,13 @@ public class Parser {
     private TaskList tasks;
     private Storage saver;
     private Ui ui;
-    private String initInput;
+    //private String initInput;
 
-    public Parser(TaskList list, Storage saver, Ui ui, String initInput) {
+    public Parser(TaskList list, Storage saver, Ui ui) {
         this.tasks = list;
         this.saver = saver;
         this.ui = ui;
-        this.initInput = initInput;
+        //this.initInput = initInput;
     }
 
     /**
@@ -24,108 +23,101 @@ public class Parser {
      *
      * @throws IOException If an I/O error occurs during saving.
      */
-    public void parse() throws IOException {
-        while (!initInput.equals("bye")) {
+    public String parse(String initInput) throws IOException, InterruptedException {
+        StringBuilder output = new StringBuilder();
+
+        //while (!initInput.equals("bye")) {
             if (initInput.equals("list")) {
-                // Print all tasks
+                // Build the task list output
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + "." + tasks.get(i));
+                    output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
                 }
             } else if (initInput.startsWith("find ")) {
-                //System.out.println(list.size());
                 String keyword = initInput.substring(5);
-                System.out.println(keyword);
                 TaskList matchingTasks = new TaskList();
                 for (Task task : tasks) {
-                    System.out.println(task.getDescription());
                     if (task.getDescription().contains(keyword)) {
                         matchingTasks.add(task);
                     }
                 }
-                System.out.println("Here are the matching tasks in your list:");
+                output.append("Here are the matching tasks in your list:\n");
                 for (int i = 0; i < matchingTasks.size(); i++) {
-                    System.out.println((i + 1) + "." + matchingTasks.get(i));
+                    output.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
                 }
             } else if (initInput.startsWith("mark ")) {
-                // Mark a task as done
                 int taskNumber = Integer.parseInt(initInput.substring(5)) - 1;
                 if (taskNumber >= 0 && taskNumber < tasks.size()) {
                     tasks.get(taskNumber).markDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks.get(taskNumber));
+                    output.append("Nice! I've marked this task as done:\n");
+                    output.append("  ").append(tasks.get(taskNumber)).append("\n");
                     saver.saveData();
                 } else {
-                    System.out.println("Invalid task number.");
+                    output.append("Invalid task number.\n");
                 }
             } else if (initInput.startsWith("unmark ")) {
-                // Unmark a task (mark it as not done)
                 int taskNumber = Integer.parseInt(initInput.substring(7)) - 1;
                 if (taskNumber >= 0 && taskNumber < tasks.size()) {
                     tasks.get(taskNumber).unMark();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks.get(taskNumber));
+                    output.append("OK, I've marked this task as not done yet:\n");
+                    output.append("  ").append(tasks.get(taskNumber)).append("\n");
                     saver.saveData();
                 } else {
-                    System.out.println("Invalid task number.");
+                    output.append("Invalid task number.\n");
                 }
             } else if (initInput.startsWith("todo ")) {
-                // Add a meowmeow.ToDo task
                 String description = initInput.substring(5);
                 ToDo todo = new ToDo(description);
                 tasks.add(todo);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + todo);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                output.append("Got it. I've added this task:\n");
+                output.append("  ").append(todo).append("\n");
+                output.append("Now you have ").append(tasks.size()).append(" tasks in the list.\n");
                 saver.saveData();
             } else if (initInput.startsWith("deadline ")) {
-                // Add a meowmeow.Deadline task
                 String[] parts = initInput.substring(9).split(" /by ");
                 if (parts.length <= 1) {
-                    System.out.println("invalid deadline");
+                    output.append("Invalid deadline.\n");
                 } else {
                     String description = parts[0];
                     String by = parts[1];
                     Deadline deadline = new Deadline(description, by);
                     tasks.add(deadline);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + deadline);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    output.append("Got it. I've added this task:\n");
+                    output.append("  ").append(deadline).append("\n");
+                    output.append("Now you have ").append(tasks.size()).append(" tasks in the list.\n");
                     saver.saveData();
                 }
             } else if (initInput.startsWith("event ")) {
-                // Add an meowmeow.Event task
                 String[] parts = initInput.substring(6).split(" /from | /to ");
                 if (parts.length <= 1) {
-                    System.out.println("invalid event");
+                    output.append("Invalid event.\n");
                 } else {
                     String description = parts[0];
                     String from = parts[1];
                     String to = parts[2];
                     Event event = new Event(description, from, to);
                     tasks.add(event);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + event);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    output.append("Got it. I've added this task:\n");
+                    output.append("  ").append(event).append("\n");
+                    output.append("Now you have ").append(tasks.size()).append(" tasks in the list.\n");
                     saver.saveData();
                 }
             } else if (initInput.startsWith("delete ")) {
-                // Delete a task
                 int taskNumber = Integer.parseInt(initInput.substring(7)) - 1;
                 if (taskNumber >= 0 && taskNumber < tasks.size()) {
                     Task removedTask = tasks.remove(taskNumber);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println("  " + removedTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    output.append("Noted. I've removed this task:\n");
+                    output.append("  ").append(removedTask).append("\n");
+                    output.append("Now you have ").append(tasks.size()).append(" tasks in the list.\n");
                     saver.saveData();
                 } else {
-                    System.out.println("Invalid task number.");
+                    output.append("Invalid task number.\n");
                 }
+            } else if (initInput.startsWith("bye")) {
+                output.append("Bye. Hope to see you again soon!\n");
             } else {
-                System.out.println("Sorry, I don't know what that means.");
+                output.append("Sorry, I don't know what that means.\n");
             }
-            initInput = Ui.getNext();
-        }
-
-        System.out.println("Bye. Hope to see you again soon!");
+            //initInput = Ui.getNext();
+        return output.toString();
     }
 }

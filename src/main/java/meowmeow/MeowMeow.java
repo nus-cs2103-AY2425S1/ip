@@ -25,9 +25,13 @@ public class MeowMeow {
     public void run() throws IOException {
         this.saver.getData();
         this.tasks = saver.getTaskList();
-        String input = Ui.start();
-        this.parser = new Parser(this.tasks, this.saver, this.ui, input);
-        this.parser.parse();
+        //Ui.start();
+        this.parser = new Parser(this.tasks, this.saver, this.ui);
+        //this.parser.parse();
+    }
+
+    public Parser getParser() {
+        return this.parser;
     }
 
     /**
@@ -36,7 +40,7 @@ public class MeowMeow {
      *
      * @throws IOException If an I/O error occurs when finding the save file.
      */
-    public static void main(String[] args) throws IOException {
-        new MeowMeow("./data/meowmeow.txt").run();
-    }
+    //public static void main(String[] args) throws IOException {
+//        new MeowMeow("./data/meowmeow.txt").run();
+//    }
 }
