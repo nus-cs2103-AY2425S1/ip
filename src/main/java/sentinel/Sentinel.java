@@ -9,7 +9,6 @@ import sentinel.storage.FileWriter;
 import sentinel.ui.Ui;
 import sentinel.utils.Parser;
 import sentinel.utils.SentinelList;
-import sentinel.utils.SentinelString;
 
 /**
  * The {@code Sentinel} class is the main entry point for the Sentinel application.
@@ -52,7 +51,7 @@ public class Sentinel {
             } catch (IllegalArgumentException e) {
                 ui.showUnrecognisedCommand();
             } catch (SentinelException e) {
-                // ui.showError(e); (commented out code)
+                ui.showError(e);
             }
             ui.showLine();
             new FileWriter(list).saveTasks();
@@ -72,13 +71,13 @@ public class Sentinel {
      * Enumeration of possible command types that can be issued by the user.
      */
     public enum CommandType {
-        todo, deadline, event, list, find, mark, unmark, delete, help, bye
+        todo, deadline, event, list, find, mark, unmark, delete, reschedule, help, bye
     }
 
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
+    public String getResponse(String input) throws InvalidCommandException {
         Command command;
         try {
             new FileWriter(list).saveTasks();
@@ -86,7 +85,7 @@ public class Sentinel {
             command = Command.createCommand(commandType, ui, list);
             return command.execute(input);
         } catch (InvalidCommandException e) {
-            return SentinelString.stringUnrecognisedCommand();
+            throw e;
         } catch (SentinelException e) {
             return e.getMessage();
         }

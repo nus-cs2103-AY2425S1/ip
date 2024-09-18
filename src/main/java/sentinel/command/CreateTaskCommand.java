@@ -40,7 +40,7 @@ public class CreateTaskCommand extends Command {
     public String execute(String input) throws SentinelException {
         Task newTask = Parser.parseTask(commandType, input, ui);
         if (newTask == null) {
-            throw new ExecutionException("Unable to execute CreateTask");
+            throw new ExecutionException();
         }
         list.add(newTask);
         ui.showAddedTask(newTask);

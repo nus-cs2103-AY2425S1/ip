@@ -77,14 +77,14 @@ public class SentinelString {
      * @return Error message with exception details.
      */
     public static String stringError(Exception e) {
-        return "Sentinel just experienced an error! " + e.getMessage() + "\n" + line;
+        return "Oh no, I just experienced an error! Please report this error message: " + e.getMessage() + "\n" + line;
     }
 
     /**
      * Returns a goodbye message when the application ends.
      */
     public static String stringGoodbye() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye bye! Hope to see you again soon!";
     }
 
     /**
@@ -146,7 +146,7 @@ public class SentinelString {
      * Returns an error message for unrecognized commands.
      */
     public static String stringUnrecognisedCommand() {
-        return "Unrecognised Sentinel command. Type \"help\" to list all commands.";
+        return "Hey... that's something new that I don't know... Type \"help\" to list commands that I know!.";
     }
 
     /**
@@ -156,7 +156,7 @@ public class SentinelString {
      * @return Message indicating if the task is marked or unmarked.
      */
     public static String stringTaskMark(Task t) {
-        return "Alright! I've marked this task as " + (t.isDone() ? "done" : "undone") + ":\n\t"
+        return "Okiee! I've marked this task as " + (t.isDone() ? "done" : "undone") + ":\n\t"
                 + t.getStatusIcon() + " " + t;
     }
 
