@@ -49,7 +49,8 @@ public class GeminiApi {
                 assert(responseCode == 200);
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    if (line.contains("text")) {
+                    System.out.println(line);
+                    if (!line.contains("text")) {
                         continue;
                     }
                     return line.substring(line.indexOf(":") + 3);

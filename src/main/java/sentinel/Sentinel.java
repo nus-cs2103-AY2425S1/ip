@@ -2,7 +2,6 @@ package sentinel;
 
 import sentinel.command.ByeCommand;
 import sentinel.command.Command;
-import sentinel.exception.InvalidCommandException;
 import sentinel.exception.SentinelException;
 import sentinel.storage.FileLoader;
 import sentinel.storage.FileWriter;
@@ -77,17 +76,11 @@ public class Sentinel {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) throws InvalidCommandException {
+    public String getResponse(String input) throws SentinelException {
         Command command;
-        try {
-            new FileWriter(list).saveTasks();
-            Sentinel.CommandType commandType = Parser.parseForCommand(input);
-            command = Command.createCommand(commandType, ui, list);
-            return command.execute(input);
-        } catch (InvalidCommandException e) {
-            throw e;
-        } catch (SentinelException e) {
-            return e.getMessage();
-        }
+        new FileWriter(list).saveTasks();
+        CommandType commandType = Parser.parseForCommand(input);
+        command = Command.createCommand(commandType, ui, list);
+        return command.execute(input);
     }
 }
