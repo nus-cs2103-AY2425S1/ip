@@ -24,7 +24,7 @@ public class ToDoTest {
             assertEquals("| T |   | ", new ToDo("").getDesc());
             System.out.println("Fail");
         } catch (YapperException e) {
-            assertEquals("Description cannot be empty", e.getMessage());
+            assertEquals("Please provide a description", e.getMessage());
         }
     }
 }

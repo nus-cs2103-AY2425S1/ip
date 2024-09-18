@@ -25,21 +25,21 @@ public class DeadlineTest {
             assertEquals("| D |   |   | by", new Deadline("", "by").getDesc());
             System.out.println("Fail");
         } catch (YapperException e) {
-            assertEquals("Description cannot be empty", e.getMessage());
+            assertEquals("Please provide a description", e.getMessage());
         }
 
         try {
             assertEquals("| D |   | desc | ", new Deadline("desc", "").getDesc());
             System.out.println("Fail");
         } catch (YapperException e) {
-            assertEquals("Description cannot be empty", e.getMessage());
+            assertEquals("Please provide a description", e.getMessage());
         }
 
         try {
             assertEquals("| D |   |   | ", new Deadline("", "").getDesc());
             System.out.println("Fail");
         } catch (YapperException e) {
-            assertEquals("Description cannot be empty", e.getMessage());
+            assertEquals("Please provide a description", e.getMessage());
         }
     }
 }

@@ -17,9 +17,6 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) {
         super(description);
-        if (deadline.isEmpty()) {
-            throw new YapperException("Description cannot be empty");
-        }
         this.deadline = deadline;
     }
 

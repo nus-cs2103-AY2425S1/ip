@@ -159,7 +159,7 @@ public class Task {
      * @return the task description with completion status
      */
     public String getDesc() {
-        return (this.isDone ? "X" : "") + " | " + this.description;
+        return (this.isDone ? "X" : " ") + " | " + this.description;
     }
 
     /**
