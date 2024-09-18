@@ -92,7 +92,7 @@ These are your tasks on Nov 26 2024.
 ## List all Tasks filtered by Keyword `find`
 **Tasks containing a specified keyword** can be **listed out** for easy view and reference.
 
-**Example:** `find finals` Lists all tasks containing the specified keyword.
+**Example:** `find finals` Lists all tasks containing the specified keyword "finals".
 ```
 Here are the matching tasks in your list for FINALS.
 1. [D] [ ] CS2103T Software Engineering Finals (by: Nov 26 2024 17:00HRS)
