@@ -4,7 +4,7 @@
 
 > Will store your tasks in my trusty zippers with my *Stickyyyy Fingaaaz* (Sticky Fingers)!
 
-Bruno will unzip open your brain, find and store any task you have in mind, and make you **headache-free** :100:
+Bruno will unzip open your brain, find and store any task you have in mind, and make you **headache-free**
 
 ## Adding todo tasks
 
