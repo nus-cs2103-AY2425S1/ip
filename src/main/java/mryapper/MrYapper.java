@@ -1,11 +1,10 @@
 package mryapper;
 
 import mryapper.command.Command;
-import mryapper.exception.IllegalTaskException;
 import mryapper.exception.InvalidFileDataException;
 import mryapper.exception.InvalidSyntaxException;
 import mryapper.parser.Parser;
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 import mryapper.task.TaskList;
 
 import java.io.IOException;
@@ -19,7 +18,7 @@ public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
     private static final String TASK_DATA_PATH = "src/data/tasks.txt";
-    private final StorageManager storageManager;
+    private final Storage storage;
     private TaskList tasks;
 
     /**
@@ -30,7 +29,7 @@ public class MrYapper {
      * @param filePath The relative file path of data file.
      */
     public MrYapper(String filePath) {
-        this.storageManager = new StorageManager(filePath);
+        this.storage = new Storage(filePath);
     }
 
     /**
@@ -40,7 +39,7 @@ public class MrYapper {
      * @throws InvalidFileDataException Thrown if the data file has an invalid format or is corrupted.
      */
     public void loadData() throws IOException, InvalidFileDataException {
-        this.tasks = storageManager.loadData();
+        this.tasks = storage.loadData();
     }
 
     /**
@@ -63,8 +62,8 @@ public class MrYapper {
 
             Command c = Parser.parse(input);
             assert c != null: "Command should not be null";
-            return c.execute(tasks, storageManager);
-        } catch (IllegalTaskException | InvalidSyntaxException | IllegalArgumentException e) {
+            return c.execute(tasks, storage);
+        } catch (InvalidSyntaxException | IllegalArgumentException e) {
             return e.getMessage();
         }
     }

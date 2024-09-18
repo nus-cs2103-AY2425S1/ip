@@ -1,6 +1,6 @@
 package mryapper.task;
 
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +26,16 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    /**
+     * Gets the task from the list with the given index.
+     *
+     * @param i The index of the task to get starting from 1.
+     * @return The ith task in the list.
+     */
+    public Task get(int i) {
+        return this.taskList.get(i - 1);
     }
 
     /**
@@ -85,7 +95,7 @@ public class TaskList {
      *
      * @param storage The storage to save the list of tasks to.
      */
-    public void saveToStorage(StorageManager storage) {
+    public void saveToStorage(Storage storage) {
         try {
             storage.saveTasks(this.taskList);
         } catch (IOException e) {
@@ -118,7 +128,7 @@ public class TaskList {
         if (isTaskListEmpty) {
             return "You do not have any tasks!";
         }
-        assert listSize > 0: "Number of tasks should be greater than 0";
+        assert this.count() > 0: "Number of tasks should be greater than 0";
 
         String listInString = "";
         for (int i = 0; i < this.count(); i += 1) {

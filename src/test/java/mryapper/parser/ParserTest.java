@@ -1,7 +1,6 @@
 package mryapper.parser;
 
 import mryapper.command.Command;
-import mryapper.exception.IllegalTaskException;
 import mryapper.exception.InvalidSyntaxException;
 
 import org.junit.jupiter.api.Test;
@@ -233,7 +232,7 @@ public class ParserTest {
         try {
             assertInstanceOf(Command.class, Parser.parse("deadline "));
             fail();
-        } catch (IllegalTaskException e) {
+        } catch (InvalidSyntaxException e) {
             assertEquals(" You need to provide the task details!\n"
                     + " I need one description and deadline using \"/by\"\n"
                     + " e.g. deadline CS2103T project /by Dec 31st",
