@@ -8,8 +8,10 @@ import ScoobyDoo.Command.DeleteCommand;
 import ScoobyDoo.Command.EventCommand;
 import ScoobyDoo.Command.FindCommand;
 import ScoobyDoo.Command.MarkCommand;
+import ScoobyDoo.Command.RedoCommand;
 import ScoobyDoo.Command.TodoCommand;
 import ScoobyDoo.Command.UnMarkCommand;
+import ScoobyDoo.Command.UndoCommand;
 import ScoobyDoo.exception.InputFormatException;
 import ScoobyDoo.Command.Command;
 import ScoobyDoo.Command.ListCommand;
@@ -82,6 +84,8 @@ public class Parser {
                         getEventFromAndToDate(input)[1]);
                 case "bye" -> new ByeCommand();
                 case "find" -> new FindCommand(getDescription(input));
+                case "undo" -> new UndoCommand();
+                case "redo" -> new RedoCommand();
                 default -> throw new NoMatchingInputException();
         };
     }

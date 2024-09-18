@@ -1,18 +1,14 @@
 package ScoobyDoo.Command;
 
 import ScoobyDoo.UI.UI;
+import ScoobyDoo.Undo.Undoable;
 import ScoobyDoo.storage.Storage;
+import ScoobyDoo.task.Task;
 import ScoobyDoo.task.TaskList;
 
-public class DeleteCommand extends Command{
-//    try {
-//        int i = TaskList.getDeleteNumber(input);
-//        return ui.printFormattedResponse(taskList.deleteTask(i));
-//    } catch (
-//    InputFormatException e) {
-//        return ui.printErrorMessage(e.getMessage());
-//    }
-    int num;
+public class DeleteCommand extends Command implements Undoable {
+    private int num;
+    private Task deletedTask;
 
     public DeleteCommand (int num) {
         this.num = num;
@@ -20,8 +16,22 @@ public class DeleteCommand extends Command{
 
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {
-        String deleteMsg = taskList.deleteTask(num);
+        taskList.undoHistory.add(this);
+        this.deletedTask = taskList.deleteTask(num);
         storage.writeFile(taskList.toFileFormatString());
-        return ui.response(deleteMsg);
+        return ui.response(String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list."
+                , deletedTask.toString(), taskList.size()));
+    }
+
+    @Override
+    public String undo(UI ui, TaskList taskList, Storage storage) {
+        String addMsg = taskList.addTask(deletedTask);
+        return ui.response(String.format("Undo success:\n%s",addMsg));
+    }
+
+    @Override
+    public String redo(UI ui, TaskList taskList, Storage storage) {
+        String executeMsg = execute(taskList, ui, storage);
+        return ui.response(String.format("Redo success:\n%s", executeMsg));
     }
 }

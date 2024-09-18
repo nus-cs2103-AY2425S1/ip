@@ -2,6 +2,7 @@ package ScoobyDoo.task;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import ScoobyDoo.Undo.UndoHistory;
 import ScoobyDoo.exception.InputFormatException;
 
 /**
@@ -10,21 +11,25 @@ import ScoobyDoo.exception.InputFormatException;
  */
 public class TaskList {
     private final ArrayList<Task> list;
+    public final UndoHistory undoHistory;
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
         list = new ArrayList<>();
+        undoHistory = new UndoHistory(10);
     }
 
     /**
      * Constructs a TaskList with a given list of tasks.
      *
-     * @param list The ArrayList of tasks to initialize the TaskList with.
+     * @param list        The ArrayList of tasks to initialize the TaskList with.
+     * @param undoHistory The history of commands of TaskList
      */
-    public TaskList(ArrayList<Task> list) {
+    public TaskList(ArrayList<Task> list, UndoHistory undoHistory) {
         this.list = list;
+        this.undoHistory = undoHistory;
     }
 
     /**
@@ -99,10 +104,8 @@ public class TaskList {
      * @param i The index of the task to be deleted.
      * @return A string confirming the deletion of the task.
      */
-    public String deleteTask (int i) {
-        Task deletedTask = list.remove(i - 1);
-        return String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list."
-                , deletedTask.toString(), list.size());
+    public Task deleteTask (int i) {
+        return list.remove(i - 1);
     }
 
 
@@ -128,7 +131,16 @@ public class TaskList {
     public TaskList find(String targetWord) {
         ArrayList<Task> matchedTask = this.list.stream().filter(task -> task.find(targetWord))
                 .collect(Collectors.toCollection(ArrayList<Task>::new));//stream is useful for filtering out from ArrayList
-        return new TaskList(matchedTask);
+        return new TaskList(matchedTask, new UndoHistory(10));
     }
 
+    public String deleteLast() {
+        Task lastTask = this.list.get(list.size() - 1);
+        this.list.remove(list.size() - 1);
+        return String.format("%s deleted", lastTask.toString());
+    }
+
+    public int size() {
+        return list.size();
+    }
 }

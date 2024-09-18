@@ -1,6 +1,7 @@
 package ScoobyDoo.UI;
 import ScoobyDoo.Command.Command;
 import ScoobyDoo.Parser.Parser;
+import ScoobyDoo.Undo.UndoHistory;
 import ScoobyDoo.exception.InputFormatException;
 import ScoobyDoo.storage.Storage;
 import ScoobyDoo.task.TaskList;
@@ -28,7 +29,7 @@ public class ScoobyDoo {
         storage = new Storage(FilePath);
         ui = new UI();
         try {
-            taskList = new TaskList(storage.load());
+            taskList = new TaskList(storage.load(), new UndoHistory(10));
         } catch (IOException e) {
             ui.printErrorMessage("cannot parse data from file");
             taskList = new TaskList();
