@@ -48,26 +48,11 @@ public class Parser {
         case "list":
             return new ListCommand(taskList);
         case "mark":
-            if (restOfCommand.matches("\\d+")) {
-                int taskNumber = Integer.parseInt(restOfCommand);
-                return new MarkCommand(taskList, taskNumber);
-            } else {
-                throw new NoNumberStobberiException("Where is the number?");
-            }
+            return new MarkCommand(taskList, restOfCommand);
         case "unmark":
-            if (restOfCommand.matches("\\d+")) {
-                int taskNumber = Integer.parseInt(restOfCommand);
-                return new UnmarkCommand(taskList, taskNumber);
-            } else {
-                throw new NoNumberStobberiException("Where is the number?");
-            }
+            return new UnmarkCommand(taskList, restOfCommand);
         case "delete":
-            if (restOfCommand.matches("\\d+")) {
-                int taskNumber = Integer.parseInt(restOfCommand);
-                return new DeleteCommand(taskList, taskNumber);
-            } else {
-                throw new NoNumberStobberiException("Where is the number?");
-            }
+                return new DeleteCommand(taskList, restOfCommand);
         case "date":
             return new DateCommand(taskList, restOfCommand);
         case "todo":
@@ -81,7 +66,7 @@ public class Parser {
         case "?":
             return new HelpCommand();
         default:
-            throw new NoSuchTaskStobberiException("I'm sowwwy! I just don't know how to do that yettt.");
+            throw new NoSuchTaskStobberiException("I just don't know how to do that yettt.");
         }
     }
 }

@@ -28,13 +28,13 @@ public class TaskList {
      */
     public String markTask(int number) throws StobberiException {
         if (number > listOfTasks.size()) {
-            throw new InvalidNumberStobberiException("I'm sorry. The number you gave is too big!");
+            throw new InvalidNumberStobberiException("The number you gave is too bigggg!");
         }
         if (number < 1) {
-            throw new InvalidNumberStobberiException("I'm sorry. The number you gave is too small!");
+            throw new InvalidNumberStobberiException("The number you gave is too smallllll!");
         }
         listOfTasks.get(number - 1).setDone();
-        String done = "Nice! I've marked this task as done:\n"
+        String done = "Yayyyyyye! I've marked this task as done:\n"
                 + "  ";
         done += listOfTasks.get(number - 1).toString();
         return done;
@@ -47,10 +47,10 @@ public class TaskList {
      */
     public String unmarkTask(int number) throws StobberiException {
         if (number > listOfTasks.size()) {
-            throw new InvalidNumberStobberiException("I'm sorry. The number you gave is too big!");
+            throw new InvalidNumberStobberiException("The number you gave is too bigggg!");
         }
         if (number < 1) {
-            throw new InvalidNumberStobberiException("I'm sorry. The number you gave is too small!");
+            throw new InvalidNumberStobberiException("The number you gave is too smallllll!");
         }
         listOfTasks.get(number - 1).setNotDone();
         String done = "OK, I've marked this task as not done yet:\n"
@@ -78,7 +78,7 @@ public class TaskList {
     public String delete(int number) {
         Task temp = listOfTasks.get(number - 1);
         listOfTasks.remove(number - 1);
-        String done = "Noted. I've removed this task:\n"
+        String done = "Okiieee! I've removed this task:\n"
                 + "  " + temp
                 + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
         return done;
@@ -88,7 +88,7 @@ public class TaskList {
      * Displays the last added task.
      */
     public String displayLastAddedTask() {
-        return "Got it. I've added this task:\n    "
+        return "Okiiiiee! I've added this task:\n    "
                 + listOfTasks.get(listOfTasks.size() - 1)
                 + "\n"
                 + "Now you have " + listOfTasks.size() + " in the list.";
@@ -100,7 +100,7 @@ public class TaskList {
      * @param word the word to search for in the task descriptions
      */
     public String filterListByWord(String word) {
-        String list = "Here are the matching tasks in your list:";
+        String list = "Here ya go! The matching tasks in your list:";
         int n = 1;
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             Task task = listOfTasks.get(i - 1);
@@ -117,7 +117,7 @@ public class TaskList {
      * @param date The date to filter tasks by.
      */
     public String filterListByDate(String date) {
-        String list = "Here are the tasks in your list that you have to do on " + date + ":\n";
+        String list = "Here ya go! The tasks in your list that you have to do on " + date + ":\n";
         int n = 1;
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             Task task = listOfTasks.get(i - 1);

@@ -16,6 +16,6 @@ public class StobberiException extends Exception {
      *                the {@link #getMessage()} method.
      */
     public StobberiException(String message) {
-        super("Hehhehehehheheh ummmMMM!!!!\n\n" + message);
+        super("UMmmmmm, I'm weallly sowwyyy!!!!\n\n" + message);
     }
 }

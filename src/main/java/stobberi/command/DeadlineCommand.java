@@ -47,10 +47,10 @@ public class DeadlineCommand extends Command {
         String output;
 
         if (descriptions.isEmpty()) {
-            throw new EmptyStobberiException("Where is the task?");
+            throw new EmptyStobberiException("Where is the task???");
         }
         if (taskList.hasTask(descriptions)) {
-            throw new SameTaskStobberiException("I'm sorri! This task has already been added!");
+            throw new SameTaskStobberiException("This task actually has already been added!");
         }
 
         String[] parts = descriptions.split(" /by ");
