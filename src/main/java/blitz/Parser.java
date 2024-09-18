@@ -20,7 +20,7 @@ import exception.BlitzInvalidParameterRegexException;
 import exception.BlitzNoParameterException;
 
 /**
- * Responsibles to parse command String and convert it into corresponding Command Object.
+ * Handles parsing of command String and convert it into corresponding Command Object.
  */
 public class Parser {
     private static final Pattern LIST_PATTERN = Pattern.compile("^list\\s*$");
