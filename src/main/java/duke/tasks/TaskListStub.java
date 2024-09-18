@@ -13,8 +13,7 @@ public class TaskListStub extends TaskList {
     private List<Task> listOfTasks;
 
     /**
-     * Constructs a `TaskListStub` object with ui.
-     *
+     * Constructs a `TaskListStub` object.
      */
     public TaskListStub() throws IOException, InvalidDateException {
         this.listOfTasks = new ArrayList<>();

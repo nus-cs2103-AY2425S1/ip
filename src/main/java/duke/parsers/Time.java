@@ -28,6 +28,7 @@ public class Time {
     public Time(String dateTimeString) throws InvalidDateException {
         parseDateTime(dateTimeString);
     }
+
     private void parseDateTime(String dateTimeString) throws InvalidDateException {
         if (tryParseDateTime(dateTimeString)) {
             return;
@@ -62,7 +63,7 @@ public class Time {
     /**
      * Converts the Time object to LocalDateTime. If only date is available, it assumes time as 00:00.
      *
-     * @return LocalDateTime representing the date and time (or midnight if time is missing)
+     * @return LocalDateTime representing the date and time (or midnight if time is missing).
      */
     public LocalDateTime toLocalDateTime() {
         if (hasTime) {

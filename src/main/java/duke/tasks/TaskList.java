@@ -11,8 +11,9 @@ import duke.exceptions.InvalidTaskInDatabaseException;
 import duke.exceptions.TaskNotFoundException;
 
 /**
- * This class represents a list containing tasks.
- * It provides methods to add, mark, unmark and print tasks in the list.
+ * This class represents a list containing all three forms of tasks.
+ * It provides methods to add, mark, unmark, find, delete and print tasks in the list.
+ * It set reminder if needed.
  */
 public class TaskList {
     private static TaskList tasks;
@@ -27,6 +28,7 @@ public class TaskList {
      * Initializes the `TaskList` if it hasn't been initialized yet.
      *
      * @return The initialized `TaskList` instance.
+     * @throws InvalidTaskInDatabaseException If tasks information stored in file is invalid.
      */
     public static TaskList init() throws InvalidTaskInDatabaseException {
         if (tasks == null) {
@@ -96,9 +98,9 @@ public class TaskList {
     }
 
     /**
-     * Adds new task to todolist.
+     * Adds new task to task list.
      *
-     * @param task The name of task to be added.
+     * @param task The task to be added.
      */
     public String addTask(Task task) {
         listOfTasks.add(task);
@@ -111,7 +113,8 @@ public class TaskList {
      * Marks specific task as done.
      *
      * @param index The task number to be marked.
-     * @return Description of task marked returned.
+     * @return Message to inform the user task has been marked.
+     * @throws TaskNotFoundException If the index is out of bounds, no task exists at the specified index.
      */
     public String markTask(int index) throws TaskNotFoundException {
 
@@ -125,7 +128,8 @@ public class TaskList {
      * Marks specific task as not done.
      *
      * @param index The task number to be marked.
-     * @return Description of task unmarked returned.
+     * @return Message to inform the user task has been unmarked.
+     * @throws TaskNotFoundException If the index is out of bounds, no task exists at the specified index.
      */
     public String unmarkTask(int index) throws TaskNotFoundException {
         Task task = getTaskByIndex(index);
@@ -137,8 +141,9 @@ public class TaskList {
     /**
      * Deletes a task from the task list at the specified index.
      *
-     * @param index The index of the task to be deleted (1-based index).
-     * @throws TaskNotFoundException If the index is out of bounds, meaning no task exists at the specified index.
+     * @param index The index of the task to be deleted.
+     * @return Message to inform the user task has been deleted.
+     * @throws TaskNotFoundException If the index is out of bounds, no task exists at the specified index.
      */
     public String deleteTask(int index) throws TaskNotFoundException {
         Task removedTask = getTaskByIndex(index);
@@ -150,7 +155,7 @@ public class TaskList {
     }
 
     /**
-     * Print all tasks added to the list.
+     * Prints all tasks added to the list.
      *
      * @return The description of all tasks added.
      */
@@ -167,6 +172,9 @@ public class TaskList {
 
     /**
      * Prints all tasks matching user input.
+     *
+     * @return The description of all tasks added.
+     * @throws TaskNotFoundException If the index is out of bounds, no task exists at the specified index.
      */
     public String findTask(String keyword) throws TaskNotFoundException {
         List<Task> matchingTasks = new ArrayList<>();

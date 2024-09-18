@@ -16,9 +16,9 @@ public class Parser {
     private TaskList taskList;
 
     /**
-     * Constructs a `Parser` object with the specified task list and user interface.
+     * Constructs a `Parser` object with the specified TaskList.
      *
-     * @param taskList The `TaskList` object that stores the tasks.
+     * @param taskList The `TaskList` object that stores the tasks of users.
      */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
@@ -28,7 +28,7 @@ public class Parser {
      * Parses and processes the user's input command.
      *
      * @param userInput The input command provided by the user.
-     * @return `true` if the "bye" command is given, signaling the end of the session; `false` otherwise.
+     * @return output to user.
      * @throws InvalidInputException If the input command is not recognized.
      * @throws MissingTaskNameException If a task name is missing when adding a task.
      * @throws MissingDateException If a date is missing when adding a deadline or event task.
