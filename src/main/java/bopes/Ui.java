@@ -5,8 +5,9 @@ import bopes.task.Task;
 import bopes.task.TaskList;
 
 /**
- * The Ui class handles all interactions with the user. It provides methods to display messages,
- * read user input, and show the status of tasks in the task list.
+ * The Ui class handles all interactions with the user. 
+ * It provides methods to display messages, read user input, 
+ * and show the status of tasks in the task list.
  */
 public class Ui {
     private Scanner scanner;
@@ -38,7 +39,7 @@ public class Ui {
         } else {
             System.out.println("No input detected. Exiting...");
             System.exit(0);
-            return "";
+            return ""; // This line will never be reached
         }
     }
 
@@ -140,6 +141,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a goodbye message to the user.
+     */
     public void showGoodbye() {
         System.out.println("Goodbye!");
     }

@@ -28,7 +28,7 @@ public class Parser {
             String[] commandWords = fullCommand.split(" ", 2);
             assert commandWords.length > 0 : "Command should not be empty.";
             String commandType = commandWords[0];
-            
+
             switch (commandType) {
                 case "bye":
                     return new CommandResult(handleByeCommand(), false); // `false` means no error
@@ -147,7 +147,7 @@ public class Parser {
         storage.saveTasks(tasks);
         return "Added task: " + newTask.toString();
     }
-    
+
     private static Task createTask(String input) throws BopesException {
         if (input.startsWith("todo ")) {
             return createTodoTask(input);
@@ -159,24 +159,24 @@ public class Parser {
             throw BopesException.unknownCommand();
         }
     }
-    
+
     private static Task createTodoTask(String input) {
-        return new ToDo(input.substring(5).trim(), false);  // Remove "todo " prefix
+        return new ToDo(input.substring(5).trim(), false);
     }
-    
+
     private static Task createDeadlineTask(String input) throws BopesException {
         String[] temp = input.substring(9).split(" /by ");
         if (temp.length == 2) {
-            return new Deadline(temp[0].trim(), temp[1].trim(), false);  // Remove "deadline " prefix
+            return new Deadline(temp[0].trim(), temp[1].trim(), false);
         } else {
             throw BopesException.invalidDeadlineFormat();
         }
     }
-    
+
     private static Task createEventTask(String input) throws BopesException {
         String[] temp = input.substring(6).split(" /from | /to ");
         if (temp.length == 3) {
-            return new Event(temp[0].trim(), temp[1].trim(), temp[2].trim(), false);  // Remove "event " prefix
+            return new Event(temp[0].trim(), temp[1].trim(), temp[2].trim(), false);
         } else {
             throw BopesException.invalidEventFormat();
         }
@@ -200,7 +200,7 @@ public class Parser {
             throw new BopesException("Corrupted data: Insufficient task data in file.");
         }
         String taskType = data[0];
-        boolean isDone = data[1].trim().equals("1");  // Parse the done status
+        boolean isDone = data[1].trim().equals("1");
         String description = data[2].trim();
 
         switch (taskType) {
@@ -224,3 +224,4 @@ public class Parser {
         }
     }
 }
+   
