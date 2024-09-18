@@ -70,19 +70,21 @@ public class StorageHandler {
      */
     public void loadTaskList(TaskManager manager) throws BottyException {
         Path filePath = Paths.get(directoryPath, fileName);
+
+        if (Files.notExists(filePath)) {
+            try {
+                Files.createFile(filePath);
+            } catch (IOException e) {
+                System.err.println("IO Exception occurred while creating file");
+                e.printStackTrace();
+            }
+        }
+        
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
 
             while ((line = reader.readLine()) != null) {
                 manager.addTask(Task.getTaskFromDataString(line));
-            }
-        } catch (NoSuchFileException ex) {
-            // if file not found, create the file
-            try {
-                Files.createFile(filePath);
-            } catch (IOException ioEx) {
-                System.err.println("IO Exception occurred while creating file");
-                ex.printStackTrace();
             }
         } catch (IOException ex) {
             System.err.println("IO Exception occurred while reading file");
