@@ -120,21 +120,21 @@ Example of usage
 
 ### Command Summary
 
-| Action                  | Format                             | Examples                                  |
-|-------------------------|------------------------------------|-------------------------------------------|
-| Add Todo                | `todo <description>`               | `todo buy groceries`                     |
-| Add Deadline            | `deadline <description> /by <date>`| `deadline submit assignment /by 12-12-2021 23:59` |
-| Add Event               | `event <description> /from <date> /to <date>` | `event project /from 12-12-2021 /to 12-12-2021` |
-| List                    | `list`                             | `list`                                    |
-| Mark as Done            | `mark <task number>`               | `mark 1`                                  |
-| Mark as Undone          | `unmark <task number>`             | `unmark 1`                                |
-| Delete                  | `delete <task number>`             | `delete 1`                                |
-| Find                    | `find <keyword>`                   | `find assignment`                         |
-| Tag                     | `tag /i <task number> /t <tag>`    | `tag /i 1 /t tag1`                        |
-| Untag                   | `untag /i <task number> /t <tag>`  | `untag /i 1 /t tag1`                      |
-| List all tags           | `alltags`                          | `alltags`                                 |
-| Find tasks with tag     | `findtag <tag>`                    | `findtag tag1`                            |
-| Exit                    | `bye`                              | `bye`   
+| Action              | Format                                        | Examples                                          |
+|---------------------|-----------------------------------------------|---------------------------------------------------|
+| Add Todo            | `todo <description>`                          | `todo buy groceries`                              |
+| Add Deadline        | `deadline <description> /by <date>`           | `deadline submit assignment /by 12-12-2021 23:59` |
+| Add Event           | `event <description> /from <date> /to <date>` | `event project /from 12-12-2021 /to 12-12-2021`   |
+| List                | `list`                                        | `list`                                            |
+| Mark as Done        | `mark <task number>`                          | `mark 1`                                          |
+| Mark as Undone      | `unmark <task number>`                        | `unmark 1`                                        |
+| Delete              | `delete <task number>`                        | `delete 1`                                        |
+| Find                | `find <keyword>`                              | `find assignment`                                 |
+| Tag                 | `tag /i <task number> /t <tag>`               | `tag /i 1 /t tag1`                                |
+| Untag               | `untag /i <task number> /t <tag>`             | `untag /i 1 /t tag1`                              |
+| List all tags       | `alltags`                                     | `alltags`                                         |
+| Find tasks with tag | `findtag <tag>`                               | `findtag tag1`                                    |
+| Exit                | `bye`                                         | `bye`                                             |
 
 
 
