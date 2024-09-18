@@ -82,7 +82,7 @@ Your input data will be automatically saved in the program's disk.
 | __Add a *Deadline* task__ | `deadline [task name] /by [deadline yyyy-MM-dd HHmm]`<br/>e.g., `deadline submit the Tec-gic assignment /by 2024-09-16 1300`                                    |
 | __Add an *Event* task__   | `event [task name] /from [start yyyy-MM-dd HHmm] /to [end yyyy-DD-mm HHmm]`<br/>e.g., `event join a casual Tec-dance /from 2024-09-20 1300 /to 2024-09-20 1500` |
 | __List__                  | `list`                                                                                                                                                          |
-| __Find__                  | `find [keyword]`br/>e.g., `find school`                                                                                                                         |
+| __Find__                  | `find [keyword]`<br/>e.g., `find school`                                                                                                                        |
 | __Mark__                  | `mark [index number]`<br/>e.g., `mark 2`                                                                                                                        |
 | __Unmark__                | `unmark [index number]`<br/>e.g., `unmark 2`                                                                                                                    |
 | __Delete__                | `delete [index number]`<br/>e.g., `delete 2`                                                                                                                    |
