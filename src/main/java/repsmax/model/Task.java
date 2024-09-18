@@ -1,27 +1,34 @@
 package repsmax.model;
 
 /**
- * Represents a task with a description and completion status.
+ * Represents a task with a description, priority, and completion status.
  * <p>
  * The {@code Task} class stores information about a task, including its
- * description and whether it is marked as done. It provides methods to
- * manipulate and retrieve the status of the task, as well as to convert
- * the task to and from a file format.
+ * description, priority, and whether it is marked as done. It provides
+ * methods to manipulate and retrieve the status of the task, as well as
+ * to convert the task to and from a file format.
  * </p>
  */
 public class Task {
     private final String description;
     private boolean isDone;
-    private int priority;
+    private final int priority;
 
     /**
-     * Constructs a {@code Task} with the specified description. The task
-     * is initially marked as not done.
+     * Constructs a {@code Task} with the specified description and priority.
+     * The task is initially marked as not done.
      *
      * @param description The description of the task.
+     * @param priority    The priority of the task (1 = high, 2 = medium, 3 = low).
+     * @throws IllegalArgumentException If the description is null/empty or the priority is invalid.
      */
     public Task(String description, int priority) {
-        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("Description cannot be null or empty.");
+        }
+        if (priority < 1 || priority > 3) {
+            throw new IllegalArgumentException("Priority must be 1, 2, or 3.");
+        }
         this.description = description;
         this.isDone = false;
         this.priority = priority;
@@ -36,7 +43,7 @@ public class Task {
      * @return A string representing the task's completion status.
      */
     public String getStatusIcon() {
-        return isDone ? "X" : " "; // mark done task with X
+        return isDone ? "X" : " "; // Mark done task with X
     }
 
     /**
@@ -62,6 +69,11 @@ public class Task {
         return isDone;
     }
 
+    /**
+     * Returns the priority of the task in a user-friendly format.
+     *
+     * @return A string representing the task's priority level.
+     */
     public String getPriority() {
         switch (priority) {
             case 1:
@@ -87,7 +99,7 @@ public class Task {
     /**
      * Returns a string representation of the task in a user-friendly format.
      * <p>
-     * The format is "[X] description" if the task is done, or "[ ] description"
+     * The format is "[X] [priority] description" if the task is done, or "[ ] [priority] description"
      * if the task is not done.
      * </p>
      *
@@ -101,7 +113,7 @@ public class Task {
     /**
      * Converts the task to a format suitable for saving to a file.
      * <p>
-     * The format is "T | doneStatus | description", where "doneStatus" is
+     * The format is "T | doneStatus | priority | description", where "doneStatus" is
      * "1" if the task is done and "0" if it is not.
      * </p>
      *
@@ -114,13 +126,13 @@ public class Task {
     /**
      * Creates a {@code Task} object from a string in file format.
      * <p>
-     * The expected format is "T | doneStatus | description". The method
+     * The expected format is "T | doneStatus | priority | description". The method
      * splits the input string and creates a task based on the parsed data.
      * </p>
      *
      * @param fileFormat The string representation of the task in file format.
      * @return A {@code Task} object created from the file format string.
-     * @throws IllegalArgumentException If the file format string is invalid.
+     * @throws IllegalArgumentException If the file format string is invalid or contains invalid data.
      */
     public static Task fromFileFormat(String fileFormat) {
         String[] parts = fileFormat.split(" \\| ");
@@ -129,7 +141,13 @@ public class Task {
         }
         String description = parts[3];
         boolean isDone = parts[1].equals("1");
-        int priority = Integer.parseInt(parts[2]);
+        int priority;
+        try {
+            priority = Integer.parseInt(parts[2]);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid priority value.");
+        }
+
         Task task = new Task(description, priority);
         if (isDone) {
             task.setDone();

@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Manages the saving and loading of tasks to and from a file.
+ * Handles the saving and loading of tasks from a file.
  * <p>
- * The {@code Storage} class provides methods to save tasks to a file and
- * load tasks from a file. The file path is specified during the creation
- * of the {@code Storage} object.
+ * The {@code Storage} class allows the application to persist tasks to a file
+ * and load them when needed. The file path is provided upon construction of the
+ * {@code Storage} object.
  * </p>
  */
 public class Storage {
@@ -21,26 +21,28 @@ public class Storage {
     private final String filePath;
 
     /**
-     * Constructs a {@code Storage} object with the specified file path.
+     * Constructs a {@code Storage} object with the specified file path for task persistence.
      *
-     * @param filePath The path to the file where tasks will be saved or loaded.
+     * @param filePath The path to the file where tasks will be saved or loaded from.
+     * @throws IllegalArgumentException If the file path is null or empty.
      */
     public Storage(String filePath) {
-        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
+        if (filePath == null || filePath.isEmpty()) {
+            throw new IllegalArgumentException("File path cannot be null or empty.");
+        }
         this.filePath = filePath;
     }
 
     /**
-     * Saves the tasks to the file specified by the file path.
+     * Saves the tasks in the provided {@code TaskList} to the file.
      * <p>
-     * Each task is written to the file in a format defined by the {@code Task}
-     * class's {@code toFileFormat()} method. Each task is written on a new line.
+     * Each task is written in the format defined by the {@code Task}'s {@code toFileFormat()}
+     * method. Tasks are written line by line.
      * </p>
      *
-     * @param tasks The {@code TaskList} containing the tasks to be saved.
+     * @param tasks The {@code TaskList} containing tasks to be saved.
      */
     public void save(TaskList tasks) {
-
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
                 fileWriter.write(task.toFileFormat() + System.lineSeparator());
@@ -52,19 +54,16 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file specified by the file path.
+     * Loads tasks from the file and adds them to the provided {@code TaskList}.
      * <p>
-     * If the file does not exist, a message is printed indicating that
-     * a new list will be started. Each line in the file is parsed using
-     * the {@code Task} class's {@code fromFileFormat()} method to create
-     * tasks that are added to the provided {@code TaskList}.
+     * If the file does not exist, a new task list will be started. Each line in the file
+     * is parsed into a {@code Task} object using {@code Task}'s {@code fromFileFormat()} method.
      * </p>
      *
      * @param tasks The {@code TaskList} to which loaded tasks will be added.
      */
     public void load(TaskList tasks) {
         File file = new File(filePath);
-        assert file.exists() : "File does not exist";
         if (!file.exists()) {
             System.out.println("No task file found. Starting a new task list.");
             return;
@@ -81,3 +80,4 @@ public class Storage {
         }
     }
 }
+
