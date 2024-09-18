@@ -60,7 +60,7 @@ public class Deadline extends Task<DeadlineData> {
      * @return the constructed {@code Deadline}
      * @throws BottyException if corrupted task string or invalid arguments
      */
-    public static Deadline fromDataString(String taskString) throws BottyException {
+    public static Deadline getDeadlineFromDataString(String taskString) throws BottyException {
         if (!taskString.matches("D \\| [10] \\| (.*?) \\| (.*?)")) {
             throw new CorruptedTaskStringException();
         }
@@ -78,7 +78,7 @@ public class Deadline extends Task<DeadlineData> {
      * Returns a string representation for storage in local storage
      */
     @Override
-    public String toDataString() {
+    public String getDataString() {
         return "D | " + getCompletedAndDescription() + " | " + endDate;
     }
 

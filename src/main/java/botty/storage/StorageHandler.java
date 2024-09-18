@@ -54,8 +54,8 @@ public class StorageHandler {
     public void saveTaskList(TaskManager manager) throws BottyException {
         Path filePath = Paths.get(directoryPath, fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
-            for (int i = 0; i < manager.size(); i++) {
-                writer.write(manager.getTask(i).toDataString());
+            for (int i = 0; i < manager.getTaskCount(); i++) {
+                writer.write(manager.getTask(i).getDataString());
                 writer.newLine();
             }
         } catch (IOException ex) {
@@ -74,7 +74,7 @@ public class StorageHandler {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                manager.addTask(Task.fromDataString(line));
+                manager.addTask(Task.getTaskFromDataString(line));
             }
         } catch (NoSuchFileException ex) {
             // if file not found, create the file

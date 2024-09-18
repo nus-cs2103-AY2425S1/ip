@@ -19,7 +19,7 @@ public abstract class AddTaskCommand extends Command {
 
         return "I have added the following task to the list!\n"
                 + task + "\n"
-                + "You now have " + taskManager.size() + " tasks.";
+                + "You now have " + taskManager.getTaskCount() + " tasks.";
 
     }
 }

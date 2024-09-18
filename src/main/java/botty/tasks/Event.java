@@ -71,7 +71,7 @@ public class Event extends Task<EventData> {
      * @return the constructed event
      * @throws BottyException if corrupted task string or invalid arguments
      */
-    public static Event fromDataString(String taskString) throws BottyException {
+    public static Event getEventFromDataString(String taskString) throws BottyException {
         if (!taskString.matches("E \\| [10] \\| (.*?) \\| (.*?) \\| (.*?)")) {
             throw new CorruptedTaskStringException();
         }
@@ -90,7 +90,7 @@ public class Event extends Task<EventData> {
      * Returns a string representation of the {@code Event} that is used for local storage
      */
     @Override
-    public String toDataString() {
+    public String getDataString() {
         return "E | " + getCompletedAndDescription() + " | " + startDate + " | " + endDate;
     }
 

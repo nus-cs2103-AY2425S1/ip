@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
             Task task = taskManager.deleteTask(taskIndex);
             return "Got it! I have removed the following task:\n"
                     + task + "\n"
-                    + "You have " + taskManager.size() + " tasks left!";
+                    + "You have " + taskManager.getTaskCount() + " tasks left!";
         } catch (NumberFormatException ex) {
             throw new BottyException("I don't quite know what you want me to do. "
                     + "Do indicate which task to delete with its number!");
