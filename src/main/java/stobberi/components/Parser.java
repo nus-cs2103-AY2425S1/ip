@@ -12,9 +12,13 @@ import stobberi.command.ListCommand;
 import stobberi.command.MarkCommand;
 import stobberi.command.TodoCommand;
 import stobberi.command.UnmarkCommand;
+import stobberi.stobberiexception.InvalidNumberStobberiException;
 import stobberi.stobberiexception.NoNumberStobberiException;
 import stobberi.stobberiexception.NoSuchTaskStobberiException;
 import stobberi.stobberiexception.StobberiException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is responsible for parsing user commands and creating the corresponding {@link Command} objects.
@@ -40,6 +44,13 @@ public class Parser {
         String[] parts = fullCommand.split(" ");
         String command = parts[0];
         String restOfCommand = String.join(" ", java.util.Arrays.copyOfRange(parts, 1, parts.length));
+
+        Pattern pattern = Pattern.compile("\\s{2,}");
+        Matcher matcher = pattern.matcher(fullCommand);
+
+        if (matcher.find()) {
+            throw new InvalidNumberStobberiException("Please ensure your spacing are all correct.\nThankieww.");
+        }
 
         assert command != null : "Command is not a String";
         switch (command) {
