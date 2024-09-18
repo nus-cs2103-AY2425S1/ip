@@ -6,7 +6,6 @@ import java.util.Scanner;
 import stan.TaskList;
 import stan.tasks.Task;
 
-
 /**
  * The Ui class handles interactions with the user.
  * It provides methods to read user input, display output messages, and show errors.
@@ -35,14 +34,14 @@ public class Ui {
      * Returns the welcome message when the chatbot starts.
      */
     public String showWelcome() {
-        return "Hello! I'm Stan\nWhat can I do for you today?";
+        return "👋 Hello! I'm Stan, your friendly task manager bot! 🤖\nWhat can I do for you today? 😄";
     }
 
     /**
      * Returns the goodbye message when the chatbot exits.
      */
     public String showBye() {
-        return "Bye. Hope to see you again soon!";
+        return "👋 Bye-bye! Hope to see you again soon! Take care! 🌟";
     }
 
     /**
@@ -53,8 +52,8 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskAdded(Task task, int taskCount) {
-        return "Got it. I've added this task:\n" + "   " + task + "\n"
-                + "Now you have " + taskCount + " tasks in the list.";
+        return "✅ Task added successfully! 📝\n" + "   " + task + "\n"
+                + "Now you have " + taskCount + " tasks in your list. Keep it up! 💪";
     }
 
     /**
@@ -65,8 +64,8 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskDeleted(Task task, int taskCount) {
-        return "Noted. I've removed this task:\n" + "   " + task + "\n"
-                + "Now you have " + taskCount + " tasks in the list.";
+        return "🗑️ Task deleted! 💨\n" + "   " + task + "\n"
+                + "Now you have " + taskCount + " tasks left. Clean and tidy! ✨";
     }
 
     /**
@@ -77,8 +76,8 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskMarked(Task task, int taskCount) {
-        return "Nice! I've marked this task as done:\n" + "   " + task + "\n"
-                + "You now have " + taskCount + " tasks in the list.";
+        return "🎉 Awesome! I've marked this task as done! 🎯\n" + "   " + task + "\n"
+                + "You're on a roll with " + taskCount + " tasks left! Keep going! 🚀";
     }
 
     /**
@@ -89,8 +88,8 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskUnmarked(Task task, int taskCount) {
-        return "OK, I've marked this task as not done yet:\n" + "   " + task + "\n"
-                + "You now have " + taskCount + " tasks in the list.";
+        return "🔄 Oops! I've marked this task as not done yet. 🔄\n" + "   " + task + "\n"
+                + "You have " + taskCount + " tasks in the list. Let's get it done! 💼";
     }
 
     /**
@@ -100,10 +99,11 @@ public class Ui {
      * @return The list of tasks as a string.
      */
     public String showTaskList(TaskList taskList) {
-        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder sb = new StringBuilder("📋 Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
             sb.append(" ").append(i + 1).append(". ").append(taskList.get(i)).append("\n");
         }
+        sb.append("Stay focused! You got this! 💪");
         return sb.toString();
     }
 
@@ -114,7 +114,7 @@ public class Ui {
      * @return The error message as a string.
      */
     public String showError(String message) {
-        return "OOPS!!! " + message;
+        return "⚠️ OOPS!!! Something went wrong: " + message + " 😓";
     }
 
     /**
@@ -126,12 +126,13 @@ public class Ui {
     public String showFindResults(List<Task> matchingTasks) {
         StringBuilder sb = new StringBuilder();
         if (matchingTasks.isEmpty()) {
-            sb.append("No matching tasks found.");
+            sb.append("🔍 No matching tasks found. Keep searching! 🔍");
         } else {
-            sb.append("Here are the matching tasks in your list:\n");
+            sb.append("🔍 Found these matching tasks:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 sb.append(" ").append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
             }
+            sb.append("Happy to help! 🎉");
         }
         return sb.toString();
     }
