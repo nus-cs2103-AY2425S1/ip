@@ -9,7 +9,7 @@ import garfield.exceptions.GarfieldException;
  */
 public abstract class Task {
     private String taskDescription;
-    private boolean doneStatus;
+    private boolean isDone;
 
     /**
      * Constructs a new Task with the specified description.
@@ -19,21 +19,21 @@ public abstract class Task {
      */
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
-        this.doneStatus = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the task as completed.
      */
     public void markAsDone() {
-        this.doneStatus = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as incomplete.
      */
     public void markAsUndone() {
-        this.doneStatus = false;
+        this.isDone = false;
     }
 
     /**
@@ -54,7 +54,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (this.doneStatus) {
+        if (this.isDone) {
             return "[X] " + taskDescription;
         } else {
             return "[ ] " + taskDescription;
@@ -69,7 +69,7 @@ public abstract class Task {
      *         and "0 | " indicating incompleteness.
      */
     public String toSaveRepresentation() {
-        if (this.doneStatus) {
+        if (this.isDone) {
             return "1 | " + taskDescription;
         } else {
             return "0 | " + taskDescription;
