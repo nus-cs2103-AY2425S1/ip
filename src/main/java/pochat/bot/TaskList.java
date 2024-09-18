@@ -122,6 +122,14 @@ public class TaskList {
     }
 
     /**
+     * Returns true if the TaskList is empty, otherwise false
+     * @return true or false depending on whether the task list is empty
+     */
+    public boolean isEmpty() {
+        return this.listTasks.isEmpty();
+    }
+
+    /**
      * Returns the Task objects in the tasklist as an ArrayList
      * @return ArrayList of Task objects in taskList
      */

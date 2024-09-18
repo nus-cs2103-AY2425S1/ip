@@ -177,7 +177,7 @@ class Parser {
         return this.ui.findMatchingTasks(keyword, this.taskList);
     }
 
-    private int getNumTasks() {
+    int getNumTasks() {
         return this.taskList.size();
     }
 }

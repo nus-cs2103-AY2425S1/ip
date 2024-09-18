@@ -32,6 +32,10 @@ class Ui {
      * @return list of tasks stored in the chatbot history as a String
      */
     public String getListOfTasks(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return "There are no tasks in the list! Add some tasks to get started :)";
+        }
+
         StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
             message.append((i + 1) + ". " + taskList.get(i) + "\n");
