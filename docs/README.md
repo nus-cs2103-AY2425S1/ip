@@ -94,3 +94,12 @@ Removes a task with specified index from the task list. New task count is echoed
 <img src="http://domokunx.github.io/ip/RemoveAfter.png" alt="Image of task list after removing 1 task" height="150">
 
 Syntax: `remove <index>`. Where index is the number in the task list as in seen in `list`.
+
+### Find tasks: `find`
+Finds all tasks that match the keywords or patterns.
+
+<img src="http://domokunx.github.io/ip/Find.png" alt="Image of find command" width="300">
+
+>[!TIPS]
+> You can input incomplete keywords, or multiple keywords as well!
+Syntax: `find <keywords>`. 
