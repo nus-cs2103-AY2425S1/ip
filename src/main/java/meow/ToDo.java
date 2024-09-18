@@ -17,7 +17,7 @@ public class ToDo extends Task implements Serializable {
     /**
      * Returns the string representation of the ToDo object, including its type and description
      *
-     * @return A string representing the ToDo object.
+     * @return A string that represents the ToDo object.
      */
     @Override
     public String toString() {
