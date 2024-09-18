@@ -10,7 +10,7 @@ public class Parser {
 
     // List of valid commands recognized by the application
     private static final String[] VALID_COMMANDS = {"bye", "list", "mark", "unmark", "delete", "todo",
-        "deadline", "event", "find"};
+        "deadline", "event", "find", "view"};
 
     /**
      * Constructs a {@code Parser} object.

@@ -1,5 +1,7 @@
 package bigdog;
 
+import java.time.LocalDateTime;
+
 /**
  * The {@code Task} class represents a generic task in the application.
  * It serves as a base class for more specific task types such as
@@ -95,6 +97,8 @@ public abstract class Task {
     public void unmark() {
         this.marked = false;
     }
+
+    public abstract boolean isOnDay(LocalDateTime date);
 
     /**
      * Returns a string representation of the task.

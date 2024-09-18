@@ -114,6 +114,11 @@ public class Deadline extends Task {
         return super.getDescription() + " | " + this.end;
     }
 
+    @Override
+    public boolean isOnDay(LocalDateTime date) {
+        return date.isBefore(end);
+    }
+
     /**
      * Returns a string representation of the Deadline task.
      * The format includes the task type, status, description, and deadline.

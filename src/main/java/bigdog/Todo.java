@@ -1,5 +1,7 @@
 package bigdog;
 
+import java.time.LocalDateTime;
+
 /**
  * The {@code Todo} class represents a task with no specific deadline.
  * It extends the {@code Task} class and provides methods for managing to-do items.
@@ -59,6 +61,11 @@ public class Todo extends Task {
     @Override
     public String getDescription() {
         return super.getDescription();
+    }
+
+    @Override
+    public boolean isOnDay(LocalDateTime date) {
+        return true;
     }
 
     /**

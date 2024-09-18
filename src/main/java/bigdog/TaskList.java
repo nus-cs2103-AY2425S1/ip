@@ -1,5 +1,6 @@
 package bigdog;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -112,6 +113,27 @@ public class TaskList {
                 : "There are no similar tasks in your list!\n";
 
         return result.toString();
+    }
+
+    public String viewSchedule(String str) {
+        int counter = 1;
+        StringBuilder schedule = new StringBuilder(String.format("Here is your schedule for %s\n", str));
+        String[] dateParts = str.split("/");
+        LocalDateTime date = LocalDateTime.parse(String.format("%s-%s-%sT00:00", dateParts[2], dateParts[1], dateParts[0]));
+        for (Task task : this.list) {
+            if (task.isOnDay(date)) {
+                schedule.append(counter).append(". ").append(task).append("\n");
+            }
+        }
+
+        // String representation of scheduled tasks
+        String scheduleString = schedule.toString();
+
+        // Instead of assertion, handle the case where no tasks are found
+        if (scheduleString.equals(String.format("Here is your schedule for %s\n", str))) {
+            return "You have no tasks on " + str + " or you need to check your format!";
+        }
+        return scheduleString;
     }
 
     /**

@@ -1,5 +1,6 @@
 package bigdog;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -134,6 +135,10 @@ public class Event extends Task {
         return super.getDescription() + " | " + this.start + " | " + this.end;
     }
 
+    @Override
+    public boolean isOnDay(LocalDateTime date) {
+        return date.isAfter(start) && date.isBefore(end);
+    }
 
     /**
      * Returns a string representation of the Event task.
