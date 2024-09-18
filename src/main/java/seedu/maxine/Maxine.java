@@ -28,7 +28,7 @@ public class Maxine {
         ui = new Ui();
         tasks = new TaskList();
         parser = new Parser();
-        storage = new Storage("data/maxine.txt");
+        storage = new Storage("./data/maxine.txt");
         command = new Command(storage, ui, tasks);
     }
 

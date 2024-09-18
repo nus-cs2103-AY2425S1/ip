@@ -23,7 +23,7 @@ public class Parser {
     public Parser() {
         ui = new Ui();
         list = new TaskList();
-        storage = new Storage("data/maxine.txt");
+        storage = new Storage("./data/maxine.txt");
         command = new Command(storage, ui, list);
     }
 
