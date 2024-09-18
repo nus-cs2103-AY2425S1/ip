@@ -1,10 +1,11 @@
 package seedu.maxine.parser;
 
-import seedu.maxine.Storage;
-import seedu.maxine.TaskList;
-import seedu.maxine.Ui;
 import seedu.maxine.command.Command;
 import seedu.maxine.exception.MaxineException;
+import seedu.maxine.storage.Storage;
+import seedu.maxine.task.TaskList;
+import seedu.maxine.ui.Ui;
+
 /**
  * The Parser class handles the parsing of user inputs in the Maxine application.
  * It interprets commands related to task management and delegates the operations
@@ -37,8 +38,8 @@ public class Parser {
      */
     public String parse(String input) {
         try {
-            String[] answer = input.toLowerCase().split(" ");
-            switch (answer[0]) {
+            String[] inputWords = input.toLowerCase().split(" ");
+            switch (inputWords[0]) {
             case ("bye"):
                 return command.handleBye(input);
             case ("list"):

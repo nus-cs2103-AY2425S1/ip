@@ -1,8 +1,6 @@
-package seedu.maxine;
+package seedu.maxine.task;
 
 import java.util.Iterator;
-
-import seedu.maxine.task.Task;
 
 /**
  * The MaxineList interface defines the methods for managing a list of tasks.
@@ -13,7 +11,7 @@ public interface MaxineList extends Iterable<Task> {
     void addTask(Task task);
     void delete(int key);
     int size();
-    Task get(int num);
+    Task getTask(int num);
     Iterator<Task> iterator();
     void deleteAll();
 }

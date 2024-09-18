@@ -1,7 +1,8 @@
-package seedu.maxine;
+package seedu.maxine.ui;
 
 import java.util.ArrayList;
 
+import seedu.maxine.task.MaxineList;
 import seedu.maxine.task.Task;
 
 /**
@@ -16,7 +17,6 @@ public interface MaxineUi {
     String mark(Task task);
     String unmark(Task task);
     String showList(MaxineList list);
-    String showLoadingError();
     String showError(String e);
     String search(ArrayList<Task> search);
     String deleteAll();

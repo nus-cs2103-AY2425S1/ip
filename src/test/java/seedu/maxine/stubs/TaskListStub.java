@@ -3,7 +3,7 @@ package seedu.maxine.stubs;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import seedu.maxine.MaxineList;
+import seedu.maxine.task.MaxineList;
 import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
 
@@ -33,7 +33,7 @@ public class TaskListStub implements MaxineList {
         return 0;
     }
     @Override
-    public Task get(int num) {
+    public Task getTask(int num) {
         return new Todo("test command class");
     }
     @Override

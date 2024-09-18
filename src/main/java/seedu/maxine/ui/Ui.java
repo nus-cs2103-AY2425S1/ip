@@ -1,8 +1,10 @@
-package seedu.maxine;
+package seedu.maxine.ui;
 
 import java.util.ArrayList;
 
+import seedu.maxine.task.MaxineList;
 import seedu.maxine.task.Task;
+
 /**
  * The Ui class handles user interactions and displays messages to the console.
  * It provides methods for greeting the user, displaying task information,
@@ -79,22 +81,10 @@ public class Ui implements MaxineUi {
         for (int i = 0; i < list.size(); i++) {
             sb.append(i + 1)
                     .append(". ")
-                    .append(list.get(i))
+                    .append(list.getTask(i))
                     .append("\n");
         }
         return sb.toString();
-    }
-
-    /**
-     * Displays an error message indicating that loading data failed.
-     * <p>
-     * This method prints a predefined message to the console to notify the user
-     * that there was an issue with loading data, represented by the message
-     * "I...can't...load...X_X".
-     * </p>
-     */
-    public String showLoadingError() {
-        return "I...can't...load...X_X";
     }
 
     /**

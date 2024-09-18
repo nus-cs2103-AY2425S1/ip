@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.maxine.MaxineList;
-import seedu.maxine.MaxineStorage;
-import seedu.maxine.MaxineUi;
 import seedu.maxine.exception.MaxineException;
+import seedu.maxine.storage.MaxineStorage;
 import seedu.maxine.task.Deadline;
 import seedu.maxine.task.Event;
+import seedu.maxine.task.MaxineList;
 import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
+import seedu.maxine.ui.MaxineUi;
 
 /**
  * Handles user commands in the Maxine application.
@@ -21,19 +21,19 @@ public class Command {
     private static boolean isRunning = true;
     private MaxineStorage storage;
     private MaxineUi ui;
-    private MaxineList list;
+    private MaxineList tasks;
 
     /**
      * Constructs a new Command instance.
      *
      * @param storage The storage handler for reading from and writing to the file.
      * @param ui The user interface handler for displaying messages to the user.
-     * @param list The list of tasks being managed.
+     * @param tasks The list of tasks being managed.
      */
-    public Command(MaxineStorage storage, MaxineUi ui, MaxineList list) {
+    public Command(MaxineStorage storage, MaxineUi ui, MaxineList tasks) {
         this.storage = storage;
         this.ui = ui;
-        this.list = list;
+        this.tasks = tasks;
     }
 
     /**
@@ -60,11 +60,11 @@ public class Command {
      *     else return an error message.
      */
     public String handleList(String input) {
-        String[] answer = input.split(" ");
-        if (answer.length > 1) {
+        String[] inputWords = input.split(" ");
+        if (inputWords.length > 1) {
             return "To list things out, just type list";
         }
-        return ui.showList(list);
+        return ui.showList(tasks);
     }
     /**
      * Handles the 'mark' command which marks the selected task as done.
@@ -75,15 +75,15 @@ public class Command {
      */
     public String handleMark(String input) {
         try {
-            String[] inputArray = input.split(" ");
-            if (inputArray.length != 2) {
+            String[] inputWords = input.split(" ");
+            if (inputWords.length != 2) {
                 throw new MaxineException("follow this format: mark [task no.]");
             }
-            String answer = inputArray[1];
+            String answer = inputWords[1];
             int mark = Integer.parseInt(answer) - 1;
-            Task task = list.get(mark);
+            Task task = tasks.getTask(mark);
             task.markDone();
-            storage.refreshStorage(list);
+            storage.refreshStorage(tasks);
             return ui.mark(task);
         } catch (MaxineException e) {
             return e.getMessage();
@@ -98,15 +98,15 @@ public class Command {
      */
     public String handleUnmark(String input) {
         try {
-            String[] inputArray = input.split(" ");
-            if (inputArray.length != 2) {
+            String[] inputWords = input.split(" ");
+            if (inputWords.length != 2) {
                 throw new MaxineException("follow this format: unmark [task no.]");
             }
-            String answer = inputArray[1];
+            String answer = inputWords[1];
             int mark = Integer.parseInt(answer) - 1;
-            Task task = list.get(mark);
+            Task task = tasks.getTask(mark);
             task.markUndone();
-            storage.refreshStorage(list);
+            storage.refreshStorage(tasks);
             return ui.unmark(task);
         } catch (MaxineException e) {
             return e.getMessage();
@@ -122,18 +122,18 @@ public class Command {
     public String handleTodo(String input) {
         try {
             assert input != null : "input should not be null";
-            String[] answer = input.split("todo ");
+            String[] inputWords = input.split("todo ");
             String regex = "todo";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(input);
-            if (answer.length != 2 || !matcher.find()) {
+            if (inputWords.length != 2 || !matcher.find()) {
                 throw new MaxineException("Please follow this "
                         + "format: todo [enter maxine.task]");
             }
-            String description = answer[1];
+            String description = inputWords[1];
             Todo task = new Todo(description);
-            list.addTask(task);
-            storage.refreshStorage(list);
+            tasks.addTask(task);
+            storage.refreshStorage(tasks);
             return task + " - todo task added!";
         } catch (MaxineException e) {
             return e.getMessage();
@@ -149,19 +149,19 @@ public class Command {
     public String handleDeadline(String input) {
         try {
             assert input != null : "input should not be null";
-            String[] answer = input.split("deadline | /by ");
+            String[] inputWords = input.split("deadline | /by ");
             String regex = "deadline.*?/by";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(input);
-            if (answer.length != 3 || !matcher.find()) {
+            if (inputWords.length != 3 || !matcher.find()) {
                 throw new MaxineException("Please follow this format: deadline "
                         + "[enter maxine.task] /by [enter deadline]");
             }
-            String description = answer[1];
-            String deadline = answer[2];
+            String description = inputWords[1];
+            String deadline = inputWords[2];
             Deadline task = new Deadline(description, deadline);
-            list.addTask(task);
-            storage.refreshStorage(list);
+            tasks.addTask(task);
+            storage.refreshStorage(tasks);
             return task + " - deadline task added!";
         } catch (MaxineException e) {
             return e.getMessage();
@@ -177,20 +177,20 @@ public class Command {
     public String handleEvent(String input) {
         try {
             assert input != null : "input should not be null";
-            String[] answer = input.split("event | /from | /to ");
+            String[] inputWords = input.split("event | /from | /to ");
             String regex = "event.*?/from.*?/to";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(input);
-            if (answer.length != 4 || !matcher.find()) {
+            if (inputWords.length != 4 || !matcher.find()) {
                 throw new MaxineException("Please follow this format: event [enter event] "
                         + "/from [start date] /to [end date]");
             }
-            String description = answer[1];
-            String startTime = answer[2];
-            String endTime = answer[3];
+            String description = inputWords[1];
+            String startTime = inputWords[2];
+            String endTime = inputWords[3];
             Event task = new Event(description, startTime, endTime);
-            list.addTask(task);
-            storage.refreshStorage(list);
+            tasks.addTask(task);
+            storage.refreshStorage(tasks);
             return task + " - event added!";
         } catch (MaxineException e) {
             return e.getMessage();
@@ -206,19 +206,19 @@ public class Command {
      */
     public String handleDelete(String input) {
         try {
-            String[] inputArray = input.split(" ");
-            if (inputArray.length != 2) {
+            String[] inputWords = input.split(" ");
+            if (inputWords.length != 2) {
                 throw new MaxineException("follow this format: delete [task no.] "
                         + "or delete all");
             }
-            String answer = inputArray[1];
+            String answer = inputWords[1];
             if (answer.equals("all")) {
                 return handleDeleteAll();
             }
             int key = Integer.parseInt(answer) - 1;
-            Task task = list.get(key);
-            list.delete(key);
-            storage.refreshStorage(list);
+            Task task = tasks.getTask(key);
+            tasks.delete(key);
+            storage.refreshStorage(tasks);
             return ui.delete(task);
         } catch (MaxineException e) {
             return e.getMessage();
@@ -234,10 +234,10 @@ public class Command {
      *         the matching tasks or a message if no tasks are found.
      */
     public String handleFind(String input) {
-        ArrayList<Task> currList = storage.load();
-        assert currList != null : "currList should not be null";
+        ArrayList<Task> currentTasks = storage.load();
+        assert currentTasks != null : "currentTasks should not be null";
         ArrayList<Task> tasks = new ArrayList<>();
-        for (Task task : currList) {
+        for (Task task : currentTasks) {
             String keywords = input.substring(5);
             if (task.toString().contains(keywords)) {
                 tasks.add(task);
@@ -255,8 +255,8 @@ public class Command {
      * @return A message indicating the result of the delete all operation.
      */
     public String handleDeleteAll() {
-        list.deleteAll();
-        storage.refreshStorage(list);
+        tasks.deleteAll();
+        storage.refreshStorage(tasks);
         return ui.deleteAll();
     }
     /**

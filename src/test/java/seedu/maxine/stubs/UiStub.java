@@ -1,7 +1,7 @@
 package seedu.maxine.stubs;
 
-import seedu.maxine.MaxineList;
-import seedu.maxine.MaxineUi;
+import seedu.maxine.task.MaxineList;
+import seedu.maxine.ui.MaxineUi;
 import seedu.maxine.task.Task;
 
 import java.util.ArrayList;
@@ -84,18 +84,6 @@ public class UiStub implements MaxineUi {
      */
     public String showList(MaxineList list) {
         return "1. [T][ ] test command class";
-    }
-
-    /**
-     * Displays an error message indicating that loading data failed.
-     * <p>
-     * This method prints a predefined message to the console to notify the user 
-     * that there was an issue with loading data, represented by the message 
-     * "I...can't...load...X_X".
-     * </p>
-     */
-    public String showLoadingError() {
-        return "I...can't...load...X_X";
     }
 
     /**

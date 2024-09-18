@@ -1,7 +1,7 @@
 package seedu.maxine.stubs;
 
-import seedu.maxine.MaxineList;
-import seedu.maxine.MaxineStorage;
+import seedu.maxine.task.MaxineList;
+import seedu.maxine.storage.MaxineStorage;
 import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
 

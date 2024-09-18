@@ -1,22 +1,31 @@
 package seedu.maxine.task;
 
-import seedu.maxine.exception.MaxineException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.maxine.exception.MaxineException;
+/**
+ * Represents a task with a description and a completion status.
+ * <p>
+ * The task can be marked as done or undone. This class provides methods to
+ * handle task descriptions, status, and date/time parsing.
+ * </p>
+ *
+ * <p>
+ * The date and time can be parsed from various formats using the
+ * {@link #dateTimeParser(String)} method.
+ * </p>
+ */
 public class Task {
+    private static int count;
+    private static final List<DateTimeFormatter> FORMATS = new ArrayList<>();
     protected String description;
     protected boolean isDone;
     protected int num;
-    private static int count;
-
-    private static final List<DateTimeFormatter> FORMATS = new ArrayList<>();
 
     static {
         FORMATS.add(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
@@ -138,7 +147,6 @@ public class Task {
                 // Continue checking with other formats
             }
         }
-        // To be changed
-        throw new MaxineException("");
+        throw new MaxineException("Date time format not found");
     }
 }
