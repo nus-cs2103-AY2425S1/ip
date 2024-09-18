@@ -13,22 +13,20 @@ public class Jude {
     private TaskList tasks;
     private Storage storage;
     private Parser parser;
-    private Ui ui;
     private String commandType;
-
+    private boolean isExit = false;
     /**
      * Takes filePath to initialise the setups for Jude the Chatbot.
      *
      * @param filePath
      */
     public Jude(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.parser = new Parser();
         try {
             this.tasks = new TaskList(storage.load());
         } catch (JudeException je) {
-            ui.showError(je);
+            //TODO: Show more informative error message depending on the error that was thrown
             tasks = new TaskList();
         }
     }
@@ -37,33 +35,22 @@ public class Jude {
         new Jude("data/jude.txt").run();
     }
 
-    /** Executes the chatbot program. */
-    public void run() {
-
-        ui.startChat();
-
-        while (true) {
-
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                if (c.isExit()) {
-                    break;
-                }
-            } catch (JudeException je) {
-                ui.showError(je);
-            } finally {
-                ui.showLine();
-            }
-        }
-        ui.endChat();
+    /**
+     * Generates a welcome message from the bot.
+     *
+     * @return A welcome message.
+     */
+    public String generateWelcomeMessage() {
+        return "Hi, I'm Jude."
+                + System.lineSeparator()
+                + "Just let me know if you ever find yourself in a pinch. I can help you out.";
     }
+
 
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
+            c.execute(tasks, storage);
             commandType = c.getClass().getSimpleName();
             return c.getMessage();
         } catch (JudeException e) {
