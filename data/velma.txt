@@ -1,4 +1,3 @@
-[T][ ] return book
-[D][ ] submit ip (by: Sept 20 2024 2359)
-[E][ ] basketball competition from (from: 1600 to: 1800)
-[A][ ] submit peer review  (after:  cs2101)
+[A][X] submit peer review  (after:  cs2101)
+[D][ ] cs 2103 ip (by: Sept 29 2024 2359)
+[A][ ] sub,it  (after:  class)
