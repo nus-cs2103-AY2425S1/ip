@@ -1,6 +1,6 @@
 # Krona User Guide
 
-![img.png](img.png)
+![Ui.png](Ui.png)
 
 Krona is a powerful task management chatbot designed to help you stay on top of your tasks efficiently. Whether you need to track daily to-dos, set deadlines, or manage events, Krona is here to make sure you never miss a beat. With its user-friendly commands and interactive interface, Krona provides seamless task management through an intuitive GUI.
 ## Adding deadlines
